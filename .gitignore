@@ -1,0 +1,15 @@
+*.pyc
+*~
+*.so
+*.pyd
+build/
+dist/
+.*.swp
+.coverage
+.cache
+doc/_build
+doc/modules
+.ipynb_checkpoints
+*.egg-info
+.env
+MANIFEST

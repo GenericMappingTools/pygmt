@@ -1,0 +1,52 @@
+language: generic
+
+sudo: false
+
+notifications:
+    email: false
+
+# Only build pushes from the master branch. PRs are always built. The master
+# build will also push the newly built docs to fatiando.org/dev
+branches:
+    only:
+        - master
+
+os:
+    - linux
+
+env:
+    global:
+        - COVERAGE=false
+
+    # Build under all combinations of the of the following
+    matrix:
+        - PYTHON=3.5
+        - PYTHON=3.6 COVERAGE=true
+
+before_install:
+    # Get Miniconda from Continuum
+    # Need to source the script to set the PATH variable in this environment
+    # (not the scripts environment)
+    - source ci/install-miniconda.sh
+    # Create a conda env to install required libraries
+    - conda update --yes conda
+    - conda create -n testenv --yes pip python=$PYTHON
+    - source activate testenv
+    # Install dependencies
+    - if [ "$COVERAGE" == "true" ]; then pip install coveralls==0.5; fi
+    # Show installed pkg information for postmortem diagnostic
+    - conda list
+    # Checkout and build GMT
+
+install:
+    # Package and install
+    - python setup.py sdist --formats=gztar
+    - pip install dist/*.tar.gz
+
+script:
+    # Run the test suite
+    # Check code for PEP8 style and lint for code quality
+    - make check
+
+after_success:
+    - if [ "$COVERAGE" == "true" ]; then coveralls; fi

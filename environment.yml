@@ -1,0 +1,22 @@
+name: gmt-python
+channels:
+    - defaults
+    - conda-forge
+dependencies:
+    - python=3.6
+    - pip
+    - numpy>=1.12
+    - matplotlib
+    - pytest
+    - pytest-cov
+    - flake8
+    - pylint
+    - coverage
+    - sphinx
+    - sphinx-gallery
+    - jupyter
+    - gdal
+    - pcre
+    - fftw
+    - netcdf4
+    - libnetcdf
