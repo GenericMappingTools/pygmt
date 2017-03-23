@@ -1,5 +1,5 @@
-gmt-python: Bring GMT to the Python world
-=========================================
+gmt-python: Bringing GMT to the Python world
+============================================
 
 **A `ctypes`-based Python interface for the Generic Mapping Tools C API.**
 
@@ -41,6 +41,16 @@ Goals
 
 Package design
 --------------
+
+``gmt-python`` is made for the future. We will support **only Python 3.5 or
+later** and require the `new "modern" mode of GMT <http://gmt.soest.hawaii.edu/boards/2/topics/4930>`__
+(currently only in ``trunk`` of SVN repository).
+The ``modern`` mode removes the need for ``-O -K`` and explicitly redirecting
+to a ``.ps`` file.
+This all happens in the background.
+A final call to ``gmt psconvert`` brings the plot out of hiding and finalizes
+the Postscript.
+
 
 The Python API
 ++++++++++++++
