@@ -1,7 +1,7 @@
 gmt-python: Bringing GMT to the Python world
 ============================================
 
-**A `ctypes`-based Python interface for the Generic Mapping Tools C API.**
+**A ``ctypes``-based Python interface for the Generic Mapping Tools C API.**
 
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
     :alt: Latest version on PyPI
