@@ -38,18 +38,49 @@ Goals
   (``region=[10, 20, -30, -10]``,  ``projection='M'``, etc).
 
 
+Previous work
+-------------
 
-Package design
---------------
+To my knowledge, there have been 3 attempts at a GMT Python interface:
+
+* `gmtpy <https://github.com/emolch/gmtpy>`__ by
+  `Sebastian Heimann <https://github.com/emolch>`__
+* `pygmt <https://github.com/ian-r-rose/pygmt>`__ by
+  `Ian Rose <https://github.com/ian-r-rose>`__
+* `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by
+  `Magnus Hagdorn <https://github.com/mhagdorn>`__
+
+Only ``gmtpy`` has received commits since 2014 and is the more mature
+alternative.
+However, the project `doesn't seem to be very activate
+<https://github.com/emolch/gmtpy/graphs/contributors>`__.
+Both ``gmtpy`` and ``PyGMT`` use system class (through ``subprocess.Popen``)
+and pass input and output through ``subprocess.PIPE``.
+``pygmt`` seems to call the GMT C API directly through a hand-coded Python C
+extension.
+This might compromise the portability of the package across operating systems
+and makes distribution very painful.
+
+
+Design
+------
 
 ``gmt-python`` is made for the future. We will support **only Python 3.5 or
 later** and require the `new "modern" mode of GMT <http://gmt.soest.hawaii.edu/boards/2/topics/4930>`__
-(currently only in ``trunk`` of SVN repository).
+(currently only in the ``trunk`` of the SVN repository).
 The ``modern`` mode removes the need for ``-O -K`` and explicitly redirecting
 to a ``.ps`` file.
 This all happens in the background.
 A final call to ``gmt psconvert`` brings the plot out of hiding and finalizes
 the Postscript.
+This mode is perfect for the Python interface, which would have to handle
+generation of the Postscript file in the background anyway.
+
+We will wrap the GMT C API using the `ctypes
+<https://docs.python.org/3/library/ctypes.html>`__ module of the Python
+standard library.
+``ctypes`` grants access to C data types and functions in DDLs and shared
+libraries, making it possible to wrap these libraries with pure Python code.
 
 
 The Python API
