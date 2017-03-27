@@ -1,7 +1,7 @@
 gmt-python: Bringing GMT to the Python world
 ============================================
 
-**A ctypes-based Python interface for the Generic Mapping Tools C API.**
+**A Python interface for the Generic Mapping Tools C API.**
 
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
     :alt: Latest version on PyPI
@@ -17,9 +17,9 @@ gmt-python: Bringing GMT to the Python world
 Warning
 -------
 
-**This package in very early stages of design.**
+**This package in early stages of design and implementation.**
 
-We welcome feedback and ideas through
+We welcome any feedback and ideas through
 `Github issues <https://github.com/GenericMappingTools/gmt-python/issues>`__.
 
 
@@ -79,12 +79,29 @@ generation of the Postscript file in the background anyway.
 We will wrap the GMT C API using the `ctypes
 <https://docs.python.org/3/library/ctypes.html>`__ module of the Python
 standard library.
-``ctypes`` grants access to C data types and functions in DDLs and shared
-libraries, making it possible to wrap these libraries with pure Python code.
+``ctypes`` grants access to C data types and foreign functions in DDLs and
+shared libraries, making it possible to wrap these libraries with pure Python
+code.
+Not having compiled modules makes packaging and distribution of Python software
+a lot easier.
+
+Wrappers for GMT data types and C functions will be implemented in a lower
+level wrapper library (the core library or ``gmt.core``).
+These will be direct ``ctypes`` wrappers of the GMT module functions and any
+other function that is needed on the Python side.
+The low-level functions will not handle any data type conversion or setting up
+of argument list.
+
+We'll also provide higher level functions that mirror all GMT modules.
+These functions will be built on top of the core library and will handle all
+data conversions and parsing of arguments.
+This is the part of the library with which the user will interact (the GMT
+Python API).
 
 
-The Python API
-++++++++++++++
+
+The GMT Python API
+++++++++++++++++++
 
 Each GMT module has a function in the ``gmt`` package.
 Command-line arguments are passes as function keyword arguments.
@@ -102,7 +119,8 @@ Example usage::
     cpt = gmt.makecpt(C="red,green,blue", T="0,70,300,10000")
     gmt.pscoast(R='g', J='N180/10i', G='bisque', S='azure1', B='af', X='c')
     gmt.psxy(input=data, S='ci', C=cpt, h='i1', i='2,1,3,4+s0.02')
-    gmt.show(dpi=600)
+    gmt.psconvert(T='f', F='my-figure')
+    gmt.show('my-figure.pdf', dpi=600)
 
 
 Package organization
@@ -117,8 +135,8 @@ General layout of the Python package::
         modules/  # Defines the functions corresponding to GMT modules
 
 
-Internals
-+++++++++
+The core low-level wrappers
++++++++++++++++++++++++++++
 
 Use GMT_Open_Virtual_File for input and output.
 Get ``kwarg`` dict and transform into the command-line string.
