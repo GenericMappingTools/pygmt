@@ -208,12 +208,12 @@ Here is what a module function will look like::
 
 We will automate this process as much as possible:
 
-    * Common options in the docstrings can be reused from an ``OPTIONS``
-      dictionary.
-    * Parsing of common arguments (R, J, etc) can be done by a function.
-    * Creating the GMT session and calling the module can be automated.
-    * Conversion of inputs and outputs will most likely be: tables to numpy
-      arrays, grids to xarray ``Datasets``, text to Python text.
+* Common options in the docstrings can be reused from an ``OPTIONS``
+  dictionary.
+* Parsing of common arguments (R, J, etc) can be done by a function.
+* Creating the GMT session and calling the module can be automated.
+* Conversion of inputs and outputs will most likely be: tables to numpy arrays,
+  grids to xarray ``Datasets``, text to Python text.
 
 Most of the work in this part will be wrapping all of the many GMT modules,
 parsing non-standard options, and making sure the docstrings are accurate.
@@ -221,6 +221,35 @@ parsing non-standard options, and making sure the docstrings are accurate.
 
 The low-level wrappers
 ++++++++++++++++++++++
+
+The low-level wrapper functions will be bare-bones ``ctypes`` foreign functions
+from the ``libgmt.so`` shared library.
+The functions can be accessed from Python like so::
+
+    import ctypes as ct
+
+    libgmt = ct.cdll.LoadLibrary("libgmt.so")
+
+    # Functions are accessed as members of the 'libgmt' object
+    GMT_Call_Module = libgmt.GMT_Call_Module
+
+    # Call them like normal Python functions
+    GMT_Call_Module(... inputs ...)
+
+
+The tricky part is making sure the functions get the input types they need.
+``ctypes`` provides access to C data types and a way to specify the data type
+conversions that the function requires::
+
+    GMT_Call_Module.argstypes = [ct.c_void_p, ct.c_char_p, ct.c_int, ct.c_void_p]
+
+This is fine for standard data types like ``int``, ``char``, etc, but will need
+extra work for custom GMT ``struct``.
+These data types will need to be wrapped by Python classes by inheriting from
+``ctypes.Structure``.
+
+The ``gmt.capi`` module will expose these foreign functions (with output and
+input types specified) and GMT data types for the modules to use.
 
 The main entry point into GMT will be through the ``GMT_Call_Module`` function.
 This is what the main ``gmt`` command-line application uses to run a given
