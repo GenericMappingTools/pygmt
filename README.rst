@@ -184,6 +184,8 @@ The functions corresponding to GMT modules (``pscoast``, ``psconvert``, etc)
 are how the user interacts with the Python API.
 They will be organized in different files in the ``gmt.modules`` package but
 will all be accessible from the ``gmt`` package namespace.
+For example, ``pscoast`` can live in ``gmt/modules/ps_generating.py`` but can
+be called as ``gmt.pscoast``.
 
 Here is a what module function will look like::
 
