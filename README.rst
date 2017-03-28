@@ -233,7 +233,7 @@ It has the following signature::
 The arguments ``module``, ``mode``, and ``args`` (the command-line argument
 list) are plain C types and can be generated easily using ``ctypes``.
 The Python module code will need to generate the ``args`` array from the
-function arguments given.
+given function arguments.
 The ``V_API`` argument is a "GMT Session" and is created through the
 ``GMT_Create_Session`` function, which will have to be wrapped as well.
 
