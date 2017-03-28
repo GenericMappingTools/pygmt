@@ -171,7 +171,7 @@ this::
 
 
     gmt/
-        capi/     # Package with low-level wrappers for the C API
+        c_api/     # Package with low-level wrappers for the C API
             ...
         modules/  # Defines the functions corresponding to GMT modules
             ...
@@ -245,14 +245,14 @@ conversions that the function requires::
 
 This is fine for standard data types like ``int``, ``char``, etc, but will need
 extra work for custom GMT ``struct``.
-These data types will need to be wrapped by Python classes by inheriting from
+These data types will need to be wrapped by Python classes that inherit from
 ``ctypes.Structure``.
 
-The ``gmt.capi`` module will expose these foreign functions (with output and
+The ``gmt.c_api`` module will expose these foreign functions (with output and
 input types specified) and GMT data types for the modules to use.
 
 The main entry point into GMT will be through the ``GMT_Call_Module`` function.
-This is what the main ``gmt`` command-line application uses to run a given
+This is what the ``gmt`` command-line application uses to run a given
 module, like ``GMT_pscoast`` for example.
 We will use it to run the modules from the Python side as well.
 It has the following signature::
