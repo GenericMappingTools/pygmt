@@ -187,7 +187,7 @@ will all be accessible from the ``gmt`` package namespace.
 For example, ``pscoast`` can live in ``gmt/modules/ps_generating.py`` but can
 be called as ``gmt.pscoast``.
 
-Here is a what module function will look like::
+Here is what a module function will look like::
 
     def module_function(**kwargs):
         """
