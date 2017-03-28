@@ -99,7 +99,6 @@ This is the part of the library with which the user will interact (the GMT
 Python API).
 
 
-
 The GMT Python API
 ++++++++++++++++++
 
@@ -144,7 +143,7 @@ Tabular data can be passed as numpy arrays::
 
 
 In the Jupyter notebook, we can preview the plot by calling ``gmt.show()``,
-which gets a PNG image back and embeds it in the notebook::
+which embeds the image in the notebook::
 
     import numpy as np
     import gmt
@@ -155,6 +154,13 @@ which gets a PNG image back and embeds it in the notebook::
     gmt.pscoast(R='g', J='N180/10i', G='bisque', S='azure1', B='af', X='c')
     gmt.psxy(input=data, S='ci', C=cpt, h='i1', i='2,1,3,4+s0.02')
     gmt.show()
+
+``gmt.show`` will call ``psconvert`` in the background to get a PNG image back
+and use ``IPython.display.Image`` to insert it into the notebook.
+
+**TODO**: We're still thinking of the best way to call ``gmt.psconvert`` first
+to generate a high-quality PDF and right after call ``gmt.show()`` for an
+inline preview. Any suggestions are welcome!
 
 
 Package organization
@@ -171,11 +177,72 @@ this::
             ...
 
 
+The module functions
+++++++++++++++++++++
+
+The functions corresponding to GMT modules (``pscoast``, ``psconvert``, etc)
+are how the user interacts with the Python API.
+They will be organized in different files in the ``gmt.modules`` package but
+will all be accessible from the ``gmt`` package namespace.
+
+Here is a what module function will look like::
+
+    def module_function(**kwargs):
+        """
+        Docstring explaining what each option is and all the aliases.
+
+        Likely derived from the GMT documentation.
+        """
+        # Convert any inputs into things the C API can digest
+        ...
+        # Parse the keyword arguments and make an "args" list
+        ...
+        # Call the module function from the C API with the inputs
+        ...
+        # Process any outputs from the C API into Pỳthon data types
+        ...
+        return output
+
+
+We will automate this process as much as possible:
+
+    * Common options in the docstrings can be reused from an ``OPTIONS``
+      dictionary.
+    * Parsing of common arguments (R, J, etc) can be done by a function.
+    * Creating the GMT session and calling the module can be automated.
+    * Conversion of inputs and outputs will most likely be: tables to numpy
+      arrays, grids to xarray ``Datasets``, text to Python text.
+
+Most of the work in this part will be wrapping all of the many GMT modules,
+parsing non-standard options, and making sure the docstrings are accurate.
+
+
 The low-level wrappers
 ++++++++++++++++++++++
 
-Use GMT_Open_Virtual_File for input and output.
-Get ``kwarg`` dict and transform into the command-line string.
-Pass all that to the ctypes-wrapped GMT API function.
-Convert output back to Python.
-Return.
+The main entry point into GMT will be through the ``GMT_Call_Module`` function.
+This is what the main ``gmt`` command-line application uses to run a given
+module, like ``GMT_pscoast`` for example.
+We will use it to run the modules from the Python side as well.
+It has the following signature::
+
+    int GMT_Call_Module (void *V_API, const char *module, int mode, void *args)
+
+The arguments ``module``, ``mode``, and ``args`` (the command-line argument
+list) are plain C types and can be generated easily using ``ctypes``.
+The Python module code will need to generate the ``args`` array from the
+function arguments given.
+The ``V_API`` argument is a "GMT Session" and is created through the
+``GMT_Create_Session`` function, which will have to be wrapped as well.
+
+The input and output of Python data will be handled through the GMT virtual
+file machinery.
+This allows us to write data to a memory location instead of a file without GMT
+knowing the difference.
+For input, we can use ``GMT_Open_VirtualFile`` and point it to the location in
+memory of the Python data, for example using `numpy.ndarray.ctypes
+<https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.ctypes.html>`__.
+We can also translate the Python data into ``ctypes`` compatible types.
+The virtual file pointer can also be passed as the output option for the
+module, for example as ``-G`` or through redirection (``->``).
+We can read the contents of the virtual file using ``GMT_Read_VirtualFile``.
