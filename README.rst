@@ -106,10 +106,31 @@ The GMT Python API
 Each GMT module has a function in the ``gmt`` package.
 Command-line arguments are passes as function keyword arguments.
 Data can be passed as file names or in-memory data.
-Calling ``gmt.show()`` gets a PNG image back and embeds it in the
-Jupyter notebook.
 
-Example usage::
+The simplest usage would be with data in a file and generating a PDF output
+figure, just as a normal GMT script::
+
+    import gmt
+
+    cpt = gmt.makecpt(C='cubhelix', T=[-4500, 4500])
+    gmt.grdimage(input='grid.nc', J='M6i', B='af', P=True, C=cpt)
+    gmt.psscale(C=cpt, D='jTC+w6i/0.2i+h+e+o0/1i', B='af')
+    gmt.psconvert(T='f', F='my-figure')
+
+You can also pass in data from Python.
+Grids in netCDF format are passed as xarray ``Datasets`` that can come from a
+netCDF file or generated in memory::
+
+    import gmt
+    import xarray as xr
+
+    data = xr.open_dataset('grid.nc')
+
+    cpt = gmt.makecpt(C='cubhelix', T=[-4500, 4500])
+    gmt.grdimage(input=data, J='M6i', B='af', P=True, C=cpt)
+    gmt.psconvert(T='f', F='my-figure')
+
+Tabular data can be passed as numpy arrays::
 
     import numpy as np
     import gmt
@@ -120,7 +141,20 @@ Example usage::
     gmt.pscoast(R='g', J='N180/10i', G='bisque', S='azure1', B='af', X='c')
     gmt.psxy(input=data, S='ci', C=cpt, h='i1', i='2,1,3,4+s0.02')
     gmt.psconvert(T='f', F='my-figure')
-    gmt.show('my-figure.pdf', dpi=600)
+
+
+In the Jupyter notebook, we can preview the plot by calling ``gmt.show()``,
+which gets a PNG image back and embeds it in the notebook::
+
+    import numpy as np
+    import gmt
+
+    data = np.loadtxt('data_file.csv')
+
+    cpt = gmt.makecpt(C="red,green,blue", T="0,70,300,10000")
+    gmt.pscoast(R='g', J='N180/10i', G='bisque', S='azure1', B='af', X='c')
+    gmt.psxy(input=data, S='ci', C=cpt, h='i1', i='2,1,3,4+s0.02')
+    gmt.show()
 
 
 Package organization
