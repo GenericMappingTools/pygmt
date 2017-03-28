@@ -86,15 +86,15 @@ Not having compiled modules makes packaging and distribution of Python software
 a lot easier.
 
 Wrappers for GMT data types and C functions will be implemented in a lower
-level wrapper library (the core library or ``gmt.core``).
+level wrapper library.
 These will be direct ``ctypes`` wrappers of the GMT module functions and any
 other function that is needed on the Python side.
 The low-level functions will not handle any data type conversion or setting up
 of argument list.
 
 We'll also provide higher level functions that mirror all GMT modules.
-These functions will be built on top of the core library and will handle all
-data conversions and parsing of arguments.
+These functions will be built on top of the low-level library and will handle
+all data conversions and parsing of arguments.
 This is the part of the library with which the user will interact (the GMT
 Python API).
 
@@ -160,17 +160,19 @@ which gets a PNG image back and embeds it in the notebook::
 Package organization
 ++++++++++++++++++++
 
-General layout of the Python package::
+The general layout of the Python package will probably look something like
+this::
 
 
     gmt/
-        core/  # Package with low-level wrappers for the C API
-
+        capi/     # Package with low-level wrappers for the C API
+            ...
         modules/  # Defines the functions corresponding to GMT modules
+            ...
 
 
-The core low-level wrappers
-+++++++++++++++++++++++++++
+The low-level wrappers
+++++++++++++++++++++++
 
 Use GMT_Open_Virtual_File for input and output.
 Get ``kwarg`` dict and transform into the command-line string.
