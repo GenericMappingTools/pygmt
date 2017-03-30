@@ -19,8 +19,9 @@ Warning
 
 **This package in early stages of design and implementation.**
 
-We welcome any feedback and ideas through
-`Github issues <https://github.com/GenericMappingTools/gmt-python/issues>`__.
+We welcome any feedback and ideas!
+Let us know by submitting
+`issues on Github <https://github.com/GenericMappingTools/gmt-python/issues>`__.
 
 
 Goals
@@ -116,6 +117,19 @@ figure, just as a normal GMT script::
     gmt.psscale(C=cpt, D='jTC+w6i/0.2i+h+e+o0/1i', B='af')
     gmt.psconvert(T='f', F='my-figure')
 
+Arguments can also be passed as in the GMT command-line by using a single
+string::
+
+    import gmt
+
+    gmt.makecpt('-Ccubhelix -T-4500/4500', output='my.cpt')
+    gmt.grdimage('grid.nc -JM6i -Baf -P -Cmy.cpt')
+    gmt.psscale('-Cmy.cpt -DjTC+w6i/0.2i+h+e+o0/1i -Baf')
+    gmt.psconvert('-Tf -Fmy-figure')
+
+Notice that output that would be redirected to a file is specified using the
+``output`` keyword argument.
+
 You can also pass in data from Python.
 Grids in netCDF format are passed as xarray ``Datasets`` that can come from a
 netCDF file or generated in memory::
@@ -125,7 +139,7 @@ netCDF file or generated in memory::
 
     data = xr.open_dataset('grid.nc')
 
-    cpt = gmt.makecpt(C='cubhelix', T=[-4500, 4500])
+    cpt = gmt.makecpt(C='cubhelix', T='-4500/4500')
     gmt.grdimage(input=data, J='M6i', B='af', P=True, C=cpt)
     gmt.psconvert(T='f', F='my-figure')
 
@@ -221,6 +235,9 @@ We will automate this process as much as possible:
 
 Most of the work in this part will be wrapping all of the many GMT modules,
 parsing non-standard options, and making sure the docstrings are accurate.
+It might even be possible to automatically generate the docstrings or parts of
+them from the command-line help messages by passing a Python callback as the
+``print_func`` when creating a GMT session.
 
 
 The low-level wrappers
