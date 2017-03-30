@@ -160,7 +160,11 @@ and use ``IPython.display.Image`` to insert it into the notebook.
 
 **TODO**: We're still thinking of the best way to call ``gmt.psconvert`` first
 to generate a high-quality PDF and right after call ``gmt.show()`` for an
-inline preview. Any suggestions are welcome!
+inline preview.
+The issue is that ``psconvert`` deletes the temporary Postscript file that was
+being constructed on the background, this calling it a second time through
+``gmt.show()`` would not work.
+Any suggestions are welcome!
 
 
 Package organization
