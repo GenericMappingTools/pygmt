@@ -1,3 +1,4 @@
 include LICENSE.txt
 include README.rst
 include versioneer.py
+include gmt/_version.py

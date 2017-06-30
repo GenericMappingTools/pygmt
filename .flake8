@@ -1,0 +1,3 @@
+[flake8]
+/*exclude =*/
+ignore = F401,E226

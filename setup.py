@@ -1,32 +1,25 @@
-import os
 from setuptools import setup, find_packages
-# import versioneer
+import versioneer
 
-# VERSIONEER SETUP
-# #############################################################################
-# versioneer.VCS = 'git'
-# versioneer.versionfile_source = 'gmt/_version.py'
-# versioneer.versionfile_build = 'gmt/_version.py'
-# versioneer.tag_prefix = 'v'
-# versioneer.parentdir_prefix = '.'
 
-# PACKAGE METADATA
-# #############################################################################
 NAME = 'gmt-python'
 FULLNAME = 'GMT Python Interface'
-DESCRIPTION = ""
 AUTHOR = "Leonardo Uieda"
 AUTHOR_EMAIL = 'leouieda@gmail.com'
 MAINTAINER = AUTHOR
 MAINTAINER_EMAIL = AUTHOR_EMAIL
-# VERSION = versioneer.get_version()
-VERSION = '0.1a0'
+LICENSE = "BSD License"
+URL = "https://github.com/GenericMappingTools/gmt-python"
+DESCRIPTION = "Python wrapper for the Generic Mapping Tools"
+KEYWORDS = ''
 with open("README.rst") as f:
     LONG_DESCRIPTION = ''.join(f.readlines())
+
+VERSION = versioneer.get_version()
+CMDCLASS = versioneer.get_cmdclass()
+
 PACKAGES = find_packages(exclude=['doc', 'ci'])
-LICENSE = ""
-URL = "https://github.com/GenericMappingTools/gmt-python"
-PLATFORMS = "Any"
+
 SCRIPTS = []
 # PACKAGE_DATA = {'': [os.path.join('data', '*')]}
 PACKAGE_DATA = {}
@@ -41,12 +34,8 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.6",
     "License :: OSI Approved :: {}".format(LICENSE),
 ]
-KEYWORDS = ''
-
-# DEPENDENCIES
-# #############################################################################
+PLATFORMS = "Any"
 INSTALL_REQUIRES = [
-    'numpy',
 ]
 
 if __name__ == '__main__':
@@ -66,4 +55,5 @@ if __name__ == '__main__':
           packages=PACKAGES,
           classifiers=CLASSIFIERS,
           keywords=KEYWORDS,
-          install_requires=INSTALL_REQUIRES)
+          install_requires=INSTALL_REQUIRES,
+          cmdclass=CMDCLASS)
