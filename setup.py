@@ -1,3 +1,8 @@
+"""
+Build and install the project.
+
+Uses versioneer to manage version numbers using git tags.
+"""
 from setuptools import setup, find_packages
 import versioneer
 

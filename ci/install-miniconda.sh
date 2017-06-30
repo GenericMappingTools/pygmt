@@ -6,11 +6,11 @@ set -e
 MINICONDA_URL="http://repo.continuum.io/miniconda"
 
 if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-    MINICONDA_FILE=Miniconda-latest-MacOSX-x86_64.sh
-    export PATH=/Users/travis/miniconda2/bin:$PATH
+    MINICONDA_FILE=Miniconda3-latest-MacOSX-x86_64.sh
+    export PATH=$CONDA_PREFIX/bin:$PATH
 else
-    MINICONDA_FILE=Miniconda-latest-Linux-x86_64.sh
-    export PATH=/home/travis/miniconda2/bin:$PATH
+    MINICONDA_FILE=Miniconda3-latest-Linux-x86_64.sh
+    export PATH=$CONDA_PREFIX/bin:$PATH
 fi
 wget $MINICONDA_URL/$MINICONDA_FILE -O miniconda.sh
 chmod +x miniconda.sh
