@@ -298,3 +298,11 @@ We can also translate the Python data into ``ctypes`` compatible types.
 The virtual file pointer can also be passed as the output option for the
 module, for example as ``-G`` or through redirection (``->``).
 We can read the contents of the virtual file using ``GMT_Read_VirtualFile``.
+
+
+License
+-------
+
+gmt-python is free software: you can redistribute it and/or modify it under the
+terms of the **BSD 3-clause License**. A copy of this license is provided in
+``LICENSE.txt``.
