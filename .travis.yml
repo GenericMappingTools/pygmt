@@ -15,14 +15,17 @@ os:
     - linux
 
 env:
+    secure: "JxbDDWhBQwBzfR9syPcgOP+KV8o6dgCQdNibk3E5cHP3E5TyYgx38YRbDdux16uGuPhPoqJG2DmXW7jlZmhL/h8gqCIYlqo52GcCDbnYSJJcG657GTxcRoeEx7cuFNPbeH/gXKCch3kNIKszK/xmzRYAwzVqDN2yZJrK6ZK/5FtyJWlKt3uyiqV2QFwONJihP98q7F++Fb3qgrOYmL2bgnocFdD5qbUdMTzqPBD0FVDg0ptGJkRiWn+uUNEOm6NZJjpDb3xkxnE+S90CuyaQpDbQGpBYKbKDVIL1KoqjLxsou66S3oEhO63KNOOuINd2JeUUnq8yVsUZv3alXQFJyhDps36aF3TpQ0wKoFrpyIngsr1U3+TOt4Gz4iqxulLiJEAwXbAo0XaqR/kJ1kSb1FpZkSZsb+5zydrIKQKAIf+meFX2N2xi+BJSimx+bFHWpNbhyse+hBr3RdRqjLwPNVcLwD0nbigJ3ejgL8rPQCCZlJJzOB7FbSXHFyDWg839/Nfl7o5H1WHBPtz6x/Usm9hB5Fvh95pJWDUsYhxowXh9HNX+dCZTJJxZitcTc66uu3ujDsdEuGEEh3LKktsdnYD+coIfeubshjBV8u6AqxG1evFceqY/ODcx5+r+meDOrz1NS+o3yHbl45esaoT8xiyA8agsn9YebODPxaUi+DM="
+
     global:
         - COVERAGE=false
+        - DOCS=false
         - CONDA_PREFIX=/home/travis/miniconda3
 
     # Build under all combinations of the of the following
     matrix:
         - PYTHON=3.5
-        - PYTHON=3.6 COVERAGE=true
+        - PYTHON=3.6 COVERAGE=true DOCS=true
 
 before_install:
     # Get Miniconda from Continuum
@@ -50,6 +53,10 @@ script:
     # Check code for PEP8 style and lint for code quality
     - make pep8
     - make lint
+    # Build the documentation
+    - if [ "$DOCS" == "true" ]; then make -C doc all; fi
 
 after_success:
     - if [ "$COVERAGE" == "true" ]; then coveralls; fi
+    # Push the docs to Github pages
+    - if [ "$DOCS" == "true" ]; then bash ci/upload-docs.sh; fi
