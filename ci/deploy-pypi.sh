@@ -12,16 +12,22 @@ set -e
 
 if [[ "$TRAVIS_PULL_REQUEST" == "false" ]] &&
    [[ "$TRAVIS_BRANCH" == "master" ]] &&
-   [[ -z "$TRAVIS_TAG" ]];
-
+   [[ ! -z "$TRAVIS_TAG" ]];
+then
+    echo ""
+    echo "Building packages for version ${TRAVIS_TAG}"
+    echo ""
     # Build source distributions and wheels
-    echo "Building packages"
     python setup.py sdist bdist_wheel
 
     # Upload to PyPI. Credentials are set using env variables.
     twine upload --skip-existing dist/*
-
-then
+else
+    echo "Not deploying to PyPI."
+    echo "  PR: $TRAVIS_PULL_REQUEST"
+    echo "  branch: $TRAVIS_BRANCH"
+    echo "  tag: $TRAVIS_TAG"
+fi
 
 # Workaround for https://github.com/travis-ci/travis-ci/issues/6522
 # Turn off exit on failure.
