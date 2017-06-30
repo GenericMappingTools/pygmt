@@ -1,7 +1,6 @@
 """
 ctypes wrappers for functions from the C API
 """
-import ctypes
 
 
 def create_session():
