@@ -9,7 +9,7 @@ branches:
     only:
         - master
         # Regex to build tagged commits with version numbers
-        - /\d+\.\d+(\.\d+)?(-\S*)?$/
+        - /\d+\.\d+(\.\d+)?(\S*)?$/
 
 os:
     - linux
