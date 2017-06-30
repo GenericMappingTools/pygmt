@@ -1,5 +1,5 @@
-gmt-python: Bringing GMT to Python
-==================================
+GMT Python
+==========
 
 **A Python interface for the Generic Mapping Tools C API.**
 

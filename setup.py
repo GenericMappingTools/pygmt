@@ -8,14 +8,14 @@ import versioneer
 
 
 NAME = 'gmt-python'
-FULLNAME = 'GMT Python Interface'
+FULLNAME = 'GMT Python'
 AUTHOR = "Leonardo Uieda"
 AUTHOR_EMAIL = 'leouieda@gmail.com'
 MAINTAINER = AUTHOR
 MAINTAINER_EMAIL = AUTHOR_EMAIL
 LICENSE = "BSD License"
 URL = "https://github.com/GenericMappingTools/gmt-python"
-DESCRIPTION = "Python wrapper for the Generic Mapping Tools"
+DESCRIPTION = "A Python interface for the Generic Mapping Tools"
 KEYWORDS = ''
 with open("README.rst") as f:
     LONG_DESCRIPTION = ''.join(f.readlines())
