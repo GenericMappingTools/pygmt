@@ -5,7 +5,7 @@ channels:
 dependencies:
     - python=3.6
     - pip
-    - numpy>=1.12
+    - numpy
     - matplotlib
     - pytest
     - pytest-cov
@@ -14,9 +14,5 @@ dependencies:
     - coverage
     - sphinx
     - sphinx-gallery
+    - numpydoc
     - jupyter
-    - gdal
-    - pcre
-    - fftw
-    - netcdf4
-    - libnetcdf
