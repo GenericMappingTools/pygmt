@@ -1,6 +1,8 @@
 # Build, package, test, and clean
 
 TESTDIR=tmp-test-dir-with-unique-name
+PYTEST_ARGS=--doctest-modules -v --pyargs
+PYTEST_COV_ARGS=--cov-config=../.coveragerc --cov-report=term-missing
 
 help:
 	@echo "Commands:"
@@ -21,14 +23,15 @@ test:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	# of Fatiando
 	mkdir -p $(TESTDIR)
-	cd $(TESTDIR); python -c "assert True"
+	cd $(TESTDIR); python -c "import gmt; gmt.test()"
 	rm -r $(TESTDIR)
 
 coverage:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	# of Fatiando
 	mkdir -p $(TESTDIR)
-	cd $(TESTDIR); python -c "assert True"
+	cd $(TESTDIR); pytest $(PYTEST_COV_ARGS) --cov=gmt $(PYTEST_ARGS) gmt
+	cp $(TESTDIR)/.coverage* .
 	rm -r $(TESTDIR)
 
 pep8:
@@ -38,9 +41,6 @@ lint:
 	pylint gmt setup.py
 
 check: pep8 lint
-
-package:
-	python setup.py sdist --formats=gztar,zip
 
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;

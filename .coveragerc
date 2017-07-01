@@ -1,4 +1,5 @@
 [run]
 omit =
     */tests/*
-    gmt/_version.py
+    */_version.py
+    *gmt/__init__.py
