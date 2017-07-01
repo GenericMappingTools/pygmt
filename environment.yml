@@ -16,3 +16,4 @@ dependencies:
     - sphinx-gallery
     - numpydoc
     - jupyter
+    - twine
