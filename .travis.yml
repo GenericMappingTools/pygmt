@@ -53,7 +53,7 @@ install:
 
 script:
     # Run the test suite
-    - if [ "$COVERAGE" == "true" ]; then make coverage; else make test; fi
+    #- if [ "$COVERAGE" == "true" ]; then make coverage; else make test; fi
     # Check code for PEP8 style and lint for code quality
     - make pep8
     - make lint

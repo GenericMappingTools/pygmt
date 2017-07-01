@@ -27,6 +27,7 @@ functions and classes that wrap the C API with a pythonic interface.
     :template: function.rst
 
     gmt.clib.create_session
+    gmt.clib.load_libgmt
 
 
 .. _ctypes: https://docs.python.org/3/library/ctypes.html
