@@ -100,6 +100,10 @@ html_theme_options = {
     'github_banner': 'true',
     'description': 'A Python interface for the Generic Mapping Tools',
     'extra_nav_links': {
+        'GMT website': 'http://gmt.soest.hawaii.edu',
+        'GMT modern mode': 'http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization',
+        'Source code': 'https://github.com/GenericMappingTools/gmt-python',
+        'Public chat room': 'https://gitter.im/GenericMappingTools/gmt-python',
     }
 }
 
