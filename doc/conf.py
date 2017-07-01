@@ -96,7 +96,7 @@ html_theme_options = {
     # 'logo': 'logo.png',
     'github_user': 'GenericMappingTools',
     'github_repo': 'gmt-python',
-    'github_type': 'star',
+    'github_button': 'false',
     'github_banner': 'true',
     'description': 'A Python interface for the Generic Mapping Tools',
     'extra_nav_links': {

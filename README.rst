@@ -6,7 +6,8 @@ GMT Python
 `Documentation <https://genericmappingtools.github.io/gmt-python/>`_ |
 `GMT modern mode <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`_ |
 `Design <https://genericmappingtools.github.io/gmt-python/design.html>`_ |
-`Contact <https://gitter.im/GenericMappingTools/gmt-python>`_ |
+`Contribute <https://genericmappingtools.github.io/gmt-python/contribute.html>`_ |
+`Contact <https://gitter.im/GenericMappingTools/gmt-python>`_
 
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
     :alt: Latest version on PyPI
@@ -36,7 +37,8 @@ Let us know by submitting
 or send us a message on `our Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
 
 See the `documentation <https://genericmappingtools.github.io/gmt-python/>`__
-for our design ideas, currently implemented features, and more.
+for our design ideas, currently implemented features, how to contribute, and
+more.
 
 
 Previous work

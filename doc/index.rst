@@ -116,4 +116,5 @@ Read more about modern mode at the
     install.rst
     design.rst
     api.rst
+    contribute.rst
     license.rst
