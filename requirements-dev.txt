@@ -6,3 +6,4 @@ coverage
 sphinx
 sphinx-gallery
 numpydoc
+twine
