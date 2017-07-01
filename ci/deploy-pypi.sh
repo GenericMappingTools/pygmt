@@ -11,8 +11,8 @@
 set -e
 
 if [[ "$TRAVIS_PULL_REQUEST" == "false" ]] &&
-   [[ "$TRAVIS_BRANCH" == "master" ]] &&
-   [[ ! -z "$TRAVIS_TAG" ]];
+   [[ ! -z "$TRAVIS_TAG" ]] &&
+   [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]];
 then
     echo ""
     echo "Building packages for version ${TRAVIS_TAG}"
