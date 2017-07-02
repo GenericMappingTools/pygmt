@@ -45,7 +45,7 @@ First, install the required dependencies::
 
 Next, install the development version of GMT::
 
-    conda install -c conda-forge/channel/dev gmt
+    conda install -c conda-forge/label/dev gmt
 
 
 Finding the library
