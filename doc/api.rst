@@ -27,6 +27,7 @@ functions and classes that wrap the C API with a pythonic interface.
     :template: function.rst
 
     gmt.clib.create_session
+    gmt.clib.call_module
     gmt.clib.load_libgmt
 
 
