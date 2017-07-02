@@ -1,1 +1,10 @@
 numpy
+fftw
+gdal
+ghostscript
+libnetcdf
+hdf5=1.8.18.*
+zlib
+blas
+curl
+pcre
