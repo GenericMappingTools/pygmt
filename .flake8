@@ -1,3 +1,4 @@
 [flake8]
-/*exclude =*/
-ignore = F401,E226
+exclude =
+    gmt/_version.py
+ignore = F401,E226,I101,I100
