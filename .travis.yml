@@ -44,7 +44,7 @@ before_install:
     - conda install --yes --file requirements-dev.txt -c conda-forge
     - if [ "$COVERAGE" == "true" ]; then pip install coveralls==0.5; fi
     # Install the development version of GMT
-    - conda install -c conda-forge/channel/dev gmt
+    - conda install --yes -c conda-forge/channel/dev gmt
     # Show installed pkg information for postmortem diagnostic
     - conda list
 
