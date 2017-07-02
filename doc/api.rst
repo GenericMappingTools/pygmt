@@ -13,6 +13,9 @@ function in the ``gmt`` top-level module.
     :toctree: api/
     :template: function.rst
 
+    gmt.begin
+    gmt.end
+    gmt.figure
     gmt.pscoast
 
 
