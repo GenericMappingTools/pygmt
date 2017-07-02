@@ -89,7 +89,7 @@ Working features and TODO
 -------------------------
 
 - [X] Initial package layout and base documentation
-- [ ] Call basic functions from the C API: ``GMT_Create_Session`` and
+- [X] Call basic functions from the C API: ``GMT_Create_Session`` and
   ``GMT_Call_Module``
 - [ ] Minimal working code (modules ``pscoast``, ``begin``, and ``end``)
   producing figure on disk from data on disk
