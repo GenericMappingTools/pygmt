@@ -9,6 +9,7 @@ dependencies:
     - matplotlib
     - pytest
     - pytest-cov
+    - pytest-mpl
     - flake8
     - pylint
     - coverage

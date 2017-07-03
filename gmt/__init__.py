@@ -11,7 +11,7 @@ __version__ = get_versions()['version']
 del get_versions
 
 
-def test(doctest=True, verbose=True, coverage=False):
+def test(doctest=True, verbose=True, coverage=False, figures=True):
     """
     Run the test suite.
 
@@ -19,21 +19,27 @@ def test(doctest=True, verbose=True, coverage=False):
     haven't already, you can install it with `conda
     <http://conda.pydata.org/>`__ or `pip <https://pip.pypa.io/en/stable/>`__.
 
-    Parameters:
+    Parameters
+    ----------
 
-    * doctest : bool
+    doctest : bool
         If ``True``, will run the doctests as well (code examples that start
         with a ``>>>`` in the docs).
-    * verbose : bool
+    verbose : bool
         If ``True``, will print extra information during the test run.
-    * coverage : bool
+    coverage : bool
         If ``True``, will run test coverage analysis on the code as well.
         Requires ``pytest-cov``.
+    figures : bool
+        If ``True``, will test generated figures against saved baseline
+        figures.  Requires ``pytest-mpl`` and ``matplotlib``.
 
-    Raises:
+    Raises
+    ------
 
-    * ``AssertionError`` if pytest returns a non-zero error code indicating
-      that some tests have failed.
+    AssertionError
+        If pytest returns a non-zero error code indicating that some tests have
+        failed.
 
     """
     import pytest
@@ -45,6 +51,8 @@ def test(doctest=True, verbose=True, coverage=False):
         args.append('--cov-report=term-missing')
     if doctest:
         args.append('--doctest-modules')
+    if figures:
+        args.append('--mpl')
     args.append('--pyargs')
     args.append('gmt')
     status = pytest.main(args)
