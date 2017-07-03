@@ -53,7 +53,6 @@ html_short_title = 'GMT Python'
 # html_favicon = u'favicon.ico'
 html_static_path = ['_static']
 html_extra_path = ['.nojekyll']
-html_use_smartypants = True
 pygments_style = 'default'
 add_function_parentheses = False
 
