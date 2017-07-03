@@ -29,6 +29,7 @@ env:
 
     # Build under all combinations of the of the following
     matrix:
+        - PYTHON=3.4
         - PYTHON=3.5
         - PYTHON=3.6 COVERAGE=true DOCS=true
 
