@@ -19,6 +19,15 @@ function in the ``gmt`` top-level module.
     gmt.pscoast
 
 
+Additional utility functions:
+
+.. autosummary::
+    :toctree: api/
+    :template: function.rst
+
+    gmt.test
+
+
 Low-level wrappers for the GMT C API
 ------------------------------------
 
