@@ -93,7 +93,7 @@ Working features and TODO
   ``GMT_Call_Module``
 - [ ] Minimal working code (modules ``pscoast``, ``begin``, and ``end``)
   producing figure on disk from data on disk
-- [ ] Setup testing infrastructure for generated plots, possibly taking
+- [X] Setup testing infrastructure for generated plots, possibly taking
   advantage of matplotlib's `pytest-mpl
   <https://github.com/matplotlib/pytest-mpl>`__
 - [ ] Wrapper for ``GMT Open VirtualFile`` to allow passing data in memory to
