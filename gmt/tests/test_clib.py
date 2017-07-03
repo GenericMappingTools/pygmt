@@ -1,9 +1,15 @@
 """
-Test the wrappers for the API functions
+Test the wrappers for the C API.
 """
 import os
 
-from .. import create_session, call_module
+from ..clib import create_session, call_module, load_libgmt
+
+
+def test_load_libgmt():
+    "Test that loading libgmt works and doesn't crash."
+    libgmt = load_libgmt()
+    assert hasattr(libgmt, 'GMT_Create_Session')
 
 
 def test_create_session():

@@ -4,7 +4,7 @@ Test the session management modules.
 import os
 
 from .. import begin, end, figure
-from ...clib import call_module, create_session
+from ..clib import call_module, create_session
 from .utils import figure_comparison_test
 
 

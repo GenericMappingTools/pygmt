@@ -3,7 +3,6 @@ Build and install the project.
 
 Uses versioneer to manage version numbers using git tags.
 """
-from os.path import join as pjoin
 from setuptools import setup, find_packages
 
 import versioneer
@@ -28,7 +27,7 @@ CMDCLASS = versioneer.get_cmdclass()
 PACKAGES = find_packages(exclude=['doc', 'ci'])
 SCRIPTS = []
 PACKAGE_DATA = {
-    'gmt.modules.tests': [pjoin('data', '*'), pjoin('baseline', '*')],
+    'gmt.tests': ['data/*', 'baseline/*'],
 }
 
 CLASSIFIERS = [
@@ -61,6 +60,7 @@ if __name__ == '__main__':
           platforms=PLATFORMS,
           scripts=SCRIPTS,
           packages=PACKAGES,
+          package_data=PACKAGE_DATA,
           classifiers=CLASSIFIERS,
           keywords=KEYWORDS,
           install_requires=INSTALL_REQUIRES,
