@@ -19,4 +19,5 @@ def test_call_module():
     session = create_session()
     call_module(session, module, args)
     assert os.path.exists('tmp.ps')
+    os.remove('tmp.ps')
     # Not the most ideal test. Just check if no segfaults or exceptions occur.
