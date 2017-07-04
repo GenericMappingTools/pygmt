@@ -1,8 +1,6 @@
 """
 Session management modules: begin, end, figure, clean
 """
-import os
-
 from .. import clib
 
 
@@ -43,12 +41,8 @@ def end():
     ``gmt.begin``), and bring the figures to the working directory.
 
     """
-    # For some reason, 'end' sometimes leaves us in the /tmp folder. Save the
-    # current directory and go back there just in case.
-    curdir = os.path.abspath(os.curdir)
     session = clib.create_session()
     clib.call_module(session, 'end', '')
-    os.chdir(curdir)
 
 
 # Not working yet (perhaps bug in GMT).
