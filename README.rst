@@ -41,33 +41,6 @@ for our design ideas, currently implemented features, how to contribute, and
 more.
 
 
-Previous work
--------------
-
-To my knowledge, there have been 3 attempts at a GMT Python interface:
-
-* `gmtpy <https://github.com/emolch/gmtpy>`__ by
-  `Sebastian Heimann <https://github.com/emolch>`__
-* `pygmt <https://github.com/ian-r-rose/pygmt>`__ by
-  `Ian Rose <https://github.com/ian-r-rose>`__
-* `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by
-  `Magnus Hagdorn <https://github.com/mhagdorn>`__
-
-Only ``gmtpy`` has received commits since 2014 and is the more mature
-alternative.
-However, the project `doesn't seem to be very activate
-<https://github.com/emolch/gmtpy/graphs/contributors>`__.
-Both ``gmtpy`` and ``PyGMT`` use system class (through ``subprocess.Popen``)
-and pass input and output through ``subprocess.PIPE``.
-``pygmt`` seems to call the GMT C API directly through a hand-coded Python C
-extension.
-This might compromise the portability of the package across operating systems
-and makes distribution very painful.
-
-We aim to learn from these attempts and create a library that interfaces with
-the C API and provides a Pythonic API for GMT.
-
-
 Goals
 -----
 

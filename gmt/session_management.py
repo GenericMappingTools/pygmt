@@ -32,7 +32,7 @@ def begin(prefix='gmtsession', fmt='pdf'):
 
 def end():
     """
-    Terminate GMT modern mode session and optionally  produce the figure files.
+    Terminate GMT modern mode session and optionally produce the figure files.
 
     Called after :func:`gmt.begin` and all commands that you want included in a
     session. Will finalize any PostScript plots that were made in the
