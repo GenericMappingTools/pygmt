@@ -58,25 +58,68 @@ Goals
   <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
 
 
+Examples
+--------
+
+**Note**: Many of these features haven't been implemented yet. This is how we
+envision the library being used.
+
+This is a basic example to generate a figure and save it to a file:
+
+.. code-block:: python
+
+    import gmt
+
+    # Start a new figure. Optional (but recommended) if this is the only figure
+    # being generated.
+    gmt.figure()
+    gmt.psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
+    # Plot some points with red circles
+    gmt.psxy('mydata.txt', S='c', G='red')
+    # Unlike the GMT command-line interface, no figure file is generated unless
+    # savefig or psconvert are called.
+    gmt.savefig('myfigure.pdf')
+
+
+On the Jupyter notebook, a PNG preview of the image should also appear
+(assuming that you called ``gmt.figure``).
+
+Notice that the arguments are based on the GMT command-line options. The Python
+API also allows aliases for the arguments to make them more explicit and more
+familiar to Python users:
+
+
+.. code-block:: python
+
+    import gmt
+
+    gmt.figure()
+    gmt.psbasemap(region=[10, 70, -3, 8], projection='X4i/3i', frame='a',
+                  portrait=True)
+    gmt.psxy('mydata.txt', style='c', color='red')
+    gmt.savefig('myfigure.pdf')
+
+
+
 Working features and TODO
 -------------------------
 
 - [X] Initial package layout and base documentation
-- [X] Call basic functions from the C API: ``GMT_Create_Session`` and
-  ``GMT_Call_Module``
-- [ ] Minimal working code (modules ``pscoast``, ``begin``, and ``end``)
-  producing figure on disk from data on disk
+- [X] Call basic functions from the C API: ``GMT_Create_Session``,
+  ``GMT_Destroy_Session``, and ``GMT_Call_Module``
 - [X] Setup testing infrastructure for generated plots, possibly taking
   advantage of matplotlib's `pytest-mpl
   <https://github.com/matplotlib/pytest-mpl>`__
-- [ ] Wrapper for ``GMT Open VirtualFile`` to allow passing data in memory to
-  the modules
-- [ ] Wrapper for ``GMT Read VirtualFile`` get data out of data processing
-  modules
+- [X] Wrappers for basic session management functions (``begin``, ``end``, and
+  ``figure``).
+- [ ] Implement a global ``GMTSession`` to start a new session at import time
+  (``gmt.begin()``) and call ``gmt.end()`` when it's destroyed (the program
+  ends).
+- [ ] Minimal working code producing a figure from data on disk
+- [ ] Wrapper for the GMT VirtualFile machinery to allow communicating data in
+  memory to the modules
 - [ ] Wrapper for ``GMT_DATA`` to pass in tabular data from numpy arrays
 - [ ] Wrapper for ``GMT_GRID`` to pass in grids from xarray Datasets
-- [ ] Implement ``GMTSession`` context manager (created by ``gmt.begin()``)
-  that calls ``gmt.end()`` on exit.
 
 
 License
