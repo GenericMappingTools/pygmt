@@ -8,24 +8,24 @@ from ..clib import call_module
 from .utils import figure_comparison_test
 
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-
-
-@figure_comparison_test
-def test_session(prefix, fmt):
-    "Run a command inside a begin-end modern mode block."
-    begin(prefix=prefix, fmt=fmt)
-    call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
-    end()
-
-
-@figure_comparison_test
-def test_session_figure(prefix, fmt):
-    "Run a figure command inside a begin-end modern mode block."
+def test_session():
+    """"
+    Run a command inside a begin-end modern mode block.
+    """
     begin()
-    figure(prefix=prefix, formats=fmt)
     call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
-    # Plot some points with red circles
-    data_file = os.path.join(TEST_DATA_DIR, 'points.txt')
-    call_module('psxy', '-<{} -Sc -Gred'.format(data_file))
     end()
+    assert os.path.exists('gmt-python-session.pdf')
+    os.remove('gmt-python-session.pdf')
+
+
+def test_session_figure():
+    """
+    Run a figure command inside a begin-end modern mode block.
+    No file should be generated.
+    """
+    begin()
+    figure()
+    call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    end()
+    assert not os.path.exists('gmt-python-figure.pdf')

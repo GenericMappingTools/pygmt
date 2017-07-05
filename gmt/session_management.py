@@ -4,30 +4,17 @@ Session management modules: begin, end, figure, clean
 from . import clib
 
 
-def begin(prefix='gmtsession', fmt='pdf'):
+def begin():
     """
-    Initiate a new GMT session using modern mode.
+    Initiate a new GMT modern mode session.
 
     Used in combination with :func:`gmt.end`.
 
-    Parameters
-    ----------
-    prefix : str
-        The prefix to use for unnamed figures.
-    fmt : str
-        Sets the default plot format for the output figures.
-        Choose one of these valid extensions:
+    Only meant to be used once for creating the global session.
 
-        * bmp:       MicroSoft BitMap.
-        * eps:       Encapsulated PostScript.
-        * jpg:       Joint Photographic Experts Group format.
-        * pdf:       Portable Document Format [Default].
-        * png:       Portable Network Graphics.
-        * ppm:       Portable Pixel Map.
-        * ps:        PostScript.
-        * tif:       Tagged Image Format File.
     """
-    clib.call_module('begin', '{} {}'.format(prefix, fmt))
+    prefix = 'gmt-python-session'
+    clib.call_module('begin', prefix)
 
 
 def end():
@@ -43,37 +30,19 @@ def end():
     clib.call_module('end', '')
 
 
-# Not working yet (perhaps bug in GMT).
-def figure(prefix, formats='pdf', convertoptions='A,P'):
+def figure():
     """
-    Start a new figure under a GMT modern mode session.
+    Start a new figure.
 
-    Must be in a modern mode session (between calls to :func:`gmt.begin` and
-    :func:`gmt.end`.
+    All plotting commands run afterward will append to this figure.
 
-    Parameters
-    ----------
-    prefix : str
-        The prefix to use for the next figure name.
-    formats : str
-        One or more comma-separated formats for the output figures.
-        Choose from these valid extensions:
-
-        * bmp:       MicroSoft BitMap.
-        * eps:       Encapsulated PostScript.
-        * jpg:       Joint Photographic Experts Group format.
-        * pdf:       Portable Document Format [Default].
-        * png:       Portable Network Graphics.
-        * ppm:       Portable Pixel Map.
-        * ps:        PostScript.
-        * tif:       Tagged Image Format File.
-
-    convertoptions : str
-        One or more comma-separated options that will be passed to
-        :func:`gmt.psconvert` when preparing the figures.
-        The subset of valid options are:
-        ``'A[<args>],C<args>,D<dir>,E<dpi>,P,Q<args>,S'``.
+    Unlike the command-line version (``gmt figure``), this function does not
+    trigger the generation of a figure file. An explicit call to
+    :func:`gmt.savefig` or :func:`gmt.psconvert` must be made in order to get a
+    file.
 
     """
-    args = '{} {} {}'.format(prefix, formats, convertoptions)
-    clib.call_module('figure', args)
+    prefix = 'gmt-python-figure'
+    # Passing format '-' tells gmt.end to not produce any files.
+    fmt = '-'
+    clib.call_module('figure', '{} {}'.format(prefix, fmt))
