@@ -14,6 +14,9 @@ def create_session():
     It is a C void pointer containing the current session information and
     cannot be accessed directly.
 
+    Remember to terminate the current session using
+    :func:`gmt.clib.destroy_session` before creating a new one.
+
     Returns
     -------
     api_pointer : C void pointer (returned by ctypes as an integer)
@@ -37,12 +40,37 @@ def create_session():
     return session
 
 
+def destroy_session(session):
+    """
+    Terminate and free the memory of a registered ``GMTAPI_CTRL`` session.
+
+    The session is created and consumed by the C API modules and needs to be
+    freed before creating a new. Otherwise, some of the configuration files
+    might be left behind and can influence subsequent API calls.
+
+    Parameters
+    ----------
+    session : C void pointer (returned by ctypes as an integer)
+        The active session object produced by :func:`gmt.clib.create_session`.
+
+    """
+    libgmt = load_libgmt()
+    c_destroy_session = libgmt.GMT_Destroy_Session
+    c_destroy_session.argtypes = [ctypes.c_void_p]
+    c_destroy_session.restype = ctypes.c_int
+    status = c_destroy_session(session)
+    assert status is not None, 'Failed returning None.'
+    assert status == 0, 'Failed with status code {}.'.format(status)
+
+
 def call_module(session, module, args):
     """
     Call a GMT module with the given arguments.
 
     Makes a call to ``GMT_Call_Module`` from the C API using mode
     "GMT_MODULE_CMD" (arguments passed as a single string).
+
+    Most interactions with the C API are done through this function.
 
     Parameters
     ----------
