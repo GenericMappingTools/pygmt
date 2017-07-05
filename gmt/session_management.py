@@ -1,7 +1,7 @@
 """
 Session management modules: begin, end, figure, clean
 """
-from .. import clib
+from . import clib
 
 
 def begin(prefix='gmtsession', fmt='pdf'):

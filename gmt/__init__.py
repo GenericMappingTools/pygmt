@@ -4,7 +4,8 @@ GMT Python interface
 from ._version import get_versions
 
 # Import modules to make the high-level GMT Python API
-from .modules import pscoast, begin, end, figure
+from .ps_modules import pscoast
+from .session_management import begin, end, figure
 
 
 __version__ = get_versions()['version']
