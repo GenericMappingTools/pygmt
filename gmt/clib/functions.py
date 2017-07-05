@@ -63,20 +63,21 @@ def destroy_session(session):
     assert status == 0, 'Failed with status code {}.'.format(status)
 
 
-def call_module(session, module, args):
+def call_module(module, args):
     """
     Call a GMT module with the given arguments.
 
     Makes a call to ``GMT_Call_Module`` from the C API using mode
-    "GMT_MODULE_CMD" (arguments passed as a single string).
+    ``GMT_MODULE_CMD`` (arguments passed as a single string).
 
     Most interactions with the C API are done through this function.
 
+    Creates a new C API session (:func:`gmt.clib.create_session`) to pass to
+    ``GMT_Call_Module`` and destroys it (:func:`gmt.clib.destroy_session`)
+    after it is used. This is what the command-line interface of GMT does.
+
     Parameters
     ----------
-    session : ctypes.c_void_p
-        A void pointer to a GMTAPI_CTRL structure created by
-        :func:`gmt.clib.create_session`.
     module : str
         Module name (``'pscoast'``, ``'psbasemap'``, etc).
     args : str
@@ -90,6 +91,8 @@ def call_module(session, module, args):
     c_call_module.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int,
                               ctypes.c_void_p]
     c_call_module.restype = ctypes.c_int
+    session = create_session()
     status = c_call_module(session, module.encode(), mode, args.encode())
+    destroy_session(session)
     assert status is not None, 'Failed returning None.'
     assert status == 0, 'Failed with status code {}.'.format(status)

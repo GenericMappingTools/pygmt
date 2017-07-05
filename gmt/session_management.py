@@ -27,8 +27,7 @@ def begin(prefix='gmtsession', fmt='pdf'):
         * ps:        PostScript.
         * tif:       Tagged Image Format File.
     """
-    session = clib.create_session()
-    clib.call_module(session, 'begin', '{} {}'.format(prefix, fmt))
+    clib.call_module('begin', '{} {}'.format(prefix, fmt))
 
 
 def end():
@@ -41,8 +40,7 @@ def end():
     ``gmt.begin``), and bring the figures to the working directory.
 
     """
-    session = clib.create_session()
-    clib.call_module(session, 'end', '')
+    clib.call_module('end', '')
 
 
 # Not working yet (perhaps bug in GMT).
@@ -77,6 +75,5 @@ def figure(prefix, formats='pdf', convertoptions='A,P'):
         ``'A[<args>],C<args>,D<dir>,E<dpi>,P,Q<args>,S'``.
 
     """
-    session = clib.create_session()
     args = '{} {} {}'.format(prefix, formats, convertoptions)
-    clib.call_module(session, 'figure', args)
+    clib.call_module('figure', args)

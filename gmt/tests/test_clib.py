@@ -27,9 +27,7 @@ def test_call_module():
     "Run a psbasemap call to see if the module works"
     module = 'psbasemap'
     args = '-R10/70/-3/8 -JX4i/3i -Ba -P ->tmp.ps'
-    session = create_session()
-    call_module(session, module, args)
-    destroy_session(session)
+    call_module(module, args)
     assert os.path.exists('tmp.ps')
     os.remove('tmp.ps')
     # Not the most ideal test. Just check if no segfaults or exceptions occur.
