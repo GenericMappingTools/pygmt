@@ -5,11 +5,19 @@ from ._version import get_versions
 
 # Import modules to make the high-level GMT Python API
 from .ps_modules import pscoast
-from .session_management import begin, end, figure
+from .session_management import figure, GMTSession
 
 
+# Get the version number through versioneer
 __version__ = get_versions()['version']
+# Delete the function so that it doesn't appear in the public API
 del get_versions
+
+# Start our global modern mode session. It calls "gmt.begin" when started and
+# "gmt.end" when deleted.
+_GLOBAL_SESSION = GMTSession()
+# Delete the class so that it doesn't appear in the public API
+del GMTSession
 
 
 def test(doctest=True, verbose=True, coverage=False, figures=True):

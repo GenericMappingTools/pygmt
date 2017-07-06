@@ -6,6 +6,9 @@ import os
 from ..clib import create_session, destroy_session, call_module, load_libgmt
 
 
+TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
+
+
 def test_load_libgmt():
     "Test that loading libgmt works and doesn't crash."
     libgmt = load_libgmt()
@@ -25,9 +28,11 @@ def test_clib_session_management():
 
 def test_call_module():
     "Run a psbasemap call to see if the module works"
-    module = 'psbasemap'
-    args = '-R10/70/-3/8 -JX4i/3i -Ba -P ->tmp.ps'
-    call_module(module, args)
-    assert os.path.exists('tmp.ps')
-    os.remove('tmp.ps')
-    # Not the most ideal test. Just check if no segfaults or exceptions occur.
+    data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
+    out_fname = 'test_call_module.txt'
+    call_module('gmtinfo', '{} -C ->{}'.format(data_fname, out_fname))
+    assert os.path.exists(out_fname)
+    with open(out_fname) as out_file:
+        output = out_file.read().strip().replace('\t', ' ')
+        assert output == '11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338'
+    os.remove(out_fname)

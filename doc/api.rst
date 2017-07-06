@@ -6,15 +6,13 @@ API Reference
 High-level functions for GMT modules
 ------------------------------------
 
-Each GMT module (``gmt pscoas``, ``gmt grdgradient``, etc.) is wrapped by a
+Each GMT module (``gmt pscoast``, ``gmt psbasemap``, etc.) is wrapped by a
 function in the ``gmt`` top-level module.
 
 .. autosummary::
     :toctree: api/
     :template: function.rst
 
-    gmt.begin
-    gmt.end
     gmt.figure
     gmt.pscoast
 
