@@ -5,7 +5,6 @@ import os
 
 from .. import begin, end, figure
 from ..clib import call_module
-from .utils import figure_comparison_test
 
 
 def test_session():
