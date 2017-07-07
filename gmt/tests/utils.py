@@ -3,7 +3,11 @@ Utilities for testing the modules and figures they generate.
 """
 import os
 import shutil
+import functools
+
 import pytest
+
+from .. import psconvert
 
 
 class DummyFigure():  # pylint: disable=too-few-public-methods
@@ -13,39 +17,38 @@ class DummyFigure():  # pylint: disable=too-few-public-methods
     Pretends to be a matploblib figure so that we can use pytest-mpl to compare
     generated images.
 
-    ``savefig`` renames the original figure file (``image``) to the given name
-    and ignores all other arguments.
+    ``savefig`` calls ``psconvert`` and moves the function to the file name
+    given.
     """
 
-    def __init__(self, image):
-        self.image = image
+    def __init__(self, image_prefix):
+        self.image_prefix = image_prefix
+        self.image_name = self.image_prefix + '.png'
 
     # pylint: disable=unused-argument
     def savefig(self, fname, *args, **kwargs):
         """
         Rename ``image`` to ``fname``. Ignores all other arguments.
         """
-        shutil.move(self.image, fname)
+        psconvert(F=self.image_prefix, T='g', A=True, P=True)
+        assert os.path.exists(self.image_name)
+        shutil.move(self.image_name, fname)
 
 
-def figure_comparison_test(test_func, **kwargs):
+def figure_comparison_test(test_func):
     """
     Make a test function compare the generated figure against a baseline.
 
     Use as a decorator::
 
         @figure_comparison_test
-        def test_some_plot(prefix, fmt):
+        def test_some_plot():
             "Tests some plotting command"
-            begin(prefix=prefix, fmt=fmt)
+            figure()
+            psbasemap(...)
             ...
-            end()
 
-    The test function must receive the ``prefix`` and ``fmt`` arguments and
-    pass them along to ``gmt.begin`` or ``gmt.figure``.
-
-    Uses ``pytest-mpl`` for the image comparison. You can pass any argument
-    that ``pytest.mark.mpl_image_compare`` accepts to this decorator as well.
+    Uses ``pytest-mpl`` for the image comparison.
 
     Generate baseline images for a test by running::
 
@@ -56,20 +59,17 @@ def figure_comparison_test(test_func, **kwargs):
     When you're satisfied with the baselines, copy them to the ``baseline``
     folder of the test folder.
     """
+    prefix = test_func.__name__
+    fmt = 'png'
+    filename = '{}.{}'.format(prefix, fmt)
 
-    if 'filename' not in kwargs:
-        kwargs['filename'] = test_func.__name__ + '.png'
-
-    @pytest.mark.mpl_image_compare(**kwargs)
+    @pytest.mark.mpl_image_compare(filename=filename)
+    @functools.wraps(test_func)
     def new_test():
         "Test function with image comparison"
-        prefix = test_func.__name__
-        fmt = 'png'
-        fname = '{}.{}'.format(prefix, fmt)
-        test_func(prefix, fmt)
-        assert os.path.exists(fname)
+        test_func()
         # Return a dummy figure to fool pytest-mpl into thinking this is
         # maptlotlib.
-        return DummyFigure(image=fname)
+        return DummyFigure(image_prefix=prefix)
 
     return new_test
