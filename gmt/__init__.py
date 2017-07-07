@@ -1,23 +1,22 @@
 """
 GMT Python interface
 """
-from ._version import get_versions
+import atexit as _atexit
+
+from ._version import get_versions as _get_versions
 
 # Import modules to make the high-level GMT Python API
 from .ps_modules import pscoast, psconvert, psbasemap
-from .session_management import figure, GMTSession
+from .session_management import figure, begin as _begin, end as _end
 
 
 # Get the version number through versioneer
-__version__ = get_versions()['version']
-# Delete the function so that it doesn't appear in the public API
-del get_versions
+__version__ = _get_versions()['version']
 
-# Start our global modern mode session. It calls "gmt.begin" when started and
-# "gmt.end" when deleted.
-_GLOBAL_SESSION = GMTSession()
-# Delete the class so that it doesn't appear in the public API
-del GMTSession
+# Start our global modern mode session
+_begin()
+# Tell Python to run _end when shutting down
+_atexit.register(_end)
 
 
 def test(doctest=True, verbose=True, coverage=False, figures=True):

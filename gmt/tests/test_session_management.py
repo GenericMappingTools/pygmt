@@ -3,10 +3,8 @@ Test the session management modules.
 """
 import os
 
-from pytest import raises
-
-from .. import figure, _GLOBAL_SESSION
-from ..session_management import begin, end, GMTSession
+from .. import figure
+from ..session_management import begin, end
 from ..clib import call_module
 
 
@@ -15,11 +13,11 @@ def test_begin_end():
     Run a command inside a begin-end modern mode block.
     First, end the global session. When finished, restart it.
     """
-    _GLOBAL_SESSION.end()
+    end()  # Kill the global session
     begin()
     call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
     end()
-    _GLOBAL_SESSION.restart()
+    begin()  # Restart the global session
     assert os.path.exists('gmt-python-session.pdf')
     os.remove('gmt-python-session.pdf')
 
@@ -30,58 +28,10 @@ def test_session_figure():
 
     Need to end the global session before doing this.
     """
-    _GLOBAL_SESSION.end()
+    end()  # Kill the global session
     begin()
     figure()
     call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
     end()
-    _GLOBAL_SESSION.restart()
+    begin()  # Restart the global session
     assert not os.path.exists('gmt-python-figure.pdf')
-
-
-def test_gmtsession_begin_error():
-    """
-    Check that an error is raised when trying to start session without ending
-    it first.
-    """
-    _GLOBAL_SESSION.end()
-    session = GMTSession()
-    with raises(AssertionError):
-        session.begin()
-    session.end()
-    _GLOBAL_SESSION.restart()
-
-
-def test_gmtsession_restart():
-    """
-    Check that a session can be restarted without crashes.
-    Restart should kill current session and begin a new one.
-    There should be no way to begin a session without ending it first.
-    """
-    _GLOBAL_SESSION.end()
-    session = GMTSession()
-    assert session.is_active
-    # Should work when session is active
-    session.restart()
-    assert session.is_active
-    # And also when it isn't
-    session.end()
-    assert not session.is_active
-    session.restart()
-    assert session.is_active
-    session.end()
-    _GLOBAL_SESSION.restart()
-
-
-def test_gmtsession_error_end():
-    """
-    Should raise an error when calling end twice in a row.
-    """
-    _GLOBAL_SESSION.end()
-    session = GMTSession()
-    assert session.is_active
-    session.end()
-    assert not session.is_active
-    with raises(AssertionError):
-        session.end()
-    _GLOBAL_SESSION.restart()
