@@ -66,7 +66,7 @@ def psbasemap(**kwargs):
         # Check if the value is an iterable so that we can parse arguments that
         # are lists or other non-string iterables
         try:
-            _ = (item for item in value)
+            [item for item in value]  # pylint: disable=pointless-statement
             is_iterable = True
         except TypeError:
             is_iterable = False

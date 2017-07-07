@@ -1,7 +1,6 @@
 """
 Tests psbasemap.
 """
-import os
 import pytest
 
 from .utils import figure_comparison_test
@@ -76,4 +75,3 @@ def test_psbasemap_winkel_tripel():
     "Create a Winkel Tripel basemap plot"
     figure()
     psbasemap(R='90/450/-90/90', J='R270/25c', B='afg')
-
