@@ -112,9 +112,9 @@ Working features and TODO
   <https://github.com/matplotlib/pytest-mpl>`__
 - [X] Wrappers for basic session management functions (``begin``, ``end``, and
   ``figure``).
-- [ ] Implement a global ``GMTSession`` to start a new session at import time
-  (``gmt.begin()``) and call ``gmt.end()`` when it's destroyed (the program
-  ends).
+- [X] Implement a global modern mode session that starts at import time and is
+  destroyed when the program ends. This eliminates the need for ``begin`` and
+  ``end`` in the Python API.
 - [ ] Minimal working code producing a figure from data on disk
 - [ ] Wrapper for the GMT VirtualFile machinery to allow communicating data in
   memory to the modules
