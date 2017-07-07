@@ -15,6 +15,7 @@ function in the ``gmt`` top-level module.
 
     gmt.figure
     gmt.pscoast
+    gmt.psconvert
 
 
 Additional utility functions:
