@@ -53,7 +53,7 @@ class GMTSession():
     Placeholder for an active modern mode session.
 
     Calls ``begin`` and ``figure`` when created. Calls ``end`` when destroyed
-    so that the tmp files are cleaned.
+    so that the temporary files are cleaned.
 
     The call to ``figure`` is necessary because the default behavior in Python
     is to not generate figure files unless explicitly commanded by
@@ -94,3 +94,10 @@ class GMTSession():
         if self.is_active:
             self.end()
         self.begin()
+
+    def __del__(self):
+        """
+        When the session is being garbage collected, call ``end`` to clean up
+        the session.
+        """
+        self.end()
