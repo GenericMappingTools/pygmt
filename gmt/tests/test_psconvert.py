@@ -12,13 +12,30 @@ def test_psconvert():
     """
     figure()
     clib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
-    psconvert(F='test_psconvert', T='f', A=True, P=True)
-    assert os.path.exists('test_psconvert.pdf')
-    os.remove('test_psconvert.pdf')
-    # Calling twice doesn't yet work on GMT trunk
-    # psconvert(F='test_psconvert', T='g', A=True, P=True)
-    # assert os.path.exists('test_psconvert.png')
-    # os.remove('test_psconvert.png')
+    prefix = 'test_psconvert'
+    psconvert(F=prefix, T='f', A=True, P=True)
+    fname = prefix + '.pdf'
+    assert os.path.exists(fname)
+    os.remove(fname)
+
+
+def test_psconvert_twice():
+    """
+    Call psconvert twice to get two figures.
+    """
+    figure()
+    clib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    prefix = 'test_psconvert_twice'
+    # Make a PDF
+    psconvert(F=prefix, T='f')
+    fname = prefix + '.pdf'
+    assert os.path.exists(fname)
+    os.remove(fname)
+    # Make a PNG
+    psconvert(F=prefix, T='g')
+    fname = prefix + '.png'
+    assert os.path.exists(fname)
+    os.remove(fname)
 
 
 def test_psconvert_int_options():
