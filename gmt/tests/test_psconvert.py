@@ -1,9 +1,9 @@
 """
-Tests for the Postscript generating modules.
+Tests psconvert.
 """
 import os
 
-from .. import clib, psconvert, figure
+from .. import clib, figure, psconvert
 
 
 def test_psconvert():

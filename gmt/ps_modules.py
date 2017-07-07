@@ -13,6 +13,75 @@ def pscoast():
 
 
 @gmt_docs_link
+def psbasemap(**kwargs):
+    """
+    Produce a basemap for the figure.
+
+    Several map projections are available, and the user may specify separate
+    tick-mark intervals for boundary annotation, ticking, and [optionally]
+    gridlines. A simple map scale or directional rose may also be plotted.
+
+    At least one of the options *B*, *L*, or *T* must be specified.
+
+    {gmt_module_docs}
+
+    Parameters
+    ----------
+    J : str
+        *Required*. Select map projection.
+    R : str or list
+        *Required*.  ``'xmin/xmax/ymin/ymax[+r][+uunit]'``. Specify the region
+        of interest.
+    B : str
+        Set map boundary frame and axes attributes.
+    D : str
+        ``'[unit]xmin/xmax/ymin/ymax[r][+sfile][+t]'``
+        Draw a simple map insert box on the map. Requires *F*.
+    F : bool or str
+        Without further options, draws a rectangular border around any map
+        insert (*D*), map scale (*L*) or map rose (*T*).
+    L : str
+        ``'[g|j|J|n|x]refpoint'``
+        Draws a simple map scale centered on the reference point specified.
+    P : bool
+        Select “Portrait” plot orientation.
+    Td : str
+        Draws a map directional rose on the map at the location defined by the
+        reference and anchor points.
+    Tm : str
+        Draws a map magnetic rose on the map at the location defined by the
+        reference and anchor points
+    U : bool or str
+        Draw GMT time stamp logo on plot.
+
+    """
+    assert 'R' in kwargs, 'Parameter R is required.'
+    assert 'J' in kwargs, 'Parameter J is required.'
+    assert 'B' in kwargs or 'L' in kwargs or 'T' in kwargs, \
+        "At least one of B, L, or T must be specified."
+    if 'D' in kwargs:
+        assert 'F' in kwargs, "Option D requires F to be specified as well."
+    args = []
+    for arg, value in kwargs.items():
+        # Check if the value is an iterable so that we can parse arguments that
+        # are lists or other non-string iterables
+        try:
+            _ = (item for item in value)
+            is_iterable = True
+        except TypeError:
+            is_iterable = False
+
+        if isinstance(value, bool) and value:
+            args.append('-{}'.format(arg))
+        elif not isinstance(value, str) and is_iterable:
+            arg_str = '/'.join('{}'.format(item) for item in value)
+            args.append('-{}{}'.format(arg, arg_str))
+        else:
+            args.append('-{}{}'.format(arg, value))
+    call_module('psbasemap', ' '.join(args))
+
+
+@gmt_docs_link
 def psconvert(**kwargs):
     """
     Convert [E]PS file(s) to other formats.
@@ -24,8 +93,7 @@ def psconvert(**kwargs):
     :func:`gmt.figure`). In this case, an output name must be given using
     parameter *F*.
 
-    See full documentation for all options at the GMT website:
-    {gmt_mod}
+    {gmt_module_docs}
 
     Parameters
     ----------
@@ -71,9 +139,9 @@ def psconvert(**kwargs):
 
     """
     args = []
-    for key in kwargs:
-        if isinstance(kwargs[key], bool) and kwargs[key]:
-            args.append('-{}'.format(key))
+    for arg, value in kwargs.items():
+        if isinstance(value, bool) and value:
+            args.append('-{}'.format(arg))
         else:
-            args.append('-{}{}'.format(key, kwargs[key]))
+            args.append('-{}{}'.format(arg, value))
     call_module('psconvert', ' '.join(args))

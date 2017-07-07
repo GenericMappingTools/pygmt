@@ -14,8 +14,9 @@ function in the ``gmt`` top-level module.
     :template: function.rst
 
     gmt.figure
-    gmt.pscoast
+    gmt.psbasemap
     gmt.psconvert
+    gmt.pscoast
 
 
 Additional utility functions:
