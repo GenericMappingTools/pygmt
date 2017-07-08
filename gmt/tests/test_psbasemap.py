@@ -11,10 +11,6 @@ def test_basemap_required_args():
     "psbasemap fails when not given required arguments"
     figure()
     with pytest.raises(AssertionError):
-        psbasemap(J='X4i/3i', B='afg')
-    with pytest.raises(AssertionError):
-        psbasemap(R='10/70/-3/8', B='afg')
-    with pytest.raises(AssertionError):
         psbasemap(R='10/70/-3/8', J='X4i/3i')
 
 
@@ -22,7 +18,7 @@ def test_basemap_required_args():
 def test_basemap_d():
     "Make sure the D option works"
     figure()
-    psbasemap(R='10/70/-300/800', J='X3i/5i', B='af',
+    psbasemap(region='10/70/-300/800', J='X3i/5i', B='af',
               D='30/35/-200/500', F=True)
 
 
@@ -44,7 +40,7 @@ def test_psbasemap():
 def test_psbasemap_list_region():
     "Create a simple basemap plot passing the region as a list"
     figure()
-    psbasemap(R=[-20, 50, 200, 500], J='X3i/3i', B='a')
+    psbasemap(region=[-20, 50, 200, 500], J='X3i/3i', B='a')
 
 
 @figure_comparison_test

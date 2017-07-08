@@ -2,17 +2,45 @@
 Function wrapper for the ps* modules.
 """
 from .clib import call_module
-from .utils import gmt_docs_link
+from .utils import fmt_docstring, parse_bools, parse_region
 
 
-def pscoast():
+@fmt_docstring
+@parse_bools
+@parse_region
+def psxy(data, **kwargs):
     """
-    Create coastlines.
+    Plot lines, polygons, and symbols on maps.
+
+    Takes (x,y) pairs as inputs or reads them from a file and plots lines,
+    polygons, or symbols at those locations on a map.
+
+    If a symbol is selected and no symbol size given, then psxy will interpret
+    the third column of the input data as symbol size. Symbols whose size is <=
+    0 are skipped. If no symbols are specified then the symbol code (see *S*
+    below) must be present as last column in the input. If *S* is not used, a
+    line connecting the data points will be drawn instead. To explicitly close
+    polygons, use *L*. Select a fill with *G*. If *G* is set, *W* will control
+    whether the polygon outline is drawn or not. If a symbol is selected, *G*
+    and *W* determines the fill and outline/no outline, respectively.
+
+    {gmt_module_docs}
+
+    Parameters
+    ----------
+    data : str or array
+        *Required*. Input data table as an array or a file name.
+    {J}
+    {R}
+
+
     """
-    pass
+    return data, kwargs
 
 
-@gmt_docs_link
+@fmt_docstring
+@parse_bools
+@parse_region
 def psbasemap(**kwargs):
     """
     Produce a basemap for the figure.
@@ -27,11 +55,8 @@ def psbasemap(**kwargs):
 
     Parameters
     ----------
-    J : str
-        *Required*. Select map projection.
-    R : str or list
-        *Required*.  ``'xmin/xmax/ymin/ymax[+r][+uunit]'``. Specify the region
-        of interest.
+    {J}
+    {R}
     B : str
         Set map boundary frame and axes attributes.
     D : str
@@ -55,33 +80,17 @@ def psbasemap(**kwargs):
         Draw GMT time stamp logo on plot.
 
     """
-    assert 'R' in kwargs, 'Parameter R is required.'
-    assert 'J' in kwargs, 'Parameter J is required.'
     assert 'B' in kwargs or 'L' in kwargs or 'T' in kwargs, \
         "At least one of B, L, or T must be specified."
     if 'D' in kwargs:
         assert 'F' in kwargs, "Option D requires F to be specified as well."
-    args = []
-    for arg, value in kwargs.items():
-        # Check if the value is an iterable so that we can parse arguments that
-        # are lists or other non-string iterables
-        try:
-            [item for item in value]  # pylint: disable=pointless-statement
-            is_iterable = True
-        except TypeError:
-            is_iterable = False
-
-        if isinstance(value, bool) and value:
-            args.append('-{}'.format(arg))
-        elif not isinstance(value, str) and is_iterable:
-            arg_str = '/'.join('{}'.format(item) for item in value)
-            args.append('-{}{}'.format(arg, arg_str))
-        else:
-            args.append('-{}{}'.format(arg, value))
-    call_module('psbasemap', ' '.join(args))
+    arg_str = ' '.join('-{}{}'.format(k, v)
+                       for k, v in kwargs.items())
+    call_module('psbasemap', arg_str)
 
 
-@gmt_docs_link
+@fmt_docstring
+@parse_bools
 def psconvert(**kwargs):
     """
     Convert [E]PS file(s) to other formats.
@@ -138,10 +147,6 @@ def psconvert(**kwargs):
         the *F* option.
 
     """
-    args = []
-    for arg, value in kwargs.items():
-        if isinstance(value, bool) and value:
-            args.append('-{}'.format(arg))
-        else:
-            args.append('-{}{}'.format(arg, value))
-    call_module('psconvert', ' '.join(args))
+    arg_str = ' '.join('-{}{}'.format(k, v)
+                       for k, v in kwargs.items())
+    call_module('psconvert', arg_str)

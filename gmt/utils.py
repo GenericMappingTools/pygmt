@@ -7,50 +7,89 @@ import functools
 
 GMT_DOCS = 'http://gmt.soest.hawaii.edu/doc/latest'
 
+COMMON_OPTIONS = {
+    'R': '''\
+        R or region : str or list
+            *Required if this is the first plot command*.
+            ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
+            Specify the region of interest.''',
+    'J': '''\
+        J or projection : str
+            *Required if this is the first plot command*.
+            Select map projection.''',
+}
 
-def gmt_docs_link(module_func):
+
+def fmt_docstring(module_func):
     """
-    Add to a module docstring a link to the GMT docs for that module.
+    Decorator to insert common text into module docstrings.
 
-    The docstring must have the placeholder ``{gmt_module_docs}`` where you
-    want the link to appear.
+    Use any of these placeholders in your docstring to have them substituted:
 
-    Assumes that the name of the GMT module is the same as the function name.
-
-    Use this function as a decorator for the module functions.
+    * ``{gmt_module_docs}``: link to the GMT docs for that module. Assumes that
+      the name of the GMT module is the same as the function name.
+    * ``{R}``: Parameter description for the R (region) option with 4 bounds.
+    * ``{J}``: Parameter description for the J (projection) option.
 
     Parameters
     ----------
     module_func : function
-        The module function. Must have the same name as the GMT module.
+        The module function.
 
     Returns
     -------
     module_func
-        The same *module_func* but with the link inserted into the docstring.
-
+        The same *module_func* but with the docstring formatted.
 
     Examples
     --------
 
-    >>> @gmt_docs_link
+    >>> @fmt_docstring
     ... def gmtinfo(**kwargs):
     ...     '''
     ...     My nice module.
+    ...
     ...     {gmt_module_docs}
+    ...
+    ...     Parameters
+    ...     ----------
+    ...     {R}
+    ...     {J}
     ...     '''
     ...     pass
     >>> print(gmtinfo.__doc__)
     <BLANKLINE>
-        My nice module.
-        Full option list at http://gmt.soest.hawaii.edu/doc/latest/gmtinfo.html
+    My nice module.
+    <BLANKLINE>
+    Full option list at http://gmt.soest.hawaii.edu/doc/latest/gmtinfo.html
+    <BLANKLINE>
+    Parameters
+    ----------
+    R or region : str or list
+        *Required if this is the first plot command*.
+        ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
+        Specify the region of interest.
+    J or projection : str
+        *Required if this is the first plot command*.
+        Select map projection.
     <BLANKLINE>
 
     """
     url = "{}/{}.html".format(GMT_DOCS, module_func.__name__)
     text = "Full option list at"
-    full_text = ' '.join([text, url])
-    module_func.__doc__ = module_func.__doc__.format(gmt_module_docs=full_text)
+    gmt_module_docs = ' '.join([text, url])
+
+    filler_text = {'gmt_module_docs': gmt_module_docs}
+    for marker, text in COMMON_OPTIONS.items():
+        # Remove the identation from the multiline strings so that it doesn't
+        # mess up the original docstring
+        filler_text[marker] = textwrap.dedent(text)
+
+    # Dedent the docstring to make it all match the option text.
+    docstring = textwrap.dedent(module_func.__doc__)
+
+    module_func.__doc__ = docstring.format(**filler_text)
+
     return module_func
 
 
@@ -117,9 +156,6 @@ def parse_region(module_func):
     Decorator function that replaces R in the arguments dictionary with a
     string version that the C API will accept.
 
-    Formats the docstring of the module to include a description of the R
-    parameter where a ``{region_docs}`` marker is present.
-
     Parameters
     ----------
     module_func : function
@@ -128,8 +164,7 @@ def parse_region(module_func):
     Returns
     -------
     new_func
-        A modified module with formatted docstring and that parses R into a
-        string before doing any work.
+        A modified module that parses R into a string before doing any work.
 
     Examples
     --------
@@ -138,23 +173,8 @@ def parse_region(module_func):
     ... def my_module(*args, **kwargs):
     ...     '''
     ...     My GMT module.
-    ...
-    ...     Parameters
-    ...     ----------
-    ...     {region_docs}
     ...     '''
     ...     print(kwargs)
-    >>> print(my_module.__doc__)
-    <BLANKLINE>
-    My GMT module.
-    <BLANKLINE>
-    Parameters
-    ----------
-    R or region : str or list
-        *Required if this is the first plot command*.
-        ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
-        Specify the region of interest.
-    <BLANKLINE>
     >>> my_module(R='1/2/3/4')
     {'R': '1/2/3/4'}
     >>> my_module(R=[1, 2, 3, 4])
@@ -178,16 +198,6 @@ def parse_region(module_func):
             if is_nonstr_iter(value):
                 kwargs['R'] = '/'.join('{}'.format(item) for item in value)
         return module_func(*args, **kwargs)
-
-    # Format the docstring to include the help for R
-    region_docs = '''\
-        R or region : str or list
-            *Required if this is the first plot command*.
-            ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
-            Specify the region of interest.'''
-    region_docs = textwrap.dedent(region_docs)
-    docs = textwrap.dedent(module_func.__doc__)
-    new_module.__doc__ = docs.format(region_docs=region_docs)
 
     return new_module
 
