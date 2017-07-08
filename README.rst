@@ -1,8 +1,5 @@
-.. image:: https://raw.githubusercontent.com/GenericMappingTools/gmt-python/master/doc/_static/gmt-python-banner.png
-    :target: https://genericmappingtools.github.io/gmt-python/
-    :alt: GMT/Python
-   
-----
+GMT/Python
+==========
 
 **A Python interface for the Generic Mapping Tools C API.**
 
@@ -77,7 +74,7 @@ This is a basic example to generate a figure and save it to a file:
     gmt.psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
     # Plot some points with red circles
     gmt.psxy('mydata.txt', S='c', G='red')
-    # Unlike in the command-line, no figure is generated 
+    # Unlike in the command-line, no figure is generated
     # unless explicitly asked.
     gmt.psconvert(F='myfigure', T='f', A=True, P=True)
 
