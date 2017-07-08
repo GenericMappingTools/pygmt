@@ -1,12 +1,16 @@
-GMT Python
-==========
+.. image:: https://raw.githubusercontent.com/GenericMappingTools/gmt-python/master/doc/_static/gmt-python-banner.png
+    :target: https://genericmappingtools.github.io/gmt-python/
+    :alt: GMT/Python
+   
+----
 
 **A Python interface for the Generic Mapping Tools C API.**
 
 `Documentation <https://genericmappingtools.github.io/gmt-python/>`_ |
+`Install <https://genericmappingtools.github.io/gmt-python/install.html>`_ |
+`First steps <https://genericmappingtools.github.io/gmt-python/first-steps.html>`_ |
 `GMT modern mode <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`_ |
 `Design <https://genericmappingtools.github.io/gmt-python/design.html>`_ |
-`Contribute <https://genericmappingtools.github.io/gmt-python/contribute.html>`_ |
 `Contact <https://gitter.im/GenericMappingTools/gmt-python>`_
 
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
@@ -61,28 +65,24 @@ Goals
 Examples
 --------
 
-**Note**: Many of these features haven't been implemented yet. This is how we
-envision the library being used.
-
 This is a basic example to generate a figure and save it to a file:
 
 .. code-block:: python
 
     import gmt
 
-    # Start a new figure. Optional (but recommended) if this is the only figure
-    # being generated.
+    # Start a new figure.
     gmt.figure()
+    # Draw a basemap
     gmt.psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
     # Plot some points with red circles
     gmt.psxy('mydata.txt', S='c', G='red')
-    # Unlike the GMT command-line interface, no figure file is generated unless
-    # savefig or psconvert are called.
-    gmt.savefig('myfigure.pdf')
+    # Unlike in the command-line, no figure is generated 
+    # unless explicitly asked.
+    gmt.psconvert(F='myfigure', T='f', A=True, P=True)
 
 
-On the Jupyter notebook, a PNG preview of the image should also appear
-(assuming that you called ``gmt.figure``).
+On the Jupyter notebook, a PNG preview of the image should also appear.
 
 Notice that the arguments are based on the GMT command-line options. The Python
 API also allows aliases for the arguments to make them more explicit and more
@@ -97,7 +97,7 @@ familiar to Python users:
     gmt.psbasemap(region=[10, 70, -3, 8], projection='X4i/3i', frame='a',
                   portrait=True)
     gmt.psxy('mydata.txt', style='c', color='red')
-    gmt.savefig('myfigure.pdf')
+    gmt.psconvert(prefix='myfigure', fmt='f', crop=True, portrait=True)
 
 
 
@@ -115,7 +115,7 @@ Working features and TODO
 - [X] Implement a global modern mode session that starts at import time and is
   destroyed when the program ends. This eliminates the need for ``begin`` and
   ``end`` in the Python API.
-- [ ] Minimal working code producing a figure from data on disk
+- [X] Minimal working code producing a figure from data on disk
 - [ ] Wrapper for the GMT VirtualFile machinery to allow communicating data in
   memory to the modules
 - [ ] Wrapper for ``GMT_DATA`` to pass in tabular data from numpy arrays
