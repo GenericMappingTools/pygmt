@@ -6,9 +6,9 @@ from .utils import fmt_docstring, parse_bools, parse_region, kwargs2string, \
     use_alias
 
 
+@fmt_docstring
 @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
            G='color')
-@fmt_docstring
 @parse_bools
 @parse_region
 def psxy(data, **kwargs):
@@ -28,6 +28,8 @@ def psxy(data, **kwargs):
     and *W* determines the fill and outline/no outline, respectively.
 
     {gmt_module_docs}
+
+    {aliases}
 
     Parameters
     ----------
@@ -64,8 +66,8 @@ def psxy(data, **kwargs):
     call_module('psxy', arg_str)
 
 
-@use_alias(R='region', J='projection', B='frame', P='portrait')
 @fmt_docstring
+@use_alias(R='region', J='projection', B='frame', P='portrait')
 @parse_bools
 @parse_region
 def psbasemap(**kwargs):
@@ -79,6 +81,8 @@ def psbasemap(**kwargs):
     At least one of the options *B*, *L*, or *T* must be specified.
 
     {gmt_module_docs}
+
+    {aliases}
 
     Parameters
     ----------

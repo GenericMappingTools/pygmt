@@ -41,12 +41,24 @@ def fmt_docstring(module_func):
     """
     Decorator to insert common text into module docstrings.
 
+    Should be the last decorator (at the top).
+
     Use any of these placeholders in your docstring to have them substituted:
 
     * ``{gmt_module_docs}``: link to the GMT docs for that module. Assumes that
       the name of the GMT module is the same as the function name.
-    * ``{R}``: Parameter description for the R (region) option with 4 bounds.
-    * ``{J}``: Parameter description for the J (projection) option.
+    * ``{aliases}``: Insert a section listing the parameter aliases defined by
+      decorator ``use_alias``.
+
+    The following are places for common parameter descriptions:
+
+    * ``{R}``: R (region) option with 4 bounds
+    * ``{J}``: J (projection)
+    * ``{B}``: B (frame)
+    * ``{P}``: P (portrait)
+    * ``{U}``: U (insert time stamp)
+    * ``{CPT}``: CPT (the color palette table)
+    * ``{G}``: G (color)
 
     Parameters
     ----------
@@ -62,6 +74,7 @@ def fmt_docstring(module_func):
     --------
 
     >>> @fmt_docstring
+    ... @use_alias(R='region', J='projection')
     ... def gmtinfo(**kwargs):
     ...     '''
     ...     My nice module.
@@ -72,6 +85,8 @@ def fmt_docstring(module_func):
     ...     ----------
     ...     {R}
     ...     {J}
+    ...
+    ...     {aliases}
     ...     '''
     ...     pass
     >>> print(gmtinfo.__doc__)
@@ -90,13 +105,26 @@ def fmt_docstring(module_func):
         *Required if this is the first plot command*.
         Select map projection.
     <BLANKLINE>
+    **Aliases:**
+    <BLANKLINE>
+    - J = projection
+    - R = region
+    <BLANKLINE>
 
     """
+    filler_text = {}
+
     url = "{}/{}.html".format(GMT_DOCS, module_func.__name__)
     text = "Full option list at"
-    gmt_module_docs = ' '.join([text, url])
+    filler_text['gmt_module_docs'] = ' '.join([text, url])
 
-    filler_text = {'gmt_module_docs': gmt_module_docs}
+    if hasattr(module_func, '_aliases'):
+        aliases = ['**Aliases:**\n']
+        for arg in sorted(module_func._aliases):
+            alias = module_func._aliases[arg]
+            aliases.append('- {} = {}'.format(arg, alias))
+        filler_text['aliases'] = '\n'.join(aliases)
+
     for marker, text in COMMON_OPTIONS.items():
         # Remove the identation from the multiline strings so that it doesn't
         # mess up the original docstring
@@ -146,14 +174,18 @@ def use_alias(**aliases):
     """
     Decorator to add aliases to keyword arguments of a function.
 
+    Use this decorator above the argument parsing decorators, usually only
+    below ``fmt_docstring``.
+
     Replaces the aliases with their desired names before passing them along to
     the module function.
 
     Keywords passed to this decorator are the desired argument name and their
     value is the alias.
 
-    Use this as the last decorator applied to a function (the furthest from the
-    ``def`` statement).
+    Adds a dictionary attribute to the function with the aliases. Use in
+    conjunction with ``fmt_docstring`` to insert a list of valid aliases in
+    your docstring.
 
     Examples
     --------
@@ -186,6 +218,8 @@ def use_alias(**aliases):
                 if alias in kwargs:
                     kwargs[arg] = kwargs.pop(alias)
             return module_func(*args, **kwargs)
+
+        new_module._aliases = aliases
 
         return new_module
 
