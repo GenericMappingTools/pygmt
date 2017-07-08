@@ -2,9 +2,12 @@
 Function wrapper for the ps* modules.
 """
 from .clib import call_module
-from .utils import fmt_docstring, parse_bools, parse_region, kwargs2string
+from .utils import fmt_docstring, parse_bools, parse_region, kwargs2string, \
+    use_alias
 
 
+@use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
+           G='color')
 @fmt_docstring
 @parse_bools
 @parse_region
@@ -54,12 +57,14 @@ def psxy(data, **kwargs):
     W : str
         Set pen attributes for lines or the outline of symbols.
 
+
     """
     assert isinstance(data, str), 'Only accepts file names for now.'
     arg_str = ' '.join([data, kwargs2string(kwargs)])
     call_module('psxy', arg_str)
 
 
+@use_alias(R='region', J='projection', B='frame', P='portrait')
 @fmt_docstring
 @parse_bools
 @parse_region
