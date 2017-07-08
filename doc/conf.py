@@ -35,7 +35,7 @@ master_doc = 'index'
 
 # General information about the project
 year = datetime.date.today().year
-project = u'GMT Python'
+project = u'GMT/Python'
 copyright = u'2017, Leonardo Uieda'
 if len(__version__.split('-')) > 1 or __version__ == 'unknown':
     version = 'dev'
@@ -48,9 +48,9 @@ rst_epilog = """
 """.format(year=year)
 
 html_last_updated_fmt = '%b %d, %Y'
-html_title = 'GMT Python'
-html_short_title = 'GMT Python'
-# html_logo = '_static/logo.png'
+html_title = 'GMT/Python'
+html_short_title = 'GMT/Python'
+html_logo = ''
 # html_favicon = u'favicon.ico'
 html_static_path = ['_static']
 html_extra_path = ['.nojekyll']
@@ -93,7 +93,8 @@ html_sidebars = {
     ]
 }
 html_theme_options = {
-    # 'logo': 'logo.png',
+    'logo': 'gmt-python-logo.png',
+    'logo_name': 'false',
     'github_user': 'GenericMappingTools',
     'github_repo': 'gmt-python',
     'github_button': 'false',
