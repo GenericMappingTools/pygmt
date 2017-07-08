@@ -2,7 +2,7 @@
 Function wrapper for the ps* modules.
 """
 from .clib import call_module
-from .utils import fmt_docstring, parse_bools, parse_region
+from .utils import fmt_docstring, parse_bools, parse_region, kwargs2string
 
 
 @fmt_docstring
@@ -30,12 +30,15 @@ def psxy(data, **kwargs):
     ----------
     data : str or array
         *Required*. Input data table as an array or a file name.
+        **Only accepts file names for now.**
     {J}
     {R}
 
 
     """
-    return data, kwargs
+    assert isinstance(data, str), 'Only accepts file names for now.'
+    arg_str = ' '.join([data, kwargs2string(kwargs)])
+    call_module('psxy', arg_str)
 
 
 @fmt_docstring
@@ -84,9 +87,7 @@ def psbasemap(**kwargs):
         "At least one of B, L, or T must be specified."
     if 'D' in kwargs:
         assert 'F' in kwargs, "Option D requires F to be specified as well."
-    arg_str = ' '.join('-{}{}'.format(k, v)
-                       for k, v in kwargs.items())
-    call_module('psbasemap', arg_str)
+    call_module('psbasemap', kwargs2string(kwargs))
 
 
 @fmt_docstring
@@ -147,6 +148,4 @@ def psconvert(**kwargs):
         the *F* option.
 
     """
-    arg_str = ' '.join('-{}{}'.format(k, v)
-                       for k, v in kwargs.items())
-    call_module('psconvert', arg_str)
+    call_module('psconvert', kwargs2string(kwargs))

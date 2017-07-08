@@ -93,6 +93,38 @@ def fmt_docstring(module_func):
     return module_func
 
 
+def kwargs2string(kwargs):
+    """
+    Transform keyword arguments into a GMT argument string.
+
+    Parameters
+    ----------
+    kwargs : dict
+        Parsed keyword arguments. Doesn't do any fancy conversions. Make sure
+        all arguments can be cast to a string and inserted as is into the
+        GMT argument string (that means no bools, lists, or arrays).
+
+    Returns
+    -------
+    args : str
+        The space-delimited argument string with '-' inserted before each
+        keyword. The arguments are sorted alphabetically.
+
+    Examples
+    --------
+
+    >>> print(kwargs2string(dict(R='1/2/3/4', J="X4i", P='', E=200)))
+    -E200 -JX4i -P -R1/2/3/4
+
+    """
+    sorted_args = (
+        '-{}{}'.format(key, kwargs[key])
+        for key in sorted(kwargs)
+    )
+    arg_str = ' '.join(sorted_args)
+    return arg_str
+
+
 def parse_bools(module_func):
     """
     Parse boolean arguments and transform them into option strings.
