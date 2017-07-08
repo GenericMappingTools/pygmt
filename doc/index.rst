@@ -21,7 +21,8 @@ or send us a message on `our Gitter chatroom <https://gitter.im/GenericMappingTo
     :hidden:
 
     install.rst
-    design.rst
+    first-steps.ipynb
     api.rst
+    design.rst
     contribute.rst
     license.rst

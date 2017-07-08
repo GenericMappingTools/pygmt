@@ -18,6 +18,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.extlinks',
     'numpydoc',
+    'nbsphinx',
 ]
 
 # Produce pages for each class and function

@@ -5,6 +5,7 @@ flake8
 pylint
 coverage
 sphinx
-sphinx-gallery
+nbsphinx
+jupyter
 numpydoc
 twine

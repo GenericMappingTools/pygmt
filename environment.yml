@@ -14,9 +14,9 @@ dependencies:
     - pylint
     - coverage
     - sphinx
-    - sphinx-gallery
-    - numpydoc
+    - nbsphinx
     - jupyter
+    - numpydoc
     - twine
     - fftw
     - gdal
