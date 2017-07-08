@@ -118,10 +118,10 @@ def fmt_docstring(module_func):
     text = "Full option list at"
     filler_text['gmt_module_docs'] = ' '.join([text, url])
 
-    if hasattr(module_func, '_aliases'):
+    if hasattr(module_func, 'aliases'):
         aliases = ['**Aliases:**\n']
-        for arg in sorted(module_func._aliases):
-            alias = module_func._aliases[arg]
+        for arg in sorted(module_func.aliases):
+            alias = module_func.aliases[arg]
             aliases.append('- {} = {}'.format(arg, alias))
         filler_text['aliases'] = '\n'.join(aliases)
 
@@ -219,7 +219,7 @@ def use_alias(**aliases):
                     kwargs[arg] = kwargs.pop(alias)
             return module_func(*args, **kwargs)
 
-        new_module._aliases = aliases
+        new_module.aliases = aliases
 
         return new_module
 
