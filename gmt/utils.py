@@ -17,6 +17,23 @@ COMMON_OPTIONS = {
         J or projection : str
             *Required if this is the first plot command*.
             Select map projection.''',
+    'B': '''\
+        B : str
+            Set map boundary frame and axes attributes.''',
+    'P': '''\
+        P : bool
+            Select “Portrait” plot orientation.''',
+    'U': '''\
+        U : bool or str
+            Draw GMT time stamp logo on plot.''',
+    'CPT': '''\
+        C : str
+           File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
+           build a linear continuous CPT from those colors automatically.''',
+    'G': '''\
+    G : str
+        Select color or pattern for filling of symbols or polygons. Default is
+        no fill.''',
 }
 
 

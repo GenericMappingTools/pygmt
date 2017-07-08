@@ -33,7 +33,26 @@ def psxy(data, **kwargs):
         **Only accepts file names for now.**
     {J}
     {R}
-
+    A : bool or str
+        ``'[m|p|x|y]'``
+        By default, geographic line segments are drawn as great circle arcs. To
+        draw them as straight lines, use *A*.
+    {B}
+    {CPT}
+    D : str
+        ``'dx/dy'``: Offset the plot symbol or line locations by the given
+        amounts dx/dy.
+    E : bool or str
+        ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
+        Draw symmetrical error bars.
+    {G}
+    {P}
+    S : str
+        Plot symbols (including vectors, pie slices, fronts, decorated or
+        quoted lines).
+    {U}
+    W : str
+        Set pen attributes for lines or the outline of symbols.
 
     """
     assert isinstance(data, str), 'Only accepts file names for now.'
@@ -60,8 +79,7 @@ def psbasemap(**kwargs):
     ----------
     {J}
     {R}
-    B : str
-        Set map boundary frame and axes attributes.
+    {B}
     D : str
         ``'[unit]xmin/xmax/ymin/ymax[r][+sfile][+t]'``
         Draw a simple map insert box on the map. Requires *F*.
@@ -71,16 +89,14 @@ def psbasemap(**kwargs):
     L : str
         ``'[g|j|J|n|x]refpoint'``
         Draws a simple map scale centered on the reference point specified.
-    P : bool
-        Select “Portrait” plot orientation.
+    {P}
     Td : str
         Draws a map directional rose on the map at the location defined by the
         reference and anchor points.
     Tm : str
         Draws a map magnetic rose on the map at the location defined by the
         reference and anchor points
-    U : bool or str
-        Draw GMT time stamp logo on plot.
+    {U}
 
     """
     assert 'B' in kwargs or 'L' in kwargs or 'T' in kwargs, \
