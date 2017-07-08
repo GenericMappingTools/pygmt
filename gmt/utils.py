@@ -34,6 +34,9 @@ COMMON_OPTIONS = {
         G : str
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.''',
+    'W': '''\
+        W : str
+            Set pen attributes for lines or the outline of symbols.''',
 }
 
 
@@ -59,6 +62,7 @@ def fmt_docstring(module_func):
     * ``{U}``: U (insert time stamp)
     * ``{CPT}``: CPT (the color palette table)
     * ``{G}``: G (color)
+    * ``{W}``: W (pen)
 
     Parameters
     ----------

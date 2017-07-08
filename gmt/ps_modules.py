@@ -8,7 +8,7 @@ from .utils import fmt_docstring, parse_bools, parse_region, kwargs2string, \
 
 @fmt_docstring
 @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
-           G='color')
+           G='color', W='pen')
 @parse_bools
 @parse_region
 def psxy(data, **kwargs):
@@ -55,9 +55,8 @@ def psxy(data, **kwargs):
     S : str
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
+    {W}
     {U}
-    W : str
-        Set pen attributes for lines or the outline of symbols.
 
 
     """
@@ -116,6 +115,7 @@ def psbasemap(**kwargs):
 
 
 @fmt_docstring
+@use_alias(F='prefix', T='fmt', A='crop', E='dpi')
 @parse_bools
 def psconvert(**kwargs):
     """
@@ -129,6 +129,8 @@ def psconvert(**kwargs):
     parameter *F*.
 
     {gmt_module_docs}
+
+    {aliases}
 
     Parameters
     ----------
