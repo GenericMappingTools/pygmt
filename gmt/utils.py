@@ -3,7 +3,7 @@ Utilities and common tasks for wrapping the GMT modules.
 """
 
 
-def kwargs2string(kwargs):
+def build_arg_string(kwargs):
     """
     Transform keyword arguments into a GMT argument string.
 
@@ -23,7 +23,7 @@ def kwargs2string(kwargs):
     Examples
     --------
 
-    >>> print(kwargs2string(dict(R='1/2/3/4', J="X4i", P='', E=200)))
+    >>> print(build_arg_string(dict(R='1/2/3/4', J="X4i", P='', E=200)))
     -E200 -JX4i -P -R1/2/3/4
 
     """
