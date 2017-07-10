@@ -204,6 +204,89 @@ def use_alias(**aliases):
     return alias_decorator
 
 
+def kwargs_to_strings(**conversions):
+    """
+    Decorator to convert given keyword arguments to strings.
+
+    The strings are what GMT expects from command line arguments.
+
+    Conversions available:
+    * 'bool': transform ``True`` into ``''`` (empty string) and removes the
+      argument from ``kwargs`` if ``False``.
+    * 'sequence': transforms a sequence (list, tuple) into a ``'/'`` separated
+      string
+    * 'sequence_comma': transforms a sequence into a ``','`` separated string
+
+    Examples
+    --------
+
+    >>> @kwargs_to_strings(R='sequence', P='bool', i='sequence_comma')
+    ... def module(*args, **kwargs):
+    ...     "A module that prints the arguments it received"
+    ...     print('{', end='')
+    ...     print(', '.join(
+    ...         "'{}': {}".format(k, repr(kwargs[k])) for k in sorted(kwargs)),
+    ...         end='')
+    ...     print('}')
+    ...     if args:
+    ...         print("args:", ' '.join('{}'.format(x) for x in args))
+    >>> module(R=[1, 2, 3, 4])
+    {'R': '1/2/3/4'}
+    >>> # It's already a string, do nothing
+    >>> module(R='5/6/7/8')
+    {'R': '5/6/7/8'}
+    >>> module(P=True)
+    {'P': ''}
+    >>> module(P=False)
+    {}
+    >>> module(i=[1, 2])
+    {'i': '1,2'}
+    >>> # Other arguments are passed along as they are
+    >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
+    {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
+    args: 123
+
+    """
+    valid_conversions = ['bool', 'sequence', 'sequence_comma']
+    for arg, fmt in conversions.items():
+        assert fmt in valid_conversions, \
+            "Invalid conversion type '{}' for argument '{}'.".format(fmt, arg)
+
+    separators = {'sequence': '/', 'sequence_comma': ','}
+
+    # Make the actual decorator function
+    def converter(module_func):
+        "The decorator that creates our new function with the conversions"
+
+        @functools.wraps(module_func)
+        def new_module(*args, **kwargs):
+            "New module instance that converts the arguments first"
+
+            for arg, fmt in conversions.items():
+                if arg in kwargs:
+                    value = kwargs[arg]
+
+                    if fmt == 'bool':
+                        if isinstance(value, bool):
+                            if value:
+                                kwargs[arg] = ''
+                            else:
+                                kwargs.pop(arg)
+
+                    elif fmt == 'sequence' or fmt == 'sequence_comma':
+                        if is_nonstr_iter(value):
+                            kwargs[arg] = separators[fmt].join(
+                                '{}'.format(item)
+                                for item in value
+                            )
+
+            return module_func(*args, **kwargs)
+
+        return new_module
+
+    return converter
+
+
 def parse_bools(module_func):
     """
     Parse boolean arguments and transform them into option strings.
