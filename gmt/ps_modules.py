@@ -2,8 +2,8 @@
 Function wrapper for the ps* modules.
 """
 from .clib import call_module
-from .utils import fmt_docstring, parse_bools, parse_region, kwargs2string, \
-    use_alias
+from .utils import kwargs2string
+from .decorators import fmt_docstring, parse_bools, parse_region, use_alias
 
 
 @fmt_docstring
