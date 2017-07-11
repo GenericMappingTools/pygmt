@@ -3,7 +3,8 @@ Function wrapper for the ps* modules.
 """
 from .clib import call_module
 from .utils import build_arg_string
-from .decorators import fmt_docstring, parse_bools, parse_region, use_alias
+from .decorators import fmt_docstring, parse_bools, parse_region, use_alias, \
+    kwargs_to_strings
 
 
 @fmt_docstring
@@ -67,6 +68,7 @@ def psxy(data, **kwargs):
 
 @fmt_docstring
 @use_alias(R='region', J='projection', B='frame', P='portrait')
+@kwargs_to_strings(R='sequence')
 @parse_bools
 @parse_region
 def psbasemap(**kwargs):
@@ -116,7 +118,7 @@ def psbasemap(**kwargs):
 
 @fmt_docstring
 @use_alias(F='prefix', T='fmt', A='crop', E='dpi')
-@parse_bools
+@kwargs_to_strings()
 def psconvert(**kwargs):
     """
     Convert [E]PS file(s) to other formats.

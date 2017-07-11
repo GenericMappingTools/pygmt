@@ -204,23 +204,30 @@ def use_alias(**aliases):
     return alias_decorator
 
 
-def kwargs_to_strings(**conversions):
+def kwargs_to_strings(convert_bools=True, **conversions):
     """
     Decorator to convert given keyword arguments to strings.
 
     The strings are what GMT expects from command line arguments.
 
+    Converts all boolean arguments by default. Transforms ``True`` into ``''``
+    (empty string) and removes the argument from ``kwargs`` if ``False``.
+
+    You can also specify other conversions to specific arguments.
+
     Conversions available:
-    * 'bool': transform ``True`` into ``''`` (empty string) and removes the
-      argument from ``kwargs`` if ``False``.
     * 'sequence': transforms a sequence (list, tuple) into a ``'/'`` separated
       string
     * 'sequence_comma': transforms a sequence into a ``','`` separated string
 
+    Parameters
+    ----------
+    convert_
+
     Examples
     --------
 
-    >>> @kwargs_to_strings(R='sequence', P='bool', i='sequence_comma')
+    >>> @kwargs_to_strings(R='sequence', i='sequence_comma')
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print('{', end='')
@@ -241,13 +248,14 @@ def kwargs_to_strings(**conversions):
     {}
     >>> module(i=[1, 2])
     {'i': '1,2'}
-    >>> # Other arguments are passed along as they are
+    >>> # Other non-boolean arguments are passed along as they are
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
-    {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
+    {'bla': (1, 2, 3), 'foo': '', 'i': '5,6'}
     args: 123
 
     """
-    valid_conversions = ['bool', 'sequence', 'sequence_comma']
+    valid_conversions = ['sequence', 'sequence_comma']
+
     for arg, fmt in conversions.items():
         assert fmt in valid_conversions, \
             "Invalid conversion type '{}' for argument '{}'.".format(fmt, arg)
@@ -262,29 +270,43 @@ def kwargs_to_strings(**conversions):
         def new_module(*args, **kwargs):
             "New module instance that converts the arguments first"
 
+            if convert_bools:
+                kwargs = remove_bools(kwargs)
+
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
 
-                    if fmt == 'bool':
-                        if isinstance(value, bool):
-                            if value:
-                                kwargs[arg] = ''
-                            else:
-                                kwargs.pop(arg)
-
-                    elif fmt == 'sequence' or fmt == 'sequence_comma':
+                    if fmt == 'sequence' or fmt == 'sequence_comma':
                         if is_nonstr_iter(value):
                             kwargs[arg] = separators[fmt].join(
                                 '{}'.format(item)
                                 for item in value
                             )
 
+            # Execute the original function and return its output
             return module_func(*args, **kwargs)
 
         return new_module
 
     return converter
+
+
+def remove_bools(kwargs):
+    """
+    Remove booleans from arguments.
+
+    If ``True``, replace it with an empty string. If ``False``, completely
+    remove the entry from the argument list.
+    """
+    new_kwargs = {}
+    for arg, value in kwargs.items():
+        if isinstance(value, bool):
+            if value:
+                new_kwargs[arg] = ''
+        else:
+            new_kwargs[arg] = value
+    return new_kwargs
 
 
 def parse_bools(module_func):
