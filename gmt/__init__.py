@@ -8,6 +8,7 @@ from ._version import get_versions as _get_versions
 # Import modules to make the high-level GMT Python API
 from .session_management import figure, begin as _begin, end as _end
 from .ps_modules import psconvert, psbasemap, psxy
+from .extra_modules import show
 
 
 # Get the version number through versioneer

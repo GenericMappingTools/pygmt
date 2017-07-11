@@ -140,9 +140,6 @@ def psconvert(**kwargs):
     C : str
         Specify a single, custom option that will be passed on to GhostScript
         as is.
-    D : str
-        Sets an alternative output directory (which must exist). Default is the
-        same directory as the PS files.
     E : int
         Set raster resolution in dpi. Default = 720 for PDF, 300 for others.
     F : str

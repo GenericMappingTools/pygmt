@@ -14,6 +14,7 @@ function in the ``gmt`` top-level module.
     :template: function.rst
 
     gmt.figure
+    gmt.show
     gmt.psbasemap
     gmt.psconvert
     gmt.psxy
