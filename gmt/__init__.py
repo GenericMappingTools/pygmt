@@ -7,7 +7,7 @@ from ._version import get_versions as _get_versions
 
 # Import modules to make the high-level GMT Python API
 from .session_management import figure, begin as _begin, end as _end
-from .ps_modules import psconvert, psbasemap, psxy
+from .ps_modules import psconvert, psbasemap, psxy, pscoast
 from .extra_modules import show
 
 

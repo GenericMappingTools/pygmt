@@ -16,6 +16,7 @@ function in the ``gmt`` top-level module.
     gmt.figure
     gmt.show
     gmt.psbasemap
+    gmt.pscoast
     gmt.psconvert
     gmt.psxy
 

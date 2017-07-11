@@ -7,6 +7,71 @@ from .decorators import fmt_docstring, use_alias, kwargs_to_strings
 
 
 @fmt_docstring
+@use_alias(R='region', J='projection', A='area_thresh', B='frame',
+           D='resolution', P='portrait', I='rivers', N='borders',
+           W='shorelines', G='continents', S='oceans')
+@kwargs_to_strings(R='sequence')
+def pscoast(**kwargs):
+    """
+    Plot continents, shorelines, rivers, and borders on maps
+
+    Plots grayshaded, colored, or textured land-masses [or water-masses] on
+    maps and [optionally] draws coastlines, rivers, and political boundaries.
+    Alternatively, it can (1) issue clip paths that will contain all land or
+    all water areas, or (2) dump the data to an ASCII table. The data files
+    come in 5 different resolutions: (**f**)ull, (**h**)igh,
+    (**i**)ntermediate, (**l**)ow, and (**c**)rude. The full resolution files
+    amount to more than 55 Mb of data and provide great detail; for maps of
+    larger geographical extent it is more economical to use one of the other
+    resolutions. If the user selects to paint the land-areas and does not
+    specify fill of water-areas then the latter will be transparent (i.e.,
+    earlier graphics drawn in those areas will not be overwritten).  Likewise,
+    if the water-areas are painted and no land fill is set then the land-areas
+    will be transparent.
+
+    A map projection must be supplied.
+
+    {gmt_module_docs}
+
+    {aliases}
+
+    Parameters
+    ----------
+    {J}
+    {R}
+    A : int, float, or str
+        ``'min_area[/min_level/max_level][+ag|i|s|S][+r|l][+ppercent]'``
+        Features with an area smaller than min_area in km^2 or of hierarchical
+        level that is lower than min_level or higher than max_level will not be
+        plotted.
+    {B}
+    C : str
+        Set the shade, color, or pattern for lakes and river-lakes.
+    D : str
+        Selects the resolution of the data set to use ((f)ull, (h)igh,
+        (i)ntermediate, (l)ow, and (c)rude).
+    G : str
+        Select filling or clipping of “dry” areas.
+    I : str
+        ``'river[/pen]'``
+        Draw rivers. Specify the type of rivers and [optionally] append pen
+        attributes.
+    N : str
+        ``'border[/pen]'``
+        Draw political boundaries. Specify the type of boundary and
+        [optionally] append pen attributes
+    S : str
+        Select filling or clipping of “wet” areas.
+    {U}
+    W : str
+        ``'[level/]pen'``
+        Draw shorelines [Default is no shorelines]. Append pen attributes.
+
+    """
+    call_module('pscoast', build_arg_string(kwargs))
+
+
+@fmt_docstring
 @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
            G='color', W='pen')
 @kwargs_to_strings(R='sequence')
