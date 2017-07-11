@@ -30,6 +30,7 @@ clean:
 	rm -rf $(BUILDDIR)/linkcheck
 	rm -rf modules
 	rm -rf api/
+	rm -rf .ipynb_checkpoints
 
 html:
 	@echo
