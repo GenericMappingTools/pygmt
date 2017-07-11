@@ -48,3 +48,16 @@ def test_psconvert_int_options():
     psconvert(F=prefix, E=100, T='g', I=True)
     assert os.path.exists(prefix + '.png')
     os.remove(prefix + '.png')
+
+
+def test_psconvert_aliases():
+    """
+    Use the aliases to make sure they work.
+    """
+    figure()
+    clib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    prefix = 'test_psconvert_aliases'
+    psconvert(prefix=prefix, fmt='g', crop=True, portrait=True, dpi=100)
+    fname = prefix + '.png'
+    assert os.path.exists(fname)
+    os.remove(fname)

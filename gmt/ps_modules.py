@@ -3,15 +3,13 @@ Function wrapper for the ps* modules.
 """
 from .clib import call_module
 from .utils import build_arg_string
-from .decorators import fmt_docstring, parse_bools, parse_region, use_alias, \
-    kwargs_to_strings
+from .decorators import fmt_docstring, use_alias, kwargs_to_strings
 
 
 @fmt_docstring
 @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
            G='color', W='pen')
-@parse_bools
-@parse_region
+@kwargs_to_strings(R='sequence')
 def psxy(data, **kwargs):
     """
     Plot lines, polygons, and symbols on maps.
@@ -69,8 +67,6 @@ def psxy(data, **kwargs):
 @fmt_docstring
 @use_alias(R='region', J='projection', B='frame', P='portrait')
 @kwargs_to_strings(R='sequence')
-@parse_bools
-@parse_region
 def psbasemap(**kwargs):
     """
     Produce a basemap for the figure.
@@ -117,7 +113,7 @@ def psbasemap(**kwargs):
 
 
 @fmt_docstring
-@use_alias(F='prefix', T='fmt', A='crop', E='dpi')
+@use_alias(F='prefix', T='fmt', A='crop', E='dpi', P='portrait')
 @kwargs_to_strings()
 def psconvert(**kwargs):
     """

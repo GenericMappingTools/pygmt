@@ -222,7 +222,13 @@ def kwargs_to_strings(convert_bools=True, **conversions):
 
     Parameters
     ----------
-    convert_
+    convert_bools : bool
+        If ``True``, convert all boolean arguments to strings using the rules
+        specified above. If ``False``, leave them as they are.
+    **conversions : keyword arguments
+        Keyword arguments specifying other kinds of conversions that should be
+        performed. The keyword is the name of the argument and the value is the
+        conversion type (see list above).
 
     Examples
     --------
@@ -298,6 +304,17 @@ def remove_bools(kwargs):
 
     If ``True``, replace it with an empty string. If ``False``, completely
     remove the entry from the argument list.
+
+    Parameters
+    ----------
+    kwargs : dict
+        Dictionary with the keyword arguments.
+
+    Returns
+    -------
+    new_kwargs : dict
+        A copy of `kwargs` with the booleans parsed.
+
     """
     new_kwargs = {}
     for arg, value in kwargs.items():
@@ -307,106 +324,3 @@ def remove_bools(kwargs):
         else:
             new_kwargs[arg] = value
     return new_kwargs
-
-
-def parse_bools(module_func):
-    """
-    Parse boolean arguments and transform them into option strings.
-
-    Decorator function transforms ``kwargs['P']`` from ``True`` into ``''``. If
-    ``False``, remove the argument from ``kwargs``.
-
-    Parameters
-    ----------
-    module_func : function
-        The module function.
-
-    Returns
-    -------
-    new_func
-        A modified module that parses bools into strings before doing any work.
-
-    Examples
-    --------
-
-    >>> @parse_bools
-    ... def my_module(*args, **kwargs):
-    ...     'My docstring'
-    ...     print('{', end='')
-    ...     print(', '.join(
-    ...         "'{}': '{}'".format(k, kwargs[k]) for k in sorted(kwargs)),
-    ...         end='')
-    ...     print('}')
-    >>> print(my_module.__doc__)
-    My docstring
-    >>> my_module(P=True)
-    {'P': ''}
-    >>> my_module(P=False)
-    {}
-    >>> my_module(A='something', P=True)
-    {'A': 'something', 'P': ''}
-    >>> my_module(A='something', P=False)
-    {'A': 'something'}
-
-    """
-
-    @functools.wraps(module_func)
-    def new_func(*args, **kwargs):
-        "New function that parses bools before executing the module"
-        new_kwargs = {}
-        for arg, value in kwargs.items():
-            if isinstance(value, bool):
-                if value:
-                    new_kwargs[arg] = ''
-            else:
-                new_kwargs[arg] = value
-        return module_func(*args, **new_kwargs)
-
-    return new_func
-
-
-def parse_region(module_func):
-    """
-    Parse the region argument (R) before handing it off to the function.
-
-    Decorator function that replaces R in the arguments dictionary with a
-    string version that the C API will accept.
-
-    Parameters
-    ----------
-    module_func : function
-        The module function.
-
-    Returns
-    -------
-    new_func
-        A modified module that parses R into a string before doing any work.
-
-    Examples
-    --------
-
-    >>> @parse_region
-    ... def my_module(*args, **kwargs):
-    ...     '''
-    ...     My GMT module.
-    ...     '''
-    ...     print(kwargs)
-    >>> my_module(R='1/2/3/4')
-    {'R': '1/2/3/4'}
-    >>> my_module(R=[1, 2, 3, 4])
-    {'R': '1/2/3/4'}
-
-    """
-
-    @functools.wraps(module_func)
-    def new_module(*args, **kwargs):
-        """
-        New function that parses R before executing the module.
-        """
-        if 'R' in kwargs:
-            value = kwargs['R']
-            if is_nonstr_iter(value):
-                kwargs['R'] = '/'.join('{}'.format(item) for item in value)
-        return module_func(*args, **kwargs)
-
-    return new_module
