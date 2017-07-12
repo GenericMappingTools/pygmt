@@ -15,7 +15,7 @@ Run GMT in your Python programs:
     # Use the command line arguments you know (like R)
     # or more Pythonic and descriptive aliases.
     gmt.pscoast(region=[130, 150, 35, 50], projection='M6i',
-                frame='afg', continents='gray', oceans='lightblue',
+                frame='afg', land='gray', water='lightblue',
                 shorelines=True)
     # Plot the quake data from the GMT tutorial
     gmt.psxy(data='@tut_quakes.ngdc', style='c0.3c', color='blue',

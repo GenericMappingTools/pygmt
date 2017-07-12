@@ -26,5 +26,5 @@ def test_pscoast_aliases():
     figure()
     pscoast(region='-30/30/-40/40', projection='m0.1i', frame='afg',
             rivers='1/1p,black', borders='1/0.5p,-',
-            shorelines='0.25p,white', continents='moccasin', oceans='skyblue',
+            shorelines='0.25p,white', land='moccasin', water='skyblue',
             resolution='i', area_thresh=1000, portrait=True)

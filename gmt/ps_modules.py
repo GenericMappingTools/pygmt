@@ -9,7 +9,7 @@ from .decorators import fmt_docstring, use_alias, kwargs_to_strings
 @fmt_docstring
 @use_alias(R='region', J='projection', A='area_thresh', B='frame',
            D='resolution', P='portrait', I='rivers', N='borders',
-           W='shorelines', G='continents', S='oceans')
+           W='shorelines', G='land', S='water')
 @kwargs_to_strings(R='sequence')
 def pscoast(**kwargs):
     """
