@@ -36,8 +36,8 @@ Low-level wrappers for the GMT C API
 The GMT C API is accessed using ctypes_. The ``gmt.clib`` module offers
 functions and classes that wrap the C API with a pythonic interface.
 
-Most interactions with the C API are done through the
-:func:`gmt.clib.call_module` function.
+Functions
++++++++++
 
 .. autosummary::
     :toctree: api/
@@ -47,6 +47,15 @@ Most interactions with the C API are done through the
     gmt.clib.create_session
     gmt.clib.destroy_session
     gmt.clib.load_libgmt
+
+Classes
++++++++
+
+.. autosummary::
+    :toctree: api/
+    :template: function.rst
+
+    gmt.clib.GMTSession
 
 
 .. _ctypes: https://docs.python.org/3/library/ctypes.html

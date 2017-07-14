@@ -3,9 +3,8 @@ Test the session management modules.
 """
 import os
 
-from .. import figure
+from .. import figure, psbasemap
 from ..session_management import begin, end
-from ..clib import call_module
 
 
 def test_begin_end():
@@ -15,7 +14,7 @@ def test_begin_end():
     """
     end()  # Kill the global session
     begin()
-    call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
     end()
     begin()  # Restart the global session
     assert os.path.exists('gmt-python-session.pdf')
@@ -31,7 +30,7 @@ def test_session_figure():
     end()  # Kill the global session
     begin()
     figure()
-    call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
     end()
     begin()  # Restart the global session
     assert not os.path.exists('gmt-python-figure.pdf')

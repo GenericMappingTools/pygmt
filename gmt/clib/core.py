@@ -27,9 +27,45 @@ def load_libgmt():
     return libgmt
 
 
+def call_module(session, module, args):
+    """
+    Call a GMT module with the given arguments.
+
+    Makes a call to ``GMT_Call_Module`` from the C API using mode
+    ``GMT_MODULE_CMD`` (arguments passed as a single string).
+
+    Most interactions with the C API are done through this function.
+
+    Parameters
+    ----------
+    session : ctypes.c_void_p
+        A ctypes void pointer to a GMT session created by
+        :func:`gmt.clib.GMTSession`.
+    module : str
+        Module name (``'pscoast'``, ``'psbasemap'``, etc).
+    args : str
+        String with the command line arguments that will be passed to the
+        module (for example, ``'-R0/5/0/10 -JM'``).
+
+    """
+    mode = constants.GMT_MODULE_CMD
+    libgmt = load_libgmt()
+    c_call_module = libgmt.GMT_Call_Module
+    c_call_module.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int,
+                              ctypes.c_void_p]
+    c_call_module.restype = ctypes.c_int
+    status = c_call_module(session, module.encode(), mode, args.encode())
+    assert status is not None, 'Failed returning None.'
+    assert status == 0, 'Failed with status code {}.'.format(status)
+
+
 def create_session():
     """
     Create the ``GMTAPI_CTRL`` struct required by the GMT C API functions.
+
+    .. warning::
+
+        Best not used directly. Use :class:`gmt.clib.GMTSession` instead.
 
     It is a C void pointer containing the current session information and
     cannot be accessed directly.
@@ -64,6 +100,10 @@ def destroy_session(session):
     """
     Terminate and free the memory of a registered ``GMTAPI_CTRL`` session.
 
+    .. warning::
+
+        Best not used directly. Use :class:`gmt.clib.GMTSession` instead.
+
     The session is created and consumed by the C API modules and needs to be
     freed before creating a new. Otherwise, some of the configuration files
     might be left behind and can influence subsequent API calls.
@@ -83,36 +123,36 @@ def destroy_session(session):
     assert status == 0, 'Failed with status code {}.'.format(status)
 
 
-def call_module(module, args):
+class GMTSession():  # pylint: disable=too-few-public-methods
     """
-    Call a GMT module with the given arguments.
+    Context manager to create a GMT C API session and destroy it.
 
-    Makes a call to ``GMT_Call_Module`` from the C API using mode
-    ``GMT_MODULE_CMD`` (arguments passed as a single string).
+    Needs to be used when wrapping a GMT module into a function.
 
-    Most interactions with the C API are done through this function.
+    If creating GMT data structures to communicate data, put that code inside
+    this context manager and reuse the same session.
 
-    Creates a new C API session (:func:`gmt.clib.create_session`) to pass to
-    ``GMT_Call_Module`` and destroys it (:func:`gmt.clib.destroy_session`)
-    after it is used. This is what the command-line interface of GMT does.
+    Examples
+    --------
 
-    Parameters
-    ----------
-    module : str
-        Module name (``'pscoast'``, ``'psbasemap'``, etc).
-    args : str
-        String with the command line arguments that will be passed to the
-        module (for example, ``'-R0/5/0/10 -JM'``).
+    >>> with GMTSession() as session:
+    ...     call_module(session, 'figure', 'my-figure')
 
     """
-    mode = constants.GMT_MODULE_CMD
-    libgmt = load_libgmt()
-    c_call_module = libgmt.GMT_Call_Module
-    c_call_module.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int,
-                              ctypes.c_void_p]
-    c_call_module.restype = ctypes.c_int
-    session = create_session()
-    status = c_call_module(session, module.encode(), mode, args.encode())
-    destroy_session(session)
-    assert status is not None, 'Failed returning None.'
-    assert status == 0, 'Failed with status code {}.'.format(status)
+
+    def __init__(self):
+        self.session_id = None
+
+    def __enter__(self):
+        """
+        Start the GMT session and keep the session argument.
+        """
+        self.session_id = create_session()
+        return self.session_id
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """
+        Destroy the session when exiting the context.
+        """
+        destroy_session(self.session_id)
+        self.session_id = None

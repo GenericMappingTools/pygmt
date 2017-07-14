@@ -3,7 +3,8 @@ Test the wrappers for the C API.
 """
 import os
 
-from ..clib import create_session, destroy_session, call_module, load_libgmt
+from ..clib import create_session, destroy_session, call_module, load_libgmt, \
+    GMTSession
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -30,7 +31,9 @@ def test_call_module():
     "Run a psbasemap call to see if the module works"
     data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
     out_fname = 'test_call_module.txt'
-    call_module('gmtinfo', '{} -C ->{}'.format(data_fname, out_fname))
+    with GMTSession() as session:
+        call_module(session, 'gmtinfo',
+                    '{} -C ->{}'.format(data_fname, out_fname))
     assert os.path.exists(out_fname)
     with open(out_fname) as out_file:
         output = out_file.read().strip().replace('\t', ' ')

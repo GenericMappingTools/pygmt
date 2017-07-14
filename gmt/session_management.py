@@ -1,7 +1,7 @@
 """
 Session management modules: begin, end, figure, etc
 """
-from . import clib
+from .clib import call_module, GMTSession
 
 
 def begin():
@@ -14,7 +14,8 @@ def begin():
 
     """
     prefix = 'gmt-python-session'
-    clib.call_module('begin', prefix)
+    with GMTSession() as session:
+        call_module(session, 'begin', prefix)
 
 
 def end():
@@ -27,7 +28,8 @@ def end():
     ``gmt.begin``), and bring the figures to the working directory.
 
     """
-    clib.call_module('end', '')
+    with GMTSession() as session:
+        call_module(session, 'end', '')
 
 
 def figure():
@@ -45,4 +47,5 @@ def figure():
     prefix = 'gmt-python-figure'
     # Passing format '-' tells gmt.end to not produce any files.
     fmt = '-'
-    clib.call_module('figure', '{} {}'.format(prefix, fmt))
+    with GMTSession() as session:
+        call_module(session, 'figure', '{} {}'.format(prefix, fmt))

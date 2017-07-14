@@ -3,7 +3,7 @@ Tests psconvert.
 """
 import os
 
-from .. import clib, figure, psconvert
+from .. import figure, psconvert, psbasemap
 
 
 def test_psconvert():
@@ -11,7 +11,7 @@ def test_psconvert():
     psconvert creates a figure in the current directory.
     """
     figure()
-    clib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
     prefix = 'test_psconvert'
     psconvert(F=prefix, T='f', A=True, P=True)
     fname = prefix + '.pdf'
@@ -24,7 +24,7 @@ def test_psconvert_twice():
     Call psconvert twice to get two figures.
     """
     figure()
-    clib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
     prefix = 'test_psconvert_twice'
     # Make a PDF
     psconvert(F=prefix, T='f')
@@ -43,7 +43,7 @@ def test_psconvert_int_options():
     psconvert handles integer options well.
     """
     figure()
-    clib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
     prefix = 'test_psconvert_int_options'
     psconvert(F=prefix, E=100, T='g', I=True)
     assert os.path.exists(prefix + '.png')
@@ -55,7 +55,7 @@ def test_psconvert_aliases():
     Use the aliases to make sure they work.
     """
     figure()
-    clib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
     prefix = 'test_psconvert_aliases'
     psconvert(prefix=prefix, fmt='g', crop=True, portrait=True, dpi=100)
     fname = prefix + '.png'
