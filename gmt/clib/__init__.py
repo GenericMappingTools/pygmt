@@ -1,5 +1,4 @@
 """
 Low-level wrappers for the GMT C API using ctypes
 """
-from .functions import create_session, destroy_session, call_module
-from .utils import load_libgmt
+from .core import load_libgmt, create_session, destroy_session, call_module
