@@ -10,7 +10,7 @@ USER=GenericMappingTools
 BRANCH=gh-pages
 CLONE_ARGS="--quiet --branch=$BRANCH --single-branch"
 REPO_URL=https://${GH_TOKEN}@github.com/${USER}/${REPO}.git
-CLONE_DIR=$CLONE_DIR
+CLONE_DIR=deploy
 
 echo -e "Preparing to push HTML to branch ${BRANCH} of ${USER}/${REPO}"
 
