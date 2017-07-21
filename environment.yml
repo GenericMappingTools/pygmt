@@ -1,29 +1,22 @@
 name: gmt-python
 channels:
+    - conda-forge/label/dev
     - conda-forge
     - defaults
 dependencies:
     - python=3.6
     - pip
+    - gmt=6.0.0*
     - numpy
     - matplotlib
+    - jupyter
     - pytest
     - pytest-cov
     - pytest-mpl
+    - coverage
     - flake8
     - pylint
-    - coverage
     - sphinx
     - nbsphinx
-    - jupyter
     - numpydoc
     - twine
-    - fftw
-    - gdal
-    - ghostscript
-    - libnetcdf
-    - hdf5=1.8.18.*
-    - zlib
-    - blas
-    - curl
-    - pcre

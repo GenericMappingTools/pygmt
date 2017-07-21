@@ -1,11 +1,12 @@
+matplotlib
+jupyter
 pytest
 pytest-cov
 pytest-mpl
+coverage
 flake8
 pylint
-coverage
 sphinx
 nbsphinx
-jupyter
 numpydoc
 twine

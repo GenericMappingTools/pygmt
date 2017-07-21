@@ -53,11 +53,10 @@ before_install:
     - conda update --yes conda
     # Install dependencies
     - conda install --yes python=$PYTHON pip -c conda-forge
-    - conda install --yes --file requirements.txt -c conda-forge
+    # Need the dev channel to get development builds of GMT 6
+    - conda install --yes --file requirements.txt -c conda-forge/label/dev -c conda-forge
     - conda install --yes --file requirements-dev.txt -c conda-forge
     - if [ "$COVERAGE" == "true" ]; then pip install coveralls==0.5; fi
-    # Install the development version of GMT
-    - conda install --yes -c conda-forge/label/dev gmt
     # Show installed pkg information for postmortem diagnostic
     - conda list
 
