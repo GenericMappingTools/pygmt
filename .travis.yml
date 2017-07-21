@@ -11,26 +11,35 @@ branches:
         # Regex to build tagged commits with version numbers
         - /\d+\.\d+(\.\d+)?(\S*)?$/
 
-os:
-    - linux
-
 env:
-
     global:
         # Github Token for pushing the built docs
         - secure: "QII0477v0mmCCW3qSNXLCOtqraJaCICtSghiyrxYsuUdJTrXzXBNhX2KLIjcKYXOK1HdwYOFGf8xBVLl44clHlAW7R32ecEGeTJizr0yqTBvT3rNG1Xb7+E6jdXqrIs//PmPRaF8zOZxPl1SJKDK4jJpCx5HnAflg7wl/6tQLD6K3/dQ6FG2s3UKsc8o4qchOiEfxYhOuKo3jt2S0HdsNAQFw3mFHCCrclxDr3llSQtWSY0mirZnta7AI4nMvzxl2nUhdHEpxgzIjWxCWLAwmj3/NxLz0VSgNCtl2bNYk6AYrc5RcANGk2fcYaZr9mTU3Aax60S4389B39Pq95hBN21jYdbw9vCN810dYpTUk2siLysx8gF6r2JWEF8SskXlF79r3phtaFTMOS4GqeiuwjifZeaLAL/H1PTQFDDG/UKEwBpLuzrPMDw/84iRtyWKqWR/f14YdKhH4YAkcOuRglEXiI/1A0qWKiZ1iZfky8Tys+wN5nyss23w/JeYXVgBdTkNzvp3diFWK8+Wl9j3HYpX9LlEHJwASA1wHLL85t4ToymgLjo9gvLvwzB7T+fWNtEbh4ELbvI7jaKrvir8uSGYy4bGbfRclh5CktD//mTLhDyAsQDS8obF/Ri9mVqFzjK6417ORfu8qnpXU+mIHPRBoKvpS2WqnPtSwF8KPv8="
         # TWINE_PASSWORD to deploy to PyPI
         - secure: "oabHka+z9EX27IPS9i50rhbVRwq72k35Ao364WXEMIznt26iWSzRKsdtMY1aiIGWFy4qWZyqrR+bEuDvcRlLHEmX7cnqrLoucfaafcpT1W8tQ0IO/OSyZ8StHwqdZFiHQafOCxkj5sIL11hPfGaA3fn6KLowvbnZS+ymBauPs9baZp/qUNHyNTeiu8xjIpOEz0ZIEtPtXTSGNVqO0hcQstBFyAtRUVgdNtfUZzp8h0KuxZ/YP06v/MRAsxRhDjXUCfijdopXXGdv/EYx/E2fOWYVroVlgGop0VGC93v/pXR5FEftjwxsGxDUK6x4ywK0xZOTBI5csR4T7P7/i4MVQQlRwLipYji3Drxj78QA6VkiLKOu1TbIZ/P70FYRHl64zfOGhtpnBXy15WIBLldTbZNHZ55quSWPtq5R6NI63SnE97YRByKNC+01rCmEV7XHNOF0XpG6gxQtZSEnSVAjSBeyBGT3v+qHjJ25kMpRC6Ofaf9D6KhKsbeStvwWu2+GJ8BGVS/TOqdr7w2K6zhPChqPFER9ycuN07y+vbaG6pAYuuY+79ZehFEg0hr49sNvLY6APGCpMgxTpbGFrJ9pZ9vzQ2SkMXTLnfHmzW+AQu2pvXVbtVZitTxJIYNL96BTwwveFi7bMZA+CwR7+sQClgmksyQcHFMh4btO7X0l7Tc="
         - TWINE_USERNAME=Leonardo.Uieda
-        - COVERAGE=false
-        - DOCS=false
         - CONDA_PREFIX=/home/travis/miniconda3
         - LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+        - COVERAGE=false
+        - DOCS=false
 
-    # Build under all combinations of the of the following
-    matrix:
-        - PYTHON=3.5
-        - PYTHON=3.6 COVERAGE=true DOCS=true
+matrix:
+    # Build under the following configurations
+    include:
+        - os: linux
+          env:
+              - PYTHON=3.5
+        - os: linux
+          env:
+              - PYTHON=3.6
+              - COVERAGE=true
+              - DOCS=true
+        #- os: osx
+          #env:
+              #- PYTHON=3.5
+        #- os: osx
+          #env:
+              #- PYTHON=3.6
 
 before_install:
     # Get Miniconda from Continuum
@@ -54,17 +63,23 @@ install:
     - pip install dist/*
 
 script:
-    # Run the test suite
-    - if [ "$COVERAGE" == "true" ]; then make coverage; else make test; fi
     # Check code for PEP8 style and lint for code quality
     - make pep8
     - make lint
+    # Run the test suite
+    - if [ "$COVERAGE" == "true" ]; then make coverage; else make test; fi
     # Build the documentation
     - if [ "$DOCS" == "true" ]; then make -C doc all; fi
 
 after_success:
     - if [ "$COVERAGE" == "true" ]; then coveralls; fi
-    # Push the docs to Github pages
-    - if [ "$DOCS" == "true" ]; then bash ci/upload-docs.sh; fi
     # Deploy to PyPI if it's a tag on master branch
     - if [ "$PYTHON" == "3.6" ]; then bash ci/deploy-pypi.sh; fi
+
+deploy:
+    # Push the built docs to Github pages
+    - provider: script
+      script: ci/deploy-docs.sh
+      on:
+          branch: master
+          condition: '$TRAVIS_OS_NAME == "linux" && $DOCS == "true"'
