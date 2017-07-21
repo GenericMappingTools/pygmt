@@ -37,13 +37,13 @@ matrix:
               - BUILD_DOCS=true
               - DEPLOY_DOCS=true
               - DEPLOY_PYPI=true
-        #- os: osx
-          #env:
-              #- PYTHON=3.5
-        #- os: osx
-          #env:
-              #- PYTHON=3.6
-              #- BUILD_DOCS=true
+        - os: osx
+          env:
+              - PYTHON=3.5
+        - os: osx
+          env:
+              - PYTHON=3.6
+              - BUILD_DOCS=true
 
 before_install:
     # Get Miniconda from Continuum
