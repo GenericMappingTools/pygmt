@@ -18,8 +18,9 @@ env:
         # TWINE_PASSWORD to deploy to PyPI
         - secure: "oabHka+z9EX27IPS9i50rhbVRwq72k35Ao364WXEMIznt26iWSzRKsdtMY1aiIGWFy4qWZyqrR+bEuDvcRlLHEmX7cnqrLoucfaafcpT1W8tQ0IO/OSyZ8StHwqdZFiHQafOCxkj5sIL11hPfGaA3fn6KLowvbnZS+ymBauPs9baZp/qUNHyNTeiu8xjIpOEz0ZIEtPtXTSGNVqO0hcQstBFyAtRUVgdNtfUZzp8h0KuxZ/YP06v/MRAsxRhDjXUCfijdopXXGdv/EYx/E2fOWYVroVlgGop0VGC93v/pXR5FEftjwxsGxDUK6x4ywK0xZOTBI5csR4T7P7/i4MVQQlRwLipYji3Drxj78QA6VkiLKOu1TbIZ/P70FYRHl64zfOGhtpnBXy15WIBLldTbZNHZ55quSWPtq5R6NI63SnE97YRByKNC+01rCmEV7XHNOF0XpG6gxQtZSEnSVAjSBeyBGT3v+qHjJ25kMpRC6Ofaf9D6KhKsbeStvwWu2+GJ8BGVS/TOqdr7w2K6zhPChqPFER9ycuN07y+vbaG6pAYuuY+79ZehFEg0hr49sNvLY6APGCpMgxTpbGFrJ9pZ9vzQ2SkMXTLnfHmzW+AQu2pvXVbtVZitTxJIYNL96BTwwveFi7bMZA+CwR7+sQClgmksyQcHFMh4btO7X0l7Tc="
         - TWINE_USERNAME=Leonardo.Uieda
-        - CONDA_PREFIX=/home/travis/miniconda3
         - LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+        - CONDA_PREFIX_LINUX=/home/travis/miniconda3
+        - CONDA_PREFIX_OSX=/Users/travis/miniconda3
         - COVERAGE=false
         - DOCS=false
 
@@ -29,17 +30,21 @@ matrix:
         - os: linux
           env:
               - PYTHON=3.5
+              - CONDA_PREFIX=$CONDA_PREFIX_LINUX
         - os: linux
           env:
               - PYTHON=3.6
+              - CONDA_PREFIX=$CONDA_PREFIX_LINUX
               - COVERAGE=true
               - DOCS=true
         #- os: osx
           #env:
               #- PYTHON=3.5
+              #- CONDA_PREFIX=$CONDA_PREFIX_OSX
         #- os: osx
           #env:
               #- PYTHON=3.6
+              #- CONDA_PREFIX=$CONDA_PREFIX_OSX
 
 before_install:
     # Get Miniconda from Continuum
@@ -80,6 +85,7 @@ deploy:
     # Push the built docs to Github pages
     - provider: script
       script: ci/deploy-docs.sh
+      skip_cleanup: true
       on:
           branch: master
           condition: '$TRAVIS_OS_NAME == "linux" && $DOCS == "true"'
