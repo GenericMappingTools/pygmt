@@ -85,6 +85,13 @@ deploy:
       on:
           branch: master
           condition: '$DEPLOY_DOCS == "true"'
+    # Push docs when building tags as well
+    - provider: script
+      script: ci/deploy-docs.sh
+      skip_cleanup: true
+      on:
+          tags: true
+          condition: '$DEPLOY_DOCS == "true"'
     # Make a release on PyPI
     - provider: script
       script: ci/deploy-pypi.sh
