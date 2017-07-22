@@ -49,7 +49,7 @@ def call_module(session, module, args):
     ----------
     session : ctypes.c_void_p
         A ctypes void pointer to a GMT session created by
-        :func:`gmt.clib.GMTSession`.
+        :func:`gmt.clib.APISession`.
     module : str
         Module name (``'pscoast'``, ``'psbasemap'``, etc).
     args : str
@@ -74,7 +74,7 @@ def create_session():
 
     .. warning::
 
-        Best not used directly. Use :class:`gmt.clib.GMTSession` instead.
+        Best not used directly. Use :class:`gmt.clib.APISession` instead.
 
     It is a C void pointer containing the current session information and
     cannot be accessed directly.
@@ -111,7 +111,7 @@ def destroy_session(session):
 
     .. warning::
 
-        Best not used directly. Use :class:`gmt.clib.GMTSession` instead.
+        Best not used directly. Use :class:`gmt.clib.APISession` instead.
 
     The session is created and consumed by the C API modules and needs to be
     freed before creating a new. Otherwise, some of the configuration files
@@ -132,7 +132,7 @@ def destroy_session(session):
     assert status == 0, 'Failed with status code {}.'.format(status)
 
 
-class GMTSession():  # pylint: disable=too-few-public-methods
+class APISession():  # pylint: disable=too-few-public-methods
     """
     Context manager to create a GMT C API session and destroy it.
 
@@ -144,7 +144,7 @@ class GMTSession():  # pylint: disable=too-few-public-methods
     Examples
     --------
 
-    >>> with GMTSession() as session:
+    >>> with APISession() as session:
     ...     call_module(session, 'figure', 'my-figure')
 
     """

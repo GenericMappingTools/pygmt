@@ -4,7 +4,7 @@ Test the wrappers for the C API.
 import os
 
 from ..clib import create_session, destroy_session, call_module, load_libgmt, \
-    GMTSession
+    APISession
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -31,7 +31,7 @@ def test_call_module():
     "Run a psbasemap call to see if the module works"
     data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
     out_fname = 'test_call_module.txt'
-    with GMTSession() as session:
+    with APISession() as session:
         call_module(session, 'gmtinfo',
                     '{} -C ->{}'.format(data_fname, out_fname))
     assert os.path.exists(out_fname)

@@ -55,7 +55,7 @@ Classes
     :toctree: api/
     :template: function.rst
 
-    gmt.clib.GMTSession
+    gmt.clib.APISession
 
 
 .. _ctypes: https://docs.python.org/3/library/ctypes.html

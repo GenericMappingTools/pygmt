@@ -4,7 +4,7 @@ Session management modules: begin, end, figure, etc
 import os
 from tempfile import NamedTemporaryFile
 
-from .clib import call_module, GMTSession
+from .clib import call_module, APISession
 
 
 def begin():
@@ -17,7 +17,7 @@ def begin():
 
     """
     prefix = 'gmt-python-session'
-    with GMTSession() as session:
+    with APISession() as session:
         call_module(session, 'begin', prefix)
 
 
@@ -31,7 +31,7 @@ def end():
     ``gmt.begin``), and bring the figures to the working directory.
 
     """
-    with GMTSession() as session:
+    with APISession() as session:
         call_module(session, 'end', '')
 
 
@@ -55,5 +55,5 @@ def figure():
     tmpfile.close()
     # Passing format '-' tells gmt.end to not produce any files.
     fmt = '-'
-    with GMTSession() as session:
+    with APISession() as session:
         call_module(session, 'figure', '{} {}'.format(prefix, fmt))
