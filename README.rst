@@ -6,8 +6,7 @@ GMT/Python
 `Documentation <https://genericmappingtools.github.io/gmt-python/>`_ |
 `Install <https://genericmappingtools.github.io/gmt-python/install.html>`_ |
 `First steps <https://genericmappingtools.github.io/gmt-python/first-steps.html>`_ |
-`GMT modern mode <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`_ |
-`Design <https://genericmappingtools.github.io/gmt-python/design.html>`_ |
+`API <https://genericmappingtools.github.io/gmt-python/api.html>`_ |
 `Contact <https://gitter.im/GenericMappingTools/gmt-python>`_
 
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
@@ -51,8 +50,9 @@ Getting started
 2. Follow the
    `First steps <https://genericmappingtools.github.io/gmt-python/first-steps.html>`__
    tutorial Jupyter notebook.
-3. Take a look at the :ref:`api` for a list of modules that are already
-   available.
+3. Take a look at the
+   `API Reference <https://genericmappingtools.github.io/gmt-python/api.html>`__
+   to see what is already available.
 
 
 Project goals
