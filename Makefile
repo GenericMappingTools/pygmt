@@ -21,14 +21,12 @@ develop:
 
 test:
 	# Run a tmp folder to make sure the tests are run on the installed version
-	# of Fatiando
 	mkdir -p $(TESTDIR)
 	cd $(TESTDIR); python -c "import gmt; gmt.test()"
 	rm -r $(TESTDIR)
 
 coverage:
 	# Run a tmp folder to make sure the tests are run on the installed version
-	# of Fatiando
 	mkdir -p $(TESTDIR)
 	cd $(TESTDIR); pytest $(PYTEST_COV_ARGS) --cov=gmt $(PYTEST_ARGS) gmt
 	cp $(TESTDIR)/.coverage* .
