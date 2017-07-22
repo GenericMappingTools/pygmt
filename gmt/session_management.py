@@ -1,6 +1,9 @@
 """
 Session management modules: begin, end, figure, etc
 """
+import os
+from tempfile import NamedTemporaryFile
+
 from .clib import call_module, GMTSession
 
 
@@ -44,7 +47,12 @@ def figure():
     file.
 
     """
-    prefix = 'gmt-python-figure'
+    # Need a unique name prefix for each figure, otherwise GMT will plot
+    # everything on the same figure.
+    tmpfile = NamedTemporaryFile(prefix='gmt-python-', dir=os.path.curdir,
+                                 delete=True)
+    prefix = tmpfile.name
+    tmpfile.close()
     # Passing format '-' tells gmt.end to not produce any files.
     fmt = '-'
     with GMTSession() as session:
