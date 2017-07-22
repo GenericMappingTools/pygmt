@@ -1,6 +1,7 @@
 """
 ctypes wrappers for core functions from the C API
 """
+import sys
 import ctypes
 
 from . import constants
@@ -21,7 +22,15 @@ def load_libgmt():
         The loaded shared library.
 
     """
-    libgmt = ctypes.CDLL('libgmt.so')
+    # Set the shared library extension in a platform independent way
+    if sys.platform.startswith('linux'):
+        lib_ext = 'so'
+    elif sys.platform == 'darwin':
+        # Darwin is OSX
+        lib_ext = 'dylib'
+    else:
+        raise RuntimeError('Unknown operating system: {}'.format(sys.platform))
+    libgmt = ctypes.CDLL('.'.join(['libgmt', lib_ext]))
     assert hasattr(libgmt, 'GMT_Create_Session'), \
         "Error loading libgmt. Can't access GMT_Create_Session."
     return libgmt
