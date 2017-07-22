@@ -31,23 +31,6 @@ We aim to learn from these attempts and create a library that interfaces with
 the C API and provides a Pythonic API for GMT.
 
 
-Goals
------
-
-* Provide access to GMT modules from Python using the GMT C API (no system
-  calls).
-* API design familiar for veteran GMT users (arguments ``R``,
-  ``J``, etc) with more newbie-friendly alternatives/aliases
-  (``region=[10, 20, -30, -10]``,  ``projection='M'``, etc).
-* Input and output using Python native containers: numpy ``ndarray`` or pandas
-  ``DataFrame`` for data tables and `xarray <http://xarray.pydata.org>`__
-  ``Dataset`` for netCDF grids.
-* Integration with the `Jupyter notebook <http://jupyter.org/>`__ to display
-  plots and maps inline.
-* Built around the new `GMT modern mode
-  <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
-
-
 About modern mode
 -----------------
 

@@ -13,7 +13,7 @@ GMT/Python
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/gmt-python
-.. image:: http://img.shields.io/travis/GenericMappingTools/gmt-python/master.svg?style=flat-square
+.. image:: http://img.shields.io/travis/GenericMappingTools/gmt-python/master.svg?style=flat-square&label=linux|osx
     :alt: Travis CI build status
     :target: https://travis-ci.org/GenericMappingTools/gmt-python
 .. image:: http://img.shields.io/coveralls/GenericMappingTools/gmt-python/master.svg?style=flat-square
@@ -35,66 +35,43 @@ Disclaimer
 We welcome any feedback and ideas!
 Let us know by submitting
 `issues on Github <https://github.com/GenericMappingTools/gmt-python/issues>`__
-or send us a message on `our Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
+or send us a message on our
+`Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
 
 See the `documentation <https://genericmappingtools.github.io/gmt-python/>`__
 for our design ideas, currently implemented features, how to contribute, and
 more.
 
 
-Goals
------
+Getting started
+---------------
 
-* Provide access to GMT modules from Python using the GMT C API (no system
-  calls).
-* API design familiar for veteran GMT users (arguments ``R``,
-  ``J``, etc) with more newbie-friendly alternatives/aliases
-  (``region=[10, 20, -30, -10]``,  ``projection='M'``, etc).
+1. `Install <https://genericmappingtools.github.io/gmt-python/install.html>`__
+   (tested and working on Linux and OSX)
+2. Follow the
+   `First steps <https://genericmappingtools.github.io/gmt-python/first-steps.html>`__
+   tutorial Jupyter notebook.
+3. Take a look at the :ref:`api` for a list of modules that are already
+   available.
+
+
+Project goals
+-------------
+
+* Build a modern Pythonic API that appeals to Python programmers who want to
+  use GMT.
+* Implement readable and explicit aliases for the GMT command-line arguments
+  (``region`` instead of ``R``, ``projection`` instead of ``J``, etc).
+* Use the new `GMT modern mode
+  <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__ for
+  simplified execution and figure generation.
+* Interface with the GMT C API directly using
+  `ctypes <https://docs.python.org/3/library/ctypes.html>`__ (no system calls).
+* Integration with the `Jupyter notebook <http://jupyter.org/>`__ to display
+  plots and maps inline.
 * Input and output using Python native containers: numpy ``ndarray`` or pandas
   ``DataFrame`` for data tables and `xarray <http://xarray.pydata.org>`__
   ``Dataset`` for netCDF grids.
-* Integration with the `Jupyter notebook <http://jupyter.org/>`__ to display
-  plots and maps inline.
-* Built around the new `GMT modern mode
-  <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
-
-
-Examples
---------
-
-This is a basic example to generate a figure and save it to a file:
-
-.. code-block:: python
-
-    import gmt
-
-    # Start a new figure.
-    gmt.figure()
-    # Draw a basemap
-    gmt.psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
-    # Plot some points with red circles
-    gmt.psxy('mydata.txt', S='c', G='red')
-    # Unlike in the command-line, no figure is generated
-    # unless explicitly asked.
-    gmt.psconvert(F='myfigure', T='f', A=True, P=True)
-
-
-On the Jupyter notebook, a PNG preview of the image should also appear.
-
-Notice that the arguments are based on the GMT command-line options. The Python
-API also allows aliases for the arguments to make them more explicit and more
-familiar to Python users:
-
-
-.. code-block:: python
-
-    import gmt
-
-    gmt.figure()
-    gmt.psbasemap(region=[10, 70, -3, 8], projection='X4i/3i', frame='a',
-                  portrait=True)
-    gmt.psxy('mydata.txt', style='c', color='red')
-    gmt.psconvert(prefix='myfigure', fmt='f', crop=True, portrait=True)
 
 
 
@@ -113,6 +90,8 @@ Working features and TODO
   destroyed when the program ends. This eliminates the need for ``begin`` and
   ``end`` in the Python API.
 - [X] Minimal working code producing a figure from data on disk
+- [ ] Implement an object-oriented API using a ``Figure`` class (similar to
+  matplotlib).
 - [ ] Wrapper for the GMT VirtualFile machinery to allow communicating data in
   memory to the modules
 - [ ] Wrapper for ``GMT_DATA`` to pass in tabular data from numpy arrays
