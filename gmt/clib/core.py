@@ -137,13 +137,11 @@ def create_session(name='gmt-python-session'):
     c_create_session.argtypes = [ctypes.c_char_p, ctypes.c_uint, ctypes.c_uint,
                                  ctypes.c_void_p]
     c_create_session.restype = ctypes.c_void_p
-    # This value is not exposed in the API
-    gmt_pad_default = 2
     # None is passed in place of the print function pointer. It becomes the
     # NULL pointer when passed to C, prompting the C API to use the default
     # print function.
     session = c_create_session(name.encode(),
-                               gmt_pad_default,
+                               get_constant('GMT_PAD_DEFAULT'),
                                get_constant('GMT_SESSION_EXTERNAL'),
                                None)
     assert session is not None, \

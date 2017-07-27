@@ -22,8 +22,7 @@ def test_constant():
     "Test that I can get correct constants from the C lib"
     assert get_constant('GMT_SESSION_EXTERNAL') != -99999
     assert get_constant('GMT_MODULE_CMD') != -99999
-    # PAD_DEFAULT is not in the API because it's a #define for now.
-    # assert get_constant('GMT_PAD_DEFAULT') != -99999
+    assert get_constant('GMT_PAD_DEFAULT') != -99999
     with pytest.raises(ValueError):
         get_constant('A_WHOLE_LOT_OF_JUNK')
 
