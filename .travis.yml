@@ -43,6 +43,7 @@ matrix:
         - os: osx
           env:
               - PYTHON=3.6
+              - COVERAGE=true
               - BUILD_DOCS=true
 
 before_install:
