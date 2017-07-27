@@ -4,7 +4,10 @@ ctypes wrappers for core functions from the C API
 import sys
 import ctypes
 
-from . import constants
+
+# Default grid padding (taken from gmt_constants.h) used by create_session
+GMT_PAD_DEFAULT = 2
+GMT_SESSION_NAME = b'gmt-python'
 
 
 def load_libgmt():
@@ -30,10 +33,54 @@ def load_libgmt():
         lib_ext = 'dylib'
     else:
         raise RuntimeError('Unknown operating system: {}'.format(sys.platform))
+
     libgmt = ctypes.CDLL('.'.join(['libgmt', lib_ext]))
-    assert hasattr(libgmt, 'GMT_Create_Session'), \
-        "Error loading libgmt. Can't access GMT_Create_Session."
+
+    # Check if a few of the functions we need are in the library
+    functions = ['Create_Session', 'Get_Enum', 'Call_Module',
+                 'Destroy_Session']
+    for func in functions:
+        assert hasattr(libgmt, 'GMT_' + func), \
+            "Error loading libgmt. Can't access GMT_{}.".format(func)
     return libgmt
+
+
+def get_constant(name):
+    """
+    Get the value of a constant (C enum) from gmt_resources.h
+
+    Used to set configuration values for other API calls.
+
+    Parameters
+    ----------
+    name : str
+        The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``)
+
+    Returns
+    -------
+    constant : int
+        Integer value of the constant. Do not rely on this value because it
+        might change.
+
+    Raises
+    ------
+    ValueError
+        If the constant doesn't exist.
+
+    """
+    libgmt = load_libgmt()
+    c_get_enum = libgmt.GMT_Get_Enum
+    c_get_enum.argtypes = [ctypes.c_char_p]
+    c_get_enum.restype = ctypes.c_int
+
+    value = c_get_enum(name.encode())
+
+    assert value is not None, 'GMT_Get_Enum failed returning None.'
+    if value == -99999:
+        raise ValueError(
+            "Constant '{}' doesn't exits in libgmt.".format(name))
+
+    return value
 
 
 def call_module(session, module, args):
@@ -57,13 +104,15 @@ def call_module(session, module, args):
         module (for example, ``'-R0/5/0/10 -JM'``).
 
     """
-    mode = constants.GMT_MODULE_CMD
     libgmt = load_libgmt()
     c_call_module = libgmt.GMT_Call_Module
     c_call_module.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int,
                               ctypes.c_void_p]
     c_call_module.restype = ctypes.c_int
+
+    mode = get_constant('GMT_MODULE_CMD')
     status = c_call_module(session, module.encode(), mode, args.encode())
+
     assert status is not None, 'Failed returning None.'
     assert status == 0, 'Failed with status code {}.'.format(status)
 
@@ -96,9 +145,9 @@ def create_session():
     # None is passed in place of the print function pointer. It becomes the
     # NULL pointer when passed to C, prompting the C API to use the default
     # print function.
-    session = c_create_session(constants.GMT_SESSION_NAME,
-                               constants.GMT_PAD_DEFAULT,
-                               constants.GMT_SESSION_EXTERNAL,
+    session = c_create_session(GMT_SESSION_NAME,
+                               GMT_PAD_DEFAULT,
+                               get_constant('GMT_SESSION_EXTERNAL'),
                                None)
     assert session is not None, \
         "Failed creating GMT API pointer using create_session."

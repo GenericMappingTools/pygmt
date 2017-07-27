@@ -47,6 +47,7 @@ Functions
     gmt.clib.create_session
     gmt.clib.destroy_session
     gmt.clib.load_libgmt
+    gmt.clib.get_constant
 
 Classes
 +++++++

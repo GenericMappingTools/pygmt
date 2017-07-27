@@ -3,8 +3,10 @@ Test the wrappers for the C API.
 """
 import os
 
+import pytest
+
 from ..clib import create_session, destroy_session, call_module, load_libgmt, \
-    APISession
+    APISession, get_constant
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -14,6 +16,16 @@ def test_load_libgmt():
     "Test that loading libgmt works and doesn't crash."
     libgmt = load_libgmt()
     assert hasattr(libgmt, 'GMT_Create_Session')
+
+
+def test_constant():
+    "Test that I can get correct constants from the C lib"
+    assert get_constant('GMT_SESSION_EXTERNAL') != -99999
+    assert get_constant('GMT_MODULE_CMD') != -99999
+    # PAD_DEFAULT is not in the API because it's a #define for now.
+    # assert get_constant('GMT_PAD_DEFAULT') != -99999
+    with pytest.raises(ValueError):
+        get_constant('A_WHOLE_LOT_OF_JUNK')
 
 
 def test_clib_session_management():
