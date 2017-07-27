@@ -5,11 +5,6 @@ import sys
 import ctypes
 
 
-# Default grid padding (taken from gmt_constants.h) used by create_session
-GMT_PAD_DEFAULT = 2
-GMT_SESSION_NAME = b'gmt-python'
-
-
 def load_libgmt():
     """
     Find and load ``libgmt`` as a ctypes.CDLL.
@@ -117,7 +112,7 @@ def call_module(session, module, args):
     assert status == 0, 'Failed with status code {}.'.format(status)
 
 
-def create_session():
+def create_session(name='gmt-python-session'):
     """
     Create the ``GMTAPI_CTRL`` struct required by the GMT C API functions.
 
@@ -142,11 +137,13 @@ def create_session():
     c_create_session.argtypes = [ctypes.c_char_p, ctypes.c_uint, ctypes.c_uint,
                                  ctypes.c_void_p]
     c_create_session.restype = ctypes.c_void_p
+    # This value is not exposed in the API
+    gmt_pad_default = 2
     # None is passed in place of the print function pointer. It becomes the
     # NULL pointer when passed to C, prompting the C API to use the default
     # print function.
-    session = c_create_session(GMT_SESSION_NAME,
-                               GMT_PAD_DEFAULT,
+    session = c_create_session(name.encode(),
+                               gmt_pad_default,
                                get_constant('GMT_SESSION_EXTERNAL'),
                                None)
     assert session is not None, \
