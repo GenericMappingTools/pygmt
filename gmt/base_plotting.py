@@ -7,7 +7,7 @@ from .utils import build_arg_string
 from .decorators import fmt_docstring, use_alias, kwargs_to_strings
 
 
-class PlotGenerating():
+class BasePlotting():
     """
     Base class for Figure and Subplot.
 
@@ -15,7 +15,7 @@ class PlotGenerating():
     special arguments (the _preprocess method).
     """
 
-    def _preprocess(self, **kwargs):
+    def _preprocess(self, **kwargs):  # pylint: disable=no-self-use
         """
         Make changes to kwargs before passing them to ``call_module``.
 
@@ -100,7 +100,6 @@ class PlotGenerating():
         with APISession() as session:
             call_module(session, 'pscoast', build_arg_string(kwargs))
 
-
     @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
                G='color', W='pen')
@@ -161,7 +160,6 @@ class PlotGenerating():
         with APISession() as session:
             call_module(session, 'psxy', arg_str)
 
-
     @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', P='portrait')
     @kwargs_to_strings(R='sequence')
@@ -208,6 +206,7 @@ class PlotGenerating():
         assert 'B' in kwargs or 'L' in kwargs or 'T' in kwargs, \
             "At least one of B, L, or T must be specified."
         if 'D' in kwargs:
-            assert 'F' in kwargs, "Option D requires F to be specified as well."
+            assert 'F' in kwargs, \
+                "Option D requires F to be specified as well."
         with APISession() as session:
             call_module(session, 'psbasemap', build_arg_string(kwargs))

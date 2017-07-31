@@ -3,8 +3,8 @@ Test the session management modules.
 """
 import os
 
-from .. import Figure
 from ..session_management import begin, end
+from ..clib import APISession, call_module
 
 
 def test_begin_end():
@@ -14,7 +14,8 @@ def test_begin_end():
     """
     end()  # Kill the global session
     begin()
-    Figure().psbasemap(R='10/70/-3/8', J='X4i/3i', B='a', P=True)
+    with APISession() as session:
+        call_module(session, 'psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
     end()
     begin()  # Restart the global session
     assert os.path.exists('gmt-python-session.pdf')
