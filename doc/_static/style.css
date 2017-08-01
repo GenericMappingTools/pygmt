@@ -10,7 +10,7 @@ body {
     margin-bottom: 350px;
 }
 
-body, blockquote, .alert, .table, .highlight pre, .navbar {
+body, blockquote, .alert, .table, pre, .navbar {
     font-size: 16px;
 }
 
@@ -31,6 +31,10 @@ h2 {
 
 h3 {
     font-size: 22px;
+}
+
+pre {
+    line-height: 1.4;
 }
 
 footer {

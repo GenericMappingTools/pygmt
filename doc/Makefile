@@ -31,6 +31,7 @@ clean:
 	rm -rf modules
 	rm -rf api/
 	rm -rf .ipynb_checkpoints
+	rm -rf first-steps-*
 
 html:
 	@echo

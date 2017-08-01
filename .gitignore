@@ -14,3 +14,4 @@ doc/api
 *.egg-info
 .env
 MANIFEST
+doc/first-steps-*

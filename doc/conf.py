@@ -30,7 +30,7 @@ numpydoc_class_members_toctree = False
 
 # Sphinx project configuration
 templates_path = ['_templates']
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', '.ipynb_checkpoints']
 source_suffix = '.rst'
 # The encoding of source files.
 source_encoding = 'utf-8-sig'
