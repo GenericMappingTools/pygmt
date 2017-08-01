@@ -72,14 +72,14 @@ class Figure(BasePlotting):
     """
 
     def __init__(self):
-        self.name = _unique_name()
+        self._name = _unique_name()
 
     def _preprocess(self, **kwargs):
         """
         Call the ``figure`` module before each plotting command to ensure we're
         plotting to this particular figure.
         """
-        figure(self.name)
+        figure(self._name)
         return kwargs
 
     @fmt_docstring
