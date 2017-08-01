@@ -33,5 +33,6 @@ def test_psxy_aliases():
     "Use aliases for the arguments and make sure they work"
     fig = Figure()
     fig.psxy(POINTS_DATA, region=[10, 70, -3, 8], projection='X10i',
-             style='d0.5c', color='yellow', frame=True, portrait=True)
+             style='d0.5c', color='yellow', frame=True, portrait=True,
+             columns=[0, 1])
     return fig

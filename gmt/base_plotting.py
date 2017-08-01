@@ -102,8 +102,8 @@ class BasePlotting():
 
     @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
-               G='color', W='pen')
-    @kwargs_to_strings(R='sequence')
+               G='color', W='pen', i='columns')
+    @kwargs_to_strings(R='sequence', i='sequence_comma')
     def psxy(self, data, **kwargs):
         """
         Plot lines, polygons, and symbols on maps.
