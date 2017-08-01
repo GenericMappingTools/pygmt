@@ -15,7 +15,7 @@ def test_figure_savefig_exists():
     fig.psbasemap(region='10/70/-300/800', J='X3i/5i', B='af',
                   D='30/35/-200/500', F=True)
     prefix = 'test_figure_savefig_exists'
-    for fmt in 'png pdf jpg bmp eps'.split():
+    for fmt in 'png pdf jpg bmp eps tif'.split():
         fname = '.'.join([prefix, fmt])
         fig.savefig(fname)
         assert os.path.exists(fname)
@@ -28,7 +28,7 @@ def test_figure_savefig_transparent():
     fig.psbasemap(region='10/70/-300/800', J='X3i/5i', B='af',
                   D='30/35/-200/500', F=True)
     prefix = 'test_figure_savefig_transparent'
-    for fmt in 'pdf jpg bmp eps'.split():
+    for fmt in 'pdf jpg bmp eps tif'.split():
         fname = '.'.join([prefix, fmt])
         with pytest.raises(AssertionError):
             fig.savefig(fname, transparent=True)

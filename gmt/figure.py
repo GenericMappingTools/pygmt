@@ -148,9 +148,32 @@ class Figure(BasePlotting):
                 crop=True, **kwargs):
         """
         Save the figure to a file.
+
+        This method implements a matplotlib-like interface for
+        :meth:`~gmt.Figure.psconvert`.
+
+        Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
+        BMP (``.bmp``), TIFF (``.tif``), and EPS (``.eps``).
+
+        You can pass in any keyword arguments that
+        :meth:`~gmt.Figure.psconvert` accepts.
+
+        Parameters
+        ----------
+        fname : str
+            The desired figure file name, including the extension. See the list
+            of supported formats and their extensions above.
+        orientation : str
+            Either ``'portrait'`` or ``'landscape'``.
+        transparent : bool
+            If True, will use a transparent background for the figure. Only
+            valid for PNG format.
+        crop : bool
+            If True, will crop the figure canvas (page) to the plot area.
+
         """
         # All supported formats
-        fmts = dict(png='g', pdf='f', jpg='j', bmp='b', eps='e')
+        fmts = dict(png='g', pdf='f', jpg='j', bmp='b', eps='e', tif='t')
 
         assert orientation in ['portrait', 'landscape'], \
             "Invalid orientation '{}'.".format(orientation)
