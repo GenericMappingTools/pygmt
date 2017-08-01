@@ -14,9 +14,9 @@
             <div class="col-md-3">
             </div>
         </div>
-        <h1>A Python interface for the Generic Mapping Tools</h1>
+        <h1>A Python interface for the
+        <a href="http://gmt.soest.hawaii.edu/">Generic Mapping Tools</a></h1>
     </div>
-
 
 .. raw:: html
 
@@ -64,12 +64,15 @@ See the `documentation <https://genericmappingtools.github.io/gmt-python/>`__
 for our design ideas, currently implemented features, how to contribute, and
 more.
 
+
 .. raw:: html
 
     <h2>License</h2>
 
 GMT/Python is free software: you can redistribute it and/or modify it under the
 terms of the :ref:`BSD 3-clause License <license>`.
+
+
 
 .. toctree::
     :maxdepth: 2

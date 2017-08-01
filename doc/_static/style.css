@@ -5,14 +5,18 @@ html {
 }
 
 body {
-    font-size: 16px;
     /* Margin bottom by footer height with a little room to accomodate small
      * screens */
-    margin-bottom: 200px;
+    margin-bottom: 350px;
 }
 
-blockquote {
+body, blockquote, .alert, .table, .highlight pre, .navbar {
     font-size: 16px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 300;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 h1 {
@@ -21,29 +25,27 @@ h1 {
 
 h2 {
     font-size: 29px;
+    margin-bottom: 25px;
+    margin-top: 50px;
 }
 
-.alert {
-    font-size: 16px;
+h3 {
+    font-size: 22px;
 }
 
 footer {
-    margin-top: 50px;
-    padding-bottom: 30px;
-    font-size: 11pt;
     /* To stick the footer to the bottom of the page */
     position: absolute;
     bottom: 0;
     /* Set the fixed height of the footer here */
     min-height: 110px;
-}
-
-.highlight pre {
-    font-size: 16px;
-}
-
-.table {
-    font-size: 16px;
+    font-size: 14px;
+    margin-top: 50px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    background-color: #f7f5fa;
+    box-shadow: 1px 0px 5px rgba(0,0,0,0.3);
+    border: none;
 }
 
 .banner {
@@ -55,12 +57,6 @@ footer {
 
 .banner h1 {
     font-size: 29px;
-    font-weight: 300;
-    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     margin-top: 40px;
     line-height: 1.5;
-}
-
-.navbar {
-    font-size: 15px;
 }
