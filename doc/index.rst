@@ -60,10 +60,6 @@ Let us know by submitting
 or send us a message on our
 `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
 
-See the `documentation <https://genericmappingtools.github.io/gmt-python/>`__
-for our design ideas, currently implemented features, how to contribute, and
-more.
-
 
 .. raw:: html
 
