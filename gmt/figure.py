@@ -69,20 +69,10 @@ class Figure(BasePlotting):
 
     Save the output to a file using :meth:`~gmt.Figure.savefig`.
     Insert the figure in a Jupyter notebook using :meth:`~gmt.Figure.show`.
-
-    Parameters
-    ----------
-    name : str or None
-        A unique name for this figure (used as an identifier). If ``None``,
-        will generate one. Used mostly for debugging.
-
     """
 
-    def __init__(self, name=None):
-        if name is None:
-            self.name = _unique_name()
-        else:
-            self.name = name
+    def __init__(self):
+        self.name = _unique_name()
 
     def _preprocess(self, **kwargs):
         """
@@ -154,16 +144,28 @@ class Figure(BasePlotting):
         with APISession() as session:
             call_module(session, 'psconvert', build_arg_string(kwargs))
 
-    def savefig(self, fname, crop=True, portrait=True, **kwargs):
+    def savefig(self, fname, orientation='portrait', transparent=False,
+                crop=True, **kwargs):
         """
         Save the figure to a file.
         """
-        prefix, ext = os.path.splitext(fname)
-        # Remove the .
-        ext = ext[1:]
+        # All supported formats
         fmts = dict(png='g', pdf='f', jpg='j', bmp='b', eps='e')
+
+        assert orientation in ['portrait', 'landscape'], \
+            "Invalid orientation '{}'.".format(orientation)
+        portrait = bool(orientation == 'portrait')
+
+        prefix, ext = os.path.splitext(fname)
+        ext = ext[1:]  # Remove the .
         assert ext in fmts, "Unknown extension '.{}'".format(ext)
-        self.psconvert(prefix=prefix, fmt=fmts[ext], crop=crop,
+        fmt = fmts[ext]
+        if transparent:
+            assert ext == 'png', \
+                "Transparency unavailable for '{}', only for png.".format(ext)
+            fmt = fmt.upper()
+
+        self.psconvert(prefix=prefix, fmt=fmt, crop=crop,
                        portrait=portrait, **kwargs)
 
     def show(self, dpi=100, width=500, return_img=False):
