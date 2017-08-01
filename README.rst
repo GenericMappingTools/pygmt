@@ -1,7 +1,7 @@
 GMT/Python
 ==========
 
-**A Python interface for the Generic Mapping Tools C API.**
+**A Python interface for the Generic Mapping Tools.**
 
 `Documentation <https://genericmappingtools.github.io/gmt-python/>`_ |
 `Install <https://genericmappingtools.github.io/gmt-python/install.html>`_ |
@@ -126,7 +126,7 @@ Working features and TODO
   destroyed when the program ends. This eliminates the need for ``begin`` and
   ``end`` in the Python API.
 - [X] Minimal working code producing a figure from data on disk
-- [ ] Implement an object-oriented API using a ``Figure`` class (similar to
+- [X] Implement an object-oriented API using a ``Figure`` class (similar to
   matplotlib).
 - [ ] Wrapper for the GMT VirtualFile machinery to allow communicating data in
   memory to the modules
