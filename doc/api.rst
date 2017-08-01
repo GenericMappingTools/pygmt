@@ -9,8 +9,6 @@ API Reference
 Plotting
 --------
 
-All plotting in GMT/Python is handled by the ``gmt.Figure`` class.
-
 .. autosummary::
     :toctree: api/
     :template: class.rst
@@ -34,19 +32,6 @@ Low-level wrappers for the GMT C API
 The GMT C API is accessed using ctypes_. The ``gmt.clib`` package offers
 functions and classes that wrap the C API with a pythonic interface.
 
-
-Classes
-+++++++
-
-.. autosummary::
-    :toctree: api/
-    :template: class.rst
-
-    clib.APISession
-
-Functions
-+++++++++
-
 .. autosummary::
     :toctree: api/
     :template: function.rst
@@ -56,6 +41,12 @@ Functions
     clib.destroy_session
     clib.load_libgmt
     clib.get_constant
+
+.. autosummary::
+    :toctree: api/
+    :template: class.rst
+
+    clib.APISession
 
 
 .. _ctypes: https://docs.python.org/3/library/ctypes.html

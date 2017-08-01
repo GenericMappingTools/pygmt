@@ -1,7 +1,6 @@
 « :ref:`api`
 
-:mod:`{{module}}`.{{objname}}
-{{ underline }}====================
+.. title:: {{module}}.{{objname}}
 
 .. currentmodule:: {{ module }}
 

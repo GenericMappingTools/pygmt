@@ -1,10 +1,26 @@
-GMT/Python
-==========
+.. title:: GMT/Python
 
-**A Python interface for the Generic Mapping Tools**
 
-Getting started
----------------
+.. raw:: html
+
+    <div class="banner text-center">
+        <div class="row" stype="margin-bottom: 50px;">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <img class="center-block" width="100%"
+                     src="_static/gmt-python-logo.png">
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+        <h1>A Python interface for the Generic Mapping Tools</h1>
+    </div>
+
+
+.. raw:: html
+
+    <h2>Getting started</h2>
 
 1. :ref:`Install <install>` (tested and working on Linux and OSX)
 2. Follow the :ref:`first-steps.ipynb` tutorial Jupyter notebook.
@@ -12,8 +28,9 @@ Getting started
    available.
 
 
-Project goals
--------------
+.. raw:: html
+
+    <h2>Project goals</h2>
 
 * Build a modern Pythonic API that appeals to Python programmers who want to
   use GMT.
@@ -31,8 +48,9 @@ Project goals
   ``Dataset`` for netCDF grids.
 
 
-Disclaimer
-----------
+.. raw:: html
+
+    <h2>Disclaimer</h2>
 
 **This package in early stages of design and implementation.**
 
@@ -46,9 +64,9 @@ See the `documentation <https://genericmappingtools.github.io/gmt-python/>`__
 for our design ideas, currently implemented features, how to contribute, and
 more.
 
+.. raw:: html
 
-License
--------
+    <h2>License</h2>
 
 GMT/Python is free software: you can redistribute it and/or modify it under the
 terms of the :ref:`BSD 3-clause License <license>`.

@@ -2,6 +2,7 @@
 import sys
 import os
 import datetime
+import sphinx_bootstrap_theme
 
 # Sphinx needs to be able to import the package to use autodoc and get the
 # version number
@@ -25,6 +26,8 @@ extensions = [
 autosummary_generate = True
 autodoc_default_flags = ['members', 'inherited-members']
 
+numpydoc_class_members_toctree = False
+
 # Sphinx project configuration
 templates_path = ['_templates']
 exclude_patterns = ['_build']
@@ -37,10 +40,7 @@ master_doc = 'index'
 year = datetime.date.today().year
 project = u'GMT/Python'
 copyright = u'2017, Leonardo Uieda'
-if len(__version__.split('-')) > 1 or __version__ == 'unknown':
-    version = 'dev'
-else:
-    version = __version__
+version = ''
 
 # These enable substitutions using |variable| in the rst files
 rst_epilog = """
@@ -51,60 +51,58 @@ html_last_updated_fmt = '%b %d, %Y'
 html_title = 'GMT/Python'
 html_short_title = 'GMT/Python'
 html_logo = ''
-# html_favicon = u'favicon.ico'
+html_favicon = '_static/favicon.png'
 html_static_path = ['_static']
 html_extra_path = ['.nojekyll']
 pygments_style = 'default'
 add_function_parentheses = False
-
-# Additional templates that should be rendered to pages, maps page names to
-# template names.
-#html_additional_pages = {}
-# If false, no module index is generated.
-#html_domain_indices = True
-# If false, no index is generated.
-#html_use_index = True
-# If true, the index is split into individual pages for each letter.
-#html_split_index = False
-# If true, links to the reST sources are added to the pages.
 html_show_sourcelink = True
-# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 html_show_sphinx = True
-# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 html_show_copyright = True
-# If true, an OpenSearch description file will be output, and all pages will
-# contain a <link> tag referring to it.  The value of this option must be the
-# base URL from which the finished HTML is served.
-#html_use_opensearch = ''
-# This is the file name suffix for HTML files (e.g. ".xhtml").
-#html_file_suffix = None
-# Output file base name for HTML help builder.
 htmlhelp_basename = 'gmt-python'
 
-# Theme config
-html_theme = 'alabaster'
 html_sidebars = {
-    '**': [
-        'about.html',
-        'navigation.html',
-        'relations.html',
-        'searchbox.html',
-        'donate.html',
-    ]
-}
-html_theme_options = {
-    'logo': 'gmt-python-logo.png',
-    'logo_name': 'false',
-    'github_user': 'GenericMappingTools',
-    'github_repo': 'gmt-python',
-    'github_button': 'false',
-    'github_banner': 'true',
-    'description': 'A Python interface for the Generic Mapping Tools',
-    'extra_nav_links': {
-        'GMT website': 'http://gmt.soest.hawaii.edu',
-        'GMT modern mode': 'http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization',
-        'Source code': 'https://github.com/GenericMappingTools/gmt-python',
-        'Public chat room': 'https://gitter.im/GenericMappingTools/gmt-python',
-    }
+    'install': ['localtoc.html'],
+    'api': ['localtoc.html'],
+    'first-steps': ['localtoc.html'],
+    'design': ['localtoc.html'],
 }
 
+# Theme config
+html_theme = 'bootstrap'
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+html_theme_options = {
+    'navbar_title': project,
+    'navbar_links': [
+        ('Install', 'install'),
+        ('API', 'api'),
+        ('Tutorial', 'first-steps'),
+        ('Design', 'design'),
+        ('Code', 'https://github.com/GenericMappingTools/gmt-python', True),
+        ('Contact', 'https://gitter.im/GenericMappingTools/gmt-python', True),
+    ],
+    # Render the next and previous page links in navbar. (Default: true)
+    'navbar_sidebarrel': False,
+    # Render the current pages TOC in the navbar. (Default: true)
+    'navbar_pagenav': False,
+    # Tab name for the current pages TOC. (Default: "Page")
+    'navbar_pagenav_name': "Page",
+    # Tab name for entire site. (Default: "Site")
+    'navbar_site_name': "Site",
+    # Global TOC depth for "site" navbar tab. (Default: 1)
+    # Switching to -1 shows all levels.
+    'globaltoc_depth': 2,
+    # Note: If this is "false", you cannot have mixed ``:hidden:`` and
+    # non-hidden ``toctree`` directives in the same page, or else the build
+    # will break.
+    'globaltoc_includehidden': "false",
+    'navbar_class': "navbar",
+    'navbar_fixed_top': "false",
+    'source_link_position': "footer",
+    'bootswatch_theme': "paper",
+    'bootstrap_version': "3",
+}
+
+# Load the custom CSS files (needs sphinx >= 1.6 for this to work)
+def setup(app):
+    app.add_stylesheet("style.css")

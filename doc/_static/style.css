@@ -1,0 +1,66 @@
+/* To stick the footer to the bottom of the page */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-size: 16px;
+    /* Margin bottom by footer height with a little room to accomodate small
+     * screens */
+    margin-bottom: 200px;
+}
+
+blockquote {
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 29px;
+}
+
+.alert {
+    font-size: 16px;
+}
+
+footer {
+    margin-top: 50px;
+    padding-bottom: 30px;
+    font-size: 11pt;
+    /* To stick the footer to the bottom of the page */
+    position: absolute;
+    bottom: 0;
+    /* Set the fixed height of the footer here */
+    min-height: 110px;
+}
+
+.highlight pre {
+    font-size: 16px;
+}
+
+.table {
+    font-size: 16px;
+}
+
+.banner {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.banner h1 {
+    font-size: 29px;
+    font-weight: 300;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-top: 40px;
+    line-height: 1.5;
+}
+
+.navbar {
+    font-size: 15px;
+}
