@@ -3,38 +3,46 @@
 API Reference
 =============
 
-High-level functions for GMT modules
-------------------------------------
+.. currentmodule:: gmt
 
-Each GMT module (``gmt pscoast``, ``gmt psbasemap``, etc.) is wrapped by a
-function in the ``gmt`` top-level module.
+
+Plotting
+--------
+
+All plotting in GMT/Python is handled by the ``gmt.Figure`` class.
+
+.. autosummary::
+    :toctree: api/
+    :template: class.rst
+
+    Figure
+
+
+Utility functions
+-----------------
 
 .. autosummary::
     :toctree: api/
     :template: function.rst
 
-    gmt.figure
-    gmt.show
-    gmt.psbasemap
-    gmt.pscoast
-    gmt.psconvert
-    gmt.psxy
-
-
-Additional utility functions:
-
-.. autosummary::
-    :toctree: api/
-    :template: function.rst
-
-    gmt.test
+    test
 
 
 Low-level wrappers for the GMT C API
 ------------------------------------
 
-The GMT C API is accessed using ctypes_. The ``gmt.clib`` module offers
+The GMT C API is accessed using ctypes_. The ``gmt.clib`` package offers
 functions and classes that wrap the C API with a pythonic interface.
+
+
+Classes
++++++++
+
+.. autosummary::
+    :toctree: api/
+    :template: class.rst
+
+    clib.APISession
 
 Functions
 +++++++++
@@ -43,20 +51,11 @@ Functions
     :toctree: api/
     :template: function.rst
 
-    gmt.clib.call_module
-    gmt.clib.create_session
-    gmt.clib.destroy_session
-    gmt.clib.load_libgmt
-    gmt.clib.get_constant
-
-Classes
-+++++++
-
-.. autosummary::
-    :toctree: api/
-    :template: function.rst
-
-    gmt.clib.APISession
+    clib.call_module
+    clib.create_session
+    clib.destroy_session
+    clib.load_libgmt
+    clib.get_constant
 
 
 .. _ctypes: https://docs.python.org/3/library/ctypes.html
