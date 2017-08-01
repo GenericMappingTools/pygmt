@@ -102,10 +102,10 @@ class Figure(BasePlotting):
 
         Parameters
         ----------
-        A : str
+        A : str or bool
             Adjust the BoundingBox and HiResBoundingBox to the minimum required
             by the image content. Append ``u`` to first remove any GMT-produced
-            time-stamps.
+            time-stamps. Default is True.
         C : str
             Specify a single, custom option that will be passed on to
             GhostScript as is.
@@ -123,7 +123,7 @@ class Figure(BasePlotting):
             Force Portrait mode. All Landscape mode plots will be rotated back
             so that they show unrotated in Portrait mode. This is practical
             when converting to image formats or preparing EPS or PDF plots for
-            inclusion in documents.
+            inclusion in documents. Default to True.
         Q : str
             Set the anti-aliasing options for graphics or text. Append the size
             of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing
@@ -141,6 +141,12 @@ class Figure(BasePlotting):
 
         """
         kwargs = self._preprocess(**kwargs)
+        # Default cropping the figure to True
+        if 'A' not in kwargs:
+            kwargs['A'] = ''
+        # Default portrait mode to True
+        if 'P' not in kwargs:
+            kwargs['P'] = ''
         with APISession() as session:
             call_module(session, 'psconvert', build_arg_string(kwargs))
 
