@@ -5,9 +5,9 @@ import os
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 
 try:
-    from IPython.display import Image, display
+    from IPython.display import Image
 except ImportError:
-    Image, display = None, None
+    Image = None
 
 from .clib import call_module, APISession
 from .base_plotting import BasePlotting
@@ -197,12 +197,12 @@ class Figure(BasePlotting):
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop,
                        portrait=portrait, **kwargs)
 
-    def show(self, dpi=100, width=500, return_img=False):
+    def show(self, dpi=300, width=500):
         """
-        Display the last figure in the Jupyter notebook
+        Display the figure in the Jupyter notebook.
 
-        You will need to have IPython installed for this to work. You should
-        have it if you are using a Jupyter notebook.
+        You will need to have IPython installed for this to work.
+        You should have it if you are using a Jupyter notebook.
 
         Parameters
         ----------
@@ -210,18 +210,50 @@ class Figure(BasePlotting):
             The image resolution (dots per inch).
         width : int
             Width of the figure shown in the notebook in pixels.
-        return_img : bool
-            Whether or not to return the IPython.display.Image variable.
+
+        Returns
+        -------
+        img : IPython.display.Image
 
         """
-        assert Image is not None and display is not None, \
-            "Couldn't find IPython. Please make sure it's installed."
+        png = self._png_preview(dpi=dpi, anti_alias=True)
+        img = Image(data=png, width=width)
+        return img
+
+    def _png_preview(self, dpi=70, anti_alias=True):
+        """
+        Grab a PNG preview of the figure.
+
+        Uses the default parameters from :meth:`~gmt.Figure.savefig`.
+
+        Parameters
+        ----------
+        dpi : int
+            The image resolution (dots per inch).
+        anti_alias : bool
+            If True, will apply anti-aliasing to the image (using options
+            ``Qg=4, Qt=4``).
+
+        Returns
+        -------
+        png : bytes or ndarray
+            The PNG image read as a bytes string.
+
+        """
+        savefig_args = dict(dpi=dpi)
+        if anti_alias:
+            savefig_args['Qg'] = 4
+            savefig_args['Qt'] = 4
         with TemporaryDirectory() as tmpdir:
-            prefix = os.path.join(tmpdir, 'gmt-figure-for-notebook')
-            fname = prefix + '.png'
-            self.psconvert(prefix=prefix, fmt='G', dpi=dpi, crop=True,
-                           portrait=True)
-            img = Image(filename=fname, embed=True, width=width)
-            display(img)
-        if return_img:
-            return img
+            fname = os.path.join(tmpdir, '{}-preview.png'.format(self._name))
+            self.savefig(fname, **savefig_args)
+            with open(fname, 'rb') as image:
+                png = image.read()
+        return png
+
+    def _repr_png_(self):
+        """
+        Show a PNG preview if the object is returned in an interactive shell.
+        For the Jupyter notebook or IPython Qt console.
+        """
+        return self._png_preview()
