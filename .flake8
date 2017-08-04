@@ -1,4 +1,0 @@
-[flake8]
-exclude =
-    gmt/_version.py
-ignore = F401,E226,I101,I100
