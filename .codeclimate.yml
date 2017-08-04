@@ -20,3 +20,5 @@ exclude_paths:
     - "gmt/_version.py"
     - "doc/**/*"
     - "ci/*"
+    - "gmt/tests/baseline/*"
+    - "gmt/tests/data/*"
