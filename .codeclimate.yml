@@ -1,0 +1,22 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - python
+  pep8:
+    enabled: true
+  fixme:
+    enabled: true
+  radon:
+    enabled: true
+
+ratings:
+    paths:
+        - "**/*.py"
+
+exclude_paths:
+    - "versioneer.py"
+    - "gmt/_version.py"
+    - "doc/**/*"
+    - "ci/*"
