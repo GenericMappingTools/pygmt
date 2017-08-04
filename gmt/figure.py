@@ -2,7 +2,11 @@
 Define the Figure class that handles all plotting.
 """
 import os
+import sys
+import subprocess
+import webbrowser
 from tempfile import NamedTemporaryFile, TemporaryDirectory
+import base64
 
 try:
     from IPython.display import Image
@@ -40,7 +44,7 @@ def figure(name):
         call_module(session, 'figure', '{} {}'.format(name, fmt))
 
 
-def _unique_name():
+def unique_name():
     """
     Generate a unique name for a figure.
 
@@ -61,18 +65,52 @@ def _unique_name():
     return name
 
 
+def launch_external_viewer(fname):
+    """
+    Open a file in an external viewer program.
+
+    Uses the ``xdg-open`` command on Linux, the ``open`` command on OSX, and
+    the default web browser on other systems.
+
+    Parameters
+    ----------
+    fname : str
+        The file name of the file (preferably a full path).
+
+    """
+    # Redirect stdout and stderr to devnull so that the terminal isn't filled
+    # with noise
+    run_args = dict(stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    # Open the file with the default viewer.
+    # Fall back to the browser if can't recognize the operating system.
+    if sys.platform.startswith('linux'):
+        subprocess.run(['xdg-open', fname], **run_args)
+    elif sys.platform == 'darwin':  # Darwin is OSX
+        subprocess.run(['open', fname], **run_args)
+    else:
+        webbrowser.open_new_tab('file://{}'.format(fname))
+
+
 class Figure(BasePlotting):
     """
-    Create a GMT figure.
+    Create a new GMT figure.
 
     Use the plotting methods to add elements to the figure.
 
-    Save the output to a file using :meth:`~gmt.Figure.savefig`.
-    Insert the figure in a Jupyter notebook using :meth:`~gmt.Figure.show`.
+    Preview the figure using :meth:`~gmt.Figure.show`.
+
+    Save the figure to a file using :meth:`~gmt.Figure.savefig`.
     """
 
     def __init__(self):
-        self._name = _unique_name()
+        self._name = unique_name()
+        self._preview_dir = TemporaryDirectory(prefix=self._name + '-preview-')
+
+    def __del__(self):
+        # Clean up the temporary directory that stores the previews
+        if hasattr(self, '_preview_dir'):
+            self._preview_dir.cleanup()
 
     def _preprocess(self, **kwargs):
         """
@@ -197,63 +235,101 @@ class Figure(BasePlotting):
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop,
                        portrait=portrait, **kwargs)
 
-    def show(self, dpi=300, width=500):
+    def show(self, dpi=300, width=500, external=False):
         """
-        Display the figure in the Jupyter notebook.
+        Display a preview of the figure.
 
-        You will need to have IPython installed for this to work.
-        You should have it if you are using a Jupyter notebook.
+        Inserts the preview as a PNG on the Jupyter notebook.
+        If ``external=True``, makes PDF preview instead and opens it in the
+        default viewer for your operating system (falls back to the default
+        web browser).
+
+        If ``external=False``, you will need to have IPython installed for this
+        to work.  You should have it if you are using a Jupyter notebook.
+
+        Note that the external viewer does not block the current process.
+
+        All previews are deleted when the current Python process is terminated.
 
         Parameters
         ----------
         dpi : int
             The image resolution (dots per inch).
         width : int
-            Width of the figure shown in the notebook in pixels.
+            Width of the figure shown in the notebook in pixels. Ignored if
+            ``external=True``.
+        external : bool
+            View the preview as a PDF in an external viewer.
 
         Returns
         -------
         img : IPython.display.Image
+            Only if ``external=False``.
 
         """
-        png = self._png_preview(dpi=dpi, anti_alias=True)
-        img = Image(data=png, width=width)
-        return img
+        if external:
+            pdf = self._preview(fmt='pdf', dpi=600, anti_alias=False,
+                                as_bytes=False)
+            launch_external_viewer(pdf)
+        else:
+            png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
+                                as_bytes=True)
+            img = Image(data=png, width=width)
+            return img
 
-    def _png_preview(self, dpi=70, anti_alias=True):
+    def _preview(self, fmt, dpi, anti_alias, as_bytes=False):
         """
-        Grab a PNG preview of the figure.
-
-        Uses the default parameters from :meth:`~gmt.Figure.savefig`.
+        Grab a preview of the figure.
 
         Parameters
         ----------
+        fmt : str
+            The image format. Can be any extension that
+            :meth:`~gmt.Figure.savefig` recognizes.
         dpi : int
             The image resolution (dots per inch).
         anti_alias : bool
             If True, will apply anti-aliasing to the image (using options
             ``Qg=4, Qt=4``).
+        as_bytes : bool
+            If ``True``, will load the image as a bytes string and return that
+            instead of the file name.
 
         Returns
         -------
-        png : bytes or ndarray
-            The PNG image read as a bytes string.
+        preview : str or bytes
+            If ``as_bytes=False``, this is the file name of the preview image
+            file. Else, it is the file content loaded as a bytes string.
 
         """
         savefig_args = dict(dpi=dpi)
         if anti_alias:
             savefig_args['Qg'] = 4
             savefig_args['Qt'] = 4
-        with TemporaryDirectory() as tmpdir:
-            fname = os.path.join(tmpdir, '{}-preview.png'.format(self._name))
-            self.savefig(fname, **savefig_args)
+        fname = os.path.join(self._preview_dir.name,
+                             '{}.{}'.format(self._name, fmt))
+        self.savefig(fname, **savefig_args)
+        if as_bytes:
             with open(fname, 'rb') as image:
-                png = image.read()
-        return png
+                preview = image.read()
+            return preview
+        return fname
 
     def _repr_png_(self):
         """
         Show a PNG preview if the object is returned in an interactive shell.
         For the Jupyter notebook or IPython Qt console.
         """
-        return self._png_preview()
+        png = self._preview(fmt='png', dpi=70, anti_alias=True, as_bytes=True)
+        return png
+
+    def _repr_html_(self):
+        """
+        Show the PNG image embedded in HTML with a controlled width.
+        Looks better than the raw PNG.
+        """
+        raw_png = self._preview(fmt='png', dpi=300, anti_alias=True,
+                                as_bytes=True)
+        base64_png = base64.encodebytes(raw_png)
+        html = '<img src="data:image/png;base64,{image}" width="{width}px">'
+        return html.format(image=base64_png.decode('utf-8'), width=500)

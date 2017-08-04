@@ -7,12 +7,12 @@ import os
 import pytest
 
 from .. import Figure
-from ..figure import _unique_name
+from ..figure import unique_name
 
 
 def test_figure_unique_name():
     "Make sure the figure name starts with gmt-python-"
-    name = _unique_name()
+    name = unique_name()
     assert name.startswith('gmt-python-')
 
 
