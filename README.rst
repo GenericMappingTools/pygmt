@@ -15,9 +15,12 @@ GMT/Python
 .. image:: http://img.shields.io/travis/GenericMappingTools/gmt-python/master.svg?style=flat-square&label=linux|osx
     :alt: Travis CI build status
     :target: https://travis-ci.org/GenericMappingTools/gmt-python
-.. image:: http://img.shields.io/coveralls/GenericMappingTools/gmt-python/master.svg?style=flat-square
+.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/gmt-python/master.svg?style=flat-square
     :alt: Test coverage status
-    :target: https://coveralls.io/r/GenericMappingTools/gmt-python?branch=master
+    :target: https://codecov.io/gh/GenericMappingTools/gmt-python
+.. image:: https://img.shields.io/codeclimate/github/GenericMappingTools/gmt-python.svg?style=flat-square
+    :alt: Code quality status
+    :target: https://codeclimate.com/github/GenericMappingTools/gmt-python
 .. image:: https://img.shields.io/pypi/pyversions/gmt-python.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/gmt-python
