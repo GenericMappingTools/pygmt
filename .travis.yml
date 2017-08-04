@@ -58,7 +58,7 @@ before_install:
     - conda install --yes --file requirements.txt -c conda-forge/label/dev -c conda-forge
     - conda install --yes --file requirements-dev.txt -c conda-forge
     - if [ "$COVERAGE" == "true" ]; then
-        pip install coveralls codecov codacy-coverage codeclimate-test-reporter;
+        pip install codecov codeclimate-test-reporter;
       fi
     # Show installed pkg information for postmortem diagnostic
     - conda list
@@ -85,10 +85,7 @@ script:
 
 after_success:
     - if [ "$COVERAGE" == "true" ]; then
-        coveralls;
         codecov -e PYTHON;
-        coverage xml;
-        python-codacy-coverage -r coverage.xml;
         codeclimate-test-reporter;
       fi
 
