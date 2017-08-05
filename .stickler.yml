@@ -1,0 +1,8 @@
+linters:
+    flake8:
+    shellcheck:
+        shell: bash
+     csslint:
+        enable: alse
+files:
+    ignore: ['versioneer.py', 'gmt/_version.py']
