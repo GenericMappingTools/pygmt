@@ -7,6 +7,7 @@ import pytest
 
 from ..clib import create_session, destroy_session, call_module, load_libgmt, \
     APISession, get_constant
+from ..exceptions import GMTCLibError
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -23,7 +24,7 @@ def test_constant():
     assert get_constant('GMT_SESSION_EXTERNAL') != -99999
     assert get_constant('GMT_MODULE_CMD') != -99999
     assert get_constant('GMT_PAD_DEFAULT') != -99999
-    with pytest.raises(ValueError):
+    with pytest.raises(GMTCLibError):
         get_constant('A_WHOLE_LOT_OF_JUNK')
 
 
