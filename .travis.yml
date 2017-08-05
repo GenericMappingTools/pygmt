@@ -82,12 +82,12 @@ script:
 
 after_success:
     - if [ "$COVERAGE" == "true" ]; then
-        echo "Uploading coverage to Codecov"
+        echo "Uploading coverage to Codecov";
         codecov -e PYTHON;
         coverage xml;
-        echo "Uploading coverage to Codacy"
-        python-codacy-coverage -r coverage.xml
-        echo "Uploading coverage to Code Climate"
+        echo "Uploading coverage to Codacy";
+        python-codacy-coverage -r coverage.xml;
+        echo "Uploading coverage to Code Climate";
         codeclimate-test-reporter;
       fi
 
