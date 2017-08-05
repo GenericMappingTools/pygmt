@@ -57,7 +57,9 @@ before_install:
     # Need the dev channel to get development builds of GMT 6
     - conda install --yes --file requirements.txt -c conda-forge/label/dev -c conda-forge
     - conda install --yes --file requirements-dev.txt -c conda-forge
-    - if [ "$COVERAGE" == "true" ]; then pip install coveralls==0.5; fi
+    - if [ "$COVERAGE" == "true" ]; then
+        pip install codecov codeclimate-test-reporter;
+      fi
     # Show installed pkg information for postmortem diagnostic
     - conda list
 
@@ -71,12 +73,21 @@ script:
     - make pep8
     - make lint
     # Run the test suite
-    - if [ "$COVERAGE" == "true" ]; then make coverage; else make test; fi
+    - if [ "$COVERAGE" == "true" ]; then
+        make coverage;
+      else
+        make test;
+      fi
     # Build the documentation
-    - if [ "$BUILD_DOCS" == "true" ]; then make -C doc all; fi
+    - if [ "$BUILD_DOCS" == "true" ]; then
+        make -C doc all;
+      fi
 
 after_success:
-    - if [ "$COVERAGE" == "true" ]; then coveralls; fi
+    - if [ "$COVERAGE" == "true" ]; then
+        codecov -e PYTHON;
+        codeclimate-test-reporter;
+      fi
 
 deploy:
     # Push the built docs to Github pages
