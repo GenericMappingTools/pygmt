@@ -86,6 +86,7 @@ script:
 after_success:
     - if [ "$COVERAGE" == "true" ]; then
         codecov -e PYTHON;
+        coverage xml;
         codeclimate-test-reporter;
       fi
 

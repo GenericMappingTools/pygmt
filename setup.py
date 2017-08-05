@@ -9,7 +9,7 @@ import versioneer
 
 
 NAME = 'gmt-python'
-FULLNAME =  'GMT Python'
+FULLNAME = 'GMT Python'
 AUTHOR = "Leonardo Uieda"
 AUTHOR_EMAIL = 'leouieda@gmail.com'
 MAINTAINER = AUTHOR
