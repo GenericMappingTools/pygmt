@@ -59,6 +59,28 @@ def check_libgmt(libgmt):
             raise GMTCLibError(msg)
 
 
+def check_status_code(status, function):
+    """
+    Check if the status code returned by a function is non-zero.
+
+    Parameters
+    ----------
+    status : int or None
+        The status code returned by a GMT C API function.
+    function : str
+        The name of the GMT function (used to raise the exception if it's a
+        non-zero status code).
+
+    Raises
+    ------
+    GMTCLibError
+
+    """
+    if status is None or status != 0:
+        raise GMTCLibError(
+            'Failed {} with status code {}.'.format(function, status))
+
+
 def load_libgmt(libname='libgmt'):
     """
     Find and load ``libgmt`` as a ctypes.CDLL.
@@ -159,10 +181,7 @@ def call_module(session, module, args):
 
     mode = get_constant('GMT_MODULE_CMD')
     status = c_call_module(session, module.encode(), mode, args.encode())
-
-    if status is None or status != 0:
-        raise GMTCLibError(
-            'Failed GMT_Call_Module with status code {}.'.format(status))
+    check_status_code(status, 'GMT_Call_Module')
 
 
 def create_session(name='gmt-python-session'):
@@ -227,10 +246,7 @@ def destroy_session(session):
     c_destroy_session.argtypes = [ctypes.c_void_p]
     c_destroy_session.restype = ctypes.c_int
     status = c_destroy_session(session)
-
-    if status is None or status != 0:
-        raise GMTCLibError(
-            'Failed GMT_Destroy_Session with status code {}.'.format(status))
+    check_status_code(status, 'GMT_Destroy_Session')
 
 
 class APISession():  # pylint: disable=too-few-public-methods
