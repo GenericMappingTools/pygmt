@@ -7,41 +7,46 @@ import ctypes
 from ..exceptions import GMTOSError, GMTCLibNotFoundError, GMTCLibError
 
 
-def load_libgmt():
+def clib_extension(os_name=None):
     """
-    Find and load ``libgmt`` as a ctypes.CDLL.
-
-    Currently only works for Linux (looks for ``libgmt.so``).
-
-    Library path must be discoverable, either by being in standard places or by
-    setting the environment variable ``LD_LIBRARY_PATH``.
+    Return the extension for the shared library for the current OS.
 
     Returns
     -------
-    ctypes.CDLL object
-        The loaded shared library.
+    os_name : str or None
+        The operating system name as given by ``sys.platform``
+        (the default if None).
+
+    Returns
+    -------
+    ext : str
+        The extension ('.so', '.dylib', etc).
 
     """
+    if os_name is None:
+        os_name = sys.platform
     # Set the shared library extension in a platform independent way
-    if sys.platform.startswith('linux'):
+    if os_name.startswith('linux'):
         lib_ext = 'so'
-    elif sys.platform == 'darwin':
+    elif os_name == 'darwin':
         # Darwin is OSX
         lib_ext = 'dylib'
     else:
         raise GMTOSError('Unknown operating system: {}'.format(sys.platform))
+    return lib_ext
 
-    lib_name = '.'.join(['libgmt', lib_ext])
 
-    try:
-        libgmt = ctypes.CDLL(lib_name)
-    except OSError as err:
-        msg = ' '.join([
-            "Couldn't find the GMT shared library '{}'.".format(lib_name),
-            "Have you tried setting the LD_LIBRARY_PATH environment variable?",
-        ])
-        raise GMTCLibNotFoundError(msg) from err
+def check_libgmt(libgmt):
+    """
+    Make sure that libgmt was loaded correctly.
 
+    Checks if it defines some common required functions.
+
+    Raises
+    ------
+    GMTCLibError
+
+    """
     # Check if a few of the functions we need are in the library
     functions = ['Create_Session', 'Get_Enum', 'Call_Module',
                  'Destroy_Session']
@@ -52,6 +57,38 @@ def load_libgmt():
                 "Couldn't access function GMT_{}.".format(func),
             ])
             raise GMTCLibError(msg)
+
+
+def load_libgmt(libname='libgmt'):
+    """
+    Find and load ``libgmt`` as a ctypes.CDLL.
+
+    If not given the full path to the library, it must be in standard places or
+    by discoverable by setting the environment variable ``LD_LIBRARY_PATH``.
+
+    Parameters
+    ----------
+    libname : str
+        The name of the GMT shared library **without the extension**. Can be a
+        full path to the library or just the library name.
+
+    Returns
+    -------
+    ctypes.CDLL object
+        The loaded shared library.
+
+    """
+    try:
+        libgmt = ctypes.CDLL('.'.join([libname, clib_extension()]))
+        check_libgmt(libgmt)
+    except OSError as err:
+        msg = ' '.join([
+            "Couldn't find the GMT shared library '{}'.".format(libname),
+            "Have you tried setting the LD_LIBRARY_PATH environment variable?",
+            "\nOriginal error message:",
+            "\n\n    {}".format(str(err)),
+        ])
+        raise GMTCLibNotFoundError(msg)
     return libgmt
 
 
@@ -190,6 +227,7 @@ def destroy_session(session):
     c_destroy_session.argtypes = [ctypes.c_void_p]
     c_destroy_session.restype = ctypes.c_int
     status = c_destroy_session(session)
+
     if status is None or status != 0:
         raise GMTCLibError(
             'Failed GMT_Destroy_Session with status code {}.'.format(status))
