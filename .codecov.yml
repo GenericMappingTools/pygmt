@@ -10,5 +10,10 @@ coverage:
         if_no_uploads: error
         if_not_found: success
         if_ci_failed: failure
+  notify:
+    gitter:
+      default:
+        url: "https://webhooks.gitter.im/e/42136d49f4c9c5fd2611"
+        threshold: 1%
 
 comment: off
