@@ -4,15 +4,95 @@ ctypes wrappers for core functions from the C API
 import sys
 import ctypes
 
+from ..exceptions import GMTOSError, GMTCLibNotFoundError, GMTCLibError
 
-def load_libgmt():
+
+def clib_extension(os_name=None):
+    """
+    Return the extension for the shared library for the current OS.
+
+    Returns
+    -------
+    os_name : str or None
+        The operating system name as given by ``sys.platform``
+        (the default if None).
+
+    Returns
+    -------
+    ext : str
+        The extension ('.so', '.dylib', etc).
+
+    """
+    if os_name is None:
+        os_name = sys.platform
+    # Set the shared library extension in a platform independent way
+    if os_name.startswith('linux'):
+        lib_ext = 'so'
+    elif os_name == 'darwin':
+        # Darwin is OSX
+        lib_ext = 'dylib'
+    else:
+        raise GMTOSError('Unknown operating system: {}'.format(sys.platform))
+    return lib_ext
+
+
+def check_libgmt(libgmt):
+    """
+    Make sure that libgmt was loaded correctly.
+
+    Checks if it defines some common required functions.
+
+    Raises
+    ------
+    GMTCLibError
+
+    """
+    # Check if a few of the functions we need are in the library
+    functions = ['Create_Session', 'Get_Enum', 'Call_Module',
+                 'Destroy_Session']
+    for func in functions:
+        if not hasattr(libgmt, 'GMT_' + func):
+            msg = ' '.join([
+                "Error loading libgmt.",
+                "Couldn't access function GMT_{}.".format(func),
+            ])
+            raise GMTCLibError(msg)
+
+
+def check_status_code(status, function):
+    """
+    Check if the status code returned by a function is non-zero.
+
+    Parameters
+    ----------
+    status : int or None
+        The status code returned by a GMT C API function.
+    function : str
+        The name of the GMT function (used to raise the exception if it's a
+        non-zero status code).
+
+    Raises
+    ------
+    GMTCLibError
+
+    """
+    if status is None or status != 0:
+        raise GMTCLibError(
+            'Failed {} with status code {}.'.format(function, status))
+
+
+def load_libgmt(libname='libgmt'):
     """
     Find and load ``libgmt`` as a ctypes.CDLL.
 
-    Currently only works for Linux (looks for ``libgmt.so``).
+    If not given the full path to the library, it must be in standard places or
+    by discoverable by setting the environment variable ``LD_LIBRARY_PATH``.
 
-    Library path must be discoverable, either by being in standard places or by
-    setting the environment variable ``LD_LIBRARY_PATH``.
+    Parameters
+    ----------
+    libname : str
+        The name of the GMT shared library **without the extension**. Can be a
+        full path to the library or just the library name.
 
     Returns
     -------
@@ -20,23 +100,17 @@ def load_libgmt():
         The loaded shared library.
 
     """
-    # Set the shared library extension in a platform independent way
-    if sys.platform.startswith('linux'):
-        lib_ext = 'so'
-    elif sys.platform == 'darwin':
-        # Darwin is OSX
-        lib_ext = 'dylib'
-    else:
-        raise RuntimeError('Unknown operating system: {}'.format(sys.platform))
-
-    libgmt = ctypes.CDLL('.'.join(['libgmt', lib_ext]))
-
-    # Check if a few of the functions we need are in the library
-    functions = ['Create_Session', 'Get_Enum', 'Call_Module',
-                 'Destroy_Session']
-    for func in functions:
-        assert hasattr(libgmt, 'GMT_' + func), \
-            "Error loading libgmt. Can't access GMT_{}.".format(func)
+    try:
+        libgmt = ctypes.CDLL('.'.join([libname, clib_extension()]))
+        check_libgmt(libgmt)
+    except OSError as err:
+        msg = ' '.join([
+            "Couldn't find the GMT shared library '{}'.".format(libname),
+            "Have you tried setting the LD_LIBRARY_PATH environment variable?",
+            "\nOriginal error message:",
+            "\n\n    {}".format(str(err)),
+        ])
+        raise GMTCLibNotFoundError(msg)
     return libgmt
 
 
@@ -72,7 +146,7 @@ def get_constant(name):
 
     assert value is not None, 'GMT_Get_Enum failed returning None.'
     if value == -99999:
-        raise ValueError(
+        raise GMTCLibError(
             "Constant '{}' doesn't exits in libgmt.".format(name))
 
     return value
@@ -107,9 +181,7 @@ def call_module(session, module, args):
 
     mode = get_constant('GMT_MODULE_CMD')
     status = c_call_module(session, module.encode(), mode, args.encode())
-
-    assert status is not None, 'Failed returning None.'
-    assert status == 0, 'Failed with status code {}.'.format(status)
+    check_status_code(status, 'GMT_Call_Module')
 
 
 def create_session(name='gmt-python-session'):
@@ -144,8 +216,10 @@ def create_session(name='gmt-python-session'):
                                get_constant('GMT_PAD_DEFAULT'),
                                get_constant('GMT_SESSION_EXTERNAL'),
                                None)
-    assert session is not None, \
-        "Failed creating GMT API pointer using create_session."
+
+    if session is None:
+        raise GMTCLibError("Failed to create a GMT API void pointer.")
+
     return session
 
 
@@ -172,8 +246,7 @@ def destroy_session(session):
     c_destroy_session.argtypes = [ctypes.c_void_p]
     c_destroy_session.restype = ctypes.c_int
     status = c_destroy_session(session)
-    assert status is not None, 'Failed returning None.'
-    assert status == 0, 'Failed with status code {}.'.format(status)
+    check_status_code(status, 'GMT_Destroy_Session')
 
 
 class APISession():  # pylint: disable=too-few-public-methods
