@@ -1,7 +1,7 @@
 """
 Modern mode session management modules.
 """
-from .clib import call_module, APISession
+from .clib import LibGMT
 
 
 def begin():
@@ -14,8 +14,8 @@ def begin():
 
     """
     prefix = 'gmt-python-session'
-    with APISession() as session:
-        call_module(session, 'begin', prefix)
+    with LibGMT() as lib:
+        lib.call_module('begin', prefix)
 
 
 def end():
@@ -28,5 +28,5 @@ def end():
     ``gmt.begin``), and bring the figures to the working directory.
 
     """
-    with APISession() as session:
-        call_module(session, 'end', '')
+    with LibGMT() as lib:
+        lib.call_module('end', '')

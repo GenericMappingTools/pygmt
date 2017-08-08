@@ -13,7 +13,7 @@ try:
 except ImportError:
     Image = None
 
-from .clib import call_module, APISession
+from .clib import LibGMT
 from .base_plotting import BasePlotting
 from .utils import build_arg_string
 from .decorators import fmt_docstring, use_alias, kwargs_to_strings
@@ -40,8 +40,8 @@ def figure(name):
     """
     # Passing format '-' tells gmt.end to not produce any files.
     fmt = '-'
-    with APISession() as session:
-        call_module(session, 'figure', '{} {}'.format(name, fmt))
+    with LibGMT() as lib:
+        lib.call_module('figure', '{} {}'.format(name, fmt))
 
 
 def unique_name():
@@ -185,8 +185,8 @@ class Figure(BasePlotting):
         # Default portrait mode to True
         if 'P' not in kwargs:
             kwargs['P'] = ''
-        with APISession() as session:
-            call_module(session, 'psconvert', build_arg_string(kwargs))
+        with LibGMT() as lib:
+            lib.call_module('psconvert', build_arg_string(kwargs))
 
     def savefig(self, fname, orientation='portrait', transparent=False,
                 crop=True, **kwargs):
