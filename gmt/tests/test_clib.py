@@ -1,3 +1,4 @@
+# pylint: disable=protected-access
 """
 Test the wrappers for the C API.
 """
@@ -5,8 +6,7 @@ import os
 
 import pytest
 
-from ..clib import create_session, destroy_session, call_module, load_libgmt, \
-    APISession, get_constant
+from ..clib import load_libgmt, LibGMT
 from ..clib.core import clib_extension, check_libgmt
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError
 
@@ -42,37 +42,39 @@ def test_clib_extension():
 
 def test_constant():
     "Test that I can get correct constants from the C lib"
-    assert get_constant('GMT_SESSION_EXTERNAL') != -99999
-    assert get_constant('GMT_MODULE_CMD') != -99999
-    assert get_constant('GMT_PAD_DEFAULT') != -99999
+    lib = LibGMT()
+    assert lib.get_constant('GMT_SESSION_EXTERNAL') != -99999
+    assert lib.get_constant('GMT_MODULE_CMD') != -99999
+    assert lib.get_constant('GMT_PAD_DEFAULT') != -99999
     with pytest.raises(GMTCLibError):
-        get_constant('A_WHOLE_LOT_OF_JUNK')
+        lib.get_constant('A_WHOLE_LOT_OF_JUNK')
 
 
 def test_clib_session_management():
     "Test that create and destroy session are called without errors"
-    session1 = create_session()
+    lib = LibGMT()
+    session1 = lib._create_session()
     assert session1 is not None
-    session2 = create_session()
+    session2 = lib._create_session()
     assert session2 is not None
     assert session2 != session1
-    destroy_session(session1)
-    destroy_session(session2)
+    lib._destroy_session(session1)
+    lib._destroy_session(session2)
 
 
 def test_destroy_session_fails():
     "Fail to destroy session when given bad input"
+    lib = LibGMT()
     with pytest.raises(GMTCLibError):
-        destroy_session(None)
+        lib._destroy_session(None)
 
 
 def test_call_module():
     "Run a psbasemap call to see if the module works"
     data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
     out_fname = 'test_call_module.txt'
-    with APISession() as session:
-        call_module(session, 'gmtinfo',
-                    '{} -C ->{}'.format(data_fname, out_fname))
+    with LibGMT() as lib:
+        lib.call_module('gmtinfo', '{} -C ->{}'.format(data_fname, out_fname))
     assert os.path.exists(out_fname)
     with open(out_fname) as out_file:
         output = out_file.read().strip().replace('\t', ' ')
@@ -82,8 +84,13 @@ def test_call_module():
 
 def test_call_module_fails():
     "Fails when given bad input"
+    with LibGMT() as lib:
+        with pytest.raises(GMTCLibError):
+            lib.call_module('meh', '')
+
+
+def test_call_module_no_session():
+    "Fails when not in a session"
+    lib = LibGMT()
     with pytest.raises(GMTCLibError):
-        with APISession() as session:
-            call_module(session, 'meh', '')
-    with pytest.raises(GMTCLibError):
-        call_module(None, 'gmtdefaults', '')
+        lib.call_module('gmtdefaults', '')

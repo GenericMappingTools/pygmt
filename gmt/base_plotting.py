@@ -2,7 +2,7 @@
 Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
-from .clib import call_module, APISession
+from .clib import LibGMT
 from .utils import build_arg_string
 from .decorators import fmt_docstring, use_alias, kwargs_to_strings
 
@@ -97,8 +97,8 @@ class BasePlotting():
 
         """
         kwargs = self._preprocess(**kwargs)
-        with APISession() as session:
-            call_module(session, 'pscoast', build_arg_string(kwargs))
+        with LibGMT() as lib:
+            lib.call_module('pscoast', build_arg_string(kwargs))
 
     @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
@@ -157,8 +157,8 @@ class BasePlotting():
         kwargs = self._preprocess(**kwargs)
         assert isinstance(data, str), 'Only accepts file names for now.'
         arg_str = ' '.join([data, build_arg_string(kwargs)])
-        with APISession() as session:
-            call_module(session, 'psxy', arg_str)
+        with LibGMT() as lib:
+            lib.call_module('psxy', arg_str)
 
     @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', P='portrait')
@@ -208,5 +208,5 @@ class BasePlotting():
         if 'D' in kwargs:
             assert 'F' in kwargs, \
                 "Option D requires F to be specified as well."
-        with APISession() as session:
-            call_module(session, 'psbasemap', build_arg_string(kwargs))
+        with LibGMT() as lib:
+            lib.call_module('psbasemap', build_arg_string(kwargs))
