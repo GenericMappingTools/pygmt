@@ -17,6 +17,7 @@ dependencies:
     - flake8
     - pylint
     - sphinx
+    - sphinx_bootstrap_theme
     - nbsphinx
     - numpydoc
     - twine
