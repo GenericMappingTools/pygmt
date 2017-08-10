@@ -64,3 +64,8 @@ footer {
     margin-top: 40px;
     line-height: 1.5;
 }
+
+.method {
+    border-top: 2px solid #ddd;
+    padding-top: 15px;
+}
