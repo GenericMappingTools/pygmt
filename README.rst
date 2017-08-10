@@ -117,29 +117,6 @@ Please note that this project is released with a
 By participating in this project you agree to abide by its terms.
 
 
-Working features and TODO
--------------------------
-
-- [X] Initial package layout and base documentation
-- [X] Call basic functions from the C API: ``GMT_Create_Session``,
-  ``GMT_Destroy_Session``, and ``GMT_Call_Module``
-- [X] Setup testing infrastructure for generated plots, possibly taking
-  advantage of matplotlib's `pytest-mpl
-  <https://github.com/matplotlib/pytest-mpl>`__
-- [X] Wrappers for basic session management functions (``begin``, ``end``, and
-  ``figure``).
-- [X] Implement a global modern mode session that starts at import time and is
-  destroyed when the program ends. This eliminates the need for ``begin`` and
-  ``end`` in the Python API.
-- [X] Minimal working code producing a figure from data on disk
-- [X] Implement an object-oriented API using a ``Figure`` class (similar to
-  matplotlib).
-- [ ] Wrapper for the GMT VirtualFile machinery to allow communicating data in
-  memory to the modules
-- [ ] Wrapper for ``GMT_DATA`` to pass in tabular data from numpy arrays
-- [ ] Wrapper for ``GMT_GRID`` to pass in grids from xarray Datasets
-
-
 License
 -------
 
