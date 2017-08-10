@@ -4,7 +4,7 @@ Test the session management modules.
 import os
 
 from ..session_management import begin, end
-from ..clib import APISession, call_module
+from ..clib import LibGMT
 
 
 def test_begin_end():
@@ -14,8 +14,8 @@ def test_begin_end():
     """
     end()  # Kill the global session
     begin()
-    with APISession() as session:
-        call_module(session, 'psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+    with LibGMT() as lib:
+        lib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
     end()
     begin()  # Restart the global session
     assert os.path.exists('gmt-python-session.pdf')

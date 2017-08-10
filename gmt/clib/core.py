@@ -11,6 +11,10 @@ def clib_extension(os_name=None):
     """
     Return the extension for the shared library for the current OS.
 
+    .. warning::
+
+        Currently only works for OSX and Linux.
+
     Returns
     -------
     os_name : str or None
@@ -41,6 +45,14 @@ def check_libgmt(libgmt):
     Make sure that libgmt was loaded correctly.
 
     Checks if it defines some common required functions.
+
+    Does nothing if everything is fine. Raises an exception if any of the
+    functions are missing.
+
+    Parameters
+    ----------
+    libgmt : ctypes.CDLL
+        A shared library loaded using ctypes.
 
     Raises
     ------
@@ -74,6 +86,7 @@ def check_status_code(status, function):
     Raises
     ------
     GMTCLibError
+        If the status code is non-zero.
 
     """
     if status is None or status != 0:
@@ -99,6 +112,12 @@ def load_libgmt(libname='libgmt'):
     ctypes.CDLL object
         The loaded shared library.
 
+    Raises
+    ------
+    GMTCLibNotFoundError
+        If there was any problem loading the library (couldn't find it or
+        couldn't access the functions).
+
     """
     try:
         libgmt = ctypes.CDLL('.'.join([libname, clib_extension()]))
@@ -116,9 +135,12 @@ def load_libgmt(libname='libgmt'):
 
 class LibGMT():
     """
-    Context manager to create a GMT C API session and destroy it.
+    Load and access the GMT shared library (libgmt).
 
-    Needs to be used when wrapping a GMT module into a function.
+    Works as a context manager to create a GMT C API session and destroy it in
+    the end.
+
+    Functions of the shared library are exposed as methods of this class.
 
     If creating GMT data structures to communicate data, put that code inside
     this context manager and reuse the same session.
@@ -126,8 +148,8 @@ class LibGMT():
     Examples
     --------
 
-    >>> with LibGMT() as gmt:
-    ...     gmt.call_module('figure', 'my-figure')
+    >>> with LibGMT() as lib:
+    ...     lib.call_module('figure', 'my-figure')
 
     """
 
@@ -154,15 +176,11 @@ class LibGMT():
         """
         Create the ``GMTAPI_CTRL`` struct required by the GMT C API functions.
 
-        .. warning::
-
-            Best not used directly. Use :class:`gmt.clib.APISession` instead.
-
         It is a C void pointer containing the current session information and
         cannot be accessed directly.
 
         Remember to terminate the current session using
-        :func:`gmt.clib.destroy_session` before creating a new one.
+        :func:`gmt.clib.LibGMT._destroy_session` before creating a new one.
 
         Returns
         -------
@@ -191,10 +209,6 @@ class LibGMT():
         """
         Terminate and free the memory of a registered ``GMTAPI_CTRL`` session.
 
-        .. warning::
-
-            Best not used directly. Use :class:`gmt.clib.APISession` instead.
-
         The session is created and consumed by the C API modules and needs to
         be freed before creating a new. Otherwise, some of the configuration
         files might be left behind and can influence subsequent API calls.
@@ -203,7 +217,7 @@ class LibGMT():
         ----------
         session : C void pointer (returned by ctypes as an integer)
             The active session object produced by
-            :func:`gmt.clib.create_session`.
+            :func:`gmt.clib.LibGMT._create_session`.
 
         """
         c_destroy_session = self._libgmt.GMT_Destroy_Session
@@ -232,7 +246,7 @@ class LibGMT():
 
         Raises
         ------
-        ValueError
+        GMTCLibError
             If the constant doesn't exist.
 
         """
@@ -264,6 +278,11 @@ class LibGMT():
         args : str
             String with the command line arguments that will be passed to the
             module (for example, ``'-R0/5/0/10 -JM'``).
+
+        Raises
+        ------
+        GMTCLibError
+            If the returned status code of the functions is non-zero.
 
         """
         c_call_module = self._libgmt.GMT_Call_Module
