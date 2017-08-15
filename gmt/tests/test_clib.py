@@ -70,7 +70,7 @@ def test_destroy_session_fails():
 
 
 def test_call_module():
-    "Run a psbasemap call to see if the module works"
+    "Run a command to see if call_module works"
     data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
     out_fname = 'test_call_module.txt'
     with LibGMT() as lib:
@@ -94,3 +94,37 @@ def test_call_module_no_session():
     lib = LibGMT()
     with pytest.raises(GMTCLibError):
         lib.call_module('gmtdefaults', '')
+
+
+def test_parse_data_family():
+    "Parsing the family argument correctly."
+    # 'family' can be a single GMT constant or two separated by a |
+    families = ['GMT_IS_DATASET',
+                'GMT_IS_GRID',
+                'GMT_IS_PALETTE',
+                'GMT_IS_TEXTSET',
+                'GMT_IS_MATRIX',
+                'GMT_IS_VECTOR']
+    vias = ['GMT_VIA_MATRIX', 'GMT_VIA_VECTOR']
+    with LibGMT() as lib:
+        for family in families:
+            assert lib._parse_data_family(family) == lib.get_constant(family)
+            for via in vias:
+                composite = '|'.join([family, via])
+                expected = lib.get_constant(family) + lib.get_constant(via)
+                assert lib._parse_data_family(composite) == expected
+
+def test_parse_data_family_fails():
+    "Check if the function fails when given bad input"
+    with LibGMT() as lib:
+        with pytest.raises(GMTCLibError):
+            lib._parse_data_family('SOME_random_STRING')
+        with pytest.raises(GMTCLibError):
+            lib._parse_data_family(
+                'GMT_IS_DATASET|GMT_VIA_MATRIX|GMT_VIA_VECTOR')
+        with pytest.raises(GMTCLibError):
+            lib._parse_data_family('GMT_IS_DATASET|NOT_A_PROPER_VIA')
+        with pytest.raises(GMTCLibError):
+            lib._parse_data_family('NOT_A_PROPER_FAMILY|GMT_VIA_MATRIX')
+        with pytest.raises(GMTCLibError):
+            lib._parse_data_family('NOT_A_PROPER_FAMILY|ALSO_INVALID')

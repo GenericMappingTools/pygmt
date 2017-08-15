@@ -294,3 +294,70 @@ class LibGMT():
         status = c_call_module(self._session_id, module.encode(), mode,
                                args.encode())
         check_status_code(status, 'GMT_Call_Module')
+
+    def create_data(self, family, geometry, mode, **kwargs):
+        """
+        Create an empty GMT data container.
+
+        Optionally allocate memory for the data (depending on the given
+        *mode*).
+
+        Parameters
+        ----------
+        family : str
+
+        """
+        pass
+
+    def _parse_data_family(self, family):
+        """
+        Parse the data family string into a GMT constant number.
+
+        Valid family names are: GMT_IS_DATASET, GMT_IS_GRID, GMT_IS_PALETTE,
+        GMT_IS_TEXTSET, GMT_IS_MATRIX, and GMT_IS_VECTOR.
+
+        Optionally append a "via" argument to a family name (separated by
+        ``|``): GMT_VIA_MATRIX or GMT_VIA_VECTOR.
+
+        Parameters
+        ----------
+        family : str
+            A GMT data family name.
+
+        Returns
+        -------
+        family_value : int
+            The GMT constant corresponding to the family.
+
+        Raises
+        ------
+        GMTCLibError
+            If the family name is invalid or there are more than 2 components
+            to the name.
+
+        """
+        valid_families = ['GMT_IS_DATASET',
+                          'GMT_IS_GRID',
+                          'GMT_IS_PALETTE',
+                          'GMT_IS_TEXTSET',
+                          'GMT_IS_MATRIX',
+                          'GMT_IS_VECTOR']
+        valid_via = ['GMT_VIA_MATRIX', 'GMT_VIA_VECTOR']
+        parts = family.split('|')
+        if len(parts) > 2:
+            raise GMTCLibError(
+                "Too many sections in family (>2): '{}'".format(family))
+        family_name = parts[0]
+        if family_name not in valid_families:
+            raise GMTCLibError(
+                "Invalid data family '{}'.".format(family_name))
+        family_value = self.get_constant(family_name)
+        if len(parts) == 2:
+            via_name = parts[1]
+            if via_name not in valid_via:
+                raise GMTCLibError(
+                    "Invalid data family (via) '{}'.".format(via_name))
+            via_value = self.get_constant(via_name)
+        else:
+            via_value = 0
+        return family_value + via_value
