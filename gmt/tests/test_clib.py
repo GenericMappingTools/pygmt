@@ -96,15 +96,19 @@ def test_call_module_no_session():
         lib.call_module('gmtdefaults', '')
 
 
-def test_parse_data_family():
-    "Parsing the family argument correctly."
-    # 'family' can be a single GMT constant or two separated by a |
+def test_parse_data_family_single():
+    "Parsing a single family argument correctly."
     with LibGMT() as lib:
-        families = lib._valid_families
-        vias = lib._valid_vias
-        test_cases = ((family, via) for family in families for via in vias)
-        for family in families:
+        for family in lib._valid_families:
             assert lib._parse_data_family(family) == lib.get_constant(family)
+
+
+def test_parse_data_family_via():
+    "Parsing a composite family argument (separated by |) correctly."
+    with LibGMT() as lib:
+        test_cases = ((family, via)
+                      for family in lib._valid_families
+                      for via in lib._valid_vias)
         for family, via in test_cases:
             composite = '|'.join([family, via])
             expected = lib.get_constant(family) + lib.get_constant(via)
