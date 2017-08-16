@@ -153,13 +153,24 @@ class LibGMT():
 
     """
 
-    _valid_families = ['GMT_IS_DATASET',
-                       'GMT_IS_GRID',
-                       'GMT_IS_PALETTE',
-                       'GMT_IS_TEXTSET',
-                       'GMT_IS_MATRIX',
-                       'GMT_IS_VECTOR']
+    _valid_data_families = [
+        'GMT_IS_DATASET',
+        'GMT_IS_GRID',
+        'GMT_IS_PALETTE',
+        'GMT_IS_TEXTSET',
+        'GMT_IS_MATRIX',
+        'GMT_IS_VECTOR',
+    ]
     _valid_vias = ['GMT_VIA_MATRIX', 'GMT_VIA_VECTOR']
+    _valid_data_geometries = [
+        'GMT_IS_NONE',
+        'GMT_IS_POINT',
+        'GMT_IS_LINE',
+        'GMT_IS_POLYGON',
+        'GMT_IS_PLP',
+        'GMT_IS_SURFACE',
+    ]
+    _valid_data_modes = ['GMT_CONTAINER_ONLY', 'GMT_OUTPUT']
 
     def __init__(self):
         self._libgmt = load_libgmt()
@@ -307,15 +318,19 @@ class LibGMT():
         """
         Create an empty GMT data container.
 
-        Optionally allocate memory for the data (depending on the given
-        *mode*).
-
         Parameters
         ----------
         family : str
 
         """
-        pass
+        family_int = self._parse_data_family(family)
+        if geometry not in self._valid_data_geometries:
+            raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
+        if mode not in self._valid_data_modes:
+            raise GMTCLibError("Invalid data creation mode '{}'.".format(mode))
+        # TODO: Check if dim, range and int are giving correctly
+        # TODO: Pass things to libgmt
+
 
     def _parse_data_family(self, family):
         """
@@ -349,7 +364,7 @@ class LibGMT():
             raise GMTCLibError(
                 "Too many sections in family (>2): '{}'".format(family))
         family_name = parts[0]
-        if family_name not in self._valid_families:
+        if family_name not in self._valid_data_families:
             raise GMTCLibError(
                 "Invalid data family '{}'.".format(family_name))
         family_value = self.get_constant(family_name)

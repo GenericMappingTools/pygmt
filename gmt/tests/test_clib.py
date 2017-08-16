@@ -99,7 +99,7 @@ def test_call_module_no_session():
 def test_parse_data_family_single():
     "Parsing a single family argument correctly."
     with LibGMT() as lib:
-        for family in lib._valid_families:
+        for family in lib._valid_data_families:
             assert lib._parse_data_family(family) == lib.get_constant(family)
 
 
@@ -107,7 +107,7 @@ def test_parse_data_family_via():
     "Parsing a composite family argument (separated by |) correctly."
     with LibGMT() as lib:
         test_cases = ((family, via)
-                      for family in lib._valid_families
+                      for family in lib._valid_data_families
                       for via in lib._valid_vias)
         for family, via in test_cases:
             composite = '|'.join([family, via])
@@ -128,3 +128,46 @@ def test_parse_data_family_fails():
         for test_case in test_cases:
             with pytest.raises(GMTCLibError):
                 lib._parse_data_family(test_case)
+
+
+def test_create_data():
+    "Run the function to make sure it doesn't fail badly."
+    with LibGMT() as lib:
+        data_pointers = []
+        # Dataset from vectors
+        data_vector = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_VECTOR',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[10, 20, 1, 0],  # columns, rows, layers, dtype
+        )
+        # Dataset from matrices
+        data_matrix = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_MATRIX',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[10, 20, 1, 0],
+        )
+        # Grids from matrices using dim
+        data_grid_dim = lib.create_data(
+            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            geometry='GMT_IS_SURFACE',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[10, 20, 1, 0],
+        )
+        # Grids from matrices using range and int
+        data_grid = lib.create_data(
+            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            geometry='GMT_IS_SURFACE',
+            mode='GMT_CONTAINER_ONLY',
+            range=[150, 250, -20, 20],  # WESN
+            int=[0.1, 0.2],  # dlon, dlat
+        )
+        # Grids from matrices using range and int
+        data_grid = lib.create_data(
+            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            geometry='GMT_IS_SURFACE',
+            mode='GMT_CONTAINER_ONLY',
+            range=[150, 250, -20, 20],  # WESN
+            int=[0.1, 0.2],  # dlon, dlat
+        )
