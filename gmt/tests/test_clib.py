@@ -99,32 +99,28 @@ def test_call_module_no_session():
 def test_parse_data_family():
     "Parsing the family argument correctly."
     # 'family' can be a single GMT constant or two separated by a |
-    families = ['GMT_IS_DATASET',
-                'GMT_IS_GRID',
-                'GMT_IS_PALETTE',
-                'GMT_IS_TEXTSET',
-                'GMT_IS_MATRIX',
-                'GMT_IS_VECTOR']
-    vias = ['GMT_VIA_MATRIX', 'GMT_VIA_VECTOR']
     with LibGMT() as lib:
+        families = lib._valid_families
+        vias = lib._valid_vias
+        test_cases = ((family, via) for family in families for via in vias)
         for family in families:
             assert lib._parse_data_family(family) == lib.get_constant(family)
-            for via in vias:
-                composite = '|'.join([family, via])
-                expected = lib.get_constant(family) + lib.get_constant(via)
-                assert lib._parse_data_family(composite) == expected
+        for family, via in test_cases:
+            composite = '|'.join([family, via])
+            expected = lib.get_constant(family) + lib.get_constant(via)
+            assert lib._parse_data_family(composite) == expected
+
 
 def test_parse_data_family_fails():
     "Check if the function fails when given bad input"
     with LibGMT() as lib:
-        with pytest.raises(GMTCLibError):
-            lib._parse_data_family('SOME_random_STRING')
-        with pytest.raises(GMTCLibError):
-            lib._parse_data_family(
-                'GMT_IS_DATASET|GMT_VIA_MATRIX|GMT_VIA_VECTOR')
-        with pytest.raises(GMTCLibError):
-            lib._parse_data_family('GMT_IS_DATASET|NOT_A_PROPER_VIA')
-        with pytest.raises(GMTCLibError):
-            lib._parse_data_family('NOT_A_PROPER_FAMILY|GMT_VIA_MATRIX')
-        with pytest.raises(GMTCLibError):
-            lib._parse_data_family('NOT_A_PROPER_FAMILY|ALSO_INVALID')
+        test_cases = [
+            'SOME_random_STRING',
+            'GMT_IS_DATASET|GMT_VIA_MATRIX|GMT_VIA_VECTOR',
+            'GMT_IS_DATASET|NOT_A_PROPER_VIA',
+            'NOT_A_PROPER_FAMILY|GMT_VIA_MATRIX',
+            'NOT_A_PROPER_FAMILY|ALSO_INVALID',
+        ]
+        for test_case in test_cases:
+            with pytest.raises(GMTCLibError):
+                lib._parse_data_family(test_case)

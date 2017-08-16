@@ -153,6 +153,14 @@ class LibGMT():
 
     """
 
+    _valid_families = ['GMT_IS_DATASET',
+                       'GMT_IS_GRID',
+                       'GMT_IS_PALETTE',
+                       'GMT_IS_TEXTSET',
+                       'GMT_IS_MATRIX',
+                       'GMT_IS_VECTOR']
+    _valid_vias = ['GMT_VIA_MATRIX', 'GMT_VIA_VECTOR']
+
     def __init__(self):
         self._libgmt = load_libgmt()
         self._session_id = None
@@ -336,25 +344,18 @@ class LibGMT():
             to the name.
 
         """
-        valid_families = ['GMT_IS_DATASET',
-                          'GMT_IS_GRID',
-                          'GMT_IS_PALETTE',
-                          'GMT_IS_TEXTSET',
-                          'GMT_IS_MATRIX',
-                          'GMT_IS_VECTOR']
-        valid_via = ['GMT_VIA_MATRIX', 'GMT_VIA_VECTOR']
         parts = family.split('|')
         if len(parts) > 2:
             raise GMTCLibError(
                 "Too many sections in family (>2): '{}'".format(family))
         family_name = parts[0]
-        if family_name not in valid_families:
+        if family_name not in self._valid_families:
             raise GMTCLibError(
                 "Invalid data family '{}'.".format(family_name))
         family_value = self.get_constant(family_name)
         if len(parts) == 2:
             via_name = parts[1]
-            if via_name not in valid_via:
+            if via_name not in self._valid_vias:
                 raise GMTCLibError(
                     "Invalid data family (via) '{}'.".format(via_name))
             via_value = self.get_constant(via_name)
