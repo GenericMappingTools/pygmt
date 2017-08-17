@@ -162,14 +162,15 @@ def test_create_data_grid_dim():
         )
 
 
-# def test_create_data_grid_range():
-    # "Run the function to make sure it doesn't fail badly."
-    # with LibGMT() as lib:
-        # # Grids from matrices using range and int
-        # data_grid = lib.create_data(
-            # family='GMT_IS_GRID|GMT_VIA_MATRIX',
-            # geometry='GMT_IS_SURFACE',
-            # mode='GMT_CONTAINER_ONLY',
-            # range=[150, 250, -20, 20],  # WESN
-            # inc=[0.1, 0.2],  # dlon, dlat
-        # )
+def test_create_data_grid_range():
+    "Run the function to make sure it doesn't fail badly."
+    with LibGMT() as lib:
+        # Grids from matrices using range and int
+        lib.create_data(
+            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            geometry='GMT_IS_SURFACE',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[0, 0, 1, 0],
+            range=[150., 250., -20., 20.],
+            inc=[0.1, 0.2],
+        )
