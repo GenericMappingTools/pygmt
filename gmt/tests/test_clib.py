@@ -130,10 +130,9 @@ def test_parse_data_family_fails():
                 lib._parse_data_family(test_case)
 
 
-def test_create_data():
+def test_create_data_dataset():
     "Run the function to make sure it doesn't fail badly."
     with LibGMT() as lib:
-        data_pointers = []
         # Dataset from vectors
         data_vector = lib.create_data(
             family='GMT_IS_DATASET|GMT_VIA_VECTOR',
@@ -148,26 +147,29 @@ def test_create_data():
             mode='GMT_CONTAINER_ONLY',
             dim=[10, 20, 1, 0],
         )
+        assert data_vector != data_matrix
+
+
+def test_create_data_grid_dim():
+    "Run the function to make sure it doesn't fail badly."
+    with LibGMT() as lib:
         # Grids from matrices using dim
-        data_grid_dim = lib.create_data(
+        lib.create_data(
             family='GMT_IS_GRID|GMT_VIA_MATRIX',
             geometry='GMT_IS_SURFACE',
             mode='GMT_CONTAINER_ONLY',
             dim=[10, 20, 1, 0],
         )
-        # Grids from matrices using range and int
-        data_grid = lib.create_data(
-            family='GMT_IS_GRID|GMT_VIA_MATRIX',
-            geometry='GMT_IS_SURFACE',
-            mode='GMT_CONTAINER_ONLY',
-            range=[150, 250, -20, 20],  # WESN
-            int=[0.1, 0.2],  # dlon, dlat
-        )
-        # Grids from matrices using range and int
-        data_grid = lib.create_data(
-            family='GMT_IS_GRID|GMT_VIA_MATRIX',
-            geometry='GMT_IS_SURFACE',
-            mode='GMT_CONTAINER_ONLY',
-            range=[150, 250, -20, 20],  # WESN
-            int=[0.1, 0.2],  # dlon, dlat
-        )
+
+
+# def test_create_data_grid_range():
+    # "Run the function to make sure it doesn't fail badly."
+    # with LibGMT() as lib:
+        # # Grids from matrices using range and int
+        # data_grid = lib.create_data(
+            # family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            # geometry='GMT_IS_SURFACE',
+            # mode='GMT_CONTAINER_ONLY',
+            # range=[150, 250, -20, 20],  # WESN
+            # inc=[0.1, 0.2],  # dlon, dlat
+        # )

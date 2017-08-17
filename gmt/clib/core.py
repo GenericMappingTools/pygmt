@@ -323,14 +323,75 @@ class LibGMT():
         family : str
 
         """
+        # Parse and check input arguments
         family_int = self._parse_data_family(family)
-        if geometry not in self._valid_data_geometries:
-            raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
+        geometry_int = self._parse_data_geometry(geometry)
+        mode_int = self._parse_data_mode(mode)
+        registration = kwargs.get('registration',
+                                  self.get_constant('GMT_GRID_NODE_REG'))
+        pad = kwargs.get('pad', self.get_constant('GMT_PAD_DEFAULT'))
+
+        dim, ranges, inc = self._parse_data_dim_range_inc(kwargs)
+
+        # Get the C function and set the argument types
+        c_create_data = self._libgmt.GMT_Create_Data
+        c_create_data.argtypes = [
+            ctypes.c_void_p,                  # API
+            ctypes.c_uint,                    # family
+            ctypes.c_uint,                    # geometry
+            ctypes.c_uint,                    # mode
+            ctypes.POINTER(ctypes.c_uint64),  # dim
+            ctypes.POINTER(ctypes.c_double),  # range
+            ctypes.POINTER(ctypes.c_double),  # inc
+            ctypes.c_uint,                    # registration
+            ctypes.c_int,                     # pad
+            ctypes.c_void_p,                  # data
+        ]
+        c_create_data.restype = ctypes.c_void_p
+
+        data_ptr = c_create_data(
+            self._session_id, family_int, geometry_int, mode_int, dim, ranges,
+            inc, registration, pad, None)
+
+        if data_ptr is None:
+            raise GMTCLibError("Failed to create an empty GMT data pointer.")
+
+        return data_ptr
+
+    def _parse_data_dim_range_inc(self, kwargs):  # pylint: disable=no-self-use
+        """
+        """
+        # Check if dim, range and int are giving correctly
+        if 'dim' in kwargs:
+            int_array_4 = ctypes.c_uint64*4
+            dim = int_array_4(*kwargs['dim'])
+        else:
+            dim = None
+        if 'range' in kwargs:
+            double_array_4 = ctypes.c_double*4
+            ranges = double_array_4(*kwargs['range'])
+        else:
+            ranges = None
+        if 'inc' in kwargs:
+            double_array_2 = ctypes.c_double*2
+            inc = double_array_2(*kwargs['inc'])
+        else:
+            inc = None
+        return dim, ranges, inc
+
+    def _parse_data_mode(self, mode):
+        """
+        """
         if mode not in self._valid_data_modes:
             raise GMTCLibError("Invalid data creation mode '{}'.".format(mode))
-        # TODO: Check if dim, range and int are giving correctly
-        # TODO: Pass things to libgmt
+        return self.get_constant(mode)
 
+    def _parse_data_geometry(self, geometry):
+        """
+        """
+        if geometry not in self._valid_data_geometries:
+            raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
+        return self.get_constant(geometry)
 
     def _parse_data_family(self, family):
         """
