@@ -325,8 +325,12 @@ class LibGMT():
         """
         # Parse and check input arguments
         family_int = self._parse_data_family(family)
-        geometry_int = self._parse_data_geometry(geometry)
-        mode_int = self._parse_data_mode(mode)
+        if mode not in self._valid_data_modes:
+            raise GMTCLibError("Invalid data creation mode '{}'.".format(mode))
+        mode_int = self.get_constant(mode)
+        if geometry not in self._valid_data_geometries:
+            raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
+        geometry_int = self.get_constant(geometry)
         registration = kwargs.get('registration',
                                   self.get_constant('GMT_GRID_NODE_REG'))
         pad = kwargs.get('pad', self.get_constant('GMT_PAD_DEFAULT'))
@@ -362,36 +366,14 @@ class LibGMT():
         """
         """
         # Check if dim, range and int are giving correctly
-        if 'dim' in kwargs:
-            int_array_4 = ctypes.c_uint64*4
-            dim = int_array_4(*kwargs['dim'])
-        else:
-            dim = None
-        if 'range' in kwargs:
-            double_array_4 = ctypes.c_double*4
-            ranges = double_array_4(*kwargs['range'])
-        else:
-            ranges = None
-        if 'inc' in kwargs:
-            double_array_2 = ctypes.c_double*2
-            inc = double_array_2(*kwargs['inc'])
-        else:
-            inc = None
-        return dim, ranges, inc
-
-    def _parse_data_mode(self, mode):
-        """
-        """
-        if mode not in self._valid_data_modes:
-            raise GMTCLibError("Invalid data creation mode '{}'.".format(mode))
-        return self.get_constant(mode)
-
-    def _parse_data_geometry(self, geometry):
-        """
-        """
-        if geometry not in self._valid_data_geometries:
-            raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
-        return self.get_constant(geometry)
+        formats = dict(dim=ctypes.c_uint64*4,
+                       range=ctypes.c_double*4,
+                       inc=ctypes.c_double*2)
+        args = [None]*3
+        for i, arg in enumerate(['dim', 'range', 'inc']):
+            if arg in kwargs:
+                args[i] = formats[arg](*kwargs[arg])
+        return args
 
     def _parse_data_family(self, family):
         """
