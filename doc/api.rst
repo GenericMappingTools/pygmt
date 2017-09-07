@@ -29,7 +29,7 @@ Utility functions
 Low-level wrappers for the GMT C API
 ------------------------------------
 
-The GMT C shared library (``libgmt``)_is accessed using ctypes_.
+The GMT C shared library (``libgmt``) is accessed using ctypes_.
 The ``gmt.clib`` package offers the :class:`~gmt.clib.LibGMT` class that wraps
 the C shared library with a pythonic interface.
 Most interactions with ``libgmt`` are done through this class.
@@ -39,12 +39,6 @@ Most interactions with ``libgmt`` are done through this class.
     :template: class.rst
 
     clib.LibGMT
-
-.. autosummary::
-    :toctree: api/
-    :template: function.rst
-
-    clib.load_libgmt
 
 
 .. _ctypes: https://docs.python.org/3/library/ctypes.html
