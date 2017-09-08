@@ -97,7 +97,7 @@ def _dim_range_inc_to_ctypes(kwargs):
                    ranges=ctypes.c_double*4,
                    inc=ctypes.c_double*2)
     args = [None]*3
-    for i, arg in enumerate(formats.keys()):
+    for i, arg in enumerate(['dim', 'ranges', 'inc']):
         if arg in kwargs:
             args[i] = formats[arg](*kwargs[arg])
     return args
