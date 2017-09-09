@@ -48,11 +48,27 @@ def create_data(libgmt, session, family, geometry, mode, **kwargs):
         raise GMTCLibError("Invalid data creation mode '{}'.".format(mode))
     if geometry not in DATA_GEOMETRIES:
         raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
+
+    # Convert dim, ranges, and inc to ctypes arrays if given
+    if 'dim' in kwargs:
+        dim_type = ctypes.c_uint64*4
+        dim = dim_type(*kwargs['dim'])
+    else:
+        dim = None
+
+
+    formats = dict(,
+                   ranges=ctypes.c_double*4,
+                   inc=ctypes.c_double*2)
+
+    dim, ranges, inc = _dim_range_inc_to_ctypes(kwargs)
+
+    # Use the GMT defaults if no value is given
     registration = kwargs.get('registration',
                               get_constant('GMT_GRID_NODE_REG', libgmt))
     pad = kwargs.get('pad', get_constant('GMT_PAD_DEFAULT', libgmt))
 
-    dim, ranges, inc = _dim_range_inc_to_ctypes(kwargs)
+
 
     # Get the C function and set the argument types
     c_create_data = libgmt.GMT_Create_Data
@@ -87,6 +103,9 @@ def create_data(libgmt, session, family, geometry, mode, **kwargs):
         raise GMTCLibError("Failed to create an empty GMT data pointer.")
 
     return data_ptr
+
+
+def _kwarg_to_ctypes(name, kwargs, dtype):
 
 
 def _dim_range_inc_to_ctypes(kwargs):
