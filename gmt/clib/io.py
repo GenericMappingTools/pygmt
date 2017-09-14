@@ -50,25 +50,14 @@ def create_data(libgmt, session, family, geometry, mode, **kwargs):
         raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
 
     # Convert dim, ranges, and inc to ctypes arrays if given
-    if 'dim' in kwargs:
-        dim_type = ctypes.c_uint64*4
-        dim = dim_type(*kwargs['dim'])
-    else:
-        dim = None
-
-
-    formats = dict(,
-                   ranges=ctypes.c_double*4,
-                   inc=ctypes.c_double*2)
-
-    dim, ranges, inc = _dim_range_inc_to_ctypes(kwargs)
+    dim = _kwargs_to_ctypes_array('dim', kwargs, ctypes.c_uint64*4)
+    ranges = _kwargs_to_ctypes_array('ranges', kwargs, ctypes.c_double*4)
+    inc = _kwargs_to_ctypes_array('inc', kwargs, ctypes.c_double*2)
 
     # Use the GMT defaults if no value is given
     registration = kwargs.get('registration',
                               get_constant('GMT_GRID_NODE_REG', libgmt))
     pad = kwargs.get('pad', get_constant('GMT_PAD_DEFAULT', libgmt))
-
-
 
     # Get the C function and set the argument types
     c_create_data = libgmt.GMT_Create_Data
@@ -105,21 +94,42 @@ def create_data(libgmt, session, family, geometry, mode, **kwargs):
     return data_ptr
 
 
-def _kwarg_to_ctypes(name, kwargs, dtype):
-
-
-def _dim_range_inc_to_ctypes(kwargs):
+def _kwargs_to_ctypes_array(argument, kwargs, dtype):
     """
+    Convert an iterable argument from kwargs into a ctypes array variable.
+
+    If the argument is not present in kwargs, returns ``None``.
+
+    Parameters
+    ----------
+    argument : str
+        The name of the argument.
+    kwargs : dict
+        Dictionary of keyword arguments.
+    dtype : ctypes type
+        The ctypes array type (e.g., ``ctypes.c_double*4``)
+
+    Returns
+    -------
+    ctypes_value : ctypes array or None
+
+    Examples
+    --------
+
+    >>> import ctypes as ct
+    >>> value = _kwargs_to_ctypes_array('bla', {'bla': [10, 10]}, ct.c_int*2)
+    >>> type(value)
+    <class 'gmt.clib.io.c_int_Array_2'>
+    >>> b = 1
+    >>> should_be_none = _kwargs_to_ctypes_array(
+    ...     'swallow', {'bla': 1, 'foo': [20, 30]}, ct.c_int*2)
+    >>> print(should_be_none)
+    None
+
     """
-    # Check if dim, range and int are giving correctly
-    formats = dict(dim=ctypes.c_uint64*4,
-                   ranges=ctypes.c_double*4,
-                   inc=ctypes.c_double*2)
-    args = [None]*3
-    for i, arg in enumerate(['dim', 'ranges', 'inc']):
-        if arg in kwargs:
-            args[i] = formats[arg](*kwargs[arg])
-    return args
+    if argument in kwargs:
+        return dtype(*kwargs[argument])
+    return None
 
 
 def _parse_data_family(libgmt, family):

@@ -102,3 +102,34 @@ def test_create_data_grid_range():
         inc=[0.1, 0.2],
     )
     destroy_session(session, lib)
+
+
+def test_create_data_fails():
+    "Test for failures on bad input"
+    lib = load_libgmt()
+    session = create_session('test_create_data', lib)
+    # Passing in invalid mode
+    with pytest.raises(GMTCLibError):
+        create_data(
+            libgmt=lib,
+            session=session,
+            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            geometry='GMT_IS_SURFACE',
+            mode='Not_a_valid_mode',
+            dim=[0, 0, 1, 0],
+            ranges=[150., 250., -20., 20.],
+            inc=[0.1, 0.2],
+        )
+    # Passing in invalid geometry
+    with pytest.raises(GMTCLibError):
+        create_data(
+            libgmt=lib,
+            session=session,
+            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            geometry='Not_a_valid_geometry',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[0, 0, 1, 0],
+            ranges=[150., 250., -20., 20.],
+            inc=[0.1, 0.2],
+        )
+    destroy_session(session, lib)
