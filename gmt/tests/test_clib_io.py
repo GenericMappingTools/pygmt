@@ -113,7 +113,7 @@ def test_create_data_fails():
         create_data(
             libgmt=lib,
             session=session,
-            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            family='GMT_IS_DATASET',
             geometry='GMT_IS_SURFACE',
             mode='Not_a_valid_mode',
             dim=[0, 0, 1, 0],
@@ -125,7 +125,7 @@ def test_create_data_fails():
         create_data(
             libgmt=lib,
             session=session,
-            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            family='GMT_IS_GRID',
             geometry='Not_a_valid_geometry',
             mode='GMT_CONTAINER_ONLY',
             dim=[0, 0, 1, 0],
