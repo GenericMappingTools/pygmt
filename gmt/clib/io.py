@@ -39,7 +39,47 @@ def create_data(libgmt, session, family, geometry, mode, **kwargs):
 
     Parameters
     ----------
+    libgmt : ctypes.CDLL
+        The ``ctypes.CDLL`` instance for the libgmt shared library.
+    session : C void pointer (returned by ctypes as an integer)
+        The active session object produced by
+        :func:`gmt.clib.core.create_session`.
     family : str
+        A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
+        ``DATA_FAMILIES`` variable for valid names.
+    geometry : str
+        A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
+        ``DATA_GEOMETRIES`` variable for valid names.
+    mode : str
+        A valid GMT data mode (e.g., ``'GMT_OUTPUT'``). See the ``DATA_MODES``
+        variable for valid names.
+    dim : list of 4 integers
+        The dimensions of the dataset. See the documentation for the GMT C API
+        function ``GMT_Create_Data`` (``src/gmt_api.c``) for the full range of
+        options regarding 'dim'. If ``None``, will pass in the NULL pointer.
+    ranges : list of 4 floats
+        The dataset extent. Also a bit of a complicated argument. See the C
+        function documentation. It's called ``range`` in the C function but it
+        would conflict with the Python built-in ``range`` function.
+    inc : list of 2 floats
+        The increments between points of the dataset. See the C function
+        documentation.
+    registration : int
+        The node registration (what the coordinates mean). Also a very complex
+        argument. See the C function documentation. Defaults to
+        ``GMT_GRID_NODE_REG``.
+    pad : int
+        The grid padding. Defaults to ``GMT_PAD_DEFAULT``.
+
+    Returns
+    -------
+    data_ptr : int
+        A ctypes pointer (an integer) to the allocated ``GMT_Dataset`` object.
+
+    Raises
+    ------
+    GMTCLibError
+        In case of invalid inputs or data_ptr being NULL.
 
     """
     # Parse and check input arguments
