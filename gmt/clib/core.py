@@ -7,7 +7,7 @@ from ..exceptions import GMTCLibNotFoundError, GMTCLibError
 from .utils import clib_extension, check_status_code
 
 
-def check_libgmt(libgmt):
+def _check_libgmt(libgmt):
     """
     Make sure that libgmt was loaded correctly.
 
@@ -65,7 +65,7 @@ def load_libgmt(libname='libgmt'):
     """
     try:
         libgmt = ctypes.CDLL('.'.join([libname, clib_extension()]))
-        check_libgmt(libgmt)
+        _check_libgmt(libgmt)
     except OSError as err:
         msg = ' '.join([
             "Couldn't find the GMT shared library '{}'.".format(libname),

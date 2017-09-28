@@ -6,7 +6,7 @@ import os
 
 import pytest
 
-from ..clib.core import load_libgmt, check_libgmt, create_session, \
+from ..clib.core import load_libgmt, _check_libgmt, create_session, \
     destroy_session, call_module, get_constant
 from ..clib.context_manager import LibGMT
 from ..clib.utils import clib_extension
@@ -30,7 +30,7 @@ def test_load_libgmt_fail():
 def test_check_libgmt():
     "Make sure check_libgmt fails when given a bogus library"
     with pytest.raises(GMTCLibError):
-        check_libgmt(dict())
+        _check_libgmt(dict())
 
 
 def test_clib_extension():
@@ -72,7 +72,7 @@ def test_destroy_session_fails():
 
 
 def test_call_module():
-    "Run a psbasemap call to see if the module works"
+    "Run a command to see if call_module works"
     data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
     out_fname = 'test_call_module.txt'
     lib = load_libgmt()
