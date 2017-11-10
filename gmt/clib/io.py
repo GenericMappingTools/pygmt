@@ -11,7 +11,6 @@ DATA_FAMILIES = [
     'GMT_IS_DATASET',
     'GMT_IS_GRID',
     'GMT_IS_PALETTE',
-    'GMT_IS_TEXTSET',
     'GMT_IS_MATRIX',
     'GMT_IS_VECTOR',
 ]
