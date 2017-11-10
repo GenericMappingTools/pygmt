@@ -6,32 +6,31 @@ import pytest
 from ..exceptions import GMTCLibError
 from ..clib.core import load_libgmt, create_session, destroy_session, \
     get_constant
-from ..clib.io import create_data, _parse_data_family, \
-    DATA_FAMILIES, DATA_VIAS
+from..clib import DATA_FAMILIES, DATA_VIAS
 
 
 def test_parse_data_family_single():
     "Parsing a single family argument correctly."
-    lib = load_libgmt()
+    lib = LibGMT()
     for family in DATA_FAMILIES:
-        assert _parse_data_family(lib, family) == get_constant(family, lib)
+        assert lib._parse_data_family(family) == lib.get_constant(family)
 
 
 def test_parse_data_family_via():
     "Parsing a composite family argument (separated by |) correctly."
-    lib = load_libgmt()
+    lib = LibGMT()
     test_cases = ((family, via)
                   for family in DATA_FAMILIES
                   for via in DATA_VIAS)
     for family, via in test_cases:
         composite = '|'.join([family, via])
-        expected = get_constant(family, lib) + get_constant(via, lib)
-        assert _parse_data_family(lib, composite) == expected
+        expected = lib.get_constant(family) + lib.get_constant(via)
+        assert lib._parse_data_family(composite) == expected
 
 
 def test_parse_data_family_fails():
     "Check if the function fails when given bad input"
-    lib = load_libgmt()
+    lib = LibGMT()
     test_cases = [
         'SOME_random_STRING',
         'GMT_IS_DATASET|GMT_VIA_MATRIX|GMT_VIA_VECTOR',
@@ -41,33 +40,28 @@ def test_parse_data_family_fails():
     ]
     for test_case in test_cases:
         with pytest.raises(GMTCLibError):
-            _parse_data_family(lib, test_case)
+            lib._parse_data_family(test_case)
 
 
 def test_create_data_dataset():
     "Run the function to make sure it doesn't fail badly."
-    lib = load_libgmt()
-    session = create_session('test_create_data', lib)
-    # Dataset from vectors
-    data_vector = create_data(
-        libgmt=lib,
-        session=session,
-        family='GMT_IS_DATASET|GMT_VIA_VECTOR',
-        geometry='GMT_IS_POINT',
-        mode='GMT_CONTAINER_ONLY',
-        dim=[10, 20, 1, 0],  # columns, rows, layers, dtype
-    )
-    # Dataset from matrices
-    data_matrix = create_data(
-        libgmt=lib,
-        session=session,
-        family='GMT_IS_DATASET|GMT_VIA_MATRIX',
-        geometry='GMT_IS_POINT',
-        mode='GMT_CONTAINER_ONLY',
-        dim=[10, 20, 1, 0],
-    )
-    destroy_session(session, lib)
-    assert data_vector != data_matrix
+    with LibGMT() as lib:
+        # Dataset from vectors
+        data_vector = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_VECTOR',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[10, 20, 1, 0],  # columns, rows, layers, dtype
+        )
+        # Dataset from matrices
+        data_matrix = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_MATRIX',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[10, 20, 1, 0],
+        )
+        destroy_session(session, lib)
+        assert data_vector != data_matrix
 
 
 def test_create_data_grid_dim():
