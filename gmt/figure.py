@@ -106,10 +106,6 @@ class Figure(BasePlotting):
     def __init__(self):
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=self._name + '-preview-')
-        # Needed to fool matplotlib.pyplot.close into thinking this is a
-        # matplotlib figure. The close function is called by pytest-mpl with
-        # the figure as an argument.
-        self.int = 0
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews
