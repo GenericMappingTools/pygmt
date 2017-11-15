@@ -8,7 +8,8 @@ import pytest
 
 from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt
-from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError
+from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError, \
+    GMTCLibNoSessionError
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -89,9 +90,116 @@ def test_call_module_fails():
             lib.call_module('meh', '')
 
 
-def test_call_module_no_session():
+def test_method_no_session():
     "Fails when not in a session"
     # Create an instance of LibGMT without "with" so no session is created.
     lib = LibGMT()
-    with pytest.raises(GMTCLibError):
+    with pytest.raises(GMTCLibNoSessionError):
         lib.call_module('gmtdefaults', '')
+    with pytest.raises(GMTCLibNoSessionError):
+        lib.current_session  # pylint: disable=pointless-statement
+
+
+def test_parse_data_family_single():
+    "Parsing a single family argument correctly."
+    lib = LibGMT()
+    for family in lib.data_families:
+        assert lib._parse_data_family(family) == lib.get_constant(family)
+
+
+def test_parse_data_family_via():
+    "Parsing a composite family argument (separated by |) correctly."
+    lib = LibGMT()
+    test_cases = ((family, via)
+                  for family in lib.data_families
+                  for via in lib.data_vias)
+    for family, via in test_cases:
+        composite = '|'.join([family, via])
+        expected = lib.get_constant(family) + lib.get_constant(via)
+        assert lib._parse_data_family(composite) == expected
+
+
+def test_parse_data_family_fails():
+    "Check if the function fails when given bad input"
+    lib = LibGMT()
+    test_cases = [
+        'SOME_random_STRING',
+        'GMT_IS_DATASET|GMT_VIA_MATRIX|GMT_VIA_VECTOR',
+        'GMT_IS_DATASET|NOT_A_PROPER_VIA',
+        'NOT_A_PROPER_FAMILY|GMT_VIA_MATRIX',
+        'NOT_A_PROPER_FAMILY|ALSO_INVALID',
+    ]
+    for test_case in test_cases:
+        with pytest.raises(GMTCLibError):
+            lib._parse_data_family(test_case)
+
+
+def test_create_data_dataset():
+    "Run the function to make sure it doesn't fail badly."
+    with LibGMT() as lib:
+        # Dataset from vectors
+        data_vector = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_VECTOR',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[10, 20, 1, 0],  # columns, rows, layers, dtype
+        )
+        # Dataset from matrices
+        data_matrix = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_MATRIX',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[10, 20, 1, 0],
+        )
+        assert data_vector != data_matrix
+
+
+def test_create_data_grid_dim():
+    "Run the function to make sure it doesn't fail badly."
+    with LibGMT() as lib:
+        # Grids from matrices using dim
+        lib.create_data(
+            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            geometry='GMT_IS_SURFACE',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[10, 20, 1, 0],
+        )
+
+
+def test_create_data_grid_range():
+    "Run the function to make sure it doesn't fail badly."
+    with LibGMT() as lib:
+        # Grids from matrices using range and int
+        lib.create_data(
+            family='GMT_IS_GRID|GMT_VIA_MATRIX',
+            geometry='GMT_IS_SURFACE',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[0, 0, 1, 0],
+            ranges=[150., 250., -20., 20.],
+            inc=[0.1, 0.2],
+        )
+
+
+def test_create_data_fails():
+    "Test for failures on bad input"
+    with LibGMT() as lib:
+        # Passing in invalid mode
+        with pytest.raises(GMTCLibError):
+            lib.create_data(
+                family='GMT_IS_DATASET',
+                geometry='GMT_IS_SURFACE',
+                mode='Not_a_valid_mode',
+                dim=[0, 0, 1, 0],
+                ranges=[150., 250., -20., 20.],
+                inc=[0.1, 0.2],
+            )
+        # Passing in invalid geometry
+        with pytest.raises(GMTCLibError):
+            lib.create_data(
+                family='GMT_IS_GRID',
+                geometry='Not_a_valid_geometry',
+                mode='GMT_CONTAINER_ONLY',
+                dim=[0, 0, 1, 0],
+                ranges=[150., 250., -20., 20.],
+                inc=[0.1, 0.2],
+            )

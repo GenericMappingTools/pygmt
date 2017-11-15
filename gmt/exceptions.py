@@ -17,15 +17,22 @@ class GMTOSError(GMTError):
     pass
 
 
-class GMTCLibNotFoundError(GMTError):
+class GMTCLibError(GMTError):
+    """
+    Error encountered when running a function from the GMT shared library.
+    """
+    pass
+
+
+class GMTCLibNotFoundError(GMTCLibError):
     """
     Could not find the GMT shared library.
     """
     pass
 
 
-class GMTCLibError(GMTError):
+class GMTCLibNoSessionError(GMTCLibError):
     """
-    Error encountered when running a function from the GMT shared library.
+    Tried to access GMT API without a currently open GMT session.
     """
     pass
