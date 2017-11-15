@@ -1,6 +1,7 @@
 linters:
     flake8:
         enable: true
+        ignore: F401
     shellcheck:
         shell: bash
     csslint:
