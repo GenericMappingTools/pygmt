@@ -28,6 +28,15 @@
    available.
 
 
+.. admonition:: This package in early stages of design and implementation.
+
+    We welcome any feedback and ideas!
+    Let us know by submitting
+    `issues on Github <https://github.com/GenericMappingTools/gmt-python/issues>`__
+    or send us a message on our
+    `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
+
+
 .. raw:: html
 
     <h2>Project goals</h2>
@@ -46,19 +55,6 @@
 * Input and output using Python native containers: numpy ``ndarray`` or pandas
   ``DataFrame`` for data tables and `xarray <http://xarray.pydata.org>`__
   ``Dataset`` for netCDF grids.
-
-
-.. raw:: html
-
-    <h2>Disclaimer</h2>
-
-**This package in early stages of design and implementation.**
-
-We welcome any feedback and ideas!
-Let us know by submitting
-`issues on Github <https://github.com/GenericMappingTools/gmt-python/issues>`__
-or send us a message on our
-`Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
 
 
 .. raw:: html

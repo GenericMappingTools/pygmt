@@ -3,6 +3,14 @@
 Installing
 ==========
 
+.. admonition:: This package in early stages of design and implementation.
+
+    We welcome any feedback and ideas!
+    Let us know by submitting
+    `issues on Github <https://github.com/GenericMappingTools/gmt-python/issues>`__
+    or send us a message on our
+    `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
+
 
 Which Python?
 -------------
@@ -26,17 +34,52 @@ GMT/Python requires the following libraries:
   `conda-forge <https://github.com/conda-forge/gmt-feedstock/>`__.
 * numpy
 
-Install the dependencies using ``conda``::
 
-    conda install gmt numpy -c conda-forge/label/dev -c conda-forge
+Installing GMT and other dependencies
+-------------------------------------
 
-**Currently only works on Linux and OSX.**
+Before installing GMT/Python,
+we must install GMT itself along with the other dependencies.
+The easiest way to do this is using the ``conda`` package manager.
+We recommend working in an isolated `conda environment
+<https://conda.io/docs/user-guide/tasks/manage-environments.html>`__
+to avoid issues with competing versions of GMT and its dependencies.
+
+First, create a conda environment with only Python and ``pip`` installed
+(we'll call it ``gmt-python`` but you can change it to whatever you want)::
+
+     conda create --name gmt-python python=3.6 pip
+
+Activate this environment by running::
+
+    source activate gmt-python
+
+From now on, all ``conda`` and ``pip`` commands will take place inside the
+environment and won't affect your default installation.
+
+Install the latest version of GMT 6::
+
+    conda install gmt -c conda-forge/label/dev
+
+And finally, install the rest of the dependencies::
+
+    conda install numpy -c conda-forge
+
+.. admonition:: Currently, this only works on Linux and OSX.
+
+    We don't have a GMT conda package for Windows
+    (`we're working on it <https://github.com/conda-forge/gmt-feedstock>`__).
+    If you know how to
+    build GMT from source, you can do that instead of the ``conda install
+    gmt``. This is untested and we would love to get feedback from anyone who
+    tries.
 
 
-Installing from source
-----------------------
+Installing GMT/Python from source
+---------------------------------
 
-Use ``pip`` to install the latest source from Github::
+Now that you have GMT installed and your conda environment activated,
+use ``pip`` to install the latest source of GMT/Python from Github::
 
     pip install https://github.com/GenericMappingTools/gmt-python/archive/master.zip
 
@@ -45,6 +88,13 @@ Alternatively, you can clone the git repository and install using ``pip``::
     git clone https://github.com/GenericMappingTools/gmt-python.git
     cd gmt-python
     pip install .
+
+This will allow you to use the GMT/Python library.
+Test your installation by running the following inside a Python interpreter
+(be sure to have your conda env activated)::
+
+    import gmt
+    gmt.test()
 
 
 Finding the GMT shared library
