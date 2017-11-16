@@ -10,7 +10,7 @@ There are many ways to contribute:
 * Submitting bug reports and feature requests
 * Writing tutorials or examples
 * Improvements to the documentation
-* Writing code which can be incorporated into project for everyone to use.
+* Writing code which can be incorporated into project for everyone to use
 
 If you get stuck at
 any point you can create an
@@ -42,6 +42,8 @@ encourage all to read it carefully.
 * Contribute code you already have. It doesn’t need to be perfect! We will help
   you clean things up, test it, etc.
 * Make a tutorial or example of how to do something.
+* Provide feedback about how we can improve the project or about your
+  particular use case.
 
 
 ## How Can I Talk to You?
