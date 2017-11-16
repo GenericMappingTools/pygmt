@@ -66,8 +66,8 @@ Try to include the following:
 * Full error messages that you got
 * Example code that reproduces the problem
 
-Remember: the more information we have, the easier it will for us to solve your
-problem.
+Remember: the more information we have, the easier it will be for us to solve
+your problem.
 
 
 ## Pull Requests
