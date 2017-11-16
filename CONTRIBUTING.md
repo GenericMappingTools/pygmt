@@ -66,7 +66,7 @@ Try to include the following:
 * Full error messages that you got
 * Example code that reproduces the problem
 
-Remember: the information we have, the easier it will for us to solve your
+Remember: the more information we have, the easier it will for us to solve your
 problem.
 
 
