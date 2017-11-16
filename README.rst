@@ -83,6 +83,20 @@ Project goals
 Contributing
 ------------
 
+Code of conduct
++++++++++++++++
+
+Please note that this project is released with a
+`Contributor Code of Conduct <https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md>`__.
+By participating in this project you agree to abide by its terms.
+
+Contributing Guidelines
++++++++++++++++++++++++
+
+Please read our
+`Contributing Guide <https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md>`__
+to see how you can help and give feedback.
+
 Imposter syndrome disclaimer
 ++++++++++++++++++++++++++++
 
@@ -90,31 +104,25 @@ Imposter syndrome disclaimer
 
 There may be a little voice inside your head that is telling you that you're
 not ready to be an open source contributor; that your skills aren't nearly good
-enough to contribute. What could you possibly offer a project like this one?
+enough to contribute.
+What could you possibly offer?
 
 We assure you that the little voice in your head is wrong.
 
-If you can write any code at all, you can contribute code to open source. We
-are constantly trying out new skills, making mistakes, and learning from those
-mistakes. That's how we all improve and we are happy to help others learn.
-
-**Being a contributor doesn't just mean writing code**. Equality important
-contributions include: writing or proof-reading documentation, suggesting or
-implementing tests, or even giving feedback about the project (including giving
-feedback about the contribution process). If you're coming to the project with
-fresh eyes, you might see the errors and assumptions that seasoned contributors
-have glossed over.
+**Being a contributor doesn't just mean writing code**.
+Equality important contributions include:
+writing or proof-reading documentation, suggesting or implementing tests, or
+even giving feedback about the project (including giving feedback about the
+contribution process).
+If you're coming to the project with fresh eyes, you might see the errors and
+assumptions that seasoned contributors have glossed over.
+If you can write any code at all, you can contribute code to open source.
+We are constantly trying out new skills, making mistakes, and learning from
+those mistakes.
+That's how we all improve and we are happy to help others learn.
 
 *This disclaimer was adapted from the*
 `MetPy project <https://github.com/Unidata/MetPy>`__.
-
-
-Code of conduct
-+++++++++++++++
-
-Please note that this project is released with a
-`Contributor Code of Conduct <CODE_OF_CONDUCT.md>`__.
-By participating in this project you agree to abide by its terms.
 
 
 License
