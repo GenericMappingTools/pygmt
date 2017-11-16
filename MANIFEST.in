@@ -1,5 +1,8 @@
-include LICENSE.txt
 include README.rst
+include LICENSE.txt
+include CODE_OF_CONDUCT.md
+include CONTRIBUTING.md
+include AUTHORS.md
 include versioneer.py
 include gmt/_version.py
 recursive-include gmt/tests/data *
