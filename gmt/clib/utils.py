@@ -111,7 +111,7 @@ def check_libgmt(libgmt):
             raise GMTCLibError(msg)
 
 
-def check_status_code(status, function):
+def check_status_code(status, function, logfile=None):
     """
     Check if the status code returned by a function is non-zero.
 
@@ -130,8 +130,11 @@ def check_status_code(status, function):
 
     """
     if status is None or status != 0:
-        raise GMTCLibError(
-            'Failed {} with status code {}.'.format(function, status))
+        error_msg = ['Failed {} with status code {}.'.format(function, status)]
+        if logfile is not None:
+            with open(logfile) as log:
+                error_msg.extend(log.readlines())
+        raise GMTCLibError('\n'.join(error_msg))
 
 
 def kwargs_to_ctypes_array(argument, kwargs, dtype):

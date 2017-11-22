@@ -51,7 +51,7 @@ def test_constant():
         lib.get_constant('A_WHOLE_LOT_OF_JUNK')
 
 
-def test_clib_session_management():
+def test_clib_create_destroy_session():
     "Test that create and destroy session are called without errors"
     lib = LibGMT()
     session1 = lib.create_session(session_name='test_session1')
@@ -68,6 +68,28 @@ def test_destroy_session_fails():
     lib = LibGMT()
     with pytest.raises(GMTCLibError):
         lib.destroy_session(None)
+
+
+def test_errors_sent_to_log_file():
+    "Make sure error messages are recorded in the log file."
+    with LibGMT() as lib:
+        mode = lib.get_constant('GMT_MODULE_CMD')
+        with lib.log_to_file() as logfile:
+            assert os.path.exists(logfile)
+
+            status = lib._c_call_module(lib.current_session,
+                                        'not a module'.encode(),
+                                        mode,
+                                        ''.encode())
+
+        # with open(logfile) as f:
+            # log = f.read()
+        # print(logfile)
+        # print(log)
+        # assert log.strip() != '', "Empty log file"
+    assert False
+
+    assert not os.path.exists(logfile)
 
 
 def test_call_module():
