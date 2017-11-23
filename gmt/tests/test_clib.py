@@ -51,7 +51,7 @@ def test_constant():
         lib.get_constant('A_WHOLE_LOT_OF_JUNK')
 
 
-def test_clib_session_management():
+def test_create_destroy_session():
     "Test that create and destroy session are called without errors"
     lib = LibGMT()
     session1 = lib.create_session(session_name='test_session1')
@@ -70,6 +70,34 @@ def test_destroy_session_fails():
         lib.destroy_session(None)
 
 
+def test_set_log_file_fails():
+    "log_to_file should fail for invalid file names"
+    with LibGMT() as lib:
+        with pytest.raises(GMTCLibError):
+            with lib.log_to_file(logfile=''):
+                pass
+
+
+def test_errors_sent_to_log_file():
+    "Make sure error messages are recorded in the log file."
+    with LibGMT() as lib:
+        mode = lib.get_constant('GMT_MODULE_CMD')
+        with lib.log_to_file() as logfile:
+            assert os.path.exists(logfile)
+            # Make a bogus module call that will fail
+            status = lib._c_call_module(lib.current_session,
+                                        'psxy'.encode(),
+                                        mode,
+                                        '-JM6i'.encode())
+            assert status != 0
+            # Check the file content
+            with open(logfile) as flog:
+                log = flog.read()
+            assert log.strip() == 'gmtinfo [ERROR]: No input data found!'
+        # Log should be deleted as soon as the with is over
+        assert not os.path.exists(logfile)
+
+
 def test_call_module():
     "Run a command to see if call_module works"
     data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
@@ -83,7 +111,27 @@ def test_call_module():
     os.remove(out_fname)
 
 
-def test_call_module_fails():
+def test_call_module_error_message():
+    "Check that the exception has the error message from call_module"
+    with LibGMT() as lib:
+        # Make a bogus module call that will fail
+        try:
+            lib.call_module('psxy', '-JM3i')
+        except GMTCLibError as error:
+            true_msg = '\n'.join([
+                "'psxy' failed (error: 69).",
+                "---------- Error log ----------",
+                '',
+                'gmtinfo [ERROR]: No input data found!',
+                '',
+                "-------------------------------",
+            ])
+            assert str(error) == true_msg
+        else:
+            assert False, "Didn't raise an exception"
+
+
+def test_call_module_invalid_name():
     "Fails when given bad input"
     with LibGMT() as lib:
         with pytest.raises(GMTCLibError):

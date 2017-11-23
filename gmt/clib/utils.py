@@ -111,29 +111,6 @@ def check_libgmt(libgmt):
             raise GMTCLibError(msg)
 
 
-def check_status_code(status, function):
-    """
-    Check if the status code returned by a function is non-zero.
-
-    Parameters
-    ----------
-    status : int or None
-        The status code returned by a GMT C API function.
-    function : str
-        The name of the GMT function (used to raise the exception if it's a
-        non-zero status code).
-
-    Raises
-    ------
-    GMTCLibError
-        If the status code is non-zero.
-
-    """
-    if status is None or status != 0:
-        raise GMTCLibError(
-            'Failed {} with status code {}.'.format(function, status))
-
-
 def kwargs_to_ctypes_array(argument, kwargs, dtype):
     """
     Convert an iterable argument from kwargs into a ctypes array variable.
