@@ -80,6 +80,17 @@ Project goals
   ``Dataset`` for netCDF grids.
 
 
+Contacting Us
+-------------
+
+* Most discussion happens `on Github <https://github.com/GenericMappingTools/gmt-python>`__.
+  Feel free to `open an issue
+  <https://github.com/GenericMappingTools/gmt-python/issues/new>`__ or comment
+  on any open issue or pull request.
+* We have `chat room on Gitter <https://gitter.im/GenericMappingTools/gmt-python>`__
+  where you can ask questions and leave comments.
+
+
 Contributing
 ------------
 
