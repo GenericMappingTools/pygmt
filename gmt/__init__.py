@@ -12,6 +12,7 @@ from .figure import Figure
 
 # Get the version number through versioneer
 __version__ = _get_versions()['version']
+__commit__ = _get_versions()['full-revisionid']
 
 # Start our global modern mode session
 _begin()
