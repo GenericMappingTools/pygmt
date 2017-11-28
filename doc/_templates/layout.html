@@ -3,7 +3,7 @@
 
 
 {% block htmltitle %}
-    {% if title == '' or title == 'index' %}
+    {% if title == '' or title == 'Home' %}
         <title>{{ docstitle|e }}</title>
     {% else %}
         <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
@@ -13,4 +13,35 @@
 
 {% block sidebartitle %}
     <a href="{{ pathto(master_doc) }}"><h2 class="sidebar-title">{{ project }}</h2></a>
+
+    {% if theme_display_version %}
+        {%- set nav_version = version %}
+        {% if READTHEDOCS and current_version %}
+            {%- set nav_version = current_version %}
+        {% endif %}
+        {% if nav_version %}
+            <div class="version">
+                {{ nav_version }}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% include "searchbox.html" %}
+
+{% endblock %}
+
+
+{% block menu %}
+    {{ super() }}
+
+    {% if menu_links %}
+        <p class="caption">
+            <span class="caption-text">External links</span>
+        </p>
+        <ul>
+            {% for text, link in menu_links %}
+                <li class="toctree-l1"><a href="{{ link }}">{{ text }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

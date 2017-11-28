@@ -6,13 +6,17 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-body pre .highlight {
-    font-size: 16px;
-}
-
 h1, h2, h3, h4 {
     font-weight: 300;
     font-family: "Open Sans",sans-serif;
+}
+
+h1 {
+    font-size: 200%;
+}
+
+.wy-nav-content {
+    max-width: 1000px;
 }
 
 .sidebar-title {

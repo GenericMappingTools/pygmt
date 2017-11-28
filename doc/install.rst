@@ -3,7 +3,9 @@
 Installing
 ==========
 
-.. admonition:: This package in early stages of design and implementation.
+.. note::
+
+    **This package is in early stages of development.**
 
     We welcome any feedback and ideas!
     Let us know by submitting
@@ -65,7 +67,9 @@ And finally, install the rest of the dependencies::
 
     conda install numpy -c conda-forge
 
-.. admonition:: Currently, this only works on Linux and OSX.
+.. note::
+
+    **Currently, this only works on Linux and OSX.**
 
     We don't have a GMT conda package for Windows
     (`we're working on it <https://github.com/conda-forge/gmt-feedstock>`__).
@@ -75,8 +79,8 @@ And finally, install the rest of the dependencies::
     tries.
 
 
-Installing GMT/Python from source
----------------------------------
+Installing GMT/Python
+---------------------
 
 Now that you have GMT installed and your conda environment activated,
 use ``pip`` to install the latest source of GMT/Python from Github::
