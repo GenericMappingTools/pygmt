@@ -1,21 +1,13 @@
-.. title:: GMT/Python
-
+.. title:: index
 
 .. raw:: html
 
-    <div class="banner text-center">
-        <div class="row" stype="margin-bottom: 50px;">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-6">
-                <img class="center-block" width="100%"
-                     src="_static/gmt-python-logo.png">
-            </div>
-            <div class="col-md-3">
-            </div>
-        </div>
-        <h1>A Python interface for the
-        <a href="http://gmt.soest.hawaii.edu/">Generic Mapping Tools</a></h1>
+    <div class="banner">
+        <h1>GMT/Python</h1>
+        <h2>
+            A modern Python interface for the
+            <a href="http://gmt.soest.hawaii.edu/">Generic Mapping Tools</a>
+        </h2>
     </div>
 
 .. raw:: html
@@ -28,7 +20,9 @@
    available.
 
 
-.. admonition:: This package in early stages of design and implementation.
+.. note::
+
+    **This package is in early stages development**.
 
     We welcome any feedback and ideas!
     Let us know by submitting

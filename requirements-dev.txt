@@ -7,7 +7,7 @@ coverage
 flake8
 pylint
 sphinx
-sphinx_bootstrap_theme
+sphinx_rtd_theme
 nbsphinx
 numpydoc
 twine

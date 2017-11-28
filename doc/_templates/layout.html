@@ -1,0 +1,16 @@
+{# Import the theme's layout. #}
+{% extends "!layout.html" %}
+
+
+{% block htmltitle %}
+    {% if title == '' or title == 'index' %}
+        <title>{{ docstitle|e }}</title>
+    {% else %}
+        <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+    {% endif %}
+{% endblock %}
+
+
+{% block sidebartitle %}
+    <a href="{{ pathto(master_doc) }}"><h2 class="sidebar-title">{{ project }}</h2></a>
+{% endblock %}

@@ -1,71 +1,32 @@
 /* To stick the footer to the bottom of the page */
 html {
-    position: relative;
-    min-height: 100%;
 }
 
 body {
-    /* Margin bottom by footer height with a little room to accomodate small
-     * screens */
-    margin-bottom: 350px;
+    font-family: 'Open Sans', sans-serif;
 }
 
-body, blockquote, .alert, .table, pre, .navbar {
+body pre .highlight {
     font-size: 16px;
 }
 
 h1, h2, h3, h4 {
     font-weight: 300;
-    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Open Sans",sans-serif;
 }
 
-h1 {
-    font-size: 36px;
-}
-
-h2 {
-    font-size: 29px;
-    margin-bottom: 25px;
-    margin-top: 50px;
-}
-
-h3 {
-    font-size: 22px;
-}
-
-pre {
-    line-height: 1.4;
-}
-
-footer {
-    /* To stick the footer to the bottom of the page */
-    position: absolute;
-    bottom: 0;
-    /* Set the fixed height of the footer here */
-    min-height: 110px;
-    font-size: 14px;
-    margin-top: 50px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    background-color: #f7f5fa;
-    box-shadow: 1px 0px 5px rgba(0,0,0,0.3);
-    border: none;
+.sidebar-title {
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
 .banner {
-    padding-top: 60px;
     padding-bottom: 60px;
-    padding-left: 0px;
-    padding-right: 0px;
+    text-align: center;
 }
 
 .banner h1 {
-    font-size: 29px;
     margin-top: 40px;
-    line-height: 1.5;
+    font-size: 4em;
 }
 
-.method {
-    border-top: 2px solid #ddd;
-    padding-top: 15px;
-}
