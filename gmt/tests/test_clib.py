@@ -84,18 +84,21 @@ def test_errors_sent_to_log_file():
         mode = lib.get_constant('GMT_MODULE_CMD')
         with lib.log_to_file() as logfile:
             assert os.path.exists(logfile)
+            data_file = 'not-a-valid-data-file.bla'
             # Make a bogus module call that will fail
             status = lib._c_call_module(lib.current_session,
-                                        'psxy'.encode(),
+                                        'info'.encode(),
                                         mode,
-                                        '-JM6i'.encode())
+                                        data_file.encode())
             assert status != 0
             # Check the file content
             with open(logfile) as flog:
                 log = flog.read()
-            assert log.strip() == 'gmtinfo [ERROR]: No input data found!'
-        # Log should be deleted as soon as the with is over
-        assert not os.path.exists(logfile)
+    msg = 'gmtinfo [ERROR]: Error for input file: No such file ({})'.format(
+        data_file)
+    assert log.strip() == msg
+    # Log should be deleted as soon as the with is over
+    assert not os.path.exists(logfile)
 
 
 def test_call_module():
@@ -113,19 +116,20 @@ def test_call_module():
 
 def test_call_module_error_message():
     "Check that the exception has the error message from call_module"
+    data_file = 'bogus-data.bla'
+    true_msg = '\n'.join([
+        "'info' failed (error: 69).",
+        "---------- Error log ----------",
+        '',
+        'gmtinfo [ERROR]: Error for input file: No such file (bogus-data.bla)',
+        '',
+        "-------------------------------",
+    ])
     with LibGMT() as lib:
         # Make a bogus module call that will fail
         try:
-            lib.call_module('psxy', '-JM3i')
+            lib.call_module('info', data_file)
         except GMTCLibError as error:
-            true_msg = '\n'.join([
-                "'psxy' failed (error: 69).",
-                "---------- Error log ----------",
-                '',
-                'gmtinfo [ERROR]: No input data found!',
-                '',
-                "-------------------------------",
-            ])
             assert str(error) == true_msg
         else:
             assert False, "Didn't raise an exception"
