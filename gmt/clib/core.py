@@ -291,12 +291,12 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         ...     mode = lib.get_constant('GMT_MODULE_CMD')
         ...     with lib.log_to_file() as logfile:
         ...         status = lib._c_call_module(lib.current_session,
-        ...                                     'psxy'.encode(),
+        ...                                     'info'.encode(),
         ...                                     mode,
-        ...                                     '-JM6i'.encode())
+        ...                                     'bogus-file.bla'.encode())
         ...         with open(logfile) as flog:
         ...             print(flog.read().strip())
-        gmtinfo [ERROR]: No input data found!
+        gmtinfo [ERROR]: Error for input file: No such file (bogus-file.bla)
 
         """
         if logfile is None:
@@ -340,7 +340,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Raises
         ------
         GMTCLibError
-            If the returned status code of the functions is non-zero.
+            If the returned status code of the function is non-zero.
 
         """
         mode = self.get_constant('GMT_MODULE_CMD')
