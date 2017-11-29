@@ -7,4 +7,4 @@ linters:
     csslint:
         enable: false
 files:
-    ignore: ['versioneer.py', 'gmt/_version.py']
+    ignore: ['versioneer.py', 'gmt/_version.py', 'doc/conf.py']
