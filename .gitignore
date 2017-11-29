@@ -9,7 +9,8 @@ dist/
 .cache
 doc/_build
 doc/modules
-doc/api
+doc/api/gmt*.rst
+doc/api/generated
 .ipynb_checkpoints
 *.egg-info
 .env

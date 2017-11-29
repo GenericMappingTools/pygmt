@@ -94,13 +94,28 @@ def launch_external_viewer(fname):
 
 class Figure(BasePlotting):
     """
-    Create a new GMT figure.
+    A GMT figure to handle all plotting.
 
-    Use the plotting methods to add elements to the figure.
+    Use the plotting methods of this class to add elements to the figure.  You
+    can preview the figure using :meth:`gmt.Figure.show` and save the figure to
+    a file using :meth:`gmt.Figure.savefig`.
 
-    Preview the figure using :meth:`~gmt.Figure.show`.
+    Unlike traditional GMT figures, no figure file is generated until you call
+    :meth:`gmt.Figure.savefig` or :meth:`gmt.Figure.psconvert`.
 
-    Save the figure to a file using :meth:`~gmt.Figure.savefig`.
+    Examples
+    --------
+
+    >>> fig = Figure()
+    >>> fig.psbasemap(region=[0, 360, -90, 90], projection='W7i', frame=True,
+    ...               portrait=True)
+    >>> fig.savefig("my-figure.png")
+    >>> # Make sure the figure file is generated and clean it up
+    >>> import os
+    >>> os.path.exists('my-figure.png')
+    True
+    >>> os.remove('my-figure.png')
+
     """
 
     def __init__(self):

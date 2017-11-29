@@ -6,7 +6,7 @@ GMT/Python
 `Documentation <https://genericmappingtools.github.io/gmt-python/>`_ |
 `Install <https://genericmappingtools.github.io/gmt-python/install.html>`_ |
 `First steps <https://genericmappingtools.github.io/gmt-python/first-steps.html>`_ |
-`API <https://genericmappingtools.github.io/gmt-python/api.html>`_ |
+`API <https://genericmappingtools.github.io/gmt-python/api>`_ |
 `Contact <https://gitter.im/GenericMappingTools/gmt-python>`_
 
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
@@ -57,7 +57,7 @@ Getting started
    `First steps <https://genericmappingtools.github.io/gmt-python/first-steps.html>`__
    tutorial Jupyter notebook.
 3. Take a look at the
-   `API Reference <https://genericmappingtools.github.io/gmt-python/api.html>`__
+   `API Reference <https://genericmappingtools.github.io/gmt-python/api>`__
    to see what is already available.
 
 
@@ -78,6 +78,17 @@ Project goals
 * Input and output using Python native containers: numpy ``ndarray`` or pandas
   ``DataFrame`` for data tables and `xarray <http://xarray.pydata.org>`__
   ``Dataset`` for netCDF grids.
+
+
+Contacting Us
+-------------
+
+* Most discussion happens `on Github <https://github.com/GenericMappingTools/gmt-python>`__.
+  Feel free to `open an issue
+  <https://github.com/GenericMappingTools/gmt-python/issues/new>`__ or comment
+  on any open issue or pull request.
+* We have `chat room on Gitter <https://gitter.im/GenericMappingTools/gmt-python>`__
+  where you can ask questions and leave comments.
 
 
 Contributing
