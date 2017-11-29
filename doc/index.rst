@@ -132,6 +132,6 @@ terms of the :ref:`BSD 3-clause License <license>`.
 
     first-steps.ipynb
     install.rst
-    api.rst
+    api/index.rst
     design.rst
     license.rst

@@ -15,10 +15,6 @@ h1 {
     font-size: 200%;
 }
 
-.wy-nav-content {
-    max-width: 1000px;
-}
-
 .sidebar-title {
     margin-top: 10px;
     margin-bottom: 0px;
@@ -34,3 +30,20 @@ h1 {
     font-size: 4em;
 }
 
+.wy-nav-content {
+    max-width: 1000px;
+}
+
+/* Remove the padding from the Parameters table */
+.rst-content table.field-list .field-name {
+    padding-left: 0px;
+}
+
+/* Lign up the Parameters section with the descriptions */
+.rst-content table.field-list td {
+    padding-top: 8px;
+}
+
+.rst-content .highlight > pre {
+    font-size: 14px;
+}

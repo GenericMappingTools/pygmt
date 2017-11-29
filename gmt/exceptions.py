@@ -1,5 +1,7 @@
 """
-Our custom exceptions
+Custom exception types used throughout the library.
+
+All exceptions derive from the :class:`~gmt.exceptions.GMTError` class.
 """
 
 
