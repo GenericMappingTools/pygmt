@@ -211,7 +211,7 @@ def test_create_data_dataset():
 
 
 def test_create_data_grid_dim():
-    "Run the function to make sure it doesn't fail badly."
+    "Create a grid ignoring range and inc."
     with LibGMT() as lib:
         # Grids from matrices using dim
         lib.create_data(
@@ -223,14 +223,13 @@ def test_create_data_grid_dim():
 
 
 def test_create_data_grid_range():
-    "Run the function to make sure it doesn't fail badly."
+    "Create a grid specifying range and inc instead of dim."
     with LibGMT() as lib:
         # Grids from matrices using range and int
         lib.create_data(
             family='GMT_IS_GRID|GMT_VIA_MATRIX',
             geometry='GMT_IS_SURFACE',
             mode='GMT_CONTAINER_ONLY',
-            dim=[0, 0, 1, 0],
             ranges=[150., 250., -20., 20.],
             inc=[0.1, 0.2],
         )
@@ -279,9 +278,11 @@ def test_put_vector():
             lib.put_vector(dataset, column=lib.get_constant("GMT_X"), vector=x)
             lib.put_vector(dataset, column=lib.get_constant("GMT_Y"), vector=y)
             lib.put_vector(dataset, column=lib.get_constant("GMT_Z"), vector=z)
-            wesn = [x.min(), x.max(), y.min(), y.max(), 0, 0]
+            # Turns out wesn doesn't matter for Datasets
+            wesn = [0]*6
             # Save the data to a file to see if it's being accessed correctly
-            tmp_file = NamedTemporaryFile(delete=False)
+            tmp_file = NamedTemporaryFile(prefix='gmt-python-', suffix='.txt',
+                                          delete=False)
             tmp_file.close()
             lib.write_data('GMT_IS_VECTOR', 'GMT_IS_POINT',
                            'GMT_WRITE_SET', wesn, tmp_file.name, dataset)
@@ -337,3 +338,63 @@ def test_put_vector_2d_fails():
         data = np.array([[37, 12, 556], [37, 12, 556]], dtype='int32')
         with pytest.raises(GMTCLibError):
             lib.put_vector(dataset, column=0, vector=data)
+
+
+def test_put_matrix():
+    "Check that assigning a numpy 2d array to a dataset works"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    shape = (3, 4)
+    for dtype in dtypes:
+        with LibGMT() as lib:
+            # Dataset from vectors
+            dataset = lib.create_data(
+                family='GMT_IS_DATASET|GMT_VIA_MATRIX',
+                geometry='GMT_IS_POINT',
+                mode='GMT_CONTAINER_ONLY',
+                dim=[shape[1], shape[0], 1, 0],  # columns, rows, layers, dtype
+            )
+            data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
+            lib.put_matrix(dataset, matrix=data)
+            # wesn doesn't matter for Datasets
+            wesn = [0]*6
+            # Save the data to a file to see if it's being accessed correctly
+            tmp_file = NamedTemporaryFile(prefix='gmt-python-', suffix='.txt',
+                                          delete=False)
+            tmp_file.close()
+            lib.write_data('GMT_IS_MATRIX', 'GMT_IS_POINT',
+                           'GMT_WRITE_SET', wesn, tmp_file.name, dataset)
+            # Load the data and check that it's correct
+            newdata = np.loadtxt(tmp_file.name, dtype=dtype)
+            os.remove(tmp_file.name)
+            npt.assert_allclose(newdata, data)
+
+
+def test_put_matrix_grid():
+    "Check that assigning a numpy 2d array to a grid works"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    wesn = [10, 15, 30, 40, 0, 0]
+    inc = [1, 1]
+    shape = ((wesn[3] - wesn[2])//inc[1] + 1, (wesn[1] - wesn[0])//inc[0] + 1)
+    for dtype in dtypes:
+        with LibGMT() as lib:
+            # Dataset from vectors
+            grid = lib.create_data(
+                family='GMT_IS_GRID|GMT_VIA_MATRIX',
+                geometry='GMT_IS_SURFACE',
+                mode='GMT_CONTAINER_ONLY',
+                ranges=wesn[:4],
+                inc=[1, 1],
+                registration=lib.get_constant('GMT_GRID_NODE_REG'),
+            )
+            data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
+            lib.put_matrix(grid, matrix=data)
+            # Save the data to a file to see if it's being accessed correctly
+            tmp_file = NamedTemporaryFile(prefix='gmt-python-', suffix='.txt',
+                                          delete=False)
+            tmp_file.close()
+            lib.write_data('GMT_IS_MATRIX', 'GMT_IS_SURFACE',
+                           'GMT_CONTAINER_AND_DATA', wesn, tmp_file.name, grid)
+            # Load the data and check that it's correct
+            newdata = np.loadtxt(tmp_file.name, dtype=dtype)
+            os.remove(tmp_file.name)
+            npt.assert_allclose(newdata, data)

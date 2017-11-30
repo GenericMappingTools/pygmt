@@ -96,6 +96,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_create_data = None
         self._c_handle_messages = None
         self._c_put_vector = None
+        self._c_put_matrix = None
         self._c_write_data = None
         self._bind_clib_functions(libname)
 
@@ -175,6 +176,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                                        ctypes.c_uint, ctypes.c_uint,
                                        ctypes.c_void_p]
         self._c_put_vector.restype = ctypes.c_int
+
+        self._c_put_matrix = self._libgmt.GMT_Put_Matrix
+        self._c_put_matrix.argtypes = [ctypes.c_void_p, ctypes.c_void_p,
+                                       ctypes.c_uint, ctypes.c_void_p]
+        self._c_put_matrix.restype = ctypes.c_int
 
         self._c_write_data = self._libgmt.GMT_Write_Data
         self._c_write_data.argtypes = [ctypes.c_void_p, ctypes.c_uint,
@@ -447,6 +453,9 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         if mode not in self.data_modes:
             raise GMTCLibError("Invalid data creation mode '{}'.".format(mode))
         geometry_int = self._parse_data_geometry(geometry)
+        # dim is required (get a segmentation fault if passing it as None
+        if 'dim' not in kwargs:
+            kwargs['dim'] = [0]*4
         # Convert dim, ranges, and inc to ctypes arrays if given
         dim = kwargs_to_ctypes_array('dim', kwargs, ctypes.c_uint64*4)
         ranges = kwargs_to_ctypes_array('ranges', kwargs, ctypes.c_double*4)
@@ -455,7 +464,15 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         # Use the GMT defaults if no value is given
         registration = kwargs.get('registration',
                                   self.get_constant('GMT_GRID_NODE_REG'))
-        pad = kwargs.get('pad', self.get_constant('GMT_PAD_DEFAULT'))
+        pad = kwargs.get('pad', None)
+        if pad is None:
+            # For matrix types, pad control the matrix ordering (row or column
+            # major). Using the default pad will set it to column major and
+            # mess things up with the numpy arrays.
+            if 'MATRIX' in family:
+                pad = 0
+            else:
+                pad = self.get_constant('GMT_PAD_DEFAULT')
 
         data_ptr = self._c_create_data(
             self.current_session,
@@ -548,6 +565,50 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             via_value = 0
         return family_value + via_value
 
+    def _check_dtype_and_dim(self, array, ndim):
+        """
+        Check that a numpy array has the given dimensions and is a valid data
+        type.
+
+        Parameters
+        ----------
+        array : numpy array
+            The array to be tested.
+        ndim : int
+            The desired dimension of the array.
+
+        Returns
+        -------
+        gmt_type : int
+            The GMT constant value representing this data type.
+
+        Raises
+        ------
+        GMTCLibError
+            If the array has the wrong dimensions or is an unsupported data
+            type.
+
+        Examples
+        --------
+
+        >>> import numpy as np
+        >>> data = np.array([1, 2, 3], dtype='float64')
+        >>> with LibGMT() as lib:
+        ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
+        ...     gmttype == lib.get_constant('GMT_DOUBLE')
+        True
+
+        """
+        if array.dtype.name not in self._dtypes:
+            raise GMTCLibError(
+                "Unsupported numpy data type '{}'.".format(array.dtype.name)
+            )
+        if array.ndim != ndim:
+            raise GMTCLibError(
+                "Expected a numpy 1d array, got {}d.".format(array.ndim)
+            )
+        return self.get_constant(self._dtypes[array.dtype.name])
+
     def put_vector(self, dataset, column, vector):
         """
         Attach a numpy 1D array as a column on a GMT dataset.
@@ -585,15 +646,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             0.
 
         """
-        if vector.dtype.name not in self._dtypes:
-            raise GMTCLibError(
-                "Unsupported numpy data type '{}'.".format(vector.dtype.name)
-            )
-        if vector.ndim != 1:
-            raise GMTCLibError(
-                "Expected a numpy 1d array, got {}d.".format(vector.ndim)
-            )
-        gmt_type = self.get_constant(self._dtypes[vector.dtype.name])
+        gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         vector_pointer = vector.ctypes.data_as(ctypes.c_void_p)
         status = self._c_put_vector(self.current_session,
                                     dataset,
@@ -607,6 +660,50 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                     "in column {} of dataset.".format(column),
                 ])
             )
+
+    def put_matrix(self, dataset, matrix):
+        """
+        Attach a numpy 2D array to a GMT dataset.
+
+        Use this functions to attach numpy array data to a GMT dataset and pass
+        it to GMT modules. Wraps ``GMT_Put_Matrix``.
+
+        The dataset must be created by :meth:`~gmt.clib.LibGMT.create_data`
+        first. Use ``|GMT_VIA_MATRIX'`` in the family.
+
+        Not at all numpy dtypes are supported, only: float64, float32, int64,
+        int32, uint64, and uint32.
+
+        .. warning::
+            The numpy array must be C contiguous in memory. Use
+            :func:`numpy.ascontiguousarray` to make sure your vector is
+            contiguous (it won't copy if it already is).
+
+        Parameters
+        ----------
+        dataset : ctypes.c_void_p
+            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+            :meth:`~gmt.clib.LibGMT.create_data`.
+        matrix : numpy 2d-array
+            The array that will be attached to the dataset. Must be a 1d C
+            contiguous array.
+
+        Raises
+        ------
+        GMTCLibError
+            If given invalid input or ``GMT_Put_Matrix`` exits with status !=
+            0.
+
+        """
+        gmt_type = self._check_dtype_and_dim(matrix, ndim=2)
+        matrix_pointer = matrix.ctypes.data_as(ctypes.c_void_p)
+        status = self._c_put_matrix(self.current_session,
+                                    dataset,
+                                    gmt_type,
+                                    matrix_pointer)
+        if status != 0:
+            raise GMTCLibError(
+                "Failed to put matrix of type {}.".format(matrix.dtype))
 
     # pylint: disable=too-many-arguments
     def write_data(self, family, geometry, mode, wesn, output, data):
