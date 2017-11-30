@@ -141,7 +141,7 @@ Run the tests using:
 
 and the coverage analysis using:
 
-    make coverate
+    make coverage
 
 To check your code for PEP8 style and common errors (runs `flake8` and
 `pylint`):
