@@ -75,6 +75,16 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         'GMT_OUTPUT',
     ]
 
+    # Map numpy dtypes to GMT types
+    _dtypes = {
+        'float64': 'GMT_DOUBLE',
+        'float32': 'GMT_FLOAT',
+        'int64': 'GMT_LONG',
+        'int32': 'GMT_INT',
+        'uint64': 'GMT_ULONG',
+        'uint32': 'GMT_UINT',
+    }
+
     def __init__(self, libname='libgmt'):
         self._logfile = None
         self._session_id = None
@@ -85,6 +95,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_call_module = None
         self._c_create_data = None
         self._c_handle_messages = None
+        self._c_put_vector = None
         self._bind_clib_functions(libname)
 
     @property
@@ -157,6 +168,12 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_handle_messages.argtypes = [ctypes.c_void_p, ctypes.c_uint,
                                             ctypes.c_uint, ctypes.c_char_p]
         self._c_handle_messages.restype = ctypes.c_int
+
+        self._c_put_vector = self._libgmt.GMT_Put_Vector
+        self._c_put_vector.argtypes = [ctypes.c_void_p, ctypes.c_void_p,
+                                       ctypes.c_uint, ctypes.c_uint,
+                                       ctypes.c_void_p]
+        self._c_put_vector.restype = ctypes.c_int
 
     def __enter__(self):
         """
@@ -496,3 +513,52 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         else:
             via_value = 0
         return family_value + via_value
+
+    def put_vector(self, dataset, column, vector):
+        """
+        Attach a numpy 1D array as a column on a GMT dataset.
+
+        Use this functions to attach numpy array data to a GMT dataset and pass
+        it to GMT modules. Wraps ``GMT_Put_Vector``.
+
+        The dataset must be created by :meth:`~gmt.clib.LibGMT.create_data`
+        first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
+
+        Not at all numpy dtypes are supported, only: float64, float32, int64,
+        int32, uint64, and uint32.
+
+        Parameters
+        ----------
+        dataset : ctypes.c_void_p
+            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+            :meth:`~gmt.clib.LibGMT.create_data`.
+        column : int
+            The column number of this vector in the dataset (starting from 0).
+        vector : numpy 1d-array
+            The array that will be attached to the dataset. Must be 1d.
+
+        Raises
+        ------
+        GMTCLibError
+            If given invalid input or ``GMT_Put_Vector`` exits with status !=
+            0.
+
+        """
+        if vector.dtype.name not in self._dtypes:
+            raise GMTCLibError(
+                "Unsupported numpy data type '{}'.".format(vector.dtype.name)
+            )
+        if vector.ndim != 1:
+            raise GMTCLibError(
+                "Expected a numpy 1d array, got {}d.".format(vector.ndim)
+            )
+        dtype = self.get_constant(self._dtypes[vector.dtype.name])
+        status = self._c_put_vector(self.current_session, dataset, column,
+                                    dtype, vector.ctypes.data)
+        if status != 0:
+            raise GMTCLibError(
+                ' '.join([
+                    "Failed to put vector of type {}".format(vector.dtype),
+                    "in column {} of dataset.".format(column),
+                ])
+            )

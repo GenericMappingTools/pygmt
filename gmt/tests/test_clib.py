@@ -5,6 +5,7 @@ Test the wrappers for the C API.
 import os
 
 import pytest
+import numpy as np
 
 from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt
@@ -47,6 +48,7 @@ def test_constant():
     assert lib.get_constant('GMT_SESSION_EXTERNAL') != -99999
     assert lib.get_constant('GMT_MODULE_CMD') != -99999
     assert lib.get_constant('GMT_PAD_DEFAULT') != -99999
+    assert lib.get_constant('GMT_DOUBLE') != -99999
     with pytest.raises(GMTCLibError):
         lib.get_constant('A_WHOLE_LOT_OF_JUNK')
 
@@ -255,3 +257,63 @@ def test_create_data_fails():
                 ranges=[150., 250., -20., 20.],
                 inc=[0.1, 0.2],
             )
+
+def test_put_vector():
+    "Check that assigning a numpy array to a dataset works"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    with LibGMT() as lib:
+        # Dataset from vectors
+        dataset = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_VECTOR',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[len(dtypes), 5, 1, 0],  # columns, rows, layers, dtype
+        )
+        for col, dtype in enumerate(dtypes):
+            data = np.array([37, 12, 556, 21, 42], dtype=dtype)
+            lib.put_vector(dataset, column=col, vector=data)
+
+
+def test_put_vector_invalid_dtype():
+    "Check that it fails with an exception for invalid data types"
+    with LibGMT() as lib:
+        # Dataset from vectors
+        dataset = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_VECTOR',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[2, 3, 1, 0],  # columns, rows, layers, dtype
+        )
+        data = np.array([37, 12, 556], dtype='complex128')
+        with pytest.raises(GMTCLibError):
+            lib.put_vector(dataset, column=1, vector=data)
+
+
+def test_put_vector_wrong_column():
+    "Check that it fails with an exception when giving an invalid column"
+    with LibGMT() as lib:
+        # Dataset from vectors
+        dataset = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_VECTOR',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[1, 3, 1, 0],  # columns, rows, layers, dtype
+        )
+        data = np.array([37, 12, 556], dtype='float32')
+        with pytest.raises(GMTCLibError):
+            lib.put_vector(dataset, column=1, vector=data)
+
+
+def test_put_vector_2d_fails():
+    "Check that it fails with an exception for multidimensional arrays"
+    with LibGMT() as lib:
+        # Dataset from vectors
+        dataset = lib.create_data(
+            family='GMT_IS_DATASET|GMT_VIA_VECTOR',
+            geometry='GMT_IS_POINT',
+            mode='GMT_CONTAINER_ONLY',
+            dim=[1, 6, 1, 0],  # columns, rows, layers, dtype
+        )
+        data = np.array([[37, 12, 556], [37, 12, 556]], dtype='int32')
+        with pytest.raises(GMTCLibError):
+            lib.put_vector(dataset, column=0, vector=data)
