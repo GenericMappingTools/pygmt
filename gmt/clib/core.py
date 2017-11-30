@@ -460,19 +460,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         dim = kwargs_to_ctypes_array('dim', kwargs, ctypes.c_uint64*4)
         ranges = kwargs_to_ctypes_array('ranges', kwargs, ctypes.c_double*4)
         inc = kwargs_to_ctypes_array('inc', kwargs, ctypes.c_double*2)
+        pad = self._parse_pad(family, kwargs)
 
         # Use the GMT defaults if no value is given
         registration = kwargs.get('registration',
                                   self.get_constant('GMT_GRID_NODE_REG'))
-        pad = kwargs.get('pad', None)
-        if pad is None:
-            # For matrix types, pad control the matrix ordering (row or column
-            # major). Using the default pad will set it to column major and
-            # mess things up with the numpy arrays.
-            if 'MATRIX' in family:
-                pad = 0
-            else:
-                pad = self.get_constant('GMT_PAD_DEFAULT')
 
         data_ptr = self._c_create_data(
             self.current_session,
@@ -491,6 +483,22 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             raise GMTCLibError("Failed to create an empty GMT data pointer.")
 
         return data_ptr
+
+    def _parse_pad(self, family, kwargs):
+        """
+        Parse and return an appropriate value for pad if none is given.
+
+        Pad is a bit tricky because, for matrix types, pad control the matrix
+        ordering (row or column major). Using the default pad will set it to
+        column major and mess things up with the numpy arrays.
+        """
+        pad = kwargs.get('pad', None)
+        if pad is None:
+            if 'MATRIX' in family:
+                pad = 0
+            else:
+                pad = self.get_constant('GMT_PAD_DEFAULT')
+        return pad
 
     def _parse_data_geometry(self, geometry):
         """
