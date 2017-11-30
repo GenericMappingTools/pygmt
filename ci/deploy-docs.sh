@@ -41,9 +41,6 @@ echo -e "Remove old files from previous builds"
 git rm -rf .
 cp -Rf $HOME/keep/. $HOME/$CLONE_DIR
 
-# Remove the CNAME file because this is not the main website
-rm -f CNAME
-
 # add, commit, and push files
 echo -e "Add and commit changes"
 git add -f .
