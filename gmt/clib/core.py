@@ -96,6 +96,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_create_data = None
         self._c_handle_messages = None
         self._c_put_vector = None
+        self._c_write_data = None
         self._bind_clib_functions(libname)
 
     @property
@@ -174,6 +175,14 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                                        ctypes.c_uint, ctypes.c_uint,
                                        ctypes.c_void_p]
         self._c_put_vector.restype = ctypes.c_int
+
+        self._c_write_data = self._libgmt.GMT_Write_Data
+        self._c_write_data.argtypes = [ctypes.c_void_p, ctypes.c_uint,
+                                       ctypes.c_uint, ctypes.c_uint,
+                                       ctypes.c_uint,
+                                       ctypes.POINTER(ctypes.c_double),
+                                       ctypes.c_char_p, ctypes.c_void_p]
+        self._c_write_data.restype = ctypes.c_int
 
     def __enter__(self):
         """
@@ -437,9 +446,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         family_int = self._parse_data_family(family)
         if mode not in self.data_modes:
             raise GMTCLibError("Invalid data creation mode '{}'.".format(mode))
-        if geometry not in self.data_geometries:
-            raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
-
+        geometry_int = self._parse_data_geometry(geometry)
         # Convert dim, ranges, and inc to ctypes arrays if given
         dim = kwargs_to_ctypes_array('dim', kwargs, ctypes.c_uint64*4)
         ranges = kwargs_to_ctypes_array('ranges', kwargs, ctypes.c_double*4)
@@ -453,7 +460,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         data_ptr = self._c_create_data(
             self.current_session,
             family_int,
-            self.get_constant(geometry),
+            geometry_int,
             self.get_constant(mode),
             dim,
             ranges,
@@ -468,9 +475,36 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         return data_ptr
 
+    def _parse_data_geometry(self, geometry):
+        """
+        Parse the geometry argument for GMT data manipulation functions.
+
+        Converts the string name to the corresponding integer value.
+
+        Parameters
+        ----------
+        geometry : str
+            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
+            ``data_geometries`` attribute for valid names.
+
+        Returns
+        -------
+        geometry_int : int
+            The converted geometry.
+
+        Raises
+        ------
+        GMTCLibError
+            If the geometry name is invalid.
+
+        """
+        if geometry not in self.data_geometries:
+            raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
+        return self.get_constant(geometry)
+
     def _parse_data_family(self, family):
         """
-        Parse the data family string into an integer  number.
+        Parse the data family string into an integer number.
 
         Valid family names are: GMT_IS_DATASET, GMT_IS_GRID, GMT_IS_PALETTE,
         GMT_IS_TEXTSET, GMT_IS_MATRIX, and GMT_IS_VECTOR.
@@ -527,6 +561,12 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Not at all numpy dtypes are supported, only: float64, float32, int64,
         int32, uint64, and uint32.
 
+        .. warning::
+            The numpy array must be C contiguous in memory. If it comes from a
+            column slice of a 2d array, for example, you will have to make a
+            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
+            is contiguous (it won't copy if it already is).
+
         Parameters
         ----------
         dataset : ctypes.c_void_p
@@ -535,7 +575,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         column : int
             The column number of this vector in the dataset (starting from 0).
         vector : numpy 1d-array
-            The array that will be attached to the dataset. Must be 1d.
+            The array that will be attached to the dataset. Must be a 1d C
+            contiguous array.
 
         Raises
         ------
@@ -552,9 +593,13 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             raise GMTCLibError(
                 "Expected a numpy 1d array, got {}d.".format(vector.ndim)
             )
-        dtype = self.get_constant(self._dtypes[vector.dtype.name])
-        status = self._c_put_vector(self.current_session, dataset, column,
-                                    dtype, vector.ctypes.data)
+        gmt_type = self.get_constant(self._dtypes[vector.dtype.name])
+        vector_pointer = vector.ctypes.data_as(ctypes.c_void_p)
+        status = self._c_put_vector(self.current_session,
+                                    dataset,
+                                    column,
+                                    gmt_type,
+                                    vector_pointer)
         if status != 0:
             raise GMTCLibError(
                 ' '.join([
@@ -562,3 +607,61 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                     "in column {} of dataset.".format(column),
                 ])
             )
+
+    # pylint: disable=too-many-arguments
+    def write_data(self, family, geometry, mode, wesn, output, data):
+        """
+        Write a GMT data container to a file.
+
+        The data container should be created by
+        :meth:`~gmt.clib.LibGMT.create_data`.
+
+        Wraps ``GMT_Write_Data`` but only allows writing to a file. So the
+        ``method`` argument is omitted.
+
+        Parameters
+        ----------
+        family : str
+            A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
+            ``data_families`` attribute for valid names. Don't use the
+            ``GMT_VIA_VECTOR`` or ``GMT_VIA_MATRIX`` constructs for this. Use
+            ``GMT_IS_VECTOR`` and ``GMT_IS_MATRIX`` instead.
+        geometry : str
+            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
+            ``data_geometries`` attribute for valid names.
+        mode : str
+            How the data is to be written to the file. This option varies
+            depending on the given family. See the GMT API documentation for
+            details.
+        wesn : list or numpy array
+            [xmin, xmax, ymin, ymax, zmin, zmax] of the data. Must have 6
+            elements.
+        output : str
+            The output file name.
+        data : ctypes.c_void_p
+            Pointer to the data container created by
+            :meth:`~gmt.clib.LibGMT.create_data`.
+
+        Raises
+        ------
+        GMTCLibError
+            For invalid input arguments or if the GMT API functions returns a
+            non-zero status code.
+
+        """
+        family_int = self._parse_data_family(family)
+        geometry_int = self._parse_data_geometry(geometry)
+        status = self._c_write_data(self.current_session,
+                                    family_int,
+                                    self.get_constant('GMT_IS_FILE'),
+                                    geometry_int,
+                                    self.get_constant(mode),
+                                    (ctypes.c_double*6)(*wesn),
+                                    output.encode(),
+                                    data)
+        if status != 0:
+            raise GMTCLibError(
+                "Failed to write dataset to '{}'".format(output))
+            # Can't test this if by giving a bad file name because if
+            # output=='', GMT will just write to stdout and spaces are valid
+            # file names.

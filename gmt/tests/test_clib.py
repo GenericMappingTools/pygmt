@@ -3,9 +3,11 @@
 Test the wrappers for the C API.
 """
 import os
+from tempfile import NamedTemporaryFile
 
 import pytest
 import numpy as np
+import numpy.testing as npt
 
 from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt
@@ -258,20 +260,38 @@ def test_create_data_fails():
                 inc=[0.1, 0.2],
             )
 
+
 def test_put_vector():
     "Check that assigning a numpy array to a dataset works"
     dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
-    with LibGMT() as lib:
-        # Dataset from vectors
-        dataset = lib.create_data(
-            family='GMT_IS_DATASET|GMT_VIA_VECTOR',
-            geometry='GMT_IS_POINT',
-            mode='GMT_CONTAINER_ONLY',
-            dim=[len(dtypes), 5, 1, 0],  # columns, rows, layers, dtype
-        )
-        for col, dtype in enumerate(dtypes):
-            data = np.array([37, 12, 556, 21, 42], dtype=dtype)
-            lib.put_vector(dataset, column=col, vector=data)
+    for dtype in dtypes:
+        with LibGMT() as lib:
+            # Dataset from vectors
+            dataset = lib.create_data(
+                family='GMT_IS_DATASET|GMT_VIA_VECTOR',
+                geometry='GMT_IS_POINT',
+                mode='GMT_CONTAINER_ONLY',
+                dim=[3, 5, 1, 0],  # columns, rows, layers, dtype
+            )
+            x = np.array([1, 2, 3, 4, 5], dtype=dtype)
+            y = np.array([6, 7, 8, 9, 10], dtype=dtype)
+            z = np.array([11, 12, 13, 14, 15], dtype=dtype)
+            lib.put_vector(dataset, column=lib.get_constant("GMT_X"), vector=x)
+            lib.put_vector(dataset, column=lib.get_constant("GMT_Y"), vector=y)
+            lib.put_vector(dataset, column=lib.get_constant("GMT_Z"), vector=z)
+            wesn = [x.min(), x.max(), y.min(), y.max(), 0, 0]
+            # Save the data to a file to see if it's being accessed correctly
+            tmp_file = NamedTemporaryFile(delete=False)
+            tmp_file.close()
+            lib.write_data('GMT_IS_VECTOR', 'GMT_IS_POINT',
+                           'GMT_WRITE_SET', wesn, tmp_file.name, dataset)
+            # Load the data and check that it's correct
+            newx, newy, newz = np.loadtxt(tmp_file.name, unpack=True,
+                                          dtype=dtype)
+            os.remove(tmp_file.name)
+            npt.assert_allclose(newx, x)
+            npt.assert_allclose(newy, y)
+            npt.assert_allclose(newz, z)
 
 
 def test_put_vector_invalid_dtype():
