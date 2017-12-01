@@ -204,7 +204,7 @@ class Figure(BasePlotting):
             lib.call_module('psconvert', build_arg_string(kwargs))
 
     def savefig(self, fname, orientation='portrait', transparent=False,
-                crop=True, **kwargs):
+                crop=True, show=False, **kwargs):
         """
         Save the figure to a file.
 
@@ -229,6 +229,8 @@ class Figure(BasePlotting):
             valid for PNG format.
         crop : bool
             If True, will crop the figure canvas (page) to the plot area.
+        show: bool
+            If True, will open the figure in an external viewer.
 
         """
         # All supported formats
@@ -249,6 +251,8 @@ class Figure(BasePlotting):
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop,
                        portrait=portrait, **kwargs)
+        if show:
+            launch_external_viewer(fname)
 
     def show(self, dpi=300, width=500, external=False):
         """
