@@ -190,6 +190,65 @@ Try to get them all passing (green).
 If you have any trouble, leave a comment asking for help.
 
 
+## Testing your code
+
+Automated testing helps ensure that our code is as free of bugs as it can be.
+It also lets us know immediately if a change we make breaks any other part of
+the code.
+
+All of our test code and data are stored in the `gmt/tests` subpackage.
+We use the [pytest](https://pytest.org/) framework to run the test suite.
+
+Please write tests for your code so that we can be sure that it won't break any
+of the existing functionality.
+Tests also help us be confident that we won't break your code in the future.
+
+If you're **new to testing**, see the files in that package for examples of
+test code.
+**Don't let the tests keep you from submitting code to us!**
+If you're not sure how to do this or are having trouble, submit your pull
+request anyway.
+We will help you create the tests and sort out any kind of problem during code
+review.
+
+### Testing plots
+
+We use the [pytest-mpl](https://github.com/matplotlib/pytest-mpl) plugin to
+test plot generating code.
+Every time the tests are run, pytest-mpl compared the generated plots with
+known correct ones stored in `gmt/tests/baseline`.
+If you're test created a `gmt.Figure` object, you can test it by adding a
+single line of code:
+
+```python
+@pytest.mark.mpl_image_compare
+def test_my_plotting_case():
+    "Test that my plotting function works"
+    fig = Figure()
+    fig.psbasemap(region=[0, 360, -90, 90], projection='W7i', frame=True,
+                  portrait=True)
+    return fig
+```
+
+Your test function **must** return the `gmt.Figure` object and you can only
+test one figure per function.
+
+Before you can run your test, you'll need to generate a *baseline* (a correct
+version) of your plot.
+Run the following from the repository root:
+
+    py.test --mpl-generate-path=baseline gmt/tests/NAME_OF_TEST_FILE.py
+
+This will create a `baseline` folder with all the plots generated in your test
+file.
+Visually inspect the one corresponding to your test function.
+If it's correct, copy it (and only it) to `gmt/tests/baseline`.
+When you run `make test` the next time, your test should be executed and
+passing.
+
+Don't forget to commit the baseline image as well.
+
+
 ## Credit
 
 This guide was adapted from the [MetPy Contributing
