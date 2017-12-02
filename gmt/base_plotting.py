@@ -212,3 +212,38 @@ class BasePlotting():
                 "Option D requires F to be specified as well."
         with LibGMT() as lib:
             lib.call_module('psbasemap', build_arg_string(kwargs))
+
+    @fmt_docstring
+    @use_alias(R='region', J='projection', P='portrait')
+    @kwargs_to_strings(R='sequence')
+    def gmtlogo(self, **kwargs):
+        """
+        Place the GMT graphics logo on a map.
+
+        By default, the GMT logo is 2 inches wide and 1 inch high and
+        will be positioned relative to the current plot origin.
+        Use various options to change this and to place a transparent or
+        opaque rectangular map panel behind the GMT logo.
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+        {J}
+        {R}
+        D : str
+            ``'[g|j|J|n|x]refpoint+wwidth[+jjustify][+odx[/dy]]'``.
+            Sets reference point on the map for the image.
+        F: bool or str
+            Without further options, draws a rectangular border around the
+            GMT logo.
+        {P}
+        {U}
+
+        """
+        kwargs = self._preprocess(**kwargs)
+        assert 'D' in kwargs, "Option D is must be specified."
+        with LibGMT() as lib:
+            lib.call_module('logo', build_arg_string(kwargs))
