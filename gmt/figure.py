@@ -107,8 +107,8 @@ class Figure(BasePlotting):
     --------
 
     >>> fig = Figure()
-    >>> fig.psbasemap(region=[0, 360, -90, 90], projection='W7i', frame=True,
-    ...               portrait=True)
+    >>> fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True,
+    ...             portrait=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
     >>> import os
