@@ -39,7 +39,7 @@ class BasePlotting():
                D='resolution', P='portrait', I='rivers', N='borders',
                W='shorelines', G='land', S='water')
     @kwargs_to_strings(R='sequence')
-    def pscoast(self, **kwargs):
+    def coast(self, **kwargs):
         """
         Plot continents, shorelines, rivers, and borders on maps
 
@@ -104,9 +104,11 @@ class BasePlotting():
     @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
                G='color', W='pen', i='columns')
     @kwargs_to_strings(R='sequence', i='sequence_comma')
-    def psxy(self, data, **kwargs):
+    def plot(self, data, **kwargs):
         """
         Plot lines, polygons, and symbols on maps.
+
+        Used to be psxy.
 
         Takes (x,y) pairs as inputs or reads them from a file and plots lines,
         polygons, or symbols at those locations on a map.
@@ -163,7 +165,7 @@ class BasePlotting():
     @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', P='portrait')
     @kwargs_to_strings(R='sequence')
-    def psbasemap(self, **kwargs):
+    def basemap(self, **kwargs):
         """
         Produce a basemap for the figure.
 

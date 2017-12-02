@@ -19,8 +19,8 @@ def test_figure_unique_name():
 def test_figure_savefig_exists():
     "Make sure the saved figure has the right name"
     fig = Figure()
-    fig.psbasemap(region='10/70/-300/800', J='X3i/5i', B='af',
-                  D='30/35/-200/500', F=True)
+    fig.basemap(region='10/70/-300/800', J='X3i/5i', B='af',
+                D='30/35/-200/500', F=True)
     prefix = 'test_figure_savefig_exists'
     for fmt in 'png pdf jpg bmp eps tif'.split():
         fname = '.'.join([prefix, fmt])
@@ -32,8 +32,8 @@ def test_figure_savefig_exists():
 def test_figure_savefig_transparent():
     "Check if fails when transparency is not supported"
     fig = Figure()
-    fig.psbasemap(region='10/70/-300/800', J='X3i/5i', B='af',
-                  D='30/35/-200/500', F=True)
+    fig.basemap(region='10/70/-300/800', J='X3i/5i', B='af',
+                D='30/35/-200/500', F=True)
     prefix = 'test_figure_savefig_transparent'
     for fmt in 'pdf jpg bmp eps tif'.split():
         fname = '.'.join([prefix, fmt])
@@ -83,7 +83,7 @@ def test_figure_savefig():
 def test_figure_show():
     "Test that show creates the correct file name and deletes the temp dir"
     fig = Figure()
-    fig.psbasemap(R='10/70/-300/800', J='X3i/5i', B='af',
-                  D='30/35/-200/500', F=True)
+    fig.basemap(R='10/70/-300/800', J='X3i/5i', B='af', D='30/35/-200/500',
+                F=True)
     img = fig.show(width=800)
     assert img.width == 800
