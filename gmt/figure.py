@@ -204,7 +204,7 @@ class Figure(BasePlotting):
             lib.call_module('psconvert', build_arg_string(kwargs))
 
     def savefig(self, fname, orientation='portrait', transparent=False,
-                crop=True, show=False, **kwargs):
+                crop=True, anti_alias=True, show=False, **kwargs):
         """
         Save the figure to a file.
 
@@ -229,8 +229,16 @@ class Figure(BasePlotting):
             valid for PNG format.
         crop : bool
             If True, will crop the figure canvas (page) to the plot area.
+        anti_alias: bool
+            If True, will use anti aliasing when creating raster images (PNG,
+            JPG, TIf). More specifically, uses options ``Qt=2, Qg=2`` in
+            :meth:`~gmt.Figure.psconvert`. Ignored if creating vector graphics.
+            Overrides values of ``Qt`` and ``Qg`` passed in through ``kwargs``.
         show: bool
             If True, will open the figure in an external viewer.
+        dpi : int
+            Set raster resolution in dpi. Default is 720 for PDF, 300 for
+            others.
 
         """
         # All supported formats
@@ -248,6 +256,9 @@ class Figure(BasePlotting):
             assert ext == 'png', \
                 "Transparency unavailable for '{}', only for png.".format(ext)
             fmt = fmt.upper()
+        if anti_alias:
+            kwargs['Qt'] = 2
+            kwargs['Qg'] = 2
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop,
                        portrait=portrait, **kwargs)
@@ -308,8 +319,8 @@ class Figure(BasePlotting):
         dpi : int
             The image resolution (dots per inch).
         anti_alias : bool
-            If True, will apply anti-aliasing to the image (using options
-            ``Qg=4, Qt=4``).
+            If True, will apply anti-aliasing to the image (only works on
+            raster images).
         as_bytes : bool
             If ``True``, will load the image as a bytes string and return that
             instead of the file name.
@@ -321,13 +332,9 @@ class Figure(BasePlotting):
             file. Else, it is the file content loaded as a bytes string.
 
         """
-        savefig_args = dict(dpi=dpi)
-        if anti_alias:
-            savefig_args['Qg'] = 4
-            savefig_args['Qt'] = 4
         fname = os.path.join(self._preview_dir.name,
                              '{}.{}'.format(self._name, fmt))
-        self.savefig(fname, **savefig_args)
+        self.savefig(fname, dpi=dpi, anti_alias=anti_alias)
         if as_bytes:
             with open(fname, 'rb') as image:
                 preview = image.read()
