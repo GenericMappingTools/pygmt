@@ -33,3 +33,12 @@ def test_pscoast_aliases():
                 shorelines='0.25p,white', land='moccasin', water='skyblue',
                 resolution='i', area_thresh=1000, portrait=True)
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_pscoast_world_mercator():
+    "Test passing generating a global Mercator map with coastlines"
+    fig = Figure()
+    fig.pscoast(region=[-180, 180, -80, 80], projection='M10i', frame='af',
+                land='#aaaaaa', resolution='l', water='white')
+    return fig
