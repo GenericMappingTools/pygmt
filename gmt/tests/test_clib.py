@@ -437,5 +437,5 @@ def test_virtual_file_bad_direction():
                   'GMT_IS_GRID',  # The invalid direction argument
                   0)
         with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs) as vfile:
+            with lib.open_virtual_file(*vfargs):
                 pass

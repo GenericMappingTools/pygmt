@@ -787,6 +787,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     @contextmanager
     def open_virtual_file(self, family, geometry, direction, data):
         """
+        Placeholder
         """
         family_int = self._parse_data_family(family)
         geometry_int = self._parse_data_geometry(geometry)
