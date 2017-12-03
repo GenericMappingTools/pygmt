@@ -393,11 +393,9 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                 msg = "Invalid GMT module name '{}'.".format(module)
             else:
                 msg = '\n'.join([
-                    "'{}' failed (error: {}).".format(module, status),
+                    "Command '{}' failed:".format(module),
                     "---------- Error log ----------",
-                    '',
                     log,
-                    '',
                     "-------------------------------",
                 ])
             raise GMTCLibError(msg)
