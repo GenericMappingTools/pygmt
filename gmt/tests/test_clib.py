@@ -122,11 +122,9 @@ def test_call_module_error_message():
     "Check that the exception has the error message from call_module"
     data_file = 'bogus-data.bla'
     true_msg = '\n'.join([
-        "'info' failed (error: 69).",
+        "Command 'info' failed:",
         "---------- Error log ----------",
-        '',
         'gmtinfo [ERROR]: Error for input file: No such file (bogus-data.bla)',
-        '',
         "-------------------------------",
     ])
     with LibGMT() as lib:
