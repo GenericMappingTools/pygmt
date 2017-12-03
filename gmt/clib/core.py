@@ -98,6 +98,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_put_vector = None
         self._c_put_matrix = None
         self._c_write_data = None
+        self._c_open_virtualfile = None
+        self._c_close_virtualfile = None
         self._bind_clib_functions(libname)
 
     @property
@@ -189,6 +191,19 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                                        ctypes.POINTER(ctypes.c_double),
                                        ctypes.c_char_p, ctypes.c_void_p]
         self._c_write_data.restype = ctypes.c_int
+
+        self._c_open_virtualfile = self._libgmt.GMT_Open_VirtualFile
+        self._c_open_virtualfile.argtypes = [ctypes.c_void_p,
+                                             ctypes.c_uint,
+                                             ctypes.c_uint,
+                                             ctypes.c_uint,
+                                             ctypes.c_void_p,
+                                             ctypes.c_char_p]
+        self._c_open_virtualfile.restype = ctypes.c_int
+
+        self._c_close_virtualfile = self._libgmt.GMT_Close_VirtualFile
+        self._c_close_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
+        self._c_close_virtualfile.restype = ctypes.c_int
 
     def __enter__(self):
         """
@@ -768,3 +783,33 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             # Can't test this if by giving a bad file name because if
             # output=='', GMT will just write to stdout and spaces are valid
             # file names.
+
+    @contextmanager
+    def open_virtual_file(self, family, geometry, direction, data):
+        """
+        """
+        family_int = self._parse_data_family(family)
+        geometry_int = self._parse_data_geometry(geometry)
+        if direction not in ('GMT_IN', 'GMT_OUT'):
+            raise GMTCLibError("Invalid direction '{}'.".format(direction))
+        direction_int = self.get_constant(direction)
+
+        buff = ctypes.create_string_buffer(self.get_constant('GMT_STR16'))
+
+        status = self._c_open_virtualfile(self.current_session, family_int,
+                                          geometry_int, direction_int, data,
+                                          buff)
+
+        if status != 0:
+            raise GMTCLibError("Failed to create a virtual file.")
+
+        vfname = buff.value.decode()
+
+        try:
+            yield vfname
+        finally:
+            status = self._c_close_virtualfile(self.current_session,
+                                               vfname.encode())
+            if status != 0:
+                raise GMTCLibError(
+                    "Failed to close virtual file '{}'.".format(vfname))
