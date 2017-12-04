@@ -61,7 +61,7 @@ environment and won't affect your default installation.
 
 Install the latest version of GMT 6::
 
-    conda install gmt -c conda-forge/label/dev
+    conda install gmt -c conda-forge/label/dev -c conda-forge
 
 And finally, install the rest of the dependencies::
 
@@ -93,9 +93,19 @@ Alternatively, you can clone the git repository and install using ``pip``::
     cd gmt-python
     pip install .
 
-This will allow you to use the GMT/Python library.
-Test your installation by running the following inside a Python interpreter
-(be sure to have your conda env activated)::
+This will allow you to use the ``gmt`` library from Python.
+
+
+Testing your install
+--------------------
+
+GMT/Python ships with a full test suite.
+You can run our tests after you install it but you will need a few extra
+dependencies as well (be sure to have your conda env activated)::
+
+    conda install pytest pytest-mpl -c conda-forge
+
+Test your installation by running the following inside a Python interpreter::
 
     import gmt
     gmt.test()
