@@ -30,6 +30,27 @@ h1 {
     font-size: 4em;
 }
 
+.youtube-embed {
+    max-width: 600px;
+    margin-bottom: 24px;
+}
+
+.video-container {
+    position:relative;
+    padding-bottom:56.25%;
+    padding-top:30px;
+    height:0;
+    overflow:hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
 .wy-nav-content {
     max-width: 1000px;
 }
