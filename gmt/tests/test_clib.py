@@ -481,3 +481,44 @@ def test_vectors_to_vfile_diff_size():
         with pytest.raises(GMTCLibError):
             with lib.vectors_to_vfile(x, y):
                 pass
+
+
+def test_matrix_to_vfile():
+    "Test transforming a matrix to virtual file dataset"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    shape = (7, 5)
+    for dtype in dtypes:
+        data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
+        with LibGMT() as lib:
+            with lib.matrix_to_vfile(data) as vfile:
+                outfile = 'test_matrix_to_vfile.txt'
+                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
+            with open(outfile) as ofile:
+                output = ofile.read()
+            os.remove(outfile)
+            bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(col.min(), col.max())
+                                for col in data.T])
+            expected = '<matrix memory>: N = {}\t{}\n'.format(shape[0], bounds)
+            assert output == expected
+
+
+def test_matrix_to_vfile_slice():
+    "Test transforming a slice of a larger array to virtual file dataset"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    shape = (10, 6)
+    for dtype in dtypes:
+        full_data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
+        rows = 5
+        cols = 3
+        data = full_data[:rows, :cols]
+        with LibGMT() as lib:
+            with lib.matrix_to_vfile(data) as vfile:
+                outfile = 'test_matrix_to_vfile.txt'
+                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
+            with open(outfile) as ofile:
+                output = ofile.read()
+            os.remove(outfile)
+            bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(col.min(), col.max())
+                                for col in data.T])
+            expected = '<matrix memory>: N = {}\t{}\n'.format(rows, bounds)
+            assert output == expected

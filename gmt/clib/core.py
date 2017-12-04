@@ -947,3 +947,83 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         vf_args = (family, geometry, 'GMT_IN', dataset)
         with self.open_virtual_file(*vf_args) as vfile:
             yield vfile
+
+    @contextmanager
+    def matrix_to_vfile(self, matrix):
+        """
+        Store a 2d array in a GMT virtual file Dataset to pass it to a module.
+
+        Context manager (use in a ``with`` block). Yields the virtual file name
+        that you can pass as an argument to a GMT module call. Closes the
+        virtual file upon exit of the ``with`` block.
+
+        The virtual file will contain the array as a GMT Dataset (via matrix).
+
+
+        **Not meant for creating GMT Grids**. The grid requires more metadata
+        than just the data matrix. This creates a Dataset (table).
+
+        Use this instead of creating GMT Datasets and Virtual Files by hand
+        with :meth:`~gmt.clib.LibGMT.create_data`,
+        :meth:`~gmt.clib.LibGMT.put_matrix`, and
+        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+
+        The matrix must be C contiguous in memory. If it is not (e.g., it is a
+        slice of a larger array), the array will be copied to make sure it is.
+
+        It might be more efficient than using
+        :meth:`~gmt.clib.LibGMT.vectors_to_vfile` if your data are columns of a
+        2D array. In these cases, ``vectors_to_vfile`` will have to duplicate
+        the memory of your array in order for columns to be C contiguous.
+
+        Parameters
+        ----------
+        matrix : 2d array
+            The matrix that will be included in the Dataset.
+
+        Yields
+        ------
+        vfile : str
+            The name of virtual file. Pass this as a file name argument to a
+            GMT module.
+
+        Examples
+        --------
+
+        >>> import numpy as np
+        >>> data = np.arange(12).reshape((4, 3))
+        >>> print(data)
+        [[ 0  1  2]
+         [ 3  4  5]
+         [ 6  7  8]
+         [ 9 10 11]]
+        >>> with LibGMT() as lib:
+        ...     with lib.matrix_to_vfile(data) as vfile:
+        ...         # Send the output to a file so that we can read it
+        ...         ofile = 'matrix_to_vfile_example.txt'
+        ...         lib.call_module('info', '{} ->{}'.format(vfile, ofile))
+        >>> with open(ofile) as f:
+        ...     # Replace tabs with spaces
+        ...     print(f.read().strip().replace('\\t', ' '))
+        <matrix memory>: N = 4 <0/9> <1/10> <2/11>
+        >>> # Clean up the output file
+        >>> os.remove(ofile)
+
+        """
+        rows, columns = matrix.shape
+        # Array must be in C contiguous order to pass its memory pointer to
+        # GMT.
+        if not matrix.flags.c_contiguous:
+            matrix = matrix.copy(order='C')
+
+        family = 'GMT_IS_DATASET|GMT_VIA_MATRIX'
+        geometry = 'GMT_IS_POINT'
+
+        dataset = self.create_data(family, geometry, mode='GMT_CONTAINER_ONLY',
+                                   dim=[columns, rows, 1, 0])
+
+        self.put_matrix(dataset, matrix)
+
+        vf_args = (family, geometry, 'GMT_IN', dataset)
+        with self.open_virtual_file(*vf_args) as vfile:
+            yield vfile
