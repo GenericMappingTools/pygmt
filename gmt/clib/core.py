@@ -951,7 +951,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     @contextmanager
     def matrix_to_vfile(self, matrix):
         """
-        Store a 2d array in a GMT virtual file Dataset to pass them to a module.
+        Store a 2d array in a GMT virtual file Dataset to pass it to a module.
 
         Context manager (use in a ``with`` block). Yields the virtual file name
         that you can pass as an argument to a GMT module call. Closes the
