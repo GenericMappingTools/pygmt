@@ -3,8 +3,9 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 from .clib import LibGMT
-from .utils import build_arg_string
+from .utils import build_arg_string, dummy_context, data_kind
 from .decorators import fmt_docstring, use_alias, kwargs_to_strings
+from .exceptions import GMTError
 
 
 class BasePlotting():
@@ -102,16 +103,21 @@ class BasePlotting():
 
     @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
-               G='color', W='pen', i='columns')
+               G='color', W='pen', i='columns', C='cmap')
     @kwargs_to_strings(R='sequence', i='sequence_comma')
-    def plot(self, data, **kwargs):
+    def plot(self, x=None, y=None, data=None, sizes=None, **kwargs):
         """
         Plot lines, polygons, and symbols on maps.
 
         Used to be psxy.
 
-        Takes (x,y) pairs as inputs or reads them from a file and plots lines,
+        Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
         polygons, or symbols at those locations on a map.
+
+        Must provide either *data* or *x* and *y*.
+
+        If providing data through *x* and *y*, *color* (G) can be a 1d array
+        that will be mapped to a colormap.
 
         If a symbol is selected and no symbol size given, then psxy will
         interpret the third column of the input data as symbol size. Symbols
@@ -129,9 +135,15 @@ class BasePlotting():
 
         Parameters
         ----------
-        data : str or array
-            *Required*. Input data table as an array or a file name.
-            **Only accepts file names for now.**
+        x, y : 1d arrays
+            Arrays of x and y coordinates of the data points.
+        data : str or 2d array
+            Either a data file name or a 2d numpy array with the tabular data.
+            Use option *columns* (i) to choose which columns are x, y, color,
+            and size, respectively.
+        sizes : 1d array
+            The sizes of the data points in units specified in *style* (S).
+            Only valid if using *x* and *y*.
         {J}
         {R}
         A : bool or str
@@ -157,10 +169,34 @@ class BasePlotting():
 
         """
         kwargs = self._preprocess(**kwargs)
-        assert isinstance(data, str), 'Only accepts file names for now.'
-        arg_str = ' '.join([data, build_arg_string(kwargs)])
+
+        kind = data_kind(data, x, y)
+
+        extra_arrays = []
+        if 'G' in kwargs and not isinstance(kwargs['G'], str):
+            if kind != 'vectors':
+                raise GMTError(
+                    "Can't use arrays for color if data is matrix or file.")
+            extra_arrays.append(kwargs['G'])
+            del kwargs['G']
+        if sizes is not None:
+            if kind != 'vectors':
+                raise GMTError(
+                    "Can't use arrays for sizes if data is matrix or file.")
+            extra_arrays.append(sizes)
+
         with LibGMT() as lib:
-            lib.call_module('psxy', arg_str)
+            # Choose how data will be passed in to the module
+            if kind == 'file':
+                file_context = dummy_context(data)
+            elif kind == 'matrix':
+                file_context = lib.matrix_to_vfile(data)
+            elif kind == 'vectors':
+                file_context = lib.vectors_to_vfile(x, y, *extra_arrays)
+
+            with file_context as fname:
+                arg_str = ' '.join([fname, build_arg_string(kwargs)])
+                lib.call_module('plot', arg_str)
 
     @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', P='portrait')
