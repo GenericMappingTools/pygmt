@@ -60,6 +60,15 @@ Getting started
    `API Reference <https://genericmappingtools.github.io/gmt-python/api>`__
    to see what is already available.
 
+About
+-----
+
+Watch the `Scipy 2017 talk about GMT/Python <https://github.com/GenericMappingTools/scipy2017>`__
+for more information about the history and goals of the project:
+
+.. image:: https://raw.githubusercontent.com/GenericMappingTools/gmt-python/master/doc/_static/scipy2017-youtube-thumbnail.png
+    :alt: YouTube recording of the Scipy2017 talk.
+    :target: https://www.youtube.com/watch?v=93M4How7R24
 
 Project goals
 -------------
