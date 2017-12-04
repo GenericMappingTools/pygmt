@@ -23,12 +23,29 @@ Getting started
 .. note::
 
     **This package is in early stages development**.
-
     We welcome any feedback and ideas!
     Let us know by submitting
     `issues on Github <https://github.com/GenericMappingTools/gmt-python/issues>`__
     or send us a message on our
     `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
+
+About
+-----
+
+Watch the `Scipy 2017 talk about GMT/Python <https://github.com/GenericMappingTools/scipy2017>`__
+for more information about the history and goals of the project:
+
+.. raw:: html
+
+    <div class="youtube-embed">
+        <div class="video-container">
+            <iframe width="560" height="315"
+             src="https://www.youtube.com/embed/93M4How7R24" frameborder="0"
+             allowfullscreen></iframe>
+        </div>
+    </div>
+
+
 
 
 Project goals
