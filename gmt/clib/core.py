@@ -874,3 +874,76 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             if status != 0:
                 raise GMTCLibError(
                     "Failed to close virtual file '{}'.".format(vfname))
+
+    @contextmanager
+    def vectors_to_vfile(self, *vectors):
+        """
+        Store 1d arrays in a GMT virtual file to pass them to a module.
+
+        Context manager (use in a ``with`` block). Yields the virtual file name
+        that you can pass as an argument to a GMT module call. Closes the
+        virtual file upon exit of the ``with`` block.
+
+        Use this instead of creating GMT Datasets and Virtual Files by hand
+        with :meth:`~gmt.clib.LibGMT.create_data`,
+        :meth:`~gmt.clib.LibGMT.put_vector`, and
+        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+
+        The virtual file will contain the arrays as a GMT Dataset (via
+        vectors). If the arrays are C contiguous blocks of memory, they will be
+        passed without copying to GMT. If they are not (e.g., they are columns
+        of a 2D array), they will need to be copied to a contiguous block.
+
+        Parameters
+        ----------
+        vectors : 1d arrays
+            The vectors that will be included in the array. All must be of the
+            same size.
+
+        Yields
+        ------
+        vfile : str
+            The name of virtual file. Pass this as a file name argument to a
+            GMT module.
+
+        Examples
+        --------
+
+        >>> import numpy as np
+        >>> x = np.array([1, 2, 3])
+        >>> y = np.array([4, 5, 6])
+        >>> with LibGMT() as lib:
+        ...     with lib.vectors_to_vfile(x, y) as vfile:
+        ...         # Send the output to a file so that we can read it
+        ...         ofile = 'vectors_to_vfile_example.txt'
+        ...         lib.call_module('info', '{} ->{}'.format(vfile, ofile))
+        >>> with open(ofile) as f:
+        ...     # Replace tabs with spaces
+        ...     print(f.read().strip().replace('\\t', ' '))
+        <vector memory>: N = 3 <1/3> <4/6>
+        >>> # Clean up the output file
+        >>> os.remove(ofile)
+
+        """
+        columns = len(vectors)
+        rows = len(vectors[0])
+        if not all(len(i) == rows for i in vectors):
+            raise GMTCLibError("All arrays must have same size.")
+        # Arrays must be in C contiguous order to pass their memory pointers to
+        # GMT. If any are not, convert them (which requires copying the
+        # memory).
+        vectors = [i if i.flags.c_contiguous else i.copy(order='C')
+                   for i in vectors]
+
+        family = 'GMT_IS_DATASET|GMT_VIA_VECTOR'
+        geometry = 'GMT_IS_POINT'
+
+        dataset = self.create_data(family, geometry, mode='GMT_CONTAINER_ONLY',
+                                   dim=[columns, rows, 1, 0])
+
+        for col, vector in enumerate(vectors):
+            self.put_vector(dataset, column=col, vector=vector)
+
+        vf_args = (family, geometry, 'GMT_IN', dataset)
+        with self.open_virtual_file(*vf_args) as vfile:
+            yield vfile
