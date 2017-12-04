@@ -98,6 +98,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_put_vector = None
         self._c_put_matrix = None
         self._c_write_data = None
+        self._c_open_virtualfile = None
+        self._c_close_virtualfile = None
         self._bind_clib_functions(libname)
 
     @property
@@ -189,6 +191,19 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                                        ctypes.POINTER(ctypes.c_double),
                                        ctypes.c_char_p, ctypes.c_void_p]
         self._c_write_data.restype = ctypes.c_int
+
+        self._c_open_virtualfile = self._libgmt.GMT_Open_VirtualFile
+        self._c_open_virtualfile.argtypes = [ctypes.c_void_p,
+                                             ctypes.c_uint,
+                                             ctypes.c_uint,
+                                             ctypes.c_uint,
+                                             ctypes.c_void_p,
+                                             ctypes.c_char_p]
+        self._c_open_virtualfile.restype = ctypes.c_int
+
+        self._c_close_virtualfile = self._libgmt.GMT_Close_VirtualFile
+        self._c_close_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
+        self._c_close_virtualfile.restype = ctypes.c_int
 
     def __enter__(self):
         """
@@ -768,3 +783,94 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             # Can't test this if by giving a bad file name because if
             # output=='', GMT will just write to stdout and spaces are valid
             # file names.
+
+    @contextmanager
+    def open_virtual_file(self, family, geometry, direction, data):
+        """
+        Open a GMT Virtual File to pass data to and from a module.
+
+        GMT uses a virtual file scheme to pass in data to API modules. Use it
+        to pass in your GMT data structure (created using
+        :meth:`~gmt.clib.LibGMT.create_data`) to a module that expects an input
+        or output file.
+
+        Use in a ``with`` block. Will automatically close the virtual file when
+        leaving the ``with`` block. Because of this, no wrapper for
+        ``GMT_Close_VirtualFile`` is provided.
+
+        Parameters
+        ----------
+        family : str
+            A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). Should
+            be the same as the one you used to create your data structure.
+        geometry : str
+            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). Should
+            be the same as the one you used to create your data structure.
+        direction : str
+            Either ``'GMT_IN'`` or ``'GMT_OUT'`` to indicate if passing data to
+            GMT or getting it out of GMT, respectively.
+        data : int
+            The ctypes void pointer to your GMT data structure.
+
+        Yields
+        ------
+        vfname : str
+            The name of the virtual file that you can pass to a GMT module.
+
+        Examples
+        --------
+
+        >>> import os
+        >>> import numpy as np
+        >>> x = np.array([0, 1, 2, 3, 4])
+        >>> y = np.array([5, 6, 7, 8, 9])
+        >>> with LibGMT() as lib:
+        ...     family = 'GMT_IS_DATASET|GMT_VIA_VECTOR'
+        ...     geometry = 'GMT_IS_POINT'
+        ...     dataset = lib.create_data(
+        ...         family=family,
+        ...         geometry=geometry,
+        ...         mode='GMT_CONTAINER_ONLY',
+        ...         dim=[2, 5, 1, 0],  # columns, lines, segments, type
+        ...     )
+        ...     lib.put_vector(dataset, column=0, vector=x)
+        ...     lib.put_vector(dataset, column=1, vector=y)
+        ...     # Add the dataset to a virtual file
+        ...     vfargs = (family, geometry, 'GMT_IN', dataset)
+        ...     with lib.open_virtual_file(*vfargs) as vfile:
+        ...         # Send the output to a file so that we can read it
+        ...         ofile = 'virtual_file_example.txt'
+        ...         lib.call_module('info', '{} ->{}'.format(vfile, ofile))
+        >>> with open(ofile) as f:
+        ...     # Replace tabs with spaces
+        ...     print(f.read().strip().replace('\\t', ' '))
+        <vector memory>: N = 5 <0/4> <5/9>
+        >>> # Clean up the output file
+        >>> os.remove(ofile)
+
+        """
+        family_int = self._parse_data_family(family)
+        geometry_int = self._parse_data_geometry(geometry)
+        if direction not in ('GMT_IN', 'GMT_OUT'):
+            raise GMTCLibError("Invalid direction '{}'.".format(direction))
+        direction_int = self.get_constant(direction)
+
+        buff = ctypes.create_string_buffer(self.get_constant('GMT_STR16'))
+
+        status = self._c_open_virtualfile(self.current_session, family_int,
+                                          geometry_int, direction_int, data,
+                                          buff)
+
+        if status != 0:
+            raise GMTCLibError("Failed to create a virtual file.")
+
+        vfname = buff.value.decode()
+
+        try:
+            yield vfname
+        finally:
+            status = self._c_close_virtualfile(self.current_session,
+                                               vfname.encode())
+            if status != 0:
+                raise GMTCLibError(
+                    "Failed to close virtual file '{}'.".format(vfname))

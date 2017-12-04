@@ -110,7 +110,7 @@ def test_call_module():
     data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
     out_fname = 'test_call_module.txt'
     with LibGMT() as lib:
-        lib.call_module('gmtinfo', '{} -C ->{}'.format(data_fname, out_fname))
+        lib.call_module('info', '{} -C ->{}'.format(data_fname, out_fname))
     assert os.path.exists(out_fname)
     with open(out_fname) as out_file:
         output = out_file.read().strip().replace('\t', ' ')
@@ -381,7 +381,7 @@ def test_put_matrix_grid():
                 geometry='GMT_IS_SURFACE',
                 mode='GMT_CONTAINER_ONLY',
                 ranges=wesn[:4],
-                inc=[1, 1],
+                inc=inc,
                 registration=lib.get_constant('GMT_GRID_NODE_REG'),
             )
             data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
@@ -396,3 +396,46 @@ def test_put_matrix_grid():
             newdata = np.loadtxt(tmp_file.name, dtype=dtype)
             os.remove(tmp_file.name)
             npt.assert_allclose(newdata, data)
+
+
+def test_virtual_file():
+    "Test passing in data via a virtual file with a Dataset"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    shape = (5, 3)
+    for dtype in dtypes:
+        with LibGMT() as lib:
+            # Dataset from vectors
+            family = 'GMT_IS_DATASET|GMT_VIA_MATRIX'
+            geometry = 'GMT_IS_POINT'
+            dataset = lib.create_data(
+                family=family,
+                geometry=geometry,
+                mode='GMT_CONTAINER_ONLY',
+                dim=[shape[1], shape[0], 1, 0],  # columns, rows, layers, dtype
+            )
+            data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
+            lib.put_matrix(dataset, matrix=data)
+            # Add the dataset to a virtual file and pass it along to gmt info
+            vfargs = (family, geometry, 'GMT_IN', dataset)
+            with lib.open_virtual_file(*vfargs) as vfile:
+                outfile = 'test_virtual_file.txt'
+                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
+            with open(outfile) as ofile:
+                output = ofile.read()
+            os.remove(outfile)
+            # assert output == '0 12 1 13 2 14'
+            bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(col.min(), col.max())
+                                for col in data.T])
+            expected = '<matrix memory>: N = {}\t{}\n'.format(shape[0], bounds)
+            assert output == expected
+
+
+def test_virtual_file_bad_direction():
+    "Test passing an invalid direction argument"
+    with LibGMT() as lib:
+        vfargs = ('GMT_IS_DATASET|GMT_VIA_MATRIX', 'GMT_IS_POINT',
+                  'GMT_IS_GRID',  # The invalid direction argument
+                  0)
+        with pytest.raises(GMTCLibError):
+            with lib.open_virtual_file(*vfargs):
+                pass
