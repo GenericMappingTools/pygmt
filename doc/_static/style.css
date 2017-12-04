@@ -47,3 +47,8 @@ h1 {
 .rst-content .highlight > pre {
     font-size: 14px;
 }
+
+.rst-content img {
+    max-width: 450px;
+    width: 100%;
+}
