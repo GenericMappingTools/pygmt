@@ -263,7 +263,6 @@ def test_put_vector():
     dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
     for dtype in dtypes:
         with LibGMT() as lib:
-            # Dataset from vectors
             dataset = lib.create_data(
                 family='GMT_IS_DATASET|GMT_VIA_VECTOR',
                 geometry='GMT_IS_POINT',
@@ -296,7 +295,6 @@ def test_put_vector():
 def test_put_vector_invalid_dtype():
     "Check that it fails with an exception for invalid data types"
     with LibGMT() as lib:
-        # Dataset from vectors
         dataset = lib.create_data(
             family='GMT_IS_DATASET|GMT_VIA_VECTOR',
             geometry='GMT_IS_POINT',
@@ -311,7 +309,6 @@ def test_put_vector_invalid_dtype():
 def test_put_vector_wrong_column():
     "Check that it fails with an exception when giving an invalid column"
     with LibGMT() as lib:
-        # Dataset from vectors
         dataset = lib.create_data(
             family='GMT_IS_DATASET|GMT_VIA_VECTOR',
             geometry='GMT_IS_POINT',
@@ -326,7 +323,6 @@ def test_put_vector_wrong_column():
 def test_put_vector_2d_fails():
     "Check that it fails with an exception for multidimensional arrays"
     with LibGMT() as lib:
-        # Dataset from vectors
         dataset = lib.create_data(
             family='GMT_IS_DATASET|GMT_VIA_VECTOR',
             geometry='GMT_IS_POINT',
@@ -344,7 +340,6 @@ def test_put_matrix():
     shape = (3, 4)
     for dtype in dtypes:
         with LibGMT() as lib:
-            # Dataset from vectors
             dataset = lib.create_data(
                 family='GMT_IS_DATASET|GMT_VIA_MATRIX',
                 geometry='GMT_IS_POINT',
@@ -375,7 +370,6 @@ def test_put_matrix_grid():
     shape = ((wesn[3] - wesn[2])//inc[1] + 1, (wesn[1] - wesn[0])//inc[0] + 1)
     for dtype in dtypes:
         with LibGMT() as lib:
-            # Dataset from vectors
             grid = lib.create_data(
                 family='GMT_IS_GRID|GMT_VIA_MATRIX',
                 geometry='GMT_IS_SURFACE',
@@ -404,7 +398,6 @@ def test_virtual_file():
     shape = (5, 3)
     for dtype in dtypes:
         with LibGMT() as lib:
-            # Dataset from vectors
             family = 'GMT_IS_DATASET|GMT_VIA_MATRIX'
             geometry = 'GMT_IS_POINT'
             dataset = lib.create_data(
@@ -423,7 +416,6 @@ def test_virtual_file():
             with open(outfile) as ofile:
                 output = ofile.read()
             os.remove(outfile)
-            # assert output == '0 12 1 13 2 14'
             bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(col.min(), col.max())
                                 for col in data.T])
             expected = '<matrix memory>: N = {}\t{}\n'.format(shape[0], bounds)
@@ -438,4 +430,54 @@ def test_virtual_file_bad_direction():
                   0)
         with pytest.raises(GMTCLibError):
             with lib.open_virtual_file(*vfargs):
+                pass
+
+
+def test_vectors_to_vfile():
+    "Test the automation for transforming vectors to virtual file dataset"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    size = 10
+    for dtype in dtypes:
+        x = np.arange(size, dtype=dtype)
+        y = np.arange(size, size*2, 1, dtype=dtype)
+        z = np.arange(size*2, size*3, 1, dtype=dtype)
+        with LibGMT() as lib:
+            with lib.vectors_to_vfile(x, y, z) as vfile:
+                outfile = 'test_vectors_to_vfile_dataset.txt'
+                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
+            with open(outfile) as ofile:
+                output = ofile.read()
+            os.remove(outfile)
+            bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(i.min(), i.max())
+                                for i in (x, y, z)])
+            expected = '<vector memory>: N = {}\t{}\n'.format(size, bounds)
+            assert output == expected
+
+
+def test_vectors_to_vfile_transpose():
+    "Test transforming matrix columns to virtual file dataset"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    shape = (7, 5)
+    for dtype in dtypes:
+        data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
+        with LibGMT() as lib:
+            with lib.vectors_to_vfile(*data.T) as vfile:
+                outfile = 'test_vectors_to_vfile_dataset_t.txt'
+                lib.call_module('info', '{} -C ->{}'.format(vfile, outfile))
+            with open(outfile) as ofile:
+                output = ofile.read()
+            os.remove(outfile)
+            bounds = '\t'.join(['{:.0f}\t{:.0f}'.format(col.min(), col.max())
+                                for col in data.T])
+            expected = '{}\n'.format(bounds)
+            assert output == expected
+
+
+def test_vectors_to_vfile_diff_size():
+    "Test the function fails for arrays of different sizes"
+    x = np.arange(5)
+    y = np.arange(6)
+    with LibGMT() as lib:
+        with pytest.raises(GMTCLibError):
+            with lib.vectors_to_vfile(x, y):
                 pass
