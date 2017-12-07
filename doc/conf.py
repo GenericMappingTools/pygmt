@@ -29,7 +29,7 @@ numpydoc_class_members_toctree = False
 
 # Sphinx project configuration
 templates_path = ['_templates']
-exclude_patterns = ['_build', '.ipynb_checkpoints']
+exclude_patterns = ['_build', '**.ipynb_checkpoints']
 source_suffix = '.rst'
 # The encoding of source files.
 source_encoding = 'utf-8-sig'
@@ -38,8 +38,11 @@ master_doc = 'index'
 # General information about the project
 year = datetime.date.today().year
 project = u'GMT/Python'
-copyright = u'2017, Leonardo Uieda'
-version = 'dev ({})'.format(__commit__[:7])
+copyright = u'2017, Leonardo Uieda and Paul Wessel'
+if len(__version__.split('+')) > 1 or __version__ == 'unknown':
+    version = 'dev'
+else:
+    version = __version__
 
 # These enable substitutions using |variable| in the rst files
 rst_epilog = """
@@ -55,7 +58,7 @@ html_static_path = ['_static']
 html_extra_path = ['.nojekyll', 'CNAME']
 pygments_style = 'default'
 add_function_parentheses = False
-html_show_sourcelink = True
+html_show_sourcelink = False
 html_show_sphinx = True
 html_show_copyright = True
 
@@ -65,11 +68,16 @@ html_theme_options = {
 }
 html_context = {
     'menu_links': [
-        ('<i class="fa fa-users"></i> Contributing', 'https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md'),
-        ('<i class="fa fa-gavel"></i> Code of Conduct', 'https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md'),
-        ('<i class="fa fa-comment"></i> Contact', 'https://gitter.im/GenericMappingTools/gmt-python'),
-        ('<i class="fa fa-github"></i> Source Code', 'https://github.com/GenericMappingTools/gmt-python'),
+        ('<i class="fa fa-book fa-fw"></i> Try it online!', 'http://try.gmtpython.xyz'),
+        ('<i class="fa fa-users fa-fw"></i> Contributing', 'https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md'),
+        ('<i class="fa fa-gavel fa-fw"></i> Code of Conduct', 'https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md'),
+        ('<i class="fa fa-comment fa-fw"></i> Contact', 'https://gitter.im/GenericMappingTools/gmt-python'),
+        ('<i class="fa fa-github fa-fw"></i> Source Code', 'https://github.com/GenericMappingTools/gmt-python'),
     ],
+    # Custom variables to enable "Edit on Github" and "Download notebook" links
+    'doc_path': 'doc',
+    'github_repo': 'GenericMappingTools/gmt-python',
+    'github_version': version if 'dev' not in version else 'master',
 }
 
 # Load the custom CSS files (needs sphinx >= 1.6 for this to work)

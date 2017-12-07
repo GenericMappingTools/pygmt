@@ -15,4 +15,4 @@ doc/api/generated
 *.egg-info
 .env
 MANIFEST
-doc/first-steps-*
+doc/tutorials/first-steps-*

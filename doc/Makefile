@@ -28,7 +28,7 @@ clean:
 	rm -rf api/gmt*.rst
 	rm -rf api/generated
 	rm -rf .ipynb_checkpoints
-	rm -rf first-steps-*
+	rm -rf tutorials/first-steps-*
 
 html:
 	@echo
