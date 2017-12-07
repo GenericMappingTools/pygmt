@@ -3,10 +3,10 @@ GMT/Python
 
 **A Python interface for the Generic Mapping Tools.**
 
-`Documentation <https://genericmappingtools.github.io/gmt-python/>`_ |
-`Install <https://genericmappingtools.github.io/gmt-python/install.html>`_ |
-`First steps <https://genericmappingtools.github.io/gmt-python/first-steps.html>`_ |
-`API <https://genericmappingtools.github.io/gmt-python/api>`_ |
+`Documentation <http://www.gmtpython.xyz>`_ |
+`Install <http://www.gmtpython.xyz/install.html>`_ |
+`Tutorials <http://www.gmtpython.xyz/tutorials>`_ |
+`API <http://www.gmtpython.xyz/api>`_ |
 `Contact <https://gitter.im/GenericMappingTools/gmt-python>`_
 
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
@@ -43,22 +43,18 @@ Let us know by submitting
 or send us a message on our
 `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
 
-See the `documentation <https://genericmappingtools.github.io/gmt-python/>`__
-for our design ideas, currently implemented features, how to contribute, and
-more.
 
 
 Getting started
 ---------------
 
-1. `Install <https://genericmappingtools.github.io/gmt-python/install.html>`__
-   (tested and working on Linux and OSX)
-2. Follow the
-   `First steps <https://genericmappingtools.github.io/gmt-python/first-steps.html>`__
-   tutorial Jupyter notebook.
-3. Take a look at the
-   `API Reference <https://genericmappingtools.github.io/gmt-python/api>`__
-   to see what is already available.
+1. Try an online demo at `try.gmtpython.xyz <http://try.gmtpython.xyz>`__
+2. `Install <http://www.gmtpython.xyz/install.html>`__ (tested and working on
+   Linux and OSX)
+3. Follow the `Tutorials <http://www.gmtpython.xyz/tutorials>`__.
+4. Take a look at the `API <http://www.gmtpython.xyz/api>`__ for a list of
+   modules that are already available.
+
 
 About
 -----
@@ -69,6 +65,7 @@ for more information about the history and goals of the project:
 .. image:: https://raw.githubusercontent.com/GenericMappingTools/gmt-python/master/doc/_static/scipy2017-youtube-thumbnail.png
     :alt: YouTube recording of the Scipy2017 talk.
     :target: https://www.youtube.com/watch?v=93M4How7R24
+
 
 Project goals
 -------------
@@ -143,6 +140,24 @@ That's how we all improve and we are happy to help others learn.
 
 *This disclaimer was adapted from the*
 `MetPy project <https://github.com/Unidata/MetPy>`__.
+
+
+Related projects
+----------------
+
+* `GMT.jl <https://github.com/GenericMappingTools/GMT.jl>`__ -- A Julia wrapper
+  for GMT.
+* `gmtmex <https://github.com/GenericMappingTools/GMT.jl>`__ -- A Matlab/Octave
+  wrapper for GMT.
+
+Other Python wrappers for GMT:
+
+* `gmtpy <https://github.com/emolch/gmtpy>`__ by
+  `Sebastian Heimann <https://github.com/emolch>`__
+* `pygmt <https://github.com/ian-r-rose/pygmt>`__ by
+  `Ian Rose <https://github.com/ian-r-rose>`__
+* `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by
+  `Magnus Hagdorn <https://github.com/mhagdorn>`__
 
 
 License
