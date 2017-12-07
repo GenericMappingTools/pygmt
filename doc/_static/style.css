@@ -30,6 +30,10 @@ h1 {
     font-size: 4em;
 }
 
+.api-module {
+	margin-bottom: 80px;
+}
+
 .youtube-embed {
     max-width: 600px;
     margin-bottom: 24px;

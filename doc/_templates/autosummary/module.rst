@@ -1,5 +1,9 @@
 The ``{{ fullname }}`` module
-{% for i in range(fullname|length + 15) %}={% endfor %}
+{% for i in range(fullname|length + 15) %}-{% endfor %}
+
+.. raw:: html
+
+    <hr>
 
 .. automodule:: {{ fullname }}
 

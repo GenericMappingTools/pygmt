@@ -11,7 +11,8 @@
 
     <hr>
 
-.. rubric:: Methods Documentation
+Methods Documentation
+---------------------
 
 {% for item in methods %}
 {% if item != '__init__' %}

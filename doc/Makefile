@@ -9,7 +9,7 @@ BUILDDIR      = _build
 # Internal variables.
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 
-.PHONY: help clean html linkcheck doctest
+.PHONY: help clean html linkcheck doctest api
 
 all: html
 
@@ -30,14 +30,20 @@ clean:
 	rm -rf .ipynb_checkpoints
 	rm -rf tutorials/first-steps-*
 
-html:
+html: api
 	@echo
 	@echo "Building HTML files."
 	@echo
-	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
+api:
+	@echo
+	@echo "Building API docs."
+	@echo
+	$(SPHINXAUTOGEN) -i -t _templates -o api/ api/_generate_api.rst
+
 
 linkcheck:
 	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck

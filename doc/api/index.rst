@@ -3,9 +3,26 @@
 API Reference
 =============
 
-.. autosummary::
-   :toctree: generated/
+.. raw:: html
 
-   gmt
-   gmt.clib
-   gmt.exceptions
+    <div class="api-module">
+
+.. include:: gmt.rst
+
+.. raw:: html
+
+    </div>
+    <div class="api-module">
+
+.. include:: gmt.clib.rst
+
+.. raw:: html
+
+    </div>
+    <div class="api-module">
+
+.. include:: gmt.exceptions.rst
+
+.. raw:: html
+
+    </div>
