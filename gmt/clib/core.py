@@ -181,7 +181,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         self._c_put_matrix = self._libgmt.GMT_Put_Matrix
         self._c_put_matrix.argtypes = [ctypes.c_void_p, ctypes.c_void_p,
-                                       ctypes.c_uint, ctypes.c_void_p]
+                                       ctypes.c_uint, ctypes.c_int,
+                                       ctypes.c_void_p]
         self._c_put_matrix.restype = ctypes.c_int
 
         self._c_write_data = self._libgmt.GMT_Write_Data
@@ -682,7 +683,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                 ])
             )
 
-    def put_matrix(self, dataset, matrix):
+    def put_matrix(self, dataset, matrix, pad=0):
         """
         Attach a numpy 2D array to a GMT dataset.
 
@@ -708,6 +709,9 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         matrix : numpy 2d-array
             The array that will be attached to the dataset. Must be a 1d C
             contiguous array.
+        pad : int
+            The amount of padding that should be added to the matrix. Use when
+            creating grids for modules that require padding.
 
         Raises
         ------
@@ -721,6 +725,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         status = self._c_put_matrix(self.current_session,
                                     dataset,
                                     gmt_type,
+                                    pad,
                                     matrix_pointer)
         if status != 0:
             raise GMTCLibError(
