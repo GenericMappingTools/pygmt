@@ -74,10 +74,11 @@ html_context = {
         ('<i class="fa fa-comment fa-fw"></i> Contact', 'https://gitter.im/GenericMappingTools/gmt-python'),
         ('<i class="fa fa-github fa-fw"></i> Source Code', 'https://github.com/GenericMappingTools/gmt-python'),
     ],
-    # Custom variables to enable "Edit on Github" and "Download notebook" links
+    # Custom variables to enable "Improve this page"" and "Download notebook"
+    # links
     'doc_path': 'doc',
     'github_repo': 'GenericMappingTools/gmt-python',
-    'github_version': version if 'dev' not in version else 'master',
+    'github_version': 'master',
 }
 
 # Load the custom CSS files (needs sphinx >= 1.6 for this to work)
