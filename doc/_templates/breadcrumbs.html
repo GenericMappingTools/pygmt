@@ -7,18 +7,18 @@
     <li class="source-link">
         {% if hasdoc(pagename) %}
             {% if pagename.startswith("api/") or suffix == ".ipynb" %}
-                {% set title = "Typo/mistake in " + pagename.split("/")[-1] %}
-                {% set body = "Please describe the typo/mistake that you found:" %}
+                {% set title = "Suggested improvement for " + pagename %}
+                {% set body = "Please describe what could be improved about this page or the typo/mistake that you found:" %}
                 <a href="https://github.com/{{ github_repo }}/issues/new?title={{ title|urlencode }}&body={{ body|urlencode }}"
-                   class="fa fa-github"> Found a typo?</a>
+                   class="fa fa-github"> Improve this page</a>
             {% else %}
                 <a href="https://github.com/{{ github_repo }}/edit/{{ github_version }}/{{ doc_path }}/{{ pagename }}{{ suffix }}"
-                   class="fa fa-github"> Found a typo?</a>
+                   class="fa fa-github"> Improve this page</a>
             {% endif %}
         {% endif %}
         {% if suffix == ".ipynb" %}
             <a href="https://github.com/{{ github_repo }}/raw/{{ github_version }}/{{ doc_path }}/{{ pagename }}{{ suffix }}"
-               class="fa fa-download"> Download</a>
+               class="fa fa-download"> Download notebook</a>
         {% endif %}
     </li>
 {% endblock %}
