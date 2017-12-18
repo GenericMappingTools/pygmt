@@ -8,6 +8,7 @@ from tempfile import NamedTemporaryFile
 import pytest
 import numpy as np
 import numpy.testing as npt
+import pandas
 
 from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt
@@ -521,4 +522,27 @@ def test_matrix_to_vfile_slice():
             bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(col.min(), col.max())
                                 for col in data.T])
             expected = '<matrix memory>: N = {}\t{}\n'.format(rows, bounds)
+            assert output == expected
+
+
+def test_vectors_to_vfile_pandas():
+    "Pass vectors to a dataset using pandas Series"
+    dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
+    size = 13
+    for dtype in dtypes:
+        data = pandas.DataFrame(
+            data=dict(x=np.arange(size, dtype=dtype),
+                      y=np.arange(size, size*2, 1, dtype=dtype),
+                      z=np.arange(size*2, size*3, 1, dtype=dtype))
+        )
+        with LibGMT() as lib:
+            with lib.vectors_to_vfile(data.x, data.y, data.z) as vfile:
+                outfile = 'test_vectors_to_vfile_dataset_pandas.txt'
+                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
+            with open(outfile) as ofile:
+                output = ofile.read()
+            os.remove(outfile)
+            bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(i.min(), i.max())
+                                for i in (data.x, data.y, data.z)])
+            expected = '<vector memory>: N = {}\t{}\n'.format(size, bounds)
             assert output == expected

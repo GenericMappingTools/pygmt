@@ -6,6 +6,8 @@ import ctypes
 from tempfile import NamedTemporaryFile
 from contextlib import contextmanager
 
+import pandas
+
 from ..exceptions import GMTCLibError, GMTCLibNoSessionError
 from .utils import load_libgmt, kwargs_to_ctypes_array
 
@@ -930,6 +932,9 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> os.remove(ofile)
 
         """
+        # Convert pandas Series to numpy arrays
+        vectors = [i.as_matrix() if isinstance(i, pandas.Series) else i
+                   for i in vectors]
         columns = len(vectors)
         rows = len(vectors[0])
         if not all(len(i) == rows for i in vectors):

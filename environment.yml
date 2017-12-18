@@ -8,6 +8,7 @@ dependencies:
     - pip
     - gmt=6.0.0*
     - numpy
+    - pandas
     - matplotlib
     - jupyter
     - pytest
