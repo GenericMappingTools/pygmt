@@ -4,7 +4,130 @@ Miscellaneous utilities
 import sys
 import ctypes
 
+import pandas
+
 from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
+
+
+def vectors_to_arrays(vectors):
+    """
+    Convert 1d vectors (arrays or pandas.Series) to C contiguous 1d arrays.
+
+    Arrays must be in C contiguous order for us to pass their memory pointers
+    to GMT. If any are not, convert them to C order (which requires copying the
+    memory). This usually happens when vectors are columns of a 2d array or
+    have been sliced.
+
+    If a vector is a pandas.Series, get the underlying numpy array.
+
+    Parameters
+    ----------
+    vectors : list of 1d arrays or pandas.Series
+        The vectors that must be converted.
+
+    Returns
+    -------
+    arrays : list of 1d arrays
+        The converted numpy arrays
+
+    Examples
+    --------
+
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> data = np.array([[1, 2], [3, 4], [5, 6]])
+    >>> vectors = [data[:, 0], data[:, 1], pd.Series(data=[-1, -2, -3])]
+    >>> all(i.flags.c_contiguous for i in vectors)
+    False
+    >>> all(isinstance(i, np.ndarray) for i in vectors)
+    False
+    >>> arrays = vectors_to_arrays(vectors)
+    >>> all(i.flags.c_contiguous for i in arrays)
+    True
+    >>> all(isinstance(i, np.ndarray) for i in arrays)
+    True
+
+    """
+    arrays = [_as_c_contiguous(_series_to_array(i)) for i in vectors]
+    return arrays
+
+
+def _as_c_contiguous(array):
+    """
+    Ensure a numpy array is C contiguous in memory.
+
+    If the array is not C contiguous, a copy will be necessary.
+
+    Parameters
+    ----------
+    array : 1d array
+        The numpy array
+
+    Returns
+    -------
+    array : 1d array
+        Array is C contiguous order.
+
+    Examples
+    --------
+
+    >>> import numpy as np
+    >>> data = np.array([[1, 2], [3, 4], [5, 6]])
+    >>> x = data[:, 0]
+    >>> x
+    array([1, 3, 5])
+    >>> x.flags.c_contiguous
+    False
+    >>> new_x = _as_c_contiguous(x)
+    >>> new_x
+    array([1, 3, 5])
+    >>> new_x.flags.c_contiguous
+    True
+    >>> x = np.array([8, 9, 10])
+    >>> x.flags.c_contiguous
+    True
+    >>> _as_c_contiguous(x).flags.c_contiguous
+    True
+
+    """
+    if not array.flags.c_contiguous:
+        return array.copy(order='C')
+    return array
+
+
+def _series_to_array(vector):
+    """
+    Convert a pandas.Series to a numpy array.
+
+    If vector is already an array, do nothing.
+
+    Parameters
+    ----------
+    vector : pandas.Series or numpy 1d array
+        The series to convert.
+
+    Returns
+    -------
+    array : numpy array
+
+    Examples
+    --------
+
+    >>> import pandas as pd
+    >>> x_series = pandas.Series(data=[1, 2, 3, 4])
+    >>> x_array = _series_to_array(x_series)
+    >>> type(x_array)
+    <class 'numpy.ndarray'>
+    >>> x_array
+    array([1, 2, 3, 4])
+    >>> import numpy as np
+    >>> type(_series_to_array(np.array([5, 6, 7])))
+    <class 'numpy.ndarray'>
+
+    """
+    if isinstance(vector, pandas.Series):
+        return vector.as_matrix()
+    return vector
 
 
 def load_libgmt(libname='libgmt'):
