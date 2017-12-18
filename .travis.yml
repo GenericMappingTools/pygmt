@@ -22,7 +22,7 @@ env:
         - BUILD_DOCS=false
         - DEPLOY_DOCS=false
         - DEPLOY_PYPI=false
-        - CONDA_FLAGS=-c conda-forge --yes
+        - CONDA_FLAGS="-c conda-forge --yes"
 
 matrix:
     # Build under the following configurations
