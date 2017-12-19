@@ -22,6 +22,7 @@ env:
         - BUILD_DOCS=false
         - DEPLOY_DOCS=false
         - DEPLOY_PYPI=false
+        - CONDA_FLAGS="-c conda-forge --yes --quiet"
 
 matrix:
     # Build under the following configurations
@@ -50,12 +51,13 @@ before_install:
     # Need to source the script to set the PATH variable in this environment
     # (not the scripts environment)
     - source ci/install-miniconda.sh
-    - conda update --yes conda
+    - conda update conda $CONDA_FLAGS
     # Install dependencies
-    - conda install --yes python=$PYTHON pip -c conda-forge
-    # Need the dev channel to get development builds of GMT 6
-    - conda install --yes --file requirements.txt -c conda-forge/label/dev -c conda-forge
-    - conda install --yes --file requirements-dev.txt -c conda-forge
+    - conda install python=$PYTHON pip $CONDA_FLAGS
+    - conda install --file requirements-dev.txt $CONDA_FLAGS
+    # Need the dev channel to get development builds of GMT 6. Must come
+    # second or gmt6 will be superseeded by gmt5 from main conda-forge
+    - conda install --file requirements.txt -c conda-forge/label/dev $CONDA_FLAGS
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
