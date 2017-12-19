@@ -18,7 +18,7 @@ GMT/Python
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/gmt-python/master.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/gmt-python
-.. image:: https://img.shields.io/codeclimate/github/GenericMappingTools/gmt-python.svg?style=flat-square
+.. image:: https://img.shields.io/codeclimate/maintainability/GenericMappingTools/gmt-python.svg?style=flat-square
     :alt: Code quality status
     :target: https://codeclimate.com/github/GenericMappingTools/gmt-python
 .. image:: https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy
