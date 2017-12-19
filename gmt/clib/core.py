@@ -7,7 +7,7 @@ from tempfile import NamedTemporaryFile
 from contextlib import contextmanager
 
 from ..exceptions import GMTCLibError, GMTCLibNoSessionError
-from .utils import load_libgmt, kwargs_to_ctypes_array
+from .utils import load_libgmt, kwargs_to_ctypes_array, vectors_to_arrays
 
 
 class LibGMT():  # pylint: disable=too-many-instance-attributes
@@ -930,15 +930,12 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> os.remove(ofile)
 
         """
-        columns = len(vectors)
-        rows = len(vectors[0])
-        if not all(len(i) == rows for i in vectors):
+        arrays = vectors_to_arrays(vectors)
+
+        columns = len(arrays)
+        rows = len(arrays[0])
+        if not all(len(i) == rows for i in arrays):
             raise GMTCLibError("All arrays must have same size.")
-        # Arrays must be in C contiguous order to pass their memory pointers to
-        # GMT. If any are not, convert them (which requires copying the
-        # memory).
-        vectors = [i if i.flags.c_contiguous else i.copy(order='C')
-                   for i in vectors]
 
         family = 'GMT_IS_DATASET|GMT_VIA_VECTOR'
         geometry = 'GMT_IS_POINT'
@@ -946,8 +943,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         dataset = self.create_data(family, geometry, mode='GMT_CONTAINER_ONLY',
                                    dim=[columns, rows, 1, 0])
 
-        for col, vector in enumerate(vectors):
-            self.put_vector(dataset, column=col, vector=vector)
+        for col, array in enumerate(arrays):
+            self.put_vector(dataset, column=col, vector=array)
 
         vf_args = (family, geometry, 'GMT_IN', dataset)
         with self.open_virtual_file(*vf_args) as vfile:
