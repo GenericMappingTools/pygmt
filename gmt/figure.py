@@ -301,11 +301,12 @@ class Figure(BasePlotting):
             pdf = self._preview(fmt='pdf', dpi=600, anti_alias=False,
                                 as_bytes=False)
             launch_external_viewer(pdf)
+            img = None
         else:
             png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
                                 as_bytes=True)
             img = Image(data=png, width=width)
-            return img
+        return img
 
     def _preview(self, fmt, dpi, anti_alias, as_bytes=False):
         """
