@@ -54,9 +54,10 @@ before_install:
     - conda update conda $CONDA_FLAGS
     # Install dependencies
     - conda install python=$PYTHON pip $CONDA_FLAGS
-    # Need the dev channel to get development builds of GMT 6
-    - conda install --file requirements.txt -c conda-forge/label/dev $CONDA_FLAGS
     - conda install --file requirements-dev.txt $CONDA_FLAGS
+    # Need the dev channel to get development builds of GMT 6. Must come
+    # second or gmt6 will be superseeded by gmt5 from main conda-forge
+    - conda install --file requirements.txt -c conda-forge/label/dev $CONDA_FLAGS
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
