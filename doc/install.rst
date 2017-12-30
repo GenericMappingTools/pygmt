@@ -120,7 +120,7 @@ variable so that Python can find the GMT shared library ``libgmt``.
 If you installed GMT using conda, place the following in your ``~/.bashrc``
 file::
 
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/anaconda3/lib
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/anaconda3/envs/gmt-python/lib
 
 You should change ``$HOME/anaconda3`` to wherever you installed Anaconda (this
 is the default for Linux).
