@@ -58,7 +58,7 @@ def unique_name():
 
     """
     # Use the tempfile module to generate a unique file name.
-    with NamedTemporaryFile(prefix='gmt-python-', delete=True) as tmpfile:
+    with NamedTemporaryFile(prefix='gmt-python-') as tmpfile:
         return os.path.split(tmpfile.name)[-1]
 
 
