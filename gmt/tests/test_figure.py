@@ -11,9 +11,10 @@ from ..figure import unique_name
 
 
 def test_figure_unique_name():
-    "Make sure the figure name starts with gmt-python-"
-    name = unique_name()
-    assert name.startswith('gmt-python-')
+    "Make sure the figure names start with gmt-python- and are really unique"
+    names = [unique_name() for i in range(100)]
+    assert all([name.startswith('gmt-python-') for name in names])
+    assert len(names) == len(set(names))
 
 
 def test_figure_savefig_exists():
