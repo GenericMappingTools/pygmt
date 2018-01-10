@@ -297,7 +297,7 @@ class Figure(BasePlotting):
             Only if ``external=False``.
 
         """
-        if external or Image is None:
+        if external:
             pdf = self._preview(fmt='pdf', dpi=600, anti_alias=False,
                                 as_bytes=False)
             launch_external_viewer(pdf)
