@@ -124,12 +124,20 @@ def build_arg_string(kwargs):
 
     >>> print(build_arg_string(dict(R='1/2/3/4', J="X4i", P='', E=200)))
     -E200 -JX4i -P -R1/2/3/4
+    >>> print(build_arg_string(dict(R='1/2/3/4', J="X4i",
+    ...                             B=['xaf', 'yaf', 'WSen'],
+    ...                             I=('1/1p,blue', '2/0.25p,blue'))))
+    -Bxaf -Byaf -BWSen -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
 
     """
-    sorted_args = (
-        '-{}{}'.format(key, kwargs[key])
-        for key in sorted(kwargs)
-    )
+    sorted_args = []
+    for key in sorted(kwargs):
+        if is_nonstr_iter(kwargs[key]):
+            for value in kwargs[key]:
+                sorted_args.append('-{}{}'.format(key, value))
+        else:
+            sorted_args.append('-{}{}'.format(key, kwargs[key]))
+
     arg_str = ' '.join(sorted_args)
     return arg_str
 
