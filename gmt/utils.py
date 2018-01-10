@@ -106,12 +106,17 @@ def build_arg_string(kwargs):
     """
     Transform keyword arguments into a GMT argument string.
 
+    Make sure all arguments have been previously converted to a string
+    representation using the ``kwargs_to_strings`` decorator.
+
+    Any lists or tuples left will be interpreted as multiple entries for the
+    same command line argument. For example, the kwargs entry ``'B': ['xa',
+    'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
+
     Parameters
     ----------
     kwargs : dict
-        Parsed keyword arguments. Doesn't do any fancy conversions. Make sure
-        all arguments can be cast to a string and inserted as is into the
-        GMT argument string (that means no bools, lists, or arrays).
+        Parsed keyword arguments.
 
     Returns
     -------
