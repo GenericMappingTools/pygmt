@@ -43,6 +43,8 @@ CLASSIFIERS = [
 ]
 PLATFORMS = "Any"
 INSTALL_REQUIRES = [
+    'numpy',
+    'pandas',
 ]
 
 if __name__ == '__main__':

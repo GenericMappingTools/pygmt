@@ -35,6 +35,7 @@ GMT/Python requires the following libraries:
   OSX are available through
   `conda-forge <https://github.com/conda-forge/gmt-feedstock/>`__.
 * numpy
+* pandas
 
 
 Installing GMT and other dependencies
@@ -65,7 +66,7 @@ Install the latest version of GMT 6::
 
 And finally, install the rest of the dependencies::
 
-    conda install numpy -c conda-forge
+    conda install numpy pandas -c conda-forge
 
 .. note::
 
@@ -103,7 +104,7 @@ GMT/Python ships with a full test suite.
 You can run our tests after you install it but you will need a few extra
 dependencies as well (be sure to have your conda env activated)::
 
-    conda install pytest pytest-mpl -c conda-forge
+    conda install pytest pytest-mpl ipython -c conda-forge
 
 Test your installation by running the following inside a Python interpreter::
 
