@@ -17,6 +17,7 @@ from .clib import LibGMT
 from .base_plotting import BasePlotting
 from .utils import build_arg_string
 from .decorators import fmt_docstring, use_alias, kwargs_to_strings
+from .exceptions import GMTError
 
 
 def figure(name):
@@ -305,6 +306,11 @@ class Figure(BasePlotting):
         else:
             png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
                                 as_bytes=True)
+            if Image is None:
+                raise GMTError(' '.join([
+                    "Cannot find IPython.",
+                    "Make sure you have it installed",
+                    "or use 'external=True' to open in an external viewer."]))
             img = Image(data=png, width=width)
         return img
 
