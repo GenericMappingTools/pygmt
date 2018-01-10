@@ -59,11 +59,8 @@ def unique_name():
 
     """
     # Use the tempfile module to generate a unique file name.
-    tmpfile = NamedTemporaryFile(prefix='gmt-python-', dir=os.path.curdir,
-                                 delete=True)
-    name = os.path.split(tmpfile.name)[-1]
-    tmpfile.close()
-    return name
+    with NamedTemporaryFile(prefix='gmt-python-') as tmpfile:
+        return os.path.split(tmpfile.name)[-1]
 
 
 def launch_external_viewer(fname):
