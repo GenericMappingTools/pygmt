@@ -187,7 +187,18 @@ def is_nonstr_iter(value):
 
 class GMTTempFile():
     """
-    Context manager for temporaray file.
+    Context manager for creating closed temporary files.
+
+    This class does not return a file-like object. So, you can't do
+    ``for line in GMTTempFile()``, for example, or pass it to things that
+    need file objects.
+
+    Parameters
+    ----------
+    prefix : str
+        The temporary file name begins with the prefix.
+    suffix : str
+        The temporary file name ends with the suffix.
 
     Examples
     --------
@@ -219,13 +230,17 @@ class GMTTempFile():
 
     def read(self, keep_tabs=False):
         """
-        Read the entire contents of the file.
+        Read the entire contents of the file as a Unicode string.
 
         Parameters
         ----------
         keep_tabs : bool
             If False, replace the tabs that GMT uses with spaces.
 
+        Returns
+        -------
+        content : str
+            Content of the temporary file as a Unicode string.
         """
         with open(self.name) as tmpfile:
             content = tmpfile.read()
@@ -235,12 +250,17 @@ class GMTTempFile():
 
     def loadtxt(self, **kwargs):
         """
-        Load data from a text file, similar to numpy.loadtxt.
+        Load data from the temporary file using numpy.loadtxt.
 
         Parameters
         ----------
-        kwargs :
-            Additional keyword arguments passed to numpy.loadtxt.
+        kwargs : dict
+            Any keyword arguments that can be passed to numpy.loadtxt.
+
+        Returns
+        -------
+        ndarray
+            Data read from the text file.
 
         """
         return np.loadtxt(self.name, **kwargs)
