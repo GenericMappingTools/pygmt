@@ -3,7 +3,6 @@
 Test the wrappers for the C API.
 """
 import os
-from tempfile import NamedTemporaryFile
 
 import pytest
 import numpy as np
@@ -14,6 +13,7 @@ from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError, \
     GMTCLibNoSessionError
+from ..utils import GMTTempFile
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -89,18 +89,18 @@ def test_errors_sent_to_log_file():
         mode = lib.get_constant('GMT_MODULE_CMD')
         with lib.log_to_file() as logfile:
             assert os.path.exists(logfile)
-            data_file = 'not-a-valid-data-file.bla'
-            # Make a bogus module call that will fail
-            status = lib._c_call_module(lib.current_session,
-                                        'info'.encode(),
-                                        mode,
-                                        data_file.encode())
-            assert status != 0
+            with GMTTempFile() as data_file:
+                # Make a bogus module call that will fail
+                status = lib._c_call_module(lib.current_session,
+                                            'info'.encode(),
+                                            mode,
+                                            data_file.name.encode())
+                assert status != 0
             # Check the file content
             with open(logfile) as flog:
                 log = flog.read()
     msg = 'gmtinfo [ERROR]: Error for input file: No such file ({})'.format(
-        data_file)
+        data_file.name)
     assert log.strip() == msg
     # Log should be deleted as soon as the with is over
     assert not os.path.exists(logfile)
@@ -111,12 +111,12 @@ def test_call_module():
     data_fname = os.path.join(TEST_DATA_DIR, 'points.txt')
     out_fname = 'test_call_module.txt'
     with LibGMT() as lib:
-        lib.call_module('info', '{} -C ->{}'.format(data_fname, out_fname))
-    assert os.path.exists(out_fname)
-    with open(out_fname) as out_file:
-        output = out_file.read().strip().replace('\t', ' ')
-        assert output == '11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338'
-    os.remove(out_fname)
+        with GMTTempFile() as out_fname:
+            lib.call_module('info', '{} -C ->{}'.format(data_fname,
+                                                        out_fname.name))
+            assert os.path.exists(out_fname.name)
+            output = out_fname.read().strip()
+            assert output == '11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338'
 
 
 def test_call_module_error_message():
@@ -279,18 +279,14 @@ def test_put_vector():
             # Turns out wesn doesn't matter for Datasets
             wesn = [0]*6
             # Save the data to a file to see if it's being accessed correctly
-            tmp_file = NamedTemporaryFile(prefix='gmt-python-', suffix='.txt',
-                                          delete=False)
-            tmp_file.close()
-            lib.write_data('GMT_IS_VECTOR', 'GMT_IS_POINT',
-                           'GMT_WRITE_SET', wesn, tmp_file.name, dataset)
-            # Load the data and check that it's correct
-            newx, newy, newz = np.loadtxt(tmp_file.name, unpack=True,
-                                          dtype=dtype)
-            os.remove(tmp_file.name)
-            npt.assert_allclose(newx, x)
-            npt.assert_allclose(newy, y)
-            npt.assert_allclose(newz, z)
+            with GMTTempFile() as tmp_file:
+                lib.write_data('GMT_IS_VECTOR', 'GMT_IS_POINT',
+                               'GMT_WRITE_SET', wesn, tmp_file.name, dataset)
+                # Load the data and check that it's correct
+                newx, newy, newz = tmp_file.loadtxt(unpack=True, dtype=dtype)
+                npt.assert_allclose(newx, x)
+                npt.assert_allclose(newy, y)
+                npt.assert_allclose(newz, z)
 
 
 def test_put_vector_invalid_dtype():
@@ -352,15 +348,12 @@ def test_put_matrix():
             # wesn doesn't matter for Datasets
             wesn = [0]*6
             # Save the data to a file to see if it's being accessed correctly
-            tmp_file = NamedTemporaryFile(prefix='gmt-python-', suffix='.txt',
-                                          delete=False)
-            tmp_file.close()
-            lib.write_data('GMT_IS_MATRIX', 'GMT_IS_POINT',
-                           'GMT_WRITE_SET', wesn, tmp_file.name, dataset)
-            # Load the data and check that it's correct
-            newdata = np.loadtxt(tmp_file.name, dtype=dtype)
-            os.remove(tmp_file.name)
-            npt.assert_allclose(newdata, data)
+            with GMTTempFile() as tmp_file:
+                lib.write_data('GMT_IS_MATRIX', 'GMT_IS_POINT',
+                               'GMT_WRITE_SET', wesn, tmp_file.name, dataset)
+                # Load the data and check that it's correct
+                newdata = tmp_file.loadtxt(dtype=dtype)
+                npt.assert_allclose(newdata, data)
 
 
 def test_put_matrix_grid():
@@ -382,15 +375,13 @@ def test_put_matrix_grid():
             data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
             lib.put_matrix(grid, matrix=data)
             # Save the data to a file to see if it's being accessed correctly
-            tmp_file = NamedTemporaryFile(prefix='gmt-python-', suffix='.txt',
-                                          delete=False)
-            tmp_file.close()
-            lib.write_data('GMT_IS_MATRIX', 'GMT_IS_SURFACE',
-                           'GMT_CONTAINER_AND_DATA', wesn, tmp_file.name, grid)
-            # Load the data and check that it's correct
-            newdata = np.loadtxt(tmp_file.name, dtype=dtype)
-            os.remove(tmp_file.name)
-            npt.assert_allclose(newdata, data)
+            with GMTTempFile() as tmp_file:
+                lib.write_data('GMT_IS_MATRIX', 'GMT_IS_SURFACE',
+                               'GMT_CONTAINER_AND_DATA',
+                               wesn, tmp_file.name, grid)
+                # Load the data and check that it's correct
+                newdata = tmp_file.loadtxt(dtype=dtype)
+                npt.assert_allclose(newdata, data)
 
 
 def test_virtual_file():
@@ -412,11 +403,10 @@ def test_virtual_file():
             # Add the dataset to a virtual file and pass it along to gmt info
             vfargs = (family, geometry, 'GMT_IN', dataset)
             with lib.open_virtual_file(*vfargs) as vfile:
-                outfile = 'test_virtual_file.txt'
-                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
-            with open(outfile) as ofile:
-                output = ofile.read()
-            os.remove(outfile)
+                with GMTTempFile() as outfile:
+                    lib.call_module('info', '{} ->{}'.format(vfile,
+                                                             outfile.name))
+                    output = outfile.read(keep_tabs=True)
             bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(col.min(), col.max())
                                 for col in data.T])
             expected = '<matrix memory>: N = {}\t{}\n'.format(shape[0], bounds)
@@ -444,11 +434,10 @@ def test_vectors_to_vfile():
         z = np.arange(size*2, size*3, 1, dtype=dtype)
         with LibGMT() as lib:
             with lib.vectors_to_vfile(x, y, z) as vfile:
-                outfile = 'test_vectors_to_vfile_dataset.txt'
-                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
-            with open(outfile) as ofile:
-                output = ofile.read()
-            os.remove(outfile)
+                with GMTTempFile() as outfile:
+                    lib.call_module('info', '{} ->{}'.format(vfile,
+                                                             outfile.name))
+                    output = outfile.read(keep_tabs=True)
             bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(i.min(), i.max())
                                 for i in (x, y, z)])
             expected = '<vector memory>: N = {}\t{}\n'.format(size, bounds)
@@ -463,11 +452,10 @@ def test_vectors_to_vfile_transpose():
         data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
         with LibGMT() as lib:
             with lib.vectors_to_vfile(*data.T) as vfile:
-                outfile = 'test_vectors_to_vfile_dataset_t.txt'
-                lib.call_module('info', '{} -C ->{}'.format(vfile, outfile))
-            with open(outfile) as ofile:
-                output = ofile.read()
-            os.remove(outfile)
+                with GMTTempFile() as outfile:
+                    lib.call_module('info', '{} -C ->{}'.format(vfile,
+                                                                outfile.name))
+                    output = outfile.read(keep_tabs=True)
             bounds = '\t'.join(['{:.0f}\t{:.0f}'.format(col.min(), col.max())
                                 for col in data.T])
             expected = '{}\n'.format(bounds)
@@ -492,11 +480,10 @@ def test_matrix_to_vfile():
         data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
         with LibGMT() as lib:
             with lib.matrix_to_vfile(data) as vfile:
-                outfile = 'test_matrix_to_vfile.txt'
-                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
-            with open(outfile) as ofile:
-                output = ofile.read()
-            os.remove(outfile)
+                with GMTTempFile() as outfile:
+                    lib.call_module('info', '{} ->{}'.format(vfile,
+                                                             outfile.name))
+                    output = outfile.read(keep_tabs=True)
             bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(col.min(), col.max())
                                 for col in data.T])
             expected = '<matrix memory>: N = {}\t{}\n'.format(shape[0], bounds)
@@ -514,11 +501,10 @@ def test_matrix_to_vfile_slice():
         data = full_data[:rows, :cols]
         with LibGMT() as lib:
             with lib.matrix_to_vfile(data) as vfile:
-                outfile = 'test_matrix_to_vfile.txt'
-                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
-            with open(outfile) as ofile:
-                output = ofile.read()
-            os.remove(outfile)
+                with GMTTempFile() as outfile:
+                    lib.call_module('info', '{} ->{}'.format(vfile,
+                                                             outfile.name))
+                    output = outfile.read(keep_tabs=True)
             bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(col.min(), col.max())
                                 for col in data.T])
             expected = '<matrix memory>: N = {}\t{}\n'.format(rows, bounds)
@@ -537,11 +523,10 @@ def test_vectors_to_vfile_pandas():
         )
         with LibGMT() as lib:
             with lib.vectors_to_vfile(data.x, data.y, data.z) as vfile:
-                outfile = 'test_vectors_to_vfile_dataset_pandas.txt'
-                lib.call_module('info', '{} ->{}'.format(vfile, outfile))
-            with open(outfile) as ofile:
-                output = ofile.read()
-            os.remove(outfile)
+                with GMTTempFile() as outfile:
+                    lib.call_module('info', '{} ->{}'.format(vfile,
+                                                             outfile.name))
+                    output = outfile.read(keep_tabs=True)
             bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(i.min(), i.max())
                                 for i in (data.x, data.y, data.z)])
             expected = '<vector memory>: N = {}\t{}\n'.format(size, bounds)
