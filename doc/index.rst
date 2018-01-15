@@ -25,7 +25,7 @@ Getting started
 ---------------
 
 1. Try an online demo at `try.gmtpython.xyz <http://try.gmtpython.xyz>`__
-2. :ref:`Install <install>` (tested and working on Linux and OSX)
+2. :ref:`Install <install>` (tested and working on Linux and macOS)
 3. Follow the :ref:`tutorials`.
 4. Take a look at the :ref:`api` for a list of modules that are already
    available.

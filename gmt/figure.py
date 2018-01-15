@@ -67,7 +67,7 @@ def launch_external_viewer(fname):
     """
     Open a file in an external viewer program.
 
-    Uses the ``xdg-open`` command on Linux, the ``open`` command on OSX, and
+    Uses the ``xdg-open`` command on Linux, the ``open`` command on macOS, and
     the default web browser on other systems.
 
     Parameters
@@ -84,7 +84,7 @@ def launch_external_viewer(fname):
     # Fall back to the browser if can't recognize the operating system.
     if sys.platform.startswith('linux'):
         subprocess.run(['xdg-open', fname], **run_args)
-    elif sys.platform == 'darwin':  # Darwin is OSX
+    elif sys.platform == 'darwin':  # Darwin is macOS
         subprocess.run(['open', fname], **run_args)
     else:
         webbrowser.open_new_tab('file://{}'.format(fname))
