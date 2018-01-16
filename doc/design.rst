@@ -308,8 +308,7 @@ file machinery.
 This allows us to write data to a memory location instead of a file without GMT
 knowing the difference.
 For input, we can use ``GMT_Open_VirtualFile`` and point it to the location in
-memory of the Python data, for example using `numpy.ndarray.ctypes
-<https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.ctypes.html>`__.
+memory of the Python data, for example using :attr:`numpy.ndarray.ctypes`.
 We can also translate the Python data into :py:mod:`ctypes` compatible types.
 The virtual file pointer can also be passed as the output option for the
 module, for example as ``-G`` or through redirection (``->``).
