@@ -71,13 +71,13 @@ is equivalent to the following in modern mode::
     gmt end
 
 This is a great improvement: the code is smaller and more readable. It fits
-naturally with Python `context managers
-<https://docs.python.org/3/library/stdtypes.html#typecontextmanager>`__ and can
+naturally with Python :ref:`context managers <context-managers>` and can
 be used to embed PNG converted output into Jupyter notebooks when ``gmt end``
 is called.
 
 Read more about modern mode at the
 `Modernization wiki page <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
+
 
 
 GMT Python
