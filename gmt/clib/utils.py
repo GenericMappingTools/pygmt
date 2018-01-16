@@ -132,7 +132,7 @@ def _series_to_array(vector):
 
 def load_libgmt(libname='libgmt'):
     """
-    Find and load ``libgmt`` as a ctypes.CDLL.
+    Find and load ``libgmt`` as a :py:class:`ctypes.CDLL`.
 
     If not given the full path to the library, it must be in standard places or
     by discoverable by setting the environment variable ``LD_LIBRARY_PATH``.
@@ -145,7 +145,7 @@ def load_libgmt(libname='libgmt'):
 
     Returns
     -------
-    ctypes.CDLL object
+    :py:class:`ctypes.CDLL` object
         The loaded shared library.
 
     Raises
@@ -214,7 +214,7 @@ def check_libgmt(libgmt):
 
     Parameters
     ----------
-    libgmt : ctypes.CDLL
+    libgmt : :py:class:`ctypes.CDLL`
         A shared library loaded using ctypes.
 
     Raises

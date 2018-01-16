@@ -94,10 +94,9 @@ the Postscript.
 This mode is perfect for the Python interface, which would have to handle
 generation of the Postscript file in the background anyway.
 
-We will wrap the GMT C API using the `ctypes
-<https://docs.python.org/3/library/ctypes.html>`__ module of the Python
+We will wrap the GMT C API using the :py:mod:`ctypes` module of the Python
 standard library.
-``ctypes`` grants access to C data types and foreign functions in DDLs and
+:py:mod:`ctypes` grants access to C data types and foreign functions in DDLs and
 shared libraries, making it possible to wrap these libraries with pure Python
 code.
 Not having compiled modules makes packaging and distribution of Python software
@@ -105,7 +104,7 @@ a lot easier.
 
 Wrappers for GMT data types and C functions will be implemented in a lower
 level wrapper library.
-These will be direct ``ctypes`` wrappers of the GMT module functions and any
+These will be direct :py:mod:`ctypes` wrappers of the GMT module functions and any
 other function that is needed on the Python side.
 The low-level functions will not handle any data type conversion or setting up
 of argument list.
@@ -260,8 +259,8 @@ them from the command-line help messages by passing a Python callback as the
 The low-level wrappers
 ----------------------
 
-The low-level wrapper functions will be bare-bones ``ctypes`` foreign functions
-from the ``libgmt.so`` shared library.
+The low-level wrapper functions will be bare-bones :py:mod:`ctypes` foreign
+functions from the ``libgmt.so`` shared library.
 The functions can be accessed from Python like so::
 
     import ctypes as ct
@@ -276,15 +275,15 @@ The functions can be accessed from Python like so::
 
 
 The tricky part is making sure the functions get the input types they need.
-``ctypes`` provides access to C data types and a way to specify the data type
-conversions that the function requires::
+:py:mod:`ctypes` provides access to C data types and a way to specify the data
+type conversions that the function requires::
 
     GMT_Call_Module.argstypes = [ct.c_void_p, ct.c_char_p, ct.c_int, ct.c_void_p]
 
 This is fine for standard data types like ``int``, ``char``, etc, but will need
 extra work for custom GMT ``struct``.
 These data types will need to be wrapped by Python classes that inherit from
-``ctypes.Structure``.
+:py:class:`ctypes.Structure`.
 
 The ``gmt.c_api`` module will expose these foreign functions (with output and
 input types specified) and GMT data types for the modules to use.
@@ -298,7 +297,7 @@ It has the following signature::
     int GMT_Call_Module (void *V_API, const char *module, int mode, void *args)
 
 The arguments ``module``, ``mode``, and ``args`` (the command-line argument
-list) are plain C types and can be generated easily using ``ctypes``.
+list) are plain C types and can be generated easily using :py:mod:`ctypes`.
 The Python module code will need to generate the ``args`` array from the
 given function arguments.
 The ``V_API`` argument is a "GMT Session" and is created through the
@@ -311,7 +310,7 @@ knowing the difference.
 For input, we can use ``GMT_Open_VirtualFile`` and point it to the location in
 memory of the Python data, for example using `numpy.ndarray.ctypes
 <https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.ctypes.html>`__.
-We can also translate the Python data into ``ctypes`` compatible types.
+We can also translate the Python data into :py:mod:`ctypes` compatible types.
 The virtual file pointer can also be passed as the output option for the
 module, for example as ``-G`` or through redirection (``->``).
 We can read the contents of the virtual file using ``GMT_Read_VirtualFile``.

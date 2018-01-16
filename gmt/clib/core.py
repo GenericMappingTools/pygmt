@@ -270,8 +270,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         session : C void pointer (returned by ctypes as an integer)
             The active session object produced by
             :func:`gmt.clib.LibGMT.create_session`.
-        libgmt : ctypes.CDLL
-            The ``ctypes.CDLL`` instance for the libgmt shared library.
+        libgmt : :py:class:`ctypes.CDLL`
+            The :py:class:`ctypes.CDLL` instance for the libgmt shared library.
 
         """
         status = self._c_destroy_session(session)
@@ -652,7 +652,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         Parameters
         ----------
-        dataset : ctypes.c_void_p
+        dataset : :py:class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`~gmt.clib.LibGMT.create_data`.
         column : int
@@ -703,7 +703,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         Parameters
         ----------
-        dataset : ctypes.c_void_p
+        dataset : :py:class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`~gmt.clib.LibGMT.create_data`.
         matrix : numpy 2d-array
@@ -761,7 +761,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             elements.
         output : str
             The output file name.
-        data : ctypes.c_void_p
+        data : :py:class:`ctypes.c_void_p`
             Pointer to the data container created by
             :meth:`~gmt.clib.LibGMT.create_data`.
 

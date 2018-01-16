@@ -68,8 +68,7 @@ Project goals
 * Use the new `GMT modern mode
   <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__ for
   simplified execution and figure generation.
-* Interface with the GMT C API directly using
-  `ctypes <https://docs.python.org/3/library/ctypes.html>`__ (no system calls).
+* Interface with the GMT C API directly using :py:mod:`ctypes` (no system calls).
 * Integration with the `Jupyter notebook <http://jupyter.org/>`__ to display
   plots and maps inline.
 * Input and output using Python native containers: numpy ``ndarray`` or pandas
