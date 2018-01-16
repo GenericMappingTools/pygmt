@@ -71,8 +71,8 @@ Project goals
 * Interface with the GMT C API directly using :py:mod:`ctypes` (no system calls).
 * Integration with the `Jupyter notebook <http://jupyter.org/>`__ to display
   plots and maps inline.
-* Input and output using Python native containers: :class:`numpy.ndarray` or pandas
-  ``DataFrame`` for data tables and `xarray <http://xarray.pydata.org>`__
+* Input and output using Python native containers: :class:`numpy.ndarray` or
+  :class:`pandas.DataFrame` for data tables and `xarray <http://xarray.pydata.org>`__
   ``Dataset`` for netCDF grids.
 
 
