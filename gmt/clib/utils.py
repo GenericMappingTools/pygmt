@@ -175,7 +175,7 @@ def clib_extension(os_name=None):
 
     .. warning::
 
-        Currently only works for OSX and Linux.
+        Currently only works for macOS and Linux.
 
     Returns
     -------
@@ -195,7 +195,7 @@ def clib_extension(os_name=None):
     if os_name.startswith('linux'):
         lib_ext = 'so'
     elif os_name == 'darwin':
-        # Darwin is OSX
+        # Darwin is macOS
         lib_ext = 'dylib'
     else:
         raise GMTOSError(
