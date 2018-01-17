@@ -25,7 +25,7 @@ Getting started
 ---------------
 
 1. Try an online demo at `try.gmtpython.xyz <http://try.gmtpython.xyz>`__
-2. :ref:`Install <install>` (tested and working on Linux and OSX)
+2. :ref:`Install <install>` (tested and working on Linux and macOS)
 3. Follow the :ref:`tutorials`.
 4. Take a look at the :ref:`api` for a list of modules that are already
    available.
@@ -68,12 +68,11 @@ Project goals
 * Use the new `GMT modern mode
   <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__ for
   simplified execution and figure generation.
-* Interface with the GMT C API directly using
-  `ctypes <https://docs.python.org/3/library/ctypes.html>`__ (no system calls).
+* Interface with the GMT C API directly using :py:mod:`ctypes` (no system calls).
 * Integration with the `Jupyter notebook <http://jupyter.org/>`__ to display
   plots and maps inline.
-* Input and output using Python native containers: numpy ``ndarray`` or pandas
-  ``DataFrame`` for data tables and `xarray <http://xarray.pydata.org>`__
+* Input and output using Python native containers: :class:`numpy.ndarray` or
+  :class:`pandas.DataFrame` for data tables and `xarray <http://xarray.pydata.org>`__
   ``Dataset`` for netCDF grids.
 
 

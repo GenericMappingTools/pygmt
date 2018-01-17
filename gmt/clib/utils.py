@@ -132,7 +132,7 @@ def _series_to_array(vector):
 
 def load_libgmt(libname='libgmt'):
     """
-    Find and load ``libgmt`` as a ctypes.CDLL.
+    Find and load ``libgmt`` as a :py:class:`ctypes.CDLL`.
 
     If not given the full path to the library, it must be in standard places or
     by discoverable by setting the environment variable ``LD_LIBRARY_PATH``.
@@ -145,7 +145,7 @@ def load_libgmt(libname='libgmt'):
 
     Returns
     -------
-    ctypes.CDLL object
+    :py:class:`ctypes.CDLL` object
         The loaded shared library.
 
     Raises
@@ -175,7 +175,7 @@ def clib_extension(os_name=None):
 
     .. warning::
 
-        Currently only works for OSX and Linux.
+        Currently only works for macOS and Linux.
 
     Returns
     -------
@@ -195,7 +195,7 @@ def clib_extension(os_name=None):
     if os_name.startswith('linux'):
         lib_ext = 'so'
     elif os_name == 'darwin':
-        # Darwin is OSX
+        # Darwin is macOS
         lib_ext = 'dylib'
     else:
         raise GMTOSError(
@@ -214,7 +214,7 @@ def check_libgmt(libgmt):
 
     Parameters
     ----------
-    libgmt : ctypes.CDLL
+    libgmt : :py:class:`ctypes.CDLL`
         A shared library loaded using ctypes.
 
     Raises

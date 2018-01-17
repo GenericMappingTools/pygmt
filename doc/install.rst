@@ -32,7 +32,7 @@ Dependencies
 GMT/Python requires the following libraries:
 
 * Current development version of GMT (6.0.0). ``conda`` packages for Linux and
-  OSX are available through
+  macOS are available through
   `conda-forge <https://github.com/conda-forge/gmt-feedstock/>`__.
 * numpy
 * pandas
@@ -70,7 +70,7 @@ And finally, install the rest of the dependencies::
 
 .. note::
 
-    **Currently, this only works on Linux and OSX.**
+    **Currently, this only works on Linux and macOS.**
 
     We don't have a GMT conda package for Windows
     (`we're working on it <https://github.com/conda-forge/gmt-feedstock>`__).

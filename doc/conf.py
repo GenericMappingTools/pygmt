@@ -18,6 +18,7 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.viewcode',
     'sphinx.ext.extlinks',
+    'sphinx.ext.intersphinx',
     'numpydoc',
     'nbsphinx',
 ]
@@ -79,6 +80,13 @@ html_context = {
     'doc_path': 'doc',
     'github_repo': 'GenericMappingTools/gmt-python',
     'github_version': 'master',
+}
+
+# intersphinx
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3/', None),
+    'numpy': ('https://docs.scipy.org/doc/numpy/', None),
+    'pandas': ('http://pandas.pydata.org/pandas-docs/stable/', None),
 }
 
 # Load the custom CSS files (needs sphinx >= 1.6 for this to work)
