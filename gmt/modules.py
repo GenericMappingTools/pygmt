@@ -1,11 +1,11 @@
 """
 Non-plot GMT modules.
 """
-from tempfile import NamedTemporaryFile
 
 from .clib import LibGMT
 from .utils import build_arg_string
 from .decorators import fmt_docstring
+from .utils import GMTTempFile
 
 
 @fmt_docstring
