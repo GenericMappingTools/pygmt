@@ -89,18 +89,18 @@ def test_errors_sent_to_log_file():
         mode = lib.get_constant('GMT_MODULE_CMD')
         with lib.log_to_file() as logfile:
             assert os.path.exists(logfile)
-            with GMTTempFile() as data_file:
-                # Make a bogus module call that will fail
-                status = lib._c_call_module(lib.current_session,
-                                            'info'.encode(),
-                                            mode,
-                                            data_file.name.encode())
-                assert status != 0
+            data_file = 'not-a-valid-data-file.bla'
+            # Make a bogus module call that will fail
+            status = lib._c_call_module(lib.current_session,
+                                        'info'.encode(),
+                                        mode,
+                                        data_file.encode())
+            assert status != 0
             # Check the file content
             with open(logfile) as flog:
                 log = flog.read()
     msg = 'gmtinfo [ERROR]: Error for input file: No such file ({})'.format(
-        data_file.name)
+        data_file)
     assert log.strip() == msg
     # Log should be deleted as soon as the with is over
     assert not os.path.exists(logfile)
