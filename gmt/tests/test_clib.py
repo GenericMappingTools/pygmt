@@ -13,7 +13,7 @@ from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError, \
     GMTCLibNoSessionError
-from ..utils import GMTTempFile
+from ..helpers import GMTTempFile
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')

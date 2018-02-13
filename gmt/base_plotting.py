@@ -3,9 +3,9 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 from .clib import LibGMT
-from .utils import build_arg_string, dummy_context, data_kind
-from .decorators import fmt_docstring, use_alias, kwargs_to_strings
 from .exceptions import GMTError
+from .helpers import build_arg_string, dummy_context, data_kind, \
+    fmt_docstring, use_alias, kwargs_to_strings
 
 
 class BasePlotting():

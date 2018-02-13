@@ -1,9 +1,37 @@
 """
-Tests for GMTTempFile class
+Tests the helper functions/classes/etc used in wrapping GMT
 """
 import os
 
-from ..utils import GMTTempFile
+import pytest
+
+from ..helpers import kwargs_to_strings, GMTTempFile, unique_name
+
+
+def test_unique_name():
+    "Make sure the names start with gmt-python- and are really unique"
+    names = [unique_name() for i in range(100)]
+    assert all([name.startswith('gmt-python-') for name in names])
+    assert len(names) == len(set(names))
+
+
+def test_kwargs_to_strings_fails():
+    "Make sure it fails for invalid conversion types."
+    with pytest.raises(AssertionError):
+        kwargs_to_strings(bla="blablabla")
+
+
+def test_kwargs_to_strings_no_bools():
+    "Test that not converting bools works"
+
+    @kwargs_to_strings(convert_bools=False)
+    def my_module(**kwargs):
+        "Function that does nothing"
+        return kwargs
+
+    # The module should return the exact same arguments it was given
+    args = dict(P=True, A=False, R='1/2/3/4')
+    assert my_module(**args) == args
 
 
 def test_gmttempfile():

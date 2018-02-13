@@ -216,6 +216,7 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     You can also specify other conversions to specific arguments.
 
     Conversions available:
+
     * 'sequence': transforms a sequence (list, tuple) into a ``'/'`` separated
       string
     * 'sequence_comma': transforms a sequence into a ``','`` separated string
@@ -225,7 +226,7 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     convert_bools : bool
         If ``True``, convert all boolean arguments to strings using the rules
         specified above. If ``False``, leave them as they are.
-    **conversions : keyword arguments
+    conversions : keyword arguments
         Keyword arguments specifying other kinds of conversions that should be
         performed. The keyword is the name of the argument and the value is the
         conversion type (see list above).
