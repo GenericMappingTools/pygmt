@@ -14,7 +14,7 @@ class LUT(ctypes.Structure):
     Required for Palette.
     """
 
-    __fields_ = [
+    _fields_ = [
         ('z_low', ctypes.c_double),
         ('z_high', ctypes.c_double),
         ('i_dz', ctypes.c_double),
