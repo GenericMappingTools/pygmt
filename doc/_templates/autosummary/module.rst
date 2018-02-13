@@ -1,4 +1,8 @@
-The ``{{ fullname }}`` module
+.. raw:: html
+
+    <div class="api-module">
+
+``{{ fullname }}``
 {% for i in range(fullname|length + 15) %}-{% endfor %}
 
 .. raw:: html
@@ -44,3 +48,7 @@ The ``{{ fullname }}`` module
 {% endfor %}
 {% endif %}
 {% endblock %}
+
+.. raw:: html
+
+    </div>
