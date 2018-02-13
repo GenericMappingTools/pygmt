@@ -100,6 +100,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_write_data = None
         self._c_open_virtualfile = None
         self._c_close_virtualfile = None
+        self._c_read_virtualfile = None
         self._bind_clib_functions(libname)
 
     @property
@@ -205,6 +206,10 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_close_virtualfile = self._libgmt.GMT_Close_VirtualFile
         self._c_close_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
         self._c_close_virtualfile.restype = ctypes.c_int
+
+        self._c_read_virtualfile = self._libgmt.GMT_Read_VirtualFile
+        self._c_read_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
+        self._c_read_virtualfile.restype = ctypes.c_void_p
 
     def __enter__(self):
         """
@@ -879,6 +884,31 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             if status != 0:
                 raise GMTCLibError(
                     "Failed to close virtual file '{}'.".format(vfname))
+
+    def read_virtual_file(self, vfname):
+        """
+        Read a GMT data container from an open virtual file.
+
+        If the virtual file was created using a data container allocated in
+        Python, then reading will return a pointer to that container.
+        Otherwise, GMT will allocate the container and will also destroy it
+        when the file is closed and the session ends. To retain that container,
+        copy it to Python-owned memory.
+
+        Parameters
+        ----------
+        vfname : str
+            The name of the virtual file (created using
+            :meth:`~gmt.clib.LibGMT.open_virtual_file`)
+
+        Returns
+        -------
+        container_pointer : ctypes.c_void_p
+            A void pointer to the data container stored in the virtual file.
+        """
+        container_pointer = self._c_read_virtualfile(self.current_session,
+                                                     vfname.encode())
+        return container_pointer
 
     @contextmanager
     def vectors_to_vfile(self, *vectors):
