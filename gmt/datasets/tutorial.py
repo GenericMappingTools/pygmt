@@ -1,8 +1,6 @@
 """
 Functions to load sample data from the GMT tutorials.
 """
-import os
-
 import pandas as pd
 
 from .. import which
@@ -27,7 +25,7 @@ def load_japan_quakes():
 
     """
     fname = which('@tut_quakes.ngdc', download='c')
-    data = pd.read_table(fname, header=1, sep='\s+')
+    data = pd.read_table(fname, header=1, sep=r'\s+')
     data.columns = ['year', 'month', 'day', 'latitude', 'longitude',
                     'depth_km', 'magnitude']
     return data
