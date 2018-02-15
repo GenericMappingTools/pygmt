@@ -14,7 +14,7 @@ from .clib import LibGMT
 from .base_plotting import BasePlotting
 from .exceptions import GMTError
 from .helpers import build_arg_string, fmt_docstring, use_alias, \
-    kwargs_to_strings, launch_external_viewer, unique_name
+    kwargs_to_strings, launch_external_viewer, unique_name, worldwind_show_kml
 
 
 def figure(name):
@@ -71,11 +71,20 @@ class Figure(BasePlotting):
     def __init__(self):
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=self._name + '-preview-')
+        self._kml_preview = None
+        self._clean_kml = True
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews
         if hasattr(self, '_preview_dir'):
             self._preview_dir.cleanup()
+        # Clean up the KML previews (the need to be in the current directory)
+        if self._clean_kml and self._kml_preview is not None:
+            files = [self._kml_preview,
+                     '.'.join([os.path.splitext(self._kml_preview)[0], 'png'])]
+            for fname in files:
+                if os.path.exists(fname):
+                    os.remove(fname)
 
     def _preprocess(self, **kwargs):
         """
@@ -162,7 +171,8 @@ class Figure(BasePlotting):
         :meth:`~gmt.Figure.psconvert`.
 
         Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
-        BMP (``.bmp``), TIFF (``.tif``), and EPS (``.eps``).
+        BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
+        The KML output generates a companion PNG file.
 
         You can pass in any keyword arguments that
         :meth:`~gmt.Figure.psconvert` accepts.
@@ -192,7 +202,8 @@ class Figure(BasePlotting):
 
         """
         # All supported formats
-        fmts = dict(png='g', pdf='f', jpg='j', bmp='b', eps='e', tif='t')
+        fmts = dict(png='g', pdf='f', jpg='j', bmp='b', eps='e', tif='t',
+                    kml='g')
 
         assert orientation in ['portrait', 'landscape'], \
             "Invalid orientation '{}'.".format(orientation)
@@ -203,33 +214,38 @@ class Figure(BasePlotting):
         assert ext in fmts, "Unknown extension '.{}'".format(ext)
         fmt = fmts[ext]
         if transparent:
-            assert ext == 'png', \
+            assert fmt == 'g', \
                 "Transparency unavailable for '{}', only for png.".format(ext)
             fmt = fmt.upper()
         if anti_alias:
             kwargs['Qt'] = 2
             kwargs['Qg'] = 2
+        if ext == 'kml':
+            kwargs['W'] = '+k'
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop,
                        portrait=portrait, **kwargs)
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, external=False):
+    def show(self, dpi=300, width=500, method='static', clean_kml=True,
+             globe_view=(0, 0, 1e7)):
         """
         Display a preview of the figure.
 
-        Inserts the preview as a PNG on the Jupyter notebook.
-        If ``external=True``, makes PDF preview instead and opens it in the
-        default viewer for your operating system (falls back to the default
-        web browser).
+        Inserts the preview in the Jupyter notebook output. You will need to
+        have IPython installed for this to work. You should have it if you are
+        using the notebook.
 
-        If ``external=False``, you will need to have IPython installed for this
-        to work.  You should have it if you are using a Jupyter notebook.
-
-        Note that the external viewer does not block the current process.
+        If ``method='external'``, makes PDF preview instead and opens it in the
+        default viewer for your operating system (falls back to the default web
+        browser). Note that the external viewer does not block the current
+        process, so this won't work in a script.
 
         All previews are deleted when the current Python process is terminated.
+        The interactive globe preview generates a '.kml' and a '.png' files in
+        the current directory. Both files will also be deleted unless
+        ``clean_kml=False``).
 
         Parameters
         ----------
@@ -237,22 +253,43 @@ class Figure(BasePlotting):
             The image resolution (dots per inch).
         width : int
             Width of the figure shown in the notebook in pixels. Ignored if
-            ``external=True``.
-        external : bool
-            View the preview as a PDF in an external viewer.
+            ``method='external'``.
+        method : str
+            How the figure will be displayed. Options are (1) ``'static'``: PNG
+            preview (default); (2) ``'external'``: PDF preview in an external
+            program; (3) ``'globe'``: interactive 3D globe in the notebook
+            using `NASA WorldWind Web <https://worldwind.arc.nasa.gov>`__ (only
+            use if plotting lon/lat data).
+        clean_kml : bool
+            If False, will not delete the KML and PNG files used for the
+            interactive globe preview. Use this option and keep the files with
+            the notebook if you want to convert the notebook HTML (e.g., for
+            display on nbviewer).
+        globe_view : tuple = (lon, lat, height[m])
+            The coordinates used to set the view point for the globe preview.
+            Only used if ``method='globe'``.
 
         Returns
         -------
-        img : IPython.display.Image
-            Only if ``external=False``.
+        img : IPython.display.Image or IPython.display.Javascript
+            Only if ``method != 'external'``.
 
         """
-        if external:
+        if method not in ['static', 'external', 'globe']:
+            raise GMTError("Invalid show method '{}'.".format(method))
+        if method == 'globe':
+            self._clean_kml = clean_kml
+            self._kml_preview = '{}.kml'.format(self._name)
+            self.savefig(self._kml_preview, dpi=dpi, anti_alias=True,
+                         transparent=True)
+            img = worldwind_show_kml(fname=self._kml_preview, width=width,
+                                     globe_view=globe_view)
+        elif method == 'external':
             pdf = self._preview(fmt='pdf', dpi=600, anti_alias=False,
                                 as_bytes=False)
             launch_external_viewer(pdf)
             img = None
-        else:
+        elif method == 'static':
             png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
                                 as_bytes=True)
             if Image is None:

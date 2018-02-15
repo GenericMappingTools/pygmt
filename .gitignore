@@ -17,3 +17,4 @@ doc/api/generated
 .env
 MANIFEST
 doc/tutorials/first-steps-*
+doc/tutorials/gmt-python-*
