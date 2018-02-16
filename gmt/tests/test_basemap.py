@@ -33,7 +33,7 @@ def test_basemap_d_raises():
 def test_basemap():
     "Create a simple basemap plot"
     fig = Figure()
-    fig.basemap(R='10/70/-3/8', J='X4i/3i', B='afg', P=True)
+    fig.basemap(R='10/70/-3/8', J='X4i/3i', B='afg')
     return fig
 
 
@@ -83,6 +83,5 @@ def test_basemap_winkel_tripel():
 def test_basemap_aliases():
     "Make sure the argument aliases work"
     fig = Figure()
-    fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True,
-                portrait=True)
+    fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
     return fig

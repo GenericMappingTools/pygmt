@@ -54,23 +54,23 @@ def test_figure_savefig():
 
     fname = '.'.join([prefix, 'png'])
     fig.savefig(fname)
-    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='g', crop=True,
-                                    portrait=True, Qt=2, Qg=2)
+    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='g', crop=True, Qt=2,
+                                    Qg=2)
 
     fname = '.'.join([prefix, 'pdf'])
     fig.savefig(fname)
-    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='f', crop=True,
-                                    portrait=True, Qt=2, Qg=2)
+    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='f', crop=True, Qt=2,
+                                    Qg=2)
 
     fname = '.'.join([prefix, 'png'])
     fig.savefig(fname, transparent=True)
-    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='G', crop=True,
-                                    portrait=True, Qt=2, Qg=2)
+    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='G', crop=True, Qt=2,
+                                    Qg=2)
 
     fname = '.'.join([prefix, 'eps'])
     fig.savefig(fname, orientation='landscape')
-    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='e', crop=True,
-                                    portrait=False, Qt=2, Qg=2)
+    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='e', crop=True, Qt=2,
+                                    Qg=2)
 
 
 def test_figure_show():
