@@ -68,7 +68,7 @@ def test_figure_savefig():
                                     Qg=2)
 
     fname = '.'.join([prefix, 'eps'])
-    fig.savefig(fname, orientation='landscape')
+    fig.savefig(fname)
     assert kwargs_saved[-1] == dict(prefix=prefix, fmt='e', crop=True, Qt=2,
                                     Qg=2)
 
