@@ -37,8 +37,8 @@ class BasePlotting():
 
     @fmt_docstring
     @use_alias(R='region', J='projection', A='area_thresh', B='frame',
-               D='resolution', P='portrait', I='rivers', N='borders',
-               W='shorelines', G='land', S='water')
+               D='resolution', I='rivers', N='borders', W='shorelines',
+               G='land', S='water')
     @kwargs_to_strings(R='sequence')
     def coast(self, **kwargs):
         """
@@ -99,11 +99,11 @@ class BasePlotting():
         """
         kwargs = self._preprocess(**kwargs)
         with LibGMT() as lib:
-            lib.call_module('pscoast', build_arg_string(kwargs))
+            lib.call_module('coast', build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R='region', J='projection', B='frame', P='portrait', S='style',
-               G='color', W='pen', i='columns', C='cmap')
+    @use_alias(R='region', J='projection', B='frame', S='style', G='color',
+               W='pen', i='columns', C='cmap')
     @kwargs_to_strings(R='sequence', i='sequence_comma')
     def plot(self, x=None, y=None, data=None, sizes=None, **kwargs):
         """
@@ -159,7 +159,6 @@ class BasePlotting():
             ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
             Draw symmetrical error bars.
         {G}
-        {P}
         S : str
             Plot symbols (including vectors, pie slices, fronts, decorated or
             quoted lines).
@@ -199,7 +198,7 @@ class BasePlotting():
                 lib.call_module('plot', arg_str)
 
     @fmt_docstring
-    @use_alias(R='region', J='projection', B='frame', P='portrait')
+    @use_alias(R='region', J='projection', B='frame')
     @kwargs_to_strings(R='sequence')
     def basemap(self, **kwargs):
         """
@@ -230,7 +229,6 @@ class BasePlotting():
         L : str
             ``'[g|j|J|n|x]refpoint'``
             Draws a simple map scale centered on the reference point specified.
-        {P}
         Td : str
             Draws a map directional rose on the map at the location defined by
             the reference and anchor points.
@@ -247,10 +245,10 @@ class BasePlotting():
             assert 'F' in kwargs, \
                 "Option D requires F to be specified as well."
         with LibGMT() as lib:
-            lib.call_module('psbasemap', build_arg_string(kwargs))
+            lib.call_module('basemap', build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R='region', J='projection', P='portrait')
+    @use_alias(R='region', J='projection')
     @kwargs_to_strings(R='sequence')
     def gmtlogo(self, **kwargs):
         """
@@ -275,7 +273,6 @@ class BasePlotting():
         F: bool or str
             Without further options, draws a rectangular border around the
             GMT logo.
-        {P}
         {U}
 
         """

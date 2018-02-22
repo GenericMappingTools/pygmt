@@ -15,7 +15,7 @@ def test_begin_end():
     end()  # Kill the global session
     begin()
     with LibGMT() as lib:
-        lib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba -P')
+        lib.call_module('psbasemap', '-R10/70/-3/8 -JX4i/3i -Ba')
     end()
     begin()  # Restart the global session
     assert os.path.exists('gmt-python-session.pdf')

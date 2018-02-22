@@ -136,5 +136,5 @@ def test_plot_from_file(region):
     "Plot using the data file name instead of loaded data"
     fig = Figure()
     fig.plot(data=POINTS_DATA, region=region, projection='X10i', style='d1c',
-             color='yellow', frame=True, portrait=True, columns=[0, 1])
+             color='yellow', frame=True, columns=[0, 1])
     return fig

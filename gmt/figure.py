@@ -57,8 +57,7 @@ class Figure(BasePlotting):
     --------
 
     >>> fig = Figure()
-    >>> fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True,
-    ...             portrait=True)
+    >>> fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
     >>> import os
@@ -95,7 +94,7 @@ class Figure(BasePlotting):
         return kwargs
 
     @fmt_docstring
-    @use_alias(F='prefix', T='fmt', A='crop', E='dpi', P='portrait')
+    @use_alias(F='prefix', T='fmt', A='crop', E='dpi')
     @kwargs_to_strings()
     def psconvert(self, **kwargs):
         """
@@ -131,11 +130,6 @@ class Figure(BasePlotting):
             but without extension. Extension is still determined automatically.
         I : bool
             Enforce gray-shades by using ICC profiles.
-        P : bool
-            Force Portrait mode. All Landscape mode plots will be rotated back
-            so that they show unrotated in Portrait mode. This is practical
-            when converting to image formats or preparing EPS or PDF plots for
-            inclusion in documents. Default to True.
         Q : str
             Set the anti-aliasing options for graphics or text. Append the size
             of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing
@@ -156,14 +150,11 @@ class Figure(BasePlotting):
         # Default cropping the figure to True
         if 'A' not in kwargs:
             kwargs['A'] = ''
-        # Default portrait mode to True
-        if 'P' not in kwargs:
-            kwargs['P'] = ''
         with LibGMT() as lib:
             lib.call_module('psconvert', build_arg_string(kwargs))
 
-    def savefig(self, fname, orientation='portrait', transparent=False,
-                crop=True, anti_alias=True, show=False, **kwargs):
+    def savefig(self, fname, transparent=False, crop=True, anti_alias=True,
+                show=False, **kwargs):
         """
         Save the figure to a file.
 
@@ -182,8 +173,6 @@ class Figure(BasePlotting):
         fname : str
             The desired figure file name, including the extension. See the list
             of supported formats and their extensions above.
-        orientation : str
-            Either ``'portrait'`` or ``'landscape'``.
         transparent : bool
             If True, will use a transparent background for the figure. Only
             valid for PNG format.
@@ -205,10 +194,6 @@ class Figure(BasePlotting):
         fmts = dict(png='g', pdf='f', jpg='j', bmp='b', eps='e', tif='t',
                     kml='g')
 
-        assert orientation in ['portrait', 'landscape'], \
-            "Invalid orientation '{}'.".format(orientation)
-        portrait = bool(orientation == 'portrait')
-
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
         assert ext in fmts, "Unknown extension '.{}'".format(ext)
@@ -223,8 +208,7 @@ class Figure(BasePlotting):
         if ext == 'kml':
             kwargs['W'] = '+k'
 
-        self.psconvert(prefix=prefix, fmt=fmt, crop=crop,
-                       portrait=portrait, **kwargs)
+        self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
         if show:
             launch_external_viewer(fname)
 

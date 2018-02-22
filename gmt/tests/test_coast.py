@@ -11,7 +11,7 @@ def test_coast():
     "Simple plot from the GMT docs"
     fig = Figure()
     fig.coast(R='-30/30/-40/40', J='m0.1i', B=5, I='1/1p,blue', N='1/0.25p,-',
-              W='0.25p,white', G='green', S='blue', D='c', A=10000, P=True)
+              W='0.25p,white', G='green', S='blue', D='c', A=10000)
     return fig
 
 
@@ -30,7 +30,7 @@ def test_coast_aliases():
     fig.coast(region='-30/30/-40/40', projection='m0.1i', frame='afg',
               rivers='1/1p,black', borders='1/0.5p,-',
               shorelines='0.25p,white', land='moccasin', water='skyblue',
-              resolution='i', area_thresh=1000, portrait=True)
+              resolution='i', area_thresh=1000)
     return fig
 
 
