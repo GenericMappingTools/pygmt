@@ -4,6 +4,7 @@ Define the Figure class that handles all plotting.
 import os
 from tempfile import TemporaryDirectory
 import base64
+from xml.etree import ElementTree
 
 try:
     from IPython.display import Image
@@ -14,7 +15,7 @@ from .clib import LibGMT
 from .base_plotting import BasePlotting
 from .exceptions import GMTError
 from .helpers import build_arg_string, fmt_docstring, use_alias, \
-    kwargs_to_strings, launch_external_viewer, unique_name, worldwind_show_kml
+    kwargs_to_strings, launch_external_viewer, unique_name, worldwind_show
 
 
 def figure(name):
@@ -70,20 +71,11 @@ class Figure(BasePlotting):
     def __init__(self):
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=self._name + '-preview-')
-        self._kml_preview = None
-        self._clean_kml = True
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews
         if hasattr(self, '_preview_dir'):
             self._preview_dir.cleanup()
-        # Clean up the KML previews (the need to be in the current directory)
-        if self._clean_kml and self._kml_preview is not None:
-            files = [self._kml_preview,
-                     '.'.join([os.path.splitext(self._kml_preview)[0], 'png'])]
-            for fname in files:
-                if os.path.exists(fname):
-                    os.remove(fname)
 
     def _preprocess(self, **kwargs):
         """
@@ -212,8 +204,7 @@ class Figure(BasePlotting):
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method='static', clean_kml=True,
-             globe_view=(0, 0, 1e7)):
+    def show(self, dpi=300, width=500, method='static', globe_center=None):
         """
         Display a preview of the figure.
 
@@ -226,10 +217,9 @@ class Figure(BasePlotting):
         browser). Note that the external viewer does not block the current
         process, so this won't work in a script.
 
-        All previews are deleted when the current Python process is terminated.
-        The interactive globe preview generates a '.kml' and a '.png' files in
-        the current directory. Both files will also be deleted unless
-        ``clean_kml=False``).
+        If using the ``'globe'`` preview, use a Cartesian projection (``'X'``)
+        and specify degrees as size units (e.g. ``projection='X3id/3id'``).
+        Otherwise, the figure may not align with the globe.
 
         Parameters
         ----------
@@ -244,14 +234,10 @@ class Figure(BasePlotting):
             program; (3) ``'globe'``: interactive 3D globe in the notebook
             using `NASA WorldWind Web <https://worldwind.arc.nasa.gov>`__ (only
             use if plotting lon/lat data).
-        clean_kml : bool
-            If False, will not delete the KML and PNG files used for the
-            interactive globe preview. Use this option and keep the files with
-            the notebook if you want to convert the notebook HTML (e.g., for
-            display on nbviewer).
-        globe_view : tuple = (lon, lat, height[m])
+        globe_center : None or tuple = (lon, lat, height[m])
             The coordinates used to set the view point for the globe preview.
-            Only used if ``method='globe'``.
+            If None, will automatically determine a view based on the plot
+            region. Only used if ``method='globe'``.
 
         Returns
         -------
@@ -262,12 +248,12 @@ class Figure(BasePlotting):
         if method not in ['static', 'external', 'globe']:
             raise GMTError("Invalid show method '{}'.".format(method))
         if method == 'globe':
-            self._clean_kml = clean_kml
-            self._kml_preview = '{}.kml'.format(self._name)
-            self.savefig(self._kml_preview, dpi=dpi, anti_alias=True,
-                         transparent=True)
-            img = worldwind_show_kml(fname=self._kml_preview, width=width,
-                                     globe_view=globe_view)
+            region = self._plot_region()
+            png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
+                                as_bytes=True, transparent=True)
+            img = worldwind_show(image=png, width=width, region=region,
+                                 canvas_id=self._name,
+                                 globe_center=globe_center)
         elif method == 'external':
             pdf = self._preview(fmt='pdf', dpi=600, anti_alias=False,
                                 as_bytes=False)
@@ -284,7 +270,63 @@ class Figure(BasePlotting):
             img = Image(data=png, width=width)
         return img
 
-    def _preview(self, fmt, dpi, anti_alias, as_bytes=False):
+    def _plot_region(self):
+        """
+        Find the geographic region for the current figure.
+
+        Extracts the information from a KML preview of the figure. Kind of
+        hacky but works for both numerical regions and ISO country codes.
+
+        Returns
+        -------
+        region : list = [W, E, S, N]
+            The plot region as a list of floats.
+
+        Examples
+        --------
+
+        Using a numerical region:
+
+        >>> fig = Figure()
+        >>> fig.basemap(region=[0, 1, 2, 3], projection="X1id/1id", frame=True)
+        >>> fig._plot_region()
+        [0.0, 1.0, 2.0, 3.0]
+
+        Using an ISO country code:
+
+        >>> fig = Figure()
+        >>> fig.basemap(region='JP', projection="M3i", frame=True)
+        >>> print(', '.join('{:.6f}'.format(i)  for i in fig._plot_region()))
+        122.938515, 145.820877, 20.528774, 45.523136
+
+        Using the entire globe:
+
+        >>> fig = Figure()
+        >>> fig.basemap(region='g', projection="X3id/3id", frame=True)
+        >>> print(', '.join('{:.1f}'.format(i)  for i in fig._plot_region()))
+        0.0, 360.0, -90.0, 90.0
+
+        """
+        # Save a KML preview of the image
+        kml = self._preview(fmt='kml', dpi=10, as_bytes=False)
+        # Set the namespace so that I don't have to type it out all the time
+        nspace = dict(ns="http://earth.google.com/kml/2.1")
+        # Find the LatLonBox in the KML
+        bbox = (
+            ElementTree.parse(kml).getroot()
+            .find('ns:Document', nspace)
+            .find('ns:GroundOverlay', nspace)
+            .find('ns:LatLonBox', nspace)
+        )
+        region = [
+            bbox.find('ns:west', nspace).text,
+            bbox.find('ns:east', nspace).text,
+            bbox.find('ns:south', nspace).text,
+            bbox.find('ns:north', nspace).text,
+        ]
+        return [float(i) for i in region]
+
+    def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
         Grab a preview of the figure.
 
@@ -295,9 +337,6 @@ class Figure(BasePlotting):
             :meth:`~gmt.Figure.savefig` recognizes.
         dpi : int
             The image resolution (dots per inch).
-        anti_alias : bool
-            If True, will apply anti-aliasing to the image (only works on
-            raster images).
         as_bytes : bool
             If ``True``, will load the image as a bytes string and return that
             instead of the file name.
@@ -311,7 +350,7 @@ class Figure(BasePlotting):
         """
         fname = os.path.join(self._preview_dir.name,
                              '{}.{}'.format(self._name, fmt))
-        self.savefig(fname, dpi=dpi, anti_alias=anti_alias)
+        self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
             with open(fname, 'rb') as image:
                 preview = image.read()

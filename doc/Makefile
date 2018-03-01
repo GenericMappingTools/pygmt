@@ -29,8 +29,6 @@ clean:
 	rm -rf api/generated
 	rm -rf .ipynb_checkpoints
 	rm -rf tutorials/first-steps-*
-	rm -rf tutorials/gmt-python-*.png
-	rm -rf tutorials/gmt-python-*.kml
 
 html: api
 	@echo
@@ -39,9 +37,6 @@ html: api
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
-	@echo "Copying KML preview files to $(BUILDDIR)/html/tutorials."
-	cp tutorials/gmt-python-*.kml $(BUILDDIR)/html/tutorials
-	cp tutorials/gmt-python-*.png $(BUILDDIR)/html/tutorials
 
 api:
 	@echo
