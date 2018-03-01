@@ -1,7 +1,9 @@
 """
-Functions to display a KML file in NASA WorldWind Web edition.
+Functions to display NASA WorldWind Web in the Jupyter notebook.
 """
-import os
+import base64
+
+import numpy as np
 
 try:
     from IPython.display import HTML
@@ -25,67 +27,82 @@ TEMPLATE = """
     require(['WorldWind'],
     function (WorldWind) {{
 
-        // Create the WorldWindow.
         var wwd = new WorldWind.WorldWindow("{canvas}");
 
-        // Add imagery layers.
-        var layers = [
-            {{layer: new WorldWind.BMNGLayer(), enabled: true}},
-            {{layer: new WorldWind.CompassLayer(), enabled: true}},
-            {{layer: new WorldWind.CoordinatesDisplayLayer(wwd),
-              enabled: true}},
-            {{layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}}
-        ];
+        // Add an image source as layer
+        var image = new Image()
+        image.src = "{image}"
+        var surfaceImage = new WorldWind.SurfaceImage(
+            new WorldWind.Sector({region[2]}, {region[3]},
+                                 {region[0]}, {region[1]}),
+            new WorldWind.ImageSource(image)
+        );
+        var surfaceImageLayer = new WorldWind.RenderableLayer();
+        surfaceImageLayer.addRenderable(surfaceImage);
 
+        // Add the imagery and display layers
+        var layers = [
+            new WorldWind.BMNGLayer(),
+            new WorldWind.CompassLayer(),
+            new WorldWind.CoordinatesDisplayLayer(wwd),
+            new WorldWind.ViewControlsLayer(wwd),
+            surfaceImageLayer,
+        ];
         for (var l = 0; l < layers.length; l++) {{
-            layers[l].layer.enabled = layers[l].enabled;
-            wwd.addLayer(layers[l].layer);
+            wwd.addLayer(layers[l]);
         }}
 
-        var kmlFilePromise = new WorldWind.KmlFile('{fname}');
-        kmlFilePromise.then(function (kmlFile) {{
-            var renderableLayer = new WorldWind.RenderableLayer("GMT Preview");
-            renderableLayer.addRenderable(kmlFile);
-            wwd.addLayer(renderableLayer);
-            wwd.goTo(new WorldWind.Position({center[1]}, {center[0]},
-                                            {center[2]}));
-            wwd.redraw();
-        }});
+        // Set the view point
+        wwd.goTo(new WorldWind.Position({center[1]}, {center[0]},
+                                        {center[2]})
+        );
+
+        wwd.redraw();
     }});
 </script>
 """
 
 
-def worldwind_show_kml(fname, width, globe_view):
+def worldwind_show(image, width, region, canvas_id, globe_center):
     """
-    Create an HTML canvas and JS to view a KML in WorldWind Web on the notebook
+    Create the HTML and Javascript to view an image in WorldWind Web
 
     WorldWind Web is a Javascript library for viewing a 3D globe, like Google
     Earth. This function creates the HTML and Javascript code to display a
-    given KML file.
+    given image in the Jupyter notebook.
 
     Parameters
     ----------
-    fname : str
-        The path to the KML file.
+    image : bytes
+        An image loaded as a bytes string (use ``'rb'`` in the ``open``
+        function).
     width ; int
         The width of the HTML canvas element.
+    region : list = [W, E, S, N]
+        Boundaries of the image in geographical latitude and longitude degrees.
+    canvas_id : str
+        A unique id for the HTML canvas tag that will house the globe. A good
+        choice would be the unique figure name.
     globe_center : tuple = (lon, lat, height[m])
-        The coordinates used to set the view point.
+        The coordinates used to set the view point. If None, will be chosen
+        automatically based on the region argument.
 
     Returns
     -------
     IPython.display.HTML
-        The IPython object with the HTML inserted.
+        The IPython object with the HTML and Javascript inserted.
 
     """
-    if not os.path.exists(fname):
-        raise FileNotFoundError("Couldn't find KML file '{}'.".format(fname))
-    # Need the relative path so that WorldWind can find the files
-    relfname = os.path.relpath(fname)
-    basedir = os.path.dirname(relfname)
-    canvas = os.path.splitext(os.path.basename(fname))[0]
-    worldwind = TEMPLATE.format(basedir=basedir, url=URL, canvas=canvas,
-                                width=width, height=width, fname=relfname,
-                                center=globe_view)
+    if globe_center is None:
+        height = 200000*max(region[1] - region[0], region[3] - region[2])
+        lon = np.mean(region[:2])
+        lat = np.mean(region[2:])
+        globe_center = (lon, lat, height)
+    # Need to escape the newlines so that they can be inserted in the
+    # Javascript
+    data = base64.encodebytes(image).decode('utf-8').encode('unicode_escape')
+    b64image = "data:image/png;base64,{}".format(data.decode('utf-8'))
+    worldwind = TEMPLATE.format(url=URL, canvas=canvas_id, width=width,
+                                height=width, region=region, image=b64image,
+                                center=globe_center)
     return HTML(data=worldwind)
