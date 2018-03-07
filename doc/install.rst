@@ -48,12 +48,17 @@ We recommend working in an isolated `conda environment
 <https://conda.io/docs/user-guide/tasks/manage-environments.html>`__
 to avoid issues with competing versions of GMT and its dependencies.
 
-First, create a conda environment with only Python and ``pip`` installed
+First, we must configure conda to get packages from the `conda-forge
+channel <https://conda-forge.org/>`__::
+
+    conda config --add channels conda-forge
+
+Now we can create a conda environment with only Python and ``pip`` installed
 (we'll call it ``gmt-python`` but you can change it to whatever you want)::
 
      conda create --name gmt-python python=3.6 pip
 
-Activate this environment by running::
+Activate the environment by running::
 
     source activate gmt-python
 
@@ -62,11 +67,11 @@ environment and won't affect your default installation.
 
 Install the latest version of GMT 6::
 
-    conda install gmt -c conda-forge/label/dev -c conda-forge
+    conda install gmt -c conda-forge/label/dev
 
 And finally, install the rest of the dependencies::
 
-    conda install numpy pandas -c conda-forge
+    conda install numpy pandas
 
 .. note::
 
@@ -104,7 +109,7 @@ GMT/Python ships with a full test suite.
 You can run our tests after you install it but you will need a few extra
 dependencies as well (be sure to have your conda env activated)::
 
-    conda install pytest pytest-mpl ipython -c conda-forge
+    conda install pytest pytest-mpl ipython
 
 Test your installation by running the following inside a Python interpreter::
 
