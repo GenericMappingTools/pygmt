@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 import sys
+import shutil
 import subprocess
 import webbrowser
 from contextlib import contextmanager
@@ -204,7 +205,7 @@ def launch_external_viewer(fname):
 
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
-    if sys.platform.startswith('linux'):
+    if sys.platform.startswith('linux') and shutil.which('xdg-open'):
         subprocess.run(['xdg-open', fname], **run_args)
     elif sys.platform == 'darwin':  # Darwin is macOS
         subprocess.run(['open', fname], **run_args)
