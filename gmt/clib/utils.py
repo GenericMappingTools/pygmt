@@ -4,6 +4,7 @@ Miscellaneous utilities
 import sys
 import ctypes
 
+import numpy as np
 import pandas
 
 from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
@@ -11,18 +12,19 @@ from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
 def vectors_to_arrays(vectors):
     """
-    Convert 1d vectors (arrays or pandas.Series) to C contiguous 1d arrays.
+    Convert 1d vectors (lists, arrays or pandas.Series) to C contiguous 1d
+    arrays.
 
     Arrays must be in C contiguous order for us to pass their memory pointers
     to GMT. If any are not, convert them to C order (which requires copying the
     memory). This usually happens when vectors are columns of a 2d array or
     have been sliced.
 
-    If a vector is a pandas.Series, get the underlying numpy array.
+    If a vector is a list or pandas.Series, get the underlying numpy array.
 
     Parameters
     ----------
-    vectors : list of 1d arrays or pandas.Series
+    vectors : list of lists, 1d arrays or pandas.Series
         The vectors that must be converted.
 
     Returns
@@ -46,9 +48,12 @@ def vectors_to_arrays(vectors):
     True
     >>> all(isinstance(i, np.ndarray) for i in arrays)
     True
+    >>> data = [[1, 2], [3, 4], [5, 6]]
+    >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
+    True
 
     """
-    arrays = [_as_c_contiguous(_series_to_array(i)) for i in vectors]
+    arrays = [_as_c_contiguous(_as_array(i)) for i in vectors]
     return arrays
 
 
@@ -95,16 +100,16 @@ def _as_c_contiguous(array):
     return array
 
 
-def _series_to_array(vector):
+def _as_array(vector):
     """
-    Convert a pandas.Series to a numpy array.
+    Convert a vector (pandas.Series, list or numpy array) to a numpy array.
 
     If vector is already an array, do nothing.
 
     Parameters
     ----------
-    vector : pandas.Series or numpy 1d array
-        The series to convert.
+    vector : list or pandas.Series or numpy 1d array
+        The vector to convert.
 
     Returns
     -------
@@ -115,18 +120,22 @@ def _series_to_array(vector):
 
     >>> import pandas as pd
     >>> x_series = pandas.Series(data=[1, 2, 3, 4])
-    >>> x_array = _series_to_array(x_series)
+    >>> x_array = _as_array(x_series)
     >>> type(x_array)
     <class 'numpy.ndarray'>
     >>> x_array
     array([1, 2, 3, 4])
     >>> import numpy as np
-    >>> type(_series_to_array(np.array([5, 6, 7])))
+    >>> type(_as_array(np.array([5, 6, 7])))
+    <class 'numpy.ndarray'>
+    >>> type(_as_array([3, 4, 5]))
     <class 'numpy.ndarray'>
 
     """
     if isinstance(vector, pandas.Series):
         return vector.as_matrix()
+    elif isinstance(vector, list):
+        return np.array(vector)
     return vector
 
 
