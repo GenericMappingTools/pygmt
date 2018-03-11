@@ -134,9 +134,8 @@ def _as_array(vector):
     """
     if isinstance(vector, pandas.Series):
         return vector.as_matrix()
-    elif isinstance(vector, list):
-        return np.array(vector)
-    return vector
+    else:
+        return np.asarray(vector)
 
 
 def load_libgmt(libname='libgmt'):
