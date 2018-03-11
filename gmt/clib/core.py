@@ -915,17 +915,19 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         --------
 
         >>> import numpy as np
-        >>> x = np.array([1, 2, 3])
+        >>> import pandas as pd
+        >>> x = [1, 2, 3]
         >>> y = np.array([4, 5, 6])
+        >>> z = pd.Series([7, 8, 9])
         >>> with LibGMT() as lib:
-        ...     with lib.vectors_to_vfile(x, y) as vfile:
+        ...     with lib.vectors_to_vfile(x, y, z) as vfile:
         ...         # Send the output to a file so that we can read it
         ...         ofile = 'vectors_to_vfile_example.txt'
         ...         lib.call_module('info', '{} ->{}'.format(vfile, ofile))
         >>> with open(ofile) as f:
         ...     # Replace tabs with spaces
         ...     print(f.read().strip().replace('\\t', ' '))
-        <vector memory>: N = 3 <1/3> <4/6>
+        <vector memory>: N = 3 <1/3> <4/6> <7/9>
         >>> # Clean up the output file
         >>> os.remove(ofile)
 

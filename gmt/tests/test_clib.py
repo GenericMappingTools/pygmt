@@ -531,3 +531,20 @@ def test_vectors_to_vfile_pandas():
                                 for i in (data.x, data.y, data.z)])
             expected = '<vector memory>: N = {}\t{}\n'.format(size, bounds)
             assert output == expected
+
+
+def test_vectors_to_vfile_arraylike():
+    "Pass arraylike vectors to a dataset"
+    size = 13
+    x = list(range(0, size, 1))
+    y = tuple(range(size, size*2, 1))
+    z = range(size*2, size*3, 1)
+    with LibGMT() as lib:
+        with lib.vectors_to_vfile(x, y, z) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module('info', '{} ->{}'.format(vfile, outfile.name))
+                output = outfile.read(keep_tabs=True)
+        bounds = '\t'.join(['<{:.0f}/{:.0f}>'.format(min(i), max(i))
+                            for i in (x, y, z)])
+        expected = '<vector memory>: N = {}\t{}\n'.format(size, bounds)
+        assert output == expected
