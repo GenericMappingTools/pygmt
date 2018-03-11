@@ -533,8 +533,8 @@ def test_vectors_to_vfile_pandas():
             assert output == expected
 
 
-def test_vectors_to_vfile_list_tuple_range():
-    "Pass vectors to a dataset using lists"
+def test_vectors_to_vfile_arraylike():
+    "Pass arraylike vectors to a dataset"
     size = 13
     x = list(range(0, size, 1))
     y = tuple(range(size, size*2, 1))
