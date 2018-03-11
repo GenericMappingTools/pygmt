@@ -533,12 +533,12 @@ def test_vectors_to_vfile_pandas():
             assert output == expected
 
 
-def test_vectors_to_vfile_lists():
+def test_vectors_to_vfile_list_tuple_range():
     "Pass vectors to a dataset using lists"
     size = 13
     x = list(range(0, size, 1))
-    y = list(range(size, size*2, 1))
-    z = list(range(size*2, size*3, 1))
+    y = tuple(range(size, size*2, 1))
+    z = range(size*2, size*3, 1)
     with LibGMT() as lib:
         with lib.vectors_to_vfile(x, y, z) as vfile:
             with GMTTempFile() as outfile:

@@ -48,7 +48,7 @@ def vectors_to_arrays(vectors):
     True
     >>> all(isinstance(i, np.ndarray) for i in arrays)
     True
-    >>> data = [[1, 2], [3, 4], [5, 6]]
+    >>> data = [[1, 2], (3, 4), range(5, 7)]
     >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
     True
 
@@ -102,13 +102,14 @@ def _as_c_contiguous(array):
 
 def _as_array(vector):
     """
-    Convert a vector (pandas.Series, list or numpy array) to a numpy array.
+    Convert a vector (pandas.Series, tuple, list or numpy array) to a numpy
+    array.
 
     If vector is already an array, do nothing.
 
     Parameters
     ----------
-    vector : list or pandas.Series or numpy 1d array
+    vector : tuple, list, pandas.Series or numpy 1d array
         The vector to convert.
 
     Returns
@@ -129,6 +130,10 @@ def _as_array(vector):
     >>> type(_as_array(np.array([5, 6, 7])))
     <class 'numpy.ndarray'>
     >>> type(_as_array([3, 4, 5]))
+    <class 'numpy.ndarray'>
+    >>> type(_as_array((6, 7, 8)))
+    <class 'numpy.ndarray'>
+    >>> type(_as_array(range(15)))
     <class 'numpy.ndarray'>
 
     """
