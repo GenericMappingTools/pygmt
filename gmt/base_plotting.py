@@ -277,6 +277,6 @@ class BasePlotting():
 
         """
         kwargs = self._preprocess(**kwargs)
-        assert 'D' in kwargs, "Option D is must be specified."
+        assert 'D' in kwargs, "Option D must be specified."
         with LibGMT() as lib:
             lib.call_module('logo', build_arg_string(kwargs))
