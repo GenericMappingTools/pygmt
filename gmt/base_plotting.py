@@ -250,7 +250,7 @@ class BasePlotting():
     @fmt_docstring
     @use_alias(R='region', J='projection')
     @kwargs_to_strings(R='sequence')
-    def gmtlogo(self, **kwargs):
+    def logo(self, **kwargs):
         """
         Place the GMT graphics logo on a map.
 
