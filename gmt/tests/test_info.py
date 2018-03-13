@@ -12,8 +12,7 @@ POINTS_DATA = os.path.join(TEST_DATA_DIR, 'points.txt')
 def test_info():
     "Make sure info works"
     output = info(fname=POINTS_DATA)
-    assert output == '{}: N = 20 <11.5309/61.7074> <-2.9289/7.8648> '
-        '<0.1412/0.9338>\n'.format(POINTS_DATA)
+    assert output == '{}: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n'.format(POINTS_DATA)
 
 
 def test_info_c():
