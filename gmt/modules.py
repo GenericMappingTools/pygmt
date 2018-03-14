@@ -10,12 +10,32 @@ def info(fname, **kwargs):
     """
     Get information about data tables.
 
+    Reads from files and finds the extreme values in each of the columns.
+    It recognizes NaNs and will print warnings if the number of columns vary
+    from record to record. As an option, it will find the extent of the first
+    n columns rounded up and down to the nearest multiple of the supplied
+    increments. By default, this output will be in the form *-Rw/e/s/n*,
+    or the output will be in column form for as many columns as there are
+    increments provided. The *T* option will provide a *-Tzmin/zmax/dz* string
+    for makecpt.
+
     {gmt_module_docs}
 
     Parameters
     ----------
     fname : str
         The file name of the input data table file.
+    C : bool
+        Report the min/max values per column in separate columns.
+    I : str
+        ``'[b|p|f|s]dx[/dy[/dz...]]'``.
+        Report the min/max of the first n columns to the nearest multiple of
+        the provided increments and output results in the form *-Rw/e/s/n*
+        (unless *C* is set).
+    T : str
+        ``'dz[+ccol]'``
+        Report the min/max of the first (0'th) column to the nearest multiple
+        of dz and output this as the string *-Tzmin/zmax/dz*.
     """
     assert isinstance(fname, str), 'Only accepts file names.'
 
