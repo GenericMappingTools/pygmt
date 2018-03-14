@@ -12,13 +12,12 @@ def info(fname, **kwargs):
 
     Reads from files and finds the extreme values in each of the columns.
     It recognizes NaNs and will print warnings if the number of columns vary
-    from record to record. As an option, **info** will find the extent of the
-    first n columns rounded up and down to the nearest multiple of the supplied
-    increments. By default, this output will be in the form `-Rw/e/s/n` which
-    can be used directly in the command line for other programs (hence only dx
-    and dy are needed), or the output will be in column form for as many
-    columns as there are increments provided. A similar option (-T) will
-    provide a `-Tzmin/zmax/dz` string for makecpt.
+    from record to record. As an option, it will find the extent of the first
+    n columns rounded up and down to the nearest multiple of the supplied
+    increments. By default, this output will be in the form *-Rw/e/s/n*,
+    or the output will be in column form for as many columns as there are
+    increments provided. The *T* option will provide a *-Tzmin/zmax/dz* string
+    for makecpt.
 
     {gmt_module_docs}
 
