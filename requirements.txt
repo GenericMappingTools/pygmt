@@ -1,3 +1,18 @@
 gmt=6.0.0*
 numpy
 pandas
+ipython
+# The following are required for development purposes
+matplotlib
+jupyter
+pytest
+pytest-cov
+pytest-mpl
+coverage
+flake8
+pylint
+sphinx
+sphinx_rtd_theme
+nbsphinx
+numpydoc
+twine
