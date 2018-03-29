@@ -18,31 +18,6 @@ from .helpers import build_arg_string, fmt_docstring, use_alias, \
     kwargs_to_strings, launch_external_viewer, unique_name, worldwind_show
 
 
-def figure(name):
-    """
-    Start a new figure.
-
-    All plotting commands run afterward will append to this figure.
-
-    Unlike the command-line version (``gmt figure``), this function does not
-    trigger the generation of a figure file. An explicit call to
-    :func:`gmt.savefig` or :func:`gmt.psconvert` must be made in order to get a
-    file.
-
-    Parameters
-    ----------
-    name : str
-        A unique name for this figure. Will use the name to refer to a
-        particular figure. You can come back to the figure by calling this
-        function with the same name as before.
-
-    """
-    # Passing format '-' tells gmt.end to not produce any files.
-    fmt = '-'
-    with LibGMT() as lib:
-        lib.call_module('figure', '{} {}'.format(name, fmt))
-
-
 class Figure(BasePlotting):
     """
     A GMT figure to handle all plotting.
@@ -71,18 +46,35 @@ class Figure(BasePlotting):
     def __init__(self):
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=self._name + '-preview-')
+        self._activate_figure()
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews
         if hasattr(self, '_preview_dir'):
             self._preview_dir.cleanup()
 
+    def _activate_figure(self):
+        """
+        Start and/or activate the current figure.
+
+        All plotting commands run afterward will append to this figure.
+
+        Unlike the command-line version (``gmt figure``), this method does not
+        trigger the generation of a figure file. An explicit call to
+        :meth:`gmt.Figure.savefig` or :meth:`gmt.Figure.psconvert` must be made
+        in order to get a file.
+        """
+        # Passing format '-' tells gmt.end to not produce any files.
+        fmt = '-'
+        with LibGMT() as lib:
+            lib.call_module('figure', '{} {}'.format(self._name, fmt))
+
     def _preprocess(self, **kwargs):
         """
         Call the ``figure`` module before each plotting command to ensure we're
         plotting to this particular figure.
         """
-        figure(self._name)
+        self._activate_figure()
         return kwargs
 
     @fmt_docstring
