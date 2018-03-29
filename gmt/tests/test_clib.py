@@ -80,7 +80,7 @@ def test_set_log_file_fails():
     with LibGMT() as lib:
         with pytest.raises(GMTCLibError):
             with lib.log_to_file(logfile=''):
-                pass
+                print("This should have failed")
 
 
 def test_errors_sent_to_log_file():
@@ -421,7 +421,7 @@ def test_virtual_file_bad_direction():
                   0)
         with pytest.raises(GMTCLibError):
             with lib.open_virtual_file(*vfargs):
-                pass
+                print("This should have failed")
 
 
 def test_vectors_to_vfile():
@@ -469,7 +469,7 @@ def test_vectors_to_vfile_diff_size():
     with LibGMT() as lib:
         with pytest.raises(GMTCLibError):
             with lib.vectors_to_vfile(x, y):
-                pass
+                print("This should have failed")
 
 
 def test_matrix_to_vfile():
