@@ -276,21 +276,15 @@ def kwargs_to_strings(convert_bools=True, **conversions):
         @functools.wraps(module_func)
         def new_module(*args, **kwargs):
             "New module instance that converts the arguments first"
-
             if convert_bools:
                 kwargs = remove_bools(kwargs)
-
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
-
-                    if fmt == 'sequence' or fmt == 'sequence_comma':
-                        if is_nonstr_iter(value):
-                            kwargs[arg] = separators[fmt].join(
-                                '{}'.format(item)
-                                for item in value
-                            )
-
+                    issequence = fmt == 'sequence' or fmt == 'sequence_comma'
+                    if issequence and is_nonstr_iter(value):
+                        kwargs[arg] = separators[fmt].join(
+                            '{}'.format(item) for item in value)
             # Execute the original function and return its output
             return module_func(*args, **kwargs)
 

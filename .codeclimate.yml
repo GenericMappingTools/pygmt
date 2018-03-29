@@ -1,24 +1,37 @@
-engines:
-    duplication:
-        enabled: true
-        config:
-            languages:
-                - python
-    pep8:
-        enabled: false
-    fixme:
-        enabled: true
-    radon:
-        enabled: true
+version: "2"
 
-ratings:
-    paths:
-        - "**/*.py"
+checks:
+  file-lines:
+    enabled: false
+  similar-code:
+    enabled: false
+  method-lines:
+    enabled: false
+  argument-count:
+    config:
+      threshold: 10
+  method-complexity:
+    config:
+      threshold: 6
+
+plugins:
+  sonar-python:
+    enabled: true
+    config:
+      test_patterns:
+        - "gmt/**/tests/*.py"
+    checks:
+      python:S3776:
+        enabled: false
+      python:S107:
+        enabled: false
+      python:S1542:
+        enabled: false
 
 exclude_paths:
-    - "versioneer.py"
-    - "gmt/_version.py"
-    - "doc/**/*"
-    - "ci/*"
-    - "gmt/tests/baseline/*"
-    - "gmt/tests/data/*"
+- "versioneer.py"
+- "gmt/_version.py"
+- "doc/**/*"
+- "ci/*"
+- "gmt/tests/baseline/*"
+- "gmt/tests/data/*"
