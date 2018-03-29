@@ -12,7 +12,7 @@ checks:
       threshold: 10
   method-complexity:
     config:
-      threshold: 7
+      threshold: 6
 
 plugins:
   sonar-python:
