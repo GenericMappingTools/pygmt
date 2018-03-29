@@ -14,6 +14,7 @@ from ..clib.utils import clib_extension, load_libgmt, check_libgmt
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError, \
     GMTCLibNoSessionError
 from ..helpers import GMTTempFile
+from .. import Figure
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -534,7 +535,7 @@ def test_vectors_to_vfile_pandas():
 
 
 def test_vectors_to_vfile_arraylike():
-    "Pass arraylike vectors to a dataset"
+    "Pass array-like vectors to a dataset"
     size = 13
     x = list(range(0, size, 1))
     y = tuple(range(size, size*2, 1))
@@ -548,3 +549,53 @@ def test_vectors_to_vfile_arraylike():
                             for i in (x, y, z)])
         expected = '<vector memory>: N = {}\t{}\n'.format(size, bounds)
         assert output == expected
+
+
+def test_extract_region_fails():
+    "Check that extract region fails under the right conditions."
+    # If nothing has been plotted
+    fig = Figure()
+    with pytest.raises(GMTCLibError):
+        with LibGMT() as lib:
+            lib.extract_region()
+
+    # Mock _c_extract_region to return 0 but not modify the wesn data
+
+    def mock(*args):  # pylint: disable=unused-argument
+        "Do nothing so that the wesn pointer is all NaNs"
+        return 0
+
+    fig = Figure()
+    fig.coast(region=[0, 10, -20, -10], projection="M6i", frame=True,
+              land='black')
+    with LibGMT() as lib:
+        lib._c_extract_region = mock
+        with pytest.raises(GMTCLibError):
+            lib.extract_region()
+
+
+def test_extract_region_two_figures():
+    "Extract region should handle multiple figures existing at the same time"
+    # Make two figures before calling extract_region to make sure that it's
+    # getting from the current figure, not the last figure.
+    fig1 = Figure()
+    region1 = np.array([0, 10, -20, -10])
+    fig1.coast(region=region1, projection="M6i", frame=True, land='black')
+
+    fig2 = Figure()
+    fig2.basemap(region='US.HI+r5', projection="M6i", frame=True)
+
+    # Activate the first figure and extract the region from it
+    # Use in a different session to avoid any memory problems.
+    with LibGMT() as lib:
+        lib.call_module('figure', '{} -'.format(fig1._name))
+    with LibGMT() as lib:
+        wesn1 = lib.extract_region()
+        npt.assert_allclose(wesn1, region1)
+
+    # Now try it with the second one
+    with LibGMT() as lib:
+        lib.call_module('figure', '{} -'.format(fig2._name))
+    with LibGMT() as lib:
+        wesn2 = lib.extract_region()
+        npt.assert_allclose(wesn2, np.array([-165., -150., 15., 25.]))

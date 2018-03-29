@@ -6,6 +6,8 @@ import ctypes
 from tempfile import NamedTemporaryFile
 from contextlib import contextmanager
 
+import numpy as np
+
 from ..exceptions import GMTCLibError, GMTCLibNoSessionError
 from .utils import load_libgmt, kwargs_to_ctypes_array, vectors_to_arrays
 
@@ -100,6 +102,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_write_data = None
         self._c_open_virtualfile = None
         self._c_close_virtualfile = None
+        self._c_extract_region = None
         self._bind_clib_functions(libname)
 
     @property
@@ -205,6 +208,12 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         self._c_close_virtualfile = self._libgmt.GMT_Close_VirtualFile
         self._c_close_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
         self._c_close_virtualfile.restype = ctypes.c_int
+
+        self._c_extract_region = self._libgmt.GMT_Extract_Region
+        self._c_extract_region.argtypes = [ctypes.c_void_p,
+                                           ctypes.c_char_p,
+                                           ctypes.POINTER(ctypes.c_double)]
+        self._c_extract_region.restype = ctypes.c_int
 
     def __enter__(self):
         """
@@ -1031,3 +1040,68 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         vf_args = (family, geometry, 'GMT_IN', dataset)
         with self.open_virtual_file(*vf_args) as vfile:
             yield vfile
+
+    def extract_region(self):
+        """
+        Extract the WESN bounding box of the currently active figure.
+
+        Retrieves the information from the PostScript file, so it works for
+        country codes as well.
+
+        Returns
+        -------
+        * wesn : 1d array
+            A 1D numpy array with the west, east, south, and north dimensions
+            of the current figure.
+
+        Examples
+        --------
+
+        >>> import gmt
+        >>> fig = gmt.Figure()
+        >>> fig.coast(region=[0, 10, -20, -10], projection="M6i", frame=True,
+        ...           land='black')
+        >>> with LibGMT() as lib:
+        ...     wesn = lib.extract_region()
+        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        0.00, 10.00, -20.00, -10.00
+
+        Using ISO country codes for the regions (for example `'US.HI'` for
+        Hawaii):
+
+        >>> fig = gmt.Figure()
+        >>> fig.coast(region='US.HI', projection="M6i", frame=True,
+        ...           land='black')
+        >>> with LibGMT() as lib:
+        ...     wesn = lib.extract_region()
+        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        -164.71, -154.81, 18.91, 23.58
+
+        The country codes can have an extra argument that rounds the region a
+        multiple of the argument (for example, `'US.HI+r5'` will round the
+        region to multiples of 5):
+
+        >>> fig = gmt.Figure()
+        >>> fig.coast(region='US.HI+r5', projection="M6i", frame=True,
+        ...           land='black')
+        >>> with LibGMT() as lib:
+        ...     wesn = lib.extract_region()
+        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        -165.00, -150.00, 15.00, 25.00
+
+        """
+        wesn = np.empty(4, dtype=np.float64)
+        wesn[:] = np.nan
+        wesn_pointer = wesn.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+        # The second argument to GMT_Extract_Region is a file pointer to a
+        # PostScript file. It's only valid in classic mode. Use None to get a
+        # NULL pointer instead.
+        status = self._c_extract_region(self.current_session,
+                                        None,
+                                        wesn_pointer)
+        if status != 0:
+            raise GMTCLibError("Failed to extract region from current figure.")
+        if np.any(np.isnan(wesn)):
+            raise GMTCLibError(
+                "Invalid region extracted from PS file: {}".format(wesn))
+        return wesn
