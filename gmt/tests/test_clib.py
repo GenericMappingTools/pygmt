@@ -577,20 +577,20 @@ def test_extract_region_fails():
 def test_extract_region_two_figures():
     "Extract region should handle multiple figures existing at the same time"
     fig1 = Figure()
+    fig2 = Figure()
+
+    # Try to activate the first figure and extract the region from it
     region1 = np.array([0, 10, -20, -10])
     fig1.coast(region=region1, projection="M6i", frame=True,
                land='black')
-    fig2 = Figure()
-    fig2.basemap(region='US.HI+r5', projection="M6i", frame=True)
-
-    # Try to activate the first figure and extract the region from it
     with LibGMT() as lib:
-        lib.call_module('figure', '{} -'.format(fig1._name))
+        # lib.call_module('figure', '{} -'.format(fig1._name))
         wesn1 = lib.extract_region()
         npt.assert_allclose(wesn1, region1)
 
     # Now try it with the second one
+    fig2.basemap(region='US.HI+r5', projection="M6i", frame=True)
     with LibGMT() as lib:
-        lib.call_module('figure', '{} -'.format(fig2._name))
+        # lib.call_module('figure', '{} -'.format(fig2._name))
         wesn2 = lib.extract_region()
         npt.assert_allclose(wesn2, np.array([-165., -150., 15., 25.]))
