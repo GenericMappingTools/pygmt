@@ -4,7 +4,6 @@ Define the Figure class that handles all plotting.
 import os
 from tempfile import TemporaryDirectory
 import base64
-from xml.etree import ElementTree
 
 try:
     from IPython.display import Image
@@ -41,6 +40,15 @@ class Figure(BasePlotting):
     True
     >>> os.remove('my-figure.png')
 
+    The plot region can be specified through ISO country codes (for example,
+    ``'JP'`` for Japan):
+
+    >>> fig = Figure()
+    >>> fig.basemap(region='JP', projection="M3i", frame=True)
+    >>> # The fig.region attribute shows the WESN bounding box for the figure
+    >>> print(', '.join('{:.2f}'.format(i)  for i in fig.region))
+    122.94, 145.82, 20.53, 45.52
+
     """
 
     def __init__(self):
@@ -76,6 +84,14 @@ class Figure(BasePlotting):
         """
         self._activate_figure()
         return kwargs
+
+    @property
+    def region(self):
+        "The geographic WESN bounding box for the current figure."
+        self._activate_figure()
+        with LibGMT() as lib:
+            wesn = lib.extract_region()
+        return wesn
 
     @fmt_docstring
     @use_alias(F='prefix', T='fmt', A='crop', E='dpi')
@@ -240,10 +256,9 @@ class Figure(BasePlotting):
         if method not in ['static', 'external', 'globe']:
             raise GMTError("Invalid show method '{}'.".format(method))
         if method == 'globe':
-            region = self._plot_region()
             png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
                                 as_bytes=True, transparent=True)
-            img = worldwind_show(image=png, width=width, region=region,
+            img = worldwind_show(image=png, width=width, region=self.region,
                                  canvas_id=self._name,
                                  globe_center=globe_center)
         elif method == 'external':
@@ -261,62 +276,6 @@ class Figure(BasePlotting):
                     "or use 'external=True' to open in an external viewer."]))
             img = Image(data=png, width=width)
         return img
-
-    def _plot_region(self):
-        """
-        Find the geographic region for the current figure.
-
-        Extracts the information from a KML preview of the figure. Kind of
-        hacky but works for both numerical regions and ISO country codes.
-
-        Returns
-        -------
-        region : list = [W, E, S, N]
-            The plot region as a list of floats.
-
-        Examples
-        --------
-
-        Using a numerical region:
-
-        >>> fig = Figure()
-        >>> fig.basemap(region=[0, 1, 2, 3], projection="X1id/1id", frame=True)
-        >>> fig._plot_region()
-        [0.0, 1.0, 2.0, 3.0]
-
-        Using an ISO country code:
-
-        >>> fig = Figure()
-        >>> fig.basemap(region='JP', projection="M3i", frame=True)
-        >>> print(', '.join('{:.6f}'.format(i)  for i in fig._plot_region()))
-        122.938515, 145.820877, 20.528774, 45.523136
-
-        Using the entire globe:
-
-        >>> fig = Figure()
-        >>> fig.basemap(region='g', projection="X3id/3id", frame=True)
-        >>> print(', '.join('{:.1f}'.format(i)  for i in fig._plot_region()))
-        0.0, 360.0, -90.0, 90.0
-
-        """
-        # Save a KML preview of the image
-        kml = self._preview(fmt='kml', dpi=10, as_bytes=False)
-        # Set the namespace so that I don't have to type it out all the time
-        nspace = dict(ns="http://earth.google.com/kml/2.1")
-        # Find the LatLonBox in the KML
-        bbox = (
-            ElementTree.parse(kml).getroot()
-            .find('ns:Document', nspace)
-            .find('ns:GroundOverlay', nspace)
-            .find('ns:LatLonBox', nspace)
-        )
-        region = [
-            bbox.find('ns:west', nspace).text,
-            bbox.find('ns:east', nspace).text,
-            bbox.find('ns:south', nspace).text,
-            bbox.find('ns:north', nspace).text,
-        ]
-        return [float(i) for i in region]
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
