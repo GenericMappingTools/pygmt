@@ -5,8 +5,43 @@ Doesn't include the plotting commands, which have their own test files.
 import os
 
 import pytest
+import numpy as np
+import numpy.testing as npt
 
 from .. import Figure
+
+
+def test_figure_region():
+    "Extract the plot region for the figure"
+    region = [0, 1, 2, 3]
+    fig = Figure()
+    fig.basemap(region=region, projection="X1id/1id", frame=True)
+    npt.assert_allclose(fig.region, np.array(region))
+
+
+def test_figure_region_multiple():
+    "Make sure the region argument is for the current figure"
+    region1 = [-10, 2, 0.355, 67]
+    fig1 = Figure()
+    fig1.basemap(region=region1, projection="X1id/1id", frame=True)
+
+    fig2 = Figure()
+    fig2.basemap(region='g', projection="X3id/3id", frame=True)
+
+    npt.assert_allclose(fig1.region, np.array(region1))
+    npt.assert_allclose(fig2.region, np.array([0.0, 360.0, -90.0, 90.0]))
+
+
+def test_figure_region_country_codes():
+    "Extract the plot region for the figure using country codes"
+    fig = Figure()
+    fig.basemap(region='JP', projection="M3i", frame=True)
+    npt.assert_allclose(fig.region,
+                        np.array([122.938515, 145.820877, 20.528774,
+                                  45.523136]))
+    fig = Figure()
+    fig.basemap(region='g', projection="X3id/3id", frame=True)
+    npt.assert_allclose(fig.region, np.array([0.0, 360.0, -90.0, 90.0]))
 
 
 def test_figure_savefig_exists():

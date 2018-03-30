@@ -1066,7 +1066,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
         0.00, 10.00, -20.00, -10.00
 
-        Using ISO country codes for the regions (for example `'US.HI'` for
+        Using ISO country codes for the regions (for example ``'US.HI'`` for
         Hawaii):
 
         >>> fig = gmt.Figure()
@@ -1078,7 +1078,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         -164.71, -154.81, 18.91, 23.58
 
         The country codes can have an extra argument that rounds the region a
-        multiple of the argument (for example, `'US.HI+r5'` will round the
+        multiple of the argument (for example, ``'US.HI+r5'`` will round the
         region to multiples of 5):
 
         >>> fig = gmt.Figure()
