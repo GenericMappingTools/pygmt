@@ -38,3 +38,10 @@ class GMTCLibNoSessionError(GMTCLibError):
     Tried to access GMT API without a currently open GMT session.
     """
     pass
+
+
+class GMTInvalidInput(GMTError):
+    """
+    Raised when the input of a function/method is invalid.
+    """
+    pass

@@ -3,7 +3,7 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 from .clib import LibGMT
-from .exceptions import GMTError
+from .exceptions import GMTInvalidInput
 from .helpers import build_arg_string, dummy_context, data_kind, \
     fmt_docstring, use_alias, kwargs_to_strings
 
@@ -18,7 +18,7 @@ class BasePlotting():
 
     def _preprocess(self, **kwargs):  # pylint: disable=no-self-use
         """
-        Make changes to kwargs before passing them to ``call_module``.
+        Make any changes to kwargs or required actions before plotting.
 
         This method is run before all plotting commands and can be used to
         insert special arguments into the kwargs or make any actions that are
@@ -27,10 +27,19 @@ class BasePlotting():
         For example, the :class:`gmt.Figure` needs this to tell the GMT modules
         to plot to a specific figure.
 
+        This is a dummy method that does nothing.
+
         Returns
         -------
         kwargs : dict
-            A modified version of the input kwargs.
+            The same input kwargs dictionary.
+
+        Examples
+        --------
+
+        >>> base = BasePlotting()
+        >>> base._preprocess(resolution='low')
+        {'resolution': 'low'}
 
         """
         return kwargs
@@ -174,13 +183,13 @@ class BasePlotting():
         extra_arrays = []
         if 'G' in kwargs and not isinstance(kwargs['G'], str):
             if kind != 'vectors':
-                raise GMTError(
+                raise GMTInvalidInput(
                     "Can't use arrays for color if data is matrix or file.")
             extra_arrays.append(kwargs['G'])
             del kwargs['G']
         if sizes is not None:
             if kind != 'vectors':
-                raise GMTError(
+                raise GMTInvalidInput(
                     "Can't use arrays for sizes if data is matrix or file.")
             extra_arrays.append(sizes)
 
@@ -239,11 +248,12 @@ class BasePlotting():
 
         """
         kwargs = self._preprocess(**kwargs)
-        assert 'B' in kwargs or 'L' in kwargs or 'T' in kwargs, \
-            "At least one of B, L, or T must be specified."
-        if 'D' in kwargs:
-            assert 'F' in kwargs, \
-                "Option D requires F to be specified as well."
+        if not ('B' in kwargs or 'L' in kwargs or 'T' in kwargs):
+            raise GMTInvalidInput(
+                "At least one of B, L, or T must be specified.")
+        if 'D' in kwargs and 'F' not in kwargs:
+            raise GMTInvalidInput(
+                "Option D requires F to be specified as well.")
         with LibGMT() as lib:
             lib.call_module('basemap', build_arg_string(kwargs))
 
@@ -277,6 +287,7 @@ class BasePlotting():
 
         """
         kwargs = self._preprocess(**kwargs)
-        assert 'D' in kwargs, "Option D must be specified."
+        if 'D' not in kwargs:
+            raise GMTInvalidInput("Option D must be specified.")
         with LibGMT() as lib:
             lib.call_module('logo', build_arg_string(kwargs))

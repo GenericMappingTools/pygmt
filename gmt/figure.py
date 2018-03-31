@@ -12,7 +12,7 @@ except ImportError:
 
 from .clib import LibGMT
 from .base_plotting import BasePlotting
-from .exceptions import GMTError
+from .exceptions import GMTError, GMTInvalidInput
 from .helpers import build_arg_string, fmt_docstring, use_alias, \
     kwargs_to_strings, launch_external_viewer, unique_name, worldwind_show
 
@@ -196,11 +196,14 @@ class Figure(BasePlotting):
 
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
-        assert ext in fmts, "Unknown extension '.{}'".format(ext)
+        if ext not in fmts:
+            raise GMTInvalidInput("Unknown extension '.{}'".format(ext))
         fmt = fmts[ext]
         if transparent:
-            assert fmt == 'g', \
-                "Transparency unavailable for '{}', only for png.".format(ext)
+            if fmt != 'g':
+                raise GMTInvalidInput(
+                    "Transparency unavailable for '{}', only for png."
+                    .format(ext))
             fmt = fmt.upper()
         if anti_alias:
             kwargs['Qt'] = 2
@@ -254,7 +257,7 @@ class Figure(BasePlotting):
 
         """
         if method not in ['static', 'external', 'globe']:
-            raise GMTError("Invalid show method '{}'.".format(method))
+            raise GMTInvalidInput("Invalid show method '{}'.".format(method))
         if method == 'globe':
             png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
                                 as_bytes=True, transparent=True)

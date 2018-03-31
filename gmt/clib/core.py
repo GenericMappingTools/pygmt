@@ -8,7 +8,7 @@ from contextlib import contextmanager
 
 import numpy as np
 
-from ..exceptions import GMTCLibError, GMTCLibNoSessionError
+from ..exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from .utils import load_libgmt, kwargs_to_ctypes_array, vectors_to_arrays
 
 
@@ -465,16 +465,12 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             A ctypes pointer (an integer) to the allocated ``GMT_Dataset``
             object.
 
-        Raises
-        ------
-        GMTCLibError
-            In case of invalid inputs or data_ptr being NULL.
-
         """
         # Parse and check input arguments
         family_int = self._parse_data_family(family)
         if mode not in self.data_modes:
-            raise GMTCLibError("Invalid data creation mode '{}'.".format(mode))
+            raise GMTInvalidInput(
+                "Invalid data creation mode '{}'.".format(mode))
         geometry_int = self._parse_data_geometry(geometry)
         # dim is required (get a segmentation fault if passing it as None
         if 'dim' not in kwargs:
@@ -547,7 +543,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         """
         if geometry not in self.data_geometries:
-            raise GMTCLibError("Invalid data geometry '{}'.".format(geometry))
+            raise GMTInvalidInput(
+                "Invalid data geometry '{}'.".format(geometry))
         return self.get_constant(geometry)
 
     def _parse_data_family(self, family):
@@ -579,17 +576,17 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         """
         parts = family.split('|')
         if len(parts) > 2:
-            raise GMTCLibError(
+            raise GMTInvalidInput(
                 "Too many sections in family (>2): '{}'".format(family))
         family_name = parts[0]
         if family_name not in self.data_families:
-            raise GMTCLibError(
+            raise GMTInvalidInput(
                 "Invalid data family '{}'.".format(family_name))
         family_value = self.get_constant(family_name)
         if len(parts) == 2:
             via_name = parts[1]
             if via_name not in self.data_vias:
-                raise GMTCLibError(
+                raise GMTInvalidInput(
                     "Invalid data family (via) '{}'.".format(via_name))
             via_value = self.get_constant(via_name)
         else:
@@ -631,11 +628,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         """
         if array.dtype.name not in self._dtypes:
-            raise GMTCLibError(
+            raise GMTInvalidInput(
                 "Unsupported numpy data type '{}'.".format(array.dtype.name)
             )
         if array.ndim != ndim:
-            raise GMTCLibError(
+            raise GMTInvalidInput(
                 "Expected a numpy 1d array, got {}d.".format(array.ndim)
             )
         return self.get_constant(self._dtypes[array.dtype.name])
@@ -866,7 +863,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         family_int = self._parse_data_family(family)
         geometry_int = self._parse_data_geometry(geometry)
         if direction not in ('GMT_IN', 'GMT_OUT'):
-            raise GMTCLibError("Invalid direction '{}'.".format(direction))
+            raise GMTInvalidInput("Invalid direction '{}'.".format(direction))
         direction_int = self.get_constant(direction)
 
         buff = ctypes.create_string_buffer(self.get_constant('GMT_STR16'))
@@ -946,7 +943,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         columns = len(arrays)
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
-            raise GMTCLibError("All arrays must have same size.")
+            raise GMTInvalidInput("All arrays must have same size.")
 
         family = 'GMT_IS_DATASET|GMT_VIA_VECTOR'
         geometry = 'GMT_IS_POINT'
