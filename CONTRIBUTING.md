@@ -258,9 +258,10 @@ necessary), but sometimes inputs must have a given set of properties or be from
 a predefined list of values.
 
 In these cases, an exceptions should be raised to signal the invalid
-inputs/outputs. We provide custom exceptions for this (see the API reference).
-In general, invalid inputs should raise `GMTInvalidInput`. The `gmt.clib`
-raises `GMTCLibError` when API functions return invalid status codes.
+inputs/outputs. Please avoid using `assert` statements. We provide custom
+exceptions for this (see the API reference). In general, invalid inputs should
+raise `GMTInvalidInput`. `gmt.clib` functions/methods should raise
+`GMTCLibError` when API functions return invalid status codes.
 
 
 ## Credit
