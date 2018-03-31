@@ -249,6 +249,20 @@ passing.
 Don't forget to commit the baseline image as well.
 
 
+## Validating input and output values
+
+It's always a good idea to validate your input and output values to make sure
+that things fail in a predictable way. The validation shouldn't be too
+aggressive (for example, checking the data types of inputs is usually not
+necessary), but sometimes inputs must have a given set of properties or be from
+a predefined list of values.
+
+In these cases, an exceptions should be raised to signal the invalid
+inputs/outputs. We provide custom exceptions for this (see the API reference).
+In general, invalid inputs should raise `GMTInvalidInput`. The `gmt.clib`
+raises `GMTCLibError` when API functions return invalid status codes.
+
+
 ## Credit
 
 This guide was adapted from the [MetPy Contributing

@@ -6,6 +6,7 @@ import os
 import pytest
 
 from ..helpers import kwargs_to_strings, GMTTempFile, unique_name
+from ..exceptions import GMTInvalidInput
 
 
 def test_unique_name():
@@ -17,7 +18,7 @@ def test_unique_name():
 
 def test_kwargs_to_strings_fails():
     "Make sure it fails for invalid conversion types."
-    with pytest.raises(AssertionError):
+    with pytest.raises(GMTInvalidInput):
         kwargs_to_strings(bla="blablabla")
 
 

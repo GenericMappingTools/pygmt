@@ -12,7 +12,7 @@ import pandas
 from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError, \
-    GMTCLibNoSessionError
+    GMTCLibNoSessionError, GMTInvalidInput
 from ..helpers import GMTTempFile
 from .. import Figure
 
@@ -186,7 +186,7 @@ def test_parse_data_family_fails():
         'NOT_A_PROPER_FAMILY|ALSO_INVALID',
     ]
     for test_case in test_cases:
-        with pytest.raises(GMTCLibError):
+        with pytest.raises(GMTInvalidInput):
             lib._parse_data_family(test_case)
 
 
@@ -239,7 +239,7 @@ def test_create_data_fails():
     "Test for failures on bad input"
     with LibGMT() as lib:
         # Passing in invalid mode
-        with pytest.raises(GMTCLibError):
+        with pytest.raises(GMTInvalidInput):
             lib.create_data(
                 family='GMT_IS_DATASET',
                 geometry='GMT_IS_SURFACE',
@@ -249,7 +249,7 @@ def test_create_data_fails():
                 inc=[0.1, 0.2],
             )
         # Passing in invalid geometry
-        with pytest.raises(GMTCLibError):
+        with pytest.raises(GMTInvalidInput):
             lib.create_data(
                 family='GMT_IS_GRID',
                 geometry='Not_a_valid_geometry',
@@ -300,7 +300,7 @@ def test_put_vector_invalid_dtype():
             dim=[2, 3, 1, 0],  # columns, rows, layers, dtype
         )
         data = np.array([37, 12, 556], dtype='complex128')
-        with pytest.raises(GMTCLibError):
+        with pytest.raises(GMTInvalidInput):
             lib.put_vector(dataset, column=1, vector=data)
 
 
@@ -328,7 +328,7 @@ def test_put_vector_2d_fails():
             dim=[1, 6, 1, 0],  # columns, rows, layers, dtype
         )
         data = np.array([[37, 12, 556], [37, 12, 556]], dtype='int32')
-        with pytest.raises(GMTCLibError):
+        with pytest.raises(GMTInvalidInput):
             lib.put_vector(dataset, column=0, vector=data)
 
 
@@ -420,7 +420,7 @@ def test_virtual_file_bad_direction():
         vfargs = ('GMT_IS_DATASET|GMT_VIA_MATRIX', 'GMT_IS_POINT',
                   'GMT_IS_GRID',  # The invalid direction argument
                   0)
-        with pytest.raises(GMTCLibError):
+        with pytest.raises(GMTInvalidInput):
             with lib.open_virtual_file(*vfargs):
                 print("This should have failed")
 
@@ -468,7 +468,7 @@ def test_vectors_to_vfile_diff_size():
     x = np.arange(5)
     y = np.arange(6)
     with LibGMT() as lib:
-        with pytest.raises(GMTCLibError):
+        with pytest.raises(GMTInvalidInput):
             with lib.vectors_to_vfile(x, y):
                 print("This should have failed")
 

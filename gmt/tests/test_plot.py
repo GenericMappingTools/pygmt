@@ -8,7 +8,7 @@ import pytest
 import numpy as np
 
 from .. import Figure
-from ..exceptions import GMTError
+from ..exceptions import GMTInvalidInput
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -39,17 +39,17 @@ def test_plot_red_circles(data, region):
 def test_plot_fail_no_data(data):
     "Plot should raise an exception if no data is given"
     fig = Figure()
-    with pytest.raises(GMTError):
+    with pytest.raises(GMTInvalidInput):
         fig.plot(region=region, projection='X4i', style='c0.2c', color='red',
                  frame='afg')
-    with pytest.raises(GMTError):
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=data[:, 0], region=region, projection='X4i', style='c0.2c',
                  color='red', frame='afg')
-    with pytest.raises(GMTError):
+    with pytest.raises(GMTInvalidInput):
         fig.plot(y=data[:, 0], region=region, projection='X4i', style='c0.2c',
                  color='red', frame='afg')
     # Should also fail if given too much data
-    with pytest.raises(GMTError):
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=data[:, 0], y=data[:, 1], data=data, region=region,
                  projection='X4i', style='c0.2c', color='red', frame='afg')
 
@@ -57,10 +57,10 @@ def test_plot_fail_no_data(data):
 def test_plot_fail_size_color(data):
     "Should raise an exception if array sizes and color are used with matrix"
     fig = Figure()
-    with pytest.raises(GMTError):
+    with pytest.raises(GMTInvalidInput):
         fig.plot(data=data, region=region, projection='X4i', style='c0.2c',
                  color=data[:, 2], frame='afg')
-    with pytest.raises(GMTError):
+    with pytest.raises(GMTInvalidInput):
         fig.plot(data=data, region=region, projection='X4i', style='cc',
                  sizes=data[:, 2], color='red', frame='afg')
 

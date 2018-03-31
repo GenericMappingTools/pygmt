@@ -3,6 +3,7 @@ Non-plot GMT modules.
 """
 from .clib import LibGMT
 from .helpers import build_arg_string, fmt_docstring, GMTTempFile, use_alias
+from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
@@ -37,7 +38,8 @@ def info(fname, **kwargs):
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this as the string *-Tzmin/zmax/dz*.
     """
-    assert isinstance(fname, str), 'Only accepts file names.'
+    if not isinstance(fname, str):
+        raise GMTInvalidInput("'info' only accepts file names.")
 
     with GMTTempFile() as tmpfile:
         arg_str = ' '.join([fname, build_arg_string(kwargs),

@@ -9,6 +9,7 @@ import numpy as np
 import numpy.testing as npt
 
 from .. import Figure
+from ..exceptions import GMTInvalidInput
 
 
 def test_figure_region():
@@ -65,7 +66,7 @@ def test_figure_savefig_transparent():
     prefix = 'test_figure_savefig_transparent'
     for fmt in 'pdf jpg bmp eps tif'.split():
         fname = '.'.join([prefix, fmt])
-        with pytest.raises(AssertionError):
+        with pytest.raises(GMTInvalidInput):
             fig.savefig(fname, transparent=True)
     # png should not raise an error
     fname = '.'.join([prefix, 'png'])
@@ -106,6 +107,11 @@ def test_figure_savefig():
     fig.savefig(fname)
     assert kwargs_saved[-1] == dict(prefix=prefix, fmt='e', crop=True, Qt=2,
                                     Qg=2)
+
+    fname = '.'.join([prefix, 'kml'])
+    fig.savefig(fname)
+    assert kwargs_saved[-1] == dict(prefix=prefix, fmt='g', crop=True, Qt=2,
+                                    Qg=2, W='+k')
 
 
 def test_figure_show():

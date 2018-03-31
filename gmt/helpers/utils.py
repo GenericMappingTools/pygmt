@@ -7,7 +7,7 @@ import subprocess
 import webbrowser
 from contextlib import contextmanager
 
-from ..exceptions import GMTError
+from ..exceptions import GMTInvalidInput
 
 
 def data_kind(data, x, y):
@@ -48,27 +48,27 @@ def data_kind(data, x, y):
     >>> data_kind(data=None, x=None, y=None)
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTError: No input data provided.
+    gmt.exceptions.GMTInvalidInput: No input data provided.
     >>> data_kind(data='data.txt', x=np.array([1, 2]), y=np.array([4, 5]))
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTError: Too much data. Use either data or x and y.
+    gmt.exceptions.GMTInvalidInput: Too much data. Use either data or x and y.
     >>> data_kind(data='data.txt', x=np.array([1, 2]), y=None)
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTError: Too much data. Use either data or x and y.
+    gmt.exceptions.GMTInvalidInput: Too much data. Use either data or x and y.
     >>> data_kind(data=None, x=np.array([1, 2]), y=None)
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTError: Must provided both x and y.
+    gmt.exceptions.GMTInvalidInput: Must provided both x and y.
 
     """
     if data is None and x is None and y is None:
-        raise GMTError('No input data provided.')
+        raise GMTInvalidInput('No input data provided.')
     if data is not None and (x is not None or y is not None):
-        raise GMTError('Too much data. Use either data or x and y.')
+        raise GMTInvalidInput('Too much data. Use either data or x and y.')
     if data is None and (x is None or y is None):
-        raise GMTError('Must provided both x and y.')
+        raise GMTInvalidInput('Must provided both x and y.')
 
     if isinstance(data, str):
         kind = 'file'

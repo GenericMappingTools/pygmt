@@ -9,6 +9,7 @@ import textwrap
 import functools
 
 from .utils import is_nonstr_iter
+from ..exceptions import GMTInvalidInput
 
 
 GMT_DOCS = 'http://gmt.soest.hawaii.edu/doc/latest'
@@ -264,8 +265,10 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     valid_conversions = ['sequence', 'sequence_comma']
 
     for arg, fmt in conversions.items():
-        assert fmt in valid_conversions, \
-            "Invalid conversion type '{}' for argument '{}'.".format(fmt, arg)
+        if fmt not in valid_conversions:
+            raise GMTInvalidInput(
+                "Invalid conversion type '{}' for argument '{}'."
+                .format(fmt, arg))
 
     separators = {'sequence': '/', 'sequence_comma': ','}
 
