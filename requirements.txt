@@ -1,6 +1,7 @@
 gmt=6.0.0*
 numpy
 pandas
+xarray
 ipython
 # The following are required for development purposes
 matplotlib

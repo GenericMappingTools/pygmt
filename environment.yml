@@ -9,6 +9,8 @@ dependencies:
     - gmt=6.0.0*
     - numpy
     - pandas
+    - xarray
+    - ipython
     - matplotlib
     - jupyter
     - pytest

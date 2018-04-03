@@ -45,6 +45,7 @@ PLATFORMS = "Any"
 INSTALL_REQUIRES = [
     'numpy',
     'pandas',
+    'xarray',
 ]
 
 if __name__ == '__main__':
