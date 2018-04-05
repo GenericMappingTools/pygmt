@@ -3,6 +3,7 @@
 Test the wrappers for the C API.
 """
 import os
+from contextlib import contextmanager
 
 import pytest
 import numpy as np
@@ -18,6 +19,34 @@ from .. import Figure
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
+
+
+@contextmanager
+def mock(lib, func, returns=None):
+    """
+    Mock a GMT C API function to make it always return a given value.
+
+    Used to test that exceptions are raised when API functions fail by
+    producing a NULL pointer as output or non-zero status codes.
+
+    Needed because it's not easy to get some API functions to fail without
+    inducing a Segmentation Fault (which is a good thing because libgmt usually
+    only fails with errors).
+    """
+    def mock_api_function(*args):  # pylint: disable=unused-argument
+        """
+        A mock GMT API function that always returns a given value.
+        """
+        return returns
+
+    backup = getattr(lib._libgmt, func)
+    setattr(lib._libgmt, func, mock_api_function)
+    try:
+        yield
+    finally:
+        # Need to restore the original method to please pylint. Make sure it
+        # always happens by putting it in this finally block.
+        setattr(lib._libgmt, func, backup)
 
 
 def test_load_libgmt():
@@ -69,6 +98,14 @@ def test_create_destroy_session():
     lib.destroy_session(session2)
 
 
+def test_create_session_fails():
+    "Check that an exception is raised if the session pointer is None"
+    lib = LibGMT()
+    with mock(lib, 'GMT_Create_Session', returns=None):
+        with pytest.raises(GMTCLibError):
+            lib.create_session('test-session-name')
+
+
 def test_destroy_session_fails():
     "Fail to destroy session when given bad input"
     lib = LibGMT()
@@ -92,10 +129,8 @@ def test_errors_sent_to_log_file():
             assert os.path.exists(logfile)
             data_file = 'not-a-valid-data-file.bla'
             # Make a bogus module call that will fail
-            status = lib._c_call_module(lib.current_session,
-                                        'info'.encode(),
-                                        mode,
-                                        data_file.encode())
+            status = lib._libgmt.GMT_Call_Module(
+                lib.current_session, 'info'.encode(), mode, data_file.encode())
             assert status != 0
             # Check the file content
             with open(logfile) as flog:
@@ -236,10 +271,10 @@ def test_create_data_grid_range():
 
 
 def test_create_data_fails():
-    "Test for failures on bad input"
-    with LibGMT() as lib:
-        # Passing in invalid mode
-        with pytest.raises(GMTInvalidInput):
+    "Check that create_data raises exceptions for invalid input and output"
+    # Passing in invalid mode
+    with pytest.raises(GMTInvalidInput):
+        with LibGMT() as lib:
             lib.create_data(
                 family='GMT_IS_DATASET',
                 geometry='GMT_IS_SURFACE',
@@ -248,8 +283,9 @@ def test_create_data_fails():
                 ranges=[150., 250., -20., 20.],
                 inc=[0.1, 0.2],
             )
-        # Passing in invalid geometry
-        with pytest.raises(GMTInvalidInput):
+    # Passing in invalid geometry
+    with pytest.raises(GMTInvalidInput):
+        with LibGMT() as lib:
             lib.create_data(
                 family='GMT_IS_GRID',
                 geometry='Not_a_valid_geometry',
@@ -258,6 +294,14 @@ def test_create_data_fails():
                 ranges=[150., 250., -20., 20.],
                 inc=[0.1, 0.2],
             )
+
+    # If the data pointer returned is None (NULL pointer)
+    with pytest.raises(GMTCLibError):
+        with LibGMT() as lib:
+            with mock(lib, 'GMT_Create_Data', returns=None):
+                lib.create_data(family='GMT_IS_DATASET',
+                                geometry='GMT_IS_SURFACE',
+                                mode='GMT_CONTAINER_ONLY', dim=[11, 10, 2, 0])
 
 
 def test_put_vector():
@@ -357,6 +401,17 @@ def test_put_matrix():
                 npt.assert_allclose(newdata, data)
 
 
+def test_put_matrix_fails():
+    "Check that put_matrix raises an exception if return code is not zero"
+    # It's hard to make put_matrix fail on the C API level because of all the
+    # checks on input arguments. Mock the C API function just to make sure it
+    # works.
+    with LibGMT() as lib:
+        with mock(lib, 'GMT_Put_Matrix', returns=1):
+            with pytest.raises(GMTCLibError):
+                lib.put_matrix(dataset=None, matrix=np.empty((10, 2)), pad=0)
+
+
 def test_put_matrix_grid():
     "Check that assigning a numpy 2d array to a grid works"
     dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
@@ -412,6 +467,31 @@ def test_virtual_file():
                                 for col in data.T])
             expected = '<matrix memory>: N = {}\t{}\n'.format(shape[0], bounds)
             assert output == expected
+
+
+def test_virtual_file_fails():
+    """
+    Check that opening and closing virtual files raises an exception for
+    non-zero return codes
+    """
+    vfargs = ('GMT_IS_DATASET|GMT_VIA_MATRIX', 'GMT_IS_POINT', 'GMT_IN', None)
+
+    # Mock Open_VirtualFile to test the status check when entering the context.
+    # If the exception is raised, the code won't get to the closing of the
+    # virtual file.
+    with LibGMT() as lib, mock(lib, 'GMT_Open_VirtualFile', returns=1):
+        with pytest.raises(GMTCLibError):
+            with lib.open_virtual_file(*vfargs):
+                print("Should not get to this code")
+
+    # Test the status check when closing the virtual file
+    # Mock the opening to return 0 (success) so that we don't open a file that
+    # we won't close later.
+    with LibGMT() as lib, mock(lib, 'GMT_Open_VirtualFile', returns=0), \
+            mock(lib, 'GMT_Close_VirtualFile', returns=1):
+        with pytest.raises(GMTCLibError):
+            with lib.open_virtual_file(*vfargs):
+                print("Shouldn't get to this code either")
 
 
 def test_virtual_file_bad_direction():
@@ -552,25 +632,10 @@ def test_vectors_to_vfile_arraylike():
 
 
 def test_extract_region_fails():
-    "Check that extract region fails under the right conditions."
-    # If nothing has been plotted
-    fig = Figure()
+    "Check that extract region fails if nothing has been plotted."
+    Figure()
     with pytest.raises(GMTCLibError):
         with LibGMT() as lib:
-            lib.extract_region()
-
-    # Mock _c_extract_region to return 0 but not modify the wesn data
-
-    def mock(*args):  # pylint: disable=unused-argument
-        "Do nothing so that the wesn pointer is all NaNs"
-        return 0
-
-    fig = Figure()
-    fig.coast(region=[0, 10, -20, -10], projection="M6i", frame=True,
-              land='black')
-    with LibGMT() as lib:
-        lib._c_extract_region = mock
-        with pytest.raises(GMTCLibError):
             lib.extract_region()
 
 
@@ -599,3 +664,16 @@ def test_extract_region_two_figures():
     with LibGMT() as lib:
         wesn2 = lib.extract_region()
         npt.assert_allclose(wesn2, np.array([-165., -150., 15., 25.]))
+
+
+def test_write_data_fails():
+    "Check that write data raises an exception for non-zero return codes"
+    # It's hard to make the C API function fail without causing a Segmentation
+    # Fault. Can't test this if by giving a bad file name because if
+    # output=='', GMT will just write to stdout and spaces are valid file
+    # names. Use a mock instead just to exercise this part of the code.
+    with LibGMT() as lib:
+        with mock(lib, 'GMT_Write_Data', returns=1):
+            with pytest.raises(GMTCLibError):
+                lib.write_data('GMT_IS_VECTOR', 'GMT_IS_POINT',
+                               'GMT_WRITE_SET', [1]*6, 'some-file-name', None)
