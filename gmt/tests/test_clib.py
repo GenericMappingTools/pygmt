@@ -489,11 +489,11 @@ def test_virtual_file_fails():
     # Mock the opening to return 0 (success) so that we don't open a file that
     # we won't close later.
     with LibGMT() as lib:
-        with mock(lib, 'GMT_Open_VirtualFile', returns=0):
-            with mock(lib, 'GMT_Close_VirtualFile', returns=1):
-                with pytest.raises(GMTCLibError):
-                    with lib.open_virtual_file(*vfargs):
-                        print("Shouldn't get to this code either")
+        with mock(lib, 'GMT_Open_VirtualFile', returns=0), \
+                mock(lib, 'GMT_Close_VirtualFile', returns=1):
+            with pytest.raises(GMTCLibError):
+                with lib.open_virtual_file(*vfargs):
+                    print("Shouldn't get to this code either")
 
 
 def test_virtual_file_bad_direction():
