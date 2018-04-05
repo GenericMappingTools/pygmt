@@ -479,21 +479,19 @@ def test_virtual_file_fails():
     # Mock Open_VirtualFile to test the status check when entering the context.
     # If the exception is raised, the code won't get to the closing of the
     # virtual file.
-    with LibGMT() as lib:
-        with mock(lib, 'GMT_Open_VirtualFile', returns=1):
-            with pytest.raises(GMTCLibError):
-                with lib.open_virtual_file(*vfargs):
-                    print("Should not get to this code")
+    with LibGMT() as lib, mock(lib, 'GMT_Open_VirtualFile', returns=1):
+        with pytest.raises(GMTCLibError):
+            with lib.open_virtual_file(*vfargs):
+                print("Should not get to this code")
 
     # Test the status check when closing the virtual file
     # Mock the opening to return 0 (success) so that we don't open a file that
     # we won't close later.
-    with LibGMT() as lib:
-        with mock(lib, 'GMT_Open_VirtualFile', returns=0), \
-                mock(lib, 'GMT_Close_VirtualFile', returns=1):
-            with pytest.raises(GMTCLibError):
-                with lib.open_virtual_file(*vfargs):
-                    print("Shouldn't get to this code either")
+    with LibGMT() as lib, mock(lib, 'GMT_Open_VirtualFile', returns=0), \
+            mock(lib, 'GMT_Close_VirtualFile', returns=1):
+        with pytest.raises(GMTCLibError):
+            with lib.open_virtual_file(*vfargs):
+                print("Shouldn't get to this code either")
 
 
 def test_virtual_file_bad_direction():
