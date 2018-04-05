@@ -90,20 +90,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     def __init__(self, libname='libgmt'):
         self._logfile = None
         self._session_id = None
-        self._libgmt = None
-        self._c_get_enum = None
-        self._c_create_session = None
-        self._c_destroy_session = None
-        self._c_call_module = None
-        self._c_create_data = None
-        self._c_handle_messages = None
-        self._c_put_vector = None
-        self._c_put_matrix = None
-        self._c_write_data = None
-        self._c_open_virtualfile = None
-        self._c_close_virtualfile = None
-        self._c_extract_region = None
-        self._bind_clib_functions(libname)
+        self._libgmt = load_libgmt(libname)
 
     @property
     def current_session(self):
@@ -129,91 +116,6 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Set the session void pointer.
         """
         self._session_id = session
-
-    def _bind_clib_functions(self, libname):
-        """
-        Loads libgmt and binds the library functions to class attributes.
-
-        Sets the argument and return types for the functions.
-        """
-        self._libgmt = load_libgmt(libname)
-
-        self._c_create_session = self._libgmt.GMT_Create_Session
-        self._c_create_session.argtypes = [ctypes.c_char_p, ctypes.c_uint,
-                                           ctypes.c_uint, ctypes.c_void_p]
-        self._c_create_session.restype = ctypes.c_void_p
-
-        self._c_destroy_session = self._libgmt.GMT_Destroy_Session
-        self._c_destroy_session.argtypes = [ctypes.c_void_p]
-        self._c_destroy_session.restype = ctypes.c_int
-
-        self._c_get_enum = self._libgmt.GMT_Get_Enum
-        self._c_get_enum.argtypes = [ctypes.c_char_p]
-        self._c_get_enum.restype = ctypes.c_int
-
-        self._c_call_module = self._libgmt.GMT_Call_Module
-        self._c_call_module.argtypes = [ctypes.c_void_p, ctypes.c_char_p,
-                                        ctypes.c_int, ctypes.c_void_p]
-        self._c_call_module.restype = ctypes.c_int
-
-        self._c_create_data = self._libgmt.GMT_Create_Data
-        self._c_create_data.argtypes = [
-            ctypes.c_void_p,                  # API
-            ctypes.c_uint,                    # family
-            ctypes.c_uint,                    # geometry
-            ctypes.c_uint,                    # mode
-            ctypes.POINTER(ctypes.c_uint64),  # dim
-            ctypes.POINTER(ctypes.c_double),  # range
-            ctypes.POINTER(ctypes.c_double),  # inc
-            ctypes.c_uint,                    # registration
-            ctypes.c_int,                     # pad
-            ctypes.c_void_p,                  # data
-        ]
-        self._c_create_data.restype = ctypes.c_void_p
-
-        self._c_handle_messages = self._libgmt.GMT_Handle_Messages
-        self._c_handle_messages.argtypes = [ctypes.c_void_p, ctypes.c_uint,
-                                            ctypes.c_uint, ctypes.c_char_p]
-        self._c_handle_messages.restype = ctypes.c_int
-
-        self._c_put_vector = self._libgmt.GMT_Put_Vector
-        self._c_put_vector.argtypes = [ctypes.c_void_p, ctypes.c_void_p,
-                                       ctypes.c_uint, ctypes.c_uint,
-                                       ctypes.c_void_p]
-        self._c_put_vector.restype = ctypes.c_int
-
-        self._c_put_matrix = self._libgmt.GMT_Put_Matrix
-        self._c_put_matrix.argtypes = [ctypes.c_void_p, ctypes.c_void_p,
-                                       ctypes.c_uint, ctypes.c_int,
-                                       ctypes.c_void_p]
-        self._c_put_matrix.restype = ctypes.c_int
-
-        self._c_write_data = self._libgmt.GMT_Write_Data
-        self._c_write_data.argtypes = [ctypes.c_void_p, ctypes.c_uint,
-                                       ctypes.c_uint, ctypes.c_uint,
-                                       ctypes.c_uint,
-                                       ctypes.POINTER(ctypes.c_double),
-                                       ctypes.c_char_p, ctypes.c_void_p]
-        self._c_write_data.restype = ctypes.c_int
-
-        self._c_open_virtualfile = self._libgmt.GMT_Open_VirtualFile
-        self._c_open_virtualfile.argtypes = [ctypes.c_void_p,
-                                             ctypes.c_uint,
-                                             ctypes.c_uint,
-                                             ctypes.c_uint,
-                                             ctypes.c_void_p,
-                                             ctypes.c_char_p]
-        self._c_open_virtualfile.restype = ctypes.c_int
-
-        self._c_close_virtualfile = self._libgmt.GMT_Close_VirtualFile
-        self._c_close_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
-        self._c_close_virtualfile.restype = ctypes.c_int
-
-        self._c_extract_region = self._libgmt.GMT_Extract_Region
-        self._c_extract_region.argtypes = [ctypes.c_void_p,
-                                           ctypes.c_char_p,
-                                           ctypes.POINTER(ctypes.c_double)]
-        self._c_extract_region.restype = ctypes.c_int
 
     def __enter__(self):
         """
@@ -252,14 +154,19 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             Used by GMT C API functions.
 
         """
+        c_create_session = self._libgmt.GMT_Create_Session
+        c_create_session.argtypes = [ctypes.c_char_p, ctypes.c_uint,
+                                     ctypes.c_uint, ctypes.c_void_p]
+        c_create_session.restype = ctypes.c_void_p
+
         # None is passed in place of the print function pointer. It becomes the
         # NULL pointer when passed to C, prompting the C API to use the default
         # print function.
         print_func = None
         padding = self.get_constant('GMT_PAD_DEFAULT')
         session_type = self.get_constant('GMT_SESSION_EXTERNAL')
-        session = self._c_create_session(session_name.encode(), padding,
-                                         session_type, print_func)
+        session = c_create_session(session_name.encode(), padding,
+                                   session_type, print_func)
 
         if session is None:
             raise GMTCLibError("Failed to create a GMT API void pointer.")
@@ -283,7 +190,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             The :py:class:`ctypes.CDLL` instance for the libgmt shared library.
 
         """
-        status = self._c_destroy_session(session)
+        c_destroy_session = self._libgmt.GMT_Destroy_Session
+        c_destroy_session.argtypes = [ctypes.c_void_p]
+        c_destroy_session.restype = ctypes.c_int
+
+        status = c_destroy_session(session)
         if status:
             raise GMTCLibError('Failed to destroy GMT API session')
 
@@ -311,7 +222,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             If the constant doesn't exist.
 
         """
-        value = self._c_get_enum(name.encode())
+        c_get_enum = self._libgmt.GMT_Get_Enum
+        c_get_enum.argtypes = [ctypes.c_char_p]
+        c_get_enum.restype = ctypes.c_int
+
+        value = c_get_enum(name.encode())
 
         if value is None or value == -99999:
             raise GMTCLibError(
@@ -347,25 +262,29 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> with LibGMT() as lib:
         ...     mode = lib.get_constant('GMT_MODULE_CMD')
         ...     with lib.log_to_file() as logfile:
-        ...         status = lib._c_call_module(lib.current_session,
-        ...                                     'info'.encode(),
-        ...                                     mode,
-        ...                                     'bogus-file.bla'.encode())
+        ...         status = lib._libgmt.GMT_Call_Module(
+        ...             lib.current_session, 'info'.encode(), mode,
+        ...             'bogus-file.bla'.encode())
         ...         with open(logfile) as flog:
         ...             print(flog.read().strip())
         gmtinfo [ERROR]: Error for input file: No such file (bogus-file.bla)
 
         """
+        c_handle_messages = self._libgmt.GMT_Handle_Messages
+        c_handle_messages.argtypes = [ctypes.c_void_p, ctypes.c_uint,
+                                      ctypes.c_uint, ctypes.c_char_p]
+        c_handle_messages.restype = ctypes.c_int
+
         if logfile is None:
             tmp_file = NamedTemporaryFile(prefix='gmt-python-', suffix='.log',
                                           delete=False)
             logfile = tmp_file.name
             tmp_file.close()
 
-        status = self._c_handle_messages(self.current_session,
-                                         self.get_constant('GMT_LOG_ONCE'),
-                                         self.get_constant('GMT_IS_FILE'),
-                                         logfile.encode())
+        status = c_handle_messages(self.current_session,
+                                   self.get_constant('GMT_LOG_ONCE'),
+                                   self.get_constant('GMT_IS_FILE'),
+                                   logfile.encode())
         if status != 0:
             msg = "Failed to set logging to file '{}' (error: {}).".format(
                 logfile, status)
@@ -400,13 +319,18 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             If the returned status code of the function is non-zero.
 
         """
+        c_call_module = self._libgmt.GMT_Call_Module
+        c_call_module.argtypes = [ctypes.c_void_p, ctypes.c_char_p,
+                                  ctypes.c_int, ctypes.c_void_p]
+        c_call_module.restype = ctypes.c_int
+
         mode = self.get_constant('GMT_MODULE_CMD')
         # If there is no open session, this will raise an exception. Can' let
         # it happen inside the 'with' otherwise the logfile won't be deleted.
         session = self.current_session
         with self.log_to_file() as logfile:
-            status = self._c_call_module(session, module.encode(), mode,
-                                         args.encode())
+            status = c_call_module(session, module.encode(), mode,
+                                   args.encode())
             # Get the error message inside the with block before the log file
             # is deleted
             with open(logfile) as flog:
@@ -466,6 +390,21 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             object.
 
         """
+        c_create_data = self._libgmt.GMT_Create_Data
+        c_create_data.argtypes = [
+            ctypes.c_void_p,                  # API
+            ctypes.c_uint,                    # family
+            ctypes.c_uint,                    # geometry
+            ctypes.c_uint,                    # mode
+            ctypes.POINTER(ctypes.c_uint64),  # dim
+            ctypes.POINTER(ctypes.c_double),  # range
+            ctypes.POINTER(ctypes.c_double),  # inc
+            ctypes.c_uint,                    # registration
+            ctypes.c_int,                     # pad
+            ctypes.c_void_p,                  # data
+        ]
+        c_create_data.restype = ctypes.c_void_p
+
         # Parse and check input arguments
         family_int = self._parse_data_family(family)
         if mode not in self.data_modes:
@@ -485,18 +424,12 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         registration = kwargs.get('registration',
                                   self.get_constant('GMT_GRID_NODE_REG'))
 
-        data_ptr = self._c_create_data(
-            self.current_session,
-            family_int,
-            geometry_int,
-            self.get_constant(mode),
-            dim,
-            ranges,
-            inc,
-            registration,
-            pad,
-            None,  # NULL pointer for existing data
-        )
+        # Use a NULL pointer (None) for existing data to indicate that the
+        # container should be created empty. Fill it in later using put_vector
+        # and put_matrix.
+        data_ptr = c_create_data(self.current_session, family_int,
+                                 geometry_int, self.get_constant(mode), dim,
+                                 ranges, inc, registration, pad, None)
 
         if data_ptr is None:
             raise GMTCLibError("Failed to create an empty GMT data pointer.")
@@ -674,13 +607,15 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             0.
 
         """
+        c_put_vector = self._libgmt.GMT_Put_Vector
+        c_put_vector.argtypes = [ctypes.c_void_p, ctypes.c_void_p,
+                                 ctypes.c_uint, ctypes.c_uint, ctypes.c_void_p]
+        c_put_vector.restype = ctypes.c_int
+
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         vector_pointer = vector.ctypes.data_as(ctypes.c_void_p)
-        status = self._c_put_vector(self.current_session,
-                                    dataset,
-                                    column,
-                                    gmt_type,
-                                    vector_pointer)
+        status = c_put_vector(self.current_session, dataset, column, gmt_type,
+                              vector_pointer)
         if status != 0:
             raise GMTCLibError(
                 ' '.join([
@@ -713,7 +648,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`~gmt.clib.LibGMT.create_data`.
         matrix : numpy 2d-array
-            The array that will be attached to the dataset. Must be a 1d C
+            The array that will be attached to the dataset. Must be a 2d C
             contiguous array.
         pad : int
             The amount of padding that should be added to the matrix. Use when
@@ -726,18 +661,19 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             0.
 
         """
+        c_put_matrix = self._libgmt.GMT_Put_Matrix
+        c_put_matrix.argtypes = [ctypes.c_void_p, ctypes.c_void_p,
+                                 ctypes.c_uint, ctypes.c_int, ctypes.c_void_p]
+        c_put_matrix.restype = ctypes.c_int
+
         gmt_type = self._check_dtype_and_dim(matrix, ndim=2)
         matrix_pointer = matrix.ctypes.data_as(ctypes.c_void_p)
-        status = self._c_put_matrix(self.current_session,
-                                    dataset,
-                                    gmt_type,
-                                    pad,
-                                    matrix_pointer)
+        status = c_put_matrix(self.current_session, dataset, gmt_type, pad,
+                              matrix_pointer)
         if status != 0:
             raise GMTCLibError(
                 "Failed to put matrix of type {}.".format(matrix.dtype))
 
-    # pylint: disable=too-many-arguments
     def write_data(self, family, geometry, mode, wesn, output, data):
         """
         Write a GMT data container to a file.
@@ -778,22 +714,23 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             non-zero status code.
 
         """
+        c_write_data = self._libgmt.GMT_Write_Data
+        c_write_data.argtypes = [ctypes.c_void_p, ctypes.c_uint, ctypes.c_uint,
+                                 ctypes.c_uint, ctypes.c_uint,
+                                 ctypes.POINTER(ctypes.c_double),
+                                 ctypes.c_char_p, ctypes.c_void_p]
+        c_write_data.restype = ctypes.c_int
+
         family_int = self._parse_data_family(family)
         geometry_int = self._parse_data_geometry(geometry)
-        status = self._c_write_data(self.current_session,
-                                    family_int,
-                                    self.get_constant('GMT_IS_FILE'),
-                                    geometry_int,
-                                    self.get_constant(mode),
-                                    (ctypes.c_double*6)(*wesn),
-                                    output.encode(),
-                                    data)
+        status = c_write_data(self.current_session, family_int,
+                              self.get_constant('GMT_IS_FILE'), geometry_int,
+                              self.get_constant(mode),
+                              (ctypes.c_double*6)(*wesn), output.encode(),
+                              data)
         if status != 0:
             raise GMTCLibError(
                 "Failed to write dataset to '{}'".format(output))
-            # Can't test this if by giving a bad file name because if
-            # output=='', GMT will just write to stdout and spaces are valid
-            # file names.
 
     @contextmanager
     def open_virtual_file(self, family, geometry, direction, data):
@@ -860,6 +797,16 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> os.remove(ofile)
 
         """
+        c_open_virtualfile = self._libgmt.GMT_Open_VirtualFile
+        c_open_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_uint,
+                                       ctypes.c_uint, ctypes.c_uint,
+                                       ctypes.c_void_p, ctypes.c_char_p]
+        c_open_virtualfile.restype = ctypes.c_int
+
+        c_close_virtualfile = self._libgmt.GMT_Close_VirtualFile
+        c_close_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
+        c_close_virtualfile.restype = ctypes.c_int
+
         family_int = self._parse_data_family(family)
         geometry_int = self._parse_data_geometry(geometry)
         if direction not in ('GMT_IN', 'GMT_OUT'):
@@ -868,9 +815,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         buff = ctypes.create_string_buffer(self.get_constant('GMT_STR16'))
 
-        status = self._c_open_virtualfile(self.current_session, family_int,
-                                          geometry_int, direction_int, data,
-                                          buff)
+        status = c_open_virtualfile(self.current_session, family_int,
+                                    geometry_int, direction_int, data, buff)
 
         if status != 0:
             raise GMTCLibError("Failed to create a virtual file.")
@@ -880,8 +826,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         try:
             yield vfname
         finally:
-            status = self._c_close_virtualfile(self.current_session,
-                                               vfname.encode())
+            status = c_close_virtualfile(self.current_session, vfname.encode())
             if status != 0:
                 raise GMTCLibError(
                     "Failed to close virtual file '{}'.".format(vfname))
@@ -1087,18 +1032,19 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         -165.00, -150.00, 15.00, 25.00
 
         """
+        c_extract_region = self._libgmt.GMT_Extract_Region
+        c_extract_region.argtypes = [ctypes.c_void_p, ctypes.c_char_p,
+                                     ctypes.POINTER(ctypes.c_double)]
+        c_extract_region.restype = ctypes.c_int
+
         wesn = np.empty(4, dtype=np.float64)
+        # Use NaNs so that we can know if GMT didn't change the array
         wesn[:] = np.nan
         wesn_pointer = wesn.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
         # The second argument to GMT_Extract_Region is a file pointer to a
         # PostScript file. It's only valid in classic mode. Use None to get a
         # NULL pointer instead.
-        status = self._c_extract_region(self.current_session,
-                                        None,
-                                        wesn_pointer)
+        status = c_extract_region(self.current_session, None, wesn_pointer)
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
-        if np.any(np.isnan(wesn)):
-            raise GMTCLibError(
-                "Invalid region extracted from PS file: {}".format(wesn))
         return wesn
