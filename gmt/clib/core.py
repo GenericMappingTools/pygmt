@@ -845,6 +845,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Examples
         --------
 
+        >>> from gmt.helpers import GMTTempFile
         >>> import numpy as np
         >>> import pandas as pd
         >>> x = [1, 2, 3]
@@ -853,14 +854,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> with LibGMT() as lib:
         ...     with lib.vectors_to_vfile(x, y, z) as vfile:
         ...         # Send the output to a file so that we can read it
-        ...         ofile = 'vectors_to_vfile_example.txt'
-        ...         lib.call_module('info', '{} ->{}'.format(vfile, ofile))
-        >>> with open(ofile) as f:
-        ...     # Replace tabs with spaces
-        ...     print(f.read().strip().replace('\\t', ' '))
+        ...         with GMTTempFile() as ofile:
+        ...             args = '{} ->{}'.format(vfile, ofile.name)
+        ...             lib.call_module('info', args)
+        ...             print(ofile.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
-        >>> # Clean up the output file
-        >>> os.remove(ofile)
 
         """
         arrays = vectors_to_arrays(vectors)
@@ -894,7 +892,6 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         The virtual file will contain the array as a GMT Dataset (via matrix).
 
-
         **Not meant for creating GMT Grids**. The grid requires more metadata
         than just the data matrix. This creates a Dataset (table).
 
@@ -925,6 +922,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Examples
         --------
 
+        >>> from gmt.helpers import GMTTempFile
         >>> import numpy as np
         >>> data = np.arange(12).reshape((4, 3))
         >>> print(data)
@@ -935,14 +933,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> with LibGMT() as lib:
         ...     with lib.matrix_to_vfile(data) as vfile:
         ...         # Send the output to a file so that we can read it
-        ...         ofile = 'matrix_to_vfile_example.txt'
-        ...         lib.call_module('info', '{} ->{}'.format(vfile, ofile))
-        >>> with open(ofile) as f:
-        ...     # Replace tabs with spaces
-        ...     print(f.read().strip().replace('\\t', ' '))
+        ...         with GMTTempFile() as ofile:
+        ...             args = '{} ->{}'.format(vfile, ofile.name)
+        ...             lib.call_module('info', args)
+        ...             print(ofile.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
-        >>> # Clean up the output file
-        >>> os.remove(ofile)
 
         """
         rows, columns = matrix.shape
@@ -961,6 +956,104 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         vf_args = (family, geometry, 'GMT_IN', dataset)
         with self.open_virtual_file(*vf_args) as vfile:
+            yield vfile
+
+    @contextmanager
+    def grid_to_vfile(self, grid):
+        """
+        Store a grid in a GMT virtual file with a GMT_GRID container.
+
+        Used to pass grid data into GMT modules. Grids must be
+        ``xarray.DataArray`` instances.
+
+        Context manager (use in a ``with`` block). Yields the virtual file name
+        that you can pass as an argument to a GMT module call. Closes the
+        virtual file upon exit of the ``with`` block.
+
+        The virtual file will contain the grid as a ``GMT_GRID`` (via matrix).
+
+        Use this instead of creating ``GMT_GRID`` and virtual files by hand
+        with :meth:`~gmt.clib.LibGMT.create_data`,
+        :meth:`~gmt.clib.LibGMT.put_matrix`, and
+        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+
+        The grid data matrix must be C contiguous in memory. If it is not
+        (e.g., it is a slice of a larger array), the array will be copied to
+        make sure it is.
+
+        Parameters
+        ----------
+        grid : xarray.DataArraw
+            The grid that will be included in the virtual file.
+
+        Yields
+        ------
+        vfile : str
+            The name of virtual file. Pass this as a file name argument to a
+            GMT module.
+
+        Examples
+        --------
+
+        >>> import xarray as xr
+        >>> from gmt.datasets import load_earth_relief
+        >>> from gmt.helpers import GMTTempFile
+        >>> data = load_earth_relief(resolution='60m')
+        >>> print(data.shape)
+        (181, 361)
+        >>> print(data.lon.values.min(), data.lon.values.max())
+        -180.0 180.0
+        >>> print(data.lat.values.min(), data.lat.values.max())
+        -90.0 90.0
+        >>> print(data.values.min(), data.values.max())
+        -8425.0 5551.0
+        >>> with LibGMT() as lib:
+        ...     with lib.grid_to_vfile(data) as vfile:
+        ...         # Send the output to a file so that we can read it
+        ...         with GMTTempFile() as ofile:
+        ...             args = '{} -L0 ->{}'.format(vfile, ofile.name)
+        ...             lib.call_module('grdinfo', args)
+        ...             print(ofile.read().strip())
+        <matrix memory>: N = 4 <0/9> <1/10> <2/11>
+
+        """
+        if len(grid.dims) != 2:
+            raise GMTInvalidInput(
+                "Invalid number of grid dimensions '{}'. Must be 2."
+                .format(len(grid.dims)))
+
+        # Get the region and grid increment from grid coordinates.
+        # dims is ordered as row, column.
+        y, x = [grid.coords[dim].values for dim in grid.dims]
+        region = [x.min(), x.max(), y.min(), y.max()]
+        x_incs = x[1:] - x[0:-1]
+        x_inc = x_incs[0]
+        if not np.allclose(x_incs, x_inc):
+            raise GMTInvalidInput(
+                "Grid appears to have irregular spacing in the '{}' dimension."
+                .format(grid.dims[1]))
+        y_incs = y[1:] - y[0:-1]
+        y_inc = y_incs[0]
+
+        nrows, ncolumns = grid.shape
+
+        matrix = grid.values[:]
+        # Array must be in C contiguous order to pass its memory pointer to GMT
+        if not matrix.flags.c_contiguous:
+            matrix = matrix.copy(order='C')
+
+        family = 'GMT_IS_GRID|GMT_VIA_MATRIX'
+        geometry = 'GMT_IS_SURFACE'
+
+        gmt_grid = self.create_data(family, geometry,
+                                    mode='GMT_CONTAINER_ONLY',
+                                    ranges=region, inc=[x_inc, y_inc],
+                                    dim=[ncolumns, nrows, 1, 0])
+
+        self.put_matrix(gmt_grid, matrix)
+
+        args = (family, geometry, 'GMT_IN|GMT_IS_REFERENCE', gmt_grid)
+        with self.open_virtual_file(*args) as vfile:
             yield vfile
 
     def extract_region(self):
