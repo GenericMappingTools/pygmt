@@ -191,15 +191,16 @@ def test_method_no_session():
         lib.current_session  # pylint: disable=pointless-statement
 
 
-def test_parse_data_family_single():
+def test_parse_constant_single():
     "Parsing a single family argument correctly."
     lib = LibGMT()
     for family in lib.data_families:
-        assert lib._parse_data_family(family) == lib.get_constant(family)
+        parsed = lib._parse_constant(family, valid=lib.data_families)
+        assert parsed == lib.get_constant(family)
 
 
-def test_parse_data_family_via():
-    "Parsing a composite family argument (separated by |) correctly."
+def test_parse_constant_composite():
+    "Parsing a composite constant argument (separated by |) correctly."
     lib = LibGMT()
     test_cases = ((family, via)
                   for family in lib.data_families
@@ -207,10 +208,12 @@ def test_parse_data_family_via():
     for family, via in test_cases:
         composite = '|'.join([family, via])
         expected = lib.get_constant(family) + lib.get_constant(via)
-        assert lib._parse_data_family(composite) == expected
+        parsed = lib._parse_constant(composite, valid=lib.data_families,
+                                     valid_modifiers=lib.data_vias)
+        assert parsed == expected
 
 
-def test_parse_data_family_fails():
+def test_parse_constant_fails():
     "Check if the function fails when given bad input"
     lib = LibGMT()
     test_cases = [
@@ -222,7 +225,17 @@ def test_parse_data_family_fails():
     ]
     for test_case in test_cases:
         with pytest.raises(GMTInvalidInput):
-            lib._parse_data_family(test_case)
+            lib._parse_constant(test_case, valid=lib.data_families,
+                                valid_modifiers=lib.data_vias)
+
+    # Should also fail if not given valid modifiers but is using them anyway.
+    # This should work...
+    lib._parse_constant('GMT_IS_DATASET|GMT_VIA_MATRIX',
+                        valid=lib.data_families, valid_modifiers=lib.data_vias)
+    # But this shouldn't.
+    with pytest.raises(GMTInvalidInput):
+        lib._parse_constant('GMT_IS_DATASET|GMT_VIA_MATRIX',
+                            valid=lib.data_families, valid_modifiers=None)
 
 
 def test_create_data_dataset():
