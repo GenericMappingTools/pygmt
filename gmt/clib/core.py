@@ -406,11 +406,13 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         c_create_data.restype = ctypes.c_void_p
 
         # Parse and check input arguments
-        family_int = self._parse_data_family(family)
+        family_int = self._parse_constant(family, valid=self.data_families,
+                                          valid_modifiers=self.data_vias)
         if mode not in self.data_modes:
             raise GMTInvalidInput(
                 "Invalid data creation mode '{}'.".format(mode))
-        geometry_int = self._parse_data_geometry(geometry)
+        geometry_int = self._parse_constant(geometry,
+                                            valid=self.data_geometries)
         # dim is required (get a segmentation fault if passing it as None
         if 'dim' not in kwargs:
             kwargs['dim'] = [0]*4
@@ -452,79 +454,53 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                 pad = self.get_constant('GMT_PAD_DEFAULT')
         return pad
 
-    def _parse_data_geometry(self, geometry):
+    def _parse_constant(self, constant, valid, valid_modifiers=None):
         """
-        Parse the geometry argument for GMT data manipulation functions.
+        Parse a constant, convert it to an int, and validate it.
 
-        Converts the string name to the corresponding integer value.
+        The GMT C API takes certain defined constants, like ``'GMT_IS_GRID'``,
+        that need to be validated and converted to integer values using
+        :meth:`~gmt.clib.LibGMT.get_constant`.
+
+        The constants can also take a modifier by appending another constant
+        name, e.g. ``'GMT_IS_GRID|GMT_VIA_MATRIX'``. The two parts must be
+        converted separately and their values are added.
+
+        If valid modifiers are not given, then will assume that modifiers are
+        not allowed. In this case, will raise a
+        :class:`~gmt.exceptions.GMTInvalidInput` exception if given a modifier.
 
         Parameters
         ----------
-        geometry : str
-            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``data_geometries`` attribute for valid names.
-
-        Returns
-        -------
-        geometry_int : int
-            The converted geometry.
-
-        Raises
-        ------
-        GMTCLibError
-            If the geometry name is invalid.
-
+        constant : str
+            The name of a valid GMT API constant, with an optional modifier.
+        valid : list of str
+            A list of valid values for the constant. Will raise a
+            :class:`~gmt.exceptions.GMTInvalidInput` exception if the given
+            value is not on the list.
         """
-        if geometry not in self.data_geometries:
+        parts = constant.split('|')
+        name = parts[0]
+        nmodifiers = len(parts) - 1
+        if nmodifiers > 1:
             raise GMTInvalidInput(
-                "Invalid data geometry '{}'.".format(geometry))
-        return self.get_constant(geometry)
-
-    def _parse_data_family(self, family):
-        """
-        Parse the data family string into an integer number.
-
-        Valid family names are: GMT_IS_DATASET, GMT_IS_GRID, GMT_IS_PALETTE,
-        GMT_IS_TEXTSET, GMT_IS_MATRIX, and GMT_IS_VECTOR.
-
-        Optionally append a "via" argument to a family name (separated by
-        ``|``): GMT_VIA_MATRIX or GMT_VIA_VECTOR.
-
-        Parameters
-        ----------
-        family : str
-            A GMT data family name.
-
-        Returns
-        -------
-        family_value : int
-            The GMT constant corresponding to the family.
-
-        Raises
-        ------
-        GMTCLibError
-            If the family name is invalid or there are more than 2 components
-            to the name.
-
-        """
-        parts = family.split('|')
-        if len(parts) > 2:
+                "Only one modifier is allowed in constants, {} given: '{}'"
+                .format(nmodifiers, constant))
+        if nmodifiers > 0 and valid_modifiers is None:
             raise GMTInvalidInput(
-                "Too many sections in family (>2): '{}'".format(family))
-        family_name = parts[0]
-        if family_name not in self.data_families:
+                "Constant modifiers not allowed since valid values were not " +
+                "given: '{}'".format(constant))
+        if name not in valid:
             raise GMTInvalidInput(
-                "Invalid data family '{}'.".format(family_name))
-        family_value = self.get_constant(family_name)
-        if len(parts) == 2:
-            via_name = parts[1]
-            if via_name not in self.data_vias:
-                raise GMTInvalidInput(
-                    "Invalid data family (via) '{}'.".format(via_name))
-            via_value = self.get_constant(via_name)
-        else:
-            via_value = 0
-        return family_value + via_value
+                "Invalid constant argument '{}'. Must be one of {}."
+                .format(name, str(valid)))
+        if nmodifiers > 0 and valid_modifiers is not None \
+                and parts[1] not in valid_modifiers:
+            raise GMTInvalidInput(
+                "Invalid constant modifier '{}'. Must be one of {}."
+                .format(parts[1], str(valid_modifiers)))
+        integer_value = sum(self.get_constant(part) for part in parts)
+        return integer_value
 
     def _check_dtype_and_dim(self, array, ndim):
         """
@@ -721,8 +697,10 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                                  ctypes.c_char_p, ctypes.c_void_p]
         c_write_data.restype = ctypes.c_int
 
-        family_int = self._parse_data_family(family)
-        geometry_int = self._parse_data_geometry(geometry)
+        family_int = self._parse_constant(family, valid=self.data_families,
+                                          valid_modifiers=self.data_vias)
+        geometry_int = self._parse_constant(geometry,
+                                            valid=self.data_geometries)
         status = c_write_data(self.current_session, family_int,
                               self.get_constant('GMT_IS_FILE'), geometry_int,
                               self.get_constant(mode),
@@ -807,8 +785,10 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         c_close_virtualfile.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
         c_close_virtualfile.restype = ctypes.c_int
 
-        family_int = self._parse_data_family(family)
-        geometry_int = self._parse_data_geometry(geometry)
+        family_int = self._parse_constant(family, valid=self.data_families,
+                                          valid_modifiers=self.data_vias)
+        geometry_int = self._parse_constant(geometry,
+                                            valid=self.data_geometries)
         if direction not in ('GMT_IN', 'GMT_OUT'):
             raise GMTInvalidInput("Invalid direction '{}'.".format(direction))
         direction_int = self.get_constant(direction)
