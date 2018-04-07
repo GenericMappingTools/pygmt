@@ -10,6 +10,52 @@ import pandas
 from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
 
+def dataarray_to_matrix(grid):
+    """
+    Transform a xarray.DataArray into region, increment, and data matrix.
+
+    Examples
+    --------
+
+    >>> from gmt.datasets import load_earth_relief
+    >>> grid = load_earth_relief(resolution='60m')
+    >>> region, inc, matrix = grid_to_region_inc_matrix(grid)
+    >>> print(region)
+    [-180.0, 180.0, -90.0, 90.0]
+    >>> print(inc)
+    [1.0, 1.0]
+    >>> type(matrix)
+    <class 'numpy.ndarray'>
+    >>> print(matrix.shape)
+    (181, 361)
+
+    """
+    if len(grid.dims) != 2:
+        raise GMTInvalidInput(
+            "Invalid number of grid dimensions '{}'. Must be 2."
+            .format(len(grid.dims)))
+
+    # Get the region and grid increment from grid coordinates.
+    # dims is ordered as row, column.
+    y, x = [grid.coords[dim].values for dim in grid.dims]
+    region = [x.min(), x.max(), y.min(), y.max()]
+    x_incs = x[1:] - x[0:-1]
+    x_inc = x_incs[0]
+    if not np.allclose(x_incs, x_inc):
+        raise GMTInvalidInput(
+            "Grid appears to have irregular spacing in the '{}' dimension."
+            .format(grid.dims[1]))
+    y_incs = y[1:] - y[0:-1]
+    y_inc = y_incs[0]
+
+    matrix = grid.values
+    # Array must be in C contiguous order to pass its memory pointer to GMT
+    if not matrix.flags.c_contiguous:
+        matrix = matrix.copy(order='C')
+
+    return region, [x_inc, y_inc], matrix
+
+
 def vectors_to_arrays(vectors):
     """
     Convert 1d vectors (lists, arrays or pandas.Series) to C contiguous 1d

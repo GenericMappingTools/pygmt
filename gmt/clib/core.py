@@ -9,7 +9,8 @@ from contextlib import contextmanager
 import numpy as np
 
 from ..exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
-from .utils import load_libgmt, kwargs_to_ctypes_array, vectors_to_arrays
+from .utils import load_libgmt, kwargs_to_ctypes_array, vectors_to_arrays, \
+    dataarray_to_matrix
 
 
 class LibGMT():  # pylint: disable=too-many-instance-attributes
@@ -408,9 +409,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         # Parse and check input arguments
         family_int = self._parse_constant(family, valid=self.data_families,
                                           valid_modifiers=self.data_vias)
-        if mode not in self.data_modes:
-            raise GMTInvalidInput(
-                "Invalid data creation mode '{}'.".format(mode))
+        mode_int = self._parse_constant(mode, valid=self.data_modes)
         geometry_int = self._parse_constant(geometry,
                                             valid=self.data_geometries)
         # dim is required (get a segmentation fault if passing it as None
@@ -430,7 +429,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         # container should be created empty. Fill it in later using put_vector
         # and put_matrix.
         data_ptr = c_create_data(self.current_session, family_int,
-                                 geometry_int, self.get_constant(mode), dim,
+                                 geometry_int, mode_int, dim,
                                  ranges, inc, registration, pad, None)
 
         if data_ptr is None:
@@ -533,6 +532,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> with LibGMT() as lib:
         ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
         ...     gmttype == lib.get_constant('GMT_DOUBLE')
+        True
+        >>> data = np.ones((5, 2), dtype='float32')
+        >>> with LibGMT() as lib:
+        ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
+        ...     gmttype == lib.get_constant('GMT_FLOAT')
         True
 
         """
@@ -789,9 +793,10 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                                           valid_modifiers=self.data_vias)
         geometry_int = self._parse_constant(geometry,
                                             valid=self.data_geometries)
-        if direction not in ('GMT_IN', 'GMT_OUT'):
-            raise GMTInvalidInput("Invalid direction '{}'.".format(direction))
-        direction_int = self.get_constant(direction)
+        direction_int = self._parse_constant(
+            direction, valid=['GMT_IN', 'GMT_OUT'],
+            valid_modifiers=['GMT_IS_REFERENCE'])
+            # valid_modifiers=None)
 
         buff = ctypes.create_string_buffer(self.get_constant('GMT_STR16'))
 
@@ -995,7 +1000,6 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Examples
         --------
 
-        >>> import xarray as xr
         >>> from gmt.datasets import load_earth_relief
         >>> from gmt.helpers import GMTTempFile
         >>> data = load_earth_relief(resolution='60m')
@@ -1014,46 +1018,23 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         ...             args = '{} -L0 ->{}'.format(vfile, ofile.name)
         ...             lib.call_module('grdinfo', args)
         ...             print(ofile.read().strip())
-        <matrix memory>: N = 4 <0/9> <1/10> <2/11>
 
         """
-        if len(grid.dims) != 2:
-            raise GMTInvalidInput(
-                "Invalid number of grid dimensions '{}'. Must be 2."
-                .format(len(grid.dims)))
-
-        # Get the region and grid increment from grid coordinates.
-        # dims is ordered as row, column.
-        y, x = [grid.coords[dim].values for dim in grid.dims]
-        region = [x.min(), x.max(), y.min(), y.max()]
-        x_incs = x[1:] - x[0:-1]
-        x_inc = x_incs[0]
-        if not np.allclose(x_incs, x_inc):
-            raise GMTInvalidInput(
-                "Grid appears to have irregular spacing in the '{}' dimension."
-                .format(grid.dims[1]))
-        y_incs = y[1:] - y[0:-1]
-        y_inc = y_incs[0]
-
+        region, inc, matrix = dataarray_to_matrix(grid)
         nrows, ncolumns = grid.shape
-
-        matrix = grid.values[:]
-        # Array must be in C contiguous order to pass its memory pointer to GMT
-        if not matrix.flags.c_contiguous:
-            matrix = matrix.copy(order='C')
-
         family = 'GMT_IS_GRID|GMT_VIA_MATRIX'
         geometry = 'GMT_IS_SURFACE'
 
         gmt_grid = self.create_data(family, geometry,
                                     mode='GMT_CONTAINER_ONLY',
-                                    ranges=region, inc=[x_inc, y_inc],
-                                    dim=[ncolumns, nrows, 1, 0])
+                                    dim=[ncolumns, nrows, 1, 0],
+                                    ranges=region, inc=inc)
 
         self.put_matrix(gmt_grid, matrix)
 
         args = (family, geometry, 'GMT_IN|GMT_IS_REFERENCE', gmt_grid)
         with self.open_virtual_file(*args) as vfile:
+            # yield 'bla'
             yield vfile
 
     def extract_region(self):
