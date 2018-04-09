@@ -1015,26 +1015,22 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         ...     with lib.grid_to_vfile(data) as vfile:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as ofile:
-        ...             args = '{} -L0 ->{}'.format(vfile, ofile.name)
+        ...             args = '{} -L0 -Cn ->{}'.format(vfile, ofile.name)
         ...             lib.call_module('grdinfo', args)
         ...             print(ofile.read().strip())
+        -180 180 -90 90 -8425 5551 1 1 361 181
+        >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """
-        region, inc, matrix = dataarray_to_matrix(grid)
-        nrows, ncolumns = grid.shape
+        matrix, region, inc = dataarray_to_matrix(grid)
         family = 'GMT_IS_GRID|GMT_VIA_MATRIX'
         geometry = 'GMT_IS_SURFACE'
-
         gmt_grid = self.create_data(family, geometry,
                                     mode='GMT_CONTAINER_ONLY',
-                                    dim=[ncolumns, nrows, 1, 0],
                                     ranges=region, inc=inc)
-
         self.put_matrix(gmt_grid, matrix)
-
         args = (family, geometry, 'GMT_IN|GMT_IS_REFERENCE', gmt_grid)
         with self.open_virtual_file(*args) as vfile:
-            # yield 'bla'
             yield vfile
 
     def extract_region(self):

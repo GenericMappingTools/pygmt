@@ -19,7 +19,7 @@ def dataarray_to_matrix(grid):
 
     >>> from gmt.datasets import load_earth_relief
     >>> grid = load_earth_relief(resolution='60m')
-    >>> region, inc, matrix = grid_to_region_inc_matrix(grid)
+    >>> matrix, region, inc = dataarray_to_matrix(grid)
     >>> print(region)
     [-180.0, 180.0, -90.0, 90.0]
     >>> print(inc)
@@ -34,26 +34,25 @@ def dataarray_to_matrix(grid):
         raise GMTInvalidInput(
             "Invalid number of grid dimensions '{}'. Must be 2."
             .format(len(grid.dims)))
-
     # Get the region and grid increment from grid coordinates.
-    # dims is ordered as row, column.
-    y, x = [grid.coords[dim].values for dim in grid.dims]
-    region = [x.min(), x.max(), y.min(), y.max()]
-    x_incs = x[1:] - x[0:-1]
-    x_inc = x_incs[0]
-    if not np.allclose(x_incs, x_inc):
+    east, north = [grid.coords[dim].values for dim in grid.dims]
+    region = [north.min(), north.max(), east.min(), east.max()]
+    north_incs = north[1:] - north[0:-1]
+    north_inc = north_incs[0]
+    if not np.allclose(north_incs, north_inc):
         raise GMTInvalidInput(
             "Grid appears to have irregular spacing in the '{}' dimension."
             .format(grid.dims[1]))
-    y_incs = y[1:] - y[0:-1]
-    y_inc = y_incs[0]
+    east_incs = east[1:] - east[0:-1]
+    east_inc = east_incs[0]
+    inc = [north_inc, east_inc]
 
-    matrix = grid.values
+    matrix = grid.values[:]
     # Array must be in C contiguous order to pass its memory pointer to GMT
     if not matrix.flags.c_contiguous:
         matrix = matrix.copy(order='C')
 
-    return region, [x_inc, y_inc], matrix
+    return matrix, region, inc
 
 
 def vectors_to_arrays(vectors):
