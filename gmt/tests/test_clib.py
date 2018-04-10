@@ -8,10 +8,12 @@ from contextlib import contextmanager
 import pytest
 import numpy as np
 import numpy.testing as npt
-import pandas
+import pandas as pd
+import xarray as xr
 
 from ..clib.core import LibGMT
-from ..clib.utils import clib_extension, load_libgmt, check_libgmt
+from ..clib.utils import clib_extension, load_libgmt, check_libgmt, \
+    dataarray_to_matrix
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError, \
     GMTCLibNoSessionError, GMTInvalidInput
 from ..helpers import GMTTempFile
@@ -439,7 +441,7 @@ def test_put_matrix_grid():
                 mode='GMT_CONTAINER_ONLY',
                 ranges=wesn[:4],
                 inc=inc,
-                registration=lib.get_constant('GMT_GRID_NODE_REG'),
+                registration='GMT_GRID_NODE_REG',
             )
             data = np.arange(shape[0]*shape[1], dtype=dtype).reshape(shape)
             lib.put_matrix(grid, matrix=data)
@@ -610,7 +612,7 @@ def test_vectors_to_vfile_pandas():
     dtypes = 'float32 float64 int32 int64 uint32 uint64'.split()
     size = 13
     for dtype in dtypes:
-        data = pandas.DataFrame(
+        data = pd.DataFrame(
             data=dict(x=np.arange(size, dtype=dtype),
                       y=np.arange(size, size*2, 1, dtype=dtype),
                       z=np.arange(size*2, size*3, 1, dtype=dtype))
@@ -690,3 +692,25 @@ def test_write_data_fails():
             with pytest.raises(GMTCLibError):
                 lib.write_data('GMT_IS_VECTOR', 'GMT_IS_POINT',
                                'GMT_WRITE_SET', [1]*6, 'some-file-name', None)
+
+
+def test_dataarray_to_matrix_dims_fails():
+    "Check that it fails for > 2 dims"
+    # Make a 3D regular grid
+    data = np.ones((10, 12, 11), dtype='float32')
+    x = np.arange(11)
+    y = np.arange(12)
+    z = np.arange(10)
+    grid = xr.DataArray(data, coords=[('z', z), ('y', y), ('x', x)])
+    with pytest.raises(GMTInvalidInput):
+        dataarray_to_matrix(grid)
+
+
+def test_dataarray_to_matrix_inc_fails():
+    "Check that it fails for variable increments"
+    data = np.ones((4, 5), dtype='float64')
+    x = np.linspace(0, 1, 5)
+    y = np.logspace(2, 3, 4)
+    grid = xr.DataArray(data, coords=[('y', y), ('x', x)])
+    with pytest.raises(GMTInvalidInput):
+        dataarray_to_matrix(grid)

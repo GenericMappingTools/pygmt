@@ -7,17 +7,48 @@ import ctypes
 import numpy as np
 import pandas
 
-from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
+from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError, \
+    GMTInvalidInput
 
 
 def dataarray_to_matrix(grid):
     """
-    Transform a xarray.DataArray into region, increment, and data matrix.
+    Transform a xarray.DataArray into a data 2D array and metadata.
+
+    Use this to extract the underlying numpy array of data and the region and
+    increment for the grid.
+
+    Only allows grids with two dimensions and constant grid spacing (GMT
+    doesn't allow variable grid spacing).
+
+    If the underlying data array is not C contiguous, for example if it's a
+    slice of a larger grid, a copy will need to be generated.
+
+    Parameters
+    ----------
+    grid : xarray.DataArray
+        The input grid as a DataArray instance. Information is retrieved from
+        the coordinate arrays, not from headers.
+
+    Returns
+    -------
+    matrix : 2d-array
+        The 2D array of data from the grid.
+    region : list
+        The West, East, South, North boundaries of the grid.
+    inc : list
+        The grid spacing in East-West and North-South, respectively.
+
+    Raises
+    ------
+    GMTInvalidInput
+        If the grid has more than two dimensions or variable grid spacing.
 
     Examples
     --------
 
     >>> from gmt.datasets import load_earth_relief
+    >>> # Use the global Earth relief grid with 1 degree spacing (60')
     >>> grid = load_earth_relief(resolution='60m')
     >>> matrix, region, inc = dataarray_to_matrix(grid)
     >>> print(region)
@@ -28,30 +59,52 @@ def dataarray_to_matrix(grid):
     <class 'numpy.ndarray'>
     >>> print(matrix.shape)
     (181, 361)
+    >>> matrix.flags.c_contiguous
+    True
+    >>> # Using a slice of the grid, the matrix will be copied to guarantee
+    >>> # that it's C-contiguous in memory. The increment should be unchanged.
+    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41,30:101])
+    >>> matrix.flags.c_contiguous
+    True
+    >>> print(matrix.shape)
+    (31, 71)
+    >>> print(region)
+    [-150.0, -80.0, -80.0, -50.0]
+    >>> print(inc)
+    [1.0, 1.0]
+    >>> # but not if only taking every other grid point.
+    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41:2,30:101:2])
+    >>> matrix.flags.c_contiguous
+    True
+    >>> print(matrix.shape)
+    (16, 36)
+    >>> print(region)
+    [-150.0, -80.0, -80.0, -50.0]
+    >>> print(inc)
+    [2.0, 2.0]
 
     """
     if len(grid.dims) != 2:
         raise GMTInvalidInput(
             "Invalid number of grid dimensions '{}'. Must be 2."
             .format(len(grid.dims)))
-    # Get the region and grid increment from grid coordinates.
-    east, north = [grid.coords[dim].values for dim in grid.dims]
-    region = [north.min(), north.max(), east.min(), east.max()]
-    north_incs = north[1:] - north[0:-1]
-    north_inc = north_incs[0]
-    if not np.allclose(north_incs, north_inc):
-        raise GMTInvalidInput(
-            "Grid appears to have irregular spacing in the '{}' dimension."
-            .format(grid.dims[1]))
-    east_incs = east[1:] - east[0:-1]
-    east_inc = east_incs[0]
-    inc = [north_inc, east_inc]
-
-    matrix = grid.values[:]
-    # Array must be in C contiguous order to pass its memory pointer to GMT
-    if not matrix.flags.c_contiguous:
-        matrix = matrix.copy(order='C')
-
+    # Extract region and inc from the grid
+    region = []
+    inc = []
+    # Reverse the dims because it is rows, columns ordered. In geographic
+    # grids, this would be North-South, East-West. GMT's region and inc are
+    # East-West, North-South.
+    for dim in grid.dims[::-1]:
+        coord = grid.coords[dim].values
+        coord_incs = coord[1:] - coord[0:-1]
+        coord_inc = coord_incs[0]
+        if not np.allclose(coord_incs, coord_inc):
+            raise GMTInvalidInput(
+                "Grid appears to have irregular spacing in the '{}' dimension."
+                .format(dim))
+        region.extend([coord.min(), coord.max()])
+        inc.append(coord_inc)
+    matrix = as_c_contiguous(grid.values[:])
     return matrix, region, inc
 
 
@@ -98,11 +151,11 @@ def vectors_to_arrays(vectors):
     True
 
     """
-    arrays = [_as_c_contiguous(_as_array(i)) for i in vectors]
+    arrays = [as_c_contiguous(_as_array(i)) for i in vectors]
     return arrays
 
 
-def _as_c_contiguous(array):
+def as_c_contiguous(array):
     """
     Ensure a numpy array is C contiguous in memory.
 
@@ -128,7 +181,7 @@ def _as_c_contiguous(array):
     array([1, 3, 5])
     >>> x.flags.c_contiguous
     False
-    >>> new_x = _as_c_contiguous(x)
+    >>> new_x = as_c_contiguous(x)
     >>> new_x
     array([1, 3, 5])
     >>> new_x.flags.c_contiguous
@@ -136,7 +189,7 @@ def _as_c_contiguous(array):
     >>> x = np.array([8, 9, 10])
     >>> x.flags.c_contiguous
     True
-    >>> _as_c_contiguous(x).flags.c_contiguous
+    >>> as_c_contiguous(x).flags.c_contiguous
     True
 
     """

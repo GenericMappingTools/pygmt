@@ -10,7 +10,7 @@ import numpy as np
 
 from ..exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from .utils import load_libgmt, kwargs_to_ctypes_array, vectors_to_arrays, \
-    dataarray_to_matrix
+    dataarray_to_matrix, as_c_contiguous
 
 
 class LibGMT():  # pylint: disable=too-many-instance-attributes
@@ -76,6 +76,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     data_modes = [
         'GMT_CONTAINER_ONLY',
         'GMT_OUTPUT',
+    ]
+
+    grid_registrations = [
+        'GMT_GRID_PIXEL_REG',
+        'GMT_GRID_NODE_REG',
     ]
 
     # Map numpy dtypes to GMT types
@@ -378,9 +383,9 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             The increments between points of the dataset. See the C function
             documentation.
         registration : int
-            The node registration (what the coordinates mean). Also a very
-            complex argument. See the C function documentation. Defaults to
-            ``GMT_GRID_NODE_REG``.
+            The node registration (what the coordinates mean). Can be
+            ``'GMT_GRID_PIXEL_REG'`` or ``'GMT_GRID_NODE_REG'``. Defaults to
+            ``'GMT_GRID_NODE_REG'``.
         pad : int
             The grid padding. Defaults to ``GMT_PAD_DEFAULT``.
 
@@ -406,31 +411,35 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         ]
         c_create_data.restype = ctypes.c_void_p
 
-        # Parse and check input arguments
         family_int = self._parse_constant(family, valid=self.data_families,
                                           valid_modifiers=self.data_vias)
         mode_int = self._parse_constant(mode, valid=self.data_modes)
-        geometry_int = self._parse_constant(geometry,
-                                            valid=self.data_geometries)
-        # dim is required (get a segmentation fault if passing it as None
-        if 'dim' not in kwargs:
-            kwargs['dim'] = [0]*4
-        # Convert dim, ranges, and inc to ctypes arrays if given
+        geometry_int = self._parse_constant(
+            geometry, valid=self.data_geometries)
+        registration_int = self._parse_constant(
+            kwargs.get('registration', 'GMT_GRID_NODE_REG'),
+            valid=self.grid_registrations)
+
+        # Convert dim, ranges, and inc to ctypes arrays if given (will be None
+        # if not given to represent NULL pointers)
         dim = kwargs_to_ctypes_array('dim', kwargs, ctypes.c_uint64*4)
         ranges = kwargs_to_ctypes_array('ranges', kwargs, ctypes.c_double*4)
         inc = kwargs_to_ctypes_array('inc', kwargs, ctypes.c_double*2)
-        pad = self._parse_pad(family, kwargs)
-
-        # Use the GMT defaults if no value is given
-        registration = kwargs.get('registration',
-                                  self.get_constant('GMT_GRID_NODE_REG'))
 
         # Use a NULL pointer (None) for existing data to indicate that the
         # container should be created empty. Fill it in later using put_vector
         # and put_matrix.
-        data_ptr = c_create_data(self.current_session, family_int,
-                                 geometry_int, mode_int, dim,
-                                 ranges, inc, registration, pad, None)
+        data_ptr = c_create_data(
+            self.current_session,
+            family_int,
+            geometry_int,
+            mode_int,
+            dim,
+            ranges,
+            inc,
+            registration_int,
+            self._parse_pad(family, kwargs),
+            None)
 
         if data_ptr is None:
             raise GMTCLibError("Failed to create an empty GMT data pointer.")
@@ -750,6 +759,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Examples
         --------
 
+        >>> from gmt.helpers import GMTTempFile
         >>> import os
         >>> import numpy as np
         >>> x = np.array([0, 1, 2, 3, 4])
@@ -768,15 +778,12 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         ...     # Add the dataset to a virtual file
         ...     vfargs = (family, geometry, 'GMT_IN', dataset)
         ...     with lib.open_virtual_file(*vfargs) as vfile:
-        ...         # Send the output to a file so that we can read it
-        ...         ofile = 'virtual_file_example.txt'
-        ...         lib.call_module('info', '{} ->{}'.format(vfile, ofile))
-        >>> with open(ofile) as f:
-        ...     # Replace tabs with spaces
-        ...     print(f.read().strip().replace('\\t', ' '))
+        ...         # Send the output to a temp file so that we can read it
+        ...         with GMTTempFile() as ofile:
+        ...             args = '{} ->{}'.format(vfile, ofile.name)
+        ...             lib.call_module('info', args)
+        ...             print(ofile.read().strip())
         <vector memory>: N = 5 <0/4> <5/9>
-        >>> # Clean up the output file
-        >>> os.remove(ofile)
 
         """
         c_open_virtualfile = self._libgmt.GMT_Open_VirtualFile
@@ -796,7 +803,6 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         direction_int = self._parse_constant(
             direction, valid=['GMT_IN', 'GMT_OUT'],
             valid_modifiers=['GMT_IS_REFERENCE'])
-            # valid_modifiers=None)
 
         buff = ctypes.create_string_buffer(self.get_constant('GMT_STR16'))
 
@@ -866,6 +872,13 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
 
         """
+        # Conversion to a C-contiguous array needs to be done here and not in
+        # put_matrix because we need to maintain a reference to the copy while
+        # it is being used by the C API. Otherwise, the array would be garbage
+        # collected and the memory freed. Creating it in this context manager
+        # guarantees that the copy will be around until the virtual file is
+        # closed.
+        # The conversion is implicit in vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
@@ -945,11 +958,14 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
 
         """
+        # Conversion to a C-contiguous array needs to be done here and not in
+        # put_matrix because we need to maintain a reference to the copy while
+        # it is being used by the C API. Otherwise, the array would be garbage
+        # collected and the memory freed. Creating it in this context manager
+        # guarantees that the copy will be around until the virtual file is
+        # closed.
+        matrix = as_c_contiguous(matrix)
         rows, columns = matrix.shape
-        # Array must be in C contiguous order to pass its memory pointer to
-        # GMT.
-        if not matrix.flags.c_contiguous:
-            matrix = matrix.copy(order='C')
 
         family = 'GMT_IS_DATASET|GMT_VIA_MATRIX'
         geometry = 'GMT_IS_POINT'
@@ -1022,6 +1038,13 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """
+        # Conversion to a C-contiguous array needs to be done here and not in
+        # put_matrix because we need to maintain a reference to the copy while
+        # it is being used by the C API. Otherwise, the array would be garbage
+        # collected and the memory freed. Creating it in this context manager
+        # guarantees that the copy will be around until the virtual file is
+        # closed.
+        # The conversion is implicit in dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid)
         family = 'GMT_IS_GRID|GMT_VIA_MATRIX'
         geometry = 'GMT_IS_SURFACE'
