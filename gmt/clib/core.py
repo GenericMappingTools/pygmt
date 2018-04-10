@@ -825,7 +825,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     @contextmanager
     def vectors_to_vfile(self, *vectors):
         """
-        Store 1d arrays in a GMT virtual file to pass them to a module.
+        Store 1d arrays in a GMT virtual file to use as a module input.
 
         Context manager (use in a ``with`` block). Yields the virtual file name
         that you can pass as an argument to a GMT module call. Closes the
@@ -836,10 +836,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         :meth:`~gmt.clib.LibGMT.put_vector`, and
         :meth:`~gmt.clib.LibGMT.open_virtual_file`
 
-        The virtual file will contain the arrays as a GMT Dataset (via
-        vectors). If the arrays are C contiguous blocks of memory, they will be
-        passed without copying to GMT. If they are not (e.g., they are columns
-        of a 2D array), they will need to be copied to a contiguous block.
+        The virtual file will contain the arrays as ``GMT Vector`` structures.
+
+        If the arrays are C contiguous blocks of memory, they will be passed
+        without copying to GMT. If they are not (e.g., they are columns of a 2D
+        array), they will need to be copied to a contiguous block.
 
         Parameters
         ----------
@@ -902,13 +903,13 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     @contextmanager
     def matrix_to_vfile(self, matrix):
         """
-        Store a 2d array in a GMT virtual file Dataset to pass it to a module.
+        Store a 2d array in a GMT virtual file to use as a module input.
 
         Context manager (use in a ``with`` block). Yields the virtual file name
         that you can pass as an argument to a GMT module call. Closes the
         virtual file upon exit of the ``with`` block.
 
-        The virtual file will contain the array as a GMT Dataset (via matrix).
+        The virtual file will contain the array as a ``GMT_MATRIX``.
 
         **Not meant for creating GMT Grids**. The grid requires more metadata
         than just the data matrix. This creates a Dataset (table).
@@ -982,7 +983,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     @contextmanager
     def grid_to_vfile(self, grid):
         """
-        Store a grid in a GMT virtual file with a GMT_GRID container.
+        Store a grid in a GMT virtual file to use as a module input.
 
         Used to pass grid data into GMT modules. Grids must be
         ``xarray.DataArray`` instances.
@@ -991,7 +992,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         that you can pass as an argument to a GMT module call. Closes the
         virtual file upon exit of the ``with`` block.
 
-        The virtual file will contain the grid as a ``GMT_GRID`` (via matrix).
+        The virtual file will contain the grid as a ``GMT_MATRIX``.
 
         Use this instead of creating ``GMT_GRID`` and virtual files by hand
         with :meth:`~gmt.clib.LibGMT.create_data`,
