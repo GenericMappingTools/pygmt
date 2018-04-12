@@ -34,8 +34,9 @@ GMT/Python requires the following libraries:
 * Current development version of GMT (6.0.0). ``conda`` packages for Linux and
   macOS are available through
   `conda-forge <https://github.com/conda-forge/gmt-feedstock/>`__.
-* numpy
-* pandas
+* `numpy <http://www.numpy.org/>`__
+* `pandas <https://pandas.pydata.org/>`__
+* `xarray <http://xarray.pydata.org/>`__
 
 
 Installing GMT and other dependencies
@@ -71,7 +72,7 @@ Install the latest version of GMT 6::
 
 And finally, install the rest of the dependencies::
 
-    conda install numpy pandas
+    conda install numpy pandas xarray
 
 .. note::
 
