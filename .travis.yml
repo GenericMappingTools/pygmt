@@ -47,6 +47,10 @@ matrix:
               #- PYTHON=3.6
               #- COVERAGE=true
               #- BUILD_DOCS=true
+        - os: linux
+          env:
+              - PYTHON=3.6
+              - EXTRA_PACKAGES="matplotlib basemap"
 
 before_install:
     # Get Miniconda from Continuum
@@ -56,6 +60,10 @@ before_install:
     - conda update conda $CONDA_FLAGS
     - conda create --name testenv python=$PYTHON pip $CONDA_FLAGS
     - source activate testenv
+    # Issue #66: test if gmt-python has any conflicts with matplotlib and basemap
+    - if [ "$EXTRA_PACKAGES" ]; then
+        conda install --yes --quiet $EXTRA_PACKAGES;
+      fi
     # Install dependencies
     - conda install --file requirements.txt $CONDA_FLAGS
     - if [ "$COVERAGE" == "true" ]; then
