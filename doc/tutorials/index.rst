@@ -15,3 +15,4 @@ You can also try a demo notebook online (no install required) at
     :maxdepth: 1
 
     first-steps.ipynb
+    plot-data-points.ipynb
