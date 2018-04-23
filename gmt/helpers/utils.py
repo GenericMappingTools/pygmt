@@ -20,7 +20,7 @@ def data_kind(data, x, y):
     * a matrix provided as 'data'
     * 1D arrays x and y
 
-    Arguments should be ``None`` is not used. If doesn't fit any of these
+    Arguments should be ``None`` if not used. If doesn't fit any of these
     categories (or fits more than one), will raise an exception.
 
     Parameters
