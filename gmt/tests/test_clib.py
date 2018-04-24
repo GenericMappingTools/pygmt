@@ -16,7 +16,7 @@ from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt, \
     dataarray_to_matrix
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError, \
-    GMTCLibNoSessionError, GMTInvalidInput
+    GMTCLibNoSessionError, GMTInvalidInput, GMTVersionError
 from ..helpers import GMTTempFile
 from .. import Figure
 
@@ -772,3 +772,25 @@ def test_info_dict():
             assert info
             for key in info:
                 assert info[key] == 'bla'
+
+
+def test_fails_for_wrong_version():
+    "Make sure the LibGMT raises an exception if GMT is too old"
+
+    # Mock GMT_Get_Default to return an old version
+    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
+        "Return an old version"
+        if name == b'API_VERSION':
+            value.value = b"5.4.3"
+        else:
+            value.value = b"bla"
+        return 0
+
+    lib = LibGMT()
+    with mock(lib, 'GMT_Get_Default', mock_func=mock_defaults):
+        with pytest.raises(GMTVersionError):
+            with lib:
+                assert lib.info['version'] != '5.4.3'
+    # Make sure the session is closed when the exception is raised.
+    with pytest.raises(GMTCLibNoSessionError):
+        assert lib.current_session

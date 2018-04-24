@@ -45,3 +45,10 @@ class GMTInvalidInput(GMTError):
     Raised when the input of a function/method is invalid.
     """
     pass
+
+
+class GMTVersionError(GMTError):
+    """
+    Raised when an incompatible version of GMT is being used.
+    """
+    pass

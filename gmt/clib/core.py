@@ -6,9 +6,11 @@ import ctypes
 from tempfile import NamedTemporaryFile
 from contextlib import contextmanager
 
+from packaging.version import Version
 import numpy as np
 
-from ..exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
+from ..exceptions import GMTCLibError, GMTCLibNoSessionError, \
+    GMTInvalidInput, GMTVersionError
 from .utils import load_libgmt, kwargs_to_ctypes_array, vectors_to_arrays, \
     dataarray_to_matrix, as_c_contiguous
 
@@ -83,6 +85,9 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         'GMT_GRID_NODE_REG',
     ]
 
+    # The minimum version of GMT required
+    required_version = '6.0.0'
+
     # Map numpy dtypes to GMT types
     _dtypes = {
         'float64': 'GMT_DOUBLE',
@@ -148,11 +153,25 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Start the GMT session and keep the session argument.
         """
         self.current_session = self.create_session('gmt-python-session')
+        # Need to store the version info because 'get_default' won't work after
+        # the session is destroyed.
+        version = self.info['version']
+        if Version(version) < Version(self.required_version):
+            self._cleanup_session()
+            raise GMTVersionError(
+                "Using an incompatible GMT version {}. Must be newer than {}."
+                .format(version, self.required_version))
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         """
         Destroy the session when exiting the context.
+        """
+        self._cleanup_session()
+
+    def _cleanup_session(self):
+        """
+        Destroy the current session and set the stored session to None
         """
         try:
             self.destroy_session(self.current_session)
