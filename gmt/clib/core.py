@@ -6,9 +6,11 @@ import ctypes
 from tempfile import NamedTemporaryFile
 from contextlib import contextmanager
 
+from packaging.version import Version
 import numpy as np
 
-from ..exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
+from ..exceptions import GMTCLibError, GMTCLibNoSessionError, \
+    GMTInvalidInput, GMTVersionError
 from .utils import load_libgmt, kwargs_to_ctypes_array, vectors_to_arrays, \
     dataarray_to_matrix, as_c_contiguous
 
@@ -29,6 +31,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     If creating GMT data structures to communicate data, put that code inside
     this context manager to reuse the same session.
 
+    Requires a minimum version of GMT (see ``LibGMT.required_version``). Will
+    check for the version when entering the ``with`` block. A
+    ``GMTVersionError`` exception will be raised if the minimum version
+    requirements aren't met.
+
     Parameters
     ----------
     libname : str
@@ -42,6 +49,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         couldn't access the functions).
     GMTCLibNoSessionError
         If you try to call a method outside of a 'with' block.
+    GMTVersionError
+        If the minimum required version of GMT is not found.
 
     Examples
     --------
@@ -82,6 +91,9 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         'GMT_GRID_PIXEL_REG',
         'GMT_GRID_NODE_REG',
     ]
+
+    # The minimum version of GMT required
+    required_version = '6.0.0'
 
     # Map numpy dtypes to GMT types
     _dtypes = {
@@ -148,11 +160,25 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         Start the GMT session and keep the session argument.
         """
         self.current_session = self.create_session('gmt-python-session')
+        # Need to store the version info because 'get_default' won't work after
+        # the session is destroyed.
+        version = self.info['version']
+        if Version(version) < Version(self.required_version):
+            self._cleanup_session()
+            raise GMTVersionError(
+                "Using an incompatible GMT version {}. Must be newer than {}."
+                .format(version, self.required_version))
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         """
         Destroy the session when exiting the context.
+        """
+        self._cleanup_session()
+
+    def _cleanup_session(self):
+        """
+        Destroy the current session and set the stored session to None
         """
         try:
             self.destroy_session(self.current_session)
