@@ -1,6 +1,7 @@
 """
 Miscellaneous utilities
 """
+import os
 import sys
 import ctypes
 
@@ -240,18 +241,19 @@ def _as_array(vector):
     return np.asarray(vector)
 
 
-def load_libgmt(libname='libgmt'):
+def load_libgmt(env=None):
     """
     Find and load ``libgmt`` as a :py:class:`ctypes.CDLL`.
 
-    If not given the full path to the library, it must be in standard places or
-    by discoverable by setting the environment variable ``LD_LIBRARY_PATH``.
+    By default, will look for the shared library in the directory specified by
+    the environment variable ``GMT_LIBRARY_PATH``. If it's not set, will let
+    ctypes try to find the library.
 
     Parameters
     ----------
-    libname : str
-        The name of the GMT shared library **without the extension**. Can be a
-        full path to the library or just the library name.
+    env : dict or None
+        A dictionary containing the environment variables. If ``None``, will
+        default to ``os.environ``.
 
     Returns
     -------
@@ -265,18 +267,47 @@ def load_libgmt(libname='libgmt'):
         couldn't access the functions).
 
     """
+    libpath = get_clib_path(env)
     try:
-        libgmt = ctypes.CDLL('.'.join([libname, clib_extension()]))
+        libgmt = ctypes.CDLL(libpath)
         check_libgmt(libgmt)
     except OSError as err:
-        msg = ' '.join([
-            "Couldn't find the GMT shared library '{}'.".format(libname),
-            "Have you tried setting the LD_LIBRARY_PATH environment variable?",
-            "\nOriginal error message:",
-            "\n\n    {}".format(str(err)),
+        msg = '\n'.join([
+            "Couldn't find the GMT shared library '{}'.".format(libpath),
+            "Original error message:",
+            "{}".format(str(err)),
         ])
         raise GMTCLibNotFoundError(msg)
     return libgmt
+
+
+def get_clib_path(env):
+    """
+    Get the path to the libgmt shared library.
+
+    Determine the file name and extension and append to the path set by
+    ``GMT_LIBRARY_PATH``, if any.
+
+    Parameters
+    ----------
+    env : dict or None
+        A dictionary containing the environment variables. If ``None``, will
+        default to ``os.environ``.
+
+    Returns
+    -------
+    libpath : str
+        The path to the libgmt shared library.
+
+    """
+    libname = '.'.join(['libgmt', clib_extension()])
+    if env is None:
+        env = os.environ
+    if 'GMT_LIBRARY_PATH' in env:
+        libpath = os.path.join(env['GMT_LIBRARY_PATH'], libname)
+    else:
+        libpath = libname
+    return libpath
 
 
 def clib_extension(os_name=None):
