@@ -121,13 +121,19 @@ Test your installation by running the following inside a Python interpreter::
 Finding the GMT shared library
 ------------------------------
 
-You might have to set the ``LD_LIBRARY_PATH``
-variable so that Python can find the GMT shared library ``libgmt``.
+Sometimes, GMT/Python will be unable to find the correct version of the GMT
+shared library. This can happen if you have multiple versions of GMT installed.
 
-If you installed GMT using conda, place the following in your ``~/.bashrc``
-file::
+You can tell GMT/Python exactly where to look for ``libgmt`` by setting the
+``GMT_LIBRARY_PATH`` environment variable. This should be set to the directory
+where ``libgmt.so`` (or ``.dylib``) is found. **Only use this as a last
+resort**. Setting the path in this way means that GMT/Python will not be able
+to easily find the correct ``libgmt`` when you're changing conda environments.
 
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/anaconda3/envs/gmt-python/lib
+If you installed GMT using conda using the instructions above and you're using
+Linux or Mac, place the following in your ``~/.bashrc`` file::
+
+    export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/gmt-python/lib
 
 You should change ``$HOME/anaconda3`` to wherever you installed Anaconda (this
 is the default for Linux).

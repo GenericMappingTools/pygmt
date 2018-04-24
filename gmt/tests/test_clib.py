@@ -14,7 +14,7 @@ from packaging.version import Version
 
 from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt, \
-    dataarray_to_matrix
+    dataarray_to_matrix, get_clib_path
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError, \
     GMTCLibNoSessionError, GMTInvalidInput, GMTVersionError
 from ..helpers import GMTTempFile
@@ -63,8 +63,28 @@ def test_load_libgmt():
 
 def test_load_libgmt_fail():
     "Test that loading fails when given a bad library path."
+    env = {'GMT_LIBRARY_PATH': 'not/a/real/path'}
     with pytest.raises(GMTCLibNotFoundError):
-        load_libgmt('some/wrong/path/libgmt')
+        load_libgmt(env=env)
+
+
+def test_get_clib_path():
+    "Test that the correct path is found when setting GMT_LIBRARY_PATH."
+    # Get the real path to the library first
+    with LibGMT() as lib:
+        libpath = lib.info['library path']
+    libdir = os.path.dirname(libpath)
+    # Assign it to the environment variable but keep a backup value to restore
+    # later
+    env = {'GMT_LIBRARY_PATH': libdir}
+
+    # Check that the path is determined correctly
+    path_used = get_clib_path(env=env)
+    assert os.path.samefile(path_used, libpath)
+    assert os.path.dirname(path_used) == libdir
+
+    # Check that loading libgmt works
+    load_libgmt(env=env)
 
 
 def test_check_libgmt():

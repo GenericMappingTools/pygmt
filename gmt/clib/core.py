@@ -36,11 +36,9 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     ``GMTVersionError`` exception will be raised if the minimum version
     requirements aren't met.
 
-    Parameters
-    ----------
-    libname : str
-        The name of the GMT shared library **without the extension**. Can be a
-        full path to the library or just the library name.
+    By default, will look for the shared library in the directory specified by
+    the environment variable ``GMT_LIBRARY_PATH``. If the variable is not set,
+    will let ctypes try to find the library.
 
     Raises
     ------
@@ -105,10 +103,10 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         'uint32': 'GMT_UINT',
     }
 
-    def __init__(self, libname='libgmt'):
+    def __init__(self):
         self._logfile = None
         self._session_id = None
-        self._libgmt = load_libgmt(libname)
+        self._libgmt = load_libgmt()
 
     @property
     def current_session(self):
