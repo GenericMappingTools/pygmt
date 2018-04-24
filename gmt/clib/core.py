@@ -31,6 +31,11 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
     If creating GMT data structures to communicate data, put that code inside
     this context manager to reuse the same session.
 
+    Requires a minimum version of GMT (see ``LibGMT.required_version``). Will
+    check for the version when entering the ``with`` block. A
+    ``GMTVersionError`` exception will be raised if the minimum version
+    requirements aren't met.
+
     Parameters
     ----------
     libname : str
@@ -44,6 +49,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         couldn't access the functions).
     GMTCLibNoSessionError
         If you try to call a method outside of a 'with' block.
+    GMTVersionError
+        If the minimum required version of GMT is not found.
 
     Examples
     --------
