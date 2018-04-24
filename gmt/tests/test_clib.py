@@ -38,11 +38,13 @@ def mock(lib, func, returns=None, mock_func=None):
     """
     if mock_func is None:
 
-        def mock_func(*args):  # pylint: disable=unused-argument
+        def mock_api_function(*args):  # pylint: disable=unused-argument
             """
             A mock GMT API function that always returns a given value.
             """
             return returns
+
+        mock_func = mock_api_function
 
     backup = getattr(lib._libgmt, func)
     setattr(lib._libgmt, func, mock_func)
@@ -754,7 +756,7 @@ def test_info_dict():
     "Make sure the LibGMT.info dict is working."
 
     # Mock GMT_Get_Default to return always the same string
-    def mock_defaults(api, name, value):
+    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
         "Put 'bla' in the value buffer"
         value.value = b"bla"
         return 0
@@ -762,6 +764,7 @@ def test_info_dict():
     with LibGMT() as lib:
         with mock(lib, 'GMT_Get_Default', mock_func=mock_defaults):
             info = lib.info
-            assert len(info) > 0
+            # Check for an empty dictionary
+            assert info
             for key in info:
                 assert info[key] == 'bla'
