@@ -46,6 +46,7 @@ INSTALL_REQUIRES = [
     'numpy',
     'pandas',
     'xarray',
+    'packaging',
 ]
 
 if __name__ == '__main__':

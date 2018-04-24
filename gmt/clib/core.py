@@ -272,14 +272,6 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         GMTCLibError
             If the parameter doesn't exist.
 
-        Examples
-        --------
-
-        >>> with LibGMT() as lib:
-        ...     print(lib.get_default('API_GRID_LAYOUT'))
-        ...     print(lib.get_default('API_VERSION'))
-        rows
-
         """
         c_get_default = self._libgmt.GMT_Get_Default
         c_get_default.argtypes = [ctypes.c_void_p, ctypes.c_char_p,

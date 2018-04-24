@@ -10,6 +10,7 @@ dependencies:
     - numpy
     - pandas
     - xarray
+    - packaging
     - ipython
     - matplotlib
     - jupyter
