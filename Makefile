@@ -28,6 +28,8 @@ test:
 coverage:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	mkdir -p $(TESTDIR)
+	cd $(TESTDIR); python -c "import gmt; gmt.print_libgmt_info()"
+	@echo ""
 	cd $(TESTDIR); pytest $(PYTEST_COV_ARGS) --cov=gmt $(PYTEST_ARGS) gmt
 	cp $(TESTDIR)/.coverage* .
 	rm -r $(TESTDIR)
