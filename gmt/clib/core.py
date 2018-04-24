@@ -123,6 +123,25 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         """
         self._session_id = session
 
+    @property
+    def info(self):
+        """
+        Dictionary with the GMT version and default paths and parameters.
+        """
+        infodict = {
+            'version': self.get_default('API_VERSION'),
+            'padding': self.get_default("API_PAD"),
+            'binary dir': self.get_default("API_BINDIR"),
+            'share dir': self.get_default("API_SHAREDIR"),
+            'data dir': self.get_default("API_DATADIR"),
+            'plugin dir': self.get_default("API_PLUGINDIR"),
+            'library path': self.get_default("API_LIBRARY"),
+            'cores': self.get_default("API_CORES"),
+            'image layout': self.get_default("API_IMAGE_LAYOUT"),
+            'grid layout': self.get_default("API_GRID_LAYOUT"),
+        }
+        return infodict
+
     def __enter__(self):
         """
         Start the GMT session and keep the session argument.
@@ -279,7 +298,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         c_get_default.restype = ctypes.c_int
 
         # Make a string buffer to get a return value
-        value = ctypes.create_string_buffer(50000)
+        value = ctypes.create_string_buffer(4000)
 
         status = c_get_default(self.current_session, name.encode(), value)
 
