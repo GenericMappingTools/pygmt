@@ -30,6 +30,29 @@ _begin()
 _atexit.register(_end)
 
 
+def print_libgmt_info():
+    """
+    Print information about the currently loaded GMT shared library.
+
+    Includes the GMT version, default values for parameters, the path to the
+    ``libgmt`` shared library, and GMT directories.
+    """
+    import shutil
+    from .clib import LibGMT
+
+    columns = shutil.get_terminal_size().columns
+    title = "Currently loaded libgmt"
+    left = (columns - len(title) - 2)//2
+    right = left + (columns - (2*left + len(title) + 2))
+    header = ' '.join(['='*left, title, '='*right])
+
+    with LibGMT() as lib:
+        lines = [header]
+        for key in sorted(lib.info):
+            lines.append('{}: {}'.format(key, lib.info[key]))
+    print('\n'.join(lines))
+
+
 def test(doctest=True, verbose=True, coverage=False, figures=True):
     """
     Run the test suite.
@@ -62,6 +85,9 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
 
     """
     import pytest
+
+    print_libgmt_info()
+
     args = []
     if verbose:
         args.append('-vv')
