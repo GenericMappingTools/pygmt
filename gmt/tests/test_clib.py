@@ -25,7 +25,7 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
 
 @contextmanager
-def mock(lib, func, returns=None):
+def mock(lib, func, returns=None, mock_func=None):
     """
     Mock a GMT C API function to make it always return a given value.
 
@@ -36,14 +36,18 @@ def mock(lib, func, returns=None):
     inducing a Segmentation Fault (which is a good thing because libgmt usually
     only fails with errors).
     """
-    def mock_api_function(*args):  # pylint: disable=unused-argument
-        """
-        A mock GMT API function that always returns a given value.
-        """
-        return returns
+    if mock_func is None:
+
+        def mock_api_function(*args):  # pylint: disable=unused-argument
+            """
+            A mock GMT API function that always returns a given value.
+            """
+            return returns
+
+        mock_func = mock_api_function
 
     backup = getattr(lib._libgmt, func)
-    setattr(lib._libgmt, func, mock_api_function)
+    setattr(lib._libgmt, func, mock_func)
     try:
         yield
     finally:
@@ -746,3 +750,25 @@ def test_get_default_fails():
     with LibGMT() as lib:
         with pytest.raises(GMTCLibError):
             lib.get_default('NOT_A_VALID_NAME')
+
+
+def test_info_dict():
+    "Make sure the LibGMT.info dict is working."
+    # Check if there are no errors or segfaults from getting all of the
+    # properties.
+    with LibGMT() as lib:
+        assert lib.info
+
+    # Mock GMT_Get_Default to return always the same string
+    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
+        "Put 'bla' in the value buffer"
+        value.value = b"bla"
+        return 0
+
+    with LibGMT() as lib:
+        with mock(lib, 'GMT_Get_Default', mock_func=mock_defaults):
+            info = lib.info
+            # Check for an empty dictionary
+            assert info
+            for key in info:
+                assert info[key] == 'bla'
