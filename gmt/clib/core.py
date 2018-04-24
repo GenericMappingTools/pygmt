@@ -133,7 +133,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
             'padding': self.get_default("API_PAD"),
             'binary dir': self.get_default("API_BINDIR"),
             'share dir': self.get_default("API_SHAREDIR"),
-            'data dir': self.get_default("API_DATADIR"),
+            # This segfaults for some reason
+            # 'data dir': self.get_default("API_DATADIR"),
             'plugin dir': self.get_default("API_PLUGINDIR"),
             'library path': self.get_default("API_LIBRARY"),
             'cores': self.get_default("API_CORES"),
@@ -298,7 +299,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
         c_get_default.restype = ctypes.c_int
 
         # Make a string buffer to get a return value
-        value = ctypes.create_string_buffer(4000)
+        value = ctypes.create_string_buffer(10000)
 
         status = c_get_default(self.current_session, name.encode(), value)
 

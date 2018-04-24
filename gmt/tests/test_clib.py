@@ -754,6 +754,10 @@ def test_get_default_fails():
 
 def test_info_dict():
     "Make sure the LibGMT.info dict is working."
+    # Check if there are no errors or segfaults from getting all of the
+    # properties.
+    with LibGMT() as lib:
+        assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
     def mock_defaults(api, name, value):  # pylint: disable=unused-argument
