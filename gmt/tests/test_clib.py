@@ -10,6 +10,7 @@ import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import xarray as xr
+from packaging.version import Version
 
 from ..clib.core import LibGMT
 from ..clib.utils import clib_extension, load_libgmt, check_libgmt, \
@@ -123,25 +124,41 @@ def test_set_log_file_fails():
                 print("This should have failed")
 
 
+def logged_call_module(lib, data_file):
+    """
+    Make a call_module to 'info' with a log file.
+    The call invalid because 'data_file' doesn't exist.
+    Checks that the call results in an error and that the correct error message
+    is logged.
+    """
+    msg = 'gmtinfo [ERROR]: Error for input file: No such file ({})'
+    mode = lib.get_constant('GMT_MODULE_CMD')
+    with lib.log_to_file() as logfile:
+        assert os.path.exists(logfile)
+        # Make a bogus module call that will fail
+        status = lib._libgmt.GMT_Call_Module(lib.current_session,
+                                             'info'.encode(), mode,
+                                             data_file.encode())
+        assert status != 0
+        # Check the file content
+        with open(logfile) as flog:
+            log = flog.read()
+        assert log.strip() == msg.format(data_file)
+    # Log should be deleted as soon as the with is over
+    assert not os.path.exists(logfile)
+
+
 def test_errors_sent_to_log_file():
     "Make sure error messages are recorded in the log file."
     with LibGMT() as lib:
-        mode = lib.get_constant('GMT_MODULE_CMD')
-        with lib.log_to_file() as logfile:
-            assert os.path.exists(logfile)
-            data_file = 'not-a-valid-data-file.bla'
-            # Make a bogus module call that will fail
-            status = lib._libgmt.GMT_Call_Module(
-                lib.current_session, 'info'.encode(), mode, data_file.encode())
-            assert status != 0
-            # Check the file content
-            with open(logfile) as flog:
-                log = flog.read()
-    msg = 'gmtinfo [ERROR]: Error for input file: No such file ({})'.format(
-        data_file)
-    assert log.strip() == msg
-    # Log should be deleted as soon as the with is over
-    assert not os.path.exists(logfile)
+        logged_call_module(lib, 'not-a-valid-data-file.bla')
+
+
+def test_set_log_file_twice():
+    "Make sure setting a log file twice in a session works"
+    with LibGMT() as lib:
+        logged_call_module(lib, 'not-a-valid-data-file.bla')
+        logged_call_module(lib, 'another-invalid-data-file.bla')
 
 
 def test_call_module():
@@ -714,3 +731,18 @@ def test_dataarray_to_matrix_inc_fails():
     grid = xr.DataArray(data, coords=[('y', y), ('x', x)])
     with pytest.raises(GMTInvalidInput):
         dataarray_to_matrix(grid)
+
+
+def test_get_default():
+    "Make sure get_default works without crashing and gives reasonable results"
+    with LibGMT() as lib:
+        assert lib.get_default('API_GRID_LAYOUT') in ['rows', 'columns']
+        assert int(lib.get_default('API_CORES')) >= 1
+        assert Version(lib.get_default('API_VERSION')) >= Version('6.0.0')
+
+
+def test_get_default_fails():
+    "Make sure get_default raises an exception for invalid names"
+    with LibGMT() as lib:
+        with pytest.raises(GMTCLibError):
+            lib.get_default('NOT_A_VALID_NAME')

@@ -240,6 +240,56 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         return value
 
+    def get_default(self, name):
+        """
+        Get the value of a GMT default parameter (library version, paths, etc).
+
+        Possible default parameter names include:
+
+        * ``"API_VERSION"``: The GMT version
+        * ``"API_PAD"``: The grid padding setting
+        * ``"API_BINDIR"``: The binary file directory
+        * ``"API_SHAREDIR"``: The share directory
+        * ``"API_DATADIR"``: The data directory
+        * ``"API_PLUGINDIR"``: The plugin directory
+        * ``"API_LIBRARY"``: The core library path
+        * ``"API_CORES"``: The number of cores
+        * ``"API_IMAGE_LAYOUT"``: The image/band layout
+        * ``"API_GRID_LAYOUT"``: The grid layout
+
+        Parameters
+        ----------
+        name : str
+            The name of the default parameter (e.g., ``"API_VERSION"``)
+
+        Returns
+        -------
+        value : str
+            The default value for the parameter.
+
+        Raises
+        ------
+        GMTCLibError
+            If the parameter doesn't exist.
+
+        """
+        c_get_default = self._libgmt.GMT_Get_Default
+        c_get_default.argtypes = [ctypes.c_void_p, ctypes.c_char_p,
+                                  ctypes.c_char_p]
+        c_get_default.restype = ctypes.c_int
+
+        # Make a string buffer to get a return value
+        value = ctypes.create_string_buffer(50000)
+
+        status = c_get_default(self.current_session, name.encode(), value)
+
+        if status != 0:
+            raise GMTCLibError(
+                "Error getting default value for '{}' (error code {})."
+                .format(name, status))
+
+        return value.value.decode()
+
     @contextmanager
     def log_to_file(self, logfile=None):
         """
