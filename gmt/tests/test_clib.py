@@ -46,14 +46,19 @@ def mock(lib, func, returns=None, mock_func=None):
 
         mock_func = mock_api_function
 
-    backup = getattr(lib._libgmt, func)
-    setattr(lib._libgmt, func, mock_func)
-    try:
-        yield
-    finally:
-        # Need to restore the original method to please pylint. Make sure it
-        # always happens by putting it in this finally block.
-        setattr(lib._libgmt, func, backup)
+    get_libgmt_func = lib.get_libgmt_func
+
+    def mock_get_libgmt_func(name, argtypes=None, restype=None):
+        """
+        Return our mock function.
+        """
+        if name == func:
+            return mock_func
+        return get_libgmt_func(name, argtypes, restype)
+
+    setattr(lib, 'get_libgmt_func', mock_get_libgmt_func)
+
+    yield
 
 
 def test_load_libgmt():
