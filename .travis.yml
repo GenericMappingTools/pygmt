@@ -22,6 +22,7 @@ env:
         - BUILD_DOCS=false
         - DEPLOY_DOCS=false
         - DEPLOY_PYPI=false
+        - CONDA_REQUIREMENTS="requirements.txt"
         # Need the dev channel to get development builds of GMT 6
         - CONDA_FLAGS="--yes --quiet -c conda-forge -c conda-forge/label/dev"
 
@@ -45,7 +46,6 @@ matrix:
               - PYTHON=3.6
               - COVERAGE=true
               - BUILD_DOCS=true
-              - LD_LIBRARY_PATH='
 
 before_install:
     # Get the Fatiando CI scripts
@@ -53,8 +53,8 @@ before_install:
     # Download and install miniconda and setup dependencies
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
-    # Install dependencies
-    - conda install --file requirements.txt $CONDA_FLAGS
+    # Install GMT from the dev channel
+    - conda install $CONDA_FLAGS gmt=6.0.0a*
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
