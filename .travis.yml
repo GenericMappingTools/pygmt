@@ -45,15 +45,14 @@ matrix:
               - PYTHON=3.6
               - COVERAGE=true
               - BUILD_DOCS=true
+              - LD_LIBRARY_PATH='
 
 before_install:
-    # Get Miniconda from Continuum
-    # Need to source the script to set the PATH variable in this environment
-    # (not the scripts environment)
-    - source ci/install-miniconda.sh
-    - conda update conda $CONDA_FLAGS
-    - conda create --name testenv python=$PYTHON pip $CONDA_FLAGS
-    - source activate testenv
+    # Get the Fatiando CI scripts
+    - git clone https://github.com/fatiando/continuous-integration.git
+    # Download and install miniconda and setup dependencies
+    # Need to source the script to set the PATH variable globaly
+    - source continuous-integration/travis/setup-miniconda.sh
     # Install dependencies
     - conda install --file requirements.txt $CONDA_FLAGS
     - if [ "$COVERAGE" == "true" ]; then
