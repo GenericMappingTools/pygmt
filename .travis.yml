@@ -73,9 +73,10 @@ script:
       fi
     # Run the test suite
     - if [ "$COVERAGE" == "true" ]; then
-        make coverage;
+        # Make pytest report any captured output on stdout or stderr
+        make coverage PYTEST_EXTRA="-r P";
       else
-        make test;
+        make test PYTEST_EXTRA="-r P";
       fi
     # Build the documentation
     - if [ "$BUILD_DOCS" == "true" ]; then
