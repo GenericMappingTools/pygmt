@@ -1324,8 +1324,6 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         )
 
         wesn = np.empty(4, dtype=np.float64)
-        # Use NaNs so that we can know if GMT didn't change the array
-        wesn[:] = np.nan
         wesn_pointer = wesn.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
         # The second argument to GMT_Extract_Region is a file pointer to a
         # PostScript file. It's only valid in classic mode. Use None to get a
