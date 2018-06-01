@@ -407,15 +407,15 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         Examples
         --------
 
-        >>> with LibGMT() as lib:
-        ...     mode = lib.get_constant('GMT_MODULE_CMD')
-        ...     with lib.log_to_file() as logfile:
-        ...         call_module = lib.get_libgmt_func('GMT_Call_Module')
-        ...         status = call_module(lib.current_session, 'info'.encode(),
-        ...                              mode, 'bogus-file.bla'.encode())
-        ...         with open(logfile) as flog:
-        ...             print(flog.read().strip())
-        gmtinfo [ERROR]: Error for input file: No such file (bogus-file.bla)
+        # >>> with LibGMT() as lib:
+        # ...     mode = lib.get_constant('GMT_MODULE_CMD')
+        # ...     with lib.log_to_file() as logfile:
+        # ...         call_module = lib.get_libgmt_func('GMT_Call_Module')
+        # ...         status = call_module(lib.current_session, 'info'.encode(),
+        # ...                              mode, 'bogus-file.bla'.encode())
+        # ...         with open(logfile) as flog:
+        # ...             print(flog.read().strip())
+        # gmtinfo [ERROR]: Error for input file: No such file (bogus-file.bla)
 
         """
         c_handle_messages = self.get_libgmt_func(
