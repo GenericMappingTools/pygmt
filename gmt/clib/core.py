@@ -546,7 +546,8 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
 
         family_int = self._parse_constant(family, valid=self.data_families,
                                           valid_modifiers=self.data_vias)
-        mode_int = self._parse_constant(mode, valid=self.data_modes)
+        mode_int = self._parse_constant(mode, valid=self.data_modes,
+                                        valid_modifiers=["GMT_GRID_IS_GEO"])
         geometry_int = self._parse_constant(
             geometry, valid=self.data_geometries)
         registration_int = self._parse_constant(
@@ -939,7 +940,7 @@ class LibGMT():  # pylint: disable=too-many-instance-attributes
                                             valid=self.data_geometries)
         direction_int = self._parse_constant(
             direction, valid=['GMT_IN', 'GMT_OUT'],
-            valid_modifiers=['GMT_IS_REFERENCE'])
+            valid_modifiers=['GMT_IS_REFERENCE', 'GMT_IS_DUPLICATE'])
 
         buff = ctypes.create_string_buffer(self.get_constant('GMT_STR16'))
 

@@ -2,8 +2,37 @@
 Non-plot GMT modules.
 """
 from .clib import LibGMT
-from .helpers import build_arg_string, fmt_docstring, GMTTempFile, use_alias
+from .helpers import build_arg_string, fmt_docstring, GMTTempFile, use_alias, \
+    data_kind
 from .exceptions import GMTInvalidInput
+
+
+@fmt_docstring
+def grdinfo(grid, **kwargs):
+    """
+    Get information about a grid.
+
+    {gmt_module_docs}
+
+    Parameters
+    ----------
+    grid : str
+        The file name of the input data table file.
+
+    """
+    kind = data_kind(grid, None, None)
+    with GMTTempFile() as outfile:
+        with LibGMT() as lib:
+            if kind == 'file':
+                file_context = dummy_context(grid)
+            elif kind == 'grid':
+                file_context = lib.grid_to_vfile(grid)
+            with file_context as infile:
+                arg_str = ' '.join([infile, build_arg_string(kwargs),
+                                    "->" + outfile.name])
+                lib.call_module('grdinfo', arg_str)
+        result = outfile.read()
+    return result
 
 
 @fmt_docstring

@@ -111,6 +111,32 @@ class BasePlotting():
             lib.call_module('coast', build_arg_string(kwargs))
 
     @fmt_docstring
+    @use_alias(R='region', J='projection', B='frame', I='shading', C='cmap')
+    @kwargs_to_strings(R='sequence')
+    def grdimage(self, grid, **kwargs):
+        """
+        Project grids or images and plot them on maps.
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+
+        """
+        kwargs = self._preprocess(**kwargs)
+        kind = data_kind(grid, None, None)
+        with LibGMT() as lib:
+            if kind == 'file':
+                file_context = dummy_context(grid)
+            elif kind == 'grid':
+                file_context = lib.grid_to_vfile(grid)
+            with file_context as fname:
+                arg_str = ' '.join([fname, build_arg_string(kwargs)])
+                lib.call_module('grdimage', arg_str)
+
+    @fmt_docstring
     @use_alias(R='region', J='projection', B='frame', S='style', G='color',
                W='pen', i='columns', C='cmap')
     @kwargs_to_strings(R='sequence', i='sequence_comma')

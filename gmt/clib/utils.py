@@ -105,7 +105,7 @@ def dataarray_to_matrix(grid):
                 .format(dim))
         region.extend([coord.min(), coord.max()])
         inc.append(coord_inc)
-    matrix = as_c_contiguous(grid.values[:])
+    matrix = as_c_contiguous(grid.values[::-1])
     return matrix, region, inc
 
 
