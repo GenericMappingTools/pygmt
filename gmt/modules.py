@@ -3,7 +3,7 @@ Non-plot GMT modules.
 """
 from .clib import LibGMT
 from .helpers import build_arg_string, fmt_docstring, GMTTempFile, use_alias, \
-    data_kind
+    data_kind, dummy_context
 from .exceptions import GMTInvalidInput
 
 
@@ -12,12 +12,19 @@ def grdinfo(grid, **kwargs):
     """
     Get information about a grid.
 
+    Can read the grid from a file or given as an xarray.DataArray grid.
+
     {gmt_module_docs}
 
     Parameters
     ----------
-    grid : str
-        The file name of the input data table file.
+    grid : str or xarray.DataArray
+        The file name of the input grid or the grid loaded as a DataArray.
+
+    Returns
+    -------
+    info : str
+        A string with information about the grid.
 
     """
     kind = data_kind(grid, None, None)
@@ -27,6 +34,9 @@ def grdinfo(grid, **kwargs):
                 file_context = dummy_context(grid)
             elif kind == 'grid':
                 file_context = lib.grid_to_vfile(grid)
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}"
+                                      .format(type(grid)))
             with file_context as infile:
                 arg_str = ' '.join([infile, build_arg_string(kwargs),
                                     "->" + outfile.name])
