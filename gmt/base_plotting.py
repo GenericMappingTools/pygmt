@@ -117,12 +117,16 @@ class BasePlotting():
         """
         Project grids or images and plot them on maps.
 
+        Takes a grid file name or an xarray.DataArray object as input.
+
         {gmt_module_docs}
 
         {aliases}
 
         Parameters
         ----------
+        grid : str or xarray.DataArray
+            The file name of the input grid or the grid loaded as a DataArray.
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -131,7 +135,11 @@ class BasePlotting():
             if kind == 'file':
                 file_context = dummy_context(grid)
             elif kind == 'grid':
-                file_context = lib.grid_to_vfile(grid)
+                raise NotImplementedError(
+                    "Sorry, DataArray support is not yet functional.")
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}"
+                                      .format(type(grid)))
             with file_context as fname:
                 arg_str = ' '.join([fname, build_arg_string(kwargs)])
                 lib.call_module('grdimage', arg_str)
