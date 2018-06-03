@@ -17,7 +17,8 @@ from ._version import get_versions as _get_versions
 # Import modules to make the high-level GMT Python API
 from .session_management import begin as _begin, end as _end
 from .figure import Figure
-from .modules import info, which
+from .modules import info, grdinfo, which
+from . import datasets
 
 
 # Get the version number through versioneer

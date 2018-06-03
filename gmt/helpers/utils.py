@@ -7,10 +7,12 @@ import subprocess
 import webbrowser
 from contextlib import contextmanager
 
+import xarray as xr
+
 from ..exceptions import GMTInvalidInput
 
 
-def data_kind(data, x, y):
+def data_kind(data, x=None, y=None):
     """
     Check what kind of data is provided to a module.
 
@@ -72,6 +74,8 @@ def data_kind(data, x, y):
 
     if isinstance(data, str):
         kind = 'file'
+    elif isinstance(data, xr.DataArray):
+        kind = 'grid'
     elif data is not None:
         kind = 'matrix'
     else:
