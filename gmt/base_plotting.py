@@ -148,7 +148,8 @@ class BasePlotting():
     @use_alias(R='region', J='projection', B='frame', S='style', G='color',
                W='pen', i='columns', C='cmap')
     @kwargs_to_strings(R='sequence', i='sequence_comma')
-    def plot(self, x=None, y=None, data=None, sizes=None, **kwargs):
+    def plot(self, x=None, y=None, data=None, sizes=None, direction=None,
+             **kwargs):
         """
         Plot lines, polygons, and symbols on maps.
 
@@ -187,6 +188,11 @@ class BasePlotting():
         sizes : 1d array
             The sizes of the data points in units specified in *style* (S).
             Only valid if using *x* and *y*.
+        direction : list of two 1d arrays
+            If plotting vectors (using ``style='V'`` or ``style='v'``), then
+            should be a list of two 1d arrays with the vector directions. These
+            can be angle and length, azimuth and length, or x and y components,
+            depending on the style options chosen.
         {J}
         {R}
         A : bool or str
@@ -215,6 +221,8 @@ class BasePlotting():
         kind = data_kind(data, x, y)
 
         extra_arrays = []
+        if 'S' in kwargs and kwargs['S'][0] in 'vV' and direction is not None:
+            extra_arrays.extend(direction)
         if 'G' in kwargs and not isinstance(kwargs['G'], str):
             if kind != 'vectors':
                 raise GMTInvalidInput(

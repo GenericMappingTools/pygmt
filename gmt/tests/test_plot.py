@@ -138,3 +138,16 @@ def test_plot_from_file(region):
     fig.plot(data=POINTS_DATA, region=region, projection='X10i', style='d1c',
              color='yellow', frame=True, columns=[0, 1])
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_vectors():
+    "Plot vectors"
+    azimuth = np.array([0, 45, 90, 135, 180, 225, 270, 310])
+    lengths = np.linspace(0.1, 1, len(azimuth))
+    lon = np.sin(np.deg2rad(azimuth))
+    lat = np.cos(np.deg2rad(azimuth))
+    fig = Figure()
+    fig.plot(x=lon, y=lat, direction=(azimuth, lengths), region='-2/2/-2/2',
+             projection='X4i', style='V0.2c+e', color='black', frame='af')
+    return fig
