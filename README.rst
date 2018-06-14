@@ -1,35 +1,25 @@
-GMT/Python
-==========
+.. raw:: html
 
-**A Python interface for the Generic Mapping Tools.**
+    <h1 align="center">GMT/Python</h1>
+    <h2 align="center">A Python interface for the Generic Mapping Tools</h2>
 
-`Documentation <http://www.gmtpython.xyz>`_ |
-`Install <http://www.gmtpython.xyz/install.html>`_ |
-`Tutorials <http://www.gmtpython.xyz/tutorials>`_ |
-`API <http://www.gmtpython.xyz/api>`_ |
-`Contact <https://gitter.im/GenericMappingTools/gmt-python>`_
+    <p align="center">
+    <a href="https://pypi.python.org/pypi/gmt-python"><img alt="Latest version on PyPI" src="http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square"></a>
+    <a href="https://travis-ci.org/GenericMappingTools/gmt-python"><img alt="Travis CI build status" src="http://img.shields.io/travis/GenericMappingTools/gmt-python/master.svg?style=flat-square&label=linux|osx"></a>
+    <a href="https://codecov.io/gh/GenericMappingTools/gmt-python"><img alt="Test coverage status" src="https://img.shields.io/codecov/c/github/GenericMappingTools/gmt-python/master.svg?style=flat-square"></a>
+    <a href="https://codeclimate.com/github/GenericMappingTools/gmt-python"><img alt="Code quality status" src="https://img.shields.io/codeclimate/maintainability/GenericMappingTools/gmt-python.svg?style=flat-square"></a>
+    <a href="https://www.codacy.com/app/leouieda/gmt-python"><img alt="Code quality grade on codacy" src="https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy"></a>
+    <a href="https://pypi.python.org/pypi/gmt-python"><img alt="Compatible Python versions." src="https://img.shields.io/pypi/pyversions/gmt-python.svg?style=flat-square"></a>
+    <a href="https://gitter.im/GenericMappingTools/gmt-python"><img alt="Chat room on Gitter" src="https://img.shields.io/gitter/room/GenericMappingTools/gmt-python.svg?style=flat-square"></a>
+    </p>
 
-.. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
-    :alt: Latest version on PyPI
-    :target: https://pypi.python.org/pypi/gmt-python
-.. image:: http://img.shields.io/travis/GenericMappingTools/gmt-python/master.svg?style=flat-square&label=linux|osx
-    :alt: Travis CI build status
-    :target: https://travis-ci.org/GenericMappingTools/gmt-python
-.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/gmt-python/master.svg?style=flat-square
-    :alt: Test coverage status
-    :target: https://codecov.io/gh/GenericMappingTools/gmt-python
-.. image:: https://img.shields.io/codeclimate/maintainability/GenericMappingTools/gmt-python.svg?style=flat-square
-    :alt: Code quality status
-    :target: https://codeclimate.com/github/GenericMappingTools/gmt-python
-.. image:: https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy
-    :alt: Code quality grade on codacy
-    :target: https://www.codacy.com/app/leouieda/gmt-python
-.. image:: https://img.shields.io/pypi/pyversions/gmt-python.svg?style=flat-square
-    :alt: Compatible Python versions.
-    :target: https://pypi.python.org/pypi/gmt-python
-.. image:: https://img.shields.io/gitter/room/GenericMappingTools/gmt-python.svg?style=flat-square
-    :alt: Chat room on Gitter
-    :target: https://gitter.im/GenericMappingTools/gmt-python
+    <p align="center">
+    <a href="http://www.gmtpython.xyz">Documentation</a> |
+    <a href="http://www.gmtpython.xyz/install.html">Install</a> |
+    <a href="http://www.gmtpython.xyz/tutorials">Tutorials</a> |
+    <a href="http://www.gmtpython.xyz/api">API</a> |
+    <a href="https://gitter.im/GenericMappingTools/gmt-python">Contact</a>
+    </p>
 
 
 Disclaimer
