@@ -164,6 +164,13 @@ def test_set_log_file_fails():
                 print("This should have failed")
 
 
+def test_set_log_file():
+    "log_to_file should not crash even if not given anything"
+    with LibGMT() as lib:
+        with lib.log_to_file() as log:
+            pass
+
+
 def logged_call_module(lib, data_file):
     """
     Make a call_module to 'info' with a log file.
