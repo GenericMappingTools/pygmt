@@ -1,0 +1,11 @@
+gmt.helpers.dummy\_context
+==========================
+
+.. currentmodule:: gmt.helpers
+
+.. autofunction:: dummy_context
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

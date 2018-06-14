@@ -1,0 +1,11 @@
+gmt.exceptions.GMTCLibNoSessionError
+====================================
+
+.. currentmodule:: gmt.exceptions
+
+.. autoexception:: GMTCLibNoSessionError
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

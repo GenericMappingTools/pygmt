@@ -1,0 +1,11 @@
+gmt.test
+========
+
+.. currentmodule:: gmt
+
+.. autofunction:: test
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

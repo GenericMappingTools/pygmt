@@ -1,0 +1,11 @@
+gmt.datasets.load\_japan\_quakes
+================================
+
+.. currentmodule:: gmt.datasets
+
+.. autofunction:: load_japan_quakes
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

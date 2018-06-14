@@ -1,0 +1,11 @@
+gmt.helpers.use\_alias
+======================
+
+.. currentmodule:: gmt.helpers
+
+.. autofunction:: use_alias
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

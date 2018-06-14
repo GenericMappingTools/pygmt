@@ -1,0 +1,584 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    
+        <title>gmt.figure &mdash; GMT/Python</title>
+    
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    
+    <script src="../../_static/require.js"></script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+    <a href="../../index.html"><h2 class="sidebar-title">GMT/Python</h2></a>
+
+    
+        
+        
+            <div class="version">
+                dev
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">External links</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="http://try.gmtpython.xyz"><i class="fa fa-book fa-fw"></i> Try it online!</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/gmt-python"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">GMT/Python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../gmt.html">gmt</a> &raquo;</li>
+        
+      <li>gmt.figure</li>
+    
+    
+    <li class="source-link">
+        
+        
+    </li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gmt.figure</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Define the Figure class that handles all plotting.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">TemporaryDirectory</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">Image</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">Image</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="kn">from</span> <span class="nn">.clib</span> <span class="k">import</span> <span class="n">LibGMT</span>
+<span class="kn">from</span> <span class="nn">.base_plotting</span> <span class="k">import</span> <span class="n">BasePlotting</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="k">import</span> <span class="n">GMTError</span><span class="p">,</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">launch_external_viewer</span><span class="p">,</span>
+    <span class="n">unique_name</span><span class="p">,</span>
+    <span class="n">worldwind_show</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="Figure"><a class="viewcode-back" href="../../api/gmt.Figure.html#gmt.Figure">[docs]</a><span class="k">class</span> <span class="nc">Figure</span><span class="p">(</span><span class="n">BasePlotting</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A GMT figure to handle all plotting.</span>
+
+<span class="sd">    Use the plotting methods of this class to add elements to the figure.  You</span>
+<span class="sd">    can preview the figure using :meth:`gmt.Figure.show` and save the figure to</span>
+<span class="sd">    a file using :meth:`gmt.Figure.savefig`.</span>
+
+<span class="sd">    Unlike traditional GMT figures, no figure file is generated until you call</span>
+<span class="sd">    :meth:`gmt.Figure.savefig` or :meth:`gmt.Figure.psconvert`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; fig = Figure()</span>
+<span class="sd">    &gt;&gt;&gt; fig.basemap(region=[0, 360, -90, 90], projection=&#39;W7i&#39;, frame=True)</span>
+<span class="sd">    &gt;&gt;&gt; fig.savefig(&quot;my-figure.png&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # Make sure the figure file is generated and clean it up</span>
+<span class="sd">    &gt;&gt;&gt; import os</span>
+<span class="sd">    &gt;&gt;&gt; os.path.exists(&#39;my-figure.png&#39;)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; os.remove(&#39;my-figure.png&#39;)</span>
+
+<span class="sd">    The plot region can be specified through ISO country codes (for example,</span>
+<span class="sd">    ``&#39;JP&#39;`` for Japan):</span>
+
+<span class="sd">    &gt;&gt;&gt; fig = Figure()</span>
+<span class="sd">    &gt;&gt;&gt; fig.basemap(region=&#39;JP&#39;, projection=&quot;M3i&quot;, frame=True)</span>
+<span class="sd">    &gt;&gt;&gt; # The fig.region attribute shows the WESN bounding box for the figure</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;, &#39;.join(&#39;{:.2f}&#39;.format(i)  for i in fig.region))</span>
+<span class="sd">    122.94, 145.82, 20.53, 45.52</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">unique_name</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">+</span> <span class="s2">&quot;-preview-&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Clean up the temporary directory that stores the previews</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_preview_dir&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_activate_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start and/or activate the current figure.</span>
+
+<span class="sd">        All plotting commands run afterward will append to this figure.</span>
+
+<span class="sd">        Unlike the command-line version (``gmt figure``), this method does not</span>
+<span class="sd">        trigger the generation of a figure file. An explicit call to</span>
+<span class="sd">        :meth:`gmt.Figure.savefig` or :meth:`gmt.Figure.psconvert` must be made</span>
+<span class="sd">        in order to get a file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Passing format &#39;-&#39; tells gmt.end to not produce any files.</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
+        <span class="k">with</span> <span class="n">LibGMT</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;figure&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">fmt</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call the ``figure`` module before each plotting command to ensure we&#39;re</span>
+<span class="sd">        plotting to this particular figure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">kwargs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&quot;The geographic WESN bounding box for the current figure.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">LibGMT</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="n">wesn</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">extract_region</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">wesn</span>
+
+<div class="viewcode-block" id="Figure.psconvert"><a class="viewcode-back" href="../../api/gmt.Figure.html#gmt.Figure.psconvert">[docs]</a>    <span class="nd">@fmt_docstring</span>
+    <span class="nd">@use_alias</span><span class="p">(</span><span class="n">F</span><span class="o">=</span><span class="s2">&quot;prefix&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;fmt&quot;</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="s2">&quot;crop&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">psconvert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert [E]PS file(s) to other formats.</span>
+
+<span class="sd">        Converts one or more PostScript files to other formats (BMP, EPS, JPEG,</span>
+<span class="sd">        PDF, PNG, PPM, SVG, TIFF) using GhostScript.</span>
+
+<span class="sd">        If no input files are given, will convert the current active figure</span>
+<span class="sd">        (see :func:`gmt.figure`). In this case, an output name must be given</span>
+<span class="sd">        using parameter *F*.</span>
+
+<span class="sd">        {gmt_module_docs}</span>
+
+<span class="sd">        {aliases}</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        A : str or bool</span>
+<span class="sd">            Adjust the BoundingBox and HiResBoundingBox to the minimum required</span>
+<span class="sd">            by the image content. Append ``u`` to first remove any GMT-produced</span>
+<span class="sd">            time-stamps. Default is True.</span>
+<span class="sd">        C : str</span>
+<span class="sd">            Specify a single, custom option that will be passed on to</span>
+<span class="sd">            GhostScript as is.</span>
+<span class="sd">        E : int</span>
+<span class="sd">            Set raster resolution in dpi. Default = 720 for PDF, 300 for</span>
+<span class="sd">            others.</span>
+<span class="sd">        F : str</span>
+<span class="sd">            Force the output file name. By default output names are constructed</span>
+<span class="sd">            using the input names as base, which are appended with an</span>
+<span class="sd">            appropriate extension. Use this option to provide a different name,</span>
+<span class="sd">            but without extension. Extension is still determined automatically.</span>
+<span class="sd">        I : bool</span>
+<span class="sd">            Enforce gray-shades by using ICC profiles.</span>
+<span class="sd">        Q : str</span>
+<span class="sd">            Set the anti-aliasing options for graphics or text. Append the size</span>
+<span class="sd">            of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing</span>
+<span class="sd">            (same as bits = 1).</span>
+<span class="sd">        T : str</span>
+<span class="sd">            Sets the output format, where b means BMP, e means EPS, E means EPS</span>
+<span class="sd">            with PageSize command, f means PDF, F means multi-page PDF, j means</span>
+<span class="sd">            JPEG, g means PNG, G means transparent PNG (untouched regions are</span>
+<span class="sd">            transparent), m means PPM, s means SVG, and t means TIFF [default</span>
+<span class="sd">            is JPEG]. To bjgt you can append - in order to get a grayscale</span>
+<span class="sd">            image. The EPS format can be combined with any of the other</span>
+<span class="sd">            formats. For example, ``&#39;ef&#39;`` creates both an EPS and a PDF file.</span>
+<span class="sd">            The ``&#39;F&#39;`` creates a multi-page PDF file from the list of input PS</span>
+<span class="sd">            or PDF files. It requires the *F* option.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># Default cropping the figure to True</span>
+        <span class="k">if</span> <span class="s2">&quot;A&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">LibGMT</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;psconvert&quot;</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Figure.savefig"><a class="viewcode-back" href="../../api/gmt.Figure.html#gmt.Figure.savefig">[docs]</a>    <span class="k">def</span> <span class="nf">savefig</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the figure to a file.</span>
+
+<span class="sd">        This method implements a matplotlib-like interface for</span>
+<span class="sd">        :meth:`~gmt.Figure.psconvert`.</span>
+
+<span class="sd">        Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),</span>
+<span class="sd">        BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).</span>
+<span class="sd">        The KML output generates a companion PNG file.</span>
+
+<span class="sd">        You can pass in any keyword arguments that</span>
+<span class="sd">        :meth:`~gmt.Figure.psconvert` accepts.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fname : str</span>
+<span class="sd">            The desired figure file name, including the extension. See the list</span>
+<span class="sd">            of supported formats and their extensions above.</span>
+<span class="sd">        transparent : bool</span>
+<span class="sd">            If True, will use a transparent background for the figure. Only</span>
+<span class="sd">            valid for PNG format.</span>
+<span class="sd">        crop : bool</span>
+<span class="sd">            If True, will crop the figure canvas (page) to the plot area.</span>
+<span class="sd">        anti_alias: bool</span>
+<span class="sd">            If True, will use anti aliasing when creating raster images (PNG,</span>
+<span class="sd">            JPG, TIf). More specifically, uses options ``Qt=2, Qg=2`` in</span>
+<span class="sd">            :meth:`~gmt.Figure.psconvert`. Ignored if creating vector graphics.</span>
+<span class="sd">            Overrides values of ``Qt`` and ``Qg`` passed in through ``kwargs``.</span>
+<span class="sd">        show: bool</span>
+<span class="sd">            If True, will open the figure in an external viewer.</span>
+<span class="sd">        dpi : int</span>
+<span class="sd">            Set raster resolution in dpi. Default is 720 for PDF, 300 for</span>
+<span class="sd">            others.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># All supported formats</span>
+        <span class="n">fmts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">png</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">pdf</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">jpg</span><span class="o">=</span><span class="s2">&quot;j&quot;</span><span class="p">,</span> <span class="n">bmp</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="n">tif</span><span class="o">=</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">kml</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+
+        <span class="n">prefix</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="n">ext</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># Remove the .</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fmts</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Unknown extension &#39;.</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ext</span><span class="p">))</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="n">fmts</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">transparent</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fmt</span> <span class="o">!=</span> <span class="s2">&quot;g&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                    <span class="s2">&quot;Transparency unavailable for &#39;</span><span class="si">{}</span><span class="s2">&#39;, only for png.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">fmt</span> <span class="o">=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">anti_alias</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;kml&quot;</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;W&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;+k&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">psconvert</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="n">crop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Figure.show"><a class="viewcode-back" href="../../api/gmt.Figure.html#gmt.Figure.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="n">globe_center</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Display a preview of the figure.</span>
+
+<span class="sd">        Inserts the preview in the Jupyter notebook output. You will need to</span>
+<span class="sd">        have IPython installed for this to work. You should have it if you are</span>
+<span class="sd">        using the notebook.</span>
+
+<span class="sd">        If ``method=&#39;external&#39;``, makes PDF preview instead and opens it in the</span>
+<span class="sd">        default viewer for your operating system (falls back to the default web</span>
+<span class="sd">        browser). Note that the external viewer does not block the current</span>
+<span class="sd">        process, so this won&#39;t work in a script.</span>
+
+<span class="sd">        If using the ``&#39;globe&#39;`` preview, use a Cartesian projection (``&#39;X&#39;``)</span>
+<span class="sd">        and specify degrees as size units (e.g. ``projection=&#39;X3id/3id&#39;``).</span>
+<span class="sd">        Otherwise, the figure may not align with the globe.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dpi : int</span>
+<span class="sd">            The image resolution (dots per inch).</span>
+<span class="sd">        width : int</span>
+<span class="sd">            Width of the figure shown in the notebook in pixels. Ignored if</span>
+<span class="sd">            ``method=&#39;external&#39;``.</span>
+<span class="sd">        method : str</span>
+<span class="sd">            How the figure will be displayed. Options are (1) ``&#39;static&#39;``: PNG</span>
+<span class="sd">            preview (default); (2) ``&#39;external&#39;``: PDF preview in an external</span>
+<span class="sd">            program; (3) ``&#39;globe&#39;``: interactive 3D globe in the notebook</span>
+<span class="sd">            using `NASA WorldWind Web &lt;https://worldwind.arc.nasa.gov&gt;`__ (only</span>
+<span class="sd">            use if plotting lon/lat data).</span>
+<span class="sd">        globe_center : None or tuple = (lon, lat, height[m])</span>
+<span class="sd">            The coordinates used to set the view point for the globe preview.</span>
+<span class="sd">            If None, will automatically determine a view based on the plot</span>
+<span class="sd">            region. Only used if ``method=&#39;globe&#39;``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        img : IPython.display.Image or IPython.display.Javascript</span>
+<span class="sd">            Only if ``method != &#39;external&#39;``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;globe&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Invalid show method &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;globe&quot;</span><span class="p">:</span>
+            <span class="n">png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span>
+                <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">worldwind_show</span><span class="p">(</span>
+                <span class="n">image</span><span class="o">=</span><span class="n">png</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                <span class="n">region</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                <span class="n">canvas_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+                <span class="n">globe_center</span><span class="o">=</span><span class="n">globe_center</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;external&quot;</span><span class="p">:</span>
+            <span class="n">pdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;static&quot;</span><span class="p">:</span>
+            <span class="n">png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
+                    <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="p">[</span>
+                            <span class="s2">&quot;Cannot find IPython.&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Make sure you have it installed&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;or use &#39;external=True&#39; to open in an external viewer.&quot;</span><span class="p">,</span>
+                        <span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">png</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">img</span></div>
+
+    <span class="k">def</span> <span class="nf">_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">dpi</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Grab a preview of the figure.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fmt : str</span>
+<span class="sd">            The image format. Can be any extension that</span>
+<span class="sd">            :meth:`~gmt.Figure.savefig` recognizes.</span>
+<span class="sd">        dpi : int</span>
+<span class="sd">            The image resolution (dots per inch).</span>
+<span class="sd">        as_bytes : bool</span>
+<span class="sd">            If ``True``, will load the image as a bytes string and return that</span>
+<span class="sd">            instead of the file name.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        preview : str or bytes</span>
+<span class="sd">            If ``as_bytes=False``, this is the file name of the preview image</span>
+<span class="sd">            file. Else, it is the file content loaded as a bytes string.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">fmt</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">as_bytes</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">image</span><span class="p">:</span>
+                <span class="n">preview</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">preview</span>
+        <span class="k">return</span> <span class="n">fname</span>
+
+    <span class="k">def</span> <span class="nf">_repr_png_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Show a PNG preview if the object is returned in an interactive shell.</span>
+<span class="sd">        For the Jupyter notebook or IPython Qt console.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">png</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Show the PNG image embedded in HTML with a controlled width.</span>
+<span class="sd">        Looks better than the raw PNG.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">raw_png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">base64_png</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">encodebytes</span><span class="p">(</span><span class="n">raw_png</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;img src=&quot;data:image/png;base64,</span><span class="si">{image}</span><span class="s1">&quot; width=&quot;</span><span class="si">{width}</span><span class="s1">px&quot;&gt;&#39;</span>
+        <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">base64_png</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Leonardo Uieda and Paul Wessel.
+      Last updated on Jun 14, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

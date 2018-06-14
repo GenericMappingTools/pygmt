@@ -1,0 +1,11 @@
+gmt.helpers.unique\_name
+========================
+
+.. currentmodule:: gmt.helpers
+
+.. autofunction:: unique_name
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

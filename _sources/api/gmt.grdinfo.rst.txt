@@ -1,0 +1,11 @@
+gmt.grdinfo
+===========
+
+.. currentmodule:: gmt
+
+.. autofunction:: grdinfo
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

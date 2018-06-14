@@ -1,0 +1,11 @@
+gmt.helpers.fmt\_docstring
+==========================
+
+.. currentmodule:: gmt.helpers
+
+.. autofunction:: fmt_docstring
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

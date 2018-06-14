@@ -1,0 +1,11 @@
+gmt.info
+========
+
+.. currentmodule:: gmt
+
+.. autofunction:: info
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

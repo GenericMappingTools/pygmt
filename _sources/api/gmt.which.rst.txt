@@ -1,0 +1,11 @@
+gmt.which
+=========
+
+.. currentmodule:: gmt
+
+.. autofunction:: which
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

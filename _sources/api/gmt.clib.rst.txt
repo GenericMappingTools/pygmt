@@ -1,0 +1,38 @@
+.. raw:: html
+
+    <div class="api-module">
+
+``gmt.clib``
+-----------------------
+
+.. raw:: html
+
+    <hr>
+
+.. automodule:: gmt.clib
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree: ./
+
+  LibGMT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. raw:: html
+
+    </div>

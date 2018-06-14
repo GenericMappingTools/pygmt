@@ -1,0 +1,11 @@
+gmt.datasets.load\_earth\_relief
+================================
+
+.. currentmodule:: gmt.datasets
+
+.. autofunction:: load_earth_relief
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

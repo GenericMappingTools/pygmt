@@ -1,0 +1,11 @@
+gmt.exceptions.GMTError
+=======================
+
+.. currentmodule:: gmt.exceptions
+
+.. autoexception:: GMTError
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

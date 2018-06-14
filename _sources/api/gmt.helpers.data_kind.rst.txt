@@ -1,0 +1,11 @@
+gmt.helpers.data\_kind
+======================
+
+.. currentmodule:: gmt.helpers
+
+.. autofunction:: data_kind
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

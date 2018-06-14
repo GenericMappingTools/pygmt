@@ -1,0 +1,11 @@
+gmt.helpers.launch\_external\_viewer
+====================================
+
+.. currentmodule:: gmt.helpers
+
+.. autofunction:: launch_external_viewer
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

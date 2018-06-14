@@ -1,0 +1,11 @@
+gmt.exceptions.GMTCLibNotFoundError
+===================================
+
+.. currentmodule:: gmt.exceptions
+
+.. autoexception:: GMTCLibNotFoundError
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

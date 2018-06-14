@@ -1,0 +1,11 @@
+gmt.exceptions.GMTInvalidInput
+==============================
+
+.. currentmodule:: gmt.exceptions
+
+.. autoexception:: GMTInvalidInput
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>
