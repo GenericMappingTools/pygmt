@@ -167,7 +167,7 @@ def test_set_log_file_fails():
 def test_set_log_file():
     "log_to_file should not crash even if not given anything"
     with LibGMT() as lib:
-        with lib.log_to_file() as log:
+        with lib.log_to_file():
             pass
 
 
@@ -180,7 +180,7 @@ def logged_call_module(lib, data_file):
     """
     msg = "gmtinfo [ERROR]: Error for input file: No such file ({})"
     mode = lib.get_constant("GMT_MODULE_CMD")
-    with lib.log_to_file() as logfile:
+    with lib.log_to_file("some-log-file.log") as logfile:
         assert os.path.exists(logfile)
         # Make a bogus module call that will fail
         status = lib._libgmt.GMT_Call_Module(

@@ -447,7 +447,9 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         yield logfile
 
         # Clean up when exiting the 'with' statement
-        os.remove(logfile)
+
+        if os.path.exists(logfile):
+            os.remove(logfile)
 
     def call_module(self, module, args):
         """
