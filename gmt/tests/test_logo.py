@@ -19,9 +19,8 @@ def test_logo():
 def test_logo_on_a_map():
     "Plot a GMT logo in the upper right corner of a map"
     fig = Figure()
-    fig.coast(region=[-90, -70, 0, 20], projection='M6i', land='chocolate',
-              frame=True)
-    fig.logo(D='jTR+o0.1i/0.1i+w3i', F=True)
+    fig.coast(region=[-90, -70, 0, 20], projection="M6i", land="chocolate", frame=True)
+    fig.logo(D="jTR+o0.1i/0.1i+w3i", F=True)
     return fig
 
 

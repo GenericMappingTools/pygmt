@@ -94,15 +94,21 @@ def worldwind_show(image, width, region, canvas_id, globe_center):
 
     """
     if globe_center is None:
-        height = 200000*max(region[1] - region[0], region[3] - region[2])
+        height = 200000 * max(region[1] - region[0], region[3] - region[2])
         lon = np.mean(region[:2])
         lat = np.mean(region[2:])
         globe_center = (lon, lat, height)
     # Need to escape the newlines so that they can be inserted in the
     # Javascript
-    data = base64.encodebytes(image).decode('utf-8').encode('unicode_escape')
-    b64image = "data:image/png;base64,{}".format(data.decode('utf-8'))
-    worldwind = TEMPLATE.format(url=URL, canvas=canvas_id, width=width,
-                                height=width, region=region, image=b64image,
-                                center=globe_center)
+    data = base64.encodebytes(image).decode("utf-8").encode("unicode_escape")
+    b64image = "data:image/png;base64,{}".format(data.decode("utf-8"))
+    worldwind = TEMPLATE.format(
+        url=URL,
+        canvas=canvas_id,
+        width=width,
+        height=width,
+        region=region,
+        image=b64image,
+        center=globe_center,
+    )
     return HTML(data=worldwind)

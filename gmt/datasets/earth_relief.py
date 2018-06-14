@@ -8,7 +8,7 @@ from .. import which
 from ..exceptions import GMTInvalidInput
 
 
-def load_earth_relief(resolution='60m'):
+def load_earth_relief(resolution="60m"):
     """
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -34,12 +34,12 @@ def load_earth_relief(resolution='60m'):
         degrees. Relief is in meters.
 
     """
-    valid_resolutions = ['{:02d}m'.format(res)
-                         for res in [60, 30, 10, 5, 2, 1]]
+    valid_resolutions = ["{:02d}m".format(res) for res in [60, 30, 10, 5, 2, 1]]
     if resolution not in valid_resolutions:
-        raise GMTInvalidInput("Invalid Earth relief resolution '{}'."
-                              .format(resolution))
-    fname = which('@earth_relief_{}'.format(resolution), download='u')
+        raise GMTInvalidInput(
+            "Invalid Earth relief resolution '{}'.".format(resolution)
+        )
+    fname = which("@earth_relief_{}".format(resolution), download="u")
     grid = xr.open_dataarray(fname)
     return grid
 
@@ -70,6 +70,6 @@ def _shape_from_resolution(resolution):
 
     """
     minutes = int(resolution[:2])
-    nlat = 180*60//minutes + 1
-    nlon = 360*60//minutes + 1
+    nlat = 180 * 60 // minutes + 1
+    nlon = 360 * 60 // minutes + 1
     return (nlat, nlon)

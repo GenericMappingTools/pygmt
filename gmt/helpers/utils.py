@@ -66,20 +66,20 @@ def data_kind(data, x=None, y=None):
 
     """
     if data is None and x is None and y is None:
-        raise GMTInvalidInput('No input data provided.')
+        raise GMTInvalidInput("No input data provided.")
     if data is not None and (x is not None or y is not None):
-        raise GMTInvalidInput('Too much data. Use either data or x and y.')
+        raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
-        raise GMTInvalidInput('Must provided both x and y.')
+        raise GMTInvalidInput("Must provided both x and y.")
 
     if isinstance(data, str):
-        kind = 'file'
+        kind = "file"
     elif isinstance(data, xr.DataArray):
-        kind = 'grid'
+        kind = "grid"
     elif data is not None:
-        kind = 'matrix'
+        kind = "matrix"
     else:
-        kind = 'vectors'
+        kind = "vectors"
     return kind
 
 
@@ -147,11 +147,11 @@ def build_arg_string(kwargs):
     for key in sorted(kwargs):
         if is_nonstr_iter(kwargs[key]):
             for value in kwargs[key]:
-                sorted_args.append('-{}{}'.format(key, value))
+                sorted_args.append("-{}{}".format(key, value))
         else:
-            sorted_args.append('-{}{}'.format(key, kwargs[key]))
+            sorted_args.append("-{}{}".format(key, kwargs[key]))
 
-    arg_str = ' '.join(sorted_args)
+    arg_str = " ".join(sorted_args)
     return arg_str
 
 
@@ -209,9 +209,9 @@ def launch_external_viewer(fname):
 
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
-    if sys.platform.startswith('linux') and shutil.which('xdg-open'):
-        subprocess.run(['xdg-open', fname], **run_args)
-    elif sys.platform == 'darwin':  # Darwin is macOS
-        subprocess.run(['open', fname], **run_args)
+    if sys.platform.startswith("linux") and shutil.which("xdg-open"):
+        subprocess.run(["xdg-open", fname], **run_args)
+    elif sys.platform == "darwin":  # Darwin is macOS
+        subprocess.run(["open", fname], **run_args)
     else:
-        webbrowser.open_new_tab('file://{}'.format(fname))
+        webbrowser.open_new_tab("file://{}".format(fname))

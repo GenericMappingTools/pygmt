@@ -4,11 +4,17 @@ Does not define any special non-GMT methods (savefig, show, etc).
 """
 from .clib import LibGMT
 from .exceptions import GMTInvalidInput
-from .helpers import build_arg_string, dummy_context, data_kind, \
-    fmt_docstring, use_alias, kwargs_to_strings
+from .helpers import (
+    build_arg_string,
+    dummy_context,
+    data_kind,
+    fmt_docstring,
+    use_alias,
+    kwargs_to_strings,
+)
 
 
-class BasePlotting():
+class BasePlotting:
     """
     Base class for Figure and Subplot.
 
@@ -45,10 +51,19 @@ class BasePlotting():
         return kwargs
 
     @fmt_docstring
-    @use_alias(R='region', J='projection', A='area_thresh', B='frame',
-               D='resolution', I='rivers', N='borders', W='shorelines',
-               G='land', S='water')
-    @kwargs_to_strings(R='sequence')
+    @use_alias(
+        R="region",
+        J="projection",
+        A="area_thresh",
+        B="frame",
+        D="resolution",
+        I="rivers",
+        N="borders",
+        W="shorelines",
+        G="land",
+        S="water",
+    )
+    @kwargs_to_strings(R="sequence")
     def coast(self, **kwargs):
         """
         Plot continents, shorelines, rivers, and borders on maps
@@ -108,11 +123,11 @@ class BasePlotting():
         """
         kwargs = self._preprocess(**kwargs)
         with LibGMT() as lib:
-            lib.call_module('coast', build_arg_string(kwargs))
+            lib.call_module("coast", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R='region', J='projection', B='frame', I='shading', C='cmap')
-    @kwargs_to_strings(R='sequence')
+    @use_alias(R="region", J="projection", B="frame", I="shading", C="cmap")
+    @kwargs_to_strings(R="sequence")
     def grdimage(self, grid, **kwargs):
         """
         Project grids or images and plot them on maps.
@@ -132,24 +147,31 @@ class BasePlotting():
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
         with LibGMT() as lib:
-            if kind == 'file':
+            if kind == "file":
                 file_context = dummy_context(grid)
-            elif kind == 'grid':
+            elif kind == "grid":
                 raise NotImplementedError(
-                    "Sorry, DataArray support is not yet functional.")
+                    "Sorry, DataArray support is not yet functional."
+                )
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}"
-                                      .format(type(grid)))
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as fname:
-                arg_str = ' '.join([fname, build_arg_string(kwargs)])
-                lib.call_module('grdimage', arg_str)
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("grdimage", arg_str)
 
     @fmt_docstring
-    @use_alias(R='region', J='projection', B='frame', S='style', G='color',
-               W='pen', i='columns', C='cmap')
-    @kwargs_to_strings(R='sequence', i='sequence_comma')
-    def plot(self, x=None, y=None, data=None, sizes=None, direction=None,
-             **kwargs):
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        S="style",
+        G="color",
+        W="pen",
+        i="columns",
+        C="cmap",
+    )
+    @kwargs_to_strings(R="sequence", i="sequence_comma")
+    def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         """
         Plot lines, polygons, and symbols on maps.
 
@@ -221,36 +243,38 @@ class BasePlotting():
         kind = data_kind(data, x, y)
 
         extra_arrays = []
-        if 'S' in kwargs and kwargs['S'][0] in 'vV' and direction is not None:
+        if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
             extra_arrays.extend(direction)
-        if 'G' in kwargs and not isinstance(kwargs['G'], str):
-            if kind != 'vectors':
+        if "G" in kwargs and not isinstance(kwargs["G"], str):
+            if kind != "vectors":
                 raise GMTInvalidInput(
-                    "Can't use arrays for color if data is matrix or file.")
-            extra_arrays.append(kwargs['G'])
-            del kwargs['G']
+                    "Can't use arrays for color if data is matrix or file."
+                )
+            extra_arrays.append(kwargs["G"])
+            del kwargs["G"]
         if sizes is not None:
-            if kind != 'vectors':
+            if kind != "vectors":
                 raise GMTInvalidInput(
-                    "Can't use arrays for sizes if data is matrix or file.")
+                    "Can't use arrays for sizes if data is matrix or file."
+                )
             extra_arrays.append(sizes)
 
         with LibGMT() as lib:
             # Choose how data will be passed in to the module
-            if kind == 'file':
+            if kind == "file":
                 file_context = dummy_context(data)
-            elif kind == 'matrix':
+            elif kind == "matrix":
                 file_context = lib.matrix_to_vfile(data)
-            elif kind == 'vectors':
+            elif kind == "vectors":
                 file_context = lib.vectors_to_vfile(x, y, *extra_arrays)
 
             with file_context as fname:
-                arg_str = ' '.join([fname, build_arg_string(kwargs)])
-                lib.call_module('plot', arg_str)
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("plot", arg_str)
 
     @fmt_docstring
-    @use_alias(R='region', J='projection', B='frame')
-    @kwargs_to_strings(R='sequence')
+    @use_alias(R="region", J="projection", B="frame")
+    @kwargs_to_strings(R="sequence")
     def basemap(self, **kwargs):
         """
         Produce a basemap for the figure.
@@ -290,18 +314,16 @@ class BasePlotting():
 
         """
         kwargs = self._preprocess(**kwargs)
-        if not ('B' in kwargs or 'L' in kwargs or 'T' in kwargs):
-            raise GMTInvalidInput(
-                "At least one of B, L, or T must be specified.")
-        if 'D' in kwargs and 'F' not in kwargs:
-            raise GMTInvalidInput(
-                "Option D requires F to be specified as well.")
+        if not ("B" in kwargs or "L" in kwargs or "T" in kwargs):
+            raise GMTInvalidInput("At least one of B, L, or T must be specified.")
+        if "D" in kwargs and "F" not in kwargs:
+            raise GMTInvalidInput("Option D requires F to be specified as well.")
         with LibGMT() as lib:
-            lib.call_module('basemap', build_arg_string(kwargs))
+            lib.call_module("basemap", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R='region', J='projection')
-    @kwargs_to_strings(R='sequence')
+    @use_alias(R="region", J="projection")
+    @kwargs_to_strings(R="sequence")
     def logo(self, **kwargs):
         """
         Place the GMT graphics logo on a map.
@@ -329,7 +351,7 @@ class BasePlotting():
 
         """
         kwargs = self._preprocess(**kwargs)
-        if 'D' not in kwargs:
+        if "D" not in kwargs:
             raise GMTInvalidInput("Option D must be specified.")
         with LibGMT() as lib:
-            lib.call_module('logo', build_arg_string(kwargs))
+            lib.call_module("logo", build_arg_string(kwargs))

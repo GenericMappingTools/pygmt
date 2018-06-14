@@ -13,8 +13,13 @@ from ..datasets import load_earth_relief
 def test_grdimage_file():
     "Plot an image using file input"
     fig = Figure()
-    fig.grdimage("@earth_relief_60m", cmap='ocean', region='-180/180/-70/70',
-                 projection='W0/10i', shading=True)
+    fig.grdimage(
+        "@earth_relief_60m",
+        cmap="ocean",
+        region="-180/180/-70/70",
+        projection="W0/10i",
+        shading=True,
+    )
     return fig
 
 

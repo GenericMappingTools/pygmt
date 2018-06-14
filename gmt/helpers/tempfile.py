@@ -21,11 +21,11 @@ def unique_name():
 
     """
     # Use the tempfile module to generate a unique name.
-    with NamedTemporaryFile(prefix='gmt-python-') as tmpfile:
+    with NamedTemporaryFile(prefix="gmt-python-") as tmpfile:
         return os.path.split(tmpfile.name)[-1]
 
 
-class GMTTempFile():
+class GMTTempFile:
     """
     Context manager for creating closed temporary files.
 
@@ -57,6 +57,7 @@ class GMTTempFile():
     <BLANKLINE>
     [0. 0. 0.] [1. 1. 1.] [2. 2. 2.]
     """
+
     def __init__(self, prefix="gmt-python-", suffix=".txt"):
         args = dict(prefix=prefix, suffix=suffix, delete=False)
         with NamedTemporaryFile(**args) as tmpfile:
@@ -86,7 +87,7 @@ class GMTTempFile():
         with open(self.name) as tmpfile:
             content = tmpfile.read()
             if not keep_tabs:
-                content = content.replace('\t', ' ')
+                content = content.replace("\t", " ")
             return content
 
     def loadtxt(self, **kwargs):

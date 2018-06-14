@@ -13,8 +13,15 @@ except ImportError:
 from .clib import LibGMT
 from .base_plotting import BasePlotting
 from .exceptions import GMTError, GMTInvalidInput
-from .helpers import build_arg_string, fmt_docstring, use_alias, \
-    kwargs_to_strings, launch_external_viewer, unique_name, worldwind_show
+from .helpers import (
+    build_arg_string,
+    fmt_docstring,
+    use_alias,
+    kwargs_to_strings,
+    launch_external_viewer,
+    unique_name,
+    worldwind_show,
+)
 
 
 class Figure(BasePlotting):
@@ -53,12 +60,12 @@ class Figure(BasePlotting):
 
     def __init__(self):
         self._name = unique_name()
-        self._preview_dir = TemporaryDirectory(prefix=self._name + '-preview-')
+        self._preview_dir = TemporaryDirectory(prefix=self._name + "-preview-")
         self._activate_figure()
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews
-        if hasattr(self, '_preview_dir'):
+        if hasattr(self, "_preview_dir"):
             self._preview_dir.cleanup()
 
     def _activate_figure(self):
@@ -73,9 +80,9 @@ class Figure(BasePlotting):
         in order to get a file.
         """
         # Passing format '-' tells gmt.end to not produce any files.
-        fmt = '-'
+        fmt = "-"
         with LibGMT() as lib:
-            lib.call_module('figure', '{} {}'.format(self._name, fmt))
+            lib.call_module("figure", "{} {}".format(self._name, fmt))
 
     def _preprocess(self, **kwargs):
         """
@@ -94,7 +101,7 @@ class Figure(BasePlotting):
         return wesn
 
     @fmt_docstring
-    @use_alias(F='prefix', T='fmt', A='crop', E='dpi')
+    @use_alias(F="prefix", T="fmt", A="crop", E="dpi")
     @kwargs_to_strings()
     def psconvert(self, **kwargs):
         """
@@ -148,13 +155,14 @@ class Figure(BasePlotting):
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
-        if 'A' not in kwargs:
-            kwargs['A'] = ''
+        if "A" not in kwargs:
+            kwargs["A"] = ""
         with LibGMT() as lib:
-            lib.call_module('psconvert', build_arg_string(kwargs))
+            lib.call_module("psconvert", build_arg_string(kwargs))
 
-    def savefig(self, fname, transparent=False, crop=True, anti_alias=True,
-                show=False, **kwargs):
+    def savefig(
+        self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
+    ):
         """
         Save the figure to a file.
 
@@ -191,8 +199,7 @@ class Figure(BasePlotting):
 
         """
         # All supported formats
-        fmts = dict(png='g', pdf='f', jpg='j', bmp='b', eps='e', tif='t',
-                    kml='g')
+        fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
 
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
@@ -200,22 +207,22 @@ class Figure(BasePlotting):
             raise GMTInvalidInput("Unknown extension '.{}'".format(ext))
         fmt = fmts[ext]
         if transparent:
-            if fmt != 'g':
+            if fmt != "g":
                 raise GMTInvalidInput(
-                    "Transparency unavailable for '{}', only for png."
-                    .format(ext))
+                    "Transparency unavailable for '{}', only for png.".format(ext)
+                )
             fmt = fmt.upper()
         if anti_alias:
-            kwargs['Qt'] = 2
-            kwargs['Qg'] = 2
-        if ext == 'kml':
-            kwargs['W'] = '+k'
+            kwargs["Qt"] = 2
+            kwargs["Qg"] = 2
+        if ext == "kml":
+            kwargs["W"] = "+k"
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method='static', globe_center=None):
+    def show(self, dpi=300, width=500, method="static", globe_center=None):
         """
         Display a preview of the figure.
 
@@ -256,27 +263,35 @@ class Figure(BasePlotting):
             Only if ``method != 'external'``.
 
         """
-        if method not in ['static', 'external', 'globe']:
+        if method not in ["static", "external", "globe"]:
             raise GMTInvalidInput("Invalid show method '{}'.".format(method))
-        if method == 'globe':
-            png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
-                                as_bytes=True, transparent=True)
-            img = worldwind_show(image=png, width=width, region=self.region,
-                                 canvas_id=self._name,
-                                 globe_center=globe_center)
-        elif method == 'external':
-            pdf = self._preview(fmt='pdf', dpi=600, anti_alias=False,
-                                as_bytes=False)
+        if method == "globe":
+            png = self._preview(
+                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, transparent=True
+            )
+            img = worldwind_show(
+                image=png,
+                width=width,
+                region=self.region,
+                canvas_id=self._name,
+                globe_center=globe_center,
+            )
+        elif method == "external":
+            pdf = self._preview(fmt="pdf", dpi=600, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
             img = None
-        elif method == 'static':
-            png = self._preview(fmt='png', dpi=dpi, anti_alias=True,
-                                as_bytes=True)
+        elif method == "static":
+            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
             if Image is None:
-                raise GMTError(' '.join([
-                    "Cannot find IPython.",
-                    "Make sure you have it installed",
-                    "or use 'external=True' to open in an external viewer."]))
+                raise GMTError(
+                    " ".join(
+                        [
+                            "Cannot find IPython.",
+                            "Make sure you have it installed",
+                            "or use 'external=True' to open in an external viewer.",
+                        ]
+                    )
+                )
             img = Image(data=png, width=width)
         return img
 
@@ -302,11 +317,10 @@ class Figure(BasePlotting):
             file. Else, it is the file content loaded as a bytes string.
 
         """
-        fname = os.path.join(self._preview_dir.name,
-                             '{}.{}'.format(self._name, fmt))
+        fname = os.path.join(self._preview_dir.name, "{}.{}".format(self._name, fmt))
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
-            with open(fname, 'rb') as image:
+            with open(fname, "rb") as image:
                 preview = image.read()
             return preview
         return fname
@@ -316,7 +330,7 @@ class Figure(BasePlotting):
         Show a PNG preview if the object is returned in an interactive shell.
         For the Jupyter notebook or IPython Qt console.
         """
-        png = self._preview(fmt='png', dpi=70, anti_alias=True, as_bytes=True)
+        png = self._preview(fmt="png", dpi=70, anti_alias=True, as_bytes=True)
         return png
 
     def _repr_html_(self):
@@ -324,8 +338,7 @@ class Figure(BasePlotting):
         Show the PNG image embedded in HTML with a controlled width.
         Looks better than the raw PNG.
         """
-        raw_png = self._preview(fmt='png', dpi=300, anti_alias=True,
-                                as_bytes=True)
+        raw_png = self._preview(fmt="png", dpi=300, anti_alias=True, as_bytes=True)
         base64_png = base64.encodebytes(raw_png)
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
-        return html.format(image=base64_png.decode('utf-8'), width=500)
+        return html.format(image=base64_png.decode("utf-8"), width=500)

@@ -2,8 +2,14 @@
 Non-plot GMT modules.
 """
 from .clib import LibGMT
-from .helpers import build_arg_string, fmt_docstring, GMTTempFile, use_alias, \
-    data_kind, dummy_context
+from .helpers import (
+    build_arg_string,
+    fmt_docstring,
+    GMTTempFile,
+    use_alias,
+    data_kind,
+    dummy_context,
+)
 from .exceptions import GMTInvalidInput
 
 
@@ -30,17 +36,17 @@ def grdinfo(grid, **kwargs):
     kind = data_kind(grid, None, None)
     with GMTTempFile() as outfile:
         with LibGMT() as lib:
-            if kind == 'file':
+            if kind == "file":
                 file_context = dummy_context(grid)
-            elif kind == 'grid':
+            elif kind == "grid":
                 file_context = lib.grid_to_vfile(grid)
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}"
-                                      .format(type(grid)))
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as infile:
-                arg_str = ' '.join([infile, build_arg_string(kwargs),
-                                    "->" + outfile.name])
-                lib.call_module('grdinfo', arg_str)
+                arg_str = " ".join(
+                    [infile, build_arg_string(kwargs), "->" + outfile.name]
+                )
+                lib.call_module("grdinfo", arg_str)
         result = outfile.read()
     return result
 
@@ -81,15 +87,14 @@ def info(fname, **kwargs):
         raise GMTInvalidInput("'info' only accepts file names.")
 
     with GMTTempFile() as tmpfile:
-        arg_str = ' '.join([fname, build_arg_string(kwargs),
-                            "->" + tmpfile.name])
+        arg_str = " ".join([fname, build_arg_string(kwargs), "->" + tmpfile.name])
         with LibGMT() as lib:
-            lib.call_module('info', arg_str)
+            lib.call_module("info", arg_str)
         return tmpfile.read()
 
 
 @fmt_docstring
-@use_alias(G='download')
+@use_alias(G="download")
 def which(fname, **kwargs):
     """
     Find the full path to specified files.
@@ -130,10 +135,9 @@ def which(fname, **kwargs):
 
     """
     with GMTTempFile() as tmpfile:
-        arg_str = ' '.join([fname, build_arg_string(kwargs),
-                            "->" + tmpfile.name])
+        arg_str = " ".join([fname, build_arg_string(kwargs), "->" + tmpfile.name])
         with LibGMT() as lib:
-            lib.call_module('which', arg_str)
+            lib.call_module("which", arg_str)
         path = tmpfile.read().strip()
     if not path:
         raise FileNotFoundError("File '{}' not found.".format(fname))

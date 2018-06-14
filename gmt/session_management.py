@@ -13,9 +13,9 @@ def begin():
     Only meant to be used once for creating the global session.
 
     """
-    prefix = 'gmt-python-session'
+    prefix = "gmt-python-session"
     with LibGMT() as lib:
-        lib.call_module('begin', prefix)
+        lib.call_module("begin", prefix)
 
 
 def end():
@@ -29,4 +29,4 @@ def end():
 
     """
     with LibGMT() as lib:
-        lib.call_module('end', '')
+        lib.call_module("end", "")

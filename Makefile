@@ -3,15 +3,15 @@
 TESTDIR=tmp-test-dir-with-unique-name
 PYTEST_ARGS=--doctest-modules -v --pyargs
 PYTEST_COV_ARGS=--cov-config=../.coveragerc --cov-report=term-missing
+CHECK_FILES=gmt setup.py
 
 help:
 	@echo "Commands:"
 	@echo ""
 	@echo "    develop       install in editable mode"
 	@echo "    test          run the test suite (including doctests)"
-	@echo "    check         run all code quality checks (pep8, linter)"
-	@echo "    pep8          check for PEP8 style compliance"
-	@echo "    lint          run static analysis using pylint"
+	@echo "    check         run code quality checks (black and pylint)"
+	@echo "    format        run black to automatically format the code"
 	@echo "    coverage      calculate test coverage"
 	@echo "    clean         clean up build and generated files"
 	@echo ""
@@ -34,13 +34,12 @@ coverage:
 	cp $(TESTDIR)/.coverage* .
 	rm -r $(TESTDIR)
 
-pep8:
-	flake8 gmt setup.py
+format:
+	black $(CHECK_FILES)
 
-lint:
-	pylint gmt setup.py
-
-check: pep8 lint
+check:
+	black --check $(CHECK_FILES)
+	pylint $(CHECK_FILES)
 
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;

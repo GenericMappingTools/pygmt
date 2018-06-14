@@ -18,7 +18,7 @@ dependencies:
     - pytest-cov
     - pytest-mpl
     - coverage
-    - flake8
+    - black
     - pylint
     - sphinx
     - sphinx_rtd_theme

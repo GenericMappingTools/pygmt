@@ -1,8 +1,7 @@
 # Contributing Guidelines
 
-First off, thank you for considering contributing to GMT/Python!
-It is a community-driven project, so it's people like you that make it useful
-and successful.
+First off, thank you for considering contributing to GMT/Python! It is a
+community-driven project, so it's people like you that make it useful and successful.
 
 We love contributions from community members, just like you!
 There are many ways to contribute:
@@ -12,10 +11,9 @@ There are many ways to contribute:
 * Improvements to the documentation
 * Writing code which can be incorporated into project for everyone to use
 
-If you get stuck at
-any point you can create an
-[issue on GitHub](https://github.com/GenericMappingTools/gmt-python/issues)
-or contact us at one of the other channels mentioned below.
+If you get stuck at any point you can create an [issue on
+GitHub](https://github.com/GenericMappingTools/gmt-python/issues) or contact us at one
+of the other channels mentioned below.
 
 For more information on contributing to open source projects,
 [GitHub's own guide](https://guides.github.com/activities/contributing-to-open-source/)
@@ -124,6 +122,9 @@ Activate it by running:
 
     source activate gmt-python
 
+
+## Automation
+
 The `Makefile` provides rules for installing, running the tests and coverage
 analysis, running linters, etc.
 If you don't want to use `make`, see the [Makefile](Makefile) and copy the
@@ -143,8 +144,16 @@ and the coverage analysis using:
 
     make coverage
 
-To check your code for PEP8 style and common errors (runs `flake8` and
-`pylint`):
+We use [Black](https://github.com/ambv/black) to format the code so we don't have to
+think about it. You don't have to worry about formatting the code yourself. Before
+committing, run the following to automatically format your code:
+
+    make format
+
+Don't worry if you forget to do it. Our continuous integration systems will warn us and
+you can make a new commit with the formatted code.
+
+To check your code for style and common errors (runs `black` and `pylint`):
 
     make check
 
@@ -183,8 +192,7 @@ quickly:
   for documentation.
 
 Pull requests will automatically have tests run by TravisCI.
-This includes running both the unit tests as well as the `flake8` and `pylint`
-code linters.
+This includes running both the unit tests as well as `black` and `pylint`.
 Github will show the status of these checks on the pull request.
 Try to get them all passing (green).
 If you have any trouble, leave a comment asking for help.

@@ -1,7 +1,8 @@
 linters:
     flake8:
         enable: true
-        ignore: F401,E226,I101,I100,E741
+        ignore: E203, E266, E501, W503, F401, E741
+        max-line-length: 88
     shellcheck:
         shell: bash
     csslint:

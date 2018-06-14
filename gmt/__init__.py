@@ -22,8 +22,8 @@ from . import datasets
 
 
 # Get the version number through versioneer
-__version__ = _get_versions()['version']
-__commit__ = _get_versions()['full-revisionid']
+__version__ = _get_versions()["version"]
+__commit__ = _get_versions()["full-revisionid"]
 
 # Start our global modern mode session
 _begin()
@@ -43,15 +43,15 @@ def print_libgmt_info():
 
     columns = shutil.get_terminal_size().columns
     title = "Currently loaded libgmt"
-    left = (columns - len(title) - 2)//2
-    right = left + (columns - (2*left + len(title) + 2))
-    header = ' '.join(['='*left, title, '='*right])
+    left = (columns - len(title) - 2) // 2
+    right = left + (columns - (2 * left + len(title) + 2))
+    header = " ".join(["=" * left, title, "=" * right])
 
     with LibGMT() as lib:
         lines = [header]
         for key in sorted(lib.info):
-            lines.append('{}: {}'.format(key, lib.info[key]))
-    print('\n'.join(lines))
+            lines.append("{}: {}".format(key, lib.info[key]))
+    print("\n".join(lines))
 
 
 def test(doctest=True, verbose=True, coverage=False, figures=True):
@@ -91,15 +91,15 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
 
     args = []
     if verbose:
-        args.append('-vv')
+        args.append("-vv")
     if coverage:
-        args.append('--cov=gmt')
-        args.append('--cov-report=term-missing')
+        args.append("--cov=gmt")
+        args.append("--cov-report=term-missing")
     if doctest:
-        args.append('--doctest-modules')
+        args.append("--doctest-modules")
     if figures:
-        args.append('--mpl')
-    args.append('--pyargs')
-    args.append('gmt')
+        args.append("--mpl")
+    args.append("--pyargs")
+    args.append("gmt")
     status = pytest.main(args)
     assert status == 0, "Some tests have failed."
