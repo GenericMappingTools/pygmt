@@ -12,38 +12,38 @@ from .utils import is_nonstr_iter
 from ..exceptions import GMTInvalidInput
 
 
-GMT_DOCS = 'http://gmt.soest.hawaii.edu/doc/latest'
+GMT_DOCS = "http://gmt.soest.hawaii.edu/doc/latest"
 
 COMMON_OPTIONS = {
-    'R': '''\
+    "R": """\
         R : str or list
             *Required if this is the first plot command*.
             ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
-            Specify the region of interest.''',
-    'J': '''\
+            Specify the region of interest.""",
+    "J": """\
         J : str
             *Required if this is the first plot command*.
-            Select map projection.''',
-    'B': '''\
+            Select map projection.""",
+    "B": """\
         B : str
-            Set map boundary frame and axes attributes.''',
-    'P': '''\
+            Set map boundary frame and axes attributes.""",
+    "P": """\
         P : bool
-            Select “Portrait” plot orientation.''',
-    'U': '''\
+            Select “Portrait” plot orientation.""",
+    "U": """\
         U : bool or str
-            Draw GMT time stamp logo on plot.''',
-    'CPT': '''\
+            Draw GMT time stamp logo on plot.""",
+    "CPT": """\
         C : str
            File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
-           build a linear continuous CPT from those colors automatically.''',
-    'G': '''\
+           build a linear continuous CPT from those colors automatically.""",
+    "G": """\
         G : str
             Select color or pattern for filling of symbols or polygons. Default
-            is no fill.''',
-    'W': '''\
+            is no fill.""",
+    "W": """\
         W : str
-            Set pen attributes for lines or the outline of symbols.''',
+            Set pen attributes for lines or the outline of symbols.""",
 }
 
 
@@ -127,14 +127,14 @@ def fmt_docstring(module_func):
 
     url = "{}/{}.html".format(GMT_DOCS, module_func.__name__)
     text = "Full option list at"
-    filler_text['gmt_module_docs'] = ' '.join([text, url])
+    filler_text["gmt_module_docs"] = " ".join([text, url])
 
-    if hasattr(module_func, 'aliases'):
-        aliases = ['**Aliases:**\n']
+    if hasattr(module_func, "aliases"):
+        aliases = ["**Aliases:**\n"]
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            aliases.append('- {} = {}'.format(arg, alias))
-        filler_text['aliases'] = '\n'.join(aliases)
+            aliases.append("- {} = {}".format(arg, alias))
+        filler_text["aliases"] = "\n".join(aliases)
 
     for marker, text in COMMON_OPTIONS.items():
         # Remove the identation from the multiline strings so that it doesn't
@@ -262,15 +262,15 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     args: 123
 
     """
-    valid_conversions = ['sequence', 'sequence_comma']
+    valid_conversions = ["sequence", "sequence_comma"]
 
     for arg, fmt in conversions.items():
         if fmt not in valid_conversions:
             raise GMTInvalidInput(
-                "Invalid conversion type '{}' for argument '{}'."
-                .format(fmt, arg))
+                "Invalid conversion type '{}' for argument '{}'.".format(fmt, arg)
+            )
 
-    separators = {'sequence': '/', 'sequence_comma': ','}
+    separators = {"sequence": "/", "sequence_comma": ","}
 
     # Make the actual decorator function
     def converter(module_func):
@@ -284,10 +284,11 @@ def kwargs_to_strings(convert_bools=True, **conversions):
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
-                    issequence = fmt == 'sequence' or fmt == 'sequence_comma'
+                    issequence = fmt == "sequence" or fmt == "sequence_comma"
                     if issequence and is_nonstr_iter(value):
                         kwargs[arg] = separators[fmt].join(
-                            '{}'.format(item) for item in value)
+                            "{}".format(item) for item in value
+                        )
             # Execute the original function and return its output
             return module_func(*args, **kwargs)
 
@@ -318,7 +319,7 @@ def remove_bools(kwargs):
     for arg, value in kwargs.items():
         if isinstance(value, bool):
             if value:
-                new_kwargs[arg] = ''
+                new_kwargs[arg] = ""
         else:
             new_kwargs[arg] = value
     return new_kwargs

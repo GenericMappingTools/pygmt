@@ -8,8 +8,7 @@ import ctypes
 import numpy as np
 import pandas
 
-from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError, \
-    GMTInvalidInput
+from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError, GMTInvalidInput
 
 
 def dataarray_to_matrix(grid):
@@ -87,8 +86,8 @@ def dataarray_to_matrix(grid):
     """
     if len(grid.dims) != 2:
         raise GMTInvalidInput(
-            "Invalid number of grid dimensions '{}'. Must be 2."
-            .format(len(grid.dims)))
+            "Invalid number of grid dimensions '{}'. Must be 2.".format(len(grid.dims))
+        )
     # Extract region and inc from the grid
     region = []
     inc = []
@@ -101,8 +100,10 @@ def dataarray_to_matrix(grid):
         coord_inc = coord_incs[0]
         if not np.allclose(coord_incs, coord_inc):
             raise GMTInvalidInput(
-                "Grid appears to have irregular spacing in the '{}' dimension."
-                .format(dim))
+                "Grid appears to have irregular spacing in the '{}' dimension.".format(
+                    dim
+                )
+            )
         region.extend([coord.min(), coord.max()])
         inc.append(coord_inc)
     matrix = as_c_contiguous(grid.values[::-1])
@@ -195,7 +196,7 @@ def as_c_contiguous(array):
 
     """
     if not array.flags.c_contiguous:
-        return array.copy(order='C')
+        return array.copy(order="C")
     return array
 
 
@@ -272,11 +273,13 @@ def load_libgmt(env=None):
         libgmt = ctypes.CDLL(libpath)
         check_libgmt(libgmt)
     except OSError as err:
-        msg = '\n'.join([
-            "Couldn't find the GMT shared library '{}'.".format(libpath),
-            "Original error message:",
-            "{}".format(str(err)),
-        ])
+        msg = "\n".join(
+            [
+                "Couldn't find the GMT shared library '{}'.".format(libpath),
+                "Original error message:",
+                "{}".format(str(err)),
+            ]
+        )
         raise GMTCLibNotFoundError(msg)
     return libgmt
 
@@ -300,11 +303,11 @@ def get_clib_path(env):
         The path to the libgmt shared library.
 
     """
-    libname = '.'.join(['libgmt', clib_extension()])
+    libname = ".".join(["libgmt", clib_extension()])
     if env is None:
         env = os.environ
-    if 'GMT_LIBRARY_PATH' in env:
-        libpath = os.path.join(env['GMT_LIBRARY_PATH'], libname)
+    if "GMT_LIBRARY_PATH" in env:
+        libpath = os.path.join(env["GMT_LIBRARY_PATH"], libname)
     else:
         libpath = libname
     return libpath
@@ -333,14 +336,13 @@ def clib_extension(os_name=None):
     if os_name is None:
         os_name = sys.platform
     # Set the shared library extension in a platform independent way
-    if os_name.startswith('linux'):
-        lib_ext = 'so'
-    elif os_name == 'darwin':
+    if os_name.startswith("linux"):
+        lib_ext = "so"
+    elif os_name == "darwin":
         # Darwin is macOS
-        lib_ext = 'dylib'
+        lib_ext = "dylib"
     else:
-        raise GMTOSError(
-            'Operating system "{}" not supported.'.format(sys.platform))
+        raise GMTOSError('Operating system "{}" not supported.'.format(sys.platform))
     return lib_ext
 
 
@@ -364,14 +366,15 @@ def check_libgmt(libgmt):
 
     """
     # Check if a few of the functions we need are in the library
-    functions = ['Create_Session', 'Get_Enum', 'Call_Module',
-                 'Destroy_Session']
+    functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
     for func in functions:
-        if not hasattr(libgmt, 'GMT_' + func):
-            msg = ' '.join([
-                "Error loading libgmt.",
-                "Couldn't access function GMT_{}.".format(func),
-            ])
+        if not hasattr(libgmt, "GMT_" + func):
+            msg = " ".join(
+                [
+                    "Error loading libgmt.",
+                    "Couldn't access function GMT_{}.".format(func),
+                ]
+            )
             raise GMTCLibError(msg)
 
 

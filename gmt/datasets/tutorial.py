@@ -24,8 +24,15 @@ def load_japan_quakes():
         depth (in km), and magnitude of the earthquakes.
 
     """
-    fname = which('@tut_quakes.ngdc', download='c')
-    data = pd.read_table(fname, header=1, sep=r'\s+')
-    data.columns = ['year', 'month', 'day', 'latitude', 'longitude',
-                    'depth_km', 'magnitude']
+    fname = which("@tut_quakes.ngdc", download="c")
+    data = pd.read_table(fname, header=1, sep=r"\s+")
+    data.columns = [
+        "year",
+        "month",
+        "day",
+        "latitude",
+        "longitude",
+        "depth_km",
+        "magnitude",
+    ]
     return data
