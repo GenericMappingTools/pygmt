@@ -65,10 +65,10 @@ before_install:
     # Show installed pkg information for postmortem diagnostic
     - conda list
     # Need to set the library path on OSX for some reason
-    - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-        export LD_LIBRARY_PATH=$CONDA_PREFIX/envs/testenv/lib:$LD_LIBRARY_PATH;
-        echo $LD_LIBRARY_PATH;
-      fi
+    #- if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+        #export LD_LIBRARY_PATH=$CONDA_PREFIX/envs/testenv/lib:$LD_LIBRARY_PATH;
+        #echo $LD_LIBRARY_PATH;
+      #fi
 
 install:
     # Package and install
@@ -104,26 +104,26 @@ after_success:
       fi
 
 deploy:
-    # Push the built docs to Github pages
+    # Make a release on PyPI
     - provider: script
-      script: ci/deploy-docs.sh
+      script: continuous-integration/travis/deploy-pypi.sh
+      on:
+          tags: true
+          condition: '$DEPLOY_PYPI == "true"'
+    # Push the built HTML in doc/_build/html to the gh-pages branch
+    - provider: script
+      script: continuous-integration/travis/deploy-gh-pages.sh
       skip_cleanup: true
       on:
           branch: master
           condition: '$DEPLOY_DOCS == "true"'
-    # Push docs when building tags as well
+    # Push HTML when building tags as well
     - provider: script
-      script: ci/deploy-docs.sh
+      script: continuous-integration/travis/deploy-gh-pages.sh
       skip_cleanup: true
       on:
           tags: true
           condition: '$DEPLOY_DOCS == "true"'
-    # Make a release on PyPI
-    - provider: script
-      script: ci/deploy-pypi.sh
-      on:
-          tags: true
-          condition: '$DEPLOY_PYPI == "true"'
 
 notifications:
     email: false
