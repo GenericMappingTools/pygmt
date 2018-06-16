@@ -10,6 +10,31 @@ from ..datasets import load_earth_relief
 
 
 @pytest.mark.mpl_image_compare
+def test_grdimage():
+    "Plot an image using an xarray grid"
+    grid = load_earth_relief()
+    fig = Figure()
+    fig.grdimage(
+        grid,
+        cmap="earth",
+        region='g',
+        projection="W0/6i"
+    )
+    return fig
+
+@pytest.mark.mpl_image_compare
+def test_grdimage_slice():
+    "Plot an image using an xarray grid that has been sliced"
+    grid = load_earth_relief().sel(lat=slice(-80, 80))
+    fig = Figure()
+    fig.grdimage(
+        grid,
+        cmap="earth",
+        projection="M6i"
+    )
+    return fig
+
+@pytest.mark.mpl_image_compare
 def test_grdimage_file():
     "Plot an image using file input"
     fig = Figure()
@@ -28,6 +53,3 @@ def test_grdimage_fails():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.grdimage(np.arange(20).reshape((4, 5)))
-    grid = load_earth_relief()
-    with pytest.raises(NotImplementedError):
-        fig.grdimage(grid)
