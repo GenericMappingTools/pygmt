@@ -23,8 +23,6 @@ env:
         - DEPLOY_DOCS=false
         - DEPLOY_PYPI=false
         - CONDA_REQUIREMENTS="requirements.txt"
-        # Need the dev channel to get development builds of GMT 6
-        - CONDA_FLAGS="--yes --quiet -c conda-forge/label/dev"
 
 matrix:
     # Build under the following configurations
@@ -57,18 +55,13 @@ before_install:
     # Download and install miniconda and setup dependencies
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
-    # Install GMT from the dev channel
+    # Install GMT from the dev channel to get development builds of GMT 6
     - conda install --yes --quiet -c conda-forge/label/dev gmt=6.0.0a*
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
     # Show installed pkg information for postmortem diagnostic
     - conda list
-    # Need to set the library path on OSX for some reason
-    #- if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-        #export LD_LIBRARY_PATH=$CONDA_PREFIX/envs/testenv/lib:$LD_LIBRARY_PATH;
-        #echo $LD_LIBRARY_PATH;
-      #fi
 
 install:
     # Package and install
@@ -80,8 +73,7 @@ script:
     - if [ "$CHECK" == "true" ]; then
         make check;
       fi
-    # Run the test suite
-    # Make pytest report any captured output on stdout or stderr
+    # Run the test suite. Make pytest report any captured output on stdout or stderr.
     - if [ "$COVERAGE" == "true" ]; then
         make coverage PYTEST_EXTRA="-r P";
       else
