@@ -65,6 +65,10 @@ before_install:
       fi
     # Show installed pkg information for postmortem diagnostic
     - conda list
+    # Need to set the library path on OSX for some reason
+    - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+        export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH;
+      fi
 
 install:
     # Package and install
