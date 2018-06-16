@@ -22,8 +22,9 @@ env:
         - BUILD_DOCS=false
         - DEPLOY_DOCS=false
         - DEPLOY_PYPI=false
+        - CONDA_REQUIREMENTS="requirements.txt"
         # Need the dev channel to get development builds of GMT 6
-        - CONDA_FLAGS="--yes --quiet -c conda-forge -c conda-forge/label/dev"
+        - CONDA_FLAGS="--yes --quiet -c conda-forge/label/dev"
 
 matrix:
     # Build under the following configurations
@@ -50,15 +51,13 @@ matrix:
               #- BUILD_DOCS=true
 
 before_install:
-    # Get Miniconda from Continuum
-    # Need to source the script to set the PATH variable in this environment
-    # (not the scripts environment)
-    - source ci/install-miniconda.sh
-    - conda update conda $CONDA_FLAGS
-    - conda create --name testenv python=$PYTHON pip $CONDA_FLAGS
-    - source activate testenv
-    # Install dependencies
-    - conda install --file requirements.txt $CONDA_FLAGS
+    # Get the Fatiando CI scripts
+    - git clone https://github.com/fatiando/continuous-integration.git
+    # Download and install miniconda and setup dependencies
+    # Need to source the script to set the PATH variable globaly
+    - source continuous-integration/travis/setup-miniconda.sh
+    # Install GMT from the dev channel
+    - conda install --yes --quiet -c conda-forge/label/dev gmt=6.0.0a*
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
@@ -76,10 +75,11 @@ script:
         make check;
       fi
     # Run the test suite
+    # Make pytest report any captured output on stdout or stderr
     - if [ "$COVERAGE" == "true" ]; then
-        make coverage;
+        make coverage PYTEST_EXTRA="-r P";
       else
-        make test;
+        make test PYTEST_EXTRA="-r P";
       fi
     # Build the documentation
     - if [ "$BUILD_DOCS" == "true" ]; then
