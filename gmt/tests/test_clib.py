@@ -156,51 +156,6 @@ def test_destroy_session_fails():
         lib.destroy_session(None)
 
 
-def test_set_log_file_fails():
-    "log_to_file should fail for invalid file names"
-    with LibGMT() as lib:
-        with pytest.raises(GMTCLibError):
-            with lib.log_to_file(logfile=""):
-                print("This should have failed")
-
-
-def logged_call_module(lib, data_file):
-    """
-    Make a call_module to 'info' with a log file.
-    The call invalid because 'data_file' doesn't exist.
-    Checks that the call results in an error and that the correct error message
-    is logged.
-    """
-    msg = "gmtinfo [ERROR]: Error for input file: No such file ({})"
-    mode = lib.get_constant("GMT_MODULE_CMD")
-    with lib.log_to_file() as logfile:
-        assert os.path.exists(logfile)
-        # Make a bogus module call that will fail
-        status = lib._libgmt.GMT_Call_Module(
-            lib.current_session, "info".encode(), mode, data_file.encode()
-        )
-        assert status != 0
-        # Check the file content
-        with open(logfile) as flog:
-            log = flog.read()
-        assert log.strip() == msg.format(data_file)
-    # Log should be deleted as soon as the with is over
-    assert not os.path.exists(logfile)
-
-
-def test_errors_sent_to_log_file():
-    "Make sure error messages are recorded in the log file."
-    with LibGMT() as lib:
-        logged_call_module(lib, "not-a-valid-data-file.bla")
-
-
-def test_set_log_file_twice():
-    "Make sure setting a log file twice in a session works"
-    with LibGMT() as lib:
-        logged_call_module(lib, "not-a-valid-data-file.bla")
-        logged_call_module(lib, "another-invalid-data-file.bla")
-
-
 def test_call_module():
     "Run a command to see if call_module works"
     data_fname = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -213,25 +168,11 @@ def test_call_module():
             assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
 
 
-def test_call_module_error_message():
-    "Check that the exception has the error message from call_module"
-    data_file = "bogus-data.bla"
-    true_msg = "\n".join(
-        [
-            "Command 'info' failed:",
-            "---------- Error log ----------",
-            "gmtinfo [ERROR]: Error for input file: No such file (bogus-data.bla)",
-            "-------------------------------",
-        ]
-    )
+def test_call_module_invalid_arguments():
+    "Fails for invalid module arguments"
     with LibGMT() as lib:
-        # Make a bogus module call that will fail
-        try:
-            lib.call_module("info", data_file)
-        except GMTCLibError as error:
-            assert str(error) == true_msg
-        else:
-            assert False, "Didn't raise an exception"
+        with pytest.raises(GMTCLibError):
+            lib.call_module("info", "bogus-data.bla")
 
 
 def test_call_module_invalid_name():
@@ -239,6 +180,21 @@ def test_call_module_invalid_name():
     with LibGMT() as lib:
         with pytest.raises(GMTCLibError):
             lib.call_module("meh", "")
+
+
+def test_call_module_error_message():
+    "Check is the GMT error message was captured."
+    with LibGMT() as lib:
+        try:
+            lib.call_module("info", "bogus-data.bla")
+        except GMTCLibError as error:
+            msg = "\n".join(
+                [
+                    "Module 'info' failed with status code 71:",
+                    "gmtinfo [ERROR]: Error for input file: No such file (bogus-data.bla)",
+                ]
+            )
+            assert str(error) == msg
 
 
 def test_method_no_session():
@@ -593,7 +549,8 @@ def test_virtual_file_fails():
     ):
         with pytest.raises(GMTCLibError):
             with lib.open_virtual_file(*vfargs):
-                print("Shouldn't get to this code either")
+                pass
+            print("Shouldn't get to this code either")
 
 
 def test_virtual_file_bad_direction():
