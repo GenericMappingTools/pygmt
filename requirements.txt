@@ -1,4 +1,4 @@
-gmt=6.0.0*
+# GMT isn't included because it needs to be downloaded from a separate channel
 numpy
 pandas
 xarray
