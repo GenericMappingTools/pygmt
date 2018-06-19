@@ -39,7 +39,7 @@ master_doc = 'index'
 # General information about the project
 year = datetime.date.today().year
 project = u'GMT/Python'
-copyright = u'2017, Leonardo Uieda and Paul Wessel'
+copyright = u'2017-2018, Leonardo Uieda and Paul Wessel'
 if len(__version__.split('+')) > 1 or __version__ == 'unknown':
     version = 'dev'
 else:
