@@ -15,9 +15,9 @@
 
     <p align="center">
     <a href="http://www.gmtpython.xyz">Documentation</a> |
-    <a href="http://www.gmtpython.xyz/install.html">Install</a> |
-    <a href="http://www.gmtpython.xyz/tutorials">Tutorials</a> |
-    <a href="http://www.gmtpython.xyz/api">API</a> |
+    <a href="http://www.gmtpython.xyz/latest/install.html">Install</a> |
+    <a href="http://www.gmtpython.xyz/latest/tutorials">Tutorials</a> |
+    <a href="http://www.gmtpython.xyz/latest/api">API</a> |
     <a href="https://gitter.im/GenericMappingTools/gmt-python">Contact</a>
     </p>
 
@@ -39,10 +39,10 @@ Getting started
 ---------------
 
 1. Try an online demo at `try.gmtpython.xyz <http://try.gmtpython.xyz>`__
-2. `Install <http://www.gmtpython.xyz/install.html>`__ (tested and working on
+2. `Install <http://www.gmtpython.xyz/latest/install.html>`__ (tested and working on
    Linux and OSX)
-3. Follow the `Tutorials <http://www.gmtpython.xyz/tutorials>`__.
-4. Take a look at the `API <http://www.gmtpython.xyz/api>`__ for a list of
+3. Follow the `Tutorials <http://www.gmtpython.xyz/latest/tutorials>`__.
+4. Take a look at the `API <http://www.gmtpython.xyz/latest/api>`__ for a list of
    modules that are already available.
 
 
