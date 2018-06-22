@@ -14,24 +14,18 @@ def test_grdimage():
     "Plot an image using an xarray grid"
     grid = load_earth_relief()
     fig = Figure()
-    fig.grdimage(
-        grid,
-        cmap="earth",
-        projection="W0/6i"
-    )
+    fig.grdimage(grid, cmap="earth", projection="W0/6i")
     return fig
+
 
 @pytest.mark.mpl_image_compare
 def test_grdimage_slice():
     "Plot an image using an xarray grid that has been sliced"
     grid = load_earth_relief().sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(
-        grid,
-        cmap="earth",
-        projection="M6i"
-    )
+    fig.grdimage(grid, cmap="earth", projection="M6i")
     return fig
+
 
 @pytest.mark.mpl_image_compare
 def test_grdimage_file():
