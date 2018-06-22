@@ -24,7 +24,7 @@ with open("README.rst") as f:
 VERSION = versioneer.get_version()
 CMDCLASS = versioneer.get_cmdclass()
 
-PACKAGES = find_packages(exclude=["doc", "ci"])
+PACKAGES = find_packages(exclude=["doc"])
 SCRIPTS = []
 PACKAGE_DATA = {"gmt.tests": ["data/*", "baseline/*"]}
 
