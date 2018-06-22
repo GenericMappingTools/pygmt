@@ -220,7 +220,7 @@ def _as_array(vector):
     --------
 
     >>> import pandas as pd
-    >>> x_series = pandas.Series(data=[1, 2, 3, 4])
+    >>> x_series = pd.Series(data=[1, 2, 3, 4])
     >>> x_array = _as_array(x_series)
     >>> type(x_array)
     <class 'numpy.ndarray'>
@@ -238,7 +238,7 @@ def _as_array(vector):
 
     """
     if isinstance(vector, pandas.Series):
-        return vector.as_matrix()
+        return vector.values
     return np.asarray(vector)
 
 
