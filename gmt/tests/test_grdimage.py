@@ -17,7 +17,6 @@ def test_grdimage():
     fig.grdimage(
         grid,
         cmap="earth",
-        region='g',
         projection="W0/6i"
     )
     return fig
@@ -25,7 +24,7 @@ def test_grdimage():
 @pytest.mark.mpl_image_compare
 def test_grdimage_slice():
     "Plot an image using an xarray grid that has been sliced"
-    grid = load_earth_relief().sel(lat=slice(-80, 80))
+    grid = load_earth_relief().sel(lat=slice(-30, 30))
     fig = Figure()
     fig.grdimage(
         grid,
@@ -41,7 +40,7 @@ def test_grdimage_file():
     fig.grdimage(
         "@earth_relief_60m",
         cmap="ocean",
-        region="-180/180/-70/70",
+        region=[-180, 180, -70, 70],
         projection="W0/10i",
         shading=True,
     )
