@@ -266,7 +266,8 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
             """
             message = message.decode().strip()
             self._log.append(message)
-            print(message, file=sys.stderr)
+            # flush to make sure the messages are printed even if we have a crash.
+            print(message, file=sys.stderr, flush=True)
             return 0
 
         # Need to store a copy of the function because ctypes doesn't and it will be
