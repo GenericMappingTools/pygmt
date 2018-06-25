@@ -76,7 +76,7 @@ def worldwind_show(image, width, region, canvas_id, globe_center):
     image : bytes
         An image loaded as a bytes string (use ``'rb'`` in the ``open``
         function).
-    width ; int
+    width : int
         The width of the HTML canvas element.
     region : list = [W, E, S, N]
         Boundaries of the image in geographical latitude and longitude degrees.
