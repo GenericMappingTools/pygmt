@@ -150,9 +150,7 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                raise NotImplementedError(
-                    "Sorry, DataArray support is not yet functional."
-                )
+                file_context = lib.grid_to_vfile(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as fname:
