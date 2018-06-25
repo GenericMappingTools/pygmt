@@ -404,7 +404,6 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
     >>> value = kwargs_to_ctypes_array('bla', {'bla': [10, 10]}, ct.c_int*2)
     >>> type(value)
     <class 'gmt.clib.utils.c_int_Array_2'>
-    >>> b = 1
     >>> should_be_none = kwargs_to_ctypes_array(
     ...     'swallow', {'bla': 1, 'foo': [20, 30]}, ct.c_int*2)
     >>> print(should_be_none)
