@@ -32,13 +32,13 @@ Which GMT?
 You'll need GMT6, the latest development version from
 `the subversion repository <http://gmt.soest.hawaii.edu/projects/gmt/repository>`__.
 
-GMT/Python need GMT6 since there are many changes to the API in response to
+We need GMT6 since there are many changes to the API in response to
 the development of GMT/Python, especially the
 `modern mode <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__
 introduced in GMT6.
 
-GMT6 is **NOT** officially released yet. However, ``conda`` provides GMT6
-packages for Linux and macOS, which are available through
+GMT6 is **NOT** officially released yet. However, we provide conda packages
+of GMT6 for Linux and macOS, which are available through
 `conda-forge <https://github.com/conda-forge/gmt-feedstock/>`__.
 You can also
 `build GMT from source <http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT>`__ instead,
