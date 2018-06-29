@@ -17,7 +17,7 @@ Installing
 Which Python?
 -------------
 
-You'll need **Python 3.5 or greater** to run GMT Python.
+You'll need **Python 3.5 or greater** to run GMT/Python.
 
 We recommend using the `Anaconda <http://continuum.io/downloads#all>`__ Python
 distribution to ensure you have all dependencies installed and the ``conda``
@@ -26,14 +26,32 @@ Installing Anaconda does not require administrative rights to your computer and
 doesn't interfere with any other Python installations in your system.
 
 
+Which GMT?
+----------
+
+You'll need GMT6, the latest development version from
+`the subversion repository <http://gmt.soest.hawaii.edu/projects/gmt/repository>`__.
+
+We need GMT6 since there are many changes to the API in response to
+the development of GMT/Python, especially the
+`modern mode <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__
+introduced in GMT6.
+
+GMT6 is **NOT** officially released yet. However, we provide conda packages
+of GMT6 for Linux and macOS, which are available through
+`conda-forge <https://github.com/conda-forge/gmt-feedstock/>`__.
+You can also
+`build GMT from source <http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT>`__ instead,
+which is untested and we would love to get feedback from anyone who tries.
+
+We recommend following the instructions further on to install GMT6.
+
+
 Dependencies
 ------------
 
 GMT/Python requires the following libraries:
 
-* Current development version of GMT (6.0.0). ``conda`` packages for Linux and
-  macOS are available through
-  `conda-forge <https://github.com/conda-forge/gmt-feedstock/>`__.
 * `numpy <http://www.numpy.org/>`__
 * `pandas <https://pandas.pydata.org/>`__
 * `xarray <http://xarray.pydata.org/>`__
