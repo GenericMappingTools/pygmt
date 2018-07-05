@@ -22,6 +22,38 @@ from .utils import (
     as_c_contiguous,
 )
 
+FAMILIES = [
+    "GMT_IS_DATASET",
+    "GMT_IS_GRID",
+    "GMT_IS_PALETTE",
+    "GMT_IS_MATRIX",
+    "GMT_IS_VECTOR",
+]
+
+VIAS = ["GMT_VIA_MATRIX", "GMT_VIA_VECTOR"]
+
+GEOMETRIES = [
+    "GMT_IS_NONE",
+    "GMT_IS_POINT",
+    "GMT_IS_LINE",
+    "GMT_IS_POLYGON",
+    "GMT_IS_PLP",
+    "GMT_IS_SURFACE",
+]
+
+MODES = ["GMT_CONTAINER_ONLY", "GMT_OUTPUT"]
+
+REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
+
+DTYPES = {
+    "float64": "GMT_DOUBLE",
+    "float32": "GMT_FLOAT",
+    "int64": "GMT_LONG",
+    "int32": "GMT_INT",
+    "uint64": "GMT_ULONG",
+    "uint32": "GMT_UINT",
+}
+
 
 class Session:  # pylint: disable=too-many-instance-attributes
     """
@@ -66,41 +98,8 @@ class Session:  # pylint: disable=too-many-instance-attributes
 
     """
 
-    data_families = [
-        "GMT_IS_DATASET",
-        "GMT_IS_GRID",
-        "GMT_IS_PALETTE",
-        "GMT_IS_MATRIX",
-        "GMT_IS_VECTOR",
-    ]
-
-    data_vias = ["GMT_VIA_MATRIX", "GMT_VIA_VECTOR"]
-
-    data_geometries = [
-        "GMT_IS_NONE",
-        "GMT_IS_POINT",
-        "GMT_IS_LINE",
-        "GMT_IS_POLYGON",
-        "GMT_IS_PLP",
-        "GMT_IS_SURFACE",
-    ]
-
-    data_modes = ["GMT_CONTAINER_ONLY", "GMT_OUTPUT"]
-
-    grid_registrations = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
-
     # The minimum version of GMT required
     required_version = "6.0.0"
-
-    # Map numpy dtypes to GMT types
-    _dtypes = {
-        "float64": "GMT_DOUBLE",
-        "float32": "GMT_FLOAT",
-        "int64": "GMT_LONG",
-        "int32": "GMT_INT",
-        "uint64": "GMT_ULONG",
-        "uint32": "GMT_UINT",
-    }
 
     @property
     def current_session(self):
@@ -506,16 +505,13 @@ class Session:  # pylint: disable=too-many-instance-attributes
             restype=ctypes.c_void_p,
         )
 
-        family_int = self._parse_constant(
-            family, valid=self.data_families, valid_modifiers=self.data_vias
-        )
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         mode_int = self._parse_constant(
-            mode, valid=self.data_modes, valid_modifiers=["GMT_GRID_IS_GEO"]
+            mode, valid=MODES, valid_modifiers=["GMT_GRID_IS_GEO"]
         )
-        geometry_int = self._parse_constant(geometry, valid=self.data_geometries)
+        geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(
-            kwargs.get("registration", "GMT_GRID_NODE_REG"),
-            valid=self.grid_registrations,
+            kwargs.get("registration", "GMT_GRID_NODE_REG"), valid=REGISTRATIONS
         )
 
         # Convert dim, ranges, and inc to ctypes arrays if given (will be None
@@ -658,7 +654,7 @@ class Session:  # pylint: disable=too-many-instance-attributes
         True
 
         """
-        if array.dtype.name not in self._dtypes:
+        if array.dtype.name not in DTYPES:
             raise GMTInvalidInput(
                 "Unsupported numpy data type '{}'.".format(array.dtype.name)
             )
@@ -666,7 +662,7 @@ class Session:  # pylint: disable=too-many-instance-attributes
             raise GMTInvalidInput(
                 "Expected a numpy 1d array, got {}d.".format(array.ndim)
             )
-        return self.get_constant(self._dtypes[array.dtype.name])
+        return self.get_constant(DTYPES[array.dtype.name])
 
     def put_vector(self, dataset, column, vector):
         """
@@ -844,10 +840,8 @@ class Session:  # pylint: disable=too-many-instance-attributes
             restype=ctypes.c_int,
         )
 
-        family_int = self._parse_constant(
-            family, valid=self.data_families, valid_modifiers=self.data_vias
-        )
-        geometry_int = self._parse_constant(geometry, valid=self.data_geometries)
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
+        geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         status = c_write_data(
             self.current_session,
             family_int,
@@ -943,10 +937,8 @@ class Session:  # pylint: disable=too-many-instance-attributes
             restype=ctypes.c_int,
         )
 
-        family_int = self._parse_constant(
-            family, valid=self.data_families, valid_modifiers=self.data_vias
-        )
-        geometry_int = self._parse_constant(geometry, valid=self.data_geometries)
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
+        geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
             direction,
             valid=["GMT_IN", "GMT_OUT"],
