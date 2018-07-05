@@ -39,25 +39,6 @@ Getting started
     We really appreciate the help!
 
 
-About
------
-
-Watch the `Scipy 2017 talk about GMT/Python <https://github.com/GenericMappingTools/scipy2017>`__
-for more information about the history and goals of the project:
-
-.. raw:: html
-
-    <div class="youtube-embed">
-        <div class="video-container">
-            <iframe width="560" height="315"
-             src="https://www.youtube.com/embed/93M4How7R24" frameborder="0"
-             allowfullscreen></iframe>
-        </div>
-    </div>
-
-
-
-
 Project goals
 -------------
 
@@ -98,34 +79,6 @@ Please read our
 to see how you can help and give feedback.
 
 
-Imposter syndrome disclaimer
-++++++++++++++++++++++++++++
-
-**We want your help.** No, really.
-
-There may be a little voice inside your head that is telling you that you're
-not ready to be an open source contributor; that your skills aren't nearly good
-enough to contribute.
-What could you possibly offer?
-
-We assure you that the little voice in your head is wrong.
-
-**Being a contributor doesn't just mean writing code**.
-Equality important contributions include:
-writing or proof-reading documentation, suggesting or implementing tests, or
-even giving feedback about the project (including giving feedback about the
-contribution process).
-If you're coming to the project with fresh eyes, you might see the errors and
-assumptions that seasoned contributors have glossed over.
-If you can write any code at all, you can contribute code to open source.
-We are constantly trying out new skills, making mistakes, and learning from
-those mistakes.
-That's how we all improve and we are happy to help others learn.
-
-*This disclaimer was adapted from the*
-`MetPy project <https://github.com/Unidata/MetPy>`__.
-
-
 Related projects
 ----------------
 
@@ -136,29 +89,24 @@ Related projects
 
 Other Python wrappers for GMT:
 
-* `gmtpy <https://github.com/emolch/gmtpy>`__ by
-  `Sebastian Heimann <https://github.com/emolch>`__
-* `pygmt <https://github.com/ian-r-rose/pygmt>`__ by
-  `Ian Rose <https://github.com/ian-r-rose>`__
-* `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by
-  `Magnus Hagdorn <https://github.com/mhagdorn>`__
-
-
-License
--------
-
-GMT/Python is free software: you can redistribute it and/or modify it under the
-terms of the :ref:`BSD 3-clause License <license>`.
-
+* `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
+* `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
+* `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
 
 
 .. toctree::
     :maxdepth: 2
     :hidden:
-    :caption: Documentation
+    :caption: Getting Started
 
-    tutorials/index.rst
     install.rst
+    tutorials/first-steps.ipynb
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+    :caption: User Guide
+
+    tutorials/plot-data-points.ipynb
     api/index.rst
     design.rst
-    license.rst
