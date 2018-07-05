@@ -23,7 +23,7 @@ from .utils import (
 )
 
 
-class LibGMT:  # pylint: disable=too-many-instance-attributes
+class Session:  # pylint: disable=too-many-instance-attributes
     """
     Load and access the GMT shared library (libgmt).
 
@@ -39,7 +39,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
     If creating GMT data structures to communicate data, put that code inside
     this context manager to reuse the same session.
 
-    Requires a minimum version of GMT (see ``LibGMT.required_version``). Will
+    Requires a minimum version of GMT (see ``Session.required_version``). Will
     check for the version when entering the ``with`` block. A
     ``GMTVersionError`` exception will be raised if the minimum version
     requirements aren't met.
@@ -61,7 +61,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
     Examples
     --------
 
-    >>> with LibGMT() as lib:
+    >>> with Session() as lib:
     ...     lib.call_module('figure', 'my-figure')
 
     """
@@ -178,7 +178,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         --------
 
         >>> from ctypes import c_void_p, c_int
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     func = lib.get_libgmt_func('GMT_Destroy_Session',
         ...                                argtypes=[c_void_p], restype=c_int)
         >>> type(func)
@@ -234,7 +234,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         cannot be accessed directly.
 
         Remember to terminate the current session using
-        :func:`gmt.clib.LibGMT.destroy_session` before creating a new one.
+        :func:`gmt.clib.Session.destroy_session` before creating a new one.
 
         Parameters
         ----------
@@ -307,7 +307,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         ----------
         session : C void pointer (returned by ctypes as an integer)
             The active session object produced by
-            :func:`gmt.clib.LibGMT.create_session`.
+            :func:`gmt.clib.Session.create_session`.
         libgmt : :py:class:`ctypes.CDLL`
             The :py:class:`ctypes.CDLL` instance for the libgmt shared library.
 
@@ -567,7 +567,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         The GMT C API takes certain defined constants, like ``'GMT_IS_GRID'``,
         that need to be validated and converted to integer values using
-        :meth:`~gmt.clib.LibGMT.get_constant`.
+        :meth:`~gmt.clib.Session.get_constant`.
 
         The constants can also take a modifier by appending another constant
         name, e.g. ``'GMT_IS_GRID|GMT_VIA_MATRIX'``. The two parts must be
@@ -647,12 +647,12 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         >>> import numpy as np
         >>> data = np.array([1, 2, 3], dtype='float64')
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
         ...     gmttype == lib.get_constant('GMT_DOUBLE')
         True
         >>> data = np.ones((5, 2), dtype='float32')
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
         ...     gmttype == lib.get_constant('GMT_FLOAT')
         True
@@ -675,7 +675,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         Use this functions to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Vector``.
 
-        The dataset must be created by :meth:`~gmt.clib.LibGMT.create_data`
+        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
@@ -691,7 +691,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         ----------
         dataset : :py:class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`~gmt.clib.LibGMT.create_data`.
+            :meth:`~gmt.clib.Session.create_data`.
         column : int
             The column number of this vector in the dataset (starting from 0).
         vector : numpy 1d-array
@@ -739,7 +739,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         Use this functions to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Matrix``.
 
-        The dataset must be created by :meth:`~gmt.clib.LibGMT.create_data`
+        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
         first. Use ``|GMT_VIA_MATRIX'`` in the family.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
@@ -754,7 +754,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         ----------
         dataset : :py:class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`~gmt.clib.LibGMT.create_data`.
+            :meth:`~gmt.clib.Session.create_data`.
         matrix : numpy 2d-array
             The array that will be attached to the dataset. Must be a 2d C
             contiguous array.
@@ -794,7 +794,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         Write a GMT data container to a file.
 
         The data container should be created by
-        :meth:`~gmt.clib.LibGMT.create_data`.
+        :meth:`~gmt.clib.Session.create_data`.
 
         Wraps ``GMT_Write_Data`` but only allows writing to a file. So the
         ``method`` argument is omitted.
@@ -820,7 +820,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
             The output file name.
         data : :py:class:`ctypes.c_void_p`
             Pointer to the data container created by
-            :meth:`~gmt.clib.LibGMT.create_data`.
+            :meth:`~gmt.clib.Session.create_data`.
 
         Raises
         ------
@@ -868,7 +868,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         GMT uses a virtual file scheme to pass in data to API modules. Use it
         to pass in your GMT data structure (created using
-        :meth:`~gmt.clib.LibGMT.create_data`) to a module that expects an input
+        :meth:`~gmt.clib.Session.create_data`) to a module that expects an input
         or output file.
 
         Use in a ``with`` block. Will automatically close the virtual file when
@@ -902,7 +902,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> import numpy as np
         >>> x = np.array([0, 1, 2, 3, 4])
         >>> y = np.array([5, 6, 7, 8, 9])
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     family = 'GMT_IS_DATASET|GMT_VIA_VECTOR'
         ...     geometry = 'GMT_IS_POINT'
         ...     dataset = lib.create_data(
@@ -981,9 +981,9 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         virtual file upon exit of the ``with`` block.
 
         Use this instead of creating GMT Datasets and Virtual Files by hand
-        with :meth:`~gmt.clib.LibGMT.create_data`,
-        :meth:`~gmt.clib.LibGMT.put_vector`, and
-        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+        with :meth:`~gmt.clib.Session.create_data`,
+        :meth:`~gmt.clib.Session.put_vector`, and
+        :meth:`~gmt.clib.Session.open_virtual_file`
 
         The virtual file will contain the arrays as ``GMT Vector`` structures.
 
@@ -1012,7 +1012,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> x = [1, 2, 3]
         >>> y = np.array([4, 5, 6])
         >>> z = pd.Series([7, 8, 9])
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     with lib.vectors_to_vfile(x, y, z) as vfile:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as ofile:
@@ -1065,15 +1065,15 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         than just the data matrix. This creates a Dataset (table).
 
         Use this instead of creating GMT Datasets and Virtual Files by hand
-        with :meth:`~gmt.clib.LibGMT.create_data`,
-        :meth:`~gmt.clib.LibGMT.put_matrix`, and
-        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+        with :meth:`~gmt.clib.Session.create_data`,
+        :meth:`~gmt.clib.Session.put_matrix`, and
+        :meth:`~gmt.clib.Session.open_virtual_file`
 
         The matrix must be C contiguous in memory. If it is not (e.g., it is a
         slice of a larger array), the array will be copied to make sure it is.
 
         It might be more efficient than using
-        :meth:`~gmt.clib.LibGMT.vectors_to_vfile` if your data are columns of a
+        :meth:`~gmt.clib.Session.vectors_to_vfile` if your data are columns of a
         2D array. In these cases, ``vectors_to_vfile`` will have to duplicate
         the memory of your array in order for columns to be C contiguous.
 
@@ -1099,7 +1099,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
          [ 3  4  5]
          [ 6  7  8]
          [ 9 10 11]]
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     with lib.matrix_to_vfile(data) as vfile:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as ofile:
@@ -1146,9 +1146,9 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         The virtual file will contain the grid as a ``GMT_MATRIX``.
 
         Use this instead of creating ``GMT_GRID`` and virtual files by hand
-        with :meth:`~gmt.clib.LibGMT.create_data`,
-        :meth:`~gmt.clib.LibGMT.put_matrix`, and
-        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+        with :meth:`~gmt.clib.Session.create_data`,
+        :meth:`~gmt.clib.Session.put_matrix`, and
+        :meth:`~gmt.clib.Session.open_virtual_file`
 
         The grid data matrix must be C contiguous in memory. If it is not
         (e.g., it is a slice of a larger array), the array will be copied to
@@ -1179,7 +1179,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         -90.0 90.0
         >>> print(data.values.min(), data.values.max())
         -8425.0 5551.0
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     with lib.grid_to_vfile(data) as vfile:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as ofile:
@@ -1228,7 +1228,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> fig = gmt.Figure()
         >>> fig.coast(region=[0, 10, -20, -10], projection="M6i", frame=True,
         ...           land='black')
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     wesn = lib.extract_region()
         >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
         0.00, 10.00, -20.00, -10.00
@@ -1239,7 +1239,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> fig = gmt.Figure()
         >>> fig.coast(region='US.HI', projection="M6i", frame=True,
         ...           land='black')
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     wesn = lib.extract_region()
         >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
         -164.71, -154.81, 18.91, 23.58
@@ -1251,7 +1251,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> fig = gmt.Figure()
         >>> fig.coast(region='US.HI+r5', projection="M6i", frame=True,
         ...           land='black')
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     wesn = lib.extract_region()
         >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
         -165.00, -150.00, 15.00, 25.00

@@ -2,7 +2,7 @@
 Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
-from .clib import LibGMT
+from .clib import Session
 from .exceptions import GMTInvalidInput
 from .helpers import (
     build_arg_string,
@@ -122,7 +122,7 @@ class BasePlotting:
 
         """
         kwargs = self._preprocess(**kwargs)
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
     @fmt_docstring
@@ -146,7 +146,7 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
-        with LibGMT() as lib:
+        with Session() as lib:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
@@ -257,7 +257,7 @@ class BasePlotting:
                 )
             extra_arrays.append(sizes)
 
-        with LibGMT() as lib:
+        with Session() as lib:
             # Choose how data will be passed in to the module
             if kind == "file":
                 file_context = dummy_context(data)
@@ -316,7 +316,7 @@ class BasePlotting:
             raise GMTInvalidInput("At least one of B, L, or T must be specified.")
         if "D" in kwargs and "F" not in kwargs:
             raise GMTInvalidInput("Option D requires F to be specified as well.")
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("basemap", build_arg_string(kwargs))
 
     @fmt_docstring
@@ -351,5 +351,5 @@ class BasePlotting:
         kwargs = self._preprocess(**kwargs)
         if "D" not in kwargs:
             raise GMTInvalidInput("Option D must be specified.")
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("logo", build_arg_string(kwargs))

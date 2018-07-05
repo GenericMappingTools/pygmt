@@ -35,7 +35,7 @@ def print_libgmt_info():
     ``libgmt`` shared library, and GMT directories.
     """
     import shutil
-    from .clib import LibGMT
+    from .clib import Session
 
     columns = shutil.get_terminal_size().columns
     title = "Currently loaded libgmt"
@@ -43,7 +43,7 @@ def print_libgmt_info():
     right = left + (columns - (2 * left + len(title) + 2))
     header = " ".join(["=" * left, title, "=" * right])
 
-    with LibGMT() as lib:
+    with Session() as lib:
         lines = [header]
         for key in sorted(lib.info):
             lines.append("{}: {}".format(key, lib.info[key]))
