@@ -55,30 +55,31 @@ DTYPES = {
 }
 
 
-class Session:  # pylint: disable=too-many-instance-attributes
+class Session:
     """
-    Load and access the GMT shared library (libgmt).
+    A GMT API session where most operations involving the C API happen.
 
-    Works as a context manager to create a GMT C API session and destroy it in
-    the end. The context manager feature eliminates the need for the
-    ``GMT_Create_Session`` and ``GMT_Destroy_Session`` functions. Thus, they
-    are not exposed in the Python API. If you need the void pointer to the GMT
-    session, use the ``current_session`` attribute.
+    Works as a context manager to create a GMT C API session and destroy it in the end
+    to clean up memory.
 
-    Functions of the shared library are exposed as methods of this class. Most
-    methods MUST be used inside the context manager 'with' block.
+    Functions of the shared library are exposed as methods of this class. Most methods
+    MUST be used with an open session (inside a ``with`` block). If creating GMT data
+    structures to communicate data, put that code inside the same ``with`` block as the
+    API calls that will use this data so that they are in the same session.
 
-    If creating GMT data structures to communicate data, put that code inside
-    this context manager to reuse the same session.
+    By default, will look for the shared library in the directory specified by the
+    environment variable ``GMT_LIBRARY_PATH``. If the variable is not set, will let
+    ctypes try to find the library.
 
-    Requires a minimum version of GMT (see ``Session.required_version``). Will
-    check for the version when entering the ``with`` block. A
-    ``GMTVersionError`` exception will be raised if the minimum version
-    requirements aren't met.
+    Requires GMT 6 (see ``Session.required_version``). Will check for the version when
+    entering the ``with`` block. A ``GMTVersionError`` exception will be raised if the
+    minimum version requirements aren't met.
 
-    By default, will look for the shared library in the directory specified by
-    the environment variable ``GMT_LIBRARY_PATH``. If the variable is not set,
-    will let ctypes try to find the library.
+    The ``session_pointer`` attribute holds a ctypes pointer to the currently open
+    session.
+
+    The context manager feature eliminates the need for the ``GMT_Create_Session`` and
+    ``GMT_Destroy_Session`` functions. Thus, they are not exposed in the Python API.
 
     Raises
     ------
