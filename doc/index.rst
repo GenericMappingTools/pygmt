@@ -5,7 +5,7 @@
     <div class="banner">
         <h1>GMT/Python</h1>
         <h2>
-            A modern Python interface for the
+            A Python interface for the
             <a href="http://gmt.soest.hawaii.edu/">Generic Mapping Tools</a>
         </h2>
     </div>

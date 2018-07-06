@@ -14,10 +14,9 @@
     </p>
 
     <p align="center">
+    <a href="http://try.gmtpython.xyz/">Online Demo</a> |
     <a href="https://www.gmtpython.xyz">Documentation</a> |
-    <a href="https://www.gmtpython.xyz/latest/install.html">Install</a> |
-    <a href="https://www.gmtpython.xyz/latest/tutorials">Tutorials</a> |
-    <a href="https://www.gmtpython.xyz/latest/api">API</a> |
+    <a href="https://github.com/GenericMappingTools/gmt-python">Source Code</a> |
     <a href="https://gitter.im/GenericMappingTools/gmt-python">Contact</a>
     </p>
 
