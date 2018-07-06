@@ -21,6 +21,45 @@
     `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
 
 
+.. gmt-plot::
+    :width: 300
+
+    import gmt
+
+    fig = gmt.Figure()
+    print("Meh")
+    fig.coast(region="g", projection="W0/10i", land="gray", frame=True)
+    fig.show()
+
+
+.. gmt-plot::
+
+    print("Meh")
+
+
+.. gmt-plot::
+
+    1 + 2
+
+
+.. gmt-plot::
+
+    import gmt
+    from gmt.datasets import load_japan_quakes
+
+    quakes = load_japan_quakes()
+    quakes_region = [quakes.longitude.min() - 1, quakes.longitude.max() + 1,
+                     quakes.latitude.min() - 1, quakes.latitude.max() + 1]
+
+    fig = gmt.Figure()
+    fig.coast(region=quakes_region, projection='X6id/6id', land='gray')
+    fig.plot(x=quakes.longitude, y=quakes.latitude,
+             sizes=0.02*2**quakes.magnitude,
+             color=quakes.depth_km/quakes.depth_km.max(),
+             cmap='viridis', style='cc', pen='black')
+    fig.show(method='globe')
+
+
 Getting started
 ---------------
 

@@ -281,7 +281,8 @@ class Figure(BasePlotting):
             launch_external_viewer(pdf)
             img = None
         elif method == "static":
-            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True,
+                                transparent=True)
             if Image is None:
                 raise GMTError(
                     " ".join(
