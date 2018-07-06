@@ -55,6 +55,12 @@ h1 {
     height:100%;
 }
 
+.wy-menu-vertical header, .wy-menu-vertical p.caption {
+    font-size: 90%;
+    font-weight: normal;
+    color: #eeeeee;
+}
+
 .wy-nav-content {
     max-width: 1000px;
 }
