@@ -23,7 +23,8 @@ The directive has the following options::
     .. gmt-plot::
         :namespace:  # specify a plotting namespace that is persistent within the page
         :hide-code:  # if set, then hide the code and only show the plot
-        :alt: text  # Alternate text when plot cannot be rendered
+        :center:     # if set, will center the output image
+        :alt: text   # Alternate text when plot cannot be rendered
 
 """
 import io
@@ -46,7 +47,8 @@ from docutils.parsers.rst.directives import flag, unchanged
 from sphinx.locale import _
 
 
-HTML_TEMPLATE = jinja2.Template("""
+HTML_TEMPLATE = jinja2.Template(
+    """
 <div class="gmtplot-output" id="{{ div_id }}">
     {% if stdout %}
         <div class="highlight">
@@ -54,10 +56,12 @@ HTML_TEMPLATE = jinja2.Template("""
         </div>
     {% endif %}
     {% if image or html %}
-        <div class="gmt-output-figure">
+        {% set center_style="display: block; margin-left: auto; margin-right: auto;" %}
+        <div class="gmtplot-output-figure">
             {% if image %}
                 <img src="data:image/png;base64,{{ image }}"
-                style="{% if width %}width: {{ width }}px{% endif %}">
+                     style="{% if width %}width: {{ width }};{% endif %}
+                            {% if center %}{{ center_style }}{% endif %}">
             {% endif %}
             {% if html %}
                 {{ html }}
@@ -65,10 +69,11 @@ HTML_TEMPLATE = jinja2.Template("""
         </div>
     {% endif %}
 </div>
-""")
+"""
+)
 
 
-class gmt_plot(nodes.General, nodes.Element):
+class GMTPlotNode(nodes.General, nodes.Element):
     """
     Sphinx node for a GMT plot.
     """
@@ -89,6 +94,7 @@ class GMTPlotDirective(Directive):
         "namespace": unchanged,
         "alt": unchanged,
         "width": unchanged,
+        "center": flag,
     }
 
     def run(self):
@@ -96,15 +102,11 @@ class GMTPlotDirective(Directive):
         Build the rst document node from the directive content.
         """
         env = self.state.document.settings.env
-        app = env.app
 
-        show_code = "hide-code" not in self.options
-
-        if not hasattr(env, "_gmt_namespaces"):
-            env._gmt_namespaces = {}
-        namespace_id = self.options.get("namespace", "default")
-        namespace = env._gmt_namespaces.setdefault(env.docname, {}).setdefault(
-            namespace_id, {}
+        if not hasattr(env, "gmt_namespaces"):
+            env.gmt_namespaces = {}
+        namespace = env.gmt_namespaces.setdefault(env.docname, {}).setdefault(
+            self.options.get("namespace", "default"), {}
         )
 
         code = "\n".join(self.content)
@@ -115,14 +117,14 @@ class GMTPlotDirective(Directive):
         rst_filename = os.path.basename(rst_source)
 
         # Use the source file name to construct a friendly target_id
-        serialno = env.new_serialno("gmt-plot")
         rst_base = rst_filename.replace(".", "-")
+        serialno = env.new_serialno("gmt-plot")
         div_id = "{0}-gmt-plot-{1}".format(rst_base, serialno)
         target_id = "{0}-gmt-source-{1}".format(rst_base, serialno)
 
         # Create the node in which the plot will appear. This will be processed by
         # html_visit_gmt_plot
-        plot_node = gmt_plot()
+        plot_node = GMTPlotNode()
         plot_node["target_id"] = target_id
         plot_node["div_id"] = div_id
         plot_node["code"] = code
@@ -131,11 +133,12 @@ class GMTPlotDirective(Directive):
         plot_node["rst_source"] = rst_source
         plot_node["rst_lineno"] = self.lineno
         plot_node["width"] = self.options.get("width", "")
+        plot_node["center"] = "center" in self.options
         if "alt" in self.options:
             plot_node["alt"] = self.options["alt"]
 
         result = [nodes.target("", "", ids=[target_id])]
-        if show_code:
+        if "hide-code" not in self.options:
             source_literal = nodes.literal_block(code, code)
             source_literal["language"] = "python"
             result.append(source_literal)
@@ -207,18 +210,25 @@ def html_visit_gmt_plot(self, node):
                 node["rst_source"], node["rst_lineno"], e.__class__.__name__, str(e)
             )
         )
-        raise nodes.SkipNode
+        raise e
 
     if stdout or returned is not None:
         image = ""
         html = ""
-        width = node["width"]
         if isinstance(returned, Image):
             image = base64.encodebytes(returned.data).decode("utf-8")
         elif isinstance(returned, HTML):
             html = returned.data
-        self.body.append(HTML_TEMPLATE.render(div_id=node["div_id"], stdout=stdout,
-                                              html=html, image=image, width=width))
+        self.body.append(
+            HTML_TEMPLATE.render(
+                div_id=node["div_id"],
+                stdout=stdout,
+                html=html,
+                image=image,
+                width=node["width"],
+                center=node["center"],
+            )
+        )
     # Always skip the node because we're inserting things directly into the HTML body
     raise nodes.SkipNode
 
@@ -227,7 +237,7 @@ def generic_visit_gmt_plot(self, node):
     """
     Execute code and generate output for other formats.
     """
-    # TODO: generate PNGs and insert them here
+    # Should generate PNGs and insert them here
     self.body.append(_("[ GMT Figure ]"))
     raise nodes.SkipNode
 
@@ -243,9 +253,9 @@ def purge_namespaces(app, env, docname):
     """
     Clean up the execution namespace.
     """
-    if not hasattr(env, "_gmt_namespaces"):
+    if not hasattr(env, "gmt_namespaces"):
         return
-    env._gmt_namespaces.pop(docname, {})
+    env.gmt_namespaces.pop(docname, {})
 
 
 def setup(app):
@@ -257,7 +267,7 @@ def setup(app):
     setup.confdir = app.confdir
     app.add_directive("gmt-plot", GMTPlotDirective)
     app.add_node(
-        gmt_plot,
+        GMTPlotNode,
         html=(html_visit_gmt_plot, depart_gmt_plot),
         latex=(generic_visit_gmt_plot, depart_gmt_plot),
         texinfo=(generic_visit_gmt_plot, depart_gmt_plot),

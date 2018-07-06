@@ -10,6 +10,29 @@
         </h2>
     </div>
 
+.. gmt-plot::
+    :center:
+
+    import gmt
+
+    # Sample earthquake data from Japan in a pandas.DataFrame
+    quakes = gmt.datasets.load_japan_quakes()
+
+    # Builtin Earth relief grids in multiple resolutions
+    relief = gmt.datasets.load_earth_relief(resolution="05m")
+
+    # The Figure object controls all plotting functions
+    fig = gmt.Figure()
+    # Setup a map region and a Mercator projection with automatic tick labels
+    fig.basemap(region=[129, 154, 34, 51], projection="M8i", frame=True)
+    # Plot the Earth relief grid in pseudo-color
+    fig.grdimage(relief, cmap="geo")
+    # Plot earthquakes as circles. Size maps to magnitude and color to depth.
+    fig.plot(x=quakes.longitude, y=quakes.latitude, sizes=0.02*2**quakes.magnitude,
+             color=quakes.depth_km/quakes.depth_km.max(), cmap="magma", style="cc")
+    # Show a preview of the image (happens inline in a Jupyter notebook).
+    fig.show()
+
 
 .. attention::
 
@@ -21,53 +44,13 @@
     `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
 
 
-.. gmt-plot::
-    :width: 300
-
-    import gmt
-
-    fig = gmt.Figure()
-    print("Meh")
-    fig.coast(region="g", projection="W0/10i", land="gray", frame=True)
-    fig.show()
-
-
-.. gmt-plot::
-
-    print("Meh")
-
-
-.. gmt-plot::
-
-    1 + 2
-
-
-.. gmt-plot::
-
-    import gmt
-    from gmt.datasets import load_japan_quakes
-
-    quakes = load_japan_quakes()
-    quakes_region = [quakes.longitude.min() - 1, quakes.longitude.max() + 1,
-                     quakes.latitude.min() - 1, quakes.latitude.max() + 1]
-
-    fig = gmt.Figure()
-    fig.coast(region=quakes_region, projection='X6id/6id', land='gray')
-    fig.plot(x=quakes.longitude, y=quakes.latitude,
-             sizes=0.02*2**quakes.magnitude,
-             color=quakes.depth_km/quakes.depth_km.max(),
-             cmap='viridis', style='cc', pen='black')
-    fig.show(method='globe')
-
-
-Getting started
+Getting Started
 ---------------
 
 1. Try an online demo at `try.gmtpython.xyz <http://try.gmtpython.xyz>`__
-2. :ref:`Install <install>` (tested and working on Linux and macOS)
+2. :ref:`Install <install>` (Linux and Mac)
 3. Follow the :ref:`tutorials`.
-4. Take a look at the :ref:`api` for a list of modules that are already
-   available.
+4. Take a look at the :ref:`api` to see what is available.
 
 .. note::
 
@@ -78,34 +61,27 @@ Getting started
     We really appreciate the help!
 
 
-Project goals
+Project Goals
 -------------
 
-* Build a modern Pythonic API that appeals to Python programmers who want to
-  use GMT.
-* Implement readable and explicit aliases for the GMT command-line arguments
-  (``region`` instead of ``R``, ``projection`` instead of ``J``, etc).
-* Use the new `GMT modern mode
-  <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__ for
-  simplified execution and figure generation.
+* Make GMT more accessible to new users.
+* Build a Pythonic API for GMT.
 * Interface with the GMT C API directly using :py:mod:`ctypes` (no system calls).
-* Integration with the `Jupyter notebook <http://jupyter.org/>`__ to display
-  plots and maps inline.
-* Input and output using Python native containers: :class:`numpy.ndarray` or
-  :class:`pandas.DataFrame` for data tables and `xarray <http://xarray.pydata.org>`__
-  ``Dataset`` for netCDF grids.
+* Support for rich display in the `Jupyter notebook <http://jupyter.org/>`__.
+* Integration with the Scipy stack: :class:`numpy.ndarray` or :class:`pandas.DataFrame`
+  for data tables and :class:`xarray.DataArray` for grids.
 
 
 Contacting Us
 -------------
 
-* Most discussion happens `on Github <https://github.com/GenericMappingTools/gmt-python>`__.
-  Feel free to `open an issue
-  <https://github.com/GenericMappingTools/gmt-python/issues/new>`__ or comment
-  on any open issue or pull request.
-* We have `chat room on Gitter <https://gitter.im/GenericMappingTools/gmt-python>`__
+* Most discussion happens
+  `on Github <https://github.com/GenericMappingTools/gmt-python>`__. Feel free to
+  `open an issue <https://github.com/GenericMappingTools/gmt-python/issues/new>`__ or
+  comment on any open issue or pull request.
+* We have a `chat room on Gitter <https://gitter.im/GenericMappingTools/gmt-python>`__
   where you can ask questions and leave comments.
-* Please note that this project is released with a `Contributor Code of Conduct
+* This project is released with a `Contributor Code of Conduct
   <https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md>`__.
   By participating in this project you agree to abide by its terms.
 
@@ -113,18 +89,17 @@ Contacting Us
 Contributing
 ------------
 
-Please read our
-`Contributing Guide <https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md>`__
-to see how you can help and give feedback.
+Please read our `Contributing Guide
+<https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md>`__ to
+see how you can help and give feedback.
 
 
-Related projects
+Related Projects
 ----------------
 
-* `GMT.jl <https://github.com/GenericMappingTools/GMT.jl>`__ -- A Julia wrapper
+* `GMT.jl <https://github.com/GenericMappingTools/GMT.jl>`__: A Julia wrapper for GMT.
+* `gmtmex <https://github.com/GenericMappingTools/GMT.jl>`__: A Matlab/Octave wrapper
   for GMT.
-* `gmtmex <https://github.com/GenericMappingTools/GMT.jl>`__ -- A Matlab/Octave
-  wrapper for GMT.
 
 Other Python wrappers for GMT:
 
