@@ -5,7 +5,7 @@ import pytest
 import numpy as np
 import numpy.testing as npt
 
-from ..datasets import load_japan_quakes, load_earth_relief
+from ..datasets import load_japan_quakes, load_earth_relief, load_usgs_quakes
 from ..exceptions import GMTInvalidInput
 
 
@@ -20,6 +20,12 @@ def test_japan_quakes():
     assert summary.loc["max", "month"] == 12
     assert summary.loc["min", "day"] == 1
     assert summary.loc["max", "day"] == 31
+
+
+def test_usgs_quakes():
+    "Check that the dataset loads without errors"
+    data = load_usgs_quakes()
+    assert data.shape == (1197, 22)
 
 
 def test_earth_relief_fails():
