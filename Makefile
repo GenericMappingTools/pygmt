@@ -3,7 +3,7 @@
 TESTDIR=tmp-test-dir-with-unique-name
 PYTEST_ARGS=--doctest-modules -v --pyargs
 PYTEST_COV_ARGS=--cov-config=../.coveragerc --cov-report=term-missing
-CHECK_FILES=gmt setup.py
+CHECK_FILES=gmt setup.py doc/conf.py
 
 help:
 	@echo "Commands:"

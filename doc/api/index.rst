@@ -100,37 +100,47 @@ All custom exceptions are derived from :class:`gmt.exceptions.GMTError`.
 GMT C API
 ---------
 
-The :mod:`gmt.clib` package is a wrapper for the GMT C API built using
-`ctypes <https://docs.python.org/3/library/ctypes.html>`__.
-Most calls to the C API happen through the :class:`gmt.clib.LibGMT` class.
+The :mod:`gmt.clib` package is a wrapper for the GMT C API built using :mod:`ctypes`.
+Most calls to the C API happen through the :class:`gmt.clib.Session` class.
 
 .. autosummary::
     :toctree: generated
 
-    clib.LibGMT
+    clib.Session
 
-Main methods (this is what the rest of the library uses):
+`GMT modules <http://gmt.soest.hawaii.edu/doc/latest/#man-pages>`__ are executed through
+the :meth:`~gmt.clib.Session.call_module` method:
 
 .. autosummary::
     :toctree: generated
 
-    clib.LibGMT.call_module
-    clib.LibGMT.grid_to_vfile
-    clib.LibGMT.vectors_to_vfile
-    clib.LibGMT.matrix_to_vfile
-    clib.LibGMT.extract_region
+    clib.Session.call_module
+
+Passing memory blocks between Python variables (:class:`numpy.ndarray`,
+:class:`pandas.Series`, and :class:`xarray.DataArray`) and GMT happens through *virtual
+files*. These methods are context managers that automate the conversion of Python
+variables to GMT virtual files:
+
+.. autosummary::
+    :toctree: generated
+
+    clib.Session.grid_to_vfile
+    clib.Session.vectors_to_vfile
+    clib.Session.matrix_to_vfile
+
 
 Low level access (these are mostly used by the :mod:`gmt.clib` package):
 
 .. autosummary::
     :toctree: generated
 
-    clib.LibGMT.create_session
-    clib.LibGMT.destroy_session
-    clib.LibGMT.get_constant
-    clib.LibGMT.get_default
-    clib.LibGMT.create_data
-    clib.LibGMT.open_virtual_file
-    clib.LibGMT.put_matrix
-    clib.LibGMT.put_vector
-    clib.LibGMT.write_data
+    clib.Session.create_session
+    clib.Session.destroy_session
+    clib.Session.get_constant
+    clib.Session.get_default
+    clib.Session.create_data
+    clib.Session.open_virtual_file
+    clib.Session.put_matrix
+    clib.Session.put_vector
+    clib.Session.write_data
+    clib.Session.extract_region
