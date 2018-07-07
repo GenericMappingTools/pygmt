@@ -32,7 +32,7 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 
 @contextmanager
-def mock(lib, func, returns=None, mock_func=None):
+def mock(session, func, returns=None, mock_func=None):
     """
     Mock a GMT C API function to make it always return a given value.
 
@@ -53,7 +53,7 @@ def mock(lib, func, returns=None, mock_func=None):
 
         mock_func = mock_api_function
 
-    get_libgmt_func = lib.get_libgmt_func
+    get_libgmt_func = session.get_libgmt_func
 
     def mock_get_libgmt_func(name, argtypes=None, restype=None):
         """
@@ -63,9 +63,11 @@ def mock(lib, func, returns=None, mock_func=None):
             return mock_func
         return get_libgmt_func(name, argtypes, restype)
 
-    setattr(lib, "get_libgmt_func", mock_get_libgmt_func)
+    setattr(session, "get_libgmt_func", mock_get_libgmt_func)
 
     yield
+
+    setattr(session, "get_libgmt_func", get_libgmt_func)
 
 
 def test_load_libgmt():
@@ -127,29 +129,50 @@ def test_constant():
 
 def test_create_destroy_session():
     "Test that create and destroy session are called without errors"
-    lib = clib.Session()
-    session1 = lib.create_session(session_name="test_session1")
-    assert session1 is not None
-    session2 = lib.create_session(session_name="test_session2")
-    assert session2 is not None
-    assert session2 != session1
-    lib.destroy_session(session1)
-    lib.destroy_session(session2)
+    # Create two session and make sure they are not pointing to the same memory
+    session1 = clib.Session()
+    session1.create(name="test_session1")
+    assert session1.session_pointer is not None
+    session2 = clib.Session()
+    session2.create(name="test_session2")
+    assert session2.session_pointer is not None
+    assert session2.session_pointer != session1.session_pointer
+    session1.destroy()
+    session2.destroy()
+    # Create and destroy a session twice
+    ses = clib.Session()
+    for __ in range(2):
+        with pytest.raises(GMTCLibNoSessionError):
+            ses.session_pointer  # pylint: disable=pointless-statement
+        ses.create("session1")
+        assert ses.session_pointer is not None
+        ses.destroy()
+        with pytest.raises(GMTCLibNoSessionError):
+            ses.session_pointer  # pylint: disable=pointless-statement
 
 
 def test_create_session_fails():
-    "Check that an exception is raised if the session pointer is None"
-    lib = clib.Session()
-    with mock(lib, "GMT_Create_Session", returns=None):
+    "Check that an exception is raised when failing to create a session"
+    ses = clib.Session()
+    with mock(ses, "GMT_Create_Session", returns=None):
         with pytest.raises(GMTCLibError):
-            lib.create_session("test-session-name")
+            ses.create("test-session-name")
+    # Should also fail if trying to create a session before destroying the old one.
+    ses.create("test1")
+    with pytest.raises(GMTCLibError):
+        ses.create("test2")
 
 
 def test_destroy_session_fails():
     "Fail to destroy session when given bad input"
-    lib = clib.Session()
-    with pytest.raises(GMTCLibError):
-        lib.destroy_session(None)
+    ses = clib.Session()
+    with pytest.raises(GMTCLibNoSessionError):
+        ses.destroy()
+    ses.create("test-session")
+    with mock(ses, "GMT_Destroy_Session", returns=1):
+        with pytest.raises(GMTCLibError):
+            ses.destroy()
+    ses.destroy()
 
 
 def test_call_module():
@@ -789,15 +812,14 @@ def test_info_dict():
         value.value = b"bla"
         return 0
 
-    lib = clib.Session()
-
-    with mock(lib, "GMT_Get_Default", mock_func=mock_defaults):
-        with lib:
-            info = lib.info
-            # Check for an empty dictionary
-            assert info
-            for key in info:
-                assert info[key] == "bla"
+    ses = clib.Session()
+    ses.create("test-session")
+    with mock(ses, "GMT_Get_Default", mock_func=mock_defaults):
+        # Check for an empty dictionary
+        assert ses.info
+        for key in ses.info:
+            assert ses.info[key] == "bla"
+    ses.destroy()
 
 
 def test_fails_for_wrong_version():

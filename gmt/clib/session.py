@@ -1,8 +1,9 @@
 """
-ctypes wrappers for core functions from the C API
+Defines the Session class to create and destroy a GMT API session and provides access to
+the API functions. Uses ctypes to wrap most of the core functions from the C API.
 """
 import sys
-import ctypes
+import ctypes as ctp
 from contextlib import contextmanager
 
 from packaging.version import Version
@@ -67,18 +68,15 @@ class Session:
     structures to communicate data, put that code inside the same ``with`` block as the
     API calls that will use the data.
 
-    By default, will let ctypes try to find the GMT shared library (``libgmt``). If the
-    environment variable ``GMT_LIBRARY_PATH`` is set, will look for the shared library
-    in the directory specified by it.
+    By default, will let :mod:`ctypes` try to find the GMT shared library (``libgmt``).
+    If the environment variable ``GMT_LIBRARY_PATH`` is set, will look for the shared
+    library in the directory specified by it.
 
     A ``GMTVersionError`` exception will be raised if the GMT shared library reports a
     version < 6.0.0.
 
     The ``session_pointer`` attribute holds a ctypes pointer to the currently open
     session.
-
-    The context manager feature eliminates the need for the ``GMT_Create_Session`` and
-    ``GMT_Destroy_Session`` functions. Thus, they are not exposed in the Python API.
 
     Raises
     ------
@@ -98,10 +96,16 @@ class Session:
     >>> grid = load_earth_relief()
     >>> type(grid)
     <class 'xarray.core.dataarray.DataArray'>
+    >>> # Create a session and destroy it automatically when exiting the "with" block.
     >>> with Session() as ses:
+    ...     # Create a virtual file and link to the memory block of the grid.
     ...     with ses.grid_to_vfile(grid) as fin:
+    ...         # Create a temp file to use as output.
     ...         with GMTTempFile() as fout:
+    ...             # Call the grdinfo module with the virtual file as input and the.
+    ...             # temp file as output.
     ...             ses.call_module("grdinfo", "{} -C ->{}".format(fin, fout.name))
+    ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
     -180 180 -90 90 -8425 5551 1 1 361 181
 
@@ -113,7 +117,7 @@ class Session:
     @property
     def session_pointer(self):
         """
-        The C void pointer for the current open GMT session.
+        The :class:`ctypes.c_void_p` pointer to the current open GMT session.
 
         Raises
         ------
@@ -123,14 +127,7 @@ class Session:
 
         """
         if not hasattr(self, "_session_pointer") or self._session_pointer is None:
-            raise GMTCLibNoSessionError(
-                " ".join(
-                    [
-                        "No currently open GMT API session.",
-                        "Use only inside a 'with' block.",
-                    ]
-                )
-            )
+            raise GMTCLibNoSessionError("No currently open GMT API session.")
         return self._session_pointer
 
     @session_pointer.setter
@@ -207,12 +204,12 @@ class Session:
         """
         Start the GMT session and keep the session argument.
         """
-        self.session_pointer = self.create_session("gmt-python-session")
-        # Need to store the version info because 'get_default' won't work after
-        # the session is destroyed.
+        self.create("gmt-python-session")
+        # Need to store the version info because 'get_default' won't work after the
+        # session is destroyed.
         version = self.info["version"]
         if Version(version) < Version(self.required_version):
-            self._cleanup_session()
+            self.destroy()
             raise GMTVersionError(
                 "Using an incompatible GMT version {}. Must be newer than {}.".format(
                     version, self.required_version
@@ -224,57 +221,66 @@ class Session:
         """
         Destroy the session when exiting the context.
         """
-        self._cleanup_session()
+        self.destroy()
 
-    def _cleanup_session(self):
+    def create(self, name):
         """
-        Destroy the current session and set the stored session to None
-        """
-        try:
-            self.destroy_session(self.session_pointer)
-        finally:
-            self.session_pointer = None
+        Create a new GMT C API session.
 
-    def create_session(self, session_name):
-        """
-        Create the ``GMTAPI_CTRL`` struct required by the GMT C API functions.
+        This is required before most other methods of :class:`gmt.clib.Session` can be
+        called.
 
-        It is a C void pointer containing the current session information and
-        cannot be accessed directly.
+        .. warning::
 
-        Remember to terminate the current session using
-        :func:`gmt.clib.Session.destroy_session` before creating a new one.
+            Usage of :class:`~gmt.clib.Session` as a context manager in a ``with`` block
+            is preferred over calling :meth:`~gmt.clib.Session.create` and
+            :meth:`~gmt.clib.Session.destroy` manually.
+
+        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL`` struct, which
+        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to
+        this pointer.
+
+        Remember to terminate the current session using :meth:`gmt.clib.Session.destroy`
+        before creating a new one.
 
         Parameters
         ----------
-        session_name : str
+        name : str
             A name for this session. Doesn't really affect the outcome.
 
-        Returns
-        -------
-        api_pointer : C void pointer (returned by ctypes as an integer)
-            Used by GMT C API functions.
-
         """
+        try:
+            # Won't raise an exception if there is a currently open session
+            self.session_pointer  # pylint: disable=pointless-statement
+            # In this case, fail to create a new session until the old one is destroyed
+            raise GMTCLibError(
+                "Failed to create a GMT API session: There is a currently open session."
+                " Must destroy it fist."
+            )
+        # If the exception is raised, this means that there is no open session and we're
+        # free to create a new one.
+        except GMTCLibNoSessionError:
+            pass
+
         c_create_session = self.get_libgmt_func(
             "GMT_Create_Session",
-            argtypes=[ctypes.c_char_p, ctypes.c_uint, ctypes.c_uint, ctypes.c_void_p],
-            restype=ctypes.c_void_p,
+            argtypes=[ctp.c_char_p, ctp.c_uint, ctp.c_uint, ctp.c_void_p],
+            restype=ctp.c_void_p,
         )
 
         # Capture the output printed by GMT into this list. Will use it later to
         # generate error messages for the exceptions raised by API calls.
-        self._log = []
+        self._error_log = []
 
-        @ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p)
+        @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # pylint: disable=unused-argument
             """
-            Callback function that GMT uses to print log and error messages.
-            We'll capture the message and print it to stderr so that it will show up on
-            the Jupyter notebook.
+            Callback function that the GMT C API will use to print log and error
+            messages. We'll capture the messages and print them to stderr so that they
+            will show up on the Jupyter notebook.
             """
             message = message.decode().strip()
-            self._log.append(message)
+            self._error_log.append(message)
             # flush to make sure the messages are printed even if we have a crash.
             print(message, file=sys.stderr, flush=True)
             return 0
@@ -285,49 +291,58 @@ class Session:
 
         padding = self.get_constant("GMT_PAD_DEFAULT")
         session_type = self.get_constant("GMT_SESSION_EXTERNAL")
-        session = c_create_session(
-            session_name.encode(), padding, session_type, print_func
-        )
+        session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
-            raise GMTCLibError("Failed to create a GMT API void pointer.")
+            raise GMTCLibError(
+                "Failed to create a GMT API session:\n{}".format(self._error_message)
+            )
 
-        return session
+        self.session_pointer = session
 
-    def _get_error_message(self):
+    @property
+    def _error_message(self):
         """
-        Return a string with error messages emitted by GMT.
-        Only includes messages with the string "[ERROR]" in them.
+        A string with all error messages emitted by the C API.
+
+        Only includes messages with the string ``"[ERROR]"`` in them.
         """
         msg = ""
-        if hasattr(self, "_log"):
-            msg = "\n".join(line for line in self._log if "[ERROR]" in line)
+        if hasattr(self, "_error_log"):
+            msg = "\n".join(line for line in self._error_log if "[ERROR]" in line)
         return msg
 
-    def destroy_session(self, session):
+    def destroy(self):
         """
-        Terminate and free the memory of a registered ``GMTAPI_CTRL`` session.
+        Destroy the currently open GMT API session.
 
-        The session is created and consumed by the C API modules and needs to
-        be freed before creating a new. Otherwise, some of the configuration
-        files might be left behind and can influence subsequent API calls.
+        .. warning::
 
-        Parameters
-        ----------
-        session : C void pointer (returned by ctypes as an integer)
-            The active session object produced by
-            :func:`gmt.clib.Session.create_session`.
-        libgmt : :py:class:`ctypes.CDLL`
-            The :py:class:`ctypes.CDLL` instance for the libgmt shared library.
+            Usage of :class:`~gmt.clib.Session` as a context manager in a ``with`` block
+            is preferred over calling :meth:`~gmt.clib.Session.create` and
+            :meth:`~gmt.clib.Session.destroy` manually.
 
+        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a registered
+        ``GMTAPI_CTRL`` session (the pointer for this struct is stored in the
+        ``session_pointer`` attribute).
+
+        Always use this method after you are done using a C API session. The session
+        needs to be destroyed before creating a new one. Otherwise, some of the
+        configuration files might be left behind and can influence subsequent API calls.
+
+        Sets the ``session_pointer`` attribute to ``None``.
         """
         c_destroy_session = self.get_libgmt_func(
-            "GMT_Destroy_Session", argtypes=[ctypes.c_void_p], restype=ctypes.c_int
+            "GMT_Destroy_Session", argtypes=[ctp.c_void_p], restype=ctp.c_int
         )
 
-        status = c_destroy_session(session)
+        status = c_destroy_session(self.session_pointer)
         if status:
-            raise GMTCLibError("Failed to destroy GMT API session")
+            raise GMTCLibError(
+                "Failed to destroy GMT API session:\n{}".format(self._error_message)
+            )
+
+        self.session_pointer = None
 
     def get_constant(self, name):
         """
@@ -354,7 +369,7 @@ class Session:
 
         """
         c_get_enum = self.get_libgmt_func(
-            "GMT_Get_Enum", argtypes=[ctypes.c_char_p], restype=ctypes.c_int
+            "GMT_Get_Enum", argtypes=[ctp.c_char_p], restype=ctp.c_int
         )
 
         value = c_get_enum(name.encode())
@@ -399,12 +414,12 @@ class Session:
         """
         c_get_default = self.get_libgmt_func(
             "GMT_Get_Default",
-            argtypes=[ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.c_char_p],
+            restype=ctp.c_int,
         )
 
         # Make a string buffer to get a return value
-        value = ctypes.create_string_buffer(10000)
+        value = ctp.create_string_buffer(10000)
 
         status = c_get_default(self.session_pointer, name.encode(), value)
 
@@ -442,8 +457,8 @@ class Session:
         """
         c_call_module = self.get_libgmt_func(
             "GMT_Call_Module",
-            argtypes=[ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.c_int, ctp.c_void_p],
+            restype=ctp.c_int,
         )
 
         mode = self.get_constant("GMT_MODULE_CMD")
@@ -453,7 +468,7 @@ class Session:
         if status != 0:
             raise GMTCLibError(
                 "Module '{}' failed with status code {}:\n{}".format(
-                    module, status, self._get_error_message()
+                    module, status, self._error_message
                 )
             )
 
@@ -501,18 +516,18 @@ class Session:
         c_create_data = self.get_libgmt_func(
             "GMT_Create_Data",
             argtypes=[
-                ctypes.c_void_p,  # API
-                ctypes.c_uint,  # family
-                ctypes.c_uint,  # geometry
-                ctypes.c_uint,  # mode
-                ctypes.POINTER(ctypes.c_uint64),  # dim
-                ctypes.POINTER(ctypes.c_double),  # range
-                ctypes.POINTER(ctypes.c_double),  # inc
-                ctypes.c_uint,  # registration
-                ctypes.c_int,  # pad
-                ctypes.c_void_p,
+                ctp.c_void_p,  # API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # mode
+                ctp.POINTER(ctp.c_uint64),  # dim
+                ctp.POINTER(ctp.c_double),  # range
+                ctp.POINTER(ctp.c_double),  # inc
+                ctp.c_uint,  # registration
+                ctp.c_int,  # pad
+                ctp.c_void_p,
             ],  # data
-            restype=ctypes.c_void_p,
+            restype=ctp.c_void_p,
         )
 
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
@@ -526,9 +541,9 @@ class Session:
 
         # Convert dim, ranges, and inc to ctypes arrays if given (will be None
         # if not given to represent NULL pointers)
-        dim = kwargs_to_ctypes_array("dim", kwargs, ctypes.c_uint64 * 4)
-        ranges = kwargs_to_ctypes_array("ranges", kwargs, ctypes.c_double * 4)
-        inc = kwargs_to_ctypes_array("inc", kwargs, ctypes.c_double * 2)
+        dim = kwargs_to_ctypes_array("dim", kwargs, ctp.c_uint64 * 4)
+        ranges = kwargs_to_ctypes_array("ranges", kwargs, ctp.c_double * 4)
+        inc = kwargs_to_ctypes_array("inc", kwargs, ctp.c_double * 2)
 
         # Use a NULL pointer (None) for existing data to indicate that the
         # container should be created empty. Fill it in later using put_vector
@@ -695,7 +710,7 @@ class Session:
 
         Parameters
         ----------
-        dataset : :py:class:`ctypes.c_void_p`
+        dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`~gmt.clib.Session.create_data`.
         column : int
@@ -713,18 +728,12 @@ class Session:
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
-            argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_void_p,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_void_p,
-            ],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_void_p, ctp.c_uint, ctp.c_uint, ctp.c_void_p],
+            restype=ctp.c_int,
         )
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
-        vector_pointer = vector.ctypes.data_as(ctypes.c_void_p)
+        vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
             self.session_pointer, dataset, column, gmt_type, vector_pointer
         )
@@ -758,7 +767,7 @@ class Session:
 
         Parameters
         ----------
-        dataset : :py:class:`ctypes.c_void_p`
+        dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`~gmt.clib.Session.create_data`.
         matrix : numpy 2d-array
@@ -777,18 +786,12 @@ class Session:
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
-            argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_void_p,
-                ctypes.c_uint,
-                ctypes.c_int,
-                ctypes.c_void_p,
-            ],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_void_p, ctp.c_uint, ctp.c_int, ctp.c_void_p],
+            restype=ctp.c_int,
         )
 
         gmt_type = self._check_dtype_and_dim(matrix, ndim=2)
-        matrix_pointer = matrix.ctypes.data_as(ctypes.c_void_p)
+        matrix_pointer = matrix.ctypes.data_as(ctp.c_void_p)
         status = c_put_matrix(
             self.session_pointer, dataset, gmt_type, pad, matrix_pointer
         )
@@ -824,7 +827,7 @@ class Session:
             elements.
         output : str
             The output file name.
-        data : :py:class:`ctypes.c_void_p`
+        data : :class:`ctypes.c_void_p`
             Pointer to the data container created by
             :meth:`~gmt.clib.Session.create_data`.
 
@@ -838,16 +841,16 @@ class Session:
         c_write_data = self.get_libgmt_func(
             "GMT_Write_Data",
             argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.POINTER(ctypes.c_double),
-                ctypes.c_char_p,
-                ctypes.c_void_p,
+                ctp.c_void_p,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.POINTER(ctp.c_double),
+                ctp.c_char_p,
+                ctp.c_void_p,
             ],
-            restype=ctypes.c_int,
+            restype=ctp.c_int,
         )
 
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
@@ -858,7 +861,7 @@ class Session:
             self.get_constant("GMT_IS_FILE"),
             geometry_int,
             self.get_constant(mode),
-            (ctypes.c_double * 6)(*wesn),
+            (ctp.c_double * 6)(*wesn),
             output.encode(),
             data,
         )
@@ -931,20 +934,20 @@ class Session:
         c_open_virtualfile = self.get_libgmt_func(
             "GMT_Open_VirtualFile",
             argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_void_p,
-                ctypes.c_char_p,
+                ctp.c_void_p,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_void_p,
+                ctp.c_char_p,
             ],
-            restype=ctypes.c_int,
+            restype=ctp.c_int,
         )
 
         c_close_virtualfile = self.get_libgmt_func(
             "GMT_Close_VirtualFile",
-            argtypes=[ctypes.c_void_p, ctypes.c_char_p],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_int,
         )
 
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
@@ -955,7 +958,7 @@ class Session:
             valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
         )
 
-        buff = ctypes.create_string_buffer(self.get_constant("GMT_STR16"))
+        buff = ctp.create_string_buffer(self.get_constant("GMT_STR16"))
 
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
@@ -1261,16 +1264,12 @@ class Session:
         """
         c_extract_region = self.get_libgmt_func(
             "GMT_Extract_Region",
-            argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_char_p,
-                ctypes.POINTER(ctypes.c_double),
-            ],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.POINTER(ctp.c_double)],
+            restype=ctp.c_int,
         )
 
         wesn = np.empty(4, dtype=np.float64)
-        wesn_pointer = wesn.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+        wesn_pointer = wesn.ctypes.data_as(ctp.POINTER(ctp.c_double))
         # The second argument to GMT_Extract_Region is a file pointer to a
         # PostScript file. It's only valid in classic mode. Use None to get a
         # NULL pointer instead.

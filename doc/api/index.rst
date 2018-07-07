@@ -62,7 +62,7 @@ Miscellaneous
 
     which
     test
-    print_libgmt_info
+    print_clib_info
 
 
 Datasets
@@ -134,8 +134,8 @@ Low level access (these are mostly used by the :mod:`gmt.clib` package):
 .. autosummary::
     :toctree: generated
 
-    clib.Session.create_session
-    clib.Session.destroy_session
+    clib.Session.create
+    clib.Session.destroy
     clib.Session.get_constant
     clib.Session.get_default
     clib.Session.create_data
@@ -144,3 +144,4 @@ Low level access (these are mostly used by the :mod:`gmt.clib` package):
     clib.Session.put_vector
     clib.Session.write_data
     clib.Session.extract_region
+    clib.Session.get_libgmt_func
