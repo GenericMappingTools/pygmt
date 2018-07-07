@@ -25,22 +25,22 @@
 
     import gmt
 
-    # Sample earthquake data from Japan in a pandas.DataFrame
-    quakes = gmt.datasets.load_japan_quakes()
+    # Sample earthquake data in a pandas.DataFrame
+    quakes = gmt.datasets.load_usgs_quakes()
 
-    # Builtin Earth relief grids in multiple resolutions
-    relief = gmt.datasets.load_earth_relief(resolution="05m")
+    # Builtin Earth relief grids in multiple resolutions (we're using 30 arc-minutes)
+    relief = gmt.datasets.load_earth_relief(resolution="30m")
 
     # The Figure object controls all plotting functions
     fig = gmt.Figure()
-    # Setup a map region and a Mercator projection with automatic tick labels
-    fig.basemap(region=[129, 154, 34, 51], projection="M8i", frame=True)
+    # Setup a map with a global region, a Mollweide projection, and automatic ticks
+    fig.basemap(region="g", projection="W200/8i", frame=True)
     # Plot the Earth relief grid in pseudo-color
     fig.grdimage(relief, cmap="geo")
     # Plot earthquakes as circles. Size maps to magnitude and color to depth.
-    fig.plot(x=quakes.longitude, y=quakes.latitude, sizes=0.02*2**quakes.magnitude,
-             color=quakes.depth_km/quakes.depth_km.max(), cmap="magma", style="cc")
-    # Show a preview of the image (happens inline in a Jupyter notebook).
+    fig.plot(x=quakes.longitude, y=quakes.latitude, sizes=0.01*2**quakes.mag,
+             color=quakes.depth/quakes.depth.max(), cmap="viridis", style="cc")
+    # Show a preview of the image (inline if in a Jupyter notebook).
     fig.show()
 
 .. image:: .github/readme-example.png
