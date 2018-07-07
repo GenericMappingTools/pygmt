@@ -25,7 +25,6 @@ clean:
 	rm -rf $(BUILDDIR)/doctrees
 	rm -rf $(BUILDDIR)/linkcheck
 	rm -rf modules
-	rm -rf api/gmt*.rst
 	rm -rf api/generated
 	rm -rf .ipynb_checkpoints
 	rm -rf tutorials/first-steps-*
@@ -42,7 +41,7 @@ api:
 	@echo
 	@echo "Building API docs."
 	@echo
-	$(SPHINXAUTOGEN) -i -t _templates -o api/ api/_generate_api.rst
+	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
 
 linkcheck:
