@@ -25,17 +25,17 @@
 
     import gmt
 
-    # Sample earthquake data in a pandas.DataFrame
+    # Load sample earthquake data in a pandas.DataFrame
     quakes = gmt.datasets.load_usgs_quakes()
 
-    # Builtin Earth relief grids in multiple resolutions (we're using 30 arc-minutes)
+    # Load the builtin Earth relief grid as an xarray.DataArray.
     relief = gmt.datasets.load_earth_relief(resolution="30m")
 
     # The Figure object controls all plotting functions
     fig = gmt.Figure()
     # Setup a map with a global region, a Mollweide projection, and automatic ticks
     fig.basemap(region="g", projection="W200/8i", frame=True)
-    # Plot the Earth relief grid in pseudo-color
+    # Plot the Earth relief grid in pseudo-color.
     fig.grdimage(relief, cmap="geo")
     # Plot earthquakes as circles. Size maps to magnitude and color to depth.
     fig.plot(x=quakes.longitude, y=quakes.latitude, sizes=0.01*2**quakes.mag,
