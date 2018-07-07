@@ -14,13 +14,8 @@ from packaging.version import Version
 
 from .. import clib
 from ..clib.session import FAMILIES, VIAS
-from ..clib.loading import (
-    clib_extension,
-    load_libgmt,
-    check_libgmt,
-    get_clib_path,
-)
-from..clib.conversion import dataarray_to_matrix
+from ..clib.loading import clib_extension, load_libgmt, check_libgmt, get_clib_path
+from ..clib.conversion import dataarray_to_matrix
 from ..exceptions import (
     GMTCLibError,
     GMTOSError,
@@ -205,7 +200,7 @@ def test_method_no_session():
     with pytest.raises(GMTCLibNoSessionError):
         lib.call_module("gmtdefaults", "")
     with pytest.raises(GMTCLibNoSessionError):
-        lib.current_session  # pylint: disable=pointless-statement
+        lib.session_pointer  # pylint: disable=pointless-statement
 
 
 def test_parse_constant_single():
@@ -794,8 +789,10 @@ def test_info_dict():
         value.value = b"bla"
         return 0
 
-    with clib.Session() as lib:
-        with mock(lib, "GMT_Get_Default", mock_func=mock_defaults):
+    lib = clib.Session()
+
+    with mock(lib, "GMT_Get_Default", mock_func=mock_defaults):
+        with lib:
             info = lib.info
             # Check for an empty dictionary
             assert info
@@ -822,4 +819,4 @@ def test_fails_for_wrong_version():
                 assert lib.info["version"] != "5.4.3"
     # Make sure the session is closed when the exception is raised.
     with pytest.raises(GMTCLibNoSessionError):
-        assert lib.current_session
+        assert lib.session_pointer

@@ -1,14 +1,10 @@
 """
 Functions to convert data types into ctypes friendly formats.
 """
-import os
-import sys
-import ctypes
-
 import numpy as np
 import pandas
 
-from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError, GMTInvalidInput
+from ..exceptions import GMTInvalidInput
 
 
 def dataarray_to_matrix(grid):

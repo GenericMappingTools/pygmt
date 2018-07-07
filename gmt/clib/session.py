@@ -14,7 +14,7 @@ from ..exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from.loading import load_libgmt
+from .loading import load_libgmt
 from .conversion import (
     kwargs_to_ctypes_array,
     vectors_to_arrays,
@@ -59,21 +59,20 @@ class Session:
     """
     A GMT API session where most operations involving the C API happen.
 
-    Works as a context manager to create a GMT C API session and destroy it in the end
-    to clean up memory.
+    Works as a context manager (for use in a ``with`` block) to create a GMT C API
+    session and destroy it in the end to clean up memory.
 
     Functions of the shared library are exposed as methods of this class. Most methods
     MUST be used with an open session (inside a ``with`` block). If creating GMT data
     structures to communicate data, put that code inside the same ``with`` block as the
-    API calls that will use this data so that they are in the same session.
+    API calls that will use the data.
 
-    By default, will look for the shared library in the directory specified by the
-    environment variable ``GMT_LIBRARY_PATH``. If the variable is not set, will let
-    ctypes try to find the library.
+    By default, will let ctypes try to find the GMT shared library (``libgmt``). If the
+    environment variable ``GMT_LIBRARY_PATH`` is set, will look for the shared library
+    in the directory specified by it.
 
-    Requires GMT 6 (see ``Session.required_version``). Will check for the version when
-    entering the ``with`` block. A ``GMTVersionError`` exception will be raised if the
-    minimum version requirements aren't met.
+    A ``GMTVersionError`` exception will be raised if the GMT shared library reports a
+    version < 6.0.0.
 
     The ``session_pointer`` attribute holds a ctypes pointer to the currently open
     session.
@@ -84,8 +83,8 @@ class Session:
     Raises
     ------
     GMTCLibNotFoundError
-        If there was any problem loading the library (couldn't find it or
-        couldn't access the functions).
+        If there was any problem loading the library (couldn't find it or couldn't
+        access the functions).
     GMTCLibNoSessionError
         If you try to call a method outside of a 'with' block.
     GMTVersionError
@@ -94,8 +93,17 @@ class Session:
     Examples
     --------
 
-    >>> with Session() as lib:
-    ...     lib.call_module('figure', 'my-figure')
+    >>> from gmt.datasets import load_earth_relief
+    >>> from gmt.helpers import GMTTempFile
+    >>> grid = load_earth_relief()
+    >>> type(grid)
+    <class 'xarray.core.dataarray.DataArray'>
+    >>> with Session() as ses:
+    ...     with ses.grid_to_vfile(grid) as fin:
+    ...         with GMTTempFile() as fout:
+    ...             ses.call_module("grdinfo", "{} -C ->{}".format(fin, fout.name))
+    ...             print(fout.read().strip())
+    -180 180 -90 90 -8425 5551 1 1 361 181
 
     """
 
@@ -103,7 +111,7 @@ class Session:
     required_version = "6.0.0"
 
     @property
-    def current_session(self):
+    def session_pointer(self):
         """
         The C void pointer for the current open GMT session.
 
@@ -114,7 +122,7 @@ class Session:
             outside of the context manager).
 
         """
-        if not hasattr(self, "_session_id") or self._session_id is None:
+        if not hasattr(self, "_session_pointer") or self._session_pointer is None:
             raise GMTCLibNoSessionError(
                 " ".join(
                     [
@@ -123,40 +131,41 @@ class Session:
                     ]
                 )
             )
-        return self._session_id
+        return self._session_pointer
 
-    @current_session.setter
-    def current_session(self, session):
+    @session_pointer.setter
+    def session_pointer(self, session):
         """
         Set the session void pointer.
         """
-        self._session_id = session
+        self._session_pointer = session
 
     @property
     def info(self):
-        """
-        Dictionary with the GMT version and default paths and parameters.
-        """
-        infodict = {
-            "version": self.get_default("API_VERSION"),
-            "padding": self.get_default("API_PAD"),
-            "binary dir": self.get_default("API_BINDIR"),
-            "share dir": self.get_default("API_SHAREDIR"),
-            # This segfaults for some reason
-            # 'data dir': self.get_default("API_DATADIR"),
-            "plugin dir": self.get_default("API_PLUGINDIR"),
-            "library path": self.get_default("API_LIBRARY"),
-            "cores": self.get_default("API_CORES"),
-            "image layout": self.get_default("API_IMAGE_LAYOUT"),
-            "grid layout": self.get_default("API_GRID_LAYOUT"),
-        }
-        return infodict
+        "Dictionary with the GMT version and default paths and parameters."
+        if not hasattr(self, "_info"):
+            self._info = {
+                "version": self.get_default("API_VERSION"),
+                "padding": self.get_default("API_PAD"),
+                "binary dir": self.get_default("API_BINDIR"),
+                "share dir": self.get_default("API_SHAREDIR"),
+                # This segfaults for some reason
+                # 'data dir': self.get_default("API_DATADIR"),
+                "plugin dir": self.get_default("API_PLUGINDIR"),
+                "library path": self.get_default("API_LIBRARY"),
+                "cores": self.get_default("API_CORES"),
+                "image layout": self.get_default("API_IMAGE_LAYOUT"),
+                "grid layout": self.get_default("API_GRID_LAYOUT"),
+            }
+        return self._info
 
     def get_libgmt_func(self, name, argtypes=None, restype=None):
         """
         Get a ctypes function from the libgmt shared library.
 
-        Also assigns the argument and return type conversions to the function.
+        Assigns the argument and return type conversions for the function.
+
+        Use this method to access a C function from libgmt.
 
         Parameters
         ----------
@@ -198,7 +207,7 @@ class Session:
         """
         Start the GMT session and keep the session argument.
         """
-        self.current_session = self.create_session("gmt-python-session")
+        self.session_pointer = self.create_session("gmt-python-session")
         # Need to store the version info because 'get_default' won't work after
         # the session is destroyed.
         version = self.info["version"]
@@ -222,9 +231,9 @@ class Session:
         Destroy the current session and set the stored session to None
         """
         try:
-            self.destroy_session(self.current_session)
+            self.destroy_session(self.session_pointer)
         finally:
-            self.current_session = None
+            self.session_pointer = None
 
     def create_session(self, session_name):
         """
@@ -397,7 +406,7 @@ class Session:
         # Make a string buffer to get a return value
         value = ctypes.create_string_buffer(10000)
 
-        status = c_get_default(self.current_session, name.encode(), value)
+        status = c_get_default(self.session_pointer, name.encode(), value)
 
         if status != 0:
             raise GMTCLibError(
@@ -439,7 +448,7 @@ class Session:
 
         mode = self.get_constant("GMT_MODULE_CMD")
         status = c_call_module(
-            self.current_session, module.encode(), mode, args.encode()
+            self.session_pointer, module.encode(), mode, args.encode()
         )
         if status != 0:
             raise GMTCLibError(
@@ -525,7 +534,7 @@ class Session:
         # container should be created empty. Fill it in later using put_vector
         # and put_matrix.
         data_ptr = c_create_data(
-            self.current_session,
+            self.session_pointer,
             family_int,
             geometry_int,
             mode_int,
@@ -717,7 +726,7 @@ class Session:
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         vector_pointer = vector.ctypes.data_as(ctypes.c_void_p)
         status = c_put_vector(
-            self.current_session, dataset, column, gmt_type, vector_pointer
+            self.session_pointer, dataset, column, gmt_type, vector_pointer
         )
         if status != 0:
             raise GMTCLibError(
@@ -781,7 +790,7 @@ class Session:
         gmt_type = self._check_dtype_and_dim(matrix, ndim=2)
         matrix_pointer = matrix.ctypes.data_as(ctypes.c_void_p)
         status = c_put_matrix(
-            self.current_session, dataset, gmt_type, pad, matrix_pointer
+            self.session_pointer, dataset, gmt_type, pad, matrix_pointer
         )
         if status != 0:
             raise GMTCLibError("Failed to put matrix of type {}.".format(matrix.dtype))
@@ -844,7 +853,7 @@ class Session:
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         status = c_write_data(
-            self.current_session,
+            self.session_pointer,
             family_int,
             self.get_constant("GMT_IS_FILE"),
             geometry_int,
@@ -949,7 +958,7 @@ class Session:
         buff = ctypes.create_string_buffer(self.get_constant("GMT_STR16"))
 
         status = c_open_virtualfile(
-            self.current_session, family_int, geometry_int, direction_int, data, buff
+            self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
 
         if status != 0:
@@ -960,7 +969,7 @@ class Session:
         try:
             yield vfname
         finally:
-            status = c_close_virtualfile(self.current_session, vfname.encode())
+            status = c_close_virtualfile(self.session_pointer, vfname.encode())
             if status != 0:
                 raise GMTCLibError("Failed to close virtual file '{}'.".format(vfname))
 
@@ -1265,7 +1274,7 @@ class Session:
         # The second argument to GMT_Extract_Region is a file pointer to a
         # PostScript file. It's only valid in classic mode. Use None to get a
         # NULL pointer instead.
-        status = c_extract_region(self.current_session, None, wesn_pointer)
+        status = c_extract_region(self.session_pointer, None, wesn_pointer)
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
         return wesn

@@ -8,7 +8,7 @@ import os
 import sys
 import ctypes
 
-from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError, GMTInvalidInput
+from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
 
 def load_libgmt(env=None):
