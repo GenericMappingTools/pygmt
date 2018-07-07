@@ -14,13 +14,13 @@ from packaging.version import Version
 
 from .. import clib
 from ..clib.session import FAMILIES, VIAS
-from ..clib.utils import (
+from ..clib.loading import (
     clib_extension,
     load_libgmt,
     check_libgmt,
-    dataarray_to_matrix,
     get_clib_path,
 )
+from..clib.conversion import dataarray_to_matrix
 from ..exceptions import (
     GMTCLibError,
     GMTOSError,

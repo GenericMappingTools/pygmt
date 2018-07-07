@@ -14,8 +14,8 @@ from ..exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from .utils import (
-    load_libgmt,
+from.loading import load_libgmt
+from .conversion import (
     kwargs_to_ctypes_array,
     vectors_to_arrays,
     dataarray_to_matrix,
