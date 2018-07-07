@@ -1,9 +1,7 @@
+# pylint: disable=exec-used
 """
-GMT Plot Sphinx Extension
-=========================
-
-This extension provides a means of inserting live-rendered GMT plots within
-sphinx documentation. For example::
+Sphinx extension for including live rendered GMT plots within sphinx documentation. For
+example::
 
     .. gmt-plot::
 
@@ -12,26 +10,24 @@ sphinx documentation. For example::
         fig.coast(region="g", projection="W0/10i", land="gray")
         fig.show()
 
-The *last statement* of the code-block should contain the ``gmt.Figure()`` object or a
-call to ``fig.show()``.
-
-Options
--------
+The *last statement* of the code-block should contain a call to ``gmt.Figure.show``.
+Anything printed to stdout will be captured and included between the figure and the
+code.
 
 The directive has the following options::
 
     .. gmt-plot::
-        :namespace:  # specify a plotting namespace that is persistent within the page
-        :hide-code:  # if set, then hide the code and only show the plot
-        :center:     # if set, will center the output image
-        :alt: text   # Alternate text when plot cannot be rendered
+        :width: size   # Set the width of the image (should contain a unit, like 400px)
+        :center:       # If set, will center the output image
+        :hide-code:    # If set, then hide the code and only show the plot
+        :alt: text     # Alternate text when plot cannot be rendered
+        :namespace:    # Specify a plotting namespace that is persistent within the page
 
 """
 import io
 import os
 import sys
 import ast
-import json
 import warnings
 import contextlib
 import base64
@@ -146,7 +142,7 @@ class GMTPlotDirective(Directive):
         return result
 
 
-class _CatchDisplay:
+class _CatchDisplay:  # pylint: disable=too-few-public-methods
     "Class to temporarily catch sys.displayhook"
 
     def __init__(self):
@@ -157,7 +153,7 @@ class _CatchDisplay:
         sys.displayhook = self
         return self
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, dtype, value, traceback):
         sys.displayhook = self.old_hook
         # Returning False will cause exceptions to propagate
         return False
@@ -200,10 +196,10 @@ def html_visit_gmt_plot(self, node):
     # Execute the code, saving output and namespace
     namespace = node["namespace"]
     try:
-        f = io.StringIO()
-        with contextlib.redirect_stdout(f):
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
             returned = eval_block(node["code"], namespace)
-        stdout = f.getvalue()
+        stdout = output.getvalue()
     except Exception as e:
         warnings.warn(
             "gmt-plot: {0}:{1} Code execution failed with: {2}: {3}".format(
@@ -233,7 +229,7 @@ def html_visit_gmt_plot(self, node):
     raise nodes.SkipNode
 
 
-def generic_visit_gmt_plot(self, node):
+def generic_visit_gmt_plot(self, node):  # pylint: disable=unused-argument
     """
     Execute code and generate output for other formats.
     """
@@ -242,14 +238,14 @@ def generic_visit_gmt_plot(self, node):
     raise nodes.SkipNode
 
 
-def depart_gmt_plot(self, node):
+def depart_gmt_plot(self, node):  # pylint: disable=unused-argument
     """
     Actions to take at the end of a plot directive.
     """
     return None
 
 
-def purge_namespaces(app, env, docname):
+def purge_namespaces(app, env, docname):  # pylint: disable=unused-argument
     """
     Clean up the execution namespace.
     """
