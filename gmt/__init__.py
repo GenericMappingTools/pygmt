@@ -1,14 +1,10 @@
 """
 The main API for GMT/Python.
 
-Functions and classes from ``gmt`` package offer access to GMT with input and
-output of Python data types.
-All plotting is handled through the :class:`gmt.Figure` class.
-
-All of GMT/Python is operated on a "modern mode session" (new to GMT6). When
-you import the ``gmt`` library, a new session will be started automatically.
-The session will be closed when the current Python process terminates. Thus,
-the Python API does not expose the ``gmt begin`` and ``gmt end`` commands.
+All of GMT/Python is operated on a "modern mode session" (new to GMT6). When you import
+the ``gmt`` library, a new session will be started automatically. The session will be
+closed when the current Python process terminates. Thus, the Python API does not expose
+the ``gmt begin`` and ``gmt end`` commands.
 """
 import atexit as _atexit
 
