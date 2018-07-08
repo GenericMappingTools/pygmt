@@ -61,11 +61,11 @@ is equivalent to the following in modern mode::
         # Same thing but no redirecting and -R -J -O -K
         gmt grdgradient -Nt0.2 -A45 data.nc -Gintens.nc
         gmt makecpt -Cgeo -T-8000/2000 > t.cpt
-        gmt grdimage -Ct.cpt -Iintens.nc data.nc -JM6i -P
-        gmt pscoast -Rdata.nc -Dh -Baf -W0.75p
-        echo "Japan Trench" | gmt pstext -F+f32p+cTC -Dj0/0.2i -Gwhite
-        gmt psxy -W2p lines.txt
-        gmt psscale -DjBL+w3i/0.1i+h+o0.3i/0.4i -Ct.cpt -W0.001 -F+gwhite+p0.5p -Bxaf -By+l"km"
+        gmt grdimage -Ct.cpt -Iintens.nc data.nc -JM6i
+        gmt coast -Rdata.nc -Dh -Baf -W0.75p
+        echo "Japan Trench" | gmt text -F+f32p+cTC -Dj0/0.2i -Gwhite
+        gmt plot -W2p lines.txt
+        gmt colorbar -DjBL+w3i/0.1i+h+o0.3i/0.4i -Ct.cpt -W0.001 -F+gwhite+p0.5p -Bxaf -By+l"km"
     # When a session ends, GMT will fetch the map it produced and convert it to
     # PDF automatically. The file will be named after the session "map.pdf"
     gmt end
@@ -89,7 +89,7 @@ later** and require the `new "modern" mode of GMT <http://gmt.soest.hawaii.edu/b
 The ``modern`` mode removes the need for ``-O -K`` and explicitly redirecting
 to a ``.ps`` file.
 This all happens in the background.
-A final call to ``gmt psconvert`` brings the plot out of hiding and finalizes
+A final call to ``gmt end`` brings the plot out of hiding and finalizes
 the Postscript.
 This mode is perfect for the Python interface, which would have to handle
 generation of the Postscript file in the background anyway.
@@ -128,20 +128,22 @@ figure, just as a normal GMT script::
 
     import gmt
 
+    fig = gmt.Figure()
     cpt = gmt.makecpt(C='cubhelix', T=[-4500, 4500])
-    gmt.grdimage(input='grid.nc', J='M6i', B='af', P=True, C=cpt)
-    gmt.psscale(C=cpt, D='jTC+w6i/0.2i+h+e+o0/1i', B='af')
-    gmt.psconvert(T='f', F='my-figure')
+    fig.grdimage(input='grid.nc', J='M6i', B='af', P=True, C=cpt)
+    fig.colorbar(C=cpt, D='jTC+w6i/0.2i+h+e+o0/1i', B='af')
+    fig.savefig("my-figure.pdf")
 
 Arguments can also be passed as in the GMT command-line by using a single
 string::
 
     import gmt
 
+    fig = gmt.Figure()
     gmt.makecpt('-Ccubhelix -T-4500/4500', output='my.cpt')
-    gmt.grdimage('grid.nc -JM6i -Baf -P -Cmy.cpt')
-    gmt.psscale('-Cmy.cpt -DjTC+w6i/0.2i+h+e+o0/1i -Baf')
-    gmt.psconvert('-Tf -Fmy-figure')
+    fig.grdimage('grid.nc -JM6i -Baf -P -Cmy.cpt')
+    fig.colorbar('-Cmy.cpt -DjTC+w6i/0.2i+h+e+o0/1i -Baf')
+    fig.savefig("my-figure.pdf")
 
 Notice that output that would be redirected to a file is specified using the
 ``output`` keyword argument.
@@ -156,8 +158,9 @@ netCDF file or generated in memory::
     data = xr.open_dataset('grid.nc')
 
     cpt = gmt.makecpt(C='cubhelix', T='-4500/4500')
-    gmt.grdimage(input=data, J='M6i', B='af', P=True, C=cpt)
-    gmt.psconvert(T='f', F='my-figure')
+    fig = gmt.Figure()
+    fig.grdimage(input=data, J='M6i', B='af', P=True, C=cpt)
+    fig.savefig('my-figure.pdf')
 
 Tabular data can be passed as numpy arrays::
 
@@ -167,9 +170,10 @@ Tabular data can be passed as numpy arrays::
     data = np.loadtxt('data_file.csv')
 
     cpt = gmt.makecpt(C="red,green,blue", T="0,70,300,10000")
-    gmt.pscoast(R='g', J='N180/10i', G='bisque', S='azure1', B='af', X='c')
-    gmt.psxy(input=data, S='ci', C=cpt, h='i1', i='2,1,3,4+s0.02')
-    gmt.psconvert(T='f', F='my-figure')
+    fig = gmt.Figure()
+    fig.coast(R='g', J='N180/10i', G='bisque', S='azure1', B='af', X='c')
+    fig.plot(input=data, S='ci', C=cpt, h='i1', i='2,1,3,4+s0.02')
+    fig.savefig('my-figure.pdf')
 
 
 In the Jupyter notebook, we can preview the plot by calling ``gmt.show()``,
@@ -181,8 +185,9 @@ which embeds the image in the notebook::
     data = np.loadtxt('data_file.csv')
 
     cpt = gmt.makecpt(C="red,green,blue", T="0,70,300,10000")
-    gmt.pscoast(R='g', J='N180/10i', G='bisque', S='azure1', B='af', X='c')
-    gmt.psxy(input=data, S='ci', C=cpt, h='i1', i='2,1,3,4+s0.02')
+    fig = gmt.Figure()
+    fig.coast(R='g', J='N180/10i', G='bisque', S='azure1', B='af', X='c')
+    fig.plot(input=data, S='ci', C=cpt, h='i1', i='2,1,3,4+s0.02')
     gmt.show()
 
 ``gmt.show`` will call ``psconvert`` in the background to get a PNG image back
@@ -205,7 +210,7 @@ this::
 
 
     gmt/
-        c_api/     # Package with low-level wrappers for the C API
+        clib/     # Package with low-level wrappers for the C API
             ...
         modules/  # Defines the functions corresponding to GMT modules
             ...
