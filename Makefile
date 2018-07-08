@@ -3,7 +3,8 @@
 TESTDIR=tmp-test-dir-with-unique-name
 PYTEST_ARGS=--doctest-modules -v --pyargs
 PYTEST_COV_ARGS=--cov-config=../.coveragerc --cov-report=term-missing
-CHECK_FILES=gmt setup.py
+FORMAT_FILES=gmt setup.py doc/conf.py
+LINT_FILES=gmt setup.py
 
 help:
 	@echo "Commands:"
@@ -28,18 +29,19 @@ test:
 coverage:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	mkdir -p $(TESTDIR)
-	cd $(TESTDIR); python -c "import gmt; gmt.print_libgmt_info()"
+	@echo ""
+	@cd $(TESTDIR); python -c "import gmt; gmt.print_clib_info()"
 	@echo ""
 	cd $(TESTDIR); pytest $(PYTEST_COV_ARGS) --cov=gmt $(PYTEST_ARGS) gmt
 	cp $(TESTDIR)/.coverage* .
 	rm -r $(TESTDIR)
 
 format:
-	black $(CHECK_FILES)
+	black $(FORMAT_FILES)
 
 check:
-	black --check $(CHECK_FILES)
-	pylint $(CHECK_FILES)
+	black --check $(FORMAT_FILES)
+	pylint $(LINT_FILES)
 
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;

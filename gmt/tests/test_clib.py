@@ -12,14 +12,10 @@ import pandas as pd
 import xarray as xr
 from packaging.version import Version
 
-from ..clib.core import LibGMT
-from ..clib.utils import (
-    clib_extension,
-    load_libgmt,
-    check_libgmt,
-    dataarray_to_matrix,
-    get_clib_path,
-)
+from .. import clib
+from ..clib.session import FAMILIES, VIAS
+from ..clib.loading import clib_extension, load_libgmt, check_libgmt, get_clib_path
+from ..clib.conversion import dataarray_to_matrix
 from ..exceptions import (
     GMTCLibError,
     GMTOSError,
@@ -36,7 +32,7 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 
 @contextmanager
-def mock(lib, func, returns=None, mock_func=None):
+def mock(session, func, returns=None, mock_func=None):
     """
     Mock a GMT C API function to make it always return a given value.
 
@@ -57,7 +53,7 @@ def mock(lib, func, returns=None, mock_func=None):
 
         mock_func = mock_api_function
 
-    get_libgmt_func = lib.get_libgmt_func
+    get_libgmt_func = session.get_libgmt_func
 
     def mock_get_libgmt_func(name, argtypes=None, restype=None):
         """
@@ -67,9 +63,11 @@ def mock(lib, func, returns=None, mock_func=None):
             return mock_func
         return get_libgmt_func(name, argtypes, restype)
 
-    setattr(lib, "get_libgmt_func", mock_get_libgmt_func)
+    setattr(session, "get_libgmt_func", mock_get_libgmt_func)
 
     yield
+
+    setattr(session, "get_libgmt_func", get_libgmt_func)
 
 
 def test_load_libgmt():
@@ -87,7 +85,7 @@ def test_load_libgmt_fail():
 def test_get_clib_path():
     "Test that the correct path is found when setting GMT_LIBRARY_PATH."
     # Get the real path to the library first
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         libpath = lib.info["library path"]
     libdir = os.path.dirname(libpath)
     # Assign it to the environment variable but keep a backup value to restore
@@ -118,49 +116,70 @@ def test_clib_extension():
         clib_extension("meh")
 
 
-def test_constant():
+def test_getitem():
     "Test that I can get correct constants from the C lib"
-    lib = LibGMT()
-    assert lib.get_constant("GMT_SESSION_EXTERNAL") != -99999
-    assert lib.get_constant("GMT_MODULE_CMD") != -99999
-    assert lib.get_constant("GMT_PAD_DEFAULT") != -99999
-    assert lib.get_constant("GMT_DOUBLE") != -99999
+    ses = clib.Session()
+    assert ses["GMT_SESSION_EXTERNAL"] != -99999
+    assert ses["GMT_MODULE_CMD"] != -99999
+    assert ses["GMT_PAD_DEFAULT"] != -99999
+    assert ses["GMT_DOUBLE"] != -99999
     with pytest.raises(GMTCLibError):
-        lib.get_constant("A_WHOLE_LOT_OF_JUNK")
+        ses["A_WHOLE_LOT_OF_JUNK"]  # pylint: disable=pointless-statement
 
 
 def test_create_destroy_session():
     "Test that create and destroy session are called without errors"
-    lib = LibGMT()
-    session1 = lib.create_session(session_name="test_session1")
-    assert session1 is not None
-    session2 = lib.create_session(session_name="test_session2")
-    assert session2 is not None
-    assert session2 != session1
-    lib.destroy_session(session1)
-    lib.destroy_session(session2)
+    # Create two session and make sure they are not pointing to the same memory
+    session1 = clib.Session()
+    session1.create(name="test_session1")
+    assert session1.session_pointer is not None
+    session2 = clib.Session()
+    session2.create(name="test_session2")
+    assert session2.session_pointer is not None
+    assert session2.session_pointer != session1.session_pointer
+    session1.destroy()
+    session2.destroy()
+    # Create and destroy a session twice
+    ses = clib.Session()
+    for __ in range(2):
+        with pytest.raises(GMTCLibNoSessionError):
+            ses.session_pointer  # pylint: disable=pointless-statement
+        ses.create("session1")
+        assert ses.session_pointer is not None
+        ses.destroy()
+        with pytest.raises(GMTCLibNoSessionError):
+            ses.session_pointer  # pylint: disable=pointless-statement
 
 
 def test_create_session_fails():
-    "Check that an exception is raised if the session pointer is None"
-    lib = LibGMT()
-    with mock(lib, "GMT_Create_Session", returns=None):
+    "Check that an exception is raised when failing to create a session"
+    ses = clib.Session()
+    with mock(ses, "GMT_Create_Session", returns=None):
         with pytest.raises(GMTCLibError):
-            lib.create_session("test-session-name")
+            ses.create("test-session-name")
+    # Should also fail if trying to create a session before destroying the old one.
+    ses.create("test1")
+    with pytest.raises(GMTCLibError):
+        ses.create("test2")
 
 
 def test_destroy_session_fails():
     "Fail to destroy session when given bad input"
-    lib = LibGMT()
-    with pytest.raises(GMTCLibError):
-        lib.destroy_session(None)
+    ses = clib.Session()
+    with pytest.raises(GMTCLibNoSessionError):
+        ses.destroy()
+    ses.create("test-session")
+    with mock(ses, "GMT_Destroy_Session", returns=1):
+        with pytest.raises(GMTCLibError):
+            ses.destroy()
+    ses.destroy()
 
 
 def test_call_module():
     "Run a command to see if call_module works"
     data_fname = os.path.join(TEST_DATA_DIR, "points.txt")
     out_fname = "test_call_module.txt"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         with GMTTempFile() as out_fname:
             lib.call_module("info", "{} -C ->{}".format(data_fname, out_fname.name))
             assert os.path.exists(out_fname.name)
@@ -170,21 +189,21 @@ def test_call_module():
 
 def test_call_module_invalid_arguments():
     "Fails for invalid module arguments"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
             lib.call_module("info", "bogus-data.bla")
 
 
 def test_call_module_invalid_name():
     "Fails when given bad input"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
             lib.call_module("meh", "")
 
 
 def test_call_module_error_message():
     "Check is the GMT error message was captured."
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         try:
             lib.call_module("info", "bogus-data.bla")
         except GMTCLibError as error:
@@ -199,40 +218,36 @@ def test_call_module_error_message():
 
 def test_method_no_session():
     "Fails when not in a session"
-    # Create an instance of LibGMT without "with" so no session is created.
-    lib = LibGMT()
+    # Create an instance of clib.Session without "with" so no session is created.
+    lib = clib.Session()
     with pytest.raises(GMTCLibNoSessionError):
         lib.call_module("gmtdefaults", "")
     with pytest.raises(GMTCLibNoSessionError):
-        lib.current_session  # pylint: disable=pointless-statement
+        lib.session_pointer  # pylint: disable=pointless-statement
 
 
 def test_parse_constant_single():
     "Parsing a single family argument correctly."
-    lib = LibGMT()
-    for family in lib.data_families:
-        parsed = lib._parse_constant(family, valid=lib.data_families)
-        assert parsed == lib.get_constant(family)
+    lib = clib.Session()
+    for family in FAMILIES:
+        parsed = lib._parse_constant(family, valid=FAMILIES)
+        assert parsed == lib[family]
 
 
 def test_parse_constant_composite():
     "Parsing a composite constant argument (separated by |) correctly."
-    lib = LibGMT()
-    test_cases = (
-        (family, via) for family in lib.data_families for via in lib.data_vias
-    )
+    lib = clib.Session()
+    test_cases = ((family, via) for family in FAMILIES for via in VIAS)
     for family, via in test_cases:
         composite = "|".join([family, via])
-        expected = lib.get_constant(family) + lib.get_constant(via)
-        parsed = lib._parse_constant(
-            composite, valid=lib.data_families, valid_modifiers=lib.data_vias
-        )
+        expected = lib[family] + lib[via]
+        parsed = lib._parse_constant(composite, valid=FAMILIES, valid_modifiers=VIAS)
         assert parsed == expected
 
 
 def test_parse_constant_fails():
     "Check if the function fails when given bad input"
-    lib = LibGMT()
+    lib = clib.Session()
     test_cases = [
         "SOME_random_STRING",
         "GMT_IS_DATASET|GMT_VIA_MATRIX|GMT_VIA_VECTOR",
@@ -242,29 +257,23 @@ def test_parse_constant_fails():
     ]
     for test_case in test_cases:
         with pytest.raises(GMTInvalidInput):
-            lib._parse_constant(
-                test_case, valid=lib.data_families, valid_modifiers=lib.data_vias
-            )
+            lib._parse_constant(test_case, valid=FAMILIES, valid_modifiers=VIAS)
 
     # Should also fail if not given valid modifiers but is using them anyway.
     # This should work...
     lib._parse_constant(
-        "GMT_IS_DATASET|GMT_VIA_MATRIX",
-        valid=lib.data_families,
-        valid_modifiers=lib.data_vias,
+        "GMT_IS_DATASET|GMT_VIA_MATRIX", valid=FAMILIES, valid_modifiers=VIAS
     )
     # But this shouldn't.
     with pytest.raises(GMTInvalidInput):
         lib._parse_constant(
-            "GMT_IS_DATASET|GMT_VIA_MATRIX",
-            valid=lib.data_families,
-            valid_modifiers=None,
+            "GMT_IS_DATASET|GMT_VIA_MATRIX", valid=FAMILIES, valid_modifiers=None
         )
 
 
 def test_create_data_dataset():
     "Run the function to make sure it doesn't fail badly."
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         # Dataset from vectors
         data_vector = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
@@ -284,7 +293,7 @@ def test_create_data_dataset():
 
 def test_create_data_grid_dim():
     "Create a grid ignoring range and inc."
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         # Grids from matrices using dim
         lib.create_data(
             family="GMT_IS_GRID|GMT_VIA_MATRIX",
@@ -296,7 +305,7 @@ def test_create_data_grid_dim():
 
 def test_create_data_grid_range():
     "Create a grid specifying range and inc instead of dim."
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         # Grids from matrices using range and int
         lib.create_data(
             family="GMT_IS_GRID|GMT_VIA_MATRIX",
@@ -311,7 +320,7 @@ def test_create_data_fails():
     "Check that create_data raises exceptions for invalid input and output"
     # Passing in invalid mode
     with pytest.raises(GMTInvalidInput):
-        with LibGMT() as lib:
+        with clib.Session() as lib:
             lib.create_data(
                 family="GMT_IS_DATASET",
                 geometry="GMT_IS_SURFACE",
@@ -322,7 +331,7 @@ def test_create_data_fails():
             )
     # Passing in invalid geometry
     with pytest.raises(GMTInvalidInput):
-        with LibGMT() as lib:
+        with clib.Session() as lib:
             lib.create_data(
                 family="GMT_IS_GRID",
                 geometry="Not_a_valid_geometry",
@@ -334,7 +343,7 @@ def test_create_data_fails():
 
     # If the data pointer returned is None (NULL pointer)
     with pytest.raises(GMTCLibError):
-        with LibGMT() as lib:
+        with clib.Session() as lib:
             with mock(lib, "GMT_Create_Data", returns=None):
                 lib.create_data(
                     family="GMT_IS_DATASET",
@@ -348,7 +357,7 @@ def test_put_vector():
     "Check that assigning a numpy array to a dataset works"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     for dtype in dtypes:
-        with LibGMT() as lib:
+        with clib.Session() as lib:
             dataset = lib.create_data(
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
                 geometry="GMT_IS_POINT",
@@ -358,9 +367,9 @@ def test_put_vector():
             x = np.array([1, 2, 3, 4, 5], dtype=dtype)
             y = np.array([6, 7, 8, 9, 10], dtype=dtype)
             z = np.array([11, 12, 13, 14, 15], dtype=dtype)
-            lib.put_vector(dataset, column=lib.get_constant("GMT_X"), vector=x)
-            lib.put_vector(dataset, column=lib.get_constant("GMT_Y"), vector=y)
-            lib.put_vector(dataset, column=lib.get_constant("GMT_Z"), vector=z)
+            lib.put_vector(dataset, column=lib["GMT_X"], vector=x)
+            lib.put_vector(dataset, column=lib["GMT_Y"], vector=y)
+            lib.put_vector(dataset, column=lib["GMT_Z"], vector=z)
             # Turns out wesn doesn't matter for Datasets
             wesn = [0] * 6
             # Save the data to a file to see if it's being accessed correctly
@@ -382,7 +391,7 @@ def test_put_vector():
 
 def test_put_vector_invalid_dtype():
     "Check that it fails with an exception for invalid data types"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         dataset = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
             geometry="GMT_IS_POINT",
@@ -396,7 +405,7 @@ def test_put_vector_invalid_dtype():
 
 def test_put_vector_wrong_column():
     "Check that it fails with an exception when giving an invalid column"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         dataset = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
             geometry="GMT_IS_POINT",
@@ -410,7 +419,7 @@ def test_put_vector_wrong_column():
 
 def test_put_vector_2d_fails():
     "Check that it fails with an exception for multidimensional arrays"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         dataset = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
             geometry="GMT_IS_POINT",
@@ -427,7 +436,7 @@ def test_put_matrix():
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (3, 4)
     for dtype in dtypes:
-        with LibGMT() as lib:
+        with clib.Session() as lib:
             dataset = lib.create_data(
                 family="GMT_IS_DATASET|GMT_VIA_MATRIX",
                 geometry="GMT_IS_POINT",
@@ -458,7 +467,7 @@ def test_put_matrix_fails():
     # It's hard to make put_matrix fail on the C API level because of all the
     # checks on input arguments. Mock the C API function just to make sure it
     # works.
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         with mock(lib, "GMT_Put_Matrix", returns=1):
             with pytest.raises(GMTCLibError):
                 lib.put_matrix(dataset=None, matrix=np.empty((10, 2)), pad=0)
@@ -471,7 +480,7 @@ def test_put_matrix_grid():
     inc = [1, 1]
     shape = ((wesn[3] - wesn[2]) // inc[1] + 1, (wesn[1] - wesn[0]) // inc[0] + 1)
     for dtype in dtypes:
-        with LibGMT() as lib:
+        with clib.Session() as lib:
             grid = lib.create_data(
                 family="GMT_IS_GRID|GMT_VIA_MATRIX",
                 geometry="GMT_IS_SURFACE",
@@ -502,7 +511,7 @@ def test_virtual_file():
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (5, 3)
     for dtype in dtypes:
-        with LibGMT() as lib:
+        with clib.Session() as lib:
             family = "GMT_IS_DATASET|GMT_VIA_MATRIX"
             geometry = "GMT_IS_POINT"
             dataset = lib.create_data(
@@ -536,7 +545,7 @@ def test_virtual_file_fails():
     # Mock Open_VirtualFile to test the status check when entering the context.
     # If the exception is raised, the code won't get to the closing of the
     # virtual file.
-    with LibGMT() as lib, mock(lib, "GMT_Open_VirtualFile", returns=1):
+    with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=1):
         with pytest.raises(GMTCLibError):
             with lib.open_virtual_file(*vfargs):
                 print("Should not get to this code")
@@ -544,7 +553,7 @@ def test_virtual_file_fails():
     # Test the status check when closing the virtual file
     # Mock the opening to return 0 (success) so that we don't open a file that
     # we won't close later.
-    with LibGMT() as lib, mock(lib, "GMT_Open_VirtualFile", returns=0), mock(
+    with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=0), mock(
         lib, "GMT_Close_VirtualFile", returns=1
     ):
         with pytest.raises(GMTCLibError):
@@ -555,7 +564,7 @@ def test_virtual_file_fails():
 
 def test_virtual_file_bad_direction():
     "Test passing an invalid direction argument"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         vfargs = (
             "GMT_IS_DATASET|GMT_VIA_MATRIX",
             "GMT_IS_POINT",
@@ -567,7 +576,7 @@ def test_virtual_file_bad_direction():
                 print("This should have failed")
 
 
-def test_vectors_to_vfile():
+def test_virtualfile_from_vectors():
     "Test the automation for transforming vectors to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     size = 10
@@ -575,8 +584,8 @@ def test_vectors_to_vfile():
         x = np.arange(size, dtype=dtype)
         y = np.arange(size, size * 2, 1, dtype=dtype)
         z = np.arange(size * 2, size * 3, 1, dtype=dtype)
-        with LibGMT() as lib:
-            with lib.vectors_to_vfile(x, y, z) as vfile:
+        with clib.Session() as lib:
+            with lib.virtualfile_from_vectors(x, y, z) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -587,14 +596,14 @@ def test_vectors_to_vfile():
             assert output == expected
 
 
-def test_vectors_to_vfile_transpose():
+def test_virtualfile_from_vectors_transpose():
     "Test transforming matrix columns to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
-        with LibGMT() as lib:
-            with lib.vectors_to_vfile(*data.T) as vfile:
+        with clib.Session() as lib:
+            with lib.virtualfile_from_vectors(*data.T) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} -C ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -605,24 +614,24 @@ def test_vectors_to_vfile_transpose():
             assert output == expected
 
 
-def test_vectors_to_vfile_diff_size():
+def test_virtualfile_from_vectors_diff_size():
     "Test the function fails for arrays of different sizes"
     x = np.arange(5)
     y = np.arange(6)
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.vectors_to_vfile(x, y):
+            with lib.virtualfile_from_vectors(x, y):
                 print("This should have failed")
 
 
-def test_matrix_to_vfile():
+def test_virtualfile_from_matrix():
     "Test transforming a matrix to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
-        with LibGMT() as lib:
-            with lib.matrix_to_vfile(data) as vfile:
+        with clib.Session() as lib:
+            with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -633,7 +642,7 @@ def test_matrix_to_vfile():
             assert output == expected
 
 
-def test_matrix_to_vfile_slice():
+def test_virtualfile_from_matrix_slice():
     "Test transforming a slice of a larger array to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (10, 6)
@@ -642,8 +651,8 @@ def test_matrix_to_vfile_slice():
         rows = 5
         cols = 3
         data = full_data[:rows, :cols]
-        with LibGMT() as lib:
-            with lib.matrix_to_vfile(data) as vfile:
+        with clib.Session() as lib:
+            with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -654,7 +663,7 @@ def test_matrix_to_vfile_slice():
             assert output == expected
 
 
-def test_vectors_to_vfile_pandas():
+def test_virtualfile_from_vectors_pandas():
     "Pass vectors to a dataset using pandas Series"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     size = 13
@@ -666,8 +675,8 @@ def test_vectors_to_vfile_pandas():
                 z=np.arange(size * 2, size * 3, 1, dtype=dtype),
             )
         )
-        with LibGMT() as lib:
-            with lib.vectors_to_vfile(data.x, data.y, data.z) as vfile:
+        with clib.Session() as lib:
+            with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -681,14 +690,14 @@ def test_vectors_to_vfile_pandas():
             assert output == expected
 
 
-def test_vectors_to_vfile_arraylike():
+def test_virtualfile_from_vectors_arraylike():
     "Pass array-like vectors to a dataset"
     size = 13
     x = list(range(0, size, 1))
     y = tuple(range(size, size * 2, 1))
     z = range(size * 2, size * 3, 1)
-    with LibGMT() as lib:
-        with lib.vectors_to_vfile(x, y, z) as vfile:
+    with clib.Session() as lib:
+        with lib.virtualfile_from_vectors(x, y, z) as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                 output = outfile.read(keep_tabs=True)
@@ -703,7 +712,7 @@ def test_extract_region_fails():
     "Check that extract region fails if nothing has been plotted."
     Figure()
     with pytest.raises(GMTCLibError):
-        with LibGMT() as lib:
+        with clib.Session() as lib:
             lib.extract_region()
 
 
@@ -720,16 +729,16 @@ def test_extract_region_two_figures():
 
     # Activate the first figure and extract the region from it
     # Use in a different session to avoid any memory problems.
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         lib.call_module("figure", "{} -".format(fig1._name))
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         wesn1 = lib.extract_region()
         npt.assert_allclose(wesn1, region1)
 
     # Now try it with the second one
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         lib.call_module("figure", "{} -".format(fig2._name))
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         wesn2 = lib.extract_region()
         npt.assert_allclose(wesn2, np.array([-165., -150., 15., 25.]))
 
@@ -740,7 +749,7 @@ def test_write_data_fails():
     # Fault. Can't test this if by giving a bad file name because if
     # output=='', GMT will just write to stdout and spaces are valid file
     # names. Use a mock instead just to exercise this part of the code.
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         with mock(lib, "GMT_Write_Data", returns=1):
             with pytest.raises(GMTCLibError):
                 lib.write_data(
@@ -777,7 +786,7 @@ def test_dataarray_to_matrix_inc_fails():
 
 def test_get_default():
     "Make sure get_default works without crashing and gives reasonable results"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
         assert Version(lib.get_default("API_VERSION")) >= Version("6.0.0")
@@ -785,16 +794,16 @@ def test_get_default():
 
 def test_get_default_fails():
     "Make sure get_default raises an exception for invalid names"
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
             lib.get_default("NOT_A_VALID_NAME")
 
 
 def test_info_dict():
-    "Make sure the LibGMT.info dict is working."
+    "Make sure the clib.Session.info dict is working."
     # Check if there are no errors or segfaults from getting all of the
     # properties.
-    with LibGMT() as lib:
+    with clib.Session() as lib:
         assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
@@ -803,17 +812,18 @@ def test_info_dict():
         value.value = b"bla"
         return 0
 
-    with LibGMT() as lib:
-        with mock(lib, "GMT_Get_Default", mock_func=mock_defaults):
-            info = lib.info
-            # Check for an empty dictionary
-            assert info
-            for key in info:
-                assert info[key] == "bla"
+    ses = clib.Session()
+    ses.create("test-session")
+    with mock(ses, "GMT_Get_Default", mock_func=mock_defaults):
+        # Check for an empty dictionary
+        assert ses.info
+        for key in ses.info:
+            assert ses.info[key] == "bla"
+    ses.destroy()
 
 
 def test_fails_for_wrong_version():
-    "Make sure the LibGMT raises an exception if GMT is too old"
+    "Make sure the clib.Session raises an exception if GMT is too old"
 
     # Mock GMT_Get_Default to return an old version
     def mock_defaults(api, name, value):  # pylint: disable=unused-argument
@@ -824,11 +834,11 @@ def test_fails_for_wrong_version():
             value.value = b"bla"
         return 0
 
-    lib = LibGMT()
+    lib = clib.Session()
     with mock(lib, "GMT_Get_Default", mock_func=mock_defaults):
         with pytest.raises(GMTVersionError):
             with lib:
                 assert lib.info["version"] != "5.4.3"
     # Make sure the session is closed when the exception is raised.
     with pytest.raises(GMTCLibNoSessionError):
-        assert lib.current_session
+        assert lib.session_pointer

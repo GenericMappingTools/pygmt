@@ -1,8 +1,9 @@
 """
-ctypes wrappers for core functions from the C API
+Defines the Session class to create and destroy a GMT API session and provides access to
+the API functions. Uses ctypes to wrap most of the core functions from the C API.
 """
 import sys
-import ctypes
+import ctypes as ctp
 from contextlib import contextmanager
 
 from packaging.version import Version
@@ -14,45 +15,74 @@ from ..exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from .utils import (
-    load_libgmt,
+from .loading import load_libgmt
+from .conversion import (
     kwargs_to_ctypes_array,
     vectors_to_arrays,
     dataarray_to_matrix,
     as_c_contiguous,
 )
 
+FAMILIES = [
+    "GMT_IS_DATASET",
+    "GMT_IS_GRID",
+    "GMT_IS_PALETTE",
+    "GMT_IS_MATRIX",
+    "GMT_IS_VECTOR",
+]
 
-class LibGMT:  # pylint: disable=too-many-instance-attributes
+VIAS = ["GMT_VIA_MATRIX", "GMT_VIA_VECTOR"]
+
+GEOMETRIES = [
+    "GMT_IS_NONE",
+    "GMT_IS_POINT",
+    "GMT_IS_LINE",
+    "GMT_IS_POLYGON",
+    "GMT_IS_PLP",
+    "GMT_IS_SURFACE",
+]
+
+MODES = ["GMT_CONTAINER_ONLY", "GMT_OUTPUT"]
+
+REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
+
+DTYPES = {
+    "float64": "GMT_DOUBLE",
+    "float32": "GMT_FLOAT",
+    "int64": "GMT_LONG",
+    "int32": "GMT_INT",
+    "uint64": "GMT_ULONG",
+    "uint32": "GMT_UINT",
+}
+
+
+class Session:
     """
-    Load and access the GMT shared library (libgmt).
+    A GMT API session where most operations involving the C API happen.
 
-    Works as a context manager to create a GMT C API session and destroy it in
-    the end. The context manager feature eliminates the need for the
-    ``GMT_Create_Session`` and ``GMT_Destroy_Session`` functions. Thus, they
-    are not exposed in the Python API. If you need the void pointer to the GMT
-    session, use the ``current_session`` attribute.
+    Works as a context manager (for use in a ``with`` block) to create a GMT C API
+    session and destroy it in the end to clean up memory.
 
-    Functions of the shared library are exposed as methods of this class. Most
-    methods MUST be used inside the context manager 'with' block.
+    Functions of the shared library are exposed as methods of this class. Most methods
+    MUST be used with an open session (inside a ``with`` block). If creating GMT data
+    structures to communicate data, put that code inside the same ``with`` block as the
+    API calls that will use the data.
 
-    If creating GMT data structures to communicate data, put that code inside
-    this context manager to reuse the same session.
+    By default, will let :mod:`ctypes` try to find the GMT shared library (``libgmt``).
+    If the environment variable ``GMT_LIBRARY_PATH`` is set, will look for the shared
+    library in the directory specified by it.
 
-    Requires a minimum version of GMT (see ``LibGMT.required_version``). Will
-    check for the version when entering the ``with`` block. A
-    ``GMTVersionError`` exception will be raised if the minimum version
-    requirements aren't met.
+    A ``GMTVersionError`` exception will be raised if the GMT shared library reports a
+    version < 6.0.0.
 
-    By default, will look for the shared library in the directory specified by
-    the environment variable ``GMT_LIBRARY_PATH``. If the variable is not set,
-    will let ctypes try to find the library.
+    The ``session_pointer`` attribute holds a ctypes pointer to the currently open
+    session.
 
     Raises
     ------
     GMTCLibNotFoundError
-        If there was any problem loading the library (couldn't find it or
-        couldn't access the functions).
+        If there was any problem loading the library (couldn't find it or couldn't
+        access the functions).
     GMTCLibNoSessionError
         If you try to call a method outside of a 'with' block.
     GMTVersionError
@@ -61,51 +91,33 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
     Examples
     --------
 
-    >>> with LibGMT() as lib:
-    ...     lib.call_module('figure', 'my-figure')
+    >>> from gmt.datasets import load_earth_relief
+    >>> from gmt.helpers import GMTTempFile
+    >>> grid = load_earth_relief()
+    >>> type(grid)
+    <class 'xarray.core.dataarray.DataArray'>
+    >>> # Create a session and destroy it automatically when exiting the "with" block.
+    >>> with Session() as ses:
+    ...     # Create a virtual file and link to the memory block of the grid.
+    ...     with ses.virtualfile_from_grid(grid) as fin:
+    ...         # Create a temp file to use as output.
+    ...         with GMTTempFile() as fout:
+    ...             # Call the grdinfo module with the virtual file as input and the.
+    ...             # temp file as output.
+    ...             ses.call_module("grdinfo", "{} -C ->{}".format(fin, fout.name))
+    ...             # Read the contents of the temp file before it's deleted.
+    ...             print(fout.read().strip())
+    -180 180 -90 90 -8425 5551 1 1 361 181
 
     """
-
-    data_families = [
-        "GMT_IS_DATASET",
-        "GMT_IS_GRID",
-        "GMT_IS_PALETTE",
-        "GMT_IS_MATRIX",
-        "GMT_IS_VECTOR",
-    ]
-
-    data_vias = ["GMT_VIA_MATRIX", "GMT_VIA_VECTOR"]
-
-    data_geometries = [
-        "GMT_IS_NONE",
-        "GMT_IS_POINT",
-        "GMT_IS_LINE",
-        "GMT_IS_POLYGON",
-        "GMT_IS_PLP",
-        "GMT_IS_SURFACE",
-    ]
-
-    data_modes = ["GMT_CONTAINER_ONLY", "GMT_OUTPUT"]
-
-    grid_registrations = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
     # The minimum version of GMT required
     required_version = "6.0.0"
 
-    # Map numpy dtypes to GMT types
-    _dtypes = {
-        "float64": "GMT_DOUBLE",
-        "float32": "GMT_FLOAT",
-        "int64": "GMT_LONG",
-        "int32": "GMT_INT",
-        "uint64": "GMT_ULONG",
-        "uint32": "GMT_UINT",
-    }
-
     @property
-    def current_session(self):
+    def session_pointer(self):
         """
-        The C void pointer for the current open GMT session.
+        The :class:`ctypes.c_void_p` pointer to the current open GMT session.
 
         Raises
         ------
@@ -114,49 +126,111 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
             outside of the context manager).
 
         """
-        if not hasattr(self, "_session_id") or self._session_id is None:
-            raise GMTCLibNoSessionError(
-                " ".join(
-                    [
-                        "No currently open GMT API session.",
-                        "Use only inside a 'with' block.",
-                    ]
-                )
-            )
-        return self._session_id
+        if not hasattr(self, "_session_pointer") or self._session_pointer is None:
+            raise GMTCLibNoSessionError("No currently open GMT API session.")
+        return self._session_pointer
 
-    @current_session.setter
-    def current_session(self, session):
+    @session_pointer.setter
+    def session_pointer(self, session):
         """
         Set the session void pointer.
         """
-        self._session_id = session
+        self._session_pointer = session
 
     @property
     def info(self):
+        "Dictionary with the GMT version and default paths and parameters."
+        if not hasattr(self, "_info"):
+            self._info = {
+                "version": self.get_default("API_VERSION"),
+                "padding": self.get_default("API_PAD"),
+                "binary dir": self.get_default("API_BINDIR"),
+                "share dir": self.get_default("API_SHAREDIR"),
+                # This segfaults for some reason
+                # 'data dir': self.get_default("API_DATADIR"),
+                "plugin dir": self.get_default("API_PLUGINDIR"),
+                "library path": self.get_default("API_LIBRARY"),
+                "cores": self.get_default("API_CORES"),
+                "image layout": self.get_default("API_IMAGE_LAYOUT"),
+                "grid layout": self.get_default("API_GRID_LAYOUT"),
+            }
+        return self._info
+
+    def __enter__(self):
         """
-        Dictionary with the GMT version and default paths and parameters.
+        Create a GMT API session and check the libgmt version.
+
+        Calls :meth:`~gmt.clib.Session.create`.
+
+        Raises
+        ------
+        GMTVersionError
+            If the version reported by libgmt is less than ``Session.required_version``.
+            Will destroy the session before raising the exception.
+
         """
-        infodict = {
-            "version": self.get_default("API_VERSION"),
-            "padding": self.get_default("API_PAD"),
-            "binary dir": self.get_default("API_BINDIR"),
-            "share dir": self.get_default("API_SHAREDIR"),
-            # This segfaults for some reason
-            # 'data dir': self.get_default("API_DATADIR"),
-            "plugin dir": self.get_default("API_PLUGINDIR"),
-            "library path": self.get_default("API_LIBRARY"),
-            "cores": self.get_default("API_CORES"),
-            "image layout": self.get_default("API_IMAGE_LAYOUT"),
-            "grid layout": self.get_default("API_GRID_LAYOUT"),
-        }
-        return infodict
+        self.create("gmt-python-session")
+        # Need to store the version info because 'get_default' won't work after the
+        # session is destroyed.
+        version = self.info["version"]
+        if Version(version) < Version(self.required_version):
+            self.destroy()
+            raise GMTVersionError(
+                "Using an incompatible GMT version {}. Must be newer than {}.".format(
+                    version, self.required_version
+                )
+            )
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """
+        Destroy the currently open GMT API session.
+
+        Calls :meth:`~gmt.clib.Session.destroy`.
+        """
+        self.destroy()
+
+    def __getitem__(self, name):
+        """
+        Get the value of a GMT constant (C enum) from gmt_resources.h
+
+        Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
+
+        Parameters
+        ----------
+        name : str
+            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``)
+
+        Returns
+        -------
+        constant : int
+            Integer value of the constant. Do not rely on this value because it might
+            change.
+
+        Raises
+        ------
+        GMTCLibError
+            If the constant doesn't exist.
+
+        """
+        c_get_enum = self.get_libgmt_func(
+            "GMT_Get_Enum", argtypes=[ctp.c_char_p], restype=ctp.c_int
+        )
+
+        value = c_get_enum(name.encode())
+
+        if value is None or value == -99999:
+            raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
+
+        return value
 
     def get_libgmt_func(self, name, argtypes=None, restype=None):
         """
         Get a ctypes function from the libgmt shared library.
 
-        Also assigns the argument and return type conversions to the function.
+        Assigns the argument and return type conversions for the function.
+
+        Use this method to access a C function from libgmt.
 
         Parameters
         ----------
@@ -178,7 +252,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         --------
 
         >>> from ctypes import c_void_p, c_int
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     func = lib.get_libgmt_func('GMT_Destroy_Session',
         ...                                argtypes=[c_void_p], restype=c_int)
         >>> type(func)
@@ -194,78 +268,64 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
             function.restype = restype
         return function
 
-    def __enter__(self):
+    def create(self, name):
         """
-        Start the GMT session and keep the session argument.
-        """
-        self.current_session = self.create_session("gmt-python-session")
-        # Need to store the version info because 'get_default' won't work after
-        # the session is destroyed.
-        version = self.info["version"]
-        if Version(version) < Version(self.required_version):
-            self._cleanup_session()
-            raise GMTVersionError(
-                "Using an incompatible GMT version {}. Must be newer than {}.".format(
-                    version, self.required_version
-                )
-            )
-        return self
+        Create a new GMT C API session.
 
-    def __exit__(self, exc_type, exc_value, traceback):
-        """
-        Destroy the session when exiting the context.
-        """
-        self._cleanup_session()
+        This is required before most other methods of :class:`gmt.clib.Session` can be
+        called.
 
-    def _cleanup_session(self):
-        """
-        Destroy the current session and set the stored session to None
-        """
-        try:
-            self.destroy_session(self.current_session)
-        finally:
-            self.current_session = None
+        .. warning::
 
-    def create_session(self, session_name):
-        """
-        Create the ``GMTAPI_CTRL`` struct required by the GMT C API functions.
+            Usage of :class:`~gmt.clib.Session` as a context manager in a ``with`` block
+            is preferred over calling :meth:`~gmt.clib.Session.create` and
+            :meth:`~gmt.clib.Session.destroy` manually.
 
-        It is a C void pointer containing the current session information and
-        cannot be accessed directly.
+        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL`` struct, which
+        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to
+        this pointer.
 
-        Remember to terminate the current session using
-        :func:`gmt.clib.LibGMT.destroy_session` before creating a new one.
+        Remember to terminate the current session using :meth:`gmt.clib.Session.destroy`
+        before creating a new one.
 
         Parameters
         ----------
-        session_name : str
+        name : str
             A name for this session. Doesn't really affect the outcome.
 
-        Returns
-        -------
-        api_pointer : C void pointer (returned by ctypes as an integer)
-            Used by GMT C API functions.
-
         """
+        try:
+            # Won't raise an exception if there is a currently open session
+            self.session_pointer  # pylint: disable=pointless-statement
+            # In this case, fail to create a new session until the old one is destroyed
+            raise GMTCLibError(
+                "Failed to create a GMT API session: There is a currently open session."
+                " Must destroy it fist."
+            )
+        # If the exception is raised, this means that there is no open session and we're
+        # free to create a new one.
+        except GMTCLibNoSessionError:
+            pass
+
         c_create_session = self.get_libgmt_func(
             "GMT_Create_Session",
-            argtypes=[ctypes.c_char_p, ctypes.c_uint, ctypes.c_uint, ctypes.c_void_p],
-            restype=ctypes.c_void_p,
+            argtypes=[ctp.c_char_p, ctp.c_uint, ctp.c_uint, ctp.c_void_p],
+            restype=ctp.c_void_p,
         )
 
         # Capture the output printed by GMT into this list. Will use it later to
         # generate error messages for the exceptions raised by API calls.
-        self._log = []
+        self._error_log = []
 
-        @ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p)
+        @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # pylint: disable=unused-argument
             """
-            Callback function that GMT uses to print log and error messages.
-            We'll capture the message and print it to stderr so that it will show up on
-            the Jupyter notebook.
+            Callback function that the GMT C API will use to print log and error
+            messages. We'll capture the messages and print them to stderr so that they
+            will show up on the Jupyter notebook.
             """
             message = message.decode().strip()
-            self._log.append(message)
+            self._error_log.append(message)
             # flush to make sure the messages are printed even if we have a crash.
             print(message, file=sys.stderr, flush=True)
             return 0
@@ -274,86 +334,60 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         # garbage collected otherwise
         self._print_callback = print_func
 
-        padding = self.get_constant("GMT_PAD_DEFAULT")
-        session_type = self.get_constant("GMT_SESSION_EXTERNAL")
-        session = c_create_session(
-            session_name.encode(), padding, session_type, print_func
-        )
+        padding = self["GMT_PAD_DEFAULT"]
+        session_type = self["GMT_SESSION_EXTERNAL"]
+        session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
-            raise GMTCLibError("Failed to create a GMT API void pointer.")
+            raise GMTCLibError(
+                "Failed to create a GMT API session:\n{}".format(self._error_message)
+            )
 
-        return session
+        self.session_pointer = session
 
-    def _get_error_message(self):
+    @property
+    def _error_message(self):
         """
-        Return a string with error messages emitted by GMT.
-        Only includes messages with the string "[ERROR]" in them.
+        A string with all error messages emitted by the C API.
+
+        Only includes messages with the string ``"[ERROR]"`` in them.
         """
         msg = ""
-        if hasattr(self, "_log"):
-            msg = "\n".join(line for line in self._log if "[ERROR]" in line)
+        if hasattr(self, "_error_log"):
+            msg = "\n".join(line for line in self._error_log if "[ERROR]" in line)
         return msg
 
-    def destroy_session(self, session):
+    def destroy(self):
         """
-        Terminate and free the memory of a registered ``GMTAPI_CTRL`` session.
+        Destroy the currently open GMT API session.
 
-        The session is created and consumed by the C API modules and needs to
-        be freed before creating a new. Otherwise, some of the configuration
-        files might be left behind and can influence subsequent API calls.
+        .. warning::
 
-        Parameters
-        ----------
-        session : C void pointer (returned by ctypes as an integer)
-            The active session object produced by
-            :func:`gmt.clib.LibGMT.create_session`.
-        libgmt : :py:class:`ctypes.CDLL`
-            The :py:class:`ctypes.CDLL` instance for the libgmt shared library.
+            Usage of :class:`~gmt.clib.Session` as a context manager in a ``with`` block
+            is preferred over calling :meth:`~gmt.clib.Session.create` and
+            :meth:`~gmt.clib.Session.destroy` manually.
 
+        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a registered
+        ``GMTAPI_CTRL`` session (the pointer for this struct is stored in the
+        ``session_pointer`` attribute).
+
+        Always use this method after you are done using a C API session. The session
+        needs to be destroyed before creating a new one. Otherwise, some of the
+        configuration files might be left behind and can influence subsequent API calls.
+
+        Sets the ``session_pointer`` attribute to ``None``.
         """
         c_destroy_session = self.get_libgmt_func(
-            "GMT_Destroy_Session", argtypes=[ctypes.c_void_p], restype=ctypes.c_int
+            "GMT_Destroy_Session", argtypes=[ctp.c_void_p], restype=ctp.c_int
         )
 
-        status = c_destroy_session(session)
+        status = c_destroy_session(self.session_pointer)
         if status:
-            raise GMTCLibError("Failed to destroy GMT API session")
+            raise GMTCLibError(
+                "Failed to destroy GMT API session:\n{}".format(self._error_message)
+            )
 
-    def get_constant(self, name):
-        """
-        Get the value of a constant (C enum) from gmt_resources.h
-
-        Used to set configuration values for other API calls. Wraps
-        ``GMT_Get_Enum``.
-
-        Parameters
-        ----------
-        name : str
-            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``)
-
-        Returns
-        -------
-        constant : int
-            Integer value of the constant. Do not rely on this value because it
-            might change.
-
-        Raises
-        ------
-        GMTCLibError
-            If the constant doesn't exist.
-
-        """
-        c_get_enum = self.get_libgmt_func(
-            "GMT_Get_Enum", argtypes=[ctypes.c_char_p], restype=ctypes.c_int
-        )
-
-        value = c_get_enum(name.encode())
-
-        if value is None or value == -99999:
-            raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
-
-        return value
+        self.session_pointer = None
 
     def get_default(self, name):
         """
@@ -390,14 +424,14 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         """
         c_get_default = self.get_libgmt_func(
             "GMT_Get_Default",
-            argtypes=[ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.c_char_p],
+            restype=ctp.c_int,
         )
 
         # Make a string buffer to get a return value
-        value = ctypes.create_string_buffer(10000)
+        value = ctp.create_string_buffer(10000)
 
-        status = c_get_default(self.current_session, name.encode(), value)
+        status = c_get_default(self.session_pointer, name.encode(), value)
 
         if status != 0:
             raise GMTCLibError(
@@ -433,18 +467,18 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         """
         c_call_module = self.get_libgmt_func(
             "GMT_Call_Module",
-            argtypes=[ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.c_int, ctp.c_void_p],
+            restype=ctp.c_int,
         )
 
-        mode = self.get_constant("GMT_MODULE_CMD")
+        mode = self["GMT_MODULE_CMD"]
         status = c_call_module(
-            self.current_session, module.encode(), mode, args.encode()
+            self.session_pointer, module.encode(), mode, args.encode()
         )
         if status != 0:
             raise GMTCLibError(
                 "Module '{}' failed with status code {}:\n{}".format(
-                    module, status, self._get_error_message()
+                    module, status, self._error_message
                 )
             )
 
@@ -492,43 +526,40 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         c_create_data = self.get_libgmt_func(
             "GMT_Create_Data",
             argtypes=[
-                ctypes.c_void_p,  # API
-                ctypes.c_uint,  # family
-                ctypes.c_uint,  # geometry
-                ctypes.c_uint,  # mode
-                ctypes.POINTER(ctypes.c_uint64),  # dim
-                ctypes.POINTER(ctypes.c_double),  # range
-                ctypes.POINTER(ctypes.c_double),  # inc
-                ctypes.c_uint,  # registration
-                ctypes.c_int,  # pad
-                ctypes.c_void_p,
+                ctp.c_void_p,  # API
+                ctp.c_uint,  # family
+                ctp.c_uint,  # geometry
+                ctp.c_uint,  # mode
+                ctp.POINTER(ctp.c_uint64),  # dim
+                ctp.POINTER(ctp.c_double),  # range
+                ctp.POINTER(ctp.c_double),  # inc
+                ctp.c_uint,  # registration
+                ctp.c_int,  # pad
+                ctp.c_void_p,
             ],  # data
-            restype=ctypes.c_void_p,
+            restype=ctp.c_void_p,
         )
 
-        family_int = self._parse_constant(
-            family, valid=self.data_families, valid_modifiers=self.data_vias
-        )
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         mode_int = self._parse_constant(
-            mode, valid=self.data_modes, valid_modifiers=["GMT_GRID_IS_GEO"]
+            mode, valid=MODES, valid_modifiers=["GMT_GRID_IS_GEO"]
         )
-        geometry_int = self._parse_constant(geometry, valid=self.data_geometries)
+        geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(
-            kwargs.get("registration", "GMT_GRID_NODE_REG"),
-            valid=self.grid_registrations,
+            kwargs.get("registration", "GMT_GRID_NODE_REG"), valid=REGISTRATIONS
         )
 
         # Convert dim, ranges, and inc to ctypes arrays if given (will be None
         # if not given to represent NULL pointers)
-        dim = kwargs_to_ctypes_array("dim", kwargs, ctypes.c_uint64 * 4)
-        ranges = kwargs_to_ctypes_array("ranges", kwargs, ctypes.c_double * 4)
-        inc = kwargs_to_ctypes_array("inc", kwargs, ctypes.c_double * 2)
+        dim = kwargs_to_ctypes_array("dim", kwargs, ctp.c_uint64 * 4)
+        ranges = kwargs_to_ctypes_array("ranges", kwargs, ctp.c_double * 4)
+        inc = kwargs_to_ctypes_array("inc", kwargs, ctp.c_double * 2)
 
         # Use a NULL pointer (None) for existing data to indicate that the
         # container should be created empty. Fill it in later using put_vector
         # and put_matrix.
         data_ptr = c_create_data(
-            self.current_session,
+            self.session_pointer,
             family_int,
             geometry_int,
             mode_int,
@@ -558,7 +589,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
             if "MATRIX" in family:
                 pad = 0
             else:
-                pad = self.get_constant("GMT_PAD_DEFAULT")
+                pad = self["GMT_PAD_DEFAULT"]
         return pad
 
     def _parse_constant(self, constant, valid, valid_modifiers=None):
@@ -567,7 +598,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         The GMT C API takes certain defined constants, like ``'GMT_IS_GRID'``,
         that need to be validated and converted to integer values using
-        :meth:`~gmt.clib.LibGMT.get_constant`.
+        :meth:`gmt.clib.Session.__getitem__`.
 
         The constants can also take a modifier by appending another constant
         name, e.g. ``'GMT_IS_GRID|GMT_VIA_MATRIX'``. The two parts must be
@@ -616,7 +647,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
                     parts[1], str(valid_modifiers)
                 )
             )
-        integer_value = sum(self.get_constant(part) for part in parts)
+        integer_value = sum(self[part] for part in parts)
         return integer_value
 
     def _check_dtype_and_dim(self, array, ndim):
@@ -647,18 +678,18 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         >>> import numpy as np
         >>> data = np.array([1, 2, 3], dtype='float64')
-        >>> with LibGMT() as lib:
-        ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
-        ...     gmttype == lib.get_constant('GMT_DOUBLE')
+        >>> with Session() as ses:
+        ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
+        ...     gmttype == ses["GMT_DOUBLE"]
         True
         >>> data = np.ones((5, 2), dtype='float32')
-        >>> with LibGMT() as lib:
-        ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
-        ...     gmttype == lib.get_constant('GMT_FLOAT')
+        >>> with Session() as ses:
+        ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
+        ...     gmttype == ses['GMT_FLOAT']
         True
 
         """
-        if array.dtype.name not in self._dtypes:
+        if array.dtype.name not in DTYPES:
             raise GMTInvalidInput(
                 "Unsupported numpy data type '{}'.".format(array.dtype.name)
             )
@@ -666,7 +697,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
             raise GMTInvalidInput(
                 "Expected a numpy 1d array, got {}d.".format(array.ndim)
             )
-        return self.get_constant(self._dtypes[array.dtype.name])
+        return self[DTYPES[array.dtype.name]]
 
     def put_vector(self, dataset, column, vector):
         """
@@ -675,7 +706,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         Use this functions to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Vector``.
 
-        The dataset must be created by :meth:`~gmt.clib.LibGMT.create_data`
+        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
@@ -689,9 +720,9 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         Parameters
         ----------
-        dataset : :py:class:`ctypes.c_void_p`
+        dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`~gmt.clib.LibGMT.create_data`.
+            :meth:`~gmt.clib.Session.create_data`.
         column : int
             The column number of this vector in the dataset (starting from 0).
         vector : numpy 1d-array
@@ -707,20 +738,14 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
-            argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_void_p,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_void_p,
-            ],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_void_p, ctp.c_uint, ctp.c_uint, ctp.c_void_p],
+            restype=ctp.c_int,
         )
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
-        vector_pointer = vector.ctypes.data_as(ctypes.c_void_p)
+        vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
-            self.current_session, dataset, column, gmt_type, vector_pointer
+            self.session_pointer, dataset, column, gmt_type, vector_pointer
         )
         if status != 0:
             raise GMTCLibError(
@@ -739,7 +764,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         Use this functions to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Matrix``.
 
-        The dataset must be created by :meth:`~gmt.clib.LibGMT.create_data`
+        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
         first. Use ``|GMT_VIA_MATRIX'`` in the family.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
@@ -752,9 +777,9 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         Parameters
         ----------
-        dataset : :py:class:`ctypes.c_void_p`
+        dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`~gmt.clib.LibGMT.create_data`.
+            :meth:`~gmt.clib.Session.create_data`.
         matrix : numpy 2d-array
             The array that will be attached to the dataset. Must be a 2d C
             contiguous array.
@@ -771,20 +796,14 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
-            argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_void_p,
-                ctypes.c_uint,
-                ctypes.c_int,
-                ctypes.c_void_p,
-            ],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_void_p, ctp.c_uint, ctp.c_int, ctp.c_void_p],
+            restype=ctp.c_int,
         )
 
         gmt_type = self._check_dtype_and_dim(matrix, ndim=2)
-        matrix_pointer = matrix.ctypes.data_as(ctypes.c_void_p)
+        matrix_pointer = matrix.ctypes.data_as(ctp.c_void_p)
         status = c_put_matrix(
-            self.current_session, dataset, gmt_type, pad, matrix_pointer
+            self.session_pointer, dataset, gmt_type, pad, matrix_pointer
         )
         if status != 0:
             raise GMTCLibError("Failed to put matrix of type {}.".format(matrix.dtype))
@@ -794,7 +813,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         Write a GMT data container to a file.
 
         The data container should be created by
-        :meth:`~gmt.clib.LibGMT.create_data`.
+        :meth:`~gmt.clib.Session.create_data`.
 
         Wraps ``GMT_Write_Data`` but only allows writing to a file. So the
         ``method`` argument is omitted.
@@ -818,9 +837,9 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
             elements.
         output : str
             The output file name.
-        data : :py:class:`ctypes.c_void_p`
+        data : :class:`ctypes.c_void_p`
             Pointer to the data container created by
-            :meth:`~gmt.clib.LibGMT.create_data`.
+            :meth:`~gmt.clib.Session.create_data`.
 
         Raises
         ------
@@ -832,29 +851,27 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         c_write_data = self.get_libgmt_func(
             "GMT_Write_Data",
             argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.POINTER(ctypes.c_double),
-                ctypes.c_char_p,
-                ctypes.c_void_p,
+                ctp.c_void_p,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.POINTER(ctp.c_double),
+                ctp.c_char_p,
+                ctp.c_void_p,
             ],
-            restype=ctypes.c_int,
+            restype=ctp.c_int,
         )
 
-        family_int = self._parse_constant(
-            family, valid=self.data_families, valid_modifiers=self.data_vias
-        )
-        geometry_int = self._parse_constant(geometry, valid=self.data_geometries)
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
+        geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         status = c_write_data(
-            self.current_session,
+            self.session_pointer,
             family_int,
-            self.get_constant("GMT_IS_FILE"),
+            self["GMT_IS_FILE"],
             geometry_int,
-            self.get_constant(mode),
-            (ctypes.c_double * 6)(*wesn),
+            self[mode],
+            (ctp.c_double * 6)(*wesn),
             output.encode(),
             data,
         )
@@ -868,7 +885,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         GMT uses a virtual file scheme to pass in data to API modules. Use it
         to pass in your GMT data structure (created using
-        :meth:`~gmt.clib.LibGMT.create_data`) to a module that expects an input
+        :meth:`~gmt.clib.Session.create_data`) to a module that expects an input
         or output file.
 
         Use in a ``with`` block. Will automatically close the virtual file when
@@ -902,7 +919,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> import numpy as np
         >>> x = np.array([0, 1, 2, 3, 4])
         >>> y = np.array([5, 6, 7, 8, 9])
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     family = 'GMT_IS_DATASET|GMT_VIA_VECTOR'
         ...     geometry = 'GMT_IS_POINT'
         ...     dataset = lib.create_data(
@@ -927,36 +944,34 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         c_open_virtualfile = self.get_libgmt_func(
             "GMT_Open_VirtualFile",
             argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_uint,
-                ctypes.c_void_p,
-                ctypes.c_char_p,
+                ctp.c_void_p,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_uint,
+                ctp.c_void_p,
+                ctp.c_char_p,
             ],
-            restype=ctypes.c_int,
+            restype=ctp.c_int,
         )
 
         c_close_virtualfile = self.get_libgmt_func(
             "GMT_Close_VirtualFile",
-            argtypes=[ctypes.c_void_p, ctypes.c_char_p],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_int,
         )
 
-        family_int = self._parse_constant(
-            family, valid=self.data_families, valid_modifiers=self.data_vias
-        )
-        geometry_int = self._parse_constant(geometry, valid=self.data_geometries)
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
+        geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
             direction,
             valid=["GMT_IN", "GMT_OUT"],
             valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
         )
 
-        buff = ctypes.create_string_buffer(self.get_constant("GMT_STR16"))
+        buff = ctp.create_string_buffer(self["GMT_STR16"])
 
         status = c_open_virtualfile(
-            self.current_session, family_int, geometry_int, direction_int, data, buff
+            self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
 
         if status != 0:
@@ -967,41 +982,39 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         try:
             yield vfname
         finally:
-            status = c_close_virtualfile(self.current_session, vfname.encode())
+            status = c_close_virtualfile(self.session_pointer, vfname.encode())
             if status != 0:
                 raise GMTCLibError("Failed to close virtual file '{}'.".format(vfname))
 
     @contextmanager
-    def vectors_to_vfile(self, *vectors):
+    def virtualfile_from_vectors(self, *vectors):
         """
-        Store 1d arrays in a GMT virtual file to use as a module input.
+        Store 1d arrays as columns of a table inside a virtual file.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Use the virtual file name to pass in the data in your vectors to a GMT module.
 
-        Use this instead of creating GMT Datasets and Virtual Files by hand
-        with :meth:`~gmt.clib.LibGMT.create_data`,
-        :meth:`~gmt.clib.LibGMT.put_vector`, and
-        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        The virtual file will contain the arrays as ``GMT Vector`` structures.
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_vector`, and
+        :meth:`~gmt.clib.Session.open_virtual_file`.
 
-        If the arrays are C contiguous blocks of memory, they will be passed
-        without copying to GMT. If they are not (e.g., they are columns of a 2D
-        array), they will need to be copied to a contiguous block.
+        If the arrays are C contiguous blocks of memory, they will be passed without
+        copying to GMT. If they are not (e.g., they are columns of a 2D array), they
+        will need to be copied to a contiguous block.
 
         Parameters
         ----------
         vectors : 1d arrays
-            The vectors that will be included in the array. All must be of the
-            same size.
+            The vectors that will be included in the array. All must be of the same
+            size.
 
         Yields
         ------
-        vfile : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname : str
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1012,23 +1025,21 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> x = [1, 2, 3]
         >>> y = np.array([4, 5, 6])
         >>> z = pd.Series([7, 8, 9])
-        >>> with LibGMT() as lib:
-        ...     with lib.vectors_to_vfile(x, y, z) as vfile:
+        >>> with Session() as ses:
+        ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
         ...         # Send the output to a file so that we can read it
-        ...         with GMTTempFile() as ofile:
-        ...             args = '{} ->{}'.format(vfile, ofile.name)
-        ...             lib.call_module('info', args)
-        ...             print(ofile.read().strip())
+        ...         with GMTTempFile() as fout:
+        ...             ses.call_module('info', '{} ->{}'.format(fin, fout.name))
+        ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed.
-        # The conversion is implicit in vectors_to_arrays.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed. The conversion is implicit in
+        # vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
@@ -1046,47 +1057,43 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         for col, array in enumerate(arrays):
             self.put_vector(dataset, column=col, vector=array)
 
-        vf_args = (family, geometry, "GMT_IN", dataset)
-        with self.open_virtual_file(*vf_args) as vfile:
+        with self.open_virtual_file(family, geometry, "GMT_IN", dataset) as vfile:
             yield vfile
 
     @contextmanager
-    def matrix_to_vfile(self, matrix):
+    def virtualfile_from_matrix(self, matrix):
         """
-        Store a 2d array in a GMT virtual file to use as a module input.
+        Store a 2d array as a table inside a virtual file.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Use the virtual file name to pass in the data in your matrix to a GMT module.
 
-        The virtual file will contain the array as a ``GMT_MATRIX``.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        **Not meant for creating GMT Grids**. The grid requires more metadata
-        than just the data matrix. This creates a Dataset (table).
+        The virtual file will contain the array as a ``GMT_MATRIX`` pretending to be a
+        ``GMT_DATASET``.
 
-        Use this instead of creating GMT Datasets and Virtual Files by hand
-        with :meth:`~gmt.clib.LibGMT.create_data`,
-        :meth:`~gmt.clib.LibGMT.put_matrix`, and
-        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+        **Not meant for creating ``GMT_GRID``**. The grid requires more metadata than
+        just the data matrix. Use :meth:`~gmt.clib.Session.virtualfile_from_grid`
+        instead.
 
-        The matrix must be C contiguous in memory. If it is not (e.g., it is a
-        slice of a larger array), the array will be copied to make sure it is.
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_matrix`, and
+        :meth:`~gmt.clib.Session.open_virtual_file`
 
-        It might be more efficient than using
-        :meth:`~gmt.clib.LibGMT.vectors_to_vfile` if your data are columns of a
-        2D array. In these cases, ``vectors_to_vfile`` will have to duplicate
-        the memory of your array in order for columns to be C contiguous.
+        The matrix must be C contiguous in memory. If it is not (e.g., it is a slice of
+        a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
         matrix : 2d array
-            The matrix that will be included in the Dataset.
+            The matrix that will be included in the GMT data container.
 
         Yields
         ------
-        vfile : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname : str
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1099,22 +1106,20 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
          [ 3  4  5]
          [ 6  7  8]
          [ 9 10 11]]
-        >>> with LibGMT() as lib:
-        ...     with lib.matrix_to_vfile(data) as vfile:
+        >>> with Session() as ses:
+        ...     with ses.virtualfile_from_matrix(data) as fin:
         ...         # Send the output to a file so that we can read it
-        ...         with GMTTempFile() as ofile:
-        ...             args = '{} ->{}'.format(vfile, ofile.name)
-        ...             lib.call_module('info', args)
-        ...             print(ofile.read().strip())
+        ...         with GMTTempFile() as fout:
+        ...             ses.call_module('info', '{} ->{}'.format(fin, fout.name))
+        ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed.
         matrix = as_c_contiguous(matrix)
         rows, columns = matrix.shape
 
@@ -1127,43 +1132,39 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
 
         self.put_matrix(dataset, matrix)
 
-        vf_args = (family, geometry, "GMT_IN", dataset)
-        with self.open_virtual_file(*vf_args) as vfile:
+        with self.open_virtual_file(family, geometry, "GMT_IN", dataset) as vfile:
             yield vfile
 
     @contextmanager
-    def grid_to_vfile(self, grid):
+    def virtualfile_from_grid(self, grid):
         """
-        Store a grid in a GMT virtual file to use as a module input.
+        Store a grid in a virtual file.
 
-        Used to pass grid data into GMT modules. Grids must be
-        ``xarray.DataArray`` instances.
+        Use the virtual file name to pass in the data in your grid to a GMT module.
+        Grids must be :class:`xarray.DataArray` instances.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        The virtual file will contain the grid as a ``GMT_MATRIX``.
+        The virtual file will contain the grid as a ``GMT_MATRIX`` with extra metadata.
 
-        Use this instead of creating ``GMT_GRID`` and virtual files by hand
-        with :meth:`~gmt.clib.LibGMT.create_data`,
-        :meth:`~gmt.clib.LibGMT.put_matrix`, and
-        :meth:`~gmt.clib.LibGMT.open_virtual_file`
+        Use this instead of creating a data container and virtual file by hand with
+        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_matrix`, and
+        :meth:`~gmt.clib.Session.open_virtual_file`
 
-        The grid data matrix must be C contiguous in memory. If it is not
-        (e.g., it is a slice of a larger array), the array will be copied to
-        make sure it is.
+        The grid data matrix must be C contiguous in memory. If it is not (e.g., it is a
+        slice of a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
-        grid : xarray.DataArraw
+        grid : :class:`xarray.DataArray`
             The grid that will be included in the virtual file.
 
         Yields
         ------
-        vfile : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname : str
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1179,24 +1180,23 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         -90.0 90.0
         >>> print(data.values.min(), data.values.max())
         -8425.0 5551.0
-        >>> with LibGMT() as lib:
-        ...     with lib.grid_to_vfile(data) as vfile:
+        >>> with Session() as ses:
+        ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
-        ...         with GMTTempFile() as ofile:
-        ...             args = '{} -L0 -Cn ->{}'.format(vfile, ofile.name)
-        ...             lib.call_module('grdinfo', args)
-        ...             print(ofile.read().strip())
+        ...         with GMTTempFile() as fout:
+        ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
+        ...             ses.call_module('grdinfo', args)
+        ...             print(fout.read().strip())
         -180 180 -90 90 -8425 5551 1 1 361 181
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed.
-        # The conversion is implicit in dataarray_to_matrix.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed. The conversion is implicit in
+        # dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid)
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"
@@ -1228,7 +1228,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> fig = gmt.Figure()
         >>> fig.coast(region=[0, 10, -20, -10], projection="M6i", frame=True,
         ...           land='black')
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     wesn = lib.extract_region()
         >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
         0.00, 10.00, -20.00, -10.00
@@ -1239,7 +1239,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> fig = gmt.Figure()
         >>> fig.coast(region='US.HI', projection="M6i", frame=True,
         ...           land='black')
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     wesn = lib.extract_region()
         >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
         -164.71, -154.81, 18.91, 23.58
@@ -1251,7 +1251,7 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         >>> fig = gmt.Figure()
         >>> fig.coast(region='US.HI+r5', projection="M6i", frame=True,
         ...           land='black')
-        >>> with LibGMT() as lib:
+        >>> with Session() as lib:
         ...     wesn = lib.extract_region()
         >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
         -165.00, -150.00, 15.00, 25.00
@@ -1259,20 +1259,16 @@ class LibGMT:  # pylint: disable=too-many-instance-attributes
         """
         c_extract_region = self.get_libgmt_func(
             "GMT_Extract_Region",
-            argtypes=[
-                ctypes.c_void_p,
-                ctypes.c_char_p,
-                ctypes.POINTER(ctypes.c_double),
-            ],
-            restype=ctypes.c_int,
+            argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.POINTER(ctp.c_double)],
+            restype=ctp.c_int,
         )
 
         wesn = np.empty(4, dtype=np.float64)
-        wesn_pointer = wesn.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+        wesn_pointer = wesn.ctypes.data_as(ctp.POINTER(ctp.c_double))
         # The second argument to GMT_Extract_Region is a file pointer to a
         # PostScript file. It's only valid in classic mode. Use None to get a
         # NULL pointer instead.
-        status = c_extract_region(self.current_session, None, wesn_pointer)
+        status = c_extract_region(self.session_pointer, None, wesn_pointer)
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
         return wesn

@@ -10,7 +10,7 @@ try:
 except ImportError:
     Image = None
 
-from .clib import LibGMT
+from .clib import Session
 from .base_plotting import BasePlotting
 from .exceptions import GMTError, GMTInvalidInput
 from .helpers import (
@@ -81,7 +81,7 @@ class Figure(BasePlotting):
         """
         # Passing format '-' tells gmt.end to not produce any files.
         fmt = "-"
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("figure", "{} {}".format(self._name, fmt))
 
     def _preprocess(self, **kwargs):
@@ -96,7 +96,7 @@ class Figure(BasePlotting):
     def region(self):
         "The geographic WESN bounding box for the current figure."
         self._activate_figure()
-        with LibGMT() as lib:
+        with Session() as lib:
             wesn = lib.extract_region()
         return wesn
 
@@ -157,7 +157,7 @@ class Figure(BasePlotting):
         # Default cropping the figure to True
         if "A" not in kwargs:
             kwargs["A"] = ""
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("psconvert", build_arg_string(kwargs))
 
     def savefig(
