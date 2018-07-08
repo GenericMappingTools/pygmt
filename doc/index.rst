@@ -66,7 +66,7 @@ Project Goals
 
 * Make GMT more accessible to new users.
 * Build a Pythonic API for GMT.
-* Interface with the GMT C API directly using :py:mod:`ctypes` (no system calls).
+* Interface with the GMT C API directly using :mod:`ctypes` (no system calls).
 * Support for rich display in the `Jupyter notebook <http://jupyter.org/>`__.
 * Integration with the Scipy stack: :class:`numpy.ndarray` or :class:`pandas.DataFrame`
   for data tables and :class:`xarray.DataArray` for grids.

@@ -1,7 +1,7 @@
 """
 Non-plot GMT modules.
 """
-from .clib import LibGMT
+from .clib import Session
 from .helpers import (
     build_arg_string,
     fmt_docstring,
@@ -35,11 +35,11 @@ def grdinfo(grid, **kwargs):
     """
     kind = data_kind(grid, None, None)
     with GMTTempFile() as outfile:
-        with LibGMT() as lib:
+        with Session() as lib:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.grid_to_vfile(grid)
+                file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as infile:
@@ -88,7 +88,7 @@ def info(fname, **kwargs):
 
     with GMTTempFile() as tmpfile:
         arg_str = " ".join([fname, build_arg_string(kwargs), "->" + tmpfile.name])
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("info", arg_str)
         return tmpfile.read()
 
@@ -136,7 +136,7 @@ def which(fname, **kwargs):
     """
     with GMTTempFile() as tmpfile:
         arg_str = " ".join([fname, build_arg_string(kwargs), "->" + tmpfile.name])
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("which", arg_str)
         path = tmpfile.read().strip()
     if not path:
