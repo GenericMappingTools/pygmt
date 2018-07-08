@@ -136,12 +136,14 @@ Low level access (these are mostly used by the :mod:`gmt.clib` package):
 
     clib.Session.create
     clib.Session.destroy
-    clib.Session.get_constant
+    clib.Session.__getitem__
+    clib.Session.__enter__
+    clib.Session.__exit__
     clib.Session.get_default
     clib.Session.create_data
-    clib.Session.open_virtual_file
     clib.Session.put_matrix
     clib.Session.put_vector
     clib.Session.write_data
+    clib.Session.open_virtual_file
     clib.Session.extract_region
     clib.Session.get_libgmt_func

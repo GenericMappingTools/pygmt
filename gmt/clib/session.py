@@ -156,6 +156,74 @@ class Session:
             }
         return self._info
 
+    def __enter__(self):
+        """
+        Create a GMT API session and check the libgmt version.
+
+        Calls :meth:`~gmt.clib.Session.create`.
+
+        Raises
+        ------
+        GMTVersionError
+            If the version reported by libgmt is less than ``Session.required_version``.
+            Will destroy the session before raising the exception.
+
+        """
+        self.create("gmt-python-session")
+        # Need to store the version info because 'get_default' won't work after the
+        # session is destroyed.
+        version = self.info["version"]
+        if Version(version) < Version(self.required_version):
+            self.destroy()
+            raise GMTVersionError(
+                "Using an incompatible GMT version {}. Must be newer than {}.".format(
+                    version, self.required_version
+                )
+            )
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """
+        Destroy the currently open GMT API session.
+
+        Calls :meth:`~gmt.clib.Session.destroy`.
+        """
+        self.destroy()
+
+    def __getitem__(self, name):
+        """
+        Get the value of a GMT constant (C enum) from gmt_resources.h
+
+        Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
+
+        Parameters
+        ----------
+        name : str
+            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``)
+
+        Returns
+        -------
+        constant : int
+            Integer value of the constant. Do not rely on this value because it might
+            change.
+
+        Raises
+        ------
+        GMTCLibError
+            If the constant doesn't exist.
+
+        """
+        c_get_enum = self.get_libgmt_func(
+            "GMT_Get_Enum", argtypes=[ctp.c_char_p], restype=ctp.c_int
+        )
+
+        value = c_get_enum(name.encode())
+
+        if value is None or value == -99999:
+            raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
+
+        return value
+
     def get_libgmt_func(self, name, argtypes=None, restype=None):
         """
         Get a ctypes function from the libgmt shared library.
@@ -199,29 +267,6 @@ class Session:
         if restype is not None:
             function.restype = restype
         return function
-
-    def __enter__(self):
-        """
-        Start the GMT session and keep the session argument.
-        """
-        self.create("gmt-python-session")
-        # Need to store the version info because 'get_default' won't work after the
-        # session is destroyed.
-        version = self.info["version"]
-        if Version(version) < Version(self.required_version):
-            self.destroy()
-            raise GMTVersionError(
-                "Using an incompatible GMT version {}. Must be newer than {}.".format(
-                    version, self.required_version
-                )
-            )
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        """
-        Destroy the session when exiting the context.
-        """
-        self.destroy()
 
     def create(self, name):
         """
@@ -289,8 +334,8 @@ class Session:
         # garbage collected otherwise
         self._print_callback = print_func
 
-        padding = self.get_constant("GMT_PAD_DEFAULT")
-        session_type = self.get_constant("GMT_SESSION_EXTERNAL")
+        padding = self["GMT_PAD_DEFAULT"]
+        session_type = self["GMT_SESSION_EXTERNAL"]
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
@@ -343,41 +388,6 @@ class Session:
             )
 
         self.session_pointer = None
-
-    def get_constant(self, name):
-        """
-        Get the value of a constant (C enum) from gmt_resources.h
-
-        Used to set configuration values for other API calls. Wraps
-        ``GMT_Get_Enum``.
-
-        Parameters
-        ----------
-        name : str
-            The name of the constant (e.g., ``"GMT_SESSION_EXTERNAL"``)
-
-        Returns
-        -------
-        constant : int
-            Integer value of the constant. Do not rely on this value because it
-            might change.
-
-        Raises
-        ------
-        GMTCLibError
-            If the constant doesn't exist.
-
-        """
-        c_get_enum = self.get_libgmt_func(
-            "GMT_Get_Enum", argtypes=[ctp.c_char_p], restype=ctp.c_int
-        )
-
-        value = c_get_enum(name.encode())
-
-        if value is None or value == -99999:
-            raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
-
-        return value
 
     def get_default(self, name):
         """
@@ -461,7 +471,7 @@ class Session:
             restype=ctp.c_int,
         )
 
-        mode = self.get_constant("GMT_MODULE_CMD")
+        mode = self["GMT_MODULE_CMD"]
         status = c_call_module(
             self.session_pointer, module.encode(), mode, args.encode()
         )
@@ -579,7 +589,7 @@ class Session:
             if "MATRIX" in family:
                 pad = 0
             else:
-                pad = self.get_constant("GMT_PAD_DEFAULT")
+                pad = self["GMT_PAD_DEFAULT"]
         return pad
 
     def _parse_constant(self, constant, valid, valid_modifiers=None):
@@ -588,7 +598,7 @@ class Session:
 
         The GMT C API takes certain defined constants, like ``'GMT_IS_GRID'``,
         that need to be validated and converted to integer values using
-        :meth:`~gmt.clib.Session.get_constant`.
+        :meth:`gmt.clib.Session.__getitem__`.
 
         The constants can also take a modifier by appending another constant
         name, e.g. ``'GMT_IS_GRID|GMT_VIA_MATRIX'``. The two parts must be
@@ -637,7 +647,7 @@ class Session:
                     parts[1], str(valid_modifiers)
                 )
             )
-        integer_value = sum(self.get_constant(part) for part in parts)
+        integer_value = sum(self[part] for part in parts)
         return integer_value
 
     def _check_dtype_and_dim(self, array, ndim):
@@ -668,14 +678,14 @@ class Session:
 
         >>> import numpy as np
         >>> data = np.array([1, 2, 3], dtype='float64')
-        >>> with Session() as lib:
-        ...     gmttype = lib._check_dtype_and_dim(data, ndim=1)
-        ...     gmttype == lib.get_constant('GMT_DOUBLE')
+        >>> with Session() as ses:
+        ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
+        ...     gmttype == ses["GMT_DOUBLE"]
         True
         >>> data = np.ones((5, 2), dtype='float32')
-        >>> with Session() as lib:
-        ...     gmttype = lib._check_dtype_and_dim(data, ndim=2)
-        ...     gmttype == lib.get_constant('GMT_FLOAT')
+        >>> with Session() as ses:
+        ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
+        ...     gmttype == ses['GMT_FLOAT']
         True
 
         """
@@ -687,7 +697,7 @@ class Session:
             raise GMTInvalidInput(
                 "Expected a numpy 1d array, got {}d.".format(array.ndim)
             )
-        return self.get_constant(DTYPES[array.dtype.name])
+        return self[DTYPES[array.dtype.name]]
 
     def put_vector(self, dataset, column, vector):
         """
@@ -858,9 +868,9 @@ class Session:
         status = c_write_data(
             self.session_pointer,
             family_int,
-            self.get_constant("GMT_IS_FILE"),
+            self["GMT_IS_FILE"],
             geometry_int,
-            self.get_constant(mode),
+            self[mode],
             (ctp.c_double * 6)(*wesn),
             output.encode(),
             data,
@@ -958,7 +968,7 @@ class Session:
             valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
         )
 
-        buff = ctp.create_string_buffer(self.get_constant("GMT_STR16"))
+        buff = ctp.create_string_buffer(self["GMT_STR16"])
 
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff

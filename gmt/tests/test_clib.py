@@ -116,15 +116,15 @@ def test_clib_extension():
         clib_extension("meh")
 
 
-def test_constant():
+def test_getitem():
     "Test that I can get correct constants from the C lib"
-    lib = clib.Session()
-    assert lib.get_constant("GMT_SESSION_EXTERNAL") != -99999
-    assert lib.get_constant("GMT_MODULE_CMD") != -99999
-    assert lib.get_constant("GMT_PAD_DEFAULT") != -99999
-    assert lib.get_constant("GMT_DOUBLE") != -99999
+    ses = clib.Session()
+    assert ses["GMT_SESSION_EXTERNAL"] != -99999
+    assert ses["GMT_MODULE_CMD"] != -99999
+    assert ses["GMT_PAD_DEFAULT"] != -99999
+    assert ses["GMT_DOUBLE"] != -99999
     with pytest.raises(GMTCLibError):
-        lib.get_constant("A_WHOLE_LOT_OF_JUNK")
+        ses["A_WHOLE_LOT_OF_JUNK"]  # pylint: disable=pointless-statement
 
 
 def test_create_destroy_session():
@@ -231,7 +231,7 @@ def test_parse_constant_single():
     lib = clib.Session()
     for family in FAMILIES:
         parsed = lib._parse_constant(family, valid=FAMILIES)
-        assert parsed == lib.get_constant(family)
+        assert parsed == lib[family]
 
 
 def test_parse_constant_composite():
@@ -240,7 +240,7 @@ def test_parse_constant_composite():
     test_cases = ((family, via) for family in FAMILIES for via in VIAS)
     for family, via in test_cases:
         composite = "|".join([family, via])
-        expected = lib.get_constant(family) + lib.get_constant(via)
+        expected = lib[family] + lib[via]
         parsed = lib._parse_constant(composite, valid=FAMILIES, valid_modifiers=VIAS)
         assert parsed == expected
 
@@ -367,9 +367,9 @@ def test_put_vector():
             x = np.array([1, 2, 3, 4, 5], dtype=dtype)
             y = np.array([6, 7, 8, 9, 10], dtype=dtype)
             z = np.array([11, 12, 13, 14, 15], dtype=dtype)
-            lib.put_vector(dataset, column=lib.get_constant("GMT_X"), vector=x)
-            lib.put_vector(dataset, column=lib.get_constant("GMT_Y"), vector=y)
-            lib.put_vector(dataset, column=lib.get_constant("GMT_Z"), vector=z)
+            lib.put_vector(dataset, column=lib["GMT_X"], vector=x)
+            lib.put_vector(dataset, column=lib["GMT_Y"], vector=y)
+            lib.put_vector(dataset, column=lib["GMT_Z"], vector=z)
             # Turns out wesn doesn't matter for Datasets
             wesn = [0] * 6
             # Save the data to a file to see if it's being accessed correctly
