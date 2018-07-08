@@ -150,7 +150,7 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.grid_to_vfile(grid)
+                file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as fname:
@@ -262,9 +262,9 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(data)
             elif kind == "matrix":
-                file_context = lib.matrix_to_vfile(data)
+                file_context = lib.virtualfile_from_matrix(data)
             elif kind == "vectors":
-                file_context = lib.vectors_to_vfile(x, y, *extra_arrays)
+                file_context = lib.virtualfile_from_vectors(x, y, *extra_arrays)
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])

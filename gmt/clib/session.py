@@ -99,7 +99,7 @@ class Session:
     >>> # Create a session and destroy it automatically when exiting the "with" block.
     >>> with Session() as ses:
     ...     # Create a virtual file and link to the memory block of the grid.
-    ...     with ses.grid_to_vfile(grid) as fin:
+    ...     with ses.virtualfile_from_grid(grid) as fin:
     ...         # Create a temp file to use as output.
     ...         with GMTTempFile() as fout:
     ...             # Call the grdinfo module with the virtual file as input and the.
@@ -987,36 +987,34 @@ class Session:
                 raise GMTCLibError("Failed to close virtual file '{}'.".format(vfname))
 
     @contextmanager
-    def vectors_to_vfile(self, *vectors):
+    def virtualfile_from_vectors(self, *vectors):
         """
-        Store 1d arrays in a GMT virtual file to use as a module input.
+        Store 1d arrays as columns of a table inside a virtual file.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Use the virtual file name to pass in the data in your vectors to a GMT module.
 
-        Use this instead of creating GMT Datasets and Virtual Files by hand
-        with :meth:`~gmt.clib.Session.create_data`,
-        :meth:`~gmt.clib.Session.put_vector`, and
-        :meth:`~gmt.clib.Session.open_virtual_file`
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        The virtual file will contain the arrays as ``GMT Vector`` structures.
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_vector`, and
+        :meth:`~gmt.clib.Session.open_virtual_file`.
 
-        If the arrays are C contiguous blocks of memory, they will be passed
-        without copying to GMT. If they are not (e.g., they are columns of a 2D
-        array), they will need to be copied to a contiguous block.
+        If the arrays are C contiguous blocks of memory, they will be passed without
+        copying to GMT. If they are not (e.g., they are columns of a 2D array), they
+        will need to be copied to a contiguous block.
 
         Parameters
         ----------
         vectors : 1d arrays
-            The vectors that will be included in the array. All must be of the
-            same size.
+            The vectors that will be included in the array. All must be of the same
+            size.
 
         Yields
         ------
-        vfile : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname : str
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1027,23 +1025,21 @@ class Session:
         >>> x = [1, 2, 3]
         >>> y = np.array([4, 5, 6])
         >>> z = pd.Series([7, 8, 9])
-        >>> with Session() as lib:
-        ...     with lib.vectors_to_vfile(x, y, z) as vfile:
+        >>> with Session() as ses:
+        ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
         ...         # Send the output to a file so that we can read it
-        ...         with GMTTempFile() as ofile:
-        ...             args = '{} ->{}'.format(vfile, ofile.name)
-        ...             lib.call_module('info', args)
-        ...             print(ofile.read().strip())
+        ...         with GMTTempFile() as fout:
+        ...             ses.call_module('info', '{} ->{}'.format(fin, fout.name))
+        ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed.
-        # The conversion is implicit in vectors_to_arrays.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed. The conversion is implicit in
+        # vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
@@ -1061,47 +1057,43 @@ class Session:
         for col, array in enumerate(arrays):
             self.put_vector(dataset, column=col, vector=array)
 
-        vf_args = (family, geometry, "GMT_IN", dataset)
-        with self.open_virtual_file(*vf_args) as vfile:
+        with self.open_virtual_file(family, geometry, "GMT_IN", dataset) as vfile:
             yield vfile
 
     @contextmanager
-    def matrix_to_vfile(self, matrix):
+    def virtualfile_from_matrix(self, matrix):
         """
-        Store a 2d array in a GMT virtual file to use as a module input.
+        Store a 2d array as a table inside a virtual file.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Use the virtual file name to pass in the data in your matrix to a GMT module.
 
-        The virtual file will contain the array as a ``GMT_MATRIX``.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        **Not meant for creating GMT Grids**. The grid requires more metadata
-        than just the data matrix. This creates a Dataset (table).
+        The virtual file will contain the array as a ``GMT_MATRIX`` pretending to be a
+        ``GMT_DATASET``.
 
-        Use this instead of creating GMT Datasets and Virtual Files by hand
-        with :meth:`~gmt.clib.Session.create_data`,
-        :meth:`~gmt.clib.Session.put_matrix`, and
+        **Not meant for creating ``GMT_GRID``**. The grid requires more metadata than
+        just the data matrix. Use :meth:`~gmt.clib.Session.virtualfile_from_grid`
+        instead.
+
+        Use this instead of creating the data container and virtual file by hand with
+        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_matrix`, and
         :meth:`~gmt.clib.Session.open_virtual_file`
 
-        The matrix must be C contiguous in memory. If it is not (e.g., it is a
-        slice of a larger array), the array will be copied to make sure it is.
-
-        It might be more efficient than using
-        :meth:`~gmt.clib.Session.vectors_to_vfile` if your data are columns of a
-        2D array. In these cases, ``vectors_to_vfile`` will have to duplicate
-        the memory of your array in order for columns to be C contiguous.
+        The matrix must be C contiguous in memory. If it is not (e.g., it is a slice of
+        a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
         matrix : 2d array
-            The matrix that will be included in the Dataset.
+            The matrix that will be included in the GMT data container.
 
         Yields
         ------
-        vfile : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname : str
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1114,22 +1106,20 @@ class Session:
          [ 3  4  5]
          [ 6  7  8]
          [ 9 10 11]]
-        >>> with Session() as lib:
-        ...     with lib.matrix_to_vfile(data) as vfile:
+        >>> with Session() as ses:
+        ...     with ses.virtualfile_from_matrix(data) as fin:
         ...         # Send the output to a file so that we can read it
-        ...         with GMTTempFile() as ofile:
-        ...             args = '{} ->{}'.format(vfile, ofile.name)
-        ...             lib.call_module('info', args)
-        ...             print(ofile.read().strip())
+        ...         with GMTTempFile() as fout:
+        ...             ses.call_module('info', '{} ->{}'.format(fin, fout.name))
+        ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed.
         matrix = as_c_contiguous(matrix)
         rows, columns = matrix.shape
 
@@ -1142,43 +1132,39 @@ class Session:
 
         self.put_matrix(dataset, matrix)
 
-        vf_args = (family, geometry, "GMT_IN", dataset)
-        with self.open_virtual_file(*vf_args) as vfile:
+        with self.open_virtual_file(family, geometry, "GMT_IN", dataset) as vfile:
             yield vfile
 
     @contextmanager
-    def grid_to_vfile(self, grid):
+    def virtualfile_from_grid(self, grid):
         """
-        Store a grid in a GMT virtual file to use as a module input.
+        Store a grid in a virtual file.
 
-        Used to pass grid data into GMT modules. Grids must be
-        ``xarray.DataArray`` instances.
+        Use the virtual file name to pass in the data in your grid to a GMT module.
+        Grids must be :class:`xarray.DataArray` instances.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name
-        that you can pass as an argument to a GMT module call. Closes the
-        virtual file upon exit of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name that you
+        can pass as an argument to a GMT module call. Closes the virtual file upon exit
+        of the ``with`` block.
 
-        The virtual file will contain the grid as a ``GMT_MATRIX``.
+        The virtual file will contain the grid as a ``GMT_MATRIX`` with extra metadata.
 
-        Use this instead of creating ``GMT_GRID`` and virtual files by hand
-        with :meth:`~gmt.clib.Session.create_data`,
-        :meth:`~gmt.clib.Session.put_matrix`, and
+        Use this instead of creating a data container and virtual file by hand with
+        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_matrix`, and
         :meth:`~gmt.clib.Session.open_virtual_file`
 
-        The grid data matrix must be C contiguous in memory. If it is not
-        (e.g., it is a slice of a larger array), the array will be copied to
-        make sure it is.
+        The grid data matrix must be C contiguous in memory. If it is not (e.g., it is a
+        slice of a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
-        grid : xarray.DataArraw
+        grid : :class:`xarray.DataArray`
             The grid that will be included in the virtual file.
 
         Yields
         ------
-        vfile : str
-            The name of virtual file. Pass this as a file name argument to a
-            GMT module.
+        fname : str
+            The name of virtual file. Pass this as a file name argument to a GMT module.
 
         Examples
         --------
@@ -1194,24 +1180,23 @@ class Session:
         -90.0 90.0
         >>> print(data.values.min(), data.values.max())
         -8425.0 5551.0
-        >>> with Session() as lib:
-        ...     with lib.grid_to_vfile(data) as vfile:
+        >>> with Session() as ses:
+        ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
-        ...         with GMTTempFile() as ofile:
-        ...             args = '{} -L0 -Cn ->{}'.format(vfile, ofile.name)
-        ...             lib.call_module('grdinfo', args)
-        ...             print(ofile.read().strip())
+        ...         with GMTTempFile() as fout:
+        ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
+        ...             ses.call_module('grdinfo', args)
+        ...             print(fout.read().strip())
         -180 180 -90 90 -8425 5551 1 1 361 181
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed.
-        # The conversion is implicit in dataarray_to_matrix.
+        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
+        # because we need to maintain a reference to the copy while it is being used by
+        # the C API. Otherwise, the array would be garbage collected and the memory
+        # freed. Creating it in this context manager guarantees that the copy will be
+        # around until the virtual file is closed. The conversion is implicit in
+        # dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid)
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"

@@ -39,7 +39,7 @@ def grdinfo(grid, **kwargs):
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.grid_to_vfile(grid)
+                file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as infile:

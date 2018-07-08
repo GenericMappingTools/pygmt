@@ -124,9 +124,9 @@ variables to GMT virtual files:
 .. autosummary::
     :toctree: generated
 
-    clib.Session.grid_to_vfile
-    clib.Session.vectors_to_vfile
-    clib.Session.matrix_to_vfile
+    clib.Session.virtualfile_from_matrix
+    clib.Session.virtualfile_from_vectors
+    clib.Session.virtualfile_from_grid
 
 
 Low level access (these are mostly used by the :mod:`gmt.clib` package):

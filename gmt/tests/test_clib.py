@@ -576,7 +576,7 @@ def test_virtual_file_bad_direction():
                 print("This should have failed")
 
 
-def test_vectors_to_vfile():
+def test_virtualfile_from_vectors():
     "Test the automation for transforming vectors to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     size = 10
@@ -585,7 +585,7 @@ def test_vectors_to_vfile():
         y = np.arange(size, size * 2, 1, dtype=dtype)
         z = np.arange(size * 2, size * 3, 1, dtype=dtype)
         with clib.Session() as lib:
-            with lib.vectors_to_vfile(x, y, z) as vfile:
+            with lib.virtualfile_from_vectors(x, y, z) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -596,14 +596,14 @@ def test_vectors_to_vfile():
             assert output == expected
 
 
-def test_vectors_to_vfile_transpose():
+def test_virtualfile_from_vectors_transpose():
     "Test transforming matrix columns to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
         with clib.Session() as lib:
-            with lib.vectors_to_vfile(*data.T) as vfile:
+            with lib.virtualfile_from_vectors(*data.T) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} -C ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -614,24 +614,24 @@ def test_vectors_to_vfile_transpose():
             assert output == expected
 
 
-def test_vectors_to_vfile_diff_size():
+def test_virtualfile_from_vectors_diff_size():
     "Test the function fails for arrays of different sizes"
     x = np.arange(5)
     y = np.arange(6)
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.vectors_to_vfile(x, y):
+            with lib.virtualfile_from_vectors(x, y):
                 print("This should have failed")
 
 
-def test_matrix_to_vfile():
+def test_virtualfile_from_matrix():
     "Test transforming a matrix to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
         with clib.Session() as lib:
-            with lib.matrix_to_vfile(data) as vfile:
+            with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -642,7 +642,7 @@ def test_matrix_to_vfile():
             assert output == expected
 
 
-def test_matrix_to_vfile_slice():
+def test_virtualfile_from_matrix_slice():
     "Test transforming a slice of a larger array to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (10, 6)
@@ -652,7 +652,7 @@ def test_matrix_to_vfile_slice():
         cols = 3
         data = full_data[:rows, :cols]
         with clib.Session() as lib:
-            with lib.matrix_to_vfile(data) as vfile:
+            with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -663,7 +663,7 @@ def test_matrix_to_vfile_slice():
             assert output == expected
 
 
-def test_vectors_to_vfile_pandas():
+def test_virtualfile_from_vectors_pandas():
     "Pass vectors to a dataset using pandas Series"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     size = 13
@@ -676,7 +676,7 @@ def test_vectors_to_vfile_pandas():
             )
         )
         with clib.Session() as lib:
-            with lib.vectors_to_vfile(data.x, data.y, data.z) as vfile:
+            with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                     output = outfile.read(keep_tabs=True)
@@ -690,14 +690,14 @@ def test_vectors_to_vfile_pandas():
             assert output == expected
 
 
-def test_vectors_to_vfile_arraylike():
+def test_virtualfile_from_vectors_arraylike():
     "Pass array-like vectors to a dataset"
     size = 13
     x = list(range(0, size, 1))
     y = tuple(range(size, size * 2, 1))
     z = range(size * 2, size * 3, 1)
     with clib.Session() as lib:
-        with lib.vectors_to_vfile(x, y, z) as vfile:
+        with lib.virtualfile_from_vectors(x, y, z) as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
                 output = outfile.read(keep_tabs=True)
