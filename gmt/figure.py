@@ -277,11 +277,13 @@ class Figure(BasePlotting):
                 globe_center=globe_center,
             )
         elif method == "external":
-            pdf = self._preview(fmt="pdf", dpi=600, anti_alias=False, as_bytes=False)
+            pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
             img = None
         elif method == "static":
-            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            png = self._preview(
+                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, transparent=True
+            )
             if Image is None:
                 raise GMTError(
                     " ".join(
