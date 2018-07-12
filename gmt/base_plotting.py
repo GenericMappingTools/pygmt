@@ -331,7 +331,7 @@ class BasePlotting:
         kwargs = self._preprocess(**kwargs)
 
         kind = data_kind(data, x, y)
-        
+
         with Session() as lib:
             # Choose how data will be passed in to the module
             if kind == "file":
