@@ -31,22 +31,22 @@ def test_contour_fail_no_data(data):
     "Contour should raise an exception if no or not sufficient data "
     "is given"
     fig = Figure()
-    for x in [None,data[:,0]]:
-        for y in [None,data[:,0]]:
-            for z in [None,data[:,0]]:
+    for x in [None, data[:, 0]]:
+        for y in [None, data[:, 0]]:
+            for z in [None, data[:, 0]]:
                 if x is not None and y is not None and z is not None:
                     continue
                 with pytest.raises(GMTInvalidInput):
-                     fig.contour(
-                         x=x,
-                         y=y,
-                         z=z,
-                         region=region,
-                         projection="M6i",
-                         color="red",
-                         frame="afg",
-                         pen=''
-                     )
+                    fig.contour(
+                        x=x,
+                        y=y,
+                        z=z,
+                        region=region,
+                        projection="M6i",
+                        color="red",
+                        frame="afg",
+                        pen=''
+                    )
     # Should also fail if given too much data
     with pytest.raises(GMTInvalidInput):
         fig.contour(
@@ -67,12 +67,12 @@ def test_contour_fail_no_data(data):
 def test_contour_vec(region):
     "Plot an x-centered gaussian kernel with different y scale"
     fig = Figure()
-    x,y = np.meshgrid(np.linspace(region[0],region[1]),
-                      np.linspace(region[2],region[3]))
+    x, y = np.meshgrid(np.linspace(region[0], region[1]),
+                       np.linspace(region[2], region[3]))
     x = x.flatten()
     y = y.flatten()
-    z = (x-0.5*(region[0]+region[1]))**2 + 4*y**2
-    z = np.exp(-z/10**2*np.log(2))
+    z = (x - 0.5 * (region[0] + region[1]))**2 + 4 * y**2
+    z = np.exp(-z / 10**2 * np.log(2))
     fig.contour(
         x=x,
         y=y,
@@ -84,8 +84,9 @@ def test_contour_vec(region):
     )
     return fig
 
+
 @pytest.mark.mpl_image_compare
-def test_contour_matrix(data,region):
+def test_contour_matrix(data, region):
     "Plot data"
     fig = Figure()
     fig.contour(
@@ -96,6 +97,7 @@ def test_contour_matrix(data,region):
         pen=''
     )
     return fig
+
 
 @pytest.mark.mpl_image_compare
 def test_contour_from_file(region):
@@ -109,4 +111,3 @@ def test_contour_from_file(region):
         pen='#ffcb87'
     )
     return fig
-
