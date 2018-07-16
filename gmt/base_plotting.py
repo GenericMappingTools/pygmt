@@ -330,7 +330,9 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
 
-        kind = data_kind(data, x, y)
+        kind = data_kind(data, x, y, z)
+        if kind == "vectors" and z is None:
+            raise GMTInvalidInput("Must provided both x, y, and z.")
 
         with Session() as lib:
             # Choose how data will be passed in to the module
