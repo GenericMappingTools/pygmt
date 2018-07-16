@@ -28,8 +28,8 @@ def region():
 
 
 def test_contour_fail_no_data(data):
-    "Contour should raise an exception if no or not sufficient data "
-    "is given"
+    # Contour should raise an exception if no or not sufficient data
+    # is given
     fig = Figure()
     for x in [None, data[:, 0]]:
         for y in [None, data[:, 0]]:
