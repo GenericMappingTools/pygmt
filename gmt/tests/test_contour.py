@@ -3,6 +3,7 @@
 Tests contour.
 """
 import os
+from itertools import product
 
 import pytest
 import numpy as np
@@ -31,22 +32,23 @@ def test_contour_fail_no_data(data):
     # Contour should raise an exception if no or not sufficient data
     # is given
     fig = Figure()
-    for x in [None, data[:, 0]]:
-        for y in [None, data[:, 0]]:
-            for z in [None, data[:, 0]]:
-                if x is not None and y is not None and z is not None:
-                    continue
-                with pytest.raises(GMTInvalidInput):
-                    fig.contour(
-                        x=x,
-                        y=y,
-                        z=z,
-                        region=region,
-                        projection="X4i",
-                        color="red",
-                        frame="afg",
-                        pen=''
-                    )
+    # Test all combinations where at least one data variable
+    # is not given:
+    for v in product([None, data[:, 0]], repeat=3):
+        # Filter one valid configuration:
+        if not any(e is None for e in v):
+            continue
+        with pytest.raises(GMTInvalidInput):
+            fig.contour(
+                x=v[0],
+                y=v[1],
+                z=v[2],
+                region=region,
+                projection="X4i",
+                color="red",
+                frame="afg",
+                pen=""
+            )
     # Should also fail if given too much data
     with pytest.raises(GMTInvalidInput):
         fig.contour(
