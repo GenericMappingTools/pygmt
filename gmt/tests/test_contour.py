@@ -42,7 +42,7 @@ def test_contour_fail_no_data(data):
                         y=y,
                         z=z,
                         region=region,
-                        projection="M6i",
+                        projection="X4i",
                         color="red",
                         frame="afg",
                         pen=''
@@ -55,7 +55,7 @@ def test_contour_fail_no_data(data):
             z=data[:, 2],
             data=data,
             region=region,
-            projection="M6i",
+            projection="X4i",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -77,7 +77,7 @@ def test_contour_vec(region):
         x=x,
         y=y,
         z=z,
-        projection="M6i",
+        projection="X4i",
         region=region,
         frame="a",
         pen=''
@@ -105,7 +105,7 @@ def test_contour_from_file(region):
     fig = Figure()
     fig.contour(
         data=POINTS_DATA,
-        projection="X3i",
+        projection="X4i",
         region=region,
         frame="af",
         pen='#ffcb87'
