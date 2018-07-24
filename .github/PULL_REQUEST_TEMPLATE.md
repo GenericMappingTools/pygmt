@@ -1,5 +1,5 @@
-*Please fill out the fields below and follow our [pull request guidelines](CONTRIBUTING.md#pull-requests).*
+*Detailed description of changes proposed and why you made them.
+If unsure, open an issue first so we can discuss it.
+If fixing an issue, put the issue number after the # below (no spaces).*
 
 Fixes #
-
-## Changes proposed in this pull request
