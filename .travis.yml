@@ -57,6 +57,8 @@ before_install:
     - source continuous-integration/travis/setup-miniconda.sh
     # Install GMT from the dev channel to get development builds of GMT 6
     - conda install --yes --quiet -c conda-forge/label/dev gmt=6.0.0a*
+    # Make sure that Python is still the correct version
+    - python -c "import sys; assert sys.version_info[:2] == tuple(int(i) for i in '$PYTHON'.split('.'))"
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
@@ -70,7 +72,9 @@ install:
 
 script:
     # Check code for style and lint for code quality
+    # Black is Python 3.6 only so it can't be in the requirements file.
     - if [ "$CHECK" == "true" ]; then
+        conda install --yes --quiet --channel conda-forge black python=$PYTHON;
         make check;
       fi
     # Run the test suite. Make pytest report any captured output on stdout or stderr.
