@@ -56,7 +56,7 @@ before_install:
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
     # Install GMT from the dev channel to get development builds of GMT 6
-    - conda install --yes --quiet -c conda-forge/label/dev gmt=6.0.0a*
+    - conda install --yes --quiet -c conda-forge/label/dev gmt=6.0.0a* python=$PYTHON
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
@@ -70,7 +70,9 @@ install:
 
 script:
     # Check code for style and lint for code quality
+    # Black is Python 3.6 only so it can't be in the requirements file.
     - if [ "$CHECK" == "true" ]; then
+        conda install --yes --quiet --channel conda-forge black python=$PYTHON;
         make check;
       fi
     # Run the test suite. Make pytest report any captured output on stdout or stderr.
