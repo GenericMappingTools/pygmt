@@ -1,20 +1,37 @@
-*Please fill out the fields below to report an error.*
+**-- TEMPLATE FOR FEATURE REQUESTS AND FEEDBACK --**
 
-## Full code/command that generated the error
+## Feedback or description of feature requested
+
+*Your text goes here. Please be as specific and detailed as possible.*
+
+
+**Are you willing to help implement and maintain this feature?** Yes/No
+
+
+
+**-- TEMPLATE FOR BUG REPORTS --** If you're not filing a bug, please delete this part.
+
+## Full code that generated the error
+
+```python
+PASTE CODE HERE
+```
 
 ## Full error message
+
+```
+PASTE ERROR MESSAGE HERE
+```
 
 ## System information
 
 * Operating system:
 * Python installation (Anaconda, system, ETS):
-* Version of GMT/Python:
-* How you installed GMT/Python:
+* Version of GMT:
+* Version of Python:
+* Version of this package:
+* If using conda, paste the output of `conda list` below:
 
-
-*If this is a **question or feature request**, delete the above lines and instead:*
-
-* Describe the feature you desire in as much detail as possible:
-
-* Are you willing to try to implement and maintain this feature? 
-  We'll help you through the process.
+```
+# Output of conda list
+```
