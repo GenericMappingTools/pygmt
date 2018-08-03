@@ -196,6 +196,11 @@ class Session:
 
         Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
 
+        .. warning::
+
+            This call will fail with GMT 6.0.0 trunk revisions prior to r20437
+            due to a different API signature for ``GMT_GetEnum``
+
         Parameters
         ----------
         name : str
@@ -214,10 +219,20 @@ class Session:
 
         """
         c_get_enum = self.get_libgmt_func(
-            "GMT_Get_Enum", argtypes=[ctp.c_char_p], restype=ctp.c_int
+            "GMT_Get_Enum", argtypes=[ctp.c_void_p, ctp.c_char_p], restype=ctp.c_int
         )
 
-        value = c_get_enum(name.encode())
+        # None type is valid for API purposes, so this is safe always
+        # Constants can be queried before session is created (chicken-or-egg)
+        # so we are not guaranteed a valid session pointer
+        # to avoid breaking private interface this is try/catch against property
+        # which raises exception if session is closed
+        try:
+            session = self.session_pointer
+        except GMTCLibNoSessionError:
+            session = None
+
+        value = c_get_enum(session, name.encode())
 
         if value is None or value == -99999:
             raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
@@ -334,8 +349,14 @@ class Session:
         # garbage collected otherwise
         self._print_callback = print_func
 
-        padding = self["GMT_PAD_DEFAULT"]
-        session_type = self["GMT_SESSION_EXTERNAL"]
+        # While GMT 6.0.0 is in development, this check is necessary to
+        # prevent confusion with older development builds
+        try:
+            padding = self["GMT_PAD_DEFAULT"]
+            session_type = self["GMT_SESSION_EXTERNAL"]
+        except GMTCLibError as e:
+            raise GMTCLibError("Ensure GMT 6.0.0 is r20437 or later ") from e
+
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:
