@@ -196,11 +196,6 @@ class Session:
 
         Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
 
-        .. warning::
-
-            This call will fail with GMT 6.0.0 trunk revisions prior to r20437
-            due to a different API signature for ``GMT_GetEnum``
-
         Parameters
         ----------
         name : str
@@ -222,15 +217,12 @@ class Session:
             "GMT_Get_Enum", argtypes=[ctp.c_void_p, ctp.c_char_p], restype=ctp.c_int
         )
 
-        # None type is valid for API purposes, so this is safe always
-        # Constants can be queried before session is created (chicken-or-egg)
-        # so we are not guaranteed a valid session pointer
-        # to avoid breaking private interface this is try/catch against property
-        # which raises exception if session is closed
-        try:
-            session = self.session_pointer
-        except GMTCLibNoSessionError:
-            session = None
+        # The C lib introduced the void API pointer to GMT_Get_Enum so that it's
+        # consistent with other functions. It doesn't use the pointer so we can pass in
+        # None (NULL pointer). We can't give it the actual pointer because we need to
+        # call GMT_Get_Enum when creating a new API session pointer (chicken-and-egg
+        # type of thing).
+        session = None
 
         value = c_get_enum(session, name.encode())
 
@@ -349,13 +341,8 @@ class Session:
         # garbage collected otherwise
         self._print_callback = print_func
 
-        # While GMT 6.0.0 is in development, this check is necessary to
-        # prevent confusion with older development builds
-        try:
-            padding = self["GMT_PAD_DEFAULT"]
-            session_type = self["GMT_SESSION_EXTERNAL"]
-        except GMTCLibError as e:
-            raise GMTCLibError("Ensure GMT 6.0.0 is r20437 or later ") from e
+        padding = self["GMT_PAD_DEFAULT"]
+        session_type = self["GMT_SESSION_EXTERNAL"]
 
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
