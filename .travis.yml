@@ -56,7 +56,6 @@ before_install:
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
     - conda config --append channels conda-forge/label/dev
-    - conda config --remove channels defaults
     # Install GMT from the dev channel to get development builds of GMT 6
     - conda install --yes --quiet gmt=6.* python=$PYTHON
     - if [ "$COVERAGE" == "true" ]; then
