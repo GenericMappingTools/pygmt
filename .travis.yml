@@ -55,8 +55,10 @@ before_install:
     # Download and install miniconda and setup dependencies
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
+    - conda config --append channels conda-forge/label/dev
+    - conda config --remove channels defaults
     # Install GMT from the dev channel to get development builds of GMT 6
-    - conda install --yes --quiet -c conda-forge -c conda-forge/label/dev gmt=6.0.0a*
+    - conda install --yes --quiet gmt=6.0.0a*
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi

@@ -2,7 +2,6 @@ name: gmt-python
 channels:
     - conda-forge
     - conda-forge/label/dev
-    - defaults
 dependencies:
     - python=3.6
     - pip
