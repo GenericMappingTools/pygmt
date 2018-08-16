@@ -58,7 +58,7 @@ before_install:
     - conda config --append channels conda-forge/label/dev
     - conda config --remove channels defaults
     # Install GMT from the dev channel to get development builds of GMT 6
-    - conda install --yes --quiet gmt=6.0.0a*
+    - conda install --yes --quiet gmt=6.0.0a* python=$PYTHON
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
@@ -72,7 +72,9 @@ install:
 
 script:
     # Check code for style and lint for code quality
+    # Black is Python 3.6 only so it can't be in the requirements file.
     - if [ "$CHECK" == "true" ]; then
+        conda install --yes --quiet black python=$PYTHON;
         make check;
       fi
     # Run the test suite. Make pytest report any captured output on stdout or stderr.
