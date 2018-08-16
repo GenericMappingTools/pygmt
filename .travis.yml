@@ -57,7 +57,7 @@ before_install:
     - source continuous-integration/travis/setup-miniconda.sh
     - conda config --append channels conda-forge/label/dev
     # Install GMT from the dev channel to get development builds of GMT 6
-    - conda install --yes --quiet gmt="6.*" python=$PYTHON
+    - conda install --yes --quiet gmt>=6 python=$PYTHON
     - if [ "$COVERAGE" == "true" ]; then
         pip install codecov codacy-coverage codeclimate-test-reporter;
       fi
