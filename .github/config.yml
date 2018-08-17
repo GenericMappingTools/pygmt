@@ -12,7 +12,6 @@ newPRWelcomeComment: |
 
   A few things to keep in mind:
 
-  * Remember to run ``make format`` to make sure your code follows our style guide.
   * If you need help writing tests, take a look at the existing ones for inspiration. If you don't know where to start, let us know and we'll walk you through it.
   * All new features should be documented. It helps to write the docstrings for your functions/classes before writing the code. This will help you think about your code design and results in better code.
   * No matter what, we are really grateful that you put in the effort to do this! 🎉
