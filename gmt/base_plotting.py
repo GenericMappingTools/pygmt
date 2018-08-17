@@ -125,8 +125,51 @@ class BasePlotting:
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
+
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", I="shading", C="cmap")
+    @use_alias(
+        R="region",
+        J="projection",
+        A="annotation_interval",
+        C="contour_interval",
+        B="frame",
+        G="label_placement",
+        L="limit",
+        W="pen",
+    )
+    @kwargs_to_strings(R="sequence")
+    def grdcontour(self, grid, **kwargs):
+        """
+        Convert grids or images to contours and plot them on maps
+
+        Takes a grid file name or an xarray.DataArray object as input.
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+        grid : str or xarray.DataArray
+            The file name of the input grid or the grid loaded as a DataArray.
+
+        """
+        kwargs = self._preprocess(**kwargs)
+        kind = data_kind(grid, None, None)
+        with Session() as lib:
+            if kind == "file":
+                file_context = dummy_context(grid)
+            elif kind == "grid":
+                file_context = lib.virtualfile_from_grid(grid)
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("grdcontour", arg_str)
+
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection", W="pen", B="frame", I="shading", C="cmap")
     @kwargs_to_strings(R="sequence")
     def grdimage(self, grid, **kwargs):
         """
