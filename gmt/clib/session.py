@@ -214,10 +214,17 @@ class Session:
 
         """
         c_get_enum = self.get_libgmt_func(
-            "GMT_Get_Enum", argtypes=[ctp.c_char_p], restype=ctp.c_int
+            "GMT_Get_Enum", argtypes=[ctp.c_void_p, ctp.c_char_p], restype=ctp.c_int
         )
 
-        value = c_get_enum(name.encode())
+        # The C lib introduced the void API pointer to GMT_Get_Enum so that it's
+        # consistent with other functions. It doesn't use the pointer so we can pass in
+        # None (NULL pointer). We can't give it the actual pointer because we need to
+        # call GMT_Get_Enum when creating a new API session pointer (chicken-and-egg
+        # type of thing).
+        session = None
+
+        value = c_get_enum(session, name.encode())
 
         if value is None or value == -99999:
             raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
@@ -336,6 +343,7 @@ class Session:
 
         padding = self["GMT_PAD_DEFAULT"]
         session_type = self["GMT_SESSION_EXTERNAL"]
+
         session = c_create_session(name.encode(), padding, session_type, print_func)
 
         if session is None:

@@ -1,4 +1,4 @@
-# GMT isn't included because it needs to be downloaded from a separate channel
+gmt=6.0.0*
 numpy
 pandas
 xarray
@@ -11,7 +11,6 @@ pytest
 pytest-cov
 pytest-mpl
 coverage
-black
 pylint
 sphinx
 sphinx_rtd_theme
@@ -20,3 +19,5 @@ numpydoc
 twine
 # The following are installed for checking possible conflicts
 basemap
+# Black is not included because it requires Python 3.6
+#black
