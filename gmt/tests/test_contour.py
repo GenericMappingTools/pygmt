@@ -29,25 +29,26 @@ def region():
 
 
 def test_contour_fail_no_data(data):
+    "Should raise an exception if no data is given"
     # Contour should raise an exception if no or not sufficient data
     # is given
     fig = Figure()
     # Test all combinations where at least one data variable
     # is not given:
-    for v in product([None, data[:, 0]], repeat=3):
+    for variable in product([None, data[:, 0]], repeat=3):
         # Filter one valid configuration:
-        if not any(e is None for e in v):
+        if not any(item is None for item in variable):
             continue
         with pytest.raises(GMTInvalidInput):
             fig.contour(
-                x=v[0],
-                y=v[1],
-                z=v[2],
+                x=variable[0],
+                y=variable[1],
+                z=variable[2],
                 region=region,
                 projection="X4i",
                 color="red",
                 frame="afg",
-                pen=""
+                pen="",
             )
     # Should also fail if given too much data
     with pytest.raises(GMTInvalidInput):
@@ -61,7 +62,7 @@ def test_contour_fail_no_data(data):
             style="c0.2c",
             color="red",
             frame="afg",
-            pen=''
+            pen="",
         )
 
 
@@ -69,21 +70,14 @@ def test_contour_fail_no_data(data):
 def test_contour_vec(region):
     "Plot an x-centered gaussian kernel with different y scale"
     fig = Figure()
-    x, y = np.meshgrid(np.linspace(region[0], region[1]),
-                       np.linspace(region[2], region[3]))
+    x, y = np.meshgrid(
+        np.linspace(region[0], region[1]), np.linspace(region[2], region[3])
+    )
     x = x.flatten()
     y = y.flatten()
-    z = (x - 0.5 * (region[0] + region[1]))**2 + 4 * y**2
-    z = np.exp(-z / 10**2 * np.log(2))
-    fig.contour(
-        x=x,
-        y=y,
-        z=z,
-        projection="X4i",
-        region=region,
-        frame="a",
-        pen=''
-    )
+    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y ** 2
+    z = np.exp(-z / 10 ** 2 * np.log(2))
+    fig.contour(x=x, y=y, z=z, projection="X4i", region=region, frame="a", pen="")
     return fig
 
 
@@ -91,13 +85,7 @@ def test_contour_vec(region):
 def test_contour_matrix(data, region):
     "Plot data"
     fig = Figure()
-    fig.contour(
-        data=data,
-        projection="X3i",
-        region=region,
-        frame="ag",
-        pen=''
-    )
+    fig.contour(data=data, projection="X3i", region=region, frame="ag", pen="")
     return fig
 
 
@@ -106,10 +94,6 @@ def test_contour_from_file(region):
     "Plot using the data file name instead of loaded data"
     fig = Figure()
     fig.contour(
-        data=POINTS_DATA,
-        projection="X4i",
-        region=region,
-        frame="af",
-        pen='#ffcb87'
+        data=POINTS_DATA, projection="X4i", region=region, frame="af", pen="#ffcb87"
     )
     return fig
