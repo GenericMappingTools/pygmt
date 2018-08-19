@@ -125,7 +125,6 @@ class BasePlotting:
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
-
     @fmt_docstring
     @use_alias(
         R="region",
@@ -166,7 +165,6 @@ class BasePlotting:
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("grdcontour", arg_str)
-
 
     @fmt_docstring
     @use_alias(R="region", J="projection", W="pen", B="frame", I="shading", C="cmap")

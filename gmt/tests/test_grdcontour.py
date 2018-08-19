@@ -8,17 +8,19 @@ from .. import Figure
 from ..exceptions import GMTInvalidInput
 from ..datasets import load_earth_relief
 
+
 @pytest.mark.mpl_image_compare
 def test_grdcontour():
     """Plot a contour image using an xarray grid
     with fixed contour interval
-    """    
+    """
     grid = load_earth_relief()
     fig = Figure()
     fig.grdcontour(grid,
                    contour_interval="1000",
                    projection="W0/6i")
     return fig
+
 
 @pytest.mark.mpl_image_compare
 def test_grdcontour_labels():
@@ -31,7 +33,7 @@ def test_grdcontour_labels():
                    contour_interval="1000",
                    annotation_interval="5000",
                    projection="W0/6i",
-                   pen=["a1p,red","c0.5p,black"],
+                   pen=["a1p,red", "c0.5p,black"],
                    label_placement="d3i",
                    )
     return fig
