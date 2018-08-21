@@ -127,16 +127,23 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region",
-        J="projection",
-        A="annotation_interval",
-        C="contour_interval",
+        A="annotation",
         B="frame",
+        C="interval",
         G="label_placement",
+        J="projection",
         L="limit",
+        Q="cut",
+        R="region",
+        S="resample",
+        U="logo",
         W="pen",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(
+        R="sequence",
+        L='sequence',
+        A="sequence_plus",
+    )
     def grdcontour(self, grid, **kwargs):
         """
         Convert grids or images to contours and plot them on maps
@@ -151,7 +158,38 @@ class BasePlotting:
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
+        C : str or int
+            Specify the contour lines to generate.
 
+            - The filename of a `CPT`  file where the color boundaries will
+              be used as contour levels.
+            - The filename of a 2 (or 3) column file containing the contour
+              levels (col 1), (C)ontour or (A)nnotate (col 2), and optional
+              angle (col 3)
+            - A fixed contour interval ``cont_int`` or a single contour with
+              ``+[cont_int]``
+        A : str,  int, or list
+            Specify or disable annotated contour levels, modifies annotated
+            contours specified in ``-C``.
+
+            - Specify a fixed annotation interval ``annot_int`` or a
+              single annotation level ``+[annot_int]``
+            - Disable all annotation  with  ``'-'``
+            - Optional label modifers can be specifed as a single string
+              ``'[annot_int]+e'``  or with a list of options
+              ``([annot_int], 'e', 'f10p', 'gred')``.
+        L : str or list of 2 ints
+            Do no draw contours below `low` or above `high`, specify as string
+            ``'[low]/[high]'``  or list ``[low,high]``.
+        Q : string or int
+            Do not draw contours with less than `cut` number of points.
+        S : string or int
+            Resample smoothing factor.
+        {J}
+        {R}
+        {B}
+        {G}
+        {W}
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
