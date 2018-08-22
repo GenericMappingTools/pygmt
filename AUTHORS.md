@@ -13,4 +13,4 @@ at the University of Hawaii.
 The following people have contributed code to the project:
 
 * [Leonardo Uieda](http://www.leouieda.com/)
-* [Dongdong Tian](http://home.ustc.edu.cn/~dongzhi/)
+* [Dongdong Tian](https://seisman.info/)
