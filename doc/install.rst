@@ -29,8 +29,8 @@ doesn't interfere with any other Python installations in your system.
 Which GMT?
 ----------
 
-You'll need GMT6, the latest development version from
-`the subversion repository <http://gmt.soest.hawaii.edu/projects/gmt/repository>`__.
+You'll need GMT6, the latest development version available from
+`the GitHub repository <https://github.com/GenericMappingTools/gmt>`__.
 
 We need GMT6 since there are many changes to the API in response to
 the development of GMT/Python, especially the
