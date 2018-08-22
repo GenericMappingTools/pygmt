@@ -23,6 +23,7 @@ Plotting data and laying out the map:
     Figure.basemap
     Figure.coast
     Figure.plot
+    Figure.contour
     Figure.grdimage
     Figure.logo
 
