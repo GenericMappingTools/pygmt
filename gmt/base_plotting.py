@@ -126,7 +126,82 @@ class BasePlotting:
             lib.call_module("coast", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", I="shading", C="cmap")
+    @use_alias(
+        A="annotation",
+        B="frame",
+        C="interval",
+        G="label_placement",
+        J="projection",
+        L="limit",
+        Q="cut",
+        R="region",
+        S="resample",
+        U="logo",
+        W="pen",
+    )
+    @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
+    def grdcontour(self, grid, **kwargs):
+        """
+        Convert grids or images to contours and plot them on maps
+
+        Takes a grid file name or an xarray.DataArray object as input.
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+        grid : str or xarray.DataArray
+            The file name of the input grid or the grid loaded as a DataArray.
+        C : str or int
+            Specify the contour lines to generate.
+
+            - The filename of a `CPT`  file where the color boundaries will
+              be used as contour levels.
+            - The filename of a 2 (or 3) column file containing the contour
+              levels (col 1), (C)ontour or (A)nnotate (col 2), and optional
+              angle (col 3)
+            - A fixed contour interval ``cont_int`` or a single contour with
+              ``+[cont_int]``
+        A : str,  int, or list
+            Specify or disable annotated contour levels, modifies annotated
+            contours specified in ``-C``.
+
+            - Specify a fixed annotation interval ``annot_int`` or a
+              single annotation level ``+[annot_int]``
+            - Disable all annotation  with  ``'-'``
+            - Optional label modifers can be specifed as a single string
+              ``'[annot_int]+e'``  or with a list of options
+              ``([annot_int], 'e', 'f10p', 'gred')``.
+        L : str or list of 2 ints
+            Do no draw contours below `low` or above `high`, specify as string
+            ``'[low]/[high]'``  or list ``[low,high]``.
+        Q : string or int
+            Do not draw contours with less than `cut` number of points.
+        S : string or int
+            Resample smoothing factor.
+        {J}
+        {R}
+        {B}
+        {G}
+        {W}
+        """
+        kwargs = self._preprocess(**kwargs)
+        kind = data_kind(grid, None, None)
+        with Session() as lib:
+            if kind == "file":
+                file_context = dummy_context(grid)
+            elif kind == "grid":
+                file_context = lib.virtualfile_from_grid(grid)
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("grdcontour", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection", W="pen", B="frame", I="shading", C="cmap")
     @kwargs_to_strings(R="sequence")
     def grdimage(self, grid, **kwargs):
         """
