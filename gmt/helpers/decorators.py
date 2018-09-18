@@ -271,9 +271,7 @@ def kwargs_to_strings(convert_bools=True, **conversions):
                 "Invalid conversion type '{}' for argument '{}'.".format(fmt, arg)
             )
 
-    separators = {"sequence": "/",
-                  "sequence_comma": ",",
-                  "sequence_plus": "+"}
+    separators = {"sequence": "/", "sequence_comma": ",", "sequence_plus": "+"}
 
     # Make the actual decorator function
     def converter(module_func):
@@ -287,9 +285,7 @@ def kwargs_to_strings(convert_bools=True, **conversions):
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
-                    issequence = fmt in ("sequence",
-                                         "sequence_comma",
-                                         "sequence_plus")
+                    issequence = fmt in ("sequence", "sequence_comma", "sequence_plus")
                     if issequence and is_nonstr_iter(value):
                         kwargs[arg] = separators[fmt].join(
                             "{}".format(item) for item in value

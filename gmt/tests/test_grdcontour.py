@@ -1,10 +1,10 @@
 """
 Test Figure.grdcontour
 """
-import pytest
-import numpy as np
 import os
 
+import pytest
+import numpy as np
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput
@@ -22,9 +22,7 @@ def test_grdcontour():
     """
     grid = load_earth_relief()
     fig = Figure()
-    fig.grdcontour(grid,
-                   interval="1000",
-                   projection="W0/6i")
+    fig.grdcontour(grid, interval="1000", projection="W0/6i")
     return fig
 
 
@@ -35,13 +33,14 @@ def test_grdcontour_labels():
     """
     grid = load_earth_relief()
     fig = Figure()
-    fig.grdcontour(grid,
-                   interval="1000",
-                   annotation="5000",
-                   projection="W0/6i",
-                   pen=["a1p,red", "c0.5p,black"],
-                   label_placement="d3i",
-                   )
+    fig.grdcontour(
+        grid,
+        interval="1000",
+        annotation="5000",
+        projection="W0/6i",
+        pen=["a1p,red", "c0.5p,black"],
+        label_placement="d3i",
+    )
     return fig
 
 
@@ -50,9 +49,7 @@ def test_grdcontour_slice():
     "Plot an contour image using an xarray grid that has been sliced"
     grid = load_earth_relief().sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdcontour(grid,
-                   interval="1000",
-                   projection="M6i")
+    fig.grdcontour(grid, interval="1000", projection="M6i")
     return fig
 
 
@@ -76,25 +73,17 @@ def test_grdcontour_interval_file_full_opts():
     """ Plot based on external contour level file """
     fig = Figure()
     comargs = {
-        'region': [-161.5, -154, 18.5, 23],
-        'interval': TEST_CONTOUR_FILE,
-        'grid': "@earth_relief_10m",
-        'resample': "100",
-        'projection': "M6i",
-        'cut': 10,
+        "region": [-161.5, -154, 18.5, 23],
+        "interval": TEST_CONTOUR_FILE,
+        "grid": "@earth_relief_10m",
+        "resample": "100",
+        "projection": "M6i",
+        "cut": 10,
     }
 
-    fig.grdcontour(
-        **comargs,
-        limit=(-25000, -1),
-        pen=["a1p,blue", "c0.5p,blue"],
-    )
+    fig.grdcontour(**comargs, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"])
 
-    fig.grdcontour(
-        **comargs,
-        limit="0",
-        pen=["a1p,black", "c0.5p,black"],
-    )
+    fig.grdcontour(**comargs, limit="0", pen=["a1p,black", "c0.5p,black"])
     return fig
 
 

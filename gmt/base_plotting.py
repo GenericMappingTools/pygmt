@@ -139,11 +139,7 @@ class BasePlotting:
         U="logo",
         W="pen",
     )
-    @kwargs_to_strings(
-        R="sequence",
-        L='sequence',
-        A="sequence_plus",
-    )
+    @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
     def grdcontour(self, grid, **kwargs):
         """
         Convert grids or images to contours and plot them on maps
