@@ -311,7 +311,7 @@ def test_create_data_grid_range():
             family="GMT_IS_GRID|GMT_VIA_MATRIX",
             geometry="GMT_IS_SURFACE",
             mode="GMT_CONTAINER_ONLY",
-            ranges=[150., 250., -20., 20.],
+            ranges=[150.0, 250.0, -20.0, 20.0],
             inc=[0.1, 0.2],
         )
 
@@ -326,7 +326,7 @@ def test_create_data_fails():
                 geometry="GMT_IS_SURFACE",
                 mode="Not_a_valid_mode",
                 dim=[0, 0, 1, 0],
-                ranges=[150., 250., -20., 20.],
+                ranges=[150.0, 250.0, -20.0, 20.0],
                 inc=[0.1, 0.2],
             )
     # Passing in invalid geometry
@@ -337,7 +337,7 @@ def test_create_data_fails():
                 geometry="Not_a_valid_geometry",
                 mode="GMT_CONTAINER_ONLY",
                 dim=[0, 0, 1, 0],
-                ranges=[150., 250., -20., 20.],
+                ranges=[150.0, 250.0, -20.0, 20.0],
                 inc=[0.1, 0.2],
             )
 
@@ -740,7 +740,7 @@ def test_extract_region_two_figures():
         lib.call_module("figure", "{} -".format(fig2._name))
     with clib.Session() as lib:
         wesn2 = lib.extract_region()
-        npt.assert_allclose(wesn2, np.array([-165., -150., 15., 25.]))
+        npt.assert_allclose(wesn2, np.array([-165.0, -150.0, 15.0, 25.0]))
 
 
 def test_write_data_fails():
