@@ -151,7 +151,8 @@ class Session:
                 "plugin dir": self.get_default("API_PLUGINDIR"),
                 "library path": self.get_default("API_LIBRARY"),
                 "cores": self.get_default("API_CORES"),
-                "image layout": self.get_default("API_IMAGE_LAYOUT"),
+                # API_IMAGE_LAYOUT not defined if GMT is not compiled with GDAL
+                # "image layout": self.get_default("API_IMAGE_LAYOUT"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
             }
         return self._info
