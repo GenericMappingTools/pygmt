@@ -41,7 +41,7 @@ CLASSIFIERS = [
     "License :: OSI Approved :: {}".format(LICENSE),
 ]
 PLATFORMS = "Any"
-INSTALL_REQUIRES = ["numpy", "pandas", "xarray", "packaging"]
+INSTALL_REQUIRES = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
 
 if __name__ == "__main__":
     setup(

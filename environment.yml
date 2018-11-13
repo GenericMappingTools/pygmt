@@ -9,6 +9,7 @@ dependencies:
     - numpy
     - pandas
     - xarray
+    - netCDF4
     - packaging
     - ipython
     - matplotlib
