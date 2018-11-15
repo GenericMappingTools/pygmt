@@ -27,6 +27,7 @@ Plotting data and laying out the map:
     Figure.grdcontour
     Figure.grdimage
     Figure.logo
+    Figure.image
 
 Saving and displaying the figure:
 
