@@ -98,7 +98,7 @@ Related Projects
 ----------------
 
 * `GMT.jl <https://github.com/GenericMappingTools/GMT.jl>`__: A Julia wrapper for GMT.
-* `gmtmex <https://github.com/GenericMappingTools/GMT.jl>`__: A Matlab/Octave wrapper
+* `gmtmex <https://github.com/GenericMappingTools/gmtmex>`__: A Matlab/Octave wrapper
   for GMT.
 
 Other Python wrappers for GMT:
