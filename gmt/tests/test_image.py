@@ -4,10 +4,8 @@ Tests image.
 import os
 
 import pytest
-import numpy as np
 
 from .. import Figure
-from ..exceptions import GMTInvalidInput
 
 
 TEST_IMG = os.path.join(os.path.dirname(__file__), "baseline", "test_logo.png")
