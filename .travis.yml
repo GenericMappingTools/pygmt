@@ -121,6 +121,7 @@ before_install:
     # Download and install miniconda and setup dependencies
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
+    - pip install --upgrade https://github.com/sphinx-gallery/sphinx-gallery/archive/master.zip
     # Show installed pkg information for postmortem diagnostic
     - conda list
 
