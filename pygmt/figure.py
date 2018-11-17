@@ -23,8 +23,23 @@ from .helpers import (
     worldwind_show,
 )
 
+# A registry of all figures created in this session. Keys are figure names and values
+# are Figure objects.
+FIGURES = dict()
 
-_figures = dict()
+
+def get_figures():
+    """
+    Get all figures that have been created in this session.
+
+    Returns
+    -------
+    figures : dict
+        A dictionary with all figures. Keys are the figure names (unique IDs) and values
+        are the :class:`gmt.Figure` objects.
+
+    """
+    return FIGURES
 
 
 class Figure(BasePlotting):
@@ -65,7 +80,7 @@ class Figure(BasePlotting):
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=self._name + "-preview-")
         self._activate_figure()
-        _figures[self._name] = self
+        FIGURES[self._name] = self
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews

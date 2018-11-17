@@ -51,16 +51,12 @@ class PyGMTScraper():
     def __call__(self, block, block_vars, gallery_conf):
         image_names = list()
         image_path_iterator = block_vars['image_path_iterator']
-        for fig_name in pygmt._figures:
+        for fig_name in gmt.get_figures():
             if fig_name not in self.seen:
                 self.seen |= set(fig_name)
                 fname = image_path_iterator.next()
-                gmt._figures[fig_name].savefig(fname, transparent=True)
+                gmt.get_figures()[fig_name].savefig(fname, transparent=True)
                 image_names.append(fname)
-        with open("/home/leo/src/pygmt/meh.txt", "w") as f:
-            f.write('\n')
-            f.write(str(image_names))
-            f.write('\n')
         return figure_rst(image_names, gallery_conf['src_dir'])
 
 
