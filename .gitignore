@@ -10,6 +10,7 @@ dist/
 .cache
 doc/_build
 doc/modules
+doc/gallery
 doc/api/gmt*.rst
 doc/api/generated
 .ipynb_checkpoints

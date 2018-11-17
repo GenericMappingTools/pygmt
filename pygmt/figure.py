@@ -24,6 +24,9 @@ from .helpers import (
 )
 
 
+_figures = dict()
+
+
 class Figure(BasePlotting):
     """
     A GMT figure to handle all plotting.
@@ -62,6 +65,7 @@ class Figure(BasePlotting):
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=self._name + "-preview-")
         self._activate_figure()
+        _figures[self._name] = self
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews

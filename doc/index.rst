@@ -42,7 +42,7 @@
     :caption: Getting Started
 
     install.rst
-    tutorials/first-steps.ipynb
+    gallery/index.rst
 
 .. toctree::
     :maxdepth: 2
