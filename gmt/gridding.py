@@ -67,5 +67,5 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
                 kwargs.update({"G": outfile.name})
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="surface", args=arg_str)
-        result = xr.open_dataset(outfile)
+        result = xr.open_dataset(outfile.name)
     return result
