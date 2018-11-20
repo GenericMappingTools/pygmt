@@ -42,6 +42,10 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
         ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
         Specify the region of interest.
 
+    outfile (G) : str
+        Optional. The file name for the output netcdf file with extension .nc
+        to store the grid in.
+
     {aliases}
 
     Returns
@@ -53,7 +57,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     if kind == "vectors" and z is None:
         raise GMTInvalidInput("Must provide z with x and y.")
 
-    with GMTTempFile(suffix=".nc") as outfile:
+    with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             if kind == "file":
                 file_context = dummy_context(data)
@@ -64,8 +68,10 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
             with file_context as infile:
-                kwargs.update({"G": outfile.name})
+                if "G" not in kwargs.keys():
+                    kwargs.update({"G": tmpfile.name})
+                outfile = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="surface", args=arg_str)
-        result = xr.open_dataset(outfile.name)
+        result = xr.open_dataset(outfile)
     return result
