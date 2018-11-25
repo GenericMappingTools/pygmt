@@ -83,3 +83,14 @@ def test_surface_g_outfile_param():
     finally:
         os.remove(path=TEMP_GRID)
     return output
+
+
+def test_surface_aliases():
+    """
+    Run surface using aliases spacing -I and region -R.
+    """
+    ship_data = load_tut_ship()
+    data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
+    output = surface(data=data, spacing="5m", region="245/255/20/30")
+    assert isinstance(output, xr.Dataset)
+    return output
