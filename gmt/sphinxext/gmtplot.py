@@ -74,8 +74,6 @@ class GMTPlotNode(nodes.General, nodes.Element):
     Sphinx node for a GMT plot.
     """
 
-    pass
-
 
 class GMTPlotDirective(Directive):
     """
