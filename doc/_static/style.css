@@ -78,12 +78,12 @@ h1 {
     height:100%;
 }
 
-.wy-menu-vertical header, .wy-menu-vertical p.caption {
-    font-size: 90%;
-    font-weight: bold;
-    color: #eeeeee;
-    letter-spacing: 0.12em;
-}
+/*.wy-menu-vertical header, .wy-menu-vertical p.caption {*/
+    /*font-size: 90%;*/
+    /*font-weight: bold;*/
+    /*color: #eeeeee;*/
+    /*letter-spacing: 0.12em;*/
+/*}*/
 
 .wy-nav-content {
     max-width: 1000px;

@@ -1,4 +1,4 @@
-# pylint: disable=exec-used
+# pylint: disable=exec-used,too-few-public-methods
 """
 Sphinx extension for including live rendered GMT plots within sphinx documentation. For
 example::
@@ -73,8 +73,6 @@ class GMTPlotNode(nodes.General, nodes.Element):
     """
     Sphinx node for a GMT plot.
     """
-
-    pass
 
 
 class GMTPlotDirective(Directive):
