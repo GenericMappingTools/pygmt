@@ -17,7 +17,7 @@ Installing
 Which Python?
 -------------
 
-You'll need **Python 3.5 or greater** to run GMT/Python.
+You'll need **Python 3.6 or greater** to run GMT/Python.
 
 We recommend using the `Anaconda <http://continuum.io/downloads#all>`__ Python
 distribution to ensure you have all dependencies installed and the ``conda``
