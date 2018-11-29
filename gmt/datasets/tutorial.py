@@ -36,3 +36,24 @@ def load_japan_quakes():
         "magnitude",
     ]
     return data
+
+
+def load_usgs_quakes():
+    """
+    Load a table of global earthquakes form the USGS as a pandas.Dataframe.
+
+    This is the ``@usgs_quakes_22.txt`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data :  pandas.Dataframe
+        The data table. Use ``print(data.describe())`` to see the available columns.
+
+    """
+    fname = which("@usgs_quakes_22.txt", download="c")
+    data = pd.read_csv(fname)
+    return data

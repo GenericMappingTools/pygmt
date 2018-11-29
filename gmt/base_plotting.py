@@ -2,7 +2,7 @@
 Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
-from .clib import LibGMT
+from .clib import Session
 from .exceptions import GMTInvalidInput
 from .helpers import (
     build_arg_string,
@@ -122,11 +122,86 @@ class BasePlotting:
 
         """
         kwargs = self._preprocess(**kwargs)
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", I="shading", C="cmap")
+    @use_alias(
+        A="annotation",
+        B="frame",
+        C="interval",
+        G="label_placement",
+        J="projection",
+        L="limit",
+        Q="cut",
+        R="region",
+        S="resample",
+        U="logo",
+        W="pen",
+    )
+    @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
+    def grdcontour(self, grid, **kwargs):
+        """
+        Convert grids or images to contours and plot them on maps
+
+        Takes a grid file name or an xarray.DataArray object as input.
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+        grid : str or xarray.DataArray
+            The file name of the input grid or the grid loaded as a DataArray.
+        C : str or int
+            Specify the contour lines to generate.
+
+            - The filename of a `CPT`  file where the color boundaries will
+              be used as contour levels.
+            - The filename of a 2 (or 3) column file containing the contour
+              levels (col 1), (C)ontour or (A)nnotate (col 2), and optional
+              angle (col 3)
+            - A fixed contour interval ``cont_int`` or a single contour with
+              ``+[cont_int]``
+        A : str,  int, or list
+            Specify or disable annotated contour levels, modifies annotated
+            contours specified in ``-C``.
+
+            - Specify a fixed annotation interval ``annot_int`` or a
+              single annotation level ``+[annot_int]``
+            - Disable all annotation  with  ``'-'``
+            - Optional label modifers can be specifed as a single string
+              ``'[annot_int]+e'``  or with a list of options
+              ``([annot_int], 'e', 'f10p', 'gred')``.
+        L : str or list of 2 ints
+            Do no draw contours below `low` or above `high`, specify as string
+            ``'[low]/[high]'``  or list ``[low,high]``.
+        Q : string or int
+            Do not draw contours with less than `cut` number of points.
+        S : string or int
+            Resample smoothing factor.
+        {J}
+        {R}
+        {B}
+        {G}
+        {W}
+        """
+        kwargs = self._preprocess(**kwargs)
+        kind = data_kind(grid, None, None)
+        with Session() as lib:
+            if kind == "file":
+                file_context = dummy_context(grid)
+            elif kind == "grid":
+                file_context = lib.virtualfile_from_grid(grid)
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("grdcontour", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection", W="pen", B="frame", I="shading", C="cmap")
     @kwargs_to_strings(R="sequence")
     def grdimage(self, grid, **kwargs):
         """
@@ -146,13 +221,11 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
-        with LibGMT() as lib:
+        with Session() as lib:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                raise NotImplementedError(
-                    "Sorry, DataArray support is not yet functional."
-                )
+                file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as fname:
@@ -259,18 +332,95 @@ class BasePlotting:
                 )
             extra_arrays.append(sizes)
 
-        with LibGMT() as lib:
+        with Session() as lib:
             # Choose how data will be passed in to the module
             if kind == "file":
                 file_context = dummy_context(data)
             elif kind == "matrix":
-                file_context = lib.matrix_to_vfile(data)
+                file_context = lib.virtualfile_from_matrix(data)
             elif kind == "vectors":
-                file_context = lib.vectors_to_vfile(x, y, *extra_arrays)
+                file_context = lib.virtualfile_from_vectors(x, y, *extra_arrays)
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("plot", arg_str)
+
+    @fmt_docstring
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        S="skip",
+        G="label_placement",
+        W="pen",
+        L="triangular_mesh_pen",
+        i="columns",
+        C="levels",
+    )
+    @kwargs_to_strings(R="sequence", i="sequence_comma")
+    def contour(self, x=None, y=None, z=None, data=None, **kwargs):
+        """
+        Contour table data by direct triangulation.
+
+        Takes a matrix, (x,y,z) pairs, or a file name as input and plots lines,
+        polygons, or symbols at those locations on a map.
+
+        Must provide either *data* or *x*, *y*, and *z*.
+
+        [TODO: Insert more documentation]
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+        x, y, z : 1d arrays
+            Arrays of x and y coordinates and values z of the data points.
+        data : str or 2d array
+            Either a data file name or a 2d numpy array with the tabular data.
+        {J}
+        {R}
+        A : bool or str
+            ``'[m|p|x|y]'``
+            By default, geographic line segments are drawn as great circle
+            arcs. To draw them as straight lines, use *A*.
+        {B}
+        C : Contour file or level(s)
+        D : Dump contour coordinates
+        E : Network information
+        G : Placement of labels
+        I : Color the triangles using CPT
+        L : Pen to draw the underlying triangulation (default none)
+        N : Do not clip contours
+        Q : Minimum contour length
+            ``'[p|t]'``
+        S : Skip input points outside region
+            ``'[p|t]'``
+        {W}
+        X : Origin shift x
+        Y : Origin shift y
+
+
+        """
+        kwargs = self._preprocess(**kwargs)
+
+        kind = data_kind(data, x, y, z)
+        if kind == "vectors" and z is None:
+            raise GMTInvalidInput("Must provided both x, y, and z.")
+
+        with Session() as lib:
+            # Choose how data will be passed in to the module
+            if kind == "file":
+                file_context = dummy_context(data)
+            elif kind == "matrix":
+                file_context = lib.virtualfile_from_matrix(data)
+            elif kind == "vectors":
+                file_context = lib.virtualfile_from_vectors(x, y, z)
+
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("contour", arg_str)
 
     @fmt_docstring
     @use_alias(R="region", J="projection", B="frame")
@@ -318,7 +468,7 @@ class BasePlotting:
             raise GMTInvalidInput("At least one of B, L, or T must be specified.")
         if "D" in kwargs and "F" not in kwargs:
             raise GMTInvalidInput("Option D requires F to be specified as well.")
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("basemap", build_arg_string(kwargs))
 
     @fmt_docstring
@@ -344,7 +494,7 @@ class BasePlotting:
         D : str
             ``'[g|j|J|n|x]refpoint+wwidth[+jjustify][+odx[/dy]]'``.
             Sets reference point on the map for the image.
-        F: bool or str
+        F : bool or str
             Without further options, draws a rectangular border around the
             GMT logo.
         {U}
@@ -353,5 +503,38 @@ class BasePlotting:
         kwargs = self._preprocess(**kwargs)
         if "D" not in kwargs:
             raise GMTInvalidInput("Option D must be specified.")
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("logo", build_arg_string(kwargs))
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection")
+    @kwargs_to_strings(R="sequence")
+    def image(self, imagefile, **kwargs):
+        """
+        Place images or EPS files on maps.
+
+        Reads an Encapsulated PostScript file or a raster image file and plots it on a map.
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+        {J}
+        {R}
+        D: str
+            ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify][+nnx[/ny]][+odx[/dy]]'``
+            Sets reference point on the map for the image.
+        F : bool or str
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
+            Without further options, draws a rectangular border around the
+            image using **MAP_FRAME_PEN**.
+        M : bool
+            Convert color image to monochrome grayshades using the (television)
+            YIQ-transformation.
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            arg_str = " ".join([imagefile, build_arg_string(kwargs)])
+            lib.call_module("image", arg_str)

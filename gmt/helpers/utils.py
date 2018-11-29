@@ -12,7 +12,7 @@ import xarray as xr
 from ..exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None):
+def data_kind(data, x=None, y=None, z=None):
     """
     Check what kind of data is provided to a module.
 
@@ -20,7 +20,7 @@ def data_kind(data, x=None, y=None):
 
     * a file name provided as 'data'
     * a matrix provided as 'data'
-    * 1D arrays x and y
+    * 1D arrays x and y (and z, optionally)
 
     Arguments should be ``None`` if not used. If doesn't fit any of these
     categories (or fits more than one), will raise an exception.
@@ -31,6 +31,9 @@ def data_kind(data, x=None, y=None):
        Data file name or numpy array.
     x, y : 1d arrays or None
         x and y columns as numpy arrays.
+    z    : 1d array or None
+        z column as numpy array. To be used optionally when x and y
+        are given.
 
     Returns
     -------
@@ -67,7 +70,7 @@ def data_kind(data, x=None, y=None):
     """
     if data is None and x is None and y is None:
         raise GMTInvalidInput("No input data provided.")
-    if data is not None and (x is not None or y is not None):
+    if data is not None and (x is not None or y is not None or z is not None):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
         raise GMTInvalidInput("Must provided both x and y.")

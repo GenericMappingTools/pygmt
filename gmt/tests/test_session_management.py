@@ -4,7 +4,7 @@ Test the session management modules.
 import os
 
 from ..session_management import begin, end
-from ..clib import LibGMT
+from ..clib import Session
 
 
 def test_begin_end():
@@ -14,7 +14,7 @@ def test_begin_end():
     """
     end()  # Kill the global session
     begin()
-    with LibGMT() as lib:
+    with Session() as lib:
         lib.call_module("psbasemap", "-R10/70/-3/8 -JX4i/3i -Ba")
     end()
     begin()  # Restart the global session

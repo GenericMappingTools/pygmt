@@ -10,7 +10,7 @@ try:
 except ImportError:
     Image = None
 
-from .clib import LibGMT
+from .clib import Session
 from .base_plotting import BasePlotting
 from .exceptions import GMTError, GMTInvalidInput
 from .helpers import (
@@ -81,7 +81,7 @@ class Figure(BasePlotting):
         """
         # Passing format '-' tells gmt.end to not produce any files.
         fmt = "-"
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("figure", "{} {}".format(self._name, fmt))
 
     def _preprocess(self, **kwargs):
@@ -96,7 +96,7 @@ class Figure(BasePlotting):
     def region(self):
         "The geographic WESN bounding box for the current figure."
         self._activate_figure()
-        with LibGMT() as lib:
+        with Session() as lib:
             wesn = lib.extract_region()
         return wesn
 
@@ -157,7 +157,7 @@ class Figure(BasePlotting):
         # Default cropping the figure to True
         if "A" not in kwargs:
             kwargs["A"] = ""
-        with LibGMT() as lib:
+        with Session() as lib:
             lib.call_module("psconvert", build_arg_string(kwargs))
 
     def savefig(
@@ -277,11 +277,13 @@ class Figure(BasePlotting):
                 globe_center=globe_center,
             )
         elif method == "external":
-            pdf = self._preview(fmt="pdf", dpi=600, anti_alias=False, as_bytes=False)
+            pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
             img = None
         elif method == "static":
-            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            png = self._preview(
+                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, transparent=True
+            )
             if Image is None:
                 raise GMTError(
                     " ".join(

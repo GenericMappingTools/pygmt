@@ -1,45 +1,44 @@
 # Build, package, test, and clean
-
+PROJECT=gmt
 TESTDIR=tmp-test-dir-with-unique-name
-PYTEST_ARGS=--doctest-modules -v --pyargs
-PYTEST_COV_ARGS=--cov-config=../.coveragerc --cov-report=term-missing
-CHECK_FILES=gmt setup.py
+PYTEST_ARGS=--cov-config=../.coveragerc --cov-report=term-missing --cov=$(PROJECT) --doctest-modules -v --pyargs
+BLACK_FILES=$(PROJECT) setup.py doc/conf.py
+FLAKE8_FILES=$(PROJECT) setup.py
+LINT_FILES=$(PROJECT) setup.py
 
 help:
 	@echo "Commands:"
 	@echo ""
-	@echo "    develop       install in editable mode"
-	@echo "    test          run the test suite (including doctests)"
-	@echo "    check         run code quality checks (black and pylint)"
-	@echo "    format        run black to automatically format the code"
-	@echo "    coverage      calculate test coverage"
-	@echo "    clean         clean up build and generated files"
+	@echo "  install   install in editable mode"
+	@echo "  test      run the test suite (including doctests) and report coverage"
+	@echo "  format    run black to automatically format the code"
+	@echo "  check     run code style and quality checks (black and flake8)"
+	@echo "  lint      run pylint for a deeper (and slower) quality check"
+	@echo "  clean     clean up build and generated files"
 	@echo ""
 
-develop:
+install:
 	pip install --no-deps -e .
 
 test:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	mkdir -p $(TESTDIR)
-	cd $(TESTDIR); python -c "import gmt; gmt.test()"
-	rm -r $(TESTDIR)
-
-coverage:
-	# Run a tmp folder to make sure the tests are run on the installed version
-	mkdir -p $(TESTDIR)
-	cd $(TESTDIR); python -c "import gmt; gmt.print_libgmt_info()"
 	@echo ""
-	cd $(TESTDIR); pytest $(PYTEST_COV_ARGS) --cov=gmt $(PYTEST_ARGS) gmt
+	@cd $(TESTDIR); python -c "import gmt; gmt.print_clib_info()"
+	@echo ""
+	cd $(TESTDIR); pytest $(PYTEST_ARGS) $(PROJECT)
 	cp $(TESTDIR)/.coverage* .
 	rm -r $(TESTDIR)
 
 format:
-	black $(CHECK_FILES)
+	black $(BLACK_FILES)
 
 check:
-	black --check $(CHECK_FILES)
-	pylint $(CHECK_FILES)
+	black --check $(BLACK_FILES)
+	flake8 $(FLAKE8_FILES)
+
+lint:
+	pylint $(LINT_FILES)
 
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;

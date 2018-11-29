@@ -1,14 +1,10 @@
 """
 The main API for GMT/Python.
 
-Functions and classes from ``gmt`` package offer access to GMT with input and
-output of Python data types.
-All plotting is handled through the :class:`gmt.Figure` class.
-
-All of GMT/Python is operated on a "modern mode session" (new to GMT6). When
-you import the ``gmt`` library, a new session will be started automatically.
-The session will be closed when the current Python process terminates. Thus,
-the Python API does not expose the ``gmt begin`` and ``gmt end`` commands.
+All of GMT/Python is operated on a "modern mode session" (new to GMT6). When you import
+the ``gmt`` library, a new session will be started automatically. The session will be
+closed when the current Python process terminates. Thus, the Python API does not expose
+the ``gmt begin`` and ``gmt end`` commands.
 """
 import atexit as _atexit
 
@@ -31,26 +27,19 @@ _begin()
 _atexit.register(_end)
 
 
-def print_libgmt_info():
+def print_clib_info():
     """
-    Print information about the currently loaded GMT shared library.
+    Print information about the GMT shared library that we can find.
 
-    Includes the GMT version, default values for parameters, the path to the
-    ``libgmt`` shared library, and GMT directories.
+    Includes the GMT version, default values for parameters, the path to the ``libgmt``
+    shared library, and GMT directories.
     """
-    import shutil
-    from .clib import LibGMT
+    from .clib import Session
 
-    columns = shutil.get_terminal_size().columns
-    title = "Currently loaded libgmt"
-    left = (columns - len(title) - 2) // 2
-    right = left + (columns - (2 * left + len(title) + 2))
-    header = " ".join(["=" * left, title, "=" * right])
-
-    with LibGMT() as lib:
-        lines = [header]
-        for key in sorted(lib.info):
-            lines.append("{}: {}".format(key, lib.info[key]))
+    lines = ["Loaded libgmt:"]
+    with Session() as ses:
+        for key in sorted(ses.info):
+            lines.append("  {}: {}".format(key, ses.info[key]))
     print("\n".join(lines))
 
 
@@ -87,7 +76,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     """
     import pytest
 
-    print_libgmt_info()
+    print_clib_info()
 
     args = []
     if verbose:

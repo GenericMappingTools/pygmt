@@ -1,22 +1,6 @@
-# GMT isn't included because it needs to be downloaded from a separate channel
+gmt=6.0.0*
 numpy
 pandas
 xarray
+netCDF4
 packaging
-# The following are required for development purposes
-ipython
-matplotlib
-jupyter
-pytest
-pytest-cov
-pytest-mpl
-coverage
-black
-pylint
-sphinx
-sphinx_rtd_theme
-nbsphinx
-numpydoc
-twine
-# The following are installed for checking possible conflicts
-basemap

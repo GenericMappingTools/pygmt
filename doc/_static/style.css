@@ -15,6 +15,29 @@ h1 {
     font-size: 200%;
 }
 
+.gmtplot-output {
+    width: 100%;
+    overflow: auto;
+}
+
+.gmtplot-output img {
+    max-width: 700px;
+    width: 100%;
+}
+
+.gmtplot-output pre {
+    color: #888888;
+}
+
+.gmtplot-output-figure {
+    margin-bottom: 50px;
+}
+
+.rst-content img {
+    max-width: 700px;
+    width: 100%;
+}
+
 .sidebar-title {
     margin-top: 10px;
     margin-bottom: 0px;
@@ -55,6 +78,13 @@ h1 {
     height:100%;
 }
 
+/*.wy-menu-vertical header, .wy-menu-vertical p.caption {*/
+    /*font-size: 90%;*/
+    /*font-weight: bold;*/
+    /*color: #eeeeee;*/
+    /*letter-spacing: 0.12em;*/
+/*}*/
+
 .wy-nav-content {
     max-width: 1000px;
 }
@@ -71,11 +101,6 @@ h1 {
 
 .rst-content .highlight > pre {
     font-size: 14px;
-}
-
-.rst-content img {
-    max-width: 450px;
-    width: 100%;
 }
 
 .source-link {

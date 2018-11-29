@@ -76,7 +76,7 @@ def worldwind_show(image, width, region, canvas_id, globe_center):
     image : bytes
         An image loaded as a bytes string (use ``'rb'`` in the ``open``
         function).
-    width ; int
+    width : int
         The width of the HTML canvas element.
     region : list = [W, E, S, N]
         Boundaries of the image in geographical latitude and longitude degrees.
@@ -95,6 +95,9 @@ def worldwind_show(image, width, region, canvas_id, globe_center):
     """
     if globe_center is None:
         height = 200000 * max(region[1] - region[0], region[3] - region[2])
+        # Cap the height at 9000km so the earth doesn't look so tiny on global maps
+        if height > 9000e3:
+            height = 9000e3
         lon = np.mean(region[:2])
         lat = np.mean(region[2:])
         globe_center = (lon, lat, height)

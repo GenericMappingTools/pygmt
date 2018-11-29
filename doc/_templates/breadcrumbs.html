@@ -6,7 +6,7 @@
 {% block breadcrumbs_aside %}
     <li class="source-link">
         {% if hasdoc(pagename) %}
-            {% if pagename.startswith("api/") or suffix == ".ipynb" %}
+            {% if pagename.startswith("api/generated") or suffix == ".ipynb" %}
                 {% set title = "Suggested improvement for " + pagename %}
                 {% set body = "Please describe what could be improved about this page or the typo/mistake that you found:" %}
                 <a href="https://github.com/{{ github_repo }}/issues/new?title={{ title|urlencode }}&body={{ body|urlencode }}"
