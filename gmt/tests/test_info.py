@@ -3,8 +3,8 @@ Tests for gmtinfo
 """
 import os
 
-import pytest
 import numpy as np
+import pytest
 
 from .. import info, grdinfo
 from ..exceptions import GMTInvalidInput

@@ -38,7 +38,8 @@ env:
 matrix:
     # Build under the following configurations
     include:
-        - os: linux
+        - name: "Style checks"
+          os: linux
           env:
               - PYTHON=3.6
               - CHECK=true
@@ -46,26 +47,30 @@ matrix:
               - CONDA_INSTALL_EXTRA="black flake8 pylint"
               - CONDA_REQUIREMENTS=""
               - CONDA_REQUIREMENTS_DEV=""
-        - os: linux
+        - name: "Linux - Python 3.7"
+          os: linux
+          env:
+              - PYTHON=3.7
+              - TEST=true
+              - BUILD_DOCS=true
+        - name: "Linux - Python 3.6 (also deploys)"
+          os: linux
           env:
               - PYTHON=3.6
               - TEST=true
               - BUILD_DOCS=true
               - DEPLOY_DOCS=true
               - DEPLOY_PYPI=true
-        - os: linux
+        - name: "Mac - Python 3.7"
+          os: osx
           env:
               - PYTHON=3.7
               - TEST=true
               - BUILD_DOCS=true
-        - os: osx
+        - name: "Mac - Python 3.6"
+          os: osx
           env:
               - PYTHON=3.6
-              - TEST=true
-              - BUILD_DOCS=true
-        - os: osx
-          env:
-              - PYTHON=3.7
               - TEST=true
               - BUILD_DOCS=true
 

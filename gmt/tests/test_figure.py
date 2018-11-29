@@ -4,9 +4,9 @@ Doesn't include the plotting commands, which have their own test files.
 """
 import os
 
-import pytest
 import numpy as np
 import numpy.testing as npt
+import pytest
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput

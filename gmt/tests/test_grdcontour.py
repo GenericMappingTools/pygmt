@@ -3,8 +3,8 @@ Test Figure.grdcontour
 """
 import os
 
-import pytest
 import numpy as np
+import pytest
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput
