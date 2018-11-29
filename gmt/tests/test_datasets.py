@@ -8,7 +8,7 @@ import numpy.testing as npt
 from ..datasets import (
     load_japan_quakes,
     load_earth_relief,
-    load_tut_ship,
+    load_sample_bathymetry,
     load_usgs_quakes,
 )
 from ..exceptions import GMTInvalidInput
@@ -27,9 +27,9 @@ def test_japan_quakes():
     assert summary.loc["max", "day"] == 31
 
 
-def test_tut_ship():
+def test_sample_bathymetry():
     "Check that the @tut_ship.xyz dataset loads without errors"
-    data = load_tut_ship()
+    data = load_sample_bathymetry()
     assert data.shape == (82970, 3)
     summary = data.describe()
     assert summary.loc["min", "x"] == 245.0

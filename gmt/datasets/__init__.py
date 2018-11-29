@@ -1,5 +1,5 @@
 """
 Load sample data included with GMT (downloaded from the GMT cache server).
 """
-from .tutorial import load_japan_quakes, load_tut_ship, load_usgs_quakes
+from .tutorial import load_japan_quakes, load_sample_bathymetry, load_usgs_quakes
 from .earth_relief import load_earth_relief

@@ -38,7 +38,7 @@ def load_japan_quakes():
     return data
 
 
-def load_tut_ship():
+def load_sample_bathymetry():
     """
     Load a table of ship observations of bathymetry off Baja California as a
     pandas.DataFrame.
