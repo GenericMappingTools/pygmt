@@ -494,7 +494,7 @@ class BasePlotting:
         D : str
             ``'[g|j|J|n|x]refpoint+wwidth[+jjustify][+odx[/dy]]'``.
             Sets reference point on the map for the image.
-        F: bool or str
+        F : bool or str
             Without further options, draws a rectangular border around the
             GMT logo.
         {U}
@@ -505,3 +505,36 @@ class BasePlotting:
             raise GMTInvalidInput("Option D must be specified.")
         with Session() as lib:
             lib.call_module("logo", build_arg_string(kwargs))
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection")
+    @kwargs_to_strings(R="sequence")
+    def image(self, imagefile, **kwargs):
+        """
+        Place images or EPS files on maps.
+
+        Reads an Encapsulated PostScript file or a raster image file and plots it on a map.
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+        {J}
+        {R}
+        D: str
+            ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify][+nnx[/ny]][+odx[/dy]]'``
+            Sets reference point on the map for the image.
+        F : bool or str
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
+            Without further options, draws a rectangular border around the
+            image using **MAP_FRAME_PEN**.
+        M : bool
+            Convert color image to monochrome grayshades using the (television)
+            YIQ-transformation.
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            arg_str = " ".join([imagefile, build_arg_string(kwargs)])
+            lib.call_module("image", arg_str)

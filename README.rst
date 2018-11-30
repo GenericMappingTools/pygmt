@@ -1,55 +1,42 @@
-.. raw:: html
+GMT/Python
+==========
 
-    <h1 align="center">GMT/Python</h1>
-    <h2 align="center">A Python interface for the Generic Mapping Tools</h2>
+    A Python interface for the Generic Mapping Tools
 
-    <p align="center">
-    <a href="https://pypi.python.org/pypi/gmt-python"><img alt="Latest version on PyPI" src="http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square"></a>
-    <a href="https://travis-ci.org/GenericMappingTools/gmt-python"><img alt="Travis CI build status" src="http://img.shields.io/travis/GenericMappingTools/gmt-python/master.svg?style=flat-square&label=linux|osx"></a>
-    <a href="https://codecov.io/gh/GenericMappingTools/gmt-python"><img alt="Test coverage status" src="https://img.shields.io/codecov/c/github/GenericMappingTools/gmt-python/master.svg?style=flat-square"></a>
-    <a href="https://codeclimate.com/github/GenericMappingTools/gmt-python"><img alt="Code quality status" src="https://img.shields.io/codeclimate/maintainability/GenericMappingTools/gmt-python.svg?style=flat-square"></a>
-    <a href="https://www.codacy.com/app/leouieda/gmt-python"><img alt="Code quality grade on codacy" src="https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy"></a>
-    <a href="https://pypi.python.org/pypi/gmt-python"><img alt="Compatible Python versions." src="https://img.shields.io/pypi/pyversions/gmt-python.svg?style=flat-square"></a>
-    <a href="https://gitter.im/GenericMappingTools/gmt-python"><img alt="Chat room on Gitter" src="https://img.shields.io/gitter/room/GenericMappingTools/gmt-python.svg?style=flat-square"></a>
-    </p>
+`Documentation <https://www.gmtpython.xyz>`__ |
+`Online Demo <http://try.gmtpython.xyz>`__ |
+`Contact <https://gitter.im/GenericMappingTools/gmt-python>`__
 
-    <p align="center">
-    <a href="http://try.gmtpython.xyz/">Online Demo</a> |
-    <a href="https://www.gmtpython.xyz">Documentation</a> |
-    <a href="https://github.com/GenericMappingTools/gmt-python">Source Code</a> |
-    <a href="https://gitter.im/GenericMappingTools/gmt-python">Contact</a>
-    </p>
+.. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
+    :alt: Latest version on PyPI
+    :target: https://pypi.python.org/pypi/gmt-python
+.. image:: http://img.shields.io/travis/GenericMappingTools/gmt-python/master.svg?style=flat-square&label=Linux|Mac
+    :alt: Travis CI build status
+    :target: https://travis-ci.org/GenericMappingTools/gmt-python
+.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/gmt-python/master.svg?style=flat-square
+    :alt: Test coverage status
+    :target: https://codecov.io/gh/GenericMappingTools/gmt-python
+.. image:: https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy
+    :alt: Code quality grade on codacy
+    :target: https://www.codacy.com/app/leouieda/gmt-python
+.. image:: https://img.shields.io/pypi/pyversions/gmt-python.svg?style=flat-square
+    :alt: Compatible Python versions.
+    :target: https://pypi.python.org/pypi/gmt-python
+.. image:: https://img.shields.io/gitter/room/GenericMappingTools/gmt-python.svg?style=flat-square
+    :alt: Chat room on Gitter
+    :target: https://gitter.im/GenericMappingTools/gmt-python
 
 
-.. code:: python
-
-    import gmt
-
-    # Load sample earthquake data in a pandas.DataFrame
-    quakes = gmt.datasets.load_usgs_quakes()
-
-    # Load the builtin Earth relief grid as an xarray.DataArray.
-    relief = gmt.datasets.load_earth_relief(resolution="30m")
-
-    # The Figure object controls all plotting functions
-    fig = gmt.Figure()
-    # Setup a map with a global region, a Mollweide projection, and automatic ticks
-    fig.basemap(region="g", projection="W200/8i", frame=True)
-    # Plot the Earth relief grid in pseudo-color.
-    fig.grdimage(relief, cmap="geo")
-    # Plot earthquakes as circles. Size maps to magnitude and color to depth.
-    fig.plot(x=quakes.longitude, y=quakes.latitude, sizes=0.01*2**quakes.mag,
-             color=quakes.depth/quakes.depth.max(), cmap="viridis", style="cc")
-    # Show a preview of the image (inline if in a Jupyter notebook).
-    fig.show()
-
-.. image:: .github/readme-example.png
+.. placeholder-for-doc-index
 
 
 Disclaimer
 ----------
 
-**This package in early stages of design and implementation.**
+🚨 **This package in early stages of design and implementation.** 🚨
+
+All functions/classes/interfaces are subject to change as we experiment with new design
+ideas and implement new features. **This is NOT a finished product.**
 
 We welcome any feedback and ideas!
 Let us know by submitting
@@ -57,16 +44,18 @@ Let us know by submitting
 or send us a message on our
 `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
 
+About
+-----
 
+GMT/Python is a library for processing geospatial and geophysical data and making
+publication quality maps and figures. It provides a Pythonic interface for the
+`Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
+command-line program widely used in the Earth Sciences.
 
-Getting started
----------------
-
-1. Try an online demo at `try.gmtpython.xyz <http://try.gmtpython.xyz>`__
-2. `Install <https://www.gmtpython.xyz/latest/install.html>`__ (Linux and Mac)
-3. Follow the `Tutorials <https://www.gmtpython.xyz/latest/tutorials>`__.
-4. Take a look at the `API <https://www.gmtpython.xyz/latest/api>`__ to see what is
-   available.
+We rely heavily on new features currently being implemented in GMT. In particular, a new
+*modern execution mode* that greatly simplifies figure creation. **These features are
+not available in the 5.4 version of GMT**. They will be part of the future 6.0 release
+of GMT predicted for early 2019.
 
 
 Project goals
@@ -153,4 +142,6 @@ License
 -------
 
 GMT/Python is free software: you can redistribute it and/or modify it under the terms of
-the **BSD 3-clause License**. A copy of this license is provided in ``LICENSE.txt``.
+the **BSD 3-clause License**. A copy of this license is provided in
+`LICENSE.txt <https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt>`__.
+.

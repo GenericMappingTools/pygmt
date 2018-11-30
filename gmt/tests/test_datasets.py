@@ -1,9 +1,9 @@
 """
 Test basic functionality for loading datasets.
 """
-import pytest
 import numpy as np
 import numpy.testing as npt
+import pytest
 
 from ..datasets import (
     load_japan_quakes,
