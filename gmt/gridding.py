@@ -73,5 +73,6 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
                 outfile = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="surface", args=arg_str)
-        result = xr.open_dataset(outfile)
+        with xr.open_dataset(outfile) as dataset:
+            result = dataset.load()
     return result
