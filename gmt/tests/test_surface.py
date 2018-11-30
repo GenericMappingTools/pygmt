@@ -3,8 +3,8 @@ Tests for surface
 """
 import os
 
-import pytest
 import xarray as xr
+import pytest
 
 from .. import surface
 from .. import which
