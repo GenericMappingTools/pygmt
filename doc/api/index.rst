@@ -48,6 +48,7 @@ Operations on tabular data:
     :toctree: generated
 
     info
+    surface
 
 Operations on grids:
 
