@@ -32,12 +32,12 @@ def test_sample_bathymetry():
     data = load_sample_bathymetry()
     assert data.shape == (82970, 3)
     summary = data.describe()
-    assert summary.loc["min", "x"] == 245.0
-    assert summary.loc["max", "x"] == 254.705
-    assert summary.loc["min", "y"] == 20.0
-    assert summary.loc["max", "y"] == 29.99131
-    assert summary.loc["min", "z"] == -7708.0
-    assert summary.loc["max", "z"] == -9.0
+    assert summary.loc["min", "longitude"] == 245.0
+    assert summary.loc["max", "longitude"] == 254.705
+    assert summary.loc["min", "latitude"] == 20.0
+    assert summary.loc["max", "latitude"] == 29.99131
+    assert summary.loc["min", "bathymetry"] == -7708.0
+    assert summary.loc["max", "bathymetry"] == -9.0
 
 
 def test_usgs_quakes():

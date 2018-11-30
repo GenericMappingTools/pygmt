@@ -21,7 +21,7 @@ def test_surface_input_file():
     Run surface by passing in a filename
     """
     fname = which("@tut_ship.xyz", download="c")
-    output = surface(data=fname, I="5m", R="245/255/20/30")
+    output = surface(data=fname, spacing="5m", region="245/255/20/30")
     assert isinstance(output, xr.Dataset)
     return output
 
@@ -32,7 +32,7 @@ def test_surface_input_data_array():
     """
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
-    output = surface(data=data, I="5m", R="245/255/20/30")
+    output = surface(data=data, spacing="5m", region="245/255/20/30")
     assert isinstance(output, xr.Dataset)
     return output
 
@@ -43,7 +43,11 @@ def test_surface_input_xyz():
     """
     ship_data = load_sample_bathymetry()
     output = surface(
-        x=ship_data.x, y=ship_data.y, z=ship_data.z, I="5m", R="245/255/20/30"
+        x=ship_data.longitude,
+        y=ship_data.latitude,
+        z=ship_data.bathymetry,
+        spacing="5m",
+        region="245/255/20/30",
     )
     assert isinstance(output, xr.Dataset)
     return output
@@ -55,7 +59,12 @@ def test_surface_input_xy_no_z():
     """
     ship_data = load_sample_bathymetry()
     with pytest.raises(GMTInvalidInput):
-        surface(x=ship_data.x, y=ship_data.y, I="5m", R="245/255/20/30")
+        surface(
+            x=ship_data.longitude,
+            y=ship_data.latitude,
+            spacing="5m",
+            region="245/255/20/30",
+        )
 
 
 def test_surface_wrong_kind_of_input():
@@ -63,10 +72,10 @@ def test_surface_wrong_kind_of_input():
     Run surface using grid input that is not file/matrix/vectors
     """
     ship_data = load_sample_bathymetry()
-    data = ship_data.z.to_xarray()  # convert pandas.Series to xarray.DataArray
+    data = ship_data.bathymetry.to_xarray()  # convert pandas.Series to xarray.DataArray
     assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
-        surface(data=data, I="5m", R="245/255/20/30")
+        surface(data=data, spacing="5m", region="245/255/20/30")
 
 
 def test_surface_g_outfile_param():
@@ -76,7 +85,7 @@ def test_surface_g_outfile_param():
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     try:
-        output = surface(data=data, I="5m", R="245/255/20/30", G=TEMP_GRID)
+        output = surface(data=data, spacing="5m", region="245/255/20/30", G=TEMP_GRID)
         assert os.path.exists(TEMP_GRID)
         grid = xr.open_dataset(TEMP_GRID)
         assert output == grid  # check that original output is same as that from file
@@ -85,12 +94,12 @@ def test_surface_g_outfile_param():
     return output
 
 
-def test_surface_aliases():
+def test_surface_short_aliases():
     """
-    Run surface using aliases spacing -I and region -R.
+    Run surface using short aliases -I for spacing and -R for region.
     """
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
-    output = surface(data=data, spacing="5m", region="245/255/20/30")
+    output = surface(data=data, I="5m", R="245/255/20/30")
     assert isinstance(output, xr.Dataset)
     return output

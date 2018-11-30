@@ -52,10 +52,12 @@ def load_sample_bathymetry():
     Returns
     -------
     data :  pandas.Dataframe
-        The data table. Columns are x, y, and z.
+        The data table. Columns are longitude, latitude, and bathymetry.
     """
     fname = which("@tut_ship.xyz", download="c")
-    data = pd.read_csv(fname, sep="\t", header=None, names=["x", "y", "z"])
+    data = pd.read_csv(
+        fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
+    )
     return data
 
 
