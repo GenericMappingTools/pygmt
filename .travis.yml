@@ -13,6 +13,7 @@ branches:
         - master
         # Regex to build tagged commits with version numbers
         - /\d+\.\d+(\.\d+)?(\S*)?$/
+        - /test-*/
 
 # Define environment variables common to all builds
 env:
@@ -62,6 +63,13 @@ matrix:
               - BUILD_DOCS=true
               - DEPLOY_DOCS=true
               - DEPLOY_PYPI=true
+        - name: "Linux - Python 3.6 - GMT master branch"
+          os: linux
+          env:
+              - PYTHON=3.6
+              - CONDA_INSTALL_EXTRA=""
+              - TEST=true
+              - BUILD_DOCS=true
         - name: "Mac - Python 3.7"
           os: osx
           env:
@@ -76,6 +84,10 @@ matrix:
               - BUILD_DOCS=true
 
 before_install:
+    # install GMT master branch
+    - if [ "$TRAVIS_JOB_NAME" == "Linux - Python 3.6 - GMT master branch" ]; then
+        bash ci/travis-build-gmt.sh;
+      fi
     # Get the Fatiando CI scripts
     - git clone https://github.com/fatiando/continuous-integration.git
     # Download and install miniconda and setup dependencies
