@@ -16,7 +16,7 @@ from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
-@use_alias(I="spacing", R="region")
+@use_alias(I="spacing", R="region", G="outfile")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
     """
     Grids table data using adjustable tension continuous curvature splines.
@@ -57,8 +57,11 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     Returns
     -------
-    array: xarray.DataArray
-        The output grid as a DataArray
+    ret: xarray.DataArray or None
+        Return type depends on whether the outfile (G) parameter is set:
+
+        - xarray.DataArray if outfile (G) is not set
+        - None if outfile (G) is set (grid output will be stored in outfile)
     """
     kind = data_kind(data, x, y, z)
     if kind == "vectors" and z is None:
@@ -75,11 +78,16 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
             with file_context as infile:
-                if "G" not in kwargs.keys():
+                if "G" not in kwargs.keys():  # if outfile is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})
                 outfile = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="surface", args=arg_str)
-        with xr.open_dataset(outfile) as dataset:
-            result = dataset.load()
+
+        if outfile == tmpfile.name:  # if user did not set outfile, return DataArray
+            with xr.open_dataset(outfile) as dataset:
+                result = dataset.load()
+        elif outfile != tmpfile.name:  # if user sets an outfile, return None
+            result = None
+
     return result
