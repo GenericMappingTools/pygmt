@@ -538,3 +538,33 @@ class BasePlotting:
         with Session() as lib:
             arg_str = " ".join([imagefile, build_arg_string(kwargs)])
             lib.call_module("image", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection")
+    @kwargs_to_strings(R="sequence")
+    def legend(self, specfile, **kwargs):
+        """
+        Plot legends on maps.
+
+        Makes legends that can be overlaid on maps. Reads specific legend-related information from an input file. Unless otherwise noted, annotations will be made using the primary annotation font and size in effect (i.e., FONT_ANNOT_PRIMARY).
+
+        {gmt_module_docs}
+
+        {aliases}
+
+        Parameters
+        ----------
+        {J}
+        {R}
+        D: str
+            ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
+            Defines the reference point on the map for the legend.
+        F : bool or str
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
+            Without further options, draws a rectangular border around the
+            legend using **MAP_FRAME_PEN**.
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            arg_str = " ".join([specfile, build_arg_string(kwargs)])
+            lib.call_module("legend", arg_str)
