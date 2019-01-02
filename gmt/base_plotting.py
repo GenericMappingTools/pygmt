@@ -11,7 +11,9 @@ from .helpers import (
     fmt_docstring,
     use_alias,
     kwargs_to_strings,
+    GMTTempFile,
 )
+import re
 
 
 class BasePlotting:
@@ -345,6 +347,8 @@ class BasePlotting:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("plot", arg_str)
 
+        return kwargs
+
     @fmt_docstring
     @use_alias(
         R="region",
@@ -542,9 +546,9 @@ class BasePlotting:
     @fmt_docstring
     @use_alias(R="region", J="projection")
     @kwargs_to_strings(R="sequence")
-    def legend(self, specfile, **kwargs):
+    def legend(self, spec, **kwargs):
         """
-        Plot legends on maps.
+        Plot legends on maps. [NEED TO UPDATE FOR HANDLES/LABELS FUNCTIONALITY]
 
         Makes legends that can be overlaid on maps. Reads specific legend-related information from an input file. Unless otherwise noted, annotations will be made using the primary annotation font and size in effect (i.e., FONT_ANNOT_PRIMARY).
 
@@ -566,5 +570,43 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
-            arg_str = " ".join([specfile, build_arg_string(kwargs)])
-            lib.call_module("legend", arg_str)
+            kind = data_kind(spec, None, None, None)
+            with GMTTempFile() as tmp:
+                if kind == "file":
+                    specfile = spec
+                elif kind == "matrix":
+                    specfile = tmp.name
+                    handles = spec[0]
+                    labels = spec[1]
+                    with open(specfile, "w") as file:
+                        for h, text in zip(handles, labels):
+
+                            # SYMBOL and SIZE
+                            symbol, size = re.findall("\d*\D+", h["S"])
+
+                            # FILL
+                            if "G" not in h.keys():
+                                fill = "-"
+                            else:
+                                fill = h["G"]
+
+                            # PEN
+                            if "W" not in h.keys():
+                                pen = "-"
+                            elif not h["W"]:
+                                pen = "default,black"
+                            else:
+                                pen = h["W"]
+
+                            # Write a line to the specfile
+                            file.write(
+                                "S - {} {} {} {} - {}\n".format(
+                                    symbol, size, fill, pen, text
+                                )
+                            )
+                else:
+                    raise GMTInvalidInput(
+                        "Unrecognized data type: {}".format(type(spec))
+                    )
+                arg_str = " ".join([specfile, build_arg_string(kwargs)])
+                lib.call_module("legend", arg_str)
