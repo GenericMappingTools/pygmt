@@ -33,7 +33,7 @@ GMT/Python
 Disclaimer
 ----------
 
-🚨 **This package in early stages of design and implementation.** 🚨
+🚨 **This package is in the early stages of design and implementation.** 🚨
 
 All functions/classes/interfaces are subject to change as we experiment with new design
 ideas and implement new features. **This is NOT a finished product.**
