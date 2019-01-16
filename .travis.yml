@@ -13,7 +13,6 @@ branches:
         - master
         # Regex to build tagged commits with version numbers
         - /\d+\.\d+(\.\d+)?(\S*)?$/
-        - /test-*/
 
 # Define environment variables common to all builds
 env:
