@@ -1,4 +1,3 @@
-gmt=6.0.0*
 numpy
 pandas
 xarray

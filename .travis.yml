@@ -26,7 +26,8 @@ env:
         # The file with the listed requirements to be installed by conda
         - CONDA_REQUIREMENTS=requirements.txt
         - CONDA_REQUIREMENTS_DEV=requirements-dev.txt
-        # Get GMT6 from the development channel
+        # Get GMT6 from conda-forge development channel
+        - CONDA_INSTALL_EXTRA="gmt=6.0.0*"
         - CONDA_EXTRA_CHANNEL=conda-forge/label/dev
         # These variables control which actions are performed in a build
         - TEST=false
