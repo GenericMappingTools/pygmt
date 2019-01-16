@@ -85,10 +85,9 @@ matrix:
 before_install:
     # install GMT master branch
     - if [ "$TRAVIS_JOB_NAME" == "Linux - Python 3.6 - GMT master branch" ]; then
-        bash ci/travis-build-gmt.sh;
-        which gmt;
-        gmt --show-bindir;
+        source ci/travis-build-gmt.sh;
         gmt --version;
+        gmt --show-bindir;
         gmt --show-library;
       fi
     # Get the Fatiando CI scripts
