@@ -111,7 +111,7 @@ matrix:
 
 before_install:
     # Build and install GMT from the master branch
-    - if [ "$TEST" == "true" ] || [ "$BUILD_DOCS" == "true" ]; then
+    - if [ "$TEST" == "true" ]; then
         bash helpers/build-gmt-master.sh;
       fi
     - cd "$TRAVIS_BUILD_DIR"
