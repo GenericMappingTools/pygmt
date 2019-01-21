@@ -117,12 +117,12 @@ matrix:
 before_install:
     # Build and install GMT from the master branch
     - if [ "$TEST" == "true" ] || [ "$BULD_DOCS" == "true" ]; then
-        mkdir "$INSTALLDIR" && \
-        mkdir "$COASTLINEDIR" && \
-        git clone --depth=1 --branch=master https://github.com/GenericMappingTools/gmt.git gmt-master && \
-        cd gmt-master && \
-        bash ci/download-coastlines.sh && \
-        bash TEST=false ci/build-gmt.sh && \
+        mkdir "$INSTALLDIR" &&
+        mkdir "$COASTLINEDIR" &&
+        git clone --depth=1 --branch=master https://github.com/GenericMappingTools/gmt.git gmt-master &&
+        cd gmt-master &&
+        bash ci/download-coastlines.sh &&
+        bash TEST=false ci/build-gmt.sh
       fi
     - cd "$TRAVIS_BUILD_DIR"
     # Get the Fatiando CI scripts
