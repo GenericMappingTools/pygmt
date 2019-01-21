@@ -6,6 +6,10 @@ language: generic
 # Use the container builds so we don't need sudo priviledges
 sudo: false
 
+cache:
+    directories:
+        - gmt/build
+
 # Only build pushes to the master branch and tags. This avoids the double
 # builds than happen when working on a branch instead of a fork.
 branches:
@@ -13,6 +17,39 @@ branches:
         - master
         # Regex to build tagged commits with version numbers
         - /\d+\.\d+(\.\d+)?(\S*)?$/
+
+# Set the Ubuntu version for the Linux builds
+dist: xenial
+
+# GMT dependencies for the Linux and OSX builds
+addons:
+    apt:
+        packages:
+            - cmake
+            - build-essential
+            - libcurl4-gnutls-dev
+            - libnetcdf-dev
+            - libgdal1-dev
+            - libfftw3-dev
+            - libpcre3-dev
+            - liblapack-dev
+            - ghostscript
+            - curl
+            - graphicsmagick
+            - python
+            - python-pip
+    homebrew:
+        packages:
+            - cmake
+            - curl
+            - netcdf
+            - gdal
+            - fftw
+            - pcre2
+            - ghostscript
+            - curl
+            - graphicsmagick
+            - python
 
 # Define environment variables common to all builds
 env:
@@ -23,12 +60,14 @@ env:
         # TWINE_PASSWORD to deploy to PyPI
         - secure: "md4fgPt9RC/sCoN5//5PcNHLUd9gWQGewV5hFpWW88MRTjxTng1Zfs8r7SqlF2AkEEepFfyzq0BEe9c3FMAnFbec3KmqdlQen4V8xDbLrcTlvkPlTrYGbAScUvdhhqojB//hMHoTD4KvxAv9CiUwFBO4hCMmj2buWHUbV9Ksu5WCW9mF/gkt/hIuYAU6Mbwt8PiYyMgUpzMHO1vruofcWRaVnvKwmBqHB0ae86D4/drpwn4CWjlM12WUnphT2bssiyPkw24FZtCN6kPVta6bLZKBxu0bZpw2vbXuUG+Yh19Q4mp8wNYT3XSHJf8Hl5LfujF48+cLWu+6rlCkdcelyVylhWLFc3rGOONAv4G8jWW2yNSz/bLQfJnMpd81fQEu5eySmFxB7mdB0uyKpvIG1jMJQ73LlYKakKLAPdYhMFyQAHoX9gvCE3S4QR95DBMi5gM/pZubOCcMLdjPHB5JKpJHSjxbOzyVwgmsUIEgd5Bi2vZvvYQXn1plk4xpQ3PhXc+/gi33bzY89mKcfOn0HJ2pD1vLqDXRCBsMCakoLZ0JB/6bacaz4FngbsGWuQ+I1cz20lJGL/MSi9bW1G7Uoidt3GXXWDmXrWt70vIXlLIxr8XV0Mu/rPbauGgWE+ZSYEfvdM5sP+FNF7vQ5de+Fkvzg5Z3tTfR+O1W+d7+vM4="
         - TWINE_USERNAME=Leonardo.Uieda
+        # Paths for GMT installation
+        - INSTALLDIR="$HOME/gmt-install-dir"
+        - COASTLINEDIR="$HOME/gmt-install-dir/coast"
+        - PATH="$INSTALLDIR/bin:$PATH"
+        - LD_LIBRARY_PATH="$INSTALLDIR/lib:$LD_LIBRARY_PATH"
         # The file with the listed requirements to be installed by conda
         - CONDA_REQUIREMENTS=requirements.txt
         - CONDA_REQUIREMENTS_DEV=requirements-dev.txt
-        # Get GMT6 from conda-forge development channel
-        - CONDA_INSTALL_EXTRA="gmt=6.0.0*"
-        - CONDA_EXTRA_CHANNEL=conda-forge/label/dev
         # These variables control which actions are performed in a build
         - TEST=false
         - CHECK=false
@@ -44,8 +83,7 @@ matrix:
           env:
               - PYTHON=3.6
               - CHECK=true
-              # Don't need to install everything just to run the style checks
-              - CONDA_INSTALL_EXTRA="black flake8 pylint"
+              - CONDA_INSTALL_EXTRA="black flake8 pylint=2.2.2"
               - CONDA_REQUIREMENTS=""
               - CONDA_REQUIREMENTS_DEV=""
         - name: "Linux - Python 3.7"
@@ -54,7 +92,7 @@ matrix:
               - PYTHON=3.7
               - TEST=true
               - BUILD_DOCS=true
-        - name: "Linux - Python 3.6 (also deploys)"
+        - name: "Linux - Python 3.6 (deploy)"
           os: linux
           env:
               - PYTHON=3.6
@@ -62,13 +100,7 @@ matrix:
               - BUILD_DOCS=true
               - DEPLOY_DOCS=true
               - DEPLOY_PYPI=true
-        - name: "Linux - Python 3.6 - GMT master branch"
-          os: linux
-          env:
-              - PYTHON=3.6
-              - CONDA_INSTALL_EXTRA=""
-              - TEST=true
-              - BUILD_DOCS=true
+              - CONDA_INSTALL_EXTRA="twine"
         - name: "Mac - Python 3.7"
           os: osx
           env:
@@ -83,13 +115,14 @@ matrix:
               - BUILD_DOCS=true
 
 before_install:
-    # install GMT master branch
-    - if [ "$TRAVIS_JOB_NAME" == "Linux - Python 3.6 - GMT master branch" ]; then
-        source ci/travis-build-gmt.sh;
-        gmt --version;
-        gmt --show-bindir;
-        gmt --show-library;
-      fi
+    # Build and install GMT from the master branch
+    - mkdir "$INSTALLDIR"
+    - mkdir "$COASTLINEDIR"
+    - git clone --depth=1 --branch=master https://github.com/GenericMappingTools/gmt.git
+    - cd gmt
+    - bash ci/download-coastlines.sh
+    - bash ci/build-gmt.sh
+    - cd "$TRAVIS_BUILD_DIR"
     # Get the Fatiando CI scripts
     - git clone https://github.com/fatiando/continuous-integration.git
     # Download and install miniconda and setup dependencies
