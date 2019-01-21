@@ -15,21 +15,6 @@ def test_basemap_required_args():
 
 
 @pytest.mark.mpl_image_compare
-def test_basemap_d():
-    "Make sure the D option works"
-    fig = Figure()
-    fig.basemap(R="10/70/-300/800", J="X3i/5i", B="af", D="30/35/-200/500", F=True)
-    return fig
-
-
-def test_basemap_d_raises():
-    "Make sure the D raises an error when F not given."
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.basemap(R="10/70/-300/800", J="X3i/5i", B="af", D="30/35/-200/500")
-
-
-@pytest.mark.mpl_image_compare
 def test_basemap():
     "Create a simple basemap plot"
     fig = Figure()

@@ -445,12 +445,6 @@ class BasePlotting:
         {J}
         {R}
         {B}
-        D : str
-            ``'[unit]xmin/xmax/ymin/ymax[r][+sfile][+t]'``
-            Draw a simple map insert box on the map. Requires *F*.
-        F : bool or str
-            Without further options, draws a rectangular border around any map
-            insert (*D*), map scale (*L*) or map rose (*T*).
         L : str
             ``'[g|j|J|n|x]refpoint'``
             Draws a simple map scale centered on the reference point specified.
@@ -466,8 +460,6 @@ class BasePlotting:
         kwargs = self._preprocess(**kwargs)
         if not ("B" in kwargs or "L" in kwargs or "T" in kwargs):
             raise GMTInvalidInput("At least one of B, L, or T must be specified.")
-        if "D" in kwargs and "F" not in kwargs:
-            raise GMTInvalidInput("Option D requires F to be specified as well.")
         with Session() as lib:
             lib.call_module("basemap", build_arg_string(kwargs))
 

@@ -13,7 +13,5 @@ sphinx
 sphinx_rtd_theme
 nbsphinx
 numpydoc
-twine
 # The following are installed for checking possible conflicts
 basemap
-
