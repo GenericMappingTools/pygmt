@@ -60,6 +60,11 @@ env:
         # TWINE_PASSWORD to deploy to PyPI
         - secure: "md4fgPt9RC/sCoN5//5PcNHLUd9gWQGewV5hFpWW88MRTjxTng1Zfs8r7SqlF2AkEEepFfyzq0BEe9c3FMAnFbec3KmqdlQen4V8xDbLrcTlvkPlTrYGbAScUvdhhqojB//hMHoTD4KvxAv9CiUwFBO4hCMmj2buWHUbV9Ksu5WCW9mF/gkt/hIuYAU6Mbwt8PiYyMgUpzMHO1vruofcWRaVnvKwmBqHB0ae86D4/drpwn4CWjlM12WUnphT2bssiyPkw24FZtCN6kPVta6bLZKBxu0bZpw2vbXuUG+Yh19Q4mp8wNYT3XSHJf8Hl5LfujF48+cLWu+6rlCkdcelyVylhWLFc3rGOONAv4G8jWW2yNSz/bLQfJnMpd81fQEu5eySmFxB7mdB0uyKpvIG1jMJQ73LlYKakKLAPdYhMFyQAHoX9gvCE3S4QR95DBMi5gM/pZubOCcMLdjPHB5JKpJHSjxbOzyVwgmsUIEgd5Bi2vZvvYQXn1plk4xpQ3PhXc+/gi33bzY89mKcfOn0HJ2pD1vLqDXRCBsMCakoLZ0JB/6bacaz4FngbsGWuQ+I1cz20lJGL/MSi9bW1G7Uoidt3GXXWDmXrWt70vIXlLIxr8XV0Mu/rPbauGgWE+ZSYEfvdM5sP+FNF7vQ5de+Fkvzg5Z3tTfR+O1W+d7+vM4="
         - TWINE_USERNAME=Leonardo.Uieda
+        # Paths for GMT installation
+        - INSTALLDIR="$HOME/gmt-install-dir"
+        - COASTLINEDIR="$INSTALLDIR/coast"
+        - PATH="$INSTALLDIR/bin:$PATH"
+        - LD_LIBRARY_PATH="$INSTALLDIR/lib:$LD_LIBRARY_PATH"
         # The file with the listed requirements to be installed by conda
         - CONDA_REQUIREMENTS=requirements.txt
         - CONDA_REQUIREMENTS_DEV=requirements-dev.txt
