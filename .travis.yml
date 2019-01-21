@@ -8,7 +8,7 @@ sudo: false
 
 cache:
     directories:
-        - gmt/build
+        - gmt-master/build
 
 # Only build pushes to the master branch and tags. This avoids the double
 # builds than happen when working on a branch instead of a fork.
@@ -116,12 +116,14 @@ matrix:
 
 before_install:
     # Build and install GMT from the master branch
-    - mkdir "$INSTALLDIR"
-    - mkdir "$COASTLINEDIR"
-    - git clone --depth=1 --branch=master https://github.com/GenericMappingTools/gmt.git
-    - cd gmt
-    - bash ci/download-coastlines.sh
-    - bash ci/build-gmt.sh
+    - if [ "$TEST" == "true" ] || [ "$BULD_DOCS" == "true" ]; then
+        mkdir "$INSTALLDIR" && \
+        mkdir "$COASTLINEDIR" && \
+        git clone --depth=1 --branch=master https://github.com/GenericMappingTools/gmt.git gmt-master && \
+        cd gmt-master && \
+        bash ci/download-coastlines.sh && \
+        bash TEST=false ci/build-gmt.sh && \
+      fi
     - cd "$TRAVIS_BUILD_DIR"
     # Get the Fatiando CI scripts
     - git clone https://github.com/fatiando/continuous-integration.git
