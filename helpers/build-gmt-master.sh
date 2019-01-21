@@ -5,7 +5,7 @@ set -e
 
 mkdir -p "$INSTALLDIR"
 mkdir -p "$COASTLINEDIR"
-git clone --depth=1 --branch=travis-build https://github.com/GenericMappingTools/gmt.git tmp
+git clone --depth=1 --branch=master https://github.com/GenericMappingTools/gmt.git tmp
 mkdir -p gmt-master
 cp -r tmp/* gmt-master
 rm -rf tmp
