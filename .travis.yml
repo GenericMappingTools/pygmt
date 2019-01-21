@@ -64,7 +64,8 @@ env:
         - INSTALLDIR="$HOME/gmt-install-dir"
         - COASTLINEDIR="$INSTALLDIR/coast"
         - PATH="$INSTALLDIR/bin:$PATH"
-        - LD_LIBRARY_PATH="$INSTALLDIR/lib64:$LD_LIBRARY_PATH"
+        - LD_LIBRARY_PATH="$INSTALLDIR/lib:$LD_LIBRARY_PATH"
+        - GMT_LIBRARY_PATH="$INSTALLDIR/lib"
         # The file with the listed requirements to be installed by conda
         - CONDA_REQUIREMENTS=requirements.txt
         - CONDA_REQUIREMENTS_DEV=requirements-dev.txt
