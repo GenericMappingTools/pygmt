@@ -48,6 +48,7 @@ Operations on tabular data:
     :toctree: generated
 
     info
+    surface
 
 Operations on grids:
 
@@ -80,6 +81,7 @@ and store them in the GMT cache folder.
 
     datasets.load_earth_relief
     datasets.load_usgs_quakes
+    datasets.load_sample_bathymetry
     datasets.load_japan_quakes
 
 

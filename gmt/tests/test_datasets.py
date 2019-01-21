@@ -5,7 +5,12 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 
-from ..datasets import load_japan_quakes, load_earth_relief, load_usgs_quakes
+from ..datasets import (
+    load_japan_quakes,
+    load_earth_relief,
+    load_sample_bathymetry,
+    load_usgs_quakes,
+)
 from ..exceptions import GMTInvalidInput
 
 
@@ -20,6 +25,19 @@ def test_japan_quakes():
     assert summary.loc["max", "month"] == 12
     assert summary.loc["min", "day"] == 1
     assert summary.loc["max", "day"] == 31
+
+
+def test_sample_bathymetry():
+    "Check that the @tut_ship.xyz dataset loads without errors"
+    data = load_sample_bathymetry()
+    assert data.shape == (82970, 3)
+    summary = data.describe()
+    assert summary.loc["min", "longitude"] == 245.0
+    assert summary.loc["max", "longitude"] == 254.705
+    assert summary.loc["min", "latitude"] == 20.0
+    assert summary.loc["max", "latitude"] == 29.99131
+    assert summary.loc["min", "bathymetry"] == -7708.0
+    assert summary.loc["max", "bathymetry"] == -9.0
 
 
 def test_usgs_quakes():

@@ -38,6 +38,29 @@ def load_japan_quakes():
     return data
 
 
+def load_sample_bathymetry():
+    """
+    Load a table of ship observations of bathymetry off Baja California as a
+    pandas.DataFrame.
+
+    This is the ``@tut_ship.xyz`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data :  pandas.Dataframe
+        The data table. Columns are longitude, latitude, and bathymetry.
+    """
+    fname = which("@tut_ship.xyz", download="c")
+    data = pd.read_csv(
+        fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
+    )
+    return data
+
+
 def load_usgs_quakes():
     """
     Load a table of global earthquakes form the USGS as a pandas.Dataframe.
