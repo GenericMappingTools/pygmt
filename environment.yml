@@ -1,11 +1,9 @@
 name: gmt-python
 channels:
     - conda-forge
-    - conda-forge/label/dev
 dependencies:
     - python=3.6
     - pip
-    - gmt=6.0.0*
     - numpy
     - pandas
     - xarray
@@ -25,4 +23,3 @@ dependencies:
     - sphinx_rtd_theme
     - nbsphinx
     - numpydoc
-    - twine
