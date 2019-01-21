@@ -11,6 +11,6 @@ cp -r tmp/* gmt-master
 rm -rf tmp
 cd gmt-master
 bash ci/download-coastlines.sh
-bash ci/build-gmt.sh
+TEST=false bash ci/build-gmt.sh
 
 set +e
