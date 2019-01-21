@@ -35,9 +35,6 @@ addons:
             - liblapack-dev
             - ghostscript
             - curl
-            - graphicsmagick
-            - python
-            - python-pip
     homebrew:
         packages:
             - cmake
@@ -48,8 +45,6 @@ addons:
             - pcre2
             - ghostscript
             - curl
-            - graphicsmagick
-            - python
 
 # Define environment variables common to all builds
 env:
