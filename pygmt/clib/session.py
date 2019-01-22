@@ -91,8 +91,8 @@ class Session:
     Examples
     --------
 
-    >>> from gmt.datasets import load_earth_relief
-    >>> from gmt.helpers import GMTTempFile
+    >>> from pygmt.datasets import load_earth_relief
+    >>> from pygmt.helpers import GMTTempFile
     >>> grid = load_earth_relief()
     >>> type(grid)
     <class 'xarray.core.dataarray.DataArray'>
@@ -923,7 +923,7 @@ class Session:
         Examples
         --------
 
-        >>> from gmt.helpers import GMTTempFile
+        >>> from pygmt.helpers import GMTTempFile
         >>> import os
         >>> import numpy as np
         >>> x = np.array([0, 1, 2, 3, 4])
@@ -1028,7 +1028,7 @@ class Session:
         Examples
         --------
 
-        >>> from gmt.helpers import GMTTempFile
+        >>> from pygmt.helpers import GMTTempFile
         >>> import numpy as np
         >>> import pandas as pd
         >>> x = [1, 2, 3]
@@ -1107,7 +1107,7 @@ class Session:
         Examples
         --------
 
-        >>> from gmt.helpers import GMTTempFile
+        >>> from pygmt.helpers import GMTTempFile
         >>> import numpy as np
         >>> data = np.arange(12).reshape((4, 3))
         >>> print(data)
@@ -1178,8 +1178,8 @@ class Session:
         Examples
         --------
 
-        >>> from gmt.datasets import load_earth_relief
-        >>> from gmt.helpers import GMTTempFile
+        >>> from pygmt.datasets import load_earth_relief
+        >>> from pygmt.helpers import GMTTempFile
         >>> data = load_earth_relief(resolution='60m')
         >>> print(data.shape)
         (181, 361)
@@ -1233,8 +1233,8 @@ class Session:
         Examples
         --------
 
-        >>> import gmt
-        >>> fig = gmt.Figure()
+        >>> import pygmt
+        >>> fig = pygmt.Figure()
         >>> fig.coast(region=[0, 10, -20, -10], projection="M6i", frame=True,
         ...           land='black')
         >>> with Session() as lib:
@@ -1245,7 +1245,7 @@ class Session:
         Using ISO country codes for the regions (for example ``'US.HI'`` for
         Hawaii):
 
-        >>> fig = gmt.Figure()
+        >>> fig = pygmt.Figure()
         >>> fig.coast(region='US.HI', projection="M6i", frame=True,
         ...           land='black')
         >>> with Session() as lib:
@@ -1257,7 +1257,7 @@ class Session:
         multiple of the argument (for example, ``'US.HI+r5'`` will round the
         region to multiples of 5):
 
-        >>> fig = gmt.Figure()
+        >>> fig = pygmt.Figure()
         >>> fig.coast(region='US.HI+r5', projection="M6i", frame=True,
         ...           land='black')
         >>> with Session() as lib:

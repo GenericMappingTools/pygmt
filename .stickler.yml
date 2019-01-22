@@ -9,4 +9,4 @@ linters:
     csslint:
         enable: false
 files:
-    ignore: ['versioneer.py', 'gmt/_version.py', 'doc/conf.py']
+    ignore: ['versioneer.py', 'pygmt/_version.py', 'doc/conf.py']

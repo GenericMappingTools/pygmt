@@ -1,1 +1,1 @@
-gmt/_version.py export-subst
+pygmt/_version.py export-subst

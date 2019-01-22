@@ -3,12 +3,12 @@
 API Reference
 =============
 
-.. currentmodule:: gmt
+.. currentmodule:: pygmt
 
 Plotting
 --------
 
-All plotting is handled through the :class:`gmt.Figure` class and its methods.
+All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
 .. autosummary::
     :toctree: generated
@@ -72,7 +72,7 @@ Miscellaneous
 Datasets
 --------
 
-GMT/Python provides access to GMT's datasets through the :mod:`gmt.datasets` package.
+GMT/Python provides access to GMT's datasets through the :mod:`pygmt.datasets` package.
 These functions will download the datasets automatically the first time they are used
 and store them in the GMT cache folder.
 
@@ -88,7 +88,7 @@ and store them in the GMT cache folder.
 Exceptions
 ----------
 
-All custom exceptions are derived from :class:`gmt.exceptions.GMTError`.
+All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
 
 .. autosummary::
     :toctree: generated
@@ -105,8 +105,8 @@ All custom exceptions are derived from :class:`gmt.exceptions.GMTError`.
 GMT C API
 ---------
 
-The :mod:`gmt.clib` package is a wrapper for the GMT C API built using :mod:`ctypes`.
-Most calls to the C API happen through the :class:`gmt.clib.Session` class.
+The :mod:`pygmt.clib` package is a wrapper for the GMT C API built using :mod:`ctypes`.
+Most calls to the C API happen through the :class:`pygmt.clib.Session` class.
 
 .. autosummary::
     :toctree: generated
@@ -114,7 +114,7 @@ Most calls to the C API happen through the :class:`gmt.clib.Session` class.
     clib.Session
 
 `GMT modules <http://gmt.soest.hawaii.edu/doc/latest/#man-pages>`__ are executed through
-the :meth:`~gmt.clib.Session.call_module` method:
+the :meth:`~pygmt.clib.Session.call_module` method:
 
 .. autosummary::
     :toctree: generated
@@ -134,7 +134,7 @@ variables to GMT virtual files:
     clib.Session.virtualfile_from_grid
 
 
-Low level access (these are mostly used by the :mod:`gmt.clib` package):
+Low level access (these are mostly used by the :mod:`pygmt.clib` package):
 
 .. autosummary::
     :toctree: generated

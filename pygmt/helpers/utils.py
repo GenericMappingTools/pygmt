@@ -53,19 +53,19 @@ def data_kind(data, x=None, y=None, z=None):
     >>> data_kind(data=None, x=None, y=None)
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTInvalidInput: No input data provided.
+    pygmt.exceptions.GMTInvalidInput: No input data provided.
     >>> data_kind(data='data.txt', x=np.array([1, 2]), y=np.array([4, 5]))
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTInvalidInput: Too much data. Use either data or x and y.
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x and y.
     >>> data_kind(data='data.txt', x=np.array([1, 2]), y=None)
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTInvalidInput: Too much data. Use either data or x and y.
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x and y.
     >>> data_kind(data=None, x=np.array([1, 2]), y=None)
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTInvalidInput: Must provided both x and y.
+    pygmt.exceptions.GMTInvalidInput: Must provided both x and y.
 
     """
     if data is None and x is None and y is None:
