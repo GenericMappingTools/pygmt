@@ -47,11 +47,11 @@ class Figure(BasePlotting):
     A GMT figure to handle all plotting.
 
     Use the plotting methods of this class to add elements to the figure.  You
-    can preview the figure using :meth:`gmt.Figure.show` and save the figure to
-    a file using :meth:`gmt.Figure.savefig`.
+    can preview the figure using :meth:`pygmt.Figure.show` and save the figure to
+    a file using :meth:`pygmt.Figure.savefig`.
 
     Unlike traditional GMT figures, no figure file is generated until you call
-    :meth:`gmt.Figure.savefig` or :meth:`gmt.Figure.psconvert`.
+    :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert`.
 
     Examples
     --------
@@ -95,10 +95,10 @@ class Figure(BasePlotting):
 
         Unlike the command-line version (``gmt figure``), this method does not
         trigger the generation of a figure file. An explicit call to
-        :meth:`gmt.Figure.savefig` or :meth:`gmt.Figure.psconvert` must be made
+        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert` must be made
         in order to get a file.
         """
-        # Passing format '-' tells gmt.end to not produce any files.
+        # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
             lib.call_module("figure", "{} {}".format(self._name, fmt))
@@ -130,7 +130,7 @@ class Figure(BasePlotting):
         PDF, PNG, PPM, SVG, TIFF) using GhostScript.
 
         If no input files are given, will convert the current active figure
-        (see :func:`gmt.figure`). In this case, an output name must be given
+        (see :func:`pygmt.figure`). In this case, an output name must be given
         using parameter *F*.
 
         {gmt_module_docs}

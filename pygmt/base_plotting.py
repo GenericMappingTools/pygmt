@@ -30,7 +30,7 @@ class BasePlotting:
         insert special arguments into the kwargs or make any actions that are
         required before ``call_module``.
 
-        For example, the :class:`gmt.Figure` needs this to tell the GMT modules
+        For example, the :class:`pygmt.Figure` needs this to tell the GMT modules
         to plot to a specific figure.
 
         This is a dummy method that does nothing.

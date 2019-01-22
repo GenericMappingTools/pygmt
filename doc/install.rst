@@ -17,7 +17,7 @@ Installing
 Which Python?
 -------------
 
-You'll need **Python 3.6 or greater** to run GMT/Python.
+You'll need **Python 3.6 or greater** to run PyGMT.
 
 We recommend using the `Anaconda <http://continuum.io/downloads#all>`__ Python
 distribution to ensure you have all dependencies installed and the ``conda``
@@ -31,17 +31,17 @@ Which GMT?
 
 You'll need the latest development version available from
 `the GitHub repository <https://github.com/GenericMappingTools/gmt>`__.
-GMT/Python is based on GMT 6, **which has not yet been officially released**.
+PyGMT is based on GMT 6, **which has not yet been officially released**.
 
 We need the very latest GMT since there are many changes being made to GMT itself in
-response to the development of GMT/Python, mainly the new
+response to the development of PyGMT, mainly the new
 `modern execution mode <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
 
 
 Dependencies
 ------------
 
-GMT/Python requires the following libraries:
+PyGMT requires the following libraries:
 
 * `numpy <http://www.numpy.org/>`__
 * `pandas <https://pandas.pydata.org/>`__
@@ -56,7 +56,7 @@ The following are optional (but recommended) dependencies:
 Installing GMT
 --------------
 
-Unfortunately, you'll have to build GMT from source in order to get GMT/Python working.
+Unfortunately, you'll have to build GMT from source in order to get PyGMT working.
 Please follow the instructions at http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT
 
 .. note::
@@ -67,11 +67,11 @@ Please follow the instructions at http://gmt.soest.hawaii.edu/projects/gmt/wiki/
    packages available again. Please bear with us.
 
 
-Installing GMT/Python
----------------------
+Installing PyGMT
+----------------
 
 Now that you have GMT installed and your conda environment activated,
-use ``pip`` to install the latest source of GMT/Python from Github::
+use ``pip`` to install the latest source of PyGMT from Github::
 
     pip install https://github.com/GenericMappingTools/pygmt/archive/master.zip
 
@@ -87,7 +87,7 @@ This will allow you to use the ``gmt`` library from Python.
 Testing your install
 --------------------
 
-GMT/Python ships with a full test suite.
+PyGMT ships with a full test suite.
 You can run our tests after you install it but you will need a few extra dependencies as
 well (be sure to have your conda env activated)::
 
@@ -95,22 +95,22 @@ well (be sure to have your conda env activated)::
 
 Test your installation by running the following inside a Python interpreter::
 
-    import gmt
-    gmt.test()
+    import pygmt
+    pygmt.test()
 
 
 Finding the GMT shared library
 ------------------------------
 
-Sometimes, GMT/Python will be unable to find the correct version of the GMT shared
+Sometimes, PyGMT will be unable to find the correct version of the GMT shared
 library.
 This can happen if you have multiple versions of GMT installed.
 
-You can tell GMT/Python exactly where to look for ``libgmt`` by setting the
+You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 ``GMT_LIBRARY_PATH`` environment variable.
 This should be set to the directory where ``libgmt.so`` (or ``.dylib``) is found.
 **Only use this as a last resort**.
-Setting the path in this way means that GMT/Python will not be able to easily find the
+Setting the path in this way means that PyGMT will not be able to easily find the
 correct ``libgmt`` when you're changing conda environments.
 
 If you installed GMT using conda and the instructions above, place the following in your
