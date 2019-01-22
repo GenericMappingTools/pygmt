@@ -1,8 +1,8 @@
 """
-The main API for GMT/Python.
+The main API for PyGMT.
 
-All of GMT/Python is operated on a "modern mode session" (new to GMT6). When you import
-the ``gmt`` library, a new session will be started automatically. The session will be
+All of PyGMT is operated on a "modern mode session" (new to GMT6). When you import
+the ``pygmt`` library, a new session will be started automatically. The session will be
 closed when the current Python process terminates. Thus, the Python API does not expose
 the ``gmt begin`` and ``gmt end`` commands.
 """
@@ -79,17 +79,19 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
 
     print_clib_info()
 
+    package = __name__
+
     args = []
     if verbose:
         args.append("-vv")
     if coverage:
-        args.append("--cov=gmt")
+        args.append("--cov={}".format(package))
         args.append("--cov-report=term-missing")
     if doctest:
         args.append("--doctest-modules")
     if figures:
         args.append("--mpl")
     args.append("--pyargs")
-    args.append("gmt")
+    args.append(package)
     status = pytest.main(args)
     assert status == 0, "Some tests have failed."

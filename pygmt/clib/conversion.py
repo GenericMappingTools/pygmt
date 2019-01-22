@@ -43,7 +43,7 @@ def dataarray_to_matrix(grid):
     Examples
     --------
 
-    >>> from gmt.datasets import load_earth_relief
+    >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing (60')
     >>> grid = load_earth_relief(resolution='60m')
     >>> matrix, region, inc = dataarray_to_matrix(grid)
@@ -263,7 +263,7 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
     >>> import ctypes as ct
     >>> value = kwargs_to_ctypes_array('bla', {'bla': [10, 10]}, ct.c_int*2)
     >>> type(value)
-    <class 'gmt.clib.conversion.c_int_Array_2'>
+    <class 'pygmt.clib.conversion.c_int_Array_2'>
     >>> should_be_none = kwargs_to_ctypes_array(
     ...     'swallow', {'bla': 1, 'foo': [20, 30]}, ct.c_int*2)
     >>> print(should_be_none)

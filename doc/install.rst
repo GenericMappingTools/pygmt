@@ -9,9 +9,9 @@ Installing
 
     We welcome any feedback and ideas!
     Let us know by submitting
-    `issues on Github <https://github.com/GenericMappingTools/gmt-python/issues>`__
+    `issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
     or send us a message on our
-    `Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
+    `Gitter chatroom <https://gitter.im/GenericMappingTools/pygmt>`__.
 
 
 Which Python?
@@ -73,12 +73,12 @@ Installing GMT/Python
 Now that you have GMT installed and your conda environment activated,
 use ``pip`` to install the latest source of GMT/Python from Github::
 
-    pip install https://github.com/GenericMappingTools/gmt-python/archive/master.zip
+    pip install https://github.com/GenericMappingTools/pygmt/archive/master.zip
 
 Alternatively, you can clone the git repository and install using ``pip``::
 
-    git clone https://github.com/GenericMappingTools/gmt-python.git
-    cd gmt-python
+    git clone https://github.com/GenericMappingTools/pygmt.git
+    cd pygmt
     pip install .
 
 This will allow you to use the ``gmt`` library from Python.
@@ -116,7 +116,7 @@ correct ``libgmt`` when you're changing conda environments.
 If you installed GMT using conda and the instructions above, place the following in your
 ``~/.bashrc`` file::
 
-    export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/gmt-python/lib
+    export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
 
 You should change ``$HOME/anaconda3`` to wherever you installed Anaconda (this is the
 default for Linux).

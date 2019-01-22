@@ -1,4 +1,4 @@
-name: gmt-python
+name: pygmt
 channels:
     - conda-forge
 dependencies:

@@ -13,16 +13,16 @@
 .. gmt-plot::
     :center:
 
-    import gmt
+    import pygmt
 
     # Load sample earthquake data in a pandas.DataFrame
-    quakes = gmt.datasets.load_usgs_quakes()
+    quakes = pygmt.datasets.load_usgs_quakes()
 
     # Load the builtin Earth relief grid as an xarray.DataArray.
-    relief = gmt.datasets.load_earth_relief(resolution="30m")
+    relief = pygmt.datasets.load_earth_relief(resolution="30m")
 
     # The Figure object controls all plotting functions
-    fig = gmt.Figure()
+    fig = pygmt.Figure()
     # Setup a map with a global region, a Mollweide projection, and automatic ticks
     fig.basemap(region="g", projection="W200/8i", frame=True)
     # Plot the Earth relief grid in pseudo-color.

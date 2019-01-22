@@ -72,12 +72,12 @@ def _is_valid_resolution(resolution):
     >>> _is_valid_resolution("5m")
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution '5m'.
+    pygmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution '5m'.
     >>> _is_valid_resolution("15s")
     >>> _is_valid_resolution("01s")
     Traceback (most recent call last):
         ...
-    gmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution '01s'.
+    pygmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution '01s'.
 
     """
     valid_resolutions = ["{:02d}m".format(res) for res in [60, 30, 10, 5, 2, 1]]
