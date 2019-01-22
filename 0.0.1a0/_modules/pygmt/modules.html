@@ -1,0 +1,383 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    
+        <title>pygmt.modules &mdash; PyGMT</title>
+    
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    
+    <script src="../../_static/require.js"></script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                0.0.1a0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot-data-points.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sphinxext.html">Sphinx Extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../pygmt.html">pygmt</a> &raquo;</li>
+        
+      <li>pygmt.modules</li>
+    
+    
+    <li class="source-link">
+        
+        
+    </li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pygmt.modules</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Non-plot GMT modules.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">.clib</span> <span class="k">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">GMTTempFile</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+    <span class="n">data_kind</span><span class="p">,</span>
+    <span class="n">dummy_context</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="k">import</span> <span class="n">GMTInvalidInput</span>
+
+
+<div class="viewcode-block" id="grdinfo"><a class="viewcode-back" href="../../api/generated/pygmt.grdinfo.html#pygmt.grdinfo">[docs]</a><span class="nd">@fmt_docstring</span>
+<span class="k">def</span> <span class="nf">grdinfo</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get information about a grid.</span>
+
+<span class="sd">    Can read the grid from a file or given as an xarray.DataArray grid.</span>
+
+<span class="sd">    {gmt_module_docs}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    grid : str or xarray.DataArray</span>
+<span class="sd">        The file name of the input grid or the grid loaded as a DataArray.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    info : str</span>
+<span class="sd">        A string with information about the grid.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+                <span class="n">file_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;grid&quot;</span><span class="p">:</span>
+                <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_grid</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Unrecognized data type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">grid</span><span class="p">)))</span>
+            <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+                <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">infile</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="s2">&quot;-&gt;&quot;</span> <span class="o">+</span> <span class="n">outfile</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;grdinfo&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">outfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="info"><a class="viewcode-back" href="../../api/generated/pygmt.info.html#pygmt.info">[docs]</a><span class="nd">@fmt_docstring</span>
+<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get information about data tables.</span>
+
+<span class="sd">    Reads from files and finds the extreme values in each of the columns.</span>
+<span class="sd">    It recognizes NaNs and will print warnings if the number of columns vary</span>
+<span class="sd">    from record to record. As an option, it will find the extent of the first</span>
+<span class="sd">    n columns rounded up and down to the nearest multiple of the supplied</span>
+<span class="sd">    increments. By default, this output will be in the form *-Rw/e/s/n*,</span>
+<span class="sd">    or the output will be in column form for as many columns as there are</span>
+<span class="sd">    increments provided. The *T* option will provide a *-Tzmin/zmax/dz* string</span>
+<span class="sd">    for makecpt.</span>
+
+<span class="sd">    {gmt_module_docs}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fname : str</span>
+<span class="sd">        The file name of the input data table file.</span>
+<span class="sd">    C : bool</span>
+<span class="sd">        Report the min/max values per column in separate columns.</span>
+<span class="sd">    I : str</span>
+<span class="sd">        ``&#39;[b|p|f|s]dx[/dy[/dz...]]&#39;``.</span>
+<span class="sd">        Report the min/max of the first n columns to the nearest multiple of</span>
+<span class="sd">        the provided increments and output results in the form *-Rw/e/s/n*</span>
+<span class="sd">        (unless *C* is set).</span>
+<span class="sd">    T : str</span>
+<span class="sd">        ``&#39;dz[+ccol]&#39;``</span>
+<span class="sd">        Report the min/max of the first (0&#39;th) column to the nearest multiple</span>
+<span class="sd">        of dz and output this as the string *-Tzmin/zmax/dz*.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&#39;info&#39; only accepts file names.&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
+        <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">fname</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="s2">&quot;-&gt;&quot;</span> <span class="o">+</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="which"><a class="viewcode-back" href="../../api/generated/pygmt.which.html#pygmt.which">[docs]</a><span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">&quot;download&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the full path to specified files.</span>
+
+<span class="sd">    Reports the full paths to the files given through *fname*. We look for</span>
+<span class="sd">    the file in (1) the current directory, (2) in $GMT_USERDIR (if defined),</span>
+<span class="sd">    (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR (if defined).</span>
+
+<span class="sd">    *fname* can also be a downloadable file (either a full URL, a</span>
+<span class="sd">    `@file` special file for downloading from the GMT Site Cache, or</span>
+<span class="sd">    `@earth_relief_*` topography grids). In these cases, use option *download*</span>
+<span class="sd">    to set the desired behavior. If *download* is not used (or False), the file</span>
+<span class="sd">    will not be found.</span>
+
+<span class="sd">    {gmt_module_docs}</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fname : str</span>
+<span class="sd">        The file name that you want to check.</span>
+<span class="sd">    G : bool or str</span>
+<span class="sd">        If the file is downloadable and not found, we will try to download the</span>
+<span class="sd">        it. Use True or &#39;l&#39; (default) to download to the current directory. Use</span>
+<span class="sd">        &#39;c&#39; to place in the user cache directory or &#39;u&#39; user data directory</span>
+<span class="sd">        instead.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        The path of the file, depending on the options used.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If the file is not found.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
+        <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">fname</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="s2">&quot;-&gt;&quot;</span> <span class="o">+</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;which&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;File &#39;</span><span class="si">{}</span><span class="s2">&#39; not found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">path</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
+      Last updated on Jan 22, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

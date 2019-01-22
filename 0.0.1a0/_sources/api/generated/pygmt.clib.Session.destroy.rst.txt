@@ -1,0 +1,10 @@
+pygmt.clib.Session.destroy
+==========================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.destroy
+
+.. raw:: html
+
+      <div style='clear:both'></div>

@@ -1,0 +1,389 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    
+        <title>pygmt.Figure &mdash; PyGMT</title>
+    
+
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.Figure.basemap" href="pygmt.Figure.basemap.html" />
+    <link rel="prev" title="API Reference" href="../index.html" />
+    
+    <script src="../../_static/require.js"></script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                0.0.1a0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot-data-points.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sphinxext.html">Sphinx Extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.Figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.basemap.html">pygmt.Figure.basemap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.savefig.html">pygmt.Figure.savefig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.show.html">pygmt.Figure.show</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.psconvert.html">pygmt.Figure.psconvert</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">API Reference</a> &raquo;</li>
+        
+      <li>pygmt.Figure</li>
+    
+    
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.Figure&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+        
+    </li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="pygmt-figure">
+<h1>pygmt.Figure<a class="headerlink" href="#pygmt-figure" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pygmt.Figure">
+<em class="property">class </em><code class="descclassname">pygmt.</code><code class="descname">Figure</code><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.Figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>A GMT figure to handle all plotting.</p>
+<p>Use the plotting methods of this class to add elements to the figure.  You
+can preview the figure using <code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.show</span></code> and save the figure to
+a file using <code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.savefig</span></code>.</p>
+<p>Unlike traditional GMT figures, no figure file is generated until you call
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.savefig</span></code> or <code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.psconvert</span></code>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;W7i&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;my-figure.png&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make sure the figure file is generated and clean it up</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;my-figure.png&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;my-figure.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The plot region can be specified through ISO country codes (for example,
+<code class="docutils literal notranslate"><span class="pre">'JP'</span></code> for Japan):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s1">&#39;JP&#39;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M3i&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The fig.region attribute shows the WESN bounding box for the figure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">region</span><span class="p">))</span>
+<span class="go">122.94, 145.82, 20.53, 45.52</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">region</span></code></dt>
+<dd><p class="first last">The geographic WESN bounding box for the current figure.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">basemap</span></code></a>(**kwargs)</td>
+<td>Produce a basemap for the figure.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coast</span></code></a>(**kwargs)</td>
+<td>Plot continents, shorelines, rivers, and borders on maps</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contour</span></code></a>([x,&nbsp;y,&nbsp;z,&nbsp;data])</td>
+<td>Contour table data by direct triangulation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour" title="pygmt.Figure.grdcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdcontour</span></code></a>(grid,&nbsp;**kwargs)</td>
+<td>Convert grids or images to contours and plot them on maps</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdimage</span></code></a>(grid,&nbsp;**kwargs)</td>
+<td>Project grids or images and plot them on maps.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">image</span></code></a>(imagefile,&nbsp;**kwargs)</td>
+<td>Place images or EPS files on maps.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logo</span></code></a>(**kwargs)</td>
+<td>Place the GMT graphics logo on a map.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>([x,&nbsp;y,&nbsp;data,&nbsp;sizes,&nbsp;direction])</td>
+<td>Plot lines, polygons, and symbols on maps.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">psconvert</span></code></a>(**kwargs)</td>
+<td>Convert [E]PS file(s) to other formats.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savefig</span></code></a>(fname[,&nbsp;transparent,&nbsp;crop,&nbsp;…])</td>
+<td>Save the figure to a file.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>([dpi,&nbsp;width,&nbsp;method,&nbsp;globe_center])</td>
+<td>Display a preview of the figure.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div style='clear:both'></div></div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pygmt.Figure.basemap.html" class="btn btn-neutral float-right" title="pygmt.Figure.basemap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
+      Last updated on Jan 22, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

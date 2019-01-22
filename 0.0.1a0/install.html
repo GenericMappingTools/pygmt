@@ -1,0 +1,388 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    
+        <title>Installing &mdash; PyGMT</title>
+    
+
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="First Steps with GMT/Python" href="tutorials/first-steps.html" />
+    <link rel="prev" title="Disclaimer" href="index.html" />
+    
+    <script src="_static/require.js"></script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+    <a href="index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                0.0.1a0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#which-python">Which Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#which-gmt">Which GMT?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-gmt">Installing GMT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-gmt-python">Installing GMT/Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-your-install">Testing your install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#finding-the-gmt-shared-library">Finding the GMT shared library</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/plot-data-points.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sphinxext.html">Sphinx Extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyGMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installing</li>
+    
+    
+    <li class="source-link">
+        
+            
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/master/doc/install.rst"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+        
+    </li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="installing">
+<span id="install"></span><h1>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>🚨 <strong>This package is in early stages of design and implementation.</strong> 🚨</p>
+<blockquote class="last">
+<div>We welcome any feedback and ideas!
+Let us know by submitting
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issues on Github</a>
+or send us a message on our
+<a class="reference external" href="https://gitter.im/GenericMappingTools/pygmt">Gitter chatroom</a>.</div></blockquote>
+</div>
+<div class="section" id="which-python">
+<h2>Which Python?<a class="headerlink" href="#which-python" title="Permalink to this headline">¶</a></h2>
+<p>You’ll need <strong>Python 3.6 or greater</strong> to run GMT/Python.</p>
+<p>We recommend using the <a class="reference external" href="http://continuum.io/downloads#all">Anaconda</a> Python
+distribution to ensure you have all dependencies installed and the <code class="docutils literal notranslate"><span class="pre">conda</span></code>
+package manager available.
+Installing Anaconda does not require administrative rights to your computer and
+doesn’t interfere with any other Python installations in your system.</p>
+</div>
+<div class="section" id="which-gmt">
+<h2>Which GMT?<a class="headerlink" href="#which-gmt" title="Permalink to this headline">¶</a></h2>
+<p>You’ll need the latest development version available from
+<a class="reference external" href="https://github.com/GenericMappingTools/gmt">the GitHub repository</a>.
+GMT/Python is based on GMT 6, <strong>which has not yet been officially released</strong>.</p>
+<p>We need the very latest GMT since there are many changes being made to GMT itself in
+response to the development of GMT/Python, mainly the new
+<a class="reference external" href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization">modern execution mode</a>.</p>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>GMT/Python requires the following libraries:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.numpy.org/">numpy</a></li>
+<li><a class="reference external" href="https://pandas.pydata.org/">pandas</a></li>
+<li><a class="reference external" href="http://xarray.pydata.org/">xarray</a></li>
+<li><a class="reference external" href="https://pypi.org/project/packaging/">packaging</a></li>
+</ul>
+<p>The following are optional (but recommended) dependencies:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://ipython.org/">IPython</a>: For embedding the figures in Jupyter notebooks.</li>
+</ul>
+</div>
+<div class="section" id="installing-gmt">
+<h2>Installing GMT<a class="headerlink" href="#installing-gmt" title="Permalink to this headline">¶</a></h2>
+<p>Unfortunately, you’ll have to build GMT from source in order to get GMT/Python working.
+Please follow the instructions at <a class="reference external" href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT">http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We used to maintain conda packages for the latest GMT. That caused many problems and
+was very difficult to maintain updated. We have opted to not do that anymore so that
+we can develop more quickly. Once GMT 6 is officially released, we’ll have conda
+packages available again. Please bear with us.</p>
+</div>
+</div>
+<div class="section" id="installing-gmt-python">
+<h2>Installing GMT/Python<a class="headerlink" href="#installing-gmt-python" title="Permalink to this headline">¶</a></h2>
+<p>Now that you have GMT installed and your conda environment activated,
+use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the latest source of GMT/Python from Github:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">GenericMappingTools</span><span class="o">/</span><span class="n">pygmt</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<p>Alternatively, you can clone the git repository and install using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">GenericMappingTools</span><span class="o">/</span><span class="n">pygmt</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">pygmt</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>This will allow you to use the <code class="docutils literal notranslate"><span class="pre">gmt</span></code> library from Python.</p>
+</div>
+<div class="section" id="testing-your-install">
+<h2>Testing your install<a class="headerlink" href="#testing-your-install" title="Permalink to this headline">¶</a></h2>
+<p>GMT/Python ships with a full test suite.
+You can run our tests after you install it but you will need a few extra dependencies as
+well (be sure to have your conda env activated):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pytest</span> <span class="n">pytest</span><span class="o">-</span><span class="n">mpl</span> <span class="n">sphinx</span> <span class="n">jinja2</span> <span class="n">docutils</span> <span class="n">ipython</span>
+</pre></div>
+</div>
+<p>Test your installation by running the following inside a Python interpreter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gmt</span>
+<span class="n">gmt</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="finding-the-gmt-shared-library">
+<h2>Finding the GMT shared library<a class="headerlink" href="#finding-the-gmt-shared-library" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, GMT/Python will be unable to find the correct version of the GMT shared
+library.
+This can happen if you have multiple versions of GMT installed.</p>
+<p>You can tell GMT/Python exactly where to look for <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> by setting the
+<code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> environment variable.
+This should be set to the directory where <code class="docutils literal notranslate"><span class="pre">libgmt.so</span></code> (or <code class="docutils literal notranslate"><span class="pre">.dylib</span></code>) is found.
+<strong>Only use this as a last resort</strong>.
+Setting the path in this way means that GMT/Python will not be able to easily find the
+correct <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> when you’re changing conda environments.</p>
+<p>If you installed GMT using conda and the instructions above, place the following in your
+<code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
+</pre></div>
+</div>
+<p>You should change <code class="docutils literal notranslate"><span class="pre">$HOME/anaconda3</span></code> to wherever you installed Anaconda (this is the
+default for Linux).</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorials/first-steps.html" class="btn btn-neutral float-right" title="First Steps with GMT/Python" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Disclaimer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
+      Last updated on Jan 22, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

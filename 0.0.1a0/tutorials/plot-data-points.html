@@ -1,0 +1,824 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    
+        <title>Plotting data points &mdash; PyGMT</title>
+    
+
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sphinx Extension" href="../sphinxext.html" />
+    <link rel="prev" title="First Steps with GMT/Python" href="first-steps.html" />
+    
+    <script src="../_static/require.js"></script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+    <a href="../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                0.0.1a0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first-steps.html">First Steps with GMT/Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting data points</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Cartesian-plots">Cartesian plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Plotting-directly-from-a-file">Plotting directly from a file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Making-maps-using-sample-data">Making maps using sample data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Interactive-map-previews">Interactive map previews</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sphinxext.html">Sphinx Extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyGMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Plotting data points</li>
+    
+    
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20tutorials/plot-data-points&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+        
+            <a href="https://github.com/GenericMappingTools/pygmt/raw/master/doc/tutorials/plot-data-points.ipynb"
+               class="fa fa-download"> Download notebook</a>
+        
+    </li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Plotting-data-points">
+<h1>Plotting data points<a class="headerlink" href="#Plotting-data-points" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial will show you how to plot data points with GMT/Python.</p>
+<p>Start by importing the <code class="docutils literal notranslate"><span class="pre">gmt</span></code> Python package:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">gmt</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-f88e611ef6c5&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> gmt
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;gmt&#39;
+</pre></div></div>
+</div>
+<div class="section" id="Cartesian-plots">
+<h2>Cartesian plots<a class="headerlink" href="#Cartesian-plots" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">gmt.Figure</span></code> class has a <code class="docutils literal notranslate"><span class="pre">plot</span></code> method for displaying points and lines. Let’s make a Cartesian x, y plot using some random data generated using numpy:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># See the random number generator so we always</span>
+<span class="c1"># get the same numbers</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">ndata</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">region</span> <span class="o">=</span> <span class="p">[</span><span class="mi">150</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">60</span><span class="p">]</span>
+<span class="c1"># Create some fake distribution of points and a measured value</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">region</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ndata</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">region</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">ndata</span><span class="p">)</span>
+<span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ndata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now we can plot the data using <code class="docutils literal notranslate"><span class="pre">Figure.plot</span></code> and the Cartesian projection <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="c1"># Create a 6x6 inch basemap using the data region</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;X6i&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Plot using triangles (i) of 0.3 cm</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;i0.3c&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-d4043c8b9633&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> gmt<span class="ansi-blue-fg">.</span>Figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-red-fg"># Create a 6x6 inch basemap using the data region</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> fig<span class="ansi-blue-fg">.</span>basemap<span class="ansi-blue-fg">(</span>region<span class="ansi-blue-fg">=</span>region<span class="ansi-blue-fg">,</span> projection<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;X6i&#39;</span><span class="ansi-blue-fg">,</span> frame<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg"># Plot using triangles (i) of 0.3 cm</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> fig<span class="ansi-blue-fg">.</span>plot<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span> y<span class="ansi-blue-fg">,</span> style<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;i0.3c&#39;</span><span class="ansi-blue-fg">,</span> color<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;black&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gmt&#39; is not defined
+</pre></div></div>
+</div>
+<p>We can make the size of the markers follow the fake “magnitude” values by passing in the argument <code class="docutils literal notranslate"><span class="pre">sizes</span></code> to <code class="docutils literal notranslate"><span class="pre">Figure.plot</span></code>. We’ll need to scale the magnitude so that it will reflect the size in centimeters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;X6i&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">sizes</span><span class="o">=</span><span class="n">magnitude</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Plotting-directly-from-a-file">
+<h2>Plotting directly from a file<a class="headerlink" href="#Plotting-directly-from-a-file" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes you’ll have data in a file that you just want to plot without having to load it into Python. You can use the <code class="docutils literal notranslate"><span class="pre">data</span></code> argument of <code class="docutils literal notranslate"><span class="pre">Figure.plot</span></code> to specify the file name instead <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. GMT will take care of loading your data and plotting.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Save our fake data to a file.</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;first-steps-data.txt&#39;</span><span class="p">,</span>
+           <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">magnitude</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">columns</span></code> argument controls which columns are used as x, y, color, and size, respectively. GMT allows some basic operations on the column values before plotting. For example, adding <code class="docutils literal notranslate"><span class="pre">sVALUE</span></code> to a column index will multiply it by that value before plotting.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;X6i&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;first-steps-data.txt&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;2s0.1&#39;</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-ea3f676c4da8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> gmt<span class="ansi-blue-fg">.</span>Figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> fig<span class="ansi-blue-fg">.</span>basemap<span class="ansi-blue-fg">(</span>region<span class="ansi-blue-fg">=</span>region<span class="ansi-blue-fg">,</span> projection<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;X6i&#39;</span><span class="ansi-blue-fg">,</span> frame<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> fig.plot(data=&#39;first-steps-data.txt&#39;, style=&#39;cc&#39;, color=&#39;red&#39;,
+<span class="ansi-green-intense-fg ansi-bold">      4</span>          columns=[0, 1, &#39;2s0.1&#39;])
+<span class="ansi-green-intense-fg ansi-bold">      5</span> fig<span class="ansi-blue-fg">.</span>show<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gmt&#39; is not defined
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Making-maps-using-sample-data">
+<h2>Making maps using sample data<a class="headerlink" href="#Making-maps-using-sample-data" title="Permalink to this headline">¶</a></h2>
+<p>GMT shines when plotting data on a map. We can use some <strong>sample data</strong> that is packaged with GMT to try this out. They can be accessed using special file names that begin with an <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol, for example <code class="docutils literal notranslate"><span class="pre">&#64;tut_quakes.ngdc</span></code>. You can supply these names as the <code class="docutils literal notranslate"><span class="pre">data</span></code> argument in <code class="docutils literal notranslate"><span class="pre">Figure.plot</span></code> and other plotting functions. If you don’t have the files already, they are automatically downloaded by GMT and saved to a cache directory (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/cache</span></code>).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">gmt.datasets</span></code> package allows easy access to these data files as Python data types. For example, we can access the sample dataset of tsunami generating earthquakes around Japan (<code class="docutils literal notranslate"><span class="pre">&#64;tut_quakes.ngdc</span></code>) as a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> using the <code class="docutils literal notranslate"><span class="pre">datasets.load_japan_quakes</span></code> function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">gmt.datasets</span> <span class="k">import</span> <span class="n">load_japan_quakes</span>
+
+<span class="n">quakes</span> <span class="o">=</span> <span class="n">load_japan_quakes</span><span class="p">()</span>
+<span class="n">quakes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-21f907046361&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> gmt<span class="ansi-blue-fg">.</span>datasets <span class="ansi-green-fg">import</span> load_japan_quakes
+<span class="ansi-green-intense-fg ansi-bold">      2</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> quakes <span class="ansi-blue-fg">=</span> load_japan_quakes<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> quakes<span class="ansi-blue-fg">.</span>head<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;gmt&#39;
+</pre></div></div>
+</div>
+<p>The functions returns to us the data in a <code class="docutils literal notranslate"><span class="pre">pandas.Dataframe</span></code> object that contains the date, hypocenter coordinates, and magnitude of the earthquakes.</p>
+<p>Let’s make a local Mercator map of the epicenter coordinates.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">quakes_region</span> <span class="o">=</span> <span class="p">[</span><span class="n">quakes</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">quakes</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                 <span class="n">quakes</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">quakes</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-d3b1c983c05e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> quakes_region = [quakes.longitude.min() - 1, quakes.longitude.max() + 1,
+</span><span class="ansi-green-intense-fg ansi-bold">      2</span>                  quakes.latitude.min() - 1, quakes.latitude.max() + 1]
+
+<span class="ansi-red-fg">NameError</span>: name &#39;quakes&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">quakes_region</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;M6i&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">land</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+         <span class="n">style</span><span class="o">=</span><span class="s1">&#39;c0.3c&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-9-99d93c593af7&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> gmt<span class="ansi-blue-fg">.</span>Figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> fig.coast(region=quakes_region, projection=&#39;M6i&#39;, frame=True,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>           land=&#39;black&#39;, water=&#39;skyblue&#39;)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> fig.plot(x=quakes.longitude, y=quakes.latitude,
+<span class="ansi-green-intense-fg ansi-bold">      5</span>          style=&#39;c0.3c&#39;, color=&#39;white&#39;, pen=&#39;black&#39;)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gmt&#39; is not defined
+</pre></div></div>
+</div>
+<p>As before, we can map the size of the markers to the earthquake magnitude. Because the magnitude is on a logarithmic scale, it helps to show the differences by scaling the values using a power law.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">quakes_region</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;M6i&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">land</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+         <span class="n">sizes</span><span class="o">=</span><span class="mf">0.02</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">quakes</span><span class="o">.</span><span class="n">magnitude</span><span class="p">),</span>
+         <span class="n">style</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-10-bbf4c1915d0e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> gmt<span class="ansi-blue-fg">.</span>Figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> fig.coast(region=quakes_region, projection=&#39;M6i&#39;, frame=True,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>           land=&#39;black&#39;, water=&#39;skyblue&#39;)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> fig.plot(x=quakes.longitude, y=quakes.latitude,
+<span class="ansi-green-intense-fg ansi-bold">      5</span>          sizes<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.02</span><span class="ansi-blue-fg">*</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">**</span>quakes<span class="ansi-blue-fg">.</span>magnitude<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gmt&#39; is not defined
+</pre></div></div>
+</div>
+<p>We can also map the colors of the markers to the depths by passing an array to the <code class="docutils literal notranslate"><span class="pre">color</span></code> argument and providing a colormap name (<code class="docutils literal notranslate"><span class="pre">cmap</span></code>). We can even use the new matplotlib colormap <code class="docutils literal notranslate"><span class="pre">&quot;viridis&quot;</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">quakes_region</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;M6i&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">land</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+         <span class="n">sizes</span><span class="o">=</span><span class="mf">0.02</span><span class="o">*</span><span class="mi">2</span><span class="o">**</span><span class="n">quakes</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+         <span class="n">color</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">depth_km</span><span class="o">/</span><span class="n">quakes</span><span class="o">.</span><span class="n">depth_km</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+         <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-11-8dc54c91df77&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> gmt<span class="ansi-blue-fg">.</span>Figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> fig.coast(region=quakes_region, projection=&#39;M6i&#39;, frame=True,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>           land=&#39;black&#39;, water=&#39;skyblue&#39;)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> fig.plot(x=quakes.longitude, y=quakes.latitude,
+<span class="ansi-green-intense-fg ansi-bold">      5</span>          sizes<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.02</span><span class="ansi-blue-fg">*</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">**</span>quakes<span class="ansi-blue-fg">.</span>magnitude<span class="ansi-blue-fg">,</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gmt&#39; is not defined
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Interactive-map-previews">
+<h2>Interactive map previews<a class="headerlink" href="#Interactive-map-previews" title="Permalink to this headline">¶</a></h2>
+<p>Let’s preview this map using the <strong>interactive globe</strong>. In this case, we don’t need the frame or color in the oceans. We must also use a <strong>Cartesian projection</strong> (X) and degrees (d) for plot units so that the figure can be aligned with the globe.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">quakes_region</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;X6id/6id&#39;</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+         <span class="n">sizes</span><span class="o">=</span><span class="mf">0.02</span><span class="o">*</span><span class="mi">2</span><span class="o">**</span><span class="n">quakes</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+         <span class="n">color</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">depth_km</span><span class="o">/</span><span class="n">quakes</span><span class="o">.</span><span class="n">depth_km</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+         <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;globe&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-12-d238138690f1&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> gmt<span class="ansi-blue-fg">.</span>Figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> fig<span class="ansi-blue-fg">.</span>coast<span class="ansi-blue-fg">(</span>region<span class="ansi-blue-fg">=</span>quakes_region<span class="ansi-blue-fg">,</span> projection<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;X6id/6id&#39;</span><span class="ansi-blue-fg">,</span> land<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;gray&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> fig.plot(x=quakes.longitude, y=quakes.latitude,
+<span class="ansi-green-intense-fg ansi-bold">      4</span>          sizes<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.02</span><span class="ansi-blue-fg">*</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">**</span>quakes<span class="ansi-blue-fg">.</span>magnitude<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>          color<span class="ansi-blue-fg">=</span>quakes<span class="ansi-blue-fg">.</span>depth_km<span class="ansi-blue-fg">/</span>quakes<span class="ansi-blue-fg">.</span>depth_km<span class="ansi-blue-fg">.</span>max<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gmt&#39; is not defined
+</pre></div></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../sphinxext.html" class="btn btn-neutral float-right" title="Sphinx Extension" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="first-steps.html" class="btn btn-neutral" title="First Steps with GMT/Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
+      Last updated on Jan 22, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
