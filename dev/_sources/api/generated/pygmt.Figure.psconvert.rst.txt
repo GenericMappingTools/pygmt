@@ -1,0 +1,10 @@
+pygmt.Figure.psconvert
+======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.psconvert
+
+.. raw:: html
+
+      <div style='clear:both'></div>

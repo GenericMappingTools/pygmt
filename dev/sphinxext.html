@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     
-        <title>Sphinx Extension &mdash; GMT/Python</title>
+        <title>Sphinx Extension &mdash; PyGMT</title>
     
 
 
@@ -55,7 +55,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search">
           
-    <a href="index.html"><h2 class="sidebar-title">GMT/Python</h2></a>
+    <a href="index.html"><h2 class="sidebar-title">PyGMT</h2></a>
 
     
         
@@ -114,15 +114,15 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
-                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/gmt-python"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
             
         </ul>
     
@@ -137,7 +137,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">GMT/Python</a>
+          <a href="index.html">PyGMT</a>
         
       </nav>
 
@@ -175,7 +175,7 @@
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/gmt-python/edit/master/doc/sphinxext.rst"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/master/doc/sphinxext.rst"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -222,15 +222,15 @@ will take execute the given code and insert the generated figure into the docume
 <p>For example, the following rst code:</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">gmt-plot</span><span class="p">::</span>
 
-    import gmt
-    fig = gmt.Figure()
+    import pygmt
+    fig = pygmt.Figure()
     fig.basemap(region=&quot;g&quot;, projection=&quot;W0/10i&quot;, frame=&quot;afg&quot;)
     fig.show()
 </pre></div>
 </div>
 <p>will be rendered into the following in the compiled HTML pages:</p>
-<div class="highlight-python notranslate" id="sphinxext-rst-gmt-source-0"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gmt</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<div class="highlight-python notranslate" id="sphinxext-rst-gmt-source-0"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W0/10i&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;afg&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1513,7 +1513,7 @@ zCfFAAAAAElFTkSuQmCC
             
         </div>
     
-</div><p>The <em>last statement</em> of the code-block should contain a call to <a class="reference internal" href="api/generated/gmt.Figure.show.html#gmt.Figure.show" title="gmt.Figure.show"><code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.show</span></code></a>.
+</div><p>The <em>last statement</em> of the code-block should contain a call to <a class="reference internal" href="api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.show</span></code></a>.
 Anything printed to STDOUT will be captured and included between the figure and the
 code. For example:</p>
 <div class="highlight-python notranslate" id="sphinxext-rst-gmt-source-1"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;The variables from the previous block are preserved.&quot;</span><span class="p">)</span>
@@ -4371,9 +4371,9 @@ RU5ErkJggg==
     
 </div><p>The HTML rich display features that work in Jupyter notebooks also work for the
 extension:</p>
-<div class="highlight-python notranslate" id="sphinxext-rst-gmt-source-2"><div class="highlight"><pre><span></span><span class="n">quakes</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_usgs_quakes</span><span class="p">()</span>
+<div class="highlight-python notranslate" id="sphinxext-rst-gmt-source-2"><div class="highlight"><pre><span></span><span class="n">quakes</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_usgs_quakes</span><span class="p">()</span>
 
-<span class="n">fig2</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig2</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="n">fig2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">quakes</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
           <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10id&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;c0.2c&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
 <span class="n">fig2</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;globe&quot;</span><span class="p">)</span>
@@ -4388,7 +4388,7 @@ extension:</p>
             
             
                 
-<canvas id="gmt-python-0gf5hmai" width="500" height="500">
+<canvas id="gmt-python-43ww1xrs" width="500" height="500">
     Your browser does not support HTML5 Canvas.
 </canvas>
 
@@ -4401,7 +4401,7 @@ extension:</p>
     require(['WorldWind'],
     function (WorldWind) {
 
-        var wwd = new WorldWind.WorldWindow("gmt-python-0gf5hmai");
+        var wwd = new WorldWind.WorldWindow("gmt-python-43ww1xrs");
 
         // Add an image source as layer
         var image = new Image()
@@ -4440,11 +4440,11 @@ extension:</p>
     
 </div><div class="section" id="installing">
 <h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
-<p>The extension comes with GMT/Python. All you have to do is enable it in your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>
+<p>The extension comes with PyGMT. All you have to do is enable it in your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>
 file:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
     <span class="o">...</span><span class="p">,</span>
-    <span class="s2">&quot;gmt.sphinxext.gmtplot&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pygmt.sphinxext.gmtplot&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -4483,7 +4483,7 @@ file:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2018, Leonardo Uieda and Paul Wessel
+        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
       Last updated on Jan 22, 2019.
 
     </p>

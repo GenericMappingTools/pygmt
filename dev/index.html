@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     
-        <title>GMT/Python</title>
+        <title>PyGMT</title>
     
 
 
@@ -54,7 +54,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search">
           
-    <a href="#"><h2 class="sidebar-title">GMT/Python</h2></a>
+    <a href="#"><h2 class="sidebar-title">PyGMT</h2></a>
 
     
         
@@ -109,15 +109,15 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
-                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/gmt-python"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
             
         </ul>
     
@@ -132,7 +132,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">GMT/Python</a>
+          <a href="#">PyGMT</a>
         
       </nav>
 
@@ -170,7 +170,7 @@
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/gmt-python/edit/master/doc/index.rst"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/master/doc/index.rst"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -210,21 +210,21 @@
 }
 </style>
 <div class="banner">
-    <h1>GMT/Python</h1>
+    <h1>PyGMT</h1>
     <h2>
         A Python interface for the
         <a href="http://gmt.soest.hawaii.edu/">Generic Mapping Tools</a>
     </h2>
-</div><div class="highlight-python notranslate" id="index-rst-gmt-source-0"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gmt</span>
+</div><div class="highlight-python notranslate" id="index-rst-gmt-source-0"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <span class="c1"># Load sample earthquake data in a pandas.DataFrame</span>
-<span class="n">quakes</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_usgs_quakes</span><span class="p">()</span>
+<span class="n">quakes</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_usgs_quakes</span><span class="p">()</span>
 
 <span class="c1"># Load the builtin Earth relief grid as an xarray.DataArray.</span>
-<span class="n">relief</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;30m&quot;</span><span class="p">)</span>
+<span class="n">relief</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;30m&quot;</span><span class="p">)</span>
 
 <span class="c1"># The Figure object controls all plotting functions</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">gmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="c1"># Setup a map with a global region, a Mollweide projection, and automatic ticks</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W200/8i&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1"># Plot the Earth relief grid in pseudo-color.</span>
@@ -12214,13 +12214,13 @@ YWk+egAAAABJRU5ErkJggg==
 ideas and implement new features. <strong>This is NOT a finished product.</strong></p>
 <p>We welcome any feedback and ideas!
 Let us know by submitting
-<a class="reference external" href="https://github.com/GenericMappingTools/gmt-python/issues">issues on Github</a>
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issues on Github</a>
 or send us a message on our
-<a class="reference external" href="https://gitter.im/GenericMappingTools/gmt-python">Gitter chatroom</a>.</p>
+<a class="reference external" href="https://gitter.im/GenericMappingTools/pygmt">Gitter chatroom</a>.</p>
 </div>
 <div class="section" id="about">
 <h1>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h1>
-<p>GMT/Python is a library for processing geospatial and geophysical data and making
+<p>PyGMT is a library for processing geospatial and geophysical data and making
 publication quality maps and figures. It provides a Pythonic interface for the
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt">Generic Mapping Tools (GMT)</a>, a
 command-line program widely used in the Earth Sciences.</p>
@@ -12243,11 +12243,11 @@ and xarray.DataArray for grids.</li>
 <div class="section" id="contacting-us">
 <h1>Contacting Us<a class="headerlink" href="#contacting-us" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>Most discussion happens <a class="reference external" href="https://github.com/GenericMappingTools/gmt-python">on Github</a>. Feel free to <a class="reference external" href="https://github.com/GenericMappingTools/gmt-python/issues/new">open an issue</a> or comment on any
+<li>Most discussion happens <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">on Github</a>. Feel free to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/new">open an issue</a> or comment on any
 open issue or pull request.</li>
-<li>We have a <a class="reference external" href="https://gitter.im/GenericMappingTools/gmt-python">chat room on Gitter</a>
+<li>We have a <a class="reference external" href="https://gitter.im/GenericMappingTools/pygmt">chat room on Gitter</a>
 where you can ask questions and leave comments.</li>
-<li>This project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
+<li>This project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
 By participating in this project you agree to abide by its terms.</li>
 </ul>
 </div>
@@ -12255,12 +12255,12 @@ By participating in this project you agree to abide by its terms.</li>
 <h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="code-of-conduct">
 <h2>Code of conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this headline">¶</a></h2>
-<p>Please note that this project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
+<p>Please note that this project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
 By participating in this project you agree to abide by its terms.</p>
 </div>
 <div class="section" id="contributing-guidelines">
 <h2>Contributing Guidelines<a class="headerlink" href="#contributing-guidelines" title="Permalink to this headline">¶</a></h2>
-<p>Please read our <a class="reference external" href="https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md">Contributing Guide</a> to
+<p>Please read our <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md">Contributing Guide</a> to
 see how you can help and give feedback.</p>
 </div>
 <div class="section" id="imposter-syndrome-disclaimer">
@@ -12298,9 +12298,10 @@ for GMT.</li>
 </div>
 <div class="section" id="license">
 <h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
-<p>GMT/Python is free software: you can redistribute it and/or modify it under the terms of
+<p>PyGMT is free software: you can redistribute it and/or modify it under the terms of
 the <strong>BSD 3-clause License</strong>. A copy of this license is provided in
-<a class="reference external" href="https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt">LICENSE.txt</a>.</p>
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt">LICENSE.txt</a>.
+.</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -12327,7 +12328,7 @@ the <strong>BSD 3-clause License</strong>. A copy of this license is provided in
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2018, Leonardo Uieda and Paul Wessel
+        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
       Last updated on Jan 22, 2019.
 
     </p>

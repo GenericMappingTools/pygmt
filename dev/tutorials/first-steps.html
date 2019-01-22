@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     
-        <title>First Steps with GMT/Python &mdash; GMT/Python</title>
+        <title>First Steps with GMT/Python &mdash; PyGMT</title>
     
 
 
@@ -55,7 +55,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search">
           
-    <a href="../index.html"><h2 class="sidebar-title">GMT/Python</h2></a>
+    <a href="../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
 
     
         
@@ -116,15 +116,15 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
-                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/gmt-python"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
             
         </ul>
     
@@ -139,7 +139,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">GMT/Python</a>
+          <a href="../index.html">PyGMT</a>
         
       </nav>
 
@@ -179,12 +179,12 @@
             
                 
                 
-                <a href="https://github.com/GenericMappingTools/gmt-python/issues/new?title=Suggested%20improvement%20for%20tutorials/first-steps&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20tutorials/first-steps&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
                    class="fa fa-github"> Improve this page</a>
             
         
         
-            <a href="https://github.com/GenericMappingTools/gmt-python/raw/master/doc/tutorials/first-steps.ipynb"
+            <a href="https://github.com/GenericMappingTools/pygmt/raw/master/doc/tutorials/first-steps.ipynb"
                class="fa fa-download"> Download notebook</a>
         
     </li>
@@ -425,7 +425,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Loading-the-library">
 <h2>Loading the library<a class="headerlink" href="#Loading-the-library" title="Permalink to this headline">¶</a></h2>
 <p>The GMT modules are available as functions and classes in the <code class="docutils literal notranslate"><span class="pre">gmt</span></code> Python package. So we’ll start by importing it:</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -434,12 +434,25 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-f88e611ef6c5&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> gmt
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;gmt&#39;
+</pre></div></div>
+</div>
 </div>
 <div class="section" id="Our-first-map">
 <h2>Our first map<a class="headerlink" href="#Our-first-map" title="Permalink to this headline">¶</a></h2>
 <p>All figure generation in GMT/Python is handled by the <code class="docutils literal notranslate"><span class="pre">gmt.Figure</span></code> class. It has methods to add layers to your figure, like a basemap, coastlines, and data.</p>
 <p>We start a new figure by creating an instance of <code class="docutils literal notranslate"><span class="pre">gmt.Figure</span></code>:</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
@@ -448,8 +461,21 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-17bdc6832b74&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> gmt<span class="ansi-blue-fg">.</span>Figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gmt&#39; is not defined
+</pre></div></div>
+</div>
 <p>We add elements to the figure using its methods. For example, lets add the coastlines of Central America to a 6 inch wide map using the Mercator projection (<code class="docutils literal notranslate"><span class="pre">M</span></code>). Our figure will also have a nice frame with automatic ticks.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
@@ -458,6 +484,20 @@ div.rendered_html tbody tr:hover {
           <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-cecfe0a22e49&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> fig.coast(region=[-90, -70, 0, 20], projection=&#39;M6i&#39;, land=&#39;chocolate&#39;,
+</span><span class="ansi-green-intense-fg ansi-bold">      2</span>           frame=True)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;fig&#39; is not defined
+</pre></div></div>
 </div>
 <p>You can see a preview of the figure directly in the <a class="reference external" href="http://jupyter.org">Jupyter notebook</a> using <code class="docutils literal notranslate"><span class="pre">fig.show()</span></code>.</p>
 <div class="nbinput docutils container">
@@ -470,12 +510,17 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<a class="reference internal image-reference" href="../_images/tutorials_first-steps_8_0.png"><img alt="../_images/tutorials_first-steps_8_0.png" src="../_images/tutorials_first-steps_8_0.png" style="width: 500px;" /></a>
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-6ebedab27258&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">.</span>show<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;fig&#39; is not defined
+</pre></div></div>
 </div>
 <p>To open a PDF preview of the figure using your default PDF viewer use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;external&#39;</span><span class="p">)</span>
@@ -507,12 +552,19 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<a class="reference internal image-reference" href="../_images/tutorials_first-steps_12_0.png"><img alt="../_images/tutorials_first-steps_12_0.png" src="../_images/tutorials_first-steps_12_0.png" style="width: 500px;" /></a>
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-f7265ca23a19&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig_alias <span class="ansi-blue-fg">=</span> gmt<span class="ansi-blue-fg">.</span>Figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> fig_alias<span class="ansi-blue-fg">.</span>coast<span class="ansi-blue-fg">(</span>R<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;-90/-70/0/20&#39;</span><span class="ansi-blue-fg">,</span> J<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;M6i&#39;</span><span class="ansi-blue-fg">,</span> G<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;gray&#39;</span><span class="ansi-blue-fg">,</span> S<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;blue&#34;</span><span class="ansi-blue-fg">,</span> B<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> fig_alias<span class="ansi-blue-fg">.</span>show<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gmt&#39; is not defined
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Saving-the-figure">
@@ -522,7 +574,7 @@ div.rendered_html tbody tr:hover {
 <div class="line">That means that <code class="docutils literal notranslate"><span class="pre">fig.show</span></code> won’t produce a figure file.</div>
 </div>
 <p>Use method <code class="docutils literal notranslate"><span class="pre">fig.savefig</span></code> (based on the <a class="reference external" href="https://matplotlib.org/">matplotlib</a> function) to save your figure:</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
@@ -530,6 +582,19 @@ div.rendered_html tbody tr:hover {
 <span></span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;first-steps-central-america.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-5b6cf59b6d73&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">.</span>savefig<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;first-steps-central-america.png&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;fig&#39; is not defined
+</pre></div></div>
 </div>
 <p>If you’re running a Python script, you can tell <code class="docutils literal notranslate"><span class="pre">fig.savefig</span></code> to open the figure in an external viewer:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;first-steps-central-america.png&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -558,7 +623,7 @@ div.rendered_html tbody tr:hover {
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2018, Leonardo Uieda and Paul Wessel
+        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
       Last updated on Jan 22, 2019.
 
     </p>
