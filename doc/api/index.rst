@@ -72,7 +72,7 @@ Miscellaneous
 Datasets
 --------
 
-GMT/Python provides access to GMT's datasets through the :mod:`pygmt.datasets` package.
+PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` package.
 These functions will download the datasets automatically the first time they are used
 and store them in the GMT cache folder.
 

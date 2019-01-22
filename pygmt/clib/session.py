@@ -280,7 +280,7 @@ class Session:
         """
         Create a new GMT C API session.
 
-        This is required before most other methods of :class:`gmt.clib.Session` can be
+        This is required before most other methods of :class:`pygmt.clib.Session` can be
         called.
 
         .. warning::
@@ -293,7 +293,7 @@ class Session:
         is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to
         this pointer.
 
-        Remember to terminate the current session using :meth:`gmt.clib.Session.destroy`
+        Remember to terminate the current session using :meth:`pygmt.clib.Session.destroy`
         before creating a new one.
 
         Parameters
@@ -607,7 +607,7 @@ class Session:
 
         The GMT C API takes certain defined constants, like ``'GMT_IS_GRID'``,
         that need to be validated and converted to integer values using
-        :meth:`gmt.clib.Session.__getitem__`.
+        :meth:`pygmt.clib.Session.__getitem__`.
 
         The constants can also take a modifier by appending another constant
         name, e.g. ``'GMT_IS_GRID|GMT_VIA_MATRIX'``. The two parts must be

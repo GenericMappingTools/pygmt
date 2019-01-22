@@ -5,12 +5,12 @@ example::
 
     .. gmt-plot::
 
-        import gmt
-        fig = gmt.Figure()
+        import pygmt
+        fig = pygmt.Figure()
         fig.coast(region="g", projection="W0/10i", land="gray")
         fig.show()
 
-The *last statement* of the code-block should contain a call to ``gmt.Figure.show``.
+The *last statement* of the code-block should contain a call to ``pygmt.Figure.show``.
 Anything printed to stdout will be captured and included between the figure and the
 code.
 

@@ -1,3 +1,3 @@
 """
-Sphinx extensions for GMT/Python.
+Sphinx extensions for PyGMT.
 """
