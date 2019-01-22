@@ -3,8 +3,7 @@ GMT/Python
 
     A Python interface for the Generic Mapping Tools
 
-`Documentation <https://www.gmtpython.xyz>`__ |
-`Online Demo <http://try.gmtpython.xyz>`__ |
+`Documentation (development version) <https://www.gmtpython.xyz>`__ |
 `Contact <https://gitter.im/GenericMappingTools/gmt-python>`__
 
 .. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
@@ -144,4 +143,3 @@ License
 GMT/Python is free software: you can redistribute it and/or modify it under the terms of
 the **BSD 3-clause License**. A copy of this license is provided in
 `LICENSE.txt <https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt>`__.
-.
