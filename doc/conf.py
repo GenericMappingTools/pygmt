@@ -7,7 +7,7 @@ import datetime
 import sphinx_rtd_theme
 import sphinx_gallery
 from sphinx_gallery.scrapers import figure_rst
-from sphinx_gallery.sorting import FileNameSortKey
+from sphinx_gallery.sorting import FileNameSortKey, ExplicitOrder
 import pygmt
 from pygmt import __version__, __commit__
 
@@ -23,8 +23,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "numpydoc",
     "nbsphinx",
-    "pygmt.sphinxext.gmtplot",
-    'sphinx_gallery.gen_gallery',
+    "sphinx_gallery.gen_gallery",
 ]
 
 nbsphinx_allow_errors = True
@@ -43,41 +42,42 @@ intersphinx_mapping = {
 }
 
 
-class PyGMTScraper():
-
+class PyGMTScraper:
     def __init__(self):
         self.seen = set()
 
     def __call__(self, block, block_vars, gallery_conf):
         image_names = list()
-        image_path_iterator = block_vars['image_path_iterator']
+        image_path_iterator = block_vars["image_path_iterator"]
         for fig_name in pygmt.get_figures():
             if fig_name not in self.seen:
-                self.seen |= set(fig_name)
+                self.seen.add(fig_name)
                 fname = image_path_iterator.next()
                 pygmt.get_figures()[fig_name].savefig(fname, transparent=True)
                 image_names.append(fname)
-        return figure_rst(image_names, gallery_conf['src_dir'])
+        return figure_rst(image_names, gallery_conf["src_dir"])
 
 
 sphinx_gallery_conf = {
     # path to your examples scripts
-    'examples_dirs': ['../examples'],
+    "examples_dirs": ["../examples"],
     # path where to save gallery generated examples
-    'gallery_dirs': ['gallery'],
-    'filename_pattern': r'\.py',
+    "gallery_dirs": ["gallery"],
+    "subsection_order": ExplicitOrder(["../examples/plot", "../examples/coast"]),
+    # Patter to search for example files
+    "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
-    'download_all_examples': False,
+    "download_all_examples": False,
     # Sort gallery example by file name instead of number of lines (default)
-    'within_subsection_order': FileNameSortKey,
+    "within_subsection_order": FileNameSortKey,
     # directory where function granular galleries are stored
-    'backreferences_dir': 'api/generated/backreferences',
+    "backreferences_dir": "api/generated/backreferences",
     # Modules for which function level galleries are created.  In
     # this case sphinx_gallery and numpy in a tuple of strings.
-    'doc_module': 'pygmt',
+    "doc_module": "pygmt",
     # Insert links to documentation of objects in the examples
-    'reference_url': {'pygmt': None},
-    'image_scrapers': (PyGMTScraper(),),
+    "reference_url": {"pygmt": None},
+    "image_scrapers": (PyGMTScraper(),),
 }
 
 # Sphinx project configuration
@@ -146,9 +146,10 @@ html_context = {
     # Custom variables to enable "Improve this page"" and "Download notebook"
     # links
     "doc_path": "doc",
-    'galleries': sphinx_gallery_conf['gallery_dirs'],
-    'gallery_dir': dict(zip(sphinx_gallery_conf['gallery_dirs'],
-                            sphinx_gallery_conf['examples_dirs'])),
+    "galleries": sphinx_gallery_conf["gallery_dirs"],
+    "gallery_dir": dict(
+        zip(sphinx_gallery_conf["gallery_dirs"], sphinx_gallery_conf["examples_dirs"])
+    ),
     "github_repo": "GenericMappingTools/pygmt",
     "github_version": "master",
 }
