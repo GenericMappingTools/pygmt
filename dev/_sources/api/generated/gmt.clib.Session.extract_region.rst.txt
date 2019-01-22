@@ -1,0 +1,10 @@
+gmt.clib.Session.extract\_region
+================================
+
+.. currentmodule:: gmt.clib
+
+.. automethod:: Session.extract_region
+
+.. raw:: html
+
+      <div style='clear:both'></div>

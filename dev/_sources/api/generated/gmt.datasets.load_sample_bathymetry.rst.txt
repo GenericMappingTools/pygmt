@@ -1,0 +1,11 @@
+gmt.datasets.load\_sample\_bathymetry
+=====================================
+
+.. currentmodule:: gmt.datasets
+
+.. autofunction:: load_sample_bathymetry
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

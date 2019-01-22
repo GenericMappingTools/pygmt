@@ -1,0 +1,10 @@
+gmt.Figure.coast
+================
+
+.. currentmodule:: gmt
+
+.. automethod:: Figure.coast
+
+.. raw:: html
+
+      <div style='clear:both'></div>

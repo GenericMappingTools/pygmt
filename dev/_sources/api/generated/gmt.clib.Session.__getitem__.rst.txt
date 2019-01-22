@@ -1,0 +1,10 @@
+gmt.clib.Session.\_\_getitem\_\_
+================================
+
+.. currentmodule:: gmt.clib
+
+.. automethod:: Session.__getitem__
+
+.. raw:: html
+
+      <div style='clear:both'></div>

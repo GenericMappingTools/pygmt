@@ -84,13 +84,19 @@
               
             
             
-              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/plot-data-points.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sphinxext.html">Sphinx Extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference documentation</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
 </ul>
 
             
@@ -98,15 +104,15 @@
 
     
         <p class="caption">
-            <span class="caption-text">External links</span>
+            <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="http://try.gmtpython.xyz"><i class="fa fa-book fa-fw"></i> Try it online!</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
                 <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/gmt-python"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
@@ -179,14 +185,10 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">The main API for GMT/Python.</span>
 
-<span class="sd">Functions and classes from ``gmt`` package offer access to GMT with input and</span>
-<span class="sd">output of Python data types.</span>
-<span class="sd">All plotting is handled through the :class:`gmt.Figure` class.</span>
-
-<span class="sd">All of GMT/Python is operated on a &quot;modern mode session&quot; (new to GMT6). When</span>
-<span class="sd">you import the ``gmt`` library, a new session will be started automatically.</span>
-<span class="sd">The session will be closed when the current Python process terminates. Thus,</span>
-<span class="sd">the Python API does not expose the ``gmt begin`` and ``gmt end`` commands.</span>
+<span class="sd">All of GMT/Python is operated on a &quot;modern mode session&quot; (new to GMT6). When you import</span>
+<span class="sd">the ``gmt`` library, a new session will be started automatically. The session will be</span>
+<span class="sd">closed when the current Python process terminates. Thus, the Python API does not expose</span>
+<span class="sd">the ``gmt begin`` and ``gmt end`` commands.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">atexit</span> <span class="k">as</span> <span class="nn">_atexit</span>
 
@@ -195,6 +197,7 @@
 <span class="c1"># Import modules to make the high-level GMT Python API</span>
 <span class="kn">from</span> <span class="nn">.session_management</span> <span class="k">import</span> <span class="n">begin</span> <span class="k">as</span> <span class="n">_begin</span><span class="p">,</span> <span class="n">end</span> <span class="k">as</span> <span class="n">_end</span>
 <span class="kn">from</span> <span class="nn">.figure</span> <span class="k">import</span> <span class="n">Figure</span>
+<span class="kn">from</span> <span class="nn">.gridding</span> <span class="k">import</span> <span class="n">surface</span>
 <span class="kn">from</span> <span class="nn">.modules</span> <span class="k">import</span> <span class="n">info</span><span class="p">,</span> <span class="n">grdinfo</span><span class="p">,</span> <span class="n">which</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">datasets</span>
 
@@ -209,30 +212,23 @@
 <span class="n">_atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_end</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="print_libgmt_info"><a class="viewcode-back" href="../api/gmt.print_libgmt_info.html#gmt.print_libgmt_info">[docs]</a><span class="k">def</span> <span class="nf">print_libgmt_info</span><span class="p">():</span>
+<div class="viewcode-block" id="print_clib_info"><a class="viewcode-back" href="../api/generated/gmt.print_clib_info.html#gmt.print_clib_info">[docs]</a><span class="k">def</span> <span class="nf">print_clib_info</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print information about the currently loaded GMT shared library.</span>
+<span class="sd">    Print information about the GMT shared library that we can find.</span>
 
-<span class="sd">    Includes the GMT version, default values for parameters, the path to the</span>
-<span class="sd">    ``libgmt`` shared library, and GMT directories.</span>
+<span class="sd">    Includes the GMT version, default values for parameters, the path to the ``libgmt``</span>
+<span class="sd">    shared library, and GMT directories.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">shutil</span>
-    <span class="kn">from</span> <span class="nn">.clib</span> <span class="k">import</span> <span class="n">LibGMT</span>
+    <span class="kn">from</span> <span class="nn">.clib</span> <span class="k">import</span> <span class="n">Session</span>
 
-    <span class="n">columns</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">get_terminal_size</span><span class="p">()</span><span class="o">.</span><span class="n">columns</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Currently loaded libgmt&quot;</span>
-    <span class="n">left</span> <span class="o">=</span> <span class="p">(</span><span class="n">columns</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-    <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="n">columns</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">left</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="n">header</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="n">left</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="n">right</span><span class="p">])</span>
-
-    <span class="k">with</span> <span class="n">LibGMT</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lib</span><span class="o">.</span><span class="n">info</span><span class="p">):</span>
-            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">lib</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Loaded libgmt:&quot;</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">ses</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ses</span><span class="o">.</span><span class="n">info</span><span class="p">):</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;  </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">ses</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="test"><a class="viewcode-back" href="../api/gmt.test.html#gmt.test">[docs]</a><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">doctest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figures</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="test"><a class="viewcode-back" href="../api/generated/gmt.test.html#gmt.test">[docs]</a><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">doctest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">coverage</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figures</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run the test suite.</span>
 
@@ -265,7 +261,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">pytest</span>
 
-    <span class="n">print_libgmt_info</span><span class="p">()</span>
+    <span class="n">print_clib_info</span><span class="p">()</span>
 
     <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
@@ -293,8 +289,8 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Leonardo Uieda and Paul Wessel.
-      Last updated on Jun 14, 2018.
+        &copy; Copyright 2017-2018, Leonardo Uieda and Paul Wessel
+      Last updated on Jan 22, 2019.
 
     </p>
   </div>
@@ -313,21 +309,14 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
 
   
 

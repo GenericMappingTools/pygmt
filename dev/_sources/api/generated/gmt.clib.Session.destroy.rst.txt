@@ -1,0 +1,10 @@
+gmt.clib.Session.destroy
+========================
+
+.. currentmodule:: gmt.clib
+
+.. automethod:: Session.destroy
+
+.. raw:: html
+
+      <div style='clear:both'></div>

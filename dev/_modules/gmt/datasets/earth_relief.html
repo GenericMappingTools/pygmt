@@ -84,13 +84,19 @@
               
             
             
-              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot-data-points.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sphinxext.html">Sphinx Extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference documentation</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
 </ul>
 
             
@@ -98,15 +104,15 @@
 
     
         <p class="caption">
-            <span class="caption-text">External links</span>
+            <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="http://try.gmtpython.xyz"><i class="fa fa-book fa-fw"></i> Try it online!</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
                 <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/gmt-python"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
@@ -179,7 +185,7 @@
             
   <h1>Source code for gmt.datasets.earth_relief</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Functions to download the Earth relief datasets from the GMT data sever.</span>
+<span class="sd">Functions to download the Earth relief datasets from the GMT data server.</span>
 <span class="sd">The grids are available in various resolutions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
@@ -188,7 +194,7 @@
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="n">GMTInvalidInput</span>
 
 
-<div class="viewcode-block" id="load_earth_relief"><a class="viewcode-back" href="../../../api/gmt.datasets.load_earth_relief.html#gmt.datasets.load_earth_relief">[docs]</a><span class="k">def</span> <span class="nf">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;60m&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="load_earth_relief"><a class="viewcode-back" href="../../../api/generated/gmt.datasets.load_earth_relief.html#gmt.datasets.load_earth_relief">[docs]</a><span class="k">def</span> <span class="nf">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;60m&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load Earth relief grids (topography and bathymetry) in various resolutions.</span>
 
@@ -197,31 +203,75 @@
 <span class="sd">    the cache. So you&#39;ll need an internet connection the first time around.</span>
 
 <span class="sd">    These grids can also be accessed by passing in the file name</span>
-<span class="sd">    ``&#39;@earth_relief_XXm&#39;`` to any grid plotting/processing function. Higher</span>
-<span class="sd">    resolution SRTM grids can be accessed by using the ``&#39;@earth_relief_XXs&#39;``</span>
-<span class="sd">    special file names but they cannot be loaded using this function.</span>
+<span class="sd">    ``&#39;@earth_relief_XXm&#39;`` or ``&#39;@earth_relief_XXs&#39;`` to any grid</span>
+<span class="sd">    plotting/processing function.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    resolution : str</span>
-<span class="sd">        The grid resolution. The prefix ``m`` stands for arc-minute. It can be</span>
-<span class="sd">        ``&#39;60m&#39;``, ``&#39;30m&#39;``, ``&#39;10m&#39;``, ``&#39;05m&#39;``, ``&#39;02m&#39;``, or ``&#39;01m&#39;``.</span>
+<span class="sd">        The grid resolution. The suffix ``m`` and ``s`` stand for arc-minute</span>
+<span class="sd">        and arc-second. It can be ``&#39;60m&#39;``, ``&#39;30m&#39;``, ``&#39;10m&#39;``, ``&#39;05m&#39;``,</span>
+<span class="sd">        ``&#39;02m&#39;``, ``&#39;01m&#39;``, ``&#39;30s&#39;`` or ``&#39;15s&#39;``.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    grid :  xarray.DataArray</span>
+<span class="sd">    grid : xarray.DataArray</span>
 <span class="sd">        The Earth relief grid. Coordinates are latitude and longitude in</span>
 <span class="sd">        degrees. Relief is in meters.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_is_valid_resolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@earth_relief_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resolution</span><span class="p">),</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+    <span class="c1"># Add some metadata to the grid</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;elevation&quot;</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;long_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;elevation relative to the geoid&quot;</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;meters&quot;</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;vertical_datum&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EMG96&quot;</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;horizontal_datum&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;WGS84&quot;</span>
+    <span class="c1"># Remove the actual range because it get&#39;s outdated when indexing the grid, which</span>
+    <span class="c1"># causes problems when exporting it to netCDF for usage on the command-line.</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;actual_range&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">coords</span><span class="p">:</span>
+        <span class="n">grid</span><span class="p">[</span><span class="n">coord</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;actual_range&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grid</span></div>
+
+
+<span class="k">def</span> <span class="nf">_is_valid_resolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if a resolution is valid for the global Earth relief grid.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    resolution : str</span>
+<span class="sd">        Same as the input for load_earth_relief</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    GMTInvalidInput</span>
+<span class="sd">        If given resolution is not valid.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; _is_valid_resolution(&quot;60m&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; _is_valid_resolution(&quot;5m&quot;)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">        ...</span>
+<span class="sd">    gmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution &#39;5m&#39;.</span>
+<span class="sd">    &gt;&gt;&gt; _is_valid_resolution(&quot;15s&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; _is_valid_resolution(&quot;01s&quot;)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">        ...</span>
+<span class="sd">    gmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution &#39;01s&#39;.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">valid_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">{:02d}</span><span class="s2">m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+    <span class="n">valid_resolutions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">{:02d}</span><span class="s2">s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">15</span><span class="p">]])</span>
     <span class="k">if</span> <span class="n">resolution</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_resolutions</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
             <span class="s2">&quot;Invalid Earth relief resolution &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resolution</span><span class="p">)</span>
         <span class="p">)</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@earth_relief_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resolution</span><span class="p">),</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;u&quot;</span><span class="p">)</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">grid</span></div>
 
 
 <span class="k">def</span> <span class="nf">_shape_from_resolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">):</span>
@@ -247,11 +297,20 @@
 <span class="sd">    (361, 721)</span>
 <span class="sd">    &gt;&gt;&gt; _shape_from_resolution(&#39;10m&#39;)</span>
 <span class="sd">    (1081, 2161)</span>
+<span class="sd">    &gt;&gt;&gt; _shape_from_resolution(&#39;30s&#39;)</span>
+<span class="sd">    (21601, 43201)</span>
+<span class="sd">    &gt;&gt;&gt; _shape_from_resolution(&#39;15s&#39;)</span>
+<span class="sd">    (43201, 86401)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">minutes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">resolution</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">nlat</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">//</span> <span class="n">minutes</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">nlon</span> <span class="o">=</span> <span class="mi">360</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">//</span> <span class="n">minutes</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">_is_valid_resolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">)</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="n">resolution</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span><span class="p">:</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">resolution</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mi">60</span>
+    <span class="k">elif</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;s&quot;</span><span class="p">:</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">resolution</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">nlat</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">//</span> <span class="n">seconds</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">nlon</span> <span class="o">=</span> <span class="mi">360</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">//</span> <span class="n">seconds</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">nlat</span><span class="p">,</span> <span class="n">nlon</span><span class="p">)</span>
 </pre></div>
 
@@ -265,8 +324,8 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Leonardo Uieda and Paul Wessel.
-      Last updated on Jun 14, 2018.
+        &copy; Copyright 2017-2018, Leonardo Uieda and Paul Wessel
+      Last updated on Jan 22, 2019.
 
     </p>
   </div>
@@ -285,21 +344,14 @@
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
 
   
 

@@ -1,0 +1,10 @@
+gmt.Figure.show
+===============
+
+.. currentmodule:: gmt
+
+.. automethod:: Figure.show
+
+.. raw:: html
+
+      <div style='clear:both'></div>

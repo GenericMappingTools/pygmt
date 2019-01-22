@@ -1,0 +1,10 @@
+gmt.clib.Session.put\_matrix
+============================
+
+.. currentmodule:: gmt.clib
+
+.. automethod:: Session.put_matrix
+
+.. raw:: html
+
+      <div style='clear:both'></div>

@@ -1,0 +1,10 @@
+gmt.clib.Session.get\_libgmt\_func
+==================================
+
+.. currentmodule:: gmt.clib
+
+.. automethod:: Session.get_libgmt_func
+
+.. raw:: html
+
+      <div style='clear:both'></div>

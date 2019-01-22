@@ -1,0 +1,10 @@
+gmt.Figure.basemap
+==================
+
+.. currentmodule:: gmt
+
+.. automethod:: Figure.basemap
+
+.. raw:: html
+
+      <div style='clear:both'></div>

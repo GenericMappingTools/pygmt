@@ -1,0 +1,10 @@
+gmt.clib.Session.put\_vector
+============================
+
+.. currentmodule:: gmt.clib
+
+.. automethod:: Session.put_vector
+
+.. raw:: html
+
+      <div style='clear:both'></div>

@@ -1,0 +1,10 @@
+gmt.Figure.psconvert
+====================
+
+.. currentmodule:: gmt
+
+.. automethod:: Figure.psconvert
+
+.. raw:: html
+
+      <div style='clear:both'></div>

@@ -1,0 +1,10 @@
+gmt.Figure.contour
+==================
+
+.. currentmodule:: gmt
+
+.. automethod:: Figure.contour
+
+.. raw:: html
+
+      <div style='clear:both'></div>

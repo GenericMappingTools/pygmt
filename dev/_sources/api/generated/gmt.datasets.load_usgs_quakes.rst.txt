@@ -1,0 +1,11 @@
+gmt.datasets.load\_usgs\_quakes
+===============================
+
+.. currentmodule:: gmt.datasets
+
+.. autofunction:: load_usgs_quakes
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

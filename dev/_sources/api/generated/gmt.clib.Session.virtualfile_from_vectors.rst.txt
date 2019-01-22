@@ -1,0 +1,10 @@
+gmt.clib.Session.virtualfile\_from\_vectors
+===========================================
+
+.. currentmodule:: gmt.clib
+
+.. automethod:: Session.virtualfile_from_vectors
+
+.. raw:: html
+
+      <div style='clear:both'></div>

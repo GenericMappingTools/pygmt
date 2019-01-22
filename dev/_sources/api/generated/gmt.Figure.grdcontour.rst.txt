@@ -1,0 +1,10 @@
+gmt.Figure.grdcontour
+=====================
+
+.. currentmodule:: gmt
+
+.. automethod:: Figure.grdcontour
+
+.. raw:: html
+
+      <div style='clear:both'></div>

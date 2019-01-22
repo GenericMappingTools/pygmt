@@ -1,0 +1,10 @@
+gmt.clib.Session
+================
+
+.. currentmodule:: gmt.clib
+
+.. autoclass:: Session
+
+.. raw:: html
+
+     <div style='clear:both'></div>

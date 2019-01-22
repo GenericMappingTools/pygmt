@@ -1,0 +1,11 @@
+gmt.print\_clib\_info
+=====================
+
+.. currentmodule:: gmt
+
+.. autofunction:: print_clib_info
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

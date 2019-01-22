@@ -1,0 +1,10 @@
+gmt.Figure.grdimage
+===================
+
+.. currentmodule:: gmt
+
+.. automethod:: Figure.grdimage
+
+.. raw:: html
+
+      <div style='clear:both'></div>

@@ -1,0 +1,10 @@
+gmt.clib.Session.\_\_exit\_\_
+=============================
+
+.. currentmodule:: gmt.clib
+
+.. automethod:: Session.__exit__
+
+.. raw:: html
+
+      <div style='clear:both'></div>

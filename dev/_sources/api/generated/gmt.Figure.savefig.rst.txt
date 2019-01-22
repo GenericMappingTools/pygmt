@@ -1,0 +1,10 @@
+gmt.Figure.savefig
+==================
+
+.. currentmodule:: gmt
+
+.. automethod:: Figure.savefig
+
+.. raw:: html
+
+      <div style='clear:both'></div>
