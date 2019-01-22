@@ -3,8 +3,7 @@ PyGMT
 
     A Python interface for the Generic Mapping Tools
 
-`Documentation <https://www.gmtpython.xyz>`__ |
-`Online Demo <http://try.gmtpython.xyz>`__ |
+`Documentation (development version) <https://www.gmtpython.xyz>`__ |
 `Contact <https://gitter.im/GenericMappingTools/pygmt>`__
 
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square

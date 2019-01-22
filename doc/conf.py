@@ -3,12 +3,8 @@ import sys
 import os
 import datetime
 import sphinx_rtd_theme
-
-# Sphinx needs to be able to import the package to use autodoc and get the
-# version number
-sys.path.append(os.path.pardir)
-
 from pygmt import __version__, __commit__
+
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -81,26 +77,25 @@ html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
 html_context = {
     "menu_links": [
-        ('<i class="fa fa-play fa-fw"></i> Try it online!', "http://try.gmtpython.xyz"),
-        (
-            '<i class="fa fa-github fa-fw"></i> Source Code',
-            "https://github.com/GenericMappingTools/pygmt",
-        ),
         (
             '<i class="fa fa-users fa-fw"></i> Contributing',
             "https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md",
         ),
         (
-            '<i class="fa fa-book fa-fw"></i> Code of Conduct',
+            '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
             "https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md",
         ),
         (
-            '<i class="fa fa-gavel fa-fw"></i> License',
+            '<i class="fa fa-book fa-fw"></i> License',
             "https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt",
         ),
         (
             '<i class="fa fa-comment fa-fw"></i> Contact',
             "https://gitter.im/GenericMappingTools/pygmt",
+        ),
+        (
+            '<i class="fa fa-github fa-fw"></i> Source Code',
+            "https://github.com/GenericMappingTools/pygmt",
         ),
     ],
     # Custom variables to enable "Improve this page"" and "Download notebook"
@@ -109,6 +104,7 @@ html_context = {
     "github_repo": "GenericMappingTools/pygmt",
     "github_version": "master",
 }
+
 
 # Load the custom CSS files (needs sphinx >= 1.6 for this to work)
 def setup(app):

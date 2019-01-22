@@ -3,7 +3,7 @@
 .. raw:: html
 
     <div class="banner">
-        <h1>GMT/Python</h1>
+        <h1>PyGMT</h1>
         <h2>
             A Python interface for the
             <a href="http://gmt.soest.hawaii.edu/">Generic Mapping Tools</a>
