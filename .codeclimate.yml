@@ -19,7 +19,7 @@ plugins:
     enabled: true
     config:
       test_patterns:
-        - "gmt/**/tests/*.py"
+        - "pygmt/**/tests/*.py"
     checks:
       python:S3776:
         enabled: false
@@ -30,7 +30,7 @@ plugins:
 
 exclude_paths:
 - "versioneer.py"
-- "gmt/_version.py"
+- "pygmt/_version.py"
 - "doc/**/*"
-- "gmt/tests/baseline/*"
-- "gmt/tests/data/*"
+- "pygmt/tests/baseline/*"
+- "pygmt/tests/data/*"

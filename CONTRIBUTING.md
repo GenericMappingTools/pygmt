@@ -246,9 +246,9 @@ Leave a comment in the PR and we'll help you out.
 We use the [pytest-mpl](https://github.com/matplotlib/pytest-mpl) plug-in to test plot
 generating code.
 Every time the tests are run, `pytest-mpl` compares the generated plots with known
-correct ones stored in `gmt/tests/baseline`.
-If your test created a `gmt.Figure` object, you can test it by adding a *decorator* and
-returning the `gmt.Figure` object:
+correct ones stored in `pygmt/tests/baseline`.
+If your test created a `pygmt.Figure` object, you can test it by adding a *decorator* and
+returning the `pygmt.Figure` object:
 
 ```python
 @pytest.mark.mpl_image_compare
@@ -260,7 +260,7 @@ def test_my_plotting_case():
     return fig
 ```
 
-Your test function **must** return the `gmt.Figure` object and you can only
+Your test function **must** return the `pygmt.Figure` object and you can only
 test one figure per function.
 
 Before you can run your test, you'll need to generate a *baseline* (a correct
@@ -268,13 +268,13 @@ version) of your plot.
 Run the following from the repository root:
 
 ```bash
-py.test --mpl-generate-path=baseline gmt/tests/NAME_OF_TEST_FILE.py
+py.test --mpl-generate-path=baseline pygmt/tests/NAME_OF_TEST_FILE.py
 ```
 
 This will create a `baseline` folder with all the plots generated in your test
 file.
 Visually inspect the one corresponding to your test function.
-If it's correct, copy it (and only it) to `gmt/tests/baseline`.
+If it's correct, copy it (and only it) to `pygmt/tests/baseline`.
 When you run `make test` the next time, your test should be executed and
 passing.
 
