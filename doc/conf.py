@@ -51,11 +51,11 @@ class PyGMTScraper():
     def __call__(self, block, block_vars, gallery_conf):
         image_names = list()
         image_path_iterator = block_vars['image_path_iterator']
-        for fig_name in gmt.get_figures():
+        for fig_name in pygmt.get_figures():
             if fig_name not in self.seen:
                 self.seen |= set(fig_name)
                 fname = image_path_iterator.next()
-                gmt.get_figures()[fig_name].savefig(fname, transparent=True)
+                pygmt.get_figures()[fig_name].savefig(fname, transparent=True)
                 image_names.append(fname)
         return figure_rst(image_names, gallery_conf['src_dir'])
 
@@ -74,7 +74,7 @@ sphinx_gallery_conf = {
     'backreferences_dir': 'api/generated/backreferences',
     # Modules for which function level galleries are created.  In
     # this case sphinx_gallery and numpy in a tuple of strings.
-    'doc_module': 'gmt',
+    'doc_module': 'pygmt',
     # Insert links to documentation of objects in the examples
     'reference_url': {'pygmt': None},
     'image_scrapers': (PyGMTScraper(),),

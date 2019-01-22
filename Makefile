@@ -18,6 +18,7 @@ help:
 	@echo ""
 
 install:
+	pip install --upgrade git+https://github.com/sphinx-gallery/sphinx-gallery.git
 	pip install --no-deps -e .
 
 test:
