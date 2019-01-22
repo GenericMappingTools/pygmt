@@ -5,7 +5,7 @@ example::
 
     .. gmt-plot::
 
-        import gmt
+        import pygmt
         fig = pygmt.Figure()
         fig.coast(region="g", projection="W0/10i", land="gray")
         fig.show()

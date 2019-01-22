@@ -95,7 +95,7 @@ well (be sure to have your conda env activated)::
 
 Test your installation by running the following inside a Python interpreter::
 
-    import gmt
+    import pygmt
     pygmt.test()
 
 
