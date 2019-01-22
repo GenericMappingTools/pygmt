@@ -68,7 +68,7 @@ Please follow the instructions at http://gmt.soest.hawaii.edu/projects/gmt/wiki/
 
 
 Installing PyGMT
----------------------
+----------------
 
 Now that you have GMT installed and your conda environment activated,
 use ``pip`` to install the latest source of PyGMT from Github::
