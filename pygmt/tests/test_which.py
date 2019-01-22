@@ -1,5 +1,5 @@
 """
-Tests for gmt.which
+Tests for pygmt.which
 """
 import os
 
