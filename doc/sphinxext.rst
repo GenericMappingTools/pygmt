@@ -3,7 +3,7 @@
 Sphinx Extension
 ================
 
-We provide a `Sphinx <http://www.sphinx-doc.org/>`__ extension for including GMT/Python
+We provide a `Sphinx <http://www.sphinx-doc.org/>`__ extension for including PyGMT
 figures in your documentation. The extension defines the ``gmt-plot`` directive that
 will take execute the given code and insert the generated figure into the document.
 
