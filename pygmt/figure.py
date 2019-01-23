@@ -284,6 +284,27 @@ class Figure(BasePlotting):
             img = Image(data=png, width=width)
         return img
 
+    def shift_origin(self, xshift=None, yshift=None):  # pylint: disable=no-self-use
+        """
+        Shift origins in x and/or y directions.
+
+        Parameters
+        ----------
+
+        xshift : str
+            Shift plot origin in x direction.
+        yshift : str
+            Shift plot origin in y direction.
+        """
+        args = ["-T"]
+        if xshift:
+            args.append("-X{}".format(xshift))
+        if yshift:
+            args.append("-Y{}".format(yshift))
+
+        with Session() as lib:
+            lib.call_module("plot", " ".join(args))
+
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
         Grab a preview of the figure.
