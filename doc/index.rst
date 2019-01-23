@@ -27,6 +27,9 @@
     :hidden:
     :caption: User Guide
 
+    tutorials/frames.rst
+    tutorials/coastlines.rst
+    tutorials/plot.rst
     plot-data-points.ipynb
 
 .. toctree::
