@@ -10,9 +10,8 @@ from ..exceptions import GMTInvalidInput
 
 
 def test_unique_name():
-    "Make sure the names start with gmt-python- and are really unique"
+    "Make sure the names are really unique"
     names = [unique_name() for i in range(100)]
-    assert all([name.startswith("gmt-python-") for name in names])
     assert len(names) == len(set(names))
 
 
