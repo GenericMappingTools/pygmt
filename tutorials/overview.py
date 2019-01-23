@@ -1,6 +1,6 @@
 """
-Overview
-========
+Making your first figure
+========================
 
 Welcome to PyGMT! Here we'll cover some of basic concepts, like creating simple figures
 and naming conventions.
@@ -29,7 +29,7 @@ fig = pygmt.Figure()
 # automatic frame and ticks around a given longitude and latitude bound, set the
 # projection to Mercator (``M``), and the figure width to 8 inches:
 
-fig.basemap(region=[-90, -70, 0, 20], projection='M8i', frame=True)
+fig.basemap(region=[-90, -70, 0, 20], projection="M8i", frame=True)
 
 ########################################################################################
 # Now we can add coastlines using :meth:`pygmt.Figure.coast` to this map using the
@@ -47,7 +47,7 @@ fig.show()
 # without calling :meth:`gmt.Figure.basemap`:
 
 fig = pygmt.Figure()
-fig.coast(shorelines=True, region=[-90, -70, 0, 20], projection='M8i', frame=True)
+fig.coast(shorelines=True, region=[-90, -70, 0, 20], projection="M8i", frame=True)
 fig.show()
 
 ########################################################################################
@@ -57,7 +57,7 @@ fig.show()
 # Use the method :meth:`pygmt.Figure.savefig` to save your figure to a file. The figure
 # format is inferred from the extension.
 
-fig.savefig('central-america-shorelines.png')
+fig.savefig("central-america-shorelines.png")
 
 ########################################################################################
 # Note for experienced GMT users

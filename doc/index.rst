@@ -18,8 +18,8 @@
     :hidden:
     :caption: Getting Started
 
-    tutorials/overview.rst
     install.rst
+    tutorials/overview.rst
     gallery/index.rst
 
 .. toctree::
@@ -30,7 +30,6 @@
     tutorials/frames.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
-    plot-data-points.ipynb
 
 .. toctree::
     :maxdepth: 2
