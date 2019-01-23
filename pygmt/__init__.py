@@ -1,11 +1,12 @@
-"""
-The main API for PyGMT.
+# pylint: disable=missing-docstring
+#
+# The main API for PyGMT.
+#
+# All of PyGMT is operated on a "modern mode session" (new to GMT6). When you import the
+# pygmt library, a new session will be started automatically. The session will be
+# closed when the current Python process terminates. Thus, the Python API does not
+# expose the `gmt begin` and `gmt end` commands.
 
-All of PyGMT is operated on a "modern mode session" (new to GMT6). When you import
-the ``pygmt`` library, a new session will be started automatically. The session will be
-closed when the current Python process terminates. Thus, the Python API does not expose
-the ``gmt begin`` and ``gmt end`` commands.
-"""
 import atexit as _atexit
 
 from ._version import get_versions as _get_versions

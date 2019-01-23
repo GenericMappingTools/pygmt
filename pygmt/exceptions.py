@@ -1,8 +1,7 @@
-"""
-Custom exception types used throughout the library.
-
-All exceptions derive from the :class:`~gmt.exceptions.GMTError` class.
-"""
+# pylint: disable=missing-docstring
+#
+# Custom exception types used throughout the library. All exceptions derive from
+# GMTError.
 
 
 class GMTError(Exception):
