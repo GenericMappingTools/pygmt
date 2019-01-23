@@ -9,7 +9,7 @@ except ImportError:
 from .figure import get_figures
 
 
-class PyGMTScraper:
+class PyGMTScraper:  # pylint: disable=too-few-public-methods
     """
     Capture ``pygmt.Figure`` objects and save them for sphinx-gallery.
 
