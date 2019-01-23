@@ -27,8 +27,8 @@ clean:
 	rm -rf modules
 	rm -rf api/generated
 	rm -rf gallery
+	rm -rf tutorials
 	rm -rf .ipynb_checkpoints
-	rm -rf tutorials/first-steps-*
 
 html: api
 	@echo

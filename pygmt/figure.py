@@ -23,9 +23,8 @@ from .helpers import (
     worldwind_show,
 )
 
-# A registry of all figures created in this session. Keys are figure names and values
-# are Figure objects.
-FIGURES = dict()
+# A registry of all figures that have had "show" called in this session.
+SHOWED_FIGURES = []
 
 
 def get_figures():
@@ -39,7 +38,7 @@ def get_figures():
         are the :class:`gmt.Figure` objects.
 
     """
-    return FIGURES
+    return SHOWED_FIGURES
 
 
 class Figure(BasePlotting):
@@ -80,7 +79,6 @@ class Figure(BasePlotting):
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=self._name + "-preview-")
         self._activate_figure()
-        FIGURES[self._name] = self
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews
@@ -282,6 +280,7 @@ class Figure(BasePlotting):
             Only if ``method != 'external'``.
 
         """
+        SHOWED_FIGURES.append(self)
         if method not in ["static", "external", "globe"]:
             raise GMTInvalidInput("Invalid show method '{}'.".format(method))
         if method == "globe":

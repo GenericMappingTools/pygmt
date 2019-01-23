@@ -17,10 +17,6 @@ class PyGMTScraper:
     ``"image_scrapers"`` argument.
     """
 
-    def __init__(self):
-        # Keep a set of figures that have already been saved
-        self.saved = set()
-
     def __call__(self, block, block_vars, gallery_conf):
         """
         Called by sphinx-gallery to save the figures generated after running code.
@@ -28,10 +24,9 @@ class PyGMTScraper:
         image_names = list()
         image_path_iterator = block_vars["image_path_iterator"]
         figures = get_figures()
-        for name in figures:
-            if name not in self.saved:
-                self.saved.add(name)
-                fname = image_path_iterator.next()
-                figures[name].savefig(fname, transparent=True)
-                image_names.append(fname)
+        while figures:
+            fname = image_path_iterator.next()
+            fig = figures.pop()
+            fig.savefig(fname, transparent=True)
+            image_names.append(fname)
         return figure_rst(image_names, gallery_conf["src_dir"])

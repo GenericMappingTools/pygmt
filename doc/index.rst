@@ -18,6 +18,7 @@
     :hidden:
     :caption: Getting Started
 
+    tutorials/overview.rst
     install.rst
     gallery/index.rst
 
@@ -26,8 +27,7 @@
     :hidden:
     :caption: User Guide
 
-    tutorials/first-steps.ipynb
-    tutorials/plot-data-points.ipynb
+    plot-data-points.ipynb
 
 .. toctree::
     :maxdepth: 2
