@@ -27,6 +27,6 @@ class PyGMTScraper:  # pylint: disable=too-few-public-methods
         while figures:
             fname = image_path_iterator.next()
             fig = figures.pop(0)
-            fig.savefig(fname, transparent=True)
+            fig.savefig(fname, transparent=True, dpi=200)
             image_names.append(fname)
         return figure_rst(image_names, gallery_conf["src_dir"])
