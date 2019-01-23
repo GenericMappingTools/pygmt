@@ -37,6 +37,8 @@ read it carefully.
 * [How Can I Talk to You?](#how-can-i-talk-to-you)
 * [Reporting a Bug](#reporting-a-bug)
 * [Editing the Documentation](#editing-the-documentation)
+  - [Gallery plots](#gallery-plots)
+  - [Tutorials](#tutorials)
 * [Contributing Code](#contributing-code)
   - [General guidelines](#general-guidelines)
   - [Setting up your environment](#setting-up-your-environment)
@@ -103,6 +105,35 @@ download and install anything:
 
 Alternatively, you can make the changes offline to the files in the `doc` folder or the
 example scripts. See [Contributing Code](#contributing-code) for instructions.
+
+The gallery and tutorials are managed by
+[sphinx-gallery](https://sphinx-gallery.readthedocs.io/)
+(currently, we need the development version from the Github master branch).
+
+### Gallery plots
+
+You can **add a new** plot by placing a new `.py` file in one of the folders inside the
+`examples` folder of the repository. See the other examples to get an idea for the
+format.
+
+General guidelines for making a good gallery plot:
+
+* Examples should highlight a single feature/command. Good: *how to add a label to
+  a colorbar*. Bad: *how to add a label to the colorbar and use two different CPTs and
+  use subplots*.
+* Try to make the example as simple as possible. Good: use only commands that are
+  required to show the feature you want to highlight. Bad: use advanced/complex Python
+  features to make the code smaller.
+* Use a sample dataset from `pygmt.datasets` if you need to plot data. If a suitable
+  dataset isn't available, open an issue requesting one and we'll work together to add
+  it.
+* Add comments to explain things are aren't obvious from reading the code. Good: *Use a
+  Mercator projection and make the plot 6 inches wide*. Bad: *Draw coastlines and plot
+  the data*.
+* Describe the feature that you're showcasing and link to other relevant parts of the
+  documentation
+
+### Tutorials
 
 
 ## Contributing Code
