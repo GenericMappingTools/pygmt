@@ -111,12 +111,12 @@ example scripts. See [Contributing Code](#contributing-code) for instructions.
 The gallery and tutorials are managed by
 [sphinx-gallery](https://sphinx-gallery.readthedocs.io/)
 (currently, we need the development version from the Github master branch).
-The source files for the gallery are `.py` scripts that generate one or more figures.
-They are executed automatically by sphinx-gallery when the documentation is built.
-The output is gathered and assembled into the gallery.
+The source files for the example gallery are `.py` scripts in `examples/gallery/` that
+generate one or more figures. They are executed automatically by sphinx-gallery when the
+documentation is built. The output is gathered and assembled into the gallery.
 
 You can **add a new** plot by placing a new `.py` file in one of the folders inside the
-`examples` folder of the repository. See the other examples to get an idea for the
+`examples/gallery` folder of the repository. See the other examples to get an idea for the
 format.
 
 General guidelines for making a good gallery plot:
@@ -139,9 +139,9 @@ General guidelines for making a good gallery plot:
 ### Tutorials
 
 The tutorials (the User Guide in the docs) are also built by sphinx-gallery from the
-`.py` files in the `tutorials` folder of the repository. To add a new tutorial:
+`.py` files in the `examples/tutorials` folder of the repository. To add a new tutorial:
 
-* Include a `.py` file in the `tutorials` folder on the base of the repository.
+* Include a `.py` file in the `examples/tutorials` folder on the base of the repository.
 * Write the tutorial in "notebook" style with code mixed with paragraphs explaining what
   is being done. See the other tutorials for the format.
 * Include the tutorial in the table of contents of the documentation (side bar). Do this

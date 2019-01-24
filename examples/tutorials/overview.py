@@ -56,10 +56,11 @@ fig.show()
 #
 # Use the method :meth:`pygmt.Figure.savefig` to save your figure to a file. The figure
 # format is inferred from the extension.
-
-fig.savefig("central-america-shorelines.png")
-
-########################################################################################
+#
+# .. code:: python
+#
+#     fig.savefig("central-america-shorelines.png")
+#
 # Note for experienced GMT users
 # ------------------------------
 #

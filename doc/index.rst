@@ -28,6 +28,7 @@
     :caption: User Guide
 
     tutorials/frames.rst
+    projections/index.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
 

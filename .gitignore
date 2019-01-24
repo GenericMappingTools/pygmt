@@ -16,6 +16,7 @@ doc/_build
 doc/modules
 doc/gallery
 doc/tutorials
+doc/projections
 doc/api/gmt*.rst
 doc/api/generated
 doc/first-steps-*

@@ -40,10 +40,16 @@ intersphinx_mapping = {
 
 sphinx_gallery_conf = {
     # path to your examples scripts
-    "examples_dirs": ["../examples", "../tutorials"],
+    "examples_dirs": [
+        "../examples/gallery",
+        "../examples/tutorials",
+        "../examples/projections",
+    ],
     # path where to save gallery generated examples
-    "gallery_dirs": ["gallery", "tutorials"],
-    "subsection_order": ExplicitOrder(["../examples/plot", "../examples/coast"]),
+    "gallery_dirs": ["gallery", "tutorials", "projections"],
+    "subsection_order": ExplicitOrder(
+        ["../examples/gallery/coast", "../examples/gallery/plot"]
+    ),
     # Patter to search for example files
     "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery

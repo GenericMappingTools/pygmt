@@ -28,6 +28,7 @@ clean:
 	rm -rf api/generated
 	rm -rf gallery
 	rm -rf tutorials
+	rm -rf projections
 	rm -rf .ipynb_checkpoints
 
 html: api
