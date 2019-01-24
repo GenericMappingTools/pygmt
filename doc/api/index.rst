@@ -3,6 +3,8 @@
 API Reference
 =============
 
+.. automodule:: pygmt
+
 .. currentmodule:: pygmt
 
 Plotting
@@ -69,6 +71,10 @@ Miscellaneous
     print_clib_info
 
 
+.. automodule:: pygmt.datasets
+
+.. currentmodule:: pygmt
+
 Datasets
 --------
 
@@ -84,6 +90,10 @@ and store them in the GMT cache folder.
     datasets.load_sample_bathymetry
     datasets.load_japan_quakes
 
+
+.. automodule:: pygmt.exceptions
+
+.. currentmodule:: pygmt
 
 Exceptions
 ----------
@@ -101,6 +111,10 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
 
+
+.. automodule:: pygmt.clib
+
+.. currentmodule:: pygmt
 
 GMT C API
 ---------

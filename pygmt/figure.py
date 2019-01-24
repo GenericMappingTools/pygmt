@@ -23,6 +23,11 @@ from .helpers import (
 )
 
 
+# A registry of all figures that have had "show" called in this session.
+# This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
+SHOWED_FIGURES = []
+
+
 class Figure(BasePlotting):
     """
     A GMT figure to handle all plotting.
@@ -252,6 +257,10 @@ class Figure(BasePlotting):
             Only if ``method != 'external'``.
 
         """
+        # Module level variable to know which figures had their show method called.
+        # Needed for the sphinx-gallery scraper.
+        SHOWED_FIGURES.append(self)
+
         if method not in ["static", "external"]:
             raise GMTInvalidInput("Invalid show method '{}'.".format(method))
         if method == "external":

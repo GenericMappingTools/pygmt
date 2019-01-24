@@ -1,3 +1,0 @@
-"""
-Sphinx extensions for PyGMT.
-"""
