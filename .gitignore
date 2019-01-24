@@ -3,15 +3,15 @@
 *.so
 *.pyd
 .*.swp
+*.egg-info
 .coverage
 .cache
-*.egg-info
 .env
+MANIFEST
 .pytest_cache/
 .ipynb_checkpoints/
 build/
 dist/
-MANIFEST
 doc/_build
 doc/modules
 doc/gallery
@@ -19,5 +19,3 @@ doc/tutorials
 doc/projections
 doc/api/gmt*.rst
 doc/api/generated
-doc/first-steps-*
-doc/gmt-python-*
