@@ -170,7 +170,7 @@ class Session:
             Will destroy the session before raising the exception.
 
         """
-        self.create("gmt-python-session")
+        self.create("pygmt-session")
         # Need to store the version info because 'get_default' won't work after the
         # session is destroyed.
         version = self.info["version"]

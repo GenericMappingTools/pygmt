@@ -13,7 +13,7 @@ def begin():
     Only meant to be used once for creating the global session.
 
     """
-    prefix = "gmt-python-session"
+    prefix = "pygmt-session"
     with Session() as lib:
         lib.call_module("begin", prefix)
 

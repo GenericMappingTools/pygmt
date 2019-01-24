@@ -57,7 +57,7 @@ class GMTTempFile:
     [0. 0. 0.] [1. 1. 1.] [2. 2. 2.]
     """
 
-    def __init__(self, prefix="gmt-python-", suffix=".txt"):
+    def __init__(self, prefix="pygmt-", suffix=".txt"):
         args = dict(prefix=prefix, suffix=suffix, delete=False)
         with NamedTemporaryFile(**args) as tmpfile:
             self.name = tmpfile.name
