@@ -64,8 +64,8 @@ read it carefully.
 ## How Can I Talk to You?
 
 Discussion often happens in the issues and pull requests.
-In addition, there is a [Gitter chat room](https://gitter.im/fatiando/fatiando) for the
-Fatiando a Terra project where you can ask questions.
+In addition, there is a [Gitter chatroom](https://gitter.im/GenericMappingTools/pygmt)
+for the project where you can ask questions.
 
 
 ## Reporting a Bug
@@ -134,7 +134,7 @@ General guidelines for making a good gallery plot:
   Mercator projection and make the plot 6 inches wide*. Bad: *Draw coastlines and plot
   the data*.
 * Describe the feature that you're showcasing and link to other relevant parts of the
-  documentation
+  documentation.
 
 ### Tutorials
 
@@ -389,7 +389,7 @@ Some things that will increase the chance that your pull request is accepted qui
   [numpy guide](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt)
   for documentation.
 
-Pull requests will automatically have tests run by TravisCI and AppVeyor.
+Pull requests will automatically have tests run by TravisCI.
 This includes running both the unit tests as well as code linters.
 Github will show the status of these checks on the pull request.
 Try to get them all passing (green).
