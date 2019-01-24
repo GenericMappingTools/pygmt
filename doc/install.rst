@@ -62,7 +62,7 @@ Please follow the instructions at http://gmt.soest.hawaii.edu/projects/gmt/wiki/
 For Windows users, you can also try to install the binaries of
 GMT development version, available from http://w3.ualg.pt/~jluis/mirone/downloads/gmt.html.
 Currently, we don't have tests running on Windows yet, so things might be broken.
-Please report errors by creating an issue.
+Please report any errors by `creating an issue on Github <https://github.com/GenericMappingTools/pygmt/issues>`__.
 
 .. note::
 
