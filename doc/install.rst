@@ -59,7 +59,7 @@ Installing GMT
 Unfortunately, you'll have to build GMT from source in order to get PyGMT working.
 Please follow the instructions at http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT.
 
-For Windows users, you can also try to install the randomly build binaries of
+For Windows users, you can also try to install the binaries of
 GMT development version, available from http://w3.ualg.pt/~jluis/mirone/downloads/gmt.html.
 Currently, we don't have tests running on Windows yet, so things might be broken.
 Please report errors by creating an issue.
