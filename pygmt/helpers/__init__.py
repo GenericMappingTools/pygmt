@@ -10,4 +10,3 @@ from .utils import (
     is_nonstr_iter,
     launch_external_viewer,
 )
-from .worldwind import worldwind_show

@@ -20,7 +20,6 @@ from .helpers import (
     kwargs_to_strings,
     launch_external_viewer,
     unique_name,
-    worldwind_show,
 )
 
 
@@ -222,7 +221,7 @@ class Figure(BasePlotting):
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method="static", globe_center=None):
+    def show(self, dpi=300, width=500, method="static"):
         """
         Display a preview of the figure.
 
@@ -235,10 +234,6 @@ class Figure(BasePlotting):
         browser). Note that the external viewer does not block the current
         process, so this won't work in a script.
 
-        If using the ``'globe'`` preview, use a Cartesian projection (``'X'``)
-        and specify degrees as size units (e.g. ``projection='X3id/3id'``).
-        Otherwise, the figure may not align with the globe.
-
         Parameters
         ----------
         dpi : int
@@ -249,34 +244,17 @@ class Figure(BasePlotting):
         method : str
             How the figure will be displayed. Options are (1) ``'static'``: PNG
             preview (default); (2) ``'external'``: PDF preview in an external
-            program; (3) ``'globe'``: interactive 3D globe in the notebook
-            using `NASA WorldWind Web <https://worldwind.arc.nasa.gov>`__ (only
-            use if plotting lon/lat data).
-        globe_center : None or tuple = (lon, lat, height[m])
-            The coordinates used to set the view point for the globe preview.
-            If None, will automatically determine a view based on the plot
-            region. Only used if ``method='globe'``.
+            program.
 
         Returns
         -------
-        img : IPython.display.Image or IPython.display.Javascript
+        img : IPython.display.Image
             Only if ``method != 'external'``.
 
         """
-        if method not in ["static", "external", "globe"]:
+        if method not in ["static", "external"]:
             raise GMTInvalidInput("Invalid show method '{}'.".format(method))
-        if method == "globe":
-            png = self._preview(
-                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, transparent=True
-            )
-            img = worldwind_show(
-                image=png,
-                width=width,
-                region=self.region,
-                canvas_id=self._name,
-                globe_center=globe_center,
-            )
-        elif method == "external":
+        if method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
             img = None
