@@ -338,6 +338,11 @@ Don't forget to commit the baseline image as well.
 
 ### Documentation
 
+> **NOTE**: We currently need the latest version of sphinx-gallery from the Github
+> master branch. Please install it with
+> `pip install --upgrade git+https://github.com/sphinx-gallery/sphinx-gallery.git`
+> before building the docs.
+
 Most documentation sources are in the `doc` folder.
 We use [sphinx](http://www.sphinx-doc.org/) to build the web pages from these sources.
 To build the HTML files:
