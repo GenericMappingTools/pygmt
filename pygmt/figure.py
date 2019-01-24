@@ -23,22 +23,10 @@ from .helpers import (
     worldwind_show,
 )
 
+
 # A registry of all figures that have had "show" called in this session.
+# This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
-
-
-def get_figures():
-    """
-    Get all figures that have been created in this session.
-
-    Returns
-    -------
-    figures : dict
-        A dictionary with all figures. Keys are the figure names (unique IDs) and values
-        are the :class:`gmt.Figure` objects.
-
-    """
-    return SHOWED_FIGURES
 
 
 class Figure(BasePlotting):
@@ -280,7 +268,10 @@ class Figure(BasePlotting):
             Only if ``method != 'external'``.
 
         """
+        # Module level variable to know which figures had their show method called.
+        # Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
+
         if method not in ["static", "external", "globe"]:
             raise GMTInvalidInput("Invalid show method '{}'.".format(method))
         if method == "globe":

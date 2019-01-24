@@ -4,14 +4,16 @@ Utilities for using pygmt with sphinx-gallery.
 try:
     from sphinx_gallery.scrapers import figure_rst
 except ImportError:
-    pass
+    figure_rst = None
 
-from .figure import get_figures
+from .figure import SHOWED_FIGURES
 
 
 class PyGMTScraper:  # pylint: disable=too-few-public-methods
     """
-    Capture ``pygmt.Figure`` objects and save them for sphinx-gallery.
+    Save ``pygmt.Figure`` objects that had their ``show`` method called.
+
+    Used by sphinx-gallery to generate the plots from the code in the examples.
 
     Pass an instance of this class to ``sphinx_gallery_conf`` in your ``conf.py`` as the
     ``"image_scrapers"`` argument.
@@ -23,9 +25,9 @@ class PyGMTScraper:  # pylint: disable=too-few-public-methods
         """
         image_names = list()
         image_path_iterator = block_vars["image_path_iterator"]
-        figures = get_figures()
+        figures = SHOWED_FIGURES
         while figures:
-            fname = image_path_iterator.next()
+            fname = next(image_path_iterator)
             fig = figures.pop(0)
             fig.savefig(fname, transparent=True, dpi=200)
             image_names.append(fname)
