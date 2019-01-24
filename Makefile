@@ -42,6 +42,7 @@ lint:
 
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;
+	find . -name "*~" -exec rm -v {} \;
 	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
