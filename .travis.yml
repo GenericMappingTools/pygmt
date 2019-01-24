@@ -111,6 +111,7 @@ matrix:
               - BUILD_DOCS=true
 
 before_install:
+    - mkdir -p "$HOME/.gmt/sessions"
     # Build and install GMT from the master branch
     - if [ "$TEST" == "true" ]; then
         bash helpers/build-gmt-master.sh;
