@@ -39,19 +39,6 @@ code. For example:
     fig.show()
 
 
-The HTML rich display features that work in Jupyter notebooks also work for the
-extension:
-
-.. gmt-plot::
-
-    quakes = pygmt.datasets.load_usgs_quakes()
-
-    fig2 = pygmt.Figure()
-    fig2.plot(x=quakes.longitude, y=quakes.latitude, region=[-180, 180, -90, 90],
-              projection="X10id", color="yellow", style="c0.2c", pen="black")
-    fig2.show(method="globe")
-
-
 Installing
 ----------
 
