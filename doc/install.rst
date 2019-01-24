@@ -57,7 +57,12 @@ Installing GMT
 --------------
 
 Unfortunately, you'll have to build GMT from source in order to get PyGMT working.
-Please follow the instructions at http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT
+Please follow the instructions at http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT.
+
+For Windows users, you can also try to install the randomly build binaries of
+GMT development version, available from http://w3.ualg.pt/~jluis/mirone/downloads/gmt.html.
+Currently, we don't have tests running on Windows yet, so things might be broken.
+Please report errors by creating an issue.
 
 .. note::
 
@@ -66,6 +71,26 @@ Please follow the instructions at http://gmt.soest.hawaii.edu/projects/gmt/wiki/
    we can develop more quickly. Once GMT 6 is officially released, we'll have conda
    packages available again. Please bear with us.
 
+Installing dependencies
+-----------------------
+
+Before installing PyGMT, we must install its dependencies.
+The easiest way to do this is using the ``conda`` package manager.
+We recommend working in an isolated
+`conda environment <https://conda.io/docs/user-guide/tasks/manage-environments.html>`__
+to avoid issues with competing versions of its dependencies.
+
+We can create a new conda environment with Python and all our dependencies installed
+(we'll call it ``pygmt`` but you can change it to whatever you want)::
+
+     conda create --name pygmt python=3.6 pip numpy pandas xarray packaging
+
+Activate the environment by running::
+
+    source activate pygmt
+
+From now on, all commands will take place inside the environment and won't affect your
+default installation.
 
 Installing PyGMT
 ----------------
@@ -81,7 +106,7 @@ Alternatively, you can clone the git repository and install using ``pip``::
     cd pygmt
     pip install .
 
-This will allow you to use the ``gmt`` library from Python.
+This will allow you to use the ``pygmt`` library from Python.
 
 
 Testing your install
@@ -109,14 +134,3 @@ This can happen if you have multiple versions of GMT installed.
 You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 ``GMT_LIBRARY_PATH`` environment variable.
 This should be set to the directory where ``libgmt.so`` (or ``.dylib``) is found.
-**Only use this as a last resort**.
-Setting the path in this way means that PyGMT will not be able to easily find the
-correct ``libgmt`` when you're changing conda environments.
-
-If you installed GMT using conda and the instructions above, place the following in your
-``~/.bashrc`` file::
-
-    export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
-
-You should change ``$HOME/anaconda3`` to wherever you installed Anaconda (this is the
-default for Linux).
