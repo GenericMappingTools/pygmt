@@ -53,13 +53,13 @@ def test_gmttempfile_unique():
 def test_gmttempfile_prefix_suffix():
     "Make sure the prefix and suffix of temporary files are user specifiable"
     with GMTTempFile() as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("gmt-python-")
+        assert os.path.basename(tmpfile.name).startswith("pygmt-")
         assert os.path.basename(tmpfile.name).endswith(".txt")
     with GMTTempFile(prefix="user-prefix-") as tmpfile:
         assert os.path.basename(tmpfile.name).startswith("user-prefix-")
         assert os.path.basename(tmpfile.name).endswith(".txt")
     with GMTTempFile(suffix=".log") as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("gmt-python-")
+        assert os.path.basename(tmpfile.name).startswith("pygmt-")
         assert os.path.basename(tmpfile.name).endswith(".log")
     with GMTTempFile(prefix="user-prefix-", suffix=".log") as tmpfile:
         assert os.path.basename(tmpfile.name).startswith("user-prefix-")

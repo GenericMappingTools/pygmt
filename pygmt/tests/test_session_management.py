@@ -18,5 +18,5 @@ def test_begin_end():
         lib.call_module("psbasemap", "-R10/70/-3/8 -JX4i/3i -Ba")
     end()
     begin()  # Restart the global session
-    assert os.path.exists("gmt-python-session.pdf")
-    os.remove("gmt-python-session.pdf")
+    assert os.path.exists("pygmt-session.pdf")
+    os.remove("pygmt-session.pdf")
