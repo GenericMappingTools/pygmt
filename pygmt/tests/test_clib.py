@@ -14,7 +14,7 @@ import pytest
 
 from .. import clib
 from ..clib.session import FAMILIES, VIAS
-from ..clib.loading import clib_extension, load_libgmt, check_libgmt, get_clib_path
+from ..clib.loading import clib_name, load_libgmt, check_libgmt, get_clib_path
 from ..clib.conversion import dataarray_to_matrix
 from ..exceptions import (
     GMTCLibError,
@@ -107,13 +107,15 @@ def test_check_libgmt():
         check_libgmt(dict())
 
 
-def test_clib_extension():
-    "Make sure we get the correct extension for different OS names"
+def test_clib_name():
+    "Make sure we get the correct library name for different OS names"
     for linux in ["linux", "linux2", "linux3"]:
-        assert clib_extension(linux) == "so"
-    assert clib_extension("darwin") == "dylib"
+        assert clib_name(linux) == "libgmt.so"
+    assert clib_name("darwin") == "libgmt.dylib"
+    assert clib_name("win32", True) == "gmt_w64.dll"
+    assert clib_name("win32", False) == "gmt_w32.dll"
     with pytest.raises(GMTOSError):
-        clib_extension("meh")
+        clib_name("meh")
 
 
 def test_getitem():
