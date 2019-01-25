@@ -10,7 +10,7 @@ import versioneer
 
 NAME = "pygmt"
 FULLNAME = "PyGMT"
-AUTHOR = "Leonardo Uieda"
+AUTHOR = "The PyGMT Developers"
 AUTHOR_EMAIL = "leouieda@gmail.com"
 MAINTAINER = AUTHOR
 MAINTAINER_EMAIL = AUTHOR_EMAIL
