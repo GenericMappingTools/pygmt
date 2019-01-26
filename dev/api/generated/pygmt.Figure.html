@@ -31,14 +31,12 @@
 
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.Figure.basemap" href="pygmt.Figure.basemap.html" />
-    <link rel="prev" title="API Reference" href="../index.html" />
-    
-    <script src="../../_static/require.js"></script>
-
+    <link rel="prev" title="API Reference" href="../index.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -89,12 +87,15 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot-data-points.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sphinxext.html">Sphinx Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -243,10 +244,10 @@
 <em class="property">class </em><code class="descclassname">pygmt.</code><code class="descname">Figure</code><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.Figure" title="Permalink to this definition">¶</a></dt>
 <dd><p>A GMT figure to handle all plotting.</p>
 <p>Use the plotting methods of this class to add elements to the figure.  You
-can preview the figure using <code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.show</span></code> and save the figure to
-a file using <code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.savefig</span></code>.</p>
+can preview the figure using <a class="reference internal" href="pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.show</span></code></a> and save the figure to
+a file using <a class="reference internal" href="pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.savefig</span></code></a>.</p>
 <p>Unlike traditional GMT figures, no figure file is generated until you call
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.savefig</span></code> or <code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.Figure.psconvert</span></code>.</p>
+<a class="reference internal" href="pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.savefig</span></code></a> or <a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;W7i&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -317,7 +318,7 @@ a file using <code class="xref py py-meth docutils literal notranslate"><span cl
 <tr class="row-even"><td><a class="reference internal" href="pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savefig</span></code></a>(fname[,&nbsp;transparent,&nbsp;crop,&nbsp;…])</td>
 <td>Save the figure to a file.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>([dpi,&nbsp;width,&nbsp;method,&nbsp;globe_center])</td>
+<tr class="row-odd"><td><a class="reference internal" href="pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>([dpi,&nbsp;width,&nbsp;method])</td>
 <td>Display a preview of the figure.</td>
 </tr>
 </tbody>
@@ -346,8 +347,8 @@ a file using <code class="xref py py-meth docutils literal notranslate"><span cl
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
-      Last updated on Jan 22, 2019.
+        &copy; Copyright 2017-2019, The PyGMT Developers.
+      Last updated on Jan 26, 2019.
 
     </p>
   </div>

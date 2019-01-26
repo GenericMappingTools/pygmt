@@ -1,0 +1,9 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_sg_execution_times:
+
+Computation times
+=================
+**00:00.000** total execution time for **gallery** files:
+

@@ -31,12 +31,10 @@
 
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    
-    <script src="../_static/require.js"></script>
-
+    <link rel="search" title="Search" href="../search.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -87,12 +85,15 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/plot-data-points.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../sphinxext.html">Sphinx Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/plot.html">Plotting data points</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -182,14 +183,15 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pygmt</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">The main API for PyGMT.</span>
+<span></span><span class="c1"># pylint: disable=missing-docstring</span>
+<span class="c1">#</span>
+<span class="c1"># The main API for PyGMT.</span>
+<span class="c1">#</span>
+<span class="c1"># All of PyGMT is operated on a &quot;modern mode session&quot; (new to GMT6). When you import the</span>
+<span class="c1"># pygmt library, a new session will be started automatically. The session will be</span>
+<span class="c1"># closed when the current Python process terminates. Thus, the Python API does not</span>
+<span class="c1"># expose the `gmt begin` and `gmt end` commands.</span>
 
-<span class="sd">All of PyGMT is operated on a &quot;modern mode session&quot; (new to GMT6). When you import</span>
-<span class="sd">the ``pygmt`` library, a new session will be started automatically. The session will be</span>
-<span class="sd">closed when the current Python process terminates. Thus, the Python API does not expose</span>
-<span class="sd">the ``gmt begin`` and ``gmt end`` commands.</span>
-<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">atexit</span> <span class="k">as</span> <span class="nn">_atexit</span>
 
 <span class="kn">from</span> <span class="nn">._version</span> <span class="k">import</span> <span class="n">get_versions</span> <span class="k">as</span> <span class="n">_get_versions</span>
@@ -291,8 +293,8 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
-      Last updated on Jan 22, 2019.
+        &copy; Copyright 2017-2019, The PyGMT Developers.
+      Last updated on Jan 26, 2019.
 
     </p>
   </div>

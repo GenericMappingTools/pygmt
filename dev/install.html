@@ -31,14 +31,12 @@
 
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="First Steps with GMT/Python" href="tutorials/first-steps.html" />
-    <link rel="prev" title="Disclaimer" href="index.html" />
-    
-    <script src="_static/require.js"></script>
-
+    <link rel="next" title="Making your first figure" href="tutorials/overview.html" />
+    <link rel="prev" title="Disclaimer" href="index.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -93,17 +91,21 @@
 <li class="toctree-l2"><a class="reference internal" href="#which-gmt">Which GMT?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-gmt">Installing GMT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-gmt-python">Installing GMT/Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-dependencies">Installing dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-pygmt">Installing PyGMT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#testing-your-install">Testing your install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#finding-the-gmt-shared-library">Finding the GMT shared library</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/plot-data-points.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sphinxext.html">Sphinx Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -233,7 +235,7 @@ or send us a message on our
 </div>
 <div class="section" id="which-python">
 <h2>Which Python?<a class="headerlink" href="#which-python" title="Permalink to this headline">¶</a></h2>
-<p>You’ll need <strong>Python 3.6 or greater</strong> to run GMT/Python.</p>
+<p>You’ll need <strong>Python 3.6 or greater</strong> to run PyGMT.</p>
 <p>We recommend using the <a class="reference external" href="http://continuum.io/downloads#all">Anaconda</a> Python
 distribution to ensure you have all dependencies installed and the <code class="docutils literal notranslate"><span class="pre">conda</span></code>
 package manager available.
@@ -244,14 +246,14 @@ doesn’t interfere with any other Python installations in your system.</p>
 <h2>Which GMT?<a class="headerlink" href="#which-gmt" title="Permalink to this headline">¶</a></h2>
 <p>You’ll need the latest development version available from
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt">the GitHub repository</a>.
-GMT/Python is based on GMT 6, <strong>which has not yet been officially released</strong>.</p>
+PyGMT is based on GMT 6, <strong>which has not yet been officially released</strong>.</p>
 <p>We need the very latest GMT since there are many changes being made to GMT itself in
-response to the development of GMT/Python, mainly the new
+response to the development of PyGMT, mainly the new
 <a class="reference external" href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization">modern execution mode</a>.</p>
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>GMT/Python requires the following libraries:</p>
+<p>PyGMT requires the following libraries:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.numpy.org/">numpy</a></li>
 <li><a class="reference external" href="https://pandas.pydata.org/">pandas</a></li>
@@ -265,8 +267,12 @@ response to the development of GMT/Python, mainly the new
 </div>
 <div class="section" id="installing-gmt">
 <h2>Installing GMT<a class="headerlink" href="#installing-gmt" title="Permalink to this headline">¶</a></h2>
-<p>Unfortunately, you’ll have to build GMT from source in order to get GMT/Python working.
-Please follow the instructions at <a class="reference external" href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT">http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT</a></p>
+<p>Unfortunately, you’ll have to build GMT from source in order to get PyGMT working.
+Please follow the instructions at <a class="reference external" href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT">http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT</a>.</p>
+<p>For Windows users, you can also try to install the binaries of
+GMT development version, available from <a class="reference external" href="http://w3.ualg.pt/~jluis/mirone/downloads/gmt.html">http://w3.ualg.pt/~jluis/mirone/downloads/gmt.html</a>.
+Currently, we don’t have tests running on Windows yet, so things might be broken.
+Please report any errors by <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">creating an issue on Github</a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">We used to maintain conda packages for the latest GMT. That caused many problems and
@@ -275,10 +281,29 @@ we can develop more quickly. Once GMT 6 is officially released, we’ll have con
 packages available again. Please bear with us.</p>
 </div>
 </div>
-<div class="section" id="installing-gmt-python">
-<h2>Installing GMT/Python<a class="headerlink" href="#installing-gmt-python" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-dependencies">
+<h2>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Before installing PyGMT, we must install its dependencies.
+The easiest way to do this is using the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager.
+We recommend working in an isolated
+<a class="reference external" href="https://conda.io/docs/user-guide/tasks/manage-environments.html">conda environment</a>
+to avoid issues with competing versions of its dependencies.</p>
+<p>We can create a new conda environment with Python and all our dependencies installed
+(we’ll call it <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> but you can change it to whatever you want):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.6</span> <span class="n">pip</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">packaging</span>
+</pre></div>
+</div>
+<p>Activate the environment by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">activate</span> <span class="n">pygmt</span>
+</pre></div>
+</div>
+<p>From now on, all commands will take place inside the environment and won’t affect your
+default installation.</p>
+</div>
+<div class="section" id="installing-pygmt">
+<h2>Installing PyGMT<a class="headerlink" href="#installing-pygmt" title="Permalink to this headline">¶</a></h2>
 <p>Now that you have GMT installed and your conda environment activated,
-use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the latest source of GMT/Python from Github:</p>
+use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the latest source of PyGMT from Github:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">GenericMappingTools</span><span class="o">/</span><span class="n">pygmt</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
@@ -288,40 +313,30 @@ use <code class="docutils literal notranslate"><span class="pre">pip</span></cod
 <span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
 </pre></div>
 </div>
-<p>This will allow you to use the <code class="docutils literal notranslate"><span class="pre">gmt</span></code> library from Python.</p>
+<p>This will allow you to use the <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> library from Python.</p>
 </div>
 <div class="section" id="testing-your-install">
 <h2>Testing your install<a class="headerlink" href="#testing-your-install" title="Permalink to this headline">¶</a></h2>
-<p>GMT/Python ships with a full test suite.
+<p>PyGMT ships with a full test suite.
 You can run our tests after you install it but you will need a few extra dependencies as
 well (be sure to have your conda env activated):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pytest</span> <span class="n">pytest</span><span class="o">-</span><span class="n">mpl</span> <span class="n">sphinx</span> <span class="n">jinja2</span> <span class="n">docutils</span> <span class="n">ipython</span>
 </pre></div>
 </div>
 <p>Test your installation by running the following inside a Python interpreter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gmt</span>
-<span class="n">gmt</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="n">pygmt</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="finding-the-gmt-shared-library">
 <h2>Finding the GMT shared library<a class="headerlink" href="#finding-the-gmt-shared-library" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes, GMT/Python will be unable to find the correct version of the GMT shared
+<p>Sometimes, PyGMT will be unable to find the correct version of the GMT shared
 library.
 This can happen if you have multiple versions of GMT installed.</p>
-<p>You can tell GMT/Python exactly where to look for <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> by setting the
+<p>You can tell PyGMT exactly where to look for <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> by setting the
 <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> environment variable.
-This should be set to the directory where <code class="docutils literal notranslate"><span class="pre">libgmt.so</span></code> (or <code class="docutils literal notranslate"><span class="pre">.dylib</span></code>) is found.
-<strong>Only use this as a last resort</strong>.
-Setting the path in this way means that GMT/Python will not be able to easily find the
-correct <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> when you’re changing conda environments.</p>
-<p>If you installed GMT using conda and the instructions above, place the following in your
-<code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
-</pre></div>
-</div>
-<p>You should change <code class="docutils literal notranslate"><span class="pre">$HOME/anaconda3</span></code> to wherever you installed Anaconda (this is the
-default for Linux).</p>
+This should be set to the directory where <code class="docutils literal notranslate"><span class="pre">libgmt.so</span></code> (or <code class="docutils literal notranslate"><span class="pre">.dylib</span></code>) is found.</p>
 </div>
 </div>
 
@@ -333,7 +348,7 @@ default for Linux).</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorials/first-steps.html" class="btn btn-neutral float-right" title="First Steps with GMT/Python" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorials/overview.html" class="btn btn-neutral float-right" title="Making your first figure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Disclaimer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -345,8 +360,8 @@ default for Linux).</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
-      Last updated on Jan 22, 2019.
+        &copy; Copyright 2017-2019, The PyGMT Developers.
+      Last updated on Jan 26, 2019.
 
     </p>
   </div>

@@ -31,14 +31,12 @@
 
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.Figure.psconvert" href="pygmt.Figure.psconvert.html" />
-    <link rel="prev" title="pygmt.Figure.savefig" href="pygmt.Figure.savefig.html" />
-    
-    <script src="../../_static/require.js"></script>
-
+    <link rel="prev" title="pygmt.Figure.savefig" href="pygmt.Figure.savefig.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -89,12 +87,15 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot-data-points.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sphinxext.html">Sphinx Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -240,7 +241,7 @@
 <h1>pygmt.Figure.show<a class="headerlink" href="#pygmt-figure-show" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
 <dt id="pygmt.Figure.show">
-<code class="descclassname">Figure.</code><code class="descname">show</code><span class="sig-paren">(</span><em>dpi=300</em>, <em>width=500</em>, <em>method='static'</em>, <em>globe_center=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.Figure.show" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Figure.</code><code class="descname">show</code><span class="sig-paren">(</span><em>dpi=300</em>, <em>width=500</em>, <em>method='static'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.Figure.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a preview of the figure.</p>
 <p>Inserts the preview in the Jupyter notebook output. You will need to
 have IPython installed for this to work. You should have it if you are
@@ -249,9 +250,6 @@ using the notebook.</p>
 default viewer for your operating system (falls back to the default web
 browser). Note that the external viewer does not block the current
 process, so this won’t work in a script.</p>
-<p>If using the <code class="docutils literal notranslate"><span class="pre">'globe'</span></code> preview, use a Cartesian projection (<code class="docutils literal notranslate"><span class="pre">'X'</span></code>)
-and specify degrees as size units (e.g. <code class="docutils literal notranslate"><span class="pre">projection='X3id/3id'</span></code>).
-Otherwise, the figure may not align with the globe.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -267,20 +265,13 @@ Otherwise, the figure may not align with the globe.</p>
 <dt><strong>method</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
 <dd><p class="first last">How the figure will be displayed. Options are (1) <code class="docutils literal notranslate"><span class="pre">'static'</span></code>: PNG
 preview (default); (2) <code class="docutils literal notranslate"><span class="pre">'external'</span></code>: PDF preview in an external
-program; (3) <code class="docutils literal notranslate"><span class="pre">'globe'</span></code>: interactive 3D globe in the notebook
-using <a class="reference external" href="https://worldwind.arc.nasa.gov">NASA WorldWind Web</a> (only
-use if plotting lon/lat data).</p>
-</dd>
-<dt><strong>globe_center</strong> <span class="classifier-delimiter">:</span> <span class="classifier">None or tuple = (lon, lat, height[m])</span></dt>
-<dd><p class="first last">The coordinates used to set the view point for the globe preview.
-If None, will automatically determine a view based on the plot
-region. Only used if <code class="docutils literal notranslate"><span class="pre">method='globe'</span></code>.</p>
+program.</p>
 </dd>
 </dl>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>img</strong> <span class="classifier-delimiter">:</span> <span class="classifier">IPython.display.Image or IPython.display.Javascript</span></dt>
+<dt><strong>img</strong> <span class="classifier-delimiter">:</span> <span class="classifier">IPython.display.Image</span></dt>
 <dd><p class="first last">Only if <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">!=</span> <span class="pre">'external'</span></code>.</p>
 </dd>
 </dl>
@@ -312,8 +303,8 @@ region. Only used if <code class="docutils literal notranslate"><span class="pre
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
-      Last updated on Jan 22, 2019.
+        &copy; Copyright 2017-2019, The PyGMT Developers.
+      Last updated on Jan 26, 2019.
 
     </p>
   </div>

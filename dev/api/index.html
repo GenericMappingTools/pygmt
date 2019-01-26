@@ -31,14 +31,12 @@
 
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pygmt.Figure" href="generated/pygmt.Figure.html" />
-    <link rel="prev" title="Sphinx Extension" href="../sphinxext.html" />
-    
-    <script src="../_static/require.js"></script>
-
+    <link rel="prev" title="Plotting data points" href="../tutorials/plot.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -89,12 +87,15 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/plot-data-points.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../sphinxext.html">Sphinx Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/plot.html">Plotting data points</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -277,8 +278,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="api-reference">
-<span id="api"></span><h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pygmt">
+<span id="api-reference"></span><span id="api"></span><h1>API Reference<a class="headerlink" href="#module-pygmt" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="plotting">
 <h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
 <p>All plotting is handled through the <a class="reference internal" href="generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.Figure</span></code></a> class and its methods.</p>
@@ -336,7 +337,7 @@
 <tr class="row-odd"><td><a class="reference internal" href="generated/pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.savefig</span></code></a>(fname[,&nbsp;transparent,&nbsp;crop,&nbsp;…])</td>
 <td>Save the figure to a file.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.show</span></code></a>([dpi,&nbsp;width,&nbsp;method,&nbsp;globe_center])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.show</span></code></a>([dpi,&nbsp;width,&nbsp;method])</td>
 <td>Display a preview of the figure.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="generated/pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.psconvert</span></code></a>(**kwargs)</td>
@@ -394,10 +395,10 @@
 </tr>
 </tbody>
 </table>
-</div>
+<span class="target" id="module-pygmt.datasets"></span></div>
 <div class="section" id="datasets">
 <h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h2>
-<p>GMT/Python provides access to GMT’s datasets through the <code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.datasets</span></code> package.
+<p>PyGMT provides access to GMT’s datasets through the <a class="reference internal" href="#module-pygmt.datasets" title="pygmt.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.datasets</span></code></a> package.
 These functions will download the datasets automatically the first time they are used
 and store them in the GMT cache folder.</p>
 <table border="1" class="longtable docutils">
@@ -420,7 +421,7 @@ and store them in the GMT cache folder.</p>
 </tr>
 </tbody>
 </table>
-</div>
+<span class="target" id="module-pygmt.exceptions"></span></div>
 <div class="section" id="exceptions">
 <h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
 <p>All custom exceptions are derived from <a class="reference internal" href="generated/pygmt.exceptions.GMTError.html#pygmt.exceptions.GMTError" title="pygmt.exceptions.GMTError"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.exceptions.GMTError</span></code></a>.</p>
@@ -453,10 +454,10 @@ and store them in the GMT cache folder.</p>
 </tr>
 </tbody>
 </table>
-</div>
+<span class="target" id="module-pygmt.clib"></span></div>
 <div class="section" id="gmt-c-api">
 <h2>GMT C API<a class="headerlink" href="#gmt-c-api" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.clib</span></code> package is a wrapper for the GMT C API built using <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a>.
+<p>The <a class="reference internal" href="#module-pygmt.clib" title="pygmt.clib"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.clib</span></code></a> package is a wrapper for the GMT C API built using <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a>.
 Most calls to the C API happen through the <a class="reference internal" href="generated/pygmt.clib.Session.html#pygmt.clib.Session" title="pygmt.clib.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.clib.Session</span></code></a> class.</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -483,7 +484,7 @@ the <a class="reference internal" href="generated/pygmt.clib.Session.call_module
 </tbody>
 </table>
 <p>Passing memory blocks between Python variables (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
-<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.html#pandas.Series" title="(in pandas v0.23.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, and <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.11.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) and GMT happens through <em>virtual
+<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v0.24.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, and <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.11.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) and GMT happens through <em>virtual
 files</em>. These methods are context managers that automate the conversion of Python
 variables to GMT virtual files:</p>
 <table border="1" class="longtable docutils">
@@ -503,7 +504,7 @@ variables to GMT virtual files:</p>
 </tr>
 </tbody>
 </table>
-<p>Low level access (these are mostly used by the <code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.clib</span></code> package):</p>
+<p>Low level access (these are mostly used by the <a class="reference internal" href="#module-pygmt.clib" title="pygmt.clib"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.clib</span></code></a> package):</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
@@ -565,7 +566,7 @@ variables to GMT virtual files:</p>
         <a href="generated/pygmt.Figure.html" class="btn btn-neutral float-right" title="pygmt.Figure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../sphinxext.html" class="btn btn-neutral" title="Sphinx Extension" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../tutorials/plot.html" class="btn btn-neutral" title="Plotting data points" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -574,8 +575,8 @@ variables to GMT virtual files:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
-      Last updated on Jan 22, 2019.
+        &copy; Copyright 2017-2019, The PyGMT Developers.
+      Last updated on Jan 26, 2019.
 
     </p>
   </div>

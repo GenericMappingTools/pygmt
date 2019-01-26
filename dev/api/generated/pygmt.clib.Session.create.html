@@ -31,14 +31,12 @@
 
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.clib.Session.destroy" href="pygmt.clib.Session.destroy.html" />
-    <link rel="prev" title="pygmt.clib.Session.virtualfile_from_grid" href="pygmt.clib.Session.virtualfile_from_grid.html" />
-    
-    <script src="../../_static/require.js"></script>
-
+    <link rel="prev" title="pygmt.clib.Session.virtualfile_from_grid" href="pygmt.clib.Session.virtualfile_from_grid.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -89,12 +87,15 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot-data-points.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sphinxext.html">Sphinx Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -248,7 +249,7 @@
 <dt id="pygmt.clib.Session.create">
 <code class="descclassname">Session.</code><code class="descname">create</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.clib.Session.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new GMT C API session.</p>
-<p>This is required before most other methods of <code class="xref py py-class docutils literal notranslate"><span class="pre">gmt.clib.Session</span></code> can be
+<p>This is required before most other methods of <a class="reference internal" href="pygmt.clib.Session.html#pygmt.clib.Session" title="pygmt.clib.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.clib.Session</span></code></a> can be
 called.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -259,7 +260,7 @@ is preferred over calling <code class="xref py py-meth docutils literal notransl
 <p>Calls <code class="docutils literal notranslate"><span class="pre">GMT_Create_Session</span></code> and generates a new <code class="docutils literal notranslate"><span class="pre">GMTAPI_CTRL</span></code> struct, which
 is a <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a> pointer. Sets the <code class="docutils literal notranslate"><span class="pre">session_pointer</span></code> attribute to
 this pointer.</p>
-<p>Remember to terminate the current session using <code class="xref py py-meth docutils literal notranslate"><span class="pre">gmt.clib.Session.destroy</span></code>
+<p>Remember to terminate the current session using <a class="reference internal" href="pygmt.clib.Session.destroy.html#pygmt.clib.Session.destroy" title="pygmt.clib.Session.destroy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.destroy</span></code></a>
 before creating a new one.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -298,8 +299,8 @@ before creating a new one.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
-      Last updated on Jan 22, 2019.
+        &copy; Copyright 2017-2019, The PyGMT Developers.
+      Last updated on Jan 26, 2019.
 
     </p>
   </div>

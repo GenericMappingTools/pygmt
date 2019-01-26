@@ -31,12 +31,10 @@
 
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    
-    <script src="../../../_static/require.js"></script>
-
+    <link rel="search" title="Search" href="../../../search.html" /> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -87,12 +85,15 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first-steps.html">First Steps with GMT/Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot-data-points.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../sphinxext.html">Sphinx Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot.html">Plotting data points</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -356,7 +357,7 @@
 <span class="sd">            Will destroy the session before raising the exception.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;gmt-python-session&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;pygmt-session&quot;</span><span class="p">)</span>
         <span class="c1"># Need to store the version info because &#39;get_default&#39; won&#39;t work after the</span>
         <span class="c1"># session is destroyed.</span>
         <span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span>
@@ -466,7 +467,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new GMT C API session.</span>
 
-<span class="sd">        This is required before most other methods of :class:`gmt.clib.Session` can be</span>
+<span class="sd">        This is required before most other methods of :class:`pygmt.clib.Session` can be</span>
 <span class="sd">        called.</span>
 
 <span class="sd">        .. warning::</span>
@@ -479,7 +480,7 @@
 <span class="sd">        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to</span>
 <span class="sd">        this pointer.</span>
 
-<span class="sd">        Remember to terminate the current session using :meth:`gmt.clib.Session.destroy`</span>
+<span class="sd">        Remember to terminate the current session using :meth:`pygmt.clib.Session.destroy`</span>
 <span class="sd">        before creating a new one.</span>
 
 <span class="sd">        Parameters</span>
@@ -793,7 +794,7 @@
 
 <span class="sd">        The GMT C API takes certain defined constants, like ``&#39;GMT_IS_GRID&#39;``,</span>
 <span class="sd">        that need to be validated and converted to integer values using</span>
-<span class="sd">        :meth:`gmt.clib.Session.__getitem__`.</span>
+<span class="sd">        :meth:`pygmt.clib.Session.__getitem__`.</span>
 
 <span class="sd">        The constants can also take a modifier by appending another constant</span>
 <span class="sd">        name, e.g. ``&#39;GMT_IS_GRID|GMT_VIA_MATRIX&#39;``. The two parts must be</span>
@@ -1479,8 +1480,8 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, Leonardo Uieda and Paul Wessel
-      Last updated on Jan 22, 2019.
+        &copy; Copyright 2017-2019, The PyGMT Developers.
+      Last updated on Jan 26, 2019.
 
     </p>
   </div>

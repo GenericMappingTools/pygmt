@@ -1,0 +1,12 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_coast_sg_execution_times:
+
+Computation times
+=================
+**00:03.871** total execution time for **gallery_coast** files:
+
+- **00:01.643**: :ref:`sphx_glr_gallery_coast_borders.py` (borders.py)
+- **00:01.215**: :ref:`sphx_glr_gallery_coast_land_and_water.py` (land_and_water.py)
+- **00:01.013**: :ref:`sphx_glr_gallery_coast_shorelines.py` (shorelines.py)
