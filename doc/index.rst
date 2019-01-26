@@ -18,8 +18,9 @@
     :hidden:
     :caption: Getting Started
 
+    overview.rst
     install.rst
-    tutorials/overview.rst
+    tutorials/first-figure.rst
     gallery/index.rst
 
 .. toctree::
