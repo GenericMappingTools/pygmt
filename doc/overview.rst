@@ -1,6 +1,9 @@
 Overview
 ========
 
+About
+-----
+
 PyGMT is a Python wrapper for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
 command-line program widely used in the Earth Sciences.
@@ -37,4 +40,41 @@ These are conference presentations about the development of PyGMT (previously
   Leonardo Uieda and Paul Wessel.
   Presented at *Scipy 2018*.
   doi:`10.6084/m9.figshare.6814052 <https://doi.org/10.6084/m9.figshare.6814052>`__
-  video: `YouTube <https://www.youtube.com/watch?v=6wMtfZXfTRM>`__
+
+.. figure:: _static/scipy2018-youtube-thumbnail.png
+   :target: https://www.youtube.com/watch?v=6wMtfZXfTRM
+   :align: center
+   :alt: Scipy youtube video
+
+* "Integrating the Generic Mapping Tools with the Scientific Python Ecosystem".
+  2018.
+  Leonardo Uieda and Paul Wessel.
+  Presented at *AOGS Annual Meeting 2018*.
+  doi:`10.6084/m9.figshare.6399944 <https://doi.org/10.6084/m9.figshare.6399944>`__
+
+.. figure:: _static/aogs2018-poster.jpg
+   :target: https://doi.org/10.6084/m9.figshare.6399944
+   :align: center
+   :alt: AOGS poster on figshare
+
+* "Bringing the Generic Mapping Tools to Python".
+  2017.
+  Leonardo Uieda and Paul Wessel.
+  Presented at *Scipy 2017*.
+  doi:`10.6084/m9.figshare.7635833 <https://doi.org/10.6084/m9.figshare.7635833>`__
+
+.. figure:: _static/scipy2017-youtube-thumbnail.png
+   :target: https://www.youtube.com/watch?v=93M4How7R24
+   :align: center
+   :alt: Scipy youtube video
+
+* "A modern Python interface for the Generic Mapping Tools".
+  2017.
+  Leonardo Uieda and Paul Wessel.
+  Presented at *AGU 2017*.
+  doi:`10.6084/m9.figshare.5662411 <https://doi.org/10.6084/m9.figshare.5662411>`__
+
+.. figure:: _static/agu2017-poster.jpg
+   :target: https://doi.org/10.6084/m9.figshare.5662411
+   :align: center
+   :alt: AGU poster on figshare
