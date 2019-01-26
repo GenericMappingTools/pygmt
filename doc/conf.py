@@ -77,7 +77,7 @@ master_doc = "index"
 # General information about the project
 year = datetime.date.today().year
 project = "PyGMT"
-copyright = "2017-{}, Leonardo Uieda and Paul Wessel".format(year)
+copyright = "2017-{}, The PyGMT Developers.".format(year)
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
 else:
