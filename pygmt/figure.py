@@ -26,6 +26,26 @@ from .helpers import (
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
+# Configuration options for Jupyter notebook support
+NOTEBOOK_CONFIG = {"dpi": 200, "enabled": False}
+
+
+def enable_notebook(dpi=200):
+    """
+    Enable extended support for the Jupyter notebook.
+
+    Suppresses an external window from popping-up when :meth:`pygmt.Figure.show` is
+    called. Can also control the resolution of displayed images in the notebook.
+
+    Parameters
+    ----------
+    dpi : int
+        Set the default DPI (dots-per-inch) used for PNG image previews that are
+        inserted into the notebook.
+
+    """
+    NOTEBOOK_CONFIG["dpi"] = dpi
+    NOTEBOOK_CONFIG["enabled"] = True
 
 
 class Figure(BasePlotting):
@@ -165,7 +185,7 @@ class Figure(BasePlotting):
             lib.call_module("psconvert", build_arg_string(kwargs))
 
     def savefig(
-        self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
+        self, fname, transparent=False, crop=True, anti_alias=True, **kwargs
     ):
         """
         Save the figure to a file.
@@ -177,8 +197,8 @@ class Figure(BasePlotting):
         BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
         The KML output generates a companion PNG file.
 
-        You can pass in any keyword arguments that
-        :meth:`~gmt.Figure.psconvert` accepts.
+        You can pass in any keyword arguments that :meth:`~gmt.Figure.psconvert`
+        accepts.
 
         Parameters
         ----------
@@ -195,8 +215,6 @@ class Figure(BasePlotting):
             JPG, TIf). More specifically, uses options ``Qt=2, Qg=2`` in
             :meth:`~gmt.Figure.psconvert`. Ignored if creating vector graphics.
             Overrides values of ``Qt`` and ``Qg`` passed in through ``kwargs``.
-        show: bool
-            If True, will open the figure in an external viewer.
         dpi : int
             Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
@@ -223,66 +241,24 @@ class Figure(BasePlotting):
             kwargs["W"] = "+k"
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
-        if show:
-            launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method="static"):
+    def show(self):
         """
         Display a preview of the figure.
 
-        Inserts the preview in the Jupyter notebook output. You will need to
-        have IPython installed for this to work. You should have it if you are
-        using the notebook.
-
-        If ``method='external'``, makes PDF preview instead and opens it in the
-        default viewer for your operating system (falls back to the default web
-        browser). Note that the external viewer does not block the current
-        process, so this won't work in a script.
-
-        Parameters
-        ----------
-        dpi : int
-            The image resolution (dots per inch).
-        width : int
-            Width of the figure shown in the notebook in pixels. Ignored if
-            ``method='external'``.
-        method : str
-            How the figure will be displayed. Options are (1) ``'static'``: PNG
-            preview (default); (2) ``'external'``: PDF preview in an external
-            program.
-
-        Returns
-        -------
-        img : IPython.display.Image
-            Only if ``method != 'external'``.
-
+        Opens a PDF preview of the figure in the default viewer for your operating
+        system (falls back to the default web browser). Also displays a PNG preview in
+        the Jupyter notebook and IPython Qt client. Use :func:`pygmt.enable_notebook` to
+        suppress the opening of the PDF preview.
         """
         # Module level variable to know which figures had their show method called.
         # Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
-        if method not in ["static", "external"]:
-            raise GMTInvalidInput("Invalid show method '{}'.".format(method))
-        if method == "external":
-            pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
+        if not NOTEBOOK_CONFIG["enabled"]:
+            pdf = self._preview(fmt="pdf", dpi=NOTEBOOK_CONFIG["dpi"], anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
-            img = None
-        elif method == "static":
-            png = self._preview(
-                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, transparent=True
-            )
-            if Image is None:
-                raise GMTError(
-                    " ".join(
-                        [
-                            "Cannot find IPython.",
-                            "Make sure you have it installed",
-                            "or use 'external=True' to open in an external viewer.",
-                        ]
-                    )
-                )
-            img = Image(data=png, width=width)
-        return img
+        return self
 
     def shift_origin(self, xshift=None, yshift=None):
         """
@@ -351,15 +327,5 @@ class Figure(BasePlotting):
         Show a PNG preview if the object is returned in an interactive shell.
         For the Jupyter notebook or IPython Qt console.
         """
-        png = self._preview(fmt="png", dpi=70, anti_alias=True, as_bytes=True)
+        png = self._preview(fmt="png", dpi=NOTEBOOK_CONFIG["dpi"], anti_alias=True, as_bytes=True)
         return png
-
-    def _repr_html_(self):
-        """
-        Show the PNG image embedded in HTML with a controlled width.
-        Looks better than the raw PNG.
-        """
-        raw_png = self._preview(fmt="png", dpi=300, anti_alias=True, as_bytes=True)
-        base64_png = base64.encodebytes(raw_png)
-        html = '<img src="data:image/png;base64,{image}" width="{width}px">'
-        return html.format(image=base64_png.decode("utf-8"), width=500)
