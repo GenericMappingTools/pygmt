@@ -71,7 +71,7 @@ def get_clib_path(env):
         The path to the libgmt shared library.
 
     """
-    libname = ".".join(["libgmt", clib_extension()])
+    libname = clib_name()
     if env is None:
         env = os.environ
     if "GMT_LIBRARY_PATH" in env:
@@ -81,37 +81,44 @@ def get_clib_path(env):
     return libpath
 
 
-def clib_extension(os_name=None):
+def clib_name(os_name=None, is_64bit=None):
     """
-    Return the extension for the shared library for the current OS.
+    Return the name of GMT's shared library for the current OS.
 
-    .. warning::
-
-        Currently only works for macOS and Linux.
-
-    Returns
-    -------
+    Parameters
+    ----------
     os_name : str or None
         The operating system name as given by ``sys.platform``
         (the default if None).
+    is_64bit : bool or None
+        Whether or not the OS is 64bit. Only used if the OS is ``win32``. If None, will
+        determine automatically.
 
     Returns
     -------
-    ext : str
-        The extension ('.so', '.dylib', etc).
+    libname : str
+        The name of GMT's shared library.
 
     """
     if os_name is None:
         os_name = sys.platform
-    # Set the shared library extension in a platform independent way
+
+    if is_64bit is None:
+        is_64bit = sys.maxsize > 2 ** 32
+
     if os_name.startswith("linux"):
-        lib_ext = "so"
+        libname = "libgmt.so"
     elif os_name == "darwin":
         # Darwin is macOS
-        lib_ext = "dylib"
+        libname = "libgmt.dylib"
+    elif os_name == "win32":
+        if is_64bit:
+            libname = "gmt_w64.dll"
+        else:
+            libname = "gmt_w32.dll"
     else:
         raise GMTOSError('Operating system "{}" not supported.'.format(sys.platform))
-    return lib_ext
+    return libname
 
 
 def check_libgmt(libgmt):
