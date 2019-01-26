@@ -32,6 +32,7 @@
     projections/index.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
+    notebook-support.ipynb
 
 .. toctree::
     :maxdepth: 2

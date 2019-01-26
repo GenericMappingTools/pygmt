@@ -3,16 +3,17 @@ Define the Figure class that handles all plotting.
 """
 import os
 from tempfile import TemporaryDirectory
-import base64
 
 try:
-    from IPython.display import Image
+    import IPython
+
+    HAS_IPYTHON = True
 except ImportError:
-    Image = None
+    HAS_IPYTHON = False
 
 from .clib import Session
 from .base_plotting import BasePlotting
-from .exceptions import GMTError, GMTInvalidInput
+from .exceptions import GMTInvalidInput
 from .helpers import (
     build_arg_string,
     fmt_docstring,
@@ -27,7 +28,11 @@ from .helpers import (
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
 # Configuration options for Jupyter notebook support
-NOTEBOOK_CONFIG = {"dpi": 200, "enabled": False}
+SHOW_CONFIG = {"dpi": 200, "external": True, "display": False}
+# If the environment variable is set to "false", disable the external viewer. Use this
+# for running the tests and building the docs to avoid pop up windows.
+if os.environ.get("PYGMT_EXTERNAL_VIEWER", "default") == "false":
+    SHOW_CONFIG["external"] = False
 
 
 def enable_notebook(dpi=200):
@@ -44,8 +49,9 @@ def enable_notebook(dpi=200):
         inserted into the notebook.
 
     """
-    NOTEBOOK_CONFIG["dpi"] = dpi
-    NOTEBOOK_CONFIG["enabled"] = True
+    SHOW_CONFIG["dpi"] = dpi
+    SHOW_CONFIG["external"] = False
+    SHOW_CONFIG["display"] = True
 
 
 class Figure(BasePlotting):
@@ -184,9 +190,7 @@ class Figure(BasePlotting):
         with Session() as lib:
             lib.call_module("psconvert", build_arg_string(kwargs))
 
-    def savefig(
-        self, fname, transparent=False, crop=True, anti_alias=True, **kwargs
-    ):
+    def savefig(self, fname, transparent=False, crop=True, anti_alias=True, **kwargs):
         """
         Save the figure to a file.
 
@@ -246,19 +250,36 @@ class Figure(BasePlotting):
         """
         Display a preview of the figure.
 
-        Opens a PDF preview of the figure in the default viewer for your operating
-        system (falls back to the default web browser). Also displays a PNG preview in
-        the Jupyter notebook and IPython Qt client. Use :func:`pygmt.enable_notebook` to
-        suppress the opening of the PDF preview.
+        By default, opens a PDF preview of the figure in the default PDF viewer. Behaves
+        differently depending on the operating system:
+
+        * Linux: Uses ``xdg-open`` (which might need to be installed).
+        * Mac: Uses the ``open`` command.
+        * Windows: Uses Python's :func:`os.startfile` function.
+
+        If we can't determine your OS or ``xdg-open`` is not available on Linux, falls
+        back to using the default web browser to open the file.
+
+        If :func:`pygmt.enable_notebook` was called, will not open the external viewer
+        and will instead use ``IPython.display.display`` to display the figure on th
+        Jupyter notebook or IPython Qt console.
+
+        The external viewer can also be disabled by setting the
+        ``PYGMT_EXTERNAL_VIEWER`` environment variable to ``false``. This is mainly used
+        for running our tests and building the documentation.
         """
         # Module level variable to know which figures had their show method called.
         # Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
-        if not NOTEBOOK_CONFIG["enabled"]:
-            pdf = self._preview(fmt="pdf", dpi=NOTEBOOK_CONFIG["dpi"], anti_alias=False, as_bytes=False)
+        if SHOW_CONFIG["external"]:
+            pdf = self._preview(
+                fmt="pdf", dpi=SHOW_CONFIG["dpi"], anti_alias=False, as_bytes=False
+            )
             launch_external_viewer(pdf)
-        return self
+        if HAS_IPYTHON and SHOW_CONFIG["display"]:
+            png = self._repr_png_()
+            IPython.display.display(IPython.display.Image(data=png))
 
     def shift_origin(self, xshift=None, yshift=None):
         """
@@ -327,5 +348,7 @@ class Figure(BasePlotting):
         Show a PNG preview if the object is returned in an interactive shell.
         For the Jupyter notebook or IPython Qt console.
         """
-        png = self._preview(fmt="png", dpi=NOTEBOOK_CONFIG["dpi"], anti_alias=True, as_bytes=True)
+        png = self._preview(
+            fmt="png", dpi=SHOW_CONFIG["dpi"], anti_alias=True, as_bytes=True
+        )
         return png

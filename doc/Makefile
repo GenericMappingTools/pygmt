@@ -2,7 +2,7 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
+SPHINXBUILD   = PYGMT_EXTERNAL_VIEWER='false' sphinx-build
 SPHINXAUTOGEN = sphinx-autogen
 BUILDDIR      = _build
 
@@ -45,17 +45,8 @@ api:
 	@echo
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
-
 linkcheck:
 	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
 	@echo
 	@echo "Link check complete; look for any errors in the above output " \
 	      "or in $(BUILDDIR)/linkcheck/output.txt."
-
-doctest:
-	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
-	@echo "Testing of doctests in the sources finished, look at the " \
-	      "results in $(BUILDDIR)/doctest/output.txt."
-
-serve:
-	cd $(BUILDDIR)/html && python -m http.server 8009

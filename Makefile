@@ -26,7 +26,7 @@ test:
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).print_clib_info()"
 	@echo ""
-	cd $(TESTDIR); pytest $(PYTEST_ARGS) $(PROJECT)
+	cd $(TESTDIR); PYGMT_EXTERNAL_VIEWER='false' pytest $(PYTEST_ARGS) $(PROJECT)
 	cp $(TESTDIR)/.coverage* .
 	rm -r $(TESTDIR)
 
