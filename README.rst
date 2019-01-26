@@ -123,6 +123,30 @@ mistakes. That's how we all improve and we are happy to help others learn.
 `MetPy project <https://github.com/Unidata/MetPy>`__.
 
 
+Who we are
+----------
+
+PyGMT is a community developed project. See the
+`AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
+file on Github for a list of the people involved and a definition of the term "PyGMT
+Developers".
+
+
+License
+-------
+
+PyGMT is free software: you can redistribute it and/or modify it under the terms of
+the **BSD 3-clause License**. A copy of this license is provided in
+`LICENSE.txt <https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt>`__.
+
+
+Support
+-------
+
+The development of PyGMT was funded by
+`NSF grant OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__.
+
+
 Related projects
 ----------------
 
@@ -135,12 +159,3 @@ Other Python wrappers for GMT:
 * `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
-
-
-License
--------
-
-PyGMT is free software: you can redistribute it and/or modify it under the terms of
-the **BSD 3-clause License**. A copy of this license is provided in
-`LICENSE.txt <https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt>`__.
-.
