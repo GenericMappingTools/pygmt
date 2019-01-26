@@ -113,7 +113,7 @@ def test_clib_name():
         assert clib_name(linux) == "libgmt.so"
     assert clib_name("darwin") == "libgmt.dylib"
     assert clib_name("win32", is_64bit=True) == "gmt_w64.dll"
-    assert clib_name("win32", False) == "gmt_w32.dll"
+    assert clib_name("win32", is_64bit=False) == "gmt_w32.dll"
     with pytest.raises(GMTOSError):
         clib_name("meh")
 
