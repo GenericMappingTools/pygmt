@@ -18,6 +18,7 @@
     :hidden:
     :caption: Getting Started
 
+    overview.rst
     install.rst
     tutorials/overview.rst
     gallery/index.rst
