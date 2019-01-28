@@ -1,8 +1,8 @@
 # Build, package, test, and clean
-PROJECT=gmt
+PROJECT=pygmt
 TESTDIR=tmp-test-dir-with-unique-name
 PYTEST_ARGS=--cov-config=../.coveragerc --cov-report=term-missing --cov=$(PROJECT) --doctest-modules -v --pyargs
-BLACK_FILES=$(PROJECT) setup.py doc/conf.py
+BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
 FLAKE8_FILES=$(PROJECT) setup.py
 LINT_FILES=$(PROJECT) setup.py
 
@@ -24,7 +24,7 @@ test:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	mkdir -p $(TESTDIR)
 	@echo ""
-	@cd $(TESTDIR); python -c "import gmt; gmt.print_clib_info()"
+	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).print_clib_info()"
 	@echo ""
 	cd $(TESTDIR); pytest $(PYTEST_ARGS) $(PROJECT)
 	cp $(TESTDIR)/.coverage* .
@@ -42,6 +42,7 @@ lint:
 
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;
+	find . -name "*~" -exec rm -v {} \;
 	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline

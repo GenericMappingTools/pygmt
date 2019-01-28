@@ -11,9 +11,6 @@ pylint
 flake8
 sphinx
 sphinx_rtd_theme
+sphinx-gallery
 nbsphinx
 numpydoc
-twine
-# The following are installed for checking possible conflicts
-basemap
-

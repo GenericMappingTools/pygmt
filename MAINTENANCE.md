@@ -81,7 +81,7 @@ There are a few steps that still must be done manually, though.
 2. Edit the changes list to remove any trivial changes (updates to the README, typo
    fixes, CI configuration, etc).
 3. Replace the PR number in the commit titles with a link to the Github PR page. In Vim,
-   use `` %s$#\([0-9]\+\)$`#\1 <https://github.com/GenericMappingTools/gmt-python/pull/\1>`__$g ``
+   use `` %s$#\([0-9]\+\)$`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__$g ``
    to make the change automatically.
 4. Copy the remaining changes to `doc/changes.rst` under a new section for the
    intended release.
@@ -132,7 +132,7 @@ After Travis is done building the tag and all builds pass, we need to update the
 package.
 Unfortunately, this needs to be done manually for now.
 
-1. Fork the feedstock repository (https://github.com/conda-forge/gmt-python-feedstock) if
+1. Fork the feedstock repository (https://github.com/conda-forge/pygmt-feedstock) if
    you haven't already. If you have a fork, update it.
 2. Update the version number and sha256 hash on `recipe/meta.yaml`. You can get the hash
    from the PyPI "Download files" section.

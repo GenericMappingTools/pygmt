@@ -1,11 +1,6 @@
 {# Import the theme's layout. #}
 {% extends "!layout.html" %}
 
-{% block extrahead %}
-    {# Include require.js so that we can use WorldWind #}
-    <script src="{{ pathto('_static/require.js', 1) }}"></script>
-{% endblock %}
-
 
 {% block htmltitle %}
     {% if title == '' or title == 'Home' %}
@@ -41,7 +36,7 @@
 
     {% if menu_links %}
         <p class="caption">
-            <span class="caption-text">External links</span>
+            <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
             {% for text, link in menu_links %}

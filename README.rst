@@ -1,30 +1,29 @@
-GMT/Python
-==========
+PyGMT
+=====
 
     A Python interface for the Generic Mapping Tools
 
-`Documentation <https://www.gmtpython.xyz>`__ |
-`Online Demo <http://try.gmtpython.xyz>`__ |
-`Contact <https://gitter.im/GenericMappingTools/gmt-python>`__
+`Documentation (development version) <https://www.pygmt.org/dev>`__ |
+`Contact <https://gitter.im/GenericMappingTools/pygmt>`__
 
-.. image:: http://img.shields.io/pypi/v/gmt-python.svg?style=flat-square
+.. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
-    :target: https://pypi.python.org/pypi/gmt-python
-.. image:: http://img.shields.io/travis/GenericMappingTools/gmt-python/master.svg?style=flat-square&label=Linux|Mac
+    :target: https://pypi.python.org/pypi/pygmt
+.. image:: http://img.shields.io/travis/GenericMappingTools/pygmt/master.svg?style=flat-square&label=Linux|Mac
     :alt: Travis CI build status
-    :target: https://travis-ci.org/GenericMappingTools/gmt-python
-.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/gmt-python/master.svg?style=flat-square
+    :target: https://travis-ci.org/GenericMappingTools/pygmt
+.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
-    :target: https://codecov.io/gh/GenericMappingTools/gmt-python
+    :target: https://codecov.io/gh/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy
     :alt: Code quality grade on codacy
-    :target: https://www.codacy.com/app/leouieda/gmt-python
-.. image:: https://img.shields.io/pypi/pyversions/gmt-python.svg?style=flat-square
+    :target: https://www.codacy.com/app/leouieda/pygmt
+.. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
-    :target: https://pypi.python.org/pypi/gmt-python
-.. image:: https://img.shields.io/gitter/room/GenericMappingTools/gmt-python.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/pygmt
+.. image:: https://img.shields.io/gitter/room/GenericMappingTools/pygmt.svg?style=flat-square
     :alt: Chat room on Gitter
-    :target: https://gitter.im/GenericMappingTools/gmt-python
+    :target: https://gitter.im/GenericMappingTools/pygmt
 
 
 .. placeholder-for-doc-index
@@ -40,14 +39,14 @@ ideas and implement new features. **This is NOT a finished product.**
 
 We welcome any feedback and ideas!
 Let us know by submitting
-`issues on Github <https://github.com/GenericMappingTools/gmt-python/issues>`__
+`issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
 or send us a message on our
-`Gitter chatroom <https://gitter.im/GenericMappingTools/gmt-python>`__.
+`Gitter chatroom <https://gitter.im/GenericMappingTools/pygmt>`__.
 
 About
 -----
 
-GMT/Python is a library for processing geospatial and geophysical data and making
+PyGMT is a library for processing geospatial and geophysical data and making
 publication quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
 command-line program widely used in the Earth Sciences.
@@ -73,13 +72,13 @@ Contacting Us
 -------------
 
 * Most discussion happens `on Github
-  <https://github.com/GenericMappingTools/gmt-python>`__. Feel free to `open an issue
-  <https://github.com/GenericMappingTools/gmt-python/issues/new>`__ or comment on any
+  <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
+  <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
-* We have a `chat room on Gitter <https://gitter.im/GenericMappingTools/gmt-python>`__
+* We have a `chat room on Gitter <https://gitter.im/GenericMappingTools/pygmt>`__
   where you can ask questions and leave comments.
 * This project is released with a `Contributor Code of Conduct
-  <https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md>`__.
+  <https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
   By participating in this project you agree to abide by its terms.
 
 
@@ -90,14 +89,14 @@ Code of conduct
 +++++++++++++++
 
 Please note that this project is released with a `Contributor Code of Conduct
-<https://github.com/GenericMappingTools/gmt-python/blob/master/CODE_OF_CONDUCT.md>`__.
+<https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
 By participating in this project you agree to abide by its terms.
 
 Contributing Guidelines
 +++++++++++++++++++++++
 
 Please read our `Contributing Guide
-<https://github.com/GenericMappingTools/gmt-python/blob/master/CONTRIBUTING.md>`__ to
+<https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md>`__ to
 see how you can help and give feedback.
 
 Imposter syndrome disclaimer
@@ -124,6 +123,30 @@ mistakes. That's how we all improve and we are happy to help others learn.
 `MetPy project <https://github.com/Unidata/MetPy>`__.
 
 
+Who we are
+----------
+
+PyGMT is a community developed project. See the
+`AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
+file on Github for a list of the people involved and a definition of the term "PyGMT
+Developers".
+
+
+License
+-------
+
+PyGMT is free software: you can redistribute it and/or modify it under the terms of
+the **BSD 3-clause License**. A copy of this license is provided in
+`LICENSE.txt <https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt>`__.
+
+
+Support
+-------
+
+The development of PyGMT was funded by
+`NSF grant OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__.
+
+
 Related projects
 ----------------
 
@@ -136,12 +159,3 @@ Other Python wrappers for GMT:
 * `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
-
-
-License
--------
-
-GMT/Python is free software: you can redistribute it and/or modify it under the terms of
-the **BSD 3-clause License**. A copy of this license is provided in
-`LICENSE.txt <https://github.com/GenericMappingTools/gmt-python/blob/master/LICENSE.txt>`__.
-.

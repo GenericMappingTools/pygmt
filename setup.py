@@ -8,14 +8,14 @@ from setuptools import setup, find_packages
 import versioneer
 
 
-NAME = "gmt-python"
-FULLNAME = "GMT Python"
-AUTHOR = "Leonardo Uieda"
+NAME = "pygmt"
+FULLNAME = "PyGMT"
+AUTHOR = "The PyGMT Developers"
 AUTHOR_EMAIL = "leouieda@gmail.com"
 MAINTAINER = AUTHOR
 MAINTAINER_EMAIL = AUTHOR_EMAIL
 LICENSE = "BSD License"
-URL = "https://github.com/GenericMappingTools/gmt-python"
+URL = "https://github.com/GenericMappingTools/pygmt"
 DESCRIPTION = "A Python interface for the Generic Mapping Tools"
 KEYWORDS = ""
 with open("README.rst") as f:
@@ -26,7 +26,7 @@ CMDCLASS = versioneer.get_cmdclass()
 
 PACKAGES = find_packages(exclude=["doc"])
 SCRIPTS = []
-PACKAGE_DATA = {"gmt.tests": ["data/*", "baseline/*"]}
+PACKAGE_DATA = {"pygmt.tests": ["data/*", "baseline/*"]}
 
 CLASSIFIERS = [
     "Development Status :: 3 - Alpha",

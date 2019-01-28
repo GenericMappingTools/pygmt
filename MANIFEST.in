@@ -4,6 +4,6 @@ include CODE_OF_CONDUCT.md
 include CONTRIBUTING.md
 include AUTHORS.md
 include versioneer.py
-include gmt/_version.py
-recursive-include gmt/tests/data *
-recursive-include gmt/tests/baseline *
+include pygmt/_version.py
+recursive-include pygmt/tests/data *
+recursive-include pygmt/tests/baseline *
