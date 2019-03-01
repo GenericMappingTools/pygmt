@@ -27,9 +27,10 @@ addons:
         packages:
             - cmake
             - build-essential
+            - ninja-build
             - libcurl4-gnutls-dev
             - libnetcdf-dev
-            - libgdal1-dev
+            - libgdal-dev
             - libfftw3-dev
             - libpcre3-dev
             - liblapack-dev
@@ -38,7 +39,7 @@ addons:
     homebrew:
         packages:
             - cmake
-            - curl
+            - ninja
             - netcdf
             - gdal
             - fftw
