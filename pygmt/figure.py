@@ -284,7 +284,7 @@ class Figure(BasePlotting):
             img = Image(data=png, width=width)
         return img
 
-    def shift_origin(self, xshift=None, yshift=None):  # pylint: disable=no-self-use
+    def shift_origin(self, xshift=None, yshift=None):
         """
         Shift origins in x and/or y directions.
 
@@ -296,6 +296,7 @@ class Figure(BasePlotting):
         yshift : str
             Shift plot origin in y direction.
         """
+        kwargs = self._preprocess(**kwargs)
         args = ["-T"]
         if xshift:
             args.append("-X{}".format(xshift))
