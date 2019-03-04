@@ -296,7 +296,7 @@ class Figure(BasePlotting):
         yshift : str
             Shift plot origin in y direction.
         """
-        kwargs = self._preprocess(**kwargs)
+        self._preprocess()
         args = ["-T"]
         if xshift:
             args.append("-X{}".format(xshift))
