@@ -30,6 +30,7 @@ Plotting data and laying out the map:
     Figure.grdimage
     Figure.logo
     Figure.image
+    Figure.shift_origin
 
 Saving and displaying the figure:
 

@@ -284,6 +284,38 @@ class Figure(BasePlotting):
             img = Image(data=png, width=width)
         return img
 
+    def shift_origin(self, xshift=None, yshift=None):
+        """
+        Shift plot origin in x and/or y directions.
+
+        This method shifts plot origin relative to the current origin by (*xshift*,*yshift*)
+        and optionally append the length unit (**c**, **i**, or **p**).
+
+        Prepend **a** to shift the origin back to the original position
+        after plotting, prepend **c** to center the plot on the center of the
+        paper (optionally add shift), prepend **f** to shift the origin relative
+        to the fixed lower left corner of the page, or prepend **r** [Default] to
+        move the origin relative to its current location.
+
+        Detailed usage at http://gmt.soest.hawaii.edu/doc/latest/GMT_Docs.html#plot-positioning-and-layout-the-x-y-options
+
+        Parameters
+        ----------
+        xshift : str
+            Shift plot origin in x direction.
+        yshift : str
+            Shift plot origin in y direction.
+        """
+        self._preprocess()
+        args = ["-T"]
+        if xshift:
+            args.append("-X{}".format(xshift))
+        if yshift:
+            args.append("-Y{}".format(yshift))
+
+        with Session() as lib:
+            lib.call_module("plot", " ".join(args))
+
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
         Grab a preview of the figure.
