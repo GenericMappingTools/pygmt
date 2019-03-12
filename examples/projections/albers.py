@@ -10,6 +10,6 @@ import pygmt
 fig = pygmt.Figure()
 # Use the ISO country code for Brazil and add a padding of 2 degrees (+R2)
 fig.coast(
-    projection="B-55/-15/-25/0/8i", region="BR+R2", frame="afg", land="gray", borders=1,
+    projection="B-55/-15/-25/0/8i", region="BR+R2", frame="afg", land="gray", borders=1
 )
 fig.show()
