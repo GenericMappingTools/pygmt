@@ -30,6 +30,14 @@ autosummary_generate = False
 
 numpydoc_class_members_toctree = False
 
+# configure links to GMT docs
+extlinks = {
+    "gmt-docs": (
+        "https://www.generic-mapping-tools.org/gmt/latest/%s",
+        "https://www.generic-mapping-tools.org/gmt/latest/",
+    )
+}
+
 # intersphinx configuration
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),

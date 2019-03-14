@@ -84,7 +84,7 @@ class BasePlotting:
 
         A map projection must be supplied.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`coast.html`
 
         {aliases}
 
