@@ -12,8 +12,6 @@ from .utils import is_nonstr_iter
 from ..exceptions import GMTInvalidInput
 
 
-GMT_DOCS = "http://gmt.soest.hawaii.edu/doc/latest"
-
 COMMON_OPTIONS = {
     "R": """\
         R : str or list
@@ -55,8 +53,6 @@ def fmt_docstring(module_func):
 
     Use any of these placeholders in your docstring to have them substituted:
 
-    * ``{gmt_module_docs}``: link to the GMT docs for that module. Assumes that
-      the name of the GMT module is the same as the function name.
     * ``{aliases}``: Insert a section listing the parameter aliases defined by
       decorator ``use_alias``.
 
@@ -90,8 +86,6 @@ def fmt_docstring(module_func):
     ...     '''
     ...     My nice module.
     ...
-    ...     {gmt_module_docs}
-    ...
     ...     Parameters
     ...     ----------
     ...     {R}
@@ -103,8 +97,6 @@ def fmt_docstring(module_func):
     >>> print(gmtinfo.__doc__)
     <BLANKLINE>
     My nice module.
-    <BLANKLINE>
-    Full option list at http://gmt.soest.hawaii.edu/doc/latest/gmtinfo.html
     <BLANKLINE>
     Parameters
     ----------
@@ -124,10 +116,6 @@ def fmt_docstring(module_func):
 
     """
     filler_text = {}
-
-    url = "{}/{}.html".format(GMT_DOCS, module_func.__name__)
-    text = "Full option list at"
-    filler_text["gmt_module_docs"] = " ".join([text, url])
 
     if hasattr(module_func, "aliases"):
         aliases = ["**Aliases:**\n"]

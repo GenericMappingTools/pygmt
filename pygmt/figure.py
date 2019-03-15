@@ -118,7 +118,7 @@ class Figure(BasePlotting):
         (see :func:`pygmt.figure`). In this case, an output name must be given
         using parameter *F*.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`psconvert.html`
 
         {aliases}
 
@@ -297,7 +297,7 @@ class Figure(BasePlotting):
         to the fixed lower left corner of the page, or prepend **r** [Default] to
         move the origin relative to its current location.
 
-        Detailed usage at http://gmt.soest.hawaii.edu/doc/latest/GMT_Docs.html#plot-positioning-and-layout-the-x-y-options
+        Detailed usage at :gmt-docs:`GMT_Docs.html#plot-positioning-and-layout-the-x-y-options`
 
         Parameters
         ----------
