@@ -118,7 +118,7 @@ before_install:
       fi
     - cd "$TRAVIS_BUILD_DIR"
     # Get the Fatiando CI scripts
-    - git clone https://github.com/fatiando/continuous-integration.git
+    - git clone --branch=1.0.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     # Download and install miniconda and setup dependencies
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
