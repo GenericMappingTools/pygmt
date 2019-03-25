@@ -122,8 +122,6 @@ before_install:
     # Download and install miniconda and setup dependencies
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
-    # Install the latest master of sphinx-gallery to use the scapper
-    - pip install --upgrade git+https://github.com/sphinx-gallery/sphinx-gallery.git
     # Show installed pkg information for postmortem diagnostic
     - conda list
 
