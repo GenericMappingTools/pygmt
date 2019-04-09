@@ -45,13 +45,6 @@ Saving and displaying the figure:
 Data Processing
 ---------------
 
-Operations on GMT settings:
-
-.. autosummary::
-    :toctree: generated
-
-    config
-
 Operations on tabular data:
 
 .. autosummary::
@@ -67,6 +60,15 @@ Operations on grids:
 
     grdinfo
 
+GMT Defaults
+------------
+
+Operations on GMT defaults:
+
+.. autosummary::
+    :toctree: generated
+
+    config
 
 Miscellaneous
 -------------
