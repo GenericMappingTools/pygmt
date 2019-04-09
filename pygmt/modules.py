@@ -146,7 +146,18 @@ def which(fname, **kwargs):
 
 class config:
     """
-    Class for setting GMT defaults.
+    Set GMT defaults globally or locally.
+
+    Change GMT defaults globally::
+
+        pygmt.config(PARAMETER=value)
+
+    Change GMT defaults locally by using it as a context manager::
+
+        with pygmt.config(PARAMETER=value):
+            ...
+
+    Full GMT defaults list at :gmt-docs:`gmt.conf.html`
     """
 
     def __init__(self, **kwargs):
