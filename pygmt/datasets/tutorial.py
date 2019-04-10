@@ -25,7 +25,7 @@ def load_japan_quakes():
 
     """
     fname = which("@tut_quakes.ngdc", download="c")
-    data = pd.read_table(fname, header=1, sep=r"\s+")
+    data = pd.read_csv(fname, header=1, sep=r"\s+")
     data.columns = [
         "year",
         "month",
