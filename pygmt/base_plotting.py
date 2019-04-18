@@ -171,7 +171,7 @@ class BasePlotting:
             - Specify a fixed annotation interval ``annot_int`` or a
               single annotation level ``+[annot_int]``
             - Disable all annotation  with  ``'-'``
-            - Optional label modifers can be specifed as a single string
+            - Optional label modifiers can be specified as a single string
               ``'[annot_int]+e'``  or with a list of options
               ``([annot_int], 'e', 'f10p', 'gred')``.
         L : str or list of 2 ints

@@ -125,7 +125,7 @@ def fmt_docstring(module_func):
         filler_text["aliases"] = "\n".join(aliases)
 
     for marker, text in COMMON_OPTIONS.items():
-        # Remove the identation from the multiline strings so that it doesn't
+        # Remove the indentation from the multiline strings so that it doesn't
         # mess up the original docstring
         filler_text[marker] = textwrap.dedent(text)
 

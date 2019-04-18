@@ -43,7 +43,7 @@ def load_earth_relief(resolution="60m"):
     grid.attrs["units"] = "meters"
     grid.attrs["vertical_datum"] = "EMG96"
     grid.attrs["horizontal_datum"] = "WGS84"
-    # Remove the actual range because it get's outdated when indexing the grid, which
+    # Remove the actual range because it gets outdated when indexing the grid, which
     # causes problems when exporting it to netCDF for usage on the command-line.
     grid.attrs.pop("actual_range")
     for coord in grid.coords:
