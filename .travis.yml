@@ -3,7 +3,7 @@
 # We use miniconda for Python so don't need any Python specific tools
 language: generic
 
-# Use the container builds so we don't need sudo priviledges
+# Use the container builds so we don't need sudo privileges
 sudo: false
 
 cache:
