@@ -19,7 +19,7 @@ dependencies:
     - black
     - pylint
     - flake8
-    - sphinx
+    - sphinx<=1.8.5
     - sphinx_rtd_theme
     - sphinx-gallery
     - nbsphinx
