@@ -5,7 +5,13 @@ import pandas as pd
 import xarray as xr
 
 from .clib import Session
-from .helpers import build_arg_string, fmt_docstring, GMTTempFile, data_kind
+from .helpers import (
+    build_arg_string,
+    fmt_docstring,
+    GMTTempFile,
+    data_kind,
+    dummy_context,
+)
 from .exceptions import GMTInvalidInput
 
 
@@ -27,7 +33,7 @@ def grdtrack(table: pd.DataFrame, grid: xr.DataArray, newcolname: str = "z_", **
         Table with (x, y) or (lon, lat) values in the first two columns. More columns
         may be present.
 
-    grid: xarray.DataArray
+    grid: xarray.DataArray or file (netcdf)
         Gridded array from which to sample values from.
 
     newcolname: str
@@ -51,13 +57,15 @@ def grdtrack(table: pd.DataFrame, grid: xr.DataArray, newcolname: str = "z_", **
             # Store the xarray.DataArray grid in virtualfile
             if data_kind(grid) == "grid":
                 grid_context = lib.virtualfile_from_grid(grid)
+            elif data_kind(grid) == "file":
+                grid_context = dummy_context(grid)
             else:
                 raise GMTInvalidInput(f"Unrecognized data type {type(grid)}")
 
             # Run grdtrack on the temporary (csv) table and (netcdf) grid virtualfiles
             with table_context as csvfile:
                 with grid_context as grdfile:
-                    kwargs = {"G": grdfile}
+                    kwargs.update({"G": grdfile})
                     arg_str = " ".join(
                         [csvfile, build_arg_string(kwargs), "->" + tmpfile.name]
                     )
