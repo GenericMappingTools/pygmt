@@ -15,6 +15,7 @@ from ._version import get_versions as _get_versions
 from .session_management import begin as _begin, end as _end
 from .figure import Figure
 from .gridding import surface
+from .sampling import grdtrack
 from .modules import info, grdinfo, which
 from . import datasets
 

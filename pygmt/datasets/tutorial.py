@@ -2,8 +2,31 @@
 Functions to load sample data from the GMT tutorials.
 """
 import pandas as pd
+import xarray as xr
 
 from .. import which
+
+
+def load_east_pacific_rise_grid():
+    """
+    Load a grid of bathymetry over part of the East Pacific Rise as a xarray.DataArray.
+
+    This is the ``@spac_33.nc`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data : xarray.DataArray
+        The data grid. Coordinates in longitude (lon) and latitude (lat).
+        Data attributes: bathymetry (z) in metres.
+    """
+    fname = which("@spac_33.nc", download="c")
+    with xr.open_dataarray(fname) as dataarray:
+        data = dataarray.load()
+    return data
 
 
 def load_japan_quakes():
@@ -35,6 +58,28 @@ def load_japan_quakes():
         "depth_km",
         "magnitude",
     ]
+    return data
+
+
+def load_ocean_ridge_points():
+    """
+    Load a table of ocean ridge points for the entire world as a pandas.DataFrame.
+
+    This is the ``@ridge.txt`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data :  pandas.Dataframe
+        The data table. Columns are longitude and latitude.
+    """
+    fname = which("@ridge.txt", download="c")
+    data = pd.read_csv(
+        fname, sep=r"\s+", names=["longitude", "latitude"], skiprows=1, comment=">"
+    )
     return data
 
 
