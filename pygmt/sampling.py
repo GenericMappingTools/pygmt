@@ -29,6 +29,8 @@ def grdtrack(
     bilinear, B-spline or nearest-neighbor (see -n) interpolation is used, requiring
     boundary conditions at the limits of the region.
 
+    Full option list at :gmt-docs:`grdtrack.html`
+
     Parameters
     ----------
     points: pandas.DataFrame
