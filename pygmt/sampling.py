@@ -16,7 +16,9 @@ from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
-def grdtrack(table: pd.DataFrame, grid: xr.DataArray, newcolname: str = "z_", **kwargs):
+def grdtrack(
+    points: pd.DataFrame, grid: xr.DataArray, newcolname: str = None, **kwargs
+):
     """
     Sample grids at specified (x,y) locations.
 
@@ -29,7 +31,7 @@ def grdtrack(table: pd.DataFrame, grid: xr.DataArray, newcolname: str = "z_", **
 
     Parameters
     ----------
-    table: pandas.DataFrame
+    points: pandas.DataFrame
         Table with (x, y) or (lon, lat) values in the first two columns. More columns
         may be present.
 
@@ -38,21 +40,26 @@ def grdtrack(table: pd.DataFrame, grid: xr.DataArray, newcolname: str = "z_", **
 
     newcolname: str
         Name for the new column in the table where the sampled values will be placed.
-        Defaults to "z_".
 
     Returns
     -------
-    ret: pandas.DataFrame
-        Table with (x, y, ..., z_) or (lon, lat, ..., z_) values.
+    track: pandas.DataFrame
+        Table with (x, y, ..., newcolname) or (lon, lat, ..., newcolname) values.
 
     """
+
+    try:
+        assert isinstance(newcolname, str)
+    except AssertionError:
+        raise GMTInvalidInput("Please pass in a str to 'newcolname'")
+
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            # Store the pandas.DataFrame table in virtualfile
-            if data_kind(table) == "matrix":
-                table_context = lib.virtualfile_from_matrix(table.values)
+            # Store the pandas.DataFrame points table in virtualfile
+            if data_kind(points) == "matrix":
+                table_context = lib.virtualfile_from_matrix(points.values)
             else:
-                raise GMTInvalidInput(f"Unrecognized data type {type(table)}")
+                raise GMTInvalidInput(f"Unrecognized data type {type(points)}")
 
             # Store the xarray.DataArray grid in virtualfile
             if data_kind(grid) == "grid":
@@ -62,7 +69,7 @@ def grdtrack(table: pd.DataFrame, grid: xr.DataArray, newcolname: str = "z_", **
             else:
                 raise GMTInvalidInput(f"Unrecognized data type {type(grid)}")
 
-            # Run grdtrack on the temporary (csv) table and (netcdf) grid virtualfiles
+            # Run grdtrack on the temp (csv) points table and (netcdf) grid virtualfiles
             with table_context as csvfile:
                 with grid_context as grdfile:
                     kwargs.update({"G": grdfile})
@@ -72,7 +79,7 @@ def grdtrack(table: pd.DataFrame, grid: xr.DataArray, newcolname: str = "z_", **
                     lib.call_module(module="grdtrack", args=arg_str)
 
         # Read temporary csv output to a pandas table
-        column_names = table.columns.to_list() + [newcolname]
+        column_names = points.columns.to_list() + [newcolname]
         result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
 
     return result
