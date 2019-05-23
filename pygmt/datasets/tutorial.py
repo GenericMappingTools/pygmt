@@ -7,28 +7,6 @@ import xarray as xr
 from .. import which
 
 
-def load_east_pacific_rise_grid():
-    """
-    Load a grid of bathymetry over part of the East Pacific Rise as a xarray.DataArray.
-
-    This is the ``@spac_33.nc`` dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
-
-    Returns
-    -------
-    data : xarray.DataArray
-        The data grid. Coordinates in longitude (lon) and latitude (lat).
-        Data attributes: bathymetry (z) in metres.
-    """
-    fname = which("@spac_33.nc", download="c")
-    with xr.open_dataarray(fname) as dataarray:
-        data = dataarray.load()
-    return data
-
-
 def load_japan_quakes():
     """
     Load a table of earthquakes around Japan as a pandas.Dataframe.

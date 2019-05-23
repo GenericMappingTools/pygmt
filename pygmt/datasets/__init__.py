@@ -3,7 +3,6 @@
 # Load sample data included with GMT (downloaded from the GMT cache server).
 
 from .tutorial import (
-    load_east_pacific_rise_grid,
     load_japan_quakes,
     load_ocean_ridge_points,
     load_sample_bathymetry,
