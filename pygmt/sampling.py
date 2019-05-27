@@ -2,7 +2,6 @@
 GMT modules for Sampling of 1-D and 2-D Data
 """
 import pandas as pd
-import xarray as xr
 
 from .clib import Session
 from .helpers import (
@@ -16,9 +15,7 @@ from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
-def grdtrack(
-    points: pd.DataFrame, grid: xr.DataArray, newcolname: str = None, **kwargs
-):
+def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     """
     Sample grids at specified (x,y) locations.
 
@@ -33,33 +30,40 @@ def grdtrack(
 
     Parameters
     ----------
-    points: pandas.DataFrame
-        Table with (x, y) or (lon, lat) values in the first two columns. More columns
-        may be present.
+    points: pandas.DataFrame or file (csv, txt, etc)
+        Either a table with (x, y) or (lon, lat) values in the first two columns,
+        or a data file name. More columns may be present.
 
     grid: xarray.DataArray or file (netcdf)
         Gridded array from which to sample values from.
 
     newcolname: str
-        Name for the new column in the table where the sampled values will be placed.
+        Required if 'points' is a pandas.DataFrame. The name for the new column in the
+        track pandas.DataFrame table where the sampled values will be placed.
+
+    outfile: str
+        Required if 'points' is a file. The file name for the output ASCII file.
 
     Returns
     -------
-    track: pandas.DataFrame
-        Table with (x, y, ..., newcolname) or (lon, lat, ..., newcolname) values.
+    track: pandas.DataFrame or None
+        Return type depends on whether the outfile parameter is set:
+        - pandas.DataFrame table with (x, y, ..., newcolname) if outfile is not set
+        - None if outfile is set (track output will be stored in outfile)
 
     """
-
-    try:
-        assert isinstance(newcolname, str)
-    except AssertionError:
-        raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
             # Store the pandas.DataFrame points table in virtualfile
             if data_kind(points) == "matrix":
+                if newcolname is None:
+                    raise GMTInvalidInput("Please pass in a str to 'newcolname'")
                 table_context = lib.virtualfile_from_matrix(points.values)
+            elif data_kind(points) == "file":
+                if outfile is None:
+                    raise GMTInvalidInput("Please pass in a str to 'outfile'")
+                table_context = dummy_context(points)
             else:
                 raise GMTInvalidInput(f"Unrecognized data type {type(points)}")
 
@@ -75,13 +79,18 @@ def grdtrack(
             with table_context as csvfile:
                 with grid_context as grdfile:
                     kwargs.update({"G": grdfile})
+                    if outfile is None:  # Output to tmpfile if outfile is not set
+                        outfile = tmpfile.name
                     arg_str = " ".join(
-                        [csvfile, build_arg_string(kwargs), "->" + tmpfile.name]
+                        [csvfile, build_arg_string(kwargs), "->" + outfile]
                     )
                     lib.call_module(module="grdtrack", args=arg_str)
 
         # Read temporary csv output to a pandas table
-        column_names = points.columns.to_list() + [newcolname]
-        result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
+        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
+            column_names = points.columns.to_list() + [newcolname]
+            result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
+        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
+            result = None
 
     return result

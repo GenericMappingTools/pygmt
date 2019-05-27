@@ -2,7 +2,6 @@
 Functions to load sample data from the GMT tutorials.
 """
 import pandas as pd
-import xarray as xr
 
 from .. import which
 

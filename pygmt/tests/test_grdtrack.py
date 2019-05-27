@@ -1,6 +1,7 @@
 """
 Tests for grdtrack
 """
+import os
 
 import pandas as pd
 import pytest
@@ -10,6 +11,9 @@ from .. import which
 from ..datasets import load_earth_relief, load_ocean_ridge_points
 from ..exceptions import GMTInvalidInput
 from ..helpers import data_kind
+
+TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
 
 
 def test_grdtrack_input_dataframe_and_dataarray():
@@ -23,6 +27,26 @@ def test_grdtrack_input_dataframe_and_dataarray():
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
     assert output.iloc[0].to_list() == [-110.9536, -42.2489, -2823.96637605]
+
+    return output
+
+
+def test_grdtrack_input_csvfile_and_dataarray():
+    """
+    Run grdtrack by passing in a csvfile and xarray.DataArray as inputs
+    """
+    csvfile = which("@ridge.txt", download="c")
+    dataarray = load_earth_relief().sel(lat=slice(-49, -42), lon=slice(-118, -107))
+
+    try:
+        output = grdtrack(points=csvfile, grid=dataarray, outfile=TEMP_TRACK)
+        assert output is None  # check that output is None since outfile is set
+        assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
+
+        track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
+        assert track.iloc[0].to_list() == [-110.9536, -42.2489, -2823.96637605]
+    finally:
+        os.remove(path=TEMP_TRACK)
 
     return output
 
@@ -42,9 +66,29 @@ def test_grdtrack_input_dataframe_and_ncfile():
     return output
 
 
+def test_grdtrack_input_csvfile_and_ncfile():
+    """
+    Run grdtrack by passing in a csvfile and netcdf file as inputs
+    """
+    csvfile = which("@ridge.txt", download="c")
+    ncfile = which("@earth_relief_60m", download="c")
+
+    try:
+        output = grdtrack(points=csvfile, grid=ncfile, outfile=TEMP_TRACK)
+        assert output is None  # check that output is None since outfile is set
+        assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
+
+        track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
+        assert track.iloc[0].to_list() == [-32.2971, 37.4118, -1697.87197487]
+    finally:
+        os.remove(path=TEMP_TRACK)
+
+    return output
+
+
 def test_grdtrack_wrong_kind_of_points_input():
     """
-    Run grdtrack using points input that is not a pandas.DataFrame (matrix)
+    Run grdtrack using points input that is not a pandas.DataFrame (matrix) or file
     """
     dataframe = load_ocean_ridge_points()
     invalid_points = dataframe.longitude.to_xarray()
@@ -77,3 +121,14 @@ def test_grdtrack_without_newcolname_setting():
 
     with pytest.raises(GMTInvalidInput):
         grdtrack(points=dataframe, grid=dataarray)
+
+
+def test_grdtrack_without_outfile_setting():
+    """
+    Run grdtrack by not passing in outfile parameter setting
+    """
+    csvfile = which("@ridge.txt", download="c")
+    dataarray = load_earth_relief().sel(lat=slice(-49, -42), lon=slice(-118, -107))
+
+    with pytest.raises(GMTInvalidInput):
+        grdtrack(points=csvfile, grid=dataarray)
