@@ -2,11 +2,12 @@
 Sampling along tracks
 ---------------------
 
-The :meth:`pygmt.grdtrack` method samples a raster grid's value along specified points.
-We will need to input a 2D raster to ``grid`` which can be an ``xarray.DataArray``. The
-``points`` parameter can be a ``pandas.DataFrame`` table where the first two columns are
-x and y (or longitude and latitude). Note also that there is a ``newcolname`` parameter
-to set that will be used to name the new column of values we sampled from the grid.
+The :func:`pygmt.grdtrack` function samples a raster grid's value along specified
+points. We will need to input a 2D raster to ``grid`` which can be an
+``xarray.DataArray``. The ``points`` parameter can be a ``pandas.DataFrame`` table where
+the first two columns are x and y (or longitude and latitude). Note also that there is a
+``newcolname`` parameter that will be used to name the new column of values we sampled
+from the grid.
 
 Alternatively, we can provide a NetCDF file path to ``grid``. An ASCII file path can
 also be accepted for ``points``, but an ``outfile`` parameter will then need to be set
@@ -23,15 +24,15 @@ track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
 fig = pygmt.Figure()
 # Plot the earth relief grid on Cylindrical Stereographic projection, masking land areas
-fig.basemap(region="g", frame=True, projection="Cyl_stere/30/-20/8i")
-fig.grdimage(grid=grid, cmap="ocean")
+fig.basemap(region="g", frame=True, projection="Cyl_stere/150/-20/8i")
+fig.grdimage(grid=grid, cmap="gray")
 fig.coast(land="#666666")
-# Plot using circles (c) of 0.1cm, the sampled bathymetry points
+# Plot using circles (c) of 0.15cm, the sampled bathymetry points
 # Points are colored using elevation values (normalized for visual purposes)
 fig.plot(
     x=track.longitude,
     y=track.latitude,
-    style="c0.1c",
+    style="c0.15c",
     cmap="terra",
     color=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
 )

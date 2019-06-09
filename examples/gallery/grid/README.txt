@@ -1,2 +1,2 @@
-Raster grids
+Grids
 ------------
