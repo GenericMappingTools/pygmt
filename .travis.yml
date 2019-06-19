@@ -37,6 +37,7 @@ addons:
             - ghostscript
             - curl
     homebrew:
+        update: true
         packages:
             - cmake
             - ninja
