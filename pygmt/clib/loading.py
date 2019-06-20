@@ -76,7 +76,7 @@ def clib_name(os_name):
         # Darwin is macOS
         libname = ["libgmt.dylib"]
     elif os_name == "win32":
-        libname = ["gmt.lib", "gmt_w64.dll", "gmt_w32.dll"]
+        libname = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     else:
         raise GMTOSError('Operating system "{}" not supported.'.format(sys.platform))
     return libname
