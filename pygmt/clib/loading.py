@@ -52,7 +52,7 @@ def load_libgmt(env=None):
     return libgmt
 
 
-def get_clib_path(env):
+def get_clib_path(env=None):
     """
     Get the path to the libgmt shared library.
 
