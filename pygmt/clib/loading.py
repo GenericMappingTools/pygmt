@@ -46,6 +46,7 @@ def load_libgmt(env=None):
         try:
             libgmt = ctypes.CDLL(os.path.join(libpath, libname))
             check_libgmt(libgmt)
+            break
         except OSError as err:
             error = err
     if error:
