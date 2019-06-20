@@ -1,4 +1,4 @@
-# The following are required for development purposes
+# Requirements for development using conda
 ipython
 matplotlib
 jupyter
