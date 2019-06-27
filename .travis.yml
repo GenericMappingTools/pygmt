@@ -3,12 +3,8 @@
 # We use miniconda for Python so don't need any Python specific tools
 language: generic
 
-# Use the container builds so we don't need sudo priviledges
+# Use the container builds so we don't need sudo privileges
 sudo: false
-
-cache:
-    directories:
-        - gmt-master/build
 
 # Only build pushes to the master branch and tags. This avoids the double
 # builds than happen when working on a branch instead of a fork.
@@ -17,35 +13,6 @@ branches:
         - master
         # Regex to build tagged commits with version numbers
         - /\d+\.\d+(\.\d+)?(\S*)?$/
-
-# Set the Ubuntu version for the Linux builds
-dist: xenial
-
-# GMT dependencies for the Linux and OSX builds
-addons:
-    apt:
-        packages:
-            - cmake
-            - build-essential
-            - ninja-build
-            - libcurl4-gnutls-dev
-            - libnetcdf-dev
-            - libgdal-dev
-            - libfftw3-dev
-            - libpcre3-dev
-            - liblapack-dev
-            - ghostscript
-            - curl
-    homebrew:
-        packages:
-            - cmake
-            - ninja
-            - netcdf
-            - gdal
-            - fftw
-            - pcre2
-            - ghostscript
-            - curl
 
 # Define environment variables common to all builds
 env:
@@ -56,74 +23,34 @@ env:
         # TWINE_PASSWORD to deploy to PyPI
         - secure: "md4fgPt9RC/sCoN5//5PcNHLUd9gWQGewV5hFpWW88MRTjxTng1Zfs8r7SqlF2AkEEepFfyzq0BEe9c3FMAnFbec3KmqdlQen4V8xDbLrcTlvkPlTrYGbAScUvdhhqojB//hMHoTD4KvxAv9CiUwFBO4hCMmj2buWHUbV9Ksu5WCW9mF/gkt/hIuYAU6Mbwt8PiYyMgUpzMHO1vruofcWRaVnvKwmBqHB0ae86D4/drpwn4CWjlM12WUnphT2bssiyPkw24FZtCN6kPVta6bLZKBxu0bZpw2vbXuUG+Yh19Q4mp8wNYT3XSHJf8Hl5LfujF48+cLWu+6rlCkdcelyVylhWLFc3rGOONAv4G8jWW2yNSz/bLQfJnMpd81fQEu5eySmFxB7mdB0uyKpvIG1jMJQ73LlYKakKLAPdYhMFyQAHoX9gvCE3S4QR95DBMi5gM/pZubOCcMLdjPHB5JKpJHSjxbOzyVwgmsUIEgd5Bi2vZvvYQXn1plk4xpQ3PhXc+/gi33bzY89mKcfOn0HJ2pD1vLqDXRCBsMCakoLZ0JB/6bacaz4FngbsGWuQ+I1cz20lJGL/MSi9bW1G7Uoidt3GXXWDmXrWt70vIXlLIxr8XV0Mu/rPbauGgWE+ZSYEfvdM5sP+FNF7vQ5de+Fkvzg5Z3tTfR+O1W+d7+vM4="
         - TWINE_USERNAME=Leonardo.Uieda
-        # Paths for GMT installation
-        - INSTALLDIR="$HOME/gmt-install-dir"
-        - COASTLINEDIR="$INSTALLDIR/coast"
-        - PATH="$INSTALLDIR/bin:$PATH"
-        - LD_LIBRARY_PATH="$INSTALLDIR/lib:$LD_LIBRARY_PATH"
-        - GMT_LIBRARY_PATH="$INSTALLDIR/lib"
         # The file with the listed requirements to be installed by conda
         - CONDA_REQUIREMENTS=requirements.txt
         - CONDA_REQUIREMENTS_DEV=requirements-dev.txt
+        - CONDA_INSTALL_EXTRA="codecov twine"
+        # Enable the development channel so we can get GMT 6.0.0 before it's released
+        - CONDA_EXTRA_CHANNEL=conda-forge/label/dev
         # These variables control which actions are performed in a build
-        - TEST=false
-        - CHECK=false
-        - BUILD_DOCS=false
-        - DEPLOY_DOCS=false
-        - DEPLOY_PYPI=false
+        - DEPLOY=false
 
 matrix:
     # Build under the following configurations
     include:
-        - name: "Style checks"
-          os: linux
-          env:
-              - PYTHON=3.6
-              - CHECK=true
-              - CONDA_INSTALL_EXTRA="black flake8 pylint=2.2.2"
-              - CONDA_REQUIREMENTS=""
-              - CONDA_REQUIREMENTS_DEV=""
         - name: "Linux - Python 3.7"
           os: linux
           env:
               - PYTHON=3.7
-              - TEST=true
-              - BUILD_DOCS=true
         - name: "Linux - Python 3.6 (deploy)"
           os: linux
           env:
               - PYTHON=3.6
-              - TEST=true
-              - BUILD_DOCS=true
-              - DEPLOY_DOCS=true
-              - DEPLOY_PYPI=true
-              - CONDA_INSTALL_EXTRA="twine"
-        - name: "Mac - Python 3.7"
-          os: osx
-          env:
-              - PYTHON=3.7
-              - TEST=true
-              - BUILD_DOCS=true
-        - name: "Mac - Python 3.6"
-          os: osx
-          env:
-              - PYTHON=3.6
-              - TEST=true
-              - BUILD_DOCS=true
+              - DEPLOY=true
 
 before_install:
-    # Build and install GMT from the master branch
-    - if [ "$TEST" == "true" ]; then
-        bash helpers/build-gmt-master.sh;
-      fi
-    - cd "$TRAVIS_BUILD_DIR"
     # Get the Fatiando CI scripts
-    - git clone https://github.com/fatiando/continuous-integration.git
+    - git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
     # Download and install miniconda and setup dependencies
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
-    # Install the latest master of sphinx-gallery to use the scapper
-    - pip install --upgrade git+https://github.com/sphinx-gallery/sphinx-gallery.git
     # Show installed pkg information for postmortem diagnostic
     - conda list
 
@@ -133,29 +60,16 @@ install:
     - pip install dist/*
 
 script:
-    # Check code for style and lint for code quality
-    - if [ "$CHECK" == "true" ]; then
-        make check;
-        make lint;
-      fi
     # Run the test suite. Make pytest report any captured output on stdout or stderr.
-    - if [ "$TEST" == "true" ]; then
-          pip install codecov;
-          make test PYTEST_EXTRA="-r P";
-      fi
+    - make test PYTEST_EXTRA="-r P"
     # Build the documentation
-    - if [ "$BUILD_DOCS" == "true" ]; then
-        make -C doc all;
-      fi
+    - make -C doc all
 
 # Things to do if the build is successful
 after_success:
     # Upload coverage information
-    - if [ "$TEST" == "true" ]; then
-        coverage xml;
-        echo "Uploading coverage to Codecov";
-        codecov -e PYTHON;
-      fi
+    - coverage xml
+    - codecov -e PYTHON
 
 deploy:
     # Make a release on PyPI
@@ -163,21 +77,21 @@ deploy:
       script: continuous-integration/travis/deploy-pypi.sh
       on:
           tags: true
-          condition: '$DEPLOY_PYPI == "true"'
+          condition: '$DEPLOY == "true"'
     # Push the built HTML in doc/_build/html to the gh-pages branch
     - provider: script
       script: continuous-integration/travis/deploy-gh-pages.sh
       skip_cleanup: true
       on:
           branch: master
-          condition: '$DEPLOY_DOCS == "true"'
+          condition: '$DEPLOY == "true"'
     # Push HTML when building tags as well
     - provider: script
       script: continuous-integration/travis/deploy-gh-pages.sh
       skip_cleanup: true
       on:
           tags: true
-          condition: '$DEPLOY_DOCS == "true"'
+          condition: '$DEPLOY == "true"'
 
 notifications:
     email: false

@@ -32,7 +32,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     Must provide either *data* or *x*, *y*, and *z*.
 
-    {gmt_module_docs}
+    Full option list at :gmt-docs:`surface.html`
 
     Parameters
     ----------

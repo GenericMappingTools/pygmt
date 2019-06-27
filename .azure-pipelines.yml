@@ -1,0 +1,220 @@
+# Configuration for Azure Pipelines
+########################################################################################
+
+# Only build the master branch, tags, and PRs (on by default) to avoid building random
+# branches in the repository until a PR is opened.
+trigger:
+  branches:
+    include:
+    - master
+    - refs/tags/*
+
+
+jobs:
+
+# Linux
+########################################################################################
+- job:
+  displayName: 'Style Checks'
+
+  pool:
+    vmImage: 'ubuntu-16.04'
+
+  variables:
+    CONDA_INSTALL_EXTRA: "black flake8 pylint=2.2.2"
+    PYTHON: '3.7'
+
+  steps:
+
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7'
+
+  - bash: echo "##vso[task.prependpath]/usr/share/miniconda/bin"
+    displayName: Add conda to PATH
+
+  # Get the Fatiando CI scripts
+  - bash: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+    displayName: Fetch the Fatiando CI scripts
+
+  # Setup dependencies and build a conda environment
+  - bash: source continuous-integration/azure/setup-miniconda.sh
+    displayName: Setup Miniconda
+
+  # Show installed pkg information for postmortem diagnostic
+  - bash: |
+      set -x -e
+      source activate testing
+      conda list
+    displayName: List installed packages
+
+  # Check that the code passes format checks
+  - bash: |
+      set -x -e
+      source activate testing
+      make check
+    displayName: Formatting check (black and flake8)
+    condition: succeededOrFailed()
+
+  # Check that the code passes linting checks
+  - bash: |
+      set -x -e
+      source activate testing
+      make lint
+    displayName: Linting (pylint)
+    condition: succeededOrFailed()
+
+
+# Mac
+########################################################################################
+- job:
+  displayName: 'Mac'
+
+  pool:
+    vmImage: 'macOS-10.14'
+
+  variables:
+    CONDA_REQUIREMENTS: requirements.txt
+    CONDA_REQUIREMENTS_DEV: requirements-dev.txt
+    CONDA_INSTALL_EXTRA: "codecov"
+    CONDA_EXTRA_CHANNEL: "conda-forge/label/dev"
+
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+        PYTHON: '3.7'
+      Python36:
+        python.version: '3.6'
+        PYTHON: '3.6'
+
+  steps:
+
+  - bash: echo "##vso[task.prependpath]$CONDA/bin"
+    displayName: Add conda to PATH
+
+  # Get the Fatiando CI scripts
+  - bash: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+    displayName: Fetch the Fatiando CI scripts
+
+  # Setup dependencies and build a conda environment
+  - bash: source continuous-integration/azure/setup-miniconda.sh
+    displayName: Setup Miniconda
+
+  # Show installed pkg information for postmortem diagnostic
+  - bash: |
+      set -x -e
+      source activate testing
+      conda list
+    displayName: List installed packages
+
+  # Install the package
+  - bash: |
+      set -x -e
+      source activate testing
+      python setup.py bdist_wheel
+      pip install dist/*
+    displayName: Install the package
+
+  # Run the tests
+  - bash: |
+      set -x -e
+      source activate testing
+      make test PYTEST_EXTRA="-r P"
+    displayName: Test
+
+  # Build the documentation
+  - bash: |
+      set -x -e
+      source activate testing
+      make -C doc clean all
+    displayName: Build the documentation
+
+  # Upload test coverage if there were no failures
+  - bash: |
+      set -x -e
+      source activate testing
+      coverage xml
+      echo "Uploading coverage to Codecov"
+      codecov -e PYTHON AGENT_OS
+    env:
+      CODECOV_TOKEN: $(codecov.token)
+    condition: succeeded()
+    displayName: Upload coverage
+
+
+# Windows
+########################################################################################
+- job:
+  displayName: 'Windows'
+
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  variables:
+    CONDA_REQUIREMENTS: requirements.txt
+    CONDA_REQUIREMENTS_DEV: requirements-dev.txt
+    CONDA_INSTALL_EXTRA: "codecov"
+    CONDA_EXTRA_CHANNEL: "conda-forge/label/dev"
+
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+        PYTHON: '3.7'
+      Python36:
+        python.version: '3.6'
+        PYTHON: '3.6'
+
+  steps:
+
+  # Install ghostscript separately since there is no Windows conda-forge package for it.
+  - bash: |
+      set -x -e
+      choco install ghostscript
+    displayName: Install ghostscript via chocolatey
+
+  - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+    displayName: Add conda to PATH
+
+  # Get the Fatiando CI scripts
+  - script: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+    displayName: Fetch the Fatiando CI scripts
+
+  # Setup dependencies and build a conda environment
+  - script: continuous-integration/azure/setup-miniconda.bat
+    displayName: Setup Miniconda
+
+  # Show installed pkg information for postmortem diagnostic
+  - bash: |
+      set -x -e
+      source activate testing
+      conda list
+    displayName: List installed packages
+
+  # Install the package that we want to test
+  - bash: |
+      set -x -e
+      source activate testing
+      python setup.py sdist --formats=zip
+      pip install dist/*
+    displayName: Install the package
+
+  # Run the tests
+  - bash: |
+      set -x -e
+      source activate testing
+      make test PYTEST_EXTRA="-r P"
+    displayName: Test
+
+  # Upload test coverage if there were no failures
+  - bash: |
+      set -x -e
+      source activate testing
+      coverage report -m
+      coverage xml
+      codecov -e PYTHON AGENT_OS
+    env:
+      CODECOV_TOKEN: $(codecov.token)
+    condition: succeeded()
+    displayName: Upload coverage
