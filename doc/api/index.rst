@@ -30,6 +30,7 @@ Plotting data and laying out the map:
     Figure.grdimage
     Figure.logo
     Figure.image
+    Figure.shift_origin
 
 Saving and displaying the figure:
 
@@ -127,7 +128,7 @@ Most calls to the C API happen through the :class:`pygmt.clib.Session` class.
 
     clib.Session
 
-`GMT modules <http://gmt.soest.hawaii.edu/doc/latest/#man-pages>`__ are executed through
+`GMT modules <https://www.generic-mapping-tools.org/gmt/latest/quick_ref.html>`__ are executed through
 the :meth:`~pygmt.clib.Session.call_module` method:
 
 .. autosummary::

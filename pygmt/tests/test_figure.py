@@ -115,3 +115,17 @@ def test_figure_show():
     fig.basemap(R="10/70/-300/800", J="X3i/5i", B="af")
     img = fig.show(width=800)
     assert img.width == 800
+
+
+@pytest.mark.mpl_image_compare
+def test_shift_origin():
+    "Test if fig.shift_origin works"
+    fig = Figure()
+    fig.basemap(R="10/70/-300/300", J="X3i/5i", B="af")
+    fig.shift_origin(xshift="4i")
+    fig.basemap(R="10/70/-300/300", J="X3i/5i", B="af")
+    fig.shift_origin(yshift="6i")
+    fig.basemap(R="10/70/-300/300", J="X3i/5i", B="af")
+    fig.shift_origin(xshift="-4i", yshift="6i")
+    fig.basemap(R="10/70/-300/300", J="X3i/5i", B="af")
+    return fig

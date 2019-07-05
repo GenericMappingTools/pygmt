@@ -1,8 +1,10 @@
 name: pygmt
 channels:
     - conda-forge
+    - defaults
+    - conda-forge/label/dev
 dependencies:
-    - python=3.6
+    - python=3.7
     - pip
     - numpy
     - pandas
@@ -19,7 +21,7 @@ dependencies:
     - black
     - pylint
     - flake8
-    - sphinx
+    - sphinx<=1.8.5
     - sphinx_rtd_theme
     - sphinx-gallery
     - nbsphinx

@@ -1,4 +1,4 @@
-# The following are required for development purposes
+# Requirements for development using conda
 ipython
 matplotlib
 jupyter
@@ -9,7 +9,7 @@ coverage
 black
 pylint
 flake8
-sphinx
+sphinx<=1.8.5
 sphinx_rtd_theme
 sphinx-gallery
 nbsphinx

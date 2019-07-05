@@ -60,7 +60,8 @@ fig.show()
 oahu = [-158.3, -157.6, 21.2, 21.8]
 fig = pygmt.Figure()
 for res in ["c", "l", "i", "h", "f"]:
-    fig.coast(resolution=res, shorelines="1p", region=oahu, projection="M5i", X="5i")
+    fig.coast(resolution=res, shorelines="1p", region=oahu, projection="M5i")
+    fig.shift_origin(xshift="5i")
 fig.show()
 
 ########################################################################################

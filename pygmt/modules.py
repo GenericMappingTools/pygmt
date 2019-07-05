@@ -20,7 +20,7 @@ def grdinfo(grid, **kwargs):
 
     Can read the grid from a file or given as an xarray.DataArray grid.
 
-    {gmt_module_docs}
+    Full option list at :gmt-docs:`grdinfo.html`
 
     Parameters
     ----------
@@ -65,7 +65,7 @@ def info(fname, **kwargs):
     increments provided. The *T* option will provide a *-Tzmin/zmax/dz* string
     for makecpt.
 
-    {gmt_module_docs}
+    Full option list at :gmt-docs:`gmtinfo.html`
 
     Parameters
     ----------
@@ -109,7 +109,7 @@ def which(fname, **kwargs):
     to set the desired behavior. If *download* is not used (or False), the file
     will not be found.
 
-    {gmt_module_docs}
+    Full option list at :gmt-docs:`gmtwhich.html`
 
     {aliases}
 

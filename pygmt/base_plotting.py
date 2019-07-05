@@ -86,7 +86,7 @@ class BasePlotting:
 
         A map projection must be supplied.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`coast.html`
 
         {aliases}
 
@@ -148,7 +148,7 @@ class BasePlotting:
 
         Takes a grid file name or an xarray.DataArray object as input.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`grdcontour.html`
 
         {aliases}
 
@@ -173,7 +173,7 @@ class BasePlotting:
             - Specify a fixed annotation interval ``annot_int`` or a
               single annotation level ``+[annot_int]``
             - Disable all annotation  with  ``'-'``
-            - Optional label modifers can be specifed as a single string
+            - Optional label modifiers can be specified as a single string
               ``'[annot_int]+e'``  or with a list of options
               ``([annot_int], 'e', 'f10p', 'gred')``.
         L : str or list of 2 ints
@@ -211,7 +211,7 @@ class BasePlotting:
 
         Takes a grid file name or an xarray.DataArray object as input.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`grdimage.html`
 
         {aliases}
 
@@ -270,7 +270,7 @@ class BasePlotting:
         is drawn or not. If a symbol is selected, *G* and *W* determines the
         fill and outline/no outline, respectively.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`plot.html`
 
         {aliases}
 
@@ -373,7 +373,7 @@ class BasePlotting:
 
         [TODO: Insert more documentation]
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`contour.html`
 
         {aliases}
 
@@ -440,7 +440,7 @@ class BasePlotting:
 
         At least one of the options *B*, *L*, or *T* must be specified.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`basemap.html`
 
         {aliases}
 
@@ -479,7 +479,7 @@ class BasePlotting:
         Use various options to change this and to place a transparent or
         opaque rectangular map panel behind the GMT logo.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`logo.html`
 
         {aliases}
 
@@ -511,7 +511,7 @@ class BasePlotting:
 
         Reads an Encapsulated PostScript file or a raster image file and plots it on a map.
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`image.html`
 
         {aliases}
 
