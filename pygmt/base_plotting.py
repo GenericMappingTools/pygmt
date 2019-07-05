@@ -544,7 +544,7 @@ class BasePlotting:
 
         Makes legends that can be overlaid on maps. Reads specific legend-related information from an input file. Unless otherwise noted, annotations will be made using the primary annotation font and size in effect (i.e., FONT_ANNOT_PRIMARY).
 
-        {gmt_module_docs}
+        Full option list at :gmt-docs:`legend.html`
 
         {aliases}
 
