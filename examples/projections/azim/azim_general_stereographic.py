@@ -25,10 +25,5 @@ This projection can be displayed
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(
-    region="4/14/52/57",
-    projection="S0/90/4.5i",
-    frame="ag",
-    land="gray",
-)
+fig.coast(region="4/14/52/57", projection="S0/90/4.5i", frame="ag", land="gray")
 fig.show()

@@ -17,10 +17,5 @@ visibile portion of the rest of the world map) in degrees <= 180Â° (default 180Â
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(
-    projection="E-100/40/4.5i",
-    region="g",
-    frame="g",
-    land="gray",
-)
+fig.coast(projection="E-100/40/4.5i", region="g", frame="g", land="gray")
 fig.show()

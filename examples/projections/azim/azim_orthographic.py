@@ -16,10 +16,5 @@ specifies the max distance from projection center (in degrees, <= 90, default 90
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(
-    projection="G10/52/4.5i",
-    region="g",
-    frame="g",
-    land="gray",
-)
+fig.coast(projection="G10/52/4.5i", region="g", frame="g", land="gray")
 fig.show()
