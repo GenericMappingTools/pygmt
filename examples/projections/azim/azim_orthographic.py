@@ -2,7 +2,7 @@
 Orthographic
 ============
 
-This projection is a perspective projection like the general perspective,
+This is a perspective projection like the general perspective,
 but with the difference that the point of perspective lies in infinite distance.
 It is therefore often used to give the appearance of a globe viewed from outer
 space, were one hemisphere can be seen as a whole. It is nor conformal, nor
