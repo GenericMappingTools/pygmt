@@ -14,7 +14,7 @@ projection.
 ``lon0/lat0`` specifies the projection center, the optional ``horizon`` parameter
 specifies the max distance from projection center (in degrees, < 180, default 90).
 
-This projection can be displayed
+This projection can be displayed:
 
 * with map boundaries coinciding with longitude and latitude:
   ``region`` specified via ``xmin/xmax/ymin/ymax``
