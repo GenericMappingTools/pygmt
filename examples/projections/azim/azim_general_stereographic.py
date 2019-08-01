@@ -18,7 +18,7 @@ This projection can be displayed:
 
 * With map boundaries coinciding with longitude and latitude:
   ``region`` specified via ``xmin/xmax/ymin/ymax``
-* as a map with rectangular boundaries: ``region`` specified as lower left and
+* As a map with rectangular boundaries: ``region`` specified as lower left and
   upper right corner ``xlleft/ylleft/xuright/yurightr``. Note the appended ``r``.
 """
 import pygmt
