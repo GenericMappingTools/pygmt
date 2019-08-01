@@ -5,7 +5,7 @@ Orthographic
 This is a perspective projection like the general perspective,
 but with the difference that the point of perspective lies in infinite distance.
 It is therefore often used to give the appearance of a globe viewed from outer
-space, were one hemisphere can be seen as a whole. It is nor conformal, nor
+space, were one hemisphere can be seen as a whole. It is neither conformal nor
 equal-area and the distortion increases near the edges.
 
 ``glon0/lat0[/horizon]/scale`` or ``Glon0/lat0[/horizon]/width``
