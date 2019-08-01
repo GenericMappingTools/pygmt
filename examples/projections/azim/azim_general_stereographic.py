@@ -4,7 +4,7 @@ General Stereographic
 
 This map projection is a conformal, azimuthal projection. It is mainly used with
 a projection center in one of the poles. Then meridians appear as straight lines
-and cross latitudes at a right angle. Unlike the azimuthal equidistant projection
+and cross latitudes at a right angle. Unlike the azimuthal equidistant projection,
 the distances in this projection are not displayed in correct proportions.
 It is often used as a hemisphere map like the Lambert Azimuthal Equal Area
 projection.
