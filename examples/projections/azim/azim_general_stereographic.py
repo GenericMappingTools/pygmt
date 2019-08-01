@@ -16,7 +16,7 @@ specifies the max distance from projection center (in degrees, < 180, default 90
 
 This projection can be displayed:
 
-* with map boundaries coinciding with longitude and latitude:
+* With map boundaries coinciding with longitude and latitude:
   ``region`` specified via ``xmin/xmax/ymin/ymax``
 
 * as a map with rectangular boundaries: ``region`` specified as lower left and
