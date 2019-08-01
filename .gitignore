@@ -10,6 +10,7 @@
 MANIFEST
 .pytest_cache/
 .ipynb_checkpoints/
+.vscode/
 build/
 dist/
 doc/_build
