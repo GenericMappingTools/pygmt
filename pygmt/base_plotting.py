@@ -2,6 +2,10 @@
 Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
+import csv
+import numpy as np
+import pandas as pd
+
 from .clib import Session
 from .exceptions import GMTInvalidInput
 from .helpers import (
@@ -9,6 +13,7 @@ from .helpers import (
     dummy_context,
     data_kind,
     fmt_docstring,
+    GMTTempFile,
     use_alias,
     kwargs_to_strings,
 )
@@ -530,3 +535,66 @@ class BasePlotting:
         with Session() as lib:
             arg_str = " ".join([imagefile, build_arg_string(kwargs)])
             lib.call_module("image", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection")
+    @kwargs_to_strings(R="sequence")
+    def text(self, textfile=None, x=None, y=None, text=None, **kwargs):
+        """
+        Places text on a map.
+
+        Used to be pstext.
+
+        Takes in a textfile or (x,y,text) triples as input.
+
+        Must provide either *textfile* or *x*, *y*, and *text*.
+
+        Full option list at :gmt-docs:`text.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        textfile : str
+            A text data file name
+        x, y : float or 1d arrays
+            The x and y coordinates, or an array of x and y coordinates to plot the text
+        text : str or 1d array
+            The text string, or an array of strings to plot on the figure
+        {J}
+        {R}
+        """
+        kwargs = self._preprocess(**kwargs)
+
+        kind = data_kind(textfile, x, y, text)
+        if kind == "vectors" and text is None:
+            raise GMTInvalidInput("Must provide text with x and y.")
+
+        with GMTTempFile(suffix=".txt") as tmpfile:
+            with Session() as lib:
+                if kind == "file":
+                    file_context = dummy_context(textfile)
+                elif kind == "vectors":
+                    dataframe = pd.DataFrame.from_dict(
+                        {
+                            "x": np.atleast_1d(x),
+                            "y": np.atleast_1d(y),
+                            "text": np.atleast_1d(text),
+                        }
+                    )
+                    dataframe.to_csv(
+                        tmpfile.name,
+                        sep="\t",
+                        header=False,
+                        index=False,
+                        quoting=csv.QUOTE_NONE,
+                    )
+                    file_context = dummy_context(tmpfile.name)
+                else:
+                    raise GMTInvalidInput(
+                        "Unrecognized data type: {}".format(type(textfile))
+                    )
+
+                with file_context as fname:
+                    arg_str = " ".join([fname, build_arg_string(kwargs)])
+                    lib.call_module("text", arg_str)
