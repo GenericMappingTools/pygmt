@@ -13,6 +13,7 @@ from ..helpers import data_kind
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
 
 
 @pytest.fixture(scope="module")
@@ -144,5 +145,23 @@ def test_text_justify_bottom_right_and_top_left(region, projection):
         y=0.2,
         text="text justified top left",
         justify="TL",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_justify_parsed_from_textfile():
+    """
+    Print text justified based on a column from textfile, using justify=True boolean
+    operation. Loosely based on "All great-circle paths lead to Rome" gallery example at
+    https://gmt.soest.hawaii.edu/doc/latest/gallery/ex23.html
+    """
+    fig = Figure()
+    fig.text(
+        region="g",
+        projection="H90/9i",
+        justify=True,
+        textfile=CITIES_DATA,
+        D="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
     )
     return fig
