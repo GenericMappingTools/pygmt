@@ -12,7 +12,7 @@ PyGMT
 .. image:: http://img.shields.io/travis/GenericMappingTools/pygmt/master.svg?style=flat-square&label=Linux
     :alt: Travis CI build status
     :target: https://travis-ci.org/GenericMappingTools/pygmt
-.. image:: https://img.shields.io/azure-devops/build/GenericMappingTools/7682ad4e-76bb-4775-849e-7c4f8dce4e1a/3/master.svg?label=Azure&style=flat-square
+ .. image:: https://img.shields.io/azure-devops/build/GenericMappingTools/7682ad4e-76bb-4775-849e-7c4f8dce4e1a/3/master.svg?label=Mac|Windows&style=flat-square
     :alt: Azure Pipelines build status
     :target: https://dev.azure.com/GenericMappingTools/PyGMT/_build
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
