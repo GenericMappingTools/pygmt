@@ -538,8 +538,23 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(R="region", J="projection")
-    @kwargs_to_strings(R="sequence")
-    def text(self, textfile=None, x=None, y=None, text=None, **kwargs):
+    @kwargs_to_strings(
+        R="sequence",
+        angle="sequence_comma",
+        font="sequence_comma",
+        justify="sequence_comma",
+    )
+    def text(
+        self,
+        textfile=None,
+        x=None,
+        y=None,
+        text=None,
+        angle=None,
+        font=None,
+        justify=None,
+        **kwargs,
+    ):
         """
         Places text on a map.
 
@@ -547,7 +562,7 @@ class BasePlotting:
 
         Takes in a textfile or (x,y,text) triples as input.
 
-        Must provide either *textfile* or *x*, *y*, and *text*.
+        Must provide at least *textfile* or *x*, *y*, and *text*.
 
         Full option list at :gmt-docs:`text.html`
 
@@ -561,6 +576,22 @@ class BasePlotting:
             The x and y coordinates, or an array of x and y coordinates to plot the text
         text : str or 1d array
             The text string, or an array of strings to plot on the figure
+        angle: int/float or bool
+            Set the angle measured in degrees counter-clockwise from horizontal. E.g. 30
+            sets the text at 30 degrees. If no angle is given then the input textfile
+            must have this as a column.
+        font : str or bool
+            Set the font specification with format "size,font,color" where size is text
+            size in points, font is the font to use, and color sets the font color. E.g.
+            "12p,Helvetica-Bold,red" selects a 12p red Helvetica-Bold font. If no font
+            info is given then the input textfile must have this information in one of
+            its columns.
+        justify: str or bool
+            Set the alignment which refers to the part of the text string that will be
+            mapped onto the (x,y) point. Choose a 2 character combination of L, C, R
+            (for left, center, or right) and T, M, B for top, middle, or bottom. E.g.,
+            BL for lower left. If no justification is given then the input textfile must
+            have this as a column.
         {J}
         {R}
         """
@@ -570,31 +601,39 @@ class BasePlotting:
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x and y.")
 
+        if angle is not None or font is not None or justify is not None:
+            if "F" not in kwargs.keys():
+                kwargs.update({"F": ""})
+            if angle is not None and isinstance(angle, (int, float)):
+                kwargs["F"] += f"+a{str(angle)}"
+            if font is not None and isinstance(font, str):
+                kwargs["F"] += f"+f{font}"
+            if justify is not None and isinstance(justify, str):
+                kwargs["F"] += f"+j{justify}"
+
         with GMTTempFile(suffix=".txt") as tmpfile:
             with Session() as lib:
                 if kind == "file":
-                    file_context = dummy_context(textfile)
+                    fname = textfile
                 elif kind == "vectors":
-                    dataframe = pd.DataFrame.from_dict(
+                    pd.DataFrame.from_dict(
                         {
                             "x": np.atleast_1d(x),
                             "y": np.atleast_1d(y),
                             "text": np.atleast_1d(text),
                         }
-                    )
-                    dataframe.to_csv(
+                    ).to_csv(
                         tmpfile.name,
                         sep="\t",
                         header=False,
                         index=False,
                         quoting=csv.QUOTE_NONE,
                     )
-                    file_context = dummy_context(tmpfile.name)
+                    fname = tmpfile.name
                 else:
                     raise GMTInvalidInput(
                         "Unrecognized data type: {}".format(type(textfile))
                     )
 
-                with file_context as fname:
-                    arg_str = " ".join([fname, build_arg_string(kwargs)])
-                    lib.call_module("text", arg_str)
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("text", arg_str)

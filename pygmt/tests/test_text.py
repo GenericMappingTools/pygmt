@@ -78,7 +78,6 @@ def test_text_input_filename(projection):
     return fig
 
 
-@pytest.mark.mpl_image_compare
 def test_text_wrong_kind_of_input(projection):
     """
     Run text by passing in a data input that is not a file/vectors
@@ -88,3 +87,62 @@ def test_text_wrong_kind_of_input(projection):
     assert data_kind(data) == "matrix"
     with pytest.raises(GMTInvalidInput):
         fig.text(region=[10, 70, -5, 10], projection=projection, textfile=data)
+
+
+@pytest.mark.mpl_image_compare
+def test_text_angle_30(region, projection):
+    """
+    Print text at 30 degrees counter-clockwise from horizontal
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=2.4,
+        text="text angle 30 degrees",
+        angle=30,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_font_bold(region, projection):
+    """
+    Print text with a bold font
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=2.4,
+        text="text in bold",
+        font="Helvetica-Bold",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_justify_bottom_right_and_top_left(region, projection):
+    """
+    Print text justified at bottom right and top left
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=0.2,
+        text="text justified bottom right",
+        justify="BR",
+    )
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=0.2,
+        text="text justified top left",
+        justify="TL",
+    )
+    return fig
