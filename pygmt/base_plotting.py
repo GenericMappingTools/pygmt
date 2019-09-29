@@ -233,11 +233,25 @@ class BasePlotting:
                 lib.call_module("grdimage", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", Jz="zscale", JZ="zsize", p="perspective")
+    @use_alias(
+        R="region",
+        J="projection",
+        Jz="zscale",
+        JZ="zsize",
+        C="cmap",
+        Q="surftype",
+        p="perspective",
+    )
     @kwargs_to_strings(R="sequence", p="sequence")
     def grdview(self, reliefgrid, **kwargs):
         """
         Create 3-D perspective image or surface mesh from a grid.
+
+        Reads a 2-D grid file and produces a 3-D perspective plot by drawing a mesh,
+        painting a colored/gray-shaded surface made up of polygons, or by scanline
+        conversion of these polygons to a raster image. Options include draping a data
+        set on top of a surface, plotting of contours on top of the surface, and apply
+        artificial illumination based on intensities provided in a separate grid file.
 
         Full option list at :gmt-docs:`grdview.html`
 
@@ -248,6 +262,19 @@ class BasePlotting:
 
         zscale (Jz) or zsize (JZ) : float or str
             Set z-axis scaling or z-axis size.
+
+        cmap (C) : str
+            The name of the color palette table to use.
+
+        surftype (Q) : str
+            Specifies cover type of the reliefgrid. Select one of following settings:
+            1. 'm' for mesh plot [Default].
+            2. 'mx' or 'my' for waterfall plots (row or column profiles).
+            3. 's' for surface plot.
+            4. 'i' for image plot.
+            5. 'c'. Same as 'i' but will make nodes with z = NaN transparent.
+            For any of these choices, you may force a monochrome image by appending the
+            modifier +m.
 
         perspective (p) : list or str
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.

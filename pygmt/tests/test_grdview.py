@@ -83,3 +83,42 @@ def test_grdview_with_perspective_and_zsize(grid):
     fig = Figure()
     fig.grdview(reliefgrid=grid, perspective=[225, 30], zsize="10c")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_with_cmap_for_image_plot(grid):
+    """
+    Run grdview by passing in a reliefgrid and setting a colormap for producing an image
+    plot.
+    """
+    fig = Figure()
+    fig.grdview(reliefgrid=grid, cmap="oleron", surftype="i")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_with_cmap_for_surface_monochrome_plot(grid):
+    """
+    Run grdview by passing in a reliefgrid and setting a colormap for producing a
+    surface monochrome plot.
+    """
+    fig = Figure()
+    fig.grdview(reliefgrid=grid, cmap="oleron", surftype="s+m")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_with_cmap_for_perspective_surface_plot(grid):
+    """
+    Run grdview by passing in a reliefgrid and setting a colormap for producing a
+    surface plot with a 3D perspective viewpoint.
+    """
+    fig = Figure()
+    fig.grdview(
+        reliefgrid=grid,
+        cmap="oleron",
+        surftype="s",
+        perspective=[225, 30],
+        zscale=0.005,
+    )
+    return fig
