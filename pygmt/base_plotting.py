@@ -233,6 +233,44 @@ class BasePlotting:
                 lib.call_module("grdimage", arg_str)
 
     @fmt_docstring
+    @use_alias(R="region", J="projection", Jz="zscale", JZ="zsize", p="perspective")
+    @kwargs_to_strings(R="sequence", p="sequence")
+    def grdview(self, reliefgrid, **kwargs):
+        """
+        Create 3-D perspective image or surface mesh from a grid.
+
+        Full option list at :gmt-docs:`grdview.html`
+
+        Parameters
+        ----------
+        reliefgrid : str or xarray.DataArray
+            The file name of the input relief grid or the grid loaded as a DataArray.
+
+        zscale (Jz) or zsize (JZ) : float or str
+            Set z-axis scaling or z-axis size.
+
+        perspective (p) : list or str
+            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
+            Select perspective view.
+
+        {aliases}
+        """
+        kwargs = self._preprocess(**kwargs)
+        kind = data_kind(reliefgrid, None, None)
+        with Session() as lib:
+            if kind == "file":
+                file_context = dummy_context(reliefgrid)
+            elif kind == "grid":
+                file_context = lib.virtualfile_from_grid(reliefgrid)
+            else:
+                raise GMTInvalidInput(
+                    "Unrecognized data type: {}".format(type(reliefgrid))
+                )
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("grdview", arg_str)
+
+    @fmt_docstring
     @use_alias(
         R="region",
         J="projection",

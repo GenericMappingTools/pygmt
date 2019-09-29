@@ -28,6 +28,7 @@ Plotting data and laying out the map:
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
+    Figure.grdview
     Figure.logo
     Figure.image
     Figure.shift_origin
