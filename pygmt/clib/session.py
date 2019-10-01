@@ -73,7 +73,7 @@ class Session:
     library in the directory specified by it.
 
     A ``GMTVersionError`` exception will be raised if the GMT shared library reports a
-    version < 6.0.0rc1.
+    version < 6.0.0rc4.
 
     The ``session_pointer`` attribute holds a ctypes pointer to the currently open
     session.
@@ -112,7 +112,7 @@ class Session:
     """
 
     # The minimum version of GMT required
-    required_version = "6.0.0rc1"
+    required_version = "6.0.0rc4"
 
     @property
     def session_pointer(self):
@@ -463,7 +463,7 @@ class Session:
         Parameters
         ----------
         module : str
-            Module name (``'pscoast'``, ``'psbasemap'``, etc).
+            Module name (``'coast'``, ``'basemap'``, etc).
         args : str
             String with the command line arguments that will be passed to the
             module (for example, ``'-R0/5/0/10 -JM'``).
