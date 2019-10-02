@@ -8,5 +8,6 @@ Manoa.
 The following people have contributed code to the project (alphabetical by last name)
 and are considered the "PyGMT Developers":
 
+* [Wei Ji Leong](https://github.com/weiji14)
 * [Dongdong Tian](https://seisman.info/)
 * [Leonardo Uieda](http://www.leouieda.com/)
