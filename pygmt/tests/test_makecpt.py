@@ -9,6 +9,8 @@ import pytest
 
 from .. import Figure, makecpt
 from ..datasets import load_earth_relief
+from ..exceptions import GMTInvalidInput
+from ..helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -70,3 +72,28 @@ def test_makecpt_to_plot_grid_scaled_with_series(grid):
     makecpt(cmap="oleron", series="-4500/4500")
     fig.grdimage(grid, projection="W0/6i")
     return fig
+
+
+def test_makecpt_output_to_cpt_file():
+    """
+    Save the generated static color palette table to a .cpt file
+    """
+    with GMTTempFile(suffix=".cpt") as cptfile:
+        makecpt(output=cptfile.name)
+        assert os.path.exists(cptfile.name)
+
+
+def test_makecpt_blank_output():
+    """
+    Use incorrect setting by passing in blank file name to output parameter
+    """
+    with pytest.raises(GMTInvalidInput):
+        makecpt(output="")
+
+
+def test_makecpt_invalid_output():
+    """
+    Use incorrect setting by passing in invalid type to output parameter
+    """
+    with pytest.raises(GMTInvalidInput):
+        makecpt(output=["some.cpt"])

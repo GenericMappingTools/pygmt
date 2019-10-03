@@ -2,11 +2,12 @@
 GMT modules for Mathematical operations on tables or grids
 """
 from .clib import Session
+from .exceptions import GMTInvalidInput
 from .helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@use_alias(C="cmap", T="series")
+@use_alias(C="cmap", T="series", H="output")
 @kwargs_to_strings(T="sequence")
 def makecpt(**kwargs):
     """
@@ -27,8 +28,18 @@ def makecpt(**kwargs):
         optionally an interval). If this is not given, the existing range in the master
         CPT will be used intact.
 
+    output (H) : str
+        Optional. The file name with extension .cpt to store the generated CPT file.
+        If not given or False (default), saves the CPT as the session current CPT.
+
     {aliases}
     """
     with Session() as lib:
-        arg_str = build_arg_string(kwargs)
+        if "H" not in kwargs.keys():  # if no output is set
+            arg_str = build_arg_string(kwargs)
+        elif "H" in kwargs.keys():  # if output is set
+            outfile = kwargs.pop("H")
+            if not outfile or not isinstance(outfile, str):
+                raise GMTInvalidInput("'output' should be a proper file name.")
+            arg_str = " ".join([build_arg_string(kwargs), f"-H > {outfile}"])
         lib.call_module(module="makecpt", args=arg_str)
