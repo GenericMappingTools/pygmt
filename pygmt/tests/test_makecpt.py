@@ -130,3 +130,36 @@ def test_makecpt_truncated_at_zhigh_only(grid):
     makecpt(cmap="rainbow", truncate=[None, 0.5], series=[-4500, 4500])
     fig.grdimage(grid, projection="W0/6i")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_makecpt_reverse_color_only(grid):
+    """
+    Use static color palette table with its colors reversed
+    """
+    fig = Figure()
+    makecpt(cmap="earth", reverse=True)
+    fig.grdimage(grid, projection="W0/6i")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_makecpt_reverse_zsign_only(grid):
+    """
+    Use static color palette table with its z-value sign reversed
+    """
+    fig = Figure()
+    makecpt(cmap="earth", reverse="z")
+    fig.grdimage(grid, projection="W0/6i")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_makecpt_reverse_color_and_zsign(grid):
+    """
+    Use static color palette table with both its colors and z-value sign reversed
+    """
+    fig = Figure()
+    makecpt(cmap="earth", reverse="cz")
+    fig.grdimage(grid, projection="W0/6i")
+    return fig

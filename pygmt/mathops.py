@@ -7,7 +7,7 @@ from .helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_ali
 
 
 @fmt_docstring
-@use_alias(C="cmap", T="series", G="truncate", H="output")
+@use_alias(C="cmap", T="series", G="truncate", H="output", I="reverse")
 @kwargs_to_strings(T="sequence", G="sequence")
 def makecpt(**kwargs):
     """
@@ -38,6 +38,13 @@ def makecpt(**kwargs):
     output (H) : str
         Optional. The file name with extension .cpt to store the generated CPT file.
         If not given or False (default), saves the CPT as the session current CPT.
+
+    reverse (I) : str
+        Set this to True or c [Default] to reverse the sense of color progression in the
+        master CPT. Set this to z to reverse the sign of z-values in the color table.
+        Note that this change of z-direction happens before -G and -T values are used so
+        the latter must be compatible with the changed z-range. See also
+        :gmt-docs:`cookbook/features.html#manipulating-cpts`.
 
     {aliases}
     """
