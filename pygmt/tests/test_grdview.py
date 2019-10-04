@@ -151,8 +151,52 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zaxis_frame(grid):
     """
-    Run grdview by passing in a reliefgrid and plotting an annotated vertical z-axis frame.
+    Run grdview by passing in a reliefgrid and plotting an annotated vertical z-axis
+    frame.
     """
     fig = Figure()
     fig.grdview(reliefgrid=grid, perspective=[225, 30], zscale=0.005, frame="zaf")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_surface_plot_styled_with_contourpen(grid):
+    """
+    Run grdview by passing in a reliefgrid with styled contour lines plotted on top of a
+    surface plot.
+    """
+    fig = Figure()
+    fig.grdview(
+        reliefgrid=grid, cmap="relief", surftype="s", contourpen="0.5p,black,dash"
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_surface_mesh_plot_styled_with_meshpen(grid):
+    """
+    Run grdview by passing in a reliefgrid with styled mesh lines plotted on top of a
+    surface mesh plot.
+    """
+    fig = Figure()
+    fig.grdview(
+        reliefgrid=grid, cmap="relief", surftype="sm", meshpen="0.5p,black,dash"
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_on_a_plane_styled_with_facadepen(grid):
+    """
+    Run grdview by passing in a reliefgrid and plotting it on a z-plane with styled
+    lines for the frontal facade.
+    """
+    fig = Figure()
+    fig.grdview(
+        reliefgrid=grid,
+        plane=-4000,
+        perspective=[225, 30],
+        zscale=0.005,
+        facadepen="0.5p,blue,dash",
+    )
     return fig

@@ -242,6 +242,9 @@ class BasePlotting:
         C="cmap",
         N="plane",
         Q="surftype",
+        Wc="contourpen",
+        Wm="meshpen",
+        Wf="facadepen",
         p="perspective",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
@@ -283,6 +286,16 @@ class BasePlotting:
             5. 'c'. Same as 'i' but will make nodes with z = NaN transparent.
             For any of these choices, you may force a monochrome image by appending the
             modifier +m.
+
+        contourpen (Wc) : str
+            Draw contour lines on top of surface or mesh (not image). Append pen
+            attributes used for the contours.
+        meshpen (Wm) : str
+            Sets the pen attributes used for the mesh. You must also select -Qm or -Qsm
+            for meshlines to be drawn.
+        facadepen (Wf) :str
+            Sets the pen attributes used for the facade. You must also select -N for the
+            facade outline to be drawn.
 
         perspective (p) : list or str
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
