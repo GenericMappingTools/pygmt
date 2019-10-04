@@ -122,3 +122,27 @@ def test_grdview_with_cmap_for_perspective_surface_plot(grid):
         zscale=0.005,
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_on_a_plane(grid):
+    """
+    Run grdview by passing in a reliefgrid and plotting it on a z-plane, while settings
+    a 3D perspective viewpoint.
+    """
+    fig = Figure()
+    fig.grdview(reliefgrid=grid, plane=-4000, perspective=[225, 30], zscale=0.005)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_on_a_plane_with_colored_frontal_facade(grid):
+    """
+    Run grdview by passing in a reliefgrid and plotting it on a z-plane whose frontal
+    facade is colored gray, while setting a 3D perspective viewpoint.
+    """
+    fig = Figure()
+    fig.grdview(
+        reliefgrid=grid, plane="-4000+ggray", perspective=[225, 30], zscale=0.005
+    )
+    return fig

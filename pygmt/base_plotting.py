@@ -239,6 +239,7 @@ class BasePlotting:
         Jz="zscale",
         JZ="zsize",
         C="cmap",
+        N="plane",
         Q="surftype",
         p="perspective",
     )
@@ -265,6 +266,12 @@ class BasePlotting:
 
         cmap (C) : str
             The name of the color palette table to use.
+
+        plane (N) : float or str
+            ``level[+gfill]``.
+            Draws a plane at this z-level. If the optional color is provided via the +g
+            modifier, and the projection is not oblique, the frontal facade between the
+            plane and the data perimeter is colored.
 
         surftype (Q) : str
             Specifies cover type of the reliefgrid. Select one of following settings:
