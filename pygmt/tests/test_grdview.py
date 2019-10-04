@@ -146,3 +146,13 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(grid):
         reliefgrid=grid, plane="-4000+ggray", perspective=[225, 30], zscale=0.005
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_with_perspective_and_zaxis_frame(grid):
+    """
+    Run grdview by passing in a reliefgrid and plotting an annotated vertical z-axis frame.
+    """
+    fig = Figure()
+    fig.grdview(reliefgrid=grid, perspective=[225, 30], zscale=0.005, frame="zaf")
+    return fig

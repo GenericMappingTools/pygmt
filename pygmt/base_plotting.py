@@ -238,6 +238,7 @@ class BasePlotting:
         J="projection",
         Jz="zscale",
         JZ="zsize",
+        B="frame",
         C="cmap",
         N="plane",
         Q="surftype",
