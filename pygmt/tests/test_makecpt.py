@@ -97,3 +97,36 @@ def test_makecpt_invalid_output():
     """
     with pytest.raises(GMTInvalidInput):
         makecpt(output=["some.cpt"])
+
+
+@pytest.mark.mpl_image_compare
+def test_makecpt_truncated_to_zlow_zhigh(grid):
+    """
+    Use static color palette table that is truncated to z-low and z-high
+    """
+    fig = Figure()
+    makecpt(cmap="rainbow", truncate=[0.15, 0.85], series=[-4500, 4500])
+    fig.grdimage(grid, projection="W0/6i")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_makecpt_truncated_at_zlow_only(grid):
+    """
+    Use static color palette table that is truncated at z-low only
+    """
+    fig = Figure()
+    makecpt(cmap="rainbow", truncate=[0.5, None], series=[-4500, 4500])
+    fig.grdimage(grid, projection="W0/6i")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_makecpt_truncated_at_zhigh_only(grid):
+    """
+    Use static color palette table that is truncated at z-high only
+    """
+    fig = Figure()
+    makecpt(cmap="rainbow", truncate=[None, 0.5], series=[-4500, 4500])
+    fig.grdimage(grid, projection="W0/6i")
+    return fig
