@@ -126,6 +126,49 @@ class BasePlotting:
             lib.call_module("coast", build_arg_string(kwargs))
 
     @fmt_docstring
+    @use_alias(R="region", J="projection", B="frame", C="cmap", D="position")
+    @kwargs_to_strings()
+    def colorbar(self, **kwargs):
+        """
+        Plot a gray or color scale-bar on maps.
+
+        Both horizontal and vertical scales are supported. For CPTs with gradational
+        colors (i.e., the lower and upper boundary of an interval have different colors)
+        we will interpolate to give a continuous scale. Variations in intensity due to
+        shading/illumination may be displayed by setting the option -I. Colors may be
+        spaced according to a linear scale, all be equal size, or by providing a file
+        with individual tile widths.
+
+        Full option list at :gmt-docs:`colorbar.html`
+
+        Parameters
+        ----------
+        position (D) : str
+            ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v][+jjustify]
+            [+m[a|c|l|u]][+n[txt]][+odx[/dy]]``.
+            Defines the reference point on the map for the color scale using one of four
+            coordinate systems:
+            (1) Use -Dg for map (user) coordinates,
+            (2) use -Dj or -DJ for setting refpoint via a 2-char justification code that
+            refers to the (invisible) map domain rectangle,
+            (3) use -Dn for normalized (0-1) coordinates, or
+            (4) use -Dx for plot coordinates (inches, cm, etc.).\
+            All but -Dx requires both -R and -J to be specified.
+            Append +w followed by the length and width of the color bar.
+            If width is not specified then it is set to 4% of the given length.
+            Give a negative length to reverse the scale bar.
+            Append +h to get a horizontal scale [Default is vertical (+v)].
+            By default, the anchor point on the scale is assumed to be the bottom left
+            corner (BL), but this can be changed by appending +j followed by a 2-char
+            justification code justify.
+
+        {aliases}
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            lib.call_module("colorbar", build_arg_string(kwargs))
+
+    @fmt_docstring
     @use_alias(
         A="annotation",
         B="frame",

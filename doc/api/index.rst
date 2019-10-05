@@ -24,6 +24,7 @@ Plotting data and laying out the map:
 
     Figure.basemap
     Figure.coast
+    Figure.colorbar
     Figure.plot
     Figure.contour
     Figure.grdcontour
