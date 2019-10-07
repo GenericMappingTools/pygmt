@@ -163,3 +163,15 @@ def test_makecpt_reverse_color_and_zsign(grid):
     makecpt(cmap="earth", reverse="cz")
     fig.grdimage(grid, projection="W0/6i")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_makecpt_continuous(grid):
+    """
+    Use static color palette table that is continuous from blue to white and scaled from
+    -4500 to 4500m.
+    """
+    fig = Figure()
+    makecpt(cmap="blue,white", continuous=True, series="-4500,4500")
+    fig.grdimage(grid, projection="W0/6i")
+    return fig

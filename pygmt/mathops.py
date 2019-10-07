@@ -7,7 +7,7 @@ from .helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_ali
 
 
 @fmt_docstring
-@use_alias(C="cmap", T="series", G="truncate", H="output", I="reverse")
+@use_alias(C="cmap", T="series", G="truncate", H="output", I="reverse", Z="continuous")
 @kwargs_to_strings(T="sequence", G="sequence")
 def makecpt(**kwargs):
     """
@@ -20,7 +20,7 @@ def makecpt(**kwargs):
     cmap (C) : str
         Selects the master color palette table (CPT) to use in the interpolation.
         Full list of built-in color palette tables can be found at
-        :gmt-docs:`GMT_Docs.html#built-in-color-palette-tables-cpt`.
+        :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.
 
     series (T) : list or str
         ``[min/max/inc[+b|l|n]|file|list]``.
@@ -45,6 +45,12 @@ def makecpt(**kwargs):
         Note that this change of z-direction happens before -G and -T values are used so
         the latter must be compatible with the changed z-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+
+    continuous (Z) : bool
+        Creates a continuous CPT [Default is discontinuous, i.e., constant colors for
+        each interval]. This option has no effect when no -T is used, or when using
+        -Tz_min/z_max; in the first case the input CPT remains untouched, in the second
+        case it is only scaled to match the range z_min/z_max.
 
     {aliases}
     """
