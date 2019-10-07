@@ -57,3 +57,74 @@ def test_colorbar_positioned_using_normalized_coords():
     fig.basemap(region=[2, 4, 6, 8], projection="t0/2c", frame=True)
     fig.colorbar(cmap="rainbow", position="n0.75/0.25+w2c")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_box():
+    """
+    Create colorbar with box around it.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", box=True, position="x0c/0c+w1c/0.5c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_box_with_pen():
+    """
+    Create colorbar with box that has a different colored pen.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", box="+porange", position="x0c/0c+w1c/0.5c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_box_with_fill():
+    """
+    Create colorbar with box that has a different colored fill.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", box="+gorange", position="x0c/0c+w1c/0.5c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_box_with_clearance():
+    """
+    Create colorbar with box that has an x-clearance of 0.8cm and y-clearance of 0.4cm.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", box="+c0.8c/0.4c+porange", position="x0c/0c+w1c/0.5c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_box_with_secondary_border():
+    """
+    Create colorbar with box that has a secondary, inner border in addition to the main
+    primary, outer border.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", box="+porange+imagenta", position="x0c/0c+w1c/0.5c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_box_with_rounded_corners():
+    """
+    Create colorbar with box that has rounded corners.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", box="+porange+r", position="x0c/0c+w1c/0.5c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_box_with_offset_background():
+    """
+    Create colorbar with box and an offset background shaded region.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", box="+s5p/-5p", position="x0c/0c+w1c/0.5c")
+    return fig
