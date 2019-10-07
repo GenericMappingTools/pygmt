@@ -128,3 +128,13 @@ def test_colorbar_box_with_offset_background():
     fig = Figure()
     fig.colorbar(cmap="rainbow", box="+s5p/-5p", position="x0c/0c+w1c/0.5c")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_truncated_to_zlow_zhigh():
+    """
+    Create colorbar truncated to z-low and z-high.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", truncate=[0.15, 0.85], position="x0c/0c+w2c/0.5c")
+    return fig

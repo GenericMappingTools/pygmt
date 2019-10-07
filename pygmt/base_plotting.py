@@ -126,8 +126,16 @@ class BasePlotting:
             lib.call_module("coast", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", C="cmap", D="position", F="box")
-    @kwargs_to_strings()
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        C="cmap",
+        D="position",
+        F="box",
+        G="truncate",
+    )
+    @kwargs_to_strings(R="sequence", G="sequence")
     def colorbar(self, **kwargs):
         """
         Plot a gray or color scale-bar on maps.
