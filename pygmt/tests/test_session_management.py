@@ -15,7 +15,7 @@ def test_begin_end():
     end()  # Kill the global session
     begin()
     with Session() as lib:
-        lib.call_module("psbasemap", "-R10/70/-3/8 -JX4i/3i -Ba")
+        lib.call_module("basemap", "-R10/70/-3/8 -JX4i/3i -Ba")
     end()
     begin()  # Restart the global session
     assert os.path.exists("pygmt-session.pdf")
