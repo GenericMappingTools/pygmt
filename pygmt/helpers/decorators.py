@@ -286,12 +286,7 @@ def kwargs_to_strings(convert_bools=True, **conversions):
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
-                    issequence = fmt in (
-                        "sequence",
-                        "sequence_comma",
-                        "sequence_plus",
-                        "sequence_space",
-                    )
+                    issequence = fmt in separators
                     if issequence and is_nonstr_iter(value):
                         kwargs[arg] = separators[fmt].join(
                             "{}".format(item) for item in value
