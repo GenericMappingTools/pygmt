@@ -137,4 +137,4 @@ This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or ``g
 can be found for Linux, MacOS and Windows respectively.
 e.g. in a terminal run::
    
-   export GMT_LIBRARY_PATH='"YOUR_PATH_TO_GMT6"/lib'
+   export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
