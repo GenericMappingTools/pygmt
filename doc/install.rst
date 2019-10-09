@@ -133,7 +133,8 @@ This can happen if you have multiple versions of GMT installed.
 
 You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 ``GMT_LIBRARY_PATH`` environment variable.
-This should be set to the directory where ``libgmt.so`` (or ``.dylib``) is found 
+This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or ``gmt.dll``
+can be found for Linux, MacOS and Windows respectively.
 e.g. in a terminal run::
    
    export GMT_LIBRARY_PATH='"YOUR_PATH_TO_GMT6"/lib'
