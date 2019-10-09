@@ -2,6 +2,8 @@
 Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
+import contextlib
+
 from .clib import Session
 from .exceptions import GMTInvalidInput
 from .helpers import (
@@ -240,6 +242,7 @@ class BasePlotting:
         JZ="zsize",
         B="frame",
         C="cmap",
+        G="drapegrid",
         N="plane",
         Q="surftype",
         Wc="contourpen",
@@ -270,6 +273,13 @@ class BasePlotting:
 
         cmap (C) : str
             The name of the color palette table to use.
+
+        drapegrid (G) : str or xarray.DataArray
+            The file name or a DataArray of the image grid to be draped on top of the
+            relief provided by reliefgrid. [Default determines colors from reliefgrid].
+            Note that -Jz and -N always refers to the reliefgrid. The drapegrid only
+            provides the information pertaining to colors, which (if drapegrid is a
+            grid) will be looked-up via the CPT (see -C).
 
         plane (N) : float or str
             ``level[+gfill]``.
@@ -312,9 +322,22 @@ class BasePlotting:
                 file_context = lib.virtualfile_from_grid(reliefgrid)
             else:
                 raise GMTInvalidInput(
-                    "Unrecognized data type: {}".format(type(reliefgrid))
+                    f"Unrecognized data type for reliefgrid: {type(reliefgrid)}"
                 )
-            with file_context as fname:
+
+            with contextlib.ExitStack() as stack:
+                fname = stack.enter_context(file_context)
+                if "G" in kwargs:
+                    drapegrid = kwargs["G"]
+                    if data_kind(drapegrid) in ("file", "grid"):
+                        if data_kind(drapegrid) == "grid":
+                            drape_context = lib.virtualfile_from_grid(drapegrid)
+                            drapefile = stack.enter_context(drape_context)
+                            kwargs["G"] = drapefile
+                    else:
+                        raise GMTInvalidInput(
+                            f"Unrecognized data type for drapegrid: {type(drapegrid)}"
+                        )
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("grdview", arg_str)
 

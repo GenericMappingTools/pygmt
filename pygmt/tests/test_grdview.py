@@ -200,3 +200,28 @@ def test_grdview_on_a_plane_styled_with_facadepen(grid):
         facadepen="0.5p,blue,dash",
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_drapegrid_dataarray(grid):
+    """
+    Run grdview by passing in both a reliefgrid and drapegrid as an xarray.DataArray,
+    setting a colormap for producing an image plot.
+    """
+    drapegrid = 1.1 * grid
+
+    fig = Figure()
+    fig.grdview(reliefgrid=grid, drapegrid=drapegrid, cmap="oleron", surftype="c")
+    return fig
+
+
+def test_grdview_wrong_kind_of_drapegrid(grid):
+    """
+    Run grdview using drapegrid input that is not an xarray.DataArray or file.
+    """
+    dataset = grid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
+    assert data_kind(dataset) == "matrix"
+
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.grdview(reliefgrid=grid, drapegrid=dataset)
