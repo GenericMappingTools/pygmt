@@ -310,8 +310,7 @@ returning the `pygmt.Figure` object:
 def test_my_plotting_case():
     "Test that my plotting function works"
     fig = Figure()
-    fig.psbasemap(region=[0, 360, -90, 90], projection='W7i', frame=True,
-                  portrait=True)
+    fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
     return fig
 ```
 
