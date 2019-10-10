@@ -562,7 +562,7 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
-            kind = data_kind(spec, None, None, None)
+            kind = data_kind(spec)
             with GMTTempFile() as tmp:
                 if kind == "file":
                     specfile = spec
