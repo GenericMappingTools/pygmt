@@ -322,7 +322,7 @@ version) of your plot.
 Run the following from the repository root:
 
 ```bash
-py.test --mpl-generate-path=baseline pygmt/tests/NAME_OF_TEST_FILE.py
+pytest --mpl-generate-path=baseline pygmt/tests/NAME_OF_TEST_FILE.py
 ```
 
 This will create a `baseline` folder with all the plots generated in your test
