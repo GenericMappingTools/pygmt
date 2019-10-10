@@ -540,9 +540,13 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence")
     def legend(self, spec, **kwargs):
         """
-        Plot legends on maps. [NEED TO UPDATE FOR HANDLES/LABELS FUNCTIONALITY]
+        Plot legends on maps.
 
-        Makes legends that can be overlaid on maps. Reads specific legend-related information from an input file. Unless otherwise noted, annotations will be made using the primary annotation font and size in effect (i.e., FONT_ANNOT_PRIMARY).
+        Makes legends that can be overlaid on maps. Reads specific legend-related
+        information from either a) an input file or b) a list containing a list
+        of figure handles and a list of corresponding labels. Unless otherwise
+        noted, annotations will be made using the primary annotation font and
+        size in effect (i.e., FONT_ANNOT_PRIMARY).
 
         Full option list at :gmt-docs:`legend.html`
 
@@ -550,6 +554,9 @@ class BasePlotting:
 
         Parameters
         ----------
+        spec: str or list
+            Either a filename pointing to a legend specification file, or a list
+            contatining a list of plot handles and a list of corresponding labels.
         {J}
         {R}
         D: str
