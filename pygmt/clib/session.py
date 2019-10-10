@@ -112,7 +112,7 @@ class Session:
     """
 
     # The minimum version of GMT required
-    required_version = "6.0.0rc2"
+    required_version = "6.0.0rc4"
 
     @property
     def session_pointer(self):
