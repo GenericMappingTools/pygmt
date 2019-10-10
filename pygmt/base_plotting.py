@@ -536,7 +536,7 @@ class BasePlotting:
             lib.call_module("image", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection")
+    @use_alias(R="region", J="projection", D="position", F="box")
     @kwargs_to_strings(R="sequence")
     def legend(self, spec, **kwargs):
         """
