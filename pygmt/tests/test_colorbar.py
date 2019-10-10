@@ -138,3 +138,13 @@ def test_colorbar_truncated_to_zlow_zhigh():
     fig = Figure()
     fig.colorbar(cmap="rainbow", truncate=[0.15, 0.85], position="x0c/0c+w2c/0.5c")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_colorbar_scaled_z_values():
+    """
+    Create colorbar with z-values scaled to 0.1x of the original CPT.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="rainbow", scale=0.1, position="x0c/0c+w2c/0.5c")
+    return fig

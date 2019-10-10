@@ -134,6 +134,7 @@ class BasePlotting:
         D="position",
         F="box",
         G="truncate",
+        W="scale",
     )
     @kwargs_to_strings(R="sequence", G="sequence")
     def colorbar(self, **kwargs):
@@ -188,7 +189,15 @@ class BasePlotting:
             indicates the shift relative to the foreground frame [4p/-4p] and shade sets
             the fill style to use for shading [gray50].
 
+        truncate (G) : list or str
+            ``zlo/zhi``
+            Truncate the incoming CPT so that the lowest and highest z-levels are to zlo
+            and zhi. If one of these equal NaN then we leave that end of the CPT alone.
+            The truncation takes place before the plotting.
 
+        scale (W) : float
+            Multiply all z-values in the CPT by the provided scale. By default the CPT
+            is used as is.
 
         {aliases}
         """
