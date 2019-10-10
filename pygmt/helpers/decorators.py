@@ -25,9 +25,6 @@ COMMON_OPTIONS = {
     "B": """\
         B : str
             Set map boundary frame and axes attributes.""",
-    "P": """\
-        P : bool
-            Select “Portrait” plot orientation.""",
     "U": """\
         U : bool or str
             Draw GMT time stamp logo on plot.""",
