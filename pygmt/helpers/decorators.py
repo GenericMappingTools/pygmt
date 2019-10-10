@@ -25,9 +25,6 @@ COMMON_OPTIONS = {
     "B": """\
         B : str
             Set map boundary frame and axes attributes.""",
-    "P": """\
-        P : bool
-            Select “Portrait” plot orientation.""",
     "U": """\
         U : bool or str
             Draw GMT time stamp logo on plot.""",
@@ -61,7 +58,6 @@ def fmt_docstring(module_func):
     * ``{R}``: R (region) option with 4 bounds
     * ``{J}``: J (projection)
     * ``{B}``: B (frame)
-    * ``{P}``: P (portrait)
     * ``{U}``: U (insert time stamp)
     * ``{CPT}``: CPT (the color palette table)
     * ``{G}``: G (color)
