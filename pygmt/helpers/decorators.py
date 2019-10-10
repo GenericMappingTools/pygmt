@@ -210,6 +210,7 @@ def kwargs_to_strings(convert_bools=True, **conversions):
       string
     * 'sequence_comma': transforms a sequence into a ``','`` separated string
     * 'sequence_plus': transforms a sequence into a ``'+'`` separated string
+    * 'sequence_space': transforms a sequence into a ``' '`` separated string
 
     Parameters
     ----------
@@ -224,7 +225,7 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     Examples
     --------
 
-    >>> @kwargs_to_strings(R='sequence', i='sequence_comma')
+    >>> @kwargs_to_strings(R='sequence', i='sequence_comma', files='sequence_space')
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print('{', end='')
@@ -245,13 +246,20 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     {}
     >>> module(i=[1, 2])
     {'i': '1,2'}
+    >>> module(files=["data1.txt", "data2.txt"])
+    {'files': 'data1.txt data2.txt'}
     >>> # Other non-boolean arguments are passed along as they are
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
     {'bla': (1, 2, 3), 'foo': '', 'i': '5,6'}
     args: 123
 
     """
-    valid_conversions = ["sequence", "sequence_comma", "sequence_plus"]
+    valid_conversions = [
+        "sequence",
+        "sequence_comma",
+        "sequence_plus",
+        "sequence_space",
+    ]
 
     for arg, fmt in conversions.items():
         if fmt not in valid_conversions:
@@ -259,7 +267,12 @@ def kwargs_to_strings(convert_bools=True, **conversions):
                 "Invalid conversion type '{}' for argument '{}'.".format(fmt, arg)
             )
 
-    separators = {"sequence": "/", "sequence_comma": ",", "sequence_plus": "+"}
+    separators = {
+        "sequence": "/",
+        "sequence_comma": ",",
+        "sequence_plus": "+",
+        "sequence_space": " ",
+    }
 
     # Make the actual decorator function
     def converter(module_func):
@@ -273,7 +286,7 @@ def kwargs_to_strings(convert_bools=True, **conversions):
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
-                    issequence = fmt in ("sequence", "sequence_comma", "sequence_plus")
+                    issequence = fmt in separators
                     if issequence and is_nonstr_iter(value):
                         kwargs[arg] = separators[fmt].join(
                             "{}".format(item) for item in value
