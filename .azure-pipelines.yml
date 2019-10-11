@@ -74,8 +74,8 @@ jobs:
     vmImage: 'macOS-10.14'
 
   variables:
-    CONDA_REQUIREMENTS: requirements.txt
-    CONDA_REQUIREMENTS_DEV: requirements-dev.txt
+    CONDA_REQUIREMENTS: conda-requirements.txt
+    CONDA_REQUIREMENTS_DEV: conda-requirements-dev.txt
     CONDA_INSTALL_EXTRA: "codecov"
     CONDA_EXTRA_CHANNEL: "conda-forge/label/dev"
 
