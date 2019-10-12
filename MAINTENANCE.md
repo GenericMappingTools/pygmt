@@ -43,8 +43,8 @@ The main advantages of this are:
 We use TravisCI continuous integration (CI) services to build and test the
 project on Linux, and Mac (Windows is still a work in progress).
 The configuration file for this service is `.travis.yml`.
-It relies on the `conda-requirements.txt` file to install the required dependencies
-using conda and the `Makefile` to run the tests and checks.
+It relies on the `requirements.txt` file to install the required dependencies using
+conda and the `Makefile` to run the tests and checks.
 
 Travis also handles all of our deployments automatically:
 
