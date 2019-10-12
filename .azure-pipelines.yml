@@ -76,7 +76,7 @@ jobs:
   variables:
     CONDA_REQUIREMENTS: conda-requirements.txt
     CONDA_REQUIREMENTS_DEV: conda-requirements-dev.txt
-    CONDA_INSTALL_EXTRA: "codecov"
+    CONDA_INSTALL_EXTRA: "codecov gmt=6.0.0rc4"
     CONDA_EXTRA_CHANNEL: "conda-forge/label/dev"
 
   strategy:
