@@ -16,6 +16,7 @@ from .session_management import begin as _begin, end as _end
 from .figure import Figure
 from .gridding import surface
 from .sampling import grdtrack
+from .mathops import makecpt
 from .modules import info, grdinfo, which
 from . import datasets
 
@@ -50,7 +51,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     """
     Run the test suite.
 
-    Uses `py.test <http://pytest.org/>`__ to discover and run the tests. If you
+    Uses `pytest <http://pytest.org/>`__ to discover and run the tests. If you
     haven't already, you can install it with `conda
     <http://conda.pydata.org/>`__ or `pip <https://pip.pypa.io/en/stable/>`__.
 

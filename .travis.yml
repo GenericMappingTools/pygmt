@@ -26,7 +26,7 @@ env:
         # The file with the listed requirements to be installed by conda
         - CONDA_REQUIREMENTS=requirements.txt
         - CONDA_REQUIREMENTS_DEV=requirements-dev.txt
-        - CONDA_INSTALL_EXTRA="codecov twine"
+        - CONDA_INSTALL_EXTRA="codecov twine gmt=6.0.0rc4"
         # Enable the development channel so we can get GMT 6.0.0 before it's released
         - CONDA_EXTRA_CHANNEL=conda-forge/label/dev
         # These variables control which actions are performed in a build

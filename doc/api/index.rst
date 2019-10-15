@@ -32,6 +32,13 @@ Plotting data and laying out the map:
     Figure.image
     Figure.shift_origin
 
+Color palette table generation:
+
+.. autosummary::
+    :toctree: generated
+
+    makecpt
+
 Saving and displaying the figure:
 
 .. autosummary::
