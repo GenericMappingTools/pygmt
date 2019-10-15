@@ -1,6 +1,4 @@
 {
-  // Zeit Now for Github configuration that override default settings
-  // Documentation can be found at https://zeit.co/docs/configuration
   "github": {
     "silent": true
   },

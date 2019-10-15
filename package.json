@@ -1,6 +1,4 @@
 {
-  // Script to deploy documentation to Zeit Now static site host
-  // Documentation at https://zeit.co/docs/v2/build-step/?query=package.json#defining-a-build-script
   "scripts": {
     "build:miniconda": "curl -o ~/miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash ~/miniconda.sh -b -p $HOME/miniconda",
     "build:pygmt": "conda env create -f environment.yml && source activate pygmt && conda install -c conda-forge -c conda-forge/label/dev -y gmt==6.0.0rc4 && make install",
