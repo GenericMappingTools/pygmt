@@ -73,7 +73,7 @@ class Session:
     library in the directory specified by it.
 
     A ``GMTVersionError`` exception will be raised if the GMT shared library reports a
-    version < 6.0.0rc4.
+    version < 6.0.0rc5.
 
     The ``session_pointer`` attribute holds a ctypes pointer to the currently open
     session.
@@ -111,7 +111,7 @@ class Session:
     """
 
     # The minimum version of GMT required
-    required_version = "6.0.0rc4"
+    required_version = "6.0.0rc5"
 
     @property
     def session_pointer(self):
