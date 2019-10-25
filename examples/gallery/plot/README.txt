@@ -1,2 +1,2 @@
-Lines, points, and scatters
----------------------------
+Plotting map items
+------------------
