@@ -183,6 +183,8 @@ class BasePlotting:
             Do not draw contours with less than `cut` number of points.
         S : string or int
             Resample smoothing factor.
+        l : str
+            Add a legend entry for the symbol or line being plotted.
         {J}
         {R}
         {B}
@@ -243,6 +245,7 @@ class BasePlotting:
         G="color",
         W="pen",
         i="columns",
+        l="label",
         C="cmap",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
