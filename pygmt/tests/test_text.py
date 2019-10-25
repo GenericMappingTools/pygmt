@@ -4,12 +4,10 @@ Tests text
 """
 import os
 
-import numpy as np
 import pytest
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput
-from ..helpers import data_kind
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -70,24 +68,32 @@ def test_text_without_text_input(region, projection):
 
 
 @pytest.mark.mpl_image_compare
-def test_text_input_filename(projection):
+def test_text_input_single_filename():
     """
-    Run text by passing in a filename to textfile
+    Run text by passing in one filename to textfiles
     """
     fig = Figure()
-    fig.text(region=[10, 70, -5, 10], projection=projection, textfile=POINTS_DATA)
+    fig.text(region=[10, 70, -5, 10], textfiles=POINTS_DATA)
     return fig
 
 
-def test_text_wrong_kind_of_input(projection):
+@pytest.mark.mpl_image_compare
+def test_text_input_multiple_filenames():
     """
-    Run text by passing in a data input that is not a file/vectors
+    Run text by passing in multiple filenames to textfiles
     """
     fig = Figure()
-    data = np.loadtxt(POINTS_DATA)  # Load points into numpy array
-    assert data_kind(data) == "matrix"
+    fig.text(region=[10, 70, -30, 10], textfiles=[POINTS_DATA, CITIES_DATA])
+    return fig
+
+
+def test_text_nonexistent_filename():
+    """
+    Run text by passing in a list of filenames with one that does not exist
+    """
+    fig = Figure()
     with pytest.raises(GMTInvalidInput):
-        fig.text(region=[10, 70, -5, 10], projection=projection, textfile=data)
+        fig.text(region=[10, 70, -5, 10], textfiles=[POINTS_DATA, "notexist.txt"])
 
 
 @pytest.mark.mpl_image_compare
@@ -161,7 +167,7 @@ def test_text_justify_parsed_from_textfile():
         region="g",
         projection="H90/9i",
         justify=True,
-        textfile=CITIES_DATA,
+        textfiles=CITIES_DATA,
         D="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
     )
     return fig

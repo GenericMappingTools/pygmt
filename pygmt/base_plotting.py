@@ -3,6 +3,7 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 import csv
+import os
 import numpy as np
 import pandas as pd
 
@@ -540,13 +541,14 @@ class BasePlotting:
     @use_alias(R="region", J="projection")
     @kwargs_to_strings(
         R="sequence",
+        textfiles="sequence_space",
         angle="sequence_comma",
         font="sequence_comma",
         justify="sequence_comma",
     )
     def text(
         self,
-        textfile=None,
+        textfiles=None,
         x=None,
         y=None,
         text=None,
@@ -556,13 +558,13 @@ class BasePlotting:
         **kwargs,
     ):
         """
-        Places text on a map.
+        Plot or typeset text on maps
 
         Used to be pstext.
 
-        Takes in a textfile or (x,y,text) triples as input.
+        Takes in textfile(s) or (x,y,text) triples as input.
 
-        Must provide at least *textfile* or *x*, *y*, and *text*.
+        Must provide at least *textfiles* or *x*, *y*, and *text*.
 
         Full option list at :gmt-docs:`text.html`
 
@@ -570,36 +572,41 @@ class BasePlotting:
 
         Parameters
         ----------
-        textfile : str
-            A text data file name
+        textfiles : str or list
+            A text data file name, or a list of filenames containing 1 or more records
+            with (x, y[, font, angle, justify], text).
         x, y : float or 1d arrays
             The x and y coordinates, or an array of x and y coordinates to plot the text
         text : str or 1d array
             The text string, or an array of strings to plot on the figure
         angle: int/float or bool
             Set the angle measured in degrees counter-clockwise from horizontal. E.g. 30
-            sets the text at 30 degrees. If no angle is given then the input textfile
+            sets the text at 30 degrees. If no angle is given then the input textfile(s)
             must have this as a column.
         font : str or bool
             Set the font specification with format "size,font,color" where size is text
             size in points, font is the font to use, and color sets the font color. E.g.
             "12p,Helvetica-Bold,red" selects a 12p red Helvetica-Bold font. If no font
-            info is given then the input textfile must have this information in one of
-            its columns.
+            info is given then the input textfile(s) must have this information in one
+            of its columns.
         justify: str or bool
             Set the alignment which refers to the part of the text string that will be
             mapped onto the (x,y) point. Choose a 2 character combination of L, C, R
             (for left, center, or right) and T, M, B for top, middle, or bottom. E.g.,
-            BL for lower left. If no justification is given then the input textfile must
-            have this as a column.
+            BL for lower left. If no justification is given then the input textfile(s)
+            must have this as a column.
         {J}
         {R}
         """
         kwargs = self._preprocess(**kwargs)
 
-        kind = data_kind(textfile, x, y, text)
+        kind = data_kind(textfiles, x, y, text)
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x and y.")
+        if kind == "file":
+            for textfile in textfiles.split(" "):  # ensure that textfile(s) exist
+                if not os.path.exists(textfile):
+                    raise GMTInvalidInput(f"Cannot find the file: {textfile}")
 
         if angle is not None or font is not None or justify is not None:
             if "F" not in kwargs.keys():
@@ -614,7 +621,7 @@ class BasePlotting:
         with GMTTempFile(suffix=".txt") as tmpfile:
             with Session() as lib:
                 if kind == "file":
-                    fname = textfile
+                    fname = textfiles
                 elif kind == "vectors":
                     pd.DataFrame.from_dict(
                         {
@@ -630,10 +637,6 @@ class BasePlotting:
                         quoting=csv.QUOTE_NONE,
                     )
                     fname = tmpfile.name
-                else:
-                    raise GMTInvalidInput(
-                        "Unrecognized data type: {}".format(type(textfile))
-                    )
 
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
