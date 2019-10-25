@@ -1,5 +1,4 @@
 # Requirements for installing with conda
-gmt=6.0.0rc4
 numpy
 pandas
 xarray
