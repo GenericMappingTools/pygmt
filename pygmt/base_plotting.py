@@ -11,7 +11,6 @@ from .helpers import (
     fmt_docstring,
     use_alias,
     kwargs_to_strings,
-    GMTTempFile,
 )
 
 
