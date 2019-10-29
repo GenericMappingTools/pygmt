@@ -24,3 +24,28 @@ def test_legend_position():
         fig.legend(position=position, box=True)
 
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_legend_entries():
+    """
+    Test different marker types/shapes.
+    """
+
+    fig = Figure()
+
+    fig.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
+
+    fig.plot(
+        data="@Table_5_11.txt",
+        style="c0.15i",
+        color="lightgreen",
+        pen="faint",
+        l="Apples",
+    )
+    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", l='"My lines"')
+    fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", l="Oranges")
+
+    fig.legend(position="JTR+jTR")
+
+    return fig
