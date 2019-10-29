@@ -7,26 +7,20 @@ from .. import Figure
 
 
 @pytest.mark.mpl_image_compare
-def test_legend():
+def test_legend_position():
     """
-    Create 3-entry legend.
+    Try positioning with each of the four legend coordinate systems.
     """
+
     fig = Figure()
 
-    fig.plot(
-        x=[-5],
-        y=[5],
-        region=[-10, 10, -5, 10],
-        projection="X3i/0",
-        frame="a",
-        style="a15p",
-        pen="1.5p,purple",
-        label='"I am a star!"',
-    )
-    fig.plot(x=[0], y=[5], style="t10p", color="cyan", label='"I am a triangle!"')
-    fig.plot(
-        x=[5], y=[5], style="d5p", color="yellow", pen=True, label='"I am a diamond!"'
-    )
+    fig.basemap(region=[-2, 2, -2, 2], frame=True)
 
-    fig.legend(spec="", box=True, position="g0/0+w2i+jCM")
+    positions = ["jTR+jTR", "g0/1", "n0.2/0.2", "x4i/2i/2i"]
+
+    for i, position in enumerate(positions):
+
+        fig.plot(x=[0], y=[0], style="p10p", label=i)
+        fig.legend(position=position, box=True)
+
     return fig
