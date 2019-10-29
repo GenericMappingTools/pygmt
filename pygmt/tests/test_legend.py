@@ -13,7 +13,7 @@ def test_legend():
     """
     fig = Figure()
 
-    h1 = fig.plot(
+    fig.plot(
         x=[-5],
         y=[5],
         region=[-10, 10, -5, 10],
@@ -21,16 +21,12 @@ def test_legend():
         frame="a",
         style="a15p",
         pen="1.5p,purple",
+        label='"I am a star!"',
+    )
+    fig.plot(x=[0], y=[5], style="t10p", color="cyan", label='"I am a triangle!"')
+    fig.plot(
+        x=[5], y=[5], style="d5p", color="yellow", pen=True, label='"I am a diamond!"'
     )
 
-    h2 = fig.plot(x=[0], y=[5], style="t10p", color="cyan")
-
-    h3 = fig.plot(x=[5], y=[5], style="d5p", color="yellow", pen=True)
-
-    fig.legend(
-        [[h1, h2, h3], ["I am a star!", "I am a triangle!", "I am a diamond!"]],
-        F=True,
-        D="g0/0+w2i+jCM",
-    )
-
+    fig.legend(spec="", box=True, position="g0/0+w2i+jCM")
     return fig
