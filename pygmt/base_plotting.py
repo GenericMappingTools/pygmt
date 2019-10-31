@@ -181,8 +181,6 @@ class BasePlotting:
             Do not draw contours with less than `cut` number of points.
         S : string or int
             Resample smoothing factor.
-        l : str
-            Add a legend entry for the symbol or line being plotted.
         {J}
         {R}
         {B}
@@ -311,8 +309,8 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
-
-
+        l : str
+            Add a legend entry for the symbol or line being plotted.
         """
         kwargs = self._preprocess(**kwargs)
 
