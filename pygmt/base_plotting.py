@@ -247,6 +247,7 @@ class BasePlotting:
         G="color",
         W="pen",
         i="columns",
+        l="label",
         C="cmap",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -314,8 +315,8 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
-
-
+        l : str
+            Add a legend entry for the symbol or line being plotted.
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -536,6 +537,49 @@ class BasePlotting:
         with Session() as lib:
             arg_str = " ".join([imagefile, build_arg_string(kwargs)])
             lib.call_module("image", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection", D="position", F="box")
+    @kwargs_to_strings(R="sequence")
+    def legend(self, spec=None, **kwargs):
+        """
+        Plot legends on maps.
+
+        Makes legends that can be overlaid on maps. Reads specific legend-related
+        information from either a) an input file or b) a list containing a list
+        of figure handles and a list of corresponding labels. Unless otherwise
+        noted, annotations will be made using the primary annotation font and
+        size in effect (i.e., FONT_ANNOT_PRIMARY).
+
+        Full option list at :gmt-docs:`legend.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        spec : None or str
+            Either None (default) for using the automatically generated legend
+            specification file, or a filename pointing to the legend specification file.
+        {J}
+        {R}
+        position (D) : str
+            ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
+            Defines the reference point on the map for the legend.
+        box (F) : bool or str
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
+            Without further options, draws a rectangular border around the
+            legend using **MAP_FRAME_PEN**.
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            if spec is None:
+                specfile = ""
+            elif data_kind(spec) == "file":
+                specfile = spec
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
+            arg_str = " ".join([specfile, build_arg_string(kwargs)])
+            lib.call_module("legend", arg_str)
 
     @fmt_docstring
     @use_alias(R="region", J="projection")
