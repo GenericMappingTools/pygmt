@@ -34,7 +34,7 @@ jobs:
     displayName: Add conda to PATH
 
   # Get the Fatiando CI scripts
-  - bash: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+  - bash: git clone --branch=1.2.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     displayName: Fetch the Fatiando CI scripts
 
   # Setup dependencies and build a conda environment
@@ -94,7 +94,7 @@ jobs:
     displayName: Add conda to PATH
 
   # Get the Fatiando CI scripts
-  - bash: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+  - bash: git clone --branch=1.2.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     displayName: Fetch the Fatiando CI scripts
 
   # Setup dependencies and build a conda environment
@@ -179,7 +179,7 @@ jobs:
     displayName: Add conda to PATH
 
   # Get the Fatiando CI scripts
-  - script: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+  - script: git clone --branch=1.2.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     displayName: Fetch the Fatiando CI scripts
 
   # Setup dependencies and build a conda environment
