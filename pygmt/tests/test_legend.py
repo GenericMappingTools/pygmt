@@ -4,6 +4,7 @@ Tests for legend
 import pytest
 
 from .. import Figure
+from ..exceptions import GMTInvalidInput
 from ..helpers import GMTTempFile
 
 
@@ -85,14 +86,24 @@ T There is no easy way to predetermine how many lines will be required,
 T so we may have to adjust the box height to get the right size box.
 """
 
-    specfile = GMTTempFile().name
+    with GMTTempFile() as specfile:
 
-    with open(specfile, "w") as file:
-        file.write(specfile_contents)
+        with open(specfile.name, "w") as file:
+            file.write(specfile_contents)
 
-    fig = Figure()
+        fig = Figure()
 
-    fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-    fig.legend(specfile, position="JTM+jCM+w5i")
+        fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
+        fig.legend(specfile.name, position="JTM+jCM+w5i")
 
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_legend_fails():
+    """
+    Test legend fails with invalid spec
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.legend(spec=["@Table_5_11.txt"])
