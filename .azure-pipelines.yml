@@ -97,6 +97,12 @@ jobs:
   - bash: git clone --branch=1.2.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     displayName: Fetch the Fatiando CI scripts
 
+  # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation
+  # directory. We need to take ownership if we want to update conda or install packages
+  # globally.
+  - bash: sudo chown -R $USER $CONDA
+    displayName: Take ownership of conda installation
+
   # Setup dependencies and build a conda environment
   - bash: source continuous-integration/azure/setup-miniconda.sh
     displayName: Setup Miniconda
