@@ -99,7 +99,6 @@ T so we may have to adjust the box height to get the right size box.
     return fig
 
 
-@pytest.mark.mpl_image_compare
 def test_legend_fails():
     """
     Test legend fails with invalid spec
