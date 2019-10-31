@@ -47,7 +47,7 @@ matrix:
 
 before_install:
     # Get the Fatiando CI scripts
-    - git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+    - git clone --branch=1.2.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     # Download and install miniconda and setup dependencies
     # Need to source the script to set the PATH variable globaly
     - source continuous-integration/travis/setup-miniconda.sh
