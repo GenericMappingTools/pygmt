@@ -45,8 +45,8 @@ def test_legend_entries():
         pen="faint",
         l="Apples",
     )
-    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", l='"My lines"')
-    fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", l="Oranges")
+    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
+    fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
 
     fig.legend(position="JTR+jTR")
 
