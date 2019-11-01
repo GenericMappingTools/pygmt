@@ -28,9 +28,11 @@ Plotting data and laying out the map:
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
+    Figure.legend
     Figure.logo
     Figure.image
     Figure.shift_origin
+    Figure.text
 
 Color palette table generation:
 

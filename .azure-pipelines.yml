@@ -34,7 +34,7 @@ jobs:
     displayName: Add conda to PATH
 
   # Get the Fatiando CI scripts
-  - bash: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+  - bash: git clone --branch=1.2.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     displayName: Fetch the Fatiando CI scripts
 
   # Setup dependencies and build a conda environment
@@ -76,7 +76,7 @@ jobs:
   variables:
     CONDA_REQUIREMENTS: requirements.txt
     CONDA_REQUIREMENTS_DEV: requirements-dev.txt
-    CONDA_INSTALL_EXTRA: "codecov gmt=6.0.0rc4"
+    CONDA_INSTALL_EXTRA: "codecov gmt=6.0.0rc5"
     CONDA_EXTRA_CHANNEL: "conda-forge/label/dev"
 
   strategy:
@@ -94,8 +94,14 @@ jobs:
     displayName: Add conda to PATH
 
   # Get the Fatiando CI scripts
-  - bash: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+  - bash: git clone --branch=1.2.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     displayName: Fetch the Fatiando CI scripts
+
+  # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation
+  # directory. We need to take ownership if we want to update conda or install packages
+  # globally.
+  - bash: sudo chown -R $USER $CONDA
+    displayName: Take ownership of conda installation
 
   # Setup dependencies and build a conda environment
   - bash: source continuous-integration/azure/setup-miniconda.sh
@@ -179,7 +185,7 @@ jobs:
     displayName: Add conda to PATH
 
   # Get the Fatiando CI scripts
-  - script: git clone --branch=1.1.1 --depth=1 https://github.com/fatiando/continuous-integration.git
+  - script: git clone --branch=1.2.0 --depth=1 https://github.com/fatiando/continuous-integration.git
     displayName: Fetch the Fatiando CI scripts
 
   # Setup dependencies and build a conda environment

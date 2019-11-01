@@ -1,7 +1,7 @@
 # Build, package, test, and clean
 PROJECT=pygmt
 TESTDIR=tmp-test-dir-with-unique-name
-PYTEST_ARGS=--cov-config=../.coveragerc --cov-report=term-missing --cov=$(PROJECT) --doctest-modules -v --pyargs
+PYTEST_ARGS=--cov-config=../.coveragerc --cov-report=term-missing --cov=$(PROJECT) --doctest-modules -v --mpl --mpl-results-path=results --pyargs
 BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
 FLAKE8_FILES=$(PROJECT) setup.py
 LINT_FILES=$(PROJECT) setup.py

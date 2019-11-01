@@ -2,6 +2,11 @@
 Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
+import csv
+import os
+import numpy as np
+import pandas as pd
+
 from .clib import Session
 from .exceptions import GMTInvalidInput
 from .helpers import (
@@ -9,6 +14,7 @@ from .helpers import (
     dummy_context,
     data_kind,
     fmt_docstring,
+    GMTTempFile,
     use_alias,
     kwargs_to_strings,
 )
@@ -241,6 +247,7 @@ class BasePlotting:
         G="color",
         W="pen",
         i="columns",
+        l="label",
         C="cmap",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -308,8 +315,8 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
-
-
+        l : str
+            Add a legend entry for the symbol or line being plotted.
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -530,3 +537,150 @@ class BasePlotting:
         with Session() as lib:
             arg_str = " ".join([imagefile, build_arg_string(kwargs)])
             lib.call_module("image", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection", D="position", F="box")
+    @kwargs_to_strings(R="sequence")
+    def legend(self, spec=None, **kwargs):
+        """
+        Plot legends on maps.
+
+        Makes legends that can be overlaid on maps. Reads specific legend-related
+        information from either a) an input file or b) a list containing a list
+        of figure handles and a list of corresponding labels. Unless otherwise
+        noted, annotations will be made using the primary annotation font and
+        size in effect (i.e., FONT_ANNOT_PRIMARY).
+
+        Full option list at :gmt-docs:`legend.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        spec : None or str
+            Either None (default) for using the automatically generated legend
+            specification file, or a filename pointing to the legend specification file.
+        {J}
+        {R}
+        position (D) : str
+            ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
+            Defines the reference point on the map for the legend.
+        box (F) : bool or str
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
+            Without further options, draws a rectangular border around the
+            legend using **MAP_FRAME_PEN**.
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            if spec is None:
+                specfile = ""
+            elif data_kind(spec) == "file":
+                specfile = spec
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
+            arg_str = " ".join([specfile, build_arg_string(kwargs)])
+            lib.call_module("legend", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection")
+    @kwargs_to_strings(
+        R="sequence",
+        textfiles="sequence_space",
+        angle="sequence_comma",
+        font="sequence_comma",
+        justify="sequence_comma",
+    )
+    def text(
+        self,
+        textfiles=None,
+        x=None,
+        y=None,
+        text=None,
+        angle=None,
+        font=None,
+        justify=None,
+        **kwargs,
+    ):
+        """
+        Plot or typeset text on maps
+
+        Used to be pstext.
+
+        Takes in textfile(s) or (x,y,text) triples as input.
+
+        Must provide at least *textfiles* or *x*, *y*, and *text*.
+
+        Full option list at :gmt-docs:`text.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        textfiles : str or list
+            A text data file name, or a list of filenames containing 1 or more records
+            with (x, y[, font, angle, justify], text).
+        x, y : float or 1d arrays
+            The x and y coordinates, or an array of x and y coordinates to plot the text
+        text : str or 1d array
+            The text string, or an array of strings to plot on the figure
+        angle: int/float or bool
+            Set the angle measured in degrees counter-clockwise from horizontal. E.g. 30
+            sets the text at 30 degrees. If no angle is given then the input textfile(s)
+            must have this as a column.
+        font : str or bool
+            Set the font specification with format "size,font,color" where size is text
+            size in points, font is the font to use, and color sets the font color. E.g.
+            "12p,Helvetica-Bold,red" selects a 12p red Helvetica-Bold font. If no font
+            info is given then the input textfile(s) must have this information in one
+            of its columns.
+        justify: str or bool
+            Set the alignment which refers to the part of the text string that will be
+            mapped onto the (x,y) point. Choose a 2 character combination of L, C, R
+            (for left, center, or right) and T, M, B for top, middle, or bottom. E.g.,
+            BL for lower left. If no justification is given then the input textfile(s)
+            must have this as a column.
+        {J}
+        {R}
+        """
+        kwargs = self._preprocess(**kwargs)
+
+        kind = data_kind(textfiles, x, y, text)
+        if kind == "vectors" and text is None:
+            raise GMTInvalidInput("Must provide text with x and y.")
+        if kind == "file":
+            for textfile in textfiles.split(" "):  # ensure that textfile(s) exist
+                if not os.path.exists(textfile):
+                    raise GMTInvalidInput(f"Cannot find the file: {textfile}")
+
+        if angle is not None or font is not None or justify is not None:
+            if "F" not in kwargs.keys():
+                kwargs.update({"F": ""})
+            if angle is not None and isinstance(angle, (int, float)):
+                kwargs["F"] += f"+a{str(angle)}"
+            if font is not None and isinstance(font, str):
+                kwargs["F"] += f"+f{font}"
+            if justify is not None and isinstance(justify, str):
+                kwargs["F"] += f"+j{justify}"
+
+        with GMTTempFile(suffix=".txt") as tmpfile:
+            with Session() as lib:
+                if kind == "file":
+                    fname = textfiles
+                elif kind == "vectors":
+                    pd.DataFrame.from_dict(
+                        {
+                            "x": np.atleast_1d(x),
+                            "y": np.atleast_1d(y),
+                            "text": np.atleast_1d(text),
+                        }
+                    ).to_csv(
+                        tmpfile.name,
+                        sep="\t",
+                        header=False,
+                        index=False,
+                        quoting=csv.QUOTE_NONE,
+                    )
+                    fname = tmpfile.name
+
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("text", arg_str)
