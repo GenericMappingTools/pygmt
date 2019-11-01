@@ -541,7 +541,7 @@ class BasePlotting:
     @fmt_docstring
     @use_alias(R="region", J="projection", D="position", F="box")
     @kwargs_to_strings(R="sequence")
-    def legend(self, spec=None, **kwargs):
+    def legend(self, spec=None, position="JTR+jTR", **kwargs):
         """
         Plot legends on maps.
 
@@ -564,7 +564,8 @@ class BasePlotting:
         {R}
         position (D) : str
             ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
-            Defines the reference point on the map for the legend.
+            Defines the reference point on the map for the legend. By default, uses
+            'JTR+jTR' which places the legend in the upper-right corner, inside.
         box (F) : bool or str
             ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
             Without further options, draws a rectangular border around the
@@ -578,7 +579,9 @@ class BasePlotting:
                 specfile = spec
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
-            arg_str = " ".join([specfile, build_arg_string(kwargs)])
+            arg_str = " ".join(
+                [specfile, "-D{}".format(position), build_arg_string(kwargs)]
+            )
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
