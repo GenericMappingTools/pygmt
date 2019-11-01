@@ -21,6 +21,6 @@ fig.plot(
 fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
 fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
 
-fig.legend(position="JTR+jTR", box=True)
+fig.legend(position="JTR+jTR+o0.2c", box=True)
 
 fig.show()
