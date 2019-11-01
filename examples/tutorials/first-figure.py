@@ -78,6 +78,7 @@ fig.show()
 #    between the GMT arguments and their Python counterparts should be straight forward.
 # 3. Arguments like ``region`` can take lists as well as strings like ``1/2/3/4``.
 # 4. If a GMT argument has no options (like ``-B`` instead of ``-Baf``), use a ``True``
-#    in Python. An empty string would also be acceptable.
+#    in Python. An empty string would also be acceptable. For repeated arguments, such
+#    as ``-B+Loleron -Bxaf -By+lm``, provide a list: ``frame=["+Loleron", "xaf", "y+lm"]``.
 # 5. There is no output redirecting to a PostScript file. The figure is generated in the
 #    background and will only be shown or saved when you ask for it.

@@ -73,7 +73,7 @@ class Session:
     library in the directory specified by it.
 
     A ``GMTVersionError`` exception will be raised if the GMT shared library reports a
-    version < 6.0.0.
+    version < 6.0.0rc5.
 
     The ``session_pointer`` attribute holds a ctypes pointer to the currently open
     session.
@@ -107,12 +107,11 @@ class Session:
     ...             ses.call_module("grdinfo", "{} -C ->{}".format(fin, fout.name))
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
-    -180 180 -90 90 -8425 5551 1 1 361 181
-
+    -180 180 -90 90 -8596 5559 1 1 361 181
     """
 
     # The minimum version of GMT required
-    required_version = "6.0.0"
+    required_version = "6.0.0rc5"
 
     @property
     def session_pointer(self):
@@ -177,7 +176,7 @@ class Session:
         if Version(version) < Version(self.required_version):
             self.destroy()
             raise GMTVersionError(
-                "Using an incompatible GMT version {}. Must be newer than {}.".format(
+                "Using an incompatible GMT version {}. Must be equal or newer than {}.".format(
                     version, self.required_version
                 )
             )
@@ -463,7 +462,7 @@ class Session:
         Parameters
         ----------
         module : str
-            Module name (``'pscoast'``, ``'psbasemap'``, etc).
+            Module name (``'coast'``, ``'basemap'``, etc).
         args : str
             String with the command line arguments that will be passed to the
             module (for example, ``'-R0/5/0/10 -JM'``).
@@ -1188,7 +1187,7 @@ class Session:
         >>> print(data.lat.values.min(), data.lat.values.max())
         -90.0 90.0
         >>> print(data.values.min(), data.values.max())
-        -8425.0 5551.0
+        -8596.0 5559.0
         >>> with Session() as ses:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
@@ -1196,7 +1195,7 @@ class Session:
         ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
         ...             ses.call_module('grdinfo', args)
         ...             print(fout.read().strip())
-        -180 180 -90 90 -8425 5551 1 1 361 181
+        -180 180 -90 90 -8596 5559 1 1 361 181
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """

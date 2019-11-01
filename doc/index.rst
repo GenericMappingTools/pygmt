@@ -6,7 +6,7 @@
         <h1>PyGMT</h1>
         <h2>
             A Python interface for the
-            <a href="http://gmt.soest.hawaii.edu/">Generic Mapping Tools</a>
+            <a href="https://www.generic-mapping-tools.org/">Generic Mapping Tools</a>
         </h2>
     </div>
 

@@ -56,7 +56,15 @@ sphinx_gallery_conf = {
     # path where to save gallery generated examples
     "gallery_dirs": ["gallery", "tutorials", "projections"],
     "subsection_order": ExplicitOrder(
-        ["../examples/gallery/coast", "../examples/gallery/plot"]
+        [
+            "../examples/gallery/coast",
+            "../examples/gallery/plot",
+            "../examples/projections/azim",
+            "../examples/projections/conic",
+            "../examples/projections/cyl",
+            "../examples/projections/misc",
+            "../examples/projections/nongeo",
+        ]
     ),
     # Patter to search for example files
     "filename_pattern": r"\.py",
@@ -108,12 +116,14 @@ html_extra_path = []
 pygments_style = "default"
 add_function_parentheses = False
 html_show_sourcelink = False
-html_show_sphinx = True
+html_show_sphinx = False
 html_show_copyright = True
 
 # Theme config
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
+repository = "GenericMappingTools/pygmt"
+commit_link = f'<a href="https://github.com/GenericMappingTools/pygmt/commit/{ __commit__ }">{ __commit__[:7] }</a>'
 html_context = {
     "menu_links": [
         (
@@ -144,8 +154,9 @@ html_context = {
     "gallery_dir": dict(
         zip(sphinx_gallery_conf["gallery_dirs"], sphinx_gallery_conf["examples_dirs"])
     ),
-    "github_repo": "GenericMappingTools/pygmt",
+    "github_repo": repository,
     "github_version": "master",
+    "commit": commit_link,
 }
 
 

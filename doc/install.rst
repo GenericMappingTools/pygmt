@@ -19,7 +19,7 @@ Which Python?
 
 You'll need **Python 3.6 or greater** to run PyGMT.
 
-We recommend using the `Anaconda <http://continuum.io/downloads#all>`__ Python
+We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__ Python
 distribution to ensure you have all dependencies installed and the ``conda``
 package manager available.
 Installing Anaconda does not require administrative rights to your computer and
@@ -29,14 +29,23 @@ doesn't interfere with any other Python installations in your system.
 Which GMT?
 ----------
 
-You'll need the latest development version available from
-`the GitHub repository <https://github.com/GenericMappingTools/gmt>`__.
-PyGMT is based on GMT 6, **which has not yet been officially released**.
+PyGMT requires GMT 6 as a minimum, which you can find the latest development version
+at `this GitHub repository <https://github.com/GenericMappingTools/gmt>`__.
 
 We need the very latest GMT since there are many changes being made to GMT itself in
 response to the development of PyGMT, mainly the new
-`modern execution mode <http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
+`modern execution mode <https://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
 
+**GMT 6 has not been officially released yet**, but will be soon!
+In the meantime, GMT does provide compiled conda packages of their development version
+for Linux, Mac and Windows through
+`conda-forge <https://anaconda.org/conda-forge/gmt>`__.
+Advanced users can also
+`build GMT from source <https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md>`__
+instead, which is not so recommended but we would love to get feedback from anyone who
+tries.
+
+We recommend following the instructions further on to install GMT 6.
 
 Dependencies
 ------------
@@ -53,44 +62,38 @@ The following are optional (but recommended) dependencies:
 * `IPython <https://ipython.org/>`__: For embedding the figures in Jupyter notebooks.
 
 
-Installing GMT
---------------
+Installing GMT and other dependencies
+-------------------------------------
 
-Unfortunately, you'll have to build GMT from source in order to get PyGMT working.
-Please follow the `GMT Building Instructions <https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md>`__.
-
-For Windows users, you can also try to install the binaries of
-GMT development version, available from http://w3.ualg.pt/~jluis/mirone/downloads/gmt.html.
-Currently, we don't have tests running on Windows yet, so things might be broken.
-Please report any errors by `creating an issue on Github <https://github.com/GenericMappingTools/pygmt/issues>`__.
-
-.. note::
-
-   We used to maintain conda packages for the latest GMT. That caused many problems and
-   was very difficult to maintain updated. We have opted to not do that anymore so that
-   we can develop more quickly. Once GMT 6 is officially released, we'll have conda
-   packages available again. Please bear with us.
-
-Installing dependencies
------------------------
-
-Before installing PyGMT, we must install its dependencies.
+Before installing PyGMT, we must install GMT itself along with the other dependencies.
 The easiest way to do this is using the ``conda`` package manager.
 We recommend working in an isolated
-`conda environment <https://conda.io/docs/user-guide/tasks/manage-environments.html>`__
+`conda environment <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`__
 to avoid issues with competing versions of its dependencies.
 
-We can create a new conda environment with Python and all our dependencies installed
+First, we must configure conda to get packages from the
+`conda-forge channel <https://conda-forge.org/>`__ (the order is important)::
+
+    conda config --prepend channels conda-forge/label/dev
+    conda config --prepend channels conda-forge
+
+Now we can create a new conda environment with Python and all our dependencies installed
 (we'll call it ``pygmt`` but you can change it to whatever you want)::
 
-     conda create --name pygmt python=3.6 pip numpy pandas xarray packaging
+     conda create --name pygmt python=3.6 pip numpy pandas xarray packaging gmt=6.0.0rc*
 
 Activate the environment by running::
 
-    source activate pygmt
+    conda activate pygmt
 
-From now on, all commands will take place inside the environment and won't affect your
-default installation.
+From now on, all commands will take place inside the conda virtual environment and won't
+affect your default installation.
+
+.. note::
+
+    **Currently, this has only been tested to work on Linux and macOS.**
+    We don't have tests running on Windows yet, so things might be broken.
+    Please report any errors by `creating an issue on Github <https://github.com/GenericMappingTools/pygmt/issues>`__.
 
 Installing PyGMT
 ----------------
@@ -133,4 +136,8 @@ This can happen if you have multiple versions of GMT installed.
 
 You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 ``GMT_LIBRARY_PATH`` environment variable.
-This should be set to the directory where ``libgmt.so`` (or ``.dylib``) is found.
+This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or ``gmt.dll``
+can be found for Linux, MacOS and Windows respectively.
+e.g. in a terminal run::
+   
+   export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib

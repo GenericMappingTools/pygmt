@@ -61,6 +61,15 @@ repository to avoid duplicating work across multiple repositories.
 If you find any problems with the test setup and deployment, please create issues and
 submit pull requests to that repository.
 
+## Continuous Documentation
+
+We use the [Zeit Now for Github integration](https://zeit.co/github) to preview changes
+made to our documentation website every time we make a commit in a pull request.
+The integration service has a configuration file `now.json`, with a list of options to
+change the default behaviour at https://zeit.co/docs/configuration.
+The actual script `package.json` is used by Zeit Now to install the necessary packages,
+build the documentation, copy the files to a 'public' folder and deploy that to the web,
+see https://zeit.co/docs/v2/build-step/?query=package.json#defining-a-build-script.
 
 ## Making a Release
 

@@ -24,13 +24,23 @@ Plotting data and laying out the map:
 
     Figure.basemap
     Figure.coast
+    Figure.colorbar
     Figure.plot
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
+    Figure.legend
     Figure.logo
     Figure.image
     Figure.shift_origin
+    Figure.text
+
+Color palette table generation:
+
+.. autosummary::
+    :toctree: generated
+
+    makecpt
 
 Saving and displaying the figure:
 
