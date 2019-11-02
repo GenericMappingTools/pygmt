@@ -5,7 +5,7 @@ Installing
 
 .. note::
 
-   🚨 **This package is in early stages of design and implementation.** 🚨
+   🚨 **This package is in the early stages of design and implementation.** 🚨
 
     We welcome any feedback and ideas!
     Let us know by submitting
