@@ -54,10 +54,9 @@ publication quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
 command-line program widely used in the Earth Sciences.
 
-We rely heavily on new features currently being implemented in GMT. In particular, a new
-*modern execution mode* that greatly simplifies figure creation. **These features are
-not available in the 5.4 version of GMT**. They will be part of the future 6.0 release
-of GMT predicted for early 2019.
+We rely heavily on new features that have been implemented in GMT 6.0. In particular,
+a new *modern execution mode* that greatly simplifies figure creation. **These features
+are not available in the 5.4 version of GMT**.
 
 
 Project goals
