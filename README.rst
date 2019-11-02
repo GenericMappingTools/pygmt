@@ -4,7 +4,8 @@ PyGMT
     A Python interface for the Generic Mapping Tools
 
 `Documentation (development version) <https://www.pygmt.org/dev>`__ |
-`Contact <https://gitter.im/GenericMappingTools/pygmt>`__
+`Contact <https://gitter.im/GenericMappingTools/pygmt>`__ |
+`Forum <https://forum.generic-mapping-tools.org>`__ `
 
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
@@ -27,6 +28,9 @@ PyGMT
 .. image:: https://img.shields.io/gitter/room/GenericMappingTools/pygmt.svg?style=flat-square
     :alt: Chat room on Gitter
     :target: https://gitter.im/GenericMappingTools/pygmt
+.. image:: https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org%2F&style=flat-square
+    :alt: Discourse forum
+    :target: https://forum.generic-mapping-tools.org
 
 
 .. placeholder-for-doc-index
@@ -43,8 +47,7 @@ ideas and implement new features. **This is NOT a finished product.**
 We welcome any feedback and ideas!
 Let us know by submitting
 `issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
-or send us a message on our
-`Gitter chatroom <https://gitter.im/GenericMappingTools/pygmt>`__.
+or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 About
 -----
@@ -77,7 +80,7 @@ Contacting Us
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
-* We have a `chat room on Gitter <https://gitter.im/GenericMappingTools/pygmt>`__
+* We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
   where you can ask questions and leave comments.
 * This project is released with a `Contributor Code of Conduct
   <https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
