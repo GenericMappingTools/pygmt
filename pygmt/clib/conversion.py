@@ -9,13 +9,15 @@ from ..exceptions import GMTInvalidInput
 
 def dataarray_to_matrix(grid):
     """
-    Transform a xarray.DataArray into a data 2D array and metadata.
+    Transform an xarray.DataArray into a data 2D array and metadata.
 
     Use this to extract the underlying numpy array of data and the region and
     increment for the grid.
 
     Only allows grids with two dimensions and constant grid spacing (GMT
-    doesn't allow variable grid spacing).
+    doesn't allow variable grid spacing). If the latitude and/or longitude
+    increments of the input grid are negative, the output matrix will be
+    reformatted with positive increments.
 
     If the underlying data array is not C contiguous, for example if it's a
     slice of a larger grid, a copy will need to be generated.
@@ -102,7 +104,19 @@ def dataarray_to_matrix(grid):
             )
         region.extend([coord.min(), coord.max()])
         inc.append(coord_inc)
-    matrix = as_c_contiguous(grid.values[::-1])
+    if inc[1] < 0:
+        inc[1] = abs(inc[1])
+        if inc[0] < 0:
+            inc[0] = abs(inc[0])
+            matrix = as_c_contiguous(grid.values[:, ::-1])
+        else:
+            matrix = as_c_contiguous(grid.values)
+    else:
+        if inc[0] < 0:
+            inc[0] = abs(inc[0])
+            matrix = as_c_contiguous(grid.values[::-1, ::-1])
+        else:
+            matrix = as_c_contiguous(grid.values[::-1])
     return matrix, region, inc
 
 
