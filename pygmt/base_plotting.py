@@ -288,12 +288,13 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(R="region", J="projection", W="pen", B="frame", I="shading", C="cmap")
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", grid="sequence_space")
     def grdimage(self, grid, **kwargs):
         """
         Project grids or images and plot them on maps.
 
         Takes a grid file name or an xarray.DataArray object as input.
+        Alternatively, pass in a list of red, green, blue grids to be imaged.
 
         Full option list at :gmt-docs:`grdimage.html`
 
@@ -301,9 +302,9 @@ class BasePlotting:
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
+        grid : str, xarray.DataArray or list
             The file name of the input grid or the grid loaded as a DataArray.
-
+            A list of red, green, blue grids can also be provided instead.
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)

@@ -41,6 +41,14 @@ def test_grdimage_file():
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_grdimage_rgb_files():
+    "Plot an image using Red, Green, and Blue file inputs"
+    fig = Figure()
+    fig.grdimage(grid=["@earth_relief_60m", "@earth_relief_60m", "@earth_relief_60m"])
+    return fig
+
+
 def test_grdimage_fails():
     "Should fail for unrecognized input"
     fig = Figure()
