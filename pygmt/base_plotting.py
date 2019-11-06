@@ -628,7 +628,8 @@ class BasePlotting:
         Makes legends that can be overlaid on maps. Reads specific legend-related
         information from an input file, or automatically creates legend entries from
         plotted symbols that have labels. Unless otherwise noted, annotations will be
-        made using the primary annotation font and size in effect (i.e., FONT_ANNOT_PRIMARY).
+        made using the primary annotation font and size in effect
+        (i.e., FONT_ANNOT_PRIMARY).
 
         Full option list at :gmt-docs:`legend.html`
 
