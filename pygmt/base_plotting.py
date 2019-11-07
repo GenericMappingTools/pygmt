@@ -621,7 +621,7 @@ class BasePlotting:
     @fmt_docstring
     @use_alias(R="region", J="projection", D="position", F="box")
     @kwargs_to_strings(R="sequence")
-    def legend(self, spec=None, position="JTR+jTR", **kwargs):
+    def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
         """
         Plot legends on maps.
 
@@ -645,17 +645,21 @@ class BasePlotting:
         position (D) : str
             ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
             Defines the reference point on the map for the legend. By default, uses
-            'JTR+jTR' which places the legend at the top-right corner inside
+            'JTR+jTR+o0.2c' which places the legend at the top-right corner inside
             the map frame.
         box (F) : bool or str
             ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
             Without further options, draws a rectangular border around the
-            legend using **MAP_FRAME_PEN**.
+            legend using **MAP_FRAME_PEN**. By default, uses '+gwhite+p1p' which draws
+            a box around the legend using a 1 point black pen and adds a white background.
         """
         kwargs = self._preprocess(**kwargs)
 
         if "D" not in kwargs:
             kwargs["D"] = position
+
+            if "F" not in kwargs:
+                kwargs["F"] = box
 
         with Session() as lib:
             if spec is None:
