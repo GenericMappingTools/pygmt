@@ -652,6 +652,10 @@ class BasePlotting:
             legend using **MAP_FRAME_PEN**.
         """
         kwargs = self._preprocess(**kwargs)
+
+        if "D" not in kwargs:
+            kwargs["D"] = position
+
         with Session() as lib:
             if spec is None:
                 specfile = ""
@@ -659,9 +663,7 @@ class BasePlotting:
                 specfile = spec
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
-            arg_str = " ".join(
-                [specfile, "-D{}".format(position), build_arg_string(kwargs)]
-            )
+            arg_str = " ".join([specfile, build_arg_string(kwargs)])
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
