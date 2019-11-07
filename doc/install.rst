@@ -5,13 +5,12 @@ Installing
 
 .. note::
 
-   🚨 **This package is in early stages of design and implementation.** 🚨
+   🚨 **This package is in the early stages of design and implementation.** 🚨
 
     We welcome any feedback and ideas!
     Let us know by submitting
     `issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
-    or send us a message on our
-    `Gitter chatroom <https://gitter.im/GenericMappingTools/pygmt>`__.
+    or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 
 Which Python?
@@ -29,16 +28,15 @@ doesn't interfere with any other Python installations in your system.
 Which GMT?
 ----------
 
-PyGMT requires GMT 6 as a minimum, which you can find the latest development version
-at `this GitHub repository <https://github.com/GenericMappingTools/gmt>`__.
+PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the latest
+released version that can be found at
+`this website <https://www.generic-mapping-tools.org>`__.
 
 We need the very latest GMT since there are many changes being made to GMT itself in
 response to the development of PyGMT, mainly the new
 `modern execution mode <https://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
 
-**GMT 6 has not been officially released yet**, but will be soon!
-In the meantime, GMT does provide compiled conda packages of their development version
-for Linux, Mac and Windows through
+Compiled conda packages of GMT for Linux, Mac and Windows are provided through
 `conda-forge <https://anaconda.org/conda-forge/gmt>`__.
 Advanced users can also
 `build GMT from source <https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md>`__
@@ -72,15 +70,14 @@ We recommend working in an isolated
 to avoid issues with competing versions of its dependencies.
 
 First, we must configure conda to get packages from the
-`conda-forge channel <https://conda-forge.org/>`__ (the order is important)::
+`conda-forge channel <https://conda-forge.org/>`__::
 
-    conda config --prepend channels conda-forge/label/dev
     conda config --prepend channels conda-forge
 
 Now we can create a new conda environment with Python and all our dependencies installed
 (we'll call it ``pygmt`` but you can change it to whatever you want)::
 
-     conda create --name pygmt python=3.6 pip numpy pandas xarray packaging gmt=6.0.0rc*
+     conda create --name pygmt python=3.6 pip numpy pandas xarray packaging gmt=6.0.0
 
 Activate the environment by running::
 
@@ -139,5 +136,5 @@ You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or ``gmt.dll``
 can be found for Linux, MacOS and Windows respectively.
 e.g. in a terminal run::
-   
+
    export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
