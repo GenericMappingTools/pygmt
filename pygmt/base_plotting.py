@@ -3,6 +3,10 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
+import csv
+import os
+import numpy as np
+import pandas as pd
 
 from .clib import Session
 from .exceptions import GMTInvalidInput
@@ -11,6 +15,7 @@ from .helpers import (
     dummy_context,
     data_kind,
     fmt_docstring,
+    GMTTempFile,
     use_alias,
     kwargs_to_strings,
 )
@@ -126,6 +131,86 @@ class BasePlotting:
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
+
+    @fmt_docstring
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        C="cmap",
+        D="position",
+        F="box",
+        G="truncate",
+        W="scale",
+    )
+    @kwargs_to_strings(R="sequence", G="sequence")
+    def colorbar(self, **kwargs):
+        """
+        Plot a gray or color scale-bar on maps.
+
+        Both horizontal and vertical scales are supported. For CPTs with gradational
+        colors (i.e., the lower and upper boundary of an interval have different colors)
+        we will interpolate to give a continuous scale. Variations in intensity due to
+        shading/illumination may be displayed by setting the option -I. Colors may be
+        spaced according to a linear scale, all be equal size, or by providing a file
+        with individual tile widths.
+
+        Full option list at :gmt-docs:`colorbar.html`
+
+        Parameters
+        ----------
+        position (D) : str
+            ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v][+jjustify]
+            [+m[a|c|l|u]][+n[txt]][+odx[/dy]]``.
+            Defines the reference point on the map for the color scale using one of four
+            coordinate systems:
+            (1) Use -Dg for map (user) coordinates,
+            (2) use -Dj or -DJ for setting refpoint via a 2-char justification code that
+            refers to the (invisible) map domain rectangle,
+            (3) use -Dn for normalized (0-1) coordinates, or
+            (4) use -Dx for plot coordinates (inches, cm, etc.).\
+            All but -Dx requires both -R and -J to be specified.
+            Append +w followed by the length and width of the color bar.
+            If width is not specified then it is set to 4% of the given length.
+            Give a negative length to reverse the scale bar.
+            Append +h to get a horizontal scale [Default is vertical (+v)].
+            By default, the anchor point on the scale is assumed to be the bottom left
+            corner (BL), but this can be changed by appending +j followed by a 2-char
+            justification code justify.
+
+        box (F) : bool or str
+            ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/]
+            [shade]]]``.
+            If set to True, draws a rectangular border around the color scale.
+            Alternatively, specify a different pen with +ppen.
+            Add +gfill to fill the scale panel [no fill].
+            Append +cclearance where clearance is either gap, xgap/ygap, or
+            lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
+            y-direction, or individual side spacings between scale and border.
+            Append +i to draw a secondary, inner border as well. We use a uniform gap
+            between borders of 2p and the MAP_DEFAULTS_PEN unless other values are
+            specified.
+            Append +r to draw rounded rectangular borders instead, with a 6p corner
+            radius. You can override this radius by appending another value.
+            Finally, append +s to draw an offset background shaded region. Here, dx/dy
+            indicates the shift relative to the foreground frame [4p/-4p] and shade sets
+            the fill style to use for shading [gray50].
+
+        truncate (G) : list or str
+            ``zlo/zhi``
+            Truncate the incoming CPT so that the lowest and highest z-levels are to zlo
+            and zhi. If one of these equal NaN then we leave that end of the CPT alone.
+            The truncation takes place before the plotting.
+
+        scale (W) : float
+            Multiply all z-values in the CPT by the provided scale. By default the CPT
+            is used as is.
+
+        {aliases}
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            lib.call_module("colorbar", build_arg_string(kwargs))
 
     @fmt_docstring
     @use_alias(
@@ -350,6 +435,7 @@ class BasePlotting:
         G="color",
         W="pen",
         i="columns",
+        l="label",
         C="cmap",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -417,8 +503,8 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
-
-
+        l : str
+            Add a legend entry for the symbol or line being plotted.
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -639,3 +725,150 @@ class BasePlotting:
         with Session() as lib:
             arg_str = " ".join([imagefile, build_arg_string(kwargs)])
             lib.call_module("image", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection", D="position", F="box")
+    @kwargs_to_strings(R="sequence")
+    def legend(self, spec=None, **kwargs):
+        """
+        Plot legends on maps.
+
+        Makes legends that can be overlaid on maps. Reads specific legend-related
+        information from an input file, or automatically creates legend entries from
+        plotted symbols that have labels. Unless otherwise noted, annotations will be
+        made using the primary annotation font and size in effect
+        (i.e., FONT_ANNOT_PRIMARY).
+
+        Full option list at :gmt-docs:`legend.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        spec : None or str
+            Either None (default) for using the automatically generated legend
+            specification file, or a filename pointing to the legend specification file.
+        {J}
+        {R}
+        position (D) : str
+            ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
+            Defines the reference point on the map for the legend.
+        box (F) : bool or str
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
+            Without further options, draws a rectangular border around the
+            legend using **MAP_FRAME_PEN**.
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            if spec is None:
+                specfile = ""
+            elif data_kind(spec) == "file":
+                specfile = spec
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
+            arg_str = " ".join([specfile, build_arg_string(kwargs)])
+            lib.call_module("legend", arg_str)
+
+    @fmt_docstring
+    @use_alias(R="region", J="projection")
+    @kwargs_to_strings(
+        R="sequence",
+        textfiles="sequence_space",
+        angle="sequence_comma",
+        font="sequence_comma",
+        justify="sequence_comma",
+    )
+    def text(
+        self,
+        textfiles=None,
+        x=None,
+        y=None,
+        text=None,
+        angle=None,
+        font=None,
+        justify=None,
+        **kwargs,
+    ):
+        """
+        Plot or typeset text on maps
+
+        Used to be pstext.
+
+        Takes in textfile(s) or (x,y,text) triples as input.
+
+        Must provide at least *textfiles* or *x*, *y*, and *text*.
+
+        Full option list at :gmt-docs:`text.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        textfiles : str or list
+            A text data file name, or a list of filenames containing 1 or more records
+            with (x, y[, font, angle, justify], text).
+        x, y : float or 1d arrays
+            The x and y coordinates, or an array of x and y coordinates to plot the text
+        text : str or 1d array
+            The text string, or an array of strings to plot on the figure
+        angle: int/float or bool
+            Set the angle measured in degrees counter-clockwise from horizontal. E.g. 30
+            sets the text at 30 degrees. If no angle is given then the input textfile(s)
+            must have this as a column.
+        font : str or bool
+            Set the font specification with format "size,font,color" where size is text
+            size in points, font is the font to use, and color sets the font color. E.g.
+            "12p,Helvetica-Bold,red" selects a 12p red Helvetica-Bold font. If no font
+            info is given then the input textfile(s) must have this information in one
+            of its columns.
+        justify: str or bool
+            Set the alignment which refers to the part of the text string that will be
+            mapped onto the (x,y) point. Choose a 2 character combination of L, C, R
+            (for left, center, or right) and T, M, B for top, middle, or bottom. E.g.,
+            BL for lower left. If no justification is given then the input textfile(s)
+            must have this as a column.
+        {J}
+        {R}
+        """
+        kwargs = self._preprocess(**kwargs)
+
+        kind = data_kind(textfiles, x, y, text)
+        if kind == "vectors" and text is None:
+            raise GMTInvalidInput("Must provide text with x and y.")
+        if kind == "file":
+            for textfile in textfiles.split(" "):  # ensure that textfile(s) exist
+                if not os.path.exists(textfile):
+                    raise GMTInvalidInput(f"Cannot find the file: {textfile}")
+
+        if angle is not None or font is not None or justify is not None:
+            if "F" not in kwargs.keys():
+                kwargs.update({"F": ""})
+            if angle is not None and isinstance(angle, (int, float)):
+                kwargs["F"] += f"+a{str(angle)}"
+            if font is not None and isinstance(font, str):
+                kwargs["F"] += f"+f{font}"
+            if justify is not None and isinstance(justify, str):
+                kwargs["F"] += f"+j{justify}"
+
+        with GMTTempFile(suffix=".txt") as tmpfile:
+            with Session() as lib:
+                if kind == "file":
+                    fname = textfiles
+                elif kind == "vectors":
+                    pd.DataFrame.from_dict(
+                        {
+                            "x": np.atleast_1d(x),
+                            "y": np.atleast_1d(y),
+                            "text": np.atleast_1d(text),
+                        }
+                    ).to_csv(
+                        tmpfile.name,
+                        sep="\t",
+                        header=False,
+                        index=False,
+                        quoting=csv.QUOTE_NONE,
+                    )
+                    fname = tmpfile.name
+
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("text", arg_str)

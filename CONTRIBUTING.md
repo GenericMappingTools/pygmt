@@ -64,7 +64,7 @@ read it carefully.
 ## How Can I Talk to You?
 
 Discussion often happens in the issues and pull requests.
-In addition, there is a [Gitter chatroom](https://gitter.im/GenericMappingTools/pygmt)
+In addition, there is a [Discourse forum](https://forum.generic-mapping-tools.org)
 for the project where you can ask questions.
 
 
@@ -310,8 +310,7 @@ returning the `pygmt.Figure` object:
 def test_my_plotting_case():
     "Test that my plotting function works"
     fig = Figure()
-    fig.psbasemap(region=[0, 360, -90, 90], projection='W7i', frame=True,
-                  portrait=True)
+    fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
     return fig
 ```
 
@@ -323,7 +322,7 @@ version) of your plot.
 Run the following from the repository root:
 
 ```bash
-py.test --mpl-generate-path=baseline pygmt/tests/NAME_OF_TEST_FILE.py
+pytest --mpl-generate-path=baseline pygmt/tests/NAME_OF_TEST_FILE.py
 ```
 
 This will create a `baseline` folder with all the plots generated in your test

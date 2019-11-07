@@ -49,7 +49,7 @@ def test_basemap_power_axis():
     "Create a power axis basemap plot"
     fig = Figure()
     fig.basemap(
-        R=[0, 100, 0, 5000], J="x1p0.5/-0.001", B='x1p+l"Crustal age"y500+lDepth'
+        R=[0, 100, 0, 5000], J="x1p0.5/-0.001", B=['x1p+l"Crustal age"', "y500+lDepth"]
     )
     return fig
 
