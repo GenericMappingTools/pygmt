@@ -11,6 +11,7 @@ def test_config():
     """
     Test if config works globally and locally.
     """
+    # Change global settings
     config(FONT_ANNOT_PRIMARY="blue")
     fig = Figure()
     fig.basemap(
@@ -31,4 +32,6 @@ def test_config():
         frame=["af", '+t"Blue Annotation"'],
         X="15c",
     )
+    # Revert to default settings
+    config(FONT_ANNOT_PRIMARY="black")
     return fig
