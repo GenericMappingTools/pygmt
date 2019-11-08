@@ -361,8 +361,8 @@ class BasePlotting:
 
         Parameters
         ----------
-        x, y : 1d arrays
-            Arrays of x and y coordinates of the data points.
+        x, y : float or 1d arrays
+            The x and y coordinates, or arrays of x and y coordinates of the data points
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
             Use option *columns* (i) to choose which columns are x, y, color,
@@ -426,7 +426,9 @@ class BasePlotting:
             elif kind == "matrix":
                 file_context = lib.virtualfile_from_matrix(data)
             elif kind == "vectors":
-                file_context = lib.virtualfile_from_vectors(x, y, *extra_arrays)
+                file_context = lib.virtualfile_from_vectors(
+                    np.atleast_1d(x), np.atleast_1d(y), *extra_arrays
+                )
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
