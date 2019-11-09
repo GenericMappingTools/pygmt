@@ -259,7 +259,7 @@ def test_plot_vectors():
 
 
 @pytest.mark.mpl_image_compare
-def test_plot_symbols():
+def test_plot_scalar_xy():
     "Plot symbols given scalar x, y coordinates"
     fig = Figure()
     fig.basemap(region=[-2, 2, -2, 2], frame=True)
