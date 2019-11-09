@@ -21,7 +21,7 @@ def test_surface_input_file():
     Run surface by passing in a filename
     """
     fname = which("@tut_ship.xyz", download="c")
-    output = surface(data=fname, spacing="5m", region="245/255/20/30")
+    output = surface(data=fname, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, xr.Dataset)
     return output
 
@@ -32,7 +32,7 @@ def test_surface_input_data_array():
     """
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
-    output = surface(data=data, spacing="5m", region="245/255/20/30")
+    output = surface(data=data, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, xr.Dataset)
     return output
 
@@ -47,7 +47,7 @@ def test_surface_input_xyz():
         y=ship_data.latitude,
         z=ship_data.bathymetry,
         spacing="5m",
-        region="245/255/20/30",
+        region=[245, 255, 20, 30],
     )
     assert isinstance(output, xr.Dataset)
     return output
@@ -63,7 +63,7 @@ def test_surface_input_xy_no_z():
             x=ship_data.longitude,
             y=ship_data.latitude,
             spacing="5m",
-            region="245/255/20/30",
+            region=[245, 255, 20, 30],
         )
 
 
@@ -75,7 +75,7 @@ def test_surface_wrong_kind_of_input():
     data = ship_data.bathymetry.to_xarray()  # convert pandas.Series to xarray.DataArray
     assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
-        surface(data=data, spacing="5m", region="245/255/20/30")
+        surface(data=data, spacing="5m", region=[245, 255, 20, 30])
 
 
 def test_surface_with_outfile_param():
@@ -86,7 +86,7 @@ def test_surface_with_outfile_param():
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     try:
         output = surface(
-            data=data, spacing="5m", region="245/255/20/30", outfile=TEMP_GRID
+            data=data, spacing="5m", region=[245, 255, 20, 30], outfile=TEMP_GRID
         )
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
@@ -104,7 +104,7 @@ def test_surface_short_aliases():
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     try:
-        output = surface(data=data, I="5m", R="245/255/20/30", G=TEMP_GRID)
+        output = surface(data=data, I="5m", R=[245, 255, 20, 30], G=TEMP_GRID)
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
         grid = xr.open_dataset(TEMP_GRID)

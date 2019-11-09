@@ -6,17 +6,19 @@ import xarray as xr
 from .clib import Session
 from .helpers import (
     build_arg_string,
-    fmt_docstring,
-    GMTTempFile,
-    use_alias,
     data_kind,
     dummy_context,
+    fmt_docstring,
+    GMTTempFile,
+    kwargs_to_strings,
+    use_alias,
 )
 from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
 @use_alias(I="spacing", R="region", G="outfile")
+@kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
     """
     Grids table data using adjustable tension continuous curvature splines.
