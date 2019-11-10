@@ -361,8 +361,8 @@ class BasePlotting:
 
         Parameters
         ----------
-        x, y : 1d arrays
-            Arrays of x and y coordinates of the data points.
+        x, y : float or 1d arrays
+            The x and y coordinates, or arrays of x and y coordinates of the data points
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
             Use option *columns* (i) to choose which columns are x, y, color,
@@ -426,7 +426,9 @@ class BasePlotting:
             elif kind == "matrix":
                 file_context = lib.virtualfile_from_matrix(data)
             elif kind == "vectors":
-                file_context = lib.virtualfile_from_vectors(x, y, *extra_arrays)
+                file_context = lib.virtualfile_from_vectors(
+                    np.atleast_1d(x), np.atleast_1d(y), *extra_arrays
+                )
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
@@ -621,15 +623,15 @@ class BasePlotting:
     @fmt_docstring
     @use_alias(R="region", J="projection", D="position", F="box")
     @kwargs_to_strings(R="sequence")
-    def legend(self, spec=None, **kwargs):
+    def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
         """
         Plot legends on maps.
 
         Makes legends that can be overlaid on maps. Reads specific legend-related
-        information from either a) an input file or b) a list containing a list
-        of figure handles and a list of corresponding labels. Unless otherwise
-        noted, annotations will be made using the primary annotation font and
-        size in effect (i.e., FONT_ANNOT_PRIMARY).
+        information from an input file, or automatically creates legend entries from
+        plotted symbols that have labels. Unless otherwise noted, annotations will be
+        made using the primary annotation font and size in effect
+        (i.e., FONT_ANNOT_PRIMARY).
 
         Full option list at :gmt-docs:`legend.html`
 
@@ -644,13 +646,23 @@ class BasePlotting:
         {R}
         position (D) : str
             ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
-            Defines the reference point on the map for the legend.
+            Defines the reference point on the map for the legend. By default, uses
+            'JTR+jTR+o0.2c' which places the legend at the top-right corner inside
+            the map frame, with a 0.2 cm offset.
         box (F) : bool or str
             ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
             Without further options, draws a rectangular border around the
-            legend using **MAP_FRAME_PEN**.
+            legend using **MAP_FRAME_PEN**. By default, uses '+gwhite+p1p' which draws
+            a box around the legend using a 1 point black pen and adds a white background.
         """
         kwargs = self._preprocess(**kwargs)
+
+        if "D" not in kwargs:
+            kwargs["D"] = position
+
+            if "F" not in kwargs:
+                kwargs["F"] = box
+
         with Session() as lib:
             if spec is None:
                 specfile = ""
