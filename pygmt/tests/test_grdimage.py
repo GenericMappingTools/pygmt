@@ -3,6 +3,7 @@ Test Figure.grdimage
 """
 import numpy as np
 import pytest
+import xarray as xr
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput
@@ -46,6 +47,30 @@ def test_grdimage_rgb_files():
     "Plot an image using Red, Green, and Blue file inputs"
     fig = Figure()
     fig.grdimage(grid=["@earth_relief_60m", "@earth_relief_60m", "@earth_relief_60m"])
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdimage_rgb_grid():
+    "Plot an image using Red, Green, and Blue xarray.DataArray inputs"
+    red = xr.DataArray(
+        data=[[128, 0, 0], [128, 0, 0]],
+        dims=("lat", "lon"),
+        coords={"lat": [0, 1], "lon": [2, 3, 4]},
+    )
+    green = xr.DataArray(
+        data=[[0, 128, 0], [0, 128, 0]],
+        dims=("lat", "lon"),
+        coords={"lat": [0, 1], "lon": [2, 3, 4]},
+    )
+    blue = xr.DataArray(
+        data=[[0, 0, 128], [0, 0, 128]],
+        dims=("lat", "lon"),
+        coords={"lat": [0, 1], "lon": [2, 3, 4]},
+    )
+
+    fig = Figure()
+    fig.grdimage(grid=[red, green, blue], projection="x5c", frame=True)
     return fig
 
 
