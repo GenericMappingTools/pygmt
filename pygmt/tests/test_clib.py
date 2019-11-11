@@ -764,6 +764,58 @@ def test_write_data_fails():
                 )
 
 
+def test_dataarray_to_matrix_works():
+    "Check that dataarray_to_matrix returns correct output"
+    data = np.diag(v=np.arange(3))
+    x = np.linspace(start=0, stop=4, num=3)
+    y = np.linspace(start=5, stop=9, num=3)
+    grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
+
+    matrix, region, inc = dataarray_to_matrix(grid)
+    npt.assert_allclose(actual=matrix, desired=np.flipud(data))
+    npt.assert_allclose(actual=region, desired=[x.min(), x.max(), y.min(), y.max()])
+    npt.assert_allclose(actual=inc, desired=[x[1] - x[0], y[1] - y[0]])
+
+
+def test_dataarray_to_matrix_negative_x_increment():
+    "Check that dataarray_to_matrix returns correct output with flipped x dimensions"
+    data = np.diag(v=np.arange(3))
+    x = np.linspace(start=4, stop=0, num=3)
+    y = np.linspace(start=5, stop=9, num=3)
+    grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
+
+    matrix, region, inc = dataarray_to_matrix(grid)
+    npt.assert_allclose(actual=matrix, desired=np.flip(data, axis=(0, 1)))
+    npt.assert_allclose(actual=region, desired=[x.min(), x.max(), y.min(), y.max()])
+    npt.assert_allclose(actual=inc, desired=[abs(x[1] - x[0]), abs(y[1] - y[0])])
+
+
+def test_dataarray_to_matrix_negative_y_increment():
+    "Check that dataarray_to_matrix returns correct output with flipped y dimensions"
+    data = np.diag(v=np.arange(3))
+    x = np.linspace(start=0, stop=4, num=3)
+    y = np.linspace(start=9, stop=5, num=3)
+    grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
+
+    matrix, region, inc = dataarray_to_matrix(grid)
+    npt.assert_allclose(actual=matrix, desired=data)
+    npt.assert_allclose(actual=region, desired=[x.min(), x.max(), y.min(), y.max()])
+    npt.assert_allclose(actual=inc, desired=[abs(x[1] - x[0]), abs(y[1] - y[0])])
+
+
+def test_dataarray_to_matrix_negative_x_and_y_increment():
+    "Check that dataarray_to_matrix returns correct output with flipped x/y dimensions"
+    data = np.diag(v=np.arange(3))
+    x = np.linspace(start=4, stop=0, num=3)
+    y = np.linspace(start=9, stop=5, num=3)
+    grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
+
+    matrix, region, inc = dataarray_to_matrix(grid)
+    npt.assert_allclose(actual=matrix, desired=np.fliplr(data))
+    npt.assert_allclose(actual=region, desired=[x.min(), x.max(), y.min(), y.max()])
+    npt.assert_allclose(actual=inc, desired=[abs(x[1] - x[0]), abs(y[1] - y[0])])
+
+
 def test_dataarray_to_matrix_dims_fails():
     "Check that it fails for > 2 dims"
     # Make a 3D regular grid
