@@ -7,6 +7,7 @@ GMT_LIBRARY_PATH environment variable.
 import os
 import sys
 import ctypes
+import ctypes.util
 
 from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
@@ -46,12 +47,14 @@ def load_libgmt(env=None):
         try:
             libgmt = ctypes.CDLL(os.path.join(libpath, libname))
             check_libgmt(libgmt)
+            error = False
             break
         except OSError as err:
             error = err
     if error:
         raise GMTCLibNotFoundError(
-            "Error loading the GMT shared library '{}':".format(libname)
+            f"Error loading the GMT shared library '{libname}' because of {error}, try "
+            f"set GMT_LIBRARY_PATH={os.path.dirname(ctypes.util.find_library('gmt'))}"
         )
     return libgmt
 
@@ -77,7 +80,7 @@ def clib_name(os_name):
         # Darwin is macOS
         libname = ["libgmt.dylib"]
     elif os_name == "win32":
-        libname = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
+        libname = ["gmt_w32.dll", "gmt_w64.dll", "gmt.dll"]
     else:
         raise GMTOSError('Operating system "{}" not supported.'.format(sys.platform))
     return libname

@@ -30,6 +30,6 @@ def test_clib_name():
     for linux in ["linux", "linux2", "linux3"]:
         assert clib_name(linux) == ["libgmt.so"]
     assert clib_name("darwin") == ["libgmt.dylib"]
-    assert clib_name("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
+    assert clib_name("win32") == ["gmt_w32.dll", "gmt_w64.dll", "gmt.dll"]
     with pytest.raises(GMTOSError):
         clib_name("meh")
