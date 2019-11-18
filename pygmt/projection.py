@@ -79,6 +79,17 @@ class _Azimuthal(_Projection):
 
     """
     Base class for azimuthal projections.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    horizon : float
+        The max distance to the projection centre in degrees. Default is 90.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     lon0: float = attr.ib()
@@ -106,6 +117,15 @@ class _Cylindrical(_Projection):
 
     """
     Base class for cylindrical projections.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     lon0: float = attr.ib()
@@ -118,11 +138,25 @@ class _Cylindrical(_Projection):
     _code: str = attr.ib(init=False, repr=False,
                          default=Supported.UNDEFINED.value)
 
+
 @attr.s(kw_only=True)
 class _Conic:
 
     """
     Base class for conic projections.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    lat1 : float
+        The first standard parallel.
+    lat2 : float
+        The second standard parallel.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     lon0: float = attr.ib()
@@ -140,7 +174,18 @@ class _Conic:
 class LambertAzimuthalEqualArea(_Azimuthal):
 
     """
-    Definition for the lambert azimuthal equal area projection.
+    Class definition for the lambert azimuthal equal area projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    horizon : float
+        The max distance to the projection centre in degrees. Default is 90.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     # private; we don't want the user to care or know about
@@ -152,7 +197,18 @@ class LambertAzimuthalEqualArea(_Azimuthal):
 class AzimuthalEquidistant(_Azimuthal):
 
     """
-    Definition for the azimuthal equidistant projection.
+    Class definition for the azimuthal equidistant projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    horizon : float
+        The max distance to the projection centre in degrees. Default is 180.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     horizon: float = attr.ib(default=180, kw_only=True)
@@ -166,14 +222,25 @@ class AzimuthalEquidistant(_Azimuthal):
 class AzimuthalGnomic(_Azimuthal):
 
     """
-    Definition for the azimuthal gnomic projection.
+    Class definition for the azimuthal gnomic projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    horizon : float
+        The max distance to the projection centre in degrees. Default is 60.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     horizon: float = attr.ib(default=60, kw_only=True)
 
     # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.AZIMUTHAL_EQUIDISTANT.value)
+                         default=Supported.AZIMUTHAL_GNOMIC.value)
 
     @horizon.validator
     def check_horizon(self, attribute, value):
@@ -188,14 +255,25 @@ class AzimuthalGnomic(_Azimuthal):
 class AzimuthalOrthographic(_Azimuthal):
 
     """
-    Definition for the azimuthal orthographic projection.
+    Class definition for the azimuthal orthographic projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    horizon : float
+        The max distance to the projection centre in degrees. Default is 90.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
-    horizon: float = attr.ib(default=60, kw_only=True)
+    horizon: float = attr.ib(default=90)
 
     # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.AZIMUTHAL_EQUIDISTANT.value)
+                         default=Supported.AZIMUTHAL_ORTHOGRAPHIC.value)
 
     @horizon.validator
     def check_horizon(self, attribute, value):
@@ -210,7 +288,28 @@ class AzimuthalOrthographic(_Azimuthal):
 class GeneralPerspective(_Projection):
 
     """
-    Definition for the azimuthal general perspective projection.
+    Class definition for the azimuthal general perspective projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre (in degrees).
+    lat0 : float
+        The latitude of the projection centre (in degrees).
+    altitude : float
+        The height in km of the viewpoint above local sea level.
+    azimuth : float
+        The direction (in degrees) in which you are looking is specified, measured clockwise from north.
+    tilt : float
+        The viewing angle relative to zenith (in degrees).
+    twist : float
+        The clockwise rotation of the image (in degrees).
+    viewport_width : float
+        The width of the viewing angle (in degrees).
+    viewport_height : float
+        The height of the viewing angle (in degrees).
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     lon0: float = attr.ib()
@@ -225,8 +324,7 @@ class GeneralPerspective(_Projection):
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(init=False, repr=False,
-                        default=("{_code}{lon0}/{lat0}/{altitude}/{azimuth}/"
-                                 "{tilt}/{twist}/{Width}/{Height}/{width}"))
+                        default="{_code}{lon0}/{lat0}/{altitude}/{azimuth}/{tilt}/{twist}/{viewport_width}/{viewport_height}/{width}")
     _code: str = attr.ib(init=False, repr=False,
                          default=Supported.GENERAL_PERSPECTIVE.value)
 
@@ -235,7 +333,18 @@ class GeneralPerspective(_Projection):
 class GeneralSterographic(_Azimuthal):
 
     """
-    Definition for the azimuthal general sterographic projection.
+    Class definition for the azimuthal general sterographic projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    horizon : float
+        The max distance to the projection centre in degrees. Default is 90.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     horizon: float = attr.ib(default=90, kw_only=True)
@@ -257,7 +366,20 @@ class GeneralSterographic(_Azimuthal):
 class AlbersConicEqualArea(_Conic):
 
     """
-    Definition for the albers conic equal area projection.
+    Class definition for the albers conic equal area projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    lat1 : float
+        The first standard parallel.
+    lat2 : float
+        The second standard parallel.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     # private; we don't want the user to care or know about
@@ -269,7 +391,20 @@ class AlbersConicEqualArea(_Conic):
 class EquidistantConic(_Conic):
 
     """
-    Definition for the equidistant conic projection.
+    Class definition for the equidistant conic projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    lat1 : float
+        The first standard parallel.
+    lat2 : float
+        The second standard parallel.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
     """
 
     # private; we don't want the user to care or know about
@@ -280,6 +415,19 @@ class EquidistantConic(_Conic):
 @attr.s(frozen=True)
 class CassiniCylindrical(_Cylindrical):
 
+    """
+    Class definition for the cassini cylindrical projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
+    """
+
     # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False,
                          default=Supported.CASSINI_CYLINDRICAL.value)
@@ -287,6 +435,19 @@ class CassiniCylindrical(_Cylindrical):
 
 @attr.s(frozen=True)
 class MercatorCylindrical(_Cylindrical):
+
+    """
+    Class definition for the cassini cylindrical projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre. Default is 180.
+    lat0 : float
+        The latitude of the projection centre. Default is 0.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
+    """
 
     lon0: float = attr.ib(default=180, kw_only=True)
     lat0: float = attr.ib(default=0, kw_only=True)
@@ -299,6 +460,19 @@ class MercatorCylindrical(_Cylindrical):
 @attr.s(frozen=True)
 class CylindricalStereographic(_Cylindrical):
 
+    """
+    Class definition for the cassini cylindrical projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre. Default is 180.
+    lat0 : float
+        The latitude of the projection centre. Default is 0.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
+    """
+
     lon0: float = attr.ib(default=180, kw_only=True)
     lat0: float = attr.ib(default=0, kw_only=True)
 
@@ -309,6 +483,19 @@ class CylindricalStereographic(_Cylindrical):
 
 @attr.s(frozen=True)
 class CylindricalEqualArea(_Cylindrical):
+
+    """
+    Class definition for the cassini cylindrical projection.
+
+    Parameters
+    ----------
+    lon0 : float
+        The longitude of the projection centre.
+    lat0 : float
+        The latitude of the projection centre.
+    width : str
+        The figure width. For example ``8i`` is 8 inches.
+    """
 
     # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False,
