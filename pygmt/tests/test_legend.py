@@ -29,6 +29,22 @@ def test_legend_position():
 
 
 @pytest.mark.mpl_image_compare
+def test_legend_default_position():
+    """
+    Try using the default legend position.
+    """
+
+    fig = Figure()
+
+    fig.basemap(region=[-1, 1, -1, 1], frame=True)
+
+    fig.plot(x=[0], y=[0], style="p10p", label="Default")
+    fig.legend()
+
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_legend_entries():
     """
     Test different marker types/shapes.
