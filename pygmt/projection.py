@@ -65,8 +65,7 @@ class _Projection:
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(init=False, repr=False, default="{_code}")
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.UNDEFINED.value)
+    _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
     def __str__(self):
         exclude = attr.fields(self.__class__)._fmt
@@ -98,10 +97,10 @@ class _Azimuthal(_Projection):
     width: str = attr.ib()
 
     # private; we don't want the user to care or know about
-    _fmt: str = attr.ib(init=False, repr=False,
-                        default="{_code}{lon0}/{lat0}/{horizon}/{width}")
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.UNDEFINED.value)
+    _fmt: str = attr.ib(
+        init=False, repr=False, default="{_code}{lon0}/{lat0}/{horizon}/{width}"
+    )
+    _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
     @horizon.validator
     def check_horizon(self, attribute, value):
@@ -133,10 +132,8 @@ class _Cylindrical(_Projection):
     width: str = attr.ib()
 
     # private; we don't want the user to care or know about
-    _fmt: str = attr.ib(init=False, repr=False,
-                        default="{_code}{lon0}/{lat0}/{wdith}")
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.UNDEFINED.value)
+    _fmt: str = attr.ib(init=False, repr=False, default="{_code}{lon0}/{lat0}/{wdith}")
+    _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
 
 @attr.s(kw_only=True)
@@ -166,8 +163,9 @@ class _Conic:
     width: float = attr.ib()
 
     # private; we don't want the user to care or know about
-    _fmt: str = attr.ib(init=False, repr=False,
-                        default="{_code}{lon0}/{lat0}/{lat1}/{lat2}/{width}")
+    _fmt: str = attr.ib(
+        init=False, repr=False, default="{_code}{lon0}/{lat0}/{lat1}/{lat2}/{width}"
+    )
 
 
 @attr.s(frozen=True)
@@ -189,8 +187,9 @@ class LambertAzimuthalEqualArea(_Azimuthal):
     """
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.LAMBERT_AZIMUTH_EQUAL_AREA.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.LAMBERT_AZIMUTH_EQUAL_AREA.value
+    )
 
 
 @attr.s(frozen=True)
@@ -214,8 +213,9 @@ class AzimuthalEquidistant(_Azimuthal):
     horizon: float = attr.ib(default=180, kw_only=True)
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.AZIMUTHAL_EQUIDISTANT.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.AZIMUTHAL_EQUIDISTANT.value
+    )
 
 
 @attr.s(frozen=True)
@@ -239,8 +239,9 @@ class AzimuthalGnomic(_Azimuthal):
     horizon: float = attr.ib(default=60, kw_only=True)
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.AZIMUTHAL_GNOMIC.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.AZIMUTHAL_GNOMIC.value
+    )
 
     @horizon.validator
     def check_horizon(self, attribute, value):
@@ -272,8 +273,9 @@ class AzimuthalOrthographic(_Azimuthal):
     horizon: float = attr.ib(default=90)
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.AZIMUTHAL_ORTHOGRAPHIC.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.AZIMUTHAL_ORTHOGRAPHIC.value
+    )
 
     @horizon.validator
     def check_horizon(self, attribute, value):
@@ -323,10 +325,14 @@ class GeneralPerspective(_Projection):
     width: float = attr.ib()
 
     # private; we don't want the user to care or know about
-    _fmt: str = attr.ib(init=False, repr=False,
-                        default="{_code}{lon0}/{lat0}/{altitude}/{azimuth}/{tilt}/{twist}/{viewport_width}/{viewport_height}/{width}")
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.GENERAL_PERSPECTIVE.value)
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{lon0}/{lat0}/{altitude}/{azimuth}/{tilt}/{twist}/{viewport_width}/{viewport_height}/{width}",
+    )
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.GENERAL_PERSPECTIVE.value
+    )
 
 
 @attr.s(frozen=True)
@@ -350,8 +356,9 @@ class GeneralSterographic(_Azimuthal):
     horizon: float = attr.ib(default=90, kw_only=True)
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.GENERAL_STEREOGRAPHIC.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.GENERAL_STEREOGRAPHIC.value
+    )
 
     @horizon.validator
     def check_horizon(self, attribute, value):
@@ -383,8 +390,9 @@ class AlbersConicEqualArea(_Conic):
     """
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.ALBERS_CONIC_EQUAL_AREA.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.ALBERS_CONIC_EQUAL_AREA.value
+    )
 
 
 @attr.s(frozen=True, kw_only=True)
@@ -408,8 +416,7 @@ class EquidistantConic(_Conic):
     """
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.EQUIDISTANT_CONIC)
+    _code: str = attr.ib(init=False, repr=False, default=Supported.EQUIDISTANT_CONIC)
 
 
 @attr.s(frozen=True)
@@ -429,8 +436,9 @@ class CassiniCylindrical(_Cylindrical):
     """
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.CASSINI_CYLINDRICAL.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.CASSINI_CYLINDRICAL.value
+    )
 
 
 @attr.s(frozen=True)
@@ -453,8 +461,9 @@ class MercatorCylindrical(_Cylindrical):
     lat0: float = attr.ib(default=0, kw_only=True)
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.MERCATOR_CYLINDRICAL.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.MERCATOR_CYLINDRICAL.value
+    )
 
 
 @attr.s(frozen=True)
@@ -477,8 +486,9 @@ class CylindricalStereographic(_Cylindrical):
     lat0: float = attr.ib(default=0, kw_only=True)
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.CYLINDRICAL_STEROGRAPHIC.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.CYLINDRICAL_STEROGRAPHIC.value
+    )
 
 
 @attr.s(frozen=True)
@@ -498,5 +508,6 @@ class CylindricalEqualArea(_Cylindrical):
     """
 
     # private; we don't want the user to care or know about
-    _code: str = attr.ib(init=False, repr=False,
-                         default=Supported.CYLINDRICAL_EQUAL_AREA.value)
+    _code: str = attr.ib(
+        init=False, repr=False, default=Supported.CYLINDRICAL_EQUAL_AREA.value
+    )
