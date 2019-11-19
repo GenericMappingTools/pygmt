@@ -5,9 +5,9 @@ Contains the projections supported by GMT, and the necessary mechanisms
 to create a projection and output a valid GMT projection string.
 
 >>> from pygmt import projection
->>> proj = projection.LambertAzimuthalEqualArea(lon0=30, lat0=-20, horizon=60, width="8i")
+>>> proj = projection.LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width="8i")
 >>> proj
-LambertAzimuthalEqualArea(lon0=30, lat0=-20, horizon=60, width='8i')
+LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width='8i')
 >>> print(proj)
 A30/-20/60/8i
 """
@@ -81,9 +81,9 @@ class _Azimuthal(_Projection):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 90.
@@ -91,14 +91,14 @@ class _Azimuthal(_Projection):
         The figure width. For example ``8i`` is 8 inches.
     """
 
-    lon0: float = attr.ib()
-    lat0: float = attr.ib()
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
     horizon: float = attr.ib(default=90)
     width: str = attr.ib()
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
-        init=False, repr=False, default="{_code}{lon0}/{lat0}/{horizon}/{width}"
+        init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{horizon}/{width}"
     )
     _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
@@ -119,20 +119,20 @@ class _Cylindrical(_Projection):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     width : str
         The figure width. For example ``8i`` is 8 inches.
     """
 
-    lon0: float = attr.ib()
-    lat0: float = attr.ib()
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
     width: str = attr.ib()
 
     # private; we don't want the user to care or know about
-    _fmt: str = attr.ib(init=False, repr=False, default="{_code}{lon0}/{lat0}/{wdith}")
+    _fmt: str = attr.ib(init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{wdith}")
     _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
 
@@ -144,9 +144,9 @@ class _Conic:
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     lat1 : float
         The first standard parallel.
@@ -156,15 +156,15 @@ class _Conic:
         The figure width. For example ``8i`` is 8 inches.
     """
 
-    lon0: float = attr.ib()
-    lat0: float = attr.ib()
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
     lat1: float = attr.ib()
     lat2: float = attr.ib()
     width: float = attr.ib()
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
-        init=False, repr=False, default="{_code}{lon0}/{lat0}/{lat1}/{lat2}/{width}"
+        init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{lat1}/{lat2}/{width}"
     )
 
 
@@ -176,9 +176,9 @@ class LambertAzimuthalEqualArea(_Azimuthal):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 90.
@@ -200,9 +200,9 @@ class AzimuthalEquidistant(_Azimuthal):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 180.
@@ -226,9 +226,9 @@ class AzimuthalGnomic(_Azimuthal):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 60.
@@ -260,9 +260,9 @@ class AzimuthalOrthographic(_Azimuthal):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 90.
@@ -294,9 +294,9 @@ class GeneralPerspective(_Projection):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre (in degrees).
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre (in degrees).
     altitude : float
         The height in km of the viewpoint above local sea level.
@@ -314,8 +314,8 @@ class GeneralPerspective(_Projection):
         The figure width. For example ``8i`` is 8 inches.
     """
 
-    lon0: float = attr.ib()
-    lat0: float = attr.ib()
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
     altitude: float = attr.ib()
     azimuth: float = attr.ib()
     tilt: float = attr.ib()
@@ -328,7 +328,7 @@ class GeneralPerspective(_Projection):
     _fmt: str = attr.ib(
         init=False,
         repr=False,
-        default="{_code}{lon0}/{lat0}/{altitude}/{azimuth}/{tilt}/{twist}/{viewport_width}/{viewport_height}/{width}",
+        default="{_code}{central_longitude}/{central_latitude}/{altitude}/{azimuth}/{tilt}/{twist}/{viewport_width}/{viewport_height}/{width}",
     )
     _code: str = attr.ib(
         init=False, repr=False, default=Supported.GENERAL_PERSPECTIVE.value
@@ -343,9 +343,9 @@ class GeneralSterographic(_Azimuthal):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 90.
@@ -377,9 +377,9 @@ class AlbersConicEqualArea(_Conic):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     lat1 : float
         The first standard parallel.
@@ -403,9 +403,9 @@ class EquidistantConic(_Conic):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     lat1 : float
         The first standard parallel.
@@ -427,9 +427,9 @@ class CassiniCylindrical(_Cylindrical):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     width : str
         The figure width. For example ``8i`` is 8 inches.
@@ -449,16 +449,16 @@ class MercatorCylindrical(_Cylindrical):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre. Default is 180.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre. Default is 0.
     width : str
         The figure width. For example ``8i`` is 8 inches.
     """
 
-    lon0: float = attr.ib(default=180, kw_only=True)
-    lat0: float = attr.ib(default=0, kw_only=True)
+    central_longitude: float = attr.ib(default=180, kw_only=True)
+    central_latitude: float = attr.ib(default=0, kw_only=True)
 
     # private; we don't want the user to care or know about
     _code: str = attr.ib(
@@ -474,16 +474,16 @@ class CylindricalStereographic(_Cylindrical):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre. Default is 180.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre. Default is 0.
     width : str
         The figure width. For example ``8i`` is 8 inches.
     """
 
-    lon0: float = attr.ib(default=180, kw_only=True)
-    lat0: float = attr.ib(default=0, kw_only=True)
+    central_longitude: float = attr.ib(default=180, kw_only=True)
+    central_latitude: float = attr.ib(default=0, kw_only=True)
 
     # private; we don't want the user to care or know about
     _code: str = attr.ib(
@@ -499,9 +499,9 @@ class CylindricalEqualArea(_Cylindrical):
 
     Parameters
     ----------
-    lon0 : float
+    central_longitude : float
         The longitude of the projection centre.
-    lat0 : float
+    central_latitude : float
         The latitude of the projection centre.
     width : str
         The figure width. For example ``8i`` is 8 inches.
