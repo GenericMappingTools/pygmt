@@ -5,9 +5,9 @@ Contains the projections supported by GMT, and the necessary mechanisms
 to create a projection and output a valid GMT projection string.
 
 >>> from pygmt import projection
->>> proj = projection.LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width="8i")
+>>> proj = projection.LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width=8, unit="i")
 >>> proj
-LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width='8i')
+LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width=8, unit='i', center=[30, -20])
 >>> print(proj)
 A30/-20/60/8i
 """
@@ -90,7 +90,7 @@ class _Azimuthal(_Projection):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -98,11 +98,13 @@ class _Azimuthal(_Projection):
     central_latitude: float = attr.ib()
     horizon: float = attr.ib(default=90)
     width: float = attr.ib()
-    unit: str = attr.ib(default='i')
+    unit: str = attr.ib(default="i")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
-        init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{horizon}/{width}{unit}"
+        init=False,
+        repr=False,
+        default="{_code}{central_longitude}/{central_latitude}/{horizon}/{width}{unit}",
     )
     _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
@@ -130,17 +132,21 @@ class _Cylindrical(_Projection):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
     central_longitude: float = attr.ib()
     central_latitude: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default='i')
+    unit: str = attr.ib(default="i")
 
     # private; we don't want the user to care or know about
-    _fmt: str = attr.ib(init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{wdith}{unit}")
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{central_longitude}/{central_latitude}/{wdith}{unit}",
+    )
     _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
 
@@ -163,7 +169,7 @@ class _Conic:
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -172,11 +178,13 @@ class _Conic:
     lat1: float = attr.ib()
     lat2: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default='i')
+    unit: str = attr.ib(default="i")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
-        init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{lat1}/{lat2}/{width}{unit}"
+        init=False,
+        repr=False,
+        default="{_code}{central_longitude}/{central_latitude}/{lat1}/{lat2}/{width}{unit}",
     )
 
 
@@ -197,7 +205,7 @@ class LambertAzimuthalEqualArea(_Azimuthal):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -224,7 +232,7 @@ class AzimuthalEquidistant(_Azimuthal):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -253,7 +261,7 @@ class AzimuthalGnomic(_Azimuthal):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -290,7 +298,7 @@ class AzimuthalOrthographic(_Azimuthal):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -337,7 +345,7 @@ class GeneralPerspective(_Projection):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -350,7 +358,7 @@ class GeneralPerspective(_Projection):
     Width: float = attr.ib()
     Height: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default='i')
+    unit: str = attr.ib(default="i")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -380,7 +388,7 @@ class GeneralSterographic(_Azimuthal):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -419,7 +427,7 @@ class AlbersConicEqualArea(_Conic):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -448,7 +456,7 @@ class EquidistantConic(_Conic):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -471,7 +479,7 @@ class CassiniCylindrical(_Cylindrical):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -496,7 +504,7 @@ class MercatorCylindrical(_Cylindrical):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -524,7 +532,7 @@ class CylindricalStereographic(_Cylindrical):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
@@ -552,7 +560,7 @@ class CylindricalEqualArea(_Cylindrical):
     width : float
         The figure width.
     unit : str
-        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``i``.
     """
 
