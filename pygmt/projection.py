@@ -87,18 +87,22 @@ class _Azimuthal(_Projection):
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 90.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     central_longitude: float = attr.ib()
     central_latitude: float = attr.ib()
     horizon: float = attr.ib(default=90)
-    width: str = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default='i')
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
-        init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{horizon}/{width}"
+        init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{horizon}/{width}{unit}"
     )
     _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
@@ -123,16 +127,20 @@ class _Cylindrical(_Projection):
         The longitude of the projection centre.
     central_latitude : float
         The latitude of the projection centre.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     central_longitude: float = attr.ib()
     central_latitude: float = attr.ib()
-    width: str = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default='i')
 
     # private; we don't want the user to care or know about
-    _fmt: str = attr.ib(init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{wdith}")
+    _fmt: str = attr.ib(init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{wdith}{unit}")
     _code: str = attr.ib(init=False, repr=False, default=Supported.UNDEFINED.value)
 
 
@@ -152,8 +160,11 @@ class _Conic:
         The first standard parallel.
     lat2 : float
         The second standard parallel.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     central_longitude: float = attr.ib()
@@ -161,10 +172,11 @@ class _Conic:
     lat1: float = attr.ib()
     lat2: float = attr.ib()
     width: float = attr.ib()
+    unit: str = attr.ib(default='i')
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
-        init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{lat1}/{lat2}/{width}"
+        init=False, repr=False, default="{_code}{central_longitude}/{central_latitude}/{lat1}/{lat2}/{width}{unit}"
     )
 
 
@@ -182,8 +194,11 @@ class LambertAzimuthalEqualArea(_Azimuthal):
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 90.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     # private; we don't want the user to care or know about
@@ -206,8 +221,11 @@ class AzimuthalEquidistant(_Azimuthal):
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 180.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     horizon: float = attr.ib(default=180, kw_only=True)
@@ -232,8 +250,11 @@ class AzimuthalGnomic(_Azimuthal):
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 60.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     horizon: float = attr.ib(default=60, kw_only=True)
@@ -266,8 +287,11 @@ class AzimuthalOrthographic(_Azimuthal):
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 90.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     horizon: float = attr.ib(default=90)
@@ -310,8 +334,11 @@ class GeneralPerspective(_Projection):
         The width of the viewing angle (in degrees).
     viewport_height : float
         The height of the viewing angle (in degrees).
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     central_longitude: float = attr.ib()
@@ -323,12 +350,13 @@ class GeneralPerspective(_Projection):
     Width: float = attr.ib()
     Height: float = attr.ib()
     width: float = attr.ib()
+    unit: str = attr.ib(default='i')
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
-        default="{_code}{central_longitude}/{central_latitude}/{altitude}/{azimuth}/{tilt}/{twist}/{viewport_width}/{viewport_height}/{width}",
+        default="{_code}{central_longitude}/{central_latitude}/{altitude}/{azimuth}/{tilt}/{twist}/{viewport_width}/{viewport_height}/{width}{unit}",
     )
     _code: str = attr.ib(
         init=False, repr=False, default=Supported.GENERAL_PERSPECTIVE.value
@@ -349,8 +377,11 @@ class GeneralSterographic(_Azimuthal):
         The latitude of the projection centre.
     horizon : float
         The max distance to the projection centre in degrees. Default is 90.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     horizon: float = attr.ib(default=90, kw_only=True)
@@ -385,8 +416,11 @@ class AlbersConicEqualArea(_Conic):
         The first standard parallel.
     lat2 : float
         The second standard parallel.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     # private; we don't want the user to care or know about
@@ -411,8 +445,11 @@ class EquidistantConic(_Conic):
         The first standard parallel.
     lat2 : float
         The second standard parallel.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     # private; we don't want the user to care or know about
@@ -431,8 +468,11 @@ class CassiniCylindrical(_Cylindrical):
         The longitude of the projection centre.
     central_latitude : float
         The latitude of the projection centre.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     # private; we don't want the user to care or know about
@@ -453,8 +493,11 @@ class MercatorCylindrical(_Cylindrical):
         The longitude of the projection centre. Default is 180.
     central_latitude : float
         The latitude of the projection centre. Default is 0.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     central_longitude: float = attr.ib(default=180, kw_only=True)
@@ -478,8 +521,11 @@ class CylindricalStereographic(_Cylindrical):
         The longitude of the projection centre. Default is 180.
     central_latitude : float
         The latitude of the projection centre. Default is 0.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     central_longitude: float = attr.ib(default=180, kw_only=True)
@@ -503,8 +549,11 @@ class CylindricalEqualArea(_Cylindrical):
         The longitude of the projection centre.
     central_latitude : float
         The latitude of the projection centre.
-    width : str
-        The figure width. For example ``8i`` is 8 inches.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre and ``p`` for point.
+        Default is ``i``.
     """
 
     # private; we don't want the user to care or know about
