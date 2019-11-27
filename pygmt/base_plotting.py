@@ -156,6 +156,8 @@ class BasePlotting:
 
         Full option list at :gmt-docs:`colorbar.html`
 
+        {aliases}
+
         Parameters
         ----------
         position (D) : str
@@ -176,7 +178,6 @@ class BasePlotting:
             By default, the anchor point on the scale is assumed to be the bottom left
             corner (BL), but this can be changed by appending +j followed by a 2-char
             justification code justify.
-
         box (F) : bool or str
             ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/]
             [shade]]]``.
@@ -194,18 +195,14 @@ class BasePlotting:
             Finally, append +s to draw an offset background shaded region. Here, dx/dy
             indicates the shift relative to the foreground frame [4p/-4p] and shade sets
             the fill style to use for shading [gray50].
-
         truncate (G) : list or str
             ``zlo/zhi``
             Truncate the incoming CPT so that the lowest and highest z-levels are to zlo
             and zhi. If one of these equal NaN then we leave that end of the CPT alone.
             The truncation takes place before the plotting.
-
         scale (W) : float
             Multiply all z-values in the CPT by the provided scale. By default the CPT
             is used as is.
-
-        {aliases}
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
