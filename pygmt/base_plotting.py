@@ -36,8 +36,8 @@ class BasePlotting:
         insert special arguments into the kwargs or make any actions that are
         required before ``call_module``.
 
-        For example, the :class:`pygmt.Figure` needs this to tell the GMT modules
-        to plot to a specific figure.
+        For example, the :class:`pygmt.Figure` needs this to tell the GMT
+        modules to plot to a specific figure.
 
         This is a dummy method that does nothing.
 
@@ -147,63 +147,61 @@ class BasePlotting:
         """
         Plot a gray or color scale-bar on maps.
 
-        Both horizontal and vertical scales are supported. For CPTs with gradational
-        colors (i.e., the lower and upper boundary of an interval have different colors)
-        we will interpolate to give a continuous scale. Variations in intensity due to
-        shading/illumination may be displayed by setting the option -I. Colors may be
-        spaced according to a linear scale, all be equal size, or by providing a file
-        with individual tile widths.
+        Both horizontal and vertical scales are supported. For CPTs with
+        gradational colors (i.e., the lower and upper boundary of an interval
+        have different colors) we will interpolate to give a continuous scale.
+        Variations in intensity due to shading/illumination may be displayed by
+        setting the option -I. Colors may be spaced according to a linear
+        scale, all be equal size, or by providing a file with individual tile
+        widths.
 
         Full option list at :gmt-docs:`colorbar.html`
 
         Parameters
         ----------
         position (D) : str
-            ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v][+jjustify]
-            [+m[a|c|l|u]][+n[txt]][+odx[/dy]]``.
-            Defines the reference point on the map for the color scale using one of four
-            coordinate systems:
-            (1) Use -Dg for map (user) coordinates,
-            (2) use -Dj or -DJ for setting refpoint via a 2-char justification code that
-            refers to the (invisible) map domain rectangle,
-            (3) use -Dn for normalized (0-1) coordinates, or
-            (4) use -Dx for plot coordinates (inches, cm, etc.).\
-            All but -Dx requires both -R and -J to be specified.
-            Append +w followed by the length and width of the color bar.
-            If width is not specified then it is set to 4% of the given length.
-            Give a negative length to reverse the scale bar.
-            Append +h to get a horizontal scale [Default is vertical (+v)].
-            By default, the anchor point on the scale is assumed to be the bottom left
-            corner (BL), but this can be changed by appending +j followed by a 2-char
-            justification code justify.
+            ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]
+            [+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]``. Defines the
+            reference point on the map for the color scale using one of four
+            coordinate systems: (1) Use -Dg for map (user) coordinates, (2) use
+            -Dj or -DJ for setting refpoint via a 2-char justification code
+            that refers to the (invisible) map domain rectangle, (3) use -Dn
+            for normalized (0-1) coordinates, or (4) use -Dx for plot
+            coordinates (inches, cm, etc.). All but -Dx requires both -R and
+            -J to be specified. Append +w followed by the length and width of
+            the color bar. If width is not specified then it is set to 4% of
+            the given length. Give a negative length to reverse the scale bar.
+            Append +h to get a horizontal scale [Default is vertical (+v)]. By
+            default, the anchor point on the scale is assumed to be the bottom
+            left corner (BL), but this can be changed by appending +j followed
+            by a 2-char justification code justify.
 
         box (F) : bool or str
-            ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/]
-            [shade]]]``.
-            If set to True, draws a rectangular border around the color scale.
-            Alternatively, specify a different pen with +ppen.
-            Add +gfill to fill the scale panel [no fill].
+            ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
+            [+s[[dx/dy/][shade]]]``. If set to True, draws a rectangular
+            border around the color scale. Alternatively, specify a different
+            pen with +ppen. Add +gfill to fill the scale panel [no fill].
             Append +cclearance where clearance is either gap, xgap/ygap, or
-            lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
-            y-direction, or individual side spacings between scale and border.
-            Append +i to draw a secondary, inner border as well. We use a uniform gap
-            between borders of 2p and the MAP_DEFAULTS_PEN unless other values are
-            specified.
-            Append +r to draw rounded rectangular borders instead, with a 6p corner
-            radius. You can override this radius by appending another value.
-            Finally, append +s to draw an offset background shaded region. Here, dx/dy
-            indicates the shift relative to the foreground frame [4p/-4p] and shade sets
-            the fill style to use for shading [gray50].
+            lgap/rgap/bgap/tgap where these items are uniform, separate in x-
+            and y-direction, or individual side spacings between scale and
+            border. Append +i to draw a secondary, inner border as well. We use
+            a uniform gap between borders of 2p and the MAP_DEFAULTS_PEN unless
+            other values are specified. Append +r to draw rounded rectangular
+            borders instead, with a 6p corner radius. You can override this
+            radius by appending another value. Finally, append +s to draw an
+            offset background shaded region. Here, dx/dy indicates the shift
+            relative to the foreground frame [4p/-4p] and shade sets the fill
+            style to use for shading [gray50].
 
         truncate (G) : list or str
-            ``zlo/zhi``
-            Truncate the incoming CPT so that the lowest and highest z-levels are to zlo
-            and zhi. If one of these equal NaN then we leave that end of the CPT alone.
-            The truncation takes place before the plotting.
+            ``zlo/zhi`` Truncate the incoming CPT so that the lowest and
+            highest z-levels are to zlo and zhi. If one of these equal NaN then
+            we leave that end of the CPT alone. The truncation takes place
+            before the plotting.
 
         scale (W) : float
-            Multiply all z-values in the CPT by the provided scale. By default the CPT
-            is used as is.
+            Multiply all z-values in the CPT by the provided scale. By default
+            the CPT is used as is.
 
         {aliases}
         """
@@ -362,7 +360,8 @@ class BasePlotting:
         Parameters
         ----------
         x, y : float or 1d arrays
-            The x and y coordinates, or arrays of x and y coordinates of the data points
+            The x and y coordinates, or arrays of x and y coordinates of the
+            data points
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
             Use option *columns* (i) to choose which columns are x, y, color,
@@ -594,7 +593,8 @@ class BasePlotting:
         """
         Place images or EPS files on maps.
 
-        Reads an Encapsulated PostScript file or a raster image file and plots it on a map.
+        Reads an Encapsulated PostScript file or a raster image file and plots
+        it on a map.
 
         Full option list at :gmt-docs:`image.html`
 
@@ -605,12 +605,13 @@ class BasePlotting:
         {J}
         {R}
         D: str
-            ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify][+nnx[/ny]][+odx[/dy]]'``
-            Sets reference point on the map for the image.
+            ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify]
+            [+nnx[/ny]][+odx[/dy]]'`` Sets reference point on the map for the
+            image.
         F : bool or str
-            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
-            Without further options, draws a rectangular border around the
-            image using **MAP_FRAME_PEN**.
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
+            [+s[[dx/dy/][shade]]]'`` Without further options, draws a
+            rectangular border around the image using **MAP_FRAME_PEN**.
         M : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
@@ -627,11 +628,11 @@ class BasePlotting:
         """
         Plot legends on maps.
 
-        Makes legends that can be overlaid on maps. Reads specific legend-related
-        information from an input file, or automatically creates legend entries from
-        plotted symbols that have labels. Unless otherwise noted, annotations will be
-        made using the primary annotation font and size in effect
-        (i.e., FONT_ANNOT_PRIMARY).
+        Makes legends that can be overlaid on maps. Reads specific
+        legend-related information from an input file, or automatically creates
+        legend entries from plotted symbols that have labels. Unless otherwise
+        noted, annotations will be made using the primary annotation font and
+        size in effect (i.e., FONT_ANNOT_PRIMARY).
 
         Full option list at :gmt-docs:`legend.html`
 
@@ -641,19 +642,21 @@ class BasePlotting:
         ----------
         spec : None or str
             Either None (default) for using the automatically generated legend
-            specification file, or a filename pointing to the legend specification file.
+            specification file, or a filename pointing to the legend
+            specification file.
         {J}
         {R}
         position (D) : str
-            ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
-            Defines the reference point on the map for the legend. By default, uses
-            'JTR+jTR+o0.2c' which places the legend at the top-right corner inside
-            the map frame, with a 0.2 cm offset.
+            ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing]
+            [+odx[/dy]]'`` Defines the reference point on the map for the
+            legend. By default, uses 'JTR+jTR+o0.2c' which places the legend at
+            the top-right corner inside the map frame, with a 0.2 cm offset.
         box (F) : bool or str
-            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
-            Without further options, draws a rectangular border around the
-            legend using **MAP_FRAME_PEN**. By default, uses '+gwhite+p1p' which draws
-            a box around the legend using a 1 point black pen and adds a white background.
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
+            [+s[[dx/dy/][shade]]]'`` Without further options, draws a
+            rectangular border around the legend using **MAP_FRAME_PEN**. By
+            default, uses '+gwhite+p1p' which draws a box around the legend
+            using a 1 point black pen and adds a white background.
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -709,28 +712,30 @@ class BasePlotting:
         Parameters
         ----------
         textfiles : str or list
-            A text data file name, or a list of filenames containing 1 or more records
-            with (x, y[, font, angle, justify], text).
+            A text data file name, or a list of filenames containing 1 or more
+            records with (x, y[, font, angle, justify], text).
         x, y : float or 1d arrays
-            The x and y coordinates, or an array of x and y coordinates to plot the text
+            The x and y coordinates, or an array of x and y coordinates to plot
+            the text
         text : str or 1d array
             The text string, or an array of strings to plot on the figure
         angle: int/float or bool
-            Set the angle measured in degrees counter-clockwise from horizontal. E.g. 30
-            sets the text at 30 degrees. If no angle is given then the input textfile(s)
-            must have this as a column.
+            Set the angle measured in degrees counter-clockwise from
+            horizontal. E.g. 30 sets the text at 30 degrees. If no angle is
+            given then the input textfile(s) must have this as a column.
         font : str or bool
-            Set the font specification with format "size,font,color" where size is text
-            size in points, font is the font to use, and color sets the font color. E.g.
-            "12p,Helvetica-Bold,red" selects a 12p red Helvetica-Bold font. If no font
-            info is given then the input textfile(s) must have this information in one
-            of its columns.
+            Set the font specification with format "size,font,color" where size
+            is text size in points, font is the font to use, and color sets the
+            font color. E.g. "12p,Helvetica-Bold,red" selects a 12p red
+            Helvetica-Bold font. If no font info is given then the input
+            textfile(s) must have this information in one of its columns.
         justify: str or bool
-            Set the alignment which refers to the part of the text string that will be
-            mapped onto the (x,y) point. Choose a 2 character combination of L, C, R
-            (for left, center, or right) and T, M, B for top, middle, or bottom. E.g.,
-            BL for lower left. If no justification is given then the input textfile(s)
-            must have this as a column.
+            Set the alignment which refers to the part of the text string that
+            will be mapped onto the (x,y) point. Choose a 2 character
+            combination of L, C, R (for left, center, or right) and T, M, B for
+            top, middle, or bottom. E.g., BL for lower left. If no
+            justification is given then the input textfile(s) must have this as
+            a column.
         {J}
         {R}
         """

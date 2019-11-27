@@ -269,6 +269,17 @@ make check   # Runs flake8 and black (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
+#### Docstrings
+
+**All docstrings** should follow the
+[numpy style guide](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt).
+All functions/classes/methods should have docstrings with a full description of all
+arguments and return values.
+
+While the maximum line length for code is automatically set by *Black*, docstrings
+must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
+limited to 79 characters** per line.
+
 ### Testing your code
 
 Automated testing helps ensure that our code is as free of bugs as it can be.
