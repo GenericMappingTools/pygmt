@@ -272,7 +272,7 @@ make lint    # Runs pylint, which is a bit slower
 #### Docstrings
 
 **All docstrings** should follow the
-[numpy style guide](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt).
+[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
@@ -371,7 +371,7 @@ Sphinx will create a link to the automatically generated page for that
 function/class/module.
 
 **All docstrings** should follow the
-[numpy style guide](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt).
+[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
@@ -390,7 +390,7 @@ Some things that will increase the chance that your pull request is accepted qui
   *reason* behind non-obvious things.
 * Include an example of new features in the gallery or tutorials.
 * Follow the [PEP8](http://pep8.org) style guide for code and the
-  [numpy guide](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt)
+  [numpy guide](https://numpydoc.readthedocs.io/en/latest/format.html)
   for documentation.
 
 Pull requests will automatically have tests run by TravisCI.
