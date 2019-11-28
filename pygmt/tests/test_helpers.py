@@ -4,9 +4,27 @@ Tests the helper functions/classes/etc used in wrapping GMT
 import os
 
 import pytest
+import numpy as np
 
-from ..helpers import kwargs_to_strings, GMTTempFile, unique_name
+from ..helpers import kwargs_to_strings, GMTTempFile, unique_name, data_kind
 from ..exceptions import GMTInvalidInput
+
+
+@pytest.mark.parametrize(
+    "data,x,y",
+    [
+        (None, None, None),
+        ("data.txt", np.array([1, 2]), np.array([4, 5])),
+        ("data.txt", np.array([1, 2]), None),
+        ("data.txt", None, np.array([4, 5])),
+        (None, np.array([1, 2]), None),
+        (None, None, np.array([4, 5])),
+    ],
+)
+def test_data_kind_fails(data, x, y):
+    "Make sure data_kind raises exceptions when it should"
+    with pytest.raises(GMTInvalidInput):
+        data_kind(data=data, x=x, y=y)
 
 
 def test_unique_name():
