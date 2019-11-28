@@ -195,7 +195,7 @@ jobs:
     displayName: Download GMT
 
   # Build GMT
-  - template: gmt/ci/azure-pipelines-windows.yml
+  - template: ci/azure-pipelines-windows.yml
 
   # Install the package that we want to test
   - bash: |

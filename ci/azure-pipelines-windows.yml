@@ -1,0 +1,88 @@
+# Template for Windows steps in Azure Pipelines
+
+steps:
+
+# Cache vcpkg installed libraries
+# Currently, caches are immutable and can't be updated.
+# To rebuild the cache, you have to change the date in the key list
+- task: CacheBeta@0
+  inputs:
+    key: $(Agent.OS) | vcpkg | 20190802
+    path: $(VCPKG_INSTALLATION_ROOT)/installed/
+    cacheHitVar: CACHE_VCPKG_RESTORED
+  displayName: Cache vcpkg libraries
+
+- bash: |
+    set -x -e
+    # By default, vcpkg builds both release and debug configurations.
+    # Set VCPKG_BUILD_TYPE to build release only to save half time
+    echo 'set (VCPKG_BUILD_TYPE release)' >> ${VCPKG_INSTALLATION_ROOT}/triplets/${WIN_PLATFORM}.cmake
+    cat ${VCPKG_INSTALLATION_ROOT}/triplets/${WIN_PLATFORM}.cmake
+    # install libraries
+    #vcpkg install netcdf-c gdal pcre fftw3 clapack openblas --triplet ${WIN_PLATFORM}
+    vcpkg install netcdf-c gdal pcre fftw3 --triplet ${WIN_PLATFORM}
+  displayName: Install dependencies via vcpkg
+  env:
+    WIN_PLATFORM: "x64-windows"
+  condition: ne(variables['CACHE_VCPKG_RESTORED'], true)
+
+- bash: |
+    # hook up user-wide integration
+    vcpkg integrate install
+    # list installed libraries
+    vcpkg list
+    # Executable files search for DLL files in the directories listed in the PATH environment variable.
+    echo "##vso[task.prependpath]${VCPKG_INSTALLATION_ROOT}/installed/${WIN_PLATFORM}/bin"
+    # Tools like gdal_translate, ogr2ogr are located in tools/gdal
+    echo "##vso[task.prependpath]${VCPKG_INSTALLATION_ROOT}/installed/${WIN_PLATFORM}/tools/gdal"
+  displayName: Configure vcpkg
+  env:
+    WIN_PLATFORM: "x64-windows"
+
+- bash: |
+    set -x -e
+    choco install ninja
+    choco install ghostscript --version 9.26 # gs 9.27 is buggy
+  displayName: Install dependencies via chocolatey
+
+- bash: |
+    echo "##vso[task.setvariable variable=INSTALLDIR]$BUILD_SOURCESDIRECTORY/gmt-install-dir"
+    echo "##vso[task.setvariable variable=COASTLINEDIR]$BUILD_SOURCESDIRECTORY/coastline"
+  displayName: Set install location and coastline location
+
+- bash: echo "##vso[task.prependpath]$INSTALLDIR/bin"
+  displayName: Set PATH
+
+- task: CacheBeta@0
+  inputs:
+    key: coastline
+    path: $(COASTLINEDIR)
+    cacheHitVar: CACHE_COASTLINE_RESTORED
+  displayName: Cache GSHHG and DCW data
+
+- bash: ci/download-coastlines.sh
+  displayName: Download coastlines
+  condition: ne(variables['CACHE_COASTLINE_RESTORED'], true)
+
+- bash: ci/config-gmt-windows.sh
+  displayName: Configure GMT
+
+# Azure Pipelines cannot find Visual Studio correctly if Ninja is used.
+# Here, we need
+# 1. call the vcvars64.bat script
+# 2. define CMAKE_C_COMPILER
+- script: |
+    mkdir build
+    cd build
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+    cmake .. -G "Ninja" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%\scripts\buildsystems\vcpkg.cmake -DCMAKE_C_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Release
+    cmake --build .
+    cmake --build . --target install
+  displayName: Compile GMT
+
+- script: |
+    gmt --version
+    gmt defaults -Vd
+    gmt pscoast -R0/10/0/10 -JM6i -Ba -Ggray -ENG+p1p,blue -P -Vd > test.ps
+    gmt begin && gmt coast -R0/10/0/10 -JM6i -Ba -Ggray -ENG+p1p,blue -Vd && gmt end
+  displayName: Check a few simple commands
