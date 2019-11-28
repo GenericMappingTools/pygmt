@@ -159,7 +159,7 @@ def test_create_session_fails():
     with mock(ses, "GMT_Create_Session", returns=None):
         with pytest.raises(GMTCLibError):
             ses.create("test-session-name")
-    # Should also fail if trying to create a session before destroying the old one.
+    # Should fail if trying to create a session before destroying the old one.
     ses.create("test1")
     with pytest.raises(GMTCLibError):
         ses.create("test2")
@@ -220,7 +220,7 @@ def test_call_module_error_message():
 
 def test_method_no_session():
     "Fails when not in a session"
-    # Create an instance of clib.Session without "with" so no session is created.
+    # Create an instance of Session without "with" so no session is created.
     lib = clib.Session()
     with pytest.raises(GMTCLibNoSessionError):
         lib.call_module("gmtdefaults", "")
@@ -778,7 +778,7 @@ def test_dataarray_to_matrix_works():
 
 
 def test_dataarray_to_matrix_negative_x_increment():
-    "Check that dataarray_to_matrix returns correct output with flipped x dimensions"
+    "Check if dataarray_to_matrix returns correct output with flipped x"
     data = np.diag(v=np.arange(3))
     x = np.linspace(start=4, stop=0, num=3)
     y = np.linspace(start=5, stop=9, num=3)
@@ -791,7 +791,7 @@ def test_dataarray_to_matrix_negative_x_increment():
 
 
 def test_dataarray_to_matrix_negative_y_increment():
-    "Check that dataarray_to_matrix returns correct output with flipped y dimensions"
+    "Check that dataarray_to_matrix returns correct output with flipped y"
     data = np.diag(v=np.arange(3))
     x = np.linspace(start=0, stop=4, num=3)
     y = np.linspace(start=9, stop=5, num=3)
@@ -804,7 +804,7 @@ def test_dataarray_to_matrix_negative_y_increment():
 
 
 def test_dataarray_to_matrix_negative_x_and_y_increment():
-    "Check that dataarray_to_matrix returns correct output with flipped x/y dimensions"
+    "Check that dataarray_to_matrix returns correct output with flipped x/y"
     data = np.diag(v=np.arange(3))
     x = np.linspace(start=4, stop=0, num=3)
     y = np.linspace(start=9, stop=5, num=3)

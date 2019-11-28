@@ -15,13 +15,14 @@ class PyGMTScraper:  # pylint: disable=too-few-public-methods
 
     Used by sphinx-gallery to generate the plots from the code in the examples.
 
-    Pass an instance of this class to ``sphinx_gallery_conf`` in your ``conf.py`` as the
-    ``"image_scrapers"`` argument.
+    Pass an instance of this class to ``sphinx_gallery_conf`` in your
+    ``conf.py`` as the ``"image_scrapers"`` argument.
     """
 
     def __call__(self, block, block_vars, gallery_conf):
         """
-        Called by sphinx-gallery to save the figures generated after running code.
+        Called by sphinx-gallery to save the figures generated after running
+        code.
         """
         image_names = list()
         image_path_iterator = block_vars["image_path_iterator"]

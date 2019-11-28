@@ -1,8 +1,8 @@
 """
 Utility functions to load libgmt as ctypes.CDLL.
 
-The path to the shared library can be found automatically by ctypes or set through the
-GMT_LIBRARY_PATH environment variable.
+The path to the shared library can be found automatically by ctypes or set
+through the GMT_LIBRARY_PATH environment variable.
 """
 import os
 import sys
@@ -91,8 +91,8 @@ def clib_name(os_name=None, is_64bit=None):
         The operating system name as given by ``sys.platform``
         (the default if None).
     is_64bit : bool or None
-        Whether or not the OS is 64bit. Only used if the OS is ``win32``. If None, will
-        determine automatically.
+        Whether or not the OS is 64bit. Only used if the OS is ``win32``. If
+        None, will determine automatically.
 
     Returns
     -------

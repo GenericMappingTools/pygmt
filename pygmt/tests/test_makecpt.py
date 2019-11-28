@@ -66,7 +66,8 @@ def test_makecpt_to_plot_grid(grid):
 @pytest.mark.mpl_image_compare
 def test_makecpt_to_plot_grid_scaled_with_series(grid):
     """
-    Use static color palette table scaled to a min/max series to change color of grid
+    Use static color palette table scaled to a min/max series to change color
+    of grid
     """
     fig = Figure()
     makecpt(cmap="oleron", series="-4500/4500")
@@ -157,7 +158,8 @@ def test_makecpt_reverse_zsign_only(grid):
 @pytest.mark.mpl_image_compare
 def test_makecpt_reverse_color_and_zsign(grid):
     """
-    Use static color palette table with both its colors and z-value sign reversed
+    Use static color palette table with both its colors and z-value sign
+    reversed
     """
     fig = Figure()
     makecpt(cmap="earth", reverse="cz")
@@ -168,8 +170,8 @@ def test_makecpt_reverse_color_and_zsign(grid):
 @pytest.mark.mpl_image_compare
 def test_makecpt_continuous(grid):
     """
-    Use static color palette table that is continuous from blue to white and scaled from
-    -4500 to 4500m.
+    Use static color palette table that is continuous from blue to white and
+    scaled from -4500 to 4500m.
     """
     fig = Figure()
     makecpt(cmap="blue,white", continuous=True, series="-4500,4500")

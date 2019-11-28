@@ -19,7 +19,7 @@ def test_colorbar_using_paper_coordinates():
 @pytest.mark.mpl_image_compare
 def test_colorbar_using_paper_coordinates_horizontal():
     """
-    Create colorbar positioned at 0cm,0cm with length 2cm oriented horizontally.
+    Create colorbar positioned at 0cm,0cm with length 2cm oriented horizontally
     """
     fig = Figure()
     fig.colorbar(cmap="rainbow", position="x0c/0c+w2c+h")
@@ -40,7 +40,7 @@ def test_colorbar_positioned_using_map_coordinates():
 @pytest.mark.mpl_image_compare
 def test_colorbar_positioned_using_justification_code():
     """
-    Create colorbar positioned at Top Center inside the map frame with length 2cm.
+    Create colorbar at Top Center inside the map frame with length 2cm.
     """
     fig = Figure()
     fig.basemap(region=[2, 4, 6, 8], projection="t0/2c", frame=True)
@@ -51,7 +51,7 @@ def test_colorbar_positioned_using_justification_code():
 @pytest.mark.mpl_image_compare
 def test_colorbar_positioned_using_normalized_coords():
     """
-    Create colorbar positioned at normalized coordinates 0.75,0.25 with length 2cm.
+    Create colorbar at normalized coordinates 0.75,0.25 with length 2cm.
     """
     fig = Figure()
     fig.basemap(region=[2, 4, 6, 8], projection="t0/2c", frame=True)
@@ -92,7 +92,8 @@ def test_colorbar_box_with_fill():
 @pytest.mark.mpl_image_compare
 def test_colorbar_box_with_clearance():
     """
-    Create colorbar with box that has an x-clearance of 0.8cm and y-clearance of 0.4cm.
+    Create colorbar with box that has an x-clearance of 0.8cm and y-clearance
+    of 0.4cm.
     """
     fig = Figure()
     fig.colorbar(cmap="rainbow", box="+c0.8c/0.4c+porange", position="x0c/0c+w1c/0.5c")
@@ -102,8 +103,8 @@ def test_colorbar_box_with_clearance():
 @pytest.mark.mpl_image_compare
 def test_colorbar_box_with_secondary_border():
     """
-    Create colorbar with box that has a secondary, inner border in addition to the main
-    primary, outer border.
+    Create colorbar with box that has a secondary, inner border in addition to
+    the main primary, outer border.
     """
     fig = Figure()
     fig.colorbar(cmap="rainbow", box="+porange+imagenta", position="x0c/0c+w1c/0.5c")

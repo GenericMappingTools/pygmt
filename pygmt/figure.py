@@ -33,8 +33,8 @@ class Figure(BasePlotting):
     A GMT figure to handle all plotting.
 
     Use the plotting methods of this class to add elements to the figure.  You
-    can preview the figure using :meth:`pygmt.Figure.show` and save the figure to
-    a file using :meth:`pygmt.Figure.savefig`.
+    can preview the figure using :meth:`pygmt.Figure.show` and save the figure
+    to a file using :meth:`pygmt.Figure.savefig`.
 
     Unlike traditional GMT figures, no figure file is generated until you call
     :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert`.
@@ -80,8 +80,8 @@ class Figure(BasePlotting):
 
         Unlike the command-line version (``gmt figure``), this method does not
         trigger the generation of a figure file. An explicit call to
-        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert` must be made
-        in order to get a file.
+        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert` must be
+        made in order to get a file.
         """
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
@@ -257,8 +257,8 @@ class Figure(BasePlotting):
             Only if ``method != 'external'``.
 
         """
-        # Module level variable to know which figures had their show method called.
-        # Needed for the sphinx-gallery scraper.
+        # Module level variable to know which figures had their show method
+        # called. Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
         if method not in ["static", "external"]:
@@ -288,16 +288,18 @@ class Figure(BasePlotting):
         """
         Shift plot origin in x and/or y directions.
 
-        This method shifts plot origin relative to the current origin by (*xshift*,*yshift*)
-        and optionally append the length unit (**c**, **i**, or **p**).
+        This method shifts plot origin relative to the current origin by
+        (*xshift*,*yshift*) and optionally append the length unit (**c**,
+        **i**, or **p**).
 
-        Prepend **a** to shift the origin back to the original position
-        after plotting, prepend **c** to center the plot on the center of the
-        paper (optionally add shift), prepend **f** to shift the origin relative
-        to the fixed lower left corner of the page, or prepend **r** [Default] to
+        Prepend **a** to shift the origin back to the original position after
+        plotting, prepend **c** to center the plot on the center of the paper
+        (optionally add shift), prepend **f** to shift the origin relative to
+        the fixed lower left corner of the page, or prepend **r** [Default] to
         move the origin relative to its current location.
 
-        Detailed usage at :gmt-docs:`GMT_Docs.html#plot-positioning-and-layout-the-x-y-options`
+        Detailed usage at
+        :gmt-docs:`GMT_Docs.html#plot-positioning-and-layout-the-x-y-options`
 
         Parameters
         ----------
