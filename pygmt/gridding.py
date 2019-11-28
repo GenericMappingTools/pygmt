@@ -37,6 +37,8 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     Full option list at :gmt-docs:`surface.html`
 
+    {aliases}
+
     Parameters
     ----------
     x, y, z : 1d arrays
@@ -55,8 +57,6 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     outfile (G) : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
-
-    {aliases}
 
     Returns
     -------
