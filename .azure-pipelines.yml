@@ -166,17 +166,11 @@ jobs:
       Python37:
         python.version: '3.7'
         PYTHON: '3.7'
-      Python36:
-        python.version: '3.6'
-        PYTHON: '3.6'
+      #Python36:
+        #python.version: '3.6'
+        #PYTHON: '3.6'
 
   steps:
-
-  # Install ghostscript separately since there is no Windows conda-forge package for it.
-  - bash: |
-      set -x -e
-      choco install ghostscript
-    displayName: Install ghostscript via chocolatey
 
   - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
     displayName: Add conda to PATH
@@ -195,6 +189,13 @@ jobs:
       source activate testing
       conda list
     displayName: List installed packages
+
+  # Download latest GMT
+  - script: git clone --branch=master --depth=1 https://github.com/GenericMappingTools/gmt.git
+    displayName: Download GMT
+
+  # Build GMT
+  - template: gmt/ci/azure-pipelines-windows.yml
 
   # Install the package that we want to test
   - bash: |
