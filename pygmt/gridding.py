@@ -23,12 +23,13 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     """
     Grids table data using adjustable tension continuous curvature splines.
 
-    Surface reads randomly-spaced (x,y,z) triples and produces gridded values z(x,y)
-    by solving:
+    Surface reads randomly-spaced (x,y,z) triples and produces gridded values
+    z(x,y) by solving:
 
         (1 - T) * L (L (z)) + T * L (z) = 0
 
-    where T is a tension factor between 0 and 1, and L indicates the Laplacian operator.
+    where T is a tension factor between 0 and 1, and L indicates the Laplacian
+    operator.
 
     Takes a matrix, xyz triples, or a file name as input.
 

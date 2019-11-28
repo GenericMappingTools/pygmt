@@ -99,7 +99,8 @@ def test_surface_with_outfile_param():
 
 def test_surface_short_aliases():
     """
-    Run surface using short aliases -I for spacing, -R for region, -G for outfile
+    Run surface using short aliases -I for spacing, -R for region, -G for
+    outfile
     """
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray

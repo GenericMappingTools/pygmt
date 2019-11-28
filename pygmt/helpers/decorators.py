@@ -221,7 +221,9 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     Examples
     --------
 
-    >>> @kwargs_to_strings(R='sequence', i='sequence_comma', files='sequence_space')
+    >>> @kwargs_to_strings(
+    ...     R='sequence', i='sequence_comma', files='sequence_space'
+    ... )
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print('{', end='')
