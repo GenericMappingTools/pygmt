@@ -675,7 +675,7 @@ class BasePlotting:
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection")
+    @use_alias(R="region", J="projection", B="frame")
     @kwargs_to_strings(
         R="sequence",
         textfiles="sequence_space",
