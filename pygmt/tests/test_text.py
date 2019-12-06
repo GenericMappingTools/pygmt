@@ -158,8 +158,9 @@ def test_text_justify_bottom_right_and_top_left(region, projection):
 @pytest.mark.mpl_image_compare
 def test_text_justify_parsed_from_textfile():
     """
-    Print text justified based on a column from textfile, using justify=True boolean
-    operation. Loosely based on "All great-circle paths lead to Rome" gallery example at
+    Print text justified based on a column from textfile, using justify=True
+    boolean operation. Loosely based on "All great-circle paths lead to Rome"
+    gallery example at
     https://gmt.soest.hawaii.edu/doc/latest/gallery/ex23.html
     """
     fig = Figure()

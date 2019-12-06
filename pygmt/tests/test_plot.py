@@ -256,3 +256,14 @@ def test_plot_vectors():
         frame="af",
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_scalar_xy():
+    "Plot symbols given scalar x, y coordinates"
+    fig = Figure()
+    fig.basemap(region=[-2, 2, -2, 2], frame=True)
+    fig.plot(x=-1.5, y=1.5, style="c1c")
+    fig.plot(x=0, y=0, style="t1c")
+    fig.plot(x=1.5, y=-1.5, style="s1c")
+    return fig
