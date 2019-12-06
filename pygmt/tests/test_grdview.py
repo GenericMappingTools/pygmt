@@ -29,7 +29,8 @@ def test_grdview_reliefgrid_dataarray(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_reliefgrid_file_with_region_subset():
     """
-    Run grdview by passing in a reliefgrid filename, and cropping it to a region.
+    Run grdview by passing in a reliefgrid filename, and cropping it to a
+    region.
     """
     gridfile = which("@earth_relief_60m", download="c")
 
@@ -53,8 +54,9 @@ def test_grdview_wrong_kind_of_reliefgrid(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective(grid):
     """
-    Run grdview by passing in a reliefgrid and setting a perspective viewpoint with an
-    azimuth from the SouthEast and an elevation angle 15 degrees from the z-plane.
+    Run grdview by passing in a reliefgrid and setting a perspective viewpoint
+    with an azimuth from the SouthEast and an elevation angle 15 degrees from
+    the z-plane.
     """
     fig = Figure()
     fig.grdview(reliefgrid=grid, perspective=[135, 15])
@@ -64,9 +66,9 @@ def test_grdview_with_perspective(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zscale(grid):
     """
-    Run grdview by passing in a reliefgrid and setting a perspective viewpoint with an
-    azimuth from the SouthWest and an elevation angle 30 degrees from the z-plane, plus
-    a z-axis scaling factor of 0.005.
+    Run grdview by passing in a reliefgrid and setting a perspective viewpoint
+    with an azimuth from the SouthWest and an elevation angle 30 degrees from
+    the z-plane, plus a z-axis scaling factor of 0.005.
     """
     fig = Figure()
     fig.grdview(reliefgrid=grid, perspective=[225, 30], zscale=0.005)
@@ -76,9 +78,9 @@ def test_grdview_with_perspective_and_zscale(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zsize(grid):
     """
-    Run grdview by passing in a reliefgrid and setting a perspective viewpoint with an
-    azimuth from the SouthWest and an elevation angle 30 degrees from the z-plane, plus
-    a z-axis size of 10cm.
+    Run grdview by passing in a reliefgrid and setting a perspective viewpoint
+    with an azimuth from the SouthWest and an elevation angle 30 degrees from
+    the z-plane, plus a z-axis size of 10cm.
     """
     fig = Figure()
     fig.grdview(reliefgrid=grid, perspective=[225, 30], zsize="10c")
@@ -88,8 +90,8 @@ def test_grdview_with_perspective_and_zsize(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_image_plot(grid):
     """
-    Run grdview by passing in a reliefgrid and setting a colormap for producing an image
-    plot.
+    Run grdview by passing in a reliefgrid and setting a colormap for producing
+    an image plot.
     """
     fig = Figure()
     fig.grdview(reliefgrid=grid, cmap="oleron", surftype="i")
@@ -99,8 +101,8 @@ def test_grdview_with_cmap_for_image_plot(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_surface_monochrome_plot(grid):
     """
-    Run grdview by passing in a reliefgrid and setting a colormap for producing a
-    surface monochrome plot.
+    Run grdview by passing in a reliefgrid and setting a colormap for producing
+    a surface monochrome plot.
     """
     fig = Figure()
     fig.grdview(reliefgrid=grid, cmap="oleron", surftype="s+m")
@@ -110,8 +112,8 @@ def test_grdview_with_cmap_for_surface_monochrome_plot(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_perspective_surface_plot(grid):
     """
-    Run grdview by passing in a reliefgrid and setting a colormap for producing a
-    surface plot with a 3D perspective viewpoint.
+    Run grdview by passing in a reliefgrid and setting a colormap for producing
+    a surface plot with a 3D perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(
@@ -127,8 +129,8 @@ def test_grdview_with_cmap_for_perspective_surface_plot(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane(grid):
     """
-    Run grdview by passing in a reliefgrid and plotting it on a z-plane, while settings
-    a 3D perspective viewpoint.
+    Run grdview by passing in a reliefgrid and plotting it on a z-plane, while
+    setting a 3D perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(reliefgrid=grid, plane=-4000, perspective=[225, 30], zscale=0.005)
@@ -138,8 +140,8 @@ def test_grdview_on_a_plane(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane_with_colored_frontal_facade(grid):
     """
-    Run grdview by passing in a reliefgrid and plotting it on a z-plane whose frontal
-    facade is colored gray, while setting a 3D perspective viewpoint.
+    Run grdview by passing in a reliefgrid and plotting it on a z-plane whose
+    frontal facade is colored gray, while setting a 3D perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(
@@ -151,8 +153,8 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zaxis_frame(grid):
     """
-    Run grdview by passing in a reliefgrid and plotting an annotated vertical z-axis
-    frame.
+    Run grdview by passing in a reliefgrid and plotting an annotated vertical
+    z-axis frame.
     """
     fig = Figure()
     fig.grdview(reliefgrid=grid, perspective=[225, 30], zscale=0.005, frame="zaf")
@@ -162,8 +164,8 @@ def test_grdview_with_perspective_and_zaxis_frame(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_surface_plot_styled_with_contourpen(grid):
     """
-    Run grdview by passing in a reliefgrid with styled contour lines plotted on top of a
-    surface plot.
+    Run grdview by passing in a reliefgrid with styled contour lines plotted on
+    top of a surface plot.
     """
     fig = Figure()
     fig.grdview(
@@ -175,8 +177,8 @@ def test_grdview_surface_plot_styled_with_contourpen(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_surface_mesh_plot_styled_with_meshpen(grid):
     """
-    Run grdview by passing in a reliefgrid with styled mesh lines plotted on top of a
-    surface mesh plot.
+    Run grdview by passing in a reliefgrid with styled mesh lines plotted on
+    top of a surface mesh plot.
     """
     fig = Figure()
     fig.grdview(
@@ -188,8 +190,8 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane_styled_with_facadepen(grid):
     """
-    Run grdview by passing in a reliefgrid and plotting it on a z-plane with styled
-    lines for the frontal facade.
+    Run grdview by passing in a reliefgrid and plotting it on a z-plane with
+    styled lines for the frontal facade.
     """
     fig = Figure()
     fig.grdview(
@@ -205,8 +207,8 @@ def test_grdview_on_a_plane_styled_with_facadepen(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(grid):
     """
-    Run grdview by passing in both a reliefgrid and drapegrid as an xarray.DataArray,
-    setting a colormap for producing an image plot.
+    Run grdview by passing in both a reliefgrid and drapegrid as an
+    xarray.DataArray, setting a colormap for producing an image plot.
     """
     drapegrid = 1.1 * grid
 

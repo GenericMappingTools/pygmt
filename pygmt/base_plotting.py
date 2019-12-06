@@ -336,59 +336,63 @@ class BasePlotting:
         """
         Create 3-D perspective image or surface mesh from a grid.
 
-        Reads a 2-D grid file and produces a 3-D perspective plot by drawing a mesh,
-        painting a colored/gray-shaded surface made up of polygons, or by scanline
-        conversion of these polygons to a raster image. Options include draping a data
-        set on top of a surface, plotting of contours on top of the surface, and apply
-        artificial illumination based on intensities provided in a separate grid file.
+        Reads a 2-D grid file and produces a 3-D perspective plot by drawing a
+        mesh, painting a colored/gray-shaded surface made up of polygons, or by
+        scanline conversion of these polygons to a raster image. Options
+        include draping a data set on top of a surface, plotting of contours on
+        top of the surface, and apply artificial illumination based on
+        intensities provided in a separate grid file.
 
         Full option list at :gmt-docs:`grdview.html`
 
         Parameters
         ----------
         reliefgrid : str or xarray.DataArray
-            The file name of the input relief grid or the grid loaded as a DataArray.
+            The file name of the input relief grid or the grid loaded as a
+            DataArray.
 
-        zscale (Jz) or zsize (JZ) : float or str
+        zscale/zsize : float or str
             Set z-axis scaling or z-axis size.
 
-        cmap (C) : str
+        cmap : str
             The name of the color palette table to use.
 
-        drapegrid (G) : str or xarray.DataArray
-            The file name or a DataArray of the image grid to be draped on top of the
-            relief provided by reliefgrid. [Default determines colors from reliefgrid].
-            Note that -Jz and -N always refers to the reliefgrid. The drapegrid only
-            provides the information pertaining to colors, which (if drapegrid is a
-            grid) will be looked-up via the CPT (see -C).
+        drapegrid : str or xarray.DataArray
+            The file name or a DataArray of the image grid to be draped on top
+            of the relief provided by reliefgrid. [Default determines colors
+            from reliefgrid]. Note that -Jz and -N always refers to the
+            reliefgrid. The drapegrid only provides the information pertaining
+            to colors, which (if drapegrid is a grid) will be looked-up via the
+            CPT (see -C).
 
-        plane (N) : float or str
+        plane : float or str
             ``level[+gfill]``.
-            Draws a plane at this z-level. If the optional color is provided via the +g
-            modifier, and the projection is not oblique, the frontal facade between the
-            plane and the data perimeter is colored.
+            Draws a plane at this z-level. If the optional color is provided
+            via the +g modifier, and the projection is not oblique, the frontal
+            facade between the plane and the data perimeter is colored.
 
-        surftype (Q) : str
-            Specifies cover type of the reliefgrid. Select one of following settings:
+        surftype : str
+            Specifies cover type of the reliefgrid.
+            Select one of following settings:
             1. 'm' for mesh plot [Default].
             2. 'mx' or 'my' for waterfall plots (row or column profiles).
             3. 's' for surface plot.
             4. 'i' for image plot.
             5. 'c'. Same as 'i' but will make nodes with z = NaN transparent.
-            For any of these choices, you may force a monochrome image by appending the
-            modifier +m.
+            For any of these choices, you may force a monochrome image by
+            appending the modifier +m.
 
-        contourpen (Wc) : str
-            Draw contour lines on top of surface or mesh (not image). Append pen
-            attributes used for the contours.
-        meshpen (Wm) : str
-            Sets the pen attributes used for the mesh. You must also select -Qm or -Qsm
-            for meshlines to be drawn.
-        facadepen (Wf) :str
-            Sets the pen attributes used for the facade. You must also select -N for the
-            facade outline to be drawn.
+        contourpen : str
+            Draw contour lines on top of surface or mesh (not image). Append
+            pen attributes used for the contours.
+        meshpen : str
+            Sets the pen attributes used for the mesh. You must also select -Qm
+            or -Qsm for meshlines to be drawn.
+        facadepen :str
+            Sets the pen attributes used for the facade. You must also select
+            -N for the facade outline to be drawn.
 
-        perspective (p) : list or str
+        perspective : list or str
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
             Select perspective view.
 
