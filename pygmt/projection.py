@@ -40,14 +40,14 @@ class Supported(Enum):
     MILLER_CYLINDRICAL = "J"
     ECKERT_IV_EQUAL_AREA = "Kf"  # DONE
     ECKERT_VI_EQUAL_AREA = "Ks"  # DONE
-    LAMBERT_CONIC_CONFORMAL = "L"
+    LAMBERT_CONIC_CONFORMAL = "L"  # DONE
     MERCATOR_CYLINDRICAL = "M"  # DONE
     ROBINSON = "N"  # DONE
     OBLIQUE_MERCATOR_1 = "Oa"
     OBLIQUE_MERCATOR_2 = "Ob"
     OBLIQUE_MERCATOR_3 = "Oc"
     POLAR = "P"
-    POLYCONIC = "Poly"
+    POLYCONIC = "Poly"  # DONE
     EQUIDISTANT_CYLINDRICAL = "Q"
     WINKEL_TRIPEL = "R"  # DONE
     GENERAL_STEREOGRAPHIC = "S"  # DONE
@@ -746,3 +746,63 @@ class VanDerGrinten(_Miscellaneous):
 
     # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="V")
+
+
+@attr.s(frozen=True, kw_only=True)
+class LambertConicConformal(_Conic):
+
+    """
+    Class definition for the Lambert conic conformal projection.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre.
+    central_latitude : float
+        The latitude of the projection centre.
+    lat1 : float
+        The first standard parallel.
+    lat2 : float
+        The second standard parallel.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="L")
+
+
+@attr.s(frozen=True, kw_only=True)
+class Polyconic(_Projection):
+
+    """
+    Class definition for the (American) polyconic projection.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre.
+    central_latitude : float
+        The latitude of the projection centre.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default="i")
+
+    # private; we don't want the user to care or know about
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{central_longitude}/{central_latitude}/{width}{unit}",
+    )
+    _code: str = attr.ib(init=False, repr=False, default="Poly")
