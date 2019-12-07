@@ -48,7 +48,7 @@ class Supported(Enum):
     OBLIQUE_MERCATOR_3 = "Oc"  # DONE
     POLAR = "P"
     POLYCONIC = "Poly"  # DONE
-    EQUIDISTANT_CYLINDRICAL = "Q"
+    EQUIDISTANT_CYLINDRICAL = "Q"  # DONE
     WINKEL_TRIPEL = "R"  # DONE
     GENERAL_STEREOGRAPHIC = "S"  # DONE
     TRANSVERSE_MERCATOR = "T"  # DONE
@@ -994,3 +994,29 @@ class UniversalTransverseMercator(_Projection):
         default="{_code}{zone}/{width}{unit}",
     )
     _code: str = attr.ib(init=False, repr=False, default="U")
+
+
+@attr.s(frozen=True)
+class EquidistantCylindrical(_Cylindrical):
+
+    """
+    Class definition for the equidistant cylindrical projection.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre. Default is 180.
+    central_latitude : float
+        The latitude of the projection centre. Default is 0.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    central_longitude: float = attr.ib(default=180, kw_only=True)
+    central_latitude: float = attr.ib(default=0, kw_only=True)
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="Q")
