@@ -224,7 +224,7 @@ class _Miscellaneous(_Projection):
 class LambertAzimuthalEqualArea(_Azimuthal):
 
     """
-    Class definition for the lambert azimuthal equal area projection.
+    Class definition for the Lambert azimuthal equal area projection.
 
     Parameters
     ----------
@@ -432,7 +432,7 @@ class GeneralSterographic(_Azimuthal):
 class AlbersConicEqualArea(_Conic):
 
     """
-    Class definition for the albers conic equal area projection.
+    Class definition for the Albers conic equal area projection.
 
     Parameters
     ----------
@@ -486,7 +486,7 @@ class EquidistantConic(_Conic):
 class CassiniCylindrical(_Cylindrical):
 
     """
-    Class definition for the cassini cylindrical projection.
+    Class definition for the Cassini cylindrical projection.
 
     Parameters
     ----------
@@ -509,7 +509,7 @@ class CassiniCylindrical(_Cylindrical):
 class MercatorCylindrical(_Cylindrical):
 
     """
-    Class definition for the cassini cylindrical projection.
+    Class definition for the Mercator cylindrical projection.
 
     Parameters
     ----------
@@ -535,7 +535,7 @@ class MercatorCylindrical(_Cylindrical):
 class CylindricalStereographic(_Cylindrical):
 
     """
-    Class definition for the cassini cylindrical projection.
+    Class definition for the cylindrical stereographic projection.
 
     Parameters
     ----------
@@ -561,7 +561,7 @@ class CylindricalStereographic(_Cylindrical):
 class CylindricalEqualArea(_Cylindrical):
 
     """
-    Class definition for the cassini cylindrical projection.
+    Class definition for the cylindrical equal area projection.
 
     Parameters
     ----------
@@ -584,7 +584,7 @@ class CylindricalEqualArea(_Cylindrical):
 class HammerEqualArea(_Miscellaneous):
 
     """
-    Class definition for the hammer equal area projection.
+    Class definition for the Hammer equal area projection.
 
     Parameters
     ----------
@@ -626,7 +626,7 @@ class SinusoidalEqualArea(_Miscellaneous):
 class EckertIVEqualArea(_Miscellaneous):
 
     """
-    Class definition for the eckert IV equal area projection.
+    Class definition for the Eckert IV equal area projection.
 
     Parameters
     ----------
@@ -647,7 +647,7 @@ class EckertIVEqualArea(_Miscellaneous):
 class EckertVIEqualArea(_Miscellaneous):
 
     """
-    Class definition for the eckert VI equal area projection.
+    Class definition for the Eckert VI equal area projection.
 
     Parameters
     ----------
@@ -668,7 +668,7 @@ class EckertVIEqualArea(_Miscellaneous):
 class Robinson(_Miscellaneous):
 
     """
-    Class definition for the robinson projection.
+    Class definition for the Robinson projection.
 
     Parameters
     ----------
@@ -689,7 +689,7 @@ class Robinson(_Miscellaneous):
 class WinkelTripel(_Miscellaneous):
 
     """
-    Class definition for the winkel tripel projection.
+    Class definition for the Winkel tripel projection.
 
     Parameters
     ----------
@@ -710,7 +710,7 @@ class WinkelTripel(_Miscellaneous):
 class Mollweide(_Miscellaneous):
 
     """
-    Class definition for the mollweide projection.
+    Class definition for the Mollweide projection.
 
     Parameters
     ----------
@@ -731,7 +731,7 @@ class Mollweide(_Miscellaneous):
 class VanDerGrinten(_Miscellaneous):
 
     """
-    Class definition for the van der grinten projection.
+    Class definition for the Van der Grinten projection.
 
     Parameters
     ----------
