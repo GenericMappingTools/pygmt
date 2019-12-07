@@ -51,8 +51,8 @@ class Supported(Enum):
     EQUIDISTANT_CYLINDRICAL = "Q"
     WINKEL_TRIPEL = "R"  # DONE
     GENERAL_STEREOGRAPHIC = "S"  # DONE
-    TRANSVERSE_MERCATOR = "T"
-    UNIVERSAL_TRANSVERSE_MERCATOR = "U"
+    TRANSVERSE_MERCATOR = "T"  # DONE
+    UNIVERSAL_TRANSVERSE_MERCATOR = "U"  # DONE
     VAN_DER_GRINTEN = "V"  # DONE
     MOLLWEIDE = "W"  # DONE
     LINEAR = "X"
@@ -940,3 +940,57 @@ class ObliqueMercator3(_Projection):
         default="{_code}{central_longitude}/{central_latitude}/{pole_longitude}/{pole_latitude}/{width}{unit}",
     )
     _code: str = attr.ib(init=False, repr=False, default="Oc")
+
+
+@attr.s(frozen=True)
+class TransverseMercator(_Cylindrical):
+
+    """
+    Class definition for the Transverse Mercator projection.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre.
+    central_latitude : float
+        The latitude of the projection centre.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="T")
+
+
+@attr.s(frozen=True, kw_only=True)
+class UniversalTransverseMercator(_Projection):
+
+    """
+    Class definition for the Universal Transverse Mercator projection.
+
+    Parameters
+    ----------
+    zone : str
+        The UTM zone {A, B, Y, Z, 1-60}. Use negative values for numerical
+        zones in the southern hemisphere, or append the latitude modifiers
+        {C-N, P-X} to specify and exact UTM grid zone.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+    zone: str = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default="i")
+
+    # private; we don't want the user to care or know about
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{zone}/{width}{unit}",
+    )
+    _code: str = attr.ib(init=False, repr=False, default="U")
