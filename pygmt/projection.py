@@ -37,15 +37,15 @@ class Supported(Enum):
     GENERAL_PERSPECTIVE = "G"  # DONE
     HAMMER_EQUAL_AREA = "H"  # DONE
     SINUSOIDAL_EQUAL_AREA = "I"  # DONE
-    MILLER_CYLINDRICAL = "J"
+    MILLER_CYLINDRICAL = "J"  # DONE
     ECKERT_IV_EQUAL_AREA = "Kf"  # DONE
     ECKERT_VI_EQUAL_AREA = "Ks"  # DONE
     LAMBERT_CONIC_CONFORMAL = "L"  # DONE
     MERCATOR_CYLINDRICAL = "M"  # DONE
     ROBINSON = "N"  # DONE
-    OBLIQUE_MERCATOR_1 = "Oa"
-    OBLIQUE_MERCATOR_2 = "Ob"
-    OBLIQUE_MERCATOR_3 = "Oc"
+    OBLIQUE_MERCATOR_1 = "Oa"  # DONE
+    OBLIQUE_MERCATOR_2 = "Ob"  # DONE
+    OBLIQUE_MERCATOR_3 = "Oc"  # DONE
     POLAR = "P"
     POLYCONIC = "Poly"  # DONE
     EQUIDISTANT_CYLINDRICAL = "Q"
@@ -748,7 +748,7 @@ class VanDerGrinten(_Miscellaneous):
     _code: str = attr.ib(init=False, repr=False, default="V")
 
 
-@attr.s(frozen=True, kw_only=True)
+@attr.s(frozen=True)
 class LambertConicConformal(_Conic):
 
     """
@@ -806,3 +806,137 @@ class Polyconic(_Projection):
         default="{_code}{central_longitude}/{central_latitude}/{width}{unit}",
     )
     _code: str = attr.ib(init=False, repr=False, default="Poly")
+
+
+@attr.s(frozen=True)
+class Miller(_Miscellaneous):
+
+    """
+    Class definition for the Miller cylindrical projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="J")
+
+
+@attr.s(frozen=True, kw_only=True)
+class ObliqueMercator1(_Projection):
+
+    """
+    Class definition for the oblique Mercator 1 projection.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre.
+    central_latitude : float
+        The latitude of the projection centre.
+    azimuth : float
+        Azimuth of the oblique equator.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default="i")
+
+    # private; we don't want the user to care or know about
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{central_longitude}/{central_latitude}/{azimuth}/{width}{unit}",
+    )
+    _code: str = attr.ib(init=False, repr=False, default="Oa")
+
+
+@attr.s(frozen=True, kw_only=True)
+class ObliqueMercator2(_Projection):
+
+    """
+    Class definition for the oblique Mercator 2 projection.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre.
+    central_latitude : float
+        The latitude of the projection centre.
+    oblique_longitude : float
+        The longitude of the second point on an oblique equator.
+    oblique_latitude : float
+        The latitude of the second point on an oblique equator.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
+    oblique_longitude: float = attr.ib()
+    oblique_latitude: float = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default="i")
+
+    # private; we don't want the user to care or know about
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{central_longitude}/{central_latitude}/{oblique_longitude}/{oblique_latitude}/{width}{unit}",
+    )
+    _code: str = attr.ib(init=False, repr=False, default="Ob")
+
+
+@attr.s(frozen=True, kw_only=True)
+class ObliqueMercator3(_Projection):
+
+    """
+    Class definition for the oblique Mercator 3 projection.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre.
+    central_latitude : float
+        The latitude of the projection centre.
+    pole_longitude : float
+        The longitude of the projection pole.
+    pole_latitude : float
+        The latitude of the projection pole.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
+    pole_longitude: float = attr.ib()
+    pole_latitude: float = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default="i")
+
+    # private; we don't want the user to care or know about
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{central_longitude}/{central_latitude}/{pole_longitude}/{pole_latitude}/{width}{unit}",
+    )
+    _code: str = attr.ib(init=False, repr=False, default="Oc")
