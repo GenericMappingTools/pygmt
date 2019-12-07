@@ -35,26 +35,26 @@ class Supported(Enum):
     AZIMUTHAL_GNOMIC = "F"  # DONE
     AZIMUTHAL_ORTHOGRAPHIC = "G"  # DONE
     GENERAL_PERSPECTIVE = "G"  # DONE
-    HAMMER_EQUAL_AREA = "H"
-    SINUSOIDAL_EQUAL_AREA = "I"
+    HAMMER_EQUAL_AREA = "H"  # DONE
+    SINUSOIDAL_EQUAL_AREA = "I"  # DONE
     MILLER_CYLINDRICAL = "J"
-    ECKERT_IV_EQUAL_AREA = "Kf"
-    ECKERT_VI_EQUAL_AREA = "Ks"
+    ECKERT_IV_EQUAL_AREA = "Kf"  # DONE
+    ECKERT_VI_EQUAL_AREA = "Ks"  # DONE
     LAMBERT_CONIC_CONFORMAL = "L"
     MERCATOR_CYLINDRICAL = "M"  # DONE
-    ROBINSON = "N"
+    ROBINSON = "N"  # DONE
     OBLIQUE_MERCATOR_1 = "Oa"
     OBLIQUE_MERCATOR_2 = "Ob"
     OBLIQUE_MERCATOR_3 = "Oc"
     POLAR = "P"
     POLYCONIC = "Poly"
     EQUIDISTANT_CYLINDRICAL = "Q"
-    WINKEL_TRIPEL = "R"
+    WINKEL_TRIPEL = "R"  # DONE
     GENERAL_STEREOGRAPHIC = "S"  # DONE
     TRANSVERSE_MERCATOR = "T"
     UNIVERSAL_TRANSVERSE_MERCATOR = "U"
-    VAN_DER_GRINTEN = "V"
-    MOLLWEIDE = "W"
+    VAN_DER_GRINTEN = "V"  # DONE
+    MOLLWEIDE = "W"  # DONE
     LINEAR = "X"
     CYLINDRICAL_EQUAL_AREA = "Y"  # DONE
 
@@ -154,7 +154,7 @@ class _Cylindrical(_Projection):
 
 
 @attr.s(kw_only=True)
-class _Conic:
+class _Conic(_Projection):
 
     """
     Base class for conic projections.
@@ -188,6 +188,35 @@ class _Conic:
         init=False,
         repr=False,
         default="{_code}{central_longitude}/{central_latitude}/{lat1}/{lat2}/{width}{unit}",
+    )
+
+
+@attr.s(kw_only=True)
+class _Miscellaneous(_Projection):
+
+    """
+    Base class for miscellaneous projections.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    central_meridian: float = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default="i")
+
+    # private; we don't want the user to care or know about
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{central_meridian}/{width}{unit}",
     )
 
 
@@ -549,3 +578,171 @@ class CylindricalEqualArea(_Cylindrical):
 
     # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="Y")
+
+
+@attr.s(frozen=True)
+class HammerEqualArea(_Miscellaneous):
+
+    """
+    Class definition for the hammer equal area projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="H")
+
+
+@attr.s(frozen=True)
+class SinusoidalEqualArea(_Miscellaneous):
+
+    """
+    Class definition for the sinusoidal equal area projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="I")
+
+
+@attr.s(frozen=True)
+class EckertIVEqualArea(_Miscellaneous):
+
+    """
+    Class definition for the eckert IV equal area projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="Kf")
+
+
+@attr.s(frozen=True)
+class EckertVIEqualArea(_Miscellaneous):
+
+    """
+    Class definition for the eckert VI equal area projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="Ks")
+
+
+@attr.s(frozen=True)
+class Robinson(_Miscellaneous):
+
+    """
+    Class definition for the robinson projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="N")
+
+
+@attr.s(frozen=True)
+class WinkelTripel(_Miscellaneous):
+
+    """
+    Class definition for the winkel tripel projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="R")
+
+
+@attr.s(frozen=True)
+class Mollweide(_Miscellaneous):
+
+    """
+    Class definition for the mollweide projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="W")
+
+
+@attr.s(frozen=True)
+class VanDerGrinten(_Miscellaneous):
+
+    """
+    Class definition for the van der grinten projection.
+
+    Parameters
+    ----------
+    central_meridian : float
+        The central meridian/longitude to use as the centre of the map.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``i``.
+    """
+
+    # private; we don't want the user to care or know about
+    _code: str = attr.ib(init=False, repr=False, default="V")
