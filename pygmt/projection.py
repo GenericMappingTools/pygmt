@@ -7,7 +7,7 @@ to create a projection and output a valid GMT projection string.
 >>> from pygmt import projection
 >>> proj = projection.LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width=8, unit="i")
 >>> proj
-LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width=8, unit='i', center=[30, -20])
+LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width=8, unit='i')
 >>> print(proj)
 A30/-20/60/8i
 """
