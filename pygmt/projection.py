@@ -1,15 +1,6 @@
-#!/usr/bin/env python
-
 """
 Contains the projections supported by GMT, and the necessary mechanisms
 to create a projection and output a valid GMT projection string.
-
->>> from pygmt import projection
->>> proj = projection.LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width=8, unit="i")
->>> proj
-LambertAzimuthalEqualArea(central_longitude=30, central_latitude=-20, horizon=60, width=8, unit='i')
->>> print(proj)
-A30/-20/60/8i
 """
 
 from enum import Enum
@@ -61,7 +52,6 @@ class Supported(Enum):
 
 @attr.s()
 class _Projection:
-
     """
     Base class for all projections.
     """
@@ -71,6 +61,7 @@ class _Projection:
     _code: str = attr.ib(init=False, repr=False, default=UNDEFINED)
 
     def __str__(self):
+        "Convert to the GMT-style projection code."
         exclude = attr.fields(self.__class__)._fmt
         kwargs = attr.asdict(self, filter=attr.filters.exclude(exclude))
         return self._fmt.format(**kwargs)
@@ -78,7 +69,6 @@ class _Projection:
 
 @attr.s(kw_only=True)
 class _Azimuthal(_Projection):
-
     """
     Base class for azimuthal projections.
 
@@ -109,7 +99,6 @@ class _Azimuthal(_Projection):
         repr=False,
         default="{_code}{central_longitude}/{central_latitude}/{horizon}/{width}{unit}",
     )
-    _code: str = attr.ib(init=False, repr=False, default=UNDEFINED)
 
     @horizon.validator
     def check_horizon(self, attribute, value):
@@ -122,7 +111,6 @@ class _Azimuthal(_Projection):
 
 @attr.s(kw_only=True)
 class _Cylindrical(_Projection):
-
     """
     Base class for cylindrical projections.
 
@@ -148,14 +136,13 @@ class _Cylindrical(_Projection):
     _fmt: str = attr.ib(
         init=False,
         repr=False,
-        default="{_code}{central_longitude}/{central_latitude}/{wdith}{unit}",
+        default="{_code}{central_longitude}/{central_latitude}/{width}{unit}",
     )
     _code: str = attr.ib(init=False, repr=False, default=UNDEFINED)
 
 
 @attr.s(kw_only=True)
 class _Conic(_Projection):
-
     """
     Base class for conic projections.
 
@@ -193,7 +180,6 @@ class _Conic(_Projection):
 
 @attr.s(kw_only=True)
 class _Miscellaneous(_Projection):
-
     """
     Base class for miscellaneous projections.
 
@@ -222,7 +208,6 @@ class _Miscellaneous(_Projection):
 
 @attr.s(frozen=True)
 class LambertAzimuthalEqualArea(_Azimuthal):
-
     """
     Class definition for the Lambert azimuthal equal area projection.
 
@@ -247,7 +232,6 @@ class LambertAzimuthalEqualArea(_Azimuthal):
 
 @attr.s(frozen=True)
 class AzimuthalEquidistant(_Azimuthal):
-
     """
     Class definition for the azimuthal equidistant projection.
 
@@ -274,7 +258,6 @@ class AzimuthalEquidistant(_Azimuthal):
 
 @attr.s(frozen=True)
 class AzimuthalGnomic(_Azimuthal):
-
     """
     Class definition for the azimuthal gnomic projection.
 
@@ -309,7 +292,6 @@ class AzimuthalGnomic(_Azimuthal):
 
 @attr.s(frozen=True)
 class AzimuthalOrthographic(_Azimuthal):
-
     """
     Class definition for the azimuthal orthographic projection.
 
@@ -344,7 +326,6 @@ class AzimuthalOrthographic(_Azimuthal):
 
 @attr.s(frozen=True, kw_only=True)
 class GeneralPerspective(_Projection):
-
     """
     Class definition for the azimuthal general perspective projection.
 
@@ -395,7 +376,6 @@ class GeneralPerspective(_Projection):
 
 @attr.s(frozen=True)
 class GeneralSterographic(_Azimuthal):
-
     """
     Class definition for the azimuthal general sterographic projection.
 
@@ -430,7 +410,6 @@ class GeneralSterographic(_Azimuthal):
 
 @attr.s(frozen=True, kw_only=True)
 class AlbersConicEqualArea(_Conic):
-
     """
     Class definition for the Albers conic equal area projection.
 
@@ -457,7 +436,6 @@ class AlbersConicEqualArea(_Conic):
 
 @attr.s(frozen=True, kw_only=True)
 class EquidistantConic(_Conic):
-
     """
     Class definition for the equidistant conic projection.
 
@@ -484,7 +462,6 @@ class EquidistantConic(_Conic):
 
 @attr.s(frozen=True)
 class CassiniCylindrical(_Cylindrical):
-
     """
     Class definition for the Cassini cylindrical projection.
 
@@ -507,7 +484,6 @@ class CassiniCylindrical(_Cylindrical):
 
 @attr.s(frozen=True)
 class MercatorCylindrical(_Cylindrical):
-
     """
     Class definition for the Mercator cylindrical projection.
 
@@ -533,7 +509,6 @@ class MercatorCylindrical(_Cylindrical):
 
 @attr.s(frozen=True)
 class CylindricalStereographic(_Cylindrical):
-
     """
     Class definition for the cylindrical stereographic projection.
 
@@ -559,7 +534,6 @@ class CylindricalStereographic(_Cylindrical):
 
 @attr.s(frozen=True)
 class CylindricalEqualArea(_Cylindrical):
-
     """
     Class definition for the cylindrical equal area projection.
 
@@ -582,7 +556,6 @@ class CylindricalEqualArea(_Cylindrical):
 
 @attr.s(frozen=True)
 class HammerEqualArea(_Miscellaneous):
-
     """
     Class definition for the Hammer equal area projection.
 
@@ -603,7 +576,6 @@ class HammerEqualArea(_Miscellaneous):
 
 @attr.s(frozen=True)
 class SinusoidalEqualArea(_Miscellaneous):
-
     """
     Class definition for the sinusoidal equal area projection.
 
@@ -624,7 +596,6 @@ class SinusoidalEqualArea(_Miscellaneous):
 
 @attr.s(frozen=True)
 class EckertIVEqualArea(_Miscellaneous):
-
     """
     Class definition for the Eckert IV equal area projection.
 
@@ -645,7 +616,6 @@ class EckertIVEqualArea(_Miscellaneous):
 
 @attr.s(frozen=True)
 class EckertVIEqualArea(_Miscellaneous):
-
     """
     Class definition for the Eckert VI equal area projection.
 
@@ -666,7 +636,6 @@ class EckertVIEqualArea(_Miscellaneous):
 
 @attr.s(frozen=True)
 class Robinson(_Miscellaneous):
-
     """
     Class definition for the Robinson projection.
 
@@ -687,7 +656,6 @@ class Robinson(_Miscellaneous):
 
 @attr.s(frozen=True)
 class WinkelTripel(_Miscellaneous):
-
     """
     Class definition for the Winkel tripel projection.
 
@@ -708,7 +676,6 @@ class WinkelTripel(_Miscellaneous):
 
 @attr.s(frozen=True)
 class Mollweide(_Miscellaneous):
-
     """
     Class definition for the Mollweide projection.
 
@@ -729,7 +696,6 @@ class Mollweide(_Miscellaneous):
 
 @attr.s(frozen=True)
 class VanDerGrinten(_Miscellaneous):
-
     """
     Class definition for the Van der Grinten projection.
 
@@ -750,7 +716,6 @@ class VanDerGrinten(_Miscellaneous):
 
 @attr.s(frozen=True)
 class LambertConicConformal(_Conic):
-
     """
     Class definition for the Lambert conic conformal projection.
 
@@ -777,7 +742,6 @@ class LambertConicConformal(_Conic):
 
 @attr.s(frozen=True, kw_only=True)
 class Polyconic(_Projection):
-
     """
     Class definition for the (American) polyconic projection.
 
@@ -810,7 +774,6 @@ class Polyconic(_Projection):
 
 @attr.s(frozen=True)
 class Miller(_Miscellaneous):
-
     """
     Class definition for the Miller cylindrical projection.
 
@@ -831,7 +794,6 @@ class Miller(_Miscellaneous):
 
 @attr.s(frozen=True, kw_only=True)
 class ObliqueMercator1(_Projection):
-
     """
     Class definition for the oblique Mercator 1 projection.
 
@@ -866,7 +828,6 @@ class ObliqueMercator1(_Projection):
 
 @attr.s(frozen=True, kw_only=True)
 class ObliqueMercator2(_Projection):
-
     """
     Class definition for the oblique Mercator 2 projection.
 
@@ -905,7 +866,6 @@ class ObliqueMercator2(_Projection):
 
 @attr.s(frozen=True, kw_only=True)
 class ObliqueMercator3(_Projection):
-
     """
     Class definition for the oblique Mercator 3 projection.
 
@@ -944,7 +904,6 @@ class ObliqueMercator3(_Projection):
 
 @attr.s(frozen=True)
 class TransverseMercator(_Cylindrical):
-
     """
     Class definition for the Transverse Mercator projection.
 
@@ -967,7 +926,6 @@ class TransverseMercator(_Cylindrical):
 
 @attr.s(frozen=True, kw_only=True)
 class UniversalTransverseMercator(_Projection):
-
     """
     Class definition for the Universal Transverse Mercator projection.
 
@@ -998,7 +956,6 @@ class UniversalTransverseMercator(_Projection):
 
 @attr.s(frozen=True)
 class EquidistantCylindrical(_Cylindrical):
-
     """
     Class definition for the equidistant cylindrical projection.
 
