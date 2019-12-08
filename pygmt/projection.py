@@ -138,7 +138,6 @@ class _Cylindrical(_Projection):
         repr=False,
         default="{_code}{central_longitude}/{central_latitude}/{width}{unit}",
     )
-    _code: str = attr.ib(init=False, repr=False, default=UNDEFINED)
 
 
 @attr.s(kw_only=True)
