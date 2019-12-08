@@ -84,14 +84,14 @@ class _Azimuthal(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib()
     central_latitude: float = attr.ib()
     horizon: float = attr.ib(default=90)
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -124,13 +124,13 @@ class _Cylindrical(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib()
     central_latitude: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -159,7 +159,7 @@ class _Conic(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib()
@@ -167,7 +167,7 @@ class _Conic(_Projection):
     lat1: float = attr.ib()
     lat2: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -190,12 +190,12 @@ class _Miscellaneous(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_meridian: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -222,7 +222,7 @@ class LambertAzimuthalEqualArea(_Azimuthal):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -246,7 +246,7 @@ class AzimuthalEquidistant(_Azimuthal):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     horizon: float = attr.ib(default=180, kw_only=True)
@@ -272,7 +272,7 @@ class AzimuthalGnomic(_Azimuthal):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     horizon: float = attr.ib(default=60, kw_only=True)
@@ -306,7 +306,7 @@ class AzimuthalOrthographic(_Azimuthal):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     horizon: float = attr.ib(default=90)
@@ -350,7 +350,7 @@ class GeneralPerspective(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib()
@@ -362,7 +362,7 @@ class GeneralPerspective(_Projection):
     Width: float = attr.ib()
     Height: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -390,7 +390,7 @@ class GeneralSterographic(_Azimuthal):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     horizon: float = attr.ib(default=90, kw_only=True)
@@ -426,7 +426,7 @@ class AlbersConicEqualArea(_Conic):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -452,7 +452,7 @@ class EquidistantConic(_Conic):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -474,7 +474,7 @@ class CassiniCylindrical(_Cylindrical):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -496,7 +496,7 @@ class MercatorCylindrical(_Cylindrical):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib(default=180, kw_only=True)
@@ -521,7 +521,7 @@ class CylindricalStereographic(_Cylindrical):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib(default=180, kw_only=True)
@@ -546,7 +546,7 @@ class CylindricalEqualArea(_Cylindrical):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -566,7 +566,7 @@ class HammerEqualArea(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -586,7 +586,7 @@ class SinusoidalEqualArea(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -606,7 +606,7 @@ class EckertIVEqualArea(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -626,7 +626,7 @@ class EckertVIEqualArea(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -646,7 +646,7 @@ class Robinson(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -666,7 +666,7 @@ class WinkelTripel(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -686,7 +686,7 @@ class Mollweide(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -706,7 +706,7 @@ class VanDerGrinten(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -732,7 +732,7 @@ class LambertConicConformal(_Conic):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -754,13 +754,13 @@ class Polyconic(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib()
     central_latitude: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -784,7 +784,7 @@ class Miller(_Miscellaneous):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -808,13 +808,13 @@ class ObliqueMercator1(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib()
     central_latitude: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -844,7 +844,7 @@ class ObliqueMercator2(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib()
@@ -852,7 +852,7 @@ class ObliqueMercator2(_Projection):
     oblique_longitude: float = attr.ib()
     oblique_latitude: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -882,7 +882,7 @@ class ObliqueMercator3(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib()
@@ -890,7 +890,7 @@ class ObliqueMercator3(_Projection):
     pole_longitude: float = attr.ib()
     pole_latitude: float = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -916,7 +916,7 @@ class TransverseMercator(_Cylindrical):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     # private; we don't want the user to care or know about
@@ -938,11 +938,11 @@ class UniversalTransverseMercator(_Projection):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
     zone: str = attr.ib()
     width: float = attr.ib()
-    unit: str = attr.ib(default="i")
+    unit: str = attr.ib(default="c")
 
     # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
@@ -968,7 +968,7 @@ class EquidistantCylindrical(_Cylindrical):
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
-        Default is ``i``.
+        Default is ``c``.
     """
 
     central_longitude: float = attr.ib(default=180, kw_only=True)
