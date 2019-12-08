@@ -56,7 +56,6 @@ class _Projection:
     Base class for all projections.
     """
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(init=False, repr=False, default="{_code}")
     _code: str = attr.ib(init=False, repr=False, default=UNDEFINED)
 
@@ -93,7 +92,6 @@ class _Azimuthal(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -132,7 +130,6 @@ class _Cylindrical(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -169,7 +166,6 @@ class _Conic(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -197,7 +193,6 @@ class _Miscellaneous(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -225,7 +220,6 @@ class LambertAzimuthalEqualArea(_Azimuthal):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="A")
 
 
@@ -251,7 +245,6 @@ class AzimuthalEquidistant(_Azimuthal):
 
     horizon: float = attr.ib(default=180, kw_only=True)
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="E")
 
 
@@ -277,7 +270,6 @@ class AzimuthalGnomic(_Azimuthal):
 
     horizon: float = attr.ib(default=60, kw_only=True)
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="F")
 
     @horizon.validator
@@ -311,7 +303,6 @@ class AzimuthalOrthographic(_Azimuthal):
 
     horizon: float = attr.ib(default=90)
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="G")
 
     @horizon.validator
@@ -364,7 +355,6 @@ class GeneralPerspective(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -395,7 +385,6 @@ class GeneralSterographic(_Azimuthal):
 
     horizon: float = attr.ib(default=90, kw_only=True)
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="S")
 
     @horizon.validator
@@ -429,7 +418,6 @@ class AlbersConicEqualArea(_Conic):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="B")
 
 
@@ -455,7 +443,6 @@ class EquidistantConic(_Conic):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="JD")
 
 
@@ -477,7 +464,6 @@ class CassiniCylindrical(_Cylindrical):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="C")
 
 
@@ -502,7 +488,6 @@ class MercatorCylindrical(_Cylindrical):
     central_longitude: float = attr.ib(default=180, kw_only=True)
     central_latitude: float = attr.ib(default=0, kw_only=True)
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="M")
 
 
@@ -527,7 +512,6 @@ class CylindricalStereographic(_Cylindrical):
     central_longitude: float = attr.ib(default=180, kw_only=True)
     central_latitude: float = attr.ib(default=0, kw_only=True)
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="JCyl_stere/")
 
 
@@ -549,7 +533,6 @@ class CylindricalEqualArea(_Cylindrical):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="Y")
 
 
@@ -569,7 +552,6 @@ class HammerEqualArea(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="H")
 
 
@@ -589,7 +571,6 @@ class SinusoidalEqualArea(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="I")
 
 
@@ -609,7 +590,6 @@ class EckertIVEqualArea(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="Kf")
 
 
@@ -629,7 +609,6 @@ class EckertVIEqualArea(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="Ks")
 
 
@@ -649,7 +628,6 @@ class Robinson(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="N")
 
 
@@ -669,7 +647,6 @@ class WinkelTripel(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="R")
 
 
@@ -689,7 +666,6 @@ class Mollweide(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="W")
 
 
@@ -709,7 +685,6 @@ class VanDerGrinten(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="V")
 
 
@@ -735,7 +710,6 @@ class LambertConicConformal(_Conic):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="L")
 
 
@@ -762,7 +736,6 @@ class Polyconic(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -787,7 +760,6 @@ class Miller(_Miscellaneous):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="J")
 
 
@@ -816,7 +788,6 @@ class ObliqueMercator1(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -854,7 +825,6 @@ class ObliqueMercator2(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -892,7 +862,6 @@ class ObliqueMercator3(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -919,7 +888,6 @@ class TransverseMercator(_Cylindrical):
         Default is ``c``.
     """
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="T")
 
 
@@ -944,7 +912,6 @@ class UniversalTransverseMercator(_Projection):
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
-    # private; we don't want the user to care or know about
     _fmt: str = attr.ib(
         init=False,
         repr=False,
@@ -974,5 +941,4 @@ class EquidistantCylindrical(_Cylindrical):
     central_longitude: float = attr.ib(default=180, kw_only=True)
     central_latitude: float = attr.ib(default=0, kw_only=True)
 
-    # private; we don't want the user to care or know about
     _code: str = attr.ib(init=False, repr=False, default="Q")
