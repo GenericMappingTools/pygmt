@@ -115,6 +115,9 @@ class BasePlotting:
             ``'river[/pen]'``
             Draw rivers. Specify the type of rivers and [optionally] append pen
             attributes.
+        L : str
+            ``'[g|j|J|n|x]refpoint'``
+            Draws a simple map scale centered on the reference point specified.            
         N : str
             ``'border[/pen]'``
             Draw political boundaries. Specify the type of boundary and
