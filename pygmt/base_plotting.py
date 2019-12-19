@@ -64,6 +64,7 @@ class BasePlotting:
         B="frame",
         D="resolution",
         I="rivers",
+        L="map_scale",
         N="borders",
         W="shorelines",
         G="land",
@@ -117,7 +118,7 @@ class BasePlotting:
             attributes.
         L : str
             ``'[g|j|J|n|x]refpoint'``
-            Draws a simple map scale centered on the reference point specified.            
+            Draws a simple map scale centered on the reference point specified.
         N : str
             ``'border[/pen]'``
             Draw political boundaries. Specify the type of boundary and
