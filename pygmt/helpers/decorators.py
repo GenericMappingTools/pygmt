@@ -23,7 +23,7 @@ COMMON_OPTIONS = {
             *Required if this is the first plot command*.
             Select map projection.""",
     "B": """\
-        B : str
+        B : str or list
             Set map boundary frame and axes attributes.""",
     "U": """\
         U : bool or str
