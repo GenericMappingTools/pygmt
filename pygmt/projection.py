@@ -348,8 +348,8 @@ class GeneralPerspective(_Projection):
     azimuth: float = attr.ib()
     tilt: float = attr.ib()
     twist: float = attr.ib()
-    Width: float = attr.ib()
-    Height: float = attr.ib()
+    viewport_width: float = attr.ib()
+    viewport_height: float = attr.ib()
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
