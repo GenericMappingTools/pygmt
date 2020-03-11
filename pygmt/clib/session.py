@@ -987,7 +987,12 @@ class Session:
             valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
         )
 
-        buff = ctp.create_string_buffer(self["GMT_STR16"])
+        # The core GMT changes GMT_STR16 to GMT_VF_LEN in 6.1.0
+        # See https://github.com/GenericMappingTools/gmt/pull/2861
+        if Version(self.info["version"]) < Version("6.1.0"):
+            buff = ctp.create_string_buffer(self["GMT_STR16"])
+        else:
+            buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
 
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
