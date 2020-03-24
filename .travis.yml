@@ -33,6 +33,10 @@ env:
 matrix:
     # Build under the following configurations
     include:
+        - name: "Linux - Python 3.8"
+          os: linux
+          env:
+              - PYTHON=3.8
         - name: "Linux - Python 3.7"
           os: linux
           env:
