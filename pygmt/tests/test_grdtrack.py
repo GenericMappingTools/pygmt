@@ -19,7 +19,8 @@ TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
 
 def test_grdtrack_input_dataframe_and_dataarray():
     """
-    Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as inputs
+    Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
+    inputs
     """
     dataframe = load_ocean_ridge_points()
     dataarray = load_earth_relief().sel(lat=slice(-49, -42), lon=slice(-118, -107))
@@ -27,7 +28,7 @@ def test_grdtrack_input_dataframe_and_dataarray():
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2799.085897])
+    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2797.482959])
 
     return output
 
@@ -45,7 +46,7 @@ def test_grdtrack_input_csvfile_and_dataarray():
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2799.085897])
+        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2797.482959])
     finally:
         os.remove(path=TEMP_TRACK)
 
@@ -62,7 +63,7 @@ def test_grdtrack_input_dataframe_and_ncfile():
     output = grdtrack(points=dataframe, grid=ncfile, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1685.745884])
+    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1686.692142])
 
     return output
 
@@ -80,7 +81,7 @@ def test_grdtrack_input_csvfile_and_ncfile():
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-32.2971, 37.4118, -1685.745884])
+        npt.assert_allclose(track.iloc[0], [-32.2971, 37.4118, -1686.692142])
     finally:
         os.remove(path=TEMP_TRACK)
 
@@ -89,7 +90,8 @@ def test_grdtrack_input_csvfile_and_ncfile():
 
 def test_grdtrack_wrong_kind_of_points_input():
     """
-    Run grdtrack using points input that is not a pandas.DataFrame (matrix) or file
+    Run grdtrack using points input that is not a pandas.DataFrame (matrix) or
+    file
     """
     dataframe = load_ocean_ridge_points()
     invalid_points = dataframe.longitude.to_xarray()
@@ -102,7 +104,8 @@ def test_grdtrack_wrong_kind_of_points_input():
 
 def test_grdtrack_wrong_kind_of_grid_input():
     """
-    Run grdtrack using grid input that is not as xarray.DataArray (grid) or file
+    Run grdtrack using grid input that is not as xarray.DataArray (grid) or
+    file
     """
     dataframe = load_ocean_ridge_points()
     dataarray = load_earth_relief().sel(lat=slice(-49, -42), lon=slice(-118, -107))

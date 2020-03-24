@@ -40,7 +40,8 @@ def load_japan_quakes():
 
 def load_ocean_ridge_points():
     """
-    Load a table of ocean ridge points for the entire world as a pandas.DataFrame.
+    Load a table of ocean ridge points for the entire world as a
+    pandas.DataFrame.
 
     This is the ``@ridge.txt`` dataset used in the GMT tutorials.
 

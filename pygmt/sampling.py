@@ -20,35 +20,39 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     Sample grids at specified (x,y) locations.
 
     Grdtrack reads one or more grid files and a table with (x,y) [or (lon,lat)]
-    positions in the first two columns (more columns may be present). It interpolates
-    the grid(s) at the positions in the table and writes out the table with the
-    interpolated values added as (one or more) new columns. A bicubic [Default],
-    bilinear, B-spline or nearest-neighbor (see -n) interpolation is used, requiring
-    boundary conditions at the limits of the region.
+    positions in the first two columns (more columns may be present). It
+    interpolates the grid(s) at the positions in the table and writes out the
+    table with the interpolated values added as (one or more) new columns. A
+    bicubic [Default], bilinear, B-spline or nearest-neighbor (see -n)
+    interpolation is used, requiring boundary conditions at the limits of the
+    region.
 
     Full option list at :gmt-docs:`grdtrack.html`
 
     Parameters
     ----------
     points: pandas.DataFrame or file (csv, txt, etc)
-        Either a table with (x, y) or (lon, lat) values in the first two columns,
-        or a data file name. More columns may be present.
+        Either a table with (x, y) or (lon, lat) values in the first two
+        columns, or a data file name. More columns may be present.
 
     grid: xarray.DataArray or file (netcdf)
         Gridded array from which to sample values from.
 
     newcolname: str
-        Required if 'points' is a pandas.DataFrame. The name for the new column in the
-        track pandas.DataFrame table where the sampled values will be placed.
+        Required if 'points' is a pandas.DataFrame. The name for the new column
+        in the track pandas.DataFrame table where the sampled values will be
+        placed.
 
     outfile: str
-        Required if 'points' is a file. The file name for the output ASCII file.
+        Required if 'points' is a file. The file name for the output ASCII
+        file.
 
     Returns
     -------
     track: pandas.DataFrame or None
         Return type depends on whether the outfile parameter is set:
-        - pandas.DataFrame table with (x, y, ..., newcolname) if outfile is not set
+        - pandas.DataFrame table with (x, y, ..., newcolname) if outfile is not
+          set
         - None if outfile is set (track output will be stored in outfile)
 
     """
@@ -75,7 +79,8 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
             else:
                 raise GMTInvalidInput(f"Unrecognized data type {type(grid)}")
 
-            # Run grdtrack on the temp (csv) points table and (netcdf) grid virtualfiles
+            # Run grdtrack on the temporary (csv) points table
+            # and (netcdf) grid virtualfile
             with table_context as csvfile:
                 with grid_context as grdfile:
                     kwargs.update({"G": grdfile})
