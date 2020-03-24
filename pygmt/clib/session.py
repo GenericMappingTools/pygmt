@@ -1,6 +1,7 @@
 """
-Defines the Session class to create and destroy a GMT API session and provides access to
-the API functions. Uses ctypes to wrap most of the core functions from the C API.
+Defines the Session class to create and destroy a GMT API session and provides
+access to the API functions. Uses ctypes to wrap most of the core functions
+from the C API.
 """
 import sys
 import ctypes as ctp
@@ -60,29 +61,29 @@ class Session:
     """
     A GMT API session where most operations involving the C API happen.
 
-    Works as a context manager (for use in a ``with`` block) to create a GMT C API
-    session and destroy it in the end to clean up memory.
+    Works as a context manager (for use in a ``with`` block) to create a GMT C
+    API session and destroy it in the end to clean up memory.
 
-    Functions of the shared library are exposed as methods of this class. Most methods
-    MUST be used with an open session (inside a ``with`` block). If creating GMT data
-    structures to communicate data, put that code inside the same ``with`` block as the
-    API calls that will use the data.
+    Functions of the shared library are exposed as methods of this class. Most
+    methods MUST be used with an open session (inside a ``with`` block). If
+    creating GMT data structures to communicate data, put that code inside the
+    same ``with`` block as the API calls that will use the data.
 
-    By default, will let :mod:`ctypes` try to find the GMT shared library (``libgmt``).
-    If the environment variable ``GMT_LIBRARY_PATH`` is set, will look for the shared
-    library in the directory specified by it.
+    By default, will let :mod:`ctypes` try to find the GMT shared library
+    (``libgmt``). If the environment variable ``GMT_LIBRARY_PATH`` is set, will
+    look for the shared library in the directory specified by it.
 
-    A ``GMTVersionError`` exception will be raised if the GMT shared library reports a
-    version < 6.0.0.
+    A ``GMTVersionError`` exception will be raised if the GMT shared library
+    reports a version < 6.0.0.
 
-    The ``session_pointer`` attribute holds a ctypes pointer to the currently open
-    session.
+    The ``session_pointer`` attribute holds a ctypes pointer to the currently
+    open session.
 
     Raises
     ------
     GMTCLibNotFoundError
-        If there was any problem loading the library (couldn't find it or couldn't
-        access the functions).
+        If there was any problem loading the library (couldn't find it or
+        couldn't access the functions).
     GMTCLibNoSessionError
         If you try to call a method outside of a 'with' block.
     GMTVersionError
@@ -96,18 +97,21 @@ class Session:
     >>> grid = load_earth_relief()
     >>> type(grid)
     <class 'xarray.core.dataarray.DataArray'>
-    >>> # Create a session and destroy it automatically when exiting the "with" block.
+    >>> # Create a session and destroy it automatically when exiting the "with"
+    >>> # block.
     >>> with Session() as ses:
     ...     # Create a virtual file and link to the memory block of the grid.
     ...     with ses.virtualfile_from_grid(grid) as fin:
     ...         # Create a temp file to use as output.
     ...         with GMTTempFile() as fout:
-    ...             # Call the grdinfo module with the virtual file as input and the.
-    ...             # temp file as output.
-    ...             ses.call_module("grdinfo", "{} -C ->{}".format(fin, fout.name))
+    ...             # Call the grdinfo module with the virtual file as input
+    ...             # and the temp file as output.
+    ...             ses.call_module(
+    ...                 "grdinfo", "{} -C ->{}".format(fin, fout.name)
+    ...             )
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
-    -180 180 -90 90 -8596 5559 1 1 361 181
+    -180 180 -90 90 -8592 5559 1 1 361 181
     """
 
     # The minimum version of GMT required
@@ -165,13 +169,14 @@ class Session:
         Raises
         ------
         GMTVersionError
-            If the version reported by libgmt is less than ``Session.required_version``.
-            Will destroy the session before raising the exception.
+            If the version reported by libgmt is less than
+            ``Session.required_version``. Will destroy the session before
+            raising the exception.
 
         """
         self.create("pygmt-session")
-        # Need to store the version info because 'get_default' won't work after the
-        # session is destroyed.
+        # Need to store the version info because 'get_default' won't work after
+        # the session is destroyed.
         version = self.info["version"]
         if Version(version) < Version(self.required_version):
             self.destroy()
@@ -194,7 +199,8 @@ class Session:
         """
         Get the value of a GMT constant (C enum) from gmt_resources.h
 
-        Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.
+        Used to set configuration values for other API calls. Wraps
+        ``GMT_Get_Enum``.
 
         Parameters
         ----------
@@ -204,8 +210,8 @@ class Session:
         Returns
         -------
         constant : int
-            Integer value of the constant. Do not rely on this value because it might
-            change.
+            Integer value of the constant. Do not rely on this value because it
+            might change.
 
         Raises
         ------
@@ -217,11 +223,11 @@ class Session:
             "GMT_Get_Enum", argtypes=[ctp.c_void_p, ctp.c_char_p], restype=ctp.c_int
         )
 
-        # The C lib introduced the void API pointer to GMT_Get_Enum so that it's
-        # consistent with other functions. It doesn't use the pointer so we can pass in
-        # None (NULL pointer). We can't give it the actual pointer because we need to
-        # call GMT_Get_Enum when creating a new API session pointer (chicken-and-egg
-        # type of thing).
+        # The C lib introduced the void API pointer to GMT_Get_Enum so that
+        # it's consistent with other functions. It doesn't use the pointer so
+        # we can pass in None (NULL pointer). We can't give it the actual
+        # pointer because we need to call GMT_Get_Enum when creating a new API
+        # session pointer (chicken-and-egg type of thing).
         session = None
 
         value = c_get_enum(session, name.encode())
@@ -279,21 +285,22 @@ class Session:
         """
         Create a new GMT C API session.
 
-        This is required before most other methods of :class:`pygmt.clib.Session` can be
-        called.
+        This is required before most other methods of
+        :class:`pygmt.clib.Session` can be called.
 
         .. warning::
 
-            Usage of :class:`~gmt.clib.Session` as a context manager in a ``with`` block
-            is preferred over calling :meth:`~gmt.clib.Session.create` and
+            Usage of :class:`~gmt.clib.Session` as a context manager in a
+            ``with`` block is preferred over calling
+            :meth:`~gmt.clib.Session.create` and
             :meth:`~gmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL`` struct, which
-        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to
-        this pointer.
+        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL``
+        struct, which is a :class:`ctypes.c_void_p` pointer. Sets the
+        ``session_pointer`` attribute to this pointer.
 
-        Remember to terminate the current session using :meth:`pygmt.clib.Session.destroy`
-        before creating a new one.
+        Remember to terminate the current session using
+        :meth:`pygmt.clib.Session.destroy` before creating a new one.
 
         Parameters
         ----------
@@ -304,13 +311,14 @@ class Session:
         try:
             # Won't raise an exception if there is a currently open session
             self.session_pointer  # pylint: disable=pointless-statement
-            # In this case, fail to create a new session until the old one is destroyed
+            # In this case, fail to create a new session until the old one is
+            # destroyed
             raise GMTCLibError(
                 "Failed to create a GMT API session: There is a currently open session."
                 " Must destroy it fist."
             )
-        # If the exception is raised, this means that there is no open session and we're
-        # free to create a new one.
+        # If the exception is raised, this means that there is no open session
+        # and we're free to create a new one.
         except GMTCLibNoSessionError:
             pass
 
@@ -320,25 +328,26 @@ class Session:
             restype=ctp.c_void_p,
         )
 
-        # Capture the output printed by GMT into this list. Will use it later to
-        # generate error messages for the exceptions raised by API calls.
+        # Capture the output printed by GMT into this list. Will use it later
+        # to generate error messages for the exceptions raised by API calls.
         self._error_log = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # pylint: disable=unused-argument
             """
-            Callback function that the GMT C API will use to print log and error
-            messages. We'll capture the messages and print them to stderr so that they
-            will show up on the Jupyter notebook.
+            Callback function that the GMT C API will use to print log and
+            error messages. We'll capture the messages and print them to stderr
+            so that they will show up on the Jupyter notebook.
             """
             message = message.decode().strip()
             self._error_log.append(message)
-            # flush to make sure the messages are printed even if we have a crash.
+            # flush to make sure the messages are printed even if we have a
+            # crash.
             print(message, file=sys.stderr, flush=True)
             return 0
 
-        # Need to store a copy of the function because ctypes doesn't and it will be
-        # garbage collected otherwise
+        # Need to store a copy of the function because ctypes doesn't and it
+        # will be garbage collected otherwise
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
@@ -371,17 +380,19 @@ class Session:
 
         .. warning::
 
-            Usage of :class:`~gmt.clib.Session` as a context manager in a ``with`` block
-            is preferred over calling :meth:`~gmt.clib.Session.create` and
+            Usage of :class:`~gmt.clib.Session` as a context manager in a
+            ``with`` block is preferred over calling
+            :meth:`~gmt.clib.Session.create` and
             :meth:`~gmt.clib.Session.destroy` manually.
 
-        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a registered
-        ``GMTAPI_CTRL`` session (the pointer for this struct is stored in the
-        ``session_pointer`` attribute).
+        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a
+        registered ``GMTAPI_CTRL`` session (the pointer for this struct is
+        stored in the ``session_pointer`` attribute).
 
-        Always use this method after you are done using a C API session. The session
-        needs to be destroyed before creating a new one. Otherwise, some of the
-        configuration files might be left behind and can influence subsequent API calls.
+        Always use this method after you are done using a C API session. The
+        session needs to be destroyed before creating a new one. Otherwise,
+        some of the configuration files might be left behind and can influence
+        subsequent API calls.
 
         Sets the ``session_pointer`` attribute to ``None``.
         """
@@ -893,8 +904,8 @@ class Session:
 
         GMT uses a virtual file scheme to pass in data to API modules. Use it
         to pass in your GMT data structure (created using
-        :meth:`~gmt.clib.Session.create_data`) to a module that expects an input
-        or output file.
+        :meth:`~gmt.clib.Session.create_data`) to a module that expects an
+        input or output file.
 
         Use in a ``with`` block. Will automatically close the virtual file when
         leaving the ``with`` block. Because of this, no wrapper for
@@ -976,7 +987,12 @@ class Session:
             valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
         )
 
-        buff = ctp.create_string_buffer(self["GMT_STR16"])
+        # The core GMT changes GMT_STR16 to GMT_VF_LEN in 6.1.0
+        # See https://github.com/GenericMappingTools/gmt/pull/2861
+        if Version(self.info["version"]) < Version("6.1.0"):
+            buff = ctp.create_string_buffer(self["GMT_STR16"])
+        else:
+            buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
 
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
@@ -999,30 +1015,33 @@ class Session:
         """
         Store 1d arrays as columns of a table inside a virtual file.
 
-        Use the virtual file name to pass in the data in your vectors to a GMT module.
+        Use the virtual file name to pass in the data in your vectors to a GMT
+        module.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name that you
-        can pass as an argument to a GMT module call. Closes the virtual file upon exit
-        of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name
+        that you can pass as an argument to a GMT module call. Closes the
+        virtual file upon exit of the ``with`` block.
 
-        Use this instead of creating the data container and virtual file by hand with
-        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_vector`, and
+        Use this instead of creating the data container and virtual file by
+        hand with :meth:`~gmt.clib.Session.create_data`,
+        :meth:`~gmt.clib.Session.put_vector`, and
         :meth:`~gmt.clib.Session.open_virtual_file`.
 
-        If the arrays are C contiguous blocks of memory, they will be passed without
-        copying to GMT. If they are not (e.g., they are columns of a 2D array), they
-        will need to be copied to a contiguous block.
+        If the arrays are C contiguous blocks of memory, they will be passed
+        without copying to GMT. If they are not (e.g., they are columns of a 2D
+        array), they will need to be copied to a contiguous block.
 
         Parameters
         ----------
         vectors : 1d arrays
-            The vectors that will be included in the array. All must be of the same
-            size.
+            The vectors that will be included in the array. All must be of the
+            same size.
 
         Yields
         ------
         fname : str
-            The name of virtual file. Pass this as a file name argument to a GMT module.
+            The name of virtual file. Pass this as a file name argument to a
+            GMT module.
 
         Examples
         --------
@@ -1037,17 +1056,19 @@ class Session:
         ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module('info', '{} ->{}'.format(fin, fout.name))
+        ...             ses.call_module(
+        ...                 'info', '{} ->{}'.format(fin, fout.name)
+        ...             )
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
-        # because we need to maintain a reference to the copy while it is being used by
-        # the C API. Otherwise, the array would be garbage collected and the memory
-        # freed. Creating it in this context manager guarantees that the copy will be
-        # around until the virtual file is closed. The conversion is implicit in
-        # vectors_to_arrays.
+        # Conversion to a C-contiguous array needs to be done here and not in
+        # put_matrix because we need to maintain a reference to the copy while
+        # it is being used by the C API. Otherwise, the array would be garbage
+        # collected and the memory freed. Creating it in this context manager
+        # guarantees that the copy will be around until the virtual file is
+        # closed. The conversion is implicit in vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
@@ -1073,25 +1094,27 @@ class Session:
         """
         Store a 2d array as a table inside a virtual file.
 
-        Use the virtual file name to pass in the data in your matrix to a GMT module.
+        Use the virtual file name to pass in the data in your matrix to a GMT
+        module.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name that you
-        can pass as an argument to a GMT module call. Closes the virtual file upon exit
-        of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name
+        that you can pass as an argument to a GMT module call. Closes the
+        virtual file upon exit of the ``with`` block.
 
-        The virtual file will contain the array as a ``GMT_MATRIX`` pretending to be a
-        ``GMT_DATASET``.
+        The virtual file will contain the array as a ``GMT_MATRIX`` pretending
+        to be a ``GMT_DATASET``.
 
-        **Not meant for creating ``GMT_GRID``**. The grid requires more metadata than
-        just the data matrix. Use :meth:`~gmt.clib.Session.virtualfile_from_grid`
-        instead.
+        **Not meant for creating ``GMT_GRID``**. The grid requires more
+        metadata than just the data matrix. Use
+        :meth:`~gmt.clib.Session.virtualfile_from_grid` instead.
 
-        Use this instead of creating the data container and virtual file by hand with
-        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_matrix`, and
+        Use this instead of creating the data container and virtual file by
+        hand with :meth:`~gmt.clib.Session.create_data`,
+        :meth:`~gmt.clib.Session.put_matrix`, and
         :meth:`~gmt.clib.Session.open_virtual_file`
 
-        The matrix must be C contiguous in memory. If it is not (e.g., it is a slice of
-        a larger array), the array will be copied to make sure it is.
+        The matrix must be C contiguous in memory. If it is not (e.g., it is a
+        slice of a larger array), the array will be copied to make sure it is.
 
         Parameters
         ----------
@@ -1101,7 +1124,8 @@ class Session:
         Yields
         ------
         fname : str
-            The name of virtual file. Pass this as a file name argument to a GMT module.
+            The name of virtual file. Pass this as a file name argument to a
+            GMT module.
 
         Examples
         --------
@@ -1118,16 +1142,19 @@ class Session:
         ...     with ses.virtualfile_from_matrix(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module('info', '{} ->{}'.format(fin, fout.name))
+        ...             ses.call_module(
+        ...                 'info', '{} ->{}'.format(fin, fout.name)
+        ...             )
         ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
-        # because we need to maintain a reference to the copy while it is being used by
-        # the C API. Otherwise, the array would be garbage collected and the memory
-        # freed. Creating it in this context manager guarantees that the copy will be
-        # around until the virtual file is closed.
+        # Conversion to a C-contiguous array needs to be done here and not in
+        # put_matrix because we need to maintain a reference to the copy while
+        # it is being used by the C API. Otherwise, the array would be garbage
+        # collected and the memory freed. Creating it in this context manager
+        # guarantees that the copy will be around until the virtual file is
+        # closed.
         matrix = as_c_contiguous(matrix)
         rows, columns = matrix.shape
 
@@ -1148,21 +1175,24 @@ class Session:
         """
         Store a grid in a virtual file.
 
-        Use the virtual file name to pass in the data in your grid to a GMT module.
-        Grids must be :class:`xarray.DataArray` instances.
+        Use the virtual file name to pass in the data in your grid to a GMT
+        module. Grids must be :class:`xarray.DataArray` instances.
 
-        Context manager (use in a ``with`` block). Yields the virtual file name that you
-        can pass as an argument to a GMT module call. Closes the virtual file upon exit
-        of the ``with`` block.
+        Context manager (use in a ``with`` block). Yields the virtual file name
+        that you can pass as an argument to a GMT module call. Closes the
+        virtual file upon exit of the ``with`` block.
 
-        The virtual file will contain the grid as a ``GMT_MATRIX`` with extra metadata.
+        The virtual file will contain the grid as a ``GMT_MATRIX`` with extra
+        metadata.
 
-        Use this instead of creating a data container and virtual file by hand with
-        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_matrix`, and
+        Use this instead of creating a data container and virtual file by hand
+        with :meth:`~gmt.clib.Session.create_data`,
+        :meth:`~gmt.clib.Session.put_matrix`, and
         :meth:`~gmt.clib.Session.open_virtual_file`
 
-        The grid data matrix must be C contiguous in memory. If it is not (e.g., it is a
-        slice of a larger array), the array will be copied to make sure it is.
+        The grid data matrix must be C contiguous in memory. If it is not
+        (e.g., it is a slice of a larger array), the array will be copied to
+        make sure it is.
 
         Parameters
         ----------
@@ -1172,7 +1202,8 @@ class Session:
         Yields
         ------
         fname : str
-            The name of virtual file. Pass this as a file name argument to a GMT module.
+            The name of virtual file. Pass this as a file name argument to a
+            GMT module.
 
         Examples
         --------
@@ -1187,7 +1218,7 @@ class Session:
         >>> print(data.lat.values.min(), data.lat.values.max())
         -90.0 90.0
         >>> print(data.values.min(), data.values.max())
-        -8596.0 5559.0
+        -8592.0 5559.0
         >>> with Session() as ses:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
@@ -1195,16 +1226,16 @@ class Session:
         ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
         ...             ses.call_module('grdinfo', args)
         ...             print(fout.read().strip())
-        -180 180 -90 90 -8596 5559 1 1 361 181
+        -180 180 -90 90 -8592 5559 1 1 361 181
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """
-        # Conversion to a C-contiguous array needs to be done here and not in put_matrix
-        # because we need to maintain a reference to the copy while it is being used by
-        # the C API. Otherwise, the array would be garbage collected and the memory
-        # freed. Creating it in this context manager guarantees that the copy will be
-        # around until the virtual file is closed. The conversion is implicit in
-        # dataarray_to_matrix.
+        # Conversion to a C-contiguous array needs to be done here and not in
+        # put_matrix because we need to maintain a reference to the copy while
+        # it is being used by the C API. Otherwise, the array would be garbage
+        # collected and the memory freed. Creating it in this context manager
+        # guarantees that the copy will be around until the virtual file is
+        # closed. The conversion is implicit in dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid)
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"

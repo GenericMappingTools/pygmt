@@ -95,8 +95,9 @@ def load_usgs_quakes():
 
     Returns
     -------
-    data :  pandas.Dataframe
-        The data table. Use ``print(data.describe())`` to see the available columns.
+    data : pandas.Dataframe
+        The data table. Use ``print(data.describe())`` to see the available
+        columns.
 
     """
     fname = which("@usgs_quakes_22.txt", download="c")
