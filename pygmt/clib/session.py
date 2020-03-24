@@ -111,7 +111,7 @@ class Session:
     ...             )
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
-    -180 180 -90 90 -8596 5559 1 1 361 181
+    -180 180 -90 90 -8592 5559 1 1 361 181
     """
 
     # The minimum version of GMT required
@@ -1218,7 +1218,7 @@ class Session:
         >>> print(data.lat.values.min(), data.lat.values.max())
         -90.0 90.0
         >>> print(data.values.min(), data.values.max())
-        -8596.0 5559.0
+        -8592.0 5559.0
         >>> with Session() as ses:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
@@ -1226,7 +1226,7 @@ class Session:
         ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
         ...             ses.call_module('grdinfo', args)
         ...             print(fout.read().strip())
-        -180 180 -90 90 -8596 5559 1 1 361 181
+        -180 180 -90 90 -8592 5559 1 1 361 181
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """
