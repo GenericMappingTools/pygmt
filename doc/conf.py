@@ -144,7 +144,7 @@ html_context = {
         ),
         (
             '<i class="fa fa-comment fa-fw"></i> Contact',
-            "https://gitter.im/GenericMappingTools/pygmt",
+            "https://forum.generic-mapping-tools.org",
         ),
         (
             '<i class="fa fa-github fa-fw"></i> Source Code',
