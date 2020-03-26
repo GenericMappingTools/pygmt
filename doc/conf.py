@@ -62,6 +62,7 @@ sphinx_gallery_conf = {
         [
             "../examples/gallery/coast",
             "../examples/gallery/plot",
+            "../examples/gallery/grid",
             "../examples/projections/azim",
             "../examples/projections/conic",
             "../examples/projections/cyl",
