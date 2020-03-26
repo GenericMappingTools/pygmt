@@ -336,7 +336,7 @@ class BasePlotting:
         p="perspective",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
-    def grdview(self, reliefgrid, **kwargs):
+    def grdview(self, grid, **kwargs):
         """
         Create 3-D perspective image or surface mesh from a grid.
 
@@ -351,7 +351,7 @@ class BasePlotting:
 
         Parameters
         ----------
-        reliefgrid : str or xarray.DataArray
+        grid : str or xarray.DataArray
             The file name of the input relief grid or the grid loaded as a
             DataArray.
 
@@ -363,11 +363,10 @@ class BasePlotting:
 
         drapegrid : str or xarray.DataArray
             The file name or a DataArray of the image grid to be draped on top
-            of the relief provided by reliefgrid. [Default determines colors
-            from reliefgrid]. Note that -Jz and -N always refers to the
-            reliefgrid. The drapegrid only provides the information pertaining
-            to colors, which (if drapegrid is a grid) will be looked-up via the
-            CPT (see -C).
+            of the relief provided by grid. [Default determines colors from
+            grid]. Note that -Jz and -N always refers to the grid. The
+            drapegrid only provides the information pertaining to colors, which
+            (if drapegrid is a grid) will be looked-up via the CPT (see -C).
 
         plane : float or str
             ``level[+gfill]``.
@@ -376,7 +375,7 @@ class BasePlotting:
             facade between the plane and the data perimeter is colored.
 
         surftype : str
-            Specifies cover type of the reliefgrid.
+            Specifies cover type of the grid.
             Select one of following settings:
             1. 'm' for mesh plot [Default].
             2. 'mx' or 'my' for waterfall plots (row or column profiles).
@@ -403,16 +402,14 @@ class BasePlotting:
         {aliases}
         """
         kwargs = self._preprocess(**kwargs)
-        kind = data_kind(reliefgrid, None, None)
+        kind = data_kind(grid, None, None)
         with Session() as lib:
             if kind == "file":
-                file_context = dummy_context(reliefgrid)
+                file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(reliefgrid)
+                file_context = lib.virtualfile_from_grid(grid)
             else:
-                raise GMTInvalidInput(
-                    f"Unrecognized data type for reliefgrid: {type(reliefgrid)}"
-                )
+                raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
 
             with contextlib.ExitStack() as stack:
                 fname = stack.enter_context(file_context)
