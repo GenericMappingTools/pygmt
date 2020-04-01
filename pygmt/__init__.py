@@ -2,10 +2,10 @@
 #
 # The main API for PyGMT.
 #
-# All of PyGMT is operated on a "modern mode session" (new to GMT6). When you import the
-# pygmt library, a new session will be started automatically. The session will be
-# closed when the current Python process terminates. Thus, the Python API does not
-# expose the `gmt begin` and `gmt end` commands.
+# All of PyGMT is operated on a "modern mode session" (new to GMT6). When you
+# import the pygmt library, a new session will be started automatically. The
+# session will be closed when the current Python process terminates. Thus, the
+# Python API does not expose the `gmt begin` and `gmt end` commands.
 
 import atexit as _atexit
 
@@ -15,6 +15,7 @@ from ._version import get_versions as _get_versions
 from .session_management import begin as _begin, end as _end
 from .figure import Figure
 from .gridding import surface
+from .sampling import grdtrack
 from .mathops import makecpt
 from .modules import config, info, grdinfo, which
 from . import datasets
@@ -34,8 +35,8 @@ def print_clib_info():
     """
     Print information about the GMT shared library that we can find.
 
-    Includes the GMT version, default values for parameters, the path to the ``libgmt``
-    shared library, and GMT directories.
+    Includes the GMT version, default values for parameters, the path to the
+    ``libgmt`` shared library, and GMT directories.
     """
     from .clib import Session
 

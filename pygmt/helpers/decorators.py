@@ -23,7 +23,7 @@ COMMON_OPTIONS = {
             *Required if this is the first plot command*.
             Select map projection.""",
     "B": """\
-        B : str
+        B : str or list
             Set map boundary frame and axes attributes.""",
     "U": """\
         U : bool or str
@@ -221,7 +221,9 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     Examples
     --------
 
-    >>> @kwargs_to_strings(R='sequence', i='sequence_comma', files='sequence_space')
+    >>> @kwargs_to_strings(
+    ...     R='sequence', i='sequence_comma', files='sequence_space'
+    ... )
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print('{', end='')

@@ -2,6 +2,7 @@
 Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
+import contextlib
 import csv
 import os
 import numpy as np
@@ -36,8 +37,8 @@ class BasePlotting:
         insert special arguments into the kwargs or make any actions that are
         required before ``call_module``.
 
-        For example, the :class:`pygmt.Figure` needs this to tell the GMT modules
-        to plot to a specific figure.
+        For example, the :class:`pygmt.Figure` needs this to tell the GMT
+        modules to plot to a specific figure.
 
         This is a dummy method that does nothing.
 
@@ -64,6 +65,7 @@ class BasePlotting:
         B="frame",
         D="resolution",
         I="rivers",
+        L="map_scale",
         N="borders",
         W="shorelines",
         G="land",
@@ -115,6 +117,9 @@ class BasePlotting:
             ``'river[/pen]'``
             Draw rivers. Specify the type of rivers and [optionally] append pen
             attributes.
+        L : str
+            ``'[g|j|J|n|x]refpoint'``
+            Draws a simple map scale centered on the reference point specified.
         N : str
             ``'border[/pen]'``
             Draw political boundaries. Specify the type of boundary and
@@ -147,65 +152,61 @@ class BasePlotting:
         """
         Plot a gray or color scale-bar on maps.
 
-        Both horizontal and vertical scales are supported. For CPTs with gradational
-        colors (i.e., the lower and upper boundary of an interval have different colors)
-        we will interpolate to give a continuous scale. Variations in intensity due to
-        shading/illumination may be displayed by setting the option -I. Colors may be
-        spaced according to a linear scale, all be equal size, or by providing a file
-        with individual tile widths.
+        Both horizontal and vertical scales are supported. For CPTs with
+        gradational colors (i.e., the lower and upper boundary of an interval
+        have different colors) we will interpolate to give a continuous scale.
+        Variations in intensity due to shading/illumination may be displayed by
+        setting the option -I. Colors may be spaced according to a linear
+        scale, all be equal size, or by providing a file with individual tile
+        widths.
 
         Full option list at :gmt-docs:`colorbar.html`
+
+        {aliases}
 
         Parameters
         ----------
         position (D) : str
-            ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v][+jjustify]
-            [+m[a|c|l|u]][+n[txt]][+odx[/dy]]``.
-            Defines the reference point on the map for the color scale using one of four
-            coordinate systems:
-            (1) Use -Dg for map (user) coordinates,
-            (2) use -Dj or -DJ for setting refpoint via a 2-char justification code that
-            refers to the (invisible) map domain rectangle,
-            (3) use -Dn for normalized (0-1) coordinates, or
-            (4) use -Dx for plot coordinates (inches, cm, etc.).\
-            All but -Dx requires both -R and -J to be specified.
-            Append +w followed by the length and width of the color bar.
-            If width is not specified then it is set to 4% of the given length.
-            Give a negative length to reverse the scale bar.
-            Append +h to get a horizontal scale [Default is vertical (+v)].
-            By default, the anchor point on the scale is assumed to be the bottom left
-            corner (BL), but this can be changed by appending +j followed by a 2-char
-            justification code justify.
-
+            ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]
+            [+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]``. Defines the
+            reference point on the map for the color scale using one of four
+            coordinate systems: (1) Use -Dg for map (user) coordinates, (2) use
+            -Dj or -DJ for setting refpoint via a 2-char justification code
+            that refers to the (invisible) map domain rectangle, (3) use -Dn
+            for normalized (0-1) coordinates, or (4) use -Dx for plot
+            coordinates (inches, cm, etc.). All but -Dx requires both -R and
+            -J to be specified. Append +w followed by the length and width of
+            the color bar. If width is not specified then it is set to 4% of
+            the given length. Give a negative length to reverse the scale bar.
+            Append +h to get a horizontal scale [Default is vertical (+v)]. By
+            default, the anchor point on the scale is assumed to be the bottom
+            left corner (BL), but this can be changed by appending +j followed
+            by a 2-char justification code justify.
         box (F) : bool or str
-            ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/]
-            [shade]]]``.
-            If set to True, draws a rectangular border around the color scale.
-            Alternatively, specify a different pen with +ppen.
-            Add +gfill to fill the scale panel [no fill].
+            ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
+            [+s[[dx/dy/][shade]]]``. If set to True, draws a rectangular
+            border around the color scale. Alternatively, specify a different
+            pen with +ppen. Add +gfill to fill the scale panel [no fill].
             Append +cclearance where clearance is either gap, xgap/ygap, or
-            lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
-            y-direction, or individual side spacings between scale and border.
-            Append +i to draw a secondary, inner border as well. We use a uniform gap
-            between borders of 2p and the MAP_DEFAULTS_PEN unless other values are
-            specified.
-            Append +r to draw rounded rectangular borders instead, with a 6p corner
-            radius. You can override this radius by appending another value.
-            Finally, append +s to draw an offset background shaded region. Here, dx/dy
-            indicates the shift relative to the foreground frame [4p/-4p] and shade sets
-            the fill style to use for shading [gray50].
-
+            lgap/rgap/bgap/tgap where these items are uniform, separate in x-
+            and y-direction, or individual side spacings between scale and
+            border. Append +i to draw a secondary, inner border as well. We use
+            a uniform gap between borders of 2p and the MAP_DEFAULTS_PEN unless
+            other values are specified. Append +r to draw rounded rectangular
+            borders instead, with a 6p corner radius. You can override this
+            radius by appending another value. Finally, append +s to draw an
+            offset background shaded region. Here, dx/dy indicates the shift
+            relative to the foreground frame [4p/-4p] and shade sets the fill
+            style to use for shading [gray50].
         truncate (G) : list or str
-            ``zlo/zhi``
-            Truncate the incoming CPT so that the lowest and highest z-levels are to zlo
-            and zhi. If one of these equal NaN then we leave that end of the CPT alone.
-            The truncation takes place before the plotting.
-
+            ``zlo/zhi`` Truncate the incoming CPT so that the lowest and
+            highest z-levels are to zlo and zhi. If one of these equal NaN then
+            we leave that end of the CPT alone. The truncation takes place
+            before the plotting.
         scale (W) : float
-            Multiply all z-values in the CPT by the provided scale. By default the CPT
-            is used as is.
+            Multiply all z-values in the CPT by the provided scale. By default
+            the CPT is used as is.
 
-        {aliases}
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
@@ -322,6 +323,114 @@ class BasePlotting:
     @use_alias(
         R="region",
         J="projection",
+        Jz="zscale",
+        JZ="zsize",
+        B="frame",
+        C="cmap",
+        G="drapegrid",
+        N="plane",
+        Q="surftype",
+        Wc="contourpen",
+        Wm="meshpen",
+        Wf="facadepen",
+        p="perspective",
+    )
+    @kwargs_to_strings(R="sequence", p="sequence")
+    def grdview(self, grid, **kwargs):
+        """
+        Create 3-D perspective image or surface mesh from a grid.
+
+        Reads a 2-D grid file and produces a 3-D perspective plot by drawing a
+        mesh, painting a colored/gray-shaded surface made up of polygons, or by
+        scanline conversion of these polygons to a raster image. Options
+        include draping a data set on top of a surface, plotting of contours on
+        top of the surface, and apply artificial illumination based on
+        intensities provided in a separate grid file.
+
+        Full option list at :gmt-docs:`grdview.html`
+
+        Parameters
+        ----------
+        grid : str or xarray.DataArray
+            The file name of the input relief grid or the grid loaded as a
+            DataArray.
+
+        zscale/zsize : float or str
+            Set z-axis scaling or z-axis size.
+
+        cmap : str
+            The name of the color palette table to use.
+
+        drapegrid : str or xarray.DataArray
+            The file name or a DataArray of the image grid to be draped on top
+            of the relief provided by grid. [Default determines colors from
+            grid]. Note that -Jz and -N always refers to the grid. The
+            drapegrid only provides the information pertaining to colors, which
+            (if drapegrid is a grid) will be looked-up via the CPT (see -C).
+
+        plane : float or str
+            ``level[+gfill]``.
+            Draws a plane at this z-level. If the optional color is provided
+            via the +g modifier, and the projection is not oblique, the frontal
+            facade between the plane and the data perimeter is colored.
+
+        surftype : str
+            Specifies cover type of the grid.
+            Select one of following settings:
+            1. 'm' for mesh plot [Default].
+            2. 'mx' or 'my' for waterfall plots (row or column profiles).
+            3. 's' for surface plot.
+            4. 'i' for image plot.
+            5. 'c'. Same as 'i' but will make nodes with z = NaN transparent.
+            For any of these choices, you may force a monochrome image by
+            appending the modifier +m.
+
+        contourpen : str
+            Draw contour lines on top of surface or mesh (not image). Append
+            pen attributes used for the contours.
+        meshpen : str
+            Sets the pen attributes used for the mesh. You must also select -Qm
+            or -Qsm for meshlines to be drawn.
+        facadepen :str
+            Sets the pen attributes used for the facade. You must also select
+            -N for the facade outline to be drawn.
+
+        perspective : list or str
+            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
+            Select perspective view.
+
+        {aliases}
+        """
+        kwargs = self._preprocess(**kwargs)
+        kind = data_kind(grid, None, None)
+        with Session() as lib:
+            if kind == "file":
+                file_context = dummy_context(grid)
+            elif kind == "grid":
+                file_context = lib.virtualfile_from_grid(grid)
+            else:
+                raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
+
+            with contextlib.ExitStack() as stack:
+                fname = stack.enter_context(file_context)
+                if "G" in kwargs:
+                    drapegrid = kwargs["G"]
+                    if data_kind(drapegrid) in ("file", "grid"):
+                        if data_kind(drapegrid) == "grid":
+                            drape_context = lib.virtualfile_from_grid(drapegrid)
+                            drapefile = stack.enter_context(drape_context)
+                            kwargs["G"] = drapefile
+                    else:
+                        raise GMTInvalidInput(
+                            f"Unrecognized data type for drapegrid: {type(drapegrid)}"
+                        )
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("grdview", arg_str)
+
+    @fmt_docstring
+    @use_alias(
+        R="region",
+        J="projection",
         B="frame",
         S="style",
         G="color",
@@ -361,8 +470,9 @@ class BasePlotting:
 
         Parameters
         ----------
-        x, y : 1d arrays
-            Arrays of x and y coordinates of the data points.
+        x, y : float or 1d arrays
+            The x and y coordinates, or arrays of x and y coordinates of the
+            data points
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
             Use option *columns* (i) to choose which columns are x, y, color,
@@ -426,7 +536,9 @@ class BasePlotting:
             elif kind == "matrix":
                 file_context = lib.virtualfile_from_matrix(data)
             elif kind == "vectors":
-                file_context = lib.virtualfile_from_vectors(x, y, *extra_arrays)
+                file_context = lib.virtualfile_from_vectors(
+                    np.atleast_1d(x), np.atleast_1d(y), *extra_arrays
+                )
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
@@ -592,7 +704,8 @@ class BasePlotting:
         """
         Place images or EPS files on maps.
 
-        Reads an Encapsulated PostScript file or a raster image file and plots it on a map.
+        Reads an Encapsulated PostScript file or a raster image file and plots
+        it on a map.
 
         Full option list at :gmt-docs:`image.html`
 
@@ -603,12 +716,13 @@ class BasePlotting:
         {J}
         {R}
         D: str
-            ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify][+nnx[/ny]][+odx[/dy]]'``
-            Sets reference point on the map for the image.
+            ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify]
+            [+nnx[/ny]][+odx[/dy]]'`` Sets reference point on the map for the
+            image.
         F : bool or str
-            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
-            Without further options, draws a rectangular border around the
-            image using **MAP_FRAME_PEN**.
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
+            [+s[[dx/dy/][shade]]]'`` Without further options, draws a
+            rectangular border around the image using **MAP_FRAME_PEN**.
         M : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
@@ -621,13 +735,13 @@ class BasePlotting:
     @fmt_docstring
     @use_alias(R="region", J="projection", D="position", F="box")
     @kwargs_to_strings(R="sequence")
-    def legend(self, spec=None, **kwargs):
+    def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
         """
         Plot legends on maps.
 
-        Makes legends that can be overlaid on maps. Reads specific legend-related
-        information from either a) an input file or b) a list containing a list
-        of figure handles and a list of corresponding labels. Unless otherwise
+        Makes legends that can be overlaid on maps. Reads specific
+        legend-related information from an input file, or automatically creates
+        legend entries from plotted symbols that have labels. Unless otherwise
         noted, annotations will be made using the primary annotation font and
         size in effect (i.e., FONT_ANNOT_PRIMARY).
 
@@ -639,18 +753,30 @@ class BasePlotting:
         ----------
         spec : None or str
             Either None (default) for using the automatically generated legend
-            specification file, or a filename pointing to the legend specification file.
+            specification file, or a filename pointing to the legend
+            specification file.
         {J}
         {R}
         position (D) : str
-            ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing][+odx[/dy]]'``
-            Defines the reference point on the map for the legend.
+            ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing]
+            [+odx[/dy]]'`` Defines the reference point on the map for the
+            legend. By default, uses 'JTR+jTR+o0.2c' which places the legend at
+            the top-right corner inside the map frame, with a 0.2 cm offset.
         box (F) : bool or str
-            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]][+s[[dx/dy/][shade]]]'``
-            Without further options, draws a rectangular border around the
-            legend using **MAP_FRAME_PEN**.
+            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
+            [+s[[dx/dy/][shade]]]'`` Without further options, draws a
+            rectangular border around the legend using **MAP_FRAME_PEN**. By
+            default, uses '+gwhite+p1p' which draws a box around the legend
+            using a 1 point black pen and adds a white background.
         """
         kwargs = self._preprocess(**kwargs)
+
+        if "D" not in kwargs:
+            kwargs["D"] = position
+
+            if "F" not in kwargs:
+                kwargs["F"] = box
+
         with Session() as lib:
             if spec is None:
                 specfile = ""
@@ -662,7 +788,7 @@ class BasePlotting:
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection")
+    @use_alias(R="region", J="projection", B="frame")
     @kwargs_to_strings(
         R="sequence",
         textfiles="sequence_space",
@@ -697,28 +823,30 @@ class BasePlotting:
         Parameters
         ----------
         textfiles : str or list
-            A text data file name, or a list of filenames containing 1 or more records
-            with (x, y[, font, angle, justify], text).
+            A text data file name, or a list of filenames containing 1 or more
+            records with (x, y[, font, angle, justify], text).
         x, y : float or 1d arrays
-            The x and y coordinates, or an array of x and y coordinates to plot the text
+            The x and y coordinates, or an array of x and y coordinates to plot
+            the text
         text : str or 1d array
             The text string, or an array of strings to plot on the figure
         angle: int/float or bool
-            Set the angle measured in degrees counter-clockwise from horizontal. E.g. 30
-            sets the text at 30 degrees. If no angle is given then the input textfile(s)
-            must have this as a column.
+            Set the angle measured in degrees counter-clockwise from
+            horizontal. E.g. 30 sets the text at 30 degrees. If no angle is
+            given then the input textfile(s) must have this as a column.
         font : str or bool
-            Set the font specification with format "size,font,color" where size is text
-            size in points, font is the font to use, and color sets the font color. E.g.
-            "12p,Helvetica-Bold,red" selects a 12p red Helvetica-Bold font. If no font
-            info is given then the input textfile(s) must have this information in one
-            of its columns.
+            Set the font specification with format "size,font,color" where size
+            is text size in points, font is the font to use, and color sets the
+            font color. E.g. "12p,Helvetica-Bold,red" selects a 12p red
+            Helvetica-Bold font. If no font info is given then the input
+            textfile(s) must have this information in one of its columns.
         justify: str or bool
-            Set the alignment which refers to the part of the text string that will be
-            mapped onto the (x,y) point. Choose a 2 character combination of L, C, R
-            (for left, center, or right) and T, M, B for top, middle, or bottom. E.g.,
-            BL for lower left. If no justification is given then the input textfile(s)
-            must have this as a column.
+            Set the alignment which refers to the part of the text string that
+            will be mapped onto the (x,y) point. Choose a 2 character
+            combination of L, C, R (for left, center, or right) and T, M, B for
+            top, middle, or bottom. E.g., BL for lower left. If no
+            justification is given then the input textfile(s) must have this as
+            a column.
         {J}
         {R}
         """
