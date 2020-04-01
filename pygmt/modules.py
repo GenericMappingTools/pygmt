@@ -144,7 +144,7 @@ def which(fname, **kwargs):
     return path
 
 
-class config:
+class config:  # pylint: disable=invalid-name
     """
     Set GMT defaults globally or locally.
 
