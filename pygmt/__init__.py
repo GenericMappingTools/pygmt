@@ -17,7 +17,7 @@ from .figure import Figure
 from .gridding import surface
 from .sampling import grdtrack
 from .mathops import makecpt
-from .modules import info, grdinfo, which
+from .modules import config, info, grdinfo, which
 from . import datasets
 
 

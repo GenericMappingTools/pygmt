@@ -72,6 +72,15 @@ Operations on grids:
     grdinfo
     grdtrack
 
+GMT Defaults
+------------
+
+Operations on GMT defaults:
+
+.. autosummary::
+    :toctree: generated
+
+    config
 
 Miscellaneous
 -------------
