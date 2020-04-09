@@ -22,7 +22,7 @@ def test_surface_input_file():
     """
     fname = which("@tut_ship.xyz", download="c")
     output = surface(data=fname, spacing="5m", region=[245, 255, 20, 30])
-    assert isinstance(output, xr.Dataset)
+    assert isinstance(output, xr.DataArray)
     return output
 
 
@@ -33,7 +33,7 @@ def test_surface_input_data_array():
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     output = surface(data=data, spacing="5m", region=[245, 255, 20, 30])
-    assert isinstance(output, xr.Dataset)
+    assert isinstance(output, xr.DataArray)
     return output
 
 
@@ -49,7 +49,7 @@ def test_surface_input_xyz():
         spacing="5m",
         region=[245, 255, 20, 30],
     )
-    assert isinstance(output, xr.Dataset)
+    assert isinstance(output, xr.DataArray)
     return output
 
 
@@ -90,8 +90,8 @@ def test_surface_with_outfile_param():
         )
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
-        grid = xr.open_dataset(TEMP_GRID)
-        assert isinstance(grid, xr.Dataset)  # check that netcdf grid loaded properly
+        grid = xr.open_dataarray(TEMP_GRID)
+        assert isinstance(grid, xr.DataArray)  # check that netcdf grid loaded properly
     finally:
         os.remove(path=TEMP_GRID)
     return output
@@ -108,8 +108,8 @@ def test_surface_short_aliases():
         output = surface(data=data, I="5m", R=[245, 255, 20, 30], G=TEMP_GRID)
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
-        grid = xr.open_dataset(TEMP_GRID)
-        assert isinstance(grid, xr.Dataset)  # check that netcdf grid loaded properly
+        grid = xr.open_dataarray(TEMP_GRID)
+        assert isinstance(grid, xr.DataArray)  # check that netcdf grid loaded properly
     finally:
         os.remove(path=TEMP_GRID)
     return output
