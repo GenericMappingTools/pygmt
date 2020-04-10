@@ -13,6 +13,14 @@ from .helpers import (
 from .exceptions import GMTInvalidInput
 
 SPECIAL_PARAMS = {
+    "FONT": [
+        "FONT_ANNOT_PRIMARY",
+        "FONT_ANNOT_SECONDARY",
+        "FONT_HEADING",
+        "FONT_LABEL",
+        "FONT_TAG",
+        "FONT_TITLE",
+    ],
     "FONT_ANNOT": ["FONT_ANNOT_PRIMARY", "FONT_ANNOT_SECONDARY"],
     "FORMAT_TIME_MAP": ["FORMAT_TIME_PRIMARY_MAP", "FORMAT_TIME_SECONDARY_MAP"],
     "MAP_ANNOT_OFFSET": ["MAP_ANNOT_OFFSET_PRIMARY", "MAP_ANNOT_OFFSET_SECONDARY"],

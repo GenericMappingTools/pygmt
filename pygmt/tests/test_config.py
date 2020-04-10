@@ -38,6 +38,20 @@ def test_config():
 
 
 @pytest.mark.mpl_image_compare
+def test_config_font_one():
+    """
+    Test that setting `FONT` config changes all `FONT_*` settings except
+    `FONT_LOGO`. Specifically, this test only checks that `FONT_ANNOT_PRIMARY`,
+    `FONT_ANNOT_SECONDARY`, `FONT_LABEL`, and `FONT_TITLE` are modified.
+    """
+    fig = Figure()
+    with config(FONT="8p,red"):
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", T="mjTL+w4c+d4.5+l")
+    fig.basemap(T="mjBR+w5c+d-4.5+l")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_config_font_annot():
     """
     Test that setting `FONT_ANNOT` config changes both `FONT_ANNOT_PRIMARY` and
