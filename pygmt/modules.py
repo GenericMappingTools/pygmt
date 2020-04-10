@@ -12,6 +12,18 @@ from .helpers import (
 )
 from .exceptions import GMTInvalidInput
 
+SPECIAL_PARAMS = {
+    "FONT_ANNOT": ["FONT_ANNOT_PRIMARY", "FONT_ANNOT_SECONDARY"],
+    "FORMAT_TIME_MAP": ["FORMAT_TIME_PRIMARY_MAP", "FORMAT_TIME_SECONDARY_MAP"],
+    "MAP_ANNOT_OFFSET": ["MAP_ANNOT_OFFSET_PRIMARY", "MAP_ANNOT_OFFSET_SECONDARY"],
+    "MAP_GRID_CROSS_SIZE": [
+        "MAP_GRID_CROSS_SIZE_PRIMARY",
+        "MAP_GRID_CROSS_SIZE_SECONDARY",
+    ],
+    "MAP_TICK_LENGTH": ["MAP_TICK_LENGTH_PRIMARY", "MAP_TICK_LENGTH_SECONDARY"],
+    "MAP_TICK_PEN": ["MAP_TICK_PEN_PRIMARY", "MAP_TICK_PEN_SECONDARY"],
+}
+
 
 @fmt_docstring
 def grdinfo(grid, **kwargs):
@@ -165,7 +177,11 @@ class config:  # pylint: disable=invalid-name
         self.old_defaults = {}
         with Session() as lib:
             for key in kwargs:
-                self.old_defaults[key] = lib.get_default(key)
+                if key in SPECIAL_PARAMS:
+                    for k in SPECIAL_PARAMS[key]:
+                        self.old_defaults[k] = lib.get_default(k)
+                else:
+                    self.old_defaults[key] = lib.get_default(key)
 
         # call gmt set to change GMT defaults
         arg_str = " ".join(
