@@ -3,6 +3,9 @@
 # We use miniconda for Python so don't need any Python specific tools
 language: generic
 
+os: linux
+dist: bionic
+
 # Only build pushes to the master branch and tags. This avoids the double
 # builds than happen when working on a branch instead of a fork.
 branches:
@@ -80,14 +83,14 @@ deploy:
     # Push the built HTML in doc/_build/html to the gh-pages branch
     - provider: script
       script: continuous-integration/travis/deploy-gh-pages.sh
-      cleanup: false
+      skip_cleanup: true
       on:
           branch: master
           condition: '$DEPLOY == "true"'
     # Push HTML when building tags as well
     - provider: script
       script: continuous-integration/travis/deploy-gh-pages.sh
-      cleanup: false
+      skip_cleanup: true
       on:
           tags: true
           condition: '$DEPLOY == "true"'
