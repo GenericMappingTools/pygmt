@@ -160,3 +160,11 @@ Other Python wrappers for GMT:
 * `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
+
+
+Documentation for other versions
+--------------------------------
+* `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
+  Github)
+* `Latest release <https://www.pygmt.org/latest>`__
+* `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
