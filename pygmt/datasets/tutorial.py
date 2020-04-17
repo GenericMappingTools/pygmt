@@ -38,6 +38,29 @@ def load_japan_quakes():
     return data
 
 
+def load_ocean_ridge_points():
+    """
+    Load a table of ocean ridge points for the entire world as a
+    pandas.DataFrame.
+
+    This is the ``@ridge.txt`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data :  pandas.Dataframe
+        The data table. Columns are longitude and latitude.
+    """
+    fname = which("@ridge.txt", download="c")
+    data = pd.read_csv(
+        fname, sep=r"\s+", names=["longitude", "latitude"], skiprows=1, comment=">"
+    )
+    return data
+
+
 def load_sample_bathymetry():
     """
     Load a table of ship observations of bathymetry off Baja California as a
@@ -73,8 +96,9 @@ def load_usgs_quakes():
 
     Returns
     -------
-    data :  pandas.Dataframe
-        The data table. Use ``print(data.describe())`` to see the available columns.
+    data : pandas.Dataframe
+        The data table. Use ``print(data.describe())`` to see the available
+        columns.
 
     """
     fname = which("@usgs_quakes_22.txt", download="c")

@@ -4,8 +4,7 @@ PyGMT
     A Python interface for the Generic Mapping Tools
 
 `Documentation (development version) <https://www.pygmt.org/dev>`__ |
-`Contact <https://gitter.im/GenericMappingTools/pygmt>`__ |
-`Forum <https://forum.generic-mapping-tools.org>`__ `
+`Contact <https://forum.generic-mapping-tools.org>`__ |
 
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
@@ -25,9 +24,6 @@ PyGMT
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt
-.. image:: https://img.shields.io/gitter/room/GenericMappingTools/pygmt.svg?style=flat-square
-    :alt: Chat room on Gitter
-    :target: https://gitter.im/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org%2F&style=flat-square
     :alt: Discourse forum
     :target: https://forum.generic-mapping-tools.org

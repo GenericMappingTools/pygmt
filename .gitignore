@@ -11,6 +11,7 @@ MANIFEST
 .pytest_cache/
 .ipynb_checkpoints/
 .vscode/
+tmp-test-dir-with-unique-name/
 build/
 dist/
 doc/_build

@@ -8,6 +8,7 @@ import pytest
 from ..datasets import (
     load_japan_quakes,
     load_earth_relief,
+    load_ocean_ridge_points,
     load_sample_bathymetry,
     load_usgs_quakes,
 )
@@ -25,6 +26,17 @@ def test_japan_quakes():
     assert summary.loc["max", "month"] == 12
     assert summary.loc["min", "day"] == 1
     assert summary.loc["max", "day"] == 31
+
+
+def test_ocean_ridge_points():
+    "Check that the @ridge.txt dataset loads without errors"
+    data = load_ocean_ridge_points()
+    assert data.shape == (4146, 2)
+    summary = data.describe()
+    assert summary.loc["min", "longitude"] == -179.9401
+    assert summary.loc["max", "longitude"] == 179.935
+    assert summary.loc["min", "latitude"] == -65.6182
+    assert summary.loc["max", "latitude"] == 86.8
 
 
 def test_sample_bathymetry():
@@ -62,7 +74,7 @@ def test_earth_relief_60():
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -8596)
+    npt.assert_allclose(data.min(), -8592)
     npt.assert_allclose(data.max(), 5559)
 
 
@@ -72,5 +84,5 @@ def test_earth_relief_30():
     assert data.shape == (361, 721)
     npt.assert_allclose(data.lat, np.arange(-90, 90.5, 0.5))
     npt.assert_allclose(data.lon, np.arange(-180, 180.5, 0.5))
-    npt.assert_allclose(data.min(), -9458)
+    npt.assert_allclose(data.min(), -9460)
     npt.assert_allclose(data.max(), 5888)
