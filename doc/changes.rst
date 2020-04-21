@@ -14,6 +14,7 @@ Highlights:
 
 New features:
 
+* Wrap blockmedian (#349)
 * Add pygmt.config() to change gmt defaults locally and globally (#293)
 * Wrap grdview (#330)
 * Wrap grdtrack (#308)
