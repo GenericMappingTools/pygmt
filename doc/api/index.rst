@@ -61,6 +61,7 @@ Operations on tabular data:
 .. autosummary::
     :toctree: generated
 
+    blockmedian
     info
     surface
 
