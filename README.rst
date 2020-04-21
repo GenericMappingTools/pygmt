@@ -168,3 +168,4 @@ Documentation for other versions
   Github)
 * `Latest release <https://www.pygmt.org/latest>`__
 * `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
+* `v0.0.1a0 <https://www.pygmt.org/0.0.1a0>`__
