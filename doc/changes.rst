@@ -83,13 +83,13 @@ Deprecations:
 
 This release contains contributions from:
 
-* Dongdong Tian
-* Wei Ji Leong
-* Leonardo Uieda
-* Liam Toney
-* Brook Tozer
-* Claudio Satriano
-* Cody Woodson
-* Mark Wieczorek
-* Philipp Loose
-* Kathryn Materna
+* `Dongdong Tian <https://github.com/seisman>`__
+* `Wei Ji Leong <https://github.com/weiji14>`__
+* `Leonardo Uieda <https://github.com/leouieda>`__
+* `Liam Toney <https://github.com/liamtoney>`__
+* `Brook Tozer <https://github.com/btozer>`__
+* `Claudio Satriano <https://github.com/claudiodsf>`__
+* `Cody Woodson <https://github.com/Dovacody>`__
+* `Mark Wieczorek <https://github.com/MarkWieczorek>`__
+* `Philipp Loose <https://github.com/phloose>`__
+* `Kathryn Materna <https://github.com/kmaterna>`__
