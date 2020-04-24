@@ -35,6 +35,7 @@ Enhancements:
 
 Documentation:
 
+* Update PyPI install instructions and API disclaimer message (#421)
 * Fix the link to GMT documentation (#419)
 * Use napoleon instead of numpydoc with sphinx (#383)
 * Document using a list for repeated arguments (#361)
