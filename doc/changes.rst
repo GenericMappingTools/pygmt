@@ -8,6 +8,7 @@ Release v0.1.0
 
 Highlights:
 
+* 🎉 **First official release of PyGMT** 🎉  
 * Python 3.8 is now supported (#398)
 * PyGMT now uses the stable version of GMT 6.0.0 by default (#363)
 * Use sphinx-gallery to manage examples and tutorials (#268)
