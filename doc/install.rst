@@ -32,7 +32,7 @@ PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the 
 released version that can be found at
 `this website <https://www.generic-mapping-tools.org>`__.
 
-We need the latest GMT since there are many changes being made to GMT itself in
+We need the latest GMT (>=6.0.0) since there are many changes being made to GMT itself in
 response to the development of PyGMT, mainly the new
 `modern execution mode <https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode>`__.
 
