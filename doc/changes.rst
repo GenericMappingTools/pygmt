@@ -1,14 +1,12 @@
 Changelog
 =========
 
-Release v0.1.0
---------------
-
-*Released on: 2020/04/XX*
+Release v0.1.0 (2020/04/30)
+---------------------------
 
 Highlights:
 
-* 🎉 **First official release of PyGMT** 🎉  
+* 🎉 **First official release of PyGMT** 🎉
 * Python 3.8 is now supported (`#398 <https://github.com/GenericMappingTools/pygmt/pull/398>`__)
 * PyGMT now uses the stable version of GMT 6.0.0 by default (`#363 <https://github.com/GenericMappingTools/pygmt/pull/363>`__)
 * Use sphinx-gallery to manage examples and tutorials (`#268 <https://github.com/GenericMappingTools/pygmt/pull/268>`__)
