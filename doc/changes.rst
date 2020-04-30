@@ -4,6 +4,10 @@ Changelog
 Release v0.1.0 (2020/04/30)
 ---------------------------
 
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.123456789.svg
+   :alt: Digital Object Identifier for the Zenodo archive
+   :target: https://doi.org/10.5281/zenodo.123456789
+
 Highlights:
 
 * 🎉 **First official release of PyGMT** 🎉
