@@ -27,9 +27,9 @@ PyGMT
 .. image:: https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org%2F&style=flat-square
     :alt: Discourse forum
     :target: https://forum.generic-mapping-tools.org
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3781525.svg
+.. image:: https://zenodo.org/badge/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
-    :target: https://doi.org/10.5281/zenodo.3781525
+    :target: https://zenodo.org/badge/latestdoi/3781524
 
 .. placeholder-for-doc-index
 
