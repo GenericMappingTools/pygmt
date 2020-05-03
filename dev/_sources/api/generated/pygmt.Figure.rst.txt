@@ -5,6 +5,79 @@ pygmt.Figure
 
 .. autoclass:: Figure
 
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+    
+    Figure.basemap
+    
+    
+    
+    Figure.coast
+    
+    
+    
+    Figure.colorbar
+    
+    
+    
+    Figure.contour
+    
+    
+    
+    Figure.grdcontour
+    
+    
+    
+    Figure.grdimage
+    
+    
+    
+    Figure.grdview
+    
+    
+    
+    Figure.image
+    
+    
+    
+    Figure.legend
+    
+    
+    
+    Figure.logo
+    
+    
+    
+    Figure.plot
+    
+    
+    
+    Figure.psconvert
+    
+    
+    
+    Figure.savefig
+    
+    
+    
+    Figure.shift_origin
+    
+    
+    
+    Figure.show
+    
+    
+    
+    Figure.text
+    
+    
+
+.. include:: backreferences/pygmt.Figure.examples
+
 .. raw:: html
 
      <div style='clear:both'></div>

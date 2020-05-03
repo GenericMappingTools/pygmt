@@ -16,16 +16,28 @@ based on the region and projection.
 These are all the available projections:
 
 
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_projections_azim:
+
+Azimuthal Projections
+---------------------
+
+
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="``Blon0/lat0/lat1/lat2/width``: Give projection center ``lon0/lat0`` and two standard parallels...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye...">
 
 .. only:: html
 
-    .. figure:: /projections/images/thumb/sphx_glr_albers_thumb.png
+ .. figure:: /projections/azim/images/thumb/sphx_glr_azim_equidistant_thumb.png
 
-        :ref:`sphx_glr_projections_albers.py`
+     :ref:`sphx_glr_projections_azim_azim_equidistant.py`
 
 .. raw:: html
 
@@ -35,17 +47,17 @@ These are all the available projections:
 .. toctree::
    :hidden:
 
-   /projections/albers
+   /projections/azim/azim_equidistant
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="``Clon0/lat0/width``: ``lon0`` and ``lat0`` specifies the projection center. ">
+    <div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space....">
 
 .. only:: html
 
-    .. figure:: /projections/images/thumb/sphx_glr_cassini_thumb.png
+ .. figure:: /projections/azim/images/thumb/sphx_glr_azim_general_perspective_thumb.png
 
-        :ref:`sphx_glr_projections_cassini.py`
+     :ref:`sphx_glr_projections_azim_azim_general_perspective.py`
 
 .. raw:: html
 
@@ -55,17 +67,17 @@ These are all the available projections:
 .. toctree::
    :hidden:
 
-   /projections/cassini
+   /projections/azim/azim_general_perspective
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="``Cyl_stere/[lon0/][lat0/]width``: Give central meridian ``lon0`` (optional) and standard paral...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection c...">
 
 .. only:: html
 
-    .. figure:: /projections/images/thumb/sphx_glr_cyl_stereo_thumb.png
+ .. figure:: /projections/azim/images/thumb/sphx_glr_azim_general_stereographic_thumb.png
 
-        :ref:`sphx_glr_projections_cyl_stereo.py`
+     :ref:`sphx_glr_projections_azim_azim_general_stereographic.py`
 
 .. raw:: html
 
@@ -75,17 +87,17 @@ These are all the available projections:
 .. toctree::
    :hidden:
 
-   /projections/cyl_stereo
+   /projections/azim/azim_general_stereographic
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="``Alon0/lat0[/horizon]/width``: ``lon0`` and ``lat0`` specifies the projection center. ``horizo...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the earth. As a conse...">
 
 .. only:: html
 
-    .. figure:: /projections/images/thumb/sphx_glr_lambert_azimuthal_thumb.png
+ .. figure:: /projections/azim/images/thumb/sphx_glr_azim_gnomonic_thumb.png
 
-        :ref:`sphx_glr_projections_lambert_azimuthal.py`
+     :ref:`sphx_glr_projections_azim_azim_gnomonic.py`
 
 .. raw:: html
 
@@ -95,17 +107,17 @@ These are all the available projections:
 .. toctree::
    :hidden:
 
-   /projections/lambert_azimuthal
+   /projections/azim/azim_gnomonic
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="``M[lon0/][lat0/]width``: Give central meridian ``lon0`` (optional) and standard parallel ``lat...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Alon0/lat0[/horizon]/width: lon0 and lat0 specifies the projection center. horizon specifies th...">
 
 .. only:: html
 
-    .. figure:: /projections/images/thumb/sphx_glr_mercator_thumb.png
+ .. figure:: /projections/azim/images/thumb/sphx_glr_azim_lambert_thumb.png
 
-        :ref:`sphx_glr_projections_mercator.py`
+     :ref:`sphx_glr_projections_azim_azim_lambert.py`
 
 .. raw:: html
 
@@ -115,10 +127,158 @@ These are all the available projections:
 .. toctree::
    :hidden:
 
-   /projections/mercator
+   /projections/azim/azim_lambert
+
 .. raw:: html
 
-    <div style='clear:both'></div>
+    <div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the...">
+
+.. only:: html
+
+ .. figure:: /projections/azim/images/thumb/sphx_glr_azim_orthographic_thumb.png
+
+     :ref:`sphx_glr_projections_azim_azim_orthographic.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/azim/azim_orthographic
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_projections_conic:
+
+Conic Projections
+-----------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Blon0/lat0/lat1/lat2/width: Give projection center lon0/lat0 and two standard parallels lat1/la...">
+
+.. only:: html
+
+ .. figure:: /projections/conic/images/thumb/sphx_glr_conic_albers_thumb.png
+
+     :ref:`sphx_glr_projections_conic_conic_albers.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/conic/conic_albers
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_projections_cyl:
+
+Cylindric Projections
+---------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Clon0/lat0/width: lon0 and lat0 specifies the projection center. ">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_cassini_thumb.png
+
+     :ref:`sphx_glr_projections_cyl_cyl_cassini.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_cassini
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="M[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0 (optiona...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_mercator_thumb.png
+
+     :ref:`sphx_glr_projections_cyl_cyl_mercator.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_mercator
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Cyl_stere/[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_stereographic_thumb.png
+
+     :ref:`sphx_glr_projections_cyl_cyl_stereographic.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_stereographic
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_projections_misc:
+
+Miscellaneous Projections
+-------------------------
+
+
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_projections_nongeo:
+
+Non-geographic Projections
+--------------------------
+
+
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
 
 
 
@@ -126,4 +286,4 @@ These are all the available projections:
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

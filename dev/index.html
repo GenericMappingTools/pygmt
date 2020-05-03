@@ -22,23 +22,43 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installing" href="install.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
+    <link rel="next" title="Overview" href="overview.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
 
 </head>
 
@@ -46,11 +66,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
     <a href="#"><h2 class="sidebar-title">PyGMT</h2></a>
 
@@ -85,8 +104,9 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/first-figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -99,6 +119,7 @@
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 </ul>
 
             
@@ -116,7 +137,7 @@
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
-                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
             
@@ -191,13 +212,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -214,18 +235,19 @@
     <h1>PyGMT</h1>
     <h2>
         A Python interface for the
-        <a href="http://gmt.soest.hawaii.edu/">Generic Mapping Tools</a>
+        <a href="https://www.generic-mapping-tools.org/">Generic Mapping Tools</a>
     </h2>
 </div><div class="section" id="disclaimer">
 <h1>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h1>
-<p>🚨 <strong>This package is in the early stages of design and implementation.</strong> 🚨</p>
-<p>All functions/classes/interfaces are subject to change as we experiment with new design
-ideas and implement new features. <strong>This is NOT a finished product.</strong></p>
+<p>🚨 <strong>This package is still undergoing rapid development.</strong> 🚨</p>
+<p>All of the API (functions/classes/interfaces) is subject to change until we reach v1.0.0
+as per the <a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning specification</a>.
+There may be non-backward compatible changes as we experiment with new design ideas and
+implement new features. <strong>This is not a finished product, use with caution</strong></p>
 <p>We welcome any feedback and ideas!
 Let us know by submitting
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issues on Github</a>
-or send us a message on our
-<a class="reference external" href="https://gitter.im/GenericMappingTools/pygmt">Gitter chatroom</a>.</p>
+or by posting on our <a class="reference external" href="https://forum.generic-mapping-tools.org">Discourse forum</a>.</p>
 </div>
 <div class="section" id="about">
 <h1>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h1>
@@ -233,31 +255,30 @@ or send us a message on our
 publication quality maps and figures. It provides a Pythonic interface for the
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt">Generic Mapping Tools (GMT)</a>, a
 command-line program widely used in the Earth Sciences.</p>
-<p>We rely heavily on new features currently being implemented in GMT. In particular, a new
-<em>modern execution mode</em> that greatly simplifies figure creation. <strong>These features are
-not available in the 5.4 version of GMT</strong>. They will be part of the future 6.0 release
-of GMT predicted for early 2019.</p>
+<p>We rely heavily on new features that have been implemented in GMT 6.0. In particular,
+a new <em>modern execution mode</em> that greatly simplifies figure creation. <strong>These features
+are not available in the 5.4 version of GMT</strong>.</p>
 </div>
 <div class="section" id="project-goals">
 <h1>Project goals<a class="headerlink" href="#project-goals" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>Make GMT more accessible to new users.</li>
-<li>Build a Pythonic API for GMT.</li>
-<li>Interface with the GMT C API directly using ctypes (no system calls).</li>
-<li>Support for rich display in the Jupyter notebook.</li>
-<li>Integration with the Scipy stack: numpy.ndarray or pandas.DataFrame for data tables
-and xarray.DataArray for grids.</li>
+<li><p>Make GMT more accessible to new users.</p></li>
+<li><p>Build a Pythonic API for GMT.</p></li>
+<li><p>Interface with the GMT C API directly using ctypes (no system calls).</p></li>
+<li><p>Support for rich display in the Jupyter notebook.</p></li>
+<li><p>Integration with the Scipy stack: numpy.ndarray or pandas.DataFrame for data tables
+and xarray.DataArray for grids.</p></li>
 </ul>
 </div>
 <div class="section" id="contacting-us">
 <h1>Contacting Us<a class="headerlink" href="#contacting-us" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>Most discussion happens <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">on Github</a>. Feel free to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/new">open an issue</a> or comment on any
-open issue or pull request.</li>
-<li>We have a <a class="reference external" href="https://gitter.im/GenericMappingTools/pygmt">chat room on Gitter</a>
-where you can ask questions and leave comments.</li>
-<li>This project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
-By participating in this project you agree to abide by its terms.</li>
+<li><p>Most discussion happens <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">on Github</a>. Feel free to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/new">open an issue</a> or comment on any
+open issue or pull request.</p></li>
+<li><p>We have a <a class="reference external" href="https://forum.generic-mapping-tools.org">Discourse forum</a>
+where you can ask questions and leave comments.</p></li>
+<li><p>This project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
+By participating in this project you agree to abide by its terms.</p></li>
 </ul>
 </div>
 <div class="section" id="contributing">
@@ -312,15 +333,25 @@ the <strong>BSD 3-clause License</strong>. A copy of this license is provided in
 <div class="section" id="related-projects">
 <h1>Related projects<a class="headerlink" href="#related-projects" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/GenericMappingTools/GMT.jl">GMT.jl</a>: A Julia wrapper for GMT.</li>
-<li><a class="reference external" href="https://github.com/GenericMappingTools/GMT.jl">gmtmex</a>: A Matlab/Octave wrapper
-for GMT.</li>
+<li><p><a class="reference external" href="https://github.com/GenericMappingTools/GMT.jl">GMT.jl</a>: A Julia wrapper for GMT.</p></li>
+<li><p><a class="reference external" href="https://github.com/GenericMappingTools/gmtmex">gmtmex</a>: A Matlab/Octave wrapper
+for GMT.</p></li>
 </ul>
 <p>Other Python wrappers for GMT:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/emolch/gmtpy">gmtpy</a> by <a class="reference external" href="https://github.com/emolch">Sebastian Heimann</a></li>
-<li><a class="reference external" href="https://github.com/ian-r-rose/pygmt">pygmt</a> by <a class="reference external" href="https://github.com/ian-r-rose">Ian Rose</a></li>
-<li><a class="reference external" href="https://github.com/glimmer-cism/PyGMT">PyGMT</a>  by <a class="reference external" href="https://github.com/mhagdorn">Magnus Hagdorn</a></li>
+<li><p><a class="reference external" href="https://github.com/emolch/gmtpy">gmtpy</a> by <a class="reference external" href="https://github.com/emolch">Sebastian Heimann</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ian-r-rose/pygmt">pygmt</a> by <a class="reference external" href="https://github.com/ian-r-rose">Ian Rose</a></p></li>
+<li><p><a class="reference external" href="https://github.com/glimmer-cism/PyGMT">PyGMT</a>  by <a class="reference external" href="https://github.com/mhagdorn">Magnus Hagdorn</a></p></li>
+</ul>
+</div>
+<div class="section" id="documentation-for-other-versions">
+<h1>Documentation for other versions<a class="headerlink" href="#documentation-for-other-versions" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.pygmt.org/dev">Development</a> (reflects the <em>master</em> branch on
+Github)</p></li>
+<li><p><a class="reference external" href="https://www.pygmt.org/latest">Latest release</a></p></li>
+<li><p><a class="reference external" href="https://www.pygmt.org/v0.1.0">v0.1.0</a></p></li>
+<li><p><a class="reference external" href="https://www.pygmt.org/0.0.1a0">v0.0.1a0</a></p></li>
 </ul>
 <div class="toctree-wrapper compound">
 </div>
@@ -334,11 +365,12 @@ for GMT.</li>
            </div>
            
           </div>
-          <footer>
+          
+<footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="install.html" class="btn btn-neutral float-right" title="Installing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -348,12 +380,27 @@ for GMT.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, The PyGMT Developers.
-      Last updated on Jan 26, 2019.
+        &copy; Copyright 2017-2020, The PyGMT Developers.
+      
+        <span class="commit">
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/74501e01de098708d466c560d68263f3f698e143">74501e0</a></code>.
+        </span>
+      
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
 
 </footer>
 
@@ -366,26 +413,16 @@ for GMT.</li>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

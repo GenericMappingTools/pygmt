@@ -22,24 +22,44 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.grdinfo" href="pygmt.grdinfo.html" />
-    <link rel="prev" title="pygmt.info" href="pygmt.info.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
+    <link rel="prev" title="pygmt.info" href="pygmt.info.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
 
 </head>
 
@@ -47,11 +67,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
     <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
 
@@ -86,8 +105,9 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -102,17 +122,21 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#data-processing">Data Processing</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.info.html">pygmt.info</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdinfo.html">pygmt.grdinfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 </ul>
 
             
@@ -130,7 +154,7 @@
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
-                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
             
@@ -209,13 +233,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -232,63 +256,46 @@
 <h1>pygmt.surface<a class="headerlink" href="#pygmt-surface" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pygmt.surface">
-<code class="descclassname">pygmt.</code><code class="descname">surface</code><span class="sig-paren">(</span><em>x=None</em>, <em>y=None</em>, <em>z=None</em>, <em>data=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/gridding.html#surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.surface" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pygmt.</code><code class="sig-name descname">surface</code><span class="sig-paren">(</span><em class="sig-param">x=None</em>, <em class="sig-param">y=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">data=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/gridding.html#surface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Grids table data using adjustable tension continuous curvature splines.</p>
-<p>Surface reads randomly-spaced (x,y,z) triples and produces gridded values z(x,y)
-by solving:</p>
+<p>Surface reads randomly-spaced (x,y,z) triples and produces gridded values
+z(x,y) by solving:</p>
 <blockquote>
-<div>(1 - T) * L (L (z)) + T * L (z) = 0</div></blockquote>
-<p>where T is a tension factor between 0 and 1, and L indicates the Laplacian operator.</p>
+<div><p>(1 - T) * L (L (z)) + T * L (z) = 0</p>
+</div></blockquote>
+<p>where T is a tension factor between 0 and 1, and L indicates the Laplacian
+operator.</p>
 <p>Takes a matrix, xyz triples, or a file name as input.</p>
 <p>Must provide either <em>data</em> or <em>x</em>, <em>y</em>, and <em>z</em>.</p>
-<p>Full option list at <a class="reference external" href="http://gmt.soest.hawaii.edu/doc/latest/surface.html">http://gmt.soest.hawaii.edu/doc/latest/surface.html</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>x, y, z</strong> <span class="classifier-delimiter">:</span> <span class="classifier">1d arrays</span></dt>
-<dd><p class="first last">Arrays of x and y coordinates and values z of the data points.</p>
-</dd>
-<dt><strong>data</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str or 2d array</span></dt>
-<dd><p class="first last">Either a data file name or a 2d numpy array with the tabular data.</p>
-</dd>
-<dt><strong>spacing (I) :</strong></dt>
-<dd><p class="first last"><code class="docutils literal notranslate"><span class="pre">'xinc[unit][+e|n][/yinc[unit][+e|n]]'</span></code>.
-x_inc [and optionally y_inc] is the grid spacing.</p>
-</dd>
-<dt><strong>region (R)</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str or list</span></dt>
-<dd><p class="first last"><code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
-Specify the region of interest.</p>
-</dd>
-<dt><strong>outfile (G)</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd><p class="first last">Optional. The file name for the output netcdf file with extension .nc
-to store the grid in.</p>
-</dd>
-<dt><strong>**Aliases:**</strong></dt>
-<dd></dd>
-<dt><strong>- G = outfile</strong></dt>
-<dd></dd>
-<dt><strong>- I = spacing</strong></dt>
-<dd></dd>
-<dt><strong>- R = region</strong></dt>
-<dd></dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>ret: xarray.DataArray or None</strong></dt>
-<dd><p class="first">Return type depends on whether the outfile (G) parameter is set:</p>
-<ul class="last simple">
-<li>xarray.DataArray if outfile (G) is not set</li>
-<li>None if outfile (G) is set (grid output will be stored in outfile)</li>
+<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/surface.html">https://docs.generic-mapping-tools.org/latest/surface.html</a></p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>G = outfile</p></li>
+<li><p>I = spacing</p></li>
+<li><p>R = region</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong><strong>, </strong><strong>z</strong> (<em>x</em><em>,</em>) – Arrays of x and y coordinates and values z of the data points.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>2d array</em>) – Either a data file name or a 2d numpy array with the tabular data.</p></li>
+<li><p><strong>(</strong><strong>I</strong><strong>)</strong> (<em>spacing</em>) – <code class="docutils literal notranslate"><span class="pre">'xinc[unit][+e|n][/yinc[unit][+e|n]]'</span></code>.
+x_inc [and optionally y_inc] is the grid spacing.</p></li>
+<li><p><strong>(</strong><strong>R</strong><strong>)</strong> (<em>region</em>) – <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
+Specify the region of interest.</p></li>
+<li><p><strong>(</strong><strong>G</strong><strong>)</strong> (<em>outfile</em>) – Optional. The file name for the output netcdf file with extension .nc
+to store the grid in.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>ret</strong> (<em>xarray.DataArray or None</em>) – Return type depends on whether the outfile (G) parameter is set:</p>
+<ul class="simple">
+<li><p>xarray.DataArray if outfile (G) is not set</p></li>
+<li><p>None if outfile (G) is set (grid output will be stored in outfile)</p></li>
+</ul>
+</p>
+</dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <div style='clear:both'></div></div>
@@ -297,14 +304,15 @@ to store the grid in.</p>
            </div>
            
           </div>
-          <footer>
+          
+<footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
         <a href="pygmt.grdinfo.html" class="btn btn-neutral float-right" title="pygmt.grdinfo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pygmt.info.html" class="btn btn-neutral" title="pygmt.info" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pygmt.info.html" class="btn btn-neutral float-left" title="pygmt.info" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -313,12 +321,27 @@ to store the grid in.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, The PyGMT Developers.
-      Last updated on Jan 26, 2019.
+        &copy; Copyright 2017-2020, The PyGMT Developers.
+      
+        <span class="commit">
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/74501e01de098708d466c560d68263f3f698e143">74501e0</a></code>.
+        </span>
+      
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
 
 </footer>
 
@@ -331,26 +354,16 @@ to store the grid in.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

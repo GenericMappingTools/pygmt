@@ -22,24 +22,44 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Political Boundaries" href="coast/borders.html" />
-    <link rel="prev" title="Making your first figure" href="../tutorials/overview.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
+    <link rel="prev" title="Making your first figure" href="../tutorials/first-figure.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
 
 </head>
 
@@ -47,11 +67,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
     <a href="../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
 
@@ -86,8 +105,9 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/first-figure.html">Making your first figure</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Gallery</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#coastlines-and-boundaries">Coastlines and boundaries</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="coast/borders.html">Political Boundaries</a></li>
@@ -95,8 +115,14 @@
 <li class="toctree-l3"><a class="reference internal" href="coast/shorelines.html">Shorelines</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#lines-points-and-scatters">Lines, points, and scatters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-map-items">Plotting map items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plot/colorbar.html">Colorbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot/legend.html">Legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot/points.html">Points</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#grids">Grids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grid/track_sampling.html">Sampling along tracks</a></li>
 </ul>
 </li>
 </ul>
@@ -112,6 +138,7 @@
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
 </ul>
 
             
@@ -129,7 +156,7 @@
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
-                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
             
@@ -209,13 +236,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -232,36 +259,57 @@
 <span id="sphx-glr-gallery"></span><span id="id1"></span><h1>Gallery<a class="headerlink" href="#gallery" title="Permalink to this headline">¶</a></h1>
 <p>This gallery contains examples of what PyGMT can do. Click on any example to see the
 code used to generate it.</p>
-<div style='clear:both'></div><div class="section" id="coastlines-and-boundaries">
+<div class="sphx-glr-clear"></div><div class="section" id="coastlines-and-boundaries">
 <span id="sphx-glr-gallery-coast"></span><h2>Coastlines and boundaries<a class="headerlink" href="#coastlines-and-boundaries" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The ``borders`` argument of :meth:`pygmt.Figure.coast` specifies levels of political boundaries..."><div class="figure" id="id2">
+<div class="sphx-glr-thumbcontainer" tooltip="The borders argument of pygmt.Figure.coast specifies levels of political boundaries to plot and..."><div class="figure align-default" id="id2">
 <img alt="../_images/sphx_glr_borders_thumb.png" src="../_images/sphx_glr_borders_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/borders.html#sphx-glr-gallery-coast-borders-py"><span class="std std-ref">Political Boundaries</span></a></span></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/borders.html#sphx-glr-gallery-coast-borders-py"><span class="std std-ref">Political Boundaries</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The ``land`` and ``water`` arguments of :meth:`pygmt.Figure.coast` specify a color to fill in t..."><div class="figure" id="id3">
+<div class="sphx-glr-thumbcontainer" tooltip="The land and water arguments of pygmt.Figure.coast specify a color to fill in the land and wate..."><div class="figure align-default" id="id3">
 <img alt="../_images/sphx_glr_land_and_water_thumb.png" src="../_images/sphx_glr_land_and_water_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/land_and_water.html#sphx-glr-gallery-coast-land-and-water-py"><span class="std std-ref">Color land and water</span></a></span></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/land_and_water.html#sphx-glr-gallery-coast-land-and-water-py"><span class="std std-ref">Color land and water</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Use :meth:`pygmt.Figure.coast` to display shorelines as black lines. "><div class="figure" id="id4">
+<div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines. "><div class="figure align-default" id="id4">
 <img alt="../_images/sphx_glr_shorelines_thumb.png" src="../_images/sphx_glr_shorelines_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/shorelines.html#sphx-glr-gallery-coast-shorelines-py"><span class="std std-ref">Shorelines</span></a></span></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/shorelines.html#sphx-glr-gallery-coast-shorelines-py"><span class="std std-ref">Shorelines</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div style='clear:both'></div></div>
-<div class="section" id="lines-points-and-scatters">
-<span id="sphx-glr-gallery-plot"></span><h2>Lines, points, and scatters<a class="headerlink" href="#lines-points-and-scatters" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The :meth:`pygmt.Figure.plot` method can plot points. We must specify the plot symbol and size ..."><div class="figure" id="id5">
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="plotting-map-items">
+<span id="sphx-glr-gallery-plot"></span><h2>Plotting map items<a class="headerlink" href="#plotting-map-items" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><div class="figure align-default" id="id5">
+<img alt="../_images/sphx_glr_colorbar_thumb.png" src="../_images/sphx_glr_colorbar_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/colorbar.html#sphx-glr-gallery-plot-colorbar-py"><span class="std std-ref">Colorbar</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm..."><div class="figure align-default" id="id6">
+<img alt="../_images/sphx_glr_legend_thumb.png" src="../_images/sphx_glr_legend_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/legend.html#sphx-glr-gallery-plot-legend-py"><span class="std std-ref">Legend</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. We must specify the plot symbol and size through ..."><div class="figure align-default" id="id7">
 <img alt="../_images/sphx_glr_points_thumb.png" src="../_images/sphx_glr_points_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/points.html#sphx-glr-gallery-plot-points-py"><span class="std std-ref">Points</span></a></span></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/points.html#sphx-glr-gallery-plot-points-py"><span class="std std-ref">Points</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div style='clear:both'></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="grids">
+<span id="sphx-glr-gallery-grid"></span><h2>Grids<a class="headerlink" href="#grids" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id8">
+<img alt="../_images/sphx_glr_track_sampling_thumb.png" src="../_images/sphx_glr_track_sampling_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
 </div>
 
@@ -269,14 +317,15 @@ code used to generate it.</p>
            </div>
            
           </div>
-          <footer>
+          
+<footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
         <a href="coast/borders.html" class="btn btn-neutral float-right" title="Political Boundaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../tutorials/overview.html" class="btn btn-neutral" title="Making your first figure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../tutorials/first-figure.html" class="btn btn-neutral float-left" title="Making your first figure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -285,12 +334,27 @@ code used to generate it.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, The PyGMT Developers.
-      Last updated on Jan 26, 2019.
+        &copy; Copyright 2017-2020, The PyGMT Developers.
+      
+        <span class="commit">
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/74501e01de098708d466c560d68263f3f698e143">74501e0</a></code>.
+        </span>
+      
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
 
 </footer>
 
@@ -303,26 +367,16 @@ code used to generate it.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

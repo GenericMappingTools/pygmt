@@ -22,22 +22,42 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
 
 </head>
 
@@ -45,11 +65,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
     <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
 
@@ -84,8 +103,9 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/overview.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first-figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -98,6 +118,7 @@
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 </ul>
 
             
@@ -115,7 +136,7 @@
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
-                <li class="toctree-l1"><a href="https://gitter.im/GenericMappingTools/pygmt"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
             
@@ -186,24 +207,25 @@
             
   <h1>Source code for pygmt.clib.session</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Defines the Session class to create and destroy a GMT API session and provides access to</span>
-<span class="sd">the API functions. Uses ctypes to wrap most of the core functions from the C API.</span>
+<span class="sd">Defines the Session class to create and destroy a GMT API session and provides</span>
+<span class="sd">access to the API functions. Uses ctypes to wrap most of the core functions</span>
+<span class="sd">from the C API.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">ctp</span>
-<span class="kn">from</span> <span class="nn">contextlib</span> <span class="k">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 
-<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="k">import</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">GMTCLibError</span><span class="p">,</span>
     <span class="n">GMTCLibNoSessionError</span><span class="p">,</span>
     <span class="n">GMTInvalidInput</span><span class="p">,</span>
     <span class="n">GMTVersionError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.loading</span> <span class="k">import</span> <span class="n">load_libgmt</span>
-<span class="kn">from</span> <span class="nn">.conversion</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">.loading</span> <span class="kn">import</span> <span class="n">load_libgmt</span>
+<span class="kn">from</span> <span class="nn">.conversion</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">kwargs_to_ctypes_array</span><span class="p">,</span>
     <span class="n">vectors_to_arrays</span><span class="p">,</span>
     <span class="n">dataarray_to_matrix</span><span class="p">,</span>
@@ -247,29 +269,29 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A GMT API session where most operations involving the C API happen.</span>
 
-<span class="sd">    Works as a context manager (for use in a ``with`` block) to create a GMT C API</span>
-<span class="sd">    session and destroy it in the end to clean up memory.</span>
+<span class="sd">    Works as a context manager (for use in a ``with`` block) to create a GMT C</span>
+<span class="sd">    API session and destroy it in the end to clean up memory.</span>
 
-<span class="sd">    Functions of the shared library are exposed as methods of this class. Most methods</span>
-<span class="sd">    MUST be used with an open session (inside a ``with`` block). If creating GMT data</span>
-<span class="sd">    structures to communicate data, put that code inside the same ``with`` block as the</span>
-<span class="sd">    API calls that will use the data.</span>
+<span class="sd">    Functions of the shared library are exposed as methods of this class. Most</span>
+<span class="sd">    methods MUST be used with an open session (inside a ``with`` block). If</span>
+<span class="sd">    creating GMT data structures to communicate data, put that code inside the</span>
+<span class="sd">    same ``with`` block as the API calls that will use the data.</span>
 
-<span class="sd">    By default, will let :mod:`ctypes` try to find the GMT shared library (``libgmt``).</span>
-<span class="sd">    If the environment variable ``GMT_LIBRARY_PATH`` is set, will look for the shared</span>
-<span class="sd">    library in the directory specified by it.</span>
+<span class="sd">    By default, will let :mod:`ctypes` try to find the GMT shared library</span>
+<span class="sd">    (``libgmt``). If the environment variable ``GMT_LIBRARY_PATH`` is set, will</span>
+<span class="sd">    look for the shared library in the directory specified by it.</span>
 
-<span class="sd">    A ``GMTVersionError`` exception will be raised if the GMT shared library reports a</span>
-<span class="sd">    version &lt; 6.0.0.</span>
+<span class="sd">    A ``GMTVersionError`` exception will be raised if the GMT shared library</span>
+<span class="sd">    reports a version &lt; 6.0.0.</span>
 
-<span class="sd">    The ``session_pointer`` attribute holds a ctypes pointer to the currently open</span>
-<span class="sd">    session.</span>
+<span class="sd">    The ``session_pointer`` attribute holds a ctypes pointer to the currently</span>
+<span class="sd">    open session.</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
 <span class="sd">    GMTCLibNotFoundError</span>
-<span class="sd">        If there was any problem loading the library (couldn&#39;t find it or couldn&#39;t</span>
-<span class="sd">        access the functions).</span>
+<span class="sd">        If there was any problem loading the library (couldn&#39;t find it or</span>
+<span class="sd">        couldn&#39;t access the functions).</span>
 <span class="sd">    GMTCLibNoSessionError</span>
 <span class="sd">        If you try to call a method outside of a &#39;with&#39; block.</span>
 <span class="sd">    GMTVersionError</span>
@@ -283,19 +305,21 @@
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief()</span>
 <span class="sd">    &gt;&gt;&gt; type(grid)</span>
 <span class="sd">    &lt;class &#39;xarray.core.dataarray.DataArray&#39;&gt;</span>
-<span class="sd">    &gt;&gt;&gt; # Create a session and destroy it automatically when exiting the &quot;with&quot; block.</span>
+<span class="sd">    &gt;&gt;&gt; # Create a session and destroy it automatically when exiting the &quot;with&quot;</span>
+<span class="sd">    &gt;&gt;&gt; # block.</span>
 <span class="sd">    &gt;&gt;&gt; with Session() as ses:</span>
 <span class="sd">    ...     # Create a virtual file and link to the memory block of the grid.</span>
 <span class="sd">    ...     with ses.virtualfile_from_grid(grid) as fin:</span>
 <span class="sd">    ...         # Create a temp file to use as output.</span>
 <span class="sd">    ...         with GMTTempFile() as fout:</span>
-<span class="sd">    ...             # Call the grdinfo module with the virtual file as input and the.</span>
-<span class="sd">    ...             # temp file as output.</span>
-<span class="sd">    ...             ses.call_module(&quot;grdinfo&quot;, &quot;{} -C -&gt;{}&quot;.format(fin, fout.name))</span>
+<span class="sd">    ...             # Call the grdinfo module with the virtual file as input</span>
+<span class="sd">    ...             # and the temp file as output.</span>
+<span class="sd">    ...             ses.call_module(</span>
+<span class="sd">    ...                 &quot;grdinfo&quot;, &quot;{} -C -&gt;{}&quot;.format(fin, fout.name)</span>
+<span class="sd">    ...             )</span>
 <span class="sd">    ...             # Read the contents of the temp file before it&#39;s deleted.</span>
 <span class="sd">    ...             print(fout.read().strip())</span>
-<span class="sd">    -180 180 -90 90 -8425 5551 1 1 361 181</span>
-
+<span class="sd">    -180 180 -90 90 -8592 5559 1 1 361 181</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># The minimum version of GMT required</span>
@@ -344,7 +368,7 @@
             <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
 
-<div class="viewcode-block" id="Session.__enter__"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__enter__.html#pygmt.clib.Session.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.__enter__"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__enter__.html#pygmt.clib.Session.__enter__">[docs]</a>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a GMT API session and check the libgmt version.</span>
 
@@ -353,24 +377,25 @@
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
 <span class="sd">        GMTVersionError</span>
-<span class="sd">            If the version reported by libgmt is less than ``Session.required_version``.</span>
-<span class="sd">            Will destroy the session before raising the exception.</span>
+<span class="sd">            If the version reported by libgmt is less than</span>
+<span class="sd">            ``Session.required_version``. Will destroy the session before</span>
+<span class="sd">            raising the exception.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;pygmt-session&quot;</span><span class="p">)</span>
-        <span class="c1"># Need to store the version info because &#39;get_default&#39; won&#39;t work after the</span>
-        <span class="c1"># session is destroyed.</span>
+        <span class="c1"># Need to store the version info because &#39;get_default&#39; won&#39;t work after</span>
+        <span class="c1"># the session is destroyed.</span>
         <span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required_version</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
             <span class="k">raise</span> <span class="n">GMTVersionError</span><span class="p">(</span>
-                <span class="s2">&quot;Using an incompatible GMT version </span><span class="si">{}</span><span class="s2">. Must be newer than </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="s2">&quot;Using an incompatible GMT version </span><span class="si">{}</span><span class="s2">. Must be equal or newer than </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_version</span>
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Session.__exit__"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__exit__.html#pygmt.clib.Session.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.__exit__"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__exit__.html#pygmt.clib.Session.__exit__">[docs]</a>    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Destroy the currently open GMT API session.</span>
 
@@ -378,11 +403,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Session.__getitem__"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__getitem__.html#pygmt.clib.Session.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Session.__getitem__"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__getitem__.html#pygmt.clib.Session.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the value of a GMT constant (C enum) from gmt_resources.h</span>
 
-<span class="sd">        Used to set configuration values for other API calls. Wraps ``GMT_Get_Enum``.</span>
+<span class="sd">        Used to set configuration values for other API calls. Wraps</span>
+<span class="sd">        ``GMT_Get_Enum``.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -392,8 +418,8 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        constant : int</span>
-<span class="sd">            Integer value of the constant. Do not rely on this value because it might</span>
-<span class="sd">            change.</span>
+<span class="sd">            Integer value of the constant. Do not rely on this value because it</span>
+<span class="sd">            might change.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -405,11 +431,11 @@
             <span class="s2">&quot;GMT_Get_Enum&quot;</span><span class="p">,</span> <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">],</span> <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span>
         <span class="p">)</span>
 
-        <span class="c1"># The C lib introduced the void API pointer to GMT_Get_Enum so that it&#39;s</span>
-        <span class="c1"># consistent with other functions. It doesn&#39;t use the pointer so we can pass in</span>
-        <span class="c1"># None (NULL pointer). We can&#39;t give it the actual pointer because we need to</span>
-        <span class="c1"># call GMT_Get_Enum when creating a new API session pointer (chicken-and-egg</span>
-        <span class="c1"># type of thing).</span>
+        <span class="c1"># The C lib introduced the void API pointer to GMT_Get_Enum so that</span>
+        <span class="c1"># it&#39;s consistent with other functions. It doesn&#39;t use the pointer so</span>
+        <span class="c1"># we can pass in None (NULL pointer). We can&#39;t give it the actual</span>
+        <span class="c1"># pointer because we need to call GMT_Get_Enum when creating a new API</span>
+        <span class="c1"># session pointer (chicken-and-egg type of thing).</span>
         <span class="n">session</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">value</span> <span class="o">=</span> <span class="n">c_get_enum</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
@@ -467,21 +493,22 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new GMT C API session.</span>
 
-<span class="sd">        This is required before most other methods of :class:`pygmt.clib.Session` can be</span>
-<span class="sd">        called.</span>
+<span class="sd">        This is required before most other methods of</span>
+<span class="sd">        :class:`pygmt.clib.Session` can be called.</span>
 
 <span class="sd">        .. warning::</span>
 
-<span class="sd">            Usage of :class:`~gmt.clib.Session` as a context manager in a ``with`` block</span>
-<span class="sd">            is preferred over calling :meth:`~gmt.clib.Session.create` and</span>
+<span class="sd">            Usage of :class:`~gmt.clib.Session` as a context manager in a</span>
+<span class="sd">            ``with`` block is preferred over calling</span>
+<span class="sd">            :meth:`~gmt.clib.Session.create` and</span>
 <span class="sd">            :meth:`~gmt.clib.Session.destroy` manually.</span>
 
-<span class="sd">        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL`` struct, which</span>
-<span class="sd">        is a :class:`ctypes.c_void_p` pointer. Sets the ``session_pointer`` attribute to</span>
-<span class="sd">        this pointer.</span>
+<span class="sd">        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL``</span>
+<span class="sd">        struct, which is a :class:`ctypes.c_void_p` pointer. Sets the</span>
+<span class="sd">        ``session_pointer`` attribute to this pointer.</span>
 
-<span class="sd">        Remember to terminate the current session using :meth:`pygmt.clib.Session.destroy`</span>
-<span class="sd">        before creating a new one.</span>
+<span class="sd">        Remember to terminate the current session using</span>
+<span class="sd">        :meth:`pygmt.clib.Session.destroy` before creating a new one.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -492,13 +519,14 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># Won&#39;t raise an exception if there is a currently open session</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span>  <span class="c1"># pylint: disable=pointless-statement</span>
-            <span class="c1"># In this case, fail to create a new session until the old one is destroyed</span>
+            <span class="c1"># In this case, fail to create a new session until the old one is</span>
+            <span class="c1"># destroyed</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span>
                 <span class="s2">&quot;Failed to create a GMT API session: There is a currently open session.&quot;</span>
                 <span class="s2">&quot; Must destroy it fist.&quot;</span>
             <span class="p">)</span>
-        <span class="c1"># If the exception is raised, this means that there is no open session and we&#39;re</span>
-        <span class="c1"># free to create a new one.</span>
+        <span class="c1"># If the exception is raised, this means that there is no open session</span>
+        <span class="c1"># and we&#39;re free to create a new one.</span>
         <span class="k">except</span> <span class="n">GMTCLibNoSessionError</span><span class="p">:</span>
             <span class="k">pass</span>
 
@@ -508,25 +536,26 @@
             <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Capture the output printed by GMT into this list. Will use it later to</span>
-        <span class="c1"># generate error messages for the exceptions raised by API calls.</span>
+        <span class="c1"># Capture the output printed by GMT into this list. Will use it later</span>
+        <span class="c1"># to generate error messages for the exceptions raised by API calls.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_log</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="nd">@ctp</span><span class="o">.</span><span class="n">CFUNCTYPE</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">print_func</span><span class="p">(</span><span class="n">file_pointer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
             <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Callback function that the GMT C API will use to print log and error</span>
-<span class="sd">            messages. We&#39;ll capture the messages and print them to stderr so that they</span>
-<span class="sd">            will show up on the Jupyter notebook.</span>
+<span class="sd">            Callback function that the GMT C API will use to print log and</span>
+<span class="sd">            error messages. We&#39;ll capture the messages and print them to stderr</span>
+<span class="sd">            so that they will show up on the Jupyter notebook.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_error_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-            <span class="c1"># flush to make sure the messages are printed even if we have a crash.</span>
+            <span class="c1"># flush to make sure the messages are printed even if we have a</span>
+            <span class="c1"># crash.</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">return</span> <span class="mi">0</span>
 
-        <span class="c1"># Need to store a copy of the function because ctypes doesn&#39;t and it will be</span>
-        <span class="c1"># garbage collected otherwise</span>
+        <span class="c1"># Need to store a copy of the function because ctypes doesn&#39;t and it</span>
+        <span class="c1"># will be garbage collected otherwise</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_print_callback</span> <span class="o">=</span> <span class="n">print_func</span>
 
         <span class="n">padding</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_PAD_DEFAULT&quot;</span><span class="p">]</span>
@@ -559,17 +588,19 @@
 
 <span class="sd">        .. warning::</span>
 
-<span class="sd">            Usage of :class:`~gmt.clib.Session` as a context manager in a ``with`` block</span>
-<span class="sd">            is preferred over calling :meth:`~gmt.clib.Session.create` and</span>
+<span class="sd">            Usage of :class:`~gmt.clib.Session` as a context manager in a</span>
+<span class="sd">            ``with`` block is preferred over calling</span>
+<span class="sd">            :meth:`~gmt.clib.Session.create` and</span>
 <span class="sd">            :meth:`~gmt.clib.Session.destroy` manually.</span>
 
-<span class="sd">        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a registered</span>
-<span class="sd">        ``GMTAPI_CTRL`` session (the pointer for this struct is stored in the</span>
-<span class="sd">        ``session_pointer`` attribute).</span>
+<span class="sd">        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a</span>
+<span class="sd">        registered ``GMTAPI_CTRL`` session (the pointer for this struct is</span>
+<span class="sd">        stored in the ``session_pointer`` attribute).</span>
 
-<span class="sd">        Always use this method after you are done using a C API session. The session</span>
-<span class="sd">        needs to be destroyed before creating a new one. Otherwise, some of the</span>
-<span class="sd">        configuration files might be left behind and can influence subsequent API calls.</span>
+<span class="sd">        Always use this method after you are done using a C API session. The</span>
+<span class="sd">        session needs to be destroyed before creating a new one. Otherwise,</span>
+<span class="sd">        some of the configuration files might be left behind and can influence</span>
+<span class="sd">        subsequent API calls.</span>
 
 <span class="sd">        Sets the ``session_pointer`` attribute to ``None``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -650,7 +681,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        module : str</span>
-<span class="sd">            Module name (``&#39;pscoast&#39;``, ``&#39;psbasemap&#39;``, etc).</span>
+<span class="sd">            Module name (``&#39;coast&#39;``, ``&#39;basemap&#39;``, etc).</span>
 <span class="sd">        args : str</span>
 <span class="sd">            String with the command line arguments that will be passed to the</span>
 <span class="sd">            module (for example, ``&#39;-R0/5/0/10 -JM&#39;``).</span>
@@ -1081,8 +1112,8 @@
 
 <span class="sd">        GMT uses a virtual file scheme to pass in data to API modules. Use it</span>
 <span class="sd">        to pass in your GMT data structure (created using</span>
-<span class="sd">        :meth:`~gmt.clib.Session.create_data`) to a module that expects an input</span>
-<span class="sd">        or output file.</span>
+<span class="sd">        :meth:`~gmt.clib.Session.create_data`) to a module that expects an</span>
+<span class="sd">        input or output file.</span>
 
 <span class="sd">        Use in a ``with`` block. Will automatically close the virtual file when</span>
 <span class="sd">        leaving the ``with`` block. Because of this, no wrapper for</span>
@@ -1164,7 +1195,12 @@
             <span class="n">valid_modifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_DUPLICATE&quot;</span><span class="p">],</span>
         <span class="p">)</span>
 
-        <span class="n">buff</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_STR16&quot;</span><span class="p">])</span>
+        <span class="c1"># The core GMT changes GMT_STR16 to GMT_VF_LEN in 6.1.0</span>
+        <span class="c1"># See https://github.com/GenericMappingTools/gmt/pull/2861</span>
+        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.1.0&quot;</span><span class="p">):</span>
+            <span class="n">buff</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_STR16&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">buff</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_VF_LEN&quot;</span><span class="p">])</span>
 
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_open_virtualfile</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">family_int</span><span class="p">,</span> <span class="n">geometry_int</span><span class="p">,</span> <span class="n">direction_int</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">buff</span>
@@ -1187,30 +1223,33 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store 1d arrays as columns of a table inside a virtual file.</span>
 
-<span class="sd">        Use the virtual file name to pass in the data in your vectors to a GMT module.</span>
+<span class="sd">        Use the virtual file name to pass in the data in your vectors to a GMT</span>
+<span class="sd">        module.</span>
 
-<span class="sd">        Context manager (use in a ``with`` block). Yields the virtual file name that you</span>
-<span class="sd">        can pass as an argument to a GMT module call. Closes the virtual file upon exit</span>
-<span class="sd">        of the ``with`` block.</span>
+<span class="sd">        Context manager (use in a ``with`` block). Yields the virtual file name</span>
+<span class="sd">        that you can pass as an argument to a GMT module call. Closes the</span>
+<span class="sd">        virtual file upon exit of the ``with`` block.</span>
 
-<span class="sd">        Use this instead of creating the data container and virtual file by hand with</span>
-<span class="sd">        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_vector`, and</span>
+<span class="sd">        Use this instead of creating the data container and virtual file by</span>
+<span class="sd">        hand with :meth:`~gmt.clib.Session.create_data`,</span>
+<span class="sd">        :meth:`~gmt.clib.Session.put_vector`, and</span>
 <span class="sd">        :meth:`~gmt.clib.Session.open_virtual_file`.</span>
 
-<span class="sd">        If the arrays are C contiguous blocks of memory, they will be passed without</span>
-<span class="sd">        copying to GMT. If they are not (e.g., they are columns of a 2D array), they</span>
-<span class="sd">        will need to be copied to a contiguous block.</span>
+<span class="sd">        If the arrays are C contiguous blocks of memory, they will be passed</span>
+<span class="sd">        without copying to GMT. If they are not (e.g., they are columns of a 2D</span>
+<span class="sd">        array), they will need to be copied to a contiguous block.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        vectors : 1d arrays</span>
-<span class="sd">            The vectors that will be included in the array. All must be of the same</span>
-<span class="sd">            size.</span>
+<span class="sd">            The vectors that will be included in the array. All must be of the</span>
+<span class="sd">            same size.</span>
 
 <span class="sd">        Yields</span>
 <span class="sd">        ------</span>
 <span class="sd">        fname : str</span>
-<span class="sd">            The name of virtual file. Pass this as a file name argument to a GMT module.</span>
+<span class="sd">            The name of virtual file. Pass this as a file name argument to a</span>
+<span class="sd">            GMT module.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -1225,17 +1264,19 @@
 <span class="sd">        ...     with ses.virtualfile_from_vectors(x, y, z) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             ses.call_module(&#39;info&#39;, &#39;{} -&gt;{}&#39;.format(fin, fout.name))</span>
+<span class="sd">        ...             ses.call_module(</span>
+<span class="sd">        ...                 &#39;info&#39;, &#39;{} -&gt;{}&#39;.format(fin, fout.name)</span>
+<span class="sd">        ...             )</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;1/3&gt; &lt;4/6&gt; &lt;7/9&gt;</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in put_matrix</span>
-        <span class="c1"># because we need to maintain a reference to the copy while it is being used by</span>
-        <span class="c1"># the C API. Otherwise, the array would be garbage collected and the memory</span>
-        <span class="c1"># freed. Creating it in this context manager guarantees that the copy will be</span>
-        <span class="c1"># around until the virtual file is closed. The conversion is implicit in</span>
-        <span class="c1"># vectors_to_arrays.</span>
+        <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in</span>
+        <span class="c1"># put_matrix because we need to maintain a reference to the copy while</span>
+        <span class="c1"># it is being used by the C API. Otherwise, the array would be garbage</span>
+        <span class="c1"># collected and the memory freed. Creating it in this context manager</span>
+        <span class="c1"># guarantees that the copy will be around until the virtual file is</span>
+        <span class="c1"># closed. The conversion is implicit in vectors_to_arrays.</span>
         <span class="n">arrays</span> <span class="o">=</span> <span class="n">vectors_to_arrays</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
 
         <span class="n">columns</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span>
@@ -1261,25 +1302,27 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store a 2d array as a table inside a virtual file.</span>
 
-<span class="sd">        Use the virtual file name to pass in the data in your matrix to a GMT module.</span>
+<span class="sd">        Use the virtual file name to pass in the data in your matrix to a GMT</span>
+<span class="sd">        module.</span>
 
-<span class="sd">        Context manager (use in a ``with`` block). Yields the virtual file name that you</span>
-<span class="sd">        can pass as an argument to a GMT module call. Closes the virtual file upon exit</span>
-<span class="sd">        of the ``with`` block.</span>
+<span class="sd">        Context manager (use in a ``with`` block). Yields the virtual file name</span>
+<span class="sd">        that you can pass as an argument to a GMT module call. Closes the</span>
+<span class="sd">        virtual file upon exit of the ``with`` block.</span>
 
-<span class="sd">        The virtual file will contain the array as a ``GMT_MATRIX`` pretending to be a</span>
-<span class="sd">        ``GMT_DATASET``.</span>
+<span class="sd">        The virtual file will contain the array as a ``GMT_MATRIX`` pretending</span>
+<span class="sd">        to be a ``GMT_DATASET``.</span>
 
-<span class="sd">        **Not meant for creating ``GMT_GRID``**. The grid requires more metadata than</span>
-<span class="sd">        just the data matrix. Use :meth:`~gmt.clib.Session.virtualfile_from_grid`</span>
-<span class="sd">        instead.</span>
+<span class="sd">        **Not meant for creating ``GMT_GRID``**. The grid requires more</span>
+<span class="sd">        metadata than just the data matrix. Use</span>
+<span class="sd">        :meth:`~gmt.clib.Session.virtualfile_from_grid` instead.</span>
 
-<span class="sd">        Use this instead of creating the data container and virtual file by hand with</span>
-<span class="sd">        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_matrix`, and</span>
+<span class="sd">        Use this instead of creating the data container and virtual file by</span>
+<span class="sd">        hand with :meth:`~gmt.clib.Session.create_data`,</span>
+<span class="sd">        :meth:`~gmt.clib.Session.put_matrix`, and</span>
 <span class="sd">        :meth:`~gmt.clib.Session.open_virtual_file`</span>
 
-<span class="sd">        The matrix must be C contiguous in memory. If it is not (e.g., it is a slice of</span>
-<span class="sd">        a larger array), the array will be copied to make sure it is.</span>
+<span class="sd">        The matrix must be C contiguous in memory. If it is not (e.g., it is a</span>
+<span class="sd">        slice of a larger array), the array will be copied to make sure it is.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1289,7 +1332,8 @@
 <span class="sd">        Yields</span>
 <span class="sd">        ------</span>
 <span class="sd">        fname : str</span>
-<span class="sd">            The name of virtual file. Pass this as a file name argument to a GMT module.</span>
+<span class="sd">            The name of virtual file. Pass this as a file name argument to a</span>
+<span class="sd">            GMT module.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -1306,16 +1350,19 @@
 <span class="sd">        ...     with ses.virtualfile_from_matrix(data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             ses.call_module(&#39;info&#39;, &#39;{} -&gt;{}&#39;.format(fin, fout.name))</span>
+<span class="sd">        ...             ses.call_module(</span>
+<span class="sd">        ...                 &#39;info&#39;, &#39;{} -&gt;{}&#39;.format(fin, fout.name)</span>
+<span class="sd">        ...             )</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        &lt;matrix memory&gt;: N = 4 &lt;0/9&gt; &lt;1/10&gt; &lt;2/11&gt;</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in put_matrix</span>
-        <span class="c1"># because we need to maintain a reference to the copy while it is being used by</span>
-        <span class="c1"># the C API. Otherwise, the array would be garbage collected and the memory</span>
-        <span class="c1"># freed. Creating it in this context manager guarantees that the copy will be</span>
-        <span class="c1"># around until the virtual file is closed.</span>
+        <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in</span>
+        <span class="c1"># put_matrix because we need to maintain a reference to the copy while</span>
+        <span class="c1"># it is being used by the C API. Otherwise, the array would be garbage</span>
+        <span class="c1"># collected and the memory freed. Creating it in this context manager</span>
+        <span class="c1"># guarantees that the copy will be around until the virtual file is</span>
+        <span class="c1"># closed.</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="n">as_c_contiguous</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
         <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span>
 
@@ -1336,21 +1383,24 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store a grid in a virtual file.</span>
 
-<span class="sd">        Use the virtual file name to pass in the data in your grid to a GMT module.</span>
-<span class="sd">        Grids must be :class:`xarray.DataArray` instances.</span>
+<span class="sd">        Use the virtual file name to pass in the data in your grid to a GMT</span>
+<span class="sd">        module. Grids must be :class:`xarray.DataArray` instances.</span>
 
-<span class="sd">        Context manager (use in a ``with`` block). Yields the virtual file name that you</span>
-<span class="sd">        can pass as an argument to a GMT module call. Closes the virtual file upon exit</span>
-<span class="sd">        of the ``with`` block.</span>
+<span class="sd">        Context manager (use in a ``with`` block). Yields the virtual file name</span>
+<span class="sd">        that you can pass as an argument to a GMT module call. Closes the</span>
+<span class="sd">        virtual file upon exit of the ``with`` block.</span>
 
-<span class="sd">        The virtual file will contain the grid as a ``GMT_MATRIX`` with extra metadata.</span>
+<span class="sd">        The virtual file will contain the grid as a ``GMT_MATRIX`` with extra</span>
+<span class="sd">        metadata.</span>
 
-<span class="sd">        Use this instead of creating a data container and virtual file by hand with</span>
-<span class="sd">        :meth:`~gmt.clib.Session.create_data`, :meth:`~gmt.clib.Session.put_matrix`, and</span>
+<span class="sd">        Use this instead of creating a data container and virtual file by hand</span>
+<span class="sd">        with :meth:`~gmt.clib.Session.create_data`,</span>
+<span class="sd">        :meth:`~gmt.clib.Session.put_matrix`, and</span>
 <span class="sd">        :meth:`~gmt.clib.Session.open_virtual_file`</span>
 
-<span class="sd">        The grid data matrix must be C contiguous in memory. If it is not (e.g., it is a</span>
-<span class="sd">        slice of a larger array), the array will be copied to make sure it is.</span>
+<span class="sd">        The grid data matrix must be C contiguous in memory. If it is not</span>
+<span class="sd">        (e.g., it is a slice of a larger array), the array will be copied to</span>
+<span class="sd">        make sure it is.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1360,7 +1410,8 @@
 <span class="sd">        Yields</span>
 <span class="sd">        ------</span>
 <span class="sd">        fname : str</span>
-<span class="sd">            The name of virtual file. Pass this as a file name argument to a GMT module.</span>
+<span class="sd">            The name of virtual file. Pass this as a file name argument to a</span>
+<span class="sd">            GMT module.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -1375,7 +1426,7 @@
 <span class="sd">        &gt;&gt;&gt; print(data.lat.values.min(), data.lat.values.max())</span>
 <span class="sd">        -90.0 90.0</span>
 <span class="sd">        &gt;&gt;&gt; print(data.values.min(), data.values.max())</span>
-<span class="sd">        -8425.0 5551.0</span>
+<span class="sd">        -8592.0 5559.0</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as ses:</span>
 <span class="sd">        ...     with ses.virtualfile_from_grid(data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
@@ -1383,16 +1434,16 @@
 <span class="sd">        ...             args = &#39;{} -L0 -Cn -&gt;{}&#39;.format(fin, fout.name)</span>
 <span class="sd">        ...             ses.call_module(&#39;grdinfo&#39;, args)</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
-<span class="sd">        -180 180 -90 90 -8425 5551 1 1 361 181</span>
+<span class="sd">        -180 180 -90 90 -8592 5559 1 1 361 181</span>
 <span class="sd">        &gt;&gt;&gt; # The output is: w e s n z0 z1 dx dy n_columns n_rows</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in put_matrix</span>
-        <span class="c1"># because we need to maintain a reference to the copy while it is being used by</span>
-        <span class="c1"># the C API. Otherwise, the array would be garbage collected and the memory</span>
-        <span class="c1"># freed. Creating it in this context manager guarantees that the copy will be</span>
-        <span class="c1"># around until the virtual file is closed. The conversion is implicit in</span>
-        <span class="c1"># dataarray_to_matrix.</span>
+        <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in</span>
+        <span class="c1"># put_matrix because we need to maintain a reference to the copy while</span>
+        <span class="c1"># it is being used by the C API. Otherwise, the array would be garbage</span>
+        <span class="c1"># collected and the memory freed. Creating it in this context manager</span>
+        <span class="c1"># guarantees that the copy will be around until the virtual file is</span>
+        <span class="c1"># closed. The conversion is implicit in dataarray_to_matrix.</span>
         <span class="n">matrix</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">inc</span> <span class="o">=</span> <span class="n">dataarray_to_matrix</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
         <span class="n">family</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_GRID|GMT_VIA_MATRIX&quot;</span>
         <span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_SURFACE&quot;</span>
@@ -1473,19 +1524,35 @@
            </div>
            
           </div>
-          <footer>
+          
+<footer>
   
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, The PyGMT Developers.
-      Last updated on Jan 26, 2019.
+        &copy; Copyright 2017-2020, The PyGMT Developers.
+      
+        <span class="commit">
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/74501e01de098708d466c560d68263f3f698e143">74501e0</a></code>.
+        </span>
+      
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
 
 </footer>
 
@@ -1498,26 +1565,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

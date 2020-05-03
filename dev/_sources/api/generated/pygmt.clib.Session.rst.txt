@@ -5,6 +5,71 @@ pygmt.clib.Session
 
 .. autoclass:: Session
 
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+    
+    Session.call_module
+    
+    
+    
+    Session.create
+    
+    
+    
+    Session.create_data
+    
+    
+    
+    Session.destroy
+    
+    
+    
+    Session.extract_region
+    
+    
+    
+    Session.get_default
+    
+    
+    
+    Session.get_libgmt_func
+    
+    
+    
+    Session.open_virtual_file
+    
+    
+    
+    Session.put_matrix
+    
+    
+    
+    Session.put_vector
+    
+    
+    
+    Session.virtualfile_from_grid
+    
+    
+    
+    Session.virtualfile_from_matrix
+    
+    
+    
+    Session.virtualfile_from_vectors
+    
+    
+    
+    Session.write_data
+    
+    
+
+.. include:: backreferences/pygmt.clib.Session.examples
+
 .. raw:: html
 
      <div style='clear:both'></div>
