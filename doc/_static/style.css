@@ -34,8 +34,7 @@ h1 {
 }
 
 .rst-content img {
-    max-width: 700px;
-    width: 100%;
+    max-width: 80%;
 }
 
 .sidebar-title {

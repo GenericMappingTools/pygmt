@@ -84,7 +84,7 @@ There are a few steps that still must be done manually, though.
 1. Generate a list of commits between the last release tag and now:
 
     ```bash
-    git log HEAD...v0.1.2 > changes.txt
+    git log HEAD...v0.1.2 --pretty="* %s" > changes.txt
     ```
 
 2. Edit the changes list to remove any trivial changes (updates to the README, typo
@@ -94,12 +94,18 @@ There are a few steps that still must be done manually, though.
    to make the change automatically.
 4. Copy the remaining changes to `doc/changes.rst` under a new section for the
    intended release.
-5. Reserve a DOI in [Zenodo](https://zenodo.org/) and pre-fill the fields for archiving
-   the new release. Include as authors anyone who made contributions between now and the
-   last release.
-6. Include the DOI badge in the changelog.
-5. Add a link to the new release version documentation in `README.rst`.
-5. Open a new PR with the updated changelog.
+5. Add a list of people who contributed to the release (use
+   `` git shortlog HEAD...v0.1.2 -sne ``).
+6. Include the DOI badge in the changelog. Remember to replace your DOI inside the badge url.
+
+    ```
+    .. image:: https://zenodo.org/badge/DOI/<INSERT-DOI-HERE>.svg
+        :alt: Digital Object Identifier for the Zenodo archive
+        :target: https://doi.org/<INSERT-DOI-HERE>
+    ```
+
+7. Add a link to the new release version documentation in `README.rst`.
+8. Open a new PR with the updated changelog.
 
 ### Check the README syntax
 
