@@ -1,0 +1,11 @@
+pygmt.exceptions.GMTCLibNoSessionError
+======================================
+
+.. currentmodule:: pygmt.exceptions
+
+.. autoexception:: GMTCLibNoSessionError
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>
