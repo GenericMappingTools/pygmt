@@ -10,6 +10,7 @@ Fixes #
 
 **Reminders**
 
+- [ ] Correct base branch selected? Choose `master` branch for new features, `0.x` branch (e.g., `0.1`) for bug fixes.
 - [ ] Run `make format` and `make check` to make sure the code follows the style guide.
 - [ ] Add tests for new features or tests that would have caught the bug that you're fixing.
 - [ ] Add new public functions/methods/classes to `doc/api/index.rst`.
