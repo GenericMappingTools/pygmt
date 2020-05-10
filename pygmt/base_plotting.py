@@ -884,7 +884,7 @@ class BasePlotting:
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
-    @use_alias(F="dimensions")
+    @use_alias(F="dimensions", B="frame")
     def subplot(self, directive: str, row: int = None, col: int = None, **kwargs):
         """
         Manage modern mode figure subplot configuration and selection.
