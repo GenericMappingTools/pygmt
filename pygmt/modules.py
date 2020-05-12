@@ -182,6 +182,7 @@ class config:  # pylint: disable=invalid-name
                 "MAP_GRID_CROSS_SIZE_PRIMARY",
                 "MAP_GRID_CROSS_SIZE_SECONDARY",
             ],
+            "MAP_GRID_PEN": ["MAP_GRID_PEN_PRIMARY", "MAP_GRID_PEN_SECONDARY"],
             "MAP_TICK_LENGTH": ["MAP_TICK_LENGTH_PRIMARY", "MAP_TICK_LENGTH_SECONDARY"],
             "MAP_TICK_PEN": ["MAP_TICK_PEN_PRIMARY", "MAP_TICK_PEN_SECONDARY"],
         }

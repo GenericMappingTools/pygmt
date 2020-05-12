@@ -119,6 +119,23 @@ def test_config_map_grid_cross_size():
 
 
 @pytest.mark.mpl_image_compare
+def test_config_map_grid_pen():
+    """
+    Test that setting `MAP_GRID_PEN` config changes both
+    `MAP_GRID_PEN_PRIMARY` and `MAP_GRID_PEN_SECONDARY`.
+    """
+    fig = Figure()
+    with config(MAP_GRID_PEN="thick,red"):
+        fig.basemap(
+            region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
+            projection="X6c/2c",
+            frame=["pa1Hg", "sa45mg45m", "NWse"],
+        )
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], Y=-3)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_config_map_tick_length():
     """
     Test that setting `MAP_TICK_LENGTH` config changes both
