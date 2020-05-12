@@ -10,4 +10,5 @@ and are considered the "PyGMT Developers":
 
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Dongdong Tian](https://seisman.info/)
+* [Liam Toney](https://liam.earth/)
 * [Leonardo Uieda](http://www.leouieda.com/)

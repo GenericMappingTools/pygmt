@@ -27,7 +27,9 @@ PyGMT
 .. image:: https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org%2F&style=flat-square
     :alt: Discourse forum
     :target: https://forum.generic-mapping-tools.org
-
+.. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
+    :alt: Digital Object Identifier for the Zenodo archive
+    :target: https://doi.org/10.5281/zenodo.3781524
 
 .. placeholder-for-doc-index
 
@@ -35,10 +37,12 @@ PyGMT
 Disclaimer
 ----------
 
-🚨 **This package is in the early stages of design and implementation.** 🚨
+🚨 **This package is still undergoing rapid development.** 🚨
 
-All functions/classes/interfaces are subject to change as we experiment with new design
-ideas and implement new features. **This is NOT a finished product.**
+All of the API (functions/classes/interfaces) is subject to change until we reach v1.0.0
+as per the `semantic versioning specification <https://semver.org/spec/v2.0.0.html>`__.
+There may be non-backward compatible changes as we experiment with new design ideas and
+implement new features. **This is not a finished product, use with caution**
 
 We welcome any feedback and ideas!
 Let us know by submitting
@@ -160,3 +164,12 @@ Other Python wrappers for GMT:
 * `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
+
+
+Documentation for other versions
+--------------------------------
+* `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
+  Github)
+* `Latest release <https://www.pygmt.org/latest>`__
+* `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
+* `v0.0.1a0 <https://www.pygmt.org/0.0.1a0>`__

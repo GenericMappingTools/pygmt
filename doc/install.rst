@@ -32,16 +32,18 @@ PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the 
 released version that can be found at
 `this website <https://www.generic-mapping-tools.org>`__.
 
-We need the very latest GMT since there are many changes being made to GMT itself in
+We need the latest GMT (>=6.0.0) since there are many changes being made to GMT itself in
 response to the development of PyGMT, mainly the new
-`modern execution mode <https://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization>`__.
+`modern execution mode <https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode>`__.
 
-Compiled conda packages of GMT for Linux, Mac and Windows are provided through
+Compiled conda packages of GMT for Linux and Mac are provided through
 `conda-forge <https://anaconda.org/conda-forge/gmt>`__.
 Advanced users can also
 `build GMT from source <https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md>`__
-instead, which is not so recommended but we would love to get feedback from anyone who
-tries.
+instead, which is not so recommended but we would love to get feedback from anyone who tries.
+For Windows, conda GMT packages are available, but they do not currently work with PyGMT,
+so users will need to build from source or use the Windows Subsystem for Linux, see
+`here <https://github.com/GenericMappingTools/pygmt/pull/313>`__ for more details.
 
 We recommend following the instructions further on to install GMT 6.
 
@@ -96,15 +98,13 @@ Installing PyGMT
 ----------------
 
 Now that you have GMT installed and your conda environment activated,
-use ``pip`` to install the latest source of PyGMT from Github::
+use ``pip`` to install the latest release of PyGMT from `PyPI <https://pypi.org/project/pygmt>`__::
+
+    pip install pygmt
+
+Alternatively, you can install the development version from the Github repository::
 
     pip install https://github.com/GenericMappingTools/pygmt/archive/master.zip
-
-Alternatively, you can clone the git repository and install using ``pip``::
-
-    git clone https://github.com/GenericMappingTools/pygmt.git
-    cd pygmt
-    pip install .
 
 This will allow you to use the ``pygmt`` library from Python.
 
