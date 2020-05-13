@@ -35,6 +35,17 @@ Presentations
 These are conference presentations about the development of PyGMT (previously
 "GMT/Python"):
 
+* "PyGMT: Accessing the Generic Mapping Tools from Python".
+  2019.
+  Leonardo Uieda and Paul Wessel.
+  Presented at *AGU 2019*.
+  doi:`10.6084/m9.figshare.11320280 <https://doi.org/10.6084/m9.figshare.11320280>`__
+
+.. figure:: _static/agu2019-poster.jpg
+   :target: https://doi.org/10.6084/m9.figshare.11320280
+   :align: center
+   :alt: AGU 2019 poster on figshare
+
 * "Building an object-oriented Python interface for the Generic Mapping Tools".
   2018.
   Leonardo Uieda and Paul Wessel.
@@ -77,4 +88,4 @@ These are conference presentations about the development of PyGMT (previously
 .. figure:: _static/agu2017-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.5662411
    :align: center
-   :alt: AGU poster on figshare
+   :alt: AGU 2017 poster on figshare
