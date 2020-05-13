@@ -374,3 +374,78 @@ class Figure(BasePlotting):
         base64_png = base64.encodebytes(raw_png)
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
+
+
+class SubPlot(Figure):
+    """
+    Manage modern mode figure subplot configuration and selection.
+
+    The subplot module is used to split the current figure into a
+    rectangular layout of subplots that each may contain a single
+    self-contained figure. A subplot setup is started with the begin
+    directive that defines the layout of the subplots, while positioning to
+    a particular subplot for plotting is done via the set directive. The
+    subplot process is completed via the end directive.
+
+    Full option list at :gmt-docs:`subplot.html`
+    """
+
+    def __init__(self, nrows, ncols, figsize, **kwargs):
+        super().__init__()
+        # Activate main Figure, and initiate subplot
+        self._activate_figure()
+        self.begin_subplot(row=nrows, col=ncols, figsize=figsize, **kwargs)
+
+    @fmt_docstring
+    @use_alias(Ff="figsize", B="frame")
+    @kwargs_to_strings(Ff="sequence")
+    def begin_subplot(self, row=None, col=None, **kwargs):
+        """
+        The begin directive of subplot defines the layout of the entire
+        multi-panel illustration. Several options are available to specify
+        the systematic layout, labeling, dimensions, and more for the
+        subplots.
+
+        {aliases}
+        """
+        arg_str = " ".join(["begin", f"{row}x{col}", build_arg_string(kwargs)])
+        with Session() as lib:
+            lib.call_module(module="subplot", args=arg_str)
+
+    @fmt_docstring
+    @use_alias(F="dimensions")
+    def sca(self, ax=None, **kwargs):
+        """
+        Set the current Axes instance to *ax*.
+
+        Before you start plotting you must first select the active subplot.
+        Note: If any projection (J) option is passed with ? as scale or
+        width when plotting subplots, then the dimensions of the map are
+        automatically determined by the subplot size and your region. For
+        Cartesian plots: If you want the scale to apply equally to both
+        dimensions then you must specify ``projection="x"`` [The default
+        ``projection="X"`` will fill the subplot by using unequal scales].
+
+        {aliases}
+        """
+        arg_str = " ".join(["set", f"{ax}", build_arg_string(kwargs)])
+        with Session() as lib:
+            lib.call_module(module=f"subplot", args=arg_str)
+
+    @fmt_docstring
+    @use_alias(V="verbose")
+    def end_subplot(self, **kwargs):
+        """
+        This command finalizes the current subplot, including any placement
+        of tags, and updates the gmt.history to reflect the dimensions and
+        linear projection required to draw the entire figure outline. This
+        allows subsequent commands, such as colorbar, to use
+        ``position="J"`` to place bars with reference to the complete
+        figure dimensions. We also reset the current plot location to where
+        it was prior to the subplot.
+
+        {aliases}
+        """
+        arg_str = " ".join(["end", build_arg_string(kwargs)])
+        with Session() as lib:
+            lib.call_module(module="subplot", args=arg_str)

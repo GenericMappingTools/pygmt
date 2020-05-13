@@ -884,59 +884,6 @@ class BasePlotting:
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
-    @use_alias(F="dimensions", B="frame")
-    def subplot(self, directive: str, row: int = None, col: int = None, **kwargs):
-        """
-        Manage modern mode figure subplot configuration and selection.
-
-        The subplot module is used to split the current figure into a
-        rectangular layout of subplots that each may contain a single
-        self-contained figure. A subplot setup is started with the begin
-        directive that defines the layout of the subplots, while positioning to
-        a particular subplot for plotting is done via the set directive. The
-        subplot process is completed via the end directive.
-
-        Full option list at :gmt-docs:`subplot.html`
-
-        {aliases}
-
-        Parameters
-        ----------
-        directive : str
-            Either 'begin', 'set' or 'end'.
-        row : int
-            The number of rows if using the 'begin' directive, or the row
-            number if using the 'set' directive. First row is 0, not 1.
-        col : int
-            The number of columns if using the 'begin' directive, or the column
-            number if using the 'set' directive. First column is 0, not 1.
-        dimensions : str
-            ``[f|s]width(s)/height(s)[+fwfracs/hfracs][+cdx/dy][+gfill][+ppen]
-            [+wpen]``
-            Specify the dimensions of the figure when using the 'begin'
-            directive. There are two different ways to do this: (f) Specify
-            overall figure dimensions or (s) specify the dimensions of a single
-            subplot.
-        """
-        if directive not in ("begin", "set", "end"):
-            raise GMTInvalidInput(
-                f"Unrecognized subplot directive '{directive}',\
-                should be either 'begin', 'set', or 'end'"
-            )
-
-        with Session() as lib:
-            rowcol = ""  # default is blank, e.g. when directive == "end"
-            if row is not None and col is not None:
-                if directive == "begin":
-                    rowcol = f"{row}x{col}"
-                elif directive == "set":
-                    rowcol = f"{row},{col}"
-            arg_str = " ".join(
-                a for a in [directive, rowcol, build_arg_string(kwargs)] if a
-            )
-            lib.call_module(module="subplot", args=arg_str)
-
-    @fmt_docstring
     @use_alias(R="region", J="projection", B="frame")
     @use_alias(
         R="region",

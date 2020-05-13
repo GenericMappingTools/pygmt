@@ -16,6 +16,7 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
     :toctree: generated
 
     Figure
+    subplots
 
 Plotting data and laying out the map:
 
@@ -34,7 +35,6 @@ Plotting data and laying out the map:
     Figure.logo
     Figure.image
     Figure.shift_origin
-    Figure.subplot
     Figure.text
     Figure.meca
 

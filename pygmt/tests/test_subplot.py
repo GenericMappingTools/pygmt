@@ -3,8 +3,7 @@ Tests subplot
 """
 import pytest
 
-from .. import Figure
-from ..exceptions import GMTInvalidInput
+from ..pygmtplot import subplots
 
 
 @pytest.mark.mpl_image_compare
@@ -12,13 +11,12 @@ def test_subplot_basic():
     """
     Create a subplot figure with 1 row and 2 columns.
     """
-    fig = Figure()
-    fig.subplot(directive="begin", row=1, col=2, dimensions="f6c/3c")
-    fig.subplot(directive="set", row=0, col=0)
+    fig, axs = subplots(nrows=1, ncols=2, figsize=("6c", "3c"))
+    fig.sca(ax=axs[0, 0])
     fig.basemap(region=[0, 3, 0, 3], frame=True)
-    fig.subplot(directive="set", row=0, col=1)
+    fig.sca(ax=axs[0, 1])
     fig.basemap(region=[0, 3, 0, 3], frame=True)
-    fig.subplot(directive="end")
+    fig.end_subplot()
     return fig
 
 
@@ -27,20 +25,10 @@ def test_subplot_frame():
     """
     Check that map frame setting is applied to all subplot figures
     """
-    fig = Figure()
-    fig.subplot(directive="begin", row=1, col=2, dimensions="f6c/3c", frame="WSne")
-    fig.subplot(directive="set", row=0, col=0)
+    fig, axs = subplots(nrows=1, ncols=2, figsize=("6c", "3c"), frame="WSne")
+    fig.sca(ax=axs[0, 0])
     fig.basemap(region=[0, 3, 0, 3], frame="+tplot0")
-    fig.subplot(directive="set", row=0, col=1)
+    fig.sca(ax=axs[0, 1])
     fig.basemap(region=[0, 3, 0, 3], frame="+tplot1")
-    fig.subplot(directive="end")
+    fig.end_subplot()
     return fig
-
-
-def test_subplot_incorrect_directive():
-    """
-    Check that subplot fails when an incorrect directive is used
-    """
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.subplot(directive="start")
