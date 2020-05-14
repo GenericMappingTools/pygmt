@@ -36,8 +36,8 @@ napoleon_use_ivar = True
 # configure links to GMT docs
 extlinks = {
     "gmt-docs": (
-        "https://www.generic-mapping-tools.org/gmt/latest/%s",
-        "https://www.generic-mapping-tools.org/gmt/latest/",
+        "https://docs.generic-mapping-tools.org/latest/%s",
+        "https://docs.generic-mapping-tools.org/latest/",
     )
 }
 
@@ -62,6 +62,7 @@ sphinx_gallery_conf = {
         [
             "../examples/gallery/coast",
             "../examples/gallery/plot",
+            "../examples/gallery/grid",
             "../examples/projections/azim",
             "../examples/projections/conic",
             "../examples/projections/cyl",
@@ -143,7 +144,7 @@ html_context = {
         ),
         (
             '<i class="fa fa-comment fa-fw"></i> Contact',
-            "https://gitter.im/GenericMappingTools/pygmt",
+            "https://forum.generic-mapping-tools.org",
         ),
         (
             '<i class="fa fa-github fa-fw"></i> Source Code',

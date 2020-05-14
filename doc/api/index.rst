@@ -29,6 +29,7 @@ Plotting data and laying out the map:
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
+    Figure.grdview
     Figure.legend
     Figure.logo
     Figure.image
@@ -60,6 +61,7 @@ Operations on tabular data:
 .. autosummary::
     :toctree: generated
 
+    blockmedian
     info
     surface
 
@@ -69,7 +71,17 @@ Operations on grids:
     :toctree: generated
 
     grdinfo
+    grdtrack
 
+GMT Defaults
+------------
+
+Operations on GMT defaults:
+
+.. autosummary::
+    :toctree: generated
+
+    config
 
 Miscellaneous
 -------------
@@ -97,10 +109,10 @@ and store them in the GMT cache folder.
     :toctree: generated
 
     datasets.load_earth_relief
-    datasets.load_usgs_quakes
-    datasets.load_sample_bathymetry
     datasets.load_japan_quakes
-
+    datasets.load_ocean_ridge_points
+    datasets.load_sample_bathymetry
+    datasets.load_usgs_quakes
 
 .. automodule:: pygmt.exceptions
 
@@ -138,7 +150,7 @@ Most calls to the C API happen through the :class:`pygmt.clib.Session` class.
 
     clib.Session
 
-`GMT modules <https://www.generic-mapping-tools.org/gmt/latest/quick_ref.html>`__ are executed through
+`GMT modules <https://docs.generic-mapping-tools.org/latest/modules.html>`__ are executed through
 the :meth:`~pygmt.clib.Session.call_module` method:
 
 .. autosummary::

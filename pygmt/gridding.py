@@ -46,7 +46,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     data : str or 2d array
         Either a data file name or a 2d numpy array with the tabular data.
 
-    spacing (I) :
+    spacing (I) : str
         ``'xinc[unit][+e|n][/yinc[unit][+e|n]]'``.
         x_inc [and optionally y_inc] is the grid spacing.
 
@@ -88,8 +88,8 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
                 lib.call_module(module="surface", args=arg_str)
 
         if outfile == tmpfile.name:  # if user did not set outfile, return DataArray
-            with xr.open_dataset(outfile) as dataset:
-                result = dataset.load()
+            with xr.open_dataarray(outfile) as dataarray:
+                result = dataarray.load()
         elif outfile != tmpfile.name:  # if user sets an outfile, return None
             result = None
 

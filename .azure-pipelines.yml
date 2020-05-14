@@ -80,6 +80,9 @@ jobs:
 
   strategy:
     matrix:
+      Python38:
+        python.version: '3.8'
+        PYTHON: '3.8'
       Python37:
         python.version: '3.7'
         PYTHON: '3.7'
@@ -163,6 +166,9 @@ jobs:
 
   strategy:
     matrix:
+      Python38:
+        python.version: '3.8'
+        PYTHON: '3.8'
       Python37:
         python.version: '3.7'
         PYTHON: '3.7'
