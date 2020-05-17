@@ -55,6 +55,7 @@ PyGMT requires the following libraries:
 * `numpy <http://www.numpy.org/>`__
 * `pandas <https://pandas.pydata.org/>`__
 * `xarray <http://xarray.pydata.org/>`__
+* `netCDF4 <https://github.com/Unidata/netcdf4-python>`__
 * `packaging <https://pypi.org/project/packaging/>`__
 
 The following are optional (but recommended) dependencies:
