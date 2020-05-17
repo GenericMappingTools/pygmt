@@ -15,6 +15,7 @@ def begin():
     prefix = "pygmt-session"
     with Session() as lib:
         lib.call_module("begin", prefix)
+        lib.call_module("set", "GMT_COMPATIBILITY 6")
 
 
 def end():
