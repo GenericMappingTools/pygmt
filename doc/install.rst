@@ -97,8 +97,12 @@ affect your default installation.
 Installing PyGMT
 ----------------
 
-Now that you have GMT installed and your conda environment activated,
-use ``pip`` to install the latest release of PyGMT from `PyPI <https://pypi.org/project/pygmt>`__::
+Now that you have GMT installed and your conda environment activated, you can
+use ``conda`` to install the latest release of PyGMT from `conda-forge <https://anaconda.org/conda-forge/pygmt>`__::
+
+    conda install pygmt
+
+or use ``pip`` to install from `PyPI <https://pypi.org/project/pygmt>`__::
 
     pip install pygmt
 
