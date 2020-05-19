@@ -182,12 +182,6 @@ jobs:
 
   steps:
 
-  # Install ghostscript separately since there is no Windows conda-forge package for it.
-  - bash: |
-      set -x -e
-      choco install ghostscript
-    displayName: Install ghostscript via chocolatey
-
   - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
     displayName: Add conda to PATH
 
