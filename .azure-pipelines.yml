@@ -162,7 +162,11 @@ jobs:
   variables:
     CONDA_REQUIREMENTS: requirements.txt
     CONDA_REQUIREMENTS_DEV: requirements-dev.txt
-    CONDA_INSTALL_EXTRA: "codecov"
+    CONDA_INSTALL_EXTRA: "codecov gmt=6.0.0"
+    # ctypes.CDLL cannot find conda's libraries
+    GMT_LIBRARY_PATH: 'C:\Miniconda\envs\testing\Library\bin'
+    # Due to potential bug in GMT, we have to set GMT_SHAREDIR manually
+    GMT_SHAREDIR: 'C:\Miniconda\envs\testing\Library\share\gmt'
 
   strategy:
     matrix:
