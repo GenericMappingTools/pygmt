@@ -41,17 +41,18 @@ def load_libgmt(env=None):
         env = os.environ
     libnames = clib_name(os_name=sys.platform)
     libpath = env.get("GMT_LIBRARY_PATH", "")
-    error = False
+    error = True
     for libname in libnames:
         try:
             libgmt = ctypes.CDLL(os.path.join(libpath, libname))
             check_libgmt(libgmt)
+            error = False
             break
         except OSError as err:
             error = err
     if error:
         raise GMTCLibNotFoundError(
-            "Error loading the GMT shared library '{}':".format(libname)
+            "Error loading the GMT shared library '{}':".format(", ".join(libnames))
         )
     return libgmt
 
