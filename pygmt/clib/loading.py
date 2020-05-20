@@ -51,7 +51,7 @@ def load_libgmt():
     return libgmt
 
 
-def clib_name(os_name):
+def clib_names(os_name):
     """
     Return the name of GMT's shared library for the current OS.
 
@@ -62,20 +62,20 @@ def clib_name(os_name):
 
     Returns
     -------
-    libname : list of str
+    libnames : list of str
         List of possible names of GMT's shared library.
 
     """
     if os_name.startswith("linux"):
-        libname = ["libgmt.so"]
+        libnames = ["libgmt.so"]
     elif os_name == "darwin":
         # Darwin is macOS
-        libname = ["libgmt.dylib"]
+        libnames = ["libgmt.dylib"]
     elif os_name == "win32":
-        libname = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
+        libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     else:
         raise GMTOSError('Operating system "{}" not supported.'.format(sys.platform))
-    return libname
+    return libnames
 
 
 def clib_full_names(env=None):
@@ -96,7 +96,7 @@ def clib_full_names(env=None):
     """
     if env is None:
         env = os.environ
-    libnames = clib_name(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
+    libnames = clib_names(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
     libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
 
     lib_fullnames = [os.path.join(libpath, libname) for libname in libnames]

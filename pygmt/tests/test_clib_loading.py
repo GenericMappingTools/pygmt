@@ -4,7 +4,7 @@ Test the functions that load libgmt
 import os
 import pytest
 
-from ..clib.loading import clib_name, load_libgmt, check_libgmt
+from ..clib.loading import clib_names, load_libgmt, check_libgmt
 from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError
 
 
@@ -35,11 +35,11 @@ def test_load_libgmt_fail():
         del os.environ["GMT_LIBRARY_PATH"]
 
 
-def test_clib_name():
+def test_clib_names():
     "Make sure we get the correct library name for different OS names"
     for linux in ["linux", "linux2", "linux3"]:
-        assert clib_name(linux) == ["libgmt.so"]
-    assert clib_name("darwin") == ["libgmt.dylib"]
-    assert clib_name("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
+        assert clib_names(linux) == ["libgmt.so"]
+    assert clib_names("darwin") == ["libgmt.dylib"]
+    assert clib_names("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     with pytest.raises(GMTOSError):
-        clib_name("meh")
+        clib_names("meh")
