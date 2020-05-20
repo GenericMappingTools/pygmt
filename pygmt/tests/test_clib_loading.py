@@ -18,13 +18,6 @@ def test_load_libgmt():
     check_libgmt(load_libgmt())
 
 
-def test_load_libgmt_fail():
-    "Test that loading fails when given a bad library path."
-    env = {"GMT_LIBRARY_PATH": "not/a/real/path"}
-    with pytest.raises(GMTCLibNotFoundError):
-        load_libgmt(env=env)
-
-
 def test_clib_name():
     "Make sure we get the correct library name for different OS names"
     for linux in ["linux", "linux2", "linux3"]:
@@ -33,3 +26,4 @@ def test_clib_name():
     assert clib_name("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     with pytest.raises(GMTOSError):
         clib_name("meh")
+

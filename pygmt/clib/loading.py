@@ -11,7 +11,7 @@ import ctypes
 from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
 
-def load_libgmt(env=None):
+def load_libgmt():
     """
     Find and load ``libgmt`` as a :py:class:`ctypes.CDLL`.
 
@@ -37,14 +37,11 @@ def load_libgmt(env=None):
         couldn't access the functions).
 
     """
-    if env is None:
-        env = os.environ
-    libnames = clib_name(os_name=sys.platform)
-    libpath = env.get("GMT_LIBRARY_PATH", "")
+    lib_fullnames = clib_full_names()
     error = True
-    for libname in libnames:
+    for libname in lib_fullnames:
         try:
-            libgmt = ctypes.CDLL(os.path.join(libpath, libname))
+            libgmt = ctypes.CDLL(libname)
             check_libgmt(libgmt)
             error = False
             break
@@ -52,7 +49,7 @@ def load_libgmt(env=None):
             error = err
     if error:
         raise GMTCLibNotFoundError(
-            "Error loading the GMT shared library '{}':".format(", ".join(libnames))
+            "Error loading the GMT shared library '{}':".format(", ".join(lib_fullnames))
         )
     return libgmt
 
@@ -82,6 +79,16 @@ def clib_name(os_name):
     else:
         raise GMTOSError('Operating system "{}" not supported.'.format(sys.platform))
     return libname
+
+
+def clib_full_names(env=None):
+    if env is None:
+        env = os.environ
+    libnames = clib_name(os_name=sys.platform)
+    libpath = env.get("GMT_LIBRARY_PATH", "")
+
+    lib_fullnames = [os.path.join(libpath, libname) for libname in libnames]
+    return lib_fullnames
 
 
 def check_libgmt(libgmt):
