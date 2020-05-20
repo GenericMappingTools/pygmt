@@ -27,7 +27,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: goanpeca/setup-miniconda@v1
+        uses: goanpeca/setup-miniconda@v1.3.1
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
