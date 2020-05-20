@@ -96,8 +96,8 @@ def clib_full_names(env=None):
     """
     if env is None:
         env = os.environ
-    libnames = clib_name(os_name=sys.platform)
-    libpath = env.get("GMT_LIBRARY_PATH", "")
+    libnames = clib_name(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
+    libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
 
     lib_fullnames = [os.path.join(libpath, libname) for libname in libnames]
     # Search for DLLs in PATH if GMT_LIBRARY_PATH is not defined [Windows only]
