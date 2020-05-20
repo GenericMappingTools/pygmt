@@ -26,4 +26,3 @@ def test_clib_name():
     assert clib_name("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     with pytest.raises(GMTOSError):
         clib_name("meh")
-

@@ -20,12 +20,6 @@ def load_libgmt():
     the environment variable ``GMT_LIBRARY_PATH``. If it's not set, will let
     ctypes try to find the library.
 
-    Parameters
-    ----------
-    env : dict or None
-        A dictionary containing the environment variables. If ``None``, will
-        default to ``os.environ``.
-
     Returns
     -------
     :py:class:`ctypes.CDLL` object
@@ -50,7 +44,9 @@ def load_libgmt():
             error = err
     if error:
         raise GMTCLibNotFoundError(
-            "Error loading the GMT shared library '{}':".format(", ".join(lib_fullnames))
+            "Error loading the GMT shared library '{}':".format(
+                ", ".join(lib_fullnames)
+            )
         )
     return libgmt
 
@@ -83,15 +79,29 @@ def clib_name(os_name):
 
 
 def clib_full_names(env=None):
+    """
+    Return the full path of GMT's shared library for the current OS.
+
+    Parameters
+    ----------
+    env : dict or None
+        A dictionary containing the environment variables. If ``None``, will
+        default to ``os.environ``.
+
+    Returns
+    -------
+    lib_fullnames: list of str
+        List of possible full names of GMT's shared library.
+
+    """
     if env is None:
         env = os.environ
     libnames = clib_name(os_name=sys.platform)
     libpath = env.get("GMT_LIBRARY_PATH", "")
 
     lib_fullnames = [os.path.join(libpath, libname) for libname in libnames]
-
     # Search for DLLs in PATH if GMT_LIBRARY_PATH is not defined [Windows only]
-    if sys.platform == "win32" and not libpath:
+    if not libpath and sys.platform == "win32":
         for libname in libnames:
             libfullpath = find_library(libname)
             if libfullpath:
