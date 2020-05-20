@@ -127,6 +127,7 @@ jobs:
   # Download remote files, if not already cached
   - bash: |
       set -x -e
+      source activate testing
       $(gmt --show-sharedir)/tools/gmt_getremote.sh cache
       gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_quakes.ngdc @tut_ship.xyz
     displayName: Download remote data
@@ -227,6 +228,7 @@ jobs:
   # Download remote files, if not already cached
   - bash: |
       set -x -e
+      source activate testing
       $(gmt --show-sharedir)/tools/gmt_getremote.sh cache
       gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_quakes.ngdc @tut_ship.xyz
     displayName: Download remote data
