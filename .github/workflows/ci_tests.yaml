@@ -18,9 +18,6 @@ jobs:
       matrix:
         python_version: [3.7]
         os: [ubuntu-latest, macOS-latest, windows-latest]
-    env:
-      LD_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib:$LD_LIBRARY_PATH
-      GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib
 
     steps:
       # Checkout current git repository
@@ -44,12 +41,19 @@ jobs:
         shell: bash -l {0}
         run: conda list
 
-      # Set environment variables to make conda GMT work for Windows
+      # Set environment variables for Linux/MacOS
+      - name: Set GMT environment variables for Linux/MacOS
+        run: |
+          echo ::set-env name=LD_LIBRARY_PATH/gmt/lib:$LD_LIBRARY_PATH
+          echo ::set-env name=GMT_LIBRARY_PATH/gmt/lib
+        if: matrix.os != 'windows-latest'
+
+      # Set environment variables for Windows
       - name: Set GMT environment variables for Windows
         run: |
           echo ::set-env name=GMT_LIBRARY_PATH::%CONDA_PREFIX%\Library\bin
           echo ::set-env name=GMT_SHAREDIR::%CONDA_PREFIX%\Library\share\gmt
-        if: startsWith(matrix.os, 'windows')
+        if: matrix.os == 'windows-latest'
 
       # Install the package that we want to test
       - name: Install the package
