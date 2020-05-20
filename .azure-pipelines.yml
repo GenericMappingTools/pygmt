@@ -116,6 +116,22 @@ jobs:
       conda list
     displayName: List installed packages
 
+  # Cache the ${HOME}/.gmt directory, for docs and testing
+  - task: Cache@2
+    inputs:
+      key: cachedata | 20200520
+      path: $(HOME)/.gmt
+      cacheHitVar: CACHE_CACHEDATA_RESTORED
+    displayName: Cache GMT remote data for testing
+
+  # Download remote files, if not already cached
+  - bash: |
+      set -x -e
+      $(gmt --show-sharedir)/tools/gmt_getremote.sh cache
+      gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_quakes.ngdc @tut_ship.xyz
+    displayName: Download remote data
+    condition: ne(variables['CACHE_CACHEDATA_RESTORED'], true)
+
   # Install the package
   - bash: |
       set -x -e
@@ -199,6 +215,22 @@ jobs:
       source activate testing
       conda list
     displayName: List installed packages
+
+  # Cache the ${HOME}/.gmt directory, for docs and testing
+  - task: Cache@2
+    inputs:
+      key: cachedata | 20200520
+      path: $(HOME)/.gmt
+      cacheHitVar: CACHE_CACHEDATA_RESTORED
+    displayName: Cache GMT remote data for testing
+
+  # Download remote files, if not already cached
+  - bash: |
+      set -x -e
+      $(gmt --show-sharedir)/tools/gmt_getremote.sh cache
+      gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_quakes.ngdc @tut_ship.xyz
+    displayName: Download remote data
+    condition: ne(variables['CACHE_CACHEDATA_RESTORED'], true)
 
   # Install the package that we want to test
   - bash: |
