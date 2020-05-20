@@ -119,7 +119,7 @@ jobs:
   # Cache the ${HOME}/.gmt directory, for docs and testing
   - task: Cache@2
     inputs:
-      key: cachedata | 20200520
+      key: cachedata | 20200519
       path: $(HOME)/.gmt
       cacheHitVar: CACHE_CACHEDATA_RESTORED
     displayName: Cache GMT remote data for testing
@@ -128,7 +128,7 @@ jobs:
   - bash: |
       set -x -e
       source activate testing
-      gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_quakes.ngdc @tut_ship.xyz
+      gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz
     displayName: Download remote data
     condition: ne(variables['CACHE_CACHEDATA_RESTORED'], true)
 
@@ -219,7 +219,7 @@ jobs:
   # Cache the ${HOME}/.gmt directory, for docs and testing
   - task: Cache@2
     inputs:
-      key: cachedata | 20200520
+      key: cachedata | 20200519
       path: $(HOME)/.gmt
       cacheHitVar: CACHE_CACHEDATA_RESTORED
     displayName: Cache GMT remote data for testing
@@ -228,7 +228,7 @@ jobs:
   - bash: |
       set -x -e
       source activate testing
-      gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_quakes.ngdc @tut_ship.xyz
+      gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz
     displayName: Download remote data
     condition: ne(variables['CACHE_CACHEDATA_RESTORED'], true)
 
