@@ -7,6 +7,7 @@ through the GMT_LIBRARY_PATH environment variable.
 import os
 import sys
 import ctypes
+from ctypes.util import find_library
 
 from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
@@ -88,6 +89,13 @@ def clib_full_names(env=None):
     libpath = env.get("GMT_LIBRARY_PATH", "")
 
     lib_fullnames = [os.path.join(libpath, libname) for libname in libnames]
+
+    # Search for DLLs in PATH if GMT_LIBRARY_PATH is not defined [Windows only]
+    if sys.platform == "win32" and not libpath:
+        for libname in libnames:
+            libfullpath = find_library(libname)
+            if libfullpath:
+                lib_fullnames.append(libfullpath)
     return lib_fullnames
 
 
