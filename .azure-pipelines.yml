@@ -155,7 +155,6 @@ jobs:
 ########################################################################################
 - job:
   displayName: 'Windows'
-  condition: False
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -163,7 +162,11 @@ jobs:
   variables:
     CONDA_REQUIREMENTS: requirements.txt
     CONDA_REQUIREMENTS_DEV: requirements-dev.txt
-    CONDA_INSTALL_EXTRA: "codecov"
+    CONDA_INSTALL_EXTRA: "codecov gmt=6.0.0"
+    # ctypes.CDLL cannot find conda's libraries
+    GMT_LIBRARY_PATH: 'C:\Miniconda\envs\testing\Library\bin'
+    # Due to potential bug in GMT, we have to set GMT_SHAREDIR manually
+    GMT_SHAREDIR: 'C:\Miniconda\envs\testing\Library\share\gmt'
 
   strategy:
     matrix:
@@ -178,12 +181,6 @@ jobs:
         PYTHON: '3.6'
 
   steps:
-
-  # Install ghostscript separately since there is no Windows conda-forge package for it.
-  - bash: |
-      set -x -e
-      choco install ghostscript
-    displayName: Install ghostscript via chocolatey
 
   - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
     displayName: Add conda to PATH

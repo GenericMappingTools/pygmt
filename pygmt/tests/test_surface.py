@@ -90,8 +90,8 @@ def test_surface_with_outfile_param():
         )
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
-        grid = xr.open_dataarray(TEMP_GRID)
-        assert isinstance(grid, xr.DataArray)  # check that netcdf grid loaded properly
+        with xr.open_dataarray(TEMP_GRID) as grid:
+            assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
     finally:
         os.remove(path=TEMP_GRID)
     return output
@@ -108,8 +108,8 @@ def test_surface_short_aliases():
         output = surface(data=data, I="5m", R=[245, 255, 20, 30], G=TEMP_GRID)
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
-        grid = xr.open_dataarray(TEMP_GRID)
-        assert isinstance(grid, xr.DataArray)  # check that netcdf grid loaded properly
+        with xr.open_dataarray(TEMP_GRID) as grid:
+            assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
     finally:
         os.remove(path=TEMP_GRID)
     return output
