@@ -81,6 +81,17 @@ There are a few steps that still must be done manually, though.
 
 ### Updating the changelog
 
+The Release Drafter Github Action will automatically keep a draft changelog at
+https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
+every time a Pull Request (with a proper label) is merged into the master branch.
+This release drafter tool has two configuration files, one for the Github Action
+at .github/workflows/release-drafter.yml, and one for the changelog template
+at .github/release-drafter.yml. Configuration settings can be found at
+https://github.com/release-drafter/release-drafter.
+
+The drafted release notes are not perfect, so we will need to tidy it prior to
+publishing the actual release notes at https://www.pygmt.org/latest/changes.html.
+
 1. Generate a list of commits between the last release tag and now:
 
     ```bash

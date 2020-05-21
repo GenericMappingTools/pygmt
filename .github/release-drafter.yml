@@ -1,0 +1,26 @@
+name-template: 'v$NEXT_PATCH_VERSION'
+tag-template: 'v$NEXT_PATCH_VERSION'
+categories:
+  - title: 'New Features'
+    label: 'feature'
+  - title: 'Enhancements'
+    label: 'enhancement'
+  - title: 'Documentation'
+    label: 'documentation'
+  - title: 'Bug Fixes'
+    label: 'bug'
+  - title: 'Maintenance'
+    label: 'maintenance'
+  - title: 'Deprecations'
+    label: 'deprecation'
+exclude-labels:
+  - 'skip-changelog'
+change-template: '* $TITLE (#$NUMBER) @$AUTHOR'
+template: |
+  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+
+  ## Highlights
+
+  *
+
+  $CHANGES
