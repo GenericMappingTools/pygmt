@@ -132,4 +132,8 @@ This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or ``g
 can be found for Linux, macOS and Windows respectively.
 e.g. in a terminal run::
 
-   export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
+    # Linux/macOS
+    export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
+    # Windows
+    set "GMT_LIBRARY_PATH=C:\Miniconda\envs\pygmt\Library\bin\"
+   
