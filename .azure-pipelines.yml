@@ -116,6 +116,22 @@ jobs:
       conda list
     displayName: List installed packages
 
+  # Cache the ${HOME}/.gmt directory, for docs and testing
+  - task: Cache@2
+    inputs:
+      key: cachedata | 20200519
+      path: $(HOME)/.gmt
+      cacheHitVar: CACHE_CACHEDATA_RESTORED
+    displayName: Cache GMT remote data for testing
+
+  # Download remote files, if not already cached
+  - bash: |
+      set -x -e
+      source activate testing
+      gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz
+    displayName: Download remote data
+    condition: ne(variables['CACHE_CACHEDATA_RESTORED'], true)
+
   # Install the package
   - bash: |
       set -x -e
@@ -155,7 +171,6 @@ jobs:
 ########################################################################################
 - job:
   displayName: 'Windows'
-  condition: False
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -163,7 +178,7 @@ jobs:
   variables:
     CONDA_REQUIREMENTS: requirements.txt
     CONDA_REQUIREMENTS_DEV: requirements-dev.txt
-    CONDA_INSTALL_EXTRA: "codecov"
+    CONDA_INSTALL_EXTRA: "codecov gmt=6.0.0"
 
   strategy:
     matrix:
@@ -178,12 +193,6 @@ jobs:
         PYTHON: '3.6'
 
   steps:
-
-  # Install ghostscript separately since there is no Windows conda-forge package for it.
-  - bash: |
-      set -x -e
-      choco install ghostscript
-    displayName: Install ghostscript via chocolatey
 
   - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
     displayName: Add conda to PATH
@@ -202,6 +211,22 @@ jobs:
       source activate testing
       conda list
     displayName: List installed packages
+
+  # Cache the ${HOME}/.gmt directory, for docs and testing
+  - task: Cache@2
+    inputs:
+      key: cachedata | 20200519
+      path: $(HOMEPATH)/.gmt
+      cacheHitVar: CACHE_CACHEDATA_RESTORED
+    displayName: Cache GMT remote data for testing
+
+  # Download remote files, if not already cached
+  - bash: |
+      set -x -e
+      source activate testing
+      gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz
+    displayName: Download remote data
+    condition: ne(variables['CACHE_CACHEDATA_RESTORED'], true)
 
   # Install the package that we want to test
   - bash: |
