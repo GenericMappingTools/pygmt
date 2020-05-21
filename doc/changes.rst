@@ -1,6 +1,41 @@
 Changelog
 =========
 
+Release v0.1.1 (2020/05/XX)
+---------------------------
+
+Highlights:
+
+* 🏁Windows users rejoice, this bugfix release is for you!🏁
+* Let PyGMT work with the conda GMT package on Windows (#434)
+
+Enhancements:
+
+* Handle setting special parameters without default settings for config (#411)
+
+Documentation:
+
+* Update install instructions (#430)
+* Add PyGMT AGU 2019 poster to website (#425)
+* Redirect www.pygmt.org to latest, instead of dev (#423)
+
+Bug Fixes:
+
+* Set GMT_COMPATIBILITY to 6 when pygmt session starts (#432)
+* Improve how PyGMT finds the GMT library (#440)
+
+Maintenance:
+
+* Finalize fixes on WIndows test suite for v0.1.1 (#441)
+* Cache test data on Azure Pipelines (#438)
+* Remove the variable GMT_SHAREDIR from CI settings (#437)
+
+This release contains contributions from:
+
+* `Dongdong Tian <https://github.com/seisman>`__
+* `Wei Ji Leong <https://github.com/weiji14>`__
+
+
 Release v0.1.0 (2020/05/03)
 ---------------------------
 
