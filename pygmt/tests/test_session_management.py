@@ -48,7 +48,5 @@ def test_gmt_compat_6_is_applied(capsys):
             lib.call_module("set", "GMT_COMPATIBILITY 6")
         end()
         begin()  # Restart the global session
-        assert os.path.exists("gmt.conf")
-        os.remove("gmt.conf")
         assert os.path.exists("pygmt-session.pdf")
         os.remove("pygmt-session.pdf")
