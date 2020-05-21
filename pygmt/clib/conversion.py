@@ -241,7 +241,7 @@ def _as_array(vector):
 
     """
     if isinstance(vector, pandas.Series):
-        return vector.values
+        return vector.to_numpy()
     return np.asarray(vector)
 
 
