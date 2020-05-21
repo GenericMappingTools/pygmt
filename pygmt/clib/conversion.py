@@ -156,7 +156,7 @@ def vectors_to_arrays(vectors):
     True
 
     """
-    arrays = [as_c_contiguous(_as_array(i)) for i in vectors]
+    arrays = [as_c_contiguous(np.asarray(i)) for i in vectors]
     return arrays
 
 
@@ -203,48 +203,6 @@ def as_c_contiguous(array):
     return array
 
 
-def _as_array(vector):
-    """
-    Convert a vector (pandas.Series, tuple, list or numpy array) to a numpy
-    array.
-
-    If vector is already an array, do nothing.
-
-    Parameters
-    ----------
-    vector : tuple, list, pandas.Series or numpy 1d array
-        The vector to convert.
-
-    Returns
-    -------
-    array : numpy array
-
-    Examples
-    --------
-
-    >>> import pandas as pd
-    >>> x_series = pd.Series(data=[1, 2, 3, 4])
-    >>> x_array = _as_array(x_series)
-    >>> type(x_array)
-    <class 'numpy.ndarray'>
-    >>> x_array
-    array([1, 2, 3, 4])
-    >>> import numpy as np
-    >>> type(_as_array(np.array([5, 6, 7])))
-    <class 'numpy.ndarray'>
-    >>> type(_as_array([3, 4, 5]))
-    <class 'numpy.ndarray'>
-    >>> type(_as_array((6, 7, 8)))
-    <class 'numpy.ndarray'>
-    >>> type(_as_array(range(15)))
-    <class 'numpy.ndarray'>
-
-    """
-    if isinstance(vector, pandas.Series):
-        return vector.values
-    return np.asarray(vector)
-
-
 def kwargs_to_ctypes_array(argument, kwargs, dtype):
     """
     Convert an iterable argument from kwargs into a ctypes array variable.
@@ -268,9 +226,9 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
     --------
 
     >>> import ctypes as ct
-    >>> value = kwargs_to_ctypes_array('bla', {'bla': [10, 10]}, ct.c_int*2)
+    >>> value = kwargs_to_ctypes_array('bla', {'bla': [10, 10]}, ct.c_long*2)
     >>> type(value)
-    <class 'pygmt.clib.conversion.c_int_Array_2'>
+    <class 'pygmt.clib.conversion.c_long_Array_2'>
     >>> should_be_none = kwargs_to_ctypes_array(
     ...     'swallow', {'bla': 1, 'foo': [20, 30]}, ct.c_int*2)
     >>> print(should_be_none)
