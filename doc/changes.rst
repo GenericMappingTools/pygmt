@@ -30,15 +30,15 @@ Bug Fixes:
 
 Maintenance:
 
-* Finalize fixes on WIndows test suite for v0.1.1 (#441)
+* Finalize fixes on Windows test suite for v0.1.1 (#441)
 * Cache test data on Azure Pipelines (#438)
-* Remove the variable GMT_SHAREDIR from CI settings (#437)
 
 This release contains contributions from:
 
 * `Dongdong Tian <https://github.com/seisman>`__
 * `Wei Ji Leong <https://github.com/weiji14>`__
 
+----
 
 Release v0.1.0 (2020/05/03)
 ---------------------------
