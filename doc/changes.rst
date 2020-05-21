@@ -4,6 +4,10 @@ Changelog
 Release v0.1.1 (2020/05/XX)
 ---------------------------
 
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3837197.svg
+   :alt: Digital Object Identifier for the Zenodo archive
+   :target: https://doi.org/10.5281/zenodo.3837197
+
 Highlights:
 
 * 🏁Windows users rejoice, this bugfix release is for you!🏁
