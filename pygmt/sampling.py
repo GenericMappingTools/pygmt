@@ -51,6 +51,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     -------
     track: pandas.DataFrame or None
         Return type depends on whether the outfile parameter is set:
+
         - pandas.DataFrame table with (x, y, ..., newcolname) if outfile is not
           set
         - None if outfile is set (track output will be stored in outfile)

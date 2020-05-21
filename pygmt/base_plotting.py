@@ -349,6 +349,8 @@ class BasePlotting:
 
         Full option list at :gmt-docs:`grdview.html`
 
+        {aliases}
+
         Parameters
         ----------
         grid : str or xarray.DataArray
@@ -399,7 +401,6 @@ class BasePlotting:
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
             Select perspective view.
 
-        {aliases}
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)

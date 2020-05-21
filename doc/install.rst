@@ -30,20 +30,16 @@ Which GMT?
 
 PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the latest
 released version that can be found at
-`this website <https://www.generic-mapping-tools.org>`__.
-
+the `GMT official site <https://www.generic-mapping-tools.org>`__.
 We need the latest GMT (>=6.0.0) since there are many changes being made to GMT itself in
 response to the development of PyGMT, mainly the new
 `modern execution mode <https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode>`__.
 
-Compiled conda packages of GMT for Linux and Mac are provided through
+Compiled conda packages of GMT for Linux, macOS and Windows are provided through
 `conda-forge <https://anaconda.org/conda-forge/gmt>`__.
 Advanced users can also
 `build GMT from source <https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md>`__
 instead, which is not so recommended but we would love to get feedback from anyone who tries.
-For Windows, conda GMT packages are available, but they do not currently work with PyGMT,
-so users will need to build from source or use the Windows Subsystem for Linux, see
-`here <https://github.com/GenericMappingTools/pygmt/pull/313>`__ for more details.
 
 We recommend following the instructions further on to install GMT 6.
 
@@ -55,6 +51,7 @@ PyGMT requires the following libraries:
 * `numpy <http://www.numpy.org/>`__
 * `pandas <https://pandas.pydata.org/>`__
 * `xarray <http://xarray.pydata.org/>`__
+* `netCDF4 <https://github.com/Unidata/netcdf4-python>`__
 * `packaging <https://pypi.org/project/packaging/>`__
 
 The following are optional (but recommended) dependencies:
@@ -79,7 +76,7 @@ First, we must configure conda to get packages from the
 Now we can create a new conda environment with Python and all our dependencies installed
 (we'll call it ``pygmt`` but you can change it to whatever you want)::
 
-     conda create --name pygmt python=3.6 pip numpy pandas xarray packaging gmt=6.0.0
+     conda create --name pygmt python=3.8 pip numpy pandas xarray netcdf4 packaging gmt
 
 Activate the environment by running::
 
@@ -88,17 +85,16 @@ Activate the environment by running::
 From now on, all commands will take place inside the conda virtual environment and won't
 affect your default installation.
 
-.. note::
-
-    **Currently, this has only been tested to work on Linux and macOS.**
-    We don't have tests running on Windows yet, so things might be broken.
-    Please report any errors by `creating an issue on Github <https://github.com/GenericMappingTools/pygmt/issues>`__.
 
 Installing PyGMT
 ----------------
 
-Now that you have GMT installed and your conda environment activated,
-use ``pip`` to install the latest release of PyGMT from `PyPI <https://pypi.org/project/pygmt>`__::
+Now that you have GMT installed and your conda environment activated, you can
+use ``conda`` to install the latest release of PyGMT from `conda-forge <https://anaconda.org/conda-forge/pygmt>`__::
+
+    conda install pygmt
+
+or use ``pip`` to install from `PyPI <https://pypi.org/project/pygmt>`__::
 
     pip install pygmt
 
@@ -134,7 +130,11 @@ This can happen if you have multiple versions of GMT installed.
 You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 ``GMT_LIBRARY_PATH`` environment variable.
 This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or ``gmt.dll``
-can be found for Linux, MacOS and Windows respectively.
+can be found for Linux, macOS and Windows respectively.
 e.g. in a terminal run::
 
-   export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
+    # Linux/macOS
+    export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
+    # Windows
+    set "GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\"
+
