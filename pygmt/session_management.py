@@ -15,6 +15,8 @@ def begin():
     prefix = "pygmt-session"
     with Session() as lib:
         lib.call_module("begin", prefix)
+        # pygmt relies on GMT modern mode with GMT_COMPATIBILITY at version 6
+        lib.call_module("set", "GMT_COMPATIBILITY 6")
 
 
 def end():
