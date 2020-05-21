@@ -55,12 +55,12 @@ PyGMT requires the following libraries:
 * `numpy <http://www.numpy.org/>`__
 * `pandas <https://pandas.pydata.org/>`__
 * `xarray <http://xarray.pydata.org/>`__
-* `netCDF4 <https://github.com/Unidata/netcdf4-python>`__
 * `packaging <https://pypi.org/project/packaging/>`__
 
 The following are optional (but recommended) dependencies:
 
 * `IPython <https://ipython.org/>`__: For embedding the figures in Jupyter notebooks.
+* `netCDF4 <https://github.com/Unidata/netcdf4-python>`__: For reading netCDF4 data via `xarray <http://xarray.pydata.org/>`__
 
 
 Installing GMT and other dependencies
@@ -80,7 +80,7 @@ First, we must configure conda to get packages from the
 Now we can create a new conda environment with Python and all our dependencies installed
 (we'll call it ``pygmt`` but you can change it to whatever you want)::
 
-     conda create --name pygmt python=3.6 pip numpy pandas xarray netcdf4 packaging gmt=6.0.0
+     conda create --name pygmt python=3.6 pip numpy pandas xarray packaging gmt=6.0.0
 
 Activate the environment by running::
 
