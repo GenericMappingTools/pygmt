@@ -166,4 +166,4 @@ If changes need to be done manually, you can:
 3. Add or remove any new dependencies (most are probably only `run` dependencies).
 4. Make a new branch, commit, and push the changes **to your personal fork**.
 5. Create a PR against the original feedstock master.
-6. Once the CIs are passing, merge the PR or ask a maintainer to do so.
+6. Once the CI tests pass, merge the PR or ask a maintainer to do so.
