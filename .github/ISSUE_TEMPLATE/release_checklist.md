@@ -11,7 +11,7 @@ assignees: ''
 **Scheduled Date**: YYYY/MM/DD
 
 **Before release**:
-- [ ] Reserve a DOI on [Zenodo](https://zenodo.org)
+- [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Update Changelog
 
 **Release**:
@@ -21,8 +21,8 @@ git tag vX.Y.Z
 git push --tags
 ```
 - [ ] Go to [GitHub Release](https://github.com/GenericMappingTools/pygmt/releases) and make a release
+- [ ] Manually upload the pygmt-vX.Y.Z.zip file to https://zenodo.org/deposit, make sure you file it under the correct reserved DOI
 - [ ] Announce release on the GMT forum and [website](https://www.generic-mapping-tools.org) (News)
-- [ ] Upload the pygmt-v0.x.x.zip file to Zenodo
 
 **After release**:
 - [ ] Create branch 0.x for bug-fixes if this is a minor release (i.e. create branch 0.1 after 0.1.0 is released)
