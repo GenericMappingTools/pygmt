@@ -18,6 +18,7 @@ standard parallel ``lat0`` (optional).
 
 
 .. image:: /projections/cyl/images/sphx_glr_cyl_mercator_001.png
+    :alt: cyl mercator
     :class: sphx-glr-single-img
 
 
@@ -48,7 +49,7 @@ standard parallel ``lat0`` (optional).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.971 seconds)
+   **Total running time of the script:** ( 0 minutes  0.954 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_mercator.py:

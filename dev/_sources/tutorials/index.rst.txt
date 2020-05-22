@@ -18,6 +18,7 @@ This file is a placeholder and not included in the docs.
 .. only:: html
 
  .. figure:: /tutorials/images/thumb/sphx_glr_coastlines_thumb.png
+     :alt: Coastlines and borders
 
      :ref:`sphx_glr_tutorials_coastlines.py`
 
@@ -38,6 +39,7 @@ This file is a placeholder and not included in the docs.
 .. only:: html
 
  .. figure:: /tutorials/images/thumb/sphx_glr_first-figure_thumb.png
+     :alt: Making your first figure
 
      :ref:`sphx_glr_tutorials_first-figure.py`
 
@@ -58,6 +60,7 @@ This file is a placeholder and not included in the docs.
 .. only:: html
 
  .. figure:: /tutorials/images/thumb/sphx_glr_frames_thumb.png
+     :alt: Frames, ticks, titles, and labels
 
      :ref:`sphx_glr_tutorials_frames.py`
 
@@ -78,6 +81,7 @@ This file is a placeholder and not included in the docs.
 .. only:: html
 
  .. figure:: /tutorials/images/thumb/sphx_glr_plot_thumb.png
+     :alt: Plotting data points
 
      :ref:`sphx_glr_tutorials_plot.py`
 

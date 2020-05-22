@@ -5,8 +5,8 @@
 
 Computation times
 =================
-**00:01.216** total execution time for **gallery_grid** files:
+**00:01.221** total execution time for **gallery_grid** files:
 
 +------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_grid_track_sampling.py` (``track_sampling.py``) | 00:01.216 | 0.0 MB |
+| :ref:`sphx_glr_gallery_grid_track_sampling.py` (``track_sampling.py``) | 00:01.221 | 0.0 MB |
 +------------------------------------------------------------------------+-----------+--------+

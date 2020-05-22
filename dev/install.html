@@ -266,18 +266,15 @@ doesn’t interfere with any other Python installations in your system.</p>
 <h2>Which GMT?<a class="headerlink" href="#which-gmt" title="Permalink to this headline">¶</a></h2>
 <p>PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the latest
 released version that can be found at
-<a class="reference external" href="https://www.generic-mapping-tools.org">this website</a>.</p>
-<p>We need the latest GMT (&gt;=6.0.0) since there are many changes being made to GMT itself in
+the <a class="reference external" href="https://www.generic-mapping-tools.org">GMT official site</a>.
+We need the latest GMT (&gt;=6.0.0) since there are many changes being made to GMT itself in
 response to the development of PyGMT, mainly the new
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode">modern execution mode</a>.</p>
-<p>Compiled conda packages of GMT for Linux and Mac are provided through
+<p>Compiled conda packages of GMT for Linux, macOS and Windows are provided through
 <a class="reference external" href="https://anaconda.org/conda-forge/gmt">conda-forge</a>.
 Advanced users can also
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md">build GMT from source</a>
-instead, which is not so recommended but we would love to get feedback from anyone who tries.
-For Windows, conda GMT packages are available, but they do not currently work with PyGMT,
-so users will need to build from source or use the Windows Subsystem for Linux, see
-<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/313">here</a> for more details.</p>
+instead, which is not so recommended but we would love to get feedback from anyone who tries.</p>
 <p>We recommend following the instructions further on to install GMT 6.</p>
 </div>
 <div class="section" id="dependencies">
@@ -287,6 +284,7 @@ so users will need to build from source or use the Windows Subsystem for Linux, 
 <li><p><a class="reference external" href="http://www.numpy.org/">numpy</a></p></li>
 <li><p><a class="reference external" href="https://pandas.pydata.org/">pandas</a></p></li>
 <li><p><a class="reference external" href="http://xarray.pydata.org/">xarray</a></p></li>
+<li><p><a class="reference external" href="https://github.com/Unidata/netcdf4-python">netCDF4</a></p></li>
 <li><p><a class="reference external" href="https://pypi.org/project/packaging/">packaging</a></p></li>
 </ul>
 <p>The following are optional (but recommended) dependencies:</p>
@@ -308,7 +306,7 @@ to avoid issues with competing versions of its dependencies.</p>
 </div>
 <p>Now we can create a new conda environment with Python and all our dependencies installed
 (we’ll call it <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> but you can change it to whatever you want):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.6</span> <span class="n">pip</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">packaging</span> <span class="n">gmt</span><span class="o">=</span><span class="mf">6.0</span><span class="o">.</span><span class="mi">0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.8</span> <span class="n">pip</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
 </pre></div>
 </div>
 <p>Activate the environment by running:</p>
@@ -317,17 +315,15 @@ to avoid issues with competing versions of its dependencies.</p>
 </div>
 <p>From now on, all commands will take place inside the conda virtual environment and won’t
 affect your default installation.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>Currently, this has only been tested to work on Linux and macOS.</strong>
-We don’t have tests running on Windows yet, so things might be broken.
-Please report any errors by <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">creating an issue on Github</a>.</p>
-</div>
 </div>
 <div class="section" id="installing-pygmt">
 <h2>Installing PyGMT<a class="headerlink" href="#installing-pygmt" title="Permalink to this headline">¶</a></h2>
-<p>Now that you have GMT installed and your conda environment activated,
-use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the latest release of PyGMT from <a class="reference external" href="https://pypi.org/project/pygmt">PyPI</a>:</p>
+<p>Now that you have GMT installed and your conda environment activated, you can
+use <code class="docutils literal notranslate"><span class="pre">conda</span></code> to install the latest release of PyGMT from <a class="reference external" href="https://anaconda.org/conda-forge/pygmt">conda-forge</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pygmt</span>
+</pre></div>
+</div>
+<p>or use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install from <a class="reference external" href="https://pypi.org/project/pygmt">PyPI</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
@@ -359,9 +355,12 @@ This can happen if you have multiple versions of GMT installed.</p>
 <p>You can tell PyGMT exactly where to look for <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> by setting the
 <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> environment variable.
 This should be set to the directory where <code class="docutils literal notranslate"><span class="pre">libgmt.so</span></code>, <code class="docutils literal notranslate"><span class="pre">libgmt.dylib</span></code> or <code class="docutils literal notranslate"><span class="pre">gmt.dll</span></code>
-can be found for Linux, MacOS and Windows respectively.
+can be found for Linux, macOS and Windows respectively.
 e.g. in a terminal run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Linux/macOS
+export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
+# Windows
+set &quot;GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\&quot;
 </pre></div>
 </div>
 </div>
@@ -391,7 +390,7 @@ e.g. in a terminal run:</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/74501e01de098708d466c560d68263f3f698e143">74501e0</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
         </span>
       
 

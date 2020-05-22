@@ -371,9 +371,36 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># Save values so that we can revert to their initial values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">old_defaults</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">special_params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;FONT&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;FONT_ANNOT_PRIMARY&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;FONT_ANNOT_SECONDARY&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;FONT_HEADING&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;FONT_LABEL&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;FONT_TAG&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;FONT_TITLE&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;FONT_ANNOT&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FONT_ANNOT_PRIMARY&quot;</span><span class="p">,</span> <span class="s2">&quot;FONT_ANNOT_SECONDARY&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;FORMAT_TIME_MAP&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FORMAT_TIME_PRIMARY_MAP&quot;</span><span class="p">,</span> <span class="s2">&quot;FORMAT_TIME_SECONDARY_MAP&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;MAP_ANNOT_OFFSET&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;MAP_ANNOT_OFFSET_PRIMARY&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;MAP_ANNOT_OFFSET_SECONDARY&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;MAP_GRID_CROSS_SIZE&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;MAP_GRID_CROSS_SIZE_PRIMARY&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;MAP_GRID_CROSS_SIZE_SECONDARY&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;MAP_GRID_PEN&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;MAP_GRID_PEN_PRIMARY&quot;</span><span class="p">,</span> <span class="s2">&quot;MAP_GRID_PEN_SECONDARY&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;MAP_TICK_LENGTH&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;MAP_TICK_LENGTH_PRIMARY&quot;</span><span class="p">,</span> <span class="s2">&quot;MAP_TICK_LENGTH_SECONDARY&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;MAP_TICK_PEN&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;MAP_TICK_PEN_PRIMARY&quot;</span><span class="p">,</span> <span class="s2">&quot;MAP_TICK_PEN_SECONDARY&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">old_defaults</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">special_params</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">special_params</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">old_defaults</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">old_defaults</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
         <span class="c1"># call gmt set to change GMT defaults</span>
         <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
@@ -408,7 +435,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/74501e01de098708d466c560d68263f3f698e143">74501e0</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
         </span>
       
 

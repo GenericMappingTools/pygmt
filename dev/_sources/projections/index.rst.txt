@@ -36,6 +36,7 @@ Azimuthal Projections
 .. only:: html
 
  .. figure:: /projections/azim/images/thumb/sphx_glr_azim_equidistant_thumb.png
+     :alt: Azimuthal Equidistant
 
      :ref:`sphx_glr_projections_azim_azim_equidistant.py`
 
@@ -56,6 +57,7 @@ Azimuthal Projections
 .. only:: html
 
  .. figure:: /projections/azim/images/thumb/sphx_glr_azim_general_perspective_thumb.png
+     :alt: General Perspective
 
      :ref:`sphx_glr_projections_azim_azim_general_perspective.py`
 
@@ -76,6 +78,7 @@ Azimuthal Projections
 .. only:: html
 
  .. figure:: /projections/azim/images/thumb/sphx_glr_azim_general_stereographic_thumb.png
+     :alt: General Stereographic
 
      :ref:`sphx_glr_projections_azim_azim_general_stereographic.py`
 
@@ -96,6 +99,7 @@ Azimuthal Projections
 .. only:: html
 
  .. figure:: /projections/azim/images/thumb/sphx_glr_azim_gnomonic_thumb.png
+     :alt: Gnomonic
 
      :ref:`sphx_glr_projections_azim_azim_gnomonic.py`
 
@@ -116,6 +120,7 @@ Azimuthal Projections
 .. only:: html
 
  .. figure:: /projections/azim/images/thumb/sphx_glr_azim_lambert_thumb.png
+     :alt: Lambert Azimuthal Equal Area
 
      :ref:`sphx_glr_projections_azim_azim_lambert.py`
 
@@ -136,6 +141,7 @@ Azimuthal Projections
 .. only:: html
 
  .. figure:: /projections/azim/images/thumb/sphx_glr_azim_orthographic_thumb.png
+     :alt: Orthographic
 
      :ref:`sphx_glr_projections_azim_azim_orthographic.py`
 
@@ -168,6 +174,7 @@ Conic Projections
 .. only:: html
 
  .. figure:: /projections/conic/images/thumb/sphx_glr_conic_albers_thumb.png
+     :alt: Albers Conic Equal Area
 
      :ref:`sphx_glr_projections_conic_conic_albers.py`
 
@@ -200,6 +207,7 @@ Cylindric Projections
 .. only:: html
 
  .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_cassini_thumb.png
+     :alt: Cassini Cylindrical
 
      :ref:`sphx_glr_projections_cyl_cyl_cassini.py`
 
@@ -220,6 +228,7 @@ Cylindric Projections
 .. only:: html
 
  .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_mercator_thumb.png
+     :alt: Mercator
 
      :ref:`sphx_glr_projections_cyl_cyl_mercator.py`
 
@@ -240,6 +249,7 @@ Cylindric Projections
 .. only:: html
 
  .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_stereographic_thumb.png
+     :alt: Cylindrical Stereographic
 
      :ref:`sphx_glr_projections_cyl_cyl_stereographic.py`
 

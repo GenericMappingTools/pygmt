@@ -45,6 +45,7 @@ Use the ``shorelines`` argument to plot only the shorelines:
 
 
 .. image:: /tutorials/images/sphx_glr_coastlines_001.png
+    :alt: coastlines
     :class: sphx-glr-single-img
 
 
@@ -83,6 +84,7 @@ lines:
 
 
 .. image:: /tutorials/images/sphx_glr_coastlines_002.png
+    :alt: coastlines
     :class: sphx-glr-single-img
 
 
@@ -113,6 +115,7 @@ You can specify multiple levels (with their own pens) by passing a list to
 
 
 .. image:: /tutorials/images/sphx_glr_coastlines_003.png
+    :alt: coastlines
     :class: sphx-glr-single-img
 
 
@@ -154,6 +157,7 @@ levels:
 
 
 .. image:: /tutorials/images/sphx_glr_coastlines_004.png
+    :alt: coastlines
     :class: sphx-glr-single-img
 
 
@@ -187,6 +191,7 @@ CSS):
 
 
 .. image:: /tutorials/images/sphx_glr_coastlines_005.png
+    :alt: coastlines
     :class: sphx-glr-single-img
 
 
@@ -204,7 +209,7 @@ CSS):
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.029 seconds)
+   **Total running time of the script:** ( 0 minutes  4.982 seconds)
 
 
 .. _sphx_glr_download_tutorials_coastlines.py:

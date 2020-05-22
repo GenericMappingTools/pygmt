@@ -33,6 +33,7 @@ Coastlines and boundaries
 .. only:: html
 
  .. figure:: /gallery/coast/images/thumb/sphx_glr_borders_thumb.png
+     :alt: Political Boundaries
 
      :ref:`sphx_glr_gallery_coast_borders.py`
 
@@ -53,6 +54,7 @@ Coastlines and boundaries
 .. only:: html
 
  .. figure:: /gallery/coast/images/thumb/sphx_glr_land_and_water_thumb.png
+     :alt: Color land and water
 
      :ref:`sphx_glr_gallery_coast_land_and_water.py`
 
@@ -73,6 +75,7 @@ Coastlines and boundaries
 .. only:: html
 
  .. figure:: /gallery/coast/images/thumb/sphx_glr_shorelines_thumb.png
+     :alt: Shorelines
 
      :ref:`sphx_glr_gallery_coast_shorelines.py`
 
@@ -105,6 +108,7 @@ Plotting map items
 .. only:: html
 
  .. figure:: /gallery/plot/images/thumb/sphx_glr_colorbar_thumb.png
+     :alt: Colorbar
 
      :ref:`sphx_glr_gallery_plot_colorbar.py`
 
@@ -125,6 +129,7 @@ Plotting map items
 .. only:: html
 
  .. figure:: /gallery/plot/images/thumb/sphx_glr_legend_thumb.png
+     :alt: Legend
 
      :ref:`sphx_glr_gallery_plot_legend.py`
 
@@ -145,6 +150,7 @@ Plotting map items
 .. only:: html
 
  .. figure:: /gallery/plot/images/thumb/sphx_glr_points_thumb.png
+     :alt: Points
 
      :ref:`sphx_glr_gallery_plot_points.py`
 
@@ -177,6 +183,7 @@ Grids
 .. only:: html
 
  .. figure:: /gallery/grid/images/thumb/sphx_glr_track_sampling_thumb.png
+     :alt: Sampling along tracks
 
      :ref:`sphx_glr_gallery_grid_track_sampling.py`
 

@@ -28,6 +28,7 @@ For example, to draw national boundaries with 1p thickness black lines use
 
 
 .. image:: /gallery/coast/images/sphx_glr_borders_001.png
+    :alt: borders
     :class: sphx-glr-single-img
 
 
@@ -61,7 +62,7 @@ For example, to draw national boundaries with 1p thickness black lines use
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.384 seconds)
+   **Total running time of the script:** ( 0 minutes  1.371 seconds)
 
 
 .. _sphx_glr_download_gallery_coast_borders.py:
