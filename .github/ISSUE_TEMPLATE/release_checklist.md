@@ -29,7 +29,7 @@ git push --tags
 - [ ] Commit changes to Github
 
 **3rd party update**:
-- [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock)
+- [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) [Usually done automatically by conda-forge's bot]
 
 ---
 
