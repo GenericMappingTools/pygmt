@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Release v0.1.1 (2020/05/XX)
+Release v0.1.1 (2020/05/22)
 ---------------------------
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3837197.svg
@@ -11,27 +11,27 @@ Release v0.1.1 (2020/05/XX)
 Highlights:
 
 * 🏁Windows users rejoice, this bugfix release is for you!🏁
-* Let PyGMT work with the conda GMT package on Windows (#434)
+* Let PyGMT work with the conda GMT package on Windows (`#434 <https://github.com/GenericMappingTools/pygmt/pull/434>`__)
 
 Enhancements:
 
-* Handle setting special parameters without default settings for config (#411)
+* Handle setting special parameters without default settings for config (`#411 <https://github.com/GenericMappingTools/pygmt/pull/411>`__)
 
 Documentation:
 
-* Update install instructions (#430)
-* Add PyGMT AGU 2019 poster to website (#425)
-* Redirect www.pygmt.org to latest, instead of dev (#423)
+* Update install instructions (`#430 <https://github.com/GenericMappingTools/pygmt/pull/430>`__)
+* Add PyGMT AGU 2019 poster to website (`#425 <https://github.com/GenericMappingTools/pygmt/pull/425>`__)
+* Redirect www.pygmt.org to latest, instead of dev (`#423 <https://github.com/GenericMappingTools/pygmt/pull/423>`__)
 
 Bug Fixes:
 
-* Set GMT_COMPATIBILITY to 6 when pygmt session starts (#432)
-* Improve how PyGMT finds the GMT library (#440)
+* Set GMT_COMPATIBILITY to 6 when pygmt session starts (`#432 <https://github.com/GenericMappingTools/pygmt/pull/432>`__)
+* Improve how PyGMT finds the GMT library (`#440 <https://github.com/GenericMappingTools/pygmt/pull/440>`__)
 
 Maintenance:
 
-* Finalize fixes on Windows test suite for v0.1.1 (#441)
-* Cache test data on Azure Pipelines (#438)
+* Finalize fixes on Windows test suite for v0.1.1 (`#441 <https://github.com/GenericMappingTools/pygmt/pull/441>`__)
+* Cache test data on Azure Pipelines (`#438 <https://github.com/GenericMappingTools/pygmt/pull/438>`__)
 
 This release contains contributions from:
 
