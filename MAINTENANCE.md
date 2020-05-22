@@ -157,7 +157,7 @@ reserved DOI.
 When a new version is released on PyPI, conda-forge's bot automatically creates version
 updates for the feedstock. In most cases, the maintainers can simply merge that PR.
 
-If changes are needed to be done manually, you can:
+If changes need to be done manually, you can:
 
 1. Fork the [pygmt feedstock repository](https://github.com/conda-forge/pygmt-feedstock) if
    you haven't already. If you have a fork, update it.
