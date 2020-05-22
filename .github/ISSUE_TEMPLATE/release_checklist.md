@@ -17,7 +17,7 @@ assignees: ''
 **Release**:
 - [ ] Make a tag and push it to Github
 ```
-git tag x.x.x
+git tag vX.Y.Z
 git push --tags
 ```
 - [ ] Go to [GitHub Release](https://github.com/GenericMappingTools/pygmt/releases) and make a release
