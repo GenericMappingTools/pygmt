@@ -30,7 +30,8 @@ def test_gmt_compat_6_is_applied(capsys):
     end()  # Kill the global session
     try:
         with Session() as lib:
-            # Generate a gmt.conf in the currenty directory with GMT_COMPATIBILITY = 5
+            # Generate a gmt.conf in the currenty directory
+            # with GMT_COMPATIBILITY = 5
             lib.call_module("gmtset", "GMT_COMPATIBILITY 5")
         begin()
         with Session() as lib:
