@@ -28,28 +28,28 @@ def test_gmt_compat_6_is_applied(capsys):
     GMT_COMPATIBILITY: Expects values from 6 to 6; reset to 6.
     """
     end()  # Kill the global session
-    try:
-        with Session() as lib:
-            # Generate a gmt.conf in the currenty directory
-            # with GMT_COMPATIBILITY = 5
-            lib.call_module("gmtset", "GMT_COMPATIBILITY 5")
-        begin()
-        with Session() as lib:
-            lib.call_module("basemap", "-R10/70/-3/8 -JX4i/3i -Ba")
-            out, err = capsys.readouterr()  # capture stdout and stderr
-            assert out == ""
-            assert err != (
-                "pygmt-session [ERROR]: GMT_COMPATIBILITY:"
-                " Expects values from 6 to 6; reset to 6.\n"
-            )
-            assert err == ""  # double check that there are no other errors
-    finally:
-        end()
-        # Clean up the global "gmt.conf" in the current directory
-        assert os.path.exists("gmt.conf")
-        os.remove("gmt.conf")
-        assert os.path.exists("pygmt-session.pdf")
-        os.remove("pygmt-session.pdf")
-        # Make sure no global "gmt.conf" in the current directory
-        assert not os.path.exists("gmt.conf")
-        begin()  # Restart the global session
+
+    # Generate a gmt.conf in the currenty directory with GMT_COMPATIBILITY = 5
+    with Session() as lib:
+        lib.call_module("gmtset", "GMT_COMPATIBILITY 5")
+    exit()
+    begin()
+    with Session() as lib:
+        lib.call_module("basemap", "-R10/70/-3/8 -JX4i/3i -Ba")
+        out, err = capsys.readouterr()  # capture stdout and stderr
+        assert out == ""
+        assert err != (
+            "pygmt-session [ERROR]: GMT_COMPATIBILITY:"
+            " Expects values from 6 to 6; reset to 6.\n"
+        )
+        assert err == ""  # double check that there are no other errors
+    end()
+
+    # Clean up the global "gmt.conf" in the current directory
+    assert os.path.exists("gmt.conf")
+    os.remove("gmt.conf")
+    assert os.path.exists("pygmt-session.pdf")
+    os.remove("pygmt-session.pdf")
+    # Make sure no global "gmt.conf" in the current directory
+    assert not os.path.exists("gmt.conf")
+    begin()  # Restart the global session
