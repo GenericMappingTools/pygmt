@@ -119,7 +119,7 @@ jobs:
   # Cache the ${HOME}/.gmt directory, for docs and testing
   - task: Cache@2
     inputs:
-      key: cachedata | 20200519
+      key: cachedata | 20200524
       path: $(HOME)/.gmt
       cacheHitVar: CACHE_CACHEDATA_RESTORED
     displayName: Cache GMT remote data for testing
@@ -215,7 +215,7 @@ jobs:
   # Cache the ${HOME}/.gmt directory, for docs and testing
   - task: Cache@2
     inputs:
-      key: cachedata | 20200519
+      key: cachedata | 20200524
       path: $(HOMEPATH)/.gmt
       cacheHitVar: CACHE_CACHEDATA_RESTORED
     displayName: Cache GMT remote data for testing
