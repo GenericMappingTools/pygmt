@@ -112,11 +112,12 @@ PyGMT ships with a full test suite.
 You can run our tests after you install it but you will need a few extra dependencies as
 well (be sure to have your conda env activated)::
 
-    conda install pytest pytest-mpl sphinx jinja2 docutils ipython
+    conda install pytest pytest-mpl ipython
 
 Test your installation by running the following inside a Python interpreter::
 
     import pygmt
+    pygmt.print_clib_info()
     pygmt.test()
 
 
