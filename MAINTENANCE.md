@@ -81,6 +81,17 @@ There are a few steps that still must be done manually, though.
 
 ### Updating the changelog
 
+The Release Drafter Github Action will automatically keep a draft changelog at
+https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
+every time a Pull Request (with a proper label) is merged into the master branch.
+This release drafter tool has two configuration files, one for the Github Action
+at .github/workflows/release-drafter.yml, and one for the changelog template
+at .github/release-drafter.yml. Configuration settings can be found at
+https://github.com/release-drafter/release-drafter.
+
+The drafted release notes are not perfect, so we will need to tidy it prior to
+publishing the actual release notes at https://www.pygmt.org/latest/changes.html.
+
 1. Generate a list of commits between the last release tag and now:
 
     ```bash
@@ -141,17 +152,18 @@ this new folder.
 Grab a zip file from the Github release and upload to Zenodo using the previously
 reserved DOI.
 
-### Updating the conda package (Not available yet)
+### Updating the conda package
 
-After Travis is done building the tag and all builds pass, we need to update the conda
-package.
-Unfortunately, this needs to be done manually for now.
+When a new version is released on PyPI, conda-forge's bot automatically creates version
+updates for the feedstock. In most cases, the maintainers can simply merge that PR.
 
-1. Fork the feedstock repository (https://github.com/conda-forge/pygmt-feedstock) if
+If changes need to be done manually, you can:
+
+1. Fork the [pygmt feedstock repository](https://github.com/conda-forge/pygmt-feedstock) if
    you haven't already. If you have a fork, update it.
 2. Update the version number and sha256 hash on `recipe/meta.yaml`. You can get the hash
    from the PyPI "Download files" section.
 3. Add or remove any new dependencies (most are probably only `run` dependencies).
-4. Make a new branch, commit, and push your changes **to your fork**.
+4. Make a new branch, commit, and push the changes **to your personal fork**.
 5. Create a PR against the original feedstock master.
-6. Once the CIs are passing, merge or as a maintainer to do so.
+6. Once the CI tests pass, merge the PR or ask a maintainer to do so.
