@@ -28,7 +28,6 @@ def test_gmt_compat_6_is_applied(capsys):
     GMT_COMPATIBILITY: Expects values from 6 to 6; reset to 6.
     """
     end()  # Kill the global session
-
     try:
         # Generate a gmt.conf in the currenty directory with GMT_COMPATIBILITY = 5
         with Session() as lib:
