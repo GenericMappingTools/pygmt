@@ -29,8 +29,9 @@ def test_gmt_compat_6_is_applied(capsys):
     """
     end()  # Kill the global session
     try:
+        # Generate a gmt.conf file in the currenty directory
+        # with GMT_COMPATIBILITY = 5
         with Session() as lib:
-            # pretend that gmt.conf has GMT_COMPATIBILITY = 5
             lib.call_module("gmtset", "GMT_COMPATIBILITY 5")
         begin()
         with Session() as lib:
@@ -43,10 +44,12 @@ def test_gmt_compat_6_is_applied(capsys):
             )
             assert err == ""  # double check that there are no other errors
     finally:
-        with Session() as lib:
-            # revert gmt.conf back to GMT_COMPATIBILITY = 6
-            lib.call_module("set", "GMT_COMPATIBILITY 6")
         end()
-        begin()  # Restart the global session
+        # Clean up the global "gmt.conf" in the current directory
+        assert os.path.exists("gmt.conf")
+        os.remove("gmt.conf")
         assert os.path.exists("pygmt-session.pdf")
         os.remove("pygmt-session.pdf")
+        # Make sure no global "gmt.conf" in the current directory
+        assert not os.path.exists("gmt.conf")
+        begin()  # Restart the global session
