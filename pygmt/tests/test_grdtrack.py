@@ -28,7 +28,7 @@ def test_grdtrack_input_dataframe_and_dataarray():
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2797.482959])
+    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2797.497251])
 
     return output
 
@@ -46,7 +46,7 @@ def test_grdtrack_input_csvfile_and_dataarray():
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2797.482959])
+        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2797.497251])
     finally:
         os.remove(path=TEMP_TRACK)
 
@@ -63,7 +63,7 @@ def test_grdtrack_input_dataframe_and_ncfile():
     output = grdtrack(points=dataframe, grid=ncfile, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1686.692142])
+    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1686.878079])
 
     return output
 
@@ -81,7 +81,7 @@ def test_grdtrack_input_csvfile_and_ncfile():
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-32.2971, 37.4118, -1686.692142])
+        npt.assert_allclose(track.iloc[0], [-32.2971, 37.4118, -1686.878079])
     finally:
         os.remove(path=TEMP_TRACK)
 
