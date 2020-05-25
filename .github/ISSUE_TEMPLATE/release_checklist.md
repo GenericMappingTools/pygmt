@@ -22,7 +22,7 @@ git push --tags
 ```
 - [ ] Go to [GitHub Release](https://github.com/GenericMappingTools/pygmt/releases) and make a release
 - [ ] Manually upload the pygmt-vX.Y.Z.zip file to https://zenodo.org/deposit, make sure you file it under the correct reserved DOI
-- [ ] Announce release on the GMT forum and [website](https://www.generic-mapping-tools.org) (News)
+- [ ] Announce the releases on the GMT [forum](https://forum.generic-mapping-tools.org/c/news/), [website](https://github.com/GenericMappingTools/website) (News) and [ResearchGate](https://www.researchgate.net/project/PyGMT-A-Python-interface-for-the-Generic-Mapping-Tools)
 
 **After release**:
 - [ ] Create branch 0.x for bug-fixes if this is a minor release (i.e. create branch 0.1 after 0.1.0 is released)
