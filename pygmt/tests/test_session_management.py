@@ -32,7 +32,6 @@ def test_gmt_compat_6_is_applied(capsys):
     # Generate a gmt.conf in the currenty directory with GMT_COMPATIBILITY = 5
     with Session() as lib:
         lib.call_module("gmtset", "GMT_COMPATIBILITY 5")
-    exit()
     begin()
     with Session() as lib:
         lib.call_module("basemap", "-R10/70/-3/8 -JX4i/3i -Ba")
