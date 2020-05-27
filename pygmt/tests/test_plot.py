@@ -5,6 +5,7 @@ Tests plot.
 import os
 
 import numpy as np
+import pandas as pd
 import pytest
 
 from .. import Figure
@@ -266,4 +267,24 @@ def test_plot_scalar_xy():
     fig.plot(x=-1.5, y=1.5, style="c1c")
     fig.plot(x=0, y=0, style="t1c")
     fig.plot(x=1.5, y=-1.5, style="s1c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_datetime():
+    """Test various datetime input data"""
+    fig = Figure()
+    fig.basemap(projection="X15c/5c", region="2010-01-01/2020-01-01/0/10", frame=True)
+
+    # numpy.datetime64 types
+    x = np.array(
+        ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64"
+    )
+    y = [1.0, 2.0, 3.0]
+    fig.plot(x, y, style="c0.2c", pen="1p")
+
+    # pandas.DatetimeIndex
+    x = pd.date_range("2014", freq="YS", periods=3)
+    y = [5, 6, 7]
+    fig.plot(x, y, style="t0.2c", pen="1p")
     return fig

@@ -48,12 +48,13 @@ MODES = ["GMT_CONTAINER_ONLY", "GMT_OUTPUT"]
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
 DTYPES = {
-    "float64": "GMT_DOUBLE",
-    "float32": "GMT_FLOAT",
-    "int64": "GMT_LONG",
-    "int32": "GMT_INT",
-    "uint64": "GMT_ULONG",
-    "uint32": "GMT_UINT",
+    np.float64: "GMT_DOUBLE",
+    np.float32: "GMT_FLOAT",
+    np.int64: "GMT_LONG",
+    np.int32: "GMT_INT",
+    np.uint64: "GMT_ULONG",
+    np.uint32: "GMT_UINT",
+    np.datetime64: "GMT_DATETIME",
 }
 
 
@@ -708,15 +709,15 @@ class Session:
         True
 
         """
-        if array.dtype.name not in DTYPES:
+        if array.dtype.type not in DTYPES:
             raise GMTInvalidInput(
-                "Unsupported numpy data type '{}'.".format(array.dtype.name)
+                "Unsupported numpy data type '{}'.".format(array.dtype.type)
             )
         if array.ndim != ndim:
             raise GMTInvalidInput(
                 "Expected a numpy 1d array, got {}d.".format(array.ndim)
             )
-        return self[DTYPES[array.dtype.name]]
+        return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
         """
@@ -762,7 +763,11 @@ class Session:
         )
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
-        vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
+        if gmt_type == self["GMT_DATETIME"]:
+            vector_pointer = (ctp.c_char_p * len(vector))()
+            vector_pointer[:] = np.char.encode(np.datetime_as_string(vector))
+        else:
+            vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
             self.session_pointer, dataset, column, gmt_type, vector_pointer
         )
