@@ -80,15 +80,19 @@ jobs:
 
   strategy:
     matrix:
-      Python38:
+     #Python38:
+     #   python.version: '3.8'
+     #   PYTHON: '3.8'
+     # Python37:
+     #   python.version: '3.7'
+     #   PYTHON: '3.7'
+     # Python36:
+     #   python.version: '3.6'
+     #   PYTHON: '3.6'
+      GMTMaster:
         python.version: '3.8'
         PYTHON: '3.8'
-      Python37:
-        python.version: '3.7'
-        PYTHON: '3.7'
-      Python36:
-        python.version: '3.6'
-        PYTHON: '3.6'
+        CONDA_INSTALL_EXTRA: "codecov ghostscript"
 
   steps:
 
@@ -115,6 +119,13 @@ jobs:
       source activate testing
       conda list
     displayName: List installed packages
+
+  # Install GMT master branch
+  - bash: |
+      set -x -e
+      brew install gmt --HEAD
+    displayName: Install GMT master branch
+    condition: eq(variables['System.JobDisplayName'], 'Mac GMTMaster')
 
   # Cache the ${HOME}/.gmt directory, for docs and testing
   - task: Cache@2
@@ -171,6 +182,7 @@ jobs:
 ########################################################################################
 - job:
   displayName: 'Windows'
+  condition: false
 
   pool:
     vmImage: 'vs2017-win2016'
