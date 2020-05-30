@@ -709,14 +709,16 @@ class Session:
         True
 
         """
+        # check the array has the given dimension
         if array.ndim != ndim:
             raise GMTInvalidInput(
                 "Expected a numpy 1d array, got {}d.".format(array.ndim)
             )
 
+        # check the array has a valid/known data type
         if array.dtype.type not in DTYPES:
-            # Try to convert the unknown numpy data type to np.datetime64
             try:
+                # Try to convert any unknown numpy data types to np.datetime64
                 array = np.asarray(array, dtype=np.datetime64)
             except ValueError:
                 raise GMTInvalidInput(
