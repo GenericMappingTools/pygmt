@@ -6,6 +6,7 @@ import os
 
 import numpy as np
 import pandas as pd
+import datetime
 import pytest
 
 from .. import Figure
@@ -284,7 +285,17 @@ def test_plot_datetime():
     fig.plot(x, y, style="c0.2c", pen="1p")
 
     # pandas.DatetimeIndex
-    x = pd.date_range("2014", freq="YS", periods=3)
-    y = [5, 6, 7]
+    x = pd.date_range("2013", freq="YS", periods=3)
+    y = [4, 5, 6]
     fig.plot(x, y, style="t0.2c", pen="1p")
+
+    # raw datetime strings
+    x = ["2016-02-01", "2017-03-04T00:00"]
+    y = [7, 8]
+    fig.plot(x, y, style="a0.2c", pen="1p")
+
+    # the Python built-in datetime and date
+    x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
+    y = [8.5, 9.5]
+    fig.plot(x, y, style="i0.2c", pen="1p")
     return fig

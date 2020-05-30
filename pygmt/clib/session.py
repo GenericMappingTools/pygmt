@@ -709,14 +709,19 @@ class Session:
         True
 
         """
-        if array.dtype.type not in DTYPES:
-            raise GMTInvalidInput(
-                "Unsupported numpy data type '{}'.".format(array.dtype.type)
-            )
         if array.ndim != ndim:
             raise GMTInvalidInput(
                 "Expected a numpy 1d array, got {}d.".format(array.ndim)
             )
+
+        if array.dtype.type not in DTYPES:
+            # Try to convert the unknown numpy data type to np.datetime64
+            try:
+                array = np.asarray(array, dtype=np.datetime64)
+            except ValueError:
+                raise GMTInvalidInput(
+                    "Unsupported numpy data type '{}'.".format(array.dtype.type)
+                )
         return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
@@ -765,7 +770,9 @@ class Session:
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type == self["GMT_DATETIME"]:
             vector_pointer = (ctp.c_char_p * len(vector))()
-            vector_pointer[:] = np.char.encode(np.datetime_as_string(vector))
+            vector_pointer[:] = np.char.encode(
+                np.datetime_as_string(vector.astype(np.datetime64))
+            )
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
