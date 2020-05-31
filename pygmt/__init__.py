@@ -128,7 +128,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     """
     import pytest
 
-    print_clib_info()
+    show_versions()
 
     package = __name__
 
