@@ -92,6 +92,7 @@ Miscellaneous
     which
     test
     print_clib_info
+    show_versions
 
 
 .. automodule:: pygmt.datasets
