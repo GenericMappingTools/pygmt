@@ -7,9 +7,6 @@
 # session will be closed when the current Python process terminates. Thus, the
 # Python API does not expose the `gmt begin` and `gmt end` commands.
 
-import sys
-import platform
-import importlib
 import atexit as _atexit
 
 from ._version import get_versions as _get_versions
@@ -55,6 +52,9 @@ def show_versions():
     """
     Print useful debugging information for issue reports.
     """
+    import sys
+    import platform
+    import importlib
 
     def _get_module_version(module):
         """Get version information of a Python module."""
