@@ -22,5 +22,8 @@ PASTE ERROR MESSAGE HERE
 
 **System information**
 
-Please post the output of `python -c "import pygmt; pygmt.show_versions()"`:
+Please paste the output of `python -c "import pygmt; pygmt.show_versions()"`:
 
+```
+PASTE THE OUTPUT HERE
+```
