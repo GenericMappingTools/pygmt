@@ -117,7 +117,7 @@ well (be sure to have your conda env activated)::
 Test your installation by running the following inside a Python interpreter::
 
     import pygmt
-    pygmt.print_clib_info()
+    pygmt.show_versions()
     pygmt.test()
 
 
