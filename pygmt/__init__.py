@@ -61,7 +61,7 @@ def show_versions():
         try:
             return module.__version__
         except AttributeError:
-            return module.versio
+            return module.version
 
     sys_info = {
         "python": sys.version.replace("\n", " "),
