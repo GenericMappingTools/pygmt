@@ -7,6 +7,9 @@
 # session will be closed when the current Python process terminates. Thus, the
 # Python API does not expose the `gmt begin` and `gmt end` commands.
 
+import sys
+import platform
+import importlib
 import atexit as _atexit
 
 from ._version import get_versions as _get_versions
@@ -41,11 +44,55 @@ def print_clib_info():
     """
     from .clib import Session
 
-    lines = ["Loaded libgmt:"]
+    lines = ["GMT library information:"]
     with Session() as ses:
         for key in sorted(ses.info):
             lines.append("  {}: {}".format(key, ses.info[key]))
     print("\n".join(lines))
+
+
+def show_versions():
+    """
+    Print useful debugging information for issue reports.
+    """
+
+    def _get_module_version(module):
+        """Get version information of a Python module."""
+        try:
+            return module.__version__
+        except AttributeError:
+            return module.versio
+
+    sys_info = {
+        "python": sys.version.replace("\n", " "),
+        "executable": sys.executable,
+        "machine": platform.platform(),
+    }
+
+    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+    deps_info = {}
+    for modname in deps:
+        try:
+            if modname in sys.modules:
+                mod = sys.modules[modname]
+            else:
+                mod = importlib.import_module(modname)
+            deps_info[modname] = _get_module_version(mod)
+        except ImportError:
+            deps_info[modname] = None
+
+    print("PyGMT information:")
+    print(f"  version: {__version__}")
+
+    print("System information:")
+    for k, v in sys_info.items():
+        print(f"  {k}: {v}")
+
+    print("Dependency information:")
+    for k, v in deps_info.items():
+        print(f"  {k}: {v}")
+
+    print_clib_info()
 
 
 def test(doctest=True, verbose=True, coverage=False, figures=True):
