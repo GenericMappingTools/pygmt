@@ -41,11 +41,96 @@ def print_clib_info():
     """
     from .clib import Session
 
-    lines = ["Loaded libgmt:"]
+    lines = ["GMT library information:"]
     with Session() as ses:
         for key in sorted(ses.info):
             lines.append("  {}: {}".format(key, ses.info[key]))
     print("\n".join(lines))
+
+
+def show_versions():
+    """
+    Prints various dependency versions useful when submitting bug reports. This
+    includes information about:
+
+    - PyGMT itself
+    - System information (Python version, Operating System)
+    - Core dependency versions (Numpy, Pandas, Xarray, etc)
+    - GMT library information
+    """
+
+    import sys
+    import platform
+    import importlib
+    import subprocess
+
+    def _get_module_version(modname):
+        """Get version information of a Python module."""
+        try:
+            if modname in sys.modules:
+                module = sys.modules[modname]
+            else:
+                module = importlib.import_module(modname)
+
+            try:
+                return module.__version__
+            except AttributeError:
+                return module.version
+        except ImportError:
+            return None
+
+    def _get_ghostscript_version():
+        """Get ghostscript version."""
+        os_name = sys.platform
+        if os_name.startswith("linux") or os_name == "darwin":
+            cmds = ["gs"]
+        elif os_name == "win32":
+            cmds = ["gswin64c.exe", "gswin32c.exe"]
+        else:
+            return None
+
+        for gs_cmd in cmds:
+            try:
+                version = subprocess.check_output(
+                    [gs_cmd, "--version"], universal_newlines=True
+                ).strip()
+                return version
+            except FileNotFoundError:
+                continue
+        return None
+
+    def _get_gmt_version():
+        """Get GMT version."""
+        try:
+            version = subprocess.check_output(
+                ["gmt", "--version"], universal_newlines=True
+            ).strip()
+            return version
+        except FileNotFoundError:
+            return None
+
+    sys_info = {
+        "python": sys.version.replace("\n", " "),
+        "executable": sys.executable,
+        "machine": platform.platform(),
+    }
+
+    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+
+    print("PyGMT information:")
+    print(f"  version: {__version__}")
+
+    print("System information:")
+    for k, v in sys_info.items():
+        print(f"  {k}: {v}")
+
+    print("Dependency information:")
+    for modname in deps:
+        print(f"  {modname}: {_get_module_version(modname)}")
+    print(f"  ghostscript: {_get_ghostscript_version()}")
+    print(f"  gmt: {_get_gmt_version()}")
+
+    print_clib_info()
 
 
 def test(doctest=True, verbose=True, coverage=False, figures=True):
@@ -81,7 +166,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     """
     import pytest
 
-    print_clib_info()
+    show_versions()
 
     package = __name__
 
