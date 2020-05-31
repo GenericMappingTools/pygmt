@@ -24,7 +24,7 @@ test:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	mkdir -p $(TESTDIR)
 	@echo ""
-	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).print_clib_info()"
+	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
 	cd $(TESTDIR); pytest $(PYTEST_ARGS) $(PROJECT)
 	cp $(TESTDIR)/.coverage* .
