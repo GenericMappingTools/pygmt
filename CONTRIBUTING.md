@@ -303,7 +303,8 @@ Run the tests and calculate test coverage using:
     make test
 
 The coverage report will let you know which lines of code are touched by the tests.
-**Strive to get 100% coverage for the lines you changed.**
+If all the tests pass, you can view the coverage reports by opening `htmlcov/index.html`
+in your browser. **Strive to get 100% coverage for the lines you changed.**
 It's OK if you can't or don't know how to test something.
 Leave a comment in the PR and we'll help you out.
 
