@@ -85,7 +85,7 @@ def show_versions():
         for gs_cmd in cmds:
             try:
                 version = subprocess.check_output(
-                    [gs_cmd, "--version"], text=True
+                    [gs_cmd, "--version"], universal_newlines=True
                 ).strip()
                 return version
             except FileNotFoundError:
