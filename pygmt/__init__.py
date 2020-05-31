@@ -72,7 +72,6 @@ def show_versions():
         except ImportError:
             return None
 
-
     def _get_ghostscript_version():
         """Check ghostscript version."""
         os_name = sys.platform
@@ -92,7 +91,6 @@ def show_versions():
             except FileNotFoundError:
                 continue
         return None
-
 
     sys_info = {
         "python": sys.version.replace("\n", " "),
