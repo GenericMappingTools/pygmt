@@ -50,7 +50,16 @@ def print_clib_info():
 
 def show_versions():
     """
-    Print useful debugging information for issue reports.
+    Prints various dependency versions useful when submitting bug reports. This
+    includes information about:
+
+    - PyGMT itself
+    - System information (Python version, Operating System)
+    - Core dependency versions (Numpy, Pandas, Xarray, etc)
+    - GMT library information
+    """
+    
+    
     """
     import sys
     import platform
