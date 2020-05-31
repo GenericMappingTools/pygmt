@@ -73,7 +73,7 @@ def show_versions():
             return None
 
     def _get_ghostscript_version():
-        """Check ghostscript version."""
+        """Get ghostscript version."""
         os_name = sys.platform
         if os_name.startswith("linux") or os_name == "darwin":
             cmds = ["gs"]
@@ -110,7 +110,7 @@ def show_versions():
     print("Dependency information:")
     for modname in deps:
         print(f"  {modname}: {_get_module_version(modname)}")
-    print("  ghostscript:", _get_ghostscript_version())
+    print(f"  ghostscript: {_get_ghostscript_version()}")
 
     print_clib_info()
 
