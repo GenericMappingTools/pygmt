@@ -55,6 +55,7 @@ def show_versions():
     import sys
     import platform
     import importlib
+    import subprocess
 
     def _get_module_version(module):
         """Get version information of a Python module."""
@@ -62,6 +63,26 @@ def show_versions():
             return module.__version__
         except AttributeError:
             return module.version
+
+    def _get_ghostscript_version():
+        """Check ghostscript version."""
+        os_name = sys.platform
+        if os_name.startswith("linux") or os_name == "darwin":
+            cmds = ["gs"]
+        elif os_name == "win32":
+            cmds = ["gswin64c.exe", "gswin32c.exe"]
+        else:
+            return None
+
+        for gs_cmd in cmds:
+            try:
+                version = subprocess.check_output(
+                    [gs_cmd, "--version"], text=True
+                ).strip()
+                return version
+            except FileNotFoundError:
+                continue
+        return None
 
     sys_info = {
         "python": sys.version.replace("\n", " "),
@@ -91,6 +112,7 @@ def show_versions():
     print("Dependency information:")
     for k, v in deps_info.items():
         print(f"  {k}: {v}")
+    print("  ghostscript:", _get_ghostscript_version())
 
     print_clib_info()
 
