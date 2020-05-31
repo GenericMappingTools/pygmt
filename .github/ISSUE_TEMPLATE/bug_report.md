@@ -22,16 +22,5 @@ PASTE ERROR MESSAGE HERE
 
 **System information**
 
-* Operating system:
-* Python installation (Anaconda, system, ETS):
-* Version of GMT:
-* Version of Python:
-* Version of this package:
-* If using conda, paste the output of `conda list` below:
+Please post the output of `python -c "import pygmt; pygmt.show_versions()"`:
 
-<details>
-<summary>output of conda list</summary>
-<pre>
-PASTE OUTPUT OF CONDA LIST HERE
-</pre>
-</details>
