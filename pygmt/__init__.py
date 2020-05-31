@@ -58,9 +58,7 @@ def show_versions():
     - Core dependency versions (Numpy, Pandas, Xarray, etc)
     - GMT library information
     """
-    
-    
-    """
+
     import sys
     import platform
     import importlib
