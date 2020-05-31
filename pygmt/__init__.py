@@ -57,12 +57,21 @@ def show_versions():
     import importlib
     import subprocess
 
-    def _get_module_version(module):
+    def _get_module_version(modname):
         """Get version information of a Python module."""
         try:
-            return module.__version__
-        except AttributeError:
-            return module.version
+            if modname in sys.modules:
+                module = sys.modules[modname]
+            else:
+                module = importlib.import_module(modname)
+
+            try:
+                return module.__version__
+            except AttributeError:
+                return module.version
+        except ImportError:
+            return None
+
 
     def _get_ghostscript_version():
         """Check ghostscript version."""
@@ -84,6 +93,7 @@ def show_versions():
                 continue
         return None
 
+
     sys_info = {
         "python": sys.version.replace("\n", " "),
         "executable": sys.executable,
@@ -91,16 +101,6 @@ def show_versions():
     }
 
     deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
-    deps_info = {}
-    for modname in deps:
-        try:
-            if modname in sys.modules:
-                mod = sys.modules[modname]
-            else:
-                mod = importlib.import_module(modname)
-            deps_info[modname] = _get_module_version(mod)
-        except ImportError:
-            deps_info[modname] = None
 
     print("PyGMT information:")
     print(f"  version: {__version__}")
@@ -110,8 +110,8 @@ def show_versions():
         print(f"  {k}: {v}")
 
     print("Dependency information:")
-    for k, v in deps_info.items():
-        print(f"  {k}: {v}")
+    for modname in deps:
+        print(f"  {modname}: {_get_module_version(modname)}")
     print("  ghostscript:", _get_ghostscript_version())
 
     print_clib_info()
