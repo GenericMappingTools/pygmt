@@ -549,6 +549,132 @@ class BasePlotting:
     @use_alias(
         R="region",
         J="projection",
+        Jz="zscale",
+        JZ="zsize",
+        B="frame",
+        S="style",
+        G="color",
+        W="pen",
+        i="columns",
+        l="label",
+        C="cmap",
+        p="perspective",
+    )
+    @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+    def plot3d(
+        self, x=None, y=None, z=None, data=None, sizes=None, direction=None, **kwargs
+    ):
+        """
+        Plot lines, polygons, and symbols in 3-D
+
+        Takes a matrix, (x,y,z) triplets, or a file name as input and plots lines,
+        polygons, or symbols at those locations in 3-D.
+
+        Must provide either *data* or *x*, *y* and *z*.
+
+        #If providing data through *x* and *y*, *color* (G) can be a 1d array
+        #that will be mapped to a colormap.
+
+        If a symbol is selected and no symbol size given, then plot3d will
+        interpret the fourth column of the input data as symbol size. Symbols
+        whose size is <= 0 are skipped. If no symbols are specified then the
+        symbol code (see *S* below) must be present as last column in the
+        input. If *S* is not used, a line connecting the data points will be
+        drawn instead. To explicitly close polygons, use *L*. Select a fill
+        with *G*. If *G* is set, *W* will control whether the polygon outline
+        is drawn or not. If a symbol is selected, *G* and *W* determines the
+        fill and outline/no outline, respectively.
+
+        Full option list at :gmt-docs:`plot3d.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        x/y/z : float or 1d arrays
+            The x, y, and z coordinates, or arrays of x, y and z coordinates of
+            the data points
+        data : str or 2d array
+            Either a data file name or a 2d numpy array with the tabular data.
+            Use option *columns* (i) to choose which columns are x, y, z,
+            color, and size, respectively.
+        sizes : 1d array
+            The sizes of the data points in units specified in *style* (S).
+            Only valid if using *x*, *y* and *z*.
+        direction : list of two 1d arrays
+            If plotting vectors (using ``style='V'`` or ``style='v'``), then
+            should be a list of two 1d arrays with the vector directions. These
+            can be angle and length, azimuth and length, or x and y components,
+            depending on the style options chosen.
+        {J}
+        zscale/zsize : float or str
+            Set z-axis scaling or z-axis size.
+        {R}
+        A : bool or str
+            ``'[m|p|x|y]'``
+            By default, geographic line segments are drawn as great circle
+            arcs. To draw them as straight lines, use *A*.
+        {B}
+        {CPT}
+        D : str
+            ``'dx/dy'``: Offset the plot symbol or line locations by the given
+            amounts dx/dy.
+        E : bool or str
+            ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
+            Draw symmetrical error bars.
+        {G}
+        S : str
+            Plot symbols (including vectors, pie slices, fronts, decorated or
+            quoted lines).
+        {W}
+        {U}
+        l : str
+            Add a legend entry for the symbol or line being plotted.
+        perspective : list or str
+            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
+            Select perspective view.
+
+        """
+        kwargs = self._preprocess(**kwargs)
+
+        kind = data_kind(data, x, y, z)
+
+        extra_arrays = []
+        if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
+            extra_arrays.extend(direction)
+        if "G" in kwargs and not isinstance(kwargs["G"], str):
+            if kind != "vectors":
+                raise GMTInvalidInput(
+                    "Can't use arrays for color if data is matrix or file."
+                )
+            extra_arrays.append(kwargs["G"])
+            del kwargs["G"]
+        if sizes is not None:
+            if kind != "vectors":
+                raise GMTInvalidInput(
+                    "Can't use arrays for sizes if data is matrix or file."
+                )
+            extra_arrays.append(sizes)
+
+        with Session() as lib:
+            # Choose how data will be passed in to the module
+            if kind == "file":
+                file_context = dummy_context(data)
+            elif kind == "matrix":
+                file_context = lib.virtualfile_from_matrix(data)
+            elif kind == "vectors":
+                file_context = lib.virtualfile_from_vectors(
+                    np.atleast_1d(x), np.atleast_1d(y), np.atleast_1d(z), *extra_arrays
+                )
+
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("plot3d", arg_str)
+
+    @fmt_docstring
+    @use_alias(
+        R="region",
+        J="projection",
         B="frame",
         S="skip",
         G="label_placement",
@@ -623,16 +749,18 @@ class BasePlotting:
                 lib.call_module("contour", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame")
-    @kwargs_to_strings(R="sequence")
+    @use_alias(
+        R="region", J="projection", Jz="zscale", JZ="zsize", B="frame", p="perspective"
+    )
+    @kwargs_to_strings(R="sequence", p="sequence")
     def basemap(self, **kwargs):
         """
-        Produce a basemap for the figure.
+        Plot base maps and frames for the figure.
 
-        Several map projections are available, and the user may specify
-        separate tick-mark intervals for boundary annotation, ticking, and
-        [optionally] gridlines. A simple map scale or directional rose may also
-        be plotted.
+        Creates a basic or fancy basemap with axes, fill, and titles. Several
+        map projections are available, and the user may specify separate
+        tick-mark intervals for boundary annotation, ticking, and [optionally]
+        gridlines. A simple map scale or directional rose may also be plotted.
 
         At least one of the options *B*, *L*, or *T* must be specified.
 
@@ -655,6 +783,13 @@ class BasePlotting:
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
+
+        zscale/zsize : float or str
+            Set z-axis scaling or z-axis size.
+
+        perspective : list or str
+            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
+            Select perspective view.
 
         """
         kwargs = self._preprocess(**kwargs)
