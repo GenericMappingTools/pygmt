@@ -432,13 +432,17 @@ class BasePlotting:
     @use_alias(
         R="region",
         J="projection",
+        A="straight_lines",
         B="frame",
-        S="style",
+        C="cmap",
+        D="position",
+        E="error_bars",
         G="color",
+        L="close",
+        S="style",
         W="pen",
         i="columns",
         l="label",
-        C="cmap",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
     def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
@@ -452,18 +456,18 @@ class BasePlotting:
 
         Must provide either *data* or *x* and *y*.
 
-        If providing data through *x* and *y*, *color* (G) can be a 1d array
-        that will be mapped to a colormap.
+        If providing data through *x* and *y*, *color* can be a 1d array that
+        will be mapped to a colormap.
 
-        If a symbol is selected and no symbol size given, then psxy will
+        If a symbol is selected and no symbol size given, then plot will
         interpret the third column of the input data as symbol size. Symbols
         whose size is <= 0 are skipped. If no symbols are specified then the
-        symbol code (see *S* below) must be present as last column in the
-        input. If *S* is not used, a line connecting the data points will be
-        drawn instead. To explicitly close polygons, use *L*. Select a fill
-        with *G*. If *G* is set, *W* will control whether the polygon outline
-        is drawn or not. If a symbol is selected, *G* and *W* determines the
-        fill and outline/no outline, respectively.
+        symbol code (see *symbol* below) must be present as last column in the
+        input. If *symbol* is not used, a line connecting the data points will
+        be drawn instead. To explicitly close polygons, use *close*. Select a
+        fill with *color*. If *color* is set, *pen* will control whether the
+        polygon outline is drawn or not. If a symbol is selected, *color* and
+        *pen* determines the fill and outline/no outline, respectively.
 
         Full option list at :gmt-docs:`plot.html`
 
@@ -471,7 +475,7 @@ class BasePlotting:
 
         Parameters
         ----------
-        x, y : float or 1d arrays
+        x/y : float or 1d arrays
             The x and y coordinates, or arrays of x and y coordinates of the
             data points
         data : str or 2d array
@@ -488,25 +492,29 @@ class BasePlotting:
             depending on the style options chosen.
         {J}
         {R}
-        A : bool or str
+        straight_lines : bool or str
             ``'[m|p|x|y]'``
             By default, geographic line segments are drawn as great circle
-            arcs. To draw them as straight lines, use *A*.
+            arcs. To draw them as straight lines, use *straight_lines*.
         {B}
         {CPT}
-        D : str
+        position : str
             ``'dx/dy'``: Offset the plot symbol or line locations by the given
             amounts dx/dy.
-        E : bool or str
+        error_bars : bool or str
             ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
             Draw symmetrical error bars.
         {G}
-        S : str
+        style : str
             Plot symbols (including vectors, pie slices, fronts, decorated or
             quoted lines).
         {W}
         {U}
-        l : str
+        columns : list or str
+            ``cols[+l][+sscale][+ooffset][,…][,t[word]]``
+            Select input columns and transformations (0 is first column, t is
+            trailing text, append word to read one word only).
+        label : str
             Add a legend entry for the symbol or line being plotted.
         """
         kwargs = self._preprocess(**kwargs)
@@ -551,13 +559,17 @@ class BasePlotting:
         J="projection",
         Jz="zscale",
         JZ="zsize",
+        A="straight_lines",
         B="frame",
-        S="style",
+        C="cmap",
+        D="position",
+        E="error_bars",
         G="color",
+        L="close",
+        S="style",
         W="pen",
         i="columns",
         l="label",
-        C="cmap",
         p="perspective",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
@@ -567,23 +579,24 @@ class BasePlotting:
         """
         Plot lines, polygons, and symbols in 3-D
 
-        Takes a matrix, (x,y,z) triplets, or a file name as input and plots lines,
-        polygons, or symbols at those locations in 3-D.
+        Takes a matrix, (x,y,z) triplets, or a file name as input and plots
+        lines, polygons, or symbols at those locations in 3-D.
 
         Must provide either *data* or *x*, *y* and *z*.
 
-        #If providing data through *x* and *y*, *color* (G) can be a 1d array
-        #that will be mapped to a colormap.
+        If providing data through *x*, *y* and *z*, *color* can be a 1d array
+        that will be mapped to a colormap.
 
         If a symbol is selected and no symbol size given, then plot3d will
         interpret the fourth column of the input data as symbol size. Symbols
         whose size is <= 0 are skipped. If no symbols are specified then the
-        symbol code (see *S* below) must be present as last column in the
-        input. If *S* is not used, a line connecting the data points will be
-        drawn instead. To explicitly close polygons, use *L*. Select a fill
-        with *G*. If *G* is set, *W* will control whether the polygon outline
-        is drawn or not. If a symbol is selected, *G* and *W* determines the
-        fill and outline/no outline, respectively.
+        symbol code (see *style* below) must be present as last column in the
+        input. If *style* is not used, a line connecting the data points will
+        be drawn instead. To explicitly close polygons, use *close*. Select a
+        fill
+        with *color*. If *color* is set, *pen* will control whether the polygon
+        outline is drawn or not. If a symbol is selected, *color* and *pen*
+        determines the fill and outline/no outline, respectively.
 
         Full option list at :gmt-docs:`plot3d.html`
 
@@ -610,25 +623,29 @@ class BasePlotting:
         zscale/zsize : float or str
             Set z-axis scaling or z-axis size.
         {R}
-        A : bool or str
+        straight_lines : bool or str
             ``'[m|p|x|y]'``
             By default, geographic line segments are drawn as great circle
             arcs. To draw them as straight lines, use *A*.
         {B}
         {CPT}
-        D : str
+        position : str
             ``'dx/dy'``: Offset the plot symbol or line locations by the given
             amounts dx/dy.
-        E : bool or str
+        error_bars : bool or str
             ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
             Draw symmetrical error bars.
         {G}
-        S : str
+        style : str
             Plot symbols (including vectors, pie slices, fronts, decorated or
             quoted lines).
         {W}
         {U}
-        l : str
+        columns : list or str
+            ``cols[+l][+sscale][+ooffset][,…][,t[word]]``
+            Select input columns and transformations (0 is first column, t is
+            trailing text, append word to read one word only).
+        label : str
             Add a legend entry for the symbol or line being plotted.
         perspective : list or str
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.

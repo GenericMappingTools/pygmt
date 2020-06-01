@@ -223,7 +223,7 @@ def test_plot3d_matrix(data, region):
         projection="M10i",
         style="c1c",
         color="#aaaaaa",
-        B=["a", "za"],
+        frame=["a", "za"],
         columns="0,1,2",
     )
     return fig
@@ -242,7 +242,7 @@ def test_plot3d_matrix_color(data, region):
         style="c0.5c",
         cmap="rainbow",
         columns=[0, 1, 2, 2],
-        B=["a", "za"],
+        frame=["a", "za"],
     )
     return fig
 

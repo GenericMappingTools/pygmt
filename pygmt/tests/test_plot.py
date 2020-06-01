@@ -191,32 +191,32 @@ def test_plot_colors_sizes_proj(data, region):
 
 
 @pytest.mark.mpl_image_compare
-def test_plot_matrix(data):
+def test_plot_matrix(data, region):
     "Plot the data passing in a matrix and specifying columns"
     fig = Figure()
     fig.plot(
         data=data,
-        region=[10, 70, -5, 10],
+        region=region,
         projection="M10i",
         style="cc",
         color="#aaaaaa",
-        B="a",
+        frame="a",
         columns="0,1,2+s0.005",
     )
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_plot_matrix_color(data):
+def test_plot_matrix_color(data, region):
     "Plot the data passing in a matrix and using a colormap"
     fig = Figure()
     fig.plot(
         data=data,
-        region=[10, 70, -5, 10],
+        region=region,
         projection="X5i",
         style="c0.5c",
         cmap="rainbow",
-        B="a",
+        frame="a",
     )
     return fig
 
