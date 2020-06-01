@@ -70,6 +70,7 @@ class BasePlotting:
         W="shorelines",
         G="land",
         S="water",
+        U="timestamp",
     )
     @kwargs_to_strings(R="sequence")
     def coast(self, **kwargs):
@@ -439,6 +440,7 @@ class BasePlotting:
         i="columns",
         l="label",
         C="cmap",
+        U="timestamp",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
     def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
@@ -623,7 +625,7 @@ class BasePlotting:
                 lib.call_module("contour", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame")
+    @use_alias(R="region", J="projection", B="frame", U="timestamp")
     @kwargs_to_strings(R="sequence")
     def basemap(self, **kwargs):
         """
@@ -664,7 +666,7 @@ class BasePlotting:
             lib.call_module("basemap", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection")
+    @use_alias(R="region", J="projection", U="timestamp")
     @kwargs_to_strings(R="sequence")
     def logo(self, **kwargs):
         """
