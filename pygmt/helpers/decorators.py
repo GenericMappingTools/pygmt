@@ -96,11 +96,11 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    R : str or list
+    region : str or list
         *Required if this is the first plot command*.
         ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
         Specify the region of interest.
-    J : str
+    projection : str
         *Required if this is the first plot command*.
         Select map projection.
     <BLANKLINE>
