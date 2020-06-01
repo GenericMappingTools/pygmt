@@ -69,26 +69,25 @@ fig.show()
 #
 # We can also map the colors of the markers to the depths by passing an array to the
 # ``color`` argument and providing a colormap name (``cmap``). We can even use the new
-# matplotlib colormap "viridis".
+# matplotlib colormap "viridis". Here, we first create a continuous colormap
+# ranging from the minimum depth to the maximum depth of the earthquakes
+# using :func:`pygmt.makecpt`, then set ``cmap=True`` in :func:`pygmt.Figure.plot`
+# to use the colormap. At the end of the plot, we also plot a colorbar showing
+# the colormap used in the plot.
+#
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M8i", frame=True)
 fig.coast(land="black", water="skyblue")
+pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
 fig.plot(
     x=data.longitude,
     y=data.latitude,
     sizes=0.02 * 2 ** data.magnitude,
-    color=data.depth_km / data.depth_km.max(),
-    cmap="viridis",
+    color=data.depth_km,
+    cmap=True,
     style="cc",
     pen="black",
 )
+fig.colorbar(frame='af+l"Depth (km)"')
 fig.show()
-
-########################################################################################
-# .. note::
-#
-#     We normalize the data values given to ``color`` because, by default,
-#     :meth:`~pygmt.Figure.plot` can only interpret values between 0 and 1. To use the
-#     actual data values, we would need to create a color palette table (CPT) which
-#     isn't implemented yet.
