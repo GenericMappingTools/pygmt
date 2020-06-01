@@ -53,6 +53,13 @@ Saving and displaying the figure:
     Figure.show
     Figure.psconvert
 
+Utilities for setting display options when working in Jupyter notebooks:
+
+.. autosummary::
+    :toctree: generated
+
+    set_display
+
 
 Data Processing
 ---------------

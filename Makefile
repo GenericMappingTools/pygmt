@@ -29,7 +29,7 @@ test:
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
-	cd $(TESTDIR); pytest $(PYTEST_ARGS) $(PROJECT)
+	cd $(TESTDIR); PYGMT_DISABLE_EXTERNAL_DISPLAY="true" pytest $(PYTEST_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
 	rm -r $(TESTDIR)

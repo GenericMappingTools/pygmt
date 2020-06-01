@@ -2,7 +2,7 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
+SPHINXBUILD   = PYGMT_DISABLE_EXTERNAL_DISPLAY="true" sphinx-build
 SPHINXAUTOGEN = sphinx-autogen
 BUILDDIR      = _build
 
@@ -44,7 +44,6 @@ api:
 	@echo "Building API docs."
 	@echo
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
-
 
 linkcheck:
 	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck

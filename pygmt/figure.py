@@ -2,17 +2,14 @@
 Define the Figure class that handles all plotting.
 """
 import os
+import sys
 from tempfile import TemporaryDirectory
 import base64
 
-try:
-    from IPython.display import Image
-except ImportError:
-    Image = None
 
 from .clib import Session
 from .base_plotting import BasePlotting
-from .exceptions import GMTError, GMTInvalidInput
+from .exceptions import GMTInvalidInput
 from .helpers import (
     build_arg_string,
     fmt_docstring,
@@ -26,6 +23,31 @@ from .helpers import (
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
+
+# Configuration options for Jupyter notebook support
+SHOW_CONFIG = {
+    "external": True,  # Open in an external viewer
+    "notebook": True,  # Notebook display
+    "dpi": 200,  # default DPI
+}
+
+# Determine the default display mode
+try:
+    IPython = sys.modules["IPython"]
+    if "IPKernelApp" in IPython.get_ipython().config:  # Jupyter Notebook enabled
+        SHOW_CONFIG["notebook"] = True
+        SHOW_CONFIG["external"] = False
+    else:
+        SHOW_CONFIG["notebook"] = False
+        SHOW_CONFIG["external"] = True
+except KeyError:
+    SHOW_CONFIG["notebook"] = False
+    SHOW_CONFIG["external"] = True
+
+# If the environment variable is set to "true", disable the external viewer.
+# Use this for running the tests and building the docs to avoid pop up windows.
+if os.environ.get("PYGMT_DISABLE_EXTERNAL_DISPLAY", "default").lower() == "true":
+    SHOW_CONFIG["external"] = False
 
 
 class Figure(BasePlotting):
@@ -57,7 +79,7 @@ class Figure(BasePlotting):
     >>> fig = Figure()
     >>> fig.basemap(region='JP', projection="M3i", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
-    >>> print(', '.join('{:.2f}'.format(i)  for i in fig.region))
+    >>> print(', '.join('{:.2f}'.format(i) for i in fig.region))
     122.94, 145.82, 20.53, 45.52
 
     """
@@ -235,63 +257,38 @@ class Figure(BasePlotting):
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method="static"):
+    def show(self):
         """
         Display a preview of the figure.
 
-        Inserts the preview in the Jupyter notebook output. You will need to
-        have IPython installed for this to work. You should have it if you are
-        using the notebook.
+        Inserts the preview in the Jupyter notebook output, otherwise opens it
+        in the default viewer for your operating system (falls back to the
+        default web browser). Note that the external viewer does not block the
+        current process, so this won't work in a script.
 
-        If ``method='external'``, makes PDF preview instead and opens it in the
-        default viewer for your operating system (falls back to the default web
-        browser). Note that the external viewer does not block the current
-        process, so this won't work in a script.
+        :func:`pygmt.set_display` can select the default display mode (either
+        "notebook" or "external").
 
-        Parameters
-        ----------
-        dpi : int
-            The image resolution (dots per inch).
-        width : int
-            Width of the figure shown in the notebook in pixels. Ignored if
-            ``method='external'``.
-        method : str
-            How the figure will be displayed. Options are (1) ``'static'``: PNG
-            preview (default); (2) ``'external'``: PDF preview in an external
-            program.
-
-        Returns
-        -------
-        img : IPython.display.Image
-            Only if ``method != 'external'``.
+        The external viewer can also be disabled by setting the
+        ``PYGMT_DISABLE_EXTERNAL_DISPLAY`` environment variable to ``true``.
+        This is mainly used for running our tests and building the
+        documentation.
 
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
-        if method not in ["static", "external"]:
-            raise GMTInvalidInput("Invalid show method '{}'.".format(method))
-        if method == "external":
-            pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
-            launch_external_viewer(pdf)
-            img = None
-        elif method == "static":
-            png = self._preview(
-                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, transparent=True
+        if SHOW_CONFIG["notebook"]:
+            png = self._repr_png_()
+            if IPython is not None:
+                IPython.display.display(IPython.display.Image(data=png))
+
+        if SHOW_CONFIG["external"]:
+            pdf = self._preview(
+                fmt="pdf", dpi=SHOW_CONFIG["dpi"], anti_alias=False, as_bytes=False
             )
-            if Image is None:
-                raise GMTError(
-                    " ".join(
-                        [
-                            "Cannot find IPython.",
-                            "Make sure you have it installed",
-                            "or use 'external=True' to open in an external viewer.",
-                        ]
-                    )
-                )
-            img = Image(data=png, width=width)
-        return img
+            launch_external_viewer(pdf)
 
     def shift_origin(self, xshift=None, yshift=None):
         """
@@ -362,7 +359,9 @@ class Figure(BasePlotting):
         Show a PNG preview if the object is returned in an interactive shell.
         For the Jupyter notebook or IPython Qt console.
         """
-        png = self._preview(fmt="png", dpi=70, anti_alias=True, as_bytes=True)
+        png = self._preview(
+            fmt="png", dpi=SHOW_CONFIG["dpi"], anti_alias=True, as_bytes=True
+        )
         return png
 
     def _repr_html_(self):
@@ -374,3 +373,29 @@ class Figure(BasePlotting):
         base64_png = base64.encodebytes(raw_png)
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
+
+
+def set_display(mode, dpi=200):
+    """Set the display mode.
+
+    Parameters
+    ----------
+    mode : str
+        Choose from "notebook" (for inline display in Jupyter notebook)
+        or "external" (for displaying preview using the external viewer).
+
+    dpi : int
+        Set the default DPI (dots-per-inch) used for PNG image previews that
+        are inserted into the notebook.
+    """
+    if mode == "notebook":
+        SHOW_CONFIG["notebook"] = True
+        SHOW_CONFIG["external"] = False
+    elif mode == "external":
+        SHOW_CONFIG["notebook"] = False
+        SHOW_CONFIG["external"] = True
+    else:
+        raise GMTInvalidInput(
+            f'Invalid display mode {mode}, should be either "notebook" or "external".'
+        )
+    SHOW_CONFIG["dpi"] = dpi
