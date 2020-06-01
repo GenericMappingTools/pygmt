@@ -12,6 +12,7 @@ MANIFEST
 .ipynb_checkpoints/
 .vscode/
 tmp-test-dir-with-unique-name/
+htmlcov
 build/
 dist/
 doc/_build

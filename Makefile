@@ -27,7 +27,7 @@ test:
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
 	cd $(TESTDIR); pytest $(PYTEST_ARGS) $(PROJECT)
-	cp $(TESTDIR)/.coverage* .
+	cp $(TESTDIR)/.coverage* . && coverage html
 	rm -r $(TESTDIR)
 
 format:
@@ -43,6 +43,6 @@ lint:
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;
 	find . -name "*~" -exec rm -v {} \;
-	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache
+	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache htmlcov
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
