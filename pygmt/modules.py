@@ -117,7 +117,7 @@ def which(fname, **kwargs):
     ----------
     fname : str
         The file name that you want to check.
-    G : bool or str
+    download : bool or str
         If the file is downloadable and not found, we will try to download the
         it. Use True or 'l' (default) to download to the current directory. Use
         'c' to place in the user cache directory or 'u' user data directory
