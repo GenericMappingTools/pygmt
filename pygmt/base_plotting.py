@@ -225,7 +225,7 @@ class BasePlotting:
         Q="cut",
         R="region",
         S="resample",
-        U="logo",
+        U="timestamp",
         W="pen",
     )
     @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
@@ -243,7 +243,7 @@ class BasePlotting:
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
-        C : str or int
+        interval : str or int
             Specify the contour lines to generate.
 
             - The filename of a `CPT`  file where the color boundaries will
@@ -253,7 +253,7 @@ class BasePlotting:
               angle (col 3)
             - A fixed contour interval ``cont_int`` or a single contour with
               ``+[cont_int]``
-        A : str,  int, or list
+        annotation : str,  int, or list
             Specify or disable annotated contour levels, modifies annotated
             contours specified in ``-C``.
 
@@ -263,12 +263,12 @@ class BasePlotting:
             - Optional label modifiers can be specified as a single string
               ``'[annot_int]+e'``  or with a list of options
               ``([annot_int], 'e', 'f10p', 'gred')``.
-        L : str or list of 2 ints
+        limit : str or list of 2 ints
             Do no draw contours below `low` or above `high`, specify as string
             ``'[low]/[high]'``  or list ``[low,high]``.
-        Q : string or int
+        cut : string or int
             Do not draw contours with less than `cut` number of points.
-        S : string or int
+        resample : string or int
             Resample smoothing factor.
         {J}
         {R}
