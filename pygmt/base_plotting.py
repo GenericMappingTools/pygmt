@@ -167,7 +167,7 @@ class BasePlotting:
 
         Parameters
         ----------
-        position (D) : str
+        position : str
             ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]
             [+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]``. Defines the
             reference point on the map for the color scale using one of four
@@ -183,7 +183,7 @@ class BasePlotting:
             default, the anchor point on the scale is assumed to be the bottom
             left corner (BL), but this can be changed by appending +j followed
             by a 2-char justification code justify.
-        box (F) : bool or str
+        box : bool or str
             ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
             [+s[[dx/dy/][shade]]]``. If set to True, draws a rectangular
             border around the color scale. Alternatively, specify a different
@@ -199,12 +199,12 @@ class BasePlotting:
             offset background shaded region. Here, dx/dy indicates the shift
             relative to the foreground frame [4p/-4p] and shade sets the fill
             style to use for shading [gray50].
-        truncate (G) : list or str
+        truncate : list or str
             ``zlo/zhi`` Truncate the incoming CPT so that the lowest and
             highest z-levels are to zlo and zhi. If one of these equal NaN then
             we leave that end of the CPT alone. The truncation takes place
             before the plotting.
-        scale (W) : float
+        scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
 
