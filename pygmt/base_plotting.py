@@ -761,12 +761,12 @@ class BasePlotting:
             specification file.
         {J}
         {R}
-        position (D) : str
+        position : str
             ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing]
             [+odx[/dy]]'`` Defines the reference point on the map for the
             legend. By default, uses 'JTR+jTR+o0.2c' which places the legend at
             the top-right corner inside the map frame, with a 0.2 cm offset.
-        box (F) : bool or str
+        box : bool or str
             ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
             [+s[[dx/dy/][shade]]]'`` Without further options, draws a
             rectangular border around the legend using **MAP_FRAME_PEN**. By
