@@ -39,6 +39,16 @@ COMMON_OPTIONS = {
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
+    "n": """\
+        interpolation : str
+            ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
+            Select interpolation mode for grids. You can select the type of
+            spline used:
+
+            - 'b' for B-spline
+            - 'c' for bicubic [Default]
+            - 'l' for bilinear
+            - 'n' for nearest-neighbor""",
 }
 
 
@@ -62,6 +72,7 @@ def fmt_docstring(module_func):
     * ``{CPT}``: cmap (the color palette table)
     * ``{G}``: color
     * ``{W}``: pen
+    * ``{n}``: interpolation
 
     Parameters
     ----------
