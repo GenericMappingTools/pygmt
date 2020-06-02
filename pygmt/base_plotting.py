@@ -101,7 +101,7 @@ class BasePlotting:
         ----------
         {J}
         {R}
-        A : int, float, or str
+        area_thresh : int, float, or str
             ``'min_area[/min_level/max_level][+ag|i|s|S][+r|l][+ppercent]'``
             Features with an area smaller than min_area in km^2 or of
             hierarchical level that is lower than min_level or higher than
@@ -109,26 +109,26 @@ class BasePlotting:
         {B}
         C : str
             Set the shade, color, or pattern for lakes and river-lakes.
-        D : str
+        resolution : str
             Selects the resolution of the data set to use ((f)ull, (h)igh,
             (i)ntermediate, (l)ow, and (c)rude).
-        G : str
+        land : str
             Select filling or clipping of “dry” areas.
-        I : str
+        rivers : str
             ``'river[/pen]'``
             Draw rivers. Specify the type of rivers and [optionally] append pen
             attributes.
-        L : str
+        map_scale : str
             ``'[g|j|J|n|x]refpoint'``
             Draws a simple map scale centered on the reference point specified.
-        N : str
+        borders : str
             ``'border[/pen]'``
             Draw political boundaries. Specify the type of boundary and
             [optionally] append pen attributes
-        S : str
+        water : str
             Select filling or clipping of “wet” areas.
         {U}
-        W : str
+        shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
 
