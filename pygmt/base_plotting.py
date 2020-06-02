@@ -667,7 +667,7 @@ class BasePlotting:
             lib.call_module("basemap", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", U="timestamp")
+    @use_alias(R="region", J="projection", U="timestamp", D="position", F="box")
     @kwargs_to_strings(R="sequence")
     def logo(self, **kwargs):
         """
@@ -686,10 +686,10 @@ class BasePlotting:
         ----------
         {J}
         {R}
-        D : str
+        position : str
             ``'[g|j|J|n|x]refpoint+wwidth[+jjustify][+odx[/dy]]'``.
             Sets reference point on the map for the image.
-        F : bool or str
+        box : bool or str
             Without further options, draws a rectangular border around the
             GMT logo.
         {U}
