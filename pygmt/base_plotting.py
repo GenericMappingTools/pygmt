@@ -598,7 +598,7 @@ class BasePlotting:
             Network information
         label_placement : str
             Placement of labels
-        I : book
+        I : bool
             Color the triangles using CPT
         triangular_mesh_pen : str
             Pen to draw the underlying triangulation (default none)
