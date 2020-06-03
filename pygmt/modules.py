@@ -52,6 +52,7 @@ def grdinfo(grid, **kwargs):
 
 
 @fmt_docstring
+@use_alias(C="per_column", I="spacing", T="nearest_multiple")
 def info(fname, **kwargs):
     """
     Get information about data tables.
@@ -62,23 +63,25 @@ def info(fname, **kwargs):
     n columns rounded up and down to the nearest multiple of the supplied
     increments. By default, this output will be in the form *-Rw/e/s/n*,
     or the output will be in column form for as many columns as there are
-    increments provided. The *T* option will provide a *-Tzmin/zmax/dz* string
-    for makecpt.
+    increments provided. The *nearest_multiple* option will provide a
+    *-Tzmin/zmax/dz* string for makecpt.
 
     Full option list at :gmt-docs:`gmtinfo.html`
+
+    {aliases}
 
     Parameters
     ----------
     fname : str
         The file name of the input data table file.
-    C : bool
+    per_column : bool
         Report the min/max values per column in separate columns.
-    I : str
+    spacing : str
         ``'[b|p|f|s]dx[/dy[/dz...]]'``.
         Report the min/max of the first n columns to the nearest multiple of
         the provided increments and output results in the form *-Rw/e/s/n*
-        (unless *C* is set).
-    T : str
+        (unless *per_column* is set).
+    nearest_multiple : str
         ``'dz[+ccol]'``
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this as the string *-Tzmin/zmax/dz*.
