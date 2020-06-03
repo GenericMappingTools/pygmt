@@ -708,7 +708,7 @@ class BasePlotting:
             lib.call_module("logo", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection")
+    @use_alias(R="region", J="projection", D="position", F="box", M="monochrome")
     @kwargs_to_strings(R="sequence")
     def image(self, imagefile, **kwargs):
         """
@@ -723,17 +723,23 @@ class BasePlotting:
 
         Parameters
         ----------
+        imagefile : str
+            This must be an Encapsulated PostScript (EPS) file or a raster
+            image. An EPS file must contain an appropriate BoundingBox. A
+            raster file can have a depth of 1, 8, 24, or 32 bits and is read
+            via GDAL. Note: If GDAL was not configured during GMT installation
+            then only EPS files are supported.
         {J}
         {R}
-        D: str
+        position : str
             ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify]
             [+nnx[/ny]][+odx[/dy]]'`` Sets reference point on the map for the
             image.
-        F : bool or str
+        box : bool or str
             ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
             [+s[[dx/dy/][shade]]]'`` Without further options, draws a
             rectangular border around the image using **MAP_FRAME_PEN**.
-        M : bool
+        monochrome : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
         """
