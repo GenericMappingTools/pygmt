@@ -274,6 +274,7 @@ class BasePlotting:
         {R}
         {B}
         {G}
+        {U}
         {W}
         """
         kwargs = self._preprocess(**kwargs)
