@@ -632,7 +632,15 @@ class BasePlotting:
                 lib.call_module("contour", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", U="timestamp")
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        L="map_scale",
+        Td="rose",
+        Tm="compass",
+        U="timestamp",
+    )
     @kwargs_to_strings(R="sequence")
     def basemap(self, **kwargs):
         """
@@ -643,7 +651,8 @@ class BasePlotting:
         [optionally] gridlines. A simple map scale or directional rose may also
         be plotted.
 
-        At least one of the options *frame*, *L*, or *T* must be specified.
+        At least one of the options *frame*, *map_scale*, *rose* or *compass*
+        must be specified.
 
         Full option list at :gmt-docs:`basemap.html`
 
@@ -654,13 +663,13 @@ class BasePlotting:
         {J}
         {R}
         {B}
-        L : str
+        map_scale : str
             ``'[g|j|J|n|x]refpoint'``
             Draws a simple map scale centered on the reference point specified.
-        Td : str
+        rose : str
             Draws a map directional rose on the map at the location defined by
             the reference and anchor points.
-        Tm : str
+        compass : str
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
