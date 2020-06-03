@@ -835,12 +835,12 @@ class BasePlotting:
         textfiles : str or list
             A text data file name, or a list of filenames containing 1 or more
             records with (x, y[, font, angle, justify], text).
-        x, y : float or 1d arrays
+        x/y : float or 1d arrays
             The x and y coordinates, or an array of x and y coordinates to plot
             the text
         text : str or 1d array
             The text string, or an array of strings to plot on the figure
-        angle: int/float or bool
+        angle: int, float or bool
             Set the angle measured in degrees counter-clockwise from
             horizontal. E.g. 30 sets the text at 30 degrees. If no angle is
             given then the input textfile(s) must have this as a column.
