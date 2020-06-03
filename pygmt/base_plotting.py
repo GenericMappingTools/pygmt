@@ -643,7 +643,7 @@ class BasePlotting:
         [optionally] gridlines. A simple map scale or directional rose may also
         be plotted.
 
-        At least one of the options *B*, *L*, or *T* must be specified.
+        At least one of the options *frame*, *L*, or *T* must be specified.
 
         Full option list at :gmt-docs:`basemap.html`
 
