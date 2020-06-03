@@ -590,21 +590,26 @@ class BasePlotting:
             By default, geographic line segments are drawn as great circle
             arcs. To draw them as straight lines, use *A*.
         {B}
-        C : Contour file or level(s)
-        D : Dump contour coordinates
-        E : Network information
-        G : Placement of labels
-        I : Color the triangles using CPT
-        L : Pen to draw the underlying triangulation (default none)
-        N : Do not clip contours
-        Q : Minimum contour length
-            ``'[p|t]'``
-        S : Skip input points outside region
-            ``'[p|t]'``
+        levels : str
+            Contour file or level(s)
+        D : str
+            Dump contour coordinates
+        E : str
+            Network information
+        label_placement : str
+            Placement of labels
+        I : book
+            Color the triangles using CPT
+        triangular_mesh_pen : str
+            Pen to draw the underlying triangulation (default none)
+        N : bool
+            Do not clip contours
+        Q : float or str
+            Do not draw contours with less than cut number of points.
+            ``'[cut[unit]][+z]'``
+        skip : bool or str
+            Skip input points outside region ``'[p|t]'``
         {W}
-        X : Origin shift x
-        Y : Origin shift y
-
 
         """
         kwargs = self._preprocess(**kwargs)
