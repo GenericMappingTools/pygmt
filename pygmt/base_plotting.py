@@ -505,12 +505,12 @@ class BasePlotting:
             ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
             Draw symmetrical error bars.
         {G}
-        S : str
+        style : str
             Plot symbols (including vectors, pie slices, fronts, decorated or
             quoted lines).
         {W}
         {U}
-        l : str
+        label : str
             Add a legend entry for the symbol or line being plotted.
         """
         kwargs = self._preprocess(**kwargs)
