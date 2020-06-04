@@ -29,9 +29,9 @@ def data_kind(data, x=None, y=None, z=None):
     ----------
     data : str, 2d array, or None
        Data file name or numpy array.
-    x, y : 1d arrays or None
+    x/y : 1d arrays or None
         x and y columns as numpy arrays.
-    z    : 1d array or None
+    z : 1d array or None
         z column as numpy array. To be used optionally when x and y
         are given.
 

@@ -475,7 +475,7 @@ class BasePlotting:
 
         Parameters
         ----------
-        x, y : float or 1d arrays
+        x/y : float or 1d arrays
             The x and y coordinates, or arrays of x and y coordinates of the
             data points
         data : str or 2d array
@@ -579,7 +579,7 @@ class BasePlotting:
 
         Parameters
         ----------
-        x, y, z : 1d arrays
+        x/y/z : 1d arrays
             Arrays of x and y coordinates and values z of the data points.
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
