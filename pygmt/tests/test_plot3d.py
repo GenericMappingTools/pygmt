@@ -28,14 +28,33 @@ def region():
 
 
 @pytest.mark.mpl_image_compare
-def test_plot3d_red_circles(data, region):
-    "Plot the 3D data in red circles passing in vectors"
+def test_plot3d_red_circles_zscale(data, region):
+    "Plot the 3D data in red circles passing in vectors and setting zscale = 5"
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
         y=data[:, 1],
         z=data[:, 2],
         zscale=5,
+        perspective=[225, 30],
+        region=region,
+        projection="X4i",
+        style="c0.2c",
+        color="red",
+        frame=["afg", "zafg"],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot3d_red_circles_zsize(data, region):
+    "Plot the 3D data in red circles passing in vectors and setting zsize = 3i"
+    fig = Figure()
+    fig.plot3d(
+        x=data[:, 0],
+        y=data[:, 1],
+        z=data[:, 2],
+        zsize="3i",
         perspective=[225, 30],
         region=region,
         projection="X4i",
