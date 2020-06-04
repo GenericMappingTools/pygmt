@@ -70,6 +70,7 @@ class BasePlotting:
         W="shorelines",
         G="land",
         S="water",
+        U="timestamp",
     )
     @kwargs_to_strings(R="sequence")
     def coast(self, **kwargs):
@@ -100,7 +101,7 @@ class BasePlotting:
         ----------
         {J}
         {R}
-        A : int, float, or str
+        area_thresh : int, float, or str
             ``'min_area[/min_level/max_level][+ag|i|s|S][+r|l][+ppercent]'``
             Features with an area smaller than min_area in km^2 or of
             hierarchical level that is lower than min_level or higher than
@@ -108,26 +109,26 @@ class BasePlotting:
         {B}
         C : str
             Set the shade, color, or pattern for lakes and river-lakes.
-        D : str
+        resolution : str
             Selects the resolution of the data set to use ((f)ull, (h)igh,
             (i)ntermediate, (l)ow, and (c)rude).
-        G : str
+        land : str
             Select filling or clipping of “dry” areas.
-        I : str
+        rivers : str
             ``'river[/pen]'``
             Draw rivers. Specify the type of rivers and [optionally] append pen
             attributes.
-        L : str
+        map_scale : str
             ``'[g|j|J|n|x]refpoint'``
             Draws a simple map scale centered on the reference point specified.
-        N : str
+        borders : str
             ``'border[/pen]'``
             Draw political boundaries. Specify the type of boundary and
             [optionally] append pen attributes
-        S : str
+        water : str
             Select filling or clipping of “wet” areas.
         {U}
-        W : str
+        shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
 
@@ -166,23 +167,24 @@ class BasePlotting:
 
         Parameters
         ----------
-        position (D) : str
+        position : str
             ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]
             [+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]``. Defines the
             reference point on the map for the color scale using one of four
-            coordinate systems: (1) Use -Dg for map (user) coordinates, (2) use
-            -Dj or -DJ for setting refpoint via a 2-char justification code
-            that refers to the (invisible) map domain rectangle, (3) use -Dn
-            for normalized (0-1) coordinates, or (4) use -Dx for plot
-            coordinates (inches, cm, etc.). All but -Dx requires both -R and
-            -J to be specified. Append +w followed by the length and width of
-            the color bar. If width is not specified then it is set to 4% of
-            the given length. Give a negative length to reverse the scale bar.
-            Append +h to get a horizontal scale [Default is vertical (+v)]. By
-            default, the anchor point on the scale is assumed to be the bottom
-            left corner (BL), but this can be changed by appending +j followed
-            by a 2-char justification code justify.
-        box (F) : bool or str
+            coordinate systems: (1) Use *g* for map (user) coordinates, (2) use
+            *j* or *J* for setting refpoint via a 2-char justification code
+            that refers to the (invisible) map domain rectangle, (3) use *n*
+            for normalized (0-1) coordinates, or (4) use *x* for plot
+            coordinates (inches, cm, etc.). All but *x* requires both *region*
+            and *projection* to be specified. Append +w followed by the length
+            and width of the color bar. If width is not specified then it is
+            set to 4% of the given length. Give a negative length to reverse
+            the scale bar. Append +h to get a horizontal scale
+            [Default is vertical (+v)]. By default, the anchor point on the
+            scale is assumed to be the bottom left corner (BL), but this can be
+            changed by appending +j followed by a 2-char justification code
+            *justify*.
+        box : bool or str
             ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
             [+s[[dx/dy/][shade]]]``. If set to True, draws a rectangular
             border around the color scale. Alternatively, specify a different
@@ -198,12 +200,12 @@ class BasePlotting:
             offset background shaded region. Here, dx/dy indicates the shift
             relative to the foreground frame [4p/-4p] and shade sets the fill
             style to use for shading [gray50].
-        truncate (G) : list or str
+        truncate : list or str
             ``zlo/zhi`` Truncate the incoming CPT so that the lowest and
             highest z-levels are to zlo and zhi. If one of these equal NaN then
             we leave that end of the CPT alone. The truncation takes place
             before the plotting.
-        scale (W) : float
+        scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
 
@@ -223,7 +225,7 @@ class BasePlotting:
         Q="cut",
         R="region",
         S="resample",
-        U="logo",
+        U="timestamp",
         W="pen",
     )
     @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
@@ -241,7 +243,7 @@ class BasePlotting:
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
-        C : str or int
+        interval : str or int
             Specify the contour lines to generate.
 
             - The filename of a `CPT`  file where the color boundaries will
@@ -251,7 +253,7 @@ class BasePlotting:
               angle (col 3)
             - A fixed contour interval ``cont_int`` or a single contour with
               ``+[cont_int]``
-        A : str,  int, or list
+        annotation : str,  int, or list
             Specify or disable annotated contour levels, modifies annotated
             contours specified in ``-C``.
 
@@ -261,17 +263,18 @@ class BasePlotting:
             - Optional label modifiers can be specified as a single string
               ``'[annot_int]+e'``  or with a list of options
               ``([annot_int], 'e', 'f10p', 'gred')``.
-        L : str or list of 2 ints
+        limit : str or list of 2 ints
             Do no draw contours below `low` or above `high`, specify as string
             ``'[low]/[high]'``  or list ``[low,high]``.
-        Q : string or int
+        cut : str or int
             Do not draw contours with less than `cut` number of points.
-        S : string or int
+        resample : str or int
             Resample smoothing factor.
         {J}
         {R}
         {B}
         {G}
+        {U}
         {W}
         """
         kwargs = self._preprocess(**kwargs)
@@ -439,6 +442,7 @@ class BasePlotting:
         i="columns",
         l="label",
         C="cmap",
+        U="timestamp",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
     def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
@@ -471,7 +475,7 @@ class BasePlotting:
 
         Parameters
         ----------
-        x, y : float or 1d arrays
+        x/y : float or 1d arrays
             The x and y coordinates, or arrays of x and y coordinates of the
             data points
         data : str or 2d array
@@ -501,12 +505,12 @@ class BasePlotting:
             ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
             Draw symmetrical error bars.
         {G}
-        S : str
+        style : str
             Plot symbols (including vectors, pie slices, fronts, decorated or
             quoted lines).
         {W}
         {U}
-        l : str
+        label : str
             Add a legend entry for the symbol or line being plotted.
         """
         kwargs = self._preprocess(**kwargs)
@@ -575,7 +579,7 @@ class BasePlotting:
 
         Parameters
         ----------
-        x, y, z : 1d arrays
+        x/y/z : 1d arrays
             Arrays of x and y coordinates and values z of the data points.
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
@@ -586,21 +590,26 @@ class BasePlotting:
             By default, geographic line segments are drawn as great circle
             arcs. To draw them as straight lines, use *A*.
         {B}
-        C : Contour file or level(s)
-        D : Dump contour coordinates
-        E : Network information
-        G : Placement of labels
-        I : Color the triangles using CPT
-        L : Pen to draw the underlying triangulation (default none)
-        N : Do not clip contours
-        Q : Minimum contour length
-            ``'[p|t]'``
-        S : Skip input points outside region
-            ``'[p|t]'``
+        levels : str
+            Contour file or level(s)
+        D : str
+            Dump contour coordinates
+        E : str
+            Network information
+        label_placement : str
+            Placement of labels
+        I : bool
+            Color the triangles using CPT
+        triangular_mesh_pen : str
+            Pen to draw the underlying triangulation (default none)
+        N : bool
+            Do not clip contours
+        Q : float or str
+            Do not draw contours with less than cut number of points.
+            ``'[cut[unit]][+z]'``
+        skip : bool or str
+            Skip input points outside region ``'[p|t]'``
         {W}
-        X : Origin shift x
-        Y : Origin shift y
-
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -623,7 +632,15 @@ class BasePlotting:
                 lib.call_module("contour", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame")
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        L="map_scale",
+        Td="rose",
+        Tm="compass",
+        U="timestamp",
+    )
     @kwargs_to_strings(R="sequence")
     def basemap(self, **kwargs):
         """
@@ -634,7 +651,8 @@ class BasePlotting:
         [optionally] gridlines. A simple map scale or directional rose may also
         be plotted.
 
-        At least one of the options *B*, *L*, or *T* must be specified.
+        At least one of the options *frame*, *map_scale*, *rose* or *compass*
+        must be specified.
 
         Full option list at :gmt-docs:`basemap.html`
 
@@ -645,13 +663,13 @@ class BasePlotting:
         {J}
         {R}
         {B}
-        L : str
+        map_scale : str
             ``'[g|j|J|n|x]refpoint'``
             Draws a simple map scale centered on the reference point specified.
-        Td : str
+        rose : str
             Draws a map directional rose on the map at the location defined by
             the reference and anchor points.
-        Tm : str
+        compass : str
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
@@ -664,7 +682,7 @@ class BasePlotting:
             lib.call_module("basemap", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection")
+    @use_alias(R="region", J="projection", U="timestamp", D="position", F="box")
     @kwargs_to_strings(R="sequence")
     def logo(self, **kwargs):
         """
@@ -683,10 +701,10 @@ class BasePlotting:
         ----------
         {J}
         {R}
-        D : str
+        position : str
             ``'[g|j|J|n|x]refpoint+wwidth[+jjustify][+odx[/dy]]'``.
             Sets reference point on the map for the image.
-        F : bool or str
+        box : bool or str
             Without further options, draws a rectangular border around the
             GMT logo.
         {U}
@@ -699,7 +717,7 @@ class BasePlotting:
             lib.call_module("logo", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection")
+    @use_alias(R="region", J="projection", D="position", F="box", M="monochrome")
     @kwargs_to_strings(R="sequence")
     def image(self, imagefile, **kwargs):
         """
@@ -714,17 +732,23 @@ class BasePlotting:
 
         Parameters
         ----------
+        imagefile : str
+            This must be an Encapsulated PostScript (EPS) file or a raster
+            image. An EPS file must contain an appropriate BoundingBox. A
+            raster file can have a depth of 1, 8, 24, or 32 bits and is read
+            via GDAL. Note: If GDAL was not configured during GMT installation
+            then only EPS files are supported.
         {J}
         {R}
-        D: str
+        position : str
             ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify]
             [+nnx[/ny]][+odx[/dy]]'`` Sets reference point on the map for the
             image.
-        F : bool or str
+        box : bool or str
             ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
             [+s[[dx/dy/][shade]]]'`` Without further options, draws a
             rectangular border around the image using **MAP_FRAME_PEN**.
-        M : bool
+        monochrome : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
         """
@@ -758,12 +782,12 @@ class BasePlotting:
             specification file.
         {J}
         {R}
-        position (D) : str
+        position : str
             ``'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing]
             [+odx[/dy]]'`` Defines the reference point on the map for the
             legend. By default, uses 'JTR+jTR+o0.2c' which places the legend at
             the top-right corner inside the map frame, with a 0.2 cm offset.
-        box (F) : bool or str
+        box : bool or str
             ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
             [+s[[dx/dy/][shade]]]'`` Without further options, draws a
             rectangular border around the legend using **MAP_FRAME_PEN**. By
@@ -826,12 +850,12 @@ class BasePlotting:
         textfiles : str or list
             A text data file name, or a list of filenames containing 1 or more
             records with (x, y[, font, angle, justify], text).
-        x, y : float or 1d arrays
+        x/y : float or 1d arrays
             The x and y coordinates, or an array of x and y coordinates to plot
             the text
         text : str or 1d array
             The text string, or an array of strings to plot on the figure
-        angle: int/float or bool
+        angle: int, float or bool
             Set the angle measured in degrees counter-clockwise from
             horizontal. E.g. 30 sets the text at 30 degrees. If no angle is
             given then the input textfile(s) must have this as a column.

@@ -10,11 +10,13 @@ from .helpers import (
     GMTTempFile,
     data_kind,
     dummy_context,
+    use_alias,
 )
 from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
+@use_alias(n="interpolation")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     """
     Sample grids at specified (x,y) locations.
@@ -23,29 +25,37 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     positions in the first two columns (more columns may be present). It
     interpolates the grid(s) at the positions in the table and writes out the
     table with the interpolated values added as (one or more) new columns. A
-    bicubic [Default], bilinear, B-spline or nearest-neighbor (see -n)
-    interpolation is used, requiring boundary conditions at the limits of the
-    region.
+    bicubic [Default], bilinear, B-spline or nearest-neighbor interpolation is
+    used, requiring boundary conditions at the limits of the region (see
+    *interpolation*; Default uses “natural” conditions (second partial
+    derivative normal to edge is zero) unless the grid is automatically
+    recognized as periodic.)
 
     Full option list at :gmt-docs:`grdtrack.html`
 
+    {aliases}
+
     Parameters
     ----------
-    points: pandas.DataFrame or file (csv, txt, etc)
+    points : pandas.DataFrame or str
         Either a table with (x, y) or (lon, lat) values in the first two
-        columns, or a data file name. More columns may be present.
+        columns, or a filename (e.g. csv, txt format). More columns may be
+        present.
 
-    grid: xarray.DataArray or file (netcdf)
-        Gridded array from which to sample values from.
+    grid : xarray.DataArray or str
+        Gridded array from which to sample values from, or a filename (netcdf
+        format).
 
-    newcolname: str
+    newcolname : str
         Required if 'points' is a pandas.DataFrame. The name for the new column
         in the track pandas.DataFrame table where the sampled values will be
         placed.
 
-    outfile: str
+    outfile : str
         Required if 'points' is a file. The file name for the output ASCII
         file.
+
+    {n}
 
     Returns
     -------
