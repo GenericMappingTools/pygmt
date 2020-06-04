@@ -2,11 +2,13 @@
 """
 Tests plot.
 """
+import datetime
 import os
 
 import numpy as np
 import pandas as pd
-import datetime
+import xarray as xr
+
 import pytest
 
 from .. import Figure
@@ -288,6 +290,11 @@ def test_plot_datetime():
     x = pd.date_range("2013", freq="YS", periods=3)
     y = [4, 5, 6]
     fig.plot(x, y, style="t0.2c", pen="1p")
+
+    # xarray.DataArray
+    x = xr.DataArray(data=pd.date_range(start="2015-03", freq="QS", periods=3))
+    y = [7.5, 6, 4.5]
+    fig.plot(x, y, style="s0.2c", pen="1p")
 
     # raw datetime strings
     x = ["2016-02-01", "2017-03-04T00:00"]
