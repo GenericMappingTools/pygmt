@@ -22,6 +22,7 @@ from .conversion import (
     vectors_to_arrays,
     dataarray_to_matrix,
     as_c_contiguous,
+    array_to_datetime,
 )
 
 FAMILIES = [
@@ -773,7 +774,7 @@ class Session:
         if gmt_type == self["GMT_DATETIME"]:
             vector_pointer = (ctp.c_char_p * len(vector))()
             vector_pointer[:] = np.char.encode(
-                np.datetime_as_string(vector.astype(np.datetime64))
+                np.datetime_as_string(array_to_datetime(vector))
             )
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
