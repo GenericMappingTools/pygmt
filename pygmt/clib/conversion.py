@@ -242,7 +242,7 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
 
 def array_to_datetime(array):
     """
-    Convert an 1D datetime array from various types into pandas.DatetimeIndex
+    Convert an 1d datetime array from various types into pandas.DatetimeIndex
     (i.e., numpy.datetime64).
 
     If the input array is not in legal datetime formats, raise a "ParseError"
@@ -262,7 +262,7 @@ def array_to_datetime(array):
 
     Returns
     -------
-    array : 1D datetime array in pandas.DatetimeIndex (i.e., numpy.datetime64)
+    array : 1d datetime array in pandas.DatetimeIndex (i.e., numpy.datetime64)
 
     Examples
     --------
