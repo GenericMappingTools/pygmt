@@ -14,31 +14,41 @@ from ..exceptions import GMTInvalidInput
 
 COMMON_OPTIONS = {
     "R": """\
-        R : str or list
+        region : str or list
             *Required if this is the first plot command*.
             ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
             Specify the region of interest.""",
     "J": """\
-        J : str
+        projection : str
             *Required if this is the first plot command*.
             Select map projection.""",
     "B": """\
-        B : str or list
+        frame : str or list
             Set map boundary frame and axes attributes.""",
     "U": """\
-        U : bool or str
+        timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
     "CPT": """\
-        C : str
+        cmap : str
            File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
            build a linear continuous CPT from those colors automatically.""",
     "G": """\
-        G : str
+        color : str
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
     "W": """\
-        W : str
+        pen : str
             Set pen attributes for lines or the outline of symbols.""",
+    "n": """\
+        interpolation : str
+            ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
+            Select interpolation mode for grids. You can select the type of
+            spline used:
+
+            - 'b' for B-spline
+            - 'c' for bicubic [Default]
+            - 'l' for bilinear
+            - 'n' for nearest-neighbor""",
 }
 
 
@@ -55,13 +65,14 @@ def fmt_docstring(module_func):
 
     The following are places for common parameter descriptions:
 
-    * ``{R}``: R (region) option with 4 bounds
-    * ``{J}``: J (projection)
-    * ``{B}``: B (frame)
-    * ``{U}``: U (insert time stamp)
-    * ``{CPT}``: CPT (the color palette table)
-    * ``{G}``: G (color)
-    * ``{W}``: W (pen)
+    * ``{R}``: region (bounding box as west, east, south, north)
+    * ``{J}``: projection (coordinate system to use)
+    * ``{B}``: frame (map frame and axes parameters)
+    * ``{U}``: timestamp (insert time stamp logo)
+    * ``{CPT}``: cmap (the color palette table)
+    * ``{G}``: color
+    * ``{W}``: pen
+    * ``{n}``: interpolation
 
     Parameters
     ----------
@@ -96,11 +107,11 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    R : str or list
+    region : str or list
         *Required if this is the first plot command*.
         ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
         Specify the region of interest.
-    J : str
+    projection : str
         *Required if this is the first plot command*.
         Select map projection.
     <BLANKLINE>

@@ -41,20 +41,20 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
-    x, y, z : 1d arrays
+    x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
     data : str or 2d array
         Either a data file name or a 2d numpy array with the tabular data.
 
-    spacing (I) : str
+    spacing : str
         ``'xinc[unit][+e|n][/yinc[unit][+e|n]]'``.
         x_inc [and optionally y_inc] is the grid spacing.
 
-    region (R) : str or list
+    region : str or list
         ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
         Specify the region of interest.
 
-    outfile (G) : str
+    outfile : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
 
