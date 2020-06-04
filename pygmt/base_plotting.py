@@ -266,9 +266,9 @@ class BasePlotting:
         limit : str or list of 2 ints
             Do no draw contours below `low` or above `high`, specify as string
             ``'[low]/[high]'``  or list ``[low,high]``.
-        cut : string or int
+        cut : str or int
             Do not draw contours with less than `cut` number of points.
-        resample : string or int
+        resample : str or int
             Resample smoothing factor.
         {J}
         {R}
