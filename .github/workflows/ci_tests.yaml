@@ -42,6 +42,23 @@ jobs:
         shell: bash -l {0}
         run: conda list
 
+      # Cache the ${HOME}/.gmt directory, for docs and testing
+      - name: Cache GMT directory
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            ${{ github.workspace }}/.gmt/cache
+            ${{ github.workspace }}/.gmt/server
+          key: cache-gmt-${{ github.ref }}-20200605-2
+          restore-keys: cache-gmt-refs/heads/master-
+
+      # Download remote files, if not already cached
+      - name: Download remote data
+        shell: bash -l {0}
+        run: gmt which -Gu @earth_relief_10m @earth_relief_60m @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz
+        if: steps.cache.outputs.cache-hit != 'true'
+
       # Install the package that we want to test
       - name: Install the package
         shell: bash -l {0}
