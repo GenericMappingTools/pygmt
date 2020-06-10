@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    name: ${{ runner.os }} - Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 3
