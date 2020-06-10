@@ -1171,7 +1171,7 @@ class Session:
             yield vfile
 
     @contextmanager
-    def virtualfile_from_grid(self, grid):
+    def virtualfile_from_grid(self, grid, registration="GMT_GRID_NODE_REG"):
         """
         Store a grid in a virtual file.
 
@@ -1240,7 +1240,12 @@ class Session:
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"
         gmt_grid = self.create_data(
-            family, geometry, mode="GMT_CONTAINER_ONLY", ranges=region, inc=inc
+            family,
+            geometry,
+            mode="GMT_CONTAINER_ONLY",
+            ranges=region,
+            inc=inc,
+            registration=registration,
         )
         self.put_matrix(gmt_grid, matrix)
         args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)
