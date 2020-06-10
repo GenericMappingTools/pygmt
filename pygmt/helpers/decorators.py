@@ -49,6 +49,11 @@ COMMON_OPTIONS = {
             - 'c' for bicubic [Default]
             - 'l' for bilinear
             - 'n' for nearest-neighbor""",
+    "r": """\
+        registration : str
+            ``[g|p]``
+            Force gridline (g) or pixel (p) node registration. Default is
+            gridline.""",
 }
 
 
