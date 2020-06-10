@@ -81,6 +81,6 @@ jobs:
           pip install dist/*
 
       # Run the tests
-      - name: Test with pytest
-        shell: bash -l {0}
-        run: make test PYTEST_EXTRA="-r P"
+      #- name: Test with pytest
+      #  shell: bash -l {0}
+      #  run: make test PYTEST_EXTRA="-r P"
