@@ -132,6 +132,23 @@ def test_text_font_bold(region, projection):
 
 
 @pytest.mark.mpl_image_compare
+def test_text_pen(region, projection):
+    """
+    Print text with thick green dashed pen
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=1.2,
+        text="green pen around text",
+        pen="thick,green,dashed",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_text_justify_bottom_right_and_top_left(region, projection):
     """
     Print text justified at bottom right and top left

@@ -813,7 +813,7 @@ class BasePlotting:
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame")
+    @use_alias(R="region", J="projection", B="frame", W="pen")
     @kwargs_to_strings(
         R="sequence",
         textfiles="sequence_space",
@@ -867,7 +867,7 @@ class BasePlotting:
             Helvetica-Bold font. If no font info is explicitly given (i.e.
             font=True), then the input textfile(s) must have this information
             in one of its columns.
-        justify: str or bool
+        justify : str or bool
             Set the alignment which refers to the part of the text string that
             will be mapped onto the (x,y) point. Choose a 2 character
             combination of L, C, R (for left, center, or right) and T, M, B for
@@ -876,6 +876,10 @@ class BasePlotting:
             input textfile(s) must have this as a column.
         {J}
         {R}
+        pen : str
+            Sets the pen used to draw a rectangle around the text string
+            (see *clearance*) [Default is width = default, color = black,
+            style = solid].
         """
         kwargs = self._preprocess(**kwargs)
 
