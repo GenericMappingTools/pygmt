@@ -813,7 +813,7 @@ class BasePlotting:
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", C="clearance", W="pen")
+    @use_alias(R="region", J="projection", B="frame", C="clearance", G="fill", W="pen")
     @kwargs_to_strings(
         R="sequence",
         textfiles="sequence_space",
@@ -888,6 +888,13 @@ class BasePlotting:
             rounded rectangle. In paragraph mode (*paragraph*) you can also
             append lower case 'c' to get a concave rectangle or append upper
             case 'C' to get a convex rectangle.
+        fill : str
+            Sets the shade or color used for filling the text box [Default is
+            no fill]. Alternatively, use fill='c' to plot the text and then use
+            the text dimensions (and *clearance*) to build clip paths and turn
+            clipping on. This clipping can then be turned off later with clip
+            -C. To not plot the text but activate clipping, use fill='C'
+            instead.
         pen : str
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,

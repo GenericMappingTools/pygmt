@@ -132,6 +132,23 @@ def test_text_font_bold(region, projection):
 
 
 @pytest.mark.mpl_image_compare
+def test_text_fill(region, projection):
+    """
+    Print text with blue color fill
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=1.2,
+        text="blue fill around text",
+        fill="blue",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_text_pen(region, projection):
     """
     Print text with thick green dashed pen
