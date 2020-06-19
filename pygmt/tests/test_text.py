@@ -149,6 +149,24 @@ def test_text_pen(region, projection):
 
 
 @pytest.mark.mpl_image_compare
+def test_text_round_clearance(region, projection):
+    """
+    Print text with round rectangle box clearance
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=1.2,
+        text="clearance around text",
+        clearance="90%+tO",
+        pen="default,black,dashed",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_text_justify_bottom_right_and_top_left(region, projection):
     """
     Print text justified at bottom right and top left

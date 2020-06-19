@@ -813,7 +813,7 @@ class BasePlotting:
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", W="pen")
+    @use_alias(R="region", J="projection", B="frame", C="clearance", W="pen")
     @kwargs_to_strings(
         R="sequence",
         textfiles="sequence_space",
@@ -876,6 +876,18 @@ class BasePlotting:
             input textfile(s) must have this as a column.
         {J}
         {R}
+        clearance : str
+            ``[dx/dy][+to|O|c|C]``
+            Adjust the clearance between the text and the surrounding box
+            [15%]. Only used if *pen* or *fill* are specified. Append the unit
+            you want ('c' for cm, 'i' for inch, or 'p' for point; if not given
+            we consult 'PROJ_LENGTH_UNIT') or '%' for a percentage of the
+            font size. Optionally, use modifier '+t' to set the shape of the
+            textbox when using *fill* and/or *pen*. Append lower case 'o' to
+            get a straight rectangle [Default]. Append upper case 'O' to get a
+            rounded rectangle. In paragraph mode (*paragraph*) you can also
+            append lower case 'c' to get a concave rectangle or append upper
+            case 'C' to get a convex rectangle.
         pen : str
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,
