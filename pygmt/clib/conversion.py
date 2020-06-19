@@ -102,7 +102,7 @@ def dataarray_to_matrix(grid):
                     dim
                 )
             )
-        region.extend([coord.min() - coord_inc / 2, coord.max() + coord_inc / 2])
+        region.extend([coord.min(), coord.max()])
         inc.append(coord_inc)
 
     if any([i < 0 for i in inc]):  # Sort grid when there are negative increments

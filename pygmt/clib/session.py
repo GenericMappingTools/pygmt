@@ -531,7 +531,7 @@ class Session:
         registration : int
             The node registration (what the coordinates mean). Can be
             ``'GMT_GRID_PIXEL_REG'`` or ``'GMT_GRID_NODE_REG'``. Defaults to
-            ``'GMT_GRID_PIXEL_REG'``.
+            ``'GMT_GRID_NODE_REG'``.
         pad : int
             The grid padding. Defaults to ``GMT_PAD_DEFAULT``.
 
@@ -567,7 +567,7 @@ class Session:
         )
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(
-            kwargs.get("registration", "GMT_GRID_PIXEL_REG"), valid=REGISTRATIONS
+            kwargs.get("registration", "GMT_GRID_NODE_REG"), valid=REGISTRATIONS
         )
 
         # Convert dim, ranges, and inc to ctypes arrays if given (will be None
@@ -1173,7 +1173,7 @@ class Session:
             yield vfile
 
     @contextmanager
-    def virtualfile_from_grid(self, grid, registration="GMT_GRID_PIXEL_REG"):
+    def virtualfile_from_grid(self, grid, registration="GMT_GRID_NODE_REG"):
         """
         Store a grid in a virtual file.
 
