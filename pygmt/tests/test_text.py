@@ -8,6 +8,7 @@ import pytest
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput
+from ..helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -171,4 +172,26 @@ def test_text_justify_parsed_from_textfile():
         textfiles=CITIES_DATA,
         D="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_angle_font_justify_from_textfile(region, projection):
+    """
+    Print text with x, y, angle, font, justify, and text arguments parsed from
+    the textfile.
+    """
+    fig = Figure()
+    with GMTTempFile(suffix=".txt") as tempfile:
+        with open(tempfile.name, "w") as tmpfile:
+            tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
+        fig.text(
+            region=[113, 117.5, -0.5, 3],
+            projection="M5c",
+            frame="a",
+            textfiles=tempfile.name,
+            angle=True,
+            font=True,
+            justify=True,
+        )
     return fig

@@ -855,23 +855,25 @@ class BasePlotting:
             the text
         text : str or 1d array
             The text string, or an array of strings to plot on the figure
-        angle: int, float or bool
+        angle: int, float, str or bool
             Set the angle measured in degrees counter-clockwise from
             horizontal. E.g. 30 sets the text at 30 degrees. If no angle is
-            given then the input textfile(s) must have this as a column.
+            explicitly given (i.e. angle=True) then the input textfile(s) must
+            have this as a column.
         font : str or bool
             Set the font specification with format "size,font,color" where size
             is text size in points, font is the font to use, and color sets the
             font color. E.g. "12p,Helvetica-Bold,red" selects a 12p red
-            Helvetica-Bold font. If no font info is given then the input
-            textfile(s) must have this information in one of its columns.
+            Helvetica-Bold font. If no font info is explicitly given (i.e.
+            font=True), then the input textfile(s) must have this information
+            in one of its columns.
         justify: str or bool
             Set the alignment which refers to the part of the text string that
             will be mapped onto the (x,y) point. Choose a 2 character
             combination of L, C, R (for left, center, or right) and T, M, B for
             top, middle, or bottom. E.g., BL for lower left. If no
-            justification is given then the input textfile(s) must have this as
-            a column.
+            justification is explicitly given (i.e. justify=True), then the
+            input textfile(s) must have this as a column.
         {J}
         {R}
         """
@@ -888,7 +890,7 @@ class BasePlotting:
         if angle is not None or font is not None or justify is not None:
             if "F" not in kwargs.keys():
                 kwargs.update({"F": ""})
-            if angle is not None and isinstance(angle, (int, float)):
+            if angle is not None and isinstance(angle, (int, float, str)):
                 kwargs["F"] += f"+a{str(angle)}"
             if font is not None and isinstance(font, str):
                 kwargs["F"] += f"+f{font}"
