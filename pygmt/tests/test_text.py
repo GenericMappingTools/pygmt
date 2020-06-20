@@ -122,6 +122,25 @@ def test_text_xy_with_position_fails(region, projection):
 
 
 @pytest.mark.mpl_image_compare
+def test_text_position_offset_with_line(region):
+    """
+    Print text at four corners (top left/right, bottom left/right) of map,
+    offset by 0.5 cm, with a line drawn from the original to the shifted point.
+    """
+    fig = Figure()
+    for position in ("TL", "TR", "BL", "BR"):
+        fig.text(
+            region=region,
+            projection="x1c",
+            frame="a",
+            position=position,
+            text=position,
+            offset="j0.5c+v",
+        )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_text_angle_30(region, projection):
     """
     Print text at 30 degrees counter-clockwise from horizontal

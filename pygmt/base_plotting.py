@@ -813,7 +813,15 @@ class BasePlotting:
             lib.call_module("legend", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", C="clearance", G="fill", W="pen")
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        C="clearance",
+        D="offset",
+        G="fill",
+        W="pen",
+    )
     @kwargs_to_strings(
         R="sequence",
         textfiles="sequence_space",
@@ -907,6 +915,16 @@ class BasePlotting:
             Sets the shade or color used for filling the text box [Default is
             no fill].
             instead.
+        offset : str
+            ``[j|J]dx[/dy][+v[pen]]``
+            Offsets the text from the projected (x,y) point by dx,dy [0/0]. If
+            dy is not specified then it is set equal to dx. Use offset='j' to
+            offset the text away from the point instead (i.e., the text
+            justification will determine the direction of the shift). Using
+            offset='J' will shorten diagonal offsets at corners by sqrt(2).
+            Optionally, append '+v' which will draw a line from the original
+            point to the shifted point; append a pen to change the attributes
+            for this line.
         pen : str
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,
