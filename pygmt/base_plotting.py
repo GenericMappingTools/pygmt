@@ -826,6 +826,7 @@ class BasePlotting:
         textfiles=None,
         x=None,
         y=None,
+        position=None,
         text=None,
         angle=None,
         font=None,
@@ -833,13 +834,16 @@ class BasePlotting:
         **kwargs,
     ):
         """
-        Plot or typeset text on maps
+        Plot or typeset text strings of variable size, font type, and
+        orientation.
 
         Used to be pstext.
 
-        Takes in textfile(s) or (x,y,text) triples as input.
+        Must provide at least one of the following combinations as input:
 
-        Must provide at least *textfiles* or *x*, *y*, and *text*.
+        - *textfiles*
+        - *x*, *y*, and *text*
+        - *position* and *text*
 
         Full option list at :gmt-docs:`text.html`
 
@@ -853,6 +857,17 @@ class BasePlotting:
         x/y : float or 1d arrays
             The x and y coordinates, or an array of x and y coordinates to plot
             the text
+        position : str
+            Sets reference point on the map for the text by using x,y
+            coordinates extracted from *region* instead of providing them
+            through *x* and *y*. Specify with a two letter (order independent)
+            code, chosen from:
+
+            * Horizontal: L(eft), C(entre), R(ight)
+            * Vertical: T(op), M(iddle), B(ottom)
+
+            For example, position="TL" plots the text at the Upper Left corner
+            of the map.
         text : str or 1d array
             The text string, or an array of strings to plot on the figure
         angle: int, float, str or bool
@@ -899,17 +914,34 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
 
-        kind = data_kind(textfiles, x, y, text)
+        # Ensure inputs are either textfiles, x/y/text, or position/text
+        if position is None:
+            kind = data_kind(textfiles, x, y, text)
+        elif position is not None:
+            if x is not None or y is not None:
+                raise GMTInvalidInput(
+                    "Provide either position only, or x/y pairs, not both"
+                )
+            kind = "vectors"
+
         if kind == "vectors" and text is None:
-            raise GMTInvalidInput("Must provide text with x and y.")
+            raise GMTInvalidInput("Must provide text with x/y pairs or position")
         if kind == "file":
             for textfile in textfiles.split(" "):  # ensure that textfile(s) exist
                 if not os.path.exists(textfile):
                     raise GMTInvalidInput(f"Cannot find the file: {textfile}")
 
-        if angle is not None or font is not None or justify is not None:
+        # Build the `-F` argument in gmt text.
+        if (
+            position is not None
+            or angle is not None
+            or font is not None
+            or justify is not None
+        ):
             if "F" not in kwargs.keys():
                 kwargs.update({"F": ""})
+            if position is not None and isinstance(position, str):
+                kwargs["F"] += f"+c{position}"
             if angle is not None and isinstance(angle, (int, float, str)):
                 kwargs["F"] += f"+a{str(angle)}"
             if font is not None and isinstance(font, str):

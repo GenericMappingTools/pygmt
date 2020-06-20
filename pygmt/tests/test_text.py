@@ -98,6 +98,30 @@ def test_text_nonexistent_filename():
 
 
 @pytest.mark.mpl_image_compare
+def test_text_position_four_corners(region):
+    """
+    Print text at four corners (top left/right, bottom left/right) of map.
+    """
+    fig = Figure()
+    for position in ("TL", "TR", "BL", "BR"):
+        fig.text(
+            region=region, projection="x1c", frame="a", position=position, text=position
+        )
+    return fig
+
+
+def test_text_xy_with_position_fails(region, projection):
+    """
+    Run text by providing both x/y pairs and position arguments.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.text(
+            region=region, projection="x1c", x=1.2, y=2.4, position="MC", text="text"
+        )
+
+
+@pytest.mark.mpl_image_compare
 def test_text_angle_30(region, projection):
     """
     Print text at 30 degrees counter-clockwise from horizontal
