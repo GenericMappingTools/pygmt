@@ -859,7 +859,7 @@ class BasePlotting:
         ----------
         textfiles : str or list
             A text data file name, or a list of filenames containing 1 or more
-            records with (x, y[, font, angle, justify], text).
+            records with (x, y[, angle, font, justify], text).
         x/y : float or 1d arrays
             The x and y coordinates, or an array of x and y coordinates to plot
             the text
