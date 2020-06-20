@@ -845,8 +845,6 @@ class BasePlotting:
         Plot or typeset text strings of variable size, font type, and
         orientation.
 
-        Used to be pstext.
-
         Must provide at least one of the following combinations as input:
 
         - *textfiles*
@@ -914,7 +912,6 @@ class BasePlotting:
         fill : str
             Sets the shade or color used for filling the text box [Default is
             no fill].
-            instead.
         offset : str
             ``[j|J]dx[/dy][+v[pen]]``
             Offsets the text from the projected (x,y) point by dx,dy [0/0]. If
