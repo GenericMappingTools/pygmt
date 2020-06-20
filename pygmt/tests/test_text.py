@@ -104,7 +104,7 @@ def test_text_position(region):
     left/right) of map.
     """
     fig = Figure()
-    fig.text(region=region, projection="x1c", frame="a", position="CM", text="CM")
+    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
     for position in ("TL", "TR", "BL", "BR"):
         fig.text(frame="a", position=position, text=position)
     return fig
@@ -129,7 +129,7 @@ def test_text_position_offset_with_line(region):
     to the shifted point.
     """
     fig = Figure()
-    fig.text(region=region, projection="x1c", frame="a", position="CM", text="CM")
+    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
     for position in ("TL", "TR", "BL", "BR"):
         fig.text(position=position, text=position, offset="j0.5c+v")
     return fig

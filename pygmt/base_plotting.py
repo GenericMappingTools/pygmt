@@ -950,33 +950,36 @@ class BasePlotting:
         ):
             if "F" not in kwargs.keys():
                 kwargs.update({"F": ""})
-            if position is not None and isinstance(position, str):
-                kwargs["F"] += f"+c{position}"
             if angle is not None and isinstance(angle, (int, float, str)):
                 kwargs["F"] += f"+a{str(angle)}"
             if font is not None and isinstance(font, str):
                 kwargs["F"] += f"+f{font}"
             if justify is not None and isinstance(justify, str):
                 kwargs["F"] += f"+j{justify}"
+            if position is not None and isinstance(position, str):
+                kwargs["F"] += f'+c{position}+t"{text}"'
 
         with GMTTempFile(suffix=".txt") as tmpfile:
             with Session() as lib:
                 if kind == "file":
                     fname = textfiles
                 elif kind == "vectors":
-                    pd.DataFrame.from_dict(
-                        {
-                            "x": np.atleast_1d(x),
-                            "y": np.atleast_1d(y),
-                            "text": np.atleast_1d(text),
-                        }
-                    ).to_csv(
-                        tmpfile.name,
-                        sep="\t",
-                        header=False,
-                        index=False,
-                        quoting=csv.QUOTE_NONE,
-                    )
+                    if position is not None:
+                        fname = ""
+                    else:
+                        pd.DataFrame.from_dict(
+                            {
+                                "x": np.atleast_1d(x),
+                                "y": np.atleast_1d(y),
+                                "text": np.atleast_1d(text),
+                            }
+                        ).to_csv(
+                            tmpfile.name,
+                            sep="\t",
+                            header=False,
+                            index=False,
+                            quoting=csv.QUOTE_NONE,
+                        )
                     fname = tmpfile.name
 
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
