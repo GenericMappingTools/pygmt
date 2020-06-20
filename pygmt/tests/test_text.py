@@ -7,7 +7,7 @@ import os
 import pytest
 
 from .. import Figure
-from ..exceptions import GMTInvalidInput
+from ..exceptions import GMTCLibError, GMTInvalidInput
 from ..helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -93,7 +93,7 @@ def test_text_nonexistent_filename():
     Run text by passing in a list of filenames with one that does not exist
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTCLibError):
         fig.text(region=[10, 70, -5, 10], textfiles=[POINTS_DATA, "notexist.txt"])
 
 

@@ -4,7 +4,6 @@ Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
 import csv
-import os
 import numpy as np
 import pandas as pd
 
@@ -941,10 +940,6 @@ class BasePlotting:
 
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs or position")
-        if kind == "file":
-            for textfile in textfiles.split(" "):  # ensure that textfile(s) exist
-                if not os.path.exists(textfile):
-                    raise GMTInvalidInput(f"Cannot find the file: {textfile}")
 
         # Build the `-F` argument in gmt text.
         if (
