@@ -110,7 +110,7 @@ def test_text_position(region):
     return fig
 
 
-def test_text_xy_with_position_fails(region, projection):
+def test_text_xy_with_position_fails(region):
     """
     Run text by providing both x/y pairs and position arguments.
     """
@@ -266,7 +266,7 @@ def test_text_justify_parsed_from_textfile():
 
 
 @pytest.mark.mpl_image_compare
-def test_text_angle_font_justify_from_textfile(region, projection):
+def test_text_angle_font_justify_from_textfile():
     """
     Print text with x, y, angle, font, justify, and text arguments parsed from
     the textfile.
