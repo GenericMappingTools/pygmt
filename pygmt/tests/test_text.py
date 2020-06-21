@@ -7,7 +7,8 @@ import os
 import pytest
 
 from .. import Figure
-from ..exceptions import GMTInvalidInput
+from ..exceptions import GMTCLibError, GMTInvalidInput
+from ..helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -78,6 +79,16 @@ def test_text_input_single_filename():
 
 
 @pytest.mark.mpl_image_compare
+def test_text_input_remote_filename():
+    """
+    Run text by passing in a remote filename to textfiles
+    """
+    fig = Figure()
+    fig.text(region=[0, 6.5, 0, 6.5], textfiles="@Table_5_11.txt")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_text_input_multiple_filenames():
     """
     Run text by passing in multiple filenames to textfiles
@@ -92,8 +103,46 @@ def test_text_nonexistent_filename():
     Run text by passing in a list of filenames with one that does not exist
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTCLibError):
         fig.text(region=[10, 70, -5, 10], textfiles=[POINTS_DATA, "notexist.txt"])
+
+
+@pytest.mark.mpl_image_compare
+def test_text_position(region):
+    """
+    Print text at center middle (CM) and eight other positions
+    (Top/Middle/Bottom x Left/Centre/Right).
+    """
+    fig = Figure()
+    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
+    for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
+        fig.text(position=position, text=position)
+    return fig
+
+
+def test_text_xy_with_position_fails(region):
+    """
+    Run text by providing both x/y pairs and position arguments.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.text(
+            region=region, projection="x1c", x=1.2, y=2.4, position="MC", text="text"
+        )
+
+
+@pytest.mark.mpl_image_compare
+def test_text_position_offset_with_line(region):
+    """
+    Print text at centre middle (CM) and eight other positions
+    (Top/Middle/Bottom x Left/Centre/Right), offset by 0.5 cm, with a line
+    drawn from the original to the shifted point.
+    """
+    fig = Figure()
+    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
+    for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
+        fig.text(position=position, text=position, offset="j0.5c+v")
+    return fig
 
 
 @pytest.mark.mpl_image_compare
@@ -126,6 +175,58 @@ def test_text_font_bold(region, projection):
         y=2.4,
         text="text in bold",
         font="Helvetica-Bold",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_fill(region, projection):
+    """
+    Print text with blue color fill
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=1.2,
+        text="blue fill around text",
+        fill="blue",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_pen(region, projection):
+    """
+    Print text with thick green dashed pen
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=1.2,
+        text="green pen around text",
+        pen="thick,green,dashed",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_round_clearance(region, projection):
+    """
+    Print text with round rectangle box clearance
+    """
+    fig = Figure()
+    fig.text(
+        region=region,
+        projection=projection,
+        x=1.2,
+        y=1.2,
+        text="clearance around text",
+        clearance="90%+tO",
+        pen="default,black,dashed",
     )
     return fig
 
@@ -171,4 +272,26 @@ def test_text_justify_parsed_from_textfile():
         textfiles=CITIES_DATA,
         D="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_angle_font_justify_from_textfile():
+    """
+    Print text with x, y, angle, font, justify, and text arguments parsed from
+    the textfile.
+    """
+    fig = Figure()
+    with GMTTempFile(suffix=".txt") as tempfile:
+        with open(tempfile.name, "w") as tmpfile:
+            tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
+        fig.text(
+            region=[113, 117.5, -0.5, 3],
+            projection="M5c",
+            frame="a",
+            textfiles=tempfile.name,
+            angle=True,
+            font=True,
+            justify=True,
+        )
     return fig
