@@ -79,6 +79,16 @@ def test_text_input_single_filename():
 
 
 @pytest.mark.mpl_image_compare
+def test_text_input_external_filename():
+    """
+    Run text by passing in an external filename to textfiles
+    """
+    fig = Figure()
+    fig.text(region=[0, 6.5, 0, 6.5], textfiles="@Table_5_11.txt")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_text_input_multiple_filenames():
     """
     Run text by passing in multiple filenames to textfiles
