@@ -100,13 +100,13 @@ def test_text_nonexistent_filename():
 @pytest.mark.mpl_image_compare
 def test_text_position(region):
     """
-    Print text at center middle and four corners (top left/right, bottom
-    left/right) of map.
+    Print text at center middle (CM) and eight other positions
+    (Top/Middle/Bottom x Left/Centre/Right).
     """
     fig = Figure()
     fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
-    for position in ("TL", "TR", "BL", "BR"):
-        fig.text(frame="a", position=position, text=position)
+    for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
+        fig.text(position=position, text=position)
     return fig
 
 
@@ -124,13 +124,13 @@ def test_text_xy_with_position_fails(region):
 @pytest.mark.mpl_image_compare
 def test_text_position_offset_with_line(region):
     """
-    Print text at centre middle and  four corners (top left/right, bottom
-    left/right) of map, offset by 0.5 cm, with a line drawn from the original
-    to the shifted point.
+    Print text at centre middle (CM) and eight other positions
+    (Top/Middle/Bottom x Left/Centre/Right), offset by 0.5 cm, with a line
+    drawn from the original to the shifted point.
     """
     fig = Figure()
     fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
-    for position in ("TL", "TR", "BL", "BR"):
+    for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
         fig.text(position=position, text=position, offset="j0.5c+v")
     return fig
 
