@@ -1242,7 +1242,7 @@ class Session:
         gmt_grid = self.create_data(
             family,
             geometry,
-            mode="GMT_CONTAINER_ONLY",
+            mode="GMT_CONTAINER_ONLY|GMT_GRID_IS_GEO",
             ranges=region,
             inc=inc,
             registration=registration,
