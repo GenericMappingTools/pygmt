@@ -98,3 +98,84 @@ jobs:
       - name: Test with pytest
         shell: bash -l {0}
         run: make test PYTEST_EXTRA="-r P"
+
+  test_gmt_master:
+    name: GMT master - ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.7]
+        os: [ubuntu-latest]
+    env:
+      # LD_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib:$LD_LIBRARY_PATH
+      GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v2.1.0
+
+      # Workaround for versioneer, see https://github.com/warner/python-versioneer/issues/206
+      - name: Fetch all history for all tags and branches
+        run: git fetch --prune --unshallow
+
+      # Setup Miniconda
+      - name: Setup Miniconda
+        uses: goanpeca/setup-miniconda@v1.3.1
+        with:
+          python-version: ${{ matrix.python-version }}
+          channels: conda-forge
+
+      # Install GMT master branch
+      - name: Install GMT from master
+        shell: bash -l {0}
+        run: |
+          echo "::add-path::$GITHUB_WORKSPACE/gmt/bin"
+          apt -qq update
+          DEBIAN_FRONTEND=noninteractive apt install -y cmake xdg-utils libcurl4-openssl-dev
+          curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt-master.sh | bash
+
+      # Cache the ${HOME}/.gmt directory, for docs and testing
+      - name: Cache GMT directory
+        uses: actions/cache@v2
+        id: cache2
+        with:
+          path: |
+            ~/.gmt/cache
+            ~/.gmt/server
+          key: cache2-gmt-${{ runner.os }}-20200609
+          restore-keys: cache2-gmt-refs/heads/master-
+
+      # Workaround for the timeouts of 'gmt which' on Linux and Windows
+      - name: Download remote data using wget (Linux & Windows)
+        shell: bash -l {0}
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then choco install wget; fi  # install wget on Windows
+          mkdir ~/.gmt ~/.gmt/cache ~/.gmt/server
+          wget --no-check-certificate https://oceania.generic-mapping-tools.org/gmt_hash_server.txt -P ~/.gmt/server/
+          for data in earth_relief_60m.grd earth_relief_30m.grd earth_relief_10m.grd; do
+            wget --no-check-certificate https://oceania.generic-mapping-tools.org/${data} -P ~/.gmt/server/
+          done
+          for data in ridge.txt Table_5_11.txt tut_bathy.nc tut_quakes.ngdc tut_ship.xyz usgs_quakes_22.txt; do
+            wget --no-check-certificate https://oceania.generic-mapping-tools.org/cache/${data} -P ~/.gmt/cache/
+          done
+        if: steps.cache2.outputs.cache-hit != 'true' && runner.os != 'macOS'
+
+      # Download remote files, if not already cached
+      - name: Download remote data (macOS)
+        shell: bash -l {0}
+        run: gmt which -Gu @earth_relief_60m @earth_relief_30m @earth_relief_10m @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
+        if: steps.cache2.outputs.cache-hit != 'true' && runner.os == 'macOS'
+
+      # Install the package that we want to test
+      - name: Install the package
+        shell: bash -l {0}
+        run: |
+          python setup.py sdist --formats=zip
+          pip install dist/*
+
+      # Run the tests
+      - name: Test with pytest
+        shell: bash -l {0}
+        run: make test PYTEST_EXTRA="-r P"
