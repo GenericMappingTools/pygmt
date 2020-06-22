@@ -44,7 +44,7 @@ GEOMETRIES = [
     "GMT_IS_SURFACE",
 ]
 
-MODES = ["GMT_CONTAINER_ONLY", "GMT_OUTPUT"]
+MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
@@ -512,13 +512,13 @@ class Session:
         ----------
         family : str
             A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
-            ``data_families`` attribute for valid names.
+            ``FAMILIES`` attribute for valid names.
         geometry : str
             A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``data_geometries`` attribute for valid names.
+            ``GEOMETRIES`` attribute for valid names.
         mode : str
-            A valid GMT data mode (e.g., ``'GMT_OUTPUT'``). See the
-            ``data_modes`` attribute for valid names.
+            A valid GMT data mode (e.g., ``'GMT_IS_OUTPUT'``). See the
+            ``MODES`` attribute for valid names.
         dim : list of 4 integers
             The dimensions of the dataset. See the documentation for the GMT C
             API function ``GMT_Create_Data`` (``src/gmt_api.c``) for the full
@@ -903,12 +903,12 @@ class Session:
         ----------
         family : str
             A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
-            ``data_families`` attribute for valid names. Don't use the
+            ``FAMILIES`` attribute for valid names. Don't use the
             ``GMT_VIA_VECTOR`` or ``GMT_VIA_MATRIX`` constructs for this. Use
             ``GMT_IS_VECTOR`` and ``GMT_IS_MATRIX`` instead.
         geometry : str
             A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``data_geometries`` attribute for valid names.
+            ``GEOMETRIES`` attribute for valid names.
         mode : str
             How the data is to be written to the file. This option varies
             depending on the given family. See the GMT API documentation for
