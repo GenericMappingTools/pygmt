@@ -561,7 +561,9 @@ class Session:
 
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         mode_int = self._parse_constant(
-            mode, valid=MODES, valid_modifiers=["GMT_GRID_IS_GEO"]
+            mode,
+            valid=MODES,
+            valid_modifiers=["GMT_GRID_IS_CARTESIAN", "GMT_GRID_IS_GEO"],
         )
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(
@@ -1242,7 +1244,7 @@ class Session:
         gmt_grid = self.create_data(
             family,
             geometry,
-            mode="GMT_CONTAINER_ONLY|GMT_GRID_IS_GEO",
+            mode="GMT_CONTAINER_ONLY|GMT_GRID_IS_CARTESIAN",
             ranges=region,
             inc=inc,
             registration=registration,
