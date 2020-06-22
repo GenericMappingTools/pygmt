@@ -32,7 +32,6 @@
     projections/index.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
-    tutorials/text.rst
     tutorials/gmt-config.rst
 
 .. toctree::

@@ -11,7 +11,9 @@ import pygmt
 # Configuring default GMT parameters
 # ----------------------------------
 #
-# The user can override default parameters either temporarily (locally) or permanently (globally) using :meth:`pygmt.config`. The full list of default parameters that can be changed can be at :gmt-docs:`gmt.conf.html`.
+# The user can override default parameters either temporarily (locally) or permanently
+# (globally) using :meth:`pygmt.config`. The full list of default parameters that can be
+# changed can be at :gmt-docs:`gmt.conf.html`.
 #
 # We demonstrate the usage of :meth:`pygmt.config` by configuring a map plot.
 
