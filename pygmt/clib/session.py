@@ -1239,6 +1239,13 @@ class Session:
         # guarantees that the copy will be around until the virtual file is
         # closed. The conversion is implicit in dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid, registration)
+
+        if Version(self.info["version"]) < Version("6.1.0"):
+            # Avoid crashing PyGMT because GMT < 6.1.0's C API cannot handle
+            # pixel registered grids properly. For more context, see
+            # https://github.com/GenericMappingTools/gmt/pull/3502
+            registration = "GMT_GRID_NODE_REG"
+
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"
         gmt_grid = self.create_data(
