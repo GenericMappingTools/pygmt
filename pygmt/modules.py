@@ -3,6 +3,7 @@ Non-plot GMT modules.
 """
 from .clib import Session
 from .helpers import (
+    autodetect_registration,
     build_arg_string,
     fmt_docstring,
     GMTTempFile,
@@ -39,7 +40,8 @@ def grdinfo(grid, **kwargs):
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
+                registration = autodetect_registration(grid)
+                file_context = lib.virtualfile_from_grid(grid, registration)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as infile:

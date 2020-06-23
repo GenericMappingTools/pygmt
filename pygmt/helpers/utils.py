@@ -10,6 +10,24 @@ from contextlib import contextmanager
 import xarray as xr
 
 from ..exceptions import GMTInvalidInput
+from ..modules import grdinfo
+
+
+def autodetect_registration(grid):
+    """
+    Function to automatically detect whether the NetCDF source of an
+    xarray.DataArray grid uses gridline or pixel registration. Defaults to
+    gridline registration if grdinfo cannot find a source file.
+    """
+    registration = "GMT_GRID_NODE_REG"  # default to gridline registration
+
+    try:
+        if "Pixel node registration used" in grdinfo(grid.encoding["source"]):
+            registration = "GMT_GRID_PIXEL_REG"
+    except KeyError:
+        pass
+
+    return registration
 
 
 def data_kind(data, x=None, y=None, z=None):

@@ -5,6 +5,7 @@ import pandas as pd
 
 from .clib import Session
 from .helpers import (
+    autodetect_registration,
     build_arg_string,
     fmt_docstring,
     GMTTempFile,
@@ -84,7 +85,8 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
             # Store the xarray.DataArray grid in virtualfile
             if data_kind(grid) == "grid":
-                grid_context = lib.virtualfile_from_grid(grid)
+                registration = autodetect_registration(grid)
+                grid_context = lib.virtualfile_from_grid(grid, registration)
             elif data_kind(grid) == "file":
                 grid_context = dummy_context(grid)
             else:
