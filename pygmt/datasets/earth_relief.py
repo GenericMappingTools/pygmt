@@ -85,9 +85,9 @@ def _is_valid_resolution(resolution):
     """
     valid_resolutions = ["01d"]
     valid_resolutions.extend(
-        ["{:02d}m".format(res) for res in [60, 30, 20, 15, 10, 6, 5, 4, 3, 2, 1]]
+        [f"{res:02d}m" for res in [60, 30, 20, 15, 10, 6, 5, 4, 3, 2, 1]]
     )
-    valid_resolutions.extend(["{:02d}s".format(res) for res in [30, 15]])
+    valid_resolutions.extend([f"{res:02d}s" for res in [30, 15]])
     if resolution not in valid_resolutions:
         raise GMTInvalidInput(
             "Invalid Earth relief resolution '{}'.".format(resolution)
