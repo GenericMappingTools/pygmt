@@ -24,9 +24,9 @@ def load_earth_relief(resolution="01d"):
     ----------
     resolution : str
         The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for
-        arc-degree, arc-minute and arc-second. It can be ``'01d'``, ``'60m'``,
-        ``'30m'``, ``'10m'``, ``'05m'``, ``'02m'``, ``'01m'``, ``'30s'``
-        or ``'15s'``.
+        arc-degree, arc-minute and arc-second. It can be ``'01d'``, ``'30m'``,
+        ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
+        ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'`` or ``'15s'``.
 
     Returns
     -------
