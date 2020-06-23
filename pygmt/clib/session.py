@@ -1210,7 +1210,7 @@ class Session:
 
         >>> from pygmt.datasets import load_earth_relief
         >>> from pygmt.helpers import GMTTempFile
-        >>> data = load_earth_relief(resolution='60m')
+        >>> data = load_earth_relief(resolution='01d')
         >>> print(data.shape)
         (181, 361)
         >>> print(data.lon.values.min(), data.lon.values.max())
