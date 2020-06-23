@@ -537,7 +537,12 @@ min-public-methods=2
 
 # List of modules that can be imported at any level, not just the top level
 # one.
-allow-any-import-level=
+allow-any-import-level=clib.Session,
+                       sys,
+                       platform,
+                       importlib,
+                       subprocess,
+                       pytest
 
 # Allow wildcard imports from modules that define __all__.
 allow-wildcard-with-all=no
