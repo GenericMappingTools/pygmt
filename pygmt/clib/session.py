@@ -16,6 +16,7 @@ from ..exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
+from ..helpers import build_arg_string, GMTTempFile
 from .loading import load_libgmt
 from .conversion import (
     kwargs_to_ctypes_array,
@@ -1173,7 +1174,7 @@ class Session:
             yield vfile
 
     @contextmanager
-    def virtualfile_from_grid(self, grid, registration="GMT_GRID_NODE_REG"):
+    def virtualfile_from_grid(self, grid, registration=None):
         """
         Store a grid in a virtual file.
 
@@ -1200,6 +1201,10 @@ class Session:
         ----------
         grid : :class:`xarray.DataArray`
             The grid that will be included in the virtual file.
+        registration : str or None
+            ``[g|p]``
+            Use gridline (g) or pixel (p) node registration to make the virtual
+            grid. Default is auto (None), with a fallback to gridline (g).
 
         Yields
         ------
@@ -1232,6 +1237,30 @@ class Session:
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """
+        if registration is None:
+            # Automatically detect whether the NetCDF source of an
+            # xarray.DataArray grid uses gridline or pixel registration.
+            # Defaults to gridline registration if grdinfo cannot find a source file.
+            registration = "GMT_GRID_NODE_REG"  # default to gridline registration
+            try:
+                gridfile = grid.encoding["source"]
+                with GMTTempFile() as gridinfotext:
+                    arg_str = " ".join([gridfile, "->" + gridinfotext.name])
+                    self.call_module("grdinfo", arg_str)
+                    if "Pixel node registration used" in gridinfotext.read():
+                        registration = "GMT_GRID_PIXEL_REG"
+            except KeyError:
+                pass
+        else:
+            if registration == "g":
+                registration = "GMT_GRID_NODE_REG"
+            elif registration == "p":
+                registration = "GMT_GRID_PIXEL_REG"
+            else:
+                raise GMTInvalidInput(
+                    "Invalid registration type, must be either 'g', 'p', or None (auto)"
+                )
+
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_matrix because we need to maintain a reference to the copy while
         # it is being used by the C API. Otherwise, the array would be garbage

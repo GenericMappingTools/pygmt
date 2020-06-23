@@ -5,7 +5,6 @@ import pandas as pd
 
 from .clib import Session
 from .helpers import (
-    autodetect_registration,
     build_arg_string,
     fmt_docstring,
     GMTTempFile,
@@ -18,7 +17,7 @@ from .exceptions import GMTInvalidInput
 
 @fmt_docstring
 @use_alias(n="interpolation")
-def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
+def grdtrack(points, grid, newcolname=None, outfile=None, registration=None, **kwargs):
     """
     Sample grids at specified (x,y) locations.
 
@@ -56,6 +55,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         Required if 'points' is a file. The file name for the output ASCII
         file.
 
+    {r}
     {n}
 
     Returns
@@ -85,7 +85,6 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
             # Store the xarray.DataArray grid in virtualfile
             if data_kind(grid) == "grid":
-                registration = autodetect_registration(grid)
                 grid_context = lib.virtualfile_from_grid(grid, registration)
             elif data_kind(grid) == "file":
                 grid_context = dummy_context(grid)
