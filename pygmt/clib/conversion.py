@@ -7,7 +7,7 @@ import pandas
 from ..exceptions import GMTInvalidInput
 
 
-def dataarray_to_matrix(grid):
+def dataarray_to_matrix(grid, registration="GMT_GRID_NODE_REG"):
     """
     Transform an xarray.DataArray into a data 2D array and metadata.
 
@@ -27,6 +27,9 @@ def dataarray_to_matrix(grid):
     grid : xarray.DataArray
         The input grid as a DataArray instance. Information is retrieved from
         the coordinate arrays, not from headers.
+    registration : str
+        Either one of "GMT_GRID_PIXEL_REG" for pixel registration, or
+        "GMT_GRID_NODE_REG" for gridline registration [Default].
 
     Returns
     -------
@@ -102,7 +105,10 @@ def dataarray_to_matrix(grid):
                     dim
                 )
             )
-        region.extend([coord.min(), coord.max()])
+        if registration == "GMT_GRID_PIXEL_REG":
+            region.extend([coord.min() - coord_inc / 2, coord.max() + coord_inc / 2])
+        elif registration == "GMT_GRID_NODE_REG":
+            region.extend([coord.min(), coord.max()])
         inc.append(coord_inc)
 
     if any([i < 0 for i in inc]):  # Sort grid when there are negative increments

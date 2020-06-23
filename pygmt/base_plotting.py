@@ -18,6 +18,7 @@ from .helpers import (
     use_alias,
     kwargs_to_strings,
 )
+from .modules import grdinfo
 
 
 class BasePlotting:
@@ -55,6 +56,22 @@ class BasePlotting:
 
         """
         return kwargs
+
+    def autodetect_registration(self, grid):
+        """
+        Function to automatically detect whether the NetCDF source of an
+        xarray.DataArray grid uses gridline or pixel registration. Defaults to
+        gridline registration if grdinfo cannot find a source file.
+        """
+        registration = "GMT_GRID_NODE_REG"  # default to gridline registration
+
+        try:
+            if "Pixel node registration used" in grdinfo(grid.encoding["source"]):
+                registration = "GMT_GRID_PIXEL_REG"
+        except KeyError:
+            pass
+
+        return registration
 
     @fmt_docstring
     @use_alias(
@@ -282,7 +299,8 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
+                registration = self.autodetect_registration(grid)
+                file_context = lib.virtualfile_from_grid(grid, registration)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as fname:
@@ -314,7 +332,8 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
+                registration = self.autodetect_registration(grid)
+                file_context = lib.virtualfile_from_grid(grid, registration)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as fname:
@@ -410,7 +429,8 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
+                registration = self.autodetect_registration(grid)
+                file_context = lib.virtualfile_from_grid(grid, registration)
             else:
                 raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
 
@@ -420,7 +440,10 @@ class BasePlotting:
                     drapegrid = kwargs["G"]
                     if data_kind(drapegrid) in ("file", "grid"):
                         if data_kind(drapegrid) == "grid":
-                            drape_context = lib.virtualfile_from_grid(drapegrid)
+                            registration = self.autodetect_registration(grid)
+                            drape_context = lib.virtualfile_from_grid(
+                                drapegrid, registration
+                            )
                             drapefile = stack.enter_context(drape_context)
                             kwargs["G"] = drapefile
                     else:

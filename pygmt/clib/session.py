@@ -1238,7 +1238,7 @@ class Session:
         # collected and the memory freed. Creating it in this context manager
         # guarantees that the copy will be around until the virtual file is
         # closed. The conversion is implicit in dataarray_to_matrix.
-        matrix, region, inc = dataarray_to_matrix(grid)
+        matrix, region, inc = dataarray_to_matrix(grid, registration)
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"
         gmt_grid = self.create_data(
