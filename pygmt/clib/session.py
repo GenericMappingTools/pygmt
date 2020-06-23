@@ -1240,7 +1240,7 @@ class Session:
         if registration is None:
             # Automatically detect whether the NetCDF source of an
             # xarray.DataArray grid uses gridline or pixel registration.
-            # Defaults to gridline registration if grdinfo cannot find a source file.
+            # Defaults to gridline if grdinfo cannot find any source file.
             registration = "GMT_GRID_NODE_REG"  # default to gridline registration
             try:
                 gridfile = grid.encoding["source"]

@@ -116,7 +116,7 @@ def test_grdview_with_cmap_for_perspective_surface_plot(grid):
     """
     fig = Figure()
     fig.grdview(
-        grid=grid, cmap="oleron", surftype="s", perspective=[225, 30], zscale=0.005,
+        grid=grid, cmap="oleron", surftype="s", perspective=[225, 30], zscale=0.005
     )
     return fig
 
