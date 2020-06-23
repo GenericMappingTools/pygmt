@@ -58,7 +58,7 @@ def test_grdtrack_input_dataframe_and_ncfile():
     Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs
     """
     dataframe = load_ocean_ridge_points()
-    ncfile = which("@earth_relief_60m", download="c")
+    ncfile = which("@earth_relief_01d", download="c")
 
     output = grdtrack(points=dataframe, grid=ncfile, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
@@ -73,7 +73,7 @@ def test_grdtrack_input_csvfile_and_ncfile():
     Run grdtrack by passing in a csvfile and netcdf file as inputs
     """
     csvfile = which("@ridge.txt", download="c")
-    ncfile = which("@earth_relief_60m", download="c")
+    ncfile = which("@earth_relief_01d", download="c")
 
     try:
         output = grdtrack(points=csvfile, grid=ncfile, outfile=TEMP_TRACK)
