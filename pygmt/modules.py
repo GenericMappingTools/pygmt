@@ -227,7 +227,7 @@ def grdcut(grid, **kwargs):
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                raise GMTInvalidInput(
+                raise NotImplementedError(
                     "xarray.DataArray is not supported as the input grid yet!"
                 )
                 # file_context = lib.virtualfile_from_grid(grid)
