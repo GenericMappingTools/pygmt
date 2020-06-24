@@ -962,9 +962,8 @@ class BasePlotting:
 
         with GMTTempFile(suffix=".txt") as tmpfile:
             with Session() as lib:
-                if kind == "file":
-                    fname = textfiles
-                elif kind == "vectors":
+                fname = textfiles if kind == "file" else ""
+                if kind == "vectors":
                     if position is not None:
                         fname = ""
                     else:
