@@ -53,7 +53,7 @@ def test_grdcut_dataarray_in_dataarray_out():
 
 def test_grdcut_dataarray_in_fail():
     "Make sure that grdcut fails correctly if DataArray is the input grid"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(NotImplementedError):
         grid = load_earth_relief()
         grdcut(grid, region="0/180/0/90")
 
