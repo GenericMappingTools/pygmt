@@ -170,7 +170,7 @@ def is_nonstr_iter(value):
 
     """
     try:
-        [item for item in value]  # pylint: disable=pointless-statement
+        _ = [item for item in value]  # pylint: disable=unnecessary-comprehension
         is_iterable = True
     except TypeError:
         is_iterable = False
