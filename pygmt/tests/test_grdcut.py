@@ -19,7 +19,7 @@ def test_grdcut_file_in_file_out():
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = grdinfo(tmpfile.name, C=True)
-        assert result == "0 180 0 90 -8182 5651.5 1 1 180 90 1\n"
+        assert result == "0 180 0 90 -8182 5651.5 1 1 180 90\n"
 
 
 def test_grdcut_file_in_dataarray_out():
