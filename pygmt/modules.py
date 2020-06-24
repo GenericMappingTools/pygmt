@@ -244,7 +244,8 @@ def grdcut(grid, **kwargs):
                 lib.call_module("grdcut", arg_str)
 
         if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            result = xr.open_dataarray(outgrid)
+            with xr.open_dataarray(outgrid) as dataarray:
+                result = dataarray.load()
         else:
             result = None  # if user sets an outgrid, return None
 
