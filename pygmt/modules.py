@@ -161,13 +161,13 @@ def which(fname, **kwargs):
     Z="z_subregion",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(ingrid, **kwargs):
+def grdcut(grid, **kwargs):
     """
     Extract subregion from a grid.
 
-    Produce a new *outgrid* file which is a subregion of *ingrid*. The
+    Produce a new *outgrid* file which is a subregion of *grid*. The
     subregion is specified with *region*; the specified range must not exceed
-    the range of *ingrid* (but see *extend*). If in doubt, run
+    the range of *grid* (but see *extend*). If in doubt, run
     :meth:`pygmt.grdinfo` to check range. Alternatively, define the subregion
     indirectly via a range check on the node values or via distances from a
     given point. Finally, you can give *projection* for oblique projections to
@@ -180,7 +180,7 @@ def grdcut(ingrid, **kwargs):
 
     Parameters
     ----------
-    ingrid : str
+    grid : str
         The name of the input grid file.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
@@ -220,21 +220,21 @@ def grdcut(ingrid, **kwargs):
         - xarray.DataArray if *outgrid* is not set
         - None if *outgrid* is set (grid output will be stored in *outgrid*)
     """
-    kind = data_kind(ingrid)
+    kind = data_kind(grid)
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             if kind == "file":
-                file_context = dummy_context(ingrid)
+                file_context = dummy_context(grid)
             elif kind == "grid":
                 raise GMTInvalidInput(
                     "xarray.DataArray is not supported as the input grid yet!"
                 )
-                # file_context = lib.virtualfile_from_grid(ingrid)
+                # file_context = lib.virtualfile_from_grid(grid)
                 # See https://github.com/GenericMappingTools/gmt/pull/3532
                 # for a feature request.
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(ingrid)))
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
 
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
