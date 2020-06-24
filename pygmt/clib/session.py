@@ -937,6 +937,9 @@ class Session:
         direction : str
             Either ``'GMT_IN'`` or ``'GMT_OUT'`` to indicate if passing data to
             GMT or getting it out of GMT, respectively.
+            By default, GMT can modify the data you pass in. Add modifier
+            ``'GMT_IS_REFERENCE'`` to tell GMT the data are read-only, or
+            ``'GMT_IS_DUPLICATE'' to tell GMT to duplicate the data.
         data : int
             The ctypes void pointer to your GMT data structure.
 
@@ -965,7 +968,7 @@ class Session:
         ...     lib.put_vector(dataset, column=0, vector=x)
         ...     lib.put_vector(dataset, column=1, vector=y)
         ...     # Add the dataset to a virtual file
-        ...     vfargs = (family, geometry, 'GMT_IN', dataset)
+        ...     vfargs = (family, geometry, 'GMT_IN|GMT_IS_REFERENCE', dataset)
         ...     with lib.open_virtual_file(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
@@ -1101,7 +1104,9 @@ class Session:
         for col, array in enumerate(arrays):
             self.put_vector(dataset, column=col, vector=array)
 
-        with self.open_virtual_file(family, geometry, "GMT_IN", dataset) as vfile:
+        with self.open_virtual_file(
+            family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
+        ) as vfile:
             yield vfile
 
     @contextmanager
@@ -1182,7 +1187,9 @@ class Session:
 
         self.put_matrix(dataset, matrix)
 
-        with self.open_virtual_file(family, geometry, "GMT_IN", dataset) as vfile:
+        with self.open_virtual_file(
+            family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
+        ) as vfile:
             yield vfile
 
     @contextmanager
@@ -1225,7 +1232,7 @@ class Session:
 
         >>> from pygmt.datasets import load_earth_relief
         >>> from pygmt.helpers import GMTTempFile
-        >>> data = load_earth_relief(resolution='60m')
+        >>> data = load_earth_relief(resolution='01d')
         >>> print(data.shape)
         (181, 361)
         >>> print(data.lon.values.min(), data.lon.values.max())

@@ -8,7 +8,7 @@ from .. import which
 from ..exceptions import GMTInvalidInput
 
 
-def load_earth_relief(resolution="60m"):
+def load_earth_relief(resolution="01d"):
     """
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -23,9 +23,10 @@ def load_earth_relief(resolution="60m"):
     Parameters
     ----------
     resolution : str
-        The grid resolution. The suffix ``m`` and ``s`` stand for arc-minute
-        and arc-second. It can be ``'60m'``, ``'30m'``, ``'10m'``, ``'05m'``,
-        ``'02m'``, ``'01m'``, ``'30s'`` or ``'15s'``.
+        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for
+        arc-degree, arc-minute and arc-second. It can be ``'01d'``, ``'30m'``,
+        ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
+        ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'`` or ``'15s'``.
 
     Returns
     -------
@@ -69,6 +70,7 @@ def _is_valid_resolution(resolution):
     Examples
     --------
 
+    >>> _is_valid_resolution("01d")
     >>> _is_valid_resolution("60m")
     >>> _is_valid_resolution("5m")
     Traceback (most recent call last):
@@ -81,8 +83,11 @@ def _is_valid_resolution(resolution):
     pygmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution '01s'.
 
     """
-    valid_resolutions = ["{:02d}m".format(res) for res in [60, 30, 10, 5, 2, 1]]
-    valid_resolutions.extend(["{:02d}s".format(res) for res in [30, 15]])
+    valid_resolutions = ["01d"]
+    valid_resolutions.extend(
+        [f"{res:02d}m" for res in [60, 30, 20, 15, 10, 6, 5, 4, 3, 2, 1]]
+    )
+    valid_resolutions.extend([f"{res:02d}s" for res in [30, 15]])
     if resolution not in valid_resolutions:
         raise GMTInvalidInput(
             "Invalid Earth relief resolution '{}'.".format(resolution)
@@ -120,7 +125,9 @@ def _shape_from_resolution(resolution):
     """
     _is_valid_resolution(resolution)
     unit = resolution[2]
-    if unit == "m":
+    if unit == "d":
+        seconds = int(resolution[:2]) * 60 * 60
+    elif unit == "m":
         seconds = int(resolution[:2]) * 60
     elif unit == "s":
         seconds = int(resolution[:2])

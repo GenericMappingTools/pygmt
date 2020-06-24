@@ -58,7 +58,7 @@ def test_grdcontour_file():
     "Plot a contour image using grid file input"
     fig = Figure()
     fig.grdcontour(
-        "@earth_relief_60m",
+        "@earth_relief_01d",
         interval="1000",
         limit="0",
         pen="0.5p,black",

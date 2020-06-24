@@ -263,6 +263,23 @@ def test_plot_vectors():
 
 
 @pytest.mark.mpl_image_compare
+def test_plot_lines_with_arrows():
+    """Plot lines with arrows.
+
+    The test is slightly different from test_plot_vectors().
+    Here the vectors are plotted as lines, with arrows at the end.
+
+    The test also check if the API crashes.
+    See https://github.com/GenericMappingTools/pygmt/issues/406.
+    """
+    fig = Figure()
+    fig.basemap(region=[-2, 2, -2, 2], frame=True)
+    fig.plot(x=[-1.0, -1.0], y=[-1.0, 1.0], pen="1p,black+ve0.2c")
+    fig.plot(x=[1.0, 1.0], y=[-1.0, 1.0], pen="1p,black+ve0.2c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_plot_scalar_xy():
     "Plot symbols given scalar x, y coordinates"
     fig = Figure()
