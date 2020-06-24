@@ -18,7 +18,7 @@ from .filtering import blockmedian
 from .gridding import surface
 from .sampling import grdtrack
 from .mathops import makecpt
-from .modules import config, info, grdinfo, which
+from .modules import config, info, grdinfo, grdcut, which
 from . import datasets
 
 

@@ -72,6 +72,7 @@ Operations on grids:
 
     grdinfo
     grdtrack
+    grdcut
 
 GMT Defaults
 ------------
