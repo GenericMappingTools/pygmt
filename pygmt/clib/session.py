@@ -1273,8 +1273,9 @@ class Session:
 
         if coord_sys is None or registration is None:
             # Automatically detect whether the NetCDF source of an
-            # xarray.DataArray grid uses a Cartesian or Geographic coordinate
-            # system, and whether it is gridline or pixel registered.
+            # xarray.DataArray grid uses:
+            # - gridline or pixel registration
+            # - Cartesian or Geographic coordinate system
             try:
                 gridfile = grid.encoding["source"]
                 with GMTTempFile() as gridinfotext:
@@ -1290,6 +1291,12 @@ class Session:
             except KeyError:
                 pass
 
+        if Version(self.info["version"]) < Version("6.1.0"):
+            # Avoid crashing PyGMT because GMT < 6.1.0's C API cannot handle
+            # pixel registered grids properly. For more context, see
+            # https://github.com/GenericMappingTools/gmt/pull/3502
+            _registration = "GMT_GRID_NODE_REG"
+
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_matrix because we need to maintain a reference to the copy while
         # it is being used by the C API. Otherwise, the array would be garbage
@@ -1297,12 +1304,6 @@ class Session:
         # guarantees that the copy will be around until the virtual file is
         # closed. The conversion is implicit in dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid, _registration)
-
-        if Version(self.info["version"]) < Version("6.1.0"):
-            # Avoid crashing PyGMT because GMT < 6.1.0's C API cannot handle
-            # pixel registered grids properly. For more context, see
-            # https://github.com/GenericMappingTools/gmt/pull/3502
-            registration = "GMT_GRID_NODE_REG"
 
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"

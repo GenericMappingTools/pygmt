@@ -55,7 +55,7 @@ COMMON_OPTIONS = {
             Force gridline (g) or pixel (p) node registration. Default is
             gridline.""",
     "coord_sys": """\
-        coord_sys : bool
+        coord_sys : str
             Coordinate System of grid. Can be either Cartesian (c) or
             Geographic (g). Default is auto-detect (None), with a fallback
             to Cartesian (c).""",
