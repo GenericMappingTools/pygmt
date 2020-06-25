@@ -49,11 +49,18 @@ COMMON_OPTIONS = {
             - 'c' for bicubic [Default]
             - 'l' for bilinear
             - 'n' for nearest-neighbor""",
-    "r": """\
-        registration : str
+    "in_reg": """\
+        in_reg : str or None
             ``[g|p]``
-            Force gridline (g) or pixel (p) node registration. Default is
-            gridline.""",
+            Define input grid as gridline (g) or pixel (p) node registered.
+            Only applied when grid is an xarray.DataArray. Default (None) is to
+            automatically detect whether pixel/gridline registration is used,
+            with a fallback to gridline (g).""",
+    "out_reg": """\
+        out_reg : str
+            ``[g|p]``
+            Force output grid to be gridline (g) or pixel (p) node registered.
+            Default is gridline (g).""",
     "coord_sys": """\
         coord_sys : str
             Coordinate System of grid. Can be either Cartesian (c) or

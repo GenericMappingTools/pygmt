@@ -529,7 +529,7 @@ class Session:
         inc : list of 2 floats
             The increments between points of the dataset. See the C function
             documentation.
-        registration : int
+        registration : str
             The node registration (what the coordinates mean). Can be
             ``'GMT_GRID_PIXEL_REG'`` or ``'GMT_GRID_NODE_REG'``. Defaults to
             ``'GMT_GRID_NODE_REG'``.
@@ -1181,7 +1181,7 @@ class Session:
             yield vfile
 
     @contextmanager
-    def virtualfile_from_grid(self, grid, coord_sys=None, registration=None):
+    def virtualfile_from_grid(self, grid, coord_sys=None, in_reg=None):
         """
         Store a grid in a virtual file.
 
@@ -1211,7 +1211,7 @@ class Session:
         coord_sys : str or None
             Use a Cartesian (c) or Geographic (g) coordinate system. Default is
             auto (None), with a fallback to Cartesian (c).
-        registration : str or None
+        in_reg : str or None
             ``[g|p]``
             Use gridline (g) or pixel (p) node registration to make the virtual
             grid. Default is auto (None), with a fallback to gridline (g).
@@ -1265,13 +1265,13 @@ class Session:
                 "g": "GMT_GRID_NODE_REG",
                 "p": "GMT_GRID_PIXEL_REG",
             }
-            _registration = registration_dict[registration]
+            _registration = registration_dict[in_reg]
         except KeyError:
             raise GMTInvalidInput(
-                "Invalid registration type, must be either 'g', 'p', or None (auto)"
+                "Invalid input registration type, must be either 'g', 'p', or None (auto)"
             )
 
-        if coord_sys is None or registration is None:
+        if coord_sys is None or in_reg is None:
             # Automatically detect whether the NetCDF source of an
             # xarray.DataArray grid uses:
             # - gridline or pixel registration
@@ -1284,7 +1284,7 @@ class Session:
                     if coord_sys is None and "[Geographic grid]" in gridinfotext.read():
                         _coord_sys = "GMT_GRID_IS_GEO"
                     if (
-                        registration is None
+                        in_reg is None
                         and "Pixel node registration used" in gridinfotext.read()
                     ):
                         _registration = "GMT_GRID_PIXEL_REG"

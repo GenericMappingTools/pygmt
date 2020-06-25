@@ -79,6 +79,6 @@ def test_gridimage_over_dateline(xrgrid):
     """
     fig = Figure()
     fig.grdimage(
-        grid=xrgrid, region="g", projection="A0/0/1i", coord_sys="g", registration="p"
+        grid=xrgrid, region="g", projection="A0/0/1i", coord_sys="g", in_reg="p"
     )
     return fig

@@ -18,13 +18,7 @@ from .exceptions import GMTInvalidInput
 @fmt_docstring
 @use_alias(n="interpolation")
 def grdtrack(
-    points,
-    grid,
-    newcolname=None,
-    outfile=None,
-    registration=None,
-    coord_sys=None,
-    **kwargs,
+    points, grid, newcolname=None, outfile=None, coord_sys=None, in_reg=None, **kwargs
 ):
     """
     Sample grids at specified (x,y) locations.
@@ -64,7 +58,7 @@ def grdtrack(
         file.
 
     {coord_sys}
-    {r}
+    {in_reg}
     {n}
 
     Returns
@@ -94,7 +88,7 @@ def grdtrack(
 
             # Store the xarray.DataArray grid in virtualfile
             if data_kind(grid) == "grid":
-                grid_context = lib.virtualfile_from_grid(grid, coord_sys, registration)
+                grid_context = lib.virtualfile_from_grid(grid, coord_sys, in_reg)
             elif data_kind(grid) == "file":
                 grid_context = dummy_context(grid)
             else:
