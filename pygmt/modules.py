@@ -196,7 +196,7 @@ def grdcut(grid, **kwargs):
         *unit* and we determine the corresponding rectangular region so that
         all grid nodes on or inside the circle are contained in the subset.
         If **+n** is appended we set all nodes outside the circle to NaN.
-    z_subregion :
+    z_subregion : str
         ``'[min/max][+n|N|r]'``.
         Determine a new rectangular region so that all nodes outside this
         region are also outside the given z-range [-inf/+inf]. To indicate no
