@@ -31,7 +31,7 @@ def test_grdview_grid_file_with_region_subset():
     """
     Run grdview by passing in a grid filename, and cropping it to a region.
     """
-    gridfile = which("@earth_relief_60m", download="c")
+    gridfile = which("@earth_relief_01d", download="c")
 
     fig = Figure()
     fig.grdview(grid=gridfile, region=[-116, -109, -47, -44])

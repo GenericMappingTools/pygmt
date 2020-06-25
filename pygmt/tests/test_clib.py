@@ -474,7 +474,7 @@ def test_virtual_file():
             data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
             lib.put_matrix(dataset, matrix=data)
             # Add the dataset to a virtual file and pass it along to gmt info
-            vfargs = (family, geometry, "GMT_IN", dataset)
+            vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
             with lib.open_virtual_file(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
@@ -491,7 +491,12 @@ def test_virtual_file_fails():
     Check that opening and closing virtual files raises an exception for
     non-zero return codes
     """
-    vfargs = ("GMT_IS_DATASET|GMT_VIA_MATRIX", "GMT_IS_POINT", "GMT_IN", None)
+    vfargs = (
+        "GMT_IS_DATASET|GMT_VIA_MATRIX",
+        "GMT_IS_POINT",
+        "GMT_IN|GMT_IS_REFERENCE",
+        None,
+    )
 
     # Mock Open_VirtualFile to test the status check when entering the context.
     # If the exception is raised, the code won't get to the closing of the
