@@ -14,7 +14,7 @@ from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
-def grdinfo(grid, registration=None, **kwargs):
+def grdinfo(grid, coord_sys=None, registration=None, **kwargs):
     """
     Get information about a grid.
 
@@ -27,6 +27,7 @@ def grdinfo(grid, registration=None, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
 
+    {coord_sys}
     {r}
 
     Returns
@@ -41,7 +42,7 @@ def grdinfo(grid, registration=None, **kwargs):
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid, registration)
+                file_context = lib.virtualfile_from_grid(grid, coord_sys, registration)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as infile:

@@ -1174,7 +1174,7 @@ class Session:
             yield vfile
 
     @contextmanager
-    def virtualfile_from_grid(self, grid, registration=None):
+    def virtualfile_from_grid(self, grid, coord_sys=None, registration=None):
         """
         Store a grid in a virtual file.
 
@@ -1201,6 +1201,9 @@ class Session:
         ----------
         grid : :class:`xarray.DataArray`
             The grid that will be included in the virtual file.
+        coord_sys : str or None
+            Use a Cartesian (c) or Geographic (g) coordinate system. Default is
+            auto (None), with a fallback to Cartesian (c).
         registration : str or None
             ``[g|p]``
             Use gridline (g) or pixel (p) node registration to make the virtual
@@ -1237,29 +1240,48 @@ class Session:
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
 
         """
-        if registration is None:
+        try:
+            coord_sys_dict = {
+                None: "GMT_GRID_IS_CARTESIAN",  # Default to Cartesian
+                "c": "GMT_GRID_IS_CARTESIAN",
+                "g": "GMT_GRID_IS_GEO",
+            }
+            _coord_sys = coord_sys_dict[coord_sys]
+        except KeyError:
+            raise GMTInvalidInput(
+                "The coord_sys argument should be either 'c', 'g', or None (auto)"
+            )
+
+        try:
+            registration_dict = {
+                None: "GMT_GRID_NODE_REG",  # Default to gridline registration
+                "g": "GMT_GRID_NODE_REG",
+                "p": "GMT_GRID_PIXEL_REG",
+            }
+            _registration = registration_dict[registration]
+        except KeyError:
+            raise GMTInvalidInput(
+                "Invalid registration type, must be either 'g', 'p', or None (auto)"
+            )
+
+        if coord_sys is None or registration is None:
             # Automatically detect whether the NetCDF source of an
-            # xarray.DataArray grid uses gridline or pixel registration.
-            # Defaults to gridline if grdinfo cannot find any source file.
-            registration = "GMT_GRID_NODE_REG"  # default to gridline registration
+            # xarray.DataArray grid uses a Cartesian or Geographic coordinate
+            # system, and whether it is gridline or pixel registered.
             try:
                 gridfile = grid.encoding["source"]
                 with GMTTempFile() as gridinfotext:
                     arg_str = " ".join([gridfile, "->" + gridinfotext.name])
                     self.call_module("grdinfo", arg_str)
-                    if "Pixel node registration used" in gridinfotext.read():
-                        registration = "GMT_GRID_PIXEL_REG"
+                    if coord_sys is None and "[Geographic grid]" in gridinfotext.read():
+                        _coord_sys = "GMT_GRID_IS_GEO"
+                    if (
+                        registration is None
+                        and "Pixel node registration used" in gridinfotext.read()
+                    ):
+                        _registration = "GMT_GRID_PIXEL_REG"
             except KeyError:
                 pass
-        else:
-            if registration == "g":
-                registration = "GMT_GRID_NODE_REG"
-            elif registration == "p":
-                registration = "GMT_GRID_PIXEL_REG"
-            else:
-                raise GMTInvalidInput(
-                    "Invalid registration type, must be either 'g', 'p', or None (auto)"
-                )
 
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_matrix because we need to maintain a reference to the copy while
@@ -1267,7 +1289,7 @@ class Session:
         # collected and the memory freed. Creating it in this context manager
         # guarantees that the copy will be around until the virtual file is
         # closed. The conversion is implicit in dataarray_to_matrix.
-        matrix, region, inc = dataarray_to_matrix(grid, registration)
+        matrix, region, inc = dataarray_to_matrix(grid, _registration)
 
         if Version(self.info["version"]) < Version("6.1.0"):
             # Avoid crashing PyGMT because GMT < 6.1.0's C API cannot handle
@@ -1280,10 +1302,10 @@ class Session:
         gmt_grid = self.create_data(
             family,
             geometry,
-            mode="GMT_CONTAINER_ONLY|GMT_GRID_IS_CARTESIAN",
+            mode=f"GMT_CONTAINER_ONLY|{_coord_sys}",
             ranges=region,
             inc=inc,
-            registration=registration,
+            registration=_registration,
         )
         self.put_matrix(gmt_grid, matrix)
         args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)

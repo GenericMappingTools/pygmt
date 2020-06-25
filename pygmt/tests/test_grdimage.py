@@ -2,11 +2,33 @@
 Test Figure.grdimage
 """
 import numpy as np
+import xarray as xr
 import pytest
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput
 from ..datasets import load_earth_relief
+
+
+@pytest.fixture(scope="module")
+def xrgrid():
+    """
+    Create a sample xarray.DataArray grid for testing
+    """
+    longitude = np.arange(0, 360, 1)
+    latitude = np.arange(-89, 91, 1)
+    x = np.sin(np.deg2rad(longitude))
+    y = np.linspace(start=0, stop=1, num=180)
+    data = y[:, np.newaxis] * x
+
+    return xr.DataArray(
+        data,
+        coords=[
+            ("latitude", latitude, {"units": "degrees_north"}),
+            ("longitude", longitude, {"units": "degrees_east"}),
+        ],
+        attrs={"actual_range": [-1, 1]},
+    )
 
 
 @pytest.mark.mpl_image_compare
@@ -46,3 +68,17 @@ def test_grdimage_fails():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.grdimage(np.arange(20).reshape((4, 5)))
+
+
+@pytest.mark.mpl_image_compare
+def test_gridimage_over_dateline(xrgrid):
+    """
+    Ensure no gaps are plotted over the 180 degree international dateline.
+    Specifically checking that coord_sys="g" sets `GMT_GRID_IS_GEO`, and that
+    registration="p" sets `GMT_GRID_PIXEL_REG`.
+    """
+    fig = Figure()
+    fig.grdimage(
+        grid=xrgrid, region="g", projection="A0/0/1i", coord_sys="g", registration="p"
+    )
+    return fig
