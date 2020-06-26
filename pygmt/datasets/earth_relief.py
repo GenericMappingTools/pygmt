@@ -37,19 +37,12 @@ def load_earth_relief(resolution="01d"):
     """
     _is_valid_resolution(resolution)
     fname = which("@earth_relief_{}".format(resolution), download="u")
-    grid = xr.open_dataarray(fname)
+    grid = xr.open_dataset(fname).to_array(name="elevation").squeeze(drop=True)
     # Add some metadata to the grid
-    grid.name = "elevation"
     grid.attrs["long_name"] = "elevation relative to the geoid"
     grid.attrs["units"] = "meters"
     grid.attrs["vertical_datum"] = "EMG96"
     grid.attrs["horizontal_datum"] = "WGS84"
-    # Remove the actual range because it gets outdated when indexing the grid,
-    # which causes problems when exporting it to netCDF for usage on the
-    # command-line.
-    grid.attrs.pop("actual_range")
-    for coord in grid.coords:
-        grid[coord].attrs.pop("actual_range")
     return grid
 
 
