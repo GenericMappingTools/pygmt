@@ -1,7 +1,6 @@
 """
 Non-plot GMT modules.
 """
-
 from .clib import Session
 from .helpers import (
     build_arg_string,
