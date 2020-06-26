@@ -5,6 +5,7 @@ import sys
 import shutil
 import subprocess
 import webbrowser
+from collections.abc import Iterable
 from contextlib import contextmanager
 
 import xarray as xr
@@ -169,12 +170,7 @@ def is_nonstr_iter(value):
     True
 
     """
-    try:
-        _ = [item for item in value]  # pylint: disable=unnecessary-comprehension
-        is_iterable = True
-    except TypeError:
-        is_iterable = False
-    return bool(not isinstance(value, str) and is_iterable)
+    return isinstance(value, Iterable) and not isinstance(value, str)
 
 
 def launch_external_viewer(fname):
