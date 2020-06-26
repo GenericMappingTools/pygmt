@@ -71,6 +71,7 @@ def test_earth_relief_fails():
 def test_earth_relief_01d():
     "Test some properties of the earth relief 01d data"
     data = load_earth_relief(resolution="01d")
+    assert data.attrs["node_offset"] == 1  # pixel registration
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
@@ -81,6 +82,7 @@ def test_earth_relief_01d():
 def test_earth_relief_30m():
     "Test some properties of the earth relief 30m data"
     data = load_earth_relief(resolution="30m")
+    assert data.attrs["node_offset"] == 1  # pixel registration
     assert data.shape == (361, 721)
     npt.assert_allclose(data.lat, np.arange(-90, 90.5, 0.5))
     npt.assert_allclose(data.lon, np.arange(-180, 180.5, 0.5))
