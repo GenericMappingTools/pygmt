@@ -539,6 +539,7 @@ min-public-methods=2
 # List of modules that can be imported at any level, not just the top level
 # one.
 allow-any-import-level=clib,
+                       clib.Session,
                        sys,
                        platform,
                        importlib,
