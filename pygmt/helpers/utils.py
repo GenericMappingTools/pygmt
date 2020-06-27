@@ -5,6 +5,7 @@ import sys
 import shutil
 import subprocess
 import webbrowser
+from collections.abc import Iterable
 from contextlib import contextmanager
 
 import xarray as xr
@@ -169,12 +170,7 @@ def is_nonstr_iter(value):
     True
 
     """
-    try:
-        [item for item in value]  # pylint: disable=pointless-statement
-        is_iterable = True
-    except TypeError:
-        is_iterable = False
-    return bool(not isinstance(value, str) and is_iterable)
+    return isinstance(value, Iterable) and not isinstance(value, str)
 
 
 def launch_external_viewer(fname):
@@ -197,8 +193,8 @@ def launch_external_viewer(fname):
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
     if sys.platform.startswith("linux") and shutil.which("xdg-open"):
-        subprocess.run(["xdg-open", fname], **run_args)
+        subprocess.run(["xdg-open", fname], check=False, **run_args)
     elif sys.platform == "darwin":  # Darwin is macOS
-        subprocess.run(["open", fname], **run_args)
+        subprocess.run(["open", fname], check=False, **run_args)
     else:
         webbrowser.open_new_tab("file://{}".format(fname))
