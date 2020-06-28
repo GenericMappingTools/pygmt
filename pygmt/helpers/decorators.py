@@ -49,15 +49,8 @@ COMMON_OPTIONS = {
             - 'c' for bicubic [Default]
             - 'l' for bilinear
             - 'n' for nearest-neighbor""",
-    "in_reg": """\
-        in_reg : str or None
-            ``[g|p]``
-            Define input grid as gridline (g) or pixel (p) node registered.
-            Only applied when grid is an xarray.DataArray. Default (None) is to
-            automatically detect whether pixel/gridline registration is used,
-            with a fallback to gridline (g).""",
-    "out_reg": """\
-        out_reg : str
+    "registration": """\
+        registration : str
             ``[g|p]``
             Force output grid to be gridline (g) or pixel (p) node registered.
             Default is gridline (g).""",

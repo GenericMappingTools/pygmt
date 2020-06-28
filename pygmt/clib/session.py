@@ -1181,7 +1181,7 @@ class Session:
             yield vfile
 
     @contextmanager
-    def virtualfile_from_grid(self, grid, coord_sys=None, in_reg=None):
+    def virtualfile_from_grid(self, grid, coord_sys=None):
         """
         Store a grid in a virtual file.
 
@@ -1211,10 +1211,6 @@ class Session:
         coord_sys : str or None
             Use a Cartesian (c) or Geographic (g) coordinate system. Default is
             auto (None), with a fallback to Cartesian (c).
-        in_reg : str or None
-            ``[g|p]``
-            Use gridline (g) or pixel (p) node registration to make the virtual
-            grid. Default is auto (None), with a fallback to gridline (g).
 
         Yields
         ------
@@ -1260,18 +1256,12 @@ class Session:
             )
 
         try:
-            registration_dict = {
-                None: "GMT_GRID_NODE_REG",  # Default to gridline registration
-                "g": "GMT_GRID_NODE_REG",
-                "p": "GMT_GRID_PIXEL_REG",
-            }
-            _registration = registration_dict[in_reg]
-        except KeyError:
-            raise GMTInvalidInput(
-                "Invalid input registration type, must be either 'g', 'p', or None (auto)"
-            )
+            assert grid.attrs["node_offset"] == 1
+            _registration = "GMT_GRID_PIXEL_REG"
+        except (AssertionError, KeyError):
+            _registration = "GMT_GRID_NODE_REG"
 
-        if coord_sys is None or in_reg is None:
+        if coord_sys is None:
             # Automatically detect whether the NetCDF source of an
             # xarray.DataArray grid uses:
             # - gridline or pixel registration
@@ -1283,11 +1273,8 @@ class Session:
                     self.call_module("grdinfo", arg_str)
                     if coord_sys is None and "[Geographic grid]" in gridinfotext.read():
                         _coord_sys = "GMT_GRID_IS_GEO"
-                    if (
-                        in_reg is None
-                        and "Pixel node registration used" in gridinfotext.read()
-                    ):
-                        _registration = "GMT_GRID_PIXEL_REG"
+                    # if "Pixel node registration used" in gridinfotext.read():
+                    #     _registration = "GMT_GRID_PIXEL_REG"
             except KeyError:
                 pass
 

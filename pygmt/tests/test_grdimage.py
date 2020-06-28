@@ -72,14 +72,13 @@ def test_grdimage_fails():
 
 
 @pytest.mark.mpl_image_compare
-def test_gridimage_over_dateline(xrgrid):
+def test_grdimage_over_dateline(xrgrid):
     """
     Ensure no gaps are plotted over the 180 degree international dateline.
     Specifically checking that coord_sys="g" sets `GMT_GRID_IS_GEO`, and that
-    registration="p" sets `GMT_GRID_PIXEL_REG`. Works for GMT > 6.1.0.
+    node_offset=1 sets `GMT_GRID_PIXEL_REG`. Works for GMT > 6.1.0.
     """
     fig = Figure()
-    fig.grdimage(
-        grid=xrgrid, region="g", projection="A0/0/1i", coord_sys="g", in_reg="p"
-    )
+    xrgrid.attrs["node_offset"] = 1
+    fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1i", coord_sys="c")
     return fig
