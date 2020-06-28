@@ -122,8 +122,8 @@ def show_versions():
     print(f"  version: {__version__}")
 
     print("System information:")
-    for k, v in sys_info.items():
-        print(f"  {k}: {v}")
+    for key, val in sys_info.items():
+        print(f"  {key}: {val}")
 
     print("Dependency information:")
     for modname in deps:
