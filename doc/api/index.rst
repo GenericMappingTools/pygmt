@@ -70,6 +70,7 @@ Operations on grids:
 .. autosummary::
     :toctree: generated
 
+    grdcut
     grdinfo
     grdtrack
 

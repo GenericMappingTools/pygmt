@@ -21,7 +21,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
 
   variables:
-    CONDA_INSTALL_EXTRA: "black flake8 pylint=2.2.2"
+    CONDA_INSTALL_EXTRA: "black flake8 pylint"
     PYTHON: '3.7'
 
   steps:
