@@ -937,7 +937,7 @@ class BasePlotting:
         # Ensure inputs are either textfiles, x/y/text, or position/text
         if position is None:
             kind = data_kind(textfiles, x, y, text)
-        elif position is not None:
+        else:
             if x is not None or y is not None:
                 raise GMTInvalidInput(
                     "Provide either position only, or x/y pairs, not both"
@@ -948,28 +948,28 @@ class BasePlotting:
             raise GMTInvalidInput("Must provide text with x/y pairs or position")
 
         # Build the `-F` argument in gmt text.
-        if (
-            position is not None
-            or angle is not None
-            or font is not None
-            or justify is not None
+        if "F" not in kwargs.keys() and (
+            (
+                position is not None
+                or angle is not None
+                or font is not None
+                or justify is not None
+            )
         ):
-            if "F" not in kwargs.keys():
-                kwargs.update({"F": ""})
-            if angle is not None and isinstance(angle, (int, float, str)):
-                kwargs["F"] += f"+a{str(angle)}"
-            if font is not None and isinstance(font, str):
-                kwargs["F"] += f"+f{font}"
-            if justify is not None and isinstance(justify, str):
-                kwargs["F"] += f"+j{justify}"
-            if position is not None and isinstance(position, str):
-                kwargs["F"] += f'+c{position}+t"{text}"'
+            kwargs.update({"F": ""})
+        if angle is not None and isinstance(angle, (int, float, str)):
+            kwargs["F"] += f"+a{str(angle)}"
+        if font is not None and isinstance(font, str):
+            kwargs["F"] += f"+f{font}"
+        if justify is not None and isinstance(justify, str):
+            kwargs["F"] += f"+j{justify}"
+        if position is not None and isinstance(position, str):
+            kwargs["F"] += f'+c{position}+t"{text}"'
 
         with GMTTempFile(suffix=".txt") as tmpfile:
             with Session() as lib:
-                if kind == "file":
-                    fname = textfiles
-                elif kind == "vectors":
+                fname = textfiles if kind == "file" else ""
+                if kind == "vectors":
                     if position is not None:
                         fname = ""
                     else:

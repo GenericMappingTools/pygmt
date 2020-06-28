@@ -2,7 +2,6 @@
 Functions to convert data types into ctypes friendly formats.
 """
 import numpy as np
-import pandas
 
 from ..exceptions import GMTInvalidInput
 
