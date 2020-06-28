@@ -88,6 +88,8 @@ def dataarray_to_matrix(grid, registration="GMT_GRID_NODE_REG"):
         raise GMTInvalidInput(
             "Invalid number of grid dimensions '{}'. Must be 2.".format(len(grid.dims))
         )
+    # node_offset is 1 for pixel registered grids, 0 for gridline registered
+    node_offset = registration == "GMT_GRID_PIXEL_REG"
     # Extract region and inc from the grid
     region = []
     inc = []
@@ -104,10 +106,12 @@ def dataarray_to_matrix(grid, registration="GMT_GRID_NODE_REG"):
                     dim
                 )
             )
-        if registration == "GMT_GRID_PIXEL_REG":
-            region.extend([coord.min() - coord_inc / 2, coord.max() + coord_inc / 2])
-        elif registration == "GMT_GRID_NODE_REG":
-            region.extend([coord.min(), coord.max()])
+        region.extend(
+            [
+                coord.min() - coord_inc / 2 * node_offset,
+                coord.max() + coord_inc / 2 * node_offset,
+            ]
+        )
         inc.append(coord_inc)
 
     if any([i < 0 for i in inc]):  # Sort grid when there are negative increments
