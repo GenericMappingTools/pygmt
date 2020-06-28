@@ -16,7 +16,7 @@ from ..exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from ..helpers import build_arg_string, GMTTempFile
+from ..helpers import GMTTempFile
 from .loading import load_libgmt
 from .conversion import (
     kwargs_to_ctypes_array,
