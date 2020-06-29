@@ -109,7 +109,8 @@ jobs:
         os: [ubuntu-latest]
     env:
       # LD_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib:$LD_LIBRARY_PATH
-      GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib
+      GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
+      GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
 
     steps:
       # Checkout current git repository
@@ -145,7 +146,7 @@ jobs:
           path: |
             ~/.gmt/cache
             ~/.gmt/server
-          key: cache2-gmt-${{ runner.os }}-20200629
+          key: cache2-gmt-${{ github.ref }}-${{ runner.os }}-20200629
           restore-keys: cache2-gmt-refs/heads/master-
 
       # Workaround for the timeouts of 'gmt which' on Linux and Windows
