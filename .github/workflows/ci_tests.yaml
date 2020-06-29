@@ -106,7 +106,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.7]
-        os: [ubuntu-20.04, macOS-10.15, windows-2019]
+        os: [ubuntu-20.04, macOS-10.15]
     env:
       # LD_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib:$LD_LIBRARY_PATH
       GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
@@ -166,7 +166,7 @@ jobs:
 
       # Download remote files, if not already cached
       - name: Download remote data (macOS)
-        run: gmt which -Gu @earth_relief_60m @earth_relief_30m @earth_relief_10m @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
+        run: $GMT_INSTALL_DIR/bin/gmt which -Gu @earth_relief_60m @earth_relief_30m @earth_relief_10m @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
         if: steps.cache2.outputs.cache-hit != 'true' && runner.os == 'macOS'
 
       # Install the package that we want to test
