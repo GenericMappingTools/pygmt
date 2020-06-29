@@ -28,7 +28,7 @@ def test_grdtrack_input_dataframe_and_dataarray():
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2797.497251])
+    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2797.394987])
 
     return output
 
@@ -46,7 +46,7 @@ def test_grdtrack_input_csvfile_and_dataarray():
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2797.497251])
+        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2797.394987])
     finally:
         os.remove(path=TEMP_TRACK)
 
@@ -58,12 +58,12 @@ def test_grdtrack_input_dataframe_and_ncfile():
     Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs
     """
     dataframe = load_ocean_ridge_points()
-    ncfile = which("@earth_relief_60m", download="c")
+    ncfile = which("@earth_relief_01d", download="c")
 
     output = grdtrack(points=dataframe, grid=ncfile, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1686.878079])
+    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1686.748899])
 
     return output
 
@@ -73,7 +73,7 @@ def test_grdtrack_input_csvfile_and_ncfile():
     Run grdtrack by passing in a csvfile and netcdf file as inputs
     """
     csvfile = which("@ridge.txt", download="c")
-    ncfile = which("@earth_relief_60m", download="c")
+    ncfile = which("@earth_relief_01d", download="c")
 
     try:
         output = grdtrack(points=csvfile, grid=ncfile, outfile=TEMP_TRACK)
@@ -81,7 +81,7 @@ def test_grdtrack_input_csvfile_and_ncfile():
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-32.2971, 37.4118, -1686.878079])
+        npt.assert_allclose(track.iloc[0], [-32.2971, 37.4118, -1686.748899])
     finally:
         os.remove(path=TEMP_TRACK)
 

@@ -32,7 +32,7 @@ def test_grdimage_file():
     "Plot an image using file input"
     fig = Figure()
     fig.grdimage(
-        "@earth_relief_60m",
+        "@earth_relief_01d",
         cmap="ocean",
         region=[-180, 180, -70, 70],
         projection="W0/10i",
