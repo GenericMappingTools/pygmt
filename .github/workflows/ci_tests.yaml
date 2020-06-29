@@ -36,7 +36,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
-          environment-file: environment.yml
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies
