@@ -25,11 +25,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.1.0
+        uses: actions/checkout@v2.3.1
+        with:
+          # fecth all history so that versioneer works
+          fetch-depth: 0
 
       # Workaround for versioneer, see https://github.com/warner/python-versioneer/issues/206
-      - name: Fetch all history for all tags and branches
-        run: git fetch --prune --unshallow
+      #- name: Fetch all history for all tags and branches
+      #  run: git fetch --prune --unshallow
 
       # Setup Miniconda
       - name: Setup Miniconda
