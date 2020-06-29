@@ -1181,7 +1181,7 @@ class Session:
             yield vfile
 
     @contextmanager
-    def virtualfile_from_grid(self, grid, coord_sys=None):
+    def virtualfile_from_grid(self, grid):
         """
         Store a grid in a virtual file.
 
@@ -1208,9 +1208,6 @@ class Session:
         ----------
         grid : :class:`xarray.DataArray`
             The grid that will be included in the virtual file.
-        coord_sys : str or None
-            Use a Cartesian (c) or Geographic (g) coordinate system. Default is
-            auto (None), with a fallback to Cartesian (c).
 
         Yields
         ------
@@ -1244,16 +1241,10 @@ class Session:
 
         """
         try:
-            coord_sys_dict = {
-                None: "GMT_GRID_IS_CARTESIAN",  # Default to Cartesian
-                "c": "GMT_GRID_IS_CARTESIAN",
-                "g": "GMT_GRID_IS_GEO",
-            }
-            _coord_sys = coord_sys_dict[coord_sys]
-        except KeyError:
-            raise GMTInvalidInput(
-                "The coord_sys argument should be either 'c', 'g', or None (auto)"
-            )
+            assert grid.attrs["geocoord_type"] == 1
+            _gtype = "GMT_GRID_IS_GEO"
+        except (AssertionError, KeyError):
+            _gtype = "GMT_GRID_IS_CARTESIAN"
 
         try:
             assert grid.attrs["node_offset"] == 1
@@ -1261,7 +1252,7 @@ class Session:
         except (AssertionError, KeyError):
             _registration = "GMT_GRID_NODE_REG"
 
-        if coord_sys is None:
+        if _gtype is None or _registration is None:  # TODO autodetect
             # Automatically detect whether the NetCDF source of an
             # xarray.DataArray grid uses:
             # - gridline or pixel registration
@@ -1271,8 +1262,8 @@ class Session:
                 with GMTTempFile() as gridinfotext:
                     arg_str = " ".join([gridfile, "->" + gridinfotext.name])
                     self.call_module("grdinfo", arg_str)
-                    if coord_sys is None and "[Geographic grid]" in gridinfotext.read():
-                        _coord_sys = "GMT_GRID_IS_GEO"
+                    # if "[Geographic grid]" in gridinfotext.read():
+                    #    _gtype = "GMT_GRID_IS_GEO"
                     # if "Pixel node registration used" in gridinfotext.read():
                     #     _registration = "GMT_GRID_PIXEL_REG"
             except KeyError:
@@ -1297,7 +1288,7 @@ class Session:
         gmt_grid = self.create_data(
             family,
             geometry,
-            mode=f"GMT_CONTAINER_ONLY|{_coord_sys}",
+            mode=f"GMT_CONTAINER_ONLY|{_gtype}",
             ranges=region,
             inc=inc,
             registration=_registration,

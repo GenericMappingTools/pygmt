@@ -54,11 +54,6 @@ COMMON_OPTIONS = {
             ``[g|p]``
             Force output grid to be gridline (g) or pixel (p) node registered.
             Default is gridline (g).""",
-    "coord_sys": """\
-        coord_sys : str
-            Coordinate System of grid. Can be either Cartesian (c) or
-            Geographic (g). Default is auto-detect (None), with a fallback
-            to Cartesian (c).""",
 }
 
 

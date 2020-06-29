@@ -228,7 +228,7 @@ class BasePlotting:
         W="pen",
     )
     @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
-    def grdcontour(self, grid, coord_sys=None, **kwargs):
+    def grdcontour(self, grid, **kwargs):
         """
         Convert grids or images to contours and plot them on maps
 
@@ -275,7 +275,6 @@ class BasePlotting:
         {G}
         {U}
         {W}
-        {coord_sys}
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -283,7 +282,7 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid, coord_sys)
+                file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as fname:
@@ -293,7 +292,7 @@ class BasePlotting:
     @fmt_docstring
     @use_alias(R="region", J="projection", W="pen", B="frame", I="shading", C="cmap")
     @kwargs_to_strings(R="sequence")
-    def grdimage(self, grid, coord_sys=None, **kwargs):
+    def grdimage(self, grid, **kwargs):
         """
         Project grids or images and plot them on maps.
 
@@ -307,7 +306,6 @@ class BasePlotting:
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
-        {coord_sys}
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -315,7 +313,7 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid, coord_sys)
+                file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
             with file_context as fname:
@@ -339,7 +337,7 @@ class BasePlotting:
         p="perspective",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
-    def grdview(self, grid, coord_sys=None, **kwargs):
+    def grdview(self, grid, **kwargs):
         """
         Create 3-D perspective image or surface mesh from a grid.
 
@@ -403,7 +401,6 @@ class BasePlotting:
         perspective : list or str
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
             Select perspective view.
-        {coord_sys}
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -411,7 +408,7 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid, coord_sys)
+                file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
 
@@ -421,9 +418,7 @@ class BasePlotting:
                     drapegrid = kwargs["G"]
                     if data_kind(drapegrid) in ("file", "grid"):
                         if data_kind(drapegrid) == "grid":
-                            drape_context = lib.virtualfile_from_grid(
-                                drapegrid, coord_sys
-                            )
+                            drape_context = lib.virtualfile_from_grid(drapegrid)
                             drapefile = stack.enter_context(drape_context)
                             kwargs["G"] = drapefile
                     else:
