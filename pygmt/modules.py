@@ -1,6 +1,8 @@
 """
 Non-plot GMT modules.
 """
+import xarray as xr
+
 from .clib import Session
 from .helpers import (
     build_arg_string,
@@ -214,3 +216,55 @@ class config:  # pylint: disable=invalid-name
         )
         with Session() as lib:
             lib.call_module("set", arg_str)
+
+
+@xr.register_dataarray_accessor("gmt")
+class GMTDataArrayAccessor:
+    """
+    This is the GMT extension for :class:`xarray.DataArray`.
+
+    You can access various GMT specific metadata as follow:
+
+    >>> from pygmt.datasets import load_earth_relief
+    >>> # Use the global Earth relief grid with 1 degree spacing
+    >>> grid = load_earth_relief(resolution="01d")
+
+    >>> # See if grid uses Gridline (0) or Pixel (1) registration
+    >>> grid.gmt.registration
+    0
+    >>> # See if grid uses Cartesian (0) or Geographic (1) coordinate system
+    >>> grid.gmt.gtype
+    1
+    """
+
+    def __init__(self, xarray_obj):
+        self._obj = xarray_obj
+        self._source = self._obj.encoding["source"]
+        self._info = grdinfo(self._source)
+
+    @property
+    def registration(self):
+        """
+        Registration type of the grid, either Gridline (0) or Pixel (1).
+        """
+        if "Gridline node registration used" in self._info:
+            _registration = 0
+        elif "Pixel node registration used" in self._info:
+            _registration = 1
+        else:
+            _registration = None
+        return _registration
+
+    @property
+    def gtype(self):
+        """
+        Coordinate system type of the grid, either Cartesian (0) or Geographic
+        (1).
+        """
+        if "[Cartesian grid]" in self._info:
+            _gtype = 0
+        elif "[Geographic grid]" in self._info:
+            _gtype = 1
+        else:
+            _gtype = None
+        return _gtype
