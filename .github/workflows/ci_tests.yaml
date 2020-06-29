@@ -42,9 +42,13 @@ jobs:
       - name: Install GMT and required dependencies
         shell: bash -l {0}
         run: |
-          conda install --yes --file requirements.txt
-          conda install --yes --file requirements-dev.txt
-          conda install gmt=6.0.0 make
+          requirements_file=full-conda-requirements.txt
+          cat requirements.txt requirements-dev.txt > $requirements_file
+          cat << EOF >> $requirements_file
+          gmt=6.0.0
+          make
+          EOF
+          conda install --yes --file $requirements_file
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
