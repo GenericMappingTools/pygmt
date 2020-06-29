@@ -127,14 +127,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
 
+      # Install build dependencies from conda-forge
+      - name: Install build dependencies
+        shell: bash -l {0}
+        run: conda install cmake libblas libcblas liblapack fftw gdal ghostscript libnetcdf hdf5 zlib curl pcre gshhg-gmt dcw-gmt
+
       # Install GMT master branch
       - name: Install GMT from master
         shell: bash -l {0}
-        run: |
-          echo "::add-path::$GITHUB_WORKSPACE/gmt/bin"
-          apt -qq update
-          DEBIAN_FRONTEND=noninteractive apt install -y cmake xdg-utils libcurl4-openssl-dev
-          curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt-master.sh | bash
+        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt-master.sh | bash
 
       # Cache the ${HOME}/.gmt directory, for docs and testing
       - name: Cache GMT directory
@@ -144,7 +145,7 @@ jobs:
           path: |
             ~/.gmt/cache
             ~/.gmt/server
-          key: cache2-gmt-${{ runner.os }}-20200609
+          key: cache2-gmt-${{ runner.os }}-20200629
           restore-keys: cache2-gmt-refs/heads/master-
 
       # Workaround for the timeouts of 'gmt which' on Linux and Windows
