@@ -41,7 +41,10 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies
         shell: bash -l {0}
-        run: conda install gmt=6.0.0 numpy pandas xarray netCDF4 packaging make pytest pytest-cov pytest-mpl sphinx jinja2 docutils ipython
+        run: |
+          conda install --yes --file requirements.txt
+          conda install --yes --file requirements-dev.txt
+          conda install gmt=6.0.0 make
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
