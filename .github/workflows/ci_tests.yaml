@@ -63,7 +63,7 @@ jobs:
           path: |
             ~/.gmt/cache
             ~/.gmt/server
-          key: cache-gmt-${{ runner.os }}-20200609
+          key: cache-gmt-${{ github.ref }}-${{ runner.os }}-20200609
           restore-keys: cache-gmt-refs/heads/master-
 
       # Workaround for the timeouts of 'gmt which' on Linux and Windows
