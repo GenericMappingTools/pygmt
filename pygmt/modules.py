@@ -1,6 +1,7 @@
 """
 Non-plot GMT modules.
 """
+# import logging
 import xarray as xr
 
 from .clib import Session
@@ -239,21 +240,40 @@ class GMTDataArrayAccessor:
 
     def __init__(self, xarray_obj):
         self._obj = xarray_obj
-        self._source = self._obj.encoding["source"]
-        self._info = grdinfo(self._source)
+        try:
+            self._source = self._obj.encoding["source"]
+            self._info = grdinfo(self._source)
+        except KeyError:
+            default_reg_and_gtype = "Gridline node registration used [Cartesian grid]"
+            # logging.warning(
+            #    msg="Cannot find a NetCDF source of xarray grid. "
+            #    f"Will fallback to using GMT's default setting: {default_reg_and_gtype}"
+            # )
+            self._info = default_reg_and_gtype
 
     @property
     def registration(self):
         """
         Registration type of the grid, either Gridline (0) or Pixel (1).
         """
-        if "Gridline node registration used" in self._info:
-            _registration = 0
-        elif "Pixel node registration used" in self._info:
-            _registration = 1
+        try:
+            return self._registration
+        except AttributeError:
+            if "Gridline node registration used" in self._info:
+                self._registration = 0
+            elif "Pixel node registration used" in self._info:
+                self._registration = 1
+        return self._registration
+
+    @registration.setter
+    def registration(self, value):
+        if value in (0, 1):
+            self._registration = value
         else:
-            _registration = None
-        return _registration
+            raise GMTInvalidInput(
+                f"Invalid grid registration value: {value}, should be a boolean of "
+                "either 0 for Gridline registration or 1 for Pixel registration"
+            )
 
     @property
     def gtype(self):
@@ -261,10 +281,21 @@ class GMTDataArrayAccessor:
         Coordinate system type of the grid, either Cartesian (0) or Geographic
         (1).
         """
-        if "[Cartesian grid]" in self._info:
-            _gtype = 0
-        elif "[Geographic grid]" in self._info:
-            _gtype = 1
+        try:
+            return self._gtype
+        except AttributeError:
+            if "[Cartesian grid]" in self._info:
+                self._gtype = 0
+            elif "[Geographic grid]" in self._info:
+                self._gtype = 1
+        return self._gtype
+
+    @gtype.setter
+    def gtype(self, value):
+        if value in (0, 1):
+            self._gtype = value
         else:
-            _gtype = None
-        return _gtype
+            raise GMTInvalidInput(
+                f"Invalid coordinate system type: {value}, should be a boolean of "
+                "either 0 for Cartesian or 1 for Geographic"
+            )
