@@ -2,7 +2,7 @@
 Plotting a surface
 ------------------
 
-The :func:`pygmt.grdview()` function can plot 3-D surfaces with ``surftype="s"``. Here,
+The :func:`pygmt.Figure.grdview()` method can plot 3-D surfaces with ``surftype="s"``. Here,
 we supply the data as an :class:`xarray.DataArray` with the coordinate vectors ``x`` and
 ``y`` defined. Note that the ``perspective`` argument here controls the azimuth and
 elevation angle of the view. We provide a list of two arguments to ``frame`` — the
