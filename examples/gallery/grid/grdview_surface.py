@@ -15,6 +15,7 @@ import pygmt
 import numpy as np
 import xarray
 
+
 # Define an interesting function of two variables, see:
 # https://en.wikipedia.org/wiki/Ackley_function
 def ackley(x, y):
