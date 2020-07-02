@@ -31,7 +31,7 @@ def ackley(x, y):
 INC = 0.05
 x = np.arange(-5, 5 + INC, INC)
 y = np.arange(-5, 5 + INC, INC)
-data = xarray.DataArray(ackley(*np.meshgrid(x, y)), coords=(x, y))
+data = xr.DataArray(ackley(*np.meshgrid(x, y)), coords=(x, y))
 
 fig = pygmt.Figure()
 
