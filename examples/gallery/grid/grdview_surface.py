@@ -13,7 +13,7 @@ axis scaling.
 
 import pygmt
 import numpy as np
-import xarray
+import xarray as xr
 
 
 # Define an interesting function of two variables, see:
