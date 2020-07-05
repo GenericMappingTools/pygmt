@@ -45,7 +45,7 @@ Maintenance:
 * Update baseline images for updates of earth relief data (`#452 <https://github.com/GenericMappingTools/pygmt/pull/452>`__) @seisman
 * Simplify PyGMT Release process (`#446 <https://github.com/GenericMappingTools/pygmt/pull/446>`__) @weiji14
 
-This release contains contributions from:
+Contributors:
 
 * Dongdong Tian `(@seisman) <https://github.com/seisman>`__
 * Wei Ji Leong `(@weiji14) <https://github.com/weiji14>`__
