@@ -4,6 +4,10 @@ Changelog
 Release v0.1.2 (2020/07/XX)
 ---------------------------
 
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3930577.svg
+   :alt: Digital Object Identifier for the Zenodo archive
+   :target: https://doi.org/10.5281/zenodo.3930577
+
 Highlights:
 
 * Patch release in preparation for the Scipy 2020 sprint session
