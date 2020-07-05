@@ -33,6 +33,7 @@ Bug Fixes:
 
 Maintenance:
 
+* Temporarily expect failures for some grdcontour and grdview tests (#503) @weiji14
 * Fix several failures due to updates of earth relief data (#498) @seisman
 * Unpin pylint version and fix some lint warnings (#484) @weiji14
 * Separate tests of gmtinfo and grdinfo (#461) @seisman
