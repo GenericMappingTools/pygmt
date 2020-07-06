@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Release v0.1.2 (2020/07/XX)
+Release v0.1.2 (2020/07/07)
 ---------------------------
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3930577.svg
@@ -10,7 +10,7 @@ Release v0.1.2 (2020/07/XX)
 
 Highlights:
 
-* Patch release in preparation for the Scipy 2020 sprint session
+* Patch release in preparation for the SciPy 2020 sprint session
 * Last version to support GMT 6.0, future PyGMT versions will require GMT 6.1 or newer
 
 New Features:
