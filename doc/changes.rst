@@ -89,6 +89,7 @@ This release contains contributions from:
 
 * `Dongdong Tian <https://github.com/seisman>`__
 * `Wei Ji Leong <https://github.com/weiji14>`__
+* `Jason K. Moore <https://github.com/moorepants>`__
 
 ----
 
