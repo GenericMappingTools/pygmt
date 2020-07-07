@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -260,6 +262,7 @@
 
 
 <div class="viewcode-block" id="info"><a class="viewcode-back" href="../../api/generated/pygmt.info.html#pygmt.info">[docs]</a><span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;per_column&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;nearest_multiple&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get information about data tables.</span>
@@ -270,23 +273,25 @@
 <span class="sd">    n columns rounded up and down to the nearest multiple of the supplied</span>
 <span class="sd">    increments. By default, this output will be in the form *-Rw/e/s/n*,</span>
 <span class="sd">    or the output will be in column form for as many columns as there are</span>
-<span class="sd">    increments provided. The *T* option will provide a *-Tzmin/zmax/dz* string</span>
-<span class="sd">    for makecpt.</span>
+<span class="sd">    increments provided. The *nearest_multiple* option will provide a</span>
+<span class="sd">    *-Tzmin/zmax/dz* string for makecpt.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`gmtinfo.html`</span>
+
+<span class="sd">    {aliases}</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    fname : str</span>
 <span class="sd">        The file name of the input data table file.</span>
-<span class="sd">    C : bool</span>
+<span class="sd">    per_column : bool</span>
 <span class="sd">        Report the min/max values per column in separate columns.</span>
-<span class="sd">    I : str</span>
+<span class="sd">    spacing : str</span>
 <span class="sd">        ``&#39;[b|p|f|s]dx[/dy[/dz...]]&#39;``.</span>
 <span class="sd">        Report the min/max of the first n columns to the nearest multiple of</span>
 <span class="sd">        the provided increments and output results in the form *-Rw/e/s/n*</span>
-<span class="sd">        (unless *C* is set).</span>
-<span class="sd">    T : str</span>
+<span class="sd">        (unless *per_column* is set).</span>
+<span class="sd">    nearest_multiple : str</span>
 <span class="sd">        ``&#39;dz[+ccol]&#39;``</span>
 <span class="sd">        Report the min/max of the first (0&#39;th) column to the nearest multiple</span>
 <span class="sd">        of dz and output this as the string *-Tzmin/zmax/dz*.</span>
@@ -325,7 +330,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    fname : str</span>
 <span class="sd">        The file name that you want to check.</span>
-<span class="sd">    G : bool or str</span>
+<span class="sd">    download : bool or str</span>
 <span class="sd">        If the file is downloadable and not found, we will try to download the</span>
 <span class="sd">        it. Use True or &#39;l&#39; (default) to download to the current directory. Use</span>
 <span class="sd">        &#39;c&#39; to place in the user cache directory or &#39;u&#39; user data directory</span>
@@ -435,7 +440,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

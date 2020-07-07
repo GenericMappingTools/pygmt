@@ -5,14 +5,14 @@
 
 Computation times
 =================
-**00:13.577** total execution time for **tutorials** files:
+**00:13.664** total execution time for **tutorials** files:
 
 +-----------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_coastlines.py` (``coastlines.py``)     | 00:04.982 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_coastlines.py` (``coastlines.py``)     | 00:04.972 | 0.0 MB |
 +-----------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_plot.py` (``plot.py``)                 | 00:03.595 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_plot.py` (``plot.py``)                 | 00:03.680 | 0.0 MB |
 +-----------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_frames.py` (``frames.py``)             | 00:03.149 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_frames.py` (``frames.py``)             | 00:03.154 | 0.0 MB |
 +-----------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_first-figure.py` (``first-figure.py``) | 00:01.850 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_first-figure.py` (``first-figure.py``) | 00:01.857 | 0.0 MB |
 +-----------------------------------------------------------------+-----------+--------+

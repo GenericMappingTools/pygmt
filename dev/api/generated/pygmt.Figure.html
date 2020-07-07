@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -353,8 +355,8 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.show</span></code></a>([dpi, width, method])</p></td>
 <td><p>Display a preview of the figure.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.text</span></code></a>([textfiles, x, y, text, angle, …])</p></td>
-<td><p>Plot or typeset text on maps</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.text</span></code></a>([textfiles, x, y, position, …])</p></td>
+<td><p>Plot or typeset text strings of variable size, font type, and orientation.</p></td>
 </tr>
 </tbody>
 </table>
@@ -384,65 +386,69 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 <img alt="Points" src="../../_images/sphx_glr_points_thumb.png" />
 <p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/points.html#sphx-glr-gallery-plot-points-py"><span class="std std-ref">Points</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id7">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ..."><div class="figure align-default" id="id7">
+<img alt="Plotting a surface" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/grid/grdview_surface.html#sphx-glr-gallery-grid-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id8">
 <img alt="Sampling along tracks" src="../../_images/sphx_glr_track_sampling_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast. "><div class="figure align-default" id="id8">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast. "><div class="figure align-default" id="id9">
 <img alt="Coastlines and borders" src="../../_images/sphx_glr_coastlines_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Welcome to PyGMT! Here we&#x27;ll cover some of basic concepts, like creating simple figures and nam..."><div class="figure align-default" id="id9">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Welcome to PyGMT! Here we&#x27;ll cover some of basic concepts, like creating simple figures and nam..."><div class="figure align-default" id="id10">
 <img alt="Making your first figure" src="../../_images/sphx_glr_first-figure_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/first-figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/first-figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Setting the style of the map frames, ticks, etc, is handled by the frame argument that all plot..."><div class="figure align-default" id="id10">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Setting the style of the map frames, ticks, etc, is handled by the frame argument that all plot..."><div class="figure align-default" id="id11">
 <img alt="Frames, ticks, titles, and labels" src="../../_images/sphx_glr_frames_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id11">
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id12">
 <img alt="Plotting data points" src="../../_images/sphx_glr_plot_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><div class="figure align-default" id="id12">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><div class="figure align-default" id="id13">
 <img alt="Azimuthal Equidistant" src="../../_images/sphx_glr_azim_equidistant_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space...."><div class="figure align-default" id="id13">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space...."><div class="figure align-default" id="id14">
 <img alt="General Perspective" src="../../_images/sphx_glr_azim_general_perspective_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">General Perspective</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">General Perspective</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection c..."><div class="figure align-default" id="id14">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection c..."><div class="figure align-default" id="id15">
 <img alt="General Stereographic" src="../../_images/sphx_glr_azim_general_stereographic_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General Stereographic</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General Stereographic</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the earth. As a conse..."><div class="figure align-default" id="id15">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the earth. As a conse..."><div class="figure align-default" id="id16">
 <img alt="Gnomonic" src="../../_images/sphx_glr_azim_gnomonic_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Alon0/lat0[/horizon]/width: lon0 and lat0 specifies the projection center. horizon specifies th..."><div class="figure align-default" id="id16">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Alon0/lat0[/horizon]/width: lon0 and lat0 specifies the projection center. horizon specifies th..."><div class="figure align-default" id="id17">
 <img alt="Lambert Azimuthal Equal Area" src="../../_images/sphx_glr_azim_lambert_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert Azimuthal Equal Area</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert Azimuthal Equal Area</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the..."><div class="figure align-default" id="id17">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the..."><div class="figure align-default" id="id18">
 <img alt="Orthographic" src="../../_images/sphx_glr_azim_orthographic_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Blon0/lat0/lat1/lat2/width: Give projection center lon0/lat0 and two standard parallels lat1/la..."><div class="figure align-default" id="id18">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Blon0/lat0/lat1/lat2/width: Give projection center lon0/lat0 and two standard parallels lat1/la..."><div class="figure align-default" id="id19">
 <img alt="Albers Conic Equal Area" src="../../_images/sphx_glr_conic_albers_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Clon0/lat0/width: lon0 and lat0 specifies the projection center. "><div class="figure align-default" id="id19">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Clon0/lat0/width: lon0 and lat0 specifies the projection center. "><div class="figure align-default" id="id20">
 <img alt="Cassini Cylindrical" src="../../_images/sphx_glr_cyl_cassini_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="M[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0 (optiona..."><div class="figure align-default" id="id20">
+</div><div class="sphx-glr-thumbcontainer" tooltip="M[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0 (optiona..."><div class="figure align-default" id="id21">
 <img alt="Mercator" src="../../_images/sphx_glr_cyl_mercator_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Cyl_stere/[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0..."><div class="figure align-default" id="id21">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Cyl_stere/[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0..."><div class="figure align-default" id="id22">
 <img alt="Cylindrical Stereographic" src="../../_images/sphx_glr_cyl_stereographic_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical Stereographic</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical Stereographic</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
 </div>
 </div><div style='clear:both'></div></div>
 </div>
@@ -471,7 +477,7 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

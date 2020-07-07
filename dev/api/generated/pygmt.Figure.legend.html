@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -290,16 +292,16 @@ size in effect (i.e., FONT_ANNOT_PRIMARY).</p>
 <li><p><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Either None (default) for using the automatically generated legend
 specification file, or a filename pointing to the legend
 specification file.</p></li>
-<li><p><strong>J</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
 Select map projection.</p></li>
-<li><p><strong>R</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
 <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
 Specify the region of interest.</p></li>
-<li><p><strong>(</strong><strong>D</strong><strong>)</strong> (<em>position</em>) – <code class="docutils literal notranslate"><span class="pre">'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing]</span>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing]</span>
 <span class="pre">[+odx[/dy]]'</span></code> Defines the reference point on the map for the
 legend. By default, uses ‘JTR+jTR+o0.2c’ which places the legend at
 the top-right corner inside the map frame, with a 0.2 cm offset.</p></li>
-<li><p><strong>(</strong><strong>F</strong><strong>)</strong> (<em>box</em>) – <code class="docutils literal notranslate"><span class="pre">'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]</span>
+<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]</span>
 <span class="pre">[+s[[dx/dy/][shade]]]'</span></code> Without further options, draws a
 rectangular border around the legend using <strong>MAP_FRAME_PEN</strong>. By
 default, uses ‘+gwhite+p1p’ which draws a box around the legend
@@ -335,7 +337,7 @@ using a 1 point black pen and adds a white background.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

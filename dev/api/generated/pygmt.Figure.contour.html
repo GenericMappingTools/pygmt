@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -291,29 +293,28 @@ polygons, or symbols at those locations on a map.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>y</strong><strong>, </strong><strong>z</strong> (<em>x</em><em>,</em>) – Arrays of x and y coordinates and values z of the data points.</p></li>
+<li><p><strong>x/y/z</strong> (<em>1d arrays</em>) – Arrays of x and y coordinates and values z of the data points.</p></li>
 <li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>2d array</em>) – Either a data file name or a 2d numpy array with the tabular data.</p></li>
-<li><p><strong>J</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
 Select map projection.</p></li>
-<li><p><strong>R</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
 <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
 Specify the region of interest.</p></li>
 <li><p><strong>A</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[m|p|x|y]'</span></code>
 By default, geographic line segments are drawn as great circle
 arcs. To draw them as straight lines, use <em>A</em>.</p></li>
-<li><p><strong>B</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Set map boundary frame and axes attributes.</p></li>
-<li><p><strong>C</strong> (<em>Contour file</em><em> or </em><em>level</em><em>(</em><em>s</em><em>)</em>) – </p></li>
-<li><p><strong>D</strong> (<em>Dump contour coordinates</em>) – </p></li>
-<li><p><strong>E</strong> (<em>Network information</em>) – </p></li>
-<li><p><strong>G</strong> (<em>Placement of labels</em>) – </p></li>
-<li><p><strong>I</strong> (<em>Color the triangles using CPT</em>) – </p></li>
-<li><p><strong>L</strong> (<em>Pen to draw the underlying triangulation</em><em> (</em><em>default none</em><em>)</em>) – </p></li>
-<li><p><strong>N</strong> (<em>Do not clip contours</em>) – </p></li>
-<li><p><strong>Q</strong> (<em>Minimum contour length</em>) – <code class="docutils literal notranslate"><span class="pre">'[p|t]'</span></code></p></li>
-<li><p><strong>S</strong> (<em>Skip input points outside region</em>) – <code class="docutils literal notranslate"><span class="pre">'[p|t]'</span></code></p></li>
-<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Set pen attributes for lines or the outline of symbols.</p></li>
-<li><p><strong>X</strong> (<em>Origin shift x</em>) – </p></li>
-<li><p><strong>Y</strong> (<em>Origin shift y</em>) – </p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Set map boundary frame and axes attributes.</p></li>
+<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Contour file or level(s)</p></li>
+<li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Dump contour coordinates</p></li>
+<li><p><strong>E</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Network information</p></li>
+<li><p><strong>label_placement</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Placement of labels</p></li>
+<li><p><strong>I</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Color the triangles using CPT</p></li>
+<li><p><strong>triangular_mesh_pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Pen to draw the underlying triangulation (default none)</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Do not clip contours</p></li>
+<li><p><strong>Q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Do not draw contours with less than cut number of points.
+<code class="docutils literal notranslate"><span class="pre">'[cut[unit]][+z]'</span></code></p></li>
+<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Skip input points outside region <code class="docutils literal notranslate"><span class="pre">'[p|t]'</span></code></p></li>
+<li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Set pen attributes for lines or the outline of symbols.</p></li>
 </ul>
 </dd>
 </dl>
@@ -345,7 +346,7 @@ arcs. To draw them as straight lines, use <em>A</em>.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

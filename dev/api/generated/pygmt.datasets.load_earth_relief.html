@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -46,7 +48,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.datasets.load_japan_quakes" href="pygmt.datasets.load_japan_quakes.html" />
-    <link rel="prev" title="pygmt.print_clib_info" href="pygmt.print_clib_info.html" />
+    <link rel="prev" title="pygmt.show_versions" href="pygmt.show_versions.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -256,7 +258,7 @@
 <h1>pygmt.datasets.load_earth_relief<a class="headerlink" href="#pygmt-datasets-load-earth-relief" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pygmt.datasets.load_earth_relief">
-<code class="sig-prename descclassname">pygmt.datasets.</code><code class="sig-name descname">load_earth_relief</code><span class="sig-paren">(</span><em class="sig-param">resolution='60m'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/earth_relief.html#load_earth_relief"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.datasets.load_earth_relief" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pygmt.datasets.</code><code class="sig-name descname">load_earth_relief</code><span class="sig-paren">(</span><em class="sig-param">resolution='01d'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/earth_relief.html#load_earth_relief"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.datasets.load_earth_relief" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load Earth relief grids (topography and bathymetry) in various resolutions.</p>
 <p>The grids are downloaded to a user data directory (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/</span></code>) the
 first time you invoke this function. Afterwards, it will load the data from
@@ -266,9 +268,10 @@ the cache. So you’ll need an internet connection the first time around.</p>
 plotting/processing function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> stand for arc-minute
-and arc-second. It can be <code class="docutils literal notranslate"><span class="pre">'60m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'30m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'10m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'05m'</span></code>,
-<code class="docutils literal notranslate"><span class="pre">'02m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'01m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'30s'</span></code> or <code class="docutils literal notranslate"><span class="pre">'15s'</span></code>.</p>
+<dd class="field-odd"><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">d</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> stand for
+arc-degree, arc-minute and arc-second. It can be <code class="docutils literal notranslate"><span class="pre">'01d'</span></code>, <code class="docutils literal notranslate"><span class="pre">'30m'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'20m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'15m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'10m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'06m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'05m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'04m'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'03m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'02m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'01m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'30s'</span></code> or <code class="docutils literal notranslate"><span class="pre">'15s'</span></code>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>grid</strong> (<em>xarray.DataArray</em>) – The Earth relief grid. Coordinates are latitude and longitude in
@@ -291,7 +294,7 @@ degrees. Relief is in meters.</p>
         <a href="pygmt.datasets.load_japan_quakes.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_japan_quakes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pygmt.print_clib_info.html" class="btn btn-neutral float-left" title="pygmt.print_clib_info" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pygmt.show_versions.html" class="btn btn-neutral float-left" title="pygmt.show_versions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -303,7 +306,7 @@ degrees. Relief is in meters.</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -319,7 +321,7 @@
 <span class="sd">    ...             )</span>
 <span class="sd">    ...             # Read the contents of the temp file before it&#39;s deleted.</span>
 <span class="sd">    ...             print(fout.read().strip())</span>
-<span class="sd">    -180 180 -90 90 -8592 5559 1 1 361 181</span>
+<span class="sd">    -180 180 -90 90 -8592.5 5559 1 1 361 181</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># The minimum version of GMT required</span>
@@ -1130,6 +1132,9 @@
 <span class="sd">        direction : str</span>
 <span class="sd">            Either ``&#39;GMT_IN&#39;`` or ``&#39;GMT_OUT&#39;`` to indicate if passing data to</span>
 <span class="sd">            GMT or getting it out of GMT, respectively.</span>
+<span class="sd">            By default, GMT can modify the data you pass in. Add modifier</span>
+<span class="sd">            ``&#39;GMT_IS_REFERENCE&#39;`` to tell GMT the data are read-only, or</span>
+<span class="sd">            ``&#39;GMT_IS_DUPLICATE&#39;&#39; to tell GMT to duplicate the data.</span>
 <span class="sd">        data : int</span>
 <span class="sd">            The ctypes void pointer to your GMT data structure.</span>
 
@@ -1158,7 +1163,7 @@
 <span class="sd">        ...     lib.put_vector(dataset, column=0, vector=x)</span>
 <span class="sd">        ...     lib.put_vector(dataset, column=1, vector=y)</span>
 <span class="sd">        ...     # Add the dataset to a virtual file</span>
-<span class="sd">        ...     vfargs = (family, geometry, &#39;GMT_IN&#39;, dataset)</span>
+<span class="sd">        ...     vfargs = (family, geometry, &#39;GMT_IN|GMT_IS_REFERENCE&#39;, dataset)</span>
 <span class="sd">        ...     with lib.open_virtual_file(*vfargs) as vfile:</span>
 <span class="sd">        ...         # Send the output to a temp file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as ofile:</span>
@@ -1294,7 +1299,9 @@
         <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arrays</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put_vector</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">array</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN&quot;</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span>
+            <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN|GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="n">dataset</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">vfile</span></div>
 
 <div class="viewcode-block" id="Session.virtualfile_from_matrix"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_matrix.html#pygmt.clib.Session.virtualfile_from_matrix">[docs]</a>    <span class="nd">@contextmanager</span>
@@ -1375,7 +1382,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">put_matrix</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">matrix</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN&quot;</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span>
+            <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN|GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="n">dataset</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">vfile</span></div>
 
 <div class="viewcode-block" id="Session.virtualfile_from_grid"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_grid.html#pygmt.clib.Session.virtualfile_from_grid">[docs]</a>    <span class="nd">@contextmanager</span>
@@ -1418,7 +1427,7 @@
 
 <span class="sd">        &gt;&gt;&gt; from pygmt.datasets import load_earth_relief</span>
 <span class="sd">        &gt;&gt;&gt; from pygmt.helpers import GMTTempFile</span>
-<span class="sd">        &gt;&gt;&gt; data = load_earth_relief(resolution=&#39;60m&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; data = load_earth_relief(resolution=&#39;01d&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; print(data.shape)</span>
 <span class="sd">        (181, 361)</span>
 <span class="sd">        &gt;&gt;&gt; print(data.lon.values.min(), data.lon.values.max())</span>
@@ -1426,7 +1435,7 @@
 <span class="sd">        &gt;&gt;&gt; print(data.lat.values.min(), data.lat.values.max())</span>
 <span class="sd">        -90.0 90.0</span>
 <span class="sd">        &gt;&gt;&gt; print(data.values.min(), data.values.max())</span>
-<span class="sd">        -8592.0 5559.0</span>
+<span class="sd">        -8592.5 5559.0</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as ses:</span>
 <span class="sd">        ...     with ses.virtualfile_from_grid(data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
@@ -1434,7 +1443,7 @@
 <span class="sd">        ...             args = &#39;{} -L0 -Cn -&gt;{}&#39;.format(fin, fout.name)</span>
 <span class="sd">        ...             ses.call_module(&#39;grdinfo&#39;, args)</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
-<span class="sd">        -180 180 -90 90 -8592 5559 1 1 361 181</span>
+<span class="sd">        -180 180 -90 90 -8592.5 5559 1 1 361 181</span>
 <span class="sd">        &gt;&gt;&gt; # The output is: w e s n z0 z1 dx dy n_columns n_rows</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1535,7 +1544,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

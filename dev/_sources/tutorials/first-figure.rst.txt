@@ -178,7 +178,7 @@ will be part of the future 6.0 release. A few are PyGMT exclusive (like the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.850 seconds)
+   **Total running time of the script:** ( 0 minutes  1.857 seconds)
 
 
 .. _sphx_glr_download_tutorials_first-figure.py:

@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -45,7 +47,7 @@
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.grdinfo" href="pygmt.grdinfo.html" />
+    <link rel="next" title="pygmt.grdcut" href="pygmt.grdcut.html" />
     <link rel="prev" title="pygmt.info" href="pygmt.info.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -125,6 +127,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.info.html">pygmt.info</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdinfo.html">pygmt.grdinfo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
 </ul>
@@ -277,13 +280,13 @@ operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>y</strong><strong>, </strong><strong>z</strong> (<em>x</em><em>,</em>) – Arrays of x and y coordinates and values z of the data points.</p></li>
+<li><p><strong>x/y/z</strong> (<em>1d arrays</em>) – Arrays of x and y coordinates and values z of the data points.</p></li>
 <li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>2d array</em>) – Either a data file name or a 2d numpy array with the tabular data.</p></li>
-<li><p><strong>(</strong><strong>I</strong><strong>)</strong> (<em>spacing</em>) – <code class="docutils literal notranslate"><span class="pre">'xinc[unit][+e|n][/yinc[unit][+e|n]]'</span></code>.
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'xinc[unit][+e|n][/yinc[unit][+e|n]]'</span></code>.
 x_inc [and optionally y_inc] is the grid spacing.</p></li>
-<li><p><strong>(</strong><strong>R</strong><strong>)</strong> (<em>region</em>) – <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
 Specify the region of interest.</p></li>
-<li><p><strong>(</strong><strong>G</strong><strong>)</strong> (<em>outfile</em>) – Optional. The file name for the output netcdf file with extension .nc
+<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Optional. The file name for the output netcdf file with extension .nc
 to store the grid in.</p></li>
 </ul>
 </dd>
@@ -309,7 +312,7 @@ to store the grid in.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pygmt.grdinfo.html" class="btn btn-neutral float-right" title="pygmt.grdinfo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pygmt.grdcut.html" class="btn btn-neutral float-right" title="pygmt.grdcut" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="pygmt.info.html" class="btn btn-neutral float-left" title="pygmt.info" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -324,7 +327,7 @@ to store the grid in.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

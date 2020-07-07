@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -227,38 +229,38 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    cmap (C) : str</span>
+<span class="sd">    cmap : str</span>
 <span class="sd">        Selects the master color palette table (CPT) to use in the</span>
 <span class="sd">        interpolation. Full list of built-in color palette tables can be found</span>
 <span class="sd">        at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.</span>
-<span class="sd">    series (T) : list or str</span>
+<span class="sd">    series : list or str</span>
 <span class="sd">        ``[min/max/inc[+b|l|n]|file|list]``. Defines the range of the new CPT</span>
 <span class="sd">        by giving the lowest and highest z-value (and optionally an interval).</span>
 <span class="sd">        If this is not given, the existing range in the master CPT will be used</span>
 <span class="sd">        intact.</span>
-<span class="sd">    truncate (G) : list or str</span>
+<span class="sd">    truncate : list or str</span>
 <span class="sd">        ``zlo/zhi``. Truncate the incoming CPT so that the lowest and highest</span>
 <span class="sd">        z-levels are to zlo and zhi. If one of these equal NaN then we leave</span>
 <span class="sd">        that end of the CPT alone. The truncation takes place before any</span>
 <span class="sd">        resampling. See also</span>
 <span class="sd">        :gmt-docs:`cookbook/features.html#manipulating-cpts`.</span>
-<span class="sd">    output (H) : str</span>
+<span class="sd">    output : str</span>
 <span class="sd">        Optional. The file name with extension .cpt to store the generated CPT</span>
 <span class="sd">        file. If not given or False (default), saves the CPT as the session</span>
 <span class="sd">        current CPT.</span>
-<span class="sd">    reverse (I) : str</span>
+<span class="sd">    reverse : str</span>
 <span class="sd">        Set this to True or c [Default] to reverse the sense of color</span>
 <span class="sd">        progression in the master CPT. Set this to z to reverse the sign of</span>
 <span class="sd">        z-values in the color table. Note that this change of z-direction</span>
-<span class="sd">        happens before -G and -T values are used so the latter must be</span>
-<span class="sd">        compatible with the changed z-range. See also</span>
+<span class="sd">        happens before *truncate* and *series* values are used so the latter</span>
+<span class="sd">        must be compatible with the changed z-range. See also</span>
 <span class="sd">        :gmt-docs:`cookbook/features.html#manipulating-cpts`.</span>
-<span class="sd">    continuous (Z) : bool</span>
+<span class="sd">    continuous : bool</span>
 <span class="sd">        Creates a continuous CPT [Default is discontinuous, i.e., constant</span>
-<span class="sd">        colors for each interval]. This option has no effect when no -T is</span>
-<span class="sd">        used, or when using -Tz_min/z_max; in the first case the input CPT</span>
-<span class="sd">        remains untouched, in the second case it is only scaled to match the</span>
-<span class="sd">        range z_min/z_max.</span>
+<span class="sd">        colors for each interval]. This option has no effect when no *series*</span>
+<span class="sd">        is used, or when using *series=[z_min, z_max]*; in the first case the</span>
+<span class="sd">        input CPT remains untouched, in the second case it is only scaled to</span>
+<span class="sd">        match the range z_min/z_max.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
@@ -286,7 +288,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -249,20 +251,20 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x, y, z : 1d arrays</span>
+<span class="sd">    x/y/z : 1d arrays</span>
 <span class="sd">        Arrays of x and y coordinates and values z of the data points.</span>
 <span class="sd">    data : str or 2d array</span>
 <span class="sd">        Either a data file name or a 2d numpy array with the tabular data.</span>
 
-<span class="sd">    spacing (I) : str</span>
+<span class="sd">    spacing : str</span>
 <span class="sd">        ``&#39;xinc[unit][+e|n][/yinc[unit][+e|n]]&#39;``.</span>
 <span class="sd">        x_inc [and optionally y_inc] is the grid spacing.</span>
 
-<span class="sd">    region (R) : str or list</span>
+<span class="sd">    region : str or list</span>
 <span class="sd">        ``&#39;xmin/xmax/ymin/ymax[+r][+uunit]&#39;``.</span>
 <span class="sd">        Specify the region of interest.</span>
 
-<span class="sd">    outfile (G) : str</span>
+<span class="sd">    outfile : str</span>
 <span class="sd">        Optional. The file name for the output netcdf file with extension .nc</span>
 <span class="sd">        to store the grid in.</span>
 
@@ -318,7 +320,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

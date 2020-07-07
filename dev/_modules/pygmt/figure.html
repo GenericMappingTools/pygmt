@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -313,7 +315,15 @@
         <span class="k">return</span> <span class="n">wesn</span>
 
 <div class="viewcode-block" id="Figure.psconvert"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.psconvert.html#pygmt.Figure.psconvert">[docs]</a>    <span class="nd">@fmt_docstring</span>
-    <span class="nd">@use_alias</span><span class="p">(</span><span class="n">F</span><span class="o">=</span><span class="s2">&quot;prefix&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;fmt&quot;</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="s2">&quot;crop&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">)</span>
+    <span class="nd">@use_alias</span><span class="p">(</span>
+        <span class="n">A</span><span class="o">=</span><span class="s2">&quot;crop&quot;</span><span class="p">,</span>
+        <span class="n">C</span><span class="o">=</span><span class="s2">&quot;gs_option&quot;</span><span class="p">,</span>
+        <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span>
+        <span class="n">F</span><span class="o">=</span><span class="s2">&quot;prefix&quot;</span><span class="p">,</span>
+        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;icc_gray&quot;</span><span class="p">,</span>
+        <span class="n">T</span><span class="o">=</span><span class="s2">&quot;fmt&quot;</span><span class="p">,</span>
+        <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;anti_aliasing&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">psconvert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -324,7 +334,7 @@
 
 <span class="sd">        If no input files are given, will convert the current active figure</span>
 <span class="sd">        (see :func:`pygmt.figure`). In this case, an output name must be given</span>
-<span class="sd">        using parameter *F*.</span>
+<span class="sd">        using parameter *prefix*.</span>
 
 <span class="sd">        Full option list at :gmt-docs:`psconvert.html`</span>
 
@@ -332,37 +342,38 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        A : str or bool</span>
+<span class="sd">        crop : str or bool</span>
 <span class="sd">            Adjust the BoundingBox and HiResBoundingBox to the minimum required</span>
 <span class="sd">            by the image content. Append ``u`` to first remove any GMT-produced</span>
 <span class="sd">            time-stamps. Default is True.</span>
-<span class="sd">        C : str</span>
+<span class="sd">        gs_option : str</span>
 <span class="sd">            Specify a single, custom option that will be passed on to</span>
 <span class="sd">            GhostScript as is.</span>
-<span class="sd">        E : int</span>
+<span class="sd">        dpi : int</span>
 <span class="sd">            Set raster resolution in dpi. Default = 720 for PDF, 300 for</span>
 <span class="sd">            others.</span>
-<span class="sd">        F : str</span>
+<span class="sd">        prefix : str</span>
 <span class="sd">            Force the output file name. By default output names are constructed</span>
 <span class="sd">            using the input names as base, which are appended with an</span>
 <span class="sd">            appropriate extension. Use this option to provide a different name,</span>
 <span class="sd">            but without extension. Extension is still determined automatically.</span>
-<span class="sd">        I : bool</span>
+<span class="sd">        icc_gray : bool</span>
 <span class="sd">            Enforce gray-shades by using ICC profiles.</span>
-<span class="sd">        Q : str</span>
+<span class="sd">        anti_aliasing : str</span>
 <span class="sd">            Set the anti-aliasing options for graphics or text. Append the size</span>
 <span class="sd">            of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing</span>
 <span class="sd">            (same as bits = 1).</span>
-<span class="sd">        T : str</span>
-<span class="sd">            Sets the output format, where b means BMP, e means EPS, E means EPS</span>
-<span class="sd">            with PageSize command, f means PDF, F means multi-page PDF, j means</span>
-<span class="sd">            JPEG, g means PNG, G means transparent PNG (untouched regions are</span>
-<span class="sd">            transparent), m means PPM, s means SVG, and t means TIFF [default</span>
-<span class="sd">            is JPEG]. To bjgt you can append - in order to get a grayscale</span>
+<span class="sd">        fmt : str</span>
+<span class="sd">            Sets the output format, where *b* means BMP, *e* means EPS, *E*</span>
+<span class="sd">            means EPS with PageSize command, *f* means PDF, *F* means</span>
+<span class="sd">            multi-page PDF, *j* means JPEG, *g* means PNG, *G* means</span>
+<span class="sd">            transparent PNG (untouched regions are transparent), *m* means PPM,</span>
+<span class="sd">            *s* means SVG, and *t* means TIFF [default is JPEG]. To ``&#39;bjgt&#39;``</span>
+<span class="sd">            you can append ``&#39;+m&#39;`` in order to get a monochrome (grayscale)</span>
 <span class="sd">            image. The EPS format can be combined with any of the other</span>
 <span class="sd">            formats. For example, ``&#39;ef&#39;`` creates both an EPS and a PDF file.</span>
-<span class="sd">            The ``&#39;F&#39;`` creates a multi-page PDF file from the list of input PS</span>
-<span class="sd">            or PDF files. It requires the *F* option.</span>
+<span class="sd">            Using ``&#39;F&#39;`` creates a multi-page PDF file from the list of input</span>
+<span class="sd">            PS or PDF files. It requires the *prefix* option.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -589,7 +600,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -286,7 +288,10 @@ be the same as the one you used to create your data structure.</p></li>
 <li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_POINT'</span></code>). Should
 be the same as the one you used to create your data structure.</p></li>
 <li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Either <code class="docutils literal notranslate"><span class="pre">'GMT_IN'</span></code> or <code class="docutils literal notranslate"><span class="pre">'GMT_OUT'</span></code> to indicate if passing data to
-GMT or getting it out of GMT, respectively.</p></li>
+GMT or getting it out of GMT, respectively.
+By default, GMT can modify the data you pass in. Add modifier
+<code class="docutils literal notranslate"><span class="pre">'GMT_IS_REFERENCE'</span></code> to tell GMT the data are read-only, or
+<a href="#id1"><span class="problematic" id="id2">``</span></a>’GMT_IS_DUPLICATE’’ to tell GMT to duplicate the data.</p></li>
 <li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The ctypes void pointer to your GMT data structure.</p></li>
 </ul>
 </dd>
@@ -312,7 +317,7 @@ GMT or getting it out of GMT, respectively.</p></li>
 <span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">put_vector</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">put_vector</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="c1"># Add the dataset to a virtual file</span>
-<span class="gp">... </span>    <span class="n">vfargs</span> <span class="o">=</span> <span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s1">&#39;GMT_IN&#39;</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">vfargs</span> <span class="o">=</span> <span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s1">&#39;GMT_IN|GMT_IS_REFERENCE&#39;</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span><span class="o">*</span><span class="n">vfargs</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
 <span class="gp">... </span>        <span class="c1"># Send the output to a temp file so that we can read it</span>
 <span class="gp">... </span>        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">ofile</span><span class="p">:</span>
@@ -350,7 +355,7 @@ GMT or getting it out of GMT, respectively.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

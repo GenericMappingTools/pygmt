@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -275,42 +277,46 @@
 PDF, PNG, PPM, SVG, TIFF) using GhostScript.</p>
 <p>If no input files are given, will convert the current active figure
 (see <code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.figure</span></code>). In this case, an output name must be given
-using parameter <em>F</em>.</p>
+using parameter <em>prefix</em>.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/psconvert.html">https://docs.generic-mapping-tools.org/latest/psconvert.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
 <li><p>A = crop</p></li>
+<li><p>C = gs_option</p></li>
 <li><p>E = dpi</p></li>
 <li><p>F = prefix</p></li>
+<li><p>I = icc_gray</p></li>
+<li><p>Q = anti_aliasing</p></li>
 <li><p>T = fmt</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Adjust the BoundingBox and HiResBoundingBox to the minimum required
+<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Adjust the BoundingBox and HiResBoundingBox to the minimum required
 by the image content. Append <code class="docutils literal notranslate"><span class="pre">u</span></code> to first remove any GMT-produced
 time-stamps. Default is True.</p></li>
-<li><p><strong>C</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify a single, custom option that will be passed on to
+<li><p><strong>gs_option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify a single, custom option that will be passed on to
 GhostScript as is.</p></li>
-<li><p><strong>E</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Set raster resolution in dpi. Default = 720 for PDF, 300 for
+<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Set raster resolution in dpi. Default = 720 for PDF, 300 for
 others.</p></li>
-<li><p><strong>F</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Force the output file name. By default output names are constructed
+<li><p><strong>prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Force the output file name. By default output names are constructed
 using the input names as base, which are appended with an
 appropriate extension. Use this option to provide a different name,
 but without extension. Extension is still determined automatically.</p></li>
-<li><p><strong>I</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Enforce gray-shades by using ICC profiles.</p></li>
-<li><p><strong>Q</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Set the anti-aliasing options for graphics or text. Append the size
+<li><p><strong>icc_gray</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Enforce gray-shades by using ICC profiles.</p></li>
+<li><p><strong>anti_aliasing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Set the anti-aliasing options for graphics or text. Append the size
 of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing
 (same as bits = 1).</p></li>
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Sets the output format, where b means BMP, e means EPS, E means EPS
-with PageSize command, f means PDF, F means multi-page PDF, j means
-JPEG, g means PNG, G means transparent PNG (untouched regions are
-transparent), m means PPM, s means SVG, and t means TIFF [default
-is JPEG]. To bjgt you can append - in order to get a grayscale
+<li><p><strong>fmt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Sets the output format, where <em>b</em> means BMP, <em>e</em> means EPS, <em>E</em>
+means EPS with PageSize command, <em>f</em> means PDF, <em>F</em> means
+multi-page PDF, <em>j</em> means JPEG, <em>g</em> means PNG, <em>G</em> means
+transparent PNG (untouched regions are transparent), <em>m</em> means PPM,
+<em>s</em> means SVG, and <em>t</em> means TIFF [default is JPEG]. To <code class="docutils literal notranslate"><span class="pre">'bjgt'</span></code>
+you can append <code class="docutils literal notranslate"><span class="pre">'+m'</span></code> in order to get a monochrome (grayscale)
 image. The EPS format can be combined with any of the other
 formats. For example, <code class="docutils literal notranslate"><span class="pre">'ef'</span></code> creates both an EPS and a PDF file.
-The <code class="docutils literal notranslate"><span class="pre">'F'</span></code> creates a multi-page PDF file from the list of input PS
-or PDF files. It requires the <em>F</em> option.</p></li>
+Using <code class="docutils literal notranslate"><span class="pre">'F'</span></code> creates a multi-page PDF file from the list of input
+PS or PDF files. It requires the <em>prefix</em> option.</p></li>
 </ul>
 </dd>
 </dl>
@@ -342,7 +348,7 @@ or PDF files. It requires the <em>F</em> option.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

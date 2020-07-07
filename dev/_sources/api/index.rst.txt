@@ -70,6 +70,7 @@ Operations on grids:
 .. autosummary::
     :toctree: generated
 
+    grdcut
     grdinfo
     grdtrack
 
@@ -92,6 +93,7 @@ Miscellaneous
     which
     test
     print_clib_info
+    show_versions
 
 
 .. automodule:: pygmt.datasets

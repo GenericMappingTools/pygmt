@@ -178,6 +178,27 @@ Grids
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ...">
+
+.. only:: html
+
+ .. figure:: /gallery/grid/images/thumb/sphx_glr_grdview_surface_thumb.png
+     :alt: Plotting a surface
+
+     :ref:`sphx_glr_gallery_grid_grdview_surface.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/grid/grdview_surface
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ...">
 
 .. only:: html

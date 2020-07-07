@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -218,11 +220,13 @@
     <span class="n">GMTTempFile</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
     <span class="n">dummy_context</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 
 
 <div class="viewcode-block" id="grdtrack"><a class="viewcode-back" href="../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack">[docs]</a><span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdtrack</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">newcolname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sample grids at specified (x,y) locations.</span>
@@ -231,29 +235,37 @@
 <span class="sd">    positions in the first two columns (more columns may be present). It</span>
 <span class="sd">    interpolates the grid(s) at the positions in the table and writes out the</span>
 <span class="sd">    table with the interpolated values added as (one or more) new columns. A</span>
-<span class="sd">    bicubic [Default], bilinear, B-spline or nearest-neighbor (see -n)</span>
-<span class="sd">    interpolation is used, requiring boundary conditions at the limits of the</span>
-<span class="sd">    region.</span>
+<span class="sd">    bicubic [Default], bilinear, B-spline or nearest-neighbor interpolation is</span>
+<span class="sd">    used, requiring boundary conditions at the limits of the region (see</span>
+<span class="sd">    *interpolation*; Default uses “natural” conditions (second partial</span>
+<span class="sd">    derivative normal to edge is zero) unless the grid is automatically</span>
+<span class="sd">    recognized as periodic.)</span>
 
 <span class="sd">    Full option list at :gmt-docs:`grdtrack.html`</span>
 
+<span class="sd">    {aliases}</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    points: pandas.DataFrame or file (csv, txt, etc)</span>
+<span class="sd">    points : pandas.DataFrame or str</span>
 <span class="sd">        Either a table with (x, y) or (lon, lat) values in the first two</span>
-<span class="sd">        columns, or a data file name. More columns may be present.</span>
+<span class="sd">        columns, or a filename (e.g. csv, txt format). More columns may be</span>
+<span class="sd">        present.</span>
 
-<span class="sd">    grid: xarray.DataArray or file (netcdf)</span>
-<span class="sd">        Gridded array from which to sample values from.</span>
+<span class="sd">    grid : xarray.DataArray or str</span>
+<span class="sd">        Gridded array from which to sample values from, or a filename (netcdf</span>
+<span class="sd">        format).</span>
 
-<span class="sd">    newcolname: str</span>
+<span class="sd">    newcolname : str</span>
 <span class="sd">        Required if &#39;points&#39; is a pandas.DataFrame. The name for the new column</span>
 <span class="sd">        in the track pandas.DataFrame table where the sampled values will be</span>
 <span class="sd">        placed.</span>
 
-<span class="sd">    outfile: str</span>
+<span class="sd">    outfile : str</span>
 <span class="sd">        Required if &#39;points&#39; is a file. The file name for the output ASCII</span>
 <span class="sd">        file.</span>
+
+<span class="sd">    {n}</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -324,7 +336,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

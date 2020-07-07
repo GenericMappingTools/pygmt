@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -145,6 +147,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.info.html">pygmt.info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.surface.html">pygmt.surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.grdcut.html">pygmt.grdcut</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.grdinfo.html">pygmt.grdinfo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.grdtrack.html">pygmt.grdtrack</a></li>
 </ul>
@@ -157,6 +160,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.which.html">pygmt.which</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.test.html">pygmt.test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.print_clib_info.html">pygmt.print_clib_info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.show_versions.html">pygmt.show_versions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a><ul>
@@ -371,8 +375,8 @@
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.shift_origin</span></code></a>([xshift, yshift])</p></td>
 <td><p>Shift plot origin in x and/or y directions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.text</span></code></a>([textfiles, x, y, text, angle, …])</p></td>
-<td><p>Plot or typeset text on maps</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.text</span></code></a>([textfiles, x, y, position, …])</p></td>
+<td><p>Plot or typeset text strings of variable size, font type, and orientation.</p></td>
 </tr>
 </tbody>
 </table>
@@ -434,10 +438,13 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.grdinfo.html#pygmt.grdinfo" title="pygmt.grdinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdinfo</span></code></a>(grid, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.grdcut.html#pygmt.grdcut" title="pygmt.grdcut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdcut</span></code></a>(grid, **kwargs)</p></td>
+<td><p>Extract subregion from a grid.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.grdinfo.html#pygmt.grdinfo" title="pygmt.grdinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdinfo</span></code></a>(grid, **kwargs)</p></td>
 <td><p>Get information about a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdtrack</span></code></a>(points, grid[, newcolname, outfile])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdtrack</span></code></a>(points, grid[, newcolname, outfile])</p></td>
 <td><p>Sample grids at specified (x,y) locations.</p></td>
 </tr>
 </tbody>
@@ -474,6 +481,9 @@
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.print_clib_info.html#pygmt.print_clib_info" title="pygmt.print_clib_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_clib_info</span></code></a>()</p></td>
 <td><p>Print information about the GMT shared library that we can find.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.show_versions.html#pygmt.show_versions" title="pygmt.show_versions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_versions</span></code></a>()</p></td>
+<td><p>Prints various dependency versions useful when submitting bug reports.</p></td>
 </tr>
 </tbody>
 </table>
@@ -568,8 +578,8 @@ the <a class="reference internal" href="generated/pygmt.clib.Session.call_module
 </tr>
 </tbody>
 </table>
-<p>Passing memory blocks between Python variables (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.18)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, and <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.15.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) and GMT happens through <em>virtual
+<p>Passing memory blocks between Python variables (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, and <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.15.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) and GMT happens through <em>virtual
 files</em>. These methods are context managers that automate the conversion of Python
 variables to GMT virtual files:</p>
 <table class="longtable docutils align-default">
@@ -664,7 +674,7 @@ variables to GMT virtual files:</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

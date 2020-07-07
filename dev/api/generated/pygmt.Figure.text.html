@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -269,45 +271,91 @@
 <h1>pygmt.Figure.text<a class="headerlink" href="#pygmt-figure-text" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
 <dt id="pygmt.Figure.text">
-<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">text</code><span class="sig-paren">(</span><em class="sig-param">textfiles=None</em>, <em class="sig-param">x=None</em>, <em class="sig-param">y=None</em>, <em class="sig-param">text=None</em>, <em class="sig-param">angle=None</em>, <em class="sig-param">font=None</em>, <em class="sig-param">justify=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot or typeset text on maps</p>
-<p>Used to be pstext.</p>
-<p>Takes in textfile(s) or (x,y,text) triples as input.</p>
-<p>Must provide at least <em>textfiles</em> or <em>x</em>, <em>y</em>, and <em>text</em>.</p>
+<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">text</code><span class="sig-paren">(</span><em class="sig-param">textfiles=None</em>, <em class="sig-param">x=None</em>, <em class="sig-param">y=None</em>, <em class="sig-param">position=None</em>, <em class="sig-param">text=None</em>, <em class="sig-param">angle=None</em>, <em class="sig-param">font=None</em>, <em class="sig-param">justify=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot or typeset text strings of variable size, font type, and
+orientation.</p>
+<p>Must provide at least one of the following combinations as input:</p>
+<ul class="simple">
+<li><p><em>textfiles</em></p></li>
+<li><p><em>x</em>, <em>y</em>, and <em>text</em></p></li>
+<li><p><em>position</em> and <em>text</em></p></li>
+</ul>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/text.html">https://docs.generic-mapping-tools.org/latest/text.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
 <li><p>B = frame</p></li>
+<li><p>C = clearance</p></li>
+<li><p>D = offset</p></li>
+<li><p>G = fill</p></li>
 <li><p>J = projection</p></li>
 <li><p>R = region</p></li>
+<li><p>W = pen</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>textfiles</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – A text data file name, or a list of filenames containing 1 or more
-records with (x, y[, font, angle, justify], text).</p></li>
-<li><p><strong>y</strong> (<em>x</em><em>,</em>) – The x and y coordinates, or an array of x and y coordinates to plot
+records with (x, y[, angle, font, justify], text).</p></li>
+<li><p><strong>x/y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> or </em><em>1d arrays</em>) – The x and y coordinates, or an array of x and y coordinates to plot
 the text</p></li>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <p>Sets reference point on the map for the text by using x,y
+coordinates extracted from <em>region</em> instead of providing them
+through <em>x</em> and <em>y</em>. Specify with a two letter (order independent)
+code, chosen from:</p>
+<ul>
+<li><p>Horizontal: L(eft), C(entre), R(ight)</p></li>
+<li><p>Vertical: T(op), M(iddle), B(ottom)</p></li>
+</ul>
+<p>For example, position=”TL” plots the text at the Upper Left corner
+of the map.</p>
+</p></li>
 <li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>1d array</em>) – The text string, or an array of strings to plot on the figure</p></li>
-<li><p><strong>angle</strong> (<em>int/float</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Set the angle measured in degrees counter-clockwise from
+<li><p><strong>angle</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Set the angle measured in degrees counter-clockwise from
 horizontal. E.g. 30 sets the text at 30 degrees. If no angle is
-given then the input textfile(s) must have this as a column.</p></li>
+explicitly given (i.e. angle=True) then the input textfile(s) must
+have this as a column.</p></li>
 <li><p><strong>font</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Set the font specification with format “size,font,color” where size
 is text size in points, font is the font to use, and color sets the
 font color. E.g. “12p,Helvetica-Bold,red” selects a 12p red
-Helvetica-Bold font. If no font info is given then the input
-textfile(s) must have this information in one of its columns.</p></li>
+Helvetica-Bold font. If no font info is explicitly given (i.e.
+font=True), then the input textfile(s) must have this information
+in one of its columns.</p></li>
 <li><p><strong>justify</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Set the alignment which refers to the part of the text string that
 will be mapped onto the (x,y) point. Choose a 2 character
 combination of L, C, R (for left, center, or right) and T, M, B for
 top, middle, or bottom. E.g., BL for lower left. If no
-justification is given then the input textfile(s) must have this as
-a column.</p></li>
-<li><p><strong>J</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
+justification is explicitly given (i.e. justify=True), then the
+input textfile(s) must have this as a column.</p></li>
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
 Select map projection.</p></li>
-<li><p><strong>R</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
 <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
 Specify the region of interest.</p></li>
+<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[dx/dy][+to|O|c|C]</span></code>
+Adjust the clearance between the text and the surrounding box
+[15%]. Only used if <em>pen</em> or <em>fill</em> are specified. Append the unit
+you want (‘c’ for cm, ‘i’ for inch, or ‘p’ for point; if not given
+we consult ‘PROJ_LENGTH_UNIT’) or ‘%’ for a percentage of the
+font size. Optionally, use modifier ‘+t’ to set the shape of the
+textbox when using <em>fill</em> and/or <em>pen</em>. Append lower case ‘o’ to
+get a straight rectangle [Default]. Append upper case ‘O’ to get a
+rounded rectangle. In paragraph mode (<em>paragraph</em>) you can also
+append lower case ‘c’ to get a concave rectangle or append upper
+case ‘C’ to get a convex rectangle.</p></li>
+<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Sets the shade or color used for filling the text box [Default is
+no fill].</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[j|J]dx[/dy][+v[pen]]</span></code>
+Offsets the text from the projected (x,y) point by dx,dy [0/0]. If
+dy is not specified then it is set equal to dx. Use offset=’j’ to
+offset the text away from the point instead (i.e., the text
+justification will determine the direction of the shift). Using
+offset=’J’ will shorten diagonal offsets at corners by sqrt(2).
+Optionally, append ‘+v’ which will draw a line from the original
+point to the shifted point; append a pen to change the attributes
+for this line.</p></li>
+<li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Sets the pen used to draw a rectangle around the text string
+(see <em>clearance</em>) [Default is width = default, color = black,
+style = solid].</p></li>
 </ul>
 </dd>
 </dl>
@@ -339,7 +387,7 @@ Specify the region of interest.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -284,32 +286,32 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>(</strong><strong>C</strong><strong>)</strong> (<em>cmap</em>) – Selects the master color palette table (CPT) to use in the
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Selects the master color palette table (CPT) to use in the
 interpolation. Full list of built-in color palette tables can be found
 at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt</a>.</p></li>
-<li><p><strong>(</strong><strong>T</strong><strong>)</strong> (<em>series</em>) – <code class="docutils literal notranslate"><span class="pre">[min/max/inc[+b|l|n]|file|list]</span></code>. Defines the range of the new CPT
+<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[min/max/inc[+b|l|n]|file|list]</span></code>. Defines the range of the new CPT
 by giving the lowest and highest z-value (and optionally an interval).
 If this is not given, the existing range in the master CPT will be used
 intact.</p></li>
-<li><p><strong>(</strong><strong>G</strong><strong>)</strong> (<em>truncate</em>) – <code class="docutils literal notranslate"><span class="pre">zlo/zhi</span></code>. Truncate the incoming CPT so that the lowest and highest
+<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">zlo/zhi</span></code>. Truncate the incoming CPT so that the lowest and highest
 z-levels are to zlo and zhi. If one of these equal NaN then we leave
 that end of the CPT alone. The truncation takes place before any
 resampling. See also
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>(</strong><strong>H</strong><strong>)</strong> (<em>output</em>) – Optional. The file name with extension .cpt to store the generated CPT
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Optional. The file name with extension .cpt to store the generated CPT
 file. If not given or False (default), saves the CPT as the session
 current CPT.</p></li>
-<li><p><strong>(</strong><strong>I</strong><strong>)</strong> (<em>reverse</em>) – Set this to True or c [Default] to reverse the sense of color
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Set this to True or c [Default] to reverse the sense of color
 progression in the master CPT. Set this to z to reverse the sign of
 z-values in the color table. Note that this change of z-direction
-happens before -G and -T values are used so the latter must be
-compatible with the changed z-range. See also
+happens before <em>truncate</em> and <em>series</em> values are used so the latter
+must be compatible with the changed z-range. See also
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>(</strong><strong>Z</strong><strong>)</strong> (<em>continuous</em>) – Creates a continuous CPT [Default is discontinuous, i.e., constant
-colors for each interval]. This option has no effect when no -T is
-used, or when using -Tz_min/z_max; in the first case the input CPT
-remains untouched, in the second case it is only scaled to match the
-range z_min/z_max.</p></li>
+<li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Creates a continuous CPT [Default is discontinuous, i.e., constant
+colors for each interval]. This option has no effect when no <em>series</em>
+is used, or when using <em>series=[z_min, z_max]</em>; in the first case the
+input CPT remains untouched, in the second case it is only scaled to
+match the range z_min/z_max.</p></li>
 </ul>
 </dd>
 </dl>
@@ -341,7 +343,7 @@ range z_min/z_max.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 

@@ -31,6 +31,8 @@
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -293,22 +295,23 @@ widths.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>(</strong><strong>D</strong><strong>)</strong> (<em>position</em>) – <code class="docutils literal notranslate"><span class="pre">[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]</span>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]</span>
 <span class="pre">[+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]</span></code>. Defines the
 reference point on the map for the color scale using one of four
-coordinate systems: (1) Use -Dg for map (user) coordinates, (2) use
--Dj or -DJ for setting refpoint via a 2-char justification code
-that refers to the (invisible) map domain rectangle, (3) use -Dn
-for normalized (0-1) coordinates, or (4) use -Dx for plot
-coordinates (inches, cm, etc.). All but -Dx requires both -R and
--J to be specified. Append +w followed by the length and width of
-the color bar. If width is not specified then it is set to 4% of
-the given length. Give a negative length to reverse the scale bar.
-Append +h to get a horizontal scale [Default is vertical (+v)]. By
-default, the anchor point on the scale is assumed to be the bottom
-left corner (BL), but this can be changed by appending +j followed
-by a 2-char justification code justify.</p></li>
-<li><p><strong>(</strong><strong>F</strong><strong>)</strong> (<em>box</em>) – <code class="docutils literal notranslate"><span class="pre">[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]</span>
+coordinate systems: (1) Use <em>g</em> for map (user) coordinates, (2) use
+<em>j</em> or <em>J</em> for setting refpoint via a 2-char justification code
+that refers to the (invisible) map domain rectangle, (3) use <em>n</em>
+for normalized (0-1) coordinates, or (4) use <em>x</em> for plot
+coordinates (inches, cm, etc.). All but <em>x</em> requires both <em>region</em>
+and <em>projection</em> to be specified. Append +w followed by the length
+and width of the color bar. If width is not specified then it is
+set to 4% of the given length. Give a negative length to reverse
+the scale bar. Append +h to get a horizontal scale
+[Default is vertical (+v)]. By default, the anchor point on the
+scale is assumed to be the bottom left corner (BL), but this can be
+changed by appending +j followed by a 2-char justification code
+<em>justify</em>.</p></li>
+<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]</span>
 <span class="pre">[+s[[dx/dy/][shade]]]</span></code>. If set to True, draws a rectangular
 border around the color scale. Alternatively, specify a different
 pen with +ppen. Add +gfill to fill the scale panel [no fill].
@@ -323,11 +326,11 @@ radius by appending another value. Finally, append +s to draw an
 offset background shaded region. Here, dx/dy indicates the shift
 relative to the foreground frame [4p/-4p] and shade sets the fill
 style to use for shading [gray50].</p></li>
-<li><p><strong>(</strong><strong>G</strong><strong>)</strong> (<em>truncate</em>) – <code class="docutils literal notranslate"><span class="pre">zlo/zhi</span></code> Truncate the incoming CPT so that the lowest and
+<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">zlo/zhi</span></code> Truncate the incoming CPT so that the lowest and
 highest z-levels are to zlo and zhi. If one of these equal NaN then
 we leave that end of the CPT alone. The truncation takes place
 before the plotting.</p></li>
-<li><p><strong>(</strong><strong>W</strong><strong>)</strong> (<em>scale</em>) – Multiply all z-values in the CPT by the provided scale. By default
+<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Multiply all z-values in the CPT by the provided scale. By default
 the CPT is used as is.</p></li>
 </ul>
 </dd>
@@ -360,7 +363,7 @@ the CPT is used as is.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/809a888755c5dedc86ea74d0ae0497295b5311a4">809a888</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
         </span>
       
 
