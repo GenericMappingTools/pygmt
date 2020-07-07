@@ -1,0 +1,10 @@
+pygmt.Figure.grdimage
+=====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.grdimage
+
+.. raw:: html
+
+      <div style='clear:both'></div>
