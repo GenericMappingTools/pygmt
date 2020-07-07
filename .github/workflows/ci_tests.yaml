@@ -53,7 +53,7 @@ jobs:
           requirements_file=full-conda-requirements.txt
           cat requirements.txt requirements-dev.txt > $requirements_file
           cat << EOF >> $requirements_file
-          gmt=6.1.0
+          gmt=6.0.0
           make
           EOF
           conda install --yes --file $requirements_file
