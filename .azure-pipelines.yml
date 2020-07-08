@@ -76,7 +76,7 @@ jobs:
   variables:
     CONDA_REQUIREMENTS: requirements.txt
     CONDA_REQUIREMENTS_DEV: requirements-dev.txt
-    CONDA_INSTALL_EXTRA: "codecov gmt=6.0.0"
+    CONDA_INSTALL_EXTRA: "codecov gmt=6.1.0"
 
   strategy:
     matrix:
@@ -178,7 +178,7 @@ jobs:
   variables:
     CONDA_REQUIREMENTS: requirements.txt
     CONDA_REQUIREMENTS_DEV: requirements-dev.txt
-    CONDA_INSTALL_EXTRA: "codecov gmt=6.0.0"
+    CONDA_INSTALL_EXTRA: "codecov gmt=6.1.0"
 
   strategy:
     matrix:
