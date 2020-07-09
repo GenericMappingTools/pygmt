@@ -9,8 +9,8 @@ from ..exceptions import GMTInvalidInput
 from ..datasets import load_earth_relief
 
 
-@pytest.fixture(scope="module")
-def grid():
+@pytest.fixture(scope="module", name="grid")
+def fixture_grid():
     "Load the grid data from the sample earth_relief file"
     return load_earth_relief(pixel_reg=False)
 

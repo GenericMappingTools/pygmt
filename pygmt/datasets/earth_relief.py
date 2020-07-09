@@ -46,7 +46,7 @@ def load_earth_relief(resolution="01d", pixel_reg=None):
 
     if not pixel_reg:
         registration = ""  # If None, let GMT decide on Pixel/Gridline type
-        # TODO simplify this if-then once PyGMT no longer depends on GMT 6.0
+        # Simplify this if-then clause once PyGMT no longer depends on GMT 6.0
         if pixel_reg is False:
             with clib.Session() as lib:
                 if Version(lib.info["version"]) >= Version("6.1.0"):
