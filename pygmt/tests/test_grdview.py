@@ -17,7 +17,9 @@ with clib.Session() as lib:
 @pytest.fixture(scope="module")
 def grid():
     "Load the grid data from the sample earth_relief file"
-    return load_earth_relief().sel(lat=slice(-49, -42), lon=slice(-118, -107))
+    return load_earth_relief(pixel_reg=False).sel(
+        lat=slice(-49, -42), lon=slice(-118, -107)
+    )
 
 
 @pytest.mark.mpl_image_compare

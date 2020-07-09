@@ -9,21 +9,26 @@ from ..exceptions import GMTInvalidInput
 from ..datasets import load_earth_relief
 
 
+@pytest.fixture(scope="module")
+def grid():
+    "Load the grid data from the sample earth_relief file"
+    return load_earth_relief(pixel_reg=False)
+
+
 @pytest.mark.mpl_image_compare
-def test_grdimage():
+def test_grdimage(grid):
     "Plot an image using an xarray grid"
-    grid = load_earth_relief()
     fig = Figure()
     fig.grdimage(grid, cmap="earth", projection="W0/6i")
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_grdimage_slice():
+def test_grdimage_slice(grid):
     "Plot an image using an xarray grid that has been sliced"
-    grid = load_earth_relief().sel(lat=slice(-30, 30))
+    grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid, cmap="earth", projection="M6i")
+    fig.grdimage(grid_, cmap="earth", projection="M6i")
     return fig
 
 

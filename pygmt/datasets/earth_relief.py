@@ -32,8 +32,8 @@ def load_earth_relief(resolution="01d", pixel_reg=None):
     pixel_reg : bool
         Grid registration type. Either ``True`` for pixel registration or
         ``False`` for gridline registration. Default is ``None``, which returns
-        a pixel registered grid for GMT 6.1 or newer, and a gridline registered
-        grid for GMT 6.0.
+        a pixel registered grid for GMT 6.1 or newer. Only a gridline
+        registered grid is possible for GMT 6.0.
 
     Returns
     -------

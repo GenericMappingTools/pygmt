@@ -31,7 +31,7 @@ def region():
 @pytest.fixture(scope="module")
 def grid():
     "Load the grid data from the sample earth_relief file"
-    return load_earth_relief()
+    return load_earth_relief(pixel_reg=False)
 
 
 @pytest.mark.mpl_image_compare
