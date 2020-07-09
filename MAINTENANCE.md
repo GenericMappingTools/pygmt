@@ -100,8 +100,8 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 
 2. Edit the changes list to remove any trivial changes (updates to the README, typo
    fixes, CI configuration, etc).
-3. Replace the PR number in the commit titles with a link to the Github PR page. In Vim,
-   use `` %s$#\([0-9]\+\)$`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__$g ``
+3. Replace the PR number in the commit titles with a link to the Github PR page.
+   Use ``sed -i.bak -E 's$\(#([0-9]*)\)$(`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__)$g' changes.rst``
    to make the change automatically.
 4. Copy the remaining changes to `doc/changes.rst` under a new section for the
    intended release.

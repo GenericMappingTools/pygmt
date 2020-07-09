@@ -171,5 +171,7 @@ Documentation for other versions
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   Github)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
+* `v0.1.1 <https://www.pygmt.org/v0.1.1>`__
 * `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
 * `v0.0.1a0 <https://www.pygmt.org/0.0.1a0>`__

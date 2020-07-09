@@ -3,11 +3,15 @@
 Tests grdview
 """
 import pytest
+from packaging.version import Version
 
-from .. import Figure, which
+from .. import Figure, clib, which
 from ..datasets import load_earth_relief
 from ..exceptions import GMTInvalidInput
 from ..helpers import data_kind
+
+with clib.Session() as lib:
+    gmt_version = Version(lib.info["version"])
 
 
 @pytest.fixture(scope="module")
@@ -62,6 +66,10 @@ def test_grdview_with_perspective(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zscale(grid):
     """
@@ -74,6 +82,10 @@ def test_grdview_with_perspective_and_zscale(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zsize(grid):
     """
@@ -97,6 +109,10 @@ def test_grdview_with_cmap_for_image_plot(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_surface_monochrome_plot(grid):
     """
@@ -108,6 +124,10 @@ def test_grdview_with_cmap_for_surface_monochrome_plot(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_perspective_surface_plot(grid):
     """
@@ -116,11 +136,15 @@ def test_grdview_with_cmap_for_perspective_surface_plot(grid):
     """
     fig = Figure()
     fig.grdview(
-        grid=grid, cmap="oleron", surftype="s", perspective=[225, 30], zscale=0.005,
+        grid=grid, cmap="oleron", surftype="s", perspective=[225, 30], zscale=0.005
     )
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane(grid):
     """
@@ -132,6 +156,10 @@ def test_grdview_on_a_plane(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane_with_colored_frontal_facade(grid):
     """
@@ -143,6 +171,10 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zaxis_frame(grid):
     """
@@ -154,6 +186,10 @@ def test_grdview_with_perspective_and_zaxis_frame(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_surface_plot_styled_with_contourpen(grid):
     """
@@ -176,6 +212,10 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.0"),
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane_styled_with_facadepen(grid):
     """
