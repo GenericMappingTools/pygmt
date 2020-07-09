@@ -1219,7 +1219,7 @@ class Session:
         >>> from pygmt.helpers import GMTTempFile
         >>> data = load_earth_relief(resolution='01d')
         >>> print(data.shape)
-        (181, 361)
+        (180, 360)
         >>> print(data.lon.values.min(), data.lon.values.max())
         -180.0 180.0
         >>> print(data.lat.values.min(), data.lat.values.max())
