@@ -30,21 +30,12 @@ jobs:
           # fecth all history so that versioneer works
           fetch-depth: 0
 
-      - name: Cache conda packages
-        uses: actions/cache@v2
-        with:
-          path: ~/conda_pkgs_dir
-          key: cache-conda-${{ github.ref }}-${{ runner.os }}-${{ hashFiles('environment.yml') }}
-          restore-keys: |
-            cache-conda-refs/heads/master-
-
       # Setup Miniconda
       - name: Setup Miniconda
         uses: goanpeca/setup-miniconda@v1.6.0
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
-          use-only-tar-bz2: true  # required for caching conda pacakges
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies
