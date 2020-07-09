@@ -16,7 +16,7 @@ with clib.Session() as lib:
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     "Load the grid data from the sample earth_relief file"
-    return load_earth_relief(pixel_reg=False).sel(
+    return load_earth_relief(registration="gridline").sel(
         lat=slice(-49, -42), lon=slice(-118, -107)
     )
 

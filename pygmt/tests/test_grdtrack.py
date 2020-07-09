@@ -20,7 +20,7 @@ TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
 @pytest.fixture(scope="module", name="dataarray")
 def fixture_dataarray():
     "Load the grid data from the sample earth_relief file"
-    return load_earth_relief(pixel_reg=False).sel(
+    return load_earth_relief(registration="gridline").sel(
         lat=slice(-49, -42), lon=slice(-118, -107)
     )
 

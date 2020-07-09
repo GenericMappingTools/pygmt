@@ -9,7 +9,7 @@ from .. import clib, which
 from ..exceptions import GMTInvalidInput
 
 
-def load_earth_relief(resolution="01d", pixel_reg=None):
+def load_earth_relief(resolution="01d", registration=None):
     """
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -29,11 +29,10 @@ def load_earth_relief(resolution="01d", pixel_reg=None):
         ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
         ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'`` or ``'15s'``.
 
-    pixel_reg : bool
-        Grid registration type. Either ``True`` for pixel registration or
-        ``False`` for gridline registration. Default is ``None``, which returns
-        a pixel registered grid for GMT 6.1 or newer. Only a gridline
-        registered grid is possible for GMT 6.0.
+    registration : str
+        Grid registration type. Either ``pixel`` for pixel registration or
+        ``gridline`` for gridline registration. Default is ``None``, which
+        returns a pixel registered grid.
 
     Returns
     -------
@@ -44,17 +43,20 @@ def load_earth_relief(resolution="01d", pixel_reg=None):
     """
     _is_valid_resolution(resolution)
 
-    if not pixel_reg:
-        registration = ""  # If None, let GMT decide on Pixel/Gridline type
-        # Simplify this if-then clause once PyGMT no longer depends on GMT 6.0
-        if pixel_reg is False:
-            with clib.Session() as lib:
-                if Version(lib.info["version"]) >= Version("6.1.0"):
-                    registration = "_g"
+    if registration in ("pixel", "gridline", None):
+        _registration = ""  # If None, let GMT decide on Pixel/Gridline type
+        with clib.Session() as lib:
+            if registration is not None and Version(lib.info["version"]) >= Version(
+                "6.1.0"
+            ):
+                _registration = f"_{registration[0]}"
     else:
-        registration = "_p"
+        raise GMTInvalidInput(
+            f"Invalid grid registration: {registration}, should be either "
+            "'pixel', 'gridline' or None. Default is None for pixel registration."
+        )
 
-    fname = which(f"@earth_relief_{resolution}{registration}", download="u")
+    fname = which(f"@earth_relief_{resolution}{_registration}", download="u")
     grid = xr.open_dataarray(fname)
     # Add some metadata to the grid
     grid.name = "elevation"
