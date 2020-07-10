@@ -60,7 +60,7 @@ def test_usgs_quakes():
 
 def test_earth_relief_fails():
     "Make sure earth relief fails for invalid resolutions"
-    resolutions = "1m 1d bla 60d 01s 03s 001m 03".split()
+    resolutions = "1m 1d bla 60d 001m 03".split()
     resolutions.append(60)
     for resolution in resolutions:
         with pytest.raises(GMTInvalidInput):
