@@ -19,16 +19,21 @@ with clib.Session() as lib:
     gmt_version = Version(lib.info["version"])
 
 
+@pytest.fixture(scope="module", name="grid")
+def fixture_grid():
+    "Load the grid data from the sample earth_relief file"
+    return load_earth_relief(registration="gridline")
+
+
 @pytest.mark.xfail(
     condition=gmt_version < Version("6.1.0"),
     reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
 )
 @pytest.mark.mpl_image_compare
-def test_grdcontour():
+def test_grdcontour(grid):
     """Plot a contour image using an xarray grid
     with fixed contour interval
     """
-    grid = load_earth_relief()
     fig = Figure()
     fig.grdcontour(grid, interval="1000", projection="W0/6i")
     return fig
@@ -39,11 +44,10 @@ def test_grdcontour():
     reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
 )
 @pytest.mark.mpl_image_compare
-def test_grdcontour_labels():
+def test_grdcontour_labels(grid):
     """Plot a contour image using a xarray grid
     with contour labels and alternate colors
     """
-    grid = load_earth_relief()
     fig = Figure()
     fig.grdcontour(
         grid,
@@ -61,11 +65,11 @@ def test_grdcontour_labels():
     reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
 )
 @pytest.mark.mpl_image_compare
-def test_grdcontour_slice():
+def test_grdcontour_slice(grid):
     "Plot an contour image using an xarray grid that has been sliced"
-    grid = load_earth_relief().sel(lat=slice(-30, 30))
+    grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdcontour(grid, interval="1000", projection="M6i")
+    fig.grdcontour(grid_, interval="1000", projection="M6i")
     return fig
 
 
