@@ -128,7 +128,8 @@ jobs:
   - bash: |
       set -x -e
       source activate testing
-      gmt which -Ga @earth_relief_10m @earth_relief_01d @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz
+      gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g @earth_relief_30m_p @earth_relief_30m_g @earth_relief_01d_p @earth_relief_01d_g
+      gmt which -Ga @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
     displayName: Download remote data
     condition: ne(variables['CACHE_CACHEDATA_RESTORED'], true)
 
@@ -224,7 +225,8 @@ jobs:
   - bash: |
       set -x -e
       source activate testing
-      gmt which -Ga @earth_relief_10m @earth_relief_01d @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz
+      gmt which -Ga @earth_relief_10m_p @earth_relief_01m_g @earth_relief_01d_p @earth_relief_01d_g
+      gmt which -Ga @ridge.txt @Table_5_11.txt @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
     displayName: Download remote data
     condition: ne(variables['CACHE_CACHEDATA_RESTORED'], true)
 
