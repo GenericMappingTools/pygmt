@@ -61,8 +61,8 @@ jobs:
           path: |
             ~/.gmt/cache
             ~/.gmt/server
-          key: cache-gmt-${{ github.ref }}-${{ runner.os }}-20200609
-          restore-keys: cache-gmt-refs/heads/master-
+          key: cache-gmt-${{ runner.os }}-${{ github.ref }}-20200609
+          restore-keys: cache-gmt-${{ runner.os }}-refs/heads/master-
 
       # Workaround for the timeouts of 'gmt which' on Linux and Windows
       - name: Download remote data using wget (Linux & Windows)
