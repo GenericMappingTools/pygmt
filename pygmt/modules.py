@@ -224,7 +224,7 @@ class GMTDataArrayAccessor:
     """
     This is the GMT extension for :class:`xarray.DataArray`.
 
-    You can access various GMT specific metadata as follow:
+    You can access various GMT specific metadata about your grid as follows:
 
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
@@ -246,7 +246,7 @@ class GMTDataArrayAccessor:
         except KeyError:
             default_reg_and_gtype = "Gridline node registration used [Cartesian grid]"
             # logging.warning(
-            #    msg="Cannot find a NetCDF source of xarray grid. "
+            #    msg="Cannot find a NetCDF source for the xarray grid. "
             #    f"Will fallback to using GMT's default setting: {default_reg_and_gtype}"
             # )
             self._info = default_reg_and_gtype
