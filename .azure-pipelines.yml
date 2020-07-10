@@ -242,7 +242,7 @@ jobs:
   - bash: |
       set -x -e
       source activate testing
-      #make test PYTEST_EXTRA="-r P"
+      make test PYTEST_EXTRA="-r P"
     displayName: Test
 
   # Upload test coverage if there were no failures
