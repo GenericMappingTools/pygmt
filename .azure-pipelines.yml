@@ -69,6 +69,7 @@ jobs:
 ########################################################################################
 - job:
   displayName: 'Mac'
+  condition: False
 
   pool:
     vmImage: 'macOS-10.14'
@@ -171,6 +172,7 @@ jobs:
 ########################################################################################
 - job:
   displayName: 'Windows'
+  condition: False
 
   pool:
     vmImage: 'vs2017-win2016'

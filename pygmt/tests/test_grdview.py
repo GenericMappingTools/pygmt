@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name
 """
 Tests grdview
 """
@@ -14,10 +13,12 @@ with clib.Session() as lib:
     gmt_version = Version(lib.info["version"])
 
 
-@pytest.fixture(scope="module")
-def grid():
+@pytest.fixture(scope="module", name="grid")
+def fixture_grid():
     "Load the grid data from the sample earth_relief file"
-    return load_earth_relief().sel(lat=slice(-49, -42), lon=slice(-118, -107))
+    return load_earth_relief(registration="gridline").sel(
+        lat=slice(-49, -42), lon=slice(-118, -107)
+    )
 
 
 @pytest.mark.mpl_image_compare
