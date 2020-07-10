@@ -3,12 +3,13 @@ Functions to download the Earth relief datasets from the GMT data server.
 The grids are available in various resolutions.
 """
 import xarray as xr
+from packaging.version import Version
 
-from .. import which
+from .. import clib, which
 from ..exceptions import GMTInvalidInput
 
 
-def load_earth_relief(resolution="01d"):
+def load_earth_relief(resolution="01d", registration=None):
     """
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -28,6 +29,12 @@ def load_earth_relief(resolution="01d"):
         ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
         ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'`` or ``'15s'``.
 
+    registration : str
+        Grid registration type. Either ``pixel`` for pixel registration or
+        ``gridline`` for gridline registration. Default is ``None``, where
+        a pixel-registered grid is returned unless only the
+        gridline-registered grid is available.
+
     Returns
     -------
     grid : xarray.DataArray
@@ -36,7 +43,27 @@ def load_earth_relief(resolution="01d"):
 
     """
     _is_valid_resolution(resolution)
-    fname = which("@earth_relief_{}".format(resolution), download="u")
+
+    if registration in ("pixel", "gridline", None):
+        reg = ""  # If None, let GMT decide on Pixel/Gridline type
+        with clib.Session() as lib:
+            if registration and Version(lib.info["version"]) >= Version("6.1.0"):
+                reg = f"_{registration[0]}"
+            elif registration == "pixel" and Version(lib.info["version"]) < Version(
+                "6.1.0"
+            ):
+                raise GMTInvalidInput(
+                    "Pixel registration is only available for GMT>=6.1.0"
+                )
+    else:
+        raise GMTInvalidInput(
+            f"Invalid grid registration: {registration}, should be either "
+            "'pixel', 'gridline' or None. Default is None, where a "
+            "pixel-registered grid is returned unless only the "
+            "gridline-registered grid is available."
+        )
+
+    fname = which(f"@earth_relief_{resolution}{reg}", download="u")
     grid = xr.open_dataarray(fname)
     # Add some metadata to the grid
     grid.name = "elevation"
