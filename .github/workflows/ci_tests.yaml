@@ -69,7 +69,7 @@ jobs:
         shell: bash -l {0}
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then choco install wget; fi  # install wget on Windows
-          mkdir ~/.gmt ~/.gmt/cache ~/.gmt/server
+          mkdir -p ~/.gmt ~/.gmt/cache ~/.gmt/server
           wget --no-check-certificate https://oceania.generic-mapping-tools.org/gmt_hash_server.txt -P ~/.gmt/server/
           for data in earth_relief_01d.grd earth_relief_30m.grd earth_relief_10m.grd; do
             wget --no-check-certificate https://oceania.generic-mapping-tools.org/${data} -P ~/.gmt/server/
