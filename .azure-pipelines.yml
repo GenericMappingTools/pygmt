@@ -254,5 +254,6 @@ jobs:
       codecov -e PYTHON AGENT_OS
     env:
       CODECOV_TOKEN: $(codecov.token)
-    condition: succeeded()
+    #condition: succeeded()
+    condition: False
     displayName: Upload coverage
