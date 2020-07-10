@@ -119,7 +119,7 @@ jobs:
   # Cache the ${HOME}/.gmt directory, for docs and testing
   - task: Cache@2
     inputs:
-      key: cachedata | 20200710
+      key: cachedata | 20200710-2
       path: $(HOME)/.gmt
       cacheHitVar: CACHE_CACHEDATA_RESTORED
     displayName: Cache GMT remote data for testing
@@ -142,11 +142,11 @@ jobs:
     displayName: Install the package
 
   # Run the tests
-  - bash: |
-      set -x -e
-      source activate testing
-      make test PYTEST_EXTRA="-r P"
-    displayName: Test
+  #- bash: |
+  #    set -x -e
+  #    source activate testing
+  #    make test PYTEST_EXTRA="-r P"
+  #  displayName: Test
 
   # Build the documentation
   - bash: |
@@ -216,7 +216,7 @@ jobs:
   # Cache the ${HOME}/.gmt directory, for docs and testing
   - task: Cache@2
     inputs:
-      key: cachedata | 20200710
+      key: cachedata | 20200710-2
       path: $(HOMEPATH)/.gmt
       cacheHitVar: CACHE_CACHEDATA_RESTORED
     displayName: Cache GMT remote data for testing
@@ -239,11 +239,11 @@ jobs:
     displayName: Install the package
 
   # Run the tests
-  - bash: |
-      set -x -e
-      source activate testing
-      make test PYTEST_EXTRA="-r P"
-    displayName: Test
+  #- bash: |
+    #  set -x -e
+    #  source activate testing
+    #  make test PYTEST_EXTRA="-r P"
+    #displayName: Test
 
   # Upload test coverage if there were no failures
   - bash: |
