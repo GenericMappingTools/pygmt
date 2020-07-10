@@ -49,6 +49,12 @@ def load_earth_relief(resolution="01d", registration=None):
         with clib.Session() as lib:
             if registration and Version(lib.info["version"]) >= Version("6.1.0"):
                 reg = f"_{registration[0]}"
+            elif registration == "pixel" and Version(lib.info["version"]) < Version(
+                "6.1.0"
+            ):
+                raise GMTInvalidInput(
+                    "Pixel registration is only available for GMT>=6.1.0"
+                )
     else:
         raise GMTInvalidInput(
             f"Invalid grid registration: {registration}, should be either "
