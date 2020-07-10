@@ -242,27 +242,23 @@ class GMTDataArrayAccessor:
         self._obj = xarray_obj
         try:
             self._source = self._obj.encoding["source"]
-            self._info = grdinfo(self._source)
+            self._registration, self._gtype = map(
+                int, grdinfo(self._source, C="n", o="10,11").split()
+            )
         except KeyError:
-            default_reg_and_gtype = "Gridline node registration used [Cartesian grid]"
+            self._registration = 0  # Default to Gridline registration
+            self._gtype = 0  # Default to Cartesian grid type
             # logging.warning(
-            #    msg="Cannot find a NetCDF source for the xarray grid. "
-            #    f"Will fallback to using GMT's default setting: {default_reg_and_gtype}"
+            #     msg="Cannot find a NetCDF source for the xarray grid. "
+            #     "Will fallback to using GMT's default setting to assume "
+            #     "'Gridline node registration used [Cartesian grid]'"
             # )
-            self._info = default_reg_and_gtype
 
     @property
     def registration(self):
         """
         Registration type of the grid, either Gridline (0) or Pixel (1).
         """
-        try:
-            return self._registration
-        except AttributeError:
-            if "Gridline node registration used" in self._info:
-                self._registration = 0
-            elif "Pixel node registration used" in self._info:
-                self._registration = 1
         return self._registration
 
     @registration.setter
@@ -281,13 +277,6 @@ class GMTDataArrayAccessor:
         Coordinate system type of the grid, either Cartesian (0) or Geographic
         (1).
         """
-        try:
-            return self._gtype
-        except AttributeError:
-            if "[Cartesian grid]" in self._info:
-                self._gtype = 0
-            elif "[Geographic grid]" in self._info:
-                self._gtype = 1
         return self._gtype
 
     @gtype.setter
