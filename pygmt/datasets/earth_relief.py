@@ -31,8 +31,9 @@ def load_earth_relief(resolution="01d", registration=None):
 
     registration : str
         Grid registration type. Either ``pixel`` for pixel registration or
-        ``gridline`` for gridline registration. Default is ``None``, which
-        returns a pixel registered grid.
+        ``gridline`` for gridline registration. Default is ``None``, where
+        a pixel-registered grid is returned unless only the
+        gridline-registered grid is available.
 
     Returns
     -------
@@ -44,19 +45,19 @@ def load_earth_relief(resolution="01d", registration=None):
     _is_valid_resolution(resolution)
 
     if registration in ("pixel", "gridline", None):
-        _registration = ""  # If None, let GMT decide on Pixel/Gridline type
+        reg = ""  # If None, let GMT decide on Pixel/Gridline type
         with clib.Session() as lib:
-            if registration is not None and Version(lib.info["version"]) >= Version(
-                "6.1.0"
-            ):
-                _registration = f"_{registration[0]}"
+            if registration and Version(lib.info["version"]) >= Version("6.1.0"):
+                reg = f"_{registration[0]}"
     else:
         raise GMTInvalidInput(
             f"Invalid grid registration: {registration}, should be either "
-            "'pixel', 'gridline' or None. Default is None for pixel registration."
+            "'pixel', 'gridline' or None. Default is None, where a "
+            "pixel-registered grid is returned unless only the "
+            "gridline-registered grid is available."
         )
 
-    fname = which(f"@earth_relief_{resolution}{_registration}", download="u")
+    fname = which(f"@earth_relief_{resolution}{reg}", download="u")
     grid = xr.open_dataarray(fname)
     # Add some metadata to the grid
     grid.name = "elevation"
