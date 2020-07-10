@@ -71,7 +71,7 @@ jobs:
           if [ "$RUNNER_OS" == "Windows" ]; then choco install wget; fi  # install wget on Windows
           mkdir -p ~/.gmt ~/.gmt/cache ~/.gmt/server/earth/earth_relief/
           wget --no-check-certificate https://oceania.generic-mapping-tools.org/gmt_hash_server.txt -P ~/.gmt/server/
-          for data in earth_relief_01d_p.grd earth_relief_01d_g.grd earth_relief_30m_p.grd earth_relief_30m_g.grd earth_relief_10m_p.grd earth_relief_10m_g; do
+          for data in earth_relief_01d_p.grd earth_relief_01d_g.grd earth_relief_30m_p.grd earth_relief_30m_g.grd earth_relief_10m_p.grd earth_relief_10m_g.grd; do
             wget --no-check-certificate https://oceania.generic-mapping-tools.org/server/earth/earth_relief/${data} -P ~/.gmt/server/earth/earth_relief/
           done
           for data in ridge.txt Table_5_11.txt tut_bathy.nc tut_quakes.ngdc tut_ship.xyz usgs_quakes_22.txt; do
