@@ -8,27 +8,26 @@ from .. import which
 from ..exceptions import GMTInvalidInput
 
 
-def test_accessor_gridline_geographic():
+def test_accessor_gridline_cartesian():
     """
     Check that a grid returns a registration value of 0 when Gridline
     registered, and a gtype value of 1 when using Geographic coordinates.
     """
-    fname = which(fname="@tut_bathy.nc", download="c")
+    fname = which(fname="@test.dat.nc", download="a")
     grid = xr.open_dataarray(fname)
     assert grid.gmt.registration == 0  # gridline registration
-    assert grid.gmt.gtype == 1  # geographic coordinate type
+    assert grid.gmt.gtype == 0  # cartesian coordinate type
 
 
-def test_registration_pixel_cartesian():
+def test_accessor_pixel_geographic():
     """
     Check that a grid returns a registration value of 1 when Pixel registered,
     and a gtype value of 0 when using Cartesian coordinates.
     """
-    # Wait for GMT 6.1.0 earth_relief grids that are pixel registered
-    # fname = which(fname="@earth_relief_01d_p", download="c")
-    # grid = xr.open_dataarray(fname)
-    # assert grid.gmt.registration == 1  # pixel registration
-    # assert grid.gmt.gtype == 1  # geographic coordinate type
+    fname = which(fname="@earth_relief_01d_p", download="a")
+    grid = xr.open_dataarray(fname)
+    assert grid.gmt.registration == 1  # pixel registration
+    assert grid.gmt.gtype == 1  # geographic coordinate type
 
 
 def test_accessor_set_pixel_registration():

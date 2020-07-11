@@ -232,7 +232,7 @@ class GMTDataArrayAccessor:
 
     >>> # See if grid uses Gridline (0) or Pixel (1) registration
     >>> grid.gmt.registration
-    0
+    1
     >>> # See if grid uses Cartesian (0) or Geographic (1) coordinate system
     >>> grid.gmt.gtype
     1
