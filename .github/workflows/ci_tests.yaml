@@ -22,7 +22,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
     # environmental variables used in coverage
     env:
-      OS: ${{ runner.os }}
+      OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
 
     steps:
