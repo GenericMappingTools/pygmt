@@ -306,6 +306,7 @@ class BasePlotting:
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
+
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -401,6 +402,7 @@ class BasePlotting:
         perspective : list or str
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
             Select perspective view.
+
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
