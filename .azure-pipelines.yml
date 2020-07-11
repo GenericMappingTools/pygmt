@@ -142,11 +142,11 @@ jobs:
     displayName: Install the package
 
   # Run the tests
-  #- bash: |
-  #    set -x -e
-  #    source activate testing
-  #    make test PYTEST_EXTRA="-r P"
-  #  displayName: Test
+  - bash: |
+      set -x -e
+      source activate testing
+      make test PYTEST_EXTRA="-r P"
+    displayName: Test
 
   # Build the documentation
   - bash: |
@@ -164,8 +164,7 @@ jobs:
       codecov -e PYTHON AGENT_OS
     env:
       CODECOV_TOKEN: $(codecov.token)
-    #condition: succeeded()
-    condition: False
+    condition: succeeded()
     displayName: Upload coverage
 
 
@@ -240,11 +239,11 @@ jobs:
     displayName: Install the package
 
   # Run the tests
-  #- bash: |
-    #  set -x -e
-    #  source activate testing
-    #  make test PYTEST_EXTRA="-r P"
-    #displayName: Test
+  - bash: |
+      set -x -e
+      source activate testing
+      make test PYTEST_EXTRA="-r P"
+    displayName: Test
 
   # Upload test coverage if there were no failures
   - bash: |
@@ -255,6 +254,5 @@ jobs:
       codecov -e PYTHON AGENT_OS
     env:
       CODECOV_TOKEN: $(codecov.token)
-    #condition: succeeded()
-    condition: False
+    condition: succeeded()
     displayName: Upload coverage
