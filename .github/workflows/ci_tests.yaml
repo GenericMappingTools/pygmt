@@ -20,10 +20,10 @@ jobs:
       matrix:
         python-version: [3.6, 3.7, 3.8]
         os: [ubuntu-latest, macOS-latest, windows-latest]
-      # environmental variables used in coverage
-      env:
-        OS: ${{ matrix.os }}
-        PYTHON: ${{ matrix.python-version }}
+    # environmental variables used in coverage
+    env:
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python-version }}
 
     steps:
       # Checkout current git repository
