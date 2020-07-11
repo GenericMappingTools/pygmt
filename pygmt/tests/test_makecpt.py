@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name
 """
 Tests for makecpt
 """
@@ -16,22 +15,22 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
-@pytest.fixture(scope="module")
-def points():
+@pytest.fixture(scope="module", name="points")
+def fixture_points():
     "Load the points data from the test file"
     return np.loadtxt(POINTS_DATA)
 
 
-@pytest.fixture(scope="module")
-def region():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     "The data region"
     return [10, 70, -5, 10]
 
 
-@pytest.fixture(scope="module")
-def grid():
+@pytest.fixture(scope="module", name="grid")
+def fixture_grid():
     "Load the grid data from the sample earth_relief file"
-    return load_earth_relief()
+    return load_earth_relief(registration="gridline")
 
 
 @pytest.mark.mpl_image_compare
