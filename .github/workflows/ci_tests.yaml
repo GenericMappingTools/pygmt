@@ -110,7 +110,6 @@ jobs:
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.10
-        shell: bash -l {0}
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON
