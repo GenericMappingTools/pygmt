@@ -19,7 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6, 3.7, 3.8]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        #os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
