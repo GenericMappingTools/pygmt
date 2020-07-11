@@ -32,7 +32,7 @@ def test_grdview_grid_file_with_region_subset():
     """
     Run grdview by passing in a grid filename, and cropping it to a region.
     """
-    gridfile = which("@earth_relief_01d", download="c")
+    gridfile = which("@earth_relief_01d_g", download="c")
 
     fig = Figure()
     fig.grdview(grid=gridfile, region=[-116, -109, -47, -44])
@@ -93,6 +93,9 @@ def test_grdview_with_perspective_and_zsize(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_image_plot(grid):
     """
@@ -190,6 +193,9 @@ def test_grdview_surface_plot_styled_with_contourpen(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_surface_mesh_plot_styled_with_meshpen(grid):
     """
@@ -221,6 +227,9 @@ def test_grdview_on_a_plane_styled_with_facadepen(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(grid):
     """
