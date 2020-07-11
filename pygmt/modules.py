@@ -1,7 +1,6 @@
 """
 Non-plot GMT modules.
 """
-# import logging
 import xarray as xr
 
 from .clib import Session
@@ -241,18 +240,15 @@ class GMTDataArrayAccessor:
     def __init__(self, xarray_obj):
         self._obj = xarray_obj
         try:
-            self._source = self._obj.encoding["source"]
+            self._source = self._obj.encoding["source"]  # filepath to NetCDF source
+            # From the shortened summary information of `grdinfo`,
+            # get grid registration in column 10, and grid type in column 11
             self._registration, self._gtype = map(
                 int, grdinfo(self._source, C="n", o="10,11").split()
             )
         except KeyError:
             self._registration = 0  # Default to Gridline registration
             self._gtype = 0  # Default to Cartesian grid type
-            # logging.warning(
-            #     msg="Cannot find a NetCDF source for the xarray grid. "
-            #     "Will fallback to using GMT's default setting to assume "
-            #     "'Gridline node registration used [Cartesian grid]'"
-            # )
 
     @property
     def registration(self):
