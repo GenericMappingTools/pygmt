@@ -984,3 +984,35 @@ class BasePlotting:
 
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
+
+
+    @fmt_docstring
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        S="convention"
+    )
+    @kwargs_to_strings(
+        R="sequence",
+    )
+    def meca(self, focal_mechanism, **kwargs):
+        """
+        Plot focal mechanisms.
+
+        Parameters
+        ----------
+        focal_mechanism: 1D array, 2D array, or str
+            Description here.
+        """
+        kind = data_kind(focal_mechanism)
+        with Session() as lib:
+            if kind == "matrix":
+                file_context = lib.virtualfile_from_matrix(np.atleast_2d(focal_mechanism))
+            elif kind == "file":
+                file_context = dummy_context(focal_mechanism)
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(focal_mechanism)))
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("meca", arg_str)
