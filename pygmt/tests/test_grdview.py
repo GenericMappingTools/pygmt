@@ -27,6 +27,9 @@ def test_grdview_grid_dataarray(grid):
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_grid_file_with_region_subset():
     """
