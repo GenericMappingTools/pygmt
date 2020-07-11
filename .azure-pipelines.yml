@@ -69,7 +69,6 @@ jobs:
 ########################################################################################
 - job:
   displayName: 'Mac'
-  condition: False
 
   pool:
     vmImage: 'macOS-10.14'
@@ -159,7 +158,6 @@ jobs:
   - bash: |
       set -x -e
       source activate testing
-      coverage xml
       echo "Uploading coverage to Codecov"
       codecov -e PYTHON AGENT_OS
     env:
@@ -172,7 +170,6 @@ jobs:
 ########################################################################################
 - job:
   displayName: 'Windows'
-  condition: False
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -249,8 +246,6 @@ jobs:
   - bash: |
       set -x -e
       source activate testing
-      coverage report -m
-      coverage xml
       codecov -e PYTHON AGENT_OS
     env:
       CODECOV_TOKEN: $(codecov.token)
