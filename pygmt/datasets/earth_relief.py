@@ -54,7 +54,7 @@ def load_earth_relief(resolution="01d", registration=None):
             "gridline-registered grid is available."
         )
 
-    fname = which(f"@earth_relief_{resolution}{reg}", download="u")
+    fname = which(f"@earth_relief_{resolution}{reg}", download="a")
     grid = xr.open_dataarray(fname)
     # Add some metadata to the grid
     grid.name = "elevation"
