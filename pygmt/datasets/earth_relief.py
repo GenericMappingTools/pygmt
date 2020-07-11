@@ -3,9 +3,8 @@ Functions to download the Earth relief datasets from the GMT data server.
 The grids are available in various resolutions.
 """
 import xarray as xr
-from packaging.version import Version
 
-from .. import clib, which
+from .. import which
 from ..exceptions import GMTInvalidInput
 
 
@@ -45,16 +44,8 @@ def load_earth_relief(resolution="01d", registration=None):
     _is_valid_resolution(resolution)
 
     if registration in ("pixel", "gridline", None):
-        reg = ""  # If None, let GMT decide on Pixel/Gridline type
-        with clib.Session() as lib:
-            if registration and Version(lib.info["version"]) >= Version("6.1.0"):
-                reg = f"_{registration[0]}"
-            elif registration == "pixel" and Version(lib.info["version"]) < Version(
-                "6.1.0"
-            ):
-                raise GMTInvalidInput(
-                    "Pixel registration is only available for GMT>=6.1.0"
-                )
+        # If None, let GMT decide on Pixel/Gridline type
+        reg = f"_{registration[0]}" if registration else ""
     else:
         raise GMTInvalidInput(
             f"Invalid grid registration: {registration}, should be either "
@@ -63,7 +54,7 @@ def load_earth_relief(resolution="01d", registration=None):
             "gridline-registered grid is available."
         )
 
-    fname = which(f"@earth_relief_{resolution}{reg}", download="u")
+    fname = which(f"@earth_relief_{resolution}{reg}", download="a")
     grid = xr.open_dataarray(fname)
     # Add some metadata to the grid
     grid.name = "elevation"

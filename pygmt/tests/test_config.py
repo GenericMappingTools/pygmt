@@ -6,6 +6,9 @@ import pytest
 from .. import Figure, config
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_config():
     """
@@ -37,6 +40,9 @@ def test_config():
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_config_font_one():
     """
@@ -51,6 +57,9 @@ def test_config_font_one():
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_config_font_annot():
     """
@@ -105,9 +114,6 @@ def test_config_map_grid_cross_size():
     `MAP_GRID_CROSS_SIZE_PRIMARY` and `MAP_GRID_CROSS_SIZE_SECONDARY`.
     """
     fig = Figure()
-    config(
-        MAP_GRID_CROSS_SIZE_PRIMARY="0p", MAP_GRID_CROSS_SIZE_SECONDARY="0p"
-    )  # Remove after https://github.com/GenericMappingTools/gmt/issues/3062 is fixed
     with config(MAP_GRID_CROSS_SIZE="3p"):
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],

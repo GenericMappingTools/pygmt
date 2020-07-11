@@ -49,13 +49,13 @@ def dataarray_to_matrix(grid):
     >>> grid = load_earth_relief(resolution='01d')
     >>> matrix, region, inc = dataarray_to_matrix(grid)
     >>> print(region)
-    [-180.0, 180.0, -90.0, 90.0]
+    [-179.5, 179.5, -89.5, 89.5]
     >>> print(inc)
     [1.0, 1.0]
     >>> type(matrix)
     <class 'numpy.ndarray'>
     >>> print(matrix.shape)
-    (181, 361)
+    (180, 360)
     >>> matrix.flags.c_contiguous
     True
     >>> # Using a slice of the grid, the matrix will be copied to guarantee
@@ -66,7 +66,7 @@ def dataarray_to_matrix(grid):
     >>> print(matrix.shape)
     (31, 71)
     >>> print(region)
-    [-150.0, -80.0, -80.0, -50.0]
+    [-149.5, -79.5, -79.5, -49.5]
     >>> print(inc)
     [1.0, 1.0]
     >>> # but not if only taking every other grid point.
@@ -76,7 +76,7 @@ def dataarray_to_matrix(grid):
     >>> print(matrix.shape)
     (16, 36)
     >>> print(region)
-    [-150.0, -80.0, -80.0, -50.0]
+    [-149.5, -79.5, -79.5, -49.5]
     >>> print(inc)
     [2.0, 2.0]
 
