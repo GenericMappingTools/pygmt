@@ -70,7 +70,6 @@ script:
 # Things to do if the build is successful
 after_success:
     # Upload coverage information
-    - coverage xml
     - codecov -e PYTHON
 
 deploy:
