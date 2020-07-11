@@ -106,10 +106,9 @@ jobs:
         run: make test PYTEST_EXTRA="-r P"
 
       # Build the documentation
-      - name: Build the documentation
-        shell: bash -l {0}
-        run: make -C doc clean all
-        condition: False
+      #- name: Build the documentation
+      #  shell: bash -l {0}
+      #  run: make -C doc clean all
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
