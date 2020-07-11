@@ -19,7 +19,7 @@ def test_grdcut_file_in_file_out():
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = grdinfo(tmpfile.name, C=True)
-        assert result == "0 180 0 90 -8592.5 5559 1 1 181 91\n"
+        assert result == "0 180 0 90 -8182 5651.5 1 1 180 90 1 1\n"
 
 
 def test_grdcut_file_in_dataarray_out():
@@ -29,14 +29,14 @@ def test_grdcut_file_in_dataarray_out():
     # check information of the output grid
     # the '@earth_relief_01d' is in pixel registration, so the grid range is
     # not exactly 0/180/0/90
-    assert outgrid.coords["lat"].data.min() == 0.0
-    assert outgrid.coords["lat"].data.max() == 90.0
-    assert outgrid.coords["lon"].data.min() == 0.0
-    assert outgrid.coords["lon"].data.max() == 180.0
-    assert outgrid.data.min() == -8592.5
-    assert outgrid.data.max() == 5559
-    assert outgrid.sizes["lat"] == 91
-    assert outgrid.sizes["lon"] == 181
+    assert outgrid.coords["lat"].data.min() == 0.5
+    assert outgrid.coords["lat"].data.max() == 89.5
+    assert outgrid.coords["lon"].data.min() == 0.5
+    assert outgrid.coords["lon"].data.max() == 179.5
+    assert outgrid.data.min() == -8182.0
+    assert outgrid.data.max() == 5651.5
+    assert outgrid.sizes["lat"] == 90
+    assert outgrid.sizes["lon"] == 180
 
 
 def test_grdcut_dataarray_in_file_out():

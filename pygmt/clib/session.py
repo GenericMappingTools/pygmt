@@ -74,7 +74,7 @@ class Session:
     look for the shared library in the directory specified by it.
 
     A ``GMTVersionError`` exception will be raised if the GMT shared library
-    reports a version < 6.0.0.
+    reports a version older than the required minimum GMT version.
 
     The ``session_pointer`` attribute holds a ctypes pointer to the currently
     open session.
@@ -111,11 +111,11 @@ class Session:
     ...             )
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
-    -180 180 -90 90 -8592.5 5559 1 1 361 181
+    -179.5 179.5 -89.5 89.5 -8182 5651.5 1 1 360 180 0 0
     """
 
     # The minimum version of GMT required
-    required_version = "6.0.0"
+    required_version = "6.1.0"
 
     @property
     def session_pointer(self):
@@ -924,7 +924,7 @@ class Session:
             GMT or getting it out of GMT, respectively.
             By default, GMT can modify the data you pass in. Add modifier
             ``'GMT_IS_REFERENCE'`` to tell GMT the data are read-only, or
-            ``'GMT_IS_DUPLICATE'' to tell GMT to duplicate the data.
+            ``'GMT_IS_DUPLICATE'`` to tell GMT to duplicate the data.
         data : int
             The ctypes void pointer to your GMT data structure.
 
@@ -990,12 +990,7 @@ class Session:
             valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
         )
 
-        # The core GMT changes GMT_STR16 to GMT_VF_LEN in 6.1.0
-        # See https://github.com/GenericMappingTools/gmt/pull/2861
-        if Version(self.info["version"]) < Version("6.1.0"):
-            buff = ctp.create_string_buffer(self["GMT_STR16"])
-        else:
-            buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
+        buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
 
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
@@ -1219,13 +1214,13 @@ class Session:
         >>> from pygmt.helpers import GMTTempFile
         >>> data = load_earth_relief(resolution='01d')
         >>> print(data.shape)
-        (181, 361)
+        (180, 360)
         >>> print(data.lon.values.min(), data.lon.values.max())
-        -180.0 180.0
+        -179.5 179.5
         >>> print(data.lat.values.min(), data.lat.values.max())
-        -90.0 90.0
+        -89.5 89.5
         >>> print(data.values.min(), data.values.max())
-        -8592.5 5559.0
+        -8182.0 5651.5
         >>> with Session() as ses:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
@@ -1233,8 +1228,8 @@ class Session:
         ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
         ...             ses.call_module('grdinfo', args)
         ...             print(fout.read().strip())
-        -180 180 -90 90 -8592.5 5559 1 1 361 181
-        >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
+        -179.5 179.5 -89.5 89.5 -8182 5651.5 1 1 360 180 0 0
+        >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
 
         """
         # Conversion to a C-contiguous array needs to be done here and not in

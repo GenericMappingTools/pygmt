@@ -2,21 +2,17 @@
 Test Figure.grdcontour
 """
 import os
-from packaging.version import Version
 
 import numpy as np
 import pytest
 
-from .. import Figure, clib
+from .. import Figure
 from ..exceptions import GMTInvalidInput
 from ..datasets import load_earth_relief
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEST_CONTOUR_FILE = os.path.join(TEST_DATA_DIR, "contours.txt")
-
-with clib.Session() as lib:
-    gmt_version = Version(lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -26,7 +22,6 @@ def fixture_grid():
 
 
 @pytest.mark.xfail(
-    condition=gmt_version < Version("6.1.0"),
     reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
 )
 @pytest.mark.mpl_image_compare
@@ -40,7 +35,6 @@ def test_grdcontour(grid):
 
 
 @pytest.mark.xfail(
-    condition=gmt_version < Version("6.1.0"),
     reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
 )
 @pytest.mark.mpl_image_compare
@@ -61,7 +55,6 @@ def test_grdcontour_labels(grid):
 
 
 @pytest.mark.xfail(
-    condition=gmt_version < Version("6.1.0"),
     reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
 )
 @pytest.mark.mpl_image_compare
@@ -78,7 +71,7 @@ def test_grdcontour_file():
     "Plot a contour image using grid file input"
     fig = Figure()
     fig.grdcontour(
-        "@earth_relief_01d",
+        "@earth_relief_01d_g",
         interval="1000",
         limit="0",
         pen="0.5p,black",
@@ -89,7 +82,6 @@ def test_grdcontour_file():
 
 
 @pytest.mark.xfail(
-    condition=gmt_version < Version("6.1.0"),
     reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
 )
 @pytest.mark.mpl_image_compare
