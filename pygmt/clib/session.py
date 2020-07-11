@@ -924,7 +924,7 @@ class Session:
             GMT or getting it out of GMT, respectively.
             By default, GMT can modify the data you pass in. Add modifier
             ``'GMT_IS_REFERENCE'`` to tell GMT the data are read-only, or
-            ``'GMT_IS_DUPLICATE'' to tell GMT to duplicate the data.
+            ``'GMT_IS_DUPLICATE'`` to tell GMT to duplicate the data.
         data : int
             The ctypes void pointer to your GMT data structure.
 
