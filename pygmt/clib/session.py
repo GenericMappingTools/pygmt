@@ -111,7 +111,7 @@ class Session:
     ...             )
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
-    -180 180 -90 90 -8592.5 5559 1 1 361 181
+    -179.5 179.5 -89.5 89.5 -8182 5651.5 1 1 360 180 0 0
     """
 
     # The minimum version of GMT required
@@ -1221,11 +1221,11 @@ class Session:
         >>> print(data.shape)
         (180, 360)
         >>> print(data.lon.values.min(), data.lon.values.max())
-        -180.0 180.0
+        -179.5 179.5
         >>> print(data.lat.values.min(), data.lat.values.max())
-        -90.0 90.0
+        -89.5 89.5
         >>> print(data.values.min(), data.values.max())
-        -8592.5 5559.0
+        -8182.0 5651.5
         >>> with Session() as ses:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
@@ -1233,8 +1233,8 @@ class Session:
         ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
         ...             ses.call_module('grdinfo', args)
         ...             print(fout.read().strip())
-        -180 180 -90 90 -8592.5 5559 1 1 361 181
-        >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
+        -179.5 179.5 -89.5 89.5 -8182 5651.5 1 1 360 180 0 0
+        >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
 
         """
         # Conversion to a C-contiguous array needs to be done here and not in

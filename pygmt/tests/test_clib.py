@@ -161,7 +161,7 @@ def test_call_module_error_message():
             msg = "\n".join(
                 [
                     "Module 'info' failed with status code 71:",
-                    "gmtinfo [ERROR]: Error for input file: No such file (bogus-data.bla)",
+                    "gmtinfo [ERROR]: Cannot find file bogus-data.bla",
                 ]
             )
             assert str(error) == msg

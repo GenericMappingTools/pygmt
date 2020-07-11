@@ -13,7 +13,7 @@ def test_grdinfo():
     "Make sure grd info works as expected"
     grid = load_earth_relief(registration="gridline")
     result = grdinfo(grid, L=0, C="n")
-    assert result.strip() == "-180 180 -90 90 -8592.5 5559 1 1 361 181"
+    assert result.strip() == "-180 180 -90 90 -8592.5 5559 1 1 361 181 0 0"
 
 
 def test_grdinfo_file():
