@@ -1,0 +1,39 @@
+name: Style Checks
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  style_check:
+    name: Style Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
+
+      # Setup Miniconda
+      - name: Setup Miniconda
+        uses: goanpeca/setup-miniconda@v1.6.0
+        with:
+          python-version: 3.7
+          channels: conda-forge
+
+      - name: Install packages
+        shell: bash -l {0}
+        run: conda install --yes black flake8 pylint
+
+      - name: List installed packages
+        shell: bash -l {0}
+        run: conda list
+
+      - name: Formatting check (black and flake8)
+        shell: bash -l {0}
+        run: make check
+
+      - name: Linting (pylint)
+        shell: bash -l {0}
+        run: make lint
