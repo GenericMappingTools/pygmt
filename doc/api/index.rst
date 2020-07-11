@@ -62,7 +62,6 @@ Operations on tabular data:
     :toctree: generated
 
     blockmedian
-    info
     surface
 
 Operations on grids:
@@ -71,7 +70,6 @@ Operations on grids:
     :toctree: generated
 
     grdcut
-    grdinfo
     grdtrack
 
 GMT Defaults
@@ -83,6 +81,19 @@ Operations on GMT defaults:
     :toctree: generated
 
     config
+
+Metadata
+--------
+
+Getting metadata from tabular or grid data:
+
+.. autosummary::
+    :toctree: generated
+
+    GMTDataArrayAccessor
+    info
+    grdinfo
+
 
 Miscellaneous
 -------------
