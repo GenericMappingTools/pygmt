@@ -12,6 +12,30 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
+  style_check:
+    name: Style Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
+
+      # Setup Miniconda
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install packages
+        run: pip install black flake8 pylint
+
+      - name: Formatting check (black and flake8)
+        run: make check
+
+      - name: Linting (pylint)
+        run: make lint
+
   test:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
