@@ -24,7 +24,7 @@ fig.coast(
 )
 
 # store focal mechanisms parameters in a dict
-focal_mechanisms = dict(strike=330, dip=30, rake=90, magnitude=3)
+focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
 
 # pass the focal mechanism data to meca in addition to the scale and event location
 fig.meca(focal_mechanism, scale="1c", lon=-124.3, lat=48.1, depth=12.0)
