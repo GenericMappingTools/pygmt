@@ -1040,19 +1040,6 @@ class BasePlotting:
             Text string to appear near the beachball
         {J}
         {R}
-
-        Examples
-        --------
-        fig = pygmt.Figure()
-        fig.meca(lon=239.384, lat=34.556, depth=12.0,
-                spec=dict(strike1=180, dip1=18, rake1=-88, strike2=0,
-                          dip2=72, rake2=-90, mantissa=5.5, exponent=0),
-                region=[239, 240, 34, 35.2], projection='m4c')
-        fig.show()
-
-        fig = pygmt.Figure()
-        fig.meca(spec='focal_mechanisms.psmeca')
-        fig.show()
         """
 
         # Check the spec and parse the data according to the specified convention
