@@ -1015,16 +1015,18 @@ class BasePlotting:
         depth: int or float
             Depth of event location in kilometers.
         spec: dict, 1D array, 2D array, or str
-            Object specifying event parameters that are consistent with the specified
-            convention. If a string specifying a filename is assigned to spec, no other
-            parameters are required, as those parameters are assumed to exist in the
-            file. List of required spec parameters for different conventions:
+            Object specifying event parameters that are consistent with the
+            specified convention. If a string specifying a filename is assigned
+            to spec, no other parameters are required, as those parameters are
+            assumed to exist in the file. List of required spec parameters for
+            different conventions:
 
             - a (Aki & Rickards): strike, dip, rake, magnitude
-            - c (global CMT): strike1, dip1, rake1, strike2, dip2, rake2, mantissa,
-              exponent
+            - c (global CMT): strike1, dip1, rake1, strike2, dip2, rake2,
+              mantissa, exponent
             - m (seismic moment tensor): mrr, mtt, mff, mrt, mrf, mtf, exponent
-            - p (partial focal mechanism): strike1, dip1, strike2, fault_type, magnitude
+            - p (partial focal mechanism): strike1, dip1, strike2, fault_type,
+              magnitude
             - x (principal axis): t_exponent, t_azimuth, t_plunge, n_exponent,
               n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent
 
@@ -1042,13 +1044,14 @@ class BasePlotting:
         {R}
         """
 
-        # Check the spec and parse the data according to the specified convention
+        # Check the spec and parse the data according to the specified
+        # convention
         if type(spec) is dict:
             if lon is None or lat is None or depth is None:
                 raise GMTError("Location not fully specified.")
 
-            # FIXME: These are constants related to GMT and could be defined elsewhere
-            # (top of file?)
+            # FIXME: These are constants related to GMT and could be defined
+            # elsewhere (top of file?)
             AKI_PARAMS = ["strike", "dip", "rake", "magnitude"]
             GCMT_PARAMS = [
                 "strike1",
@@ -1060,7 +1063,8 @@ class BasePlotting:
                 "mantissa",
                 "exponent",
             ]
-            # FIXME: allow specification of moment instead of mantissa and exponent.
+            # FIXME: allow specification of moment instead of mantissa and
+            # exponent.
             MT_PARAMS = ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"]
             PFM_PARAMS = ["strike1", "dip1", "strike2", "fault_type", "magnitude"]
             PA_PARAMS = [
