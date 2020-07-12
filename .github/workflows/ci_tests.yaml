@@ -15,9 +15,6 @@ jobs:
   style_check:
     name: Style Checks
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash -l {0}
 
     steps:
       # Checkout current git repository
