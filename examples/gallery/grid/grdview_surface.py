@@ -45,7 +45,7 @@ fig.grdview(
     zscale=f"{SCALE}i",
     surftype="s",
     cmap="roma",
-    perspective=[135, 30],  # Azimuth SouthEast (135°), at Elevation 30°
+    perspective=[135, 30],  # Azimuth southeast (135°), at elevation 30°
     shading="+a45",
 )
 
