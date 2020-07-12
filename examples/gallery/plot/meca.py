@@ -3,9 +3,10 @@ Focal mechanisms
 ----------------
 
 The :meth:`pygmt.Figure.meca` method can plot focal mechanisms, or beachballs.
-We must specify the focal mechanism nodal planes or moment tensor components as
-columns using the ``spec`` argument, and the size of plotted beachballs using the 
-``scale`` argument.
+We can specify the focal mechanism nodal planes or moment tensor components as
+a dict using the ``spec`` argument (or they can be specified as a 1d or 2d array,
+or within a specified file). The size of plotted beachballs can be specified 
+using the ``scale`` argument.
 """
 
 import pygmt
