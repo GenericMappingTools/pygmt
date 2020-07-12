@@ -12,9 +12,6 @@ PyGMT
 .. image:: http://img.shields.io/travis/GenericMappingTools/pygmt/master.svg?style=flat-square&label=Linux
     :alt: Travis CI build status
     :target: https://travis-ci.org/GenericMappingTools/pygmt
-.. image:: https://github.com/GenericMappingTools/pygmt/workflows/Style%20Checks/badge.svg
-    :alt: GitHub Actions Style Checks
-    :target: https://github.com/GenericMappingTools/pygmt/actions
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions build status
     :target: https://github.com/GenericMappingTools/pygmt/actions
