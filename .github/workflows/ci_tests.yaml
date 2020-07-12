@@ -15,6 +15,9 @@ jobs:
   style_check:
     name: Style Checks
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
 
     steps:
       # Checkout current git repository
@@ -28,15 +31,12 @@ jobs:
           python-version: 3.7
 
       - name: Install packages
-        shell: bash -l {0}
         run: pip install black flake8 pylint
 
       - name: Formatting check (black and flake8)
-        shell: bash -l {0}
         run: make check
 
       - name: Linting (pylint)
-        shell: bash -l {0}
         run: make lint
 
   test:
