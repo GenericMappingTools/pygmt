@@ -403,7 +403,7 @@ class BasePlotting:
         perspective : list or str
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
             Select perspective view.
-            
+
         shading : str
             Provide the name of a grid file with intensities in the (-1,+1)
             range, or a constant intensity to apply everywhere (affects the
