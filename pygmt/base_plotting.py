@@ -336,6 +336,7 @@ class BasePlotting:
         Wm="meshpen",
         Wf="facadepen",
         p="perspective",
+        I="shading",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
     def grdview(self, grid, **kwargs):
