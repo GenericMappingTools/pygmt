@@ -1126,9 +1126,7 @@ class BasePlotting:
         kind = data_kind(spec)
         with Session() as lib:
             if kind == "matrix":
-                file_context = lib.virtualfile_from_matrix(
-                    np.atleast_2d(spec)
-                )  # np.atleast_2d allows 1D and 2D arrays
+                file_context = lib.virtualfile_from_matrix(np.atleast_2d(spec))
             elif kind == "file":
                 file_context = dummy_context(spec)
             else:
