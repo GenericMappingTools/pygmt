@@ -1015,23 +1015,28 @@ class BasePlotting:
         depth: int or float
             Depth of event location in kilometers.
         spec: dict, 1D array, 2D array, or str
-            Object specifying event parameters that are consistent with the specified convention.
-            If a string specifying a filename is assigned to spec, no other parameters are required,
-            as those parameters are assumed to exist in the file.
-            List of required spec parameters for different conventions:
-                a (Aki & Rickards): strike, dip, rake, magnitude
-                c (global CMT): strike1, dip1, rake1, strike2, dip2, rake2, mantissa, exponent
-                m (seismic moment tensor): mrr, mtt, mff, mrt, mrf, mtf, exponent
-                p (partial focal mechanism): strike1, dip1, strike2, fault_type, magnitude
-                x (principal axis): t_exponent, t_azimuth, t_plunge, n_exponent, n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent
+            Object specifying event parameters that are consistent with the specified
+            convention. If a string specifying a filename is assigned to spec, no other
+            parameters are required, as those parameters are assumed to exist in the
+            file. List of required spec parameters for different conventions:
+
+            - a (Aki & Rickards): strike, dip, rake, magnitude
+            - c (global CMT): strike1, dip1, rake1, strike2, dip2, rake2, mantissa,
+              exponent
+            - m (seismic moment tensor): mrr, mtt, mff, mrt, mrf, mtf, exponent
+            - p (partial focal mechanism): strike1, dip1, strike2, fault_type, magnitude
+            - x (principal axis): t_exponent, t_azimuth, t_plunge, n_exponent,
+              n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent
+
         convention: str
-            a (Aki & Richards), c (global CMT), m (seismic moment tensor), p (partial focal mechanism), x (principal axis)
-            Optional (auto-detected) if spec is defined as a dict.
+            a (Aki & Richards), c (global CMT), m (seismic moment tensor),
+            p (partial focal mechanism), or x (principal axis)
+            Optional (auto-detected) if a dictionary is provided to `spec`.
         plot_lon: (optional) int or float
             Longitude at which to place beachball
         plot_lat: (optional) int or float
             Latitude at which to place beachball
-        text:     (optional) str
+        text: (optional) str
             Text string to appear near the beachball
         {J}
         {R}
