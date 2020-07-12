@@ -13,13 +13,20 @@ import pygmt
 fig = pygmt.Figure()
 
 # generate a basemap near Washington state showing coastlines, land, and water
-fig.coast(region=[-125, -122, 47, 49], projection='M6c', land='grey', water='lightblue',
-            shorelines=True, resolution='f', frame='a')
+fig.coast(
+    region=[-125, -122, 47, 49],
+    projection="M6c",
+    land="grey",
+    water="lightblue",
+    shorelines=True,
+    resolution="f",
+    frame="a",
+)
 
 # store focal mechanisms parameters in a dict
 focal_mechanisms = dict(strike=330, dip=30, rake=90, magnitude=3)
 
 # pass the focal mechanism data to meca in addition to the scale and event location
-fig.meca(focal_mechanisms, scale='1c', lon=-124.3, lat=48.1, depth=12.0)
+fig.meca(focal_mechanisms, scale="1c", lon=-124.3, lat=48.1, depth=12.0)
 
 fig.show()
