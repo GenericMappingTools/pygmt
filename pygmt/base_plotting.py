@@ -1048,9 +1048,7 @@ class BasePlotting:
 
         # Check the spec and parse the data according to the specified convention
         if type(spec) is dict:
-            if (
-                (lon is None) or (lat is None) or (depth is None)
-            ):  # if no specified location
+            if lon is None or lat is None or depth is None:  # if no specified location
                 raise Error("Location not fully specified.")
 
             # These are constants related to GMT and could be defined elsewhere (top of file?)
