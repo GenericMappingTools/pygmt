@@ -1004,6 +1004,8 @@ class BasePlotting:
         """
         Plot focal mechanisms.
 
+        {aliases}
+
         Parameters
         ----------
         lon: int or float
@@ -1031,6 +1033,8 @@ class BasePlotting:
             Latitude at which to place beachball
         text:     (optional) str
             Text string to appear near the beachball
+        {J}
+        {R}
 
         Examples
         --------
