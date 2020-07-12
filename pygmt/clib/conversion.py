@@ -109,7 +109,7 @@ def dataarray_to_matrix(grid):
         )
         inc.append(coord_inc)
 
-    if any([i < 0 for i in inc]):  # Sort grid when there are negative increments
+    if any(i < 0 for i in inc):  # Sort grid when there are negative increments
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
