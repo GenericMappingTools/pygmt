@@ -403,6 +403,15 @@ class BasePlotting:
         perspective : list or str
             ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
             Select perspective view.
+            
+        shading : str
+            Provide the name of a grid file with intensities in the (-1,+1)
+            range, or a constant intensity to apply everywhere (affects the
+            ambient light). Alternatively, derive an intensity grid from the
+            input data grid reliefgrid via a call to ``grdgradient``; append
+            ``+aazimuth``, ``+nargs``, and ``+mambient`` to specify azimuth,
+            intensity, and ambient arguments for that module, or just give
+            ``+d`` to select the default arguments (``+a-45+nt1+m0``).
 
         """
         kwargs = self._preprocess(**kwargs)
