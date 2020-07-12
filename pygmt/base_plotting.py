@@ -990,15 +990,15 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence",)
     def meca(
         self,
+        spec,
+        scale,
         lon=None,
         lat=None,
         depth=None,
         convention=None,
-        spec=None,
         plot_lon=None,  # FIXME: implement -C flag if plot location is specified
         plot_lat=None,
         text=None,
-        scale=None,  # FIXME: implement
         **kwargs,
     ):
         """
@@ -1008,17 +1008,6 @@ class BasePlotting:
 
         Parameters
         ----------
-        lon: int or float
-            Longitude of event location.
-        lat: int or float
-            Latitude of event location.
-        depth: int or float
-            Depth of event location in kilometers.
-        convention: str
-            ``"a"`` (Aki & Richards), ``"c"`` (global CMT), ``"m"`` (seismic
-            moment tensor), ``"p"`` (partial focal mechanism), or ``"x"``
-            (principal axis). Optional (auto-detected) if a dictionary is
-            provided to `spec`.
         spec: dict, 1D array, 2D array, or str
             Object specifying event parameters that are consistent with the
             specified convention. If a string specifying a filename is assigned
@@ -1034,6 +1023,21 @@ class BasePlotting:
             - ``"x"`` — *t_exponent, t_azimuth, t_plunge, n_exponent,
               n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent*
 
+        scale: str
+            Adjusts the scaling of the radius of the beachball, which is
+            proportional to the magnitude. Scale defines the size for
+            magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
+        lon: int or float
+            Longitude of event location.
+        lat: int or float
+            Latitude of event location.
+        depth: int or float
+            Depth of event location in kilometers.
+        convention: str
+            ``"a"`` (Aki & Richards), ``"c"`` (global CMT), ``"m"`` (seismic
+            moment tensor), ``"p"`` (partial focal mechanism), or ``"x"``
+            (principal axis). Optional (auto-detected) if a dictionary is
+            provided to `spec`.
         plot_lon: int or float
             Longitude at which to place beachball (optional).
         plot_lat: int or float
@@ -1125,6 +1129,8 @@ class BasePlotting:
         # If user is providing something other than a dictionary
         elif convention is None:
             raise GMTError("We need a convention to know how to interpret the input!")
+        # Add condition and scale to kwargs, append additional parameters here
+        kwargs["S"] = convention + scale
         kind = data_kind(spec)
         with Session() as lib:
             if kind == "matrix":
