@@ -1100,7 +1100,7 @@ class BasePlotting:
                 foc_params = PFM_PARAMS
 
             # Principal axis convention: -Sx in GMT
-            elif set(spec.keys()) == set(PFM_PARAMS):
+            elif set(spec.keys()) == set(PA_PARAMS):
                 convention = "x"
                 foc_params = PA_PARAMS
 
