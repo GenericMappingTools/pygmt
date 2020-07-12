@@ -1,0 +1,143 @@
+# This workflow installs PyGMT dependencies, build documentation and run tests
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+  # Schedule daily tests
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  style_check:
+    name: Style Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
+
+      # Setup Miniconda
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install packages
+        run: pip install black flake8 pylint
+
+      - name: Formatting check (black and flake8)
+        run: make check
+
+      - name: Linting (pylint)
+        run: make lint
+
+  test:
+    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+        #os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
+    # environmental variables used in coverage
+    env:
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python-version }}
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
+        with:
+          # fecth all history so that versioneer works
+          fetch-depth: 0
+
+      # Setup Miniconda
+      - name: Setup Miniconda
+        uses: goanpeca/setup-miniconda@v1.6.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          channels: conda-forge
+
+      # Install GMT and other required dependencies from conda-forge
+      - name: Install GMT and required dependencies
+        shell: bash -l {0}
+        run: |
+          requirements_file=full-conda-requirements.txt
+          cat requirements.txt requirements-dev.txt > $requirements_file
+          cat << EOF >> $requirements_file
+          gmt=6.1.0
+          make
+          codecov
+          EOF
+          conda install --yes --file $requirements_file
+
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        shell: bash -l {0}
+        run: conda list
+
+      # Cache the ${HOME}/.gmt directory, for docs and testing
+      - name: Cache GMT directory
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            ~/.gmt/cache
+            ~/.gmt/server
+          key: cache-gmt-${{ runner.os }}-${{ github.ref }}-20200711
+          restore-keys: cache-gmt-${{ runner.os }}-refs/heads/master-
+
+      # Workaround for the timeouts of 'gmt which' on Linux and Windows
+      - name: Download remote data using wget (Linux & Windows)
+        shell: bash -l {0}
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then choco install wget; fi  # install wget on Windows
+          mkdir -p ~/.gmt ~/.gmt/cache ~/.gmt/server/earth/earth_relief/
+          wget --no-check-certificate https://oceania.generic-mapping-tools.org/gmt_hash_server.txt -P ~/.gmt/server/
+          for data in earth_relief_01d_p.grd earth_relief_01d_g.grd earth_relief_30m_p.grd earth_relief_30m_g.grd earth_relief_10m_p.grd earth_relief_10m_g.grd; do
+            wget --no-check-certificate https://oceania.generic-mapping-tools.org/server/earth/earth_relief/${data} -P ~/.gmt/server/earth/earth_relief/
+          done
+          for data in ridge.txt Table_5_11.txt test.dat.nc tut_bathy.nc tut_quakes.ngdc tut_ship.xyz usgs_quakes_22.txt; do
+            wget --no-check-certificate https://oceania.generic-mapping-tools.org/cache/${data} -P ~/.gmt/cache/
+          done
+        if: steps.cache.outputs.cache-hit != 'true' && runner.os != 'macOS'
+
+      # Download remote files, if not already cached
+      - name: Download remote data (macOS)
+        shell: bash -l {0}
+        run: |
+          gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g @earth_relief_30m_p @earth_relief_30m_g @earth_relief_01d_p @earth_relief_01d_g
+          gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
+        if: steps.cache.outputs.cache-hit != 'true' && runner.os == 'macOS'
+
+      # Install the package that we want to test
+      - name: Install the package
+        shell: bash -l {0}
+        run: |
+          python setup.py sdist --formats=zip
+          pip install dist/*
+
+      # Run the tests
+      - name: Test with pytest
+        shell: bash -l {0}
+        run: make test PYTEST_EXTRA="-r P"
+
+      # Build the documentation
+      #- name: Build the documentation
+      #  shell: bash -l {0}
+      #  run: make -C doc clean all
+
+      # Upload coverage to Codecov
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1.0.10
+        with:
+          file: ./coverage.xml # optional
+          env_vars: OS,PYTHON
+          fail_ci_if_error: true

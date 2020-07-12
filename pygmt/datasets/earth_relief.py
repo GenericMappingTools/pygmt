@@ -8,7 +8,7 @@ from .. import which
 from ..exceptions import GMTInvalidInput
 
 
-def load_earth_relief(resolution="01d"):
+def load_earth_relief(resolution="01d", registration=None):
     """
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -28,6 +28,12 @@ def load_earth_relief(resolution="01d"):
         ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
         ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'`` or ``'15s'``.
 
+    registration : str
+        Grid registration type. Either ``pixel`` for pixel registration or
+        ``gridline`` for gridline registration. Default is ``None``, where
+        a pixel-registered grid is returned unless only the
+        gridline-registered grid is available.
+
     Returns
     -------
     grid : xarray.DataArray
@@ -36,7 +42,19 @@ def load_earth_relief(resolution="01d"):
 
     """
     _is_valid_resolution(resolution)
-    fname = which("@earth_relief_{}".format(resolution), download="u")
+
+    if registration in ("pixel", "gridline", None):
+        # If None, let GMT decide on Pixel/Gridline type
+        reg = f"_{registration[0]}" if registration else ""
+    else:
+        raise GMTInvalidInput(
+            f"Invalid grid registration: {registration}, should be either "
+            "'pixel', 'gridline' or None. Default is None, where a "
+            "pixel-registered grid is returned unless only the "
+            "gridline-registered grid is available."
+        )
+
+    fname = which(f"@earth_relief_{resolution}{reg}", download="a")
     grid = xr.open_dataarray(fname)
     # Add some metadata to the grid
     grid.name = "elevation"

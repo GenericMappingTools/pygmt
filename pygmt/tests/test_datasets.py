@@ -70,19 +70,25 @@ def test_earth_relief_fails():
 # Only test 01d and 30m to avoid downloading large datasets in CI
 def test_earth_relief_01d():
     "Test some properties of the earth relief 01d data"
-    data = load_earth_relief(resolution="01d")
+    data = load_earth_relief(resolution="01d", registration="gridline")
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -8592.144531)
-    npt.assert_allclose(data.max(), 5558.79248)
+    npt.assert_allclose(data.min(), -8592.5)
+    npt.assert_allclose(data.max(), 5559.0)
 
 
 def test_earth_relief_30m():
     "Test some properties of the earth relief 30m data"
-    data = load_earth_relief(resolution="30m")
+    data = load_earth_relief(resolution="30m", registration="gridline")
     assert data.shape == (361, 721)
     npt.assert_allclose(data.lat, np.arange(-90, 90.5, 0.5))
     npt.assert_allclose(data.lon, np.arange(-180, 180.5, 0.5))
-    npt.assert_allclose(data.min(), -9460.310547)
-    npt.assert_allclose(data.max(), 5887.60791)
+    npt.assert_allclose(data.min(), -9460.5)
+    npt.assert_allclose(data.max(), 5887.5)
+
+
+def test_earth_relief_incorrect_registration():
+    "Test loading earth relief with incorrect registration type"
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief(registration="improper_type")
