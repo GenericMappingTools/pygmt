@@ -988,27 +988,171 @@ class BasePlotting:
     @fmt_docstring
     @use_alias(R="region", J="projection", B="frame", S="convention")
     @kwargs_to_strings(R="sequence",)
-    def meca(self, focal_mechanism, **kwargs):
+    def meca(
+        self,
+        lon=None,
+        lat=None,
+        depth=None,
+        spec=None,
+        convention=None,
+        plot_lon=None,  # FIXME: implement -C flag if plot location is specified
+        plot_lat=None,
+        text=None,
+        scale=None,  # FIXME: implement
+        **kwargs,
+    ):
         """
         Plot focal mechanisms.
 
         Parameters
         ----------
-        focal_mechanism: 1D array, 2D array, or str
-            Description here.
+        lon: int or float
+            Longitude of event location.
+        lat: int or float
+            Latitude of event location.
+        depth: int or float
+            Depth of event location in kilometers.
+        spec: dict, 1D array, 2D array, or str
+            Object specifying event parameters that are consistent with the specified convention.
+            If a string specifying a filename is assigned to spec, no other parameters are required,
+            as those parameters are assumed to exist in the file.
+            List of required spec parameters for different conventions:
+                a (Aki & Rickards): strike, dip, rake, magnitude
+                c (global CMT): strike1, dip1, rake1, strike2, dip2, rake2, mantissa, exponent
+                m (seismic moment tensor): mrr, mtt, mff, mrt, mrf, mtf, exponent
+                p (partial focal mechanism): strike1, dip1, strike2, fault_type, magnitude
+                x (principal axis): t_exponent, t_azimuth, t_plunge, n_exponent, n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent
+        convention: str
+            a (Aki & Richards), c (global CMT), m (seismic moment tensor), p (partial focal mechanism), x (principal axis)
+            Optional (auto-detected) if spec is defined as a dict.
+        plot_lon: (optional) int or float
+            Longitude at which to place beachball 
+        plot_lat: (optional) int or float
+            Latitude at which to place beachball
+        text:     (optional) str
+            Text string to appear near the beachball
+
+        Examples
+        --------
+        fig = pygmt.Figure()
+        fig.meca(lon=239.384, lat=34.556, depth=12.0,
+                spec=dict(strike1=180, dip1=18, rake1=-88, strike2=0,
+                          dip2=72, rake2=-90, mantissa=5.5, exponent=0),
+                region=[239, 240, 34, 35.2], projection='m4c')
+        fig.show()
+
+        fig = pygmt.Figure()
+        fig.meca(spec='focal_mechanisms.psmeca')
+        fig.show()
         """
-        kind = data_kind(focal_mechanism)
+
+        # Check the spec and parse the data according to the specified convention
+        if type(spec) is dict:
+            if (
+                (lon is None) or (lat is None) or (depth is None)
+            ):  # if no specified location
+                raise Error("Location not fully specified.")
+
+            # These are constants related to GMT and could be defined elsewhere (top of file?)
+            AKI_PARAMS = ["strike", "dip", "rake", "magnitude"]
+            GCMT_PARAMS = [
+                "strike1",
+                "dip1",
+                "rake1",
+                "strike2",
+                "dip2",
+                "rake2",
+                "mantissa",
+                "exponent",
+            ]
+            # FIXME: allow specification of moment instead of mantissa and exponent.
+            MT_PARAMS = ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"]
+            PFM_PARAMS = ["strike1", "dip1", "strike2", "fault_type", "magnitude"]
+            PA_PARAMS = [
+                "t_exponent",
+                "t_azimuth",
+                "t_plunge",
+                "n_exponent",
+                "n_azimuth",
+                "n_plunge",
+                "p_exponent",
+                "p_azimuth",
+                "p_plunge",
+                "exponent",
+            ]
+
+            # Aki and Richards convention: -Sa in GMT
+            if set(spec.keys()) == set(AKI_PARAMS):
+                if (convention != "a") and (convention is not None):
+                    print(
+                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using Aki and Richards convention."
+                    )
+                convention = "a"
+                foc_params = AKI_PARAMS
+
+            # Global CMT convention: -Sc in GMT
+            elif set(spec.keys()) == set(GCMT_PARAMS):
+                if (convention != "c") and (convention is not None):
+                    print(
+                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using global CMT convention."
+                    )
+                convention = "c"
+                foc_params = GCMT_PARAMS
+
+            # Seismic moment tensor convention: -Sm in GMT
+            elif set(spec.keys()) == set(MT_PARAMS):
+                if (convention != "m") and (convention is not None):
+                    print(
+                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using seismic moment tensor convention."
+                    )
+                convention = "m"
+                foc_params = MT_PARAMS
+
+            # Partial focal mechanism convention: -Sp in GMT
+            elif set(spec.keys()) == set(PFM_PARAMS):
+                if (convention != "p") and (convention is not None):
+                    print(
+                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using partial focal mechanism convention."
+                    )
+                convention = "p"
+                foc_params = PFM_PARAMS
+
+            # Principal axis convention: -Sx in GMT
+            elif set(spec.keys()) == set(PFM_PARAMS):
+                if (convention != "x") and (convention is not None):
+                    print(
+                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using principal axis convention."
+                    )
+                convention = "x"
+                foc_params = PA_PARAMS
+
+            else:
+                raise Error("Parameters in spec dict do not match known conventions.")
+
+            # Construct the vector (note that order matters here, hence the list comprehension!)
+            spec = [lon, lat, depth] + [spec[key] for key in foc_params]
+
+            # Add in plotting options, if given, otherwise add 0s as required by GMT
+            for arg in plot_lon, plot_lat, text:
+                if arg is None:
+                    spec.append(0)
+                else:
+                    spec.append(arg)
+
+        elif convention is None:
+            raise Error("We need a convention to know how to interpret the input!")
+
+        # if spec is not a dict it is handled here
+        kind = data_kind(spec)
         with Session() as lib:
             if kind == "matrix":
                 file_context = lib.virtualfile_from_matrix(
-                    np.atleast_2d(focal_mechanism)
-                )
+                    np.atleast_2d(spec)
+                )  # np.atleast_2d allows 1D and 2D arrays
             elif kind == "file":
-                file_context = dummy_context(focal_mechanism)
+                file_context = dummy_context(spec)
             else:
-                raise GMTInvalidInput(
-                    "Unrecognized data type: {}".format(type(focal_mechanism))
-                )
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("meca", arg_str)
