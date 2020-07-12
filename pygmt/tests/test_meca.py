@@ -12,7 +12,7 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 
 @pytest.mark.mpl_image_compare
-def test_full_moment_tensor():
+def test_meca_full_moment_tensor():
     """
     Check full moment tensor, especially with big isotropic components. The
     data files and original script are provided by Carl Tape, available from
