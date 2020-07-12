@@ -1048,10 +1048,11 @@ class BasePlotting:
 
         # Check the spec and parse the data according to the specified convention
         if type(spec) is dict:
-            if lon is None or lat is None or depth is None:  # if no specified location
+            if lon is None or lat is None or depth is None:
                 raise GMTError("Location not fully specified.")
 
-            # These are constants related to GMT and could be defined elsewhere (top of file?)
+            # FIXME: These are constants related to GMT and could be defined elsewhere
+            # (top of file?)
             AKI_PARAMS = ["strike", "dip", "rake", "magnitude"]
             GCMT_PARAMS = [
                 "strike1",
@@ -1109,7 +1110,8 @@ class BasePlotting:
                     "Parameters in spec dictionary do not match known conventions."
                 )
 
-            # Construct the vector (note that order matters here, hence the list comprehension!)
+            # Construct the vector (note that order matters here, hence the list
+            # comprehension!)
             spec = [lon, lat, depth] + [spec[key] for key in foc_params]
 
             # Add in plotting options, if given, otherwise add 0s as required by GMT
