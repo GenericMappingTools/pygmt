@@ -1049,7 +1049,7 @@ class BasePlotting:
         # Check the spec and parse the data according to the specified convention
         if type(spec) is dict:
             if lon is None or lat is None or depth is None:  # if no specified location
-                raise Error("Location not fully specified.")
+                raise GMTError("Location not fully specified.")
 
             # These are constants related to GMT and could be defined elsewhere (top of file?)
             AKI_PARAMS = ["strike", "dip", "rake", "magnitude"]
@@ -1105,7 +1105,7 @@ class BasePlotting:
                 foc_params = PA_PARAMS
 
             else:
-                raise Error("Parameters in spec dict do not match known conventions.")
+                raise GMTError("Parameters in spec dict do not match known conventions.")
 
             # Construct the vector (note that order matters here, hence the list comprehension!)
             spec = [lon, lat, depth] + [spec[key] for key in foc_params]
@@ -1118,7 +1118,7 @@ class BasePlotting:
                     spec.append(arg)
 
         elif convention is None:
-            raise Error("We need a convention to know how to interpret the input!")
+            raise GMTError("We need a convention to know how to interpret the input!")
 
         # if spec is not a dict it is handled here
         kind = data_kind(spec)
