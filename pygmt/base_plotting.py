@@ -1081,46 +1081,26 @@ class BasePlotting:
 
             # Aki and Richards convention: -Sa in GMT
             if set(spec.keys()) == set(AKI_PARAMS):
-                if (convention != "a") and (convention is not None):
-                    print(
-                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using Aki and Richards convention."
-                    )
                 convention = "a"
                 foc_params = AKI_PARAMS
 
             # Global CMT convention: -Sc in GMT
             elif set(spec.keys()) == set(GCMT_PARAMS):
-                if (convention != "c") and (convention is not None):
-                    print(
-                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using global CMT convention."
-                    )
                 convention = "c"
                 foc_params = GCMT_PARAMS
 
             # Seismic moment tensor convention: -Sm in GMT
             elif set(spec.keys()) == set(MT_PARAMS):
-                if (convention != "m") and (convention is not None):
-                    print(
-                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using seismic moment tensor convention."
-                    )
                 convention = "m"
                 foc_params = MT_PARAMS
 
             # Partial focal mechanism convention: -Sp in GMT
             elif set(spec.keys()) == set(PFM_PARAMS):
-                if (convention != "p") and (convention is not None):
-                    print(
-                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using partial focal mechanism convention."
-                    )
                 convention = "p"
                 foc_params = PFM_PARAMS
 
             # Principal axis convention: -Sx in GMT
             elif set(spec.keys()) == set(PFM_PARAMS):
-                if (convention != "x") and (convention is not None):
-                    print(
-                        f"Specified convention {convention} is incompatible with data specified in spec dict. Proceeding using principal axis convention."
-                    )
                 convention = "x"
                 foc_params = PA_PARAMS
 
