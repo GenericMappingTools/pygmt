@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 
 from .clib import Session
-from .exceptions import GMTInvalidInput
+from .exceptions import GMTError, GMTInvalidInput
 from .helpers import (
     build_arg_string,
     dummy_context,
@@ -1105,7 +1105,9 @@ class BasePlotting:
                 foc_params = PA_PARAMS
 
             else:
-                raise GMTError("Parameters in spec dict do not match known conventions.")
+                raise GMTError(
+                    "Parameters in spec dict do not match known conventions."
+                )
 
             # Construct the vector (note that order matters here, hence the list comprehension!)
             spec = [lon, lat, depth] + [spec[key] for key in foc_params]
