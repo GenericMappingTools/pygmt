@@ -80,10 +80,11 @@ def test_grdimage_over_dateline(xrgrid):
     """
     Ensure no gaps are plotted over the 180 degree international dateline.
     Specifically checking that `xrgrid.gmt.gtype = 1` sets `GMT_GRID_IS_GEO`,
-    and that `xrgrid.gmt.registration = 1` sets `GMT_GRID_PIXEL_REG`.
+    and that `xrgrid.gmt.registration = 0` sets `GMT_GRID_NODE_REG`. Note that
+    there would be a gap over the dateline if a pixel registered grid is used.
     """
     fig = Figure()
-    xrgrid.gmt.registration = 1  # pixel registration
+    assert xrgrid.gmt.registration == 0  # gridline registration
     xrgrid.gmt.gtype = 1  # geographic coordinate system
     fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1i")
     return fig
