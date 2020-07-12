@@ -113,7 +113,7 @@ def dataarray_to_matrix(grid):
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
-    matrix = as_c_contiguous(grid.values[::-1])
+    matrix = as_c_contiguous(grid[::-1].values)
     return matrix, region, inc
 
 
