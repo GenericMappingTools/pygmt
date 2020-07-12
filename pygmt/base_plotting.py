@@ -1006,16 +1006,18 @@ class BasePlotting:
         """
         Plot focal mechanisms.
 
+        Full option list at :gmt-docs:`supplements/seis/meca.html`
+
         {aliases}
 
         Parameters
         ----------
         spec: dict, 1D array, 2D array, or str
-            Object specifying event parameters for one or more events that are
-            consistent with the specified convention. If a string specifying a
-            filepath is assigned to spec, optional parameters are required, as
-            those parameters are assumed to exist in the file. List of required
-            spec parameters for different conventions:
+            Either a filename containing focal mechanism parameters as columns,
+            a 1- or 2-D array with the same, or a dictionary. If a filename or
+            array, `convention` is required so we know how to interpret the
+            columns/entries. If a dictionary, the following combinations of
+            keys are supported; these determine the convention.
 
             - ``"aki"`` — *strike, dip, rake, magnitude*
             - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2,
@@ -1031,33 +1033,36 @@ class BasePlotting:
             proportional to the magnitude. Scale defines the size for
             magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
         lon: int or float
-            Longitude of event location. Optional if spec is a filepath string.
+            Longitude of event location. Ignored if `spec` is not a dictionary.
         lat: int or float
-            Latitude of event location. Optional if spec is a filepath string.
+            Latitude of event location. Ignored if `spec` is not a dictionary.
         depth: int or float
-            Depth of event location in kilometers. Optional if spec is a
-            filepath string.
+            Depth of event location in kilometers. Ignored if `spec` is not a
+            dictionary.
         convention: str
             ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"``
             (seismic moment tensor), ``"partial"`` (partial focal mechanism),
-            or ``"principal_axis"`` (principal axis). Optional (auto-detected)
-            if a dictionary is provided to `spec`.
+            or ``"principal_axis"`` (principal axis). Ignored if `spec` is a
+            dictionary.
         component: str
             The component of the seismic moment tensor to plot. ``"full"`` (the
             full seismic moment tensor), ``"dc"`` (the closest double couple
             with zero trace and zero determinant), ``"deviatoric"`` (zero
             trace)
         plot_lon: int or float
-            Longitude at which to place beachball (optional).
+            Longitude at which to place beachball, only used if `spec` is a
+            dictionary.
         plot_lat: int or float
-            Latitude at which to place beachball (optional).
+            Latitude at which to place beachball, only used if `spec` is a
+            dictionary.
         text: str
-            Text string to appear near the beachball (optional).
+            Text string to appear near the beachball, only used if `spec` is a
+            dictionary.
         text_options: str
-            Options for text labeling of mechanisms, in the format
+            Options for text labeling of beachballs, in the format
             ``[+aangle][+ffont][+jjustify][+odx[/dy]]``
         offset: bool or str
-            Offsets focal mechanisms to the longitude, latitude specified in
+            Offsets beachballs to the longitude, latitude specified in
             the last two columns of the input file or array, or by `plot_lon`
             and `plot_lat` if provided. A small circle is plotted at the
             initial location and a line connects the beachball to the circle.
