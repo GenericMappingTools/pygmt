@@ -1110,11 +1110,12 @@ class BasePlotting:
                     "Parameters in spec dictionary do not match known conventions."
                 )
 
-            # Construct the vector (note that order matters here, hence the list
-            # comprehension!)
+            # Construct the vector (note that order matters here, hence the
+            # list comprehension!)
             spec = [lon, lat, depth] + [spec[key] for key in foc_params]
 
-            # Add in plotting options, if given, otherwise add 0s as required by GMT
+            # Add in plotting options, if given, otherwise add 0s as required
+            # by GMT
             for arg in plot_lon, plot_lat, text:
                 if arg is None:
                     spec.append(0)
