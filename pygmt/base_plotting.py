@@ -1026,7 +1026,7 @@ class BasePlotting:
             a (Aki & Richards), c (global CMT), m (seismic moment tensor), p (partial focal mechanism), x (principal axis)
             Optional (auto-detected) if spec is defined as a dict.
         plot_lon: (optional) int or float
-            Longitude at which to place beachball 
+            Longitude at which to place beachball
         plot_lat: (optional) int or float
             Latitude at which to place beachball
         text:     (optional) str
