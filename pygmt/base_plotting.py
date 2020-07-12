@@ -986,7 +986,7 @@ class BasePlotting:
                 lib.call_module("text", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", S="convention")
+    @use_alias(R="region", J="projection", B="frame", C="offset")
     @kwargs_to_strings(R="sequence",)
     def meca(
         self,
@@ -996,9 +996,11 @@ class BasePlotting:
         lat=None,
         depth=None,
         convention=None,
-        plot_lon=None,  # FIXME: implement -C flag if plot location is specified
+        component="full",
+        plot_lon=None,
         plot_lat=None,
         text=None,
+        text_options="",
         **kwargs,
     ):
         """
@@ -1009,53 +1011,69 @@ class BasePlotting:
         Parameters
         ----------
         spec: dict, 1D array, 2D array, or str
-            Object specifying event parameters that are consistent with the
-            specified convention. If a string specifying a filename is assigned
-            to spec, no other parameters are required, as those parameters are
-            assumed to exist in the file. List of required spec parameters for
-            different conventions:
+            Object specifying event parameters for one or more events that are
+            consistent with the specified convention. If a string specifying a
+            filepath is assigned to spec, optional parameters are required, as
+            those parameters are assumed to exist in the file. List of required
+            spec parameters for different conventions:
 
-            - ``"a"`` — *strike, dip, rake, magnitude*
-            - ``"c"`` — *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,
+            - ``"aki"`` — *strike, dip, rake, magnitude*
+            - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2,
+              mantissa, exponent*
+            - ``"mt"`` — *mrr, mtt, mff, mrt, mrf, mtf, exponent*
+            - ``"partial"`` — *strike1, dip1, strike2, fault_type, magnitude*
+            - ``"principal_axis"`` — *t_exponent, t_azimuth, t_plunge,
+              n_exponent, n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge,
               exponent*
-            - ``"m"`` — *mrr, mtt, mff, mrt, mrf, mtf, exponent*
-            - ``"p"`` — *strike1, dip1, strike2, fault_type, magnitude*
-            - ``"x"`` — *t_exponent, t_azimuth, t_plunge, n_exponent,
-              n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent*
 
         scale: str
             Adjusts the scaling of the radius of the beachball, which is
             proportional to the magnitude. Scale defines the size for
             magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
         lon: int or float
-            Longitude of event location.
+            Longitude of event location. Optional if spec is a filepath string.
         lat: int or float
-            Latitude of event location.
+            Latitude of event location. Optional if spec is a filepath string.
         depth: int or float
-            Depth of event location in kilometers.
+            Depth of event location in kilometers. Optional if spec is a
+            filepath string.
         convention: str
-            ``"a"`` (Aki & Richards), ``"c"`` (global CMT), ``"m"`` (seismic
-            moment tensor), ``"p"`` (partial focal mechanism), or ``"x"``
-            (principal axis). Optional (auto-detected) if a dictionary is
-            provided to `spec`.
+            ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"``
+            (seismic moment tensor), ``"partial"`` (partial focal mechanism),
+            or ``"principal_axis"`` (principal axis). Optional (auto-detected)
+            if a dictionary is provided to `spec`.
+        component: str
+            The component of the seismic moment tensor to plot. ``"full"`` (the
+            full seismic moment tensor), ``"dc"`` (the closest double couple
+            with zero trace and zero determinant), ``"deviatoric"`` (zero
+            trace)
         plot_lon: int or float
             Longitude at which to place beachball (optional).
         plot_lat: int or float
             Latitude at which to place beachball (optional).
         text: str
             Text string to appear near the beachball (optional).
+        text_options: str
+            Options for text labeling of mechanisms, in the format
+            ``[+aangle][+ffont][+jjustify][+odx[/dy]]``
+        offset: bool or str
+            Offsets focal mechanisms to the longitude, latitude specified in
+            the last two columns of the input file or array, or by `plot_lon`
+            and `plot_lat` if provided. A small circle is plotted at the
+            initial location and a line connects the beachball to the circle.
+            Specify pen and optionally append ``+ssize`` to change the line
+            style and/or size of the circle.
         {J}
         {R}
+        {B}
         """
 
         # Check the spec and parse the data according to the specified
         # convention
-        if type(spec) is dict:
+        if isinstance(spec, dict):
             if lon is None or lat is None or depth is None:
                 raise GMTError("Location not fully specified.")
 
-            # FIXME: These are constants related to GMT and could be defined
-            # elsewhere (top of file?)
             AKI_PARAMS = ["strike", "dip", "rake", "magnitude"]
             GCMT_PARAMS = [
                 "strike1",
@@ -1070,8 +1088,8 @@ class BasePlotting:
             # FIXME: allow specification of moment instead of mantissa and
             # exponent.
             MT_PARAMS = ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"]
-            PFM_PARAMS = ["strike1", "dip1", "strike2", "fault_type", "magnitude"]
-            PA_PARAMS = [
+            PARTIAL_PARAMS = ["strike1", "dip1", "strike2", "fault_type", "magnitude"]
+            PRINCIPAL_AXIS_PARAMS = [
                 "t_exponent",
                 "t_azimuth",
                 "t_plunge",
@@ -1086,28 +1104,28 @@ class BasePlotting:
 
             # Aki and Richards convention: -Sa in GMT
             if set(spec.keys()) == set(AKI_PARAMS):
-                convention = "a"
+                convention = "aki"
                 foc_params = AKI_PARAMS
 
             # Global CMT convention: -Sc in GMT
             elif set(spec.keys()) == set(GCMT_PARAMS):
-                convention = "c"
+                convention = "gcmt"
                 foc_params = GCMT_PARAMS
 
-            # Seismic moment tensor convention: -Sm in GMT
+            # Seismic moment tensor convention: -Sm|d|z in GMT
             elif set(spec.keys()) == set(MT_PARAMS):
-                convention = "m"
+                convention = "mt"
                 foc_params = MT_PARAMS
 
             # Partial focal mechanism convention: -Sp in GMT
-            elif set(spec.keys()) == set(PFM_PARAMS):
-                convention = "p"
-                foc_params = PFM_PARAMS
+            elif set(spec.keys()) == set(PARTIAL_PARAMS):
+                convention = "partial"
+                foc_params = PARTIAL_PARAMS
 
-            # Principal axis convention: -Sx in GMT
-            elif set(spec.keys()) == set(PA_PARAMS):
-                convention = "x"
-                foc_params = PA_PARAMS
+            # Principal axis convention: -Sx|y|t in GMT
+            elif set(spec.keys()) == set(PRINCIPAL_AXIS_PARAMS):
+                convention = "principle_axis"
+                foc_params = PRINCIPAL_AXIS_PARAMS
 
             else:
                 raise GMTError(
@@ -1124,13 +1142,42 @@ class BasePlotting:
                 if arg is None:
                     spec.append(0)
                 else:
+                    if "C" not in kwargs:
+                        kwargs["C"] = True
                     spec.append(arg)
 
-        # If user is providing something other than a dictionary
-        elif convention is None:
-            raise GMTError("We need a convention to know how to interpret the input!")
-        # Add condition and scale to kwargs, append additional parameters here
-        kwargs["S"] = convention + scale
+        # Add condition and scale to kwargs
+        if convention == "aki":
+            format = "a"
+        elif convention == "gcmt":
+            format = "c"
+        elif convention == "mt":
+            # Check which component of mechanism the user wants plotted
+            if component == "deviatoric":
+                format = "z"
+            elif component == "dc":
+                format = "d"
+            else:  # component == 'full'
+                format = "m"
+        elif convention == "partial":
+            format = "p"
+        elif convention == "principal_axis":
+            # Check which component of mechanism the user wants plotted
+            if component == "deviatoric":
+                format = "t"
+            elif component == "dc":
+                format = "y"
+            else:  # component == 'full'
+                format = "x"
+        # Support old-school GMT format options
+        elif convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
+            format = convention
+        else:
+            raise GMTError("Convention not recognized.")
+
+        # Assemble -S flag
+        kwargs["S"] = format + scale + text_options
+
         kind = data_kind(spec)
         with Session() as lib:
             if kind == "matrix":
