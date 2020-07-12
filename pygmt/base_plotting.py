@@ -1106,7 +1106,7 @@ class BasePlotting:
 
             else:
                 raise GMTError(
-                    "Parameters in spec dict do not match known conventions."
+                    "Parameters in spec dictionary do not match known conventions."
                 )
 
             # Construct the vector (note that order matters here, hence the list comprehension!)
@@ -1119,10 +1119,9 @@ class BasePlotting:
                 else:
                     spec.append(arg)
 
+        # If user is providing something other than a dictionary
         elif convention is None:
             raise GMTError("We need a convention to know how to interpret the input!")
-
-        # if spec is not a dict it is handled here
         kind = data_kind(spec)
         with Session() as lib:
             if kind == "matrix":
