@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name
 """
 Test Figure.grdimage
 """
@@ -17,8 +16,8 @@ def fixture_grid():
     return load_earth_relief(registration="gridline")
 
 
-@pytest.fixture(scope="module")
-def xrgrid():
+@pytest.fixture(scope="module", name="xrgrid")
+def fixture_xrgrid():
     """
     Create a sample xarray.DataArray grid for testing
     """
@@ -80,11 +79,11 @@ def test_grdimage_fails():
 def test_grdimage_over_dateline(xrgrid):
     """
     Ensure no gaps are plotted over the 180 degree international dateline.
-    Specifically checking that geocoord_type=1 sets `GMT_GRID_IS_GEO`, and that
-    node_offset=1 sets `GMT_GRID_PIXEL_REG`. Works for GMT > 6.1.0.
+    Specifically checking that `xrgrid.gmt.gtype = 1` sets `GMT_GRID_IS_GEO`,
+    and that `xrgrid.gmt.registration = 1` sets `GMT_GRID_PIXEL_REG`.
     """
     fig = Figure()
-    xrgrid.attrs["node_offset"] = 1  # pixel registration
-    xrgrid.attrs["geocoord_type"] = 1  # geographic coordinate system
+    xrgrid.gmt.registration = 1  # pixel registration
+    xrgrid.gmt.gtype = 1  # geographic coordinate system
     fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1i")
     return fig

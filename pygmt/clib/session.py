@@ -16,7 +16,6 @@ from ..exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from ..helpers import GMTTempFile
 from .loading import load_libgmt
 from .conversion import (
     kwargs_to_ctypes_array,
@@ -1235,40 +1234,8 @@ class Session:
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
 
         """
-        try:
-            assert grid.attrs["geocoord_type"] == 1
-            _gtype = "GMT_GRID_IS_GEO"
-        except (AssertionError, KeyError):
-            _gtype = "GMT_GRID_IS_CARTESIAN"
-
-        try:
-            assert grid.attrs["node_offset"] == 1
-            _registration = "GMT_GRID_PIXEL_REG"
-        except (AssertionError, KeyError):
-            _registration = "GMT_GRID_NODE_REG"
-
-        if _gtype is None or _registration is None:  # TODO autodetect
-            # Automatically detect whether the NetCDF source of an
-            # xarray.DataArray grid uses:
-            # - gridline or pixel registration
-            # - Cartesian or Geographic coordinate system
-            try:
-                gridfile = grid.encoding["source"]
-                with GMTTempFile() as gridinfotext:
-                    arg_str = " ".join([gridfile, "->" + gridinfotext.name])
-                    self.call_module("grdinfo", arg_str)
-                    # if "[Geographic grid]" in gridinfotext.read():
-                    #    _gtype = "GMT_GRID_IS_GEO"
-                    # if "Pixel node registration used" in gridinfotext.read():
-                    #     _registration = "GMT_GRID_PIXEL_REG"
-            except KeyError:
-                pass
-
-        if Version(self.info["version"]) < Version("6.1.0"):
-            # Avoid crashing PyGMT because GMT < 6.1.0's C API cannot handle
-            # pixel registered grids properly. For more context, see
-            # https://github.com/GenericMappingTools/gmt/pull/3502
-            _registration = "GMT_GRID_NODE_REG"
+        _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[grid.gmt.gtype]
+        _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[grid.gmt.registration]
 
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_matrix because we need to maintain a reference to the copy while
@@ -1276,7 +1243,7 @@ class Session:
         # collected and the memory freed. Creating it in this context manager
         # guarantees that the copy will be around until the virtual file is
         # closed. The conversion is implicit in dataarray_to_matrix.
-        matrix, region, inc = dataarray_to_matrix(grid, _registration)
+        matrix, region, inc = dataarray_to_matrix(grid)
 
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"
@@ -1286,7 +1253,7 @@ class Session:
             mode=f"GMT_CONTAINER_ONLY|{_gtype}",
             ranges=region,
             inc=inc,
-            registration=_registration,
+            registration=_reg,
         )
         self.put_matrix(gmt_grid, matrix)
         args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)

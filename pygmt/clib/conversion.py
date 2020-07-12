@@ -6,7 +6,7 @@ import numpy as np
 from ..exceptions import GMTInvalidInput
 
 
-def dataarray_to_matrix(grid, registration="GMT_GRID_NODE_REG"):
+def dataarray_to_matrix(grid):
     """
     Transform an xarray.DataArray into a data 2D array and metadata.
 
@@ -26,9 +26,6 @@ def dataarray_to_matrix(grid, registration="GMT_GRID_NODE_REG"):
     grid : xarray.DataArray
         The input grid as a DataArray instance. Information is retrieved from
         the coordinate arrays, not from headers.
-    registration : str
-        Either one of "GMT_GRID_PIXEL_REG" for pixel registration, or
-        "GMT_GRID_NODE_REG" for gridline registration [Default].
 
     Returns
     -------
@@ -88,8 +85,6 @@ def dataarray_to_matrix(grid, registration="GMT_GRID_NODE_REG"):
         raise GMTInvalidInput(
             "Invalid number of grid dimensions '{}'. Must be 2.".format(len(grid.dims))
         )
-    # node_offset is 1 for pixel registered grids, 0 for gridline registered
-    node_offset = registration == "GMT_GRID_PIXEL_REG"
     # Extract region and inc from the grid
     region = []
     inc = []
@@ -108,8 +103,8 @@ def dataarray_to_matrix(grid, registration="GMT_GRID_NODE_REG"):
             )
         region.extend(
             [
-                coord.min() - coord_inc / 2 * node_offset,
-                coord.max() + coord_inc / 2 * node_offset,
+                coord.min() - coord_inc / 2 * grid.gmt.registration,
+                coord.max() + coord_inc / 2 * grid.gmt.registration,
             ]
         )
         inc.append(coord_inc)
