@@ -268,36 +268,52 @@ def array_to_datetime(array):
     --------
     >>> import datetime
     >>> # numpy.datetime64 array
-    >>> x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
-    ...             dtype="datetime64")
+    >>> x = np.array(
+    ...     ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
+    ...     dtype="datetime64",
+    ... )
     >>> array_to_datetime(x)
     DatetimeIndex(['2010-06-01 00:00:00', '2011-06-01 12:00:00',
-               '2012-01-01 12:34:56'],
-              dtype='datetime64[ns]', freq=None)
+                   '2012-01-01 12:34:56'],
+                  dtype='datetime64[ns]', freq=None)
+
     >>> # pandas.DateTimeIndex array
     >>> x = pd.date_range("2013", freq="YS", periods=3)
-    >>> array_to_datetime(x)
+    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
     DatetimeIndex(['2013-01-01', '2014-01-01', '2015-01-01'],
-            dtype='datetime64[ns]', freq='AS-JAN')
+                  dtype='datetime64[ns]', freq='AS-JAN')
+
     >>> # Python's built-in date and datetime
     >>> x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
-    >>> array_to_datetime(x)
-    DatetimeIndex(['2018-01-01', '2019-01-01'], dtype='datetime64[ns]',
-            freq=None)
+    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
+    DatetimeIndex(['2018-01-01', '2019-01-01'],
+        dtype='datetime64[ns]', freq=None)
+
     >>> # Raw datetime strings in various format
-    >>> x = ['2018', "2018-02", "2018-03-01", "2018-04-01T01:02:03",
-    ...     "5/1/2018", "Jun 05, 2018", "2018/07/02"]
+    >>> x = [
+    ...     "2018",
+    ...     "2018-02",
+    ...     "2018-03-01",
+    ...     "2018-04-01T01:02:03",
+    ...     "5/1/2018",
+    ...     "Jun 05, 2018",
+    ...     "2018/07/02",
+    ... ]
     >>> array_to_datetime(x)
     DatetimeIndex(['2018-01-01 00:00:00', '2018-02-01 00:00:00',
-               '2018-03-01 00:00:00', '2018-04-01 01:02:03',
-               '2018-05-01 00:00:00', '2018-06-05 00:00:00',
-               '2018-07-02 00:00:00'],
-              dtype='datetime64[ns]', freq=None)
+                   '2018-03-01 00:00:00', '2018-04-01 01:02:03',
+                   '2018-05-01 00:00:00', '2018-06-05 00:00:00',
+                   '2018-07-02 00:00:00'],
+                  dtype='datetime64[ns]', freq=None)
+
     >>> # Mixed datetime types
-    >>> x = ['2018-01-01', np.datetime64('2018-01-01'),
-    ...     datetime.datetime(2018, 1, 1)]
-    >>> array_to_datetime(x)
+    >>> x = [
+    ...    "2018-01-01",
+    ...    np.datetime64("2018-01-01"),
+    ...    datetime.datetime(2018, 1, 1),
+    ... ]
+    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
     DatetimeIndex(['2018-01-01', '2018-01-01', '2018-01-01'],
-                dtype='datetime64[ns]', freq=None)
+                  dtype='datetime64[ns]', freq=None)
     """
     return pd.to_datetime(array)
