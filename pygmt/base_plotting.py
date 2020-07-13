@@ -1147,9 +1147,12 @@ class BasePlotting:
                 if arg is None:
                     spec.append(0)
                 else:
-                    if "C" not in kwargs:
-                        kwargs["C"] = True
                     spec.append(arg)
+
+            # If the user gave plot coordinates, make sure the C flag is on
+            if plot_lon is not None and plot_lat is not None:
+                if "C" not in kwargs:
+                    kwargs["C"] = True
 
         # Add condition and scale to kwargs
         if convention == "aki":
