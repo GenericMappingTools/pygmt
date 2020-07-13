@@ -720,7 +720,7 @@ class Session:
         if array.dtype.type not in DTYPES:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
-                array = np.asarray(array, dtype=np.datetime64)
+                array = np.datetime64(array)
             except ValueError:
                 raise GMTInvalidInput(
                     "Unsupported numpy data type '{}'.".format(array.dtype.type)
