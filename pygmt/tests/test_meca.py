@@ -94,7 +94,6 @@ def test_meca_spec_dictionary():
         region=[-1, 4, 0, 6],
         projection="M14c",
         frame=2,
-        text="Right Strike Slip",
     )
 
     # Left lateral strike slip
@@ -104,7 +103,6 @@ def test_meca_spec_dictionary():
         lat=5,
         depth=0,
         scale="2.5c",
-        text="Left Strike Slip",
     )
 
     # Thrust
@@ -114,7 +112,6 @@ def test_meca_spec_dictionary():
         lat=3,
         depth=0,
         scale="2.5c",
-        text="Thrust",
     )
     fig.meca(
         dict(strike=45, dip=45, rake=90, magnitude=5),
@@ -122,7 +119,6 @@ def test_meca_spec_dictionary():
         lat=3,
         depth=0,
         scale="2.5c",
-        text="Thrust",
     )
 
     # Normal
@@ -132,7 +128,6 @@ def test_meca_spec_dictionary():
         lat=1,
         depth=0,
         scale="2.5c",
-        text="Normal",
     )
     fig.meca(
         dict(strike=45, dip=45, rake=-90, magnitude=5),
@@ -140,7 +135,6 @@ def test_meca_spec_dictionary():
         lat=1,
         depth=0,
         scale="2.5c",
-        text="Normal",
     )
 
     # Mixed
@@ -150,7 +144,6 @@ def test_meca_spec_dictionary():
         lat=0.6,
         depth=0,
         scale="2.5c",
-        text="Mixed",
     )
 
     return fig

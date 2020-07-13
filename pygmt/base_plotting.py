@@ -1009,14 +1009,17 @@ class BasePlotting:
         component="full",
         plot_lon=None,
         plot_lat=None,
-        text=None,
-        text_options="",
         **kwargs,
     ):
         """
         Plot focal mechanisms.
 
         Full option list at :gmt-docs:`supplements/seis/meca.html`
+
+        Note
+        ----
+            Currently, labeling of beachballs with text strings is only
+            supported via providing a file to `spec` as input.
 
         {aliases}
 
@@ -1065,12 +1068,6 @@ class BasePlotting:
         plot_lat: int or float
             Latitude at which to place beachball, only used if `spec` is a
             dictionary.
-        text: str
-            Text string to appear near the beachball, only used if `spec` is a
-            dictionary.
-        text_options: str
-            Options for text labeling of beachballs, in the format
-            ``[+aangle][+ffont][+jjustify][+odx[/dy]]``
         offset: bool or str
             Offsets beachballs to the longitude, latitude specified in
             the last two columns of the input file or array, or by `plot_lon`
@@ -1153,16 +1150,13 @@ class BasePlotting:
 
             # Add in plotting options, if given, otherwise add 0s as required
             # by GMT
-            for arg in plot_lon, plot_lat, text:
+            for arg in plot_lon, plot_lat:
                 if arg is None:
                     spec.append(0)
                 else:
+                    if "C" not in kwargs:
+                        kwargs["C"] = True
                     spec.append(arg)
-
-            # If the user gave plot coordinates, make sure the C flag is on
-            if plot_lon is not None and plot_lat is not None:
-                if "C" not in kwargs:
-                    kwargs["C"] = True
 
         # Add condition and scale to kwargs
         if convention == "aki":
@@ -1194,7 +1188,7 @@ class BasePlotting:
             raise GMTError("Convention not recognized.")
 
         # Assemble -S flag
-        kwargs["S"] = format + scale + text_options
+        kwargs["S"] = format + scale
 
         kind = data_kind(spec)
         with Session() as lib:
