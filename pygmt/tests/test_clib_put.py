@@ -11,6 +11,34 @@ from ..exceptions import GMTCLibError, GMTInvalidInput
 from ..helpers import GMTTempFile
 
 
+def test_put_strings():
+    "Check that assigning a numpy array of dtype str to a dataset works"
+    with clib.Session() as lib:
+        dataset = lib.create_data(
+            family="GMT_IS_DATASET|GMT_VIA_VECTOR",
+            geometry="GMT_IS_POINT",
+            mode="GMT_CONTAINER_ONLY",
+            dim=[1, 5, 1, 0],  # columns, rows, layers, dtype
+        )
+        s = np.array(["a", "b", "c", "d", "e"], dtype=np.str)
+        lib.put_strings(dataset, column=lib["GMT_S"], strings=s)
+        # Turns out wesn doesn't matter for Datasets
+        wesn = [0] * 6
+        # Save the data to a file to see if it's being accessed correctly
+        with GMTTempFile() as tmp_file:
+            lib.write_data(
+                "GMT_IS_VECTOR",
+                "GMT_IS_POINT",
+                "GMT_WRITE_SET",
+                wesn,
+                tmp_file.name,
+                dataset,
+            )
+            # Load the data and check that it's correct
+            news = tmp_file.loadtxt(unpack=True, dtype=np.str)
+            npt.assert_allclose(news, s)
+
+
 def test_put_vector():
     "Check that assigning a numpy array to a dataset works"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()

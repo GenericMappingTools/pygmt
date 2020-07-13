@@ -722,7 +722,7 @@ class Session:
         """
         Attach a numpy 1D array as a column on a GMT dataset.
 
-        Use this functions to attach numpy array data to a GMT dataset and pass
+        Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Vector``.
 
         The dataset must be created by :meth:`~gmt.clib.Session.create_data`
@@ -776,11 +776,62 @@ class Session:
                 )
             )
 
+    def put_strings(self, dataset, column, strings):
+        """
+        Attach a numpy 1D array of dtype str as a column on a GMT dataset.
+
+        Use this function to attach string type numpy array data to a GMT
+        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
+
+        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
+        first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
+
+        .. warning::
+            The numpy array must be C contiguous in memory. If it comes from a
+            column slice of a 2d array, for example, you will have to make a
+            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
+            is contiguous (it won't copy if it already is).
+
+        Parameters
+        ----------
+        dataset : :class:`ctypes.c_void_p`
+            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+            :meth:`~gmt.clib.Session.create_data`.
+        column : int
+            The column number of this vector in the dataset (starting from 0).
+        strings : numpy 1d-array
+            The array that will be attached to the dataset. Must be a 1d C
+            contiguous array.
+
+        Raises
+        ------
+        GMTCLibError
+            If given invalid input or ``GMT_Put_Strings`` exits with status !=
+            0.
+
+        """
+        c_put_strings = self.get_libgmt_func(
+            "GMT_Put_Strings",
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p, ctp.c_wchar_p],
+            restype=ctp.c_int,
+        )
+
+        gmt_type = self._check_dtype_and_dim(strings, ndim=1)
+        strings_pointer = strings.ctypes.data_as(ctp.c_void_p)
+        status = c_put_strings(
+            self.session_pointer, dataset, column, gmt_type, strings_pointer
+        )
+        if status != 0:
+            raise GMTCLibError(
+                f"Failed to put strings of type {strings.dtype}",
+                f"in column {column} of dataset.",
+            )
+
     def put_matrix(self, dataset, matrix, pad=0):
         """
         Attach a numpy 2D array to a GMT dataset.
 
-        Use this functions to attach numpy array data to a GMT dataset and pass
+        Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Matrix``.
 
         The dataset must be created by :meth:`~gmt.clib.Session.create_data`
