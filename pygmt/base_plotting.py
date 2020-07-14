@@ -602,8 +602,6 @@ class BasePlotting:
         kind = data_kind(data)
 
         extra_arrays = []
-        if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
-            extra_arrays.extend(direction)
         if "G" in kwargs and not isinstance(kwargs["G"], str):
             if kind != "vectors":
                 raise GMTInvalidInput(
@@ -611,12 +609,6 @@ class BasePlotting:
                 )
             extra_arrays.append(kwargs["G"])
             del kwargs["G"]
-        if sizes is not None:
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    "Can't use arrays for sizes if data is matrix or file."
-                )
-            extra_arrays.append(sizes)
 
         with Session() as lib:
             # Choose how data will be passed in to the module
