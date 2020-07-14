@@ -1135,6 +1135,9 @@ class Session:
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
+        if np.issubdtype(arrays[-1].dtype, np.str_):
+            columns -= 1
+
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
             raise GMTInvalidInput("All arrays must have same size.")
@@ -1146,8 +1149,12 @@ class Session:
             family, geometry, mode="GMT_CONTAINER_ONLY", dim=[columns, rows, 1, 0]
         )
 
-        for col, array in enumerate(arrays):
+        # Use put_vector for first n columns with numerical type data
+        for col, array in enumerate(arrays[:columns]):
             self.put_vector(dataset, column=col, vector=array)
+        # Use put_strings for last column with string type data
+        for array in arrays[columns:]:
+            self.put_strings(dataset, family="GMT_IS_VECTOR", strings=array)
 
         with self.open_virtual_file(
             family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
