@@ -792,7 +792,7 @@ class Session:
                 )
             )
 
-    def put_strings(self, dataset, column, strings):
+    def put_strings(self, dataset, strings):
         """
         Attach a numpy 1D array of dtype str as a column on a GMT dataset.
 
@@ -813,8 +813,6 @@ class Session:
         dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`~gmt.clib.Session.create_data`.
-        column : int
-            The column number of this vector in the dataset (starting from 0).
         strings : numpy 1d-array
             The array that will be attached to the dataset. Must be a 1d C
             contiguous array.
@@ -828,19 +826,16 @@ class Session:
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
-            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p, ctp.c_uint],
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p, ctp.c_void_p],
             restype=ctp.c_int,
         )
 
         gmt_type = self._check_dtype_and_dim(strings, ndim=1)
         strings_pointer = strings.ctypes.data_as(ctp.c_void_p)
-        status = c_put_strings(
-            self.session_pointer, dataset, column, gmt_type, strings_pointer
-        )
+        status = c_put_strings(self.session_pointer, dataset, gmt_type, strings_pointer)
         if status != 0:
             raise GMTCLibError(
-                f"Failed to put strings of type {strings.dtype}",
-                f"in column {column} of dataset.",
+                f"Failed to put strings of type {strings.dtype} into dataset"
             )
 
     def put_matrix(self, dataset, matrix, pad=0):
