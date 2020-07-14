@@ -442,6 +442,200 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
+        R="region", J="projection", B="frame", C="cmap", U="timestamp",
+    )
+    @kwargs_to_strings(R="sequence", i="sequence_comma")
+    def velo(self, x=None, y=None, data=None, scaling=None, **kwargs):
+        """
+        Plot velocity vectors, crosses, and wedges
+
+        Reads data values from files [or standard input] and will plot velocity
+        arrows on a map. Most options are the same as for plot, except -S.
+
+        Must provide either *data* or *x* and *y*, and *scaling*.
+
+
+        Full option list at :gmt-docs:`supplements/geodesy/velo.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        x/y : float or 1d arrays
+            The x and y coordinates, or arrays of x and y coordinates of the
+            data points
+        data : str or 2d array
+            Either a data file name or a 2d numpy array with the tabular data.
+            Use option *columns* (i) to choose which columns are x, y, color,
+            and size, respectively.
+
+        {J}
+
+        {R}
+
+        scaling: str
+            Selects the meaning of the columns in the data file and the figure
+            to be plotted. In all cases, the scales are in data units per length
+            unit and sizes are in length units (default length unit is
+            controlled by `PROJ_LENGTH_UNIT <https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-proj-length-unit>`_
+            unless **c**, **i** , or **p** is appended).
+
+            "**-Se**\ *velscale/confidence*\ [\ **+f**\ font]"
+
+                Velocity ellipses in (N,E) convention. velscale sets the
+                scaling of the velocity arrows. The confidence sets the
+                2-dimensional confidence limit for the ellipse, e.g., 0.95 for
+                95% confidence ellipse. font sets the font and size of the text
+                [9p,Helvetica,black]. The ellipse will be filled with the color
+                or shade specified by the -G option [default transparent].
+                The arrow and the circumference of the ellipse will be drawn
+                with the pen attributes specified by the -W option. Parameters
+                are expected to be in the following columns:
+
+                    **1,2**: longitude, latitude of station (-: option interchanges
+                    order) **3,4**: eastward, northward velocity (-: option
+                    interchanges order) **5,6**: uncertainty of eastward, northward
+                    velocities (1-sigma) (-: option interchanges order)
+                    **7**: correlation between eastward and northward components
+                    **8**: name of station (optional).
+
+            "**-Sn**\ *barscale*"
+
+                Anisotropy bars. barscale sets the scaling of the bars.
+                Parameters are expected to be in the following columns:
+                    **1,2** : longitude, latitude of station (-: option interchanges
+                    order) **3,4** : eastward, northward components of anisotropy
+                    vector (-: option interchanges order)
+
+            "**-Sr**\ *velscale/confidence*\ [\ **+f**\ font]"
+
+                Velocity ellipses in rotated convention. velscale sets the
+                scaling of the velocity arrows. The confidence sets the
+                2-dimensional confidence limit for the ellipse, e.g., 0.95 for
+                95% confidence ellipse. font sets the font and size of the text
+                [9p,Helvetica,black]. The ellipse will be filled with the color
+                or shade specified by the -G option [default transparent].
+                The arrow and the circumference of the ellipse will be drawn
+                with the pen attributes specified by the -W option. Parameters
+                are expected to be in the following columns:
+                    **1,2**: longitude, latitude, of station (-: option interchanges
+                    order) **3,4**: eastward, northward velocity (-: option
+                    interchanges order) **5,6**: semi-major, semi-minor axes
+                    **7**: counter-clockwise angle, in degrees, from horizontal
+                    axis to major axis of ellipse. 8: name of station (optional)
+
+            "**-Sw**\ *wedgescale/wedgemag*"
+
+                Rotational wedges. wedgescale sets the size of the wedges.
+                Values are multiplied by wedgemag before plotting. For example,
+                setting wedgemag to 1.e7 works well for rotations of the order
+                of 100 nanoradians/yr. Use **-G** to set the fill color or shade
+                for the wedge, and **-E** to set the color or shade for the
+                uncertainty. Parameters are expected to be in the
+                following columns:
+                    **1,2**: longitude, latitude, of station (-: option
+                    interchanges order) **3**: rotation in radians **4**: rotation
+                    uncertainty in radians
+
+            "**-Sx**\ *cross_scale*"
+
+                gives Strain crosses. cross_scale sets the size of the cross.
+                Parameters are expected to be in the following columns:
+                    **1,2**: longitude, latitude, of station
+                    (-: option interchanges order) 3: eps1, the most extensional
+                    eigenvalue of strain tensor, with extension taken positive.
+                    **4**: eps2, the most compressional eigenvalue of strain
+                    tensor, with extension taken positive.
+                    **5**: azimuth of eps2 in degrees CW from North.
+
+
+        Other Parameters
+        ----------------
+        -A : bool or str
+            Modify vector parameters. For vector heads, append vector head size
+            [Default is 9p]. See `Vector Attributes <gmt-docs:supplements/geodesy/velo.html#vector-attributes>`_
+            for specifying additional attributes.
+
+        {B}
+
+        {CPT}
+
+        -D : str
+            can be used to rescale the uncertainties of velocities
+            (-Se and -Sr) and rotations (-Sw).
+            Can be combined with the confidence variable.
+
+        -E : str
+            Sets the color or shade used for filling uncertainty wedges
+            (-Sw) or velocity error ellipses (-Se or -Sr). [If -E is not
+            specified, the uncertainty regions will be transparent.]
+            `(more ...) <https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gfill-attrib>`_
+
+        -G : str
+            Select color or pattern for filling of symbols or polygons
+            [Default is no fill]. `(more ...) <https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gfill-attrib>`_
+
+        -L: str
+            Draw lines. Ellipses and fault planes will have their outlines drawn
+            using current pen (see -W).
+
+        -N: str
+            Do NOT skip symbols that fall outside the frame boundary specified
+            by -R. [Default plots symbols inside frame only].
+
+        {U}
+
+        -W: str
+            Set pen attributes for velocity arrows, ellipse circumference and
+            ault plane edges. [Defaults: width = default, color = black, style = solid].
+
+        -X: str
+            ``'[a|c|f|r][xshift]'``
+
+        -Y: str
+            ``'[a|c|f|r][yshift]'``
+            Shift plot origin. `(more ...) <https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full>`_
+
+
+        """
+        kwargs = self._preprocess(**kwargs)
+
+        kind = data_kind(data, x, y)
+
+        extra_arrays = []
+        if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
+            extra_arrays.extend(direction)
+        if "G" in kwargs and not isinstance(kwargs["G"], str):
+            if kind != "vectors":
+                raise GMTInvalidInput(
+                    "Can't use arrays for color if data is matrix or file."
+                )
+            extra_arrays.append(kwargs["G"])
+            del kwargs["G"]
+        if sizes is not None:
+            if kind != "vectors":
+                raise GMTInvalidInput(
+                    "Can't use arrays for sizes if data is matrix or file."
+                )
+            extra_arrays.append(sizes)
+
+        with Session() as lib:
+            # Choose how data will be passed in to the module
+            if kind == "file":
+                file_context = dummy_context(data)
+            elif kind == "matrix":
+                file_context = lib.virtualfile_from_matrix(data)
+            elif kind == "vectors":
+                file_context = lib.virtualfile_from_vectors(
+                    np.atleast_1d(x), np.atleast_1d(y), *extra_arrays
+                )
+
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("velo", arg_str)
+
+    @fmt_docstring
+    @use_alias(
         R="region",
         J="projection",
         B="frame",
