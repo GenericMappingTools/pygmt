@@ -56,6 +56,7 @@ DTYPES = {
     np.uint64: "GMT_ULONG",
     np.uint32: "GMT_UINT",
     np.datetime64: "GMT_DATETIME",
+    np.str_: "GMT_TEXT",
 }
 
 
@@ -235,7 +236,7 @@ class Session:
         value = c_get_enum(session, name.encode())
 
         if value is None or value == -99999:
-            raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
+            raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
 
         return value
 
@@ -827,7 +828,7 @@ class Session:
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
-            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p, ctp.c_wchar_p],
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p, ctp.c_uint],
             restype=ctp.c_int,
         )
 

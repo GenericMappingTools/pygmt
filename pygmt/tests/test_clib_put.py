@@ -21,7 +21,7 @@ def test_put_strings():
             dim=[1, 5, 1, 0],  # columns, rows, layers, dtype
         )
         s = np.array(["a", "b", "c", "d", "e"], dtype=np.str)
-        lib.put_strings(dataset, column=lib["GMT_S"], strings=s)
+        lib.put_strings(dataset, column=lib["GMT_TEXT"], strings=s)
         # Turns out wesn doesn't matter for Datasets
         wesn = [0] * 6
         # Save the data to a file to see if it's being accessed correctly
