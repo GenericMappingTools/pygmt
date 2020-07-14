@@ -828,11 +828,18 @@ class Session:
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
-            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p, ctp.c_void_p],
+            argtypes=[
+                ctp.c_void_p,
+                ctp.c_uint,
+                ctp.c_void_p,
+                ctp.POINTER(ctp.c_char_p),
+            ],
             restype=ctp.c_int,
         )
 
-        strings_pointer = strings.ctypes.data_as(ctp.c_char_p)
+        strings_pointer = (ctp.c_char_p * len(strings))()
+        strings_pointer[:] = np.char.encode(strings)
+
         status = c_put_strings(
             self.session_pointer, self[family], dataset, strings_pointer
         )
