@@ -54,9 +54,6 @@ def test_basemap_power_axis():
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
 @pytest.mark.mpl_image_compare
 def test_basemap_polar():
     "Create a polar basemap plot"
