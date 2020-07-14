@@ -442,7 +442,11 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region", J="projection", B="frame", C="cmap", U="timestamp",
+        R="region",
+        J="projection",
+        B="frame",
+        C="cmap",
+        U="timestamp",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
     def velo(self, x=None, y=None, data=None, scaling=None, **kwargs):
