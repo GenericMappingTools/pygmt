@@ -84,7 +84,7 @@ def test_put_vector_invalid_dtype():
             mode="GMT_CONTAINER_ONLY",
             dim=[2, 3, 1, 0],  # columns, rows, layers, dtype
         )
-        data = np.array([37, 12, 556], dtype="complex128")
+        data = np.array([37, 12, 556], dtype="object")
         with pytest.raises(GMTInvalidInput):
             lib.put_vector(dataset, column=1, vector=data)
 
