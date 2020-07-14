@@ -56,7 +56,6 @@ DTYPES = {
     np.uint64: "GMT_ULONG",
     np.uint32: "GMT_UINT",
     np.datetime64: "GMT_DATETIME",
-    np.str_: "GMT_TEXT",
 }
 
 
@@ -792,7 +791,7 @@ class Session:
                 )
             )
 
-    def put_strings(self, dataset, strings):
+    def put_strings(self, dataset, family, strings):
         """
         Attach a numpy 1D array of dtype str as a column on a GMT dataset.
 
@@ -800,7 +799,7 @@ class Session:
         dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
 
         The dataset must be created by :meth:`~gmt.clib.Session.create_data`
-        first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
+        first.
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
@@ -813,6 +812,9 @@ class Session:
         dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`~gmt.clib.Session.create_data`.
+        family : str
+            The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
+            ``GMT_IS_MATRIX``.
         strings : numpy 1d-array
             The array that will be attached to the dataset. Must be a 1d C
             contiguous array.
@@ -830,9 +832,10 @@ class Session:
             restype=ctp.c_int,
         )
 
-        gmt_type = self._check_dtype_and_dim(strings, ndim=1)
-        strings_pointer = strings.ctypes.data_as(ctp.c_void_p)
-        status = c_put_strings(self.session_pointer, dataset, gmt_type, strings_pointer)
+        strings_pointer = strings.ctypes.data_as(ctp.c_char_p)
+        status = c_put_strings(
+            self.session_pointer, self[family], dataset, strings_pointer
+        )
         if status != 0:
             raise GMTCLibError(
                 f"Failed to put strings of type {strings.dtype} into dataset"
