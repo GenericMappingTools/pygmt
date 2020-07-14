@@ -18,9 +18,13 @@ def test_put_strings():
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
             geometry="GMT_IS_POINT",
             mode="GMT_CONTAINER_ONLY",
-            dim=[1, 5, 1, 0],  # columns, rows, layers, dtype
+            dim=[2, 5, 1, 0],  # columns, rows, layers, dtype
         )
+        x = np.array([1, 2, 3, 4, 5], dtype=np.int32)
+        y = np.array([6, 7, 8, 9, 10], dtype=np.int32)
         s = np.array(["a", "b", "c", "d", "e"], dtype=np.str)
+        lib.put_vector(dataset, column=lib["GMT_X"], vector=x)
+        lib.put_vector(dataset, column=lib["GMT_Y"], vector=y)
         lib.put_strings(dataset, family="GMT_IS_VECTOR", strings=s)
         # Turns out wesn doesn't matter for Datasets
         wesn = [0] * 6
@@ -36,6 +40,7 @@ def test_put_strings():
             )
             # Load the data and check that it's correct
             news = tmp_file.loadtxt(unpack=True, dtype=np.str)
+            print(news)
             npt.assert_allclose(news, s)
 
 
