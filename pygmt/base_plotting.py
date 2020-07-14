@@ -449,14 +449,14 @@ class BasePlotting:
         U="timestamp",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
-    def velo(self, x=None, y=None, data=None, scaling=None, **kwargs):
+    def velo(self, data=None, scaling=None, **kwargs):
         """
         Plot velocity vectors, crosses, and wedges
 
-        Reads data values from files [or standard input] and will plot velocity
+        Reads data values from files, numpy array or panda dataframe and will plot velocity
         arrows on a map. Most options are the same as for plot, except -S.
 
-        Must provide either *data* or *x* and *y*, and *scaling*.
+        Must provide  *data* and *scaling*.
 
 
         Full option list at :gmt-docs:`supplements/geodesy/velo.html`
@@ -465,13 +465,8 @@ class BasePlotting:
 
         Parameters
         ----------
-        x/y : float or 1d arrays
-            The x and y coordinates, or arrays of x and y coordinates of the
-            data points
-        data : str or 2d array
-            Either a data file name or a 2d numpy array with the tabular data.
-            Use option *columns* (i) to choose which columns are x, y, color,
-            and size, respectively.
+        data : str or 2d array or dataframe
+            Either a data file name, a 2d numpy array or a panda dataframe.
 
         {J}
 
