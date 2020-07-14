@@ -599,7 +599,7 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
 
-        kind = data_kind(data, x, y)
+        kind = data_kind(data)
 
         extra_arrays = []
         if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
@@ -624,10 +624,6 @@ class BasePlotting:
                 file_context = dummy_context(data)
             elif kind == "matrix":
                 file_context = lib.virtualfile_from_matrix(data)
-            elif kind == "vectors":
-                file_context = lib.virtualfile_from_vectors(
-                    np.atleast_1d(x), np.atleast_1d(y), *extra_arrays
-                )
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
