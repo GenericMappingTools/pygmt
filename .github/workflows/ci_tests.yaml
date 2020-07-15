@@ -100,7 +100,7 @@ jobs:
         run: |
           # The GMT official (oceania) data server always timeouts on Linux and Windows agents,
           # while the europe server works well
-          gmt which -Ga --GMT_DATA_SERVER=https://fct-gmt.ualg.pt/gmt/data \
+          gmt which -Ga --GMT_DATA_SERVER=https://fct-gmt.ualg.pt/gmt/data -Vd \
                         @earth_relief_01d_p \
                         @earth_relief_01d_g \
                         @earth_relief_30m_p \
