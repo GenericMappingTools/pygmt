@@ -22,9 +22,9 @@ def fixture_xrgrid():
     Create a sample xarray.DataArray grid for testing
     """
     longitude = np.arange(0, 360, 1)
-    latitude = np.arange(-89, 91, 1)
+    latitude = np.arange(-89, 90, 1)
     x = np.sin(np.deg2rad(longitude))
-    y = np.linspace(start=0, stop=1, num=180)
+    y = np.linspace(start=0, stop=1, num=179)
     data = y[:, np.newaxis] * x
 
     return xr.DataArray(
