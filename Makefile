@@ -29,7 +29,7 @@ test:
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
-	cd $(TESTDIR); pytest -m runfirst --no-summary $(PYTEST_ARGS) $(PROJECT)
+	cd $(TESTDIR); pytest -m runfirst $(PYTEST_ARGS) $(PROJECT)
 	cd $(TESTDIR); pytest -m 'not runfirst' $(PYTEST_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
