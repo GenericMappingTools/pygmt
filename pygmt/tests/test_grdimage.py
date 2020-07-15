@@ -75,6 +75,7 @@ def test_grdimage_fails():
         fig.grdimage(np.arange(20).reshape((4, 5)))
 
 
+@pytest.mark.runfirst
 @pytest.mark.mpl_image_compare
 def test_grdimage_over_dateline(xrgrid):
     """
