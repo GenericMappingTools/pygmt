@@ -95,6 +95,7 @@ jobs:
       - name: Move and list downloaded remote files
         shell: bash -l {0}
         run: |
+          mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
           ls -lh ~/.gmt
 
