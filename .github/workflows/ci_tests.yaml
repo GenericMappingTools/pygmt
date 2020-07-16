@@ -96,7 +96,8 @@ jobs:
       - name: List downloaded remote files
         shell: bash -l {0}
         run: |
-            ls -lh $HOME/.gmt
+          ls -lh .
+          #ls -lh $HOME/.gmt
 
       # Install the package that we want to test
       - name: Install the package
