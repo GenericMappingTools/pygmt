@@ -18,7 +18,6 @@ jobs:
       - name: Setup Miniconda
         uses: goanpeca/setup-miniconda@v1.6.0
         with:
-          python-version: ${{ matrix.python-version }}
           channels: conda-forge
 
       # Install GMT
