@@ -1,0 +1,43 @@
+# This workflow gets and uploads the GMT data artifacts used in the PyGMT CI tests
+name: Cache data
+
+on:
+  pull_request:
+    branches: [ master ]
+  # Schedule runs on 12 noon every Sunday
+  schedule:
+    - cron: '0 12 * * 0'
+
+jobs:
+  gmt_cache:
+    name: Cache GMT artifacts
+    runs-on: macOS-latest
+
+    steps:
+      # Setup Miniconda
+      - name: Setup Miniconda
+        uses: goanpeca/setup-miniconda@v1.6.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          channels: conda-forge
+
+      # Install GMT
+      - name: Install GMT
+        shell: bash -l {0}
+        run: conda install -c conda-forge gmt=6.1.0
+
+      # Download remote files
+      - name: Download remote data
+        shell: bash -l {0}
+        run: |
+          gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g @earth_relief_30m_p @earth_relief_30m_g @earth_relief_01d_p @earth_relief_01d_g
+          gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
+
+      # Upload the downloaded files as artifacts to Github
+      - name: Upload artifacts to Github
+        uses: actions/upload-artifact@v2
+        with:
+          name: gmt-cache
+          path: |
+              ~/.gmt/cache
+              ~/.gmt/server
