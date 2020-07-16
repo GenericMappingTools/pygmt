@@ -89,13 +89,13 @@ jobs:
         with:
           workflow: cache_data.yaml
           name: gmt-cache
-          path: ./.gmt
+          path: .gmt
 
       # List files in ~/.gmt directory
       - name: List downloaded remote files
         shell: bash -l {0}
         run: |
-          ls -alh .
+          ls -alh --recursive .
           #ls -alh $HOME/.gmt
 
       # Install the package that we want to test
