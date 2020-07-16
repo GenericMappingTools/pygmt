@@ -50,7 +50,7 @@ def dataarray_to_matrix(grid):
     >>> grid = load_earth_relief(resolution='01d')
     >>> matrix, region, inc = dataarray_to_matrix(grid)
     >>> print(region)
-    [-179.5, 179.5, -89.5, 89.5]
+    [-180.0, 180.0, -90.0, 90.0]
     >>> print(inc)
     [1.0, 1.0]
     >>> type(matrix)
@@ -67,7 +67,7 @@ def dataarray_to_matrix(grid):
     >>> print(matrix.shape)
     (31, 71)
     >>> print(region)
-    [-149.5, -79.5, -79.5, -49.5]
+    [-150.0, -79.0, -80.0, -49.0]
     >>> print(inc)
     [1.0, 1.0]
     >>> # but not if only taking every other grid point.
@@ -77,7 +77,7 @@ def dataarray_to_matrix(grid):
     >>> print(matrix.shape)
     (16, 36)
     >>> print(region)
-    [-149.5, -79.5, -79.5, -49.5]
+    [-150.5, -78.5, -80.5, -48.5]
     >>> print(inc)
     [2.0, 2.0]
 
@@ -102,14 +102,19 @@ def dataarray_to_matrix(grid):
                     dim
                 )
             )
-        region.extend([coord.min(), coord.max()])
+        region.extend(
+            [
+                coord.min() - coord_inc / 2 * grid.gmt.registration,
+                coord.max() + coord_inc / 2 * grid.gmt.registration,
+            ]
+        )
         inc.append(coord_inc)
 
-    if any([i < 0 for i in inc]):  # Sort grid when there are negative increments
+    if any(i < 0 for i in inc):  # Sort grid when there are negative increments
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
-    matrix = as_c_contiguous(grid.values[::-1])
+    matrix = as_c_contiguous(grid[::-1].values)
     return matrix, region, inc
 
 

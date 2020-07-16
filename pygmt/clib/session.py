@@ -44,7 +44,7 @@ GEOMETRIES = [
     "GMT_IS_SURFACE",
 ]
 
-MODES = ["GMT_CONTAINER_ONLY", "GMT_OUTPUT"]
+MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
@@ -113,7 +113,7 @@ class Session:
     ...             )
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
-    -179.5 179.5 -89.5 89.5 -8182 5651.5 1 1 360 180 0 0
+    -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
     """
 
     # The minimum version of GMT required
@@ -511,13 +511,13 @@ class Session:
         ----------
         family : str
             A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
-            ``data_families`` attribute for valid names.
+            ``FAMILIES`` attribute for valid names.
         geometry : str
             A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``data_geometries`` attribute for valid names.
+            ``GEOMETRIES`` attribute for valid names.
         mode : str
-            A valid GMT data mode (e.g., ``'GMT_OUTPUT'``). See the
-            ``data_modes`` attribute for valid names.
+            A valid GMT data mode (e.g., ``'GMT_IS_OUTPUT'``). See the
+            ``MODES`` attribute for valid names.
         dim : list of 4 integers
             The dimensions of the dataset. See the documentation for the GMT C
             API function ``GMT_Create_Data`` (``src/gmt_api.c``) for the full
@@ -530,7 +530,7 @@ class Session:
         inc : list of 2 floats
             The increments between points of the dataset. See the C function
             documentation.
-        registration : int
+        registration : str
             The node registration (what the coordinates mean). Can be
             ``'GMT_GRID_PIXEL_REG'`` or ``'GMT_GRID_NODE_REG'``. Defaults to
             ``'GMT_GRID_NODE_REG'``.
@@ -563,7 +563,9 @@ class Session:
 
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         mode_int = self._parse_constant(
-            mode, valid=MODES, valid_modifiers=["GMT_GRID_IS_GEO"]
+            mode,
+            valid=MODES,
+            valid_modifiers=["GMT_GRID_IS_CARTESIAN", "GMT_GRID_IS_GEO"],
         )
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(
@@ -856,12 +858,12 @@ class Session:
         ----------
         family : str
             A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
-            ``data_families`` attribute for valid names. Don't use the
+            ``FAMILIES`` attribute for valid names. Don't use the
             ``GMT_VIA_VECTOR`` or ``GMT_VIA_MATRIX`` constructs for this. Use
             ``GMT_IS_VECTOR`` and ``GMT_IS_MATRIX`` instead.
         geometry : str
             A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``data_geometries`` attribute for valid names.
+            ``GEOMETRIES`` attribute for valid names.
         mode : str
             How the data is to be written to the file. This option varies
             depending on the given family. See the GMT API documentation for
@@ -1243,10 +1245,13 @@ class Session:
         ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
         ...             ses.call_module('grdinfo', args)
         ...             print(fout.read().strip())
-        -179.5 179.5 -89.5 89.5 -8182 5651.5 1 1 360 180 0 0
+        -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
 
         """
+        _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[grid.gmt.gtype]
+        _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[grid.gmt.registration]
+
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_matrix because we need to maintain a reference to the copy while
         # it is being used by the C API. Otherwise, the array would be garbage
@@ -1254,10 +1259,16 @@ class Session:
         # guarantees that the copy will be around until the virtual file is
         # closed. The conversion is implicit in dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid)
+
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"
         gmt_grid = self.create_data(
-            family, geometry, mode="GMT_CONTAINER_ONLY", ranges=region, inc=inc
+            family,
+            geometry,
+            mode=f"GMT_CONTAINER_ONLY|{_gtype}",
+            ranges=region,
+            inc=inc,
+            registration=_reg,
         )
         self.put_matrix(gmt_grid, matrix)
         args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)
