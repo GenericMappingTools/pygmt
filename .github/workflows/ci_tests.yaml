@@ -85,9 +85,8 @@ jobs:
 
       # Download cached remote files (artifacts) from Github
       - name: Download remote data from Github
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2.6.3
         with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: cache_data.yaml
           name: gmt-cache
           path: ~/.gmt
