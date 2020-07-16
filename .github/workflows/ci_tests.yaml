@@ -83,39 +83,14 @@ jobs:
         shell: bash -l {0}
         run: conda list
 
-      # Cache the ${HOME}/.gmt directory, for docs and testing
-      - name: Cache GMT directory
-        uses: actions/cache@v2
-        id: cache
+      # Download cached remote files (artifacts) from Github
+      - name: Download remote data from Github
+        uses: dawidd6/action-download-artifact@v2
         with:
-          path: |
-            ~/.gmt/cache
-            ~/.gmt/server
-          key: cache-gmt-${{ runner.os }}-${{ github.ref }}-20200711
-          restore-keys: cache-gmt-${{ runner.os }}-refs/heads/master-
-
-      # Workaround for the timeouts of 'gmt which' on Linux and Windows
-      - name: Download remote data using wget (Linux & Windows)
-        shell: bash -l {0}
-        run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then choco install wget; fi  # install wget on Windows
-          mkdir -p ~/.gmt ~/.gmt/cache ~/.gmt/server/earth/earth_relief/
-          wget --no-check-certificate https://oceania.generic-mapping-tools.org/gmt_hash_server.txt -P ~/.gmt/server/
-          for data in earth_relief_01d_p.grd earth_relief_01d_g.grd earth_relief_30m_p.grd earth_relief_30m_g.grd earth_relief_10m_p.grd earth_relief_10m_g.grd; do
-            wget --no-check-certificate https://oceania.generic-mapping-tools.org/server/earth/earth_relief/${data} -P ~/.gmt/server/earth/earth_relief/
-          done
-          for data in ridge.txt Table_5_11.txt test.dat.nc tut_bathy.nc tut_quakes.ngdc tut_ship.xyz usgs_quakes_22.txt; do
-            wget --no-check-certificate https://oceania.generic-mapping-tools.org/cache/${data} -P ~/.gmt/cache/
-          done
-        if: steps.cache.outputs.cache-hit != 'true' && runner.os != 'macOS'
-
-      # Download remote files, if not already cached
-      - name: Download remote data (macOS)
-        shell: bash -l {0}
-        run: |
-          gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g @earth_relief_30m_p @earth_relief_30m_g @earth_relief_01d_p @earth_relief_01d_g
-          gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
-        if: steps.cache.outputs.cache-hit != 'true' && runner.os == 'macOS'
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: cache_data.yaml
+          name: gmt-cache
+          path: ~/.gmt
 
       # Install the package that we want to test
       - name: Install the package
