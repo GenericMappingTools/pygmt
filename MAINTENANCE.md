@@ -40,11 +40,16 @@ The main advantages of this are:
 
 ## Continuous Integration
 
-We use TravisCI continuous integration (CI) services to build and test the
-project on Linux, and Mac (Windows is still a work in progress).
-The configuration file for this service is `.travis.yml`.
-It relies on the `requirements.txt` file to install the required dependencies using
+We use Github Actions and TravisCI continuous integration (CI) services to
+build and test the project on Linux, macOS and Windows.
+The configuration file for these services are in
+`.github/workflows/ci_tests.yaml` and `.travis.yml`.
+They rely on the `requirements.txt` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
+There is also a `.github/workflows/cache_data.yaml` file which caches some GMT
+remote data files needed for the Github Actions CI on a regular basis.
+If new remote files are needed urgently, maintainers can manually uncomment
+the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
 Travis also handles all of our deployments automatically:
 

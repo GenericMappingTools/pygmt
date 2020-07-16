@@ -8,7 +8,8 @@ we supply the data as an :class:`xarray.DataArray` with the coordinate vectors `
 elevation angle of the view. We provide a list of two arguments to ``frame`` — the
 second argument, prepended with ``"z"``, specifies the :math:`z`-axis frame attributes.
 Specifying the same scale for the ``projection`` and ``zcale`` arguments ensures equal
-axis scaling.
+axis scaling. The ``shading`` argument specifies illumination; here we choose an azimuth of
+45° with ``shading="+a45"``.
 """
 
 import pygmt
@@ -44,7 +45,8 @@ fig.grdview(
     zscale=f"{SCALE}i",
     surftype="s",
     cmap="roma",
-    perspective="135/30",
+    perspective=[135, 30],  # Azimuth southeast (135°), at elevation 30°
+    shading="+a45",
 )
 
 fig.show()

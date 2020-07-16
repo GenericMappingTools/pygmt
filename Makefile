@@ -29,7 +29,11 @@ test:
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
-	cd $(TESTDIR); pytest $(PYTEST_ARGS) $(PROJECT)
+	# There are two steps to the test here because `test_grdimage_over_dateline`
+	# passes only when it runs before the other tests.
+	# See also https://github.com/GenericMappingTools/pygmt/pull/476
+	cd $(TESTDIR); pytest -m runfirst $(PYTEST_ARGS) $(PROJECT)
+	cd $(TESTDIR); pytest -m 'not runfirst' $(PYTEST_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
 	rm -r $(TESTDIR)
