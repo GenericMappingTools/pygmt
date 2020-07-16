@@ -75,6 +75,9 @@ def test_grdimage_fails():
         fig.grdimage(np.arange(20).reshape((4, 5)))
 
 
+# This test needs to run first before the other tests (on Linux at least) so
+# that a black image isn't plotted due to an `inf` value when resampling.
+# See also https://github.com/GenericMappingTools/pygmt/pull/476
 @pytest.mark.runfirst
 @pytest.mark.mpl_image_compare
 def test_grdimage_over_dateline(xrgrid):
@@ -83,9 +86,10 @@ def test_grdimage_over_dateline(xrgrid):
     Specifically checking that `xrgrid.gmt.gtype = 1` sets `GMT_GRID_IS_GEO`,
     and that `xrgrid.gmt.registration = 0` sets `GMT_GRID_NODE_REG`. Note that
     there would be a gap over the dateline if a pixel registered grid is used.
+    See also https://github.com/GenericMappingTools/pygmt/issues/375.
     """
     fig = Figure()
     assert xrgrid.gmt.registration == 0  # gridline registration
     xrgrid.gmt.gtype = 1  # geographic coordinate system
-    fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c", V="d")
+    fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c", V="i")
     return fig
