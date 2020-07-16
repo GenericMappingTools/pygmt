@@ -46,6 +46,10 @@ The configuration file for these services are in
 `.github/workflows/ci_tests.yaml` and `.travis.yml`.
 They rely on the `requirements.txt` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
+There is also a `.github/workflows/cache_data.yaml` file which caches some GMT
+remote data files needed for the Github Actions CI on a regular basis.
+If new remote files are needed urgently, maintainers can manually uncomment
+the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
 Travis also handles all of our deployments automatically:
 
