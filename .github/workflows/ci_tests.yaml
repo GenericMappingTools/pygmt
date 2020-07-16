@@ -90,7 +90,7 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: cache_data.yaml
           name: gmt-cache
-          path: $HOME/.gmt
+          path: ~/.gmt
 
       # List files in ~/.gmt directory
       - name: List downloaded remote files
