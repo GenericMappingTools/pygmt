@@ -319,11 +319,11 @@ class Figure(BasePlotting):
 
         Notes
         -----
-        This function can't be used as the first plotting function of
-        :meth:`pygmt.Figure`, since it relies the *region* and *projection*
-        settings from previous commands.
+        For GMT 6.1.0, this function can't be used as the first plotting
+        function of :meth:`pygmt.Figure`, since it relies the *region* and
+        *projection* settings from previous commands.
 
-        .. TODO: Remove the notes when GMT 6.1.1 is released.
+        .. TODO: Remove the notes when PyGMT bumps to GMT>=6.1.1.
         """
         self._preprocess()
         args = ["-T"]
