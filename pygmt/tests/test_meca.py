@@ -2,7 +2,7 @@
 Tests for meca
 """
 import os
-
+import pandas as pd
 import pytest
 
 from .. import Figure
@@ -108,5 +108,31 @@ def test_meca_spec_dict_list():
         scale="2c",
         projection="M14c",
     )
+
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_spec_dataframe():
+    """
+    Test supplying a pandas DataFrame containing focal mechanisms and
+    locations to the `spec` argument.
+    """
+
+    fig = Figure()
+
+    # supply focal mechanisms to meca as a dataframe
+    focal_mechanisms = dict(
+        strike=[324, 353],
+        dip=[20.6, 40],
+        rake=[83, 90],
+        magnitude=[3.4, 2.9],
+        lon=[-124, -124.4],
+        lat=[48.1, 48.2],
+        depth=[12, 11.0],
+    )
+    df = pd.DataFrame(data=focal_mechanisms)
+
+    fig.meca(df, region=[-125, -122, 47, 49], scale="2c", projection="M14c")
 
     return fig
