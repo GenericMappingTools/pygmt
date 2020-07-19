@@ -1025,14 +1025,16 @@ class BasePlotting:
 
         Parameters
         ----------
-        spec: dict, 1D array, 2D array, or str
+        spec: dict, 1D array, 2D array, pd.DataFrame, or str
             Either a filename containing focal mechanism parameters as columns,
             a 1- or 2-D array with the same, or a dictionary. If a filename or
             array, `convention` is required so we know how to interpret the
             columns/entries. If a dictionary, the following combinations of
             keys are supported; these determine the convention. Dictionary
             may contain values for a single focal mechanism or lists of
-            values for many focal mechanisms.
+            values for many focal mechanisms. A Pandas DataFrame may
+            optionally contain columns lat, lon, depth, plot_lon,
+            and/or plot_lat instead of passing them to the meca method.
 
             - ``"aki"`` — *strike, dip, rake, magnitude*
             - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2,
@@ -1050,12 +1052,15 @@ class BasePlotting:
         lon: int or float or list
             Longitude(s) of event location. Ignored if `spec` is not a
             dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'lon' column.
         lat: int or float or list
             Latitude(s) of event location. Ignored if `spec` is not a
             dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'lat' column.
         depth: int or float or list
             Depth(s) of event location in kilometers. Ignored if `spec` is
             not a dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'depth' column.
         convention: str
             ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"``
             (seismic moment tensor), ``"partial"`` (partial focal mechanism),
@@ -1069,9 +1074,11 @@ class BasePlotting:
         plot_lon: int or float or list
             Longitude(s) at which to place beachball, only used if `spec` is a
             dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'plot_lon' column.
         plot_lat: int or float or list
             Latitude(s) at which to place beachball, only used if `spec` is a
             dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'plot_lat' column.
         offset: bool or str
             Offsets beachballs to the longitude, latitude specified in
             the last two columns of the input file or array, or by `plot_lon`
@@ -1086,8 +1093,11 @@ class BasePlotting:
 
         # Check the spec and parse the data according to the specified
         # convention
-        if isinstance(spec, dict):
-            if lon is None or lat is None or depth is None:
+        if isinstance(spec, dict) or isinstance(spec, pd.DataFrame):
+            # dicts and DataFrames are handed similarly but not identically
+            if (lon is None or lat is None or depth is None) and not isinstance(
+                spec, pd.DataFrame
+            ):
                 raise GMTError("Location not fully specified.")
 
             AKI_PARAMS = ["strike", "dip", "rake", "magnitude"]
@@ -1118,48 +1128,82 @@ class BasePlotting:
                 "exponent",
             ]
 
+            # to keep track of where optional parameters exist
+            data_pointers = {
+                "lon": lon,
+                "lat": lat,
+                "depth": depth,
+                "plot_lon": plot_lon,
+                "plot_lat": plot_lat,
+            }
+
+            # make a DataFrame copy to check convention if it contains
+            # other parameters
+            if isinstance(spec, pd.DataFrame):
+                # check if a copy is necessary
+                copy = False
+                drop_list = []
+                for pointer in data_pointers.keys():
+                    if pointer in spec.columns:
+                        copy = True
+                        drop_list.append(pointer)
+                if copy:
+                    spec_conv = spec.copy()
+                    # delete optional parameters from copy for convention check
+                    for item in drop_list:
+                        del spec_conv[item]
+                else:
+                    spec_conv = spec
+            else:
+                spec_conv = spec
+
             # Aki and Richards convention: -Sa in GMT
-            if set(spec.keys()) == set(AKI_PARAMS):
+            if set(spec_conv.keys()) == set(AKI_PARAMS):
                 convention = "aki"
                 foc_params = AKI_PARAMS
 
             # Global CMT convention: -Sc in GMT
-            elif set(spec.keys()) == set(GCMT_PARAMS):
+            elif set(spec_conv.keys()) == set(GCMT_PARAMS):
                 convention = "gcmt"
                 foc_params = GCMT_PARAMS
 
             # Seismic moment tensor convention: -Sm|d|z in GMT
-            elif set(spec.keys()) == set(MT_PARAMS):
+            elif set(spec_conv.keys()) == set(MT_PARAMS):
                 convention = "mt"
                 foc_params = MT_PARAMS
 
             # Partial focal mechanism convention: -Sp in GMT
-            elif set(spec.keys()) == set(PARTIAL_PARAMS):
+            elif set(spec_conv.keys()) == set(PARTIAL_PARAMS):
                 convention = "partial"
                 foc_params = PARTIAL_PARAMS
 
             # Principal axis convention: -Sx|y|t in GMT
-            elif set(spec.keys()) == set(PRINCIPAL_AXIS_PARAMS):
+            elif set(spec_conv.keys()) == set(PRINCIPAL_AXIS_PARAMS):
                 convention = "principle_axis"
                 foc_params = PRINCIPAL_AXIS_PARAMS
 
             else:
                 raise GMTError(
-                    "Parameters in spec dictionary do not match known conventions."
+                    "Parameters in spec dictionary do not match known " "conventions."
                 )
 
             # create a dict type pointer for easier to read code
-            dict_type_pointer = list(spec.values())[0]
+            if isinstance(spec, dict):
+                dict_type_pointer = list(spec.values())[0]
+            elif isinstance(spec, pd.DataFrame):
+                # use df.values as pointer for DataFrame behavior
+                dict_type_pointer = spec.values
 
-            # assemble the 1D array for the case of floats and ints as values
+                # assemble the 1D array for the case of floats and ints as
+                # values
             if isinstance(dict_type_pointer, int) or isinstance(
                 dict_type_pointer, float
             ):
                 # Construct the array (order matters)
                 spec = [lon, lat, depth] + [spec[key] for key in foc_params]
 
-                # Add in plotting options, if given, otherwise add 0s as required
-                # by GMT
+                # Add in plotting options, if given, otherwise add 0s as
+                # required by GMT
                 for arg in plot_lon, plot_lat:
                     if arg is None:
                         spec.append(0)
@@ -1170,8 +1214,8 @@ class BasePlotting:
 
             # or assemble the 2D array for the case of lists as values
             elif isinstance(dict_type_pointer, list):
-                # before constructing the 2D array lets check that each key of the
-                # dict has the same quantity of values to avoid bugs
+                # before constructing the 2D array lets check that each key
+                # of the dict has the same quantity of values to avoid bugs
                 list_length = len(list(spec.values())[0])
                 for value in list(spec.values()):
                     if len(value) != list_length:
@@ -1195,6 +1239,54 @@ class BasePlotting:
                 # values are ok, so build the 2D array
                 spec_array = []
                 for index in range(list_length):
+                    # Construct the array one row at a time (note that order
+                    # matters here, hence the list comprehension!)
+                    row = [lon[index], lat[index], depth[index]] + [
+                        spec[key][index] for key in foc_params
+                    ]
+
+                    # Add in plotting options, if given, otherwise add 0s as
+                    # required by GMT
+                    for arg in plot_lon, plot_lat:
+                        if arg is None:
+                            row.append(0)
+                        else:
+                            if "C" not in kwargs:
+                                kwargs["C"] = True
+                            row.append(arg[index])
+                    spec_array.append(row)
+                spec = spec_array
+
+            # or assemble the array for the case of pd.DataFrames
+            elif isinstance(dict_type_pointer, np.ndarray):
+                # set optional parameters based on DataFrame if present
+                for param in list(data_pointers.keys()):
+                    if param in spec.columns:
+                        # set pointer based on param name
+                        data_pointers[param] = spec[param]
+
+                # update all pointers
+                lon = data_pointers["lon"]
+                lat = data_pointers["lat"]
+                depth = data_pointers["depth"]
+                plot_lon = data_pointers["plot_lon"]
+                plot_lat = data_pointers["plot_lat"]
+
+                # lets also check the inputs for lon, lat, and depth
+                # just in case the user entered different length lists
+                if (
+                    isinstance(lon, list)
+                    or isinstance(lat, list)
+                    or isinstance(depth, list)
+                ):
+                    if (len(lon) != len(lat)) or (len(lon) != len(depth)):
+                        raise GMTError(
+                            "Unequal number of focal mechanism " "locations supplied."
+                        )
+
+                # values are ok, so build the 2D array in the correct order
+                spec_array = []
+                for index in range(len(spec)):
                     # Construct the array one row at a time (note that order
                     # matters here, hence the list comprehension!)
                     row = [lon[index], lat[index], depth[index]] + [
