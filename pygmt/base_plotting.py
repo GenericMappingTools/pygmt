@@ -1030,7 +1030,9 @@ class BasePlotting:
             a 1- or 2-D array with the same, or a dictionary. If a filename or
             array, `convention` is required so we know how to interpret the
             columns/entries. If a dictionary, the following combinations of
-            keys are supported; these determine the convention.
+            keys are supported; these determine the convention. Dictionary
+            may contain values for a single focal mechanism or lists of
+            values for many focal mechanisms.
 
             - ``"aki"`` — *strike, dip, rake, magnitude*
             - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2,
@@ -1045,13 +1047,15 @@ class BasePlotting:
             Adjusts the scaling of the radius of the beachball, which is
             proportional to the magnitude. Scale defines the size for
             magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
-        lon: int or float
-            Longitude of event location. Ignored if `spec` is not a dictionary.
-        lat: int or float
-            Latitude of event location. Ignored if `spec` is not a dictionary.
-        depth: int or float
-            Depth of event location in kilometers. Ignored if `spec` is not a
-            dictionary.
+        lon: int or float or list
+            Longitude(s) of event location. Ignored if `spec` is not a
+            dictionary. List must be the length of the number of events.
+        lat: int or float or list
+            Latitude(s) of event location. Ignored if `spec` is not a
+            dictionary. List must be the length of the number of events.
+        depth: int or float or list
+            Depth(s) of event location in kilometers. Ignored if `spec` is
+            not a dictionary. List must be the length of the number of events.
         convention: str
             ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"``
             (seismic moment tensor), ``"partial"`` (partial focal mechanism),
@@ -1062,12 +1066,12 @@ class BasePlotting:
             full seismic moment tensor), ``"dc"`` (the closest double couple
             with zero trace and zero determinant), ``"deviatoric"`` (zero
             trace)
-        plot_lon: int or float
-            Longitude at which to place beachball, only used if `spec` is a
-            dictionary.
-        plot_lat: int or float
-            Latitude at which to place beachball, only used if `spec` is a
-            dictionary.
+        plot_lon: int or float or list
+            Longitude(s) at which to place beachball, only used if `spec` is a
+            dictionary. List must be the length of the number of events.
+        plot_lat: int or float or list
+            Latitude(s) at which to place beachball, only used if `spec` is a
+            dictionary. List must be the length of the number of events.
         offset: bool or str
             Offsets beachballs to the longitude, latitude specified in
             the last two columns of the input file or array, or by `plot_lon`
@@ -1144,19 +1148,75 @@ class BasePlotting:
                     "Parameters in spec dictionary do not match known conventions."
                 )
 
-            # Construct the vector (note that order matters here, hence the
-            # list comprehension!)
-            spec = [lon, lat, depth] + [spec[key] for key in foc_params]
+            # create a dict type pointer for easier to read code
+            dict_type_pointer = list(spec.values())[0]
 
-            # Add in plotting options, if given, otherwise add 0s as required
-            # by GMT
-            for arg in plot_lon, plot_lat:
-                if arg is None:
-                    spec.append(0)
-                else:
-                    if "C" not in kwargs:
-                        kwargs["C"] = True
-                    spec.append(arg)
+            # assemble the 1D array for the case of floats and ints as values
+            if isinstance(dict_type_pointer, int) or isinstance(
+                dict_type_pointer, float
+            ):
+                # Construct the array (order matters)
+                spec = [lon, lat, depth] + [spec[key] for key in foc_params]
+
+                # Add in plotting options, if given, otherwise add 0s as required
+                # by GMT
+                for arg in plot_lon, plot_lat:
+                    if arg is None:
+                        spec.append(0)
+                    else:
+                        if "C" not in kwargs:
+                            kwargs["C"] = True
+                        spec.append(arg)
+
+            # or assemble the 2D array for the case of lists as values
+            elif isinstance(dict_type_pointer, list):
+                # before constructing the 2D array lets check that each key of the
+                # dict has the same quantity of values to avoid bugs
+                list_length = len(list(spec.values())[0])
+                for value in list(spec.values()):
+                    if len(value) != list_length:
+                        raise GMTError(
+                            "Unequal number of focal mechanism "
+                            "parameters supplied in 'spec'."
+                        )
+                    # lets also check the inputs for lon, lat, and depth if
+                    # it is a list
+                    if (
+                        isinstance(lon, list)
+                        or isinstance(lat, list)
+                        or isinstance(depth, list)
+                    ):
+                        if (len(lon) != len(lat)) or (len(lon) != len(depth)):
+                            raise GMTError(
+                                "Unequal number of focal mechanism "
+                                "locations supplied."
+                            )
+
+                # values are ok, so build the 2D array
+                spec_array = []
+                for index in range(list_length):
+                    # Construct the array one row at a time (note that order
+                    # matters here, hence the list comprehension!)
+                    row = [lon[index], lat[index], depth[index]] + [
+                        spec[key][index] for key in foc_params
+                    ]
+
+                    # Add in plotting options, if given, otherwise add 0s as
+                    # required by GMT
+                    for arg in plot_lon, plot_lat:
+                        if arg is None:
+                            row.append(0)
+                        else:
+                            if "C" not in kwargs:
+                                kwargs["C"] = True
+                            row.append(arg[index])
+                    spec_array.append(row)
+                spec = spec_array
+
+            else:
+                raise GMTError(
+                    "Parameter 'spec' contains values of an " "unsupported type."
+                )
 
         # Add condition and scale to kwargs
         if convention == "aki":
