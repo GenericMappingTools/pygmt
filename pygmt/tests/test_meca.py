@@ -83,3 +83,30 @@ def test_meca_spec_dictionary():
     )
 
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_spec_dict_list():
+    """
+    Test supplying a dictionary containing a list of focal mechanism to the
+    `spec` argument.
+    """
+
+    fig = Figure()
+
+    # supply focal mechanisms as a dict of lists
+    focal_mechanisms = dict(
+        strike=[330, 350], dip=[30, 50], rake=[90, 90], magnitude=[3, 2]
+    )
+
+    fig.meca(
+        focal_mechanisms,
+        lon=[-124.3, -124.4],
+        lat=[48.1, 48.2],
+        depth=[12.0, 11.0],
+        region=[-125, -122, 47, 49],
+        scale="2c",
+        projection="M14c",
+    )
+
+    return fig
