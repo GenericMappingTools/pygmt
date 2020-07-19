@@ -14,7 +14,8 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 @pytest.mark.mpl_image_compare
 def test_meca_spec_dictionary():
     """
-    Test supplying a dictionary to the `spec` argument.
+    Test supplying a dictionary containing a single focal mechanism to the
+    `spec` argument.
     """
 
     fig = Figure()
