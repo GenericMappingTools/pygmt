@@ -298,7 +298,7 @@ class Figure(BasePlotting):
         Shift plot origin in x and/or y directions.
 
         This method shifts plot origin relative to the current origin by
-        (*xshift*,*yshift*) and optionally append the length unit (**c**,
+        (*xshift*, *yshift*) and optionally append the length unit (**c**,
         **i**, or **p**).
 
         Prepend **a** to shift the origin back to the original position after
@@ -308,7 +308,7 @@ class Figure(BasePlotting):
         move the origin relative to its current location.
 
         Detailed usage at
-        :gmt-docs:`GMT_Docs.html#plot-positioning-and-layout-the-x-y-options`
+        :gmt-docs:`cookbook/options.html#plot-positioning-and-layout-the-x-y-options`
 
         Parameters
         ----------
@@ -316,6 +316,14 @@ class Figure(BasePlotting):
             Shift plot origin in x direction.
         yshift : str
             Shift plot origin in y direction.
+
+        Notes
+        -----
+        For GMT 6.1.0, this function can't be used as the first plotting
+        function of :meth:`pygmt.Figure`, since it relies the *region* and
+        *projection* settings from previous commands.
+
+        .. TODO: Remove the notes when PyGMT bumps to GMT>=6.1.1.
         """
         self._preprocess()
         args = ["-T"]
