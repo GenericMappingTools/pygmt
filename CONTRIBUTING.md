@@ -156,7 +156,7 @@ Guidelines for a good tutorial:
 * Explain the options and features in as much detail as possible. The gallery has
   concise examples while the tutorials are detailed and full of text.
 
-Note that the `Figure.plot` function needs to be called for a plot to be inserted into
+Note that the `Figure.show()` function needs to be called for a plot to be inserted into
 the documentation.
 
 
