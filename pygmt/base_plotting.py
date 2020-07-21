@@ -1091,40 +1091,66 @@ class BasePlotting:
         {B}
         """
 
+        def set_Pointers(data_pointers, spec):
+            """Set optional parameter pointers based on DataFrame or dict, if
+            those parameters are present in the DataFrame or dict."""
+            for param in list(data_pointers.keys()):
+                if param in spec:
+                    # set pointer based on param name
+                    data_pointers[param] = spec[param]
+
+        def update_Pointers(data_pointers):
+            """Updates variables based on the location of data, as the
+            following data can be passed as parameters or it can be
+            contained in `spec`."""
+            # update all pointers
+            lon = data_pointers["lon"]
+            lat = data_pointers["lat"]
+            depth = data_pointers["depth"]
+            plot_lon = data_pointers["plot_lon"]
+            plot_lat = data_pointers["plot_lat"]
+            return (lon, lat, depth, plot_lon, plot_lat)
+
         # Check the spec and parse the data according to the specified
         # convention
         if isinstance(spec, (dict, pd.DataFrame)):
             # dicts and DataFrames are handed similarly but not identically
             if (lon is None or lat is None or depth is None) and not isinstance(
-                spec, pd.DataFrame
+                spec, (dict, pd.DataFrame)
             ):
                 raise GMTError("Location not fully specified.")
 
-            AKI_PARAMS = ["strike", "dip", "rake", "magnitude"]
-            GCMT_PARAMS = [
-                "strike1",
-                "dip1",
-                "rake1",
-                "strike2",
-                "dip2",
-                "rake2",
-                "mantissa",
-                "exponent",
-            ]
-            MT_PARAMS = ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"]
-            PARTIAL_PARAMS = ["strike1", "dip1", "strike2", "fault_type", "magnitude"]
-            PRINCIPAL_AXIS_PARAMS = [
-                "t_exponent",
-                "t_azimuth",
-                "t_plunge",
-                "n_exponent",
-                "n_azimuth",
-                "n_plunge",
-                "p_exponent",
-                "p_azimuth",
-                "p_plunge",
-                "exponent",
-            ]
+            param_conventions = {
+                "AKI_PARAMS": ["strike", "dip", "rake", "magnitude"],
+                "GCMT_PARAMS": [
+                    "strike1",
+                    "dip1",
+                    "dip2",
+                    "rake2",
+                    "mantissa",
+                    "exponent",
+                ],
+                "MT_PARAMS": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
+                "PARTIAL_PARAMS": [
+                    "strike1",
+                    "dip1",
+                    "strike2",
+                    "fault_type",
+                    "magnitude",
+                ],
+                "PRINCIPAL_AXIS_PARAMS": [
+                    "t_exponent",
+                    "t_azimuth",
+                    "t_plunge",
+                    "n_exponent",
+                    "n_azimuth",
+                    "n_plunge",
+                    "p_exponent",
+                    "p_azimuth",
+                    "p_plunge",
+                    "exponent",
+                ],
+            }
 
             # to keep track of where optional parameters exist
             data_pointers = {
@@ -1137,12 +1163,12 @@ class BasePlotting:
 
             # make a DataFrame copy to check convention if it contains
             # other parameters
-            if isinstance(spec, pd.DataFrame):
+            if isinstance(spec, (dict, pd.DataFrame)):
                 # check if a copy is necessary
                 copy = False
                 drop_list = []
                 for pointer in data_pointers:
-                    if pointer in spec.columns:
+                    if pointer in spec:
                         copy = True
                         drop_list.append(pointer)
                 if copy:
@@ -1152,38 +1178,21 @@ class BasePlotting:
                         del spec_conv[item]
                 else:
                     spec_conv = spec
-            else:
-                spec_conv = spec
 
-            # Aki and Richards convention: -Sa in GMT
-            if set(spec_conv.keys()) == set(AKI_PARAMS):
-                convention = "aki"
-                foc_params = AKI_PARAMS
+            # set convention and focal parameters based on spec convention
+            for conv in param_conventions:
+                if set(spec_conv.keys()) == set(param_conventions[conv]):
+                    # strips _PARAM and make lowercase to set convention to
+                    # "aki", "gcmt", "mt", "partial", or "principal_axis"
+                    convention = conv[:-7].lower()
+                    foc_params = param_conventions[conv]
+                    break
 
-            # Global CMT convention: -Sc in GMT
-            elif set(spec_conv.keys()) == set(GCMT_PARAMS):
-                convention = "gcmt"
-                foc_params = GCMT_PARAMS
-
-            # Seismic moment tensor convention: -Sm|d|z in GMT
-            elif set(spec_conv.keys()) == set(MT_PARAMS):
-                convention = "mt"
-                foc_params = MT_PARAMS
-
-            # Partial focal mechanism convention: -Sp in GMT
-            elif set(spec_conv.keys()) == set(PARTIAL_PARAMS):
-                convention = "partial"
-                foc_params = PARTIAL_PARAMS
-
-            # Principal axis convention: -Sx|y|t in GMT
-            elif set(spec_conv.keys()) == set(PRINCIPAL_AXIS_PARAMS):
-                convention = "principle_axis"
-                foc_params = PRINCIPAL_AXIS_PARAMS
-
-            else:
-                raise GMTError(
-                    "Parameters in spec dictionary do not match known " "conventions."
-                )
+                else:
+                    raise GMTError(
+                        "Parameters in spec dictionary do not match known "
+                        "conventions."
+                    )
 
             # create a dict type pointer for easier to read code
             if isinstance(spec, dict):
@@ -1192,9 +1201,13 @@ class BasePlotting:
                 # use df.values as pointer for DataFrame behavior
                 dict_type_pointer = spec.values
 
-                # assemble the 1D array for the case of floats and ints as
-                # values
+            # assemble the 1D array for the case of floats and ints as values
             if isinstance(dict_type_pointer, (int, float)):
+                # update pointers
+                set_Pointers(data_pointers, spec)
+                # look for optional parameters in the right place
+                lon, lat, depth, plot_lon, plot_lat = update_Pointers(data_pointers)
+
                 # Construct the array (order matters)
                 spec = [lon, lat, depth] + [spec[key] for key in foc_params]
 
@@ -1210,6 +1223,11 @@ class BasePlotting:
 
             # or assemble the 2D array for the case of lists as values
             elif isinstance(dict_type_pointer, list):
+                # update pointers
+                set_Pointers(data_pointers, spec)
+                # look for optional parameters in the right place
+                lon, lat, depth, plot_lon, plot_lat = update_Pointers(data_pointers)
+
                 # before constructing the 2D array lets check that each key
                 # of the dict has the same quantity of values to avoid bugs
                 list_length = len(list(spec.values())[0])
@@ -1255,18 +1273,10 @@ class BasePlotting:
 
             # or assemble the array for the case of pd.DataFrames
             elif isinstance(dict_type_pointer, np.ndarray):
-                # set optional parameters based on DataFrame if present
-                for param in list(data_pointers.keys()):
-                    if param in spec.columns:
-                        # set pointer based on param name
-                        data_pointers[param] = spec[param]
-
-                # update all pointers
-                lon = data_pointers["lon"]
-                lat = data_pointers["lat"]
-                depth = data_pointers["depth"]
-                plot_lon = data_pointers["plot_lon"]
-                plot_lat = data_pointers["plot_lat"]
+                # update pointers
+                set_Pointers(data_pointers, spec)
+                # look for optional parameters in the right place
+                lon, lat, depth, plot_lon, plot_lat = update_Pointers(data_pointers)
 
                 # lets also check the inputs for lon, lat, and depth
                 # just in case the user entered different length lists
