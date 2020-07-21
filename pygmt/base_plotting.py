@@ -1191,8 +1191,7 @@ class BasePlotting:
                     break
             if not convention_assigned:
                 raise GMTError(
-                    "Parameters in spec dictionary do not match known "
-                    "conventions."
+                    "Parameters in spec dictionary do not match known " "conventions."
                 )
 
             # create a dict type pointer for easier to read code
