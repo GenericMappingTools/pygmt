@@ -1093,7 +1093,7 @@ class BasePlotting:
 
         # Check the spec and parse the data according to the specified
         # convention
-        if isinstance(spec, dict) or isinstance(spec, pd.DataFrame):
+        if isinstance(spec, (dict, pd.DataFrame)):
             # dicts and DataFrames are handed similarly but not identically
             if (lon is None or lat is None or depth is None) and not isinstance(
                 spec, pd.DataFrame
@@ -1194,9 +1194,7 @@ class BasePlotting:
 
                 # assemble the 1D array for the case of floats and ints as
                 # values
-            if isinstance(dict_type_pointer, int) or isinstance(
-                dict_type_pointer, float
-            ):
+            if isinstance(dict_type_pointer, (int, float)):
                 # Construct the array (order matters)
                 spec = [lon, lat, depth] + [spec[key] for key in foc_params]
 
