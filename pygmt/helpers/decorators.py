@@ -180,7 +180,13 @@ def use_alias(**aliases):
     R = bla J = meh
     >>> my_module(region='bla', projection='meh')
     R = bla J = meh
-
+    >>> my_module(
+    ...    region='bla', projection='meh', J="bla"
+    ... )  # doctest: +NORMALIZE_WHITESPACE
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput:
+        Arguments in short-form (J) and long-form (projection) can't coexist
     """
 
     def alias_decorator(module_func):
@@ -194,6 +200,10 @@ def use_alias(**aliases):
             New module that parses and replaces the registered aliases.
             """
             for arg, alias in aliases.items():
+                if alias in kwargs and arg in kwargs:
+                    raise GMTInvalidInput(
+                        f"Arguments in short-form ({arg}) and long-form ({alias}) can't coexist"
+                    )
                 if alias in kwargs:
                     kwargs[arg] = kwargs.pop(alias)
             return module_func(*args, **kwargs)
