@@ -12,6 +12,12 @@ from ..exceptions import GMTInvalidInput
 from ..helpers import GMTTempFile
 
 
+@pytest.fixture(scope="module", name="grid")
+def fixture_grid():
+    "Load the grid data from the sample earth_relief file"
+    return load_earth_relief(registration="pixel")
+
+
 def test_grdcut_file_in_file_out():
     "grduct an input grid file, and output to a grid file"
     with GMTTempFile(suffix=".nc") as tmpfile:
@@ -41,20 +47,18 @@ def test_grdcut_file_in_dataarray_out():
     assert outgrid.sizes["lon"] == 180
 
 
-def test_grdcut_dataarray_in_file_out():
+def test_grdcut_dataarray_in_file_out(grid):
     "grdcut an input DataArray, and output to a grid file"
-    ingrid = load_earth_relief()
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdcut(ingrid, outgrid=tmpfile.name, region="0/180/0/90")
+        result = grdcut(grid, outgrid=tmpfile.name, region="0/180/0/90")
         assert result is None  # grdcut returns None if output to a file
         result = grdinfo(tmpfile.name, C=True)
         assert result == "0 180 0 90 -8182 5651.5 1 1 180 90 1 1\n"
 
 
-def test_grdcut_dataarray_in_dataarray_out():
+def test_grdcut_dataarray_in_dataarray_out(grid):
     "grdcut an input DataArray, and output as DataArray"
-    ingrid = load_earth_relief()
-    outgrid = grdcut(ingrid, region="0/180/0/90")
+    outgrid = grdcut(grid, region="0/180/0/90")
     assert isinstance(outgrid, xr.DataArray)
     # check information of the output grid
     # the '@earth_relief_01d' is in pixel registration, so the grid range is
