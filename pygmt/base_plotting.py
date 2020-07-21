@@ -1065,7 +1065,7 @@ class BasePlotting:
             ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"``
             (seismic moment tensor), ``"partial"`` (partial focal mechanism),
             or ``"principal_axis"`` (principal axis). Ignored if `spec` is a
-            dictionary.
+            dictionary or dataframe.
         component: str
             The component of the seismic moment tensor to plot. ``"full"`` (the
             full seismic moment tensor), ``"dc"`` (the closest double couple

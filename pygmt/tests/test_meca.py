@@ -3,6 +3,7 @@ Tests for meca
 """
 import os
 import pandas as pd
+import numpy as np
 import pytest
 
 from .. import Figure
@@ -134,5 +135,47 @@ def test_meca_spec_dataframe():
     df = pd.DataFrame(data=focal_mechanisms)
 
     fig.meca(df, region=[-125, -122, 47, 49], scale="2c", projection="M14c")
+
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_spec_1D_array():
+    """
+    Test supplying a 1D numpy array containing focal mechanisms and
+    locations to the `spec` argument.
+    """
+
+    fig = Figure()
+
+    # supply focal mechanisms to meca as a 1D numpy array, here we are using
+    # the Harvard CMT zero trace convention but the focal mechanism
+    # parameters may be specified any of the available conventions. Since we
+    # are not using a dict or dataframe the convention and component should
+    # be specified.
+    focal_mechanism = [
+        -127.40,
+        40.87,
+        12,
+        -3.19,
+        0.16,
+        3.03,
+        -1.02,
+        -3.93,
+        -0.02,
+        23,
+        0,
+        0,
+    ]
+    focal_mech_array = np.asarray(focal_mechanism)
+
+    fig.meca(
+        focal_mech_array,
+        convention="mt",
+        component="full",
+        region=[-128, -127, 40, 41],
+        scale="2c",
+        projection="M14c",
+    )
 
     return fig
