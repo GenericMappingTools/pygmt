@@ -26,6 +26,8 @@ def test_grdcut_file_in_dataarray_out():
     "grdcut an input grid file, and output as DataArray"
     outgrid = grdcut("@earth_relief_01d", region="0/180/0/90")
     assert isinstance(outgrid, xr.DataArray)
+    assert outgrid.gmt.registration == 1  # Pixel registration
+    assert outgrid.gmt.gtype == 1  # Geographic type
     # check information of the output grid
     # the '@earth_relief_01d' is in pixel registration, so the grid range is
     # not exactly 0/180/0/90

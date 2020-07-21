@@ -113,6 +113,7 @@ def grdcut(grid, **kwargs):
         if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
             with xr.open_dataarray(outgrid) as dataarray:
                 result = dataarray.load()
+                result.gmt  # load GMTDataArray accessor information
         else:
             result = None  # if user sets an outgrid, return None
 
