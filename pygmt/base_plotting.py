@@ -1111,8 +1111,6 @@ class BasePlotting:
                 "mantissa",
                 "exponent",
             ]
-            # FIXME: allow specification of moment instead of mantissa and
-            # exponent.
             MT_PARAMS = ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"]
             PARTIAL_PARAMS = ["strike1", "dip1", "strike2", "fault_type", "magnitude"]
             PRINCIPAL_AXIS_PARAMS = [
@@ -1312,35 +1310,35 @@ class BasePlotting:
 
         # Add condition and scale to kwargs
         if convention == "aki":
-            format = "a"
+            data_format = "a"
         elif convention == "gcmt":
-            format = "c"
+            data_format = "c"
         elif convention == "mt":
             # Check which component of mechanism the user wants plotted
             if component == "deviatoric":
-                format = "z"
+                data_format = "z"
             elif component == "dc":
-                format = "d"
+                data_format = "d"
             else:  # component == 'full'
-                format = "m"
+                data_format = "m"
         elif convention == "partial":
-            format = "p"
+            data_format = "p"
         elif convention == "principal_axis":
             # Check which component of mechanism the user wants plotted
             if component == "deviatoric":
-                format = "t"
+                data_format = "t"
             elif component == "dc":
-                format = "y"
+                data_format = "y"
             else:  # component == 'full'
-                format = "x"
+                data_format = "x"
         # Support old-school GMT format options
         elif convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
-            format = convention
+            data_format = convention
         else:
             raise GMTError("Convention not recognized.")
 
         # Assemble -S flag
-        kwargs["S"] = format + scale
+        kwargs["S"] = data_format + scale
 
         kind = data_kind(spec)
         with Session() as lib:
