@@ -1091,7 +1091,7 @@ class BasePlotting:
         {B}
         """
 
-        def set_Pointers(data_pointers, spec):
+        def set_pointer(data_pointers, spec):
             """Set optional parameter pointers based on DataFrame or dict, if
             those parameters are present in the DataFrame or dict."""
             for param in list(data_pointers.keys()):
@@ -1099,7 +1099,7 @@ class BasePlotting:
                     # set pointer based on param name
                     data_pointers[param] = spec[param]
 
-        def update_Pointers(data_pointers):
+        def update_pointers(data_pointers):
             """Updates variables based on the location of data, as the
             following data can be passed as parameters or it can be
             contained in `spec`."""
@@ -1180,19 +1180,20 @@ class BasePlotting:
                     spec_conv = spec
 
             # set convention and focal parameters based on spec convention
+            convention_assigned = False
             for conv in param_conventions:
                 if set(spec_conv.keys()) == set(param_conventions[conv]):
                     # strips _PARAM and make lowercase to set convention to
                     # "aki", "gcmt", "mt", "partial", or "principal_axis"
                     convention = conv[:-7].lower()
                     foc_params = param_conventions[conv]
+                    convention_assigned = True
                     break
-
-                else:
-                    raise GMTError(
-                        "Parameters in spec dictionary do not match known "
-                        "conventions."
-                    )
+            if not convention_assigned:
+                raise GMTError(
+                    "Parameters in spec dictionary do not match known "
+                    "conventions."
+                )
 
             # create a dict type pointer for easier to read code
             if isinstance(spec, dict):
@@ -1204,9 +1205,9 @@ class BasePlotting:
             # assemble the 1D array for the case of floats and ints as values
             if isinstance(dict_type_pointer, (int, float)):
                 # update pointers
-                set_Pointers(data_pointers, spec)
+                set_pointer(data_pointers, spec)
                 # look for optional parameters in the right place
-                lon, lat, depth, plot_lon, plot_lat = update_Pointers(data_pointers)
+                lon, lat, depth, plot_lon, plot_lat = update_pointers(data_pointers)
 
                 # Construct the array (order matters)
                 spec = [lon, lat, depth] + [spec[key] for key in foc_params]
@@ -1224,9 +1225,9 @@ class BasePlotting:
             # or assemble the 2D array for the case of lists as values
             elif isinstance(dict_type_pointer, list):
                 # update pointers
-                set_Pointers(data_pointers, spec)
+                set_pointer(data_pointers, spec)
                 # look for optional parameters in the right place
-                lon, lat, depth, plot_lon, plot_lat = update_Pointers(data_pointers)
+                lon, lat, depth, plot_lon, plot_lat = update_pointers(data_pointers)
 
                 # before constructing the 2D array lets check that each key
                 # of the dict has the same quantity of values to avoid bugs
@@ -1274,9 +1275,9 @@ class BasePlotting:
             # or assemble the array for the case of pd.DataFrames
             elif isinstance(dict_type_pointer, np.ndarray):
                 # update pointers
-                set_Pointers(data_pointers, spec)
+                set_pointer(data_pointers, spec)
                 # look for optional parameters in the right place
-                lon, lat, depth, plot_lon, plot_lat = update_Pointers(data_pointers)
+                lon, lat, depth, plot_lon, plot_lat = update_pointers(data_pointers)
 
                 # lets also check the inputs for lon, lat, and depth
                 # just in case the user entered different length lists
