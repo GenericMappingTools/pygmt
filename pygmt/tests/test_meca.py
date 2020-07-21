@@ -154,18 +154,18 @@ def test_meca_spec_1D_array():
     # are not using a dict or dataframe the convention and component should
     # be specified.
     focal_mechanism = [
-        -127.40,
-        40.87,
-        12,
-        -3.19,
-        0.16,
-        3.03,
-        -1.02,
-        -3.93,
-        -0.02,
-        23,
-        0,
-        0,
+        -127.40,  # longitude
+        40.87,  # latitude
+        12,  # depth
+        -3.19,  # mrr
+        0.16,  # mtt
+        3.03,  # mff
+        -1.02,  # mrt
+        -3.93,  # mrf
+        -0.02,  # mtf
+        23,  # exponent
+        0,  # plot_lon, 0 to plot at event location
+        0,  # plot_lat, 0 to plot at event location
     ]
     focal_mech_array = np.asarray(focal_mechanism)
 
@@ -173,6 +173,50 @@ def test_meca_spec_1D_array():
         focal_mech_array,
         convention="mt",
         component="full",
+        region=[-128, -127, 40, 41],
+        scale="2c",
+        projection="M14c",
+    )
+
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_spec_2D_array():
+    """
+    Test supplying a 2D numpy array containing focal mechanisms and
+    locations to the `spec` argument.
+    """
+
+    fig = Figure()
+
+    # supply focal mechanisms to meca as a 2D numpy array, here we are using
+    # the GCMT convention but the focal mechanism parameters may be
+    # specified any of the available conventions. Since we are not using a
+    # dict or dataframe the convention and component should be specified.
+    focal_mechanisms = [
+        [
+            -127.40,  # longitude
+            40.87,  # latitude
+            12,  # depth
+            170,  # strike1
+            20,  # dip1
+            -110,  # rake1
+            11,  # strike2
+            71,  # dip2
+            -83,  # rake2
+            5.1,  # mantissa
+            23,  # exponent
+            0,  # plot_lon, 0 means we want to plot at the event location
+            0,  # plot_lat
+        ],
+        [-127.50, 40.88, 12.0, 168, 40, -115, 20, 54, -70, 4.0, 23, 0, 0],
+    ]
+    focal_mechs_array = np.asarray(focal_mechanisms)
+
+    fig.meca(
+        focal_mechs_array,
+        convention="gcmt",
         region=[-128, -127, 40, 41],
         scale="2c",
         projection="M14c",
