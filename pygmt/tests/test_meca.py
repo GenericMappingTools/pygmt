@@ -223,3 +223,25 @@ def test_meca_spec_2d_array():
     )
 
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_spec_file():
+    """
+    Test supplying a file containing focal mechanisms and locations to the
+    `spec` argument.
+    """
+
+    fig = Figure()
+
+    # supply focal mechanisms to meca as a file
+    fig.meca(
+        os.path.join(TEST_DATA_DIR, "focal_mechanisms.txt"),
+        convention="mt",
+        component="full",
+        region=[-128, -127, 40, 41],
+        scale="2c",
+        projection="M14c",
+    )
+
+    return fig
