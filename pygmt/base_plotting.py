@@ -1141,7 +1141,7 @@ class BasePlotting:
                 # check if a copy is necessary
                 copy = False
                 drop_list = []
-                for pointer in data_pointers.keys():
+                for pointer in data_pointers:
                     if pointer in spec.columns:
                         copy = True
                         drop_list.append(pointer)

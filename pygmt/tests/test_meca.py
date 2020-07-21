@@ -132,15 +132,16 @@ def test_meca_spec_dataframe():
         lat=[48.1, 48.2],
         depth=[12, 11.0],
     )
-    df = pd.DataFrame(data=focal_mechanisms)
+    spec_dataframe = pd.DataFrame(data=focal_mechanisms)
 
-    fig.meca(df, region=[-125, -122, 47, 49], scale="2c", projection="M14c")
+    fig.meca(spec_dataframe, region=[-125, -122, 47, 49], scale="2c",
+             projection="M14c")
 
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_meca_spec_1D_array():
+def test_meca_spec_1d_array():
     """
     Test supplying a 1D numpy array containing focal mechanisms and
     locations to the `spec` argument.
@@ -182,7 +183,7 @@ def test_meca_spec_1D_array():
 
 
 @pytest.mark.mpl_image_compare
-def test_meca_spec_2D_array():
+def test_meca_spec_2d_array():
     """
     Test supplying a 2D numpy array containing focal mechanisms and
     locations to the `spec` argument.
