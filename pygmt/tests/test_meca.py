@@ -134,8 +134,7 @@ def test_meca_spec_dataframe():
     )
     spec_dataframe = pd.DataFrame(data=focal_mechanisms)
 
-    fig.meca(spec_dataframe, region=[-125, -122, 47, 49], scale="2c",
-             projection="M14c")
+    fig.meca(spec_dataframe, region=[-125, -122, 47, 49], scale="2c", projection="M14c")
 
     return fig
 
