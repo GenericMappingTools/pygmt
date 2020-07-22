@@ -43,8 +43,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6, 3.7, 3.8]
-        #os: [ubuntu-latest, macOS-latest, windows-latest]
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
@@ -112,9 +111,9 @@ jobs:
         run: make test PYTEST_EXTRA="-r P"
 
       # Build the documentation
-      #- name: Build the documentation
-      #  shell: bash -l {0}
-      #  run: make -C doc clean all
+      - name: Build the documentation
+        shell: bash -l {0}
+        run: make -C doc clean all
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
