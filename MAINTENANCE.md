@@ -42,16 +42,33 @@ The main advantages of this are:
 
 We use Github Actions and TravisCI continuous integration (CI) services to
 build and test the project on Linux, macOS and Windows.
-The configuration file for these services are in
-`.github/workflows/ci_tests.yaml` and `.travis.yml`.
 They rely on the `requirements.txt` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
-There is also a `.github/workflows/cache_data.yaml` file which caches some GMT
-remote data files needed for the Github Actions CI on a regular basis.
+
+### Github Actions
+
+There are 3 configuration files located in `.github/workflows`:
+
+1. `ci_tests.yaml` (Style Checks, Tests on Linux/macOS/Windows)
+
+This is ran on every commit on the *master* and Pull Request branches.
+It is also scheduled to run daily on the *master* branch.
+
+2. `ci_tests_dev.yaml` (GMT Master Tests on Linux/macOS).
+
+This is only triggered when a review is requested or re-requested on a PR.
+It is also scheduled to run daily on the *master* branch.
+
+3. `cache_data.yaml` (Caches GMT remote data files needed for Github Actions CI)
+
+This is scheduled to run every Sunday at 12 noon.
 If new remote files are needed urgently, maintainers can manually uncomment
 the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
-Travis also handles all of our deployments automatically:
+### Travis CI
+
+The configuration file is at `.travis.yml`.
+Travis runs tests (Linux only) and handles all of our deployments automatically:
 
 * Updating the development documentation by pushing the built HTML pages from the
   *master* branch onto the `dev` folder of the *gh-pages* branch.
