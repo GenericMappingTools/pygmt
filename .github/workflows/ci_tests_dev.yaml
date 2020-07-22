@@ -46,7 +46,7 @@ jobs:
 
       # Install build dependencies from conda-forge
       - name: Install build dependencies
-        run: conda install cmake libblas libcblas liblapack fftw gdal ghostscript libnetcdf hdf5 zlib curl pcre gshhg-gmt dcw-gmt ipython pytest pytest-cov pytest-mpl
+        run: conda install cmake libblas libcblas liblapack fftw gdal ghostscript libnetcdf hdf5 zlib curl pcre ipython pytest pytest-cov pytest-mpl
 
       # Install GMT master branch
       - name: Install GMT from master
