@@ -68,26 +68,9 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
     """
 
     # earth relief data stored as single grids for low resolutions
-    non_tiled_resolutions = [
-        "01d",
-        "30m",
-        "20m",
-        "15m",
-        "10m",
-        "06m",
-    ]
+    non_tiled_resolutions = ["01d", "30m", "20m", "15m", "10m", "06m"]
     # earth relief data stored as tiles for high resolutions
-    tiled_resolutions = [
-        "05m",
-        "04m",
-        "03m",
-        "02m",
-        "01m",
-        "30s",
-        "15s",
-        "03s",
-        "01s",
-    ]
+    tiled_resolutions = ["05m", "04m", "03m", "02m", "01m", "30s", "15s", "03s", "01s"]
 
     if registration in ("pixel", "gridline", None):
         # If None, let GMT decide on Pixel/Gridline type
