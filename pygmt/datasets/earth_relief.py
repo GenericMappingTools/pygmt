@@ -97,7 +97,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
         # See https://github.com/GenericMappingTools/pygmt/issues/524
         if region is None:
             raise GMTInvalidInput(
-                f"region is required for Earth relief grid with resolutions>=05m"
+                "region is required for high resolution (<='05m') Earth relief grid"
             )
         grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
     else:
