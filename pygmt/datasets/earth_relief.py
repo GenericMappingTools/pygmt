@@ -56,12 +56,14 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
     Examples
     --------
 
-    >>> # load the default grid (1 arc degree resolution and pixel registration)
+    >>> # load the default grid (pixel-registered 01d grid)
     >>> grid = load_earth_relief()
     >>> # load the 30m grid with "gridline" registration
     >>> grid = load_earth_relief("30m", registration="gridline")
     >>> # load high-resolution grid for a specific region
-    >>> grid = load_earth_relief("05m", region=[120, 140, 30, 50])
+    >>> grid = load_earth_relief(
+    ...     "05m", region=[120, 160, 30, 60], registration="gridline"
+    ... )
 
     """
 

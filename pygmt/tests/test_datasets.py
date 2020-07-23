@@ -88,13 +88,28 @@ def test_earth_relief_30m():
     npt.assert_allclose(data.max(), 5887.5)
 
 
+def test_earth_relief_05m_with_region():
+    "Test loading a subregion of high-resolution earth relief grid"
+    data = load_earth_relief(
+        resolution="05m", region=[120, 160, 30, 60], registration="gridline"
+    )
+    assert data.coords["lat"].data.min() == 30.0
+    assert data.coords["lat"].data.max() == 60.0
+    assert data.coords["lon"].data.min() == 120.0
+    assert data.coords["lon"].data.max() == 160.0
+    assert data.data.min() == -9633.0
+    assert data.data.max() == 2532.0
+    assert data.sizes["lat"] == 361
+    assert data.sizes["lon"] == 481
+
+
+def test_earth_relief_without_region():
+    "Test loading high-resolution earth relief without passing 'region'"
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief("05m")
+
+
 def test_earth_relief_incorrect_registration():
     "Test loading earth relief with incorrect registration type"
     with pytest.raises(GMTInvalidInput):
         load_earth_relief(registration="improper_type")
-
-
-def test_earth_relief_none_region():
-    "Test loading high-resolution earth relief without passing 'region'"
-    with pytest.raises(GMTInvalidInput):
-        load_earth_relief("05m")
