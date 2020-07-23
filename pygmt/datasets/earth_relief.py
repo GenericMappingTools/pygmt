@@ -10,7 +10,7 @@ from ..helpers import kwargs_to_strings
 
 
 @kwargs_to_strings(region="sequence")
-def load_earth_relief(resolution="01d", region="-180/180/-90/90", registration=None):
+def load_earth_relief(resolution="01d", region=None, registration=None):
     """
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -33,7 +33,7 @@ def load_earth_relief(resolution="01d", region="-180/180/-90/90", registration=N
         or ``'01s'``.
 
     region : str or list
-        The subregion of the grid to load.
+        The subregion of the grid to load. Only works
 
     registration : str
         Grid registration type. Either ``pixel`` for pixel registration or
@@ -95,6 +95,10 @@ def load_earth_relief(resolution="01d", region="-180/180/-90/90", registration=N
     elif resolution in tiled_resolutions:
         # Titled grid can't be sliced.
         # See https://github.com/GenericMappingTools/pygmt/issues/524
+        if region is None:
+            raise GMTInvalidInput(
+                f"region is required for Earth relief grid with resolutions>=05m"
+            )
         grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
     else:
         raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'")
