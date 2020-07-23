@@ -78,6 +78,12 @@ def test_earth_relief_01d():
     npt.assert_allclose(data.max(), 5559.0)
 
 
+def test_earth_relief_01d_with_region():
+    "Test loading low-resolution earth relief with 'region'"
+    with pytest.raises(NotImplementedError):
+        load_earth_relief("01d", region=[0, 180, 0, 90])
+
+
 def test_earth_relief_30m():
     "Test some properties of the earth relief 30m data"
     data = load_earth_relief(resolution="30m", registration="gridline")
@@ -103,7 +109,7 @@ def test_earth_relief_05m_with_region():
     assert data.sizes["lon"] == 481
 
 
-def test_earth_relief_without_region():
+def test_earth_relief_05m_without_region():
     "Test loading high-resolution earth relief without passing 'region'"
     with pytest.raises(GMTInvalidInput):
         load_earth_relief("05m")

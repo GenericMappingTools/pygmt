@@ -85,6 +85,10 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
 
     # different ways to load tiled and non-tiled earth relief data
     if resolution in non_tiled_resolutions:
+        if region is not None:
+            raise NotImplementedError(
+                f"'region' is not supported for Earth relief resolution '{resolution}'"
+            )
         fname = which(f"@earth_relief_{resolution}{reg}", download="a")
         with xr.open_dataarray(fname) as dataarray:
             grid = dataarray.load()
@@ -94,7 +98,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
         # See https://github.com/GenericMappingTools/pygmt/issues/524
         if region is None:
             raise GMTInvalidInput(
-                "region is required for high resolution (<='05m') Earth relief grid"
+                f"'region' is required for Earth relief resolution '{resolution}'"
             )
         grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
     else:
