@@ -92,3 +92,9 @@ def test_earth_relief_incorrect_registration():
     "Test loading earth relief with incorrect registration type"
     with pytest.raises(GMTInvalidInput):
         load_earth_relief(registration="improper_type")
+
+
+def test_earth_relief_none_region():
+    "Test loading high-resolution earth relief without passing 'region'"
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief("05m")
