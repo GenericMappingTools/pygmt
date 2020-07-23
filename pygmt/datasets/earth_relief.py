@@ -33,7 +33,8 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
         or ``'01s'``.
 
     region : str or list
-        The subregion of the grid to load. Only works
+        The subregion of the grid to load. Required for Earth relief grids with
+        resolutions <= 05m.
 
     registration : str
         Grid registration type. Either ``pixel`` for pixel registration or
