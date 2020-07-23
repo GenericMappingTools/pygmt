@@ -1,24 +1,27 @@
 """
-Functions to download the Earth relief datasets from the GMT data server.
-The grids are available in various resolutions.
+Function to download the Earth relief datasets from the GMT data server,
+and load as DataArray. The grids are available in various resolutions.
 """
 import xarray as xr
 
-from .. import which
+from .. import grdcut, which
 from ..exceptions import GMTInvalidInput
+from ..helpers import kwargs_to_strings
 
 
-def load_earth_relief(resolution="01d", registration=None):
+@kwargs_to_strings(region="sequence")
+def load_earth_relief(resolution="01d", region=None, registration=None):
     """
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
-    The grids are downloaded to a user data directory (usually ``~/.gmt/``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    The grids are downloaded to a user data directory
+    (usually ``~/.gmt/server/earth/earth_relief/``) the first time you invoke
+    this function. Afterwards, it will load the grid from the data directory.
+    So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    ``'@earth_relief_XXm'`` or ``'@earth_relief_XXs'`` to any grid
-    plotting/processing function.
+    ``'@earth_relief_rru[_reg]'`` to any grid plotting/processing function.
+    Refer to :gmt-docs:`datasets/remote-data.html` for more details.
 
     Parameters
     ----------
@@ -26,7 +29,12 @@ def load_earth_relief(resolution="01d", registration=None):
         The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for
         arc-degree, arc-minute and arc-second. It can be ``'01d'``, ``'30m'``,
         ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
-        ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'`` or ``'15s'``.
+        ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'``, ``'15s'``, ``'03s'``,
+        or ``'01s'``.
+
+    region : str or list
+        The subregion of the grid to load. Required for Earth relief grids with
+        resolutions <= 05m.
 
     registration : str
         Grid registration type. Either ``pixel`` for pixel registration or
@@ -40,8 +48,29 @@ def load_earth_relief(resolution="01d", registration=None):
         The Earth relief grid. Coordinates are latitude and longitude in
         degrees. Relief is in meters.
 
+    Notes
+    -----
+    The DataArray doesn's support slice operation, for Earth relief data with
+    resolutions higher than "05m", which are stored as smaller tiles.
+
+    Examples
+    --------
+
+    >>> # load the default grid (pixel-registered 01d grid)
+    >>> grid = load_earth_relief()
+    >>> # load the 30m grid with "gridline" registration
+    >>> grid = load_earth_relief("30m", registration="gridline")
+    >>> # load high-resolution grid for a specific region
+    >>> grid = load_earth_relief(
+    ...     "05m", region=[120, 160, 30, 60], registration="gridline"
+    ... )
+
     """
-    _is_valid_resolution(resolution)
+
+    # earth relief data stored as single grids for low resolutions
+    non_tiled_resolutions = ["01d", "30m", "20m", "15m", "10m", "06m"]
+    # earth relief data stored as tiles for high resolutions
+    tiled_resolutions = ["05m", "04m", "03m", "02m", "01m", "30s", "15s", "03s", "01s"]
 
     if registration in ("pixel", "gridline", None):
         # If None, let GMT decide on Pixel/Gridline type
@@ -54,8 +83,27 @@ def load_earth_relief(resolution="01d", registration=None):
             "gridline-registered grid is available."
         )
 
-    fname = which(f"@earth_relief_{resolution}{reg}", download="a")
-    grid = xr.open_dataarray(fname)
+    # different ways to load tiled and non-tiled earth relief data
+    if resolution in non_tiled_resolutions:
+        if region is not None:
+            raise NotImplementedError(
+                f"'region' is not supported for Earth relief resolution '{resolution}'"
+            )
+        fname = which(f"@earth_relief_{resolution}{reg}", download="a")
+        with xr.open_dataarray(fname) as dataarray:
+            grid = dataarray.load()
+            _ = grid.gmt  # load GMTDataArray accessor information
+    elif resolution in tiled_resolutions:
+        # Titled grid can't be sliced.
+        # See https://github.com/GenericMappingTools/pygmt/issues/524
+        if region is None:
+            raise GMTInvalidInput(
+                f"'region' is required for Earth relief resolution '{resolution}'"
+            )
+        grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
+    else:
+        raise GMTInvalidInput(f'Invalid Earth relief resolution "{resolution}"')
+
     # Add some metadata to the grid
     grid.name = "elevation"
     grid.attrs["long_name"] = "elevation relative to the geoid"
@@ -69,86 +117,3 @@ def load_earth_relief(resolution="01d", registration=None):
     for coord in grid.coords:
         grid[coord].attrs.pop("actual_range")
     return grid
-
-
-def _is_valid_resolution(resolution):
-    """
-    Check if a resolution is valid for the global Earth relief grid.
-
-    Parameters
-    ----------
-    resolution : str
-        Same as the input for load_earth_relief
-
-    Raises
-    ------
-    GMTInvalidInput
-        If given resolution is not valid.
-
-    Examples
-    --------
-
-    >>> _is_valid_resolution("01d")
-    >>> _is_valid_resolution("60m")
-    >>> _is_valid_resolution("5m")
-    Traceback (most recent call last):
-        ...
-    pygmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution '5m'.
-    >>> _is_valid_resolution("15s")
-    >>> _is_valid_resolution("01s")
-    Traceback (most recent call last):
-        ...
-    pygmt.exceptions.GMTInvalidInput: Invalid Earth relief resolution '01s'.
-
-    """
-    valid_resolutions = ["01d"]
-    valid_resolutions.extend(
-        [f"{res:02d}m" for res in [60, 30, 20, 15, 10, 6, 5, 4, 3, 2, 1]]
-    )
-    valid_resolutions.extend([f"{res:02d}s" for res in [30, 15]])
-    if resolution not in valid_resolutions:
-        raise GMTInvalidInput(
-            "Invalid Earth relief resolution '{}'.".format(resolution)
-        )
-
-
-def _shape_from_resolution(resolution):
-    """
-    Calculate the shape of the global Earth relief grid given a resolution.
-
-    Parameters
-    ----------
-    resolution : str
-        Same as the input for load_earth_relief
-
-    Returns
-    -------
-    shape : (nlat, nlon)
-        The calculated shape.
-
-    Examples
-    --------
-
-    >>> _shape_from_resolution('60m')
-    (181, 361)
-    >>> _shape_from_resolution('30m')
-    (361, 721)
-    >>> _shape_from_resolution('10m')
-    (1081, 2161)
-    >>> _shape_from_resolution('30s')
-    (21601, 43201)
-    >>> _shape_from_resolution('15s')
-    (43201, 86401)
-
-    """
-    _is_valid_resolution(resolution)
-    unit = resolution[2]
-    if unit == "d":
-        seconds = int(resolution[:2]) * 60 * 60
-    elif unit == "m":
-        seconds = int(resolution[:2]) * 60
-    elif unit == "s":
-        seconds = int(resolution[:2])
-    nlat = 180 * 60 * 60 // seconds + 1
-    nlon = 360 * 60 * 60 // seconds + 1
-    return (nlat, nlon)
