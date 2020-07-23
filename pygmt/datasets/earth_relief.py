@@ -114,7 +114,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
             )
         grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
     else:
-        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'")
+        raise GMTInvalidInput(f'Invalid Earth relief resolution "{resolution}"')
 
     # Add some metadata to the grid
     grid.name = "elevation"
