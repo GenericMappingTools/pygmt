@@ -6,20 +6,23 @@ from tempfile import TemporaryDirectory
 
 import pandas as pd
 import pytest
-import xarray as xr
 
 from .. import which, x2sys_cross, x2sys_init
-from ..datasets import load_sample_bathymetry
-from ..exceptions import GMTInvalidInput
-from ..helpers import data_kind
+
+# from ..datasets import load_sample_bathymetry
+# from ..exceptions import GMTInvalidInput
 
 
-@pytest.fixture
-def mock_x2sys_home(monkeypatch):
+@pytest.fixture(name="mock_x2sys_home")
+def fixture_mock_x2sys_home(monkeypatch):
+    """
+    Set the X2SYS_HOME environment variable to the current working directory
+    for the test session
+    """
     monkeypatch.setenv("X2SYS_HOME", os.getcwd())
 
 
-def test_x2sys_cross_input_file(mock_x2sys_home):
+def test_x2sys_cross_input_file(mock_x2sys_home):  # pylint: disable=unused-argument
     """
     Run x2sys_cross by passing in a filename
     """

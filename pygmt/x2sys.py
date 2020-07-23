@@ -2,7 +2,6 @@
 GMT supplementary X2SYS module for crossover analysis.
 """
 import pandas as pd
-import xarray as xr
 
 from .clib import Session
 from .helpers import (
@@ -13,7 +12,8 @@ from .helpers import (
     data_kind,
     dummy_context,
 )
-from .exceptions import GMTInvalidInput
+
+# from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
