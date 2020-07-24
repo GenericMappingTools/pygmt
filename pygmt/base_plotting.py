@@ -1091,6 +1091,12 @@ class BasePlotting:
         {B}
         """
 
+        # pylint warnings that need to be fixed
+        # pylint: disable=unused-too-many-locals
+        # pylint: disable=too-many-nested-blocks
+        # pylint: disable=too-many-branches
+        # pylint: disable=no-self-use
+
         def set_pointer(data_pointers, spec):
             """Set optional parameter pointers based on DataFrame or dict, if
             those parameters are present in the DataFrame or dict."""
