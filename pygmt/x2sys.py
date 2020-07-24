@@ -17,7 +17,7 @@ from .helpers import (
 
 
 @fmt_docstring
-@use_alias(D="fmtfile", F="force")
+@use_alias(D="fmtfile", F="force", V="verbose")
 def x2sys_init(tag, **kwargs):
     """
     Initialize a new x2sys track database.
@@ -57,6 +57,8 @@ def x2sys_init(tag, **kwargs):
         - geo (for plain ASCII longitude, latitude files)
         - geoz (same, with one z-column).
 
+    {V}
+
     """
     with Session() as lib:
         arg_str = " ".join([tag, build_arg_string(kwargs)])
@@ -64,7 +66,7 @@ def x2sys_init(tag, **kwargs):
 
 
 @fmt_docstring
-@use_alias(T="tag", Q="coe")
+@use_alias(T="tag", Q="coe", V="verbose")
 def x2sys_cross(tracks=None, outfile=None, **kwargs):
     """
     Calculate crossovers between track data files.
@@ -100,6 +102,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     coe : str
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
+
+    {V}
 
     Returns
     -------

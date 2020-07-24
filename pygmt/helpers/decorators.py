@@ -36,6 +36,17 @@ COMMON_OPTIONS = {
         color : str
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
+    "V": """\
+        verbose : str
+            Select verbosity level [Default is w], which modulates the messages
+            written to stderr. Choose among 7 levels of verbosity:
+            'q' - Quiet, not even fatal error messages are produced;
+            'e' - Error messages only;
+            'w' - Warnings [Default];
+            't' - Timings (report runtimes for time-intensive algorithms);
+            'i' - Informational messages (same as verbose=True);
+            'c' - Compatibility warnings;
+            'd' - Debugging messages.""",
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
