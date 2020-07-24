@@ -1120,25 +1120,12 @@ class BasePlotting:
             ):
                 raise GMTError("Location not fully specified.")
 
-            param_conventions = {
-                "AKI_PARAMS": ["strike", "dip", "rake", "magnitude"],
-                "GCMT_PARAMS": [
-                    "strike1",
-                    "dip1",
-                    "dip2",
-                    "rake2",
-                    "mantissa",
-                    "exponent",
-                ],
-                "MT_PARAMS": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
-                "PARTIAL_PARAMS": [
-                    "strike1",
-                    "dip1",
-                    "strike2",
-                    "fault_type",
-                    "magnitude",
-                ],
-                "PRINCIPAL_AXIS_PARAMS": [
+            PARAM_CONVENTIONS = {
+                "AKI": ["strike", "dip", "rake", "magnitude"],
+                "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent",],
+                "MT": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
+                "PARTIAL": ["strike1", "dip1", "strike2", "fault_type", "magnitude",],
+                "PRINCIPAL_AXIS": [
                     "t_exponent",
                     "t_azimuth",
                     "t_plunge",
@@ -1181,12 +1168,10 @@ class BasePlotting:
 
             # set convention and focal parameters based on spec convention
             convention_assigned = False
-            for conv in param_conventions:
-                if set(spec_conv.keys()) == set(param_conventions[conv]):
-                    # strips _PARAM and make lowercase to set convention to
-                    # "aki", "gcmt", "mt", "partial", or "principal_axis"
-                    convention = conv[:-7].lower()
-                    foc_params = param_conventions[conv]
+            for conv in PARAM_CONVENTIONS:
+                if set(spec_conv.keys()) == set(PARAM_CONVENTIONS[conv]):
+                    convention = conv.lower()
+                    foc_params = PARAM_CONVENTIONS[conv]
                     convention_assigned = True
                     break
             if not convention_assigned:
