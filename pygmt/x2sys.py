@@ -6,8 +6,7 @@ import contextlib
 import pandas as pd
 
 from .clib import Session
-
-# from .exceptions import GMTInvalidInput
+from .exceptions import GMTInvalidInput
 from .helpers import (
     GMTTempFile,
     build_arg_string,
@@ -88,11 +87,10 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    tracks : pandas.DataFrame or str or list
-        Either a single pandas.DataFrame table with (x, y) or (lon, lat) values
-        in the first two columns, or a single filename (supported formats are
-        ASCII .txt, native binary, or COARDS netCDF 1-D .nc), or a combination
-        of tables and/or filenames in a list. More columns may also be present.
+    tracks : str or list
+        A table or a list of tables with (x, y) or (lon, lat) values in the
+        first two columns. Supported formats are ASCII, native binary, or
+        COARDS netCDF 1-D data. More columns may also be present.
 
         If the filenames are missing their file extension, we will append the
         suffix specified for this TAG. Track files will be searched for first
@@ -133,7 +131,10 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
             if kind == "file":
                 file_contexts.append(dummy_context(track))
             elif kind == "matrix":
-                file_contexts.append(lib.virtualfile_from_matrix(track.values))
+                raise NotImplementedError(f"{type(track)} inputs are not supported yet")
+                # file_contexts.append(lib.virtualfile_from_matrix(track.values))
+            else:
+                raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
 
         with GMTTempFile(suffix=".txt") as tmpfile:
             with contextlib.ExitStack() as stack:

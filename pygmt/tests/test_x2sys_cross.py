@@ -10,9 +10,9 @@ import pandas as pd
 import pytest
 
 from .. import x2sys_cross, x2sys_init
-
-# from ..datasets import load_sample_bathymetry
-# from ..exceptions import GMTInvalidInput
+from ..datasets import load_sample_bathymetry
+from ..exceptions import GMTInvalidInput
+from ..helpers import data_kind
 
 
 @pytest.fixture(name="mock_x2sys_home")
@@ -22,6 +22,15 @@ def fixture_mock_x2sys_home(monkeypatch):
     for the test session
     """
     monkeypatch.setenv("X2SYS_HOME", os.getcwd())
+
+
+@pytest.fixture(scope="module", name="tracks")
+def fixture_tracks():
+    """
+    Load track data from the sample bathymetry file
+    """
+    df = load_sample_bathymetry()
+    return [df.query(expr="bathymetry > -20")]  # reduce size of dataset
 
 
 def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
@@ -63,6 +72,28 @@ def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
     return output
 
 
+def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
+    """
+    Run x2sys_cross by passing in one dataframe, and output external crossovers
+    to a pandas.DataFrame. Not actually implemented yet, wait for
+    https://github.com/GenericMappingTools/gmt/issues/3717
+    """
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
+        tag = os.path.basename(tmpdir)
+        x2sys_init(tag=tag, fmtfile="xyz", force=True)
+
+        with pytest.raises(NotImplementedError):
+            _ = x2sys_cross(tracks=tracks, tag=tag, coe="i", verbose="i")
+
+        # assert isinstance(output, pd.DataFrame)
+        # assert output.shape == (4, 12)
+        # columns = list(output.columns)
+        # assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
+        # assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
+
+    # return output
+
+
 def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
     """
     Run x2sys_cross by passing in two filenames, and output external crossovers
@@ -89,3 +120,14 @@ def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
 
     return output
+
+
+def test_x2sys_cross_invalid_tracks_input_type(tracks):
+    """
+    Run x2sys_cross using tracks input that is not a pandas.DataFrame (matrix)
+    or str (file) type, which would raise a GMTInvalidInput error.
+    """
+    invalid_tracks = tracks[0].to_xarray().bathymetry
+    assert data_kind(invalid_tracks) == "grid"
+    with pytest.raises(GMTInvalidInput):
+        x2sys_cross(tracks=[invalid_tracks])
