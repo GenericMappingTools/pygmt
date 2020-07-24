@@ -1287,7 +1287,7 @@ class BasePlotting:
                 ):
                     if (len(lon) != len(lat)) or (len(lon) != len(depth)):
                         raise GMTError(
-                            "Unequal number of focal mechanism " "locations supplied."
+                            "Unequal number of focal mechanism locations supplied."
                         )
 
                 # values are ok, so build the 2D array in the correct order
