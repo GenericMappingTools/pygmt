@@ -1313,7 +1313,7 @@ class BasePlotting:
 
             else:
                 raise GMTError(
-                    "Parameter 'spec' contains values of an " "unsupported type."
+                    "Parameter 'spec' contains values of an unsupported type."
                 )
 
         # Add condition and scale to kwargs
