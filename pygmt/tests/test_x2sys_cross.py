@@ -1,3 +1,4 @@
+# pylint: disable=unused-argument
 """
 Tests for x2sys_cross
 """
@@ -7,7 +8,7 @@ from tempfile import TemporaryDirectory
 import pandas as pd
 import pytest
 
-from .. import which, x2sys_cross, x2sys_init
+from .. import x2sys_cross, x2sys_init
 
 # from ..datasets import load_sample_bathymetry
 # from ..exceptions import GMTInvalidInput
@@ -22,18 +23,17 @@ def fixture_mock_x2sys_home(monkeypatch):
     monkeypatch.setenv("X2SYS_HOME", os.getcwd())
 
 
-def test_x2sys_cross_input_file_output_file(
-    mock_x2sys_home,
-):  # pylint: disable=unused-argument
+def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
     """
     Run x2sys_cross by passing in a filename and output to an ASCII txt file
     """
-    fname = which("@tut_ship.xyz", download="a")
     with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
         outfile = os.path.join(tmpdir, "tmp_coe.txt")
-        output = x2sys_cross(tracks=[fname], tag=tag, coe="i", outfile=outfile)
+        output = x2sys_cross(
+            tracks=["@tut_ship.xyz"], tag=tag, coe="i", outfile=outfile, verbose="d"
+        )
 
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=outfile)  # check that outfile exists at path
@@ -42,17 +42,14 @@ def test_x2sys_cross_input_file_output_file(
     return output
 
 
-def test_x2sys_cross_input_file_output_dataframe(
-    mock_x2sys_home,
-):  # pylint: disable=unused-argument
+def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
     """
     Run x2sys_cross by passing in a filename and output to a pandas.DataFrame
     """
-    fname = which("@tut_ship.xyz", download="a")
     with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
-        output = x2sys_cross(tracks=[fname], tag=tag, coe="i")
+        output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, coe="i", verbose="d")
 
         assert isinstance(output, pd.DataFrame)
         assert output.shape == (14294, 12)
