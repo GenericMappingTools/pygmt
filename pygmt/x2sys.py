@@ -1,19 +1,21 @@
 """
 GMT supplementary X2SYS module for crossover analysis.
 """
+import contextlib
+
 import pandas as pd
 
 from .clib import Session
-from .helpers import (
-    build_arg_string,
-    fmt_docstring,
-    GMTTempFile,
-    use_alias,
-    data_kind,
-    dummy_context,
-)
 
 # from .exceptions import GMTInvalidInput
+from .helpers import (
+    GMTTempFile,
+    build_arg_string,
+    data_kind,
+    dummy_context,
+    fmt_docstring,
+    use_alias,
+)
 
 
 @fmt_docstring
@@ -86,10 +88,19 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    tracks : pandas.DataFrame or str
-        Either a table with (x, y) or (lon, lat) values in the first two
-        columns, or a filename (e.g. csv, txt format). More columns may be
-        present.
+    tracks : pandas.DataFrame or str or list
+        Either a single pandas.DataFrame table with (x, y) or (lon, lat) values
+        in the first two columns, or a single filename (supported formats are
+        ASCII .txt, native binary, or COARDS netCDF 1-D .nc), or a combination
+        of tables and/or filenames in a list. More columns may also be present.
+
+        If the filenames are missing their file extension, we will append the
+        suffix specified for this TAG. Track files will be searched for first
+        in the current directory and second in all directories listed in
+        $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
+        set it will default to $GMT_SHAREDIR/x2sys]. (Note: MGD77 files will
+        also be looked for via $MGD77_HOME/mgd77_paths.txt and *.gmt files will
+        be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
 
     outfile : str
         Optional. The file name for the output ASCII txt file to store the
@@ -115,22 +126,21 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         - None if outfile is set (track output will be stored in outfile)
 
     """
-    # kinds = [data_kind(data=track) for track in tracks]
-    track = tracks[0]
-    kind = data_kind(track)
-
     with Session() as lib:
-        # for kind, track in zip(kinds, tracks):
-        if kind == "file":
-            file_context = dummy_context(track)
-        elif kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(track.values)
+        file_contexts = []
+        for track in tracks:
+            kind = data_kind(track)
+            if kind == "file":
+                file_contexts.append(dummy_context(track))
+            elif kind == "matrix":
+                file_contexts.append(lib.virtualfile_from_matrix(track.values))
 
         with GMTTempFile(suffix=".txt") as tmpfile:
-            with file_context as fname:
+            with contextlib.ExitStack() as stack:
+                fnames = [stack.enter_context(c) for c in file_contexts]
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([fname, build_arg_string(kwargs), "->" + outfile])
+                arg_str = " ".join([*fnames, build_arg_string(kwargs), "->" + outfile])
                 lib.call_module(module="x2sys_cross", args=arg_str)
 
             # Read temporary csv output to a pandas table
