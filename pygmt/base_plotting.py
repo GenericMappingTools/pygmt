@@ -1120,7 +1120,7 @@ class BasePlotting:
             ):
                 raise GMTError("Location not fully specified.")
 
-            PARAM_CONVENTIONS = {
+            param_conventions = {
                 "AKI": ["strike", "dip", "rake", "magnitude"],
                 "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent"],
                 "MT": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
@@ -1168,10 +1168,10 @@ class BasePlotting:
 
             # set convention and focal parameters based on spec convention
             convention_assigned = False
-            for conv in PARAM_CONVENTIONS:
-                if set(spec_conv.keys()) == set(PARAM_CONVENTIONS[conv]):
+            for conv in param_conventions:
+                if set(spec_conv.keys()) == set(param_conventions[conv]):
                     convention = conv.lower()
-                    foc_params = PARAM_CONVENTIONS[conv]
+                    foc_params = param_conventions[conv]
                     convention_assigned = True
                     break
             if not convention_assigned:
