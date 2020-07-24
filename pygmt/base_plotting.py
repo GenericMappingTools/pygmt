@@ -1122,9 +1122,9 @@ class BasePlotting:
 
             PARAM_CONVENTIONS = {
                 "AKI": ["strike", "dip", "rake", "magnitude"],
-                "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent",],
+                "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent"],
                 "MT": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
-                "PARTIAL": ["strike1", "dip1", "strike2", "fault_type", "magnitude",],
+                "PARTIAL": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
                 "PRINCIPAL_AXIS": [
                     "t_exponent",
                     "t_azimuth",
