@@ -1272,7 +1272,7 @@ class BasePlotting:
                 ):
                     if (len(lon) != len(lat)) or (len(lon) != len(depth)):
                         raise GMTError(
-                            "Unequal number of focal mechanism " "locations supplied."
+                            "Unequal number of focal mechanism locations supplied."
                         )
 
                 # values are ok, so build the 2D array in the correct order
@@ -1298,7 +1298,7 @@ class BasePlotting:
 
             else:
                 raise GMTError(
-                    "Parameter 'spec' contains values of an " "unsupported type."
+                    "Parameter 'spec' contains values of an unsupported type."
                 )
 
         # Add condition and scale to kwargs
