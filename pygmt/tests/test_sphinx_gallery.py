@@ -18,7 +18,7 @@ from ..sphinx_gallery import PyGMTScraper
 def test_pygmtscraper():
     "Make sure the scraper finds the figures and removes them from the pool."
 
-    showed = [fig for fig in SHOWED_FIGURES]
+    showed = SHOWED_FIGURES.copy()
     for _ in range(len(SHOWED_FIGURES)):
         SHOWED_FIGURES.pop()
     try:

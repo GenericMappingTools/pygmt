@@ -40,13 +40,35 @@ The main advantages of this are:
 
 ## Continuous Integration
 
-We use TravisCI continuous integration (CI) services to build and test the
-project on Linux, and Mac (Windows is still a work in progress).
-The configuration file for this service is `.travis.yml`.
-It relies on the `requirements.txt` file to install the required dependencies using
+We use Github Actions and TravisCI continuous integration (CI) services to
+build and test the project on Linux, macOS and Windows.
+They rely on the `requirements.txt` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
 
-Travis also handles all of our deployments automatically:
+### Github Actions
+
+There are 3 configuration files located in `.github/workflows`:
+
+1. `ci_tests.yaml` (Style Checks, Tests on Linux/macOS/Windows)
+
+This is ran on every commit on the *master* and Pull Request branches.
+It is also scheduled to run daily on the *master* branch.
+
+2. `ci_tests_dev.yaml` (GMT Master Tests on Linux/macOS).
+
+This is only triggered when a review is requested or re-requested on a PR.
+It is also scheduled to run daily on the *master* branch.
+
+3. `cache_data.yaml` (Caches GMT remote data files needed for Github Actions CI)
+
+This is scheduled to run every Sunday at 12 noon.
+If new remote files are needed urgently, maintainers can manually uncomment
+the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
+
+### Travis CI
+
+The configuration file is at `.travis.yml`.
+Travis runs tests (Linux only) and handles all of our deployments automatically:
 
 * Updating the development documentation by pushing the built HTML pages from the
   *master* branch onto the `dev` folder of the *gh-pages* branch.
@@ -100,8 +122,8 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 
 2. Edit the changes list to remove any trivial changes (updates to the README, typo
    fixes, CI configuration, etc).
-3. Replace the PR number in the commit titles with a link to the Github PR page. In Vim,
-   use `` %s$#\([0-9]\+\)$`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__$g ``
+3. Replace the PR number in the commit titles with a link to the Github PR page.
+   Use ``sed -i.bak -E 's$\(#([0-9]*)\)$(`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__)$g' changes.rst``
    to make the change automatically.
 4. Copy the remaining changes to `doc/changes.rst` under a new section for the
    intended release.

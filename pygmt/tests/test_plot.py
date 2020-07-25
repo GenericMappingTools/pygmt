@@ -2,9 +2,13 @@
 """
 Tests plot.
 """
+import datetime
 import os
 
 import numpy as np
+import pandas as pd
+import xarray as xr
+
 import pytest
 
 from .. import Figure
@@ -259,6 +263,23 @@ def test_plot_vectors():
 
 
 @pytest.mark.mpl_image_compare
+def test_plot_lines_with_arrows():
+    """Plot lines with arrows.
+
+    The test is slightly different from test_plot_vectors().
+    Here the vectors are plotted as lines, with arrows at the end.
+
+    The test also check if the API crashes.
+    See https://github.com/GenericMappingTools/pygmt/issues/406.
+    """
+    fig = Figure()
+    fig.basemap(region=[-2, 2, -2, 2], frame=True)
+    fig.plot(x=[-1.0, -1.0], y=[-1.0, 1.0], pen="1p,black+ve0.2c")
+    fig.plot(x=[1.0, 1.0], y=[-1.0, 1.0], pen="1p,black+ve0.2c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_plot_scalar_xy():
     "Plot symbols given scalar x, y coordinates"
     fig = Figure()
@@ -266,4 +287,39 @@ def test_plot_scalar_xy():
     fig.plot(x=-1.5, y=1.5, style="c1c")
     fig.plot(x=0, y=0, style="t1c")
     fig.plot(x=1.5, y=-1.5, style="s1c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_datetime():
+    """Test various datetime input data"""
+    fig = Figure()
+    fig.basemap(projection="X15c/5c", region="2010-01-01/2020-01-01/0/10", frame=True)
+
+    # numpy.datetime64 types
+    x = np.array(
+        ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64"
+    )
+    y = [1.0, 2.0, 3.0]
+    fig.plot(x, y, style="c0.2c", pen="1p")
+
+    # pandas.DatetimeIndex
+    x = pd.date_range("2013", freq="YS", periods=3)
+    y = [4, 5, 6]
+    fig.plot(x, y, style="t0.2c", pen="1p")
+
+    # xarray.DataArray
+    x = xr.DataArray(data=pd.date_range(start="2015-03", freq="QS", periods=3))
+    y = [7.5, 6, 4.5]
+    fig.plot(x, y, style="s0.2c", pen="1p")
+
+    # raw datetime strings
+    x = ["2016-02-01", "2017-03-04T00:00"]
+    y = [7, 8]
+    fig.plot(x, y, style="a0.2c", pen="1p")
+
+    # the Python built-in datetime and date
+    x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
+    y = [8.5, 9.5]
+    fig.plot(x, y, style="i0.2c", pen="1p")
     return fig
