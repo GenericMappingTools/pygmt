@@ -13,12 +13,25 @@ from .helpers import (
     data_kind,
     dummy_context,
     fmt_docstring,
+    kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(D="fmtfile", F="force", V="verbose")
+@use_alias(
+    D="fmtfile",
+    E="suffix",
+    F="force",
+    G="discontinuity",
+    I="spacing",
+    N="units",
+    R="region",
+    V="verbose",
+    W="gap",
+    j="distcalc",
+)
+@kwargs_to_strings(I="sequence", R="sequence")
 def x2sys_init(tag, **kwargs):
     """
     Initialize a new x2sys track database.
@@ -58,8 +71,54 @@ def x2sys_init(tag, **kwargs):
         - geo (for plain ASCII longitude, latitude files)
         - geoz (same, with one z-column).
 
+    suffix : str
+        Specifies the file extension (suffix) for these data files. If not
+        given we use the format definition file prefix as the suffix (see
+        *fmtfile*).
+
+    discontinuity : str
+        ``d|g``
+        Selects geographical coordinates. Append **d** for discontinuity at the
+        Dateline (makes longitude go from -180 to + 180) or **g** for
+        discontinuity at Greenwich (makes longitude go from 0 to 360
+        [Default]). If not given we assume the data are Cartesian.
+
+    spacing : str or list
+         ``dx[/dy]``
+         x_inc [and optionally y_inc] is the grid spacing. Append **m** to
+         indicate minutes or **s** to indicate seconds for geographic data.
+         These spacings refer to the binning used in the track bin-index data
+         base.
+
+    units : str or list
+        ``d|sunit``.
+        Sets the units used for distance and speed when requested by other
+        programs. Append **d** for distance or **s** for speed, then give the
+        desired unit as:
+
+        - **c** - Cartesian userdist or userdist/usertime
+        - **e** - meters or m/s
+        - **f** - feet or feet/s
+        - **k** - km or kms/hr
+        - **m** - miles or miles/hr
+        - **n** - nautical miles or knots
+        - **u** - survey feet or survey feet/s
+
+        Default is ``units=["dk", "se"]`` (km and m/s) if *discontinuity* is
+        set, and ``units=["dc", "sc"]`` otherwise (Cartesian units).
+
+    {R}
     {V}
 
+    gap : str or list
+        ``t|dgap``.
+        Give **t** or **d** and append the corresponding maximum time gap (in
+        user units; this is typically seconds [Infinity]), or distance (for
+        units, see *units*) gap [Infinity]) allowed between the two data points
+        immediately on either side of a crossover. If these limits are exceeded
+        then a data gap is assumed and no COE will be determined.
+
+    {j}
     """
     with Session() as lib:
         arg_str = " ".join([tag, build_arg_string(kwargs)])
@@ -122,7 +181,6 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
         - pandas.DataFrame table with (x, y, ..., etc) if outfile is not set
         - None if outfile is set (track output will be stored in outfile)
-
     """
     with Session() as lib:
         file_contexts = []
