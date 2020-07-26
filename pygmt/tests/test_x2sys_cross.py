@@ -6,6 +6,7 @@ import os
 from tempfile import TemporaryDirectory
 
 import numpy as np
+import numpy.testing as npt
 import pandas as pd
 import pytest
 
@@ -131,3 +132,27 @@ def test_x2sys_cross_invalid_tracks_input_type(tracks):
     assert data_kind(invalid_tracks) == "grid"
     with pytest.raises(GMTInvalidInput):
         x2sys_cross(tracks=[invalid_tracks])
+
+
+def test_x2sys_cross_region_interpolation_numpoints(mock_x2sys_home):
+    """
+    Test that x2sys_cross's region (R), interpolation (l) and numpoints (W)
+    arguments work.
+    """
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
+        tag = os.path.basename(tmpdir)
+        x2sys_init(tag=tag, fmtfile="xyz", force=True)
+        output = x2sys_cross(
+            tracks=["@tut_ship.xyz"],
+            tag=tag,
+            coe="i",
+            region=[245, 250, 20, 25],
+            interpolation="a",  # Akima spline interpolation
+            numpoints=5,  # Use up to 5 data points in interpolation
+        )
+
+        assert isinstance(output, pd.DataFrame)
+        assert output.shape == (3867, 12)
+        # Check crossover errors (z_X) and mean value of observables (z_M)
+        npt.assert_allclose(output.z_X.mean(), -139.196212)
+        npt.assert_allclose(output.z_M.mean(), -2890.465813)

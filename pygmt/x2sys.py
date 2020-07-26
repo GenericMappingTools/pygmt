@@ -126,7 +126,20 @@ def x2sys_init(tag, **kwargs):
 
 
 @fmt_docstring
-@use_alias(T="tag", Q="coe", V="verbose")
+@use_alias(
+    A="combitable",
+    C="runtimes",
+    # D="",
+    I="interpolation",
+    R="region",
+    S="speed",
+    T="tag",
+    Q="coe",
+    V="verbose",
+    W="numpoints",
+    # Z="",
+)
+@kwargs_to_strings(R="sequence")
 def x2sys_cross(tracks=None, outfile=None, **kwargs):
     """
     Calculate crossovers between track data files.
@@ -135,10 +148,9 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     cross-overs") or within ("internal cross-overs") tracks (Cartesian or
     geographic), and report the time, position, distance along track, heading
     and speed along each track segment, and the crossover error (COE) and mean
-    values for all observables. The names of the tracks are passed on the
-    command line. By default, x2sys_cross will look for both external and
-    internal COEs. As an option, you may choose to project all data using one
-    of the map-projections prior to calculating the COE.
+    values for all observables. By default, x2sys_cross will look for both
+    external and internal COEs. As an option, you may choose to project all
+    data using one of the map-projections prior to calculating the COE.
 
     Full option list at :gmt-docs:`supplements/x2sys/x2sys_cross.html`
 
@@ -167,11 +179,73 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         Specify the x2sys TAG which identifies the attributes of this data
         type.
 
+    combitable : str
+        Only process the pair-combinations found in the file *combitable*
+        [Default process all possible combinations among the specified files].
+        The file *combitable* is created by *x2sys_get*'s -L option
+
+    runtimes : bool or str
+        Compute and append the processing run-time for each pair to the
+        progress message (use ``runtimes=True``). Pass in a filename (e.g.
+        ``runtimes="file.txt"``) to save these run-times to file. The idea here
+        is to use the knowledge of run-times to split the main process in a
+        number of sub-processes that can each be launched in a different
+        processor of your multi-core machine. See the MATLAB function
+        split_file4coes.m that lives in the x2sys supplement source code.
+
+    D : bool or str
+        ``S|N``.
+        Control how geographic coordinates are handled (Cartesian data are
+        unaffected). By default, we determine if the data are closer to one
+        pole than the other, and then we use a cylindrical polar conversion to
+        avoid problems with longitude jumps. You can turn this off entirely
+        with -D and then the calculations uses the original data (we have
+        protections against longitude jumps). However, you can force the
+        selection of the pole for the projection by appending **S** or **N**
+        for the south or north pole, respectively. The conversion is used
+        because the algorithm used to find crossovers is inherently a
+        Cartesian algorithm that can run into trouble with data that has large
+        longitudinal range at higher latitudes.
+
+    interpolation : str
+        ``l|a|c``.
+        Sets the interpolation mode for estimating values at the crossover.
+        Choose among:
+
+        - **l** - Linear interpolation [Default].
+        - **a** - Akima spline interpolation.
+        - **c** - Cubic spline interpolation.
+
     coe : str
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
+    {R}
+
+    speed : str or list
+        ``l|u|hspeed``.
+        Defines window of track speeds. If speeds are outside this window we do
+        not calculate a COE. Specify:
+
+        - **l** sets lower speed [Default is 0].
+        - **u** sets upper speed [Default is Infinity].
+        - **h** does not limit the speed but sets a lower speed below which \
+        headings will not be computed (i.e., set to NaN) [Default calculates \
+        headings regardless of speed].
+
+        For example, you can use ``speed=["l0", "u10", "h5"] to set a lower
+        speed of 0, upper speed of 10, and disable heading calculations for
+        speeds below 5.
+
     {V}
+
+    numpoints : int
+        Give the maximum number of data points on either side of the crossover
+        to use in the spline interpolation [Default is 3].
+
+    Z : bool
+        Report the values of each track at the crossover [Default reports the
+        crossover value and the mean value].
 
     Returns
     -------
