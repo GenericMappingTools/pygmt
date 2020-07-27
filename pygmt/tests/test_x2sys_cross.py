@@ -30,8 +30,8 @@ def fixture_tracks():
     """
     Load track data from the sample bathymetry file
     """
-    df = load_sample_bathymetry()
-    return [df.query(expr="bathymetry > -20")]  # reduce size of dataset
+    dataframe = load_sample_bathymetry()
+    return [dataframe.query(expr="bathymetry > -20")]  # reduce size of dataset
 
 
 def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
