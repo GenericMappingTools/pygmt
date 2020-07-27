@@ -72,6 +72,14 @@ Operations on grids:
     grdcut
     grdtrack
 
+Crossover analysis with x2sys:
+
+.. autosummary::
+    :toctree: generated
+
+    x2sys_init
+    x2sys_cross
+
 GMT Defaults
 ------------
 

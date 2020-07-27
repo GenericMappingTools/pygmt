@@ -36,9 +36,35 @@ COMMON_OPTIONS = {
         color : str
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
+    "V": """\
+        verbose : str
+            Select verbosity level [Default is w], which modulates the messages
+            written to stderr. Choose among 7 levels of verbosity:
+
+            - **q** - Quiet, not even fatal error messages are produced
+            - **e** - Error messages only
+            - **w** - Warnings [Default]
+            - **t** - Timings (report runtimes for time-intensive algorthms);
+            - **i** - Informational messages (same as "verbose=True")
+            - **c** - Compatibility warnings
+            - **d** - Debugging messages""",
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
+    "j": """\
+        distcalc : str
+            ``e|f|g``.
+            Determine how spherical distances are calculated.
+
+            - **e** - Ellipsoidal (or geodesic) mode
+            - **f** - Flat Earth mode
+            - **g** - Great circle distance [Default]
+
+            All spherical distance calculations depend on the current ellipsoid
+            (PROJ_ELLIPSOID), the definition of the mean radius
+            (PROJ_MEAN_RADIUS), and the specification of latitude type
+            (PROJ_AUX_LATITUDE). Geodesic distance calculations is also
+            controlled by method (PROJ_GEODESIC).""",
     "n": """\
         interpolation : str
             ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
