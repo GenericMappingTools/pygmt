@@ -1212,8 +1212,7 @@ class BasePlotting:
                 # Construct the array (order matters)
                 spec = [longitude, latitude, depth] + [spec[key] for key in foc_params]
 
-                # Add in plotting options, if given, otherwise add 0s as
-                # required by GMT
+                # Add in plotting options, if given, otherwise add 0s
                 for arg in plot_longitude, plot_latitude:
                     if arg is None:
                         spec.append(0)
