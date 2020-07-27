@@ -44,6 +44,8 @@ GEOMETRIES = [
     "GMT_IS_SURFACE",
 ]
 
+METHODS = ["GMT_IS_DUPLICATE", "GMT_IS_REFERENCE"]
+
 MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
@@ -842,8 +844,12 @@ class Session:
         strings_pointer = (ctp.c_char_p * len(strings))()
         strings_pointer[:] = np.char.encode(strings)
 
+        family_int = self._parse_constant(
+            family, valid=FAMILIES, valid_modifiers=METHODS
+        )
+
         status = c_put_strings(
-            self.session_pointer, self[family], dataset, strings_pointer
+            self.session_pointer, family_int, dataset, strings_pointer
         )
         if status != 0:
             raise GMTCLibError(
@@ -1059,9 +1065,7 @@ class Session:
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
-            direction,
-            valid=["GMT_IN", "GMT_OUT"],
-            valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
+            direction, valid=["GMT_IN", "GMT_OUT"], valid_modifiers=METHODS,
         )
 
         buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
@@ -1162,8 +1166,11 @@ class Session:
         for col, array in enumerate(arrays[:columns]):
             self.put_vector(dataset, column=col, vector=array)
         # Use put_strings for last column with string type data
+        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
         for array in arrays[columns:]:
-            self.put_strings(dataset, family="GMT_IS_VECTOR", strings=array)
+            self.put_strings(
+                dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=array
+            )
 
         with self.open_virtual_file(
             family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
