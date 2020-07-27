@@ -24,8 +24,8 @@ def test_meca_spec_dictionary():
     # Right lateral strike slip
     fig.meca(
         dict(strike=0, dip=90, rake=0, magnitude=5),
-        lon=0,
-        lat=5,
+        longitude=0,
+        latitude=5,
         depth=0,
         scale="2.5c",
         region=[-1, 4, 0, 6],
@@ -36,8 +36,8 @@ def test_meca_spec_dictionary():
     # Left lateral strike slip
     fig.meca(
         dict(strike=0, dip=90, rake=180, magnitude=5),
-        lon=2,
-        lat=5,
+        longitude=2,
+        latitude=5,
         depth=0,
         scale="2.5c",
     )
@@ -45,15 +45,15 @@ def test_meca_spec_dictionary():
     # Thrust
     fig.meca(
         dict(strike=0, dip=45, rake=90, magnitude=5),
-        lon=0,
-        lat=3,
+        longitude=0,
+        latitude=3,
         depth=0,
         scale="2.5c",
     )
     fig.meca(
         dict(strike=45, dip=45, rake=90, magnitude=5),
-        lon=2,
-        lat=3,
+        longitude=2,
+        latitude=3,
         depth=0,
         scale="2.5c",
     )
@@ -61,15 +61,15 @@ def test_meca_spec_dictionary():
     # Normal
     fig.meca(
         dict(strike=0, dip=45, rake=-90, magnitude=5),
-        lon=0,
-        lat=1,
+        longitude=0,
+        latitude=1,
         depth=0,
         scale="2.5c",
     )
     fig.meca(
         dict(strike=45, dip=45, rake=-90, magnitude=5),
-        lon=2,
-        lat=1,
+        longitude=2,
+        latitude=1,
         depth=0,
         scale="2.5c",
     )
@@ -77,8 +77,8 @@ def test_meca_spec_dictionary():
     # Mixed
     fig.meca(
         dict(strike=10, dip=35, rake=129, magnitude=5),
-        lon=3.4,
-        lat=0.6,
+        longitude=3.4,
+        latitude=0.6,
         depth=0,
         scale="2.5c",
     )
@@ -102,8 +102,8 @@ def test_meca_spec_dict_list():
 
     fig.meca(
         focal_mechanisms,
-        lon=[-124.3, -124.4],
-        lat=[48.1, 48.2],
+        longitude=[-124.3, -124.4],
+        latitude=[48.1, 48.2],
         depth=[12.0, 11.0],
         region=[-125, -122, 47, 49],
         scale="2c",
@@ -128,8 +128,8 @@ def test_meca_spec_dataframe():
         dip=[20.6, 40],
         rake=[83, 90],
         magnitude=[3.4, 2.9],
-        lon=[-124, -124.4],
-        lat=[48.1, 48.2],
+        longitude=[-124, -124.4],
+        latitude=[48.1, 48.2],
         depth=[12, 11.0],
     )
     spec_dataframe = pd.DataFrame(data=focal_mechanisms)

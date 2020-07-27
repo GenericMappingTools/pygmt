@@ -1002,13 +1002,13 @@ class BasePlotting:
         self,
         spec,
         scale,
-        lon=None,
-        lat=None,
+        longitude=None,
+        latitude=None,
         depth=None,
         convention=None,
         component="full",
-        plot_lon=None,
-        plot_lat=None,
+        plot_longitude=None,
+        plot_latitude=None,
         **kwargs,
     ):
         """
@@ -1033,8 +1033,9 @@ class BasePlotting:
             keys are supported; these determine the convention. Dictionary
             may contain values for a single focal mechanism or lists of
             values for many focal mechanisms. A Pandas DataFrame may
-            optionally contain columns lat, lon, depth, plot_lon,
-            and/or plot_lat instead of passing them to the meca method.
+            optionally contain columns latitude, longitude, depth,
+            plot_longitude,
+            and/or plot_latitude instead of passing them to the meca method.
 
             - ``"aki"`` — *strike, dip, rake, magnitude*
             - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2,
@@ -1049,14 +1050,14 @@ class BasePlotting:
             Adjusts the scaling of the radius of the beachball, which is
             proportional to the magnitude. Scale defines the size for
             magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
-        lon: int or float or list
+        longitude: int or float or list
             Longitude(s) of event location. Ignored if `spec` is not a
             dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'lon' column.
-        lat: int or float or list
+            Ignored if `spec` is a DataFrame and contains a 'longitude' column.
+        latitude: int or float or list
             Latitude(s) of event location. Ignored if `spec` is not a
             dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'lat' column.
+            Ignored if `spec` is a DataFrame and contains a 'latitude' column.
         depth: int or float or list
             Depth(s) of event location in kilometers. Ignored if `spec` is
             not a dictionary. List must be the length of the number of events.
@@ -1071,21 +1072,23 @@ class BasePlotting:
             full seismic moment tensor), ``"dc"`` (the closest double couple
             with zero trace and zero determinant), ``"deviatoric"`` (zero
             trace)
-        plot_lon: int or float or list
+        plot_longitude: int or float or list
             Longitude(s) at which to place beachball, only used if `spec` is a
             dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'plot_lon' column.
-        plot_lat: int or float or list
+            Ignored if `spec` is a DataFrame and contains a 'plot_longitude'
+            column.
+        plot_latitude: int or float or list
             Latitude(s) at which to place beachball, only used if `spec` is a
             dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'plot_lat' column.
+            Ignored if `spec` is a DataFrame and contains a 'plot_latitude'
+            column.
         offset: bool or str
             Offsets beachballs to the longitude, latitude specified in
-            the last two columns of the input file or array, or by `plot_lon`
-            and `plot_lat` if provided. A small circle is plotted at the
-            initial location and a line connects the beachball to the circle.
-            Specify pen and optionally append ``+ssize`` to change the line
-            style and/or size of the circle.
+            the last two columns of the input file or array,
+            or by `plot_longitude` and `plot_latitude` if provided. A small
+            circle is plotted at the initial location and a line connects
+            the beachball to the circle. Specify pen and optionally append
+            ``+ssize`` to change the line style and/or size of the circle.
         {J}
         {R}
         {B}
@@ -1111,20 +1114,20 @@ class BasePlotting:
             following data can be passed as parameters or it can be
             contained in `spec`."""
             # update all pointers
-            lon = data_pointers["lon"]
-            lat = data_pointers["lat"]
+            longitude = data_pointers["longitude"]
+            latitude = data_pointers["latitude"]
             depth = data_pointers["depth"]
-            plot_lon = data_pointers["plot_lon"]
-            plot_lat = data_pointers["plot_lat"]
-            return (lon, lat, depth, plot_lon, plot_lat)
+            plot_longitude = data_pointers["plot_longitude"]
+            plot_latitude = data_pointers["plot_latitude"]
+            return (longitude, latitude, depth, plot_longitude, plot_latitude)
 
         # Check the spec and parse the data according to the specified
         # convention
         if isinstance(spec, (dict, pd.DataFrame)):
             # dicts and DataFrames are handed similarly but not identically
-            if (lon is None or lat is None or depth is None) and not isinstance(
-                spec, (dict, pd.DataFrame)
-            ):
+            if (
+                longitude is None or latitude is None or depth is None
+            ) and not isinstance(spec, (dict, pd.DataFrame)):
                 raise GMTError("Location not fully specified.")
 
             param_conventions = {
@@ -1148,11 +1151,11 @@ class BasePlotting:
 
             # to keep track of where optional parameters exist
             data_pointers = {
-                "lon": lon,
-                "lat": lat,
+                "longitude": longitude,
+                "latitude": latitude,
                 "depth": depth,
-                "plot_lon": plot_lon,
-                "plot_lat": plot_lat,
+                "plot_longitude": plot_longitude,
+                "plot_latitude": plot_latitude,
             }
 
             # make a DataFrame copy to check convention if it contains
@@ -1198,14 +1201,20 @@ class BasePlotting:
                 # update pointers
                 set_pointer(data_pointers, spec)
                 # look for optional parameters in the right place
-                lon, lat, depth, plot_lon, plot_lat = update_pointers(data_pointers)
+                (
+                    longitude,
+                    latitude,
+                    depth,
+                    plot_longitude,
+                    plot_latitude,
+                ) = update_pointers(data_pointers)
 
                 # Construct the array (order matters)
-                spec = [lon, lat, depth] + [spec[key] for key in foc_params]
+                spec = [longitude, latitude, depth] + [spec[key] for key in foc_params]
 
                 # Add in plotting options, if given, otherwise add 0s as
                 # required by GMT
-                for arg in plot_lon, plot_lat:
+                for arg in plot_longitude, plot_latitude:
                     if arg is None:
                         spec.append(0)
                     else:
@@ -1218,7 +1227,13 @@ class BasePlotting:
                 # update pointers
                 set_pointer(data_pointers, spec)
                 # look for optional parameters in the right place
-                lon, lat, depth, plot_lon, plot_lat = update_pointers(data_pointers)
+                (
+                    longitude,
+                    latitude,
+                    depth,
+                    plot_longitude,
+                    plot_latitude,
+                ) = update_pointers(data_pointers)
 
                 # before constructing the 2D array lets check that each key
                 # of the dict has the same quantity of values to avoid bugs
@@ -1229,14 +1244,16 @@ class BasePlotting:
                             "Unequal number of focal mechanism "
                             "parameters supplied in 'spec'."
                         )
-                    # lets also check the inputs for lon, lat, and depth if
-                    # it is a list
+                    # lets also check the inputs for longitude, latitude,
+                    # and depth if it is a list
                     if (
-                        isinstance(lon, list)
-                        or isinstance(lat, list)
+                        isinstance(longitude, list)
+                        or isinstance(latitude, list)
                         or isinstance(depth, list)
                     ):
-                        if (len(lon) != len(lat)) or (len(lon) != len(depth)):
+                        if (len(longitude) != len(latitude)) or (
+                            len(longitude) != len(depth)
+                        ):
                             raise GMTError(
                                 "Unequal number of focal mechanism "
                                 "locations supplied."
@@ -1247,13 +1264,13 @@ class BasePlotting:
                 for index in range(list_length):
                     # Construct the array one row at a time (note that order
                     # matters here, hence the list comprehension!)
-                    row = [lon[index], lat[index], depth[index]] + [
+                    row = [longitude[index], latitude[index], depth[index]] + [
                         spec[key][index] for key in foc_params
                     ]
 
                     # Add in plotting options, if given, otherwise add 0s as
                     # required by GMT
-                    for arg in plot_lon, plot_lat:
+                    for arg in plot_longitude, plot_latitude:
                         if arg is None:
                             row.append(0)
                         else:
@@ -1268,16 +1285,24 @@ class BasePlotting:
                 # update pointers
                 set_pointer(data_pointers, spec)
                 # look for optional parameters in the right place
-                lon, lat, depth, plot_lon, plot_lat = update_pointers(data_pointers)
+                (
+                    longitude,
+                    latitude,
+                    depth,
+                    plot_longitude,
+                    plot_latitude,
+                ) = update_pointers(data_pointers)
 
-                # lets also check the inputs for lon, lat, and depth
+                # lets also check the inputs for longitude, latitude, and depth
                 # just in case the user entered different length lists
                 if (
-                    isinstance(lon, list)
-                    or isinstance(lat, list)
+                    isinstance(longitude, list)
+                    or isinstance(latitude, list)
                     or isinstance(depth, list)
                 ):
-                    if (len(lon) != len(lat)) or (len(lon) != len(depth)):
+                    if (len(longitude) != len(latitude)) or (
+                        len(longitude) != len(depth)
+                    ):
                         raise GMTError(
                             "Unequal number of focal mechanism locations supplied."
                         )
@@ -1287,13 +1312,13 @@ class BasePlotting:
                 for index in range(len(spec)):
                     # Construct the array one row at a time (note that order
                     # matters here, hence the list comprehension!)
-                    row = [lon[index], lat[index], depth[index]] + [
+                    row = [longitude[index], latitude[index], depth[index]] + [
                         spec[key][index] for key in foc_params
                     ]
 
                     # Add in plotting options, if given, otherwise add 0s as
                     # required by GMT
-                    for arg in plot_lon, plot_lat:
+                    for arg in plot_longitude, plot_latitude:
                         if arg is None:
                             row.append(0)
                         else:
