@@ -279,8 +279,13 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
             # Read temporary csv output to a pandas table
             if outfile == tmpfile.name:  # if outfile isn't set, return pd.DataFrame
                 # Read the tab-separated ASCII table
-                # Header is on 2nd row, and we skip the 3rd row with a ">"
-                df = pd.read_csv(tmpfile.name, sep="\t", header=2, comment=">")
+                df = pd.read_csv(
+                    tmpfile.name,
+                    sep="\t",
+                    header=2,  # Column names are on 2nd row
+                    comment=">",  # Skip the 3rd row with a ">"
+                    parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
+                )
                 # Remove the "# " from "# x" in the first column
                 result = df.rename(columns={df.columns[0]: df.columns[0][2:]})
             elif outfile != tmpfile.name:  # if outfile is set, output in outfile only

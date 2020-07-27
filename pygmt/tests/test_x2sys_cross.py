@@ -89,8 +89,10 @@ def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
         # assert isinstance(output, pd.DataFrame)
         # assert output.shape == (4, 12)
         # columns = list(output.columns)
-        # assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
+        # assert columns[:6] == ["x", "y", "t_1", "t_2", "dist_1", "dist_2"]
         # assert columns[6:] == ["head_1","head_2","vel_1","vel_2","z_X","z_M"]
+        # assert output.dtypes["t_1"].type == np.datetime64
+        # assert output.dtypes["t_2"].type == np.datetime64
 
     # return output
 
