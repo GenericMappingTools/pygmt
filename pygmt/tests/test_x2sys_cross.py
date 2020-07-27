@@ -158,3 +158,19 @@ def test_x2sys_cross_region_interpolation_numpoints(mock_x2sys_home):
         # Check crossover errors (z_X) and mean value of observables (z_M)
         npt.assert_allclose(output.z_X.mean(), -139.2, rtol=1e-4)
         npt.assert_allclose(output.z_M.mean(), -2890.465813)
+
+
+def test_x2sys_cross_trackvalues(mock_x2sys_home):
+    """
+    Test that x2sys_cross's trackvalues (Z) argument work.
+    """
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
+        tag = os.path.basename(tmpdir)
+        x2sys_init(tag=tag, fmtfile="xyz", force=True)
+        output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, trackvalues=True)
+
+        assert isinstance(output, pd.DataFrame)
+        assert output.shape == (14294, 12)
+        # Check mean of track 1 values (z_1) and track 2 values (z_2)
+        npt.assert_allclose(output.z_1.mean(), -2420.569767)
+        npt.assert_allclose(output.z_2.mean(), -2400.357549)

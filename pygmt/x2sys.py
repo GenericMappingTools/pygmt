@@ -129,7 +129,7 @@ def x2sys_init(tag, **kwargs):
 @use_alias(
     A="combitable",
     C="runtimes",
-    # D="",
+    D="override",
     I="interpolation",
     R="region",
     S="speed",
@@ -137,7 +137,7 @@ def x2sys_init(tag, **kwargs):
     Q="coe",
     V="verbose",
     W="numpoints",
-    # Z="",
+    Z="trackvalues",
 )
 @kwargs_to_strings(R="sequence")
 def x2sys_cross(tracks=None, outfile=None, **kwargs):
@@ -193,14 +193,14 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         processor of your multi-core machine. See the MATLAB function
         split_file4coes.m that lives in the x2sys supplement source code.
 
-    D : bool or str
+    override : bool or str
         ``S|N``.
         Control how geographic coordinates are handled (Cartesian data are
         unaffected). By default, we determine if the data are closer to one
         pole than the other, and then we use a cylindrical polar conversion to
         avoid problems with longitude jumps. You can turn this off entirely
-        with -D and then the calculations uses the original data (we have
-        protections against longitude jumps). However, you can force the
+        with *override* and then the calculations uses the original data (we
+        have protections against longitude jumps). However, you can force the
         selection of the pole for the projection by appending **S** or **N**
         for the south or north pole, respectively. The conversion is used
         because the algorithm used to find crossovers is inherently a
@@ -243,7 +243,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         Give the maximum number of data points on either side of the crossover
         to use in the spline interpolation [Default is 3].
 
-    Z : bool
+    trackvalues : bool
         Report the values of each track at the crossover [Default reports the
         crossover value and the mean value].
 
