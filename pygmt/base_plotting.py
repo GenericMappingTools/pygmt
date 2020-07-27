@@ -1050,15 +1050,15 @@ class BasePlotting:
             Adjusts the scaling of the radius of the beachball, which is
             proportional to the magnitude. Scale defines the size for
             magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
-        longitude: int or float or list
+        longitude: int, float, list, or 1d numpy array
             Longitude(s) of event location. Ignored if `spec` is not a
             dictionary. List must be the length of the number of events.
             Ignored if `spec` is a DataFrame and contains a 'longitude' column.
-        latitude: int or float or list
+        latitude: int, float, list, or 1d numpy array
             Latitude(s) of event location. Ignored if `spec` is not a
             dictionary. List must be the length of the number of events.
             Ignored if `spec` is a DataFrame and contains a 'latitude' column.
-        depth: int or float or list
+        depth: int, float, list, or 1d numpy array
             Depth(s) of event location in kilometers. Ignored if `spec` is
             not a dictionary. List must be the length of the number of events.
             Ignored if `spec` is a DataFrame and contains a 'depth' column.
@@ -1072,12 +1072,12 @@ class BasePlotting:
             full seismic moment tensor), ``"dc"`` (the closest double couple
             with zero trace and zero determinant), ``"deviatoric"`` (zero
             trace)
-        plot_longitude: int or float or list
+        plot_longitude: int, float, list, or 1d numpy array
             Longitude(s) at which to place beachball, only used if `spec` is a
             dictionary. List must be the length of the number of events.
             Ignored if `spec` is a DataFrame and contains a 'plot_longitude'
             column.
-        plot_latitude: int or float or list
+        plot_latitude: int, float, list, or 1d numpy array
             Latitude(s) at which to place beachball, only used if `spec` is a
             dictionary. List must be the length of the number of events.
             Ignored if `spec` is a DataFrame and contains a 'plot_latitude'
@@ -1244,11 +1244,11 @@ class BasePlotting:
                             "parameters supplied in 'spec'."
                         )
                     # lets also check the inputs for longitude, latitude,
-                    # and depth if it is a list
+                    # and depth if it is a list or array
                     if (
-                        isinstance(longitude, list)
-                        or isinstance(latitude, list)
-                        or isinstance(depth, list)
+                        isinstance(longitude, (list, np.ndarray))
+                        or isinstance(latitude, (list, np.ndarray))
+                        or isinstance(depth, (list, np.ndarray))
                     ):
                         if (len(longitude) != len(latitude)) or (
                             len(longitude) != len(depth)
@@ -1295,9 +1295,9 @@ class BasePlotting:
                 # lets also check the inputs for longitude, latitude, and depth
                 # just in case the user entered different length lists
                 if (
-                    isinstance(longitude, list)
-                    or isinstance(latitude, list)
-                    or isinstance(depth, list)
+                    isinstance(longitude, (list, np.ndarray))
+                    or isinstance(latitude, (list, np.ndarray))
+                    or isinstance(depth, (list, np.ndarray))
                 ):
                     if (len(longitude) != len(latitude)) or (
                         len(longitude) != len(depth)
