@@ -245,3 +245,38 @@ def test_meca_spec_file():
     )
 
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_loc_array():
+    """
+    Test supplying lists and np.ndarrays as the event location (longitude,
+    latitude, and depth).
+    """
+
+    fig = Figure()
+
+    # specify focal mechanisms
+    focal_mechanisms = dict(
+        strike=[327, 350], dip=[41, 50], rake=[68, 90], magnitude=[3, 2]
+    )
+
+    # longitude, latitude, and depth may be specified as an int, float,
+    # list, or 1d numpy array
+    longitude = np.array([-123.3, -124.4])
+    latitude = np.array([48.4, 48.2])
+    depth = [12.0, 11.0]  # to test mixed data types as inputs
+
+    scale = "2c"
+
+    fig.meca(
+        focal_mechanisms,
+        scale,
+        longitude,
+        latitude,
+        depth,
+        region=[-125, -122, 47, 49],
+        projection="M14c",
+    )
+
+    return fig
