@@ -23,7 +23,9 @@ def test_put_strings():
         strings = np.array(["a", "b", "c", "d", "e"], dtype=np.str)
         lib.put_vector(dataset, column=lib["GMT_X"], vector=x)
         lib.put_vector(dataset, column=lib["GMT_Y"], vector=y)
-        lib.put_strings(dataset, family="GMT_IS_VECTOR", strings=strings)
+        lib.put_strings(
+            dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
+        )
         # Turns out wesn doesn't matter for Datasets
         wesn = [0] * 6
         # Save the data to a file to see if it's being accessed correctly
