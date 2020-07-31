@@ -38,9 +38,10 @@ def test_put_strings():
                 tmp_file.name,
                 dataset,
             )
-            print(tmp_file.read())
             # Load the data and check that it's correct
-            newstrings = tmp_file.loadtxt(unpack=True, dtype=np.str)
-            print(newstrings)
-            # npt.assert_string_equal(news, s)
-            npt.assert_allclose(newstrings, strings)
+            newx, newy, newstrings = tmp_file.loadtxt(
+                unpack=True, dtype=[("x", np.int32), ("y", np.int32), ("text", "<U1")]
+            )
+            npt.assert_array_equal(newx, x)
+            npt.assert_array_equal(newy, y)
+            npt.assert_array_equal(newstrings, strings)
