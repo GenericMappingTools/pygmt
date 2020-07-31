@@ -17,6 +17,9 @@ def fixture_grid():
     )
 
 
+@pytest.mark.xfail(
+    reason="Baseline image generated using Cartesian instead of Geographic coordinates"
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_grid_dataarray(grid):
     """
@@ -54,6 +57,9 @@ def test_grdview_wrong_kind_of_grid(grid):
         fig.grdview(grid=dataset)
 
 
+@pytest.mark.xfail(
+    reason="Baseline image generated using Cartesian instead of Geographic coordinates"
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective(grid):
     """
