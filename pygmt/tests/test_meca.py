@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import numpy as np
 import pytest
+from pygmt.helpers import GMTTempFile
 
 from .. import Figure
 
@@ -187,21 +188,18 @@ def test_meca_spec_file():
     focal_mechanism = [-127.43, 40.81, 12, -3.19, 1.16, 3.93, -1.02, -3.93, -1.02, 23]
 
     # writes temp file to pass to gmt
-    with open(os.path.join(TEST_DATA_DIR, "temp.test"), mode="w") as temp_file:
-        temp_file.write(" ".join([str(x) for x in focal_mechanism]))
-
-    # supply focal mechanisms to meca as a file
-    fig.meca(
-        os.path.join(TEST_DATA_DIR, "temp.test"),
-        convention="mt",
-        component="full",
-        region=[-128, -127, 40, 41],
-        scale="2c",
-        projection="M14c",
-    )
-
-    # remove the temporary file
-    os.remove("temp.test")
+    with GMTTempFile():
+        with open("temp.name", mode="w") as temp_file:
+            temp_file.write(" ".join([str(x) for x in focal_mechanism]))
+        # supply focal mechanisms to meca as a file
+        fig.meca(
+            "temp.name",
+            convention="mt",
+            component="full",
+            region=[-128, -127, 40, 41],
+            scale="2c",
+            projection="M14c",
+        )
 
     return fig
 
