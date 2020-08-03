@@ -21,66 +21,16 @@ def test_meca_spec_dictionary():
 
     fig = Figure()
 
-    # Right lateral strike slip
+    # Right lateral strike slip focal mechanism
     fig.meca(
         dict(strike=0, dip=90, rake=0, magnitude=5),
         longitude=0,
         latitude=5,
         depth=0,
         scale="2.5c",
-        region=[-1, 4, 0, 6],
+        region=[-1, 1, 4, 6],
         projection="M14c",
         frame=2,
-    )
-
-    # Left lateral strike slip
-    fig.meca(
-        dict(strike=0, dip=90, rake=180, magnitude=5),
-        longitude=2,
-        latitude=5,
-        depth=0,
-        scale="2.5c",
-    )
-
-    # Thrust
-    fig.meca(
-        dict(strike=0, dip=45, rake=90, magnitude=5),
-        longitude=0,
-        latitude=3,
-        depth=0,
-        scale="2.5c",
-    )
-    fig.meca(
-        dict(strike=45, dip=45, rake=90, magnitude=5),
-        longitude=2,
-        latitude=3,
-        depth=0,
-        scale="2.5c",
-    )
-
-    # Normal
-    fig.meca(
-        dict(strike=0, dip=45, rake=-90, magnitude=5),
-        longitude=0,
-        latitude=1,
-        depth=0,
-        scale="2.5c",
-    )
-    fig.meca(
-        dict(strike=45, dip=45, rake=-90, magnitude=5),
-        longitude=2,
-        latitude=1,
-        depth=0,
-        scale="2.5c",
-    )
-
-    # Mixed
-    fig.meca(
-        dict(strike=10, dip=35, rake=129, magnitude=5),
-        longitude=3.4,
-        latitude=0.6,
-        depth=0,
-        scale="2.5c",
     )
 
     return fig
