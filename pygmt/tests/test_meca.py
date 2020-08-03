@@ -187,8 +187,8 @@ def test_meca_spec_file():
     focal_mechanism = [-127.43, 40.81, 12, -3.19, 1.16, 3.93, -1.02, -3.93, -1.02, 23]
 
     # writes temp file to pass to gmt
-    with open(os.path.join(TEST_DATA_DIR, "temp.test"), mode="w") as temp_File:
-        temp_File.write(" ".join([str(x) for x in focal_mechanism]))
+    with open(os.path.join(TEST_DATA_DIR, "temp.test"), mode="w") as temp_file:
+        temp_file.write(" ".join([str(x) for x in focal_mechanism]))
 
     # supply focal mechanisms to meca as a file
     fig.meca(
