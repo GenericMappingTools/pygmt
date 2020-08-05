@@ -56,7 +56,7 @@ jobs:
 
       # Install GMT master branch
       - name: Install GMT from master
-        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt-master.sh | bash
+        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
 
       # Download cached remote files (artifacts) from Github
       - name: Download remote data from Github
