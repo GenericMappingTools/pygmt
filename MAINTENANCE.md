@@ -54,7 +54,7 @@ There are 3 configuration files located in `.github/workflows`:
 This is ran on every commit on the *master* and Pull Request branches.
 It is also scheduled to run daily on the *master* branch.
 
-2. `ci_tests_dev.yaml` (GMT Master Tests on Linux/macOS).
+2. `ci_tests_dev.yaml` (GMT Latest Tests on Linux/macOS).
 
 This is only triggered when a review is requested or re-requested on a PR.
 It is also scheduled to run daily on the *master* branch.
