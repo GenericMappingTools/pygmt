@@ -55,8 +55,8 @@ jobs:
       - name: Install build dependencies
         run: conda install cmake libblas libcblas liblapack fftw gdal ghostscript libnetcdf hdf5 zlib curl pcre ipython pytest pytest-cov pytest-mpl
 
-      # Install GMT master branch
-      - name: Install GMT from master
+      # Build and install latest GMT from GitHub
+      - name: Install GMT ${{ matrix.gmt_git_ref }} branch
         run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
         env:
           GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
