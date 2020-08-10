@@ -1140,11 +1140,12 @@ class Session:
 
         """
         # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed. The conversion is implicit in vectors_to_arrays.
+        # put_vector or put_strings because we need to maintain a reference to
+        # the copy while it is being used by the C API. Otherwise, the array
+        # would be garbage collected and the memory freed. Creating it in this
+        # context manager guarantees that the copy will be around until the
+        # virtual file is closed. The conversion is implicit in
+        # vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
