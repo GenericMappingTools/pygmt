@@ -1148,9 +1148,12 @@ class Session:
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
+        # Find arrays that are of string dtype from column 3 onwards
+        # Assumes that first 2 columns contains coordinates like longitude
+        # latitude, or datetime string types.
         str_cols = [
-            col
-            for col, array in enumerate(arrays)
+            col + 2
+            for col, array in enumerate(arrays[2:])
             if np.issubdtype(array.dtype, np.str_)
         ]
         columns -= len(str_cols)
