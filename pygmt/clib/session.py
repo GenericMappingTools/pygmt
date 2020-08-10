@@ -1152,12 +1152,10 @@ class Session:
         # Find arrays that are of string dtype from column 3 onwards
         # Assumes that first 2 columns contains coordinates like longitude
         # latitude, or datetime string types.
-        str_cols = [
-            col + 2
-            for col, array in enumerate(arrays[2:])
-            if np.issubdtype(array.dtype, np.str_)
-        ]
-        columns -= len(str_cols)
+        for col, array in enumerate(arrays[2:]):
+            if np.issubdtype(array.dtype, np.str_):
+                columns = col + 2
+                break
 
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
@@ -1171,14 +1169,13 @@ class Session:
         )
 
         # Use put_vector for columns with numerical type data
-        for col, array in enumerate(arrays):
-            if col not in str_cols:
-                self.put_vector(dataset, column=col, vector=array)
+        for col, array in enumerate(arrays[:columns]):
+            self.put_vector(dataset, column=col, vector=array)
 
         # Use put_strings for last column(s) with string type data
         # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
-        if str_cols:
-            string_arrays = [arrays[col] for col in str_cols]
+        string_arrays = arrays[columns:]
+        if string_arrays:
             strings = np.apply_along_axis(func1d=" ".join, axis=0, arr=string_arrays)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
