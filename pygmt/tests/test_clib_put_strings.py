@@ -3,9 +3,10 @@ Test the functions that put string data into GMT.
 """
 import numpy as np
 import numpy.testing as npt
-
+import pytest
 
 from .. import clib
+from ..exceptions import GMTCLibError
 from ..helpers import GMTTempFile
 
 
@@ -45,3 +46,14 @@ def test_put_strings():
             npt.assert_array_equal(newx, x)
             npt.assert_array_equal(newy, y)
             npt.assert_array_equal(newstrings, strings)
+
+
+def test_put_strings_fails():
+    "Check that put_strings raises an exception if return code is not zero"
+    with clib.Session() as lib:
+        with pytest.raises(GMTCLibError):
+            lib.put_strings(
+                dataset=None,
+                family="GMT_IS_VECTOR|GMT_IS_DUPLICATE",
+                strings=np.empty(shape=(3,), dtype=np.str),
+            )
