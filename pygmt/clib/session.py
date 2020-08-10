@@ -44,6 +44,8 @@ GEOMETRIES = [
     "GMT_IS_SURFACE",
 ]
 
+METHODS = ["GMT_IS_DUPLICATE", "GMT_IS_REFERENCE"]
+
 MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
@@ -235,7 +237,7 @@ class Session:
         value = c_get_enum(session, name.encode())
 
         if value is None or value == -99999:
-            raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
+            raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
 
         return value
 
@@ -733,7 +735,7 @@ class Session:
         """
         Attach a numpy 1D array as a column on a GMT dataset.
 
-        Use this functions to attach numpy array data to a GMT dataset and pass
+        Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Vector``.
 
         The dataset must be created by :meth:`~gmt.clib.Session.create_data`
@@ -793,11 +795,72 @@ class Session:
                 )
             )
 
+    def put_strings(self, dataset, family, strings):
+        """
+        Attach a numpy 1D array of dtype str as a column on a GMT dataset.
+
+        Use this function to attach string type numpy array data to a GMT
+        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
+
+        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
+        first.
+
+        .. warning::
+            The numpy array must be C contiguous in memory. If it comes from a
+            column slice of a 2d array, for example, you will have to make a
+            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
+            is contiguous (it won't copy if it already is).
+
+        Parameters
+        ----------
+        dataset : :class:`ctypes.c_void_p`
+            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+            :meth:`~gmt.clib.Session.create_data`.
+        family : str
+            The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
+            ``GMT_IS_MATRIX``.
+        strings : numpy 1d-array
+            The array that will be attached to the dataset. Must be a 1d C
+            contiguous array.
+
+        Raises
+        ------
+        GMTCLibError
+            If given invalid input or ``GMT_Put_Strings`` exits with status !=
+            0.
+
+        """
+        c_put_strings = self.get_libgmt_func(
+            "GMT_Put_Strings",
+            argtypes=[
+                ctp.c_void_p,
+                ctp.c_uint,
+                ctp.c_void_p,
+                ctp.POINTER(ctp.c_char_p),
+            ],
+            restype=ctp.c_int,
+        )
+
+        strings_pointer = (ctp.c_char_p * len(strings))()
+        strings_pointer[:] = np.char.encode(strings)
+
+        family_int = self._parse_constant(
+            family, valid=FAMILIES, valid_modifiers=METHODS
+        )
+
+        status = c_put_strings(
+            self.session_pointer, family_int, dataset, strings_pointer
+        )
+        if status != 0:
+            raise GMTCLibError(
+                f"Failed to put strings of type {strings.dtype} into dataset"
+            )
+
     def put_matrix(self, dataset, matrix, pad=0):
         """
         Attach a numpy 2D array to a GMT dataset.
 
-        Use this functions to attach numpy array data to a GMT dataset and pass
+        Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Matrix``.
 
         The dataset must be created by :meth:`~gmt.clib.Session.create_data`
@@ -1002,9 +1065,7 @@ class Session:
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
-            direction,
-            valid=["GMT_IN", "GMT_OUT"],
-            valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
+            direction, valid=["GMT_IN", "GMT_OUT"], valid_modifiers=METHODS,
         )
 
         buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
@@ -1079,14 +1140,23 @@ class Session:
 
         """
         # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed. The conversion is implicit in vectors_to_arrays.
+        # put_vector or put_strings because we need to maintain a reference to
+        # the copy while it is being used by the C API. Otherwise, the array
+        # would be garbage collected and the memory freed. Creating it in this
+        # context manager guarantees that the copy will be around until the
+        # virtual file is closed. The conversion is implicit in
+        # vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
+        # Find arrays that are of string dtype from column 3 onwards
+        # Assumes that first 2 columns contains coordinates like longitude
+        # latitude, or datetime string types.
+        for col, array in enumerate(arrays[2:]):
+            if np.issubdtype(array.dtype, np.str_):
+                columns = col + 2
+                break
+
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
             raise GMTInvalidInput("All arrays must have same size.")
@@ -1098,8 +1168,23 @@ class Session:
             family, geometry, mode="GMT_CONTAINER_ONLY", dim=[columns, rows, 1, 0]
         )
 
-        for col, array in enumerate(arrays):
+        # Use put_vector for columns with numerical type data
+        for col, array in enumerate(arrays[:columns]):
             self.put_vector(dataset, column=col, vector=array)
+
+        # Use put_strings for last column(s) with string type data
+        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
+        string_arrays = arrays[columns:]
+        if string_arrays:
+            if len(string_arrays) == 1:
+                strings = string_arrays[0]
+            elif len(string_arrays) > 1:
+                strings = np.apply_along_axis(
+                    func1d=" ".join, axis=0, arr=string_arrays
+                )
+            self.put_strings(
+                dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
+            )
 
         with self.open_virtual_file(
             family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset

@@ -27,6 +27,9 @@ from .. import Figure
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
+
 
 @contextmanager
 def mock(session, func, returns=None, mock_func=None):
@@ -397,6 +400,47 @@ def test_virtualfile_from_vectors():
             )
             expected = "<vector memory>: N = {}\t{}\n".format(size, bounds)
             assert output == expected
+
+
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.1"),
+    reason="GMT_Put_Strings only works for GMT 6.1.1 and above",
+)
+def test_virtualfile_from_vectors_one_string_column():
+    "Test passing in one column with string dtype into virtual file dataset"
+    size = 5
+    x = np.arange(size, dtype=np.int32)
+    y = np.arange(size, size * 2, 1, dtype=np.int32)
+    strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=np.str)
+    with clib.Session() as lib:
+        with lib.virtualfile_from_vectors(x, y, strings) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module("convert", f"{vfile} ->{outfile.name}")
+                output = outfile.read(keep_tabs=True)
+        expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
+        assert output == expected
+
+
+@pytest.mark.xfail(
+    condition=gmt_version < Version("6.1.1"),
+    reason="GMT_Put_Strings only works for GMT 6.1.1 and above",
+)
+def test_virtualfile_from_vectors_two_string_columns():
+    "Test passing in two columns of string dtype into virtual file dataset"
+    size = 5
+    x = np.arange(size, dtype=np.int32)
+    y = np.arange(size, size * 2, 1, dtype=np.int32)
+    strings1 = np.array(["a", "bc", "def", "ghij", "klmno"], dtype=np.str)
+    strings2 = np.array(["pqrst", "uvwx", "yz!", "@#", "$"], dtype=np.str)
+    with clib.Session() as lib:
+        with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module("convert", f"{vfile} ->{outfile.name}")
+                output = outfile.read(keep_tabs=True)
+        expected = "".join(
+            f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+        )
+        assert output == expected
 
 
 def test_virtualfile_from_vectors_transpose():
