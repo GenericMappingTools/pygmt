@@ -411,7 +411,7 @@ def test_virtual_from_vectors_one_string_column():
     size = 5
     x = np.arange(size, dtype=np.int32)
     y = np.arange(size, size * 2, 1, dtype=np.int32)
-    strings = np.array(["a", "b", "c", "d", "e"], dtype=np.str)
+    strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=np.str)
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings) as vfile:
             with GMTTempFile() as outfile:
@@ -431,8 +431,8 @@ def test_virtual_from_vectors_two_string_columns():
     size = 5
     x = np.arange(size, dtype=np.int32)
     y = np.arange(size, size * 2, 1, dtype=np.int32)
-    strings1 = np.array(["a", "b", "c", "d", "e"], dtype=np.str)
-    strings2 = np.array(["f", "g", "h", "i", "j"], dtype=np.str)
+    strings1 = np.array(["a", "bc", "def", "ghij", "klmno"], dtype=np.str)
+    strings2 = np.array(["pqrst", "uvwx", "yz!", "@#", "$"], dtype=np.str)
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
             with GMTTempFile() as outfile:
