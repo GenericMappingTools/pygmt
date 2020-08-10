@@ -415,7 +415,7 @@ def test_virtualfile_from_vectors_one_string_column():
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("select", f"{vfile} -Vw ->{outfile.name}")
+                lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
         expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
         assert output == expected
@@ -435,7 +435,7 @@ def test_virtualfile_from_vectors_two_string_columns():
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("select", f"{vfile} -Vw ->{outfile.name}")
+                lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
             f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
