@@ -1177,17 +1177,8 @@ class Session:
         # Use put_strings for last column(s) with string type data
         # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
         if str_cols:
-            if len(str_cols) == 1:
-                strings = arrays[str_cols[0]]
-            elif len(str_cols) == 2:
-                strings = np.char.add(
-                    np.char.add(arrays[str_cols[0]], " "), arrays[str_cols[1]]
-                )
-            else:
-                raise NotImplementedError(
-                    f"Unable to handle {len(str_cols)} columns of string arrays. "
-                    "Please use only 1 or 2 instead."
-                )
+            string_arrays = [arrays[col] for col in str_cols]
+            strings = np.apply_along_axis(func1d=" ".join, axis=0, arr=string_arrays)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
