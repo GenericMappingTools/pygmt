@@ -1176,7 +1176,12 @@ class Session:
         # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
         string_arrays = arrays[columns:]
         if string_arrays:
-            strings = np.apply_along_axis(func1d=" ".join, axis=0, arr=string_arrays)
+            if len(string_arrays) == 1:
+                strings = string_arrays[0]
+            elif len(string_arrays) > 1:
+                strings = np.apply_along_axis(
+                    func1d=" ".join, axis=0, arr=string_arrays
+                )
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )

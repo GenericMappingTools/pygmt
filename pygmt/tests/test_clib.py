@@ -438,7 +438,7 @@ def test_virtualfile_from_vectors_two_string_columns():
                 lib.call_module("select", f"{vfile} -Vw ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
-            f"{h}\t{i}\t{j}\t{k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+            f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
         )
         assert output == expected
 
