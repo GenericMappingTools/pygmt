@@ -415,6 +415,23 @@ def test_virtual_from_vectors_one_string_column():
         assert output == expected
 
 
+def test_virtual_from_vectors_two_string_columns():
+    "Test passing in two columns of string dtype into virtual file dataset"
+    size = 5
+    x = np.arange(size, dtype=np.int32)
+    y = np.arange(size, size * 2, 1, dtype=np.int32)
+    strings1 = np.array(["a", "b", "c", "d", "e"], dtype=np.str)
+    strings2 = np.array(["f", "g", "h", "i", "j"], dtype=np.str)
+    with clib.Session() as lib:
+        with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module("gmtinfo", f"{vfile} ->{outfile.name}")
+                output = outfile.read(keep_tabs=True)
+        bounds = "\t".join([f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y)])
+        expected = f"<vector memory>: N = {size}\t{bounds}\n"
+        assert output == expected
+
+
 def test_virtualfile_from_vectors_transpose():
     "Test transforming matrix columns to virtual file dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()

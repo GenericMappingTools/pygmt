@@ -1148,8 +1148,12 @@ class Session:
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
-        if np.issubdtype(arrays[-1].dtype, np.str_):
-            columns -= 1
+        str_cols = [
+            col
+            for col, array in enumerate(arrays)
+            if np.issubdtype(array.dtype, np.str_)
+        ]
+        columns -= len(str_cols)
 
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
@@ -1162,14 +1166,27 @@ class Session:
             family, geometry, mode="GMT_CONTAINER_ONLY", dim=[columns, rows, 1, 0]
         )
 
-        # Use put_vector for first n columns with numerical type data
-        for col, array in enumerate(arrays[:columns]):
-            self.put_vector(dataset, column=col, vector=array)
-        # Use put_strings for last column with string type data
+        # Use put_vector for columns with numerical type data
+        for col, array in enumerate(arrays):
+            if col not in str_cols:
+                self.put_vector(dataset, column=col, vector=array)
+
+        # Use put_strings for last column(s) with string type data
         # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
-        for array in arrays[columns:]:
+        if str_cols:
+            if len(str_cols) == 1:
+                strings = arrays[str_cols[0]]
+            elif len(str_cols) == 2:
+                strings = np.char.add(
+                    np.char.add(arrays[str_cols[0]], " "), arrays[str_cols[1]]
+                )
+            else:
+                raise NotImplementedError(
+                    f"Unable to handle {len(str_cols)} columns of string arrays. "
+                    "Please use only 1 or 2 instead."
+                )
             self.put_strings(
-                dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=array
+                dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
 
         with self.open_virtual_file(
