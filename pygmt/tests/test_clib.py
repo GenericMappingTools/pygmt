@@ -406,7 +406,7 @@ def test_virtualfile_from_vectors():
     condition=gmt_version < Version("6.1.1"),
     reason="GMT_Put_Strings only works for GMT 6.1.1 and above",
 )
-def test_virtual_from_vectors_one_string_column():
+def test_virtualfile_from_vectors_one_string_column():
     "Test passing in one column with string dtype into virtual file dataset"
     size = 5
     x = np.arange(size, dtype=np.int32)
@@ -415,10 +415,9 @@ def test_virtual_from_vectors_one_string_column():
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("gmtinfo", f"{vfile} ->{outfile.name}")
+                lib.call_module("select", f"{vfile} -Vw ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        bounds = "\t".join([f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y)])
-        expected = f"<vector memory>: N = {size}\t{bounds}\n"
+        expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
         assert output == expected
 
 
@@ -426,7 +425,7 @@ def test_virtual_from_vectors_one_string_column():
     condition=gmt_version < Version("6.1.1"),
     reason="GMT_Put_Strings only works for GMT 6.1.1 and above",
 )
-def test_virtual_from_vectors_two_string_columns():
+def test_virtualfile_from_vectors_two_string_columns():
     "Test passing in two columns of string dtype into virtual file dataset"
     size = 5
     x = np.arange(size, dtype=np.int32)
@@ -436,10 +435,11 @@ def test_virtual_from_vectors_two_string_columns():
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("gmtinfo", f"{vfile} ->{outfile.name}")
+                lib.call_module("select", f"{vfile} -Vw ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        bounds = "\t".join([f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y)])
-        expected = f"<vector memory>: N = {size}\t{bounds}\n"
+        expected = "".join(
+            f"{h}\t{i}\t{j}\t{k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+        )
         assert output == expected
 
 
