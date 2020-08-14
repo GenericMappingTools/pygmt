@@ -8,6 +8,8 @@ etc.
 import textwrap
 import functools
 
+import numpy as np
+
 from .utils import is_nonstr_iter
 from ..exceptions import GMTInvalidInput
 
@@ -302,6 +304,23 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
     {'bla': (1, 2, 3), 'foo': '', 'i': '5,6'}
     args: 123
+    >>> import datetime
+    >>> module(
+    ...     R=[
+    ...         np.datetime64("2010-01-01T16:00:00"),
+    ...         datetime.datetime(2020, 1, 1, 12, 23, 45),
+    ...     ]
+    ... )
+    {'R': '2010-01-01T16:00:00/2020-01-01T12:23:45.000000'}
+    >>> import pandas as pd
+    >>> import xarray as xr
+    >>> module(
+    ...     R=[
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00")),
+    ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
+    ...     ]
+    ... )
+    {'R': '2005-01-01T08:00:00.000000000/2015-01-01T12:00:00.123456'}
 
     """
     valid_conversions = [
@@ -338,9 +357,15 @@ def kwargs_to_strings(convert_bools=True, **conversions):
                     value = kwargs[arg]
                     issequence = fmt in separators
                     if issequence and is_nonstr_iter(value):
-                        kwargs[arg] = separators[fmt].join(
-                            "{}".format(item) for item in value
-                        )
+                        for index, item in enumerate(value):
+                            try:
+                                assert " " not in str(item)
+                            except AssertionError:
+                                # convert datetime-like items to string format
+                                value[index] = np.datetime_as_string(
+                                    np.asarray(item, dtype=np.datetime64)
+                                )
+                        kwargs[arg] = separators[fmt].join(f"{item}" for item in value)
             # Execute the original function and return its output
             return module_func(*args, **kwargs)
 
