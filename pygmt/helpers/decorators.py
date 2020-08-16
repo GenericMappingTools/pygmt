@@ -359,9 +359,13 @@ def kwargs_to_strings(convert_bools=True, **conversions):
                     if issequence and is_nonstr_iter(value):
                         for index, item in enumerate(value):
                             try:
+                                # check if there is a space " " when converting
+                                # a pandas.Timestamp/xr.DataArray to a string.
+                                # If so, use np.datetime_as_string instead.
                                 assert " " not in str(item)
                             except AssertionError:
-                                # convert datetime-like items to string format
+                                # convert datetime-like item to ISO 8601
+                                # string format like YYYY-MM-DDThh:mm:ss.ffffff
                                 value[index] = np.datetime_as_string(
                                     np.asarray(item, dtype=np.datetime64)
                                 )
