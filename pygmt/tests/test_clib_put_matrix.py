@@ -76,7 +76,7 @@ def test_put_matrix_grid():
             with GMTTempFile() as tmp_file:
                 lib.write_data(
                     "GMT_IS_MATRIX",
-                    "GMT_IS_SURFACE",
+                    "GMT_IS_POINT",
                     "GMT_CONTAINER_AND_DATA",
                     wesn,
                     tmp_file.name,

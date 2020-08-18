@@ -1,7 +1,7 @@
-# This workflow installs PyGMT dependencies, builds documentation and runs tests on GMT master
+# This workflow installs PyGMT dependencies, builds documentation and runs tests on GMT latest
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: GMT Master Tests
+name: GMT Latest Tests
 
 on:
   # push:
@@ -14,13 +14,14 @@ on:
 
 jobs:
   test_gmt_master:
-    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         python-version: [3.8]
         os: [ubuntu-20.04, macOS-10.15]
+        gmt_git_ref: [6.1, master]
     env:
       # LD_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib:$LD_LIBRARY_PATH
       GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
@@ -54,9 +55,11 @@ jobs:
       - name: Install build dependencies
         run: conda install cmake libblas libcblas liblapack fftw gdal ghostscript libnetcdf hdf5 zlib curl pcre ipython pytest pytest-cov pytest-mpl
 
-      # Install GMT master branch
-      - name: Install GMT from master
+      # Build and install latest GMT from GitHub
+      - name: Install GMT ${{ matrix.gmt_git_ref }} branch
         run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
+        env:
+          GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
 
       # Download cached remote files (artifacts) from Github
       - name: Download remote data from Github
