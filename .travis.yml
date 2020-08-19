@@ -33,14 +33,6 @@ env:
 jobs:
     # Build under the following configurations
     include:
-        - name: "Linux - Python 3.8"
-          os: linux
-          env:
-              - PYTHON=3.8
-        - name: "Linux - Python 3.7"
-          os: linux
-          env:
-              - PYTHON=3.7
         - name: "Linux - Python 3.6 (deploy)"
           os: linux
           env:
@@ -66,11 +58,6 @@ script:
     - make test PYTEST_EXTRA="-r P"
     # Build the documentation
     - make -C doc all
-
-# Things to do if the build is successful
-after_success:
-    # Upload coverage information
-    - codecov -e PYTHON
 
 deploy:
     # Make a release on PyPI
