@@ -725,10 +725,10 @@ class Session:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
                 array = np.asarray(array, dtype=np.datetime64)
-            except ValueError:
+            except ValueError as e:
                 raise GMTInvalidInput(
-                    "Unsupported numpy data type '{}'.".format(array.dtype.type)
-                )
+                    f"Unsupported numpy data type '{array.dtype.type}'."
+                ) from e
         return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
