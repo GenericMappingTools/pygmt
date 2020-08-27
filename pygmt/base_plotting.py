@@ -1013,7 +1013,7 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(R="region", J="projection", B="frame", C="offset")
-    @kwargs_to_strings(R="sequence",)
+    @kwargs_to_strings(R="sequence")
     def meca(
         self,
         spec,
