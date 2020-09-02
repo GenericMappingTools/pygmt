@@ -294,7 +294,16 @@ def test_plot_scalar_xy():
 def test_plot_datetime():
     """Test various datetime input data"""
     fig = Figure()
-    fig.basemap(projection="X15c/5c", region="2010-01-01/2020-01-01/0/10", frame=True)
+    fig.basemap(
+        projection="X15c/5c",
+        region=[
+            np.array("2010-01-01T00:00:00", dtype=np.datetime64),
+            pd.Timestamp("2020-01-01"),
+            0,
+            10,
+        ],
+        frame=True,
+    )
 
     # numpy.datetime64 types
     x = np.array(
