@@ -52,6 +52,21 @@ def test_info_spacing():
     npt.assert_allclose(actual=output, desired=[11.5, 61.8, -3, 7.9])
 
 
+def test_info_spacing_bounding_box():
+    "Make sure the spacing option for writing a bounding box works"
+    output = info(table=POINTS_DATA, spacing="b")
+    npt.assert_allclose(
+        actual=output,
+        desired=[
+            [11.5309, -2.9289],
+            [61.7074, -2.9289],
+            [61.7074, 7.8648],
+            [11.5309, 7.8648],
+            [11.5309, -2.9289],
+        ],
+    )
+
+
 def test_info_per_column_spacing():
     "Make sure the per_column and spacing options work together"
     output = info(table=POINTS_DATA, per_column=True, spacing=0.1)
