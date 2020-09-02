@@ -316,14 +316,6 @@ class Figure(BasePlotting):
             Shift plot origin in x direction.
         yshift : str
             Shift plot origin in y direction.
-
-        Notes
-        -----
-        For GMT 6.1.0, this function can't be used as the first plotting
-        function of :meth:`pygmt.Figure`, since it relies the *region* and
-        *projection* settings from previous commands.
-
-        .. TODO: Remove the notes when PyGMT bumps to GMT>=6.1.1.
         """
         self._preprocess()
         args = ["-T"]
