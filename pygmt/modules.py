@@ -55,7 +55,7 @@ def grdinfo(grid, **kwargs):
 
 @fmt_docstring
 @use_alias(C="per_column", I="spacing", T="nearest_multiple")
-def info(fname, **kwargs):
+def info(table, **kwargs):
     """
     Get information about data tables.
 
@@ -74,8 +74,8 @@ def info(fname, **kwargs):
 
     Parameters
     ----------
-    fname : str
-        The file name of the input data table file.
+    table : pandas.DataFrame or str
+        Either a pandas dataframe or a file name to an ASCII data table.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
@@ -88,14 +88,24 @@ def info(fname, **kwargs):
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this as the string *-Tzmin/zmax/dz*.
     """
-    if not isinstance(fname, str):
-        raise GMTInvalidInput("'info' only accepts file names.")
+    kind = data_kind(table)
+    with Session() as lib:
+        if kind == "file":
+            file_context = dummy_context(table)
+        elif kind == "matrix":
+            if not hasattr(table, "values"):
+                raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
+            file_context = lib.virtualfile_from_matrix(table.values)
+        else:
+            raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
 
-    with GMTTempFile() as tmpfile:
-        arg_str = " ".join([fname, build_arg_string(kwargs), "->" + tmpfile.name])
-        with Session() as lib:
-            lib.call_module("info", arg_str)
-        return tmpfile.read()
+        with GMTTempFile() as tmpfile:
+            with file_context as fname:
+                arg_str = " ".join(
+                    [fname, build_arg_string(kwargs), "->" + tmpfile.name]
+                )
+                lib.call_module("info", arg_str)
+            return tmpfile.read()
 
 
 @fmt_docstring
