@@ -1,9 +1,10 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
-import sys
+import io
 import shutil
 import subprocess
+import sys
 import webbrowser
 from collections.abc import Iterable
 from contextlib import contextmanager
@@ -62,6 +63,8 @@ def data_kind(data, x=None, y=None, z=None):
 
     if isinstance(data, str):
         kind = "file"
+    elif isinstance(data, io.StringIO):
+        kind = "buffer"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
     elif data is not None:

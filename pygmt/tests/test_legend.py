@@ -1,6 +1,8 @@
 """
 Tests for legend
 """
+import io
+
 import pytest
 
 from .. import Figure
@@ -45,7 +47,7 @@ def test_legend_default_position():
 
 
 @pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0"
 )
 @pytest.mark.mpl_image_compare
 def test_legend_entries():
@@ -72,8 +74,9 @@ def test_legend_entries():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_legend_specfile():
+@pytest.mark.parametrize("usebuffer", [True, False])
+@pytest.mark.mpl_image_compare(filename="test_legend_specfile.png")
+def test_legend_specfile(usebuffer):
     """
     Test specfile functionality.
     """
@@ -113,7 +116,10 @@ T so we may have to adjust the box height to get the right size box.
         fig = Figure()
 
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-        fig.legend(specfile.name, position="JTM+jCM+w5i")
+
+        spec = io.StringIO(specfile_contents) if usebuffer else specfile.name
+
+        fig.legend(spec=spec, position="JTM+jCM+w5i")
 
     return fig
 
