@@ -2,7 +2,9 @@
 Utilities for dealing with temporary file management.
 """
 import os
+import shutil
 import uuid
+from contextlib import contextmanager
 from tempfile import NamedTemporaryFile
 
 import numpy as np
@@ -105,3 +107,49 @@ class GMTTempFile:
 
         """
         return np.loadtxt(self.name, **kwargs)
+
+
+@contextmanager
+def tempfile_from_buffer(buf):
+    """
+    Store an io.StringIO buffer stream inside a temporary text file.
+
+    Use the temporary file name to pass in data in your string buffer to a GMT
+    module.
+
+    Context manager (use in a ``with`` block). Yields the temporary file name
+    that you can pass as an argument to a GMT module call. Closes the
+    temporary file upon exit of the ``with`` block.
+
+    Parameters
+    ----------
+    buf : io.StringIO
+        The in-memory text stream buffer that will be included in the temporary
+        file.
+
+    Yields
+    ------
+    fname : str
+        The name of temporary file. Pass this as a file name argument to a GMT
+        module.
+
+    Examples
+    --------
+
+    >>> import io
+    >>> from pygmt.helpers import tempfile_from_buffer
+    >>> from pygmt import info
+    >>> data = np.arange(0, 6, 0.5).reshape((4, 3))
+    >>> buf = io.StringIO()
+    >>> np.savetxt(fname=buf, X=data, fmt="%.1f")
+    >>> with tempfile_from_buffer(buf=buf) as fname:
+    ...     result = info(fname, per_column=True)
+    ...     print(result.strip())
+    0 4.5 0.5 5 1 5.5
+    """
+    with GMTTempFile() as tmpfile:
+        buf.seek(0)  # Change stream position back to start
+        with open(file=tmpfile.name, mode="w") as fdst:
+            shutil.copyfileobj(fsrc=buf, fdst=fdst)
+
+        yield tmpfile.name
