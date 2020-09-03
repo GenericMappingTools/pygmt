@@ -8,7 +8,7 @@ import xarray as xr
 from .. import Figure
 from ..datasets import load_earth_relief
 from ..exceptions import GMTInvalidInput
-from ..helpers import check_figures_equal
+from ..helpers.testing import check_figures_equal
 
 
 @pytest.fixture(scope="module", name="grid")
