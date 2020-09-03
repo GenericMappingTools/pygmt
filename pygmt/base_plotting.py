@@ -226,6 +226,7 @@ class BasePlotting:
         S="resample",
         U="timestamp",
         W="pen",
+        l="label",
     )
     @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
     def grdcontour(self, grid, **kwargs):
@@ -275,6 +276,13 @@ class BasePlotting:
         {G}
         {U}
         {W}
+        label : str
+            Add a legend entry for the contour being plotted. Normally, the
+            annotated contour is selected for the legend. You can select the
+            regular contour instead, or both of them, by considering the label
+            to be of the format [*annotcontlabel*][/*contlabel*]. If either
+            label contains a slash (/) character then use ``|`` as the
+            separator for the two labels instead.
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -568,6 +576,7 @@ class BasePlotting:
         W="pen",
         L="triangular_mesh_pen",
         i="columns",
+        l="label",
         C="levels",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -619,6 +628,13 @@ class BasePlotting:
         skip : bool or str
             Skip input points outside region ``'[p|t]'``
         {W}
+        label : str
+            Add a legend entry for the contour being plotted. Normally, the
+            annotated contour is selected for the legend. You can select the
+            regular contour instead, or both of them, by considering the label
+            to be of the format [*annotcontlabel*][/*contlabel*]. If either
+            label contains a slash (/) character then use ``|`` as the
+            separator for the two labels instead.
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -997,7 +1013,7 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(R="region", J="projection", B="frame", C="offset")
-    @kwargs_to_strings(R="sequence",)
+    @kwargs_to_strings(R="sequence")
     def meca(
         self,
         spec,
