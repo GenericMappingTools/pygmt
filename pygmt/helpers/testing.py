@@ -42,6 +42,8 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
     ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
     ...     fig_test.basemap(projection="X5c", region=[0, 5, 0, 5], frame="af")
     >>> test_check_figures_equal()
+    >>> assert len(os.listdir("tmp_result_images")) == 0
+    >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
     ... def test_check_figures_unequal(fig_ref, fig_test):
@@ -49,7 +51,13 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
     ...     fig_test.basemap(projection="X5c", region=[0, 3, 0, 3], frame=True)
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
-
+    >>> for suffix in ["", "-expected", "-failed-diff"]:
+    ...     assert os.path.exists(
+    ...         os.path.join(
+    ...             "tmp_result_images",
+    ...             f"test_check_figures_unequal{suffix}.png",
+    ...         )
+    ...     )
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
 
