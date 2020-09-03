@@ -98,9 +98,9 @@ def test_grdimage_over_dateline(xrgrid):
 
 def test_grdimage_central_longitude(grid):
     fig1 = Figure()
-    fig1.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap='geo')
+    fig1.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
 
     fig2 = Figure()
-    fig2.grdimage(grid, projection="W120/15c", cmap='geo')
+    fig2.grdimage(grid, projection="W120/15c", cmap="geo")
 
     check_figures_equal(fig1, fig2)

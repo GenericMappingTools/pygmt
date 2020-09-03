@@ -1,10 +1,11 @@
 """
 Test the testing functions for PyGMT
 """
-from .. import Figure
-from ..helpers.testing import check_figures_equal
-from ..exceptions import GMTImageComparisonFailure
 import pytest
+
+from .. import Figure
+from ..exceptions import GMTImageComparisonFailure
+from ..helpers.testing import check_figures_equal
 
 
 def test_check_figures_equal():

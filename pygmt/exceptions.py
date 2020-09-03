@@ -45,6 +45,7 @@ class GMTVersionError(GMTError):
     Raised when an incompatible version of GMT is being used.
     """
 
+
 class GMTImageComparisonFailure(AssertionError):
     """
     Raised when a comparison between two images fails.
