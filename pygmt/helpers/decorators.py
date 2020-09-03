@@ -6,6 +6,7 @@ arguments, insert common text into docstrings, transform arguments to strings,
 etc.
 """
 import functools
+import inspect
 import os
 import textwrap
 
@@ -446,14 +447,15 @@ def check_figures_equal(*, result_dir="result_images", tol=0.0):
     def decorator(func):
 
         os.makedirs(result_dir, exist_ok=True)
+        old_sig = inspect.signature(func)
 
-        def wrapper():
+        def wrapper(*args, **kwargs):
             try:
                 from ..figure import Figure  # pylint: disable=import-outside-toplevel
 
                 fig_ref = Figure()
                 fig_test = Figure()
-                func(fig_ref, fig_test)
+                func(*args, fig_ref=fig_ref, fig_test=fig_test, **kwargs)
                 ref_image_path = os.path.join(
                     result_dir, func.__name__ + "-expected.png"
                 )
@@ -482,6 +484,14 @@ def check_figures_equal(*, result_dir="result_images", tol=0.0):
             finally:
                 del fig_ref
                 del fig_test
+
+        parameters = [
+            param
+            for param in old_sig.parameters.values()
+            if param.name not in {"fig_test", "fig_ref"}
+        ]
+        new_sig = old_sig.replace(parameters=parameters)
+        wrapper.__signature__ = new_sig
 
         return wrapper
 
