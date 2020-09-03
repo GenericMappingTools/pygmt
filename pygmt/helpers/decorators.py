@@ -408,7 +408,7 @@ def remove_bools(kwargs):
     return new_kwargs
 
 
-def check_figures_equal(*, result_dir="result_images", tol=0.0):
+def check_figures_equal(*, tol=0.0, result_dir="result_images"):
     """
     Decorator for test cases that generate and compare two figures.
 
@@ -416,12 +416,17 @@ def check_figures_equal(*, result_dir="result_images", tol=0.0):
     and draw the reference and test images on them. After the function
     returns, the figures are saved and compared.
 
+    This decorator is practically identical to matplotlib's check_figures_equal
+    function, but adapted for PyGMT figures. See also the original code at
+    https://matplotlib.org/3.3.1/api/testing_api.html#
+    matplotlib.testing.decorators.check_figures_equal
+
     Parameters
     ----------
-    result_dir : str
-        The directory where the figures will be stored.
     tol : float
         The RMS threshold above which the test is considered failed.
+    result_dir : str
+        The directory where the figures will be stored.
 
     Examples
     --------
