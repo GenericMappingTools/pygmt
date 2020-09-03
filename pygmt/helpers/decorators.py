@@ -5,14 +5,15 @@ Apply them to functions wrapping GMT modules to automate: alias generation for
 arguments, insert common text into docstrings, transform arguments to strings,
 etc.
 """
-import textwrap
 import functools
+import os
+import textwrap
 
 import numpy as np
+from matplotlib.testing.compare import compare_images
 
+from ..exceptions import GMTImageComparisonFailure, GMTInvalidInput
 from .utils import is_nonstr_iter
-from ..exceptions import GMTInvalidInput
-
 
 COMMON_OPTIONS = {
     "R": """\
@@ -404,3 +405,84 @@ def remove_bools(kwargs):
         else:
             new_kwargs[arg] = value
     return new_kwargs
+
+
+def check_figures_equal(*, result_dir="result_images", tol=0.0):
+    """
+    Decorator for test cases that generate and compare two figures.
+
+    The decorated function must take two arguments, *fig_ref* and *fig_test*,
+    and draw the reference and test images on them. After the function
+    returns, the figures are saved and compared.
+
+    Parameters
+    ----------
+    result_dir : str
+        The directory where the figures will be stored.
+    tol : float
+        The RMS threshold above which the test is considered failed.
+
+    Examples
+    --------
+
+    >>> import pytest
+    >>> @check_figures_equal()
+    ... def test_check_figures_equal(fig_ref, fig_test):
+    ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
+    ...     fig_test.basemap(projection="X5c", region=[0, 5, 0, 5], frame="af")
+    >>> test_check_figures_equal()
+
+    >>> import shutil
+    >>> @check_figures_equal(result_dir="tmp_result_images")
+    ... def test_check_figures_unequal(fig_ref, fig_test):
+    ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
+    ...     fig_test.basemap(projection="X5c", region=[0, 3, 0, 3], frame=True)
+    >>> with pytest.raises(GMTImageComparisonFailure):
+    ...     test_check_figures_unequal()
+    >>> shutil.rmtree(path="tmp_result_images")
+
+    """
+
+    def decorator(func):
+
+        os.makedirs(result_dir, exist_ok=True)
+
+        def wrapper():
+            try:
+                from ..figure import Figure  # pylint: disable=import-outside-toplevel
+
+                fig_ref = Figure()
+                fig_test = Figure()
+                func(fig_ref, fig_test)
+                ref_image_path = os.path.join(
+                    result_dir, func.__name__ + "-expected.png"
+                )
+                test_image_path = os.path.join(result_dir, func.__name__ + ".png")
+                fig_ref.savefig(ref_image_path)
+                fig_test.savefig(test_image_path)
+
+                # Code below is adapted for PyGMT, and is originally based on
+                # matplotlib.testing.decorators._raise_on_image_difference
+                err = compare_images(
+                    expected=ref_image_path,
+                    actual=test_image_path,
+                    tol=tol,
+                    in_decorator=True,
+                )
+                if err is None:  # Images are the same
+                    os.remove(ref_image_path)
+                    os.remove(test_image_path)
+                else:  # Images are not the same
+                    for key in ["actual", "expected", "diff"]:
+                        err[key] = os.path.relpath(err[key])
+                    raise GMTImageComparisonFailure(
+                        "images not close (RMS %(rms).3f):\n\t%(actual)s\n\t%(expected)s "
+                        % err
+                    )
+            finally:
+                del fig_ref
+                del fig_test
+
+        return wrapper
+
+    return decorator
