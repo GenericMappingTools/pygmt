@@ -4,6 +4,7 @@ Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
 import numpy as np
+import pandas as pd
 
 from .clib import Session
 from .exceptions import GMTError, GMTInvalidInput
