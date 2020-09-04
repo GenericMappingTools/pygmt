@@ -121,6 +121,9 @@ def test_figure_show():
 def test_shift_origin():
     "Test if fig.shift_origin works"
     fig = Figure()
+    # First call shift_origin without -J & -R.
+    # Test the issue https://github.com/GenericMappingTools/pygmt/issues/514
+    fig.shift_origin(xshift="2i", yshift="3i")
     fig.basemap(R="10/70/-300/300", J="X3i/5i", B="af")
     fig.shift_origin(xshift="4i")
     fig.basemap(R="10/70/-300/300", J="X3i/5i", B="af")
