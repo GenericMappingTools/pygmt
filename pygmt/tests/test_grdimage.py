@@ -2,12 +2,13 @@
 Test Figure.grdimage
 """
 import numpy as np
-import xarray as xr
 import pytest
+import xarray as xr
 
 from .. import Figure
-from ..exceptions import GMTInvalidInput
 from ..datasets import load_earth_relief
+from ..exceptions import GMTInvalidInput
+from ..helpers.testing import check_figures_equal
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -93,3 +94,12 @@ def test_grdimage_over_dateline(xrgrid):
     xrgrid.gmt.gtype = 1  # geographic coordinate system
     fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c", V="i")
     return fig
+
+
+@check_figures_equal()
+def test_grdimage_central_longitude(grid, fig_ref, fig_test):
+    """
+    Test that plotting a grid centred at different longitudes/meridians work.
+    """
+    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
+    fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
