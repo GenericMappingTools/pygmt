@@ -69,6 +69,30 @@ def test_grdimage_file():
     return fig
 
 
+@check_figures_equal()
+def test_grdimage_xarray_shading(grid, fig_ref, fig_test):
+    """
+    Test that shading works well for xarray.
+    See https://github.com/GenericMappingTools/pygmt/issues/364
+    """
+    fig_ref.grdimage(
+        "@earth_relief_01d_g",
+        region=[-180, 180, -90, 90],
+        frame=True,
+        projection="Cyl_stere/6i",
+        cmap="geo",
+        shading=True,
+    )
+    fig_test.grdimage(
+        grid,
+        region=[-180, 180, -90, 90],
+        frame=True,
+        projection="Cyl_stere/6i",
+        cmap="geo",
+        shading=True,
+    )
+
+
 def test_grdimage_fails():
     "Should fail for unrecognized input"
     fig = Figure()
