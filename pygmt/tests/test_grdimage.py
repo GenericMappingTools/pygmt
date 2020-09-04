@@ -92,10 +92,17 @@ def test_grdimage_over_dateline(xrgrid):
     return fig
 
 
+@pytest.mark.parametrize("meridian", [0, 33, 120, 180])
 @check_figures_equal()
-def test_grdimage_central_longitude(grid, fig_ref, fig_test):
+@pytest.mark.parametrize("proj_type", ["H", "Q", "W"])
+def test_grdimage_different_central_meridians_and_projections(
+    grid, proj_type, meridian, fig_ref, fig_test
+):
     """
-    Test that plotting a grid centred at different longitudes/meridians work.
+    Test that plotting a grid centred on different meridians using different
+    projection systems work.
     """
-    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
-    fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+    fig_ref.grdimage(
+        "@earth_relief_01d_g", projection=f"{proj_type}{meridian}/15c", cmap="geo"
+    )
+    fig_test.grdimage(grid, projection=f"{proj_type}{meridian}/15c", cmap="geo")
