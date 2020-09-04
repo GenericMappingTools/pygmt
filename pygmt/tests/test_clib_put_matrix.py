@@ -4,6 +4,7 @@ Test the functions that put matrix data into GMT.
 import numpy as np
 import numpy.testing as npt
 import pytest
+import xarray as xr
 
 
 from .test_clib import mock
@@ -85,3 +86,23 @@ def test_put_matrix_grid():
                 # Load the data and check that it's correct
                 newdata = tmp_file.loadtxt(dtype=dtype)
                 npt.assert_allclose(newdata, data)
+
+            # Save the data to a netCDF grid and check
+            with GMTTempFile() as tmp_grid:
+                lib.write_data(
+                    "GMT_IS_MATRIX",
+                    "GMT_IS_SURFACE",
+                    "GMT_CONTAINER_AND_DATA",
+                    wesn,
+                    tmp_grid.name,
+                    grid,
+                )
+                with xr.open_dataarray(tmp_grid.name) as dataarray:
+                    assert dataarray.shape == shape
+                    npt.assert_allclose(dataarray.data, np.flipud(data))
+                    npt.assert_allclose(
+                        dataarray.coords["x"].actual_range, np.array(wesn[0:2])
+                    )
+                    npt.assert_allclose(
+                        dataarray.coords["y"].actual_range, np.array(wesn[2:4])
+                    )
