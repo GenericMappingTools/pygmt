@@ -56,7 +56,7 @@ def test_put_matrix_fails():
 
 
 def test_put_matrix_grid():
-    "Check that assigning a numpy 2d array to a grid works"
+    "Check that assigning a numpy 2d array to an ASCII and NetCDF grid works"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     wesn = [10, 15, 30, 40, 0, 0]
     inc = [1, 1]
@@ -87,7 +87,7 @@ def test_put_matrix_grid():
                 newdata = tmp_file.loadtxt(dtype=dtype)
                 npt.assert_allclose(newdata, data)
 
-            # Save the data to a netCDF grid and check
+            # Save the data to a netCDF grid and check that xarray can load it
             with GMTTempFile() as tmp_grid:
                 lib.write_data(
                     "GMT_IS_MATRIX",
