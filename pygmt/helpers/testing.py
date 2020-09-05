@@ -80,8 +80,6 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
             file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
             try:
-                from ..figure import Figure  # pylint: disable=import-outside-toplevel
-
                 fig_ref = Figure()
                 fig_test = Figure()
                 func(*args, fig_ref=fig_ref, fig_test=fig_test, **kwargs)
