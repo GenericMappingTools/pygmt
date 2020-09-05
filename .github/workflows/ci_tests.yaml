@@ -65,7 +65,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: goanpeca/setup-miniconda@v1.6.0
+        uses: conda-incubator/setup-miniconda@v1.7.0
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
