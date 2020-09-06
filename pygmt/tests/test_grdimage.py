@@ -98,7 +98,7 @@ def test_grdimage_over_dateline(xrgrid):
 def test_grdimage_central_meridians(grid, proj_type, lon0, fig_ref, fig_test):
     """
     Test that plotting a grid with different central meridians (lon0) using
-    different projection systems work.
+    Hammer (H) and Mollweide (W) projection systems work.
     """
     fig_ref.grdimage(
         "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/15c", cmap="geo"
@@ -115,7 +115,8 @@ def test_grdimage_central_meridians_and_standard_parallels(
 ):
     """
     Test that plotting a grid with different central meridians (lon0) and
-    standard_parallels (lat0) using using different projection systems work.
+    standard_parallels (lat0) using Cylindrical Equidistant (Q) and General
+    Stereographic (S) projection systems work.
     """
     fig_ref.grdimage(
         "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo"
