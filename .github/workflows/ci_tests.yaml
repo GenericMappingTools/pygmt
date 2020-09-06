@@ -65,10 +65,11 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: goanpeca/setup-miniconda@v1.6.0
+        uses: conda-incubator/setup-miniconda@v1.7.0
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
+          miniconda-version: "latest"
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies
@@ -77,7 +78,7 @@ jobs:
           requirements_file=full-conda-requirements.txt
           cat requirements.txt requirements-dev.txt > $requirements_file
           cat << EOF >> $requirements_file
-          gmt=6.1.0
+          gmt=6.1.1
           make
           codecov
           EOF
