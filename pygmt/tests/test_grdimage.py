@@ -109,7 +109,7 @@ def test_grdimage_central_meridians(grid, proj_type, lon0, fig_ref, fig_test):
 @check_figures_equal()
 @pytest.mark.parametrize("lat0", [0, 30])
 @pytest.mark.parametrize("lon0", [0, 123, 180])
-@pytest.mark.parametrize("proj_type", ["Q", "T"])
+@pytest.mark.parametrize("proj_type", ["Q", "S"])
 def test_grdimage_central_meridians_and_standard_parallels(
     grid, proj_type, lon0, lat0, fig_ref, fig_test
 ):
@@ -118,6 +118,6 @@ def test_grdimage_central_meridians_and_standard_parallels(
     standard_parallels (lat0) using using different projection systems work.
     """
     fig_ref.grdimage(
-        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}{lat0}/15c", cmap="geo"
+        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo"
     )
-    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}{lat0}/15c", cmap="geo")
+    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo")
