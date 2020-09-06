@@ -69,6 +69,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     )
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
+    # pylint: disable=invalid-name
     ALLOWED_CHARS = set(string.digits + string.ascii_letters + "_-[]()")
     KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
 
