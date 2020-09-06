@@ -8,7 +8,7 @@ from ..clib import Session
 
 
 def test_begin_end():
-    """"
+    """
     Run a command inside a begin-end modern mode block.
     First, end the global session. When finished, restart it.
     """

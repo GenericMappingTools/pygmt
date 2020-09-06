@@ -119,7 +119,7 @@ class Session:
     """
 
     # The minimum version of GMT required
-    required_version = "6.1.0"
+    required_version = "6.1.1"
 
     @property
     def session_pointer(self):
@@ -725,10 +725,10 @@ class Session:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
                 array = np.asarray(array, dtype=np.datetime64)
-            except ValueError:
+            except ValueError as e:
                 raise GMTInvalidInput(
-                    "Unsupported numpy data type '{}'.".format(array.dtype.type)
-                )
+                    f"Unsupported numpy data type '{array.dtype.type}'."
+                ) from e
         return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
@@ -1065,7 +1065,7 @@ class Session:
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
-            direction, valid=["GMT_IN", "GMT_OUT"], valid_modifiers=METHODS,
+            direction, valid=["GMT_IN", "GMT_OUT"], valid_modifiers=METHODS
         )
 
         buff = ctp.create_string_buffer(self["GMT_VF_LEN"])

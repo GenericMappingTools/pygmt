@@ -23,7 +23,7 @@ jobs:
       # Install GMT
       - name: Install GMT
         shell: bash -l {0}
-        run: conda install -c conda-forge gmt=6.1.0
+        run: conda install -c conda-forge gmt=6.1.1
 
       # Download remote files
       - name: Download remote data

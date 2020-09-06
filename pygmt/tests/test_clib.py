@@ -402,10 +402,6 @@ def test_virtualfile_from_vectors():
             assert output == expected
 
 
-@pytest.mark.xfail(
-    condition=gmt_version < Version("6.1.1"),
-    reason="GMT_Put_Strings only works for GMT 6.1.1 and above",
-)
 def test_virtualfile_from_vectors_one_string_column():
     "Test passing in one column with string dtype into virtual file dataset"
     size = 5
@@ -421,10 +417,6 @@ def test_virtualfile_from_vectors_one_string_column():
         assert output == expected
 
 
-@pytest.mark.xfail(
-    condition=gmt_version < Version("6.1.1"),
-    reason="GMT_Put_Strings only works for GMT 6.1.1 and above",
-)
 def test_virtualfile_from_vectors_two_string_columns():
     "Test passing in two columns of string dtype into virtual file dataset"
     size = 5
@@ -688,7 +680,7 @@ def test_get_default():
     with clib.Session() as lib:
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
-        assert Version(lib.get_default("API_VERSION")) >= Version("6.1.0")
+        assert Version(lib.get_default("API_VERSION")) >= Version("6.1.1")
 
 
 def test_get_default_fails():
