@@ -8,7 +8,6 @@ import os
 from matplotlib.testing.compare import compare_images
 
 from ..exceptions import GMTImageComparisonFailure
-from ..figure import Figure
 
 
 def check_figures_equal(*, tol=0.0, result_dir="result_images"):
@@ -36,19 +35,26 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
 
     >>> import pytest
     >>> import shutil
+    >>> from pygmt import Figure
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
-    ... def test_check_figures_equal(fig_ref, fig_test):
+    ... def test_check_figures_equal():
+    ...     fig_ref = Figure()
     ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
+    ...     fig_test = Figure()
     ...     fig_test.basemap(projection="X5c", region=[0, 5, 0, 5], frame="af")
+    ...     return fig_ref, fig_test
     >>> test_check_figures_equal()
     >>> assert len(os.listdir("tmp_result_images")) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
-    ... def test_check_figures_unequal(fig_ref, fig_test):
+    ... def test_check_figures_unequal():
+    ...     fig_ref = Figure()
     ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
+    ...     fig_test = Figure()
     ...     fig_test.basemap(projection="X5c", region=[0, 3, 0, 3], frame=True)
+    ...     return fig_ref, fig_test
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
     >>> for suffix in ["", "-expected", "-failed-diff"]:
@@ -68,9 +74,7 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
 
         def wrapper(*args, **kwargs):
             try:
-                fig_ref = Figure()
-                fig_test = Figure()
-                func(*args, fig_ref=fig_ref, fig_test=fig_test, **kwargs)
+                fig_ref, fig_test = func(*args, **kwargs)
                 ref_image_path = os.path.join(
                     result_dir, func.__name__ + "-expected.png"
                 )
