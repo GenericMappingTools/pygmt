@@ -175,13 +175,19 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(gridfile, xrgrid):
 
 
 @check_figures_equal()
-def test_grdview_with_perspective_and_zaxis_frame(gridfile, xrgrid):
+def test_grdview_with_perspective_and_zaxis_frame(gridfile, xrgrid, region):
     """
     Run grdview by passing in a grid and plotting an annotated vertical
-    z-axis frame.
+    z-axis frame on a Transverse Mercator (T) projection.
     """
     fig_ref, fig_test = Figure(), Figure()
-    kwargs = dict(perspective=[225, 30], zscale=0.005, frame="zaf")
+    projection = f"T{(region[0]+region[1])/2}/{abs((region[2]+region[3])/2)}"
+    kwargs = dict(
+        projection=projection,
+        perspective=[225, 30],
+        zscale=0.005,
+        frame=["xaf", "yaf", "zaf"],
+    )
     fig_ref.grdview(grid=gridfile, **kwargs)
     fig_test.grdview(grid=xrgrid, **kwargs)
     return fig_ref, fig_test
