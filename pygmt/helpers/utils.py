@@ -21,6 +21,7 @@ def data_kind(data, x=None, y=None, z=None):
     Possible types:
 
     * a file name provided as 'data'
+    * an io.StringIO in-memory stream provided as 'data'
     * an xarray.DataArray provided as 'data'
     * a matrix provided as 'data'
     * 1D arrays x and y (and z, optionally)
@@ -30,8 +31,8 @@ def data_kind(data, x=None, y=None, z=None):
 
     Parameters
     ----------
-    data : str, xarray.DataArray, 2d array, or None
-       Data file name, xarray.DataArray or numpy array.
+    data : str, io.StringIO, xarray.DataArray, 2d array, or None
+       Data file name, io.StringIO, xarray.DataArray or numpy array.
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None
@@ -41,11 +42,13 @@ def data_kind(data, x=None, y=None, z=None):
     Returns
     -------
     kind : str
-        One of: ``'file'``, ``'grid'``, ``'matrix'``, ``'vectors'``.
+        One of: ``'file'``, ``'buffer'``, ``'grid'``, ``'matrix'``,
+        ``'vectors'``.
 
     Examples
     --------
 
+    >>> import io
     >>> import numpy as np
     >>> import xarray as xr
     >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
@@ -54,6 +57,8 @@ def data_kind(data, x=None, y=None, z=None):
     'matrix'
     >>> data_kind(data='my-data-file.txt', x=None, y=None)
     'file'
+    >>> data_kind(data=io.StringIO("sometext"), x=None, y=None)
+    'buffer'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
 
@@ -63,7 +68,7 @@ def data_kind(data, x=None, y=None, z=None):
     if data is not None and (x is not None or y is not None or z is not None):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
-        raise GMTInvalidInput("Must provided both x and y.")
+        raise GMTInvalidInput("Must provide both x and y.")
 
     if isinstance(data, str):
         kind = "file"

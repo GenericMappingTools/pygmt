@@ -9,7 +9,6 @@ import pandas as pd
 from .clib import Session
 from .exceptions import GMTError, GMTInvalidInput
 from .helpers import (
-    GMTTempFile,
     build_arg_string,
     data_kind,
     dummy_context,
