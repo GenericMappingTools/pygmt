@@ -326,10 +326,13 @@ Here's an example:
 
 ```python
 @check_figures_equal()
-def test_my_plotting_case(fig_ref, fig_test):
+def test_my_plotting_case():
   "Test that my plotting function works"
+  fig_ref = Figure()
   fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
+  fig_test = Figure()
   fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+  return fig_ref, fig_test
 ```
 
 Note: This is the recommended way to test plots whenever possible, such as when

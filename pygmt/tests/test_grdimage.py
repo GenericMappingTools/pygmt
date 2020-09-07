@@ -95,30 +95,34 @@ def test_grdimage_over_dateline(xrgrid):
 @check_figures_equal()
 @pytest.mark.parametrize("lon0", [0, 123, 180])
 @pytest.mark.parametrize("proj_type", ["H", "W"])
-def test_grdimage_central_meridians(grid, proj_type, lon0, fig_ref, fig_test):
+def test_grdimage_central_meridians(grid, proj_type, lon0):
     """
     Test that plotting a grid with different central meridians (lon0) using
     Hammer (H) and Mollweide (W) projection systems work.
     """
+    fig_ref = Figure()
     fig_ref.grdimage(
         "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/15c", cmap="geo"
     )
+    fig_test = Figure()
     fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/15c", cmap="geo")
+    return fig_ref, fig_test
 
 
 @check_figures_equal()
 @pytest.mark.parametrize("lat0", [0, 30])
 @pytest.mark.parametrize("lon0", [0, 123, 180])
 @pytest.mark.parametrize("proj_type", ["Q", "S"])
-def test_grdimage_central_meridians_and_standard_parallels(
-    grid, proj_type, lon0, lat0, fig_ref, fig_test
-):
+def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0, lat0):
     """
     Test that plotting a grid with different central meridians (lon0) and
     standard_parallels (lat0) using Cylindrical Equidistant (Q) and General
     Stereographic (S) projection systems work.
     """
+    fig_ref = Figure()
     fig_ref.grdimage(
         "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo"
     )
+    fig_test = Figure()
     fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo")
+    return fig_ref, fig_test
