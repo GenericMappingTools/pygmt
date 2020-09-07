@@ -7,38 +7,41 @@ from .. import Figure, which
 from ..datasets import load_earth_relief
 from ..exceptions import GMTInvalidInput
 from ..helpers import data_kind
+from ..helpers.testing import check_figures_equal
+
+
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
+    "Test region as lonmin, lonmax, latmin, latmax"
+    return (-116, -109, -47, -44)
 
 
 @pytest.fixture(scope="module", name="grid")
-def fixture_grid():
+def fixture_grid(region):
     "Load the grid data from the sample earth_relief file"
     return load_earth_relief(registration="gridline").sel(
-        lat=slice(-49, -42), lon=slice(-118, -107)
+        lat=slice(region[2], region[3]), lon=slice(region[0], region[1])
     )
 
 
-@pytest.mark.xfail(
-    reason="Baseline image generated using Cartesian instead of Geographic coordinates"
-)
-@pytest.mark.mpl_image_compare
-def test_grdview_grid_dataarray(grid):
+@check_figures_equal()
+def test_grdview_grid_dataarray(grid, region, fig_ref, fig_test):
     """
     Run grdview by passing in a grid as an xarray.DataArray.
     """
-    fig = Figure()
-    fig.grdview(grid=grid)
-    return fig
+    fig_ref.grdview(grid="@earth_relief_01d_g", region=region)
+    fig_test.grdview(grid=grid)
 
 
 @pytest.mark.mpl_image_compare
-def test_grdview_grid_file_with_region_subset():
+def test_grdview_grid_file_with_region_subset(region):
     """
     Run grdview by passing in a grid filename, and cropping it to a region.
     """
     gridfile = which("@earth_relief_01d_g", download="a")
 
     fig = Figure()
-    fig.grdview(grid=gridfile, region=[-116, -109, -47, -44])
+    fig.grdview(grid=gridfile, region=region)
     return fig
 
 
@@ -54,19 +57,15 @@ def test_grdview_wrong_kind_of_grid(grid):
         fig.grdview(grid=dataset)
 
 
-@pytest.mark.xfail(
-    reason="Baseline image generated using Cartesian instead of Geographic coordinates"
-)
-@pytest.mark.mpl_image_compare
-def test_grdview_with_perspective(grid):
+@check_figures_equal()
+def test_grdview_with_perspective(grid, region, fig_ref, fig_test):
     """
     Run grdview by passing in a grid and setting a perspective viewpoint with
     an azimuth from the SouthEast and an elevation angle 15 degrees from the
     z-plane.
     """
-    fig = Figure()
-    fig.grdview(grid=grid, perspective=[135, 15])
-    return fig
+    fig_ref.grdview(grid="@earth_relief_01d_g", region=region, perspective=[135, 15])
+    fig_test.grdview(grid=grid, perspective=[135, 15])
 
 
 @pytest.mark.xfail(
