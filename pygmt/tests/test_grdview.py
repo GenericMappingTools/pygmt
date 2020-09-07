@@ -25,12 +25,15 @@ def fixture_grid(region):
 
 
 @check_figures_equal()
-def test_grdview_grid_dataarray(grid, region, fig_ref, fig_test):
+def test_grdview_grid_dataarray(grid, region):
     """
     Run grdview by passing in a grid as an xarray.DataArray.
     """
+    fig_ref = Figure()
     fig_ref.grdview(grid="@earth_relief_01d_g", region=region)
+    fig_test = Figure()
     fig_test.grdview(grid=grid)
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare
@@ -58,14 +61,17 @@ def test_grdview_wrong_kind_of_grid(grid):
 
 
 @check_figures_equal()
-def test_grdview_with_perspective(grid, region, fig_ref, fig_test):
+def test_grdview_with_perspective(grid, region):
     """
     Run grdview by passing in a grid and setting a perspective viewpoint with
     an azimuth from the SouthEast and an elevation angle 15 degrees from the
     z-plane.
     """
+    fig_ref = Figure()
     fig_ref.grdview(grid="@earth_relief_01d_g", region=region, perspective=[135, 15])
+    fig_test = Figure()
     fig_test.grdview(grid=grid, perspective=[135, 15])
+    return fig_ref, fig_test
 
 
 @pytest.mark.xfail(
