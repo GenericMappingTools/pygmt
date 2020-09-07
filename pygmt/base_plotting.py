@@ -3,7 +3,6 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
-import csv
 import numpy as np
 import pandas as pd
 
@@ -14,7 +13,6 @@ from .helpers import (
     dummy_context,
     data_kind,
     fmt_docstring,
-    GMTTempFile,
     use_alias,
     kwargs_to_strings,
 )
@@ -986,28 +984,16 @@ class BasePlotting:
         if position is not None and isinstance(position, str):
             kwargs["F"] += f'+c{position}+t"{text}"'
 
-        with GMTTempFile(suffix=".txt") as tmpfile:
-            with Session() as lib:
-                fname = textfiles if kind == "file" else ""
-                if kind == "vectors":
-                    if position is not None:
-                        fname = ""
-                    else:
-                        pd.DataFrame.from_dict(
-                            {
-                                "x": np.atleast_1d(x),
-                                "y": np.atleast_1d(y),
-                                "text": np.atleast_1d(text),
-                            }
-                        ).to_csv(
-                            tmpfile.name,
-                            sep="\t",
-                            header=False,
-                            index=False,
-                            quoting=csv.QUOTE_NONE,
-                        )
-                    fname = tmpfile.name
-
+        with Session() as lib:
+            file_context = dummy_context(textfiles) if kind == "file" else ""
+            if kind == "vectors":
+                if position is not None:
+                    file_context = dummy_context("")
+                else:
+                    file_context = lib.virtualfile_from_vectors(
+                        np.atleast_1d(x), np.atleast_1d(y), np.atleast_1d(text)
+                    )
+            with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
 
