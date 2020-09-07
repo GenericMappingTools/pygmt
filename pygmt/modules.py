@@ -1,6 +1,7 @@
 """
 Non-plot GMT modules.
 """
+import numpy as np
 import xarray as xr
 
 from .clib import Session
@@ -74,8 +75,9 @@ def info(table, **kwargs):
 
     Parameters
     ----------
-    table : pandas.DataFrame or str
-        Either a pandas dataframe or a file name to an ASCII data table.
+    table : pandas.DataFrame or np.ndarray or str
+        Either a pandas dataframe, a 1D/2D numpy.ndarray or a file name to an
+        ASCII data table.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
@@ -93,9 +95,10 @@ def info(table, **kwargs):
         if kind == "file":
             file_context = dummy_context(table)
         elif kind == "matrix":
-            if not hasattr(table, "values"):
-                raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
-            file_context = lib.virtualfile_from_matrix(table.values)
+            _table = np.asanyarray(table)
+            if table.ndim == 1:  # 1D arrays need to be 2D and transposed
+                _table = np.transpose(np.atleast_2d(_table))
+            file_context = lib.virtualfile_from_matrix(_table)
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
 

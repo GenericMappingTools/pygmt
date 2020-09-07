@@ -37,6 +37,23 @@ def test_info_dataframe():
     assert output == expected_output
 
 
+def test_info_2d_array():
+    "Make sure info works on 2D numpy.ndarray inputs"
+    table = np.loadtxt(POINTS_DATA)
+    output = info(table=table)
+    expected_output = (
+        "<matrix memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+    )
+    assert output == expected_output
+
+
+def test_info_1d_array():
+    "Make sure info works on 1D numpy.ndarray inputs"
+    output = info(table=np.arange(20))
+    expected_output = "<matrix memory>: N = 20 <0/19>\n"
+    assert output == expected_output
+
+
 def test_info_per_column():
     "Make sure the per_column option works"
     output = info(table=POINTS_DATA, per_column=True)
@@ -63,10 +80,8 @@ def test_info_nearest_multiple():
 
 def test_info_fails():
     """
-    Make sure info raises an exception if not given a file name or pandas
-    DataFrame
+    Make sure info raises an exception if not given either a file name, pandas
+    DataFrame, or numpy ndarray
     """
     with pytest.raises(GMTInvalidInput):
         info(table=xr.DataArray(21))
-    with pytest.raises(GMTInvalidInput):
-        info(table=np.arange(20))
