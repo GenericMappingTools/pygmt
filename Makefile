@@ -50,3 +50,4 @@ clean:
 	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache htmlcov coverage.xml
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
+	rm -rvf result_images
