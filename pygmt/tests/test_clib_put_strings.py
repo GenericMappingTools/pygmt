@@ -14,10 +14,6 @@ with clib.Session() as _lib:
     gmt_version = Version(_lib.info["version"])
 
 
-@pytest.mark.xfail(
-    condition=gmt_version < Version("6.1.1"),
-    reason="GMT_Put_Strings only works for GMT 6.1.1 and above",
-)
 def test_put_strings():
     "Check that assigning a numpy array of dtype str to a dataset works"
     with clib.Session() as lib:
