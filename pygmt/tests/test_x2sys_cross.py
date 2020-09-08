@@ -20,12 +20,14 @@ from ..helpers import data_kind
 @pytest.fixture(name="mock_x2sys_home")
 def fixture_mock_x2sys_home(monkeypatch):
     """
-    Set the X2SYS_HOME environment variable to "X2SYS_TMP" in the current
-    working directory for the test session
+    Set X2SYS_HOME environment variable to "X2SYS_TMP" in the current
+    working directory, and change working directory to it for the duration of
+    the test session
     """
     x2sys_home = os.path.join(os.getcwd(), "X2SYS_TMP")
     os.makedirs(name=x2sys_home, exist_ok=True)
     monkeypatch.setenv("X2SYS_HOME", x2sys_home)
+    monkeypatch.chdir(x2sys_home)
     yield x2sys_home
     shutil.rmtree(x2sys_home)  # cleanup X2SYS_TMP directory after tests
 
