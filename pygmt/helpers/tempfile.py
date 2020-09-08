@@ -110,7 +110,7 @@ class GMTTempFile:
 
 
 @contextmanager
-def tempfile_from_buffer(buf):
+def tempfile_from_buffer(buf, **kwargs):
     """
     Store an io.StringIO buffer stream inside a temporary text file.
 
@@ -126,6 +126,8 @@ def tempfile_from_buffer(buf):
     buf : io.StringIO
         The in-memory text stream buffer that will be included in the temporary
         file.
+    kwargs : dict
+        Keyword arguments passed to the underlying GMTTempFile constructor.
 
     Yields
     ------
@@ -147,7 +149,7 @@ def tempfile_from_buffer(buf):
     ...     print(result.strip())
     0 4.5 0.5 5 1 5.5
     """
-    with GMTTempFile() as tmpfile:
+    with GMTTempFile(**kwargs) as tmpfile:
         buf.seek(0)  # Change stream position back to start
         with open(file=tmpfile.name, mode="w") as fdst:
             shutil.copyfileobj(fsrc=buf, fdst=fdst)
