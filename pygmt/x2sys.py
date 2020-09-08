@@ -2,6 +2,9 @@
 GMT supplementary X2SYS module for crossover analysis.
 """
 import contextlib
+import io
+import os
+import re
 
 import pandas as pd
 
@@ -14,6 +17,7 @@ from .helpers import (
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
+    tempfile_from_buffer,
     use_alias,
 )
 
@@ -263,8 +267,31 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
             if kind == "file":
                 file_contexts.append(dummy_context(track))
             elif kind == "matrix":
-                raise NotImplementedError(f"{type(track)} inputs are not supported yet")
-                # file_contexts.append(lib.virtualfile_from_matrix(track.values))
+                # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
+                # $X2SYS_HOME/TAGNAME/TAGNAME.tag file using regex search
+                try:
+                    with open(
+                        os.path.join(
+                            os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag"
+                        ),
+                        "r",
+                    ) as tagfile:
+                        suffix = re.search(
+                            pattern=r"-E(\S*)",  # match file extension after -E
+                            string=tagfile.readlines()[-1],  # e.g. "-Dxyz -Exyz -I1/1"
+                        ).group(1)
+                except AttributeError:  # 'NoneType' object has no attribute 'group'
+                    suffix = kwargs["T"]  # tempfile suffix will be same as TAG name
+
+                # Save pandas DataFrame data to io.StringIO stream buffer
+                buf = io.StringIO()
+                track.to_csv(
+                    path_or_buf=buf,
+                    sep="\t",
+                    index=False,
+                    date_format="%Y-%m-%dT%H:%M:%S.%fZ",
+                )
+                file_contexts.append(tempfile_from_buffer(buf=buf, suffix=f".{suffix}"))
             else:
                 raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
 
@@ -278,8 +305,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
             # Read temporary csv output to a pandas table
             if outfile == tmpfile.name:  # if outfile isn't set, return pd.DataFrame
-                # Read the tab-separated ASCII table
-                table = pd.read_csv(
+                # Read the tab-separated ASCII table into pandas.DataFrame
+                result = pd.read_csv(
                     tmpfile.name,
                     sep="\t",
                     header=2,  # Column names are on 2nd row
@@ -287,7 +314,9 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                     parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
                 )
                 # Remove the "# " from "# x" in the first column
-                result = table.rename(columns={table.columns[0]: table.columns[0][2:]})
+                result = result.rename(
+                    columns={result.columns[0]: result.columns[0][2:]}
+                )
             elif outfile != tmpfile.name:  # if outfile is set, output in outfile only
                 result = None
 

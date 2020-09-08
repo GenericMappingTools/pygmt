@@ -36,7 +36,8 @@ def fixture_tracks():
     Load track data from the sample bathymetry file
     """
     dataframe = load_sample_bathymetry()
-    return [dataframe.query(expr="bathymetry > -20")]  # reduce size of dataset
+    dataframe.columns = ["x", "y", "z"]  # longitude, latitude, bathymetry
+    return [dataframe.query(expr="z > -20")]  # reduce size of dataset
 
 
 def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
@@ -81,25 +82,23 @@ def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
 def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
     """
     Run x2sys_cross by passing in one dataframe, and output external crossovers
-    to a pandas.DataFrame. Not actually implemented yet, wait for
-    https://github.com/GenericMappingTools/gmt/issues/3717
+    to a pandas.DataFrame.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=mock_x2sys_home) as tmpdir:
         tag = os.path.basename(tmpdir)
-        x2sys_init(tag=tag, fmtfile="xyz", force=True)
+        x2sys_init(tag=tag, fmtfile="xyz", suffix="tsv", force=True)
 
-        with pytest.raises(NotImplementedError):
-            _ = x2sys_cross(tracks=tracks, tag=tag, coe="i", verbose="i")
+        output = x2sys_cross(tracks=tracks, tag=tag, coe="i", verbose="i")
 
-        # assert isinstance(output, pd.DataFrame)
-        # assert output.shape == (4, 12)
-        # columns = list(output.columns)
-        # assert columns[:6] == ["x", "y", "t_1", "t_2", "dist_1", "dist_2"]
-        # assert columns[6:] == ["head_1","head_2","vel_1","vel_2","z_X","z_M"]
-        # assert output.dtypes["t_1"].type == np.datetime64
-        # assert output.dtypes["t_2"].type == np.datetime64
+        assert isinstance(output, pd.DataFrame)
+        assert output.shape == (14, 12)
+        columns = list(output.columns)
+        assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
+        assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
+        assert output.dtypes["i_1"].type == np.object_  # np.datetime64
+        assert output.dtypes["i_2"].type == np.object_  # np.datetime64
 
-    # return output
+    return output
 
 
 def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
@@ -136,7 +135,7 @@ def test_x2sys_cross_invalid_tracks_input_type(tracks):
     Run x2sys_cross using tracks input that is not a pandas.DataFrame (matrix)
     or str (file) type, which would raise a GMTInvalidInput error.
     """
-    invalid_tracks = tracks[0].to_xarray().bathymetry
+    invalid_tracks = tracks[0].to_xarray().z
     assert data_kind(invalid_tracks) == "grid"
     with pytest.raises(GMTInvalidInput):
         x2sys_cross(tracks=[invalid_tracks])
