@@ -81,7 +81,7 @@ def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
     """
     with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
-        x2sys_init(tag=tag, fmtfile="xyz", suffix="tsv", force=True)
+        x2sys_init(tag=tag, fmtfile="xyz", force=True)
 
         output = x2sys_cross(tracks=tracks, tag=tag, coe="i", verbose="i")
 
@@ -90,8 +90,8 @@ def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
-        assert output.dtypes["i_1"].type == np.object_  # np.datetime64
-        assert output.dtypes["i_2"].type == np.object_  # np.datetime64
+        assert output.dtypes["i_1"].type == np.object_
+        assert output.dtypes["i_2"].type == np.object_
 
     return output
 

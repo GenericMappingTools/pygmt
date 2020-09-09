@@ -4,6 +4,7 @@ GMT supplementary X2SYS module for crossover analysis.
 import contextlib
 import os
 import re
+from pathlib import Path
 
 import pandas as pd
 
@@ -287,18 +288,18 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
             elif kind == "matrix":
                 # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
                 # $X2SYS_HOME/TAGNAME/TAGNAME.tag file using regex search
+                lastline = (
+                    Path(os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag")
+                    .read_text()
+                    .strip()
+                    .split("\n")[-1]
+                )  # e.g. "-Dxyz -Etsv -I1/1"
                 try:
-                    with open(
-                        os.path.join(
-                            os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag"
-                        )
-                    ) as tagfile:
-                        suffix = re.search(
-                            pattern=r"-E(\S*)",  # match file extension after -E
-                            string=tagfile.readlines()[-1],  # e.g. "-Dxyz -Exyz -I1/1"
-                        ).group(1)
+                    # 1st try to match file extension after -E
+                    suffix = re.search(pattern=r"-E(\S*)", string=lastline).group(1)
                 except AttributeError:  # 'NoneType' object has no attribute 'group'
-                    suffix = kwargs["T"]  # tempfile suffix will be same as TAG name
+                    # 2nd try to match file extension after -D
+                    suffix = re.search(pattern=r"-D(\S*)", string=lastline).group(1)
 
                 # Save pandas.DataFrame track data to temporary file
                 file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
