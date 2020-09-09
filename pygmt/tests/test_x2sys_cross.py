@@ -52,7 +52,7 @@ def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
         outfile = os.path.join(tmpdir, "tmp_coe.txt")
         output = x2sys_cross(
-            tracks=["@tut_ship.xyz"], tag=tag, coe="i", outfile=outfile, verbose="i"
+            tracks=["@tut_ship.xyz"], tag=tag, coe="i", outfile=outfile
         )
 
         assert output is None  # check that output is None since outfile is set
@@ -70,7 +70,7 @@ def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
     with TemporaryDirectory(prefix="X2SYS", dir=mock_x2sys_home) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
-        output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, coe="i", verbose="i")
+        output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, coe="i")
 
         assert isinstance(output, pd.DataFrame)
         assert output.shape == (14294, 12)
@@ -118,9 +118,7 @@ def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
             with open(os.path.join(os.getcwd(), f"track_{i}.xyz"), mode="w") as fname:
                 np.savetxt(fname=fname, X=np.random.rand(10, 3))
 
-        output = x2sys_cross(
-            tracks=["track_0.xyz", "track_1.xyz"], tag=tag, coe="e", verbose="i"
-        )
+        output = x2sys_cross(tracks=["track_0.xyz", "track_1.xyz"], tag=tag, coe="e")
 
         assert isinstance(output, pd.DataFrame)
         assert output.shape == (24, 12)
