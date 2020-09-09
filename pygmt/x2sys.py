@@ -26,16 +26,17 @@ def tempfile_from_dftrack(track, suffix):
     Saves a pandas.DataFrame track table to a temporary tab-separated ASCII
     text file with a suffix (e.g. 'xyz').
     """
-    with GMTTempFile(suffix=suffix) as tmpfile:
-        tmpfile.close()  # close the file stream
+    try:
+        tmpfile = GMTTempFile(suffix=suffix)
         track.to_csv(
             path_or_buf=tmpfile.name,
             sep="\t",
             index=False,
             date_format="%Y-%m-%dT%H:%M:%S.%fZ",
         )
-
         yield tmpfile.name
+    finally:
+        tmpfile.close()  # close the file stream
 
 
 @fmt_docstring
