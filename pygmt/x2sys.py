@@ -2,7 +2,6 @@
 GMT supplementary X2SYS module for crossover analysis.
 """
 import contextlib
-import io
 import os
 import re
 
@@ -17,9 +16,25 @@ from .helpers import (
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
-    tempfile_from_buffer,
     use_alias,
 )
+
+
+@contextlib.contextmanager
+def tempfile_from_dftrack(track, suffix):
+    """
+    Saves a pandas.DataFrame track table to a temporary tab-separated ASCII
+    text file with a suffix (e.g. 'xyz').
+    """
+    with GMTTempFile(suffix=suffix) as tmpfile:
+        track.to_csv(
+            path_or_buf=tmpfile.name,
+            sep="\t",
+            index=False,
+            date_format="%Y-%m-%dT%H:%M:%S.%fZ",
+        )
+
+        yield tmpfile.name
 
 
 @fmt_docstring
@@ -283,15 +298,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                 except AttributeError:  # 'NoneType' object has no attribute 'group'
                     suffix = kwargs["T"]  # tempfile suffix will be same as TAG name
 
-                # Save pandas DataFrame data to io.StringIO stream buffer
-                buf = io.StringIO()
-                track.to_csv(
-                    path_or_buf=buf,
-                    sep="\t",
-                    index=False,
-                    date_format="%Y-%m-%dT%H:%M:%S.%fZ",
-                )
-                file_contexts.append(tempfile_from_buffer(buf=buf, suffix=f".{suffix}"))
+                # Save pandas.DataFrame track data to temporary file
+                file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
             else:
                 raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
 
