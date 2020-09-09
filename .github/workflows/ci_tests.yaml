@@ -65,10 +65,11 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: goanpeca/setup-miniconda@v1.6.0
+        uses: conda-incubator/setup-miniconda@v1.7.0
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
+          miniconda-version: "latest"
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies

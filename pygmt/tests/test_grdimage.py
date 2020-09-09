@@ -100,10 +100,6 @@ def test_grdimage_fails():
         fig.grdimage(np.arange(20).reshape((4, 5)))
 
 
-# This test needs to run first before the other tests (on Linux at least) so
-# that a black image isn't plotted due to an `inf` value when resampling.
-# See also https://github.com/GenericMappingTools/pygmt/pull/476
-@pytest.mark.runfirst
 @pytest.mark.mpl_image_compare
 def test_grdimage_over_dateline(xrgrid):
     """
@@ -121,9 +117,12 @@ def test_grdimage_over_dateline(xrgrid):
 
 
 @check_figures_equal()
-def test_grdimage_central_longitude(grid, fig_ref, fig_test):
+def test_grdimage_central_longitude(grid):
     """
     Test that plotting a grid centred at different longitudes/meridians work.
     """
+    fig_ref = Figure()
     fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
+    fig_test = Figure()
     fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+    return fig_ref, fig_test
