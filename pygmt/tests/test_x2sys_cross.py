@@ -3,7 +3,6 @@
 Tests for x2sys_cross
 """
 import os
-import shutil
 from tempfile import TemporaryDirectory
 
 import numpy as np
@@ -20,16 +19,10 @@ from ..helpers import data_kind
 @pytest.fixture(name="mock_x2sys_home")
 def fixture_mock_x2sys_home(monkeypatch):
     """
-    Set X2SYS_HOME environment variable to "X2SYS_TMP" in the current
-    working directory, and change working directory to it for the duration of
-    the test session
+    Set the X2SYS_HOME environment variable to the current working directory
+    for the test session
     """
-    x2sys_home = os.path.join(os.getcwd(), "X2SYS_TMP")
-    os.makedirs(name=x2sys_home, exist_ok=True)
-    monkeypatch.setenv("X2SYS_HOME", x2sys_home)
-    monkeypatch.chdir(x2sys_home)
-    yield x2sys_home
-    shutil.rmtree(path=x2sys_home, ignore_errors=True)
+    monkeypatch.setenv("X2SYS_HOME", os.getcwd())
 
 
 @pytest.fixture(scope="module", name="tracks")
@@ -47,7 +40,7 @@ def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
     Run x2sys_cross by passing in a filename, and output internal crossovers to
     an ASCII txt file
     """
-    with TemporaryDirectory(prefix="X2SYS", dir=mock_x2sys_home) as tmpdir:
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
         outfile = os.path.join(tmpdir, "tmp_coe.txt")
@@ -67,7 +60,7 @@ def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
     Run x2sys_cross by passing in a filename, and output internal crossovers to
     a pandas.DataFrame
     """
-    with TemporaryDirectory(prefix="X2SYS", dir=mock_x2sys_home) as tmpdir:
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, coe="i")
@@ -86,7 +79,7 @@ def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
     Run x2sys_cross by passing in one dataframe, and output external crossovers
     to a pandas.DataFrame.
     """
-    with TemporaryDirectory(prefix="X2SYS", dir=mock_x2sys_home) as tmpdir:
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", suffix="tsv", force=True)
 
@@ -108,7 +101,7 @@ def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
     Run x2sys_cross by passing in two filenames, and output external crossovers
     to a pandas.DataFrame
     """
-    with TemporaryDirectory(prefix="X2SYS", dir=mock_x2sys_home) as tmpdir:
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
 
@@ -146,7 +139,7 @@ def test_x2sys_cross_region_interpolation_numpoints(mock_x2sys_home):
     Test that x2sys_cross's region (R), interpolation (l) and numpoints (W)
     arguments work.
     """
-    with TemporaryDirectory(prefix="X2SYS", dir=mock_x2sys_home) as tmpdir:
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
         output = x2sys_cross(
@@ -169,7 +162,7 @@ def test_x2sys_cross_trackvalues(mock_x2sys_home):
     """
     Test that x2sys_cross's trackvalues (Z) argument work.
     """
-    with TemporaryDirectory(prefix="X2SYS", dir=mock_x2sys_home) as tmpdir:
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, trackvalues=True)
