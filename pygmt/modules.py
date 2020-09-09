@@ -1,8 +1,6 @@
 """
 Non-plot GMT modules.
 """
-import re
-
 import numpy as np
 import xarray as xr
 
@@ -127,9 +125,9 @@ def info(table, **kwargs):
         if any(arg in kwargs for arg in ["C", "I", "T"]):
             # Converts certain output types into a numpy array
             # instead of a raw string that is less useful.
-            result = np.loadtxt(
-                re.sub(pattern="-R|-T|/", repl=" ", string=result).splitlines()
-            )
+            if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
+                result = result[2:].replace("/", " ")
+            result = np.loadtxt(result.splitlines())
 
         return result
 
