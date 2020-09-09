@@ -16,6 +16,7 @@ from .helpers import (
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
+    unique_name,
     use_alias,
 )
 
@@ -27,16 +28,16 @@ def tempfile_from_dftrack(track, suffix):
     text file with a suffix (e.g. 'xyz').
     """
     try:
-        tmpfile = GMTTempFile(suffix=suffix)
+        tmpfilename = f"track-{unique_name()[:7]}.{suffix}"
         track.to_csv(
-            path_or_buf=tmpfile.name,
+            path_or_buf=tmpfilename,
             sep="\t",
             index=False,
             date_format="%Y-%m-%dT%H:%M:%S.%fZ",
         )
-        yield tmpfile.name
+        yield tmpfilename
     finally:
-        tmpfile.close()  # close the file stream
+        os.remove(tmpfilename)
 
 
 @fmt_docstring

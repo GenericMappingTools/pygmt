@@ -61,7 +61,6 @@ class GMTTempFile:
         args = dict(prefix=prefix, suffix=suffix, delete=False)
         with NamedTemporaryFile(**args) as tmpfile:
             self.name = tmpfile.name
-            self.close = tmpfile.close
 
     def __enter__(self):
         return self
