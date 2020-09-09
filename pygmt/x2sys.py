@@ -27,6 +27,7 @@ def tempfile_from_dftrack(track, suffix):
     text file with a suffix (e.g. 'xyz').
     """
     with GMTTempFile(suffix=suffix) as tmpfile:
+        tmpfile.close()  # close the file stream
         track.to_csv(
             path_or_buf=tmpfile.name,
             sep="\t",
