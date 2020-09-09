@@ -29,7 +29,7 @@ def fixture_mock_x2sys_home(monkeypatch):
     monkeypatch.setenv("X2SYS_HOME", x2sys_home)
     monkeypatch.chdir(x2sys_home)
     yield x2sys_home
-    shutil.rmtree(x2sys_home)  # cleanup X2SYS_TMP directory after tests
+    shutil.rmtree(path=x2sys_home, ignore_errors=True)
 
 
 @pytest.fixture(scope="module", name="tracks")
