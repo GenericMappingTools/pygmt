@@ -69,6 +69,7 @@ def test_grdimage_file():
     return fig
 
 
+@pytest.mark.xfail(reason="Upstream bug in GMT 6.1.1")
 @check_figures_equal()
 def test_grdimage_xarray_shading(grid, fig_ref, fig_test):
     """
