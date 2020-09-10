@@ -24,8 +24,23 @@ from .helpers import (
 @contextlib.contextmanager
 def tempfile_from_dftrack(track, suffix):
     """
-    Saves a pandas.DataFrame track table to a temporary tab-separated ASCII
-    text file with a suffix (e.g. 'xyz').
+    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text
+    file with a unique name (to prevent clashes when running x2sys_cross),
+    adding a suffix extension to the end.
+
+    Parameters
+    ----------
+    track : pandas.DataFrame
+        A table holding track data with coordinate (x, y) or (lon, lat) values,
+        and (optionally) time (t).
+    suffix : str
+        File extension, e.g. xyz, tsv, etc.
+
+    Yields
+    ------
+    tmpfilename : str
+        A temporary tab-separated value file with a unique name holding the
+        track data. E.g. 'track-1a2b3c4.tsv'.
     """
     try:
         tmpfilename = f"track-{unique_name()[:7]}.{suffix}"
@@ -180,9 +195,10 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    tracks : str or list
+    tracks : pandas.DataFrame or str or list
         A table or a list of tables with (x, y) or (lon, lat) values in the
-        first two columns. Supported formats are ASCII, native binary, or
+        first two columns. Track(s) can be provided as pandas DataFrame tables
+        or file names. Supported file formats are ASCII, native binary, or
         COARDS netCDF 1-D data. More columns may also be present.
 
         If the filenames are missing their file extension, we will append the
