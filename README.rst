@@ -85,9 +85,6 @@ Contacting Us
   open issue or pull request.
 * We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
   where you can ask questions and leave comments.
-* This project is released with a `Contributor Code of Conduct
-  <https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
-  By participating in this project you agree to abide by its terms.
 
 
 Contributing
