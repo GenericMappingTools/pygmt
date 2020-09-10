@@ -29,7 +29,7 @@ fig.colorbar(
     cmap="oleron",
     position="jTC+w6c/1c+h",  # justified inside map frame (j) at Top Center (TC)
     box=True,
-    frame=["+Loleron", "xaf", "y+lm"],
+    frame=["+Loleron", "y+lm"],
     scale=10,
 )
 # Create a colorbar designed for seismic tomography- roma
@@ -37,7 +37,7 @@ fig.colorbar(
     cmap="roma",
     position="x1.2c/4.75c+w6c/1c+h",  # plot using paper coordinates (x) at 1.2cm,4.75cm
     box=True,
-    frame=["+Lroma", "xaf", "y+lm/s"],
+    frame=["+Lroma", "y+lm/s"],
     scale=10,
 )
 # Create a colorbar showing the scientific rainbow - batlow
@@ -45,7 +45,7 @@ fig.colorbar(
     cmap="batlow",
     position="g0.45/6.6+w6c/1c+h",  # plot using map coordinates (g) at lon/lat 0.45/6.6
     box=True,
-    frame=["+Lbatlow", "xaf", r"y+l\260C"],
+    frame=["+Lbatlow", r"y+l\260C"],
     scale=10,
 )
 
