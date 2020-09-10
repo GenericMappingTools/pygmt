@@ -8,6 +8,8 @@ etc.
 import textwrap
 import functools
 
+import numpy as np
+
 from .utils import is_nonstr_iter
 from ..exceptions import GMTInvalidInput
 
@@ -36,9 +38,35 @@ COMMON_OPTIONS = {
         color : str
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
+    "V": """\
+        verbose : str
+            Select verbosity level [Default is w], which modulates the messages
+            written to stderr. Choose among 7 levels of verbosity:
+
+            - **q** - Quiet, not even fatal error messages are produced
+            - **e** - Error messages only
+            - **w** - Warnings [Default]
+            - **t** - Timings (report runtimes for time-intensive algorthms);
+            - **i** - Informational messages (same as "verbose=True")
+            - **c** - Compatibility warnings
+            - **d** - Debugging messages""",
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
+    "j": """\
+        distcalc : str
+            ``e|f|g``.
+            Determine how spherical distances are calculated.
+
+            - **e** - Ellipsoidal (or geodesic) mode
+            - **f** - Flat Earth mode
+            - **g** - Great circle distance [Default]
+
+            All spherical distance calculations depend on the current ellipsoid
+            (PROJ_ELLIPSOID), the definition of the mean radius
+            (PROJ_MEAN_RADIUS), and the specification of latitude type
+            (PROJ_AUX_LATITUDE). Geodesic distance calculations is also
+            controlled by method (PROJ_GEODESIC).""",
     "n": """\
         interpolation : str
             ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
@@ -49,6 +77,11 @@ COMMON_OPTIONS = {
             - 'c' for bicubic [Default]
             - 'l' for bilinear
             - 'n' for nearest-neighbor""",
+    "registration": """\
+        registration : str
+            ``[g|p]``
+            Force output grid to be gridline (g) or pixel (p) node registered.
+            Default is gridline (g).""",
 }
 
 
@@ -175,7 +208,13 @@ def use_alias(**aliases):
     R = bla J = meh
     >>> my_module(region='bla', projection='meh')
     R = bla J = meh
-
+    >>> my_module(
+    ...    region='bla', projection='meh', J="bla"
+    ... )  # doctest: +NORMALIZE_WHITESPACE
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput:
+        Arguments in short-form (J) and long-form (projection) can't coexist
     """
 
     def alias_decorator(module_func):
@@ -189,6 +228,10 @@ def use_alias(**aliases):
             New module that parses and replaces the registered aliases.
             """
             for arg, alias in aliases.items():
+                if alias in kwargs and arg in kwargs:
+                    raise GMTInvalidInput(
+                        f"Arguments in short-form ({arg}) and long-form ({alias}) can't coexist"
+                    )
                 if alias in kwargs:
                     kwargs[arg] = kwargs.pop(alias)
             return module_func(*args, **kwargs)
@@ -261,6 +304,23 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
     {'bla': (1, 2, 3), 'foo': '', 'i': '5,6'}
     args: 123
+    >>> import datetime
+    >>> module(
+    ...     R=[
+    ...         np.datetime64("2010-01-01T16:00:00"),
+    ...         datetime.datetime(2020, 1, 1, 12, 23, 45),
+    ...     ]
+    ... )
+    {'R': '2010-01-01T16:00:00/2020-01-01T12:23:45.000000'}
+    >>> import pandas as pd
+    >>> import xarray as xr
+    >>> module(
+    ...     R=[
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00")),
+    ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
+    ...     ]
+    ... )
+    {'R': '2005-01-01T08:00:00.000000000/2015-01-01T12:00:00.123456'}
 
     """
     valid_conversions = [
@@ -297,9 +357,19 @@ def kwargs_to_strings(convert_bools=True, **conversions):
                     value = kwargs[arg]
                     issequence = fmt in separators
                     if issequence and is_nonstr_iter(value):
-                        kwargs[arg] = separators[fmt].join(
-                            "{}".format(item) for item in value
-                        )
+                        for index, item in enumerate(value):
+                            try:
+                                # check if there is a space " " when converting
+                                # a pandas.Timestamp/xr.DataArray to a string.
+                                # If so, use np.datetime_as_string instead.
+                                assert " " not in str(item)
+                            except AssertionError:
+                                # convert datetime-like item to ISO 8601
+                                # string format like YYYY-MM-DDThh:mm:ss.ffffff
+                                value[index] = np.datetime_as_string(
+                                    np.asarray(item, dtype=np.datetime64)
+                                )
+                        kwargs[arg] = separators[fmt].join(f"{item}" for item in value)
             # Execute the original function and return its output
             return module_func(*args, **kwargs)
 

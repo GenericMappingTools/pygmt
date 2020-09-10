@@ -47,8 +47,8 @@ def grdcut(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str
-        The name of the input grid file.
+    grid : str or xarray.DataArray
+        The file name of the input grid or the grid loaded as a DataArray.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
@@ -94,12 +94,7 @@ def grdcut(grid, **kwargs):
             if kind == "file":
                 file_context = dummy_context(grid)
             elif kind == "grid":
-                raise NotImplementedError(
-                    "xarray.DataArray is not supported as the input grid yet!"
-                )
-                # file_context = lib.virtualfile_from_grid(grid)
-                # See https://github.com/GenericMappingTools/gmt/pull/3532
-                # for a feature request.
+                file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
 
@@ -113,6 +108,7 @@ def grdcut(grid, **kwargs):
         if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
             with xr.open_dataarray(outgrid) as dataarray:
                 result = dataarray.load()
+                _ = result.gmt  # load GMTDataArray accessor information
         else:
             result = None  # if user sets an outgrid, return None
 

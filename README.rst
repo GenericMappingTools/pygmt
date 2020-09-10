@@ -13,8 +13,11 @@ PyGMT
     :alt: Travis CI build status
     :target: https://travis-ci.org/GenericMappingTools/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
-    :alt: GitHub Actions build status
-    :target: https://github.com/GenericMappingTools/pygmt/actions
+    :alt: GitHub Actions Tests status
+    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
+.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Latest%20Tests/badge.svg
+    :alt: GitHub Actions GMT Latest Tests status
+    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3A%22GMT+Latest+Tests%22
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/pygmt
