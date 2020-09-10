@@ -3,7 +3,6 @@ GMT supplementary X2SYS module for crossover analysis.
 """
 import contextlib
 import os
-import re
 from pathlib import Path
 
 import pandas as pd
@@ -287,19 +286,16 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                 file_contexts.append(dummy_context(track))
             elif kind == "matrix":
                 # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
-                # $X2SYS_HOME/TAGNAME/TAGNAME.tag file using regex search
+                # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
                 lastline = (
                     Path(os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag")
                     .read_text()
                     .strip()
                     .split("\n")[-1]
                 )  # e.g. "-Dxyz -Etsv -I1/1"
-                try:
-                    # 1st try to match file extension after -E
-                    suffix = re.search(pattern=r"-E(\S*)", string=lastline).group(1)
-                except AttributeError:  # 'NoneType' object has no attribute 'group'
-                    # 2nd try to match file extension after -D
-                    suffix = re.search(pattern=r"-D(\S*)", string=lastline).group(1)
+                for item in sorted(lastline.split()):  # sort list alphabetically
+                    if item.startswith(("-E", "-D")):  # prefer -Etsv over -Dxyz
+                        suffix = item[2:]  # e.g. tsv (1st choice) or xyz (2nd choice)
 
                 # Save pandas.DataFrame track data to temporary file
                 file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
@@ -325,8 +321,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                     parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
                 )
                 # Remove the "# " from "# x" in the first column
-                result = table.rename(columns={table.columns[0]: table.columns[0][2:]})
+                table = table.rename(columns={table.columns[0]: table.columns[0][2:]})
             elif outfile != tmpfile.name:  # if outfile is set, output in outfile only
-                result = None
+                table = None
 
-    return result
+    return table
