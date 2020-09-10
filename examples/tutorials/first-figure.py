@@ -66,8 +66,7 @@ fig.show()
 #
 # You’ll probably have noticed several things that are different from classic
 # command-line GMT. Many of these changes reflect the new GMT modern execution mode that
-# will be part of the future 6.0 release. A few are PyGMT exclusive (like the
-# ``savefig`` method).
+# are part of the GMT 6. A few are PyGMT exclusive (like the ``savefig`` method).
 #
 # 1. The name of method is ``coast`` instead of ``pscoast``. As a general rule, all
 #    ``ps*`` modules had their ``ps`` prefix removed. The exceptions are:
