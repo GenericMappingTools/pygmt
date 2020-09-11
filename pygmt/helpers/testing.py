@@ -80,13 +80,15 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
         old_sig = inspect.signature(func)
 
         @pytest.mark.parametrize("ext", extensions)
-        def wrapper(*args, ext, request, **kwargs):
+        def wrapper(*args, ext="png", request=None, **kwargs):
             if "ext" in old_sig.parameters:
                 kwargs["ext"] = ext
             if "request" in old_sig.parameters:
                 kwargs["request"] = request
-
-            file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
+            try:
+                file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
+            except AttributeError:  # 'NoneType' object has no attribute 'node'
+                file_name = func.__name__
             try:
                 fig_ref, fig_test = func(*args, **kwargs)
                 ref_image_path = os.path.join(result_dir, f"{file_name}-expected.{ext}")
