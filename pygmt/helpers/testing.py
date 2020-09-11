@@ -15,9 +15,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     """
     Decorator for test cases that generate and compare two figures.
 
-    The decorated function must take two arguments, *fig_ref* and *fig_test*,
-    and draw the reference and test images on them. After the function
-    returns, the figures are saved and compared.
+    The decorated function must return two arguments, *fig_ref* and *fig_test*,
+    these two figures will then be saved and compared against each other.
 
     This decorator is practically identical to matplotlib's check_figures_equal
     function, but adapted for PyGMT figures. See also the original code at
