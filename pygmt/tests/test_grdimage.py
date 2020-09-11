@@ -69,6 +69,27 @@ def test_grdimage_file():
     return fig
 
 
+@pytest.mark.xfail(reason="Upstream bug in GMT 6.1.1")
+@check_figures_equal()
+def test_grdimage_xarray_shading(grid, fig_ref, fig_test):
+    """
+    Test that shading works well for xarray.
+    See https://github.com/GenericMappingTools/pygmt/issues/364
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    kwargs = dict(
+        region=[-180, 180, -90, 90],
+        frame=True,
+        projection="Cyl_stere/6i",
+        cmap="geo",
+        shading=True,
+    )
+
+    fig_ref.grdimage("@earth_relief_01d_g", **kwargs)
+    fig_test.grdimage(grid, **kwargs)
+    return fig_ref, fig_test
+
+
 def test_grdimage_fails():
     "Should fail for unrecognized input"
     fig = Figure()

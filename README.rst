@@ -45,7 +45,7 @@ Disclaimer
 All of the API (functions/classes/interfaces) is subject to change until we reach v1.0.0
 as per the `semantic versioning specification <https://semver.org/spec/v2.0.0.html>`__.
 There may be non-backward compatible changes as we experiment with new design ideas and
-implement new features. **This is not a finished product, use with caution**
+implement new features. **This is not a finished product, use with caution.**
 
 We welcome any feedback and ideas!
 Let us know by submitting
@@ -85,9 +85,6 @@ Contacting Us
   open issue or pull request.
 * We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
   where you can ask questions and leave comments.
-* This project is released with a `Contributor Code of Conduct
-  <https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
-  By participating in this project you agree to abide by its terms.
 
 
 Contributing
