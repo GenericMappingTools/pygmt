@@ -1,16 +1,17 @@
 """
 Helper functions for testing.
 """
-
 import inspect
 import os
+import string
 
 from matplotlib.testing.compare import compare_images
 
 from ..exceptions import GMTImageComparisonFailure
+from ..figure import Figure
 
 
-def check_figures_equal(*, tol=0.0, result_dir="result_images"):
+def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
     """
     Decorator for test cases that generate and compare two figures.
 
@@ -25,6 +26,8 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
 
     Parameters
     ----------
+    extensions : list
+        The extensions to test. Default is ["png"].
     tol : float
         The RMS threshold above which the test is considered failed.
     result_dir : str
@@ -66,19 +69,27 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
     ...     )
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
+    ALLOWED_CHARS = set(string.digits + string.ascii_letters + "_-[]()")
+    KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
+        import pytest
 
         os.makedirs(result_dir, exist_ok=True)
         old_sig = inspect.signature(func)
 
-        def wrapper(*args, **kwargs):
+        @pytest.mark.parametrize("ext", extensions)
+        def wrapper(*args, ext, request, **kwargs):
+            if "ext" in old_sig.parameters:
+                kwargs["ext"] = ext
+            if "request" in old_sig.parameters:
+                kwargs["request"] = request
+
+            file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
             try:
                 fig_ref, fig_test = func(*args, **kwargs)
-                ref_image_path = os.path.join(
-                    result_dir, func.__name__ + "-expected.png"
-                )
-                test_image_path = os.path.join(result_dir, func.__name__ + ".png")
+                ref_image_path = os.path.join(result_dir, f"{file_name}-expected.{ext}")
+                test_image_path = os.path.join(result_dir, f"{file_name}.{ext}")
                 fig_ref.savefig(ref_image_path)
                 fig_test.savefig(test_image_path)
 
@@ -109,8 +120,17 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
             for param in old_sig.parameters.values()
             if param.name not in {"fig_test", "fig_ref"}
         ]
+        if "ext" not in old_sig.parameters:
+            parameters += [inspect.Parameter("ext", KEYWORD_ONLY)]
+        if "request" not in old_sig.parameters:
+            parameters += [inspect.Parameter("request", KEYWORD_ONLY)]
         new_sig = old_sig.replace(parameters=parameters)
         wrapper.__signature__ = new_sig
+
+        # reach a bit into pytest internals to hoist the marks from
+        # our wrapped function
+        new_marks = getattr(func, "pytestmark", []) + wrapper.pytestmark
+        wrapper.pytestmark = new_marks
 
         return wrapper
 
