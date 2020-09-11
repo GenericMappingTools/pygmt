@@ -5,6 +5,7 @@ PyGMT
 
 `Documentation (development version) <https://www.pygmt.org/dev>`__ |
 `Contact <https://forum.generic-mapping-tools.org>`__ |
+`Try Online <https://github.com/GenericMappingTools/try-gmt>`__
 
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
