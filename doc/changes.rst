@@ -35,6 +35,7 @@ Enhancements:
 
 Documentation:
 
+* Link to try-gmt binder repository (#598)
 * Improve docstring of data_kind() to include xarray grid (#588)
 * Improve the documentation of Figure.shift_origin() (#536)
 * Add shading to grdview gallery example (#506)
