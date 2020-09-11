@@ -1,6 +1,82 @@
 Changelog
 =========
 
+Release v0.2.0 (2020/09/11)
+---------------------------
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg
+   :alt: Digital Object Identifier for the Zenodo archive
+   :target: https://doi.org/10.5281/zenodo.3781524
+
+Highlights:
+
+* 🎉 **Second minor release of PyGMT** 🎉
+* Minimum required GMT version is now 6.1.1 or newer (#577)
+* Plotting xarray grids using grdimage and grdview should not crash anymore and works for most cases (#560)
+* Easier time-series plots with support for datetime-like inputs to plot (#464) and the region argument (#562)
+
+New Features:
+
+* Wrap GMT_Put_Strings to pass str columns into GMT C API directly (#520)
+* Wrap meca (#516)
+* Wrap x2sys_init and x2sys_cross (#546)
+* Let grdcut() accept xarray.DataArray as input (#541)
+* Initialize a GMTDataArrayAccessor (#500)
+
+Enhancements:
+
+* Allow passing in pandas dataframes to x2sys_cross (#591)
+* Sensible array outputs for pygmt info (#575)
+* Allow pandas.DataFrame table and 1D/2D numpy array inputs into pygmt.info (#574)
+* Add auto-legend feature to grdcontour and contour (#568)
+* Add common alias verbose (V) (#550)
+* Let load_earth_relief() support all resolutions and optional subregion (#542)
+* Allow load_earth_relief() to load pixel or gridline registered data (#509)
+
+Documentation:
+
+* Improve docstring of data_kind() to include xarray grid (#588)
+* Improve the documentation of Figure.shift_origin() (#536)
+* Fix the grdtrack example to avoid crashes on macOS (#531)
+* Add shading to grdview gallery example (#506)
+
+Bug Fixes:
+
+* Ensure surface and grdcut loads GMTDataArray accessor info into xarray (#539)
+* Raise an error if short- and long-form arguments coexist (#537)
+* Fix the grdtrack example to avoid crashes on macOS (#531)
+* Properly allow for either pixel or gridline registered grids (#476)
+
+Maintenance:
+
+* Add a test for xarray shading (#581)
+* Remove expected failures on grdview tests (#589)
+* Redesign check_figures_equal testing function to be more explicit (#590)
+* Cut Windows CI build time in half to 15 min (#586)
+* Add a test for Session.write_data() writing netCDF grids (#583)
+* Add a test to make sure shift_origin does not crash (#580)
+* Add testing.check_figures_equal to avoid storing baseline images (#555)
+* Eliminate unnecessary jobs from Travis CI (#567)
+* Improve the workflow to test both GMT master and 6.1 branches (#554)
+* Automatically cancel in-progress CI runs of old commits (#544)
+* Github Actions CI for testing GMT master branch (#485)
+* Remove the Stickler CI configuration file (#538)
+* Cache GMT remote data as artifacts on Github (#530)
+* Run style checks using GitHub Actions instead of Azure Pipelines (#519)
+* Bump the required minimum GMT version to 6.1.0 (#507)
+* Eliminate Azure Pipelines CI jobs, use GitHub Actions instead (#513)
+* Let pytest generate both HTML and XML coverage reports (#512)
+* Run Continuous Integration tests on Github Actions (#475)
+
+Contributors:
+
+* `Dongdong Tian <https://github.com/seisman>`__
+* `Wei Ji Leong <https://github.com/weiji14>`__
+* `Tyler Newton <https://github.com/tjnewton>`__
+* `Liam Toney <https://github.com/liamtoney>`__
+
+----
+
 Release v0.1.2 (2020/07/07)
 ---------------------------
 
