@@ -11,58 +11,58 @@ Release v0.2.0 (2020/09/11)
 Highlights:
 
 * 🎉 **Second minor release of PyGMT** 🎉
-* Minimum required GMT version is now 6.1.1 or newer (#577)
-* Plotting xarray grids using grdimage and grdview should not crash anymore and works for most cases (#560)
-* Easier time-series plots with support for datetime-like inputs to plot (#464) and the region argument (#562)
+* Minimum required GMT version is now 6.1.1 or newer (`#577 <https://github.com/GenericMappingTools/pygmt/pull/577>`__)
+* Plotting xarray grids using grdimage and grdview should not crash anymore and works for most cases (`#560 <https://github.com/GenericMappingTools/pygmt/pull/560>`__)
+* Easier time-series plots with support for datetime-like inputs to plot (`#464 <https://github.com/GenericMappingTools/pygmt/pull/464>`__) and the region argument (`#562 <https://github.com/GenericMappingTools/pygmt/pull/562>`__)
 
 New Features:
 
-* Wrap GMT_Put_Strings to pass str columns into GMT C API directly (#520)
-* Wrap meca (#516)
-* Wrap x2sys_init and x2sys_cross (#546)
-* Let grdcut() accept xarray.DataArray as input (#541)
-* Initialize a GMTDataArrayAccessor (#500)
+* Wrap GMT_Put_Strings to pass str columns into GMT C API directly (`#520 <https://github.com/GenericMappingTools/pygmt/pull/520>`__)
+* Wrap meca (`#516 <https://github.com/GenericMappingTools/pygmt/pull/516>`__)
+* Wrap x2sys_init and x2sys_cross (`#546 <https://github.com/GenericMappingTools/pygmt/pull/546>`__)
+* Let grdcut() accept xarray.DataArray as input (`#541 <https://github.com/GenericMappingTools/pygmt/pull/541>`__)
+* Initialize a GMTDataArrayAccessor (`#500 <https://github.com/GenericMappingTools/pygmt/pull/500>`__)
 
 Enhancements:
 
-* Allow passing in pandas dataframes to x2sys_cross (#591)
-* Sensible array outputs for pygmt info (#575)
-* Allow pandas.DataFrame table and 1D/2D numpy array inputs into pygmt.info (#574)
-* Add auto-legend feature to grdcontour and contour (#568)
-* Add common alias verbose (V) (#550)
-* Let load_earth_relief() support all resolutions and optional subregion (#542)
-* Allow load_earth_relief() to load pixel or gridline registered data (#509)
+* Allow passing in pandas dataframes to x2sys_cross (`#591 <https://github.com/GenericMappingTools/pygmt/pull/591>`__)
+* Sensible array outputs for pygmt info (`#575 <https://github.com/GenericMappingTools/pygmt/pull/575>`__)
+* Allow pandas.DataFrame table and 1D/2D numpy array inputs into pygmt.info (`#574 <https://github.com/GenericMappingTools/pygmt/pull/574>`__)
+* Add auto-legend feature to grdcontour and contour (`#568 <https://github.com/GenericMappingTools/pygmt/pull/568>`__)
+* Add common alias verbose (V) (`#550 <https://github.com/GenericMappingTools/pygmt/pull/550>`__)
+* Let load_earth_relief() support all resolutions and optional subregion (`#542 <https://github.com/GenericMappingTools/pygmt/pull/542>`__)
+* Allow load_earth_relief() to load pixel or gridline registered data (`#509 <https://github.com/GenericMappingTools/pygmt/pull/509>`__)
 
 Documentation:
 
-* Link to try-gmt binder repository (#598)
-* Improve docstring of data_kind() to include xarray grid (#588)
-* Improve the documentation of Figure.shift_origin() (#536)
-* Add shading to grdview gallery example (#506)
+* Link to try-gmt binder repository (`#598 <https://github.com/GenericMappingTools/pygmt/pull/598>`__)
+* Improve docstring of data_kind() to include xarray grid (`#588 <https://github.com/GenericMappingTools/pygmt/pull/588>`__)
+* Improve the documentation of Figure.shift_origin() (`#536 <https://github.com/GenericMappingTools/pygmt/pull/536>`__)
+* Add shading to grdview gallery example (`#506 <https://github.com/GenericMappingTools/pygmt/pull/506>`__)
 
 Bug Fixes:
 
-* Ensure surface and grdcut loads GMTDataArray accessor info into xarray (#539)
-* Raise an error if short- and long-form arguments coexist (#537)
-* Fix the grdtrack example to avoid crashes on macOS (#531)
-* Properly allow for either pixel or gridline registered grids (#476)
+* Ensure surface and grdcut loads GMTDataArray accessor info into xarray (`#539 <https://github.com/GenericMappingTools/pygmt/pull/539>`__)
+* Raise an error if short- and long-form arguments coexist (`#537 <https://github.com/GenericMappingTools/pygmt/pull/537>`__)
+* Fix the grdtrack example to avoid crashes on macOS (`#531 <https://github.com/GenericMappingTools/pygmt/pull/531>`__)
+* Properly allow for either pixel or gridline registered grids (`#476 <https://github.com/GenericMappingTools/pygmt/pull/476>`__)
 
 Maintenance:
 
-* Add a test for xarray shading (#581)
-* Remove expected failures on grdview tests (#589)
-* Redesign check_figures_equal testing function to be more explicit (#590)
-* Cut Windows CI build time in half to 15 min (#586)
-* Add a test for Session.write_data() writing netCDF grids (#583)
-* Add a test to make sure shift_origin does not crash (#580)
-* Add testing.check_figures_equal to avoid storing baseline images (#555)
-* Eliminate unnecessary jobs from Travis CI (#567) and Azure Pipelines (#513)
-* Improve the workflow to test both GMT master (#485) and 6.1 branches (#554)
-* Automatically cancel in-progress CI runs of old commits (#544)
-* Remove the Stickler CI configuration file (#538), run style checks using Github Actions (#519)
-* Cache GMT remote data as artifacts on Github (#530)
-* Let pytest generate both HTML and XML coverage reports (#512)
-* Run Continuous Integration tests on Github Actions (#475)
+* Add a test for xarray shading (`#581 <https://github.com/GenericMappingTools/pygmt/pull/581>`__)
+* Remove expected failures on grdview tests (`#589 <https://github.com/GenericMappingTools/pygmt/pull/589>`__)
+* Redesign check_figures_equal testing function to be more explicit (`#590 <https://github.com/GenericMappingTools/pygmt/pull/590>`__)
+* Cut Windows CI build time in half to 15 min (`#586 <https://github.com/GenericMappingTools/pygmt/pull/586>`__)
+* Add a test for Session.write_data() writing netCDF grids (`#583 <https://github.com/GenericMappingTools/pygmt/pull/583>`__)
+* Add a test to make sure shift_origin does not crash (`#580 <https://github.com/GenericMappingTools/pygmt/pull/580>`__)
+* Add testing.check_figures_equal to avoid storing baseline images (`#555 <https://github.com/GenericMappingTools/pygmt/pull/555>`__)
+* Eliminate unnecessary jobs from Travis CI (`#567 <https://github.com/GenericMappingTools/pygmt/pull/567>`__) and Azure Pipelines (`#513 <https://github.com/GenericMappingTools/pygmt/pull/513>`__)
+* Improve the workflow to test both GMT master (`#485 <https://github.com/GenericMappingTools/pygmt/pull/485>`__) and 6.1 branches (`#554 <https://github.com/GenericMappingTools/pygmt/pull/554>`__)
+* Automatically cancel in-progress CI runs of old commits (`#544 <https://github.com/GenericMappingTools/pygmt/pull/544>`__)
+* Remove the Stickler CI configuration file (`#538 <https://github.com/GenericMappingTools/pygmt/pull/538>`__), run style checks using Github Actions (`#519 <https://github.com/GenericMappingTools/pygmt/pull/519>`__)
+* Cache GMT remote data as artifacts on Github (`#530 <https://github.com/GenericMappingTools/pygmt/pull/530>`__)
+* Let pytest generate both HTML and XML coverage reports (`#512 <https://github.com/GenericMappingTools/pygmt/pull/512>`__)
+* Run Continuous Integration tests on Github Actions (`#475 <https://github.com/GenericMappingTools/pygmt/pull/475>`__)
 
 Contributors:
 
