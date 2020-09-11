@@ -37,7 +37,6 @@ Documentation:
 
 * Improve docstring of data_kind() to include xarray grid (#588)
 * Improve the documentation of Figure.shift_origin() (#536)
-* Fix the grdtrack example to avoid crashes on macOS (#531)
 * Add shading to grdview gallery example (#506)
 
 Bug Fixes:
@@ -56,15 +55,11 @@ Maintenance:
 * Add a test for Session.write_data() writing netCDF grids (#583)
 * Add a test to make sure shift_origin does not crash (#580)
 * Add testing.check_figures_equal to avoid storing baseline images (#555)
-* Eliminate unnecessary jobs from Travis CI (#567)
-* Improve the workflow to test both GMT master and 6.1 branches (#554)
+* Eliminate unnecessary jobs from Travis CI (#567) and Azure Pipelines (#513)
+* Improve the workflow to test both GMT master (#485) and 6.1 branches (#554)
 * Automatically cancel in-progress CI runs of old commits (#544)
-* Github Actions CI for testing GMT master branch (#485)
-* Remove the Stickler CI configuration file (#538)
+* Remove the Stickler CI configuration file (#538), run style checks using Github Actions (#519)
 * Cache GMT remote data as artifacts on Github (#530)
-* Run style checks using GitHub Actions instead of Azure Pipelines (#519)
-* Bump the required minimum GMT version to 6.1.0 (#507)
-* Eliminate Azure Pipelines CI jobs, use GitHub Actions instead (#513)
 * Let pytest generate both HTML and XML coverage reports (#512)
 * Run Continuous Integration tests on Github Actions (#475)
 
