@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Release v0.2.0 (2020/09/11)
+Release v0.2.0 (2020/09/12)
 ---------------------------
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4025418.svg
