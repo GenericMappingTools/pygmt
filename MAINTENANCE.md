@@ -154,17 +154,13 @@ Open `index.html` and check for any flaws or error messages.
 
 ### Pushing to PyPI and updating the documentation
 
-After the changelog is updated, making a release should be as simple as creating a new
-git tag and pushing it to Github:
+After the changelog is updated, making a release can be done by going to
+https://github.com/GenericMappingTools/pygmt/releases, editing the draft release,
+and clicking on publish. A git tag will also be created, make sure that this
+tag is a proper version number (following [Semantic Versioning](https://semver.org/))
+with a leading `v`. E.g. `v0.2.1`.
 
-```bash
-git tag v0.2.0
-git push --tags
-```
-
-The tag should be version number (following [Semantic Versioning](https://semver.org/))
-with a leading `v`.
-This should trigger Travis to do all the work for us.
+Once the release/tag is created, this should trigger Travis to do all the work for us.
 A new source distribution will be uploaded to PyPI, a new folder with the documentation
 HTML will be pushed to *gh-pages*, and the `latest` link will be updated to point to
 this new folder.
