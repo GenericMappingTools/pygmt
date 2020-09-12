@@ -21,6 +21,7 @@ assignees: ''
 
 **After release**:
 - [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) [Usually done automatically by conda-forge's bot]
+- [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt
 
 ---
 
