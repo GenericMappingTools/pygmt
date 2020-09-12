@@ -211,6 +211,9 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Non-plot GMT modules.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
 <span class="kn">from</span> <span class="nn">.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_string</span><span class="p">,</span>
@@ -263,18 +266,21 @@
 
 <div class="viewcode-block" id="info"><a class="viewcode-back" href="../../api/generated/pygmt.info.html#pygmt.info">[docs]</a><span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;per_column&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;nearest_multiple&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get information about data tables.</span>
 
-<span class="sd">    Reads from files and finds the extreme values in each of the columns.</span>
-<span class="sd">    It recognizes NaNs and will print warnings if the number of columns vary</span>
-<span class="sd">    from record to record. As an option, it will find the extent of the first</span>
-<span class="sd">    n columns rounded up and down to the nearest multiple of the supplied</span>
-<span class="sd">    increments. By default, this output will be in the form *-Rw/e/s/n*,</span>
-<span class="sd">    or the output will be in column form for as many columns as there are</span>
-<span class="sd">    increments provided. The *nearest_multiple* option will provide a</span>
-<span class="sd">    *-Tzmin/zmax/dz* string for makecpt.</span>
+<span class="sd">    Reads from files and finds the extreme values in each of the columns</span>
+<span class="sd">    reported as min/max pairs. It recognizes NaNs and will print warnings if</span>
+<span class="sd">    the number of columns vary from record to record. As an option, it will</span>
+<span class="sd">    find the extent of the first two columns rounded up and down to the nearest</span>
+<span class="sd">    multiple of the supplied increments given by *spacing*. Such output will be</span>
+<span class="sd">    in a numpy.ndarray form ``[w, e, s, n]``, which can be used directly as the</span>
+<span class="sd">    *region* argument for other modules (hence only dx and dy are needed). If</span>
+<span class="sd">    the *per_column* option is combined with *spacing*, then the numpy.ndarray</span>
+<span class="sd">    output will be rounded up/down for as many columns as there are increments</span>
+<span class="sd">    provided in *spacing*. A similar option *nearest_multiple* option will</span>
+<span class="sd">    provide a numpy.ndarray in the form of ``[zmin, zmax, dz]`` for makecpt.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`gmtinfo.html`</span>
 
@@ -282,28 +288,58 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    fname : str</span>
-<span class="sd">        The file name of the input data table file.</span>
+<span class="sd">    table : pandas.DataFrame or np.ndarray or str</span>
+<span class="sd">        Either a pandas dataframe, a 1D/2D numpy.ndarray or a file name to an</span>
+<span class="sd">        ASCII data table.</span>
 <span class="sd">    per_column : bool</span>
 <span class="sd">        Report the min/max values per column in separate columns.</span>
 <span class="sd">    spacing : str</span>
 <span class="sd">        ``&#39;[b|p|f|s]dx[/dy[/dz...]]&#39;``.</span>
 <span class="sd">        Report the min/max of the first n columns to the nearest multiple of</span>
-<span class="sd">        the provided increments and output results in the form *-Rw/e/s/n*</span>
-<span class="sd">        (unless *per_column* is set).</span>
+<span class="sd">        the provided increments and output results in the form</span>
+<span class="sd">        ``[w, e, s, n]``.</span>
 <span class="sd">    nearest_multiple : str</span>
 <span class="sd">        ``&#39;dz[+ccol]&#39;``</span>
 <span class="sd">        Report the min/max of the first (0&#39;th) column to the nearest multiple</span>
-<span class="sd">        of dz and output this as the string *-Tzmin/zmax/dz*.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&#39;info&#39; only accepts file names.&quot;</span><span class="p">)</span>
+<span class="sd">        of dz and output this in the form ``[zmin, zmax, dz]``.</span>
 
-    <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-        <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">fname</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="s2">&quot;-&gt;&quot;</span> <span class="o">+</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
-        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    output : np.ndarray or str</span>
+<span class="sd">        Return type depends on whether any of the &#39;per_column&#39;, &#39;spacing&#39;, or</span>
+<span class="sd">        &#39;nearest_multiple&#39; parameters are set.</span>
+
+<span class="sd">        - np.ndarray if either of the above parameters are used.</span>
+<span class="sd">        - str if none of the above parameters are used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="n">file_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
+            <span class="n">_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">table</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 1D arrays need to be 2D and transposed</span>
+                <span class="n">_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">_table</span><span class="p">))</span>
+            <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_matrix</span><span class="p">(</span><span class="n">_table</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
+                <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">fname</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="s2">&quot;-&gt;&quot;</span> <span class="o">+</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">]):</span>
+            <span class="c1"># Converts certain output types into a numpy array</span>
+            <span class="c1"># instead of a raw string that is less useful.</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;-R&quot;</span><span class="p">,</span> <span class="s2">&quot;-T&quot;</span><span class="p">)):</span>  <span class="c1"># e.g. -R0/1/2/3 or -T0/9/1</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
 
 
 <div class="viewcode-block" id="which"><a class="viewcode-back" href="../../api/generated/pygmt.which.html#pygmt.which">[docs]</a><span class="nd">@fmt_docstring</span>
@@ -424,6 +460,74 @@
         <span class="p">)</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;set&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GMTDataArrayAccessor"><a class="viewcode-back" href="../../api/generated/pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor">[docs]</a><span class="nd">@xr</span><span class="o">.</span><span class="n">register_dataarray_accessor</span><span class="p">(</span><span class="s2">&quot;gmt&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">GMTDataArrayAccessor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the GMT extension for :class:`xarray.DataArray`.</span>
+
+<span class="sd">    You can access various GMT specific metadata about your grid as follows:</span>
+
+<span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_relief</span>
+<span class="sd">    &gt;&gt;&gt; # Use the global Earth relief grid with 1 degree spacing</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(resolution=&quot;01d&quot;)</span>
+
+<span class="sd">    &gt;&gt;&gt; # See if grid uses Gridline (0) or Pixel (1) registration</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.registration</span>
+<span class="sd">    1</span>
+<span class="sd">    &gt;&gt;&gt; # See if grid uses Cartesian (0) or Geographic (1) coordinate system</span>
+<span class="sd">    &gt;&gt;&gt; grid.gmt.gtype</span>
+<span class="sd">    1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xarray_obj</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span> <span class="o">=</span> <span class="n">xarray_obj</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">encoding</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>  <span class="c1"># filepath to NetCDF source</span>
+            <span class="c1"># From the shortened summary information of `grdinfo`,</span>
+            <span class="c1"># get grid registration in column 10, and grid type in column 11</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span>
+                <span class="nb">int</span><span class="p">,</span> <span class="n">grdinfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="s2">&quot;10,11&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Default to Gridline registration</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Default to Cartesian grid type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">registration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Registration type of the grid, either Gridline (0) or Pixel (1).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span>
+
+    <span class="nd">@registration</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">registration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_registration</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid grid registration value: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">, should be a boolean of &quot;</span>
+                <span class="s2">&quot;either 0 for Gridline registration or 1 for Pixel registration&quot;</span>
+            <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">gtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Coordinate system type of the grid, either Cartesian (0) or Geographic</span>
+<span class="sd">        (1).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span>
+
+    <span class="nd">@gtype</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">gtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_gtype</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid coordinate system type: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">, should be a boolean of &quot;</span>
+                <span class="s2">&quot;either 0 for Cartesian or 1 for Geographic&quot;</span>
+            <span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -440,7 +544,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 

@@ -300,6 +300,7 @@
         <span class="k">if</span> <span class="n">outfile</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if user did not set outfile, return DataArray</span>
             <span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataarray</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">gmt</span>  <span class="c1"># load GMTDataArray accessor information</span>
         <span class="k">elif</span> <span class="n">outfile</span> <span class="o">!=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if user sets an outfile, return None</span>
             <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -320,7 +321,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 

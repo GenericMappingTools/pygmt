@@ -137,6 +137,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.meca.html">pygmt.Figure.meca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.makecpt.html">pygmt.makecpt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.savefig.html">pygmt.Figure.savefig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.show.html">pygmt.Figure.show</a></li>
@@ -145,6 +146,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -289,6 +291,7 @@ polygons, or symbols at those locations on a map.</p>
 <li><p>S = skip</p></li>
 <li><p>W = pen</p></li>
 <li><p>i = columns</p></li>
+<li><p>l = label</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -315,6 +318,12 @@ arcs. To draw them as straight lines, use <em>A</em>.</p></li>
 <code class="docutils literal notranslate"><span class="pre">'[cut[unit]][+z]'</span></code></p></li>
 <li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Skip input points outside region <code class="docutils literal notranslate"><span class="pre">'[p|t]'</span></code></p></li>
 <li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Set pen attributes for lines or the outline of symbols.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Add a legend entry for the contour being plotted. Normally, the
+annotated contour is selected for the legend. You can select the
+regular contour instead, or both of them, by considering the label
+to be of the format [<em>annotcontlabel</em>][/<em>contlabel</em>]. If either
+label contains a slash (/) character then use <code class="docutils literal notranslate"><span class="pre">|</span></code> as the
+separator for the two labels instead.</p></li>
 </ul>
 </dd>
 </dl>
@@ -346,7 +355,7 @@ arcs. To draw them as straight lines, use <em>A</em>.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 

@@ -137,6 +137,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.Figure.shift_origin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.meca.html">pygmt.Figure.meca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.makecpt.html">pygmt.makecpt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.savefig.html">pygmt.Figure.savefig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.show.html">pygmt.Figure.show</a></li>
@@ -145,6 +146,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -274,7 +276,7 @@
 <code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">shift_origin</code><span class="sig-paren">(</span><em class="sig-param">xshift=None</em>, <em class="sig-param">yshift=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure.shift_origin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.Figure.shift_origin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shift plot origin in x and/or y directions.</p>
 <p>This method shifts plot origin relative to the current origin by
-(<em>xshift</em>,*yshift*) and optionally append the length unit (<strong>c</strong>,
+(<em>xshift</em>, <em>yshift</em>) and optionally append the length unit (<strong>c</strong>,
 <strong>i</strong>, or <strong>p</strong>).</p>
 <p>Prepend <strong>a</strong> to shift the origin back to the original position after
 plotting, prepend <strong>c</strong> to center the plot on the center of the paper
@@ -282,7 +284,7 @@ plotting, prepend <strong>c</strong> to center the plot on the center of the pap
 the fixed lower left corner of the page, or prepend <strong>r</strong> [Default] to
 move the origin relative to its current location.</p>
 <p>Detailed usage at
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/GMT_Docs.html#plot-positioning-and-layout-the-x-y-options">https://docs.generic-mapping-tools.org/latest/GMT_Docs.html#plot-positioning-and-layout-the-x-y-options</a></p>
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/options.html#plot-positioning-and-layout-the-x-y-options">https://docs.generic-mapping-tools.org/latest/cookbook/options.html#plot-positioning-and-layout-the-x-y-options</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -319,7 +321,7 @@ move the origin relative to its current location.</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 

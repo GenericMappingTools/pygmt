@@ -47,8 +47,8 @@
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.surface" href="pygmt.surface.html" />
-    <link rel="prev" title="pygmt.blockmedian" href="pygmt.blockmedian.html" />
+    <link rel="next" title="pygmt.grdinfo" href="pygmt.grdinfo.html" />
+    <link rel="prev" title="pygmt.GMTDataArrayAccessor" href="pygmt.GMTDataArrayAccessor.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -123,16 +123,14 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#data-processing">Data Processing</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#metadata">Metadata</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pygmt.GMTDataArrayAccessor.html">pygmt.GMTDataArrayAccessor</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.info</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdinfo.html">pygmt.grdinfo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -259,16 +257,19 @@
 <h1>pygmt.info<a class="headerlink" href="#pygmt-info" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pygmt.info">
-<code class="sig-prename descclassname">pygmt.</code><code class="sig-name descname">info</code><span class="sig-paren">(</span><em class="sig-param">fname</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/modules.html#info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pygmt.</code><code class="sig-name descname">info</code><span class="sig-paren">(</span><em class="sig-param">table</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/modules.html#info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get information about data tables.</p>
-<p>Reads from files and finds the extreme values in each of the columns.
-It recognizes NaNs and will print warnings if the number of columns vary
-from record to record. As an option, it will find the extent of the first
-n columns rounded up and down to the nearest multiple of the supplied
-increments. By default, this output will be in the form <em>-Rw/e/s/n</em>,
-or the output will be in column form for as many columns as there are
-increments provided. The <em>nearest_multiple</em> option will provide a
-<em>-Tzmin/zmax/dz</em> string for makecpt.</p>
+<p>Reads from files and finds the extreme values in each of the columns
+reported as min/max pairs. It recognizes NaNs and will print warnings if
+the number of columns vary from record to record. As an option, it will
+find the extent of the first two columns rounded up and down to the nearest
+multiple of the supplied increments given by <em>spacing</em>. Such output will be
+in a numpy.ndarray form <code class="docutils literal notranslate"><span class="pre">[w,</span> <span class="pre">e,</span> <span class="pre">s,</span> <span class="pre">n]</span></code>, which can be used directly as the
+<em>region</em> argument for other modules (hence only dx and dy are needed). If
+the <em>per_column</em> option is combined with <em>spacing</em>, then the numpy.ndarray
+output will be rounded up/down for as many columns as there are increments
+provided in <em>spacing</em>. A similar option <em>nearest_multiple</em> option will
+provide a numpy.ndarray in the form of <code class="docutils literal notranslate"><span class="pre">[zmin,</span> <span class="pre">zmax,</span> <span class="pre">dz]</span></code> for makecpt.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmtinfo.html">https://docs.generic-mapping-tools.org/latest/gmtinfo.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
@@ -279,16 +280,26 @@ increments provided. The <em>nearest_multiple</em> option will provide a
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The file name of the input data table file.</p></li>
+<li><p><strong>table</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a><em> or </em><em>np.ndarray</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Either a pandas dataframe, a 1D/2D numpy.ndarray or a file name to an
+ASCII data table.</p></li>
 <li><p><strong>per_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Report the min/max values per column in separate columns.</p></li>
 <li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[b|p|f|s]dx[/dy[/dz...]]'</span></code>.
 Report the min/max of the first n columns to the nearest multiple of
-the provided increments and output results in the form <em>-Rw/e/s/n</em>
-(unless <em>per_column</em> is set).</p></li>
+the provided increments and output results in the form
+<code class="docutils literal notranslate"><span class="pre">[w,</span> <span class="pre">e,</span> <span class="pre">s,</span> <span class="pre">n]</span></code>.</p></li>
 <li><p><strong>nearest_multiple</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'dz[+ccol]'</span></code>
 Report the min/max of the first (0’th) column to the nearest multiple
-of dz and output this as the string <em>-Tzmin/zmax/dz</em>.</p></li>
+of dz and output this in the form <code class="docutils literal notranslate"><span class="pre">[zmin,</span> <span class="pre">zmax,</span> <span class="pre">dz]</span></code>.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>output</strong> (<em>np.ndarray or str</em>) – Return type depends on whether any of the ‘per_column’, ‘spacing’, or
+‘nearest_multiple’ parameters are set.</p>
+<ul class="simple">
+<li><p>np.ndarray if either of the above parameters are used.</p></li>
+<li><p>str if none of the above parameters are used.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -304,10 +315,10 @@ of dz and output this as the string <em>-Tzmin/zmax/dz</em>.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pygmt.surface.html" class="btn btn-neutral float-right" title="pygmt.surface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pygmt.grdinfo.html" class="btn btn-neutral float-right" title="pygmt.grdinfo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pygmt.blockmedian.html" class="btn btn-neutral float-left" title="pygmt.blockmedian" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pygmt.GMTDataArrayAccessor.html" class="btn btn-neutral float-left" title="pygmt.GMTDataArrayAccessor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -319,7 +330,7 @@ of dz and output this as the string <em>-Tzmin/zmax/dz</em>.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 

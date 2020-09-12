@@ -5,8 +5,8 @@
 
 Computation times
 =================
-**00:01.178** total execution time for **projections_conic** files:
+**00:01.248** total execution time for **projections_conic** files:
 
 +-------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_conic_conic_albers.py` (``conic_albers.py``) | 00:01.178 | 0.0 MB |
+| :ref:`sphx_glr_projections_conic_conic_albers.py` (``conic_albers.py``) | 00:01.248 | 0.0 MB |
 +-------------------------------------------------------------------------+-----------+--------+

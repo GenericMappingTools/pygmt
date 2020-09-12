@@ -125,6 +125,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -277,11 +278,11 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_DATASET'</span></code>). See the
-<code class="docutils literal notranslate"><span class="pre">data_families</span></code> attribute for valid names.</p></li>
+<code class="docutils literal notranslate"><span class="pre">FAMILIES</span></code> attribute for valid names.</p></li>
 <li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_POINT'</span></code>). See the
-<code class="docutils literal notranslate"><span class="pre">data_geometries</span></code> attribute for valid names.</p></li>
-<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A valid GMT data mode (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_OUTPUT'</span></code>). See the
-<code class="docutils literal notranslate"><span class="pre">data_modes</span></code> attribute for valid names.</p></li>
+<code class="docutils literal notranslate"><span class="pre">GEOMETRIES</span></code> attribute for valid names.</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A valid GMT data mode (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_OUTPUT'</span></code>). See the
+<code class="docutils literal notranslate"><span class="pre">MODES</span></code> attribute for valid names.</p></li>
 <li><p><strong>dim</strong> (<em>list of 4 integers</em>) – The dimensions of the dataset. See the documentation for the GMT C
 API function <code class="docutils literal notranslate"><span class="pre">GMT_Create_Data</span></code> (<code class="docutils literal notranslate"><span class="pre">src/gmt_api.c</span></code>) for the full
 range of options regarding ‘dim’. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, will pass in the
@@ -291,7 +292,7 @@ function documentation. It’s called <code class="docutils literal notranslate"
 it would conflict with the Python built-in <code class="docutils literal notranslate"><span class="pre">range</span></code> function.</p></li>
 <li><p><strong>inc</strong> (<em>list of 2 floats</em>) – The increments between points of the dataset. See the C function
 documentation.</p></li>
-<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The node registration (what the coordinates mean). Can be
+<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The node registration (what the coordinates mean). Can be
 <code class="docutils literal notranslate"><span class="pre">'GMT_GRID_PIXEL_REG'</span></code> or <code class="docutils literal notranslate"><span class="pre">'GMT_GRID_NODE_REG'</span></code>. Defaults to
 <code class="docutils literal notranslate"><span class="pre">'GMT_GRID_NODE_REG'</span></code>.</p></li>
 <li><p><strong>pad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The grid padding. Defaults to <code class="docutils literal notranslate"><span class="pre">GMT_PAD_DEFAULT</span></code>.</p></li>
@@ -330,7 +331,7 @@ object.</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 

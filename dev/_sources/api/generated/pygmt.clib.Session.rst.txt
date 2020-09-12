@@ -48,6 +48,10 @@ pygmt.clib.Session
     
     
     
+    Session.put_strings
+    
+    
+    
     Session.put_vector
     
     

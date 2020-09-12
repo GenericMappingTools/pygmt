@@ -232,6 +232,7 @@
     <span class="n">vectors_to_arrays</span><span class="p">,</span>
     <span class="n">dataarray_to_matrix</span><span class="p">,</span>
     <span class="n">as_c_contiguous</span><span class="p">,</span>
+    <span class="n">array_to_datetime</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">FAMILIES</span> <span class="o">=</span> <span class="p">[</span>
@@ -253,17 +254,20 @@
     <span class="s2">&quot;GMT_IS_SURFACE&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
-<span class="n">MODES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT_CONTAINER_ONLY&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_OUTPUT&quot;</span><span class="p">]</span>
+<span class="n">METHODS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT_IS_DUPLICATE&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_REFERENCE&quot;</span><span class="p">]</span>
+
+<span class="n">MODES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT_CONTAINER_ONLY&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_OUTPUT&quot;</span><span class="p">]</span>
 
 <span class="n">REGISTRATIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT_GRID_PIXEL_REG&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_GRID_NODE_REG&quot;</span><span class="p">]</span>
 
 <span class="n">DTYPES</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;float64&quot;</span><span class="p">:</span> <span class="s2">&quot;GMT_DOUBLE&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;float32&quot;</span><span class="p">:</span> <span class="s2">&quot;GMT_FLOAT&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;int64&quot;</span><span class="p">:</span> <span class="s2">&quot;GMT_LONG&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;int32&quot;</span><span class="p">:</span> <span class="s2">&quot;GMT_INT&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;uint64&quot;</span><span class="p">:</span> <span class="s2">&quot;GMT_ULONG&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;uint32&quot;</span><span class="p">:</span> <span class="s2">&quot;GMT_UINT&quot;</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">:</span> <span class="s2">&quot;GMT_DOUBLE&quot;</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">:</span> <span class="s2">&quot;GMT_FLOAT&quot;</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span> <span class="s2">&quot;GMT_LONG&quot;</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">:</span> <span class="s2">&quot;GMT_INT&quot;</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">:</span> <span class="s2">&quot;GMT_ULONG&quot;</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">:</span> <span class="s2">&quot;GMT_UINT&quot;</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">:</span> <span class="s2">&quot;GMT_DATETIME&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 
 
@@ -284,7 +288,7 @@
 <span class="sd">    look for the shared library in the directory specified by it.</span>
 
 <span class="sd">    A ``GMTVersionError`` exception will be raised if the GMT shared library</span>
-<span class="sd">    reports a version &lt; 6.0.0.</span>
+<span class="sd">    reports a version older than the required minimum GMT version.</span>
 
 <span class="sd">    The ``session_pointer`` attribute holds a ctypes pointer to the currently</span>
 <span class="sd">    open session.</span>
@@ -321,11 +325,11 @@
 <span class="sd">    ...             )</span>
 <span class="sd">    ...             # Read the contents of the temp file before it&#39;s deleted.</span>
 <span class="sd">    ...             print(fout.read().strip())</span>
-<span class="sd">    -180 180 -90 90 -8592.5 5559 1 1 361 181</span>
+<span class="sd">    -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># The minimum version of GMT required</span>
-    <span class="n">required_version</span> <span class="o">=</span> <span class="s2">&quot;6.0.0&quot;</span>
+    <span class="n">required_version</span> <span class="o">=</span> <span class="s2">&quot;6.1.1&quot;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">session_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -443,7 +447,7 @@
         <span class="n">value</span> <span class="o">=</span> <span class="n">c_get_enum</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">99999</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Constant &#39;</span><span class="si">{}</span><span class="s2">&#39; doesn&#39;t exits in libgmt.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Constant &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; doesn&#39;t exist in libgmt.&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">value</span></div>
 
@@ -719,13 +723,13 @@
 <span class="sd">        ----------</span>
 <span class="sd">        family : str</span>
 <span class="sd">            A valid GMT data family name (e.g., ``&#39;GMT_IS_DATASET&#39;``). See the</span>
-<span class="sd">            ``data_families`` attribute for valid names.</span>
+<span class="sd">            ``FAMILIES`` attribute for valid names.</span>
 <span class="sd">        geometry : str</span>
 <span class="sd">            A valid GMT data geometry name (e.g., ``&#39;GMT_IS_POINT&#39;``). See the</span>
-<span class="sd">            ``data_geometries`` attribute for valid names.</span>
+<span class="sd">            ``GEOMETRIES`` attribute for valid names.</span>
 <span class="sd">        mode : str</span>
-<span class="sd">            A valid GMT data mode (e.g., ``&#39;GMT_OUTPUT&#39;``). See the</span>
-<span class="sd">            ``data_modes`` attribute for valid names.</span>
+<span class="sd">            A valid GMT data mode (e.g., ``&#39;GMT_IS_OUTPUT&#39;``). See the</span>
+<span class="sd">            ``MODES`` attribute for valid names.</span>
 <span class="sd">        dim : list of 4 integers</span>
 <span class="sd">            The dimensions of the dataset. See the documentation for the GMT C</span>
 <span class="sd">            API function ``GMT_Create_Data`` (``src/gmt_api.c``) for the full</span>
@@ -738,7 +742,7 @@
 <span class="sd">        inc : list of 2 floats</span>
 <span class="sd">            The increments between points of the dataset. See the C function</span>
 <span class="sd">            documentation.</span>
-<span class="sd">        registration : int</span>
+<span class="sd">        registration : str</span>
 <span class="sd">            The node registration (what the coordinates mean). Can be</span>
 <span class="sd">            ``&#39;GMT_GRID_PIXEL_REG&#39;`` or ``&#39;GMT_GRID_NODE_REG&#39;``. Defaults to</span>
 <span class="sd">            ``&#39;GMT_GRID_NODE_REG&#39;``.</span>
@@ -771,7 +775,9 @@
 
         <span class="n">family_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="n">FAMILIES</span><span class="p">,</span> <span class="n">valid_modifiers</span><span class="o">=</span><span class="n">VIAS</span><span class="p">)</span>
         <span class="n">mode_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span>
-            <span class="n">mode</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="n">MODES</span><span class="p">,</span> <span class="n">valid_modifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GMT_GRID_IS_GEO&quot;</span><span class="p">]</span>
+            <span class="n">mode</span><span class="p">,</span>
+            <span class="n">valid</span><span class="o">=</span><span class="n">MODES</span><span class="p">,</span>
+            <span class="n">valid_modifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GMT_GRID_IS_CARTESIAN&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_GRID_IS_GEO&quot;</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="n">geometry_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="n">GEOMETRIES</span><span class="p">)</span>
         <span class="n">registration_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span>
@@ -918,21 +924,28 @@
 <span class="sd">        True</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">DTYPES</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="s2">&quot;Unsupported numpy data type &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="p">)</span>
+        <span class="c1"># check the array has the given dimension</span>
         <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="n">ndim</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                 <span class="s2">&quot;Expected a numpy 1d array, got </span><span class="si">{}</span><span class="s2">d.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">DTYPES</span><span class="p">[</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span><span class="p">]]</span>
+
+        <span class="c1"># check the array has a valid/known data type</span>
+        <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">DTYPES</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Try to convert any unknown numpy data types to np.datetime64</span>
+                <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unsupported numpy data type &#39;</span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">DTYPES</span><span class="p">[</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">]]</span>
 
 <div class="viewcode-block" id="Session.put_vector"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector">[docs]</a>    <span class="k">def</span> <span class="nf">put_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a numpy 1D array as a column on a GMT dataset.</span>
 
-<span class="sd">        Use this functions to attach numpy array data to a GMT dataset and pass</span>
+<span class="sd">        Use this function to attach numpy array data to a GMT dataset and pass</span>
 <span class="sd">        it to GMT modules. Wraps ``GMT_Put_Vector``.</span>
 
 <span class="sd">        The dataset must be created by :meth:`~gmt.clib.Session.create_data`</span>
@@ -972,7 +985,13 @@
         <span class="p">)</span>
 
         <span class="n">gmt_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_dtype_and_dim</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">vector_pointer</span> <span class="o">=</span> <span class="n">vector</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">gmt_type</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_DATETIME&quot;</span><span class="p">]:</span>
+            <span class="n">vector_pointer</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">vector</span><span class="p">))()</span>
+            <span class="n">vector_pointer</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">datetime_as_string</span><span class="p">(</span><span class="n">array_to_datetime</span><span class="p">(</span><span class="n">vector</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vector_pointer</span> <span class="o">=</span> <span class="n">vector</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_put_vector</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">gmt_type</span><span class="p">,</span> <span class="n">vector_pointer</span>
         <span class="p">)</span>
@@ -986,11 +1005,72 @@
                 <span class="p">)</span>
             <span class="p">)</span></div>
 
+    <span class="k">def</span> <span class="nf">put_strings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">strings</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attach a numpy 1D array of dtype str as a column on a GMT dataset.</span>
+
+<span class="sd">        Use this function to attach string type numpy array data to a GMT</span>
+<span class="sd">        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.</span>
+
+<span class="sd">        The dataset must be created by :meth:`~gmt.clib.Session.create_data`</span>
+<span class="sd">        first.</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            The numpy array must be C contiguous in memory. If it comes from a</span>
+<span class="sd">            column slice of a 2d array, for example, you will have to make a</span>
+<span class="sd">            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector</span>
+<span class="sd">            is contiguous (it won&#39;t copy if it already is).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : :class:`ctypes.c_void_p`</span>
+<span class="sd">            The ctypes void pointer to a ``GMT_Dataset``. Create it with</span>
+<span class="sd">            :meth:`~gmt.clib.Session.create_data`.</span>
+<span class="sd">        family : str</span>
+<span class="sd">            The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or</span>
+<span class="sd">            ``GMT_IS_MATRIX``.</span>
+<span class="sd">        strings : numpy 1d-array</span>
+<span class="sd">            The array that will be attached to the dataset. Must be a 1d C</span>
+<span class="sd">            contiguous array.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        GMTCLibError</span>
+<span class="sd">            If given invalid input or ``GMT_Put_Strings`` exits with status !=</span>
+<span class="sd">            0.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">c_put_strings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
+            <span class="s2">&quot;GMT_Put_Strings&quot;</span><span class="p">,</span>
+            <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>
+                <span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">strings_pointer</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">strings</span><span class="p">))()</span>
+        <span class="n">strings_pointer</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">strings</span><span class="p">)</span>
+
+        <span class="n">family_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span>
+            <span class="n">family</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="n">FAMILIES</span><span class="p">,</span> <span class="n">valid_modifiers</span><span class="o">=</span><span class="n">METHODS</span>
+        <span class="p">)</span>
+
+        <span class="n">status</span> <span class="o">=</span> <span class="n">c_put_strings</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">family_int</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">strings_pointer</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Failed to put strings of type </span><span class="si">{</span><span class="n">strings</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> into dataset&quot;</span>
+            <span class="p">)</span>
+
 <div class="viewcode-block" id="Session.put_matrix"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">put_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a numpy 2D array to a GMT dataset.</span>
 
-<span class="sd">        Use this functions to attach numpy array data to a GMT dataset and pass</span>
+<span class="sd">        Use this function to attach numpy array data to a GMT dataset and pass</span>
 <span class="sd">        it to GMT modules. Wraps ``GMT_Put_Matrix``.</span>
 
 <span class="sd">        The dataset must be created by :meth:`~gmt.clib.Session.create_data`</span>
@@ -1051,12 +1131,12 @@
 <span class="sd">        ----------</span>
 <span class="sd">        family : str</span>
 <span class="sd">            A valid GMT data family name (e.g., ``&#39;GMT_IS_DATASET&#39;``). See the</span>
-<span class="sd">            ``data_families`` attribute for valid names. Don&#39;t use the</span>
+<span class="sd">            ``FAMILIES`` attribute for valid names. Don&#39;t use the</span>
 <span class="sd">            ``GMT_VIA_VECTOR`` or ``GMT_VIA_MATRIX`` constructs for this. Use</span>
 <span class="sd">            ``GMT_IS_VECTOR`` and ``GMT_IS_MATRIX`` instead.</span>
 <span class="sd">        geometry : str</span>
 <span class="sd">            A valid GMT data geometry name (e.g., ``&#39;GMT_IS_POINT&#39;``). See the</span>
-<span class="sd">            ``data_geometries`` attribute for valid names.</span>
+<span class="sd">            ``GEOMETRIES`` attribute for valid names.</span>
 <span class="sd">        mode : str</span>
 <span class="sd">            How the data is to be written to the file. This option varies</span>
 <span class="sd">            depending on the given family. See the GMT API documentation for</span>
@@ -1134,7 +1214,7 @@
 <span class="sd">            GMT or getting it out of GMT, respectively.</span>
 <span class="sd">            By default, GMT can modify the data you pass in. Add modifier</span>
 <span class="sd">            ``&#39;GMT_IS_REFERENCE&#39;`` to tell GMT the data are read-only, or</span>
-<span class="sd">            ``&#39;GMT_IS_DUPLICATE&#39;&#39; to tell GMT to duplicate the data.</span>
+<span class="sd">            ``&#39;GMT_IS_DUPLICATE&#39;`` to tell GMT to duplicate the data.</span>
 <span class="sd">        data : int</span>
 <span class="sd">            The ctypes void pointer to your GMT data structure.</span>
 
@@ -1195,17 +1275,10 @@
         <span class="n">family_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="n">FAMILIES</span><span class="p">,</span> <span class="n">valid_modifiers</span><span class="o">=</span><span class="n">VIAS</span><span class="p">)</span>
         <span class="n">geometry_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="n">GEOMETRIES</span><span class="p">)</span>
         <span class="n">direction_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_constant</span><span class="p">(</span>
-            <span class="n">direction</span><span class="p">,</span>
-            <span class="n">valid</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GMT_IN&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_OUT&quot;</span><span class="p">],</span>
-            <span class="n">valid_modifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_IS_DUPLICATE&quot;</span><span class="p">],</span>
+            <span class="n">direction</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GMT_IN&quot;</span><span class="p">,</span> <span class="s2">&quot;GMT_OUT&quot;</span><span class="p">],</span> <span class="n">valid_modifiers</span><span class="o">=</span><span class="n">METHODS</span>
         <span class="p">)</span>
 
-        <span class="c1"># The core GMT changes GMT_STR16 to GMT_VF_LEN in 6.1.0</span>
-        <span class="c1"># See https://github.com/GenericMappingTools/gmt/pull/2861</span>
-        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.1.0&quot;</span><span class="p">):</span>
-            <span class="n">buff</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_STR16&quot;</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">buff</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_VF_LEN&quot;</span><span class="p">])</span>
+        <span class="n">buff</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_VF_LEN&quot;</span><span class="p">])</span>
 
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_open_virtualfile</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">family_int</span><span class="p">,</span> <span class="n">geometry_int</span><span class="p">,</span> <span class="n">direction_int</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">buff</span>
@@ -1277,14 +1350,23 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in</span>
-        <span class="c1"># put_matrix because we need to maintain a reference to the copy while</span>
-        <span class="c1"># it is being used by the C API. Otherwise, the array would be garbage</span>
-        <span class="c1"># collected and the memory freed. Creating it in this context manager</span>
-        <span class="c1"># guarantees that the copy will be around until the virtual file is</span>
-        <span class="c1"># closed. The conversion is implicit in vectors_to_arrays.</span>
+        <span class="c1"># put_vector or put_strings because we need to maintain a reference to</span>
+        <span class="c1"># the copy while it is being used by the C API. Otherwise, the array</span>
+        <span class="c1"># would be garbage collected and the memory freed. Creating it in this</span>
+        <span class="c1"># context manager guarantees that the copy will be around until the</span>
+        <span class="c1"># virtual file is closed. The conversion is implicit in</span>
+        <span class="c1"># vectors_to_arrays.</span>
         <span class="n">arrays</span> <span class="o">=</span> <span class="n">vectors_to_arrays</span><span class="p">(</span><span class="n">vectors</span><span class="p">)</span>
 
         <span class="n">columns</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span>
+        <span class="c1"># Find arrays that are of string dtype from column 3 onwards</span>
+        <span class="c1"># Assumes that first 2 columns contains coordinates like longitude</span>
+        <span class="c1"># latitude, or datetime string types.</span>
+        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">2</span><span class="p">:]):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">):</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="mi">2</span>
+                <span class="k">break</span>
+
         <span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">rows</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;All arrays must have same size.&quot;</span><span class="p">)</span>
@@ -1296,8 +1378,23 @@
             <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;GMT_CONTAINER_ONLY&quot;</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="n">columns</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arrays</span><span class="p">):</span>
+        <span class="c1"># Use put_vector for columns with numerical type data</span>
+        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arrays</span><span class="p">[:</span><span class="n">columns</span><span class="p">]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put_vector</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">array</span><span class="p">)</span>
+
+        <span class="c1"># Use put_strings for last column(s) with string type data</span>
+        <span class="c1"># Have to use modifier &quot;GMT_IS_DUPLICATE&quot; to duplicate the strings</span>
+        <span class="n">string_arrays</span> <span class="o">=</span> <span class="n">arrays</span><span class="p">[</span><span class="n">columns</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">string_arrays</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">string_arrays</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">strings</span> <span class="o">=</span> <span class="n">string_arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">string_arrays</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">strings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span>
+                    <span class="n">func1d</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">arr</span><span class="o">=</span><span class="n">string_arrays</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put_strings</span><span class="p">(</span>
+                <span class="n">dataset</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s2">&quot;GMT_IS_VECTOR|GMT_IS_DUPLICATE&quot;</span><span class="p">,</span> <span class="n">strings</span><span class="o">=</span><span class="n">strings</span>
+            <span class="p">)</span>
 
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span>
             <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN|GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="n">dataset</span>
@@ -1429,13 +1526,13 @@
 <span class="sd">        &gt;&gt;&gt; from pygmt.helpers import GMTTempFile</span>
 <span class="sd">        &gt;&gt;&gt; data = load_earth_relief(resolution=&#39;01d&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; print(data.shape)</span>
-<span class="sd">        (181, 361)</span>
+<span class="sd">        (180, 360)</span>
 <span class="sd">        &gt;&gt;&gt; print(data.lon.values.min(), data.lon.values.max())</span>
-<span class="sd">        -180.0 180.0</span>
+<span class="sd">        -179.5 179.5</span>
 <span class="sd">        &gt;&gt;&gt; print(data.lat.values.min(), data.lat.values.max())</span>
-<span class="sd">        -90.0 90.0</span>
+<span class="sd">        -89.5 89.5</span>
 <span class="sd">        &gt;&gt;&gt; print(data.values.min(), data.values.max())</span>
-<span class="sd">        -8592.5 5559.0</span>
+<span class="sd">        -8182.0 5651.5</span>
 <span class="sd">        &gt;&gt;&gt; with Session() as ses:</span>
 <span class="sd">        ...     with ses.virtualfile_from_grid(data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
@@ -1443,10 +1540,13 @@
 <span class="sd">        ...             args = &#39;{} -L0 -Cn -&gt;{}&#39;.format(fin, fout.name)</span>
 <span class="sd">        ...             ses.call_module(&#39;grdinfo&#39;, args)</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
-<span class="sd">        -180 180 -90 90 -8592.5 5559 1 1 361 181</span>
-<span class="sd">        &gt;&gt;&gt; # The output is: w e s n z0 z1 dx dy n_columns n_rows</span>
+<span class="sd">        -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1</span>
+<span class="sd">        &gt;&gt;&gt; # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_gtype</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;GMT_GRID_IS_CARTESIAN&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;GMT_GRID_IS_GEO&quot;</span><span class="p">}[</span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span><span class="p">]</span>
+        <span class="n">_reg</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;GMT_GRID_NODE_REG&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;GMT_GRID_PIXEL_REG&quot;</span><span class="p">}[</span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span><span class="p">]</span>
+
         <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in</span>
         <span class="c1"># put_matrix because we need to maintain a reference to the copy while</span>
         <span class="c1"># it is being used by the C API. Otherwise, the array would be garbage</span>
@@ -1454,10 +1554,16 @@
         <span class="c1"># guarantees that the copy will be around until the virtual file is</span>
         <span class="c1"># closed. The conversion is implicit in dataarray_to_matrix.</span>
         <span class="n">matrix</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">inc</span> <span class="o">=</span> <span class="n">dataarray_to_matrix</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+
         <span class="n">family</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_GRID|GMT_VIA_MATRIX&quot;</span>
         <span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_SURFACE&quot;</span>
         <span class="n">gmt_grid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_data</span><span class="p">(</span>
-            <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;GMT_CONTAINER_ONLY&quot;</span><span class="p">,</span> <span class="n">ranges</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">inc</span><span class="o">=</span><span class="n">inc</span>
+            <span class="n">family</span><span class="p">,</span>
+            <span class="n">geometry</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;GMT_CONTAINER_ONLY|</span><span class="si">{</span><span class="n">_gtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">ranges</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
+            <span class="n">inc</span><span class="o">=</span><span class="n">inc</span><span class="p">,</span>
+            <span class="n">registration</span><span class="o">=</span><span class="n">_reg</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">put_matrix</span><span class="p">(</span><span class="n">gmt_grid</span><span class="p">,</span> <span class="n">matrix</span><span class="p">)</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN|GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="n">gmt_grid</span><span class="p">)</span>
@@ -1544,7 +1650,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 

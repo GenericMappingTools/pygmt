@@ -213,18 +213,16 @@
 <span class="sd">Does not define any special non-GMT methods (savefig, show, etc).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">contextlib</span>
-<span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">GMTError</span><span class="p">,</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_string</span><span class="p">,</span>
     <span class="n">dummy_context</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
-    <span class="n">GMTTempFile</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
 <span class="p">)</span>
@@ -436,6 +434,7 @@
         <span class="n">S</span><span class="o">=</span><span class="s2">&quot;resample&quot;</span><span class="p">,</span>
         <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
         <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
+        <span class="n">l</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="s2">&quot;sequence_plus&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">grdcontour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -485,6 +484,13 @@
 <span class="sd">        {G}</span>
 <span class="sd">        {U}</span>
 <span class="sd">        {W}</span>
+<span class="sd">        label : str</span>
+<span class="sd">            Add a legend entry for the contour being plotted. Normally, the</span>
+<span class="sd">            annotated contour is selected for the legend. You can select the</span>
+<span class="sd">            regular contour instead, or both of them, by considering the label</span>
+<span class="sd">            to be of the format [*annotcontlabel*][/*contlabel*]. If either</span>
+<span class="sd">            label contains a slash (/) character then use ``|`` as the</span>
+<span class="sd">            separator for the two labels instead.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -546,6 +552,7 @@
         <span class="n">Wm</span><span class="o">=</span><span class="s2">&quot;meshpen&quot;</span><span class="p">,</span>
         <span class="n">Wf</span><span class="o">=</span><span class="s2">&quot;facadepen&quot;</span><span class="p">,</span>
         <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
+        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">grdview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -612,6 +619,15 @@
 <span class="sd">        perspective : list or str</span>
 <span class="sd">            ``&#39;[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]&#39;``.</span>
 <span class="sd">            Select perspective view.</span>
+
+<span class="sd">        shading : str</span>
+<span class="sd">            Provide the name of a grid file with intensities in the (-1,+1)</span>
+<span class="sd">            range, or a constant intensity to apply everywhere (affects the</span>
+<span class="sd">            ambient light). Alternatively, derive an intensity grid from the</span>
+<span class="sd">            input data grid reliefgrid via a call to ``grdgradient``; append</span>
+<span class="sd">            ``+aazimuth``, ``+nargs``, and ``+mambient`` to specify azimuth,</span>
+<span class="sd">            intensity, and ambient arguments for that module, or just give</span>
+<span class="sd">            ``+d`` to select the default arguments (``+a-45+nt1+m0``).</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -768,6 +784,7 @@
         <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
         <span class="n">L</span><span class="o">=</span><span class="s2">&quot;triangular_mesh_pen&quot;</span><span class="p">,</span>
         <span class="n">i</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span>
+        <span class="n">l</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
         <span class="n">C</span><span class="o">=</span><span class="s2">&quot;levels&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
@@ -819,6 +836,13 @@
 <span class="sd">        skip : bool or str</span>
 <span class="sd">            Skip input points outside region ``&#39;[p|t]&#39;``</span>
 <span class="sd">        {W}</span>
+<span class="sd">        label : str</span>
+<span class="sd">            Add a legend entry for the contour being plotted. Normally, the</span>
+<span class="sd">            annotated contour is selected for the legend. You can select the</span>
+<span class="sd">            regular contour instead, or both of them, by considering the label</span>
+<span class="sd">            to be of the format [*annotcontlabel*][/*contlabel*]. If either</span>
+<span class="sd">            label contains a slash (/) character then use ``|`` as the</span>
+<span class="sd">            separator for the two labels instead.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1170,30 +1194,399 @@
         <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;+c</span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s1">+t&quot;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
 
-        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-                <span class="n">fname</span> <span class="o">=</span> <span class="n">textfiles</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-                <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
-                            <span class="p">{</span>
-                                <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
-                                <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
-                                <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">text</span><span class="p">),</span>
-                            <span class="p">}</span>
-                        <span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
-                            <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
-                            <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">quoting</span><span class="o">=</span><span class="n">csv</span><span class="o">.</span><span class="n">QUOTE_NONE</span><span class="p">,</span>
-                        <span class="p">)</span>
-                    <span class="n">fname</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="n">file_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="n">textfiles</span><span class="p">)</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">file_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_vectors</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
                 <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">fname</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)])</span>
                 <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
+
+    <span class="nd">@fmt_docstring</span>
+    <span class="nd">@use_alias</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">meca</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">spec</span><span class="p">,</span>
+        <span class="n">scale</span><span class="p">,</span>
+        <span class="n">longitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">latitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">convention</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">component</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
+        <span class="n">plot_longitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">plot_latitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot focal mechanisms.</span>
+
+<span class="sd">        Full option list at :gmt-docs:`supplements/seis/meca.html`</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">            Currently, labeling of beachballs with text strings is only</span>
+<span class="sd">            supported via providing a file to `spec` as input.</span>
+
+<span class="sd">        {aliases}</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spec: dict, 1D array, 2D array, pd.DataFrame, or str</span>
+<span class="sd">            Either a filename containing focal mechanism parameters as columns,</span>
+<span class="sd">            a 1- or 2-D array with the same, or a dictionary. If a filename or</span>
+<span class="sd">            array, `convention` is required so we know how to interpret the</span>
+<span class="sd">            columns/entries. If a dictionary, the following combinations of</span>
+<span class="sd">            keys are supported; these determine the convention. Dictionary</span>
+<span class="sd">            may contain values for a single focal mechanism or lists of</span>
+<span class="sd">            values for many focal mechanisms. A Pandas DataFrame may</span>
+<span class="sd">            optionally contain columns latitude, longitude, depth,</span>
+<span class="sd">            plot_longitude,</span>
+<span class="sd">            and/or plot_latitude instead of passing them to the meca method.</span>
+
+<span class="sd">            - ``&quot;aki&quot;`` — *strike, dip, rake, magnitude*</span>
+<span class="sd">            - ``&quot;gcmt&quot;`` — *strike1, dip1, rake1, strike2, dip2, rake2,</span>
+<span class="sd">              mantissa, exponent*</span>
+<span class="sd">            - ``&quot;mt&quot;`` — *mrr, mtt, mff, mrt, mrf, mtf, exponent*</span>
+<span class="sd">            - ``&quot;partial&quot;`` — *strike1, dip1, strike2, fault_type, magnitude*</span>
+<span class="sd">            - ``&quot;principal_axis&quot;`` — *t_exponent, t_azimuth, t_plunge,</span>
+<span class="sd">              n_exponent, n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge,</span>
+<span class="sd">              exponent*</span>
+
+<span class="sd">        scale: str</span>
+<span class="sd">            Adjusts the scaling of the radius of the beachball, which is</span>
+<span class="sd">            proportional to the magnitude. Scale defines the size for</span>
+<span class="sd">            magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)</span>
+<span class="sd">        longitude: int, float, list, or 1d numpy array</span>
+<span class="sd">            Longitude(s) of event location. Ignored if `spec` is not a</span>
+<span class="sd">            dictionary. List must be the length of the number of events.</span>
+<span class="sd">            Ignored if `spec` is a DataFrame and contains a &#39;longitude&#39; column.</span>
+<span class="sd">        latitude: int, float, list, or 1d numpy array</span>
+<span class="sd">            Latitude(s) of event location. Ignored if `spec` is not a</span>
+<span class="sd">            dictionary. List must be the length of the number of events.</span>
+<span class="sd">            Ignored if `spec` is a DataFrame and contains a &#39;latitude&#39; column.</span>
+<span class="sd">        depth: int, float, list, or 1d numpy array</span>
+<span class="sd">            Depth(s) of event location in kilometers. Ignored if `spec` is</span>
+<span class="sd">            not a dictionary. List must be the length of the number of events.</span>
+<span class="sd">            Ignored if `spec` is a DataFrame and contains a &#39;depth&#39; column.</span>
+<span class="sd">        convention: str</span>
+<span class="sd">            ``&quot;aki&quot;`` (Aki &amp; Richards), ``&quot;gcmt&quot;`` (global CMT), ``&quot;mt&quot;``</span>
+<span class="sd">            (seismic moment tensor), ``&quot;partial&quot;`` (partial focal mechanism),</span>
+<span class="sd">            or ``&quot;principal_axis&quot;`` (principal axis). Ignored if `spec` is a</span>
+<span class="sd">            dictionary or dataframe.</span>
+<span class="sd">        component: str</span>
+<span class="sd">            The component of the seismic moment tensor to plot. ``&quot;full&quot;`` (the</span>
+<span class="sd">            full seismic moment tensor), ``&quot;dc&quot;`` (the closest double couple</span>
+<span class="sd">            with zero trace and zero determinant), ``&quot;deviatoric&quot;`` (zero</span>
+<span class="sd">            trace)</span>
+<span class="sd">        plot_longitude: int, float, list, or 1d numpy array</span>
+<span class="sd">            Longitude(s) at which to place beachball, only used if `spec` is a</span>
+<span class="sd">            dictionary. List must be the length of the number of events.</span>
+<span class="sd">            Ignored if `spec` is a DataFrame and contains a &#39;plot_longitude&#39;</span>
+<span class="sd">            column.</span>
+<span class="sd">        plot_latitude: int, float, list, or 1d numpy array</span>
+<span class="sd">            Latitude(s) at which to place beachball, only used if `spec` is a</span>
+<span class="sd">            dictionary. List must be the length of the number of events.</span>
+<span class="sd">            Ignored if `spec` is a DataFrame and contains a &#39;plot_latitude&#39;</span>
+<span class="sd">            column.</span>
+<span class="sd">        offset: bool or str</span>
+<span class="sd">            Offsets beachballs to the longitude, latitude specified in</span>
+<span class="sd">            the last two columns of the input file or array,</span>
+<span class="sd">            or by `plot_longitude` and `plot_latitude` if provided. A small</span>
+<span class="sd">            circle is plotted at the initial location and a line connects</span>
+<span class="sd">            the beachball to the circle. Specify pen and optionally append</span>
+<span class="sd">            ``+ssize`` to change the line style and/or size of the circle.</span>
+<span class="sd">        {J}</span>
+<span class="sd">        {R}</span>
+<span class="sd">        {B}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># pylint warnings that need to be fixed</span>
+        <span class="c1"># pylint: disable=too-many-locals</span>
+        <span class="c1"># pylint: disable=too-many-nested-blocks</span>
+        <span class="c1"># pylint: disable=too-many-branches</span>
+        <span class="c1"># pylint: disable=no-self-use</span>
+        <span class="c1"># pylint: disable=too-many-statements</span>
+
+        <span class="k">def</span> <span class="nf">set_pointer</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Set optional parameter pointers based on DataFrame or dict, if</span>
+<span class="sd">            those parameters are present in the DataFrame or dict.&quot;&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_pointers</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
+                    <span class="c1"># set pointer based on param name</span>
+                    <span class="n">data_pointers</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">update_pointers</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Updates variables based on the location of data, as the</span>
+<span class="sd">            following data can be passed as parameters or it can be</span>
+<span class="sd">            contained in `spec`.&quot;&quot;&quot;</span>
+            <span class="c1"># update all pointers</span>
+            <span class="n">longitude</span> <span class="o">=</span> <span class="n">data_pointers</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]</span>
+            <span class="n">latitude</span> <span class="o">=</span> <span class="n">data_pointers</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">]</span>
+            <span class="n">depth</span> <span class="o">=</span> <span class="n">data_pointers</span><span class="p">[</span><span class="s2">&quot;depth&quot;</span><span class="p">]</span>
+            <span class="n">plot_longitude</span> <span class="o">=</span> <span class="n">data_pointers</span><span class="p">[</span><span class="s2">&quot;plot_longitude&quot;</span><span class="p">]</span>
+            <span class="n">plot_latitude</span> <span class="o">=</span> <span class="n">data_pointers</span><span class="p">[</span><span class="s2">&quot;plot_latitude&quot;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">longitude</span><span class="p">,</span> <span class="n">latitude</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">plot_longitude</span><span class="p">,</span> <span class="n">plot_latitude</span><span class="p">)</span>
+
+        <span class="c1"># Check the spec and parse the data according to the specified</span>
+        <span class="c1"># convention</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span>
+            <span class="c1"># dicts and DataFrames are handed similarly but not identically</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">longitude</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">latitude</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">depth</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span><span class="s2">&quot;Location not fully specified.&quot;</span><span class="p">)</span>
+
+            <span class="n">param_conventions</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;AKI&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;strike&quot;</span><span class="p">,</span> <span class="s2">&quot;dip&quot;</span><span class="p">,</span> <span class="s2">&quot;rake&quot;</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;GCMT&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;strike1&quot;</span><span class="p">,</span> <span class="s2">&quot;dip1&quot;</span><span class="p">,</span> <span class="s2">&quot;dip2&quot;</span><span class="p">,</span> <span class="s2">&quot;rake2&quot;</span><span class="p">,</span> <span class="s2">&quot;mantissa&quot;</span><span class="p">,</span> <span class="s2">&quot;exponent&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;MT&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mrr&quot;</span><span class="p">,</span> <span class="s2">&quot;mtt&quot;</span><span class="p">,</span> <span class="s2">&quot;mff&quot;</span><span class="p">,</span> <span class="s2">&quot;mrt&quot;</span><span class="p">,</span> <span class="s2">&quot;mrf&quot;</span><span class="p">,</span> <span class="s2">&quot;mtf&quot;</span><span class="p">,</span> <span class="s2">&quot;exponent&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;PARTIAL&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;strike1&quot;</span><span class="p">,</span> <span class="s2">&quot;dip1&quot;</span><span class="p">,</span> <span class="s2">&quot;strike2&quot;</span><span class="p">,</span> <span class="s2">&quot;fault_type&quot;</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;PRINCIPAL_AXIS&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;t_exponent&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;t_azimuth&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;t_plunge&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;n_exponent&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;n_azimuth&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;n_plunge&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;p_exponent&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;p_azimuth&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;p_plunge&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;exponent&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+            <span class="c1"># to keep track of where optional parameters exist</span>
+            <span class="n">data_pointers</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="n">longitude</span><span class="p">,</span>
+                <span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="n">latitude</span><span class="p">,</span>
+                <span class="s2">&quot;depth&quot;</span><span class="p">:</span> <span class="n">depth</span><span class="p">,</span>
+                <span class="s2">&quot;plot_longitude&quot;</span><span class="p">:</span> <span class="n">plot_longitude</span><span class="p">,</span>
+                <span class="s2">&quot;plot_latitude&quot;</span><span class="p">:</span> <span class="n">plot_latitude</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="c1"># make a DataFrame copy to check convention if it contains</span>
+            <span class="c1"># other parameters</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span>
+                <span class="c1"># check if a copy is necessary</span>
+                <span class="n">copy</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">drop_list</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">pointer</span> <span class="ow">in</span> <span class="n">data_pointers</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">pointer</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
+                        <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="n">drop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pointer</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
+                    <span class="n">spec_conv</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="c1"># delete optional parameters from copy for convention check</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">drop_list</span><span class="p">:</span>
+                        <span class="k">del</span> <span class="n">spec_conv</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">spec_conv</span> <span class="o">=</span> <span class="n">spec</span>
+
+            <span class="c1"># set convention and focal parameters based on spec convention</span>
+            <span class="n">convention_assigned</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">conv</span> <span class="ow">in</span> <span class="n">param_conventions</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">spec_conv</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">param_conventions</span><span class="p">[</span><span class="n">conv</span><span class="p">]):</span>
+                    <span class="n">convention</span> <span class="o">=</span> <span class="n">conv</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="n">foc_params</span> <span class="o">=</span> <span class="n">param_conventions</span><span class="p">[</span><span class="n">conv</span><span class="p">]</span>
+                    <span class="n">convention_assigned</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">convention_assigned</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
+                    <span class="s2">&quot;Parameters in spec dictionary do not match known &quot;</span> <span class="s2">&quot;conventions.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># create a dict type pointer for easier to read code</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">dict_type_pointer</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+                <span class="c1"># use df.values as pointer for DataFrame behavior</span>
+                <span class="n">dict_type_pointer</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">values</span>
+
+            <span class="c1"># assemble the 1D array for the case of floats and ints as values</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict_type_pointer</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="c1"># update pointers</span>
+                <span class="n">set_pointer</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span>
+                <span class="c1"># look for optional parameters in the right place</span>
+                <span class="p">(</span>
+                    <span class="n">longitude</span><span class="p">,</span>
+                    <span class="n">latitude</span><span class="p">,</span>
+                    <span class="n">depth</span><span class="p">,</span>
+                    <span class="n">plot_longitude</span><span class="p">,</span>
+                    <span class="n">plot_latitude</span><span class="p">,</span>
+                <span class="p">)</span> <span class="o">=</span> <span class="n">update_pointers</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">)</span>
+
+                <span class="c1"># Construct the array (order matters)</span>
+                <span class="n">spec</span> <span class="o">=</span> <span class="p">[</span><span class="n">longitude</span><span class="p">,</span> <span class="n">latitude</span><span class="p">,</span> <span class="n">depth</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">spec</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">foc_params</span><span class="p">]</span>
+
+                <span class="c1"># Add in plotting options, if given, otherwise add 0s</span>
+                <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">plot_longitude</span><span class="p">,</span> <span class="n">plot_latitude</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">arg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s2">&quot;C&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="n">spec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+            <span class="c1"># or assemble the 2D array for the case of lists as values</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict_type_pointer</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="c1"># update pointers</span>
+                <span class="n">set_pointer</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span>
+                <span class="c1"># look for optional parameters in the right place</span>
+                <span class="p">(</span>
+                    <span class="n">longitude</span><span class="p">,</span>
+                    <span class="n">latitude</span><span class="p">,</span>
+                    <span class="n">depth</span><span class="p">,</span>
+                    <span class="n">plot_longitude</span><span class="p">,</span>
+                    <span class="n">plot_latitude</span><span class="p">,</span>
+                <span class="p">)</span> <span class="o">=</span> <span class="n">update_pointers</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">)</span>
+
+                <span class="c1"># before constructing the 2D array lets check that each key</span>
+                <span class="c1"># of the dict has the same quantity of values to avoid bugs</span>
+                <span class="n">list_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="n">list_length</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
+                            <span class="s2">&quot;Unequal number of focal mechanism &quot;</span>
+                            <span class="s2">&quot;parameters supplied in &#39;spec&#39;.&quot;</span>
+                        <span class="p">)</span>
+                    <span class="c1"># lets also check the inputs for longitude, latitude,</span>
+                    <span class="c1"># and depth if it is a list or array</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="nb">isinstance</span><span class="p">(</span><span class="n">longitude</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span>
+                        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">latitude</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span>
+                        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span>
+                    <span class="p">):</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">latitude</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span>
+                            <span class="nb">len</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+                        <span class="p">):</span>
+                            <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
+                                <span class="s2">&quot;Unequal number of focal mechanism &quot;</span>
+                                <span class="s2">&quot;locations supplied.&quot;</span>
+                            <span class="p">)</span>
+
+                <span class="c1"># values are ok, so build the 2D array</span>
+                <span class="n">spec_array</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">list_length</span><span class="p">):</span>
+                    <span class="c1"># Construct the array one row at a time (note that order</span>
+                    <span class="c1"># matters here, hence the list comprehension!)</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">longitude</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">latitude</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">depth</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span>
+                        <span class="n">spec</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">foc_params</span>
+                    <span class="p">]</span>
+
+                    <span class="c1"># Add in plotting options, if given, otherwise add 0s as</span>
+                    <span class="c1"># required by GMT</span>
+                    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">plot_longitude</span><span class="p">,</span> <span class="n">plot_latitude</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">arg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="s2">&quot;C&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                    <span class="n">spec_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="n">spec</span> <span class="o">=</span> <span class="n">spec_array</span>
+
+            <span class="c1"># or assemble the array for the case of pd.DataFrames</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict_type_pointer</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="c1"># update pointers</span>
+                <span class="n">set_pointer</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span>
+                <span class="c1"># look for optional parameters in the right place</span>
+                <span class="p">(</span>
+                    <span class="n">longitude</span><span class="p">,</span>
+                    <span class="n">latitude</span><span class="p">,</span>
+                    <span class="n">depth</span><span class="p">,</span>
+                    <span class="n">plot_longitude</span><span class="p">,</span>
+                    <span class="n">plot_latitude</span><span class="p">,</span>
+                <span class="p">)</span> <span class="o">=</span> <span class="n">update_pointers</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">)</span>
+
+                <span class="c1"># lets also check the inputs for longitude, latitude, and depth</span>
+                <span class="c1"># just in case the user entered different length lists</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">longitude</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span>
+                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">latitude</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span>
+                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span>
+                <span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">latitude</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span>
+                        <span class="nb">len</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+                    <span class="p">):</span>
+                        <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
+                            <span class="s2">&quot;Unequal number of focal mechanism locations supplied.&quot;</span>
+                        <span class="p">)</span>
+
+                <span class="c1"># values are ok, so build the 2D array in the correct order</span>
+                <span class="n">spec_array</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spec</span><span class="p">)):</span>
+                    <span class="c1"># Construct the array one row at a time (note that order</span>
+                    <span class="c1"># matters here, hence the list comprehension!)</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">longitude</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">latitude</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">depth</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span>
+                        <span class="n">spec</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">foc_params</span>
+                    <span class="p">]</span>
+
+                    <span class="c1"># Add in plotting options, if given, otherwise add 0s as</span>
+                    <span class="c1"># required by GMT</span>
+                    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">plot_longitude</span><span class="p">,</span> <span class="n">plot_latitude</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">arg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="s2">&quot;C&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                    <span class="n">spec_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="n">spec</span> <span class="o">=</span> <span class="n">spec_array</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
+                    <span class="s2">&quot;Parameter &#39;spec&#39; contains values of an unsupported type.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Add condition and scale to kwargs</span>
+        <span class="k">if</span> <span class="n">convention</span> <span class="o">==</span> <span class="s2">&quot;aki&quot;</span><span class="p">:</span>
+            <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
+        <span class="k">elif</span> <span class="n">convention</span> <span class="o">==</span> <span class="s2">&quot;gcmt&quot;</span><span class="p">:</span>
+            <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;c&quot;</span>
+        <span class="k">elif</span> <span class="n">convention</span> <span class="o">==</span> <span class="s2">&quot;mt&quot;</span><span class="p">:</span>
+            <span class="c1"># Check which component of mechanism the user wants plotted</span>
+            <span class="k">if</span> <span class="n">component</span> <span class="o">==</span> <span class="s2">&quot;deviatoric&quot;</span><span class="p">:</span>
+                <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;z&quot;</span>
+            <span class="k">elif</span> <span class="n">component</span> <span class="o">==</span> <span class="s2">&quot;dc&quot;</span><span class="p">:</span>
+                <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;d&quot;</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># component == &#39;full&#39;</span>
+                <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;m&quot;</span>
+        <span class="k">elif</span> <span class="n">convention</span> <span class="o">==</span> <span class="s2">&quot;partial&quot;</span><span class="p">:</span>
+            <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;p&quot;</span>
+        <span class="k">elif</span> <span class="n">convention</span> <span class="o">==</span> <span class="s2">&quot;principal_axis&quot;</span><span class="p">:</span>
+            <span class="c1"># Check which component of mechanism the user wants plotted</span>
+            <span class="k">if</span> <span class="n">component</span> <span class="o">==</span> <span class="s2">&quot;deviatoric&quot;</span><span class="p">:</span>
+                <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;t&quot;</span>
+            <span class="k">elif</span> <span class="n">component</span> <span class="o">==</span> <span class="s2">&quot;dc&quot;</span><span class="p">:</span>
+                <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># component == &#39;full&#39;</span>
+                <span class="n">data_format</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
+        <span class="c1"># Support old-school GMT format options</span>
+        <span class="k">elif</span> <span class="n">convention</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">]:</span>
+            <span class="n">data_format</span> <span class="o">=</span> <span class="n">convention</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span><span class="s2">&quot;Convention not recognized.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Assemble -S flag</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_format</span> <span class="o">+</span> <span class="n">scale</span>
+
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
+                <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">spec</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+                <span class="n">file_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Unrecognized data type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">spec</span><span class="p">)))</span>
+            <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
+                <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">fname</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)])</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;meca&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
 </pre></div>
 
            </div>
@@ -1210,7 +1603,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 

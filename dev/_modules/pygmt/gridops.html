@@ -257,8 +257,8 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    grid : str</span>
-<span class="sd">        The name of the input grid file.</span>
+<span class="sd">    grid : str or xarray.DataArray</span>
+<span class="sd">        The file name of the input grid or the grid loaded as a DataArray.</span>
 <span class="sd">    outgrid : str or None</span>
 <span class="sd">        The name of the output netCDF file with extension .nc to store the grid</span>
 <span class="sd">        in.</span>
@@ -304,12 +304,7 @@
             <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
                 <span class="n">file_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;grid&quot;</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                    <span class="s2">&quot;xarray.DataArray is not supported as the input grid yet!&quot;</span>
-                <span class="p">)</span>
-                <span class="c1"># file_context = lib.virtualfile_from_grid(grid)</span>
-                <span class="c1"># See https://github.com/GenericMappingTools/gmt/pull/3532</span>
-                <span class="c1"># for a feature request.</span>
+                <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_grid</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Unrecognized data type: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">grid</span><span class="p">)))</span>
 
@@ -323,6 +318,7 @@
         <span class="k">if</span> <span class="n">outgrid</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if user did not set outgrid, return DataArray</span>
             <span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataarray</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">gmt</span>  <span class="c1"># load GMTDataArray accessor information</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># if user sets an outgrid, return None</span>
 
@@ -343,7 +339,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/bedb48d5cf105c37573f8e8c5d74b97f1f741187">bedb48d</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
         </span>
       
 
