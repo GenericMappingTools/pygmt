@@ -1,0 +1,10 @@
+pygmt.Figure.shift\_origin
+==========================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.shift_origin
+
+.. raw:: html
+
+      <div style='clear:both'></div>
