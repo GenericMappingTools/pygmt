@@ -60,6 +60,7 @@ sphinx_gallery_conf = {
     "gallery_dirs": ["gallery", "tutorials", "projections"],
     "subsection_order": ExplicitOrder(
         [
+            "../examples/gallery/line",
             "../examples/gallery/coast",
             "../examples/gallery/plot",
             "../examples/gallery/grid",
