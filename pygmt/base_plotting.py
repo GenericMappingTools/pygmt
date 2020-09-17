@@ -823,7 +823,11 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region", J="projection", D="position", F="box", t="transparency",
+        R="region",
+        J="projection",
+        D="position",
+        F="box",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence")
     def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
@@ -1045,7 +1049,11 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region", J="projection", B="frame", C="offset", t="transparency",
+        R="region",
+        J="projection",
+        B="frame",
+        C="offset",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence")
     def meca(
