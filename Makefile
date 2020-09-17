@@ -47,7 +47,8 @@ lint:
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;
 	find . -name "*~" -exec rm -v {} \;
-	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache htmlcov coverage.xml
+	find . -type d -name  "__pycache__" -exec rm -rv {} +
+	rm -rvf build dist MANIFEST *.egg-info .coverage .cache htmlcov coverage.xml
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
 	rm -rvf result_images
