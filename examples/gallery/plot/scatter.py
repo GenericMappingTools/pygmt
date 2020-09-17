@@ -23,7 +23,15 @@ for color in ["blue", "orange", "green"]:
     x, y = np.random.rand(2, n)  # random X and Y data in [0,1]
     sizes = np.random.rand(n) * 0.5  # random size, in cm
     # plot data points as circles ('c'), with different sizes
-    fig.plot(x, y, style="c", sizes=sizes, color=color, label=f"{color}+S0.25c", t=70)
+    fig.plot(
+        x=x,
+        y=y,
+        style="c",
+        sizes=sizes,
+        color=color,
+        label=f"{color}+S0.25c",
+        transparency=70,
+    )
 
 fig.legend(t=30)
 fig.show()
