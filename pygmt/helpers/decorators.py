@@ -84,7 +84,7 @@ COMMON_OPTIONS = {
             Default is gridline (g).""",
     "t": """\
         transparency : float
-            Set transparency level, in (0-100] percent range.
+            Set transparency level, in [0-100] percent range.
             Default is 0, i.e., opaque.
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
