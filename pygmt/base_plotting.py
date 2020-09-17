@@ -68,6 +68,7 @@ class BasePlotting:
         G="land",
         S="water",
         U="timestamp",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence")
     def coast(self, **kwargs):
@@ -128,6 +129,7 @@ class BasePlotting:
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -144,6 +146,7 @@ class BasePlotting:
         F="box",
         G="truncate",
         W="scale",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence", G="sequence")
     def colorbar(self, **kwargs):
@@ -205,6 +208,7 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -225,6 +229,7 @@ class BasePlotting:
         U="timestamp",
         W="pen",
         l="label",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
     def grdcontour(self, grid, **kwargs):
@@ -281,6 +286,7 @@ class BasePlotting:
             to be of the format [*annotcontlabel*][/*contlabel*]. If either
             label contains a slash (/) character then use ``|`` as the
             separator for the two labels instead.
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -296,7 +302,15 @@ class BasePlotting:
                 lib.call_module("grdcontour", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", W="pen", B="frame", I="shading", C="cmap")
+    @use_alias(
+        R="region",
+        J="projection",
+        W="pen",
+        B="frame",
+        I="shading",
+        C="cmap",
+        t="transparency",
+    )
     @kwargs_to_strings(R="sequence")
     def grdimage(self, grid, **kwargs):
         """
@@ -312,6 +326,7 @@ class BasePlotting:
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -343,6 +358,7 @@ class BasePlotting:
         Wf="facadepen",
         p="perspective",
         I="shading",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
     def grdview(self, grid, **kwargs):
@@ -419,6 +435,8 @@ class BasePlotting:
             intensity, and ambient arguments for that module, or just give
             ``+d`` to select the default arguments (``+a-45+nt1+m0``).
 
+        {t}
+
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -458,6 +476,7 @@ class BasePlotting:
         l="label",
         C="cmap",
         U="timestamp",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
     def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
@@ -527,6 +546,8 @@ class BasePlotting:
         {U}
         label : str
             Add a legend entry for the symbol or line being plotted.
+
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -576,6 +597,7 @@ class BasePlotting:
         i="columns",
         l="label",
         C="levels",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
     def contour(self, x=None, y=None, z=None, data=None, **kwargs):
@@ -633,6 +655,7 @@ class BasePlotting:
             to be of the format [*annotcontlabel*][/*contlabel*]. If either
             label contains a slash (/) character then use ``|`` as the
             separator for the two labels instead.
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -663,6 +686,7 @@ class BasePlotting:
         Td="rose",
         Tm="compass",
         U="timestamp",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence")
     def basemap(self, **kwargs):
@@ -696,6 +720,7 @@ class BasePlotting:
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -705,7 +730,14 @@ class BasePlotting:
             lib.call_module("basemap", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", U="timestamp", D="position", F="box")
+    @use_alias(
+        R="region",
+        J="projection",
+        U="timestamp",
+        D="position",
+        F="box",
+        t="transparency",
+    )
     @kwargs_to_strings(R="sequence")
     def logo(self, **kwargs):
         """
@@ -731,6 +763,7 @@ class BasePlotting:
             Without further options, draws a rectangular border around the
             GMT logo.
         {U}
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -740,7 +773,14 @@ class BasePlotting:
             lib.call_module("logo", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", D="position", F="box", M="monochrome")
+    @use_alias(
+        R="region",
+        J="projection",
+        D="position",
+        F="box",
+        M="monochrome",
+        t="transparency",
+    )
     @kwargs_to_strings(R="sequence")
     def image(self, imagefile, **kwargs):
         """
@@ -774,6 +814,7 @@ class BasePlotting:
         monochrome : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
@@ -781,7 +822,13 @@ class BasePlotting:
             lib.call_module("image", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", D="position", F="box")
+    @use_alias(
+        R="region",
+        J="projection",
+        D="position",
+        F="box",
+        t="transparency",
+    )
     @kwargs_to_strings(R="sequence")
     def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
         """
@@ -816,6 +863,7 @@ class BasePlotting:
             rectangular border around the legend using **MAP_FRAME_PEN**. By
             default, uses '+gwhite+p1p' which draws a box around the legend
             using a 1 point black pen and adds a white background.
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -844,6 +892,7 @@ class BasePlotting:
         D="offset",
         G="fill",
         W="pen",
+        t="transparency",
     )
     @kwargs_to_strings(
         R="sequence",
@@ -949,6 +998,7 @@ class BasePlotting:
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -998,7 +1048,13 @@ class BasePlotting:
                 lib.call_module("text", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", B="frame", C="offset")
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        C="offset",
+        t="transparency",
+    )
     @kwargs_to_strings(R="sequence")
     def meca(
         self,
@@ -1094,6 +1150,7 @@ class BasePlotting:
         {J}
         {R}
         {B}
+        {t}
         """
 
         # pylint warnings that need to be fixed
