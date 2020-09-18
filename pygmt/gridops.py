@@ -25,9 +25,7 @@ from .exceptions import GMTInvalidInput
            J="projection",
            N="extend",
            S="circ_subregion",
-           Z="z_subregion",
-           F="filter",
-           D="distance"
+           Z="z_subregion"
            )
 @kwargs_to_strings(R="sequence")
 def grdcut(grid, **kwargs):
@@ -116,30 +114,36 @@ def grdcut(grid, **kwargs):
 
         return result
 
+@fmt_docstring
+@use_alias(
+           G="outgrid",
+           F="filter",
+           D="distance"
+           )
+@kwargs_to_strings(R="sequence")
 
 def grdfilter(grid, **kwargs):
     """
+    filter a grid file in the time domain using one of the selected convolution
+    or non-convolution isotropic or rectangular filters and compute distances
+    using Cartesian or Spherical geometries. The output grid file can optionally
+    be generated as a sub-region of the input (via -R) and/or with new increment
+    (via -I) or registration (via -T). In this way, one may have “extra space” in
+    the input data so that the edges will not be used and the output can be within
+    one half-width of the input edges. If the filter is low-pass, then the output
+    may be less frequently sampled than the input.
         
-        filter a grid file in the time domain using one of the selected convolution
-        or non-convolution isotropic or rectangular filters and compute distances
-        using Cartesian or Spherical geometries. The output grid file can optionally
-        be generated as a sub-region of the input (via -R) and/or with new increment
-        (via -I) or registration (via -T). In this way, one may have “extra space” in
-        the input data so that the edges will not be used and the output can be within
-        one half-width of the input edges. If the filter is low-pass, then the output
-        may be less frequently sampled than the input.
-        
-        Parameters
-        ----------
-        grid : str or xarray.DataArray
+    Parameters
+    ----------
+    grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
         outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-        {F} : str
+    {F} : str
         Name of filter type you which to apply, followed by the width
         b: Box Car; c: Cosine Arch; g: Gaussian; o: Operator; m: Median; p: Maximum Likelihood probability; h: histogram
-        {D}: str
+    {D}: str
         Distance flag, that tells how grid (x,y) rrlated to the filter width as follows:
         flag = p: grid (px,py) with width an odd number of pixels; Cartesian distances.
         
@@ -157,13 +161,13 @@ def grdfilter(grid, **kwargs):
         
         flag = 5: grid (x,y) in Mercator -Jm1 img units, width in km, Spherical distance calculation.
         
-        Returns
-        -------
-        ret: xarray.DataArray or None
+    Returns
+    -------
+    ret: xarray.DataArray or None
         Return type depends on whether the *outgrid* parameter is set:
         - xarray.DataArray if *outgrid* is not set
         - None if *outgrid* is set (grid output will be stored in *outgrid*)
-        """
+    """
     kind = data_kind(grid)
     
     with GMTTempFile(suffix=".nc") as tmpfile:
