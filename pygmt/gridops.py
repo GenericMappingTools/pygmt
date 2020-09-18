@@ -143,6 +143,7 @@ def grdfilter(grid, **kwargs):
     {F} : str
         Name of filter type you which to apply, followed by the width
         b: Box Car; c: Cosine Arch; g: Gaussian; o: Operator; m: Median; p: Maximum Likelihood probability; h: histogram
+        Example: 'm600' for a median filter with width of 600
     {D}: str
         Distance flag, that tells how grid (x,y) rrlated to the filter width as follows:
         flag = p: grid (px,py) with width an odd number of pixels; Cartesian distances.
@@ -167,6 +168,14 @@ def grdfilter(grid, **kwargs):
         Return type depends on whether the *outgrid* parameter is set:
         - xarray.DataArray if *outgrid* is not set
         - None if *outgrid* is set (grid output will be stored in *outgrid*)
+        
+    Usage
+    -------
+    pygmt.grdfilter('/Users/Desktop/input.nc',F='m1600',D='4', G='/Users/Desktop/filtered_output.nc')
+    Applies a filter of 1600km (full width) in the input.nc and returns a a filtered filed (saved as netcdf)
+    
+    out=pygmt.grdfiler(dataarray,F='g600',D='4')
+    Applies a gaussian smoothing filter of 600 km in the input data array, and returns a filtered data array 
     """
     kind = data_kind(grid)
     
