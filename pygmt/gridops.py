@@ -127,8 +127,8 @@ def grdfilter(grid, **kwargs):
     filter a grid file in the time domain using one of the selected convolution
     or non-convolution isotropic or rectangular filters and compute distances
     using Cartesian or Spherical geometries. The output grid file can optionally
-    be generated as a sub-region of the input (via -R) and/or with new increment
-    (via -I) or registration (via -T). In this way, one may have “extra space” in
+    be generated as a sub-region of the input (via *region*) and/or with new increment
+    (via *spacing*) or registration (via *toggle*). In this way, one may have “extra space” in
     the input data so that the edges will not be used and the output can be within
     one half-width of the input edges. If the filter is low-pass, then the output
     may be less frequently sampled than the input.
