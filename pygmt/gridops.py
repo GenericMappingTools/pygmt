@@ -20,13 +20,13 @@ from .exceptions import GMTInvalidInput
 
 @fmt_docstring
 @use_alias(
-           G="outgrid",
-           R="region",
-           J="projection",
-           N="extend",
-           S="circ_subregion",
-           Z="z_subregion"
-           )
+    G="outgrid",
+    R="region",
+    J="projection",
+    N="extend",
+    S="circ_subregion",
+    Z="z_subregion",
+)
 @kwargs_to_strings(R="sequence")
 def grdcut(grid, **kwargs):
     """
@@ -203,4 +203,3 @@ def grdfilter(grid, **kwargs):
             result = None  # if user sets an outgrid, return None
         
         return result
-
