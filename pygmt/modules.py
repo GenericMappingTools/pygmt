@@ -108,7 +108,7 @@ def info(table, **kwargs):
             file_context = dummy_context(table)
         elif kind == "matrix":
             try:
-                # pandas.DataFrame types
+                # pandas.DataFrame and xarray.Dataset types
                 arrays = [array for _, array in table.items()]
             except AttributeError:
                 # Python lists, tuples, and numpy ndarray types

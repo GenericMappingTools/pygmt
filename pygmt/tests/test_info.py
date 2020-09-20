@@ -53,6 +53,22 @@ def test_info_pandas_dataframe_time_column():
     assert output == expected_output
 
 
+def test_info_xarray_dataset_time_column():
+    "Make sure info works on xarray.Dataset 1D inputs with a time column"
+    table = xr.Dataset(
+        coords={"index": [0, 1, 2, 3, 4]},
+        data_vars={
+            "z": ("index", [10, 13, 12, 15, 14]),
+            "time": ("index", pd.date_range(start="2020-01-01", periods=5)),
+        },
+    )
+    output = info(table=table)
+    expected_output = (
+        "<vector memory>: N = 5 <10/15> <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
+    )
+    assert output == expected_output
+
+
 def test_info_2d_array():
     "Make sure info works on 2D numpy.ndarray inputs"
     table = np.loadtxt(POINTS_DATA)
