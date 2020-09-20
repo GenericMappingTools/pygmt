@@ -303,8 +303,10 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
+        A="img_out",
         B="frame",
         C="cmap",
+        D="img_in",
         E="dpi",
         I="shading",
         J="projection",
@@ -360,8 +362,36 @@ class BasePlotting:
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
+        img_out : str
+            ``out_img[=driver]``.
+            Save an image in a raster format instead of PostScript. Use
+            extension .ppm for a Portable Pixel Map format which is the only
+            raster format GMT can natively write. For GMT installations
+            configured with GDAL support there are more choices: Append
+            *out_img* to select the image file name and extension. If the
+            extension is one of .bmp, .gif, .jpg, .png, or .tif then no driver
+            information is required. For other output formats you must append
+            the required GDAL driver. The driver is the driver code name used
+            by GDAL; see your GDAL installation's documentation for available
+            drivers. Append a **+coptions** string where options is a list of
+            one or more concatenated number of GDAL **-co** options. For
+            example, to write a GeoPDF with the TerraGo format use
+            ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
+            selected then we will write a GeoTiff image if the GMT projection
+            syntax translates into a PROJ syntax, otherwise a plain tiff file
+            is produced. (2) Any vector elements will be lost.
         {B}
         {CPT}
+        img_in : str
+            ``[r]``
+            GMT will automatically detect standard image files (Geotiff, TIFF,
+            JPG, PNG, GIF, etc.) and will read those via GDAL. For very obscure
+            image formats you may need to explicitly set **img_in**, which
+            specifies that the grid is in fact an image file to be read via
+            GDAL. Append **r** to assign the region specified by **region**
+            to the image. For example, if you have used ``region='d'`` then the
+            image will be assigned a global domain. This mode allows you to
+            project a raw image (an image without referencing coordinates).
         dpi : int
             ``[i|dpi]``.
             Sets the resolution of the projected grid that will be created if a
