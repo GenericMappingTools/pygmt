@@ -317,9 +317,37 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence")
     def grdimage(self, grid, **kwargs):
         """
-        Project grids or images and plot them on maps.
+        Project and plot grids or images.
 
-        Takes a grid file name or an xarray.DataArray object as input.
+        Reads one 2-D grid file and produces a gray-shaded (or colored) map by
+        plotting rectangles centered on each grid node and assigning them a
+        gray-shade (or color) based on the z-value. Alternatively, `grdimage`
+        reads three 2-D grid files with the red, green, and blue components
+        directly (all must be in the 0-255 range). Optionally, illumination may
+        be added by providing a file with intensities in the (-1,+1) range or
+        instructions to derive intensities from the input data grid. Values
+        outside this range will be clipped. Such intensity files can be created
+        from the grid using `grdgradient` and, optionally, modified by
+        `grdmath` or `grdhisteq`. A third alternative is available when GMT is
+        build with GDAL support. Pass *img* which can be an image file
+        (geo-referenced or not). In this case the images can optionally be
+        illuminated with the file provided via the *shading* option. Here, if
+        image has no coordinates then those of the intensity file will be used.
+
+        When using map projections, the grid is first resampled on a new
+        rectangular grid with the same dimensions. Higher resolution images can
+        be obtained by using the *dpi* option. To obtain the resampled value
+        (and hence shade or color) of each map pixel, its location is inversely
+        projected back onto the input grid after which a value is interpolated
+        between the surrounding input grid values. By default bi-cubic
+        interpolation is used. Aliasing is avoided by also forward projecting
+        the input grid nodes. If two or more nodes are projected onto the same
+        pixel, their average will dominate in the calculation of the pixel
+        value. Interpolation and aliasing is controlled with the
+        *interpolation* option.
+
+        The *region* option can be used to select a map region larger or
+        smaller than that implied by the extent of the grid.
 
         Full option list at :gmt-docs:`grdimage.html`
 
