@@ -308,6 +308,9 @@ class BasePlotting:
         E="dpi",
         I="shading",
         J="projection",
+        M="monochrome",
+        N="noclip",
+        Q="nan_alpha",
         R="region",
         U="timestamp",
         V="verbose",
@@ -367,6 +370,16 @@ class BasePlotting:
             columns) as the input file. Specify *i* to use the PostScript image
             operator to interpolate the image at the device resolution.
         {J}
+        monochrome : bool
+            Force conversion to monochrome image using the (television) YIQ
+            transformation. Cannot be used with *nan_alpha*.
+        noclip : bool
+            Do not clip the image at the map boundary (only relevant for
+            non-rectangular maps).
+        nan_alpha : bool
+            Make grid nodes with z = NaN transparent, using the color-masking
+            feature in PostScript Level 3 (the PS device must support PS Level
+            3).
         {R}
         {V}
         {n}
