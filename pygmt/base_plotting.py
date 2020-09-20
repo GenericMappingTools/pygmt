@@ -308,6 +308,7 @@ class BasePlotting:
         C="cmap",
         D="img_in",
         E="dpi",
+        G="bit_color",
         I="shading",
         J="projection",
         M="monochrome",
@@ -399,6 +400,14 @@ class BasePlotting:
             default, the projected grid will be of the same size (rows and
             columns) as the input file. Specify *i* to use the PostScript image
             operator to interpolate the image at the device resolution.
+        bit_color : str
+           ``color[+b|f]``.
+             This option only applies when a resulting 1-bit image otherwise
+             would consist of only two colors: black (0) and white (255). If
+             so, this option will instead use the image as a transparent mask
+             and paint the mask with the given color. Append **+b** to paint
+             the background pixels (1) or **+f** for the foreground pixels
+             [Default].
         {J}
         monochrome : bool
             Force conversion to monochrome image using the (television) YIQ
