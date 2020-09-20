@@ -16,6 +16,7 @@
     'v0.1.2': 'v0.1.2',
     'v0.1.1': 'v0.1.1',
     'v0.1.0': 'v0.1.0',
+    '0.0.1a0': 'v0.0.1a0',
   };
 
   function build_select(current_version, current_release) {
