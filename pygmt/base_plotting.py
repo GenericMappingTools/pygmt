@@ -476,6 +476,8 @@ class BasePlotting:
         l="label",
         C="cmap",
         U="timestamp",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -544,6 +546,8 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
+        {X}
+        {Y}
         label : str
             Add a legend entry for the symbol or line being plotted.
 
