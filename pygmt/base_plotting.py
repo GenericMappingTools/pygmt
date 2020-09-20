@@ -911,6 +911,8 @@ class BasePlotting:
             The number of columns if using the 'begin' directive, or the column
             number if using the 'set' directive. First column is 0, not 1.
         dimensions : str
+            ``[f|s]width(s)/height(s)[+fwfracs/hfracs][+cdx/dy][+gfill][+ppen]
+            [+wpen]``
             Specify the dimensions of the figure when using the 'begin'
             directive. There are two different ways to do this: (f) Specify
             overall figure dimensions or (s) specify the dimensions of a single
