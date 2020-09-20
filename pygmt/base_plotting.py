@@ -325,19 +325,17 @@ class BasePlotting:
         """
         Project and plot grids or images.
 
-        Reads one 2-D grid file and produces a gray-shaded (or colored) map by
-        plotting rectangles centered on each grid node and assigning them a
-        gray-shade (or color) based on the z-value. Alternatively, `grdimage`
-        reads three 2-D grid files with the red, green, and blue components
-        directly (all must be in the 0-255 range). Optionally, illumination may
-        be added by providing a file with intensities in the (-1,+1) range or
-        instructions to derive intensities from the input data grid. Values
+        Reads a 2-D grid file and produces a gray-shaded (or colored) map by
+        building a rectangular image and assigning pixels a gray-shade (or
+        color) based on the z-value and the CPT file. Optionally, illumination
+        may be added by providing a file with intensities in the (-1,+1) range
+        or instructions to derive intensities from the input data grid. Values
         outside this range will be clipped. Such intensity files can be created
         from the grid using `grdgradient` and, optionally, modified by
         `grdmath` or `grdhisteq`. A third alternative is available when GMT is
-        build with GDAL support. Pass *img* which can be an image file
-        (geo-referenced or not). In this case the images can optionally be
-        illuminated with the file provided via the *shading* option. Here, if
+        build with GDAL support. Pass **image** which can be an image file
+        (geo-referenced or not). In this case the image can optionally be
+        illuminated with the file provided via the **shading** option. Here, if
         image has no coordinates then those of the intensity file will be used.
 
         When using map projections, the grid is first resampled on a new
@@ -362,7 +360,10 @@ class BasePlotting:
         Parameters
         ----------
         grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
+            ``grid | image``.
+            The file name or a DataArray containing the input 2-D gridded data
+            set or image to be plotted (See GRID FILE FORMATS at
+            :gmt-docs:`grdimage.html#grid-file-formats`).
         img_out : str
             ``out_img[=driver]``.
             Save an image in a raster format instead of PostScript. Use
