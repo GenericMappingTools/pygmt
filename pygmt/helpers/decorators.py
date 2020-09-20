@@ -53,6 +53,16 @@ COMMON_OPTIONS = {
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
+    "X": """\
+        xshift : str
+            ``[a|c|f|r][xshift]``.
+            Shift plot origin in x-direction.
+         """,
+    "Y": """\
+        yshift : str
+            ``[a|c|f|r]yshift``.
+            Shift plot origin in y-direction.
+         """,
     "j": """\
         distcalc : str
             ``e|f|g``.
