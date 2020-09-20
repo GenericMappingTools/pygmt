@@ -8,12 +8,16 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 import xarray as xr
+from packaging.version import Version
 
-from .. import info
+from .. import clib, info
 from ..exceptions import GMTInvalidInput
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 def test_info():
@@ -38,6 +42,11 @@ def test_info_dataframe():
     assert output == expected_output
 
 
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.1.1"),
+    reason="UNIX timestamps returned instead of ISO datetime, should work on GMT 6.2.0 "
+    "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
+)
 def test_info_pandas_dataframe_time_column():
     "Make sure info works on pandas.DataFrame inputs with a time column"
     table = pd.DataFrame(
@@ -53,6 +62,11 @@ def test_info_pandas_dataframe_time_column():
     assert output == expected_output
 
 
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.1.1"),
+    reason="UNIX timestamp returned instead of ISO datetime, should work on GMT 6.2.0 "
+    "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
+)
 def test_info_xarray_dataset_time_column():
     "Make sure info works on xarray.Dataset 1D inputs with a time column"
     table = xr.Dataset(
