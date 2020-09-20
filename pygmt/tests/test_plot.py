@@ -13,6 +13,8 @@ import pytest
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput
+from ..helpers import GMTTempFile
+from ..helpers.testing import check_figures_equal
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -128,7 +130,7 @@ def test_plot_projection(data):
 
 @pytest.mark.mpl_image_compare
 def test_plot_colors(data, region):
-    "Plot the data using z as sizes"
+    "Plot the data using z as colors"
     fig = Figure()
     fig.plot(
         x=data[:, 0],
@@ -192,6 +194,104 @@ def test_plot_colors_sizes_proj(data, region):
         cmap="copper",
     )
     return fig
+
+
+@check_figures_equal()
+def test_plot_transparency():
+    "Plot the data with a constant transparency"
+    x = np.arange(1, 10)
+    y = np.arange(1, 10)
+
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    with GMTTempFile() as tmpfile:
+        np.savetxt(tmpfile.name, np.c_[x, y], fmt="%d")
+        fig_ref.plot(
+            data=tmpfile.name, S="c0.2c", G="blue", t=80.0, R="0/10/0/10", J="X4i", B=""
+        )
+
+    fig_test.plot(
+        x=x,
+        y=y,
+        region=[0, 10, 0, 10],
+        projection="X4i",
+        frame=True,
+        style="c0.2c",
+        color="blue",
+        transparency=80.0,
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_plot_varying_transparency():
+    "Plot the data using z as transparency"
+    x = np.arange(1, 10)
+    y = np.arange(1, 10)
+    z = np.arange(1, 10) * 10
+
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    with GMTTempFile() as tmpfile:
+        np.savetxt(tmpfile.name, np.c_[x, y, z], fmt="%d")
+        fig_ref.plot(
+            data=tmpfile.name,
+            R="0/10/0/10",
+            J="X4i",
+            B="",
+            S="c0.2c",
+            G="blue",
+            t="",
+        )
+
+    fig_test.plot(
+        x=x,
+        y=y,
+        region=[0, 10, 0, 10],
+        projection="X4i",
+        frame=True,
+        style="c0.2c",
+        color="blue",
+        transparency=z,
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_plot_sizes_colors_transparencies():
+    "Plot the data using z as transparency"
+    x = np.arange(1.0, 10.0)
+    y = np.arange(1.0, 10.0)
+    color = np.arange(1, 10) * 0.15
+    size = np.arange(1, 10) * 0.2
+    transparency = np.arange(1, 10) * 10
+
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    with GMTTempFile() as tmpfile:
+        np.savetxt(tmpfile.name, np.c_[x, y, color, size, transparency])
+        fig_ref.plot(
+            data=tmpfile.name,
+            R="0/10/0/10",
+            J="X4i",
+            B="",
+            S="cc",
+            C="gray",
+            t="",
+        )
+    fig_test.plot(
+        x=x,
+        y=y,
+        region=[0, 10, 0, 10],
+        projection="X4i",
+        frame=True,
+        style="cc",
+        color=color,
+        sizes=size,
+        cmap="gray",
+        transparency=transparency,
+    )
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare
