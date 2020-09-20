@@ -305,6 +305,7 @@ class BasePlotting:
     @use_alias(
         B="frame",
         C="cmap",
+        E="dpi",
         I="shading",
         J="projection",
         R="region",
@@ -330,6 +331,13 @@ class BasePlotting:
             The file name of the input grid or the grid loaded as a DataArray.
         {B}
         {CPT}
+        dpi : int
+            ``[i|dpi]``.
+            Sets the resolution of the projected grid that will be created if a
+            map projection other than Linear or Mercator was selected [100]. By
+            default, the projected grid will be of the same size (rows and
+            columns) as the input file. Specify *i* to use the PostScript image
+            operator to interpolate the image at the device resolution.
         {J}
         {R}
         {V}
