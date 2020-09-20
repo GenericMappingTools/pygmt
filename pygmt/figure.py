@@ -430,7 +430,7 @@ class SubPlot(Figure):
         """
         arg_str = " ".join(["set", f"{ax}", build_arg_string(kwargs)])
         with Session() as lib:
-            lib.call_module(module=f"subplot", args=arg_str)
+            lib.call_module(module="subplot", args=arg_str)
 
     @fmt_docstring
     @use_alias(V="verbose")

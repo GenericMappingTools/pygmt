@@ -68,6 +68,7 @@ class BasePlotting:
         G="land",
         S="water",
         U="timestamp",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -146,6 +147,7 @@ class BasePlotting:
         F="box",
         G="truncate",
         W="scale",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", G="sequence")
@@ -228,6 +230,7 @@ class BasePlotting:
         S="resample",
         U="timestamp",
         W="pen",
+        c="ax",
         l="label",
         t="transparency",
     )
@@ -309,6 +312,7 @@ class BasePlotting:
         B="frame",
         I="shading",
         C="cmap",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -358,6 +362,7 @@ class BasePlotting:
         Wf="facadepen",
         p="perspective",
         I="shading",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
@@ -476,6 +481,7 @@ class BasePlotting:
         l="label",
         C="cmap",
         U="timestamp",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -597,6 +603,7 @@ class BasePlotting:
         i="columns",
         l="label",
         C="levels",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -686,6 +693,7 @@ class BasePlotting:
         Td="rose",
         Tm="compass",
         U="timestamp",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -736,6 +744,7 @@ class BasePlotting:
         U="timestamp",
         D="position",
         F="box",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -779,6 +788,7 @@ class BasePlotting:
         D="position",
         F="box",
         M="monochrome",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -823,11 +833,7 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region",
-        J="projection",
-        D="position",
-        F="box",
-        t="transparency",
+        R="region", J="projection", D="position", F="box", c="ax", t="transparency"
     )
     @kwargs_to_strings(R="sequence")
     def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
@@ -893,6 +899,7 @@ class BasePlotting:
         D="offset",
         G="fill",
         W="pen",
+        c="ax",
         t="transparency",
     )
     @kwargs_to_strings(
@@ -1050,11 +1057,7 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region",
-        J="projection",
-        B="frame",
-        C="offset",
-        t="transparency",
+        R="region", J="projection", B="frame", C="offset", c="ax", t="transparency"
     )
     @kwargs_to_strings(R="sequence")
     def meca(
