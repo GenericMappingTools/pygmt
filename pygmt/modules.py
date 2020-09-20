@@ -107,10 +107,13 @@ def info(table, **kwargs):
         if kind == "file":
             file_context = dummy_context(table)
         elif kind == "matrix":
-            _table = np.asanyarray(table)
-            if table.ndim == 1:  # 1D arrays need to be 2D and transposed
-                _table = np.transpose(np.atleast_2d(_table))
-            file_context = lib.virtualfile_from_matrix(_table)
+            try:
+                # pandas.DataFrame types
+                arrays = [array for _, array in table.items()]
+            except AttributeError:
+                # Python lists, tuples, and numpy ndarray types
+                arrays = np.atleast_2d(np.asanyarray(table).T)
+            file_context = lib.virtualfile_from_vectors(*arrays)
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
 
