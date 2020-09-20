@@ -103,6 +103,7 @@ if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
 else:
     version = __version__
+release = __version__
 
 # These enable substitutions using |variable| in the rst files
 rst_epilog = """
