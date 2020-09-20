@@ -172,6 +172,11 @@ def is_nonstr_iter(value):
     True
     >>> is_nonstr_iter((1, 2, 3))
     True
+    >>> import numpy as np
+    >>> is_nonstr_iter(np.array([1.0, 2.0, 3.0]))
+    True
+    >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
+    True
 
     """
     return isinstance(value, Iterable) and not isinstance(value, str)
