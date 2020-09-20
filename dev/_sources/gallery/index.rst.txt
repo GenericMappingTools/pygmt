@@ -19,6 +19,39 @@ code used to generate it.
 
 
 
+.. _sphx_glr_gallery_line:
+
+Lines
+-----
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0....">
+
+.. only:: html
+
+ .. figure:: /gallery/line/images/thumb/sphx_glr_linestyles_thumb.png
+     :alt: Line styles
+
+     :ref:`sphx_glr_gallery_line_linestyles.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/line/linestyles
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
 .. _sphx_glr_gallery_coast:
 
 Coastlines and boundaries

@@ -63,6 +63,10 @@
       ga('send', 'pageview');
     </script>
 
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
@@ -292,6 +296,7 @@ orientation.</p>
 <li><p>J = projection</p></li>
 <li><p>R = region</p></li>
 <li><p>W = pen</p></li>
+<li><p>t = transparency</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -358,6 +363,11 @@ for this line.</p></li>
 <li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Sets the pen used to draw a rectangle around the text string
 (see <em>clearance</em>) [Default is width = default, color = black,
 style = solid].</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
+Default is 0, i.e., opaque.
+Only visible when PDF or raster format output is selected.
+Only the PNG format selection adds a transparency layer
+in the image (for further processing).</p></li>
 </ul>
 </dd>
 </dl>
@@ -389,7 +399,7 @@ style = solid].</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
         </span>
       
 

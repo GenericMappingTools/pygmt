@@ -55,7 +55,7 @@ Start a new figure by creating an instance of this class:
 
 Add elements to the figure using its methods. For example, let's start a map with an
 automatic frame and ticks around a given longitude and latitude bound, set the
-projection to Mercator (``M``), and the figure width to 8 inches:
+projection to Mercator (``M``), and the map width to 8 inches:
 
 
 .. code-block:: default
@@ -177,7 +177,7 @@ are part of GMT 6. A few are PyGMT exclusive (like the ``savefig`` method).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.917 seconds)
+   **Total running time of the script:** ( 0 minutes  1.770 seconds)
 
 
 .. _sphx_glr_download_tutorials_first-figure.py:

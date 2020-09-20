@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Political Boundaries" href="coast/borders.html" />
+    <link rel="next" title="Line styles" href="line/linestyles.html" />
     <link rel="prev" title="Making your first figure" href="../tutorials/first-figure.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -62,6 +62,10 @@
       ga('set', 'anonymizeIp', true);
       ga('send', 'pageview');
     </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
 
 </head>
 
@@ -111,6 +115,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/first-figure.html">Making your first figure</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lines">Lines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="line/linestyles.html">Line styles</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#coastlines-and-boundaries">Coastlines and boundaries</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="coast/borders.html">Political Boundaries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="coast/land_and_water.html">Color land and water</a></li>
@@ -263,65 +271,74 @@
 <span id="sphx-glr-gallery"></span><span id="id1"></span><h1>Gallery<a class="headerlink" href="#gallery" title="Permalink to this headline">¶</a></h1>
 <p>This gallery contains examples of what PyGMT can do. Click on any example to see the
 code used to generate it.</p>
-<div class="sphx-glr-clear"></div><div class="section" id="coastlines-and-boundaries">
+<div class="sphx-glr-clear"></div><div class="section" id="lines">
+<span id="sphx-glr-gallery-line"></span><h2>Lines<a class="headerlink" href="#lines" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0...."><div class="figure align-default" id="id2">
+<img alt="Line styles" src="../_images/sphx_glr_linestyles_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="line/linestyles.html#sphx-glr-gallery-line-linestyles-py"><span class="std std-ref">Line styles</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="coastlines-and-boundaries">
 <span id="sphx-glr-gallery-coast"></span><h2>Coastlines and boundaries<a class="headerlink" href="#coastlines-and-boundaries" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The borders argument of pygmt.Figure.coast specifies levels of political boundaries to plot and..."><div class="figure align-default" id="id2">
+<div class="sphx-glr-thumbcontainer" tooltip="The borders argument of pygmt.Figure.coast specifies levels of political boundaries to plot and..."><div class="figure align-default" id="id3">
 <img alt="Political Boundaries" src="../_images/sphx_glr_borders_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/borders.html#sphx-glr-gallery-coast-borders-py"><span class="std std-ref">Political Boundaries</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/borders.html#sphx-glr-gallery-coast-borders-py"><span class="std std-ref">Political Boundaries</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The land and water arguments of pygmt.Figure.coast specify a color to fill in the land and wate..."><div class="figure align-default" id="id3">
+<div class="sphx-glr-thumbcontainer" tooltip="The land and water arguments of pygmt.Figure.coast specify a color to fill in the land and wate..."><div class="figure align-default" id="id4">
 <img alt="Color land and water" src="../_images/sphx_glr_land_and_water_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/land_and_water.html#sphx-glr-gallery-coast-land-and-water-py"><span class="std std-ref">Color land and water</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/land_and_water.html#sphx-glr-gallery-coast-land-and-water-py"><span class="std std-ref">Color land and water</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines. "><div class="figure align-default" id="id4">
+<div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines. "><div class="figure align-default" id="id5">
 <img alt="Shorelines" src="../_images/sphx_glr_shorelines_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/shorelines.html#sphx-glr-gallery-coast-shorelines-py"><span class="std std-ref">Shorelines</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="coast/shorelines.html#sphx-glr-gallery-coast-shorelines-py"><span class="std std-ref">Shorelines</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-clear"></div></div>
 <div class="section" id="plotting-map-items">
 <span id="sphx-glr-gallery-plot"></span><h2>Plotting map items<a class="headerlink" href="#plotting-map-items" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><div class="figure align-default" id="id5">
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><div class="figure align-default" id="id6">
 <img alt="Colorbar" src="../_images/sphx_glr_colorbar_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/colorbar.html#sphx-glr-gallery-plot-colorbar-py"><span class="std std-ref">Colorbar</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/colorbar.html#sphx-glr-gallery-plot-colorbar-py"><span class="std std-ref">Colorbar</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm..."><div class="figure align-default" id="id6">
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm..."><div class="figure align-default" id="id7">
 <img alt="Legend" src="../_images/sphx_glr_legend_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/legend.html#sphx-glr-gallery-plot-legend-py"><span class="std std-ref">Legend</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/legend.html#sphx-glr-gallery-plot-legend-py"><span class="std std-ref">Legend</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms, or beachballs. We can specify the focal..."><div class="figure align-default" id="id7">
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms, or beachballs. We can specify the focal..."><div class="figure align-default" id="id8">
 <img alt="Focal mechanisms" src="../_images/sphx_glr_meca_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/meca.html#sphx-glr-gallery-plot-meca-py"><span class="std std-ref">Focal mechanisms</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/meca.html#sphx-glr-gallery-plot-meca-py"><span class="std std-ref">Focal mechanisms</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. We must specify the plot symbol and size through ..."><div class="figure align-default" id="id8">
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. We must specify the plot symbol and size through ..."><div class="figure align-default" id="id9">
 <img alt="Points" src="../_images/sphx_glr_points_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/points.html#sphx-glr-gallery-plot-points-py"><span class="std std-ref">Points</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot/points.html#sphx-glr-gallery-plot-points-py"><span class="std std-ref">Points</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-clear"></div></div>
 <div class="section" id="grids">
 <span id="sphx-glr-gallery-grid"></span><h2>Grids<a class="headerlink" href="#grids" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ..."><div class="figure align-default" id="id9">
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ..."><div class="figure align-default" id="id10">
 <img alt="Plotting a surface" src="../_images/sphx_glr_grdview_surface_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="grid/grdview_surface.html#sphx-glr-gallery-grid-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="grid/grdview_surface.html#sphx-glr-gallery-grid-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id10">
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id11">
 <img alt="Sampling along tracks" src="../_images/sphx_glr_track_sampling_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
@@ -338,7 +355,7 @@ code used to generate it.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="coast/borders.html" class="btn btn-neutral float-right" title="Political Boundaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="line/linestyles.html" class="btn btn-neutral float-right" title="Line styles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../tutorials/first-figure.html" class="btn btn-neutral float-left" title="Making your first figure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -353,7 +370,7 @@ code used to generate it.</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/d3e131a863a008f14979e7d9764cc6167156376f">d3e131a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
         </span>
       
 

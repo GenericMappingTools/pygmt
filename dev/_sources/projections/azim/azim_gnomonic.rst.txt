@@ -59,7 +59,7 @@ specifies the max distance from projection center (in degrees, < 90, default 60)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.703 seconds)
+   **Total running time of the script:** ( 0 minutes  0.641 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_gnomonic.py:

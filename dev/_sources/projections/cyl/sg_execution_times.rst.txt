@@ -5,12 +5,12 @@
 
 Computation times
 =================
-**00:03.417** total execution time for **projections_cyl** files:
+**00:03.295** total execution time for **projections_cyl** files:
 
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``cyl_cassini.py``)             | 00:01.510 | 0.0 MB |
+| :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``cyl_cassini.py``)             | 00:01.529 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``cyl_mercator.py``)           | 00:00.989 | 0.0 MB |
+| :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``cyl_mercator.py``)           | 00:00.922 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``cyl_stereographic.py``) | 00:00.918 | 0.0 MB |
+| :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``cyl_stereographic.py``) | 00:00.843 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+

@@ -27,7 +27,7 @@ fig = pygmt.Figure()
 ########################################################################################
 # Add elements to the figure using its methods. For example, let's start a map with an
 # automatic frame and ticks around a given longitude and latitude bound, set the
-# projection to Mercator (``M``), and the figure width to 8 inches:
+# projection to Mercator (``M``), and the map width to 8 inches:
 
 fig.basemap(region=[-90, -70, 0, 20], projection="M8i", frame=True)
 
