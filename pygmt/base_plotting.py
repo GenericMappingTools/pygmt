@@ -303,12 +303,14 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region",
-        J="projection",
-        W="pen",
         B="frame",
-        I="shading",
         C="cmap",
+        I="shading",
+        J="projection",
+        R="region",
+        U="timestamp",
+        V="verbose",
+        n="interpolation",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -326,6 +328,12 @@ class BasePlotting:
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
+        {B}
+        {CPT}
+        {J}
+        {R}
+        {V}
+        {n}
         {t}
 
         """
