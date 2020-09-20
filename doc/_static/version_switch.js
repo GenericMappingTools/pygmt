@@ -4,8 +4,8 @@
 (function() {
   'use strict';
 
-  //var doc_url = "www.pygmt.org";
-  var doc_url = "0.0.0.0:8000"; // for local testing only
+  var doc_url = "www.pygmt.org";
+  //var doc_url = "0.0.0.0:8000"; // for local testing only
   var url_re = new RegExp(doc_url + "\\/(dev|latest|(v\\d+\\.\\d+\\.\\d+))\\/");
   // List all versions.
   // Add one entry "version: title" for any minor releases
