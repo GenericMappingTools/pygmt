@@ -78,9 +78,10 @@ def info(table, **kwargs):
 
     Parameters
     ----------
-    table : pandas.DataFrame or np.ndarray or str
-        Either a pandas dataframe, a 1D/2D numpy.ndarray or a file name to an
-        ASCII data table.
+    table : str or np.ndarray or pandas.DataFrame or xarray.Dataset
+        Pass in either a a file name to an ASCII data table, a 1D/2D numpy
+        array, a pandas dataframe, or an xarray dataset made up of 1D
+        xarray.DataArray data variables.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
