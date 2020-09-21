@@ -310,6 +310,7 @@ class BasePlotting:
         I="shading",
         C="cmap",
         t="transparency",
+        x="cores",
     )
     @kwargs_to_strings(R="sequence")
     def grdimage(self, grid, **kwargs):
@@ -327,6 +328,7 @@ class BasePlotting:
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
         {t}
+        {x}
 
         """
         kwargs = self._preprocess(**kwargs)

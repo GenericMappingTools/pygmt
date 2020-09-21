@@ -99,6 +99,16 @@ COMMON_OPTIONS = {
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
+    "x": """\
+        cores : int
+            ``[[-]n]``.
+            Limit the number of cores to be used in any OpenMP-enabled
+            multi-threaded algorithms. By default we try to use all available
+            cores. Set a number *n* to only use n cores (if too large it will
+            be truncated to the maximum cores available). Finally, give a
+            negative number *-n* to select (all - n) cores (or at least 1 if
+            n equals or exceeds all).
+            """,
 }
 
 
