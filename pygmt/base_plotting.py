@@ -548,8 +548,7 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
-        {X}
-        {Y}
+        {XY}
         label : str
             Add a legend entry for the symbol or line being plotted.
 
