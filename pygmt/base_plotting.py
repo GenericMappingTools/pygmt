@@ -421,6 +421,18 @@ class BasePlotting:
             paint the mask with the given color. Append **+b** to paint the
             background pixels (1) or **+f** for the foreground pixels
             [Default].
+        shading : str
+            ``[intensfile|intensity|modifiers]``.
+            Give the name of a grid file with intensities in the (-1,+1) range,
+            or a constant intensity to apply everywhere (affects the ambient
+            light). Alternatively, derive an intensity grid from the input data
+            grid via a call to `grdgradient`; append **+aazimuth**, **+nargs**,
+            and **+mambient** to specify azimuth, intensity, and ambient
+            arguments for that module, or just give **+d** to select the
+            default arguments (``+a-45+nt1+m0``). If you want a more specific
+            intensity scenario then run `grdgradient` separately first. If we
+            should derive intensities from another file than grid, specify the
+            file with suitable modifiers [Default is no illumination].
         {J}
         monochrome : bool
             Force conversion to monochrome image using the (television) YIQ
