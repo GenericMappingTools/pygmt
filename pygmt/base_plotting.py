@@ -68,6 +68,8 @@ class BasePlotting:
         G="land",
         S="water",
         U="timestamp",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -129,6 +131,7 @@ class BasePlotting:
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
+        {XY}
         {t}
 
         """
@@ -146,6 +149,8 @@ class BasePlotting:
         F="box",
         G="truncate",
         W="scale",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", G="sequence")
@@ -208,6 +213,7 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        {XY}
         {t}
 
         """
@@ -229,6 +235,8 @@ class BasePlotting:
         U="timestamp",
         W="pen",
         l="label",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
@@ -279,6 +287,7 @@ class BasePlotting:
         {G}
         {U}
         {W}
+        {XY}
         label : str
             Add a legend entry for the contour being plotted. Normally, the
             annotated contour is selected for the legend. You can select the
@@ -317,8 +326,11 @@ class BasePlotting:
         R="region",
         U="timestamp",
         V="verbose",
+        X="xshift",
+        Y="yshift",
         n="interpolation",
         t="transparency",
+        x="cores",
     )
     @kwargs_to_strings(R="sequence")
     def grdimage(self, grid, **kwargs):
@@ -422,8 +434,10 @@ class BasePlotting:
             3).
         {R}
         {V}
+        {XY}
         {n}
         {t}
+        {x}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -455,6 +469,8 @@ class BasePlotting:
         Wf="facadepen",
         p="perspective",
         I="shading",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
@@ -532,6 +548,7 @@ class BasePlotting:
             intensity, and ambient arguments for that module, or just give
             ``+d`` to select the default arguments (``+a-45+nt1+m0``).
 
+        {XY}
         {t}
 
         """
@@ -573,6 +590,8 @@ class BasePlotting:
         l="label",
         C="cmap",
         U="timestamp",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -641,6 +660,7 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
+        {XY}
         label : str
             Add a legend entry for the symbol or line being plotted.
 
@@ -694,6 +714,8 @@ class BasePlotting:
         i="columns",
         l="label",
         C="levels",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
@@ -752,6 +774,7 @@ class BasePlotting:
             to be of the format [*annotcontlabel*][/*contlabel*]. If either
             label contains a slash (/) character then use ``|`` as the
             separator for the two labels instead.
+        {XY}
         {t}
 
         """
@@ -783,6 +806,8 @@ class BasePlotting:
         Td="rose",
         Tm="compass",
         U="timestamp",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -817,6 +842,7 @@ class BasePlotting:
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
+        {XY}
         {t}
 
         """
@@ -833,6 +859,8 @@ class BasePlotting:
         U="timestamp",
         D="position",
         F="box",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -860,6 +888,7 @@ class BasePlotting:
             Without further options, draws a rectangular border around the
             GMT logo.
         {U}
+        {XY}
         {t}
 
         """
@@ -876,6 +905,8 @@ class BasePlotting:
         D="position",
         F="box",
         M="monochrome",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -911,6 +942,7 @@ class BasePlotting:
         monochrome : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
+        {XY}
         {t}
         """
         kwargs = self._preprocess(**kwargs)
@@ -924,6 +956,8 @@ class BasePlotting:
         J="projection",
         D="position",
         F="box",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -960,6 +994,7 @@ class BasePlotting:
             rectangular border around the legend using **MAP_FRAME_PEN**. By
             default, uses '+gwhite+p1p' which draws a box around the legend
             using a 1 point black pen and adds a white background.
+        {XY}
         {t}
         """
         kwargs = self._preprocess(**kwargs)
@@ -989,6 +1024,8 @@ class BasePlotting:
         D="offset",
         G="fill",
         W="pen",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(
@@ -1095,6 +1132,7 @@ class BasePlotting:
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
+        {XY}
         {t}
         """
         kwargs = self._preprocess(**kwargs)
@@ -1150,6 +1188,8 @@ class BasePlotting:
         J="projection",
         B="frame",
         C="offset",
+        X="xshift",
+        Y="yshift",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence")
@@ -1247,6 +1287,7 @@ class BasePlotting:
         {J}
         {R}
         {B}
+        {XY}
         {t}
         """
 

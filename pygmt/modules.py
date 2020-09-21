@@ -78,9 +78,10 @@ def info(table, **kwargs):
 
     Parameters
     ----------
-    table : pandas.DataFrame or np.ndarray or str
-        Either a pandas dataframe, a 1D/2D numpy.ndarray or a file name to an
-        ASCII data table.
+    table : str or np.ndarray or pandas.DataFrame or xarray.Dataset
+        Pass in either a file name to an ASCII data table, a 1D/2D numpy array,
+        a pandas dataframe, or an xarray dataset made up of 1D xarray.DataArray
+        data variables.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
@@ -107,10 +108,13 @@ def info(table, **kwargs):
         if kind == "file":
             file_context = dummy_context(table)
         elif kind == "matrix":
-            _table = np.asanyarray(table)
-            if table.ndim == 1:  # 1D arrays need to be 2D and transposed
-                _table = np.transpose(np.atleast_2d(_table))
-            file_context = lib.virtualfile_from_matrix(_table)
+            try:
+                # pandas.DataFrame and xarray.Dataset types
+                arrays = [array for _, array in table.items()]
+            except AttributeError:
+                # Python lists, tuples, and numpy ndarray types
+                arrays = np.atleast_2d(np.asanyarray(table).T)
+            file_context = lib.virtualfile_from_vectors(*arrays)
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
 

@@ -8,12 +8,16 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 import xarray as xr
+from packaging.version import Version
 
-from .. import info
+from .. import clib, info
 from ..exceptions import GMTInvalidInput
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 def test_info():
@@ -33,7 +37,48 @@ def test_info_dataframe():
     table = pd.read_csv(POINTS_DATA, sep=" ", header=None)
     output = info(table=table)
     expected_output = (
-        "<matrix memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+        "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+    )
+    assert output == expected_output
+
+
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.1.1"),
+    reason="UNIX timestamps returned instead of ISO datetime, should work on GMT 6.2.0 "
+    "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
+)
+def test_info_pandas_dataframe_time_column():
+    "Make sure info works on pandas.DataFrame inputs with a time column"
+    table = pd.DataFrame(
+        data={
+            "z": [10, 13, 12, 15, 14],
+            "time": pd.date_range(start="2020-01-01", periods=5),
+        }
+    )
+    output = info(table=table)
+    expected_output = (
+        "<vector memory>: N = 5 <10/15> <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
+    )
+    assert output == expected_output
+
+
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.1.1"),
+    reason="UNIX timestamp returned instead of ISO datetime, should work on GMT 6.2.0 "
+    "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
+)
+def test_info_xarray_dataset_time_column():
+    "Make sure info works on xarray.Dataset 1D inputs with a time column"
+    table = xr.Dataset(
+        coords={"index": [0, 1, 2, 3, 4]},
+        data_vars={
+            "z": ("index", [10, 13, 12, 15, 14]),
+            "time": ("index", pd.date_range(start="2020-01-01", periods=5)),
+        },
+    )
+    output = info(table=table)
+    expected_output = (
+        "<vector memory>: N = 5 <10/15> <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
     )
     assert output == expected_output
 
@@ -43,7 +88,7 @@ def test_info_2d_array():
     table = np.loadtxt(POINTS_DATA)
     output = info(table=table)
     expected_output = (
-        "<matrix memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+        "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 
@@ -51,7 +96,7 @@ def test_info_2d_array():
 def test_info_1d_array():
     "Make sure info works on 1D numpy.ndarray inputs"
     output = info(table=np.arange(20))
-    expected_output = "<matrix memory>: N = 20 <0/19>\n"
+    expected_output = "<vector memory>: N = 20 <0/19>\n"
     assert output == expected_output
 
 
