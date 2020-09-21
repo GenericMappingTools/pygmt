@@ -321,8 +321,8 @@ class BasePlotting:
         I="shading",
         J="projection",
         M="monochrome",
-        N="noclip",
-        Q="nan_alpha",
+        N="no_clip",
+        Q="nan_transparent",
         R="region",
         U="timestamp",
         V="verbose",
@@ -424,11 +424,11 @@ class BasePlotting:
         {J}
         monochrome : bool
             Force conversion to monochrome image using the (television) YIQ
-            transformation. Cannot be used with *nan_alpha*.
-        noclip : bool
+            transformation. Cannot be used with *nan_transparent*.
+        no_clip : bool
             Do not clip the image at the map boundary (only relevant for
             non-rectangular maps).
-        nan_alpha : bool
+        nan_transparent : bool
             Make grid nodes with z = NaN transparent, using the color-masking
             feature in PostScript Level 3 (the PS device must support PS Level
             3).
