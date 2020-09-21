@@ -86,6 +86,13 @@ COMMON_OPTIONS = {
             - 'c' for bicubic [Default]
             - 'l' for bilinear
             - 'n' for nearest-neighbor""",
+    "p": """\
+        perspective : list or str
+            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
+            Select perspective view and set the azimuth and elevation angle of
+            the viewpoint. Default is [180, 90]. Full documentation is at
+            :gmt-docs:`gmt.html#perspective-full`.
+        """,
     "registration": """\
         registration : str
             ``[g|p]``
