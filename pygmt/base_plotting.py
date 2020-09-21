@@ -70,9 +70,10 @@ class BasePlotting:
         U="timestamp",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def coast(self, **kwargs):
         """
         Plot continents, shorelines, rivers, and borders on maps
@@ -132,6 +133,7 @@ class BasePlotting:
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
         {XY}
+        {p}
         {t}
 
         """
@@ -151,9 +153,10 @@ class BasePlotting:
         W="scale",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", G="sequence")
+    @kwargs_to_strings(R="sequence", G="sequence", p="sequence")
     def colorbar(self, **kwargs):
         """
         Plot a gray or color scale-bar on maps.
@@ -214,6 +217,7 @@ class BasePlotting:
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
         {XY}
+        {p}
         {t}
 
         """
@@ -237,9 +241,10 @@ class BasePlotting:
         l="label",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
+    @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus", p="sequence")
     def grdcontour(self, grid, **kwargs):
         """
         Convert grids or images to contours and plot them on maps
@@ -295,6 +300,7 @@ class BasePlotting:
             to be of the format [*annotcontlabel*][/*contlabel*]. If either
             label contains a slash (/) character then use ``|`` as the
             separator for the two labels instead.
+        {p}
         {t}
         """
         kwargs = self._preprocess(**kwargs)
@@ -320,10 +326,11 @@ class BasePlotting:
         C="cmap",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
         x="cores",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def grdimage(self, grid, **kwargs):
         """
         Project grids or images and plot them on maps.
@@ -339,6 +346,7 @@ class BasePlotting:
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
         {XY}
+        {p}
         {t}
         {x}
 
@@ -370,10 +378,10 @@ class BasePlotting:
         Wc="contourpen",
         Wm="meshpen",
         Wf="facadepen",
-        p="perspective",
         I="shading",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
@@ -438,10 +446,6 @@ class BasePlotting:
             Sets the pen attributes used for the facade. You must also select
             -N for the facade outline to be drawn.
 
-        perspective : list or str
-            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
-            Select perspective view.
-
         shading : str
             Provide the name of a grid file with intensities in the (-1,+1)
             range, or a constant intensity to apply everywhere (affects the
@@ -452,6 +456,7 @@ class BasePlotting:
             ``+d`` to select the default arguments (``+a-45+nt1+m0``).
 
         {XY}
+        {p}
         {t}
 
         """
@@ -495,9 +500,10 @@ class BasePlotting:
         U="timestamp",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", i="sequence_comma")
+    @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
     def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         """
         Plot lines, polygons, and symbols on maps.
@@ -567,6 +573,7 @@ class BasePlotting:
         label : str
             Add a legend entry for the symbol or line being plotted.
 
+        {p}
         {t}
         """
         kwargs = self._preprocess(**kwargs)
@@ -619,9 +626,10 @@ class BasePlotting:
         C="levels",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", i="sequence_comma")
+    @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
     def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         """
         Contour table data by direct triangulation.
@@ -678,6 +686,7 @@ class BasePlotting:
             label contains a slash (/) character then use ``|`` as the
             separator for the two labels instead.
         {XY}
+        {p}
         {t}
 
         """
@@ -711,9 +720,10 @@ class BasePlotting:
         U="timestamp",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def basemap(self, **kwargs):
         """
         Produce a basemap for the figure.
@@ -746,6 +756,7 @@ class BasePlotting:
             reference and anchor points
         {U}
         {XY}
+        {p}
         {t}
 
         """
@@ -764,9 +775,10 @@ class BasePlotting:
         F="box",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def logo(self, **kwargs):
         """
         Place the GMT graphics logo on a map.
@@ -792,6 +804,7 @@ class BasePlotting:
             GMT logo.
         {U}
         {XY}
+        {p}
         {t}
 
         """
@@ -810,9 +823,10 @@ class BasePlotting:
         M="monochrome",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def image(self, imagefile, **kwargs):
         """
         Place images or EPS files on maps.
@@ -846,6 +860,7 @@ class BasePlotting:
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
         {XY}
+        {p}
         {t}
         """
         kwargs = self._preprocess(**kwargs)
@@ -861,9 +876,10 @@ class BasePlotting:
         F="box",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
         """
         Plot legends on maps.
@@ -898,6 +914,7 @@ class BasePlotting:
             default, uses '+gwhite+p1p' which draws a box around the legend
             using a 1 point black pen and adds a white background.
         {XY}
+        {p}
         {t}
         """
         kwargs = self._preprocess(**kwargs)
@@ -929,6 +946,7 @@ class BasePlotting:
         W="pen",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
     @kwargs_to_strings(
@@ -937,6 +955,7 @@ class BasePlotting:
         angle="sequence_comma",
         font="sequence_comma",
         justify="sequence_comma",
+        p="sequence",
     )
     def text(
         self,
@@ -1036,6 +1055,7 @@ class BasePlotting:
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
         {XY}
+        {p}
         {t}
         """
         kwargs = self._preprocess(**kwargs)
@@ -1093,9 +1113,10 @@ class BasePlotting:
         C="offset",
         X="xshift",
         Y="yshift",
+        p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def meca(
         self,
         spec,
@@ -1191,6 +1212,7 @@ class BasePlotting:
         {R}
         {B}
         {XY}
+        {p}
         {t}
         """
 
