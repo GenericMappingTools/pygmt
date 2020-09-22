@@ -85,6 +85,7 @@ sphinx_gallery_conf = {
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "**.ipynb_checkpoints"]
 source_suffix = ".rst"
+needs_sphinx = "1.8"
 # The encoding of source files.
 source_encoding = "utf-8-sig"
 master_doc = "index"
@@ -112,6 +113,7 @@ html_short_title = "PyGMT"
 html_logo = ""
 html_favicon = "_static/favicon.png"
 html_static_path = ["_static"]
+html_css_files = ["style.css"]
 html_extra_path = []
 pygments_style = "default"
 add_function_parentheses = False
@@ -158,8 +160,3 @@ html_context = {
     "github_version": "master",
     "commit": commit_link,
 }
-
-
-# Load the custom CSS files (needs sphinx >= 1.6 for this to work)
-def setup(app):
-    app.add_stylesheet("style.css")
