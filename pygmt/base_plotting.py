@@ -379,7 +379,6 @@ class BasePlotting:
         Parameters
         ----------
         grid : str or xarray.DataArray
-            ``grid | image``.
             The file name or a DataArray containing the input 2-D gridded data
             set or image to be plotted (See GRID FILE FORMATS at
             :gmt-docs:`grdimage.html#grid-file-formats`).
@@ -392,7 +391,7 @@ class BasePlotting:
             *out_img* to select the image file name and extension. If the
             extension is one of .bmp, .gif, .jpg, .png, or .tif then no driver
             information is required. For other output formats you must append
-            the required GDAL driver. The driver is the driver code name used
+            the required GDAL driver. The *driver* is the driver code name used
             by GDAL; see your GDAL installation's documentation for available
             drivers. Append a **+c**\\ *options* string where options is a list
             of one or more concatenated number of GDAL **-co** options. For
@@ -418,8 +417,8 @@ class BasePlotting:
             Sets the resolution of the projected grid that will be created if a
             map projection other than Linear or Mercator was selected [100]. By
             default, the projected grid will be of the same size (rows and
-            columns) as the input file. Specify *i* to use the PostScript image
-            operator to interpolate the image at the device resolution.
+            columns) as the input file. Specify **i** to use the PostScript
+            image operator to interpolate the image at the device resolution.
         bit_color : str
             ``color[+b|f]``.
             This option only applies when a resulting 1-bit image otherwise
@@ -433,13 +432,14 @@ class BasePlotting:
             Give the name of a grid file with intensities in the (-1,+1) range,
             or a constant intensity to apply everywhere (affects the ambient
             light). Alternatively, derive an intensity grid from the input data
-            grid via a call to `grdgradient`; append **+aazimuth**, **+nargs**,
-            and **+mambient** to specify azimuth, intensity, and ambient
-            arguments for that module, or just give **+d** to select the
-            default arguments (``+a-45+nt1+m0``). If you want a more specific
-            intensity scenario then run `grdgradient` separately first. If we
-            should derive intensities from another file than grid, specify the
-            file with suitable modifiers [Default is no illumination].
+            grid via a call to `grdgradient`; append **+a** \\ *azimuth*,
+            **+n** \\ *args*, and **+m** \\ *ambient* to specify azimuth,
+            intensity, and ambient arguments for that module, or just give
+            **+d** to select the default arguments (``+a-45+nt1+m0``). If you
+            want a more specific intensity scenario then run `grdgradient`
+            separately first. If we should derive intensities from another file
+            than grid, specify the file with suitable modifiers [Default is no
+            illumination].
         {J}
         monochrome : bool
             Force conversion to monochrome image using the (television) YIQ
