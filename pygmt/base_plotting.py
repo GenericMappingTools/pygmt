@@ -394,8 +394,8 @@ class BasePlotting:
             information is required. For other output formats you must append
             the required GDAL driver. The driver is the driver code name used
             by GDAL; see your GDAL installation's documentation for available
-            drivers. Append a **+c**\ *options* string where options is a list of
-            one or more concatenated number of GDAL **-co** options. For
+            drivers. Append a **+c**\\ *options* string where options is a list
+            of one or more concatenated number of GDAL **-co** options. For
             example, to write a GeoPDF with the TerraGo format use
             ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
             selected then we will write a GeoTiff image if the GMT projection
