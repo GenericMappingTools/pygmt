@@ -354,7 +354,7 @@ class BasePlotting:
         `grdmath` or `grdhisteq`. A third alternative is available when GMT is
         build with GDAL support. Pass **image** which can be an image file
         (geo-referenced or not). In this case the image can optionally be
-        illuminated with the file provided via the **shading** option. Here, if
+        illuminated with the file provided via the *shading* option. Here, if
         image has no coordinates then those of the intensity file will be used.
 
         When using map projections, the grid is first resampled on a new
@@ -394,7 +394,7 @@ class BasePlotting:
             information is required. For other output formats you must append
             the required GDAL driver. The driver is the driver code name used
             by GDAL; see your GDAL installation's documentation for available
-            drivers. Append a **+coptions** string where options is a list of
+            drivers. Append a **+c**\ *options* string where options is a list of
             one or more concatenated number of GDAL **-co** options. For
             example, to write a GeoPDF with the TerraGo format use
             ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
@@ -407,9 +407,9 @@ class BasePlotting:
             ``[r]``
             GMT will automatically detect standard image files (Geotiff, TIFF,
             JPG, PNG, GIF, etc.) and will read those via GDAL. For very obscure
-            image formats you may need to explicitly set **img_in**, which
+            image formats you may need to explicitly set *img_in*, which
             specifies that the grid is in fact an image file to be read via
-            GDAL. Append **r** to assign the region specified by **region**
+            GDAL. Append **r** to assign the region specified by *region*
             to the image. For example, if you have used ``region='d'`` then the
             image will be assigned a global domain. This mode allows you to
             project a raw image (an image without referencing coordinates).
