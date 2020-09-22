@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-import sys
-import os
-import glob
-import shutil
 import datetime
-import sphinx_rtd_theme
-import sphinx_gallery
 from sphinx_gallery.sorting import FileNameSortKey, ExplicitOrder
 from pygmt import __version__, __commit__
 from pygmt.sphinx_gallery import PyGMTScraper
