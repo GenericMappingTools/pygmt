@@ -351,11 +351,11 @@ class BasePlotting:
         or instructions to derive intensities from the input data grid. Values
         outside this range will be clipped. Such intensity files can be created
         from the grid using `grdgradient` and, optionally, modified by
-        `grdmath` or `grdhisteq`. A third alternative is available when GMT is
-        build with GDAL support. Pass **image** which can be an image file
-        (geo-referenced or not). In this case the image can optionally be
-        illuminated with the file provided via the *shading* option. Here, if
-        image has no coordinates then those of the intensity file will be used.
+        `grdmath` or `grdhisteq`. If GMT is built with GDAL support, *grid* can
+        be an image file (geo-referenced or not). In this case the image can
+        optionally be illuminated with the file provided via the *shading*
+        option. Here, if image has no coordinates then those of the intensity
+        file will be used.
 
         When using map projections, the grid is first resampled on a new
         rectangular grid with the same dimensions. Higher resolution images can
