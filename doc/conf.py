@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=invalid-name,redefined-builtin,redefined-builtin
+# pylint: disable=missing-module-docstring
+
 import datetime
 from sphinx_gallery.sorting import FileNameSortKey, ExplicitOrder
 from pygmt import __version__, __commit__
@@ -125,20 +128,21 @@ html_show_copyright = True
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
-commit_link = f'<a href="https://github.com/GenericMappingTools/pygmt/commit/{ __commit__ }">{ __commit__[:7] }</a>'
+repository_url = "https://github.com/GenericMappingTools/pygmt"
+commit_link = f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:7] }</a>'
 html_context = {
     "menu_links": [
         (
             '<i class="fa fa-users fa-fw"></i> Contributing',
-            "https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md",
+            f"{repository_url}/blob/master/CONTRIBUTING.md",
         ),
         (
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            "https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md",
+            f"{repository_url}/blob/master/CODE_OF_CONDUCT.md",
         ),
         (
             '<i class="fa fa-book fa-fw"></i> License',
-            "https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt",
+            f"{repository_url}/blob/master/LICENSE.txt",
         ),
         (
             '<i class="fa fa-comment fa-fw"></i> Contact',
@@ -146,7 +150,7 @@ html_context = {
         ),
         (
             '<i class="fa fa-github fa-fw"></i> Source Code',
-            "https://github.com/GenericMappingTools/pygmt",
+            repository_url,
         ),
     ],
     # Custom variables to enable "Improve this page"" and "Download notebook"
