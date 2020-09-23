@@ -5,7 +5,6 @@ Sphinx documentation configuration file.
 # pylint: disable=invalid-name
 
 import datetime
-import sphinx_gallery  # pylint: disable=unused-import
 from sphinx_gallery.sorting import FileNameSortKey, ExplicitOrder
 from pygmt import __version__, __commit__
 from pygmt.sphinx_gallery import PyGMTScraper
