@@ -6,8 +6,8 @@ PYTEST_ARGS=--cov=$(PROJECT) --cov-config=../.coveragerc \
 			--doctest-modules -v --mpl --mpl-results-path=results \
 			--pyargs ${PYTEST_EXTRA}
 BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
-FLAKE8_FILES=$(PROJECT) setup.py
-LINT_FILES=$(PROJECT) setup.py
+FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py
+LINT_FILES=$(PROJECT) setup.py doc/conf.py
 
 help:
 	@echo "Commands:"
@@ -29,11 +29,7 @@ test:
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
-	# There are two steps to the test here because `test_grdimage_over_dateline`
-	# passes only when it runs before the other tests.
-	# See also https://github.com/GenericMappingTools/pygmt/pull/476
-	cd $(TESTDIR); pytest -m runfirst $(PYTEST_ARGS) $(PROJECT)
-	cd $(TESTDIR); pytest -m 'not runfirst' $(PYTEST_ARGS) $(PROJECT)
+	cd $(TESTDIR); pytest $(PYTEST_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
 	rm -r $(TESTDIR)
@@ -51,6 +47,8 @@ lint:
 clean:
 	find . -name "*.pyc" -exec rm -v {} \;
 	find . -name "*~" -exec rm -v {} \;
-	rm -rvf build dist MANIFEST *.egg-info __pycache__ .coverage .cache htmlcov coverage.xml
+	find . -type d -name  "__pycache__" -exec rm -rv {} +
+	rm -rvf build dist MANIFEST *.egg-info .coverage .cache htmlcov coverage.xml
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
+	rm -rvf result_images
