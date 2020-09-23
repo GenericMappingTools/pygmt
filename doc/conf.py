@@ -5,7 +5,7 @@ Sphinx documentation configuration file.
 # pylint: disable=invalid-name
 
 import datetime
-import sphinx_gallery
+from sphinx_gallery.sorting import FileNameSortKey, ExplicitOrder
 from pygmt import __version__, __commit__
 from pygmt.sphinx_gallery import PyGMTScraper
 
@@ -57,7 +57,7 @@ sphinx_gallery_conf = {
     ],
     # path where to save gallery generated examples
     "gallery_dirs": ["gallery", "tutorials", "projections"],
-    "subsection_order": sphinx_gallery.sorting.ExplicitOrder(
+    "subsection_order": ExplicitOrder(
         [
             "../examples/gallery/line",
             "../examples/gallery/coast",
@@ -75,7 +75,7 @@ sphinx_gallery_conf = {
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery example by file name instead of number of lines (default)
-    "within_subsection_order": sphinx_gallery.sorting.FileNameSortKey,
+    "within_subsection_order": FileNameSortKey,
     # directory where function granular galleries are stored
     "backreferences_dir": "api/generated/backreferences",
     # Modules for which function level galleries are created.  In
