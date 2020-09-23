@@ -20,6 +20,7 @@ def data_kind(data, x=None, y=None, z=None):
     Possible types:
 
     * a file name provided as 'data'
+    * an xarray.DataArray provided as 'data'
     * a matrix provided as 'data'
     * 1D arrays x and y (and z, optionally)
 
@@ -28,8 +29,8 @@ def data_kind(data, x=None, y=None, z=None):
 
     Parameters
     ----------
-    data : str, 2d array, or None
-       Data file name or numpy array.
+    data : str, xarray.DataArray, 2d array, or None
+       Data file name, xarray.DataArray or numpy array.
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None
@@ -39,18 +40,21 @@ def data_kind(data, x=None, y=None, z=None):
     Returns
     -------
     kind : str
-        One of: ``'file'``, ``'matrix'``, ``'vectors'``.
+        One of: ``'file'``, ``'grid'``, ``'matrix'``, ``'vectors'``.
 
     Examples
     --------
 
     >>> import numpy as np
+    >>> import xarray as xr
     >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
     'vectors'
     >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
     'matrix'
     >>> data_kind(data='my-data-file.txt', x=None, y=None)
     'file'
+    >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
+    'grid'
 
     """
     if data is None and x is None and y is None:
@@ -167,6 +171,11 @@ def is_nonstr_iter(value):
     >>> is_nonstr_iter([1, 2, 3])
     True
     >>> is_nonstr_iter((1, 2, 3))
+    True
+    >>> import numpy as np
+    >>> is_nonstr_iter(np.array([1.0, 2.0, 3.0]))
+    True
+    >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
     True
 
     """

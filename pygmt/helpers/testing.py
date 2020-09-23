@@ -1,23 +1,20 @@
 """
 Helper functions for testing.
 """
-
 import inspect
 import os
+import string
 
 from matplotlib.testing.compare import compare_images
-
 from ..exceptions import GMTImageComparisonFailure
-from ..figure import Figure
 
 
-def check_figures_equal(*, tol=0.0, result_dir="result_images"):
+def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
     """
     Decorator for test cases that generate and compare two figures.
 
-    The decorated function must take two arguments, *fig_ref* and *fig_test*,
-    and draw the reference and test images on them. After the function
-    returns, the figures are saved and compared.
+    The decorated function must return two arguments, *fig_ref* and *fig_test*,
+    these two figures will then be saved and compared against each other.
 
     This decorator is practically identical to matplotlib's check_figures_equal
     function, but adapted for PyGMT figures. See also the original code at
@@ -26,6 +23,8 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
 
     Parameters
     ----------
+    extensions : list
+        The extensions to test. Default is ["png"].
     tol : float
         The RMS threshold above which the test is considered failed.
     result_dir : str
@@ -36,19 +35,26 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
 
     >>> import pytest
     >>> import shutil
+    >>> from pygmt import Figure
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
-    ... def test_check_figures_equal(fig_ref, fig_test):
+    ... def test_check_figures_equal():
+    ...     fig_ref = Figure()
     ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
+    ...     fig_test = Figure()
     ...     fig_test.basemap(projection="X5c", region=[0, 5, 0, 5], frame="af")
+    ...     return fig_ref, fig_test
     >>> test_check_figures_equal()
     >>> assert len(os.listdir("tmp_result_images")) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
-    ... def test_check_figures_unequal(fig_ref, fig_test):
+    ... def test_check_figures_unequal():
+    ...     fig_ref = Figure()
     ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
+    ...     fig_test = Figure()
     ...     fig_test.basemap(projection="X5c", region=[0, 3, 0, 3], frame=True)
+    ...     return fig_ref, fig_test
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
     >>> for suffix in ["", "-expected", "-failed-diff"]:
@@ -60,21 +66,30 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
     ...     )
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
+    # pylint: disable=invalid-name
+    ALLOWED_CHARS = set(string.digits + string.ascii_letters + "_-[]()")
+    KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
+        import pytest
 
         os.makedirs(result_dir, exist_ok=True)
         old_sig = inspect.signature(func)
 
-        def wrapper(*args, **kwargs):
+        @pytest.mark.parametrize("ext", extensions)
+        def wrapper(*args, ext="png", request=None, **kwargs):
+            if "ext" in old_sig.parameters:
+                kwargs["ext"] = ext
+            if "request" in old_sig.parameters:
+                kwargs["request"] = request
             try:
-                fig_ref = Figure()
-                fig_test = Figure()
-                func(*args, fig_ref=fig_ref, fig_test=fig_test, **kwargs)
-                ref_image_path = os.path.join(
-                    result_dir, func.__name__ + "-expected.png"
-                )
-                test_image_path = os.path.join(result_dir, func.__name__ + ".png")
+                file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
+            except AttributeError:  # 'NoneType' object has no attribute 'node'
+                file_name = func.__name__
+            try:
+                fig_ref, fig_test = func(*args, **kwargs)
+                ref_image_path = os.path.join(result_dir, f"{file_name}-expected.{ext}")
+                test_image_path = os.path.join(result_dir, f"{file_name}.{ext}")
                 fig_ref.savefig(ref_image_path)
                 fig_test.savefig(test_image_path)
 
@@ -105,8 +120,17 @@ def check_figures_equal(*, tol=0.0, result_dir="result_images"):
             for param in old_sig.parameters.values()
             if param.name not in {"fig_test", "fig_ref"}
         ]
+        if "ext" not in old_sig.parameters:
+            parameters += [inspect.Parameter("ext", KEYWORD_ONLY)]
+        if "request" not in old_sig.parameters:
+            parameters += [inspect.Parameter("request", KEYWORD_ONLY)]
         new_sig = old_sig.replace(parameters=parameters)
         wrapper.__signature__ = new_sig
+
+        # reach a bit into pytest internals to hoist the marks from
+        # our wrapped function
+        new_marks = getattr(func, "pytestmark", []) + wrapper.pytestmark
+        wrapper.pytestmark = new_marks
 
         return wrapper
 

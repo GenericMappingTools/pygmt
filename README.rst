@@ -5,6 +5,7 @@ PyGMT
 
 `Documentation (development version) <https://www.pygmt.org/dev>`__ |
 `Contact <https://forum.generic-mapping-tools.org>`__ |
+`Try Online <https://github.com/GenericMappingTools/try-gmt>`__
 
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
@@ -45,7 +46,7 @@ Disclaimer
 All of the API (functions/classes/interfaces) is subject to change until we reach v1.0.0
 as per the `semantic versioning specification <https://semver.org/spec/v2.0.0.html>`__.
 There may be non-backward compatible changes as we experiment with new design ideas and
-implement new features. **This is not a finished product, use with caution**
+implement new features. **This is not a finished product, use with caution.**
 
 We welcome any feedback and ideas!
 Let us know by submitting
@@ -72,7 +73,7 @@ Project goals
 * Build a Pythonic API for GMT.
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
-* Integration with the Scipy stack: numpy.ndarray or pandas.DataFrame for data tables
+* Integration with the PyData Ecosystem: numpy.ndarray or pandas.DataFrame for data tables
   and xarray.DataArray for grids.
 
 
@@ -85,9 +86,6 @@ Contacting Us
   open issue or pull request.
 * We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
   where you can ask questions and leave comments.
-* This project is released with a `Contributor Code of Conduct
-  <https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
-  By participating in this project you agree to abide by its terms.
 
 
 Contributing
@@ -174,6 +172,7 @@ Documentation for other versions
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   Github)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
 * `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
 * `v0.1.1 <https://www.pygmt.org/v0.1.1>`__
 * `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
