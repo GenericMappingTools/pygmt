@@ -6,8 +6,8 @@ PYTEST_ARGS=--cov=$(PROJECT) --cov-config=../.coveragerc \
 			--doctest-modules -v --mpl --mpl-results-path=results \
 			--pyargs ${PYTEST_EXTRA}
 BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
-FLAKE8_FILES=$(PROJECT) setup.py
-LINT_FILES=$(PROJECT) setup.py
+FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py
+LINT_FILES=$(PROJECT) setup.py doc/conf.py
 
 help:
 	@echo "Commands:"
