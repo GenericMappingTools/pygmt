@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=invalid-name,redefined-builtin,redefined-builtin
-# pylint: disable=missing-module-docstring
+"""
+Sphinx documentation configuration file.
+"""
+# pylint: disable=invalid-name
 
 import datetime
 from sphinx_gallery.sorting import FileNameSortKey, ExplicitOrder
@@ -96,7 +98,7 @@ master_doc = "index"
 # General information about the project
 year = datetime.date.today().year
 project = "PyGMT"
-copyright = "2017-{}, The PyGMT Developers.".format(year)
+copyright = f"2017-{year}, The PyGMT Developers."  # pylint: disable=redefined-builtin
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
 else:
