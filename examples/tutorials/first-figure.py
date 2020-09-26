@@ -27,7 +27,7 @@ fig = pygmt.Figure()
 ########################################################################################
 # Add elements to the figure using its methods. For example, let's start a map with an
 # automatic frame and ticks around a given longitude and latitude bound, set the
-# projection to Mercator (``M``), and the figure width to 8 inches:
+# projection to Mercator (``M``), and the map width to 8 inches:
 
 fig.basemap(region=[-90, -70, 0, 20], projection="M8i", frame=True)
 
@@ -66,8 +66,7 @@ fig.show()
 #
 # You’ll probably have noticed several things that are different from classic
 # command-line GMT. Many of these changes reflect the new GMT modern execution mode that
-# will be part of the future 6.0 release. A few are PyGMT exclusive (like the
-# ``savefig`` method).
+# are part of GMT 6. A few are PyGMT exclusive (like the ``savefig`` method).
 #
 # 1. The name of method is ``coast`` instead of ``pscoast``. As a general rule, all
 #    ``ps*`` modules had their ``ps`` prefix removed. The exceptions are:

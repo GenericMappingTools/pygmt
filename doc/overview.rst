@@ -49,13 +49,13 @@ These are conference presentations about the development of PyGMT (previously
 * "Building an object-oriented Python interface for the Generic Mapping Tools".
   2018.
   Leonardo Uieda and Paul Wessel.
-  Presented at *Scipy 2018*.
+  Presented at *SciPy 2018*.
   doi:`10.6084/m9.figshare.6814052 <https://doi.org/10.6084/m9.figshare.6814052>`__
 
 .. figure:: _static/scipy2018-youtube-thumbnail.png
    :target: https://www.youtube.com/watch?v=6wMtfZXfTRM
    :align: center
-   :alt: Scipy youtube video
+   :alt: SciPy youtube video
 
 * "Integrating the Generic Mapping Tools with the Scientific Python Ecosystem".
   2018.
@@ -71,13 +71,13 @@ These are conference presentations about the development of PyGMT (previously
 * "Bringing the Generic Mapping Tools to Python".
   2017.
   Leonardo Uieda and Paul Wessel.
-  Presented at *Scipy 2017*.
+  Presented at *SciPy 2017*.
   doi:`10.6084/m9.figshare.7635833 <https://doi.org/10.6084/m9.figshare.7635833>`__
 
 .. figure:: _static/scipy2017-youtube-thumbnail.png
    :target: https://www.youtube.com/watch?v=93M4How7R24
    :align: center
-   :alt: Scipy youtube video
+   :alt: SciPy youtube video
 
 * "A modern Python interface for the Generic Mapping Tools".
   2017.

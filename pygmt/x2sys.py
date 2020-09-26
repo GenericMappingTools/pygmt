@@ -2,6 +2,8 @@
 GMT supplementary X2SYS module for crossover analysis.
 """
 import contextlib
+import os
+from pathlib import Path
 
 import pandas as pd
 
@@ -14,8 +16,43 @@ from .helpers import (
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
+    unique_name,
     use_alias,
 )
+
+
+@contextlib.contextmanager
+def tempfile_from_dftrack(track, suffix):
+    """
+    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text
+    file with a unique name (to prevent clashes when running x2sys_cross),
+    adding a suffix extension to the end.
+
+    Parameters
+    ----------
+    track : pandas.DataFrame
+        A table holding track data with coordinate (x, y) or (lon, lat) values,
+        and (optionally) time (t).
+    suffix : str
+        File extension, e.g. xyz, tsv, etc.
+
+    Yields
+    ------
+    tmpfilename : str
+        A temporary tab-separated value file with a unique name holding the
+        track data. E.g. 'track-1a2b3c4.tsv'.
+    """
+    try:
+        tmpfilename = f"track-{unique_name()[:7]}.{suffix}"
+        track.to_csv(
+            path_or_buf=tmpfilename,
+            sep="\t",
+            index=False,
+            date_format="%Y-%m-%dT%H:%M:%S.%fZ",
+        )
+        yield tmpfilename
+    finally:
+        os.remove(tmpfilename)
 
 
 @fmt_docstring
@@ -158,9 +195,10 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    tracks : str or list
+    tracks : pandas.DataFrame or str or list
         A table or a list of tables with (x, y) or (lon, lat) values in the
-        first two columns. Supported formats are ASCII, native binary, or
+        first two columns. Track(s) can be provided as pandas DataFrame tables
+        or file names. Supported file formats are ASCII, native binary, or
         COARDS netCDF 1-D data. More columns may also be present.
 
         If the filenames are missing their file extension, we will append the
@@ -168,8 +206,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         in the current directory and second in all directories listed in
         $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
         set it will default to $GMT_SHAREDIR/x2sys]. (Note: MGD77 files will
-        also be looked for via $MGD77_HOME/mgd77_paths.txt and *.gmt files will
-        be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
+        also be looked for via $MGD77_HOME/mgd77_paths.txt and \\*.gmt files
+        will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
 
     outfile : str
         Optional. The file name for the output ASCII txt file to store the
@@ -233,7 +271,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         headings will not be computed (i.e., set to NaN) [Default calculates \
         headings regardless of speed].
 
-        For example, you can use ``speed=["l0", "u10", "h5"] to set a lower
+        For example, you can use ``speed=["l0", "u10", "h5"]`` to set a lower
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
@@ -263,8 +301,20 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
             if kind == "file":
                 file_contexts.append(dummy_context(track))
             elif kind == "matrix":
-                raise NotImplementedError(f"{type(track)} inputs are not supported yet")
-                # file_contexts.append(lib.virtualfile_from_matrix(track.values))
+                # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
+                # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
+                lastline = (
+                    Path(os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag")
+                    .read_text()
+                    .strip()
+                    .split("\n")[-1]
+                )  # e.g. "-Dxyz -Etsv -I1/1"
+                for item in sorted(lastline.split()):  # sort list alphabetically
+                    if item.startswith(("-E", "-D")):  # prefer -Etsv over -Dxyz
+                        suffix = item[2:]  # e.g. tsv (1st choice) or xyz (2nd choice)
+
+                # Save pandas.DataFrame track data to temporary file
+                file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
             else:
                 raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
 
@@ -287,8 +337,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                     parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
                 )
                 # Remove the "# " from "# x" in the first column
-                result = table.rename(columns={table.columns[0]: table.columns[0][2:]})
+                table = table.rename(columns={table.columns[0]: table.columns[0][2:]})
             elif outfile != tmpfile.name:  # if outfile is set, output in outfile only
-                result = None
+                table = None
 
-    return result
+    return table
