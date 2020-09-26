@@ -3,18 +3,16 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
-import csv
 import numpy as np
 import pandas as pd
 
 from .clib import Session
-from .exceptions import GMTInvalidInput
+from .exceptions import GMTError, GMTInvalidInput
 from .helpers import (
     build_arg_string,
     dummy_context,
     data_kind,
     fmt_docstring,
-    GMTTempFile,
     use_alias,
     kwargs_to_strings,
 )
@@ -70,8 +68,12 @@ class BasePlotting:
         G="land",
         S="water",
         U="timestamp",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def coast(self, **kwargs):
         """
         Plot continents, shorelines, rivers, and borders on maps
@@ -130,6 +132,9 @@ class BasePlotting:
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
+        {XY}
+        {p}
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -146,8 +151,12 @@ class BasePlotting:
         F="box",
         G="truncate",
         W="scale",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
     )
-    @kwargs_to_strings(R="sequence", G="sequence")
+    @kwargs_to_strings(R="sequence", G="sequence", p="sequence")
     def colorbar(self, **kwargs):
         """
         Plot a gray or color scale-bar on maps.
@@ -207,6 +216,9 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        {XY}
+        {p}
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -226,8 +238,13 @@ class BasePlotting:
         S="resample",
         U="timestamp",
         W="pen",
+        l="label",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
     )
-    @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus")
+    @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus", p="sequence")
     def grdcontour(self, grid, **kwargs):
         """
         Convert grids or images to contours and plot them on maps
@@ -275,6 +292,16 @@ class BasePlotting:
         {G}
         {U}
         {W}
+        {XY}
+        label : str
+            Add a legend entry for the contour being plotted. Normally, the
+            annotated contour is selected for the legend. You can select the
+            regular contour instead, or both of them, by considering the label
+            to be of the format [*annotcontlabel*][/*contlabel*]. If either
+            label contains a slash (/) character then use ``|`` as the
+            separator for the two labels instead.
+        {p}
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -290,13 +317,60 @@ class BasePlotting:
                 lib.call_module("grdcontour", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", W="pen", B="frame", I="shading", C="cmap")
-    @kwargs_to_strings(R="sequence")
+    @use_alias(
+        A="img_out",
+        B="frame",
+        C="cmap",
+        D="img_in",
+        E="dpi",
+        G="bit_color",
+        I="shading",
+        J="projection",
+        M="monochrome",
+        N="no_clip",
+        Q="nan_transparent",
+        R="region",
+        U="timestamp",
+        V="verbose",
+        X="xshift",
+        Y="yshift",
+        n="interpolation",
+        p="perspective",
+        t="transparency",
+        x="cores",
+    )
+    @kwargs_to_strings(R="sequence", p="sequence")
     def grdimage(self, grid, **kwargs):
         """
-        Project grids or images and plot them on maps.
+        Project and plot grids or images.
 
-        Takes a grid file name or an xarray.DataArray object as input.
+        Reads a 2-D grid file and produces a gray-shaded (or colored) map by
+        building a rectangular image and assigning pixels a gray-shade (or
+        color) based on the z-value and the CPT file. Optionally, illumination
+        may be added by providing a file with intensities in the (-1,+1) range
+        or instructions to derive intensities from the input data grid. Values
+        outside this range will be clipped. Such intensity files can be created
+        from the grid using `grdgradient` and, optionally, modified by
+        `grdmath` or `grdhisteq`. If GMT is built with GDAL support, *grid* can
+        be an image file (geo-referenced or not). In this case the image can
+        optionally be illuminated with the file provided via the *shading*
+        option. Here, if image has no coordinates then those of the intensity
+        file will be used.
+
+        When using map projections, the grid is first resampled on a new
+        rectangular grid with the same dimensions. Higher resolution images can
+        be obtained by using the *dpi* option. To obtain the resampled value
+        (and hence shade or color) of each map pixel, its location is inversely
+        projected back onto the input grid after which a value is interpolated
+        between the surrounding input grid values. By default bi-cubic
+        interpolation is used. Aliasing is avoided by also forward projecting
+        the input grid nodes. If two or more nodes are projected onto the same
+        pixel, their average will dominate in the calculation of the pixel
+        value. Interpolation and aliasing is controlled with the
+        *interpolation* option.
+
+        The *region* option can be used to select a map region larger or
+        smaller than that implied by the extent of the grid.
 
         Full option list at :gmt-docs:`grdimage.html`
 
@@ -305,7 +379,85 @@ class BasePlotting:
         Parameters
         ----------
         grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
+            The file name or a DataArray containing the input 2-D gridded data
+            set or image to be plotted (See GRID FILE FORMATS at
+            :gmt-docs:`grdimage.html#grid-file-formats`).
+        img_out : str
+            ``out_img[=driver]``.
+            Save an image in a raster format instead of PostScript. Use
+            extension .ppm for a Portable Pixel Map format which is the only
+            raster format GMT can natively write. For GMT installations
+            configured with GDAL support there are more choices: Append
+            *out_img* to select the image file name and extension. If the
+            extension is one of .bmp, .gif, .jpg, .png, or .tif then no driver
+            information is required. For other output formats you must append
+            the required GDAL driver. The *driver* is the driver code name used
+            by GDAL; see your GDAL installation's documentation for available
+            drivers. Append a **+c**\\ *options* string where options is a list
+            of one or more concatenated number of GDAL **-co** options. For
+            example, to write a GeoPDF with the TerraGo format use
+            ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
+            selected then we will write a GeoTiff image if the GMT projection
+            syntax translates into a PROJ syntax, otherwise a plain tiff file
+            is produced. (2) Any vector elements will be lost.
+        {B}
+        {CPT}
+        img_in : str
+            ``[r]``
+            GMT will automatically detect standard image files (Geotiff, TIFF,
+            JPG, PNG, GIF, etc.) and will read those via GDAL. For very obscure
+            image formats you may need to explicitly set *img_in*, which
+            specifies that the grid is in fact an image file to be read via
+            GDAL. Append **r** to assign the region specified by *region*
+            to the image. For example, if you have used ``region='d'`` then the
+            image will be assigned a global domain. This mode allows you to
+            project a raw image (an image without referencing coordinates).
+        dpi : int
+            ``[i|dpi]``.
+            Sets the resolution of the projected grid that will be created if a
+            map projection other than Linear or Mercator was selected [100]. By
+            default, the projected grid will be of the same size (rows and
+            columns) as the input file. Specify **i** to use the PostScript
+            image operator to interpolate the image at the device resolution.
+        bit_color : str
+            ``color[+b|f]``.
+            This option only applies when a resulting 1-bit image otherwise
+            would consist of only two colors: black (0) and white (255). If so,
+            this option will instead use the image as a transparent mask and
+            paint the mask with the given color. Append **+b** to paint the
+            background pixels (1) or **+f** for the foreground pixels
+            [Default].
+        shading : str
+            ``[intensfile|intensity|modifiers]``.
+            Give the name of a grid file with intensities in the (-1,+1) range,
+            or a constant intensity to apply everywhere (affects the ambient
+            light). Alternatively, derive an intensity grid from the input data
+            grid via a call to `grdgradient`; append **+a**\\ *azimuth*,
+            **+n**\\ *args*, and **+m**\\ *ambient* to specify azimuth,
+            intensity, and ambient arguments for that module, or just give
+            **+d** to select the default arguments (``+a-45+nt1+m0``). If you
+            want a more specific intensity scenario then run `grdgradient`
+            separately first. If we should derive intensities from another file
+            than grid, specify the file with suitable modifiers [Default is no
+            illumination].
+        {J}
+        monochrome : bool
+            Force conversion to monochrome image using the (television) YIQ
+            transformation. Cannot be used with *nan_transparent*.
+        no_clip : bool
+            Do not clip the image at the map boundary (only relevant for
+            non-rectangular maps).
+        nan_transparent : bool
+            Make grid nodes with z = NaN transparent, using the color-masking
+            feature in PostScript Level 3 (the PS device must support PS Level
+            3).
+        {R}
+        {V}
+        {XY}
+        {n}
+        {p}
+        {t}
+        {x}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -335,8 +487,11 @@ class BasePlotting:
         Wc="contourpen",
         Wm="meshpen",
         Wf="facadepen",
-        p="perspective",
         I="shading",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
     def grdview(self, grid, **kwargs):
@@ -400,10 +555,6 @@ class BasePlotting:
             Sets the pen attributes used for the facade. You must also select
             -N for the facade outline to be drawn.
 
-        perspective : list or str
-            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
-            Select perspective view.
-
         shading : str
             Provide the name of a grid file with intensities in the (-1,+1)
             range, or a constant intensity to apply everywhere (affects the
@@ -412,6 +563,10 @@ class BasePlotting:
             ``+aazimuth``, ``+nargs``, and ``+mambient`` to specify azimuth,
             intensity, and ambient arguments for that module, or just give
             ``+d`` to select the default arguments (``+a-45+nt1+m0``).
+
+        {XY}
+        {p}
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -452,8 +607,12 @@ class BasePlotting:
         l="label",
         C="cmap",
         U="timestamp",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
     )
-    @kwargs_to_strings(R="sequence", i="sequence_comma")
+    @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
     def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         """
         Plot lines, polygons, and symbols on maps.
@@ -519,8 +678,12 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
+        {XY}
         label : str
             Add a legend entry for the symbol or line being plotted.
+
+        {p}
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -568,9 +731,14 @@ class BasePlotting:
         W="pen",
         L="triangular_mesh_pen",
         i="columns",
+        l="label",
         C="levels",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
     )
-    @kwargs_to_strings(R="sequence", i="sequence_comma")
+    @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
     def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         """
         Contour table data by direct triangulation.
@@ -619,6 +787,16 @@ class BasePlotting:
         skip : bool or str
             Skip input points outside region ``'[p|t]'``
         {W}
+        label : str
+            Add a legend entry for the contour being plotted. Normally, the
+            annotated contour is selected for the legend. You can select the
+            regular contour instead, or both of them, by considering the label
+            to be of the format [*annotcontlabel*][/*contlabel*]. If either
+            label contains a slash (/) character then use ``|`` as the
+            separator for the two labels instead.
+        {XY}
+        {p}
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -649,8 +827,12 @@ class BasePlotting:
         Td="rose",
         Tm="compass",
         U="timestamp",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(R="sequence", p="sequence")
     def basemap(self, **kwargs):
         """
         Produce a basemap for the figure.
@@ -682,6 +864,9 @@ class BasePlotting:
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
+        {XY}
+        {p}
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -691,8 +876,18 @@ class BasePlotting:
             lib.call_module("basemap", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", U="timestamp", D="position", F="box")
-    @kwargs_to_strings(R="sequence")
+    @use_alias(
+        R="region",
+        J="projection",
+        U="timestamp",
+        D="position",
+        F="box",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
+    )
+    @kwargs_to_strings(R="sequence", p="sequence")
     def logo(self, **kwargs):
         """
         Place the GMT graphics logo on a map.
@@ -717,6 +912,9 @@ class BasePlotting:
             Without further options, draws a rectangular border around the
             GMT logo.
         {U}
+        {XY}
+        {p}
+        {t}
 
         """
         kwargs = self._preprocess(**kwargs)
@@ -726,8 +924,18 @@ class BasePlotting:
             lib.call_module("logo", build_arg_string(kwargs))
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", D="position", F="box", M="monochrome")
-    @kwargs_to_strings(R="sequence")
+    @use_alias(
+        R="region",
+        J="projection",
+        D="position",
+        F="box",
+        M="monochrome",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
+    )
+    @kwargs_to_strings(R="sequence", p="sequence")
     def image(self, imagefile, **kwargs):
         """
         Place images or EPS files on maps.
@@ -760,6 +968,9 @@ class BasePlotting:
         monochrome : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
+        {XY}
+        {p}
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
@@ -767,8 +978,17 @@ class BasePlotting:
             lib.call_module("image", arg_str)
 
     @fmt_docstring
-    @use_alias(R="region", J="projection", D="position", F="box")
-    @kwargs_to_strings(R="sequence")
+    @use_alias(
+        R="region",
+        J="projection",
+        D="position",
+        F="box",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
+    )
+    @kwargs_to_strings(R="sequence", p="sequence")
     def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
         """
         Plot legends on maps.
@@ -802,6 +1022,9 @@ class BasePlotting:
             rectangular border around the legend using **MAP_FRAME_PEN**. By
             default, uses '+gwhite+p1p' which draws a box around the legend
             using a 1 point black pen and adds a white background.
+        {XY}
+        {p}
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -830,6 +1053,10 @@ class BasePlotting:
         D="offset",
         G="fill",
         W="pen",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
     )
     @kwargs_to_strings(
         R="sequence",
@@ -837,6 +1064,7 @@ class BasePlotting:
         angle="sequence_comma",
         font="sequence_comma",
         justify="sequence_comma",
+        p="sequence",
     )
     def text(
         self,
@@ -935,6 +1163,9 @@ class BasePlotting:
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
+        {XY}
+        {p}
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -970,27 +1201,408 @@ class BasePlotting:
         if position is not None and isinstance(position, str):
             kwargs["F"] += f'+c{position}+t"{text}"'
 
-        with GMTTempFile(suffix=".txt") as tmpfile:
-            with Session() as lib:
-                fname = textfiles if kind == "file" else ""
-                if kind == "vectors":
-                    if position is not None:
-                        fname = ""
-                    else:
-                        pd.DataFrame.from_dict(
-                            {
-                                "x": np.atleast_1d(x),
-                                "y": np.atleast_1d(y),
-                                "text": np.atleast_1d(text),
-                            }
-                        ).to_csv(
-                            tmpfile.name,
-                            sep="\t",
-                            header=False,
-                            index=False,
-                            quoting=csv.QUOTE_NONE,
-                        )
-                    fname = tmpfile.name
-
+        with Session() as lib:
+            file_context = dummy_context(textfiles) if kind == "file" else ""
+            if kind == "vectors":
+                if position is not None:
+                    file_context = dummy_context("")
+                else:
+                    file_context = lib.virtualfile_from_vectors(
+                        np.atleast_1d(x), np.atleast_1d(y), np.atleast_1d(text)
+                    )
+            with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
+
+    @fmt_docstring
+    @use_alias(
+        R="region",
+        J="projection",
+        B="frame",
+        C="offset",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+        t="transparency",
+    )
+    @kwargs_to_strings(R="sequence", p="sequence")
+    def meca(
+        self,
+        spec,
+        scale,
+        longitude=None,
+        latitude=None,
+        depth=None,
+        convention=None,
+        component="full",
+        plot_longitude=None,
+        plot_latitude=None,
+        **kwargs,
+    ):
+        """
+        Plot focal mechanisms.
+
+        Full option list at :gmt-docs:`supplements/seis/meca.html`
+
+        Note
+        ----
+            Currently, labeling of beachballs with text strings is only
+            supported via providing a file to `spec` as input.
+
+        {aliases}
+
+        Parameters
+        ----------
+        spec: dict, 1D array, 2D array, pd.DataFrame, or str
+            Either a filename containing focal mechanism parameters as columns,
+            a 1- or 2-D array with the same, or a dictionary. If a filename or
+            array, `convention` is required so we know how to interpret the
+            columns/entries. If a dictionary, the following combinations of
+            keys are supported; these determine the convention. Dictionary
+            may contain values for a single focal mechanism or lists of
+            values for many focal mechanisms. A Pandas DataFrame may
+            optionally contain columns latitude, longitude, depth,
+            plot_longitude,
+            and/or plot_latitude instead of passing them to the meca method.
+
+            - ``"aki"`` — *strike, dip, rake, magnitude*
+            - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2,
+              mantissa, exponent*
+            - ``"mt"`` — *mrr, mtt, mff, mrt, mrf, mtf, exponent*
+            - ``"partial"`` — *strike1, dip1, strike2, fault_type, magnitude*
+            - ``"principal_axis"`` — *t_exponent, t_azimuth, t_plunge,
+              n_exponent, n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge,
+              exponent*
+
+        scale: str
+            Adjusts the scaling of the radius of the beachball, which is
+            proportional to the magnitude. Scale defines the size for
+            magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
+        longitude: int, float, list, or 1d numpy array
+            Longitude(s) of event location. Ignored if `spec` is not a
+            dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'longitude' column.
+        latitude: int, float, list, or 1d numpy array
+            Latitude(s) of event location. Ignored if `spec` is not a
+            dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'latitude' column.
+        depth: int, float, list, or 1d numpy array
+            Depth(s) of event location in kilometers. Ignored if `spec` is
+            not a dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'depth' column.
+        convention: str
+            ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"``
+            (seismic moment tensor), ``"partial"`` (partial focal mechanism),
+            or ``"principal_axis"`` (principal axis). Ignored if `spec` is a
+            dictionary or dataframe.
+        component: str
+            The component of the seismic moment tensor to plot. ``"full"`` (the
+            full seismic moment tensor), ``"dc"`` (the closest double couple
+            with zero trace and zero determinant), ``"deviatoric"`` (zero
+            trace)
+        plot_longitude: int, float, list, or 1d numpy array
+            Longitude(s) at which to place beachball, only used if `spec` is a
+            dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'plot_longitude'
+            column.
+        plot_latitude: int, float, list, or 1d numpy array
+            Latitude(s) at which to place beachball, only used if `spec` is a
+            dictionary. List must be the length of the number of events.
+            Ignored if `spec` is a DataFrame and contains a 'plot_latitude'
+            column.
+        offset: bool or str
+            Offsets beachballs to the longitude, latitude specified in
+            the last two columns of the input file or array,
+            or by `plot_longitude` and `plot_latitude` if provided. A small
+            circle is plotted at the initial location and a line connects
+            the beachball to the circle. Specify pen and optionally append
+            ``+ssize`` to change the line style and/or size of the circle.
+        {J}
+        {R}
+        {B}
+        {XY}
+        {p}
+        {t}
+        """
+
+        # pylint warnings that need to be fixed
+        # pylint: disable=too-many-locals
+        # pylint: disable=too-many-nested-blocks
+        # pylint: disable=too-many-branches
+        # pylint: disable=no-self-use
+        # pylint: disable=too-many-statements
+
+        def set_pointer(data_pointers, spec):
+            """Set optional parameter pointers based on DataFrame or dict, if
+            those parameters are present in the DataFrame or dict."""
+            for param in list(data_pointers.keys()):
+                if param in spec:
+                    # set pointer based on param name
+                    data_pointers[param] = spec[param]
+
+        def update_pointers(data_pointers):
+            """Updates variables based on the location of data, as the
+            following data can be passed as parameters or it can be
+            contained in `spec`."""
+            # update all pointers
+            longitude = data_pointers["longitude"]
+            latitude = data_pointers["latitude"]
+            depth = data_pointers["depth"]
+            plot_longitude = data_pointers["plot_longitude"]
+            plot_latitude = data_pointers["plot_latitude"]
+            return (longitude, latitude, depth, plot_longitude, plot_latitude)
+
+        # Check the spec and parse the data according to the specified
+        # convention
+        if isinstance(spec, (dict, pd.DataFrame)):
+            # dicts and DataFrames are handed similarly but not identically
+            if (
+                longitude is None or latitude is None or depth is None
+            ) and not isinstance(spec, (dict, pd.DataFrame)):
+                raise GMTError("Location not fully specified.")
+
+            param_conventions = {
+                "AKI": ["strike", "dip", "rake", "magnitude"],
+                "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent"],
+                "MT": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
+                "PARTIAL": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
+                "PRINCIPAL_AXIS": [
+                    "t_exponent",
+                    "t_azimuth",
+                    "t_plunge",
+                    "n_exponent",
+                    "n_azimuth",
+                    "n_plunge",
+                    "p_exponent",
+                    "p_azimuth",
+                    "p_plunge",
+                    "exponent",
+                ],
+            }
+
+            # to keep track of where optional parameters exist
+            data_pointers = {
+                "longitude": longitude,
+                "latitude": latitude,
+                "depth": depth,
+                "plot_longitude": plot_longitude,
+                "plot_latitude": plot_latitude,
+            }
+
+            # make a DataFrame copy to check convention if it contains
+            # other parameters
+            if isinstance(spec, (dict, pd.DataFrame)):
+                # check if a copy is necessary
+                copy = False
+                drop_list = []
+                for pointer in data_pointers:
+                    if pointer in spec:
+                        copy = True
+                        drop_list.append(pointer)
+                if copy:
+                    spec_conv = spec.copy()
+                    # delete optional parameters from copy for convention check
+                    for item in drop_list:
+                        del spec_conv[item]
+                else:
+                    spec_conv = spec
+
+            # set convention and focal parameters based on spec convention
+            convention_assigned = False
+            for conv in param_conventions:
+                if set(spec_conv.keys()) == set(param_conventions[conv]):
+                    convention = conv.lower()
+                    foc_params = param_conventions[conv]
+                    convention_assigned = True
+                    break
+            if not convention_assigned:
+                raise GMTError(
+                    "Parameters in spec dictionary do not match known " "conventions."
+                )
+
+            # create a dict type pointer for easier to read code
+            if isinstance(spec, dict):
+                dict_type_pointer = list(spec.values())[0]
+            elif isinstance(spec, pd.DataFrame):
+                # use df.values as pointer for DataFrame behavior
+                dict_type_pointer = spec.values
+
+            # assemble the 1D array for the case of floats and ints as values
+            if isinstance(dict_type_pointer, (int, float)):
+                # update pointers
+                set_pointer(data_pointers, spec)
+                # look for optional parameters in the right place
+                (
+                    longitude,
+                    latitude,
+                    depth,
+                    plot_longitude,
+                    plot_latitude,
+                ) = update_pointers(data_pointers)
+
+                # Construct the array (order matters)
+                spec = [longitude, latitude, depth] + [spec[key] for key in foc_params]
+
+                # Add in plotting options, if given, otherwise add 0s
+                for arg in plot_longitude, plot_latitude:
+                    if arg is None:
+                        spec.append(0)
+                    else:
+                        if "C" not in kwargs:
+                            kwargs["C"] = True
+                        spec.append(arg)
+
+            # or assemble the 2D array for the case of lists as values
+            elif isinstance(dict_type_pointer, list):
+                # update pointers
+                set_pointer(data_pointers, spec)
+                # look for optional parameters in the right place
+                (
+                    longitude,
+                    latitude,
+                    depth,
+                    plot_longitude,
+                    plot_latitude,
+                ) = update_pointers(data_pointers)
+
+                # before constructing the 2D array lets check that each key
+                # of the dict has the same quantity of values to avoid bugs
+                list_length = len(list(spec.values())[0])
+                for value in list(spec.values()):
+                    if len(value) != list_length:
+                        raise GMTError(
+                            "Unequal number of focal mechanism "
+                            "parameters supplied in 'spec'."
+                        )
+                    # lets also check the inputs for longitude, latitude,
+                    # and depth if it is a list or array
+                    if (
+                        isinstance(longitude, (list, np.ndarray))
+                        or isinstance(latitude, (list, np.ndarray))
+                        or isinstance(depth, (list, np.ndarray))
+                    ):
+                        if (len(longitude) != len(latitude)) or (
+                            len(longitude) != len(depth)
+                        ):
+                            raise GMTError(
+                                "Unequal number of focal mechanism "
+                                "locations supplied."
+                            )
+
+                # values are ok, so build the 2D array
+                spec_array = []
+                for index in range(list_length):
+                    # Construct the array one row at a time (note that order
+                    # matters here, hence the list comprehension!)
+                    row = [longitude[index], latitude[index], depth[index]] + [
+                        spec[key][index] for key in foc_params
+                    ]
+
+                    # Add in plotting options, if given, otherwise add 0s as
+                    # required by GMT
+                    for arg in plot_longitude, plot_latitude:
+                        if arg is None:
+                            row.append(0)
+                        else:
+                            if "C" not in kwargs:
+                                kwargs["C"] = True
+                            row.append(arg[index])
+                    spec_array.append(row)
+                spec = spec_array
+
+            # or assemble the array for the case of pd.DataFrames
+            elif isinstance(dict_type_pointer, np.ndarray):
+                # update pointers
+                set_pointer(data_pointers, spec)
+                # look for optional parameters in the right place
+                (
+                    longitude,
+                    latitude,
+                    depth,
+                    plot_longitude,
+                    plot_latitude,
+                ) = update_pointers(data_pointers)
+
+                # lets also check the inputs for longitude, latitude, and depth
+                # just in case the user entered different length lists
+                if (
+                    isinstance(longitude, (list, np.ndarray))
+                    or isinstance(latitude, (list, np.ndarray))
+                    or isinstance(depth, (list, np.ndarray))
+                ):
+                    if (len(longitude) != len(latitude)) or (
+                        len(longitude) != len(depth)
+                    ):
+                        raise GMTError(
+                            "Unequal number of focal mechanism locations supplied."
+                        )
+
+                # values are ok, so build the 2D array in the correct order
+                spec_array = []
+                for index in range(len(spec)):
+                    # Construct the array one row at a time (note that order
+                    # matters here, hence the list comprehension!)
+                    row = [longitude[index], latitude[index], depth[index]] + [
+                        spec[key][index] for key in foc_params
+                    ]
+
+                    # Add in plotting options, if given, otherwise add 0s as
+                    # required by GMT
+                    for arg in plot_longitude, plot_latitude:
+                        if arg is None:
+                            row.append(0)
+                        else:
+                            if "C" not in kwargs:
+                                kwargs["C"] = True
+                            row.append(arg[index])
+                    spec_array.append(row)
+                spec = spec_array
+
+            else:
+                raise GMTError(
+                    "Parameter 'spec' contains values of an unsupported type."
+                )
+
+        # Add condition and scale to kwargs
+        if convention == "aki":
+            data_format = "a"
+        elif convention == "gcmt":
+            data_format = "c"
+        elif convention == "mt":
+            # Check which component of mechanism the user wants plotted
+            if component == "deviatoric":
+                data_format = "z"
+            elif component == "dc":
+                data_format = "d"
+            else:  # component == 'full'
+                data_format = "m"
+        elif convention == "partial":
+            data_format = "p"
+        elif convention == "principal_axis":
+            # Check which component of mechanism the user wants plotted
+            if component == "deviatoric":
+                data_format = "t"
+            elif component == "dc":
+                data_format = "y"
+            else:  # component == 'full'
+                data_format = "x"
+        # Support old-school GMT format options
+        elif convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
+            data_format = convention
+        else:
+            raise GMTError("Convention not recognized.")
+
+        # Assemble -S flag
+        kwargs["S"] = data_format + scale
+
+        kind = data_kind(spec)
+        with Session() as lib:
+            if kind == "matrix":
+                file_context = lib.virtualfile_from_matrix(np.atleast_2d(spec))
+            elif kind == "file":
+                file_context = dummy_context(spec)
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("meca", arg_str)

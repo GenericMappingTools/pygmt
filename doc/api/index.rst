@@ -35,6 +35,7 @@ Plotting data and laying out the map:
     Figure.image
     Figure.shift_origin
     Figure.text
+    Figure.meca
 
 Color palette table generation:
 
@@ -71,6 +72,14 @@ Operations on grids:
 
     grdcut
     grdtrack
+
+Crossover analysis with x2sys:
+
+.. autosummary::
+    :toctree: generated
+
+    x2sys_init
+    x2sys_cross
 
 GMT Defaults
 ------------
