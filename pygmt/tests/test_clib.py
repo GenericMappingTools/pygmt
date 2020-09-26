@@ -27,6 +27,9 @@ from .. import Figure
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
+
 
 @contextmanager
 def mock(session, func, returns=None, mock_func=None):
@@ -161,7 +164,7 @@ def test_call_module_error_message():
             msg = "\n".join(
                 [
                     "Module 'info' failed with status code 71:",
-                    "gmtinfo [ERROR]: Error for input file: No such file (bogus-data.bla)",
+                    "gmtinfo [ERROR]: Cannot find file bogus-data.bla",
                 ]
             )
             assert str(error) == msg
@@ -304,159 +307,6 @@ def test_create_data_fails():
                 )
 
 
-def test_put_vector():
-    "Check that assigning a numpy array to a dataset works"
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
-    for dtype in dtypes:
-        with clib.Session() as lib:
-            dataset = lib.create_data(
-                family="GMT_IS_DATASET|GMT_VIA_VECTOR",
-                geometry="GMT_IS_POINT",
-                mode="GMT_CONTAINER_ONLY",
-                dim=[3, 5, 1, 0],  # columns, rows, layers, dtype
-            )
-            x = np.array([1, 2, 3, 4, 5], dtype=dtype)
-            y = np.array([6, 7, 8, 9, 10], dtype=dtype)
-            z = np.array([11, 12, 13, 14, 15], dtype=dtype)
-            lib.put_vector(dataset, column=lib["GMT_X"], vector=x)
-            lib.put_vector(dataset, column=lib["GMT_Y"], vector=y)
-            lib.put_vector(dataset, column=lib["GMT_Z"], vector=z)
-            # Turns out wesn doesn't matter for Datasets
-            wesn = [0] * 6
-            # Save the data to a file to see if it's being accessed correctly
-            with GMTTempFile() as tmp_file:
-                lib.write_data(
-                    "GMT_IS_VECTOR",
-                    "GMT_IS_POINT",
-                    "GMT_WRITE_SET",
-                    wesn,
-                    tmp_file.name,
-                    dataset,
-                )
-                # Load the data and check that it's correct
-                newx, newy, newz = tmp_file.loadtxt(unpack=True, dtype=dtype)
-                npt.assert_allclose(newx, x)
-                npt.assert_allclose(newy, y)
-                npt.assert_allclose(newz, z)
-
-
-def test_put_vector_invalid_dtype():
-    "Check that it fails with an exception for invalid data types"
-    with clib.Session() as lib:
-        dataset = lib.create_data(
-            family="GMT_IS_DATASET|GMT_VIA_VECTOR",
-            geometry="GMT_IS_POINT",
-            mode="GMT_CONTAINER_ONLY",
-            dim=[2, 3, 1, 0],  # columns, rows, layers, dtype
-        )
-        data = np.array([37, 12, 556], dtype="complex128")
-        with pytest.raises(GMTInvalidInput):
-            lib.put_vector(dataset, column=1, vector=data)
-
-
-def test_put_vector_wrong_column():
-    "Check that it fails with an exception when giving an invalid column"
-    with clib.Session() as lib:
-        dataset = lib.create_data(
-            family="GMT_IS_DATASET|GMT_VIA_VECTOR",
-            geometry="GMT_IS_POINT",
-            mode="GMT_CONTAINER_ONLY",
-            dim=[1, 3, 1, 0],  # columns, rows, layers, dtype
-        )
-        data = np.array([37, 12, 556], dtype="float32")
-        with pytest.raises(GMTCLibError):
-            lib.put_vector(dataset, column=1, vector=data)
-
-
-def test_put_vector_2d_fails():
-    "Check that it fails with an exception for multidimensional arrays"
-    with clib.Session() as lib:
-        dataset = lib.create_data(
-            family="GMT_IS_DATASET|GMT_VIA_VECTOR",
-            geometry="GMT_IS_POINT",
-            mode="GMT_CONTAINER_ONLY",
-            dim=[1, 6, 1, 0],  # columns, rows, layers, dtype
-        )
-        data = np.array([[37, 12, 556], [37, 12, 556]], dtype="int32")
-        with pytest.raises(GMTInvalidInput):
-            lib.put_vector(dataset, column=0, vector=data)
-
-
-def test_put_matrix():
-    "Check that assigning a numpy 2d array to a dataset works"
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
-    shape = (3, 4)
-    for dtype in dtypes:
-        with clib.Session() as lib:
-            dataset = lib.create_data(
-                family="GMT_IS_DATASET|GMT_VIA_MATRIX",
-                geometry="GMT_IS_POINT",
-                mode="GMT_CONTAINER_ONLY",
-                dim=[shape[1], shape[0], 1, 0],  # columns, rows, layers, dtype
-            )
-            data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
-            lib.put_matrix(dataset, matrix=data)
-            # wesn doesn't matter for Datasets
-            wesn = [0] * 6
-            # Save the data to a file to see if it's being accessed correctly
-            with GMTTempFile() as tmp_file:
-                lib.write_data(
-                    "GMT_IS_MATRIX",
-                    "GMT_IS_POINT",
-                    "GMT_WRITE_SET",
-                    wesn,
-                    tmp_file.name,
-                    dataset,
-                )
-                # Load the data and check that it's correct
-                newdata = tmp_file.loadtxt(dtype=dtype)
-                npt.assert_allclose(newdata, data)
-
-
-def test_put_matrix_fails():
-    "Check that put_matrix raises an exception if return code is not zero"
-    # It's hard to make put_matrix fail on the C API level because of all the
-    # checks on input arguments. Mock the C API function just to make sure it
-    # works.
-    with clib.Session() as lib:
-        with mock(lib, "GMT_Put_Matrix", returns=1):
-            with pytest.raises(GMTCLibError):
-                lib.put_matrix(dataset=None, matrix=np.empty((10, 2)), pad=0)
-
-
-def test_put_matrix_grid():
-    "Check that assigning a numpy 2d array to a grid works"
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
-    wesn = [10, 15, 30, 40, 0, 0]
-    inc = [1, 1]
-    shape = ((wesn[3] - wesn[2]) // inc[1] + 1, (wesn[1] - wesn[0]) // inc[0] + 1)
-    for dtype in dtypes:
-        with clib.Session() as lib:
-            grid = lib.create_data(
-                family="GMT_IS_GRID|GMT_VIA_MATRIX",
-                geometry="GMT_IS_SURFACE",
-                mode="GMT_CONTAINER_ONLY",
-                ranges=wesn[:4],
-                inc=inc,
-                registration="GMT_GRID_NODE_REG",
-            )
-            data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
-            lib.put_matrix(grid, matrix=data)
-            # Save the data to a file to see if it's being accessed correctly
-            with GMTTempFile() as tmp_file:
-                lib.write_data(
-                    "GMT_IS_MATRIX",
-                    "GMT_IS_SURFACE",
-                    "GMT_CONTAINER_AND_DATA",
-                    wesn,
-                    tmp_file.name,
-                    grid,
-                )
-                # Load the data and check that it's correct
-                newdata = tmp_file.loadtxt(dtype=dtype)
-                npt.assert_allclose(newdata, data)
-
-
 def test_virtual_file():
     "Test passing in data via a virtual file with a Dataset"
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
@@ -474,7 +324,7 @@ def test_virtual_file():
             data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
             lib.put_matrix(dataset, matrix=data)
             # Add the dataset to a virtual file and pass it along to gmt info
-            vfargs = (family, geometry, "GMT_IN", dataset)
+            vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
             with lib.open_virtual_file(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
@@ -491,7 +341,12 @@ def test_virtual_file_fails():
     Check that opening and closing virtual files raises an exception for
     non-zero return codes
     """
-    vfargs = ("GMT_IS_DATASET|GMT_VIA_MATRIX", "GMT_IS_POINT", "GMT_IN", None)
+    vfargs = (
+        "GMT_IS_DATASET|GMT_VIA_MATRIX",
+        "GMT_IS_POINT",
+        "GMT_IN|GMT_IS_REFERENCE",
+        None,
+    )
 
     # Mock Open_VirtualFile to test the status check when entering the context.
     # If the exception is raised, the code won't get to the closing of the
@@ -545,6 +400,39 @@ def test_virtualfile_from_vectors():
             )
             expected = "<vector memory>: N = {}\t{}\n".format(size, bounds)
             assert output == expected
+
+
+def test_virtualfile_from_vectors_one_string_column():
+    "Test passing in one column with string dtype into virtual file dataset"
+    size = 5
+    x = np.arange(size, dtype=np.int32)
+    y = np.arange(size, size * 2, 1, dtype=np.int32)
+    strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=np.str)
+    with clib.Session() as lib:
+        with lib.virtualfile_from_vectors(x, y, strings) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module("convert", f"{vfile} ->{outfile.name}")
+                output = outfile.read(keep_tabs=True)
+        expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
+        assert output == expected
+
+
+def test_virtualfile_from_vectors_two_string_columns():
+    "Test passing in two columns of string dtype into virtual file dataset"
+    size = 5
+    x = np.arange(size, dtype=np.int32)
+    y = np.arange(size, size * 2, 1, dtype=np.int32)
+    strings1 = np.array(["a", "bc", "def", "ghij", "klmno"], dtype=np.str)
+    strings2 = np.array(["pqrst", "uvwx", "yz!", "@#", "$"], dtype=np.str)
+    with clib.Session() as lib:
+        with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module("convert", f"{vfile} ->{outfile.name}")
+                output = outfile.read(keep_tabs=True)
+        expected = "".join(
+            f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+        )
+        assert output == expected
 
 
 def test_virtualfile_from_vectors_transpose():
@@ -792,7 +680,7 @@ def test_get_default():
     with clib.Session() as lib:
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
-        assert Version(lib.get_default("API_VERSION")) >= Version("6.0.0")
+        assert Version(lib.get_default("API_VERSION")) >= Version("6.1.1")
 
 
 def test_get_default_fails():

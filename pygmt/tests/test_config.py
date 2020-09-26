@@ -11,9 +11,9 @@ def test_config():
     """
     Test if config works globally and locally.
     """
-    # Change global settings
-    config(FONT_ANNOT_PRIMARY="blue")
     fig = Figure()
+    # Change global settings of current figure
+    config(FONT_ANNOT_PRIMARY="blue")
     fig.basemap(
         region="0/10/0/10", projection="X10c/10c", frame=["af", '+t"Blue Annotation"']
     )
@@ -32,11 +32,14 @@ def test_config():
         frame=["af", '+t"Blue Annotation"'],
         X="15c",
     )
-    # Revert to default settings
+    # Revert to default settings in current figure
     config(FONT_ANNOT_PRIMARY="black")
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_config_font_one():
     """
@@ -51,6 +54,9 @@ def test_config_font_one():
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
+)
 @pytest.mark.mpl_image_compare
 def test_config_font_annot():
     """
@@ -105,9 +111,6 @@ def test_config_map_grid_cross_size():
     `MAP_GRID_CROSS_SIZE_PRIMARY` and `MAP_GRID_CROSS_SIZE_SECONDARY`.
     """
     fig = Figure()
-    config(
-        MAP_GRID_CROSS_SIZE_PRIMARY="0p", MAP_GRID_CROSS_SIZE_SECONDARY="0p"
-    )  # Remove after https://github.com/GenericMappingTools/gmt/issues/3062 is fixed
     with config(MAP_GRID_CROSS_SIZE="3p"):
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],

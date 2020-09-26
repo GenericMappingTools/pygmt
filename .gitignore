@@ -11,7 +11,9 @@ MANIFEST
 .pytest_cache/
 .ipynb_checkpoints/
 .vscode/
+result_images/
 tmp-test-dir-with-unique-name/
+coverage.xml
 htmlcov
 build/
 dist/

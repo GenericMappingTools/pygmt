@@ -9,6 +9,7 @@ The following people have contributed code to the project (alphabetical by last 
 and are considered the "PyGMT Developers":
 
 * [Wei Ji Leong](https://github.com/weiji14)
+* [Tyler Newton](http://www.tnewton.com/)
 * [Dongdong Tian](https://seisman.info/)
 * [Liam Toney](https://liam.earth/)
 * [Leonardo Uieda](http://www.leouieda.com/)
