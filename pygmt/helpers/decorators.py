@@ -53,6 +53,15 @@ COMMON_OPTIONS = {
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
+    "XY": """\
+        xshift : str
+            ``[a|c|f|r][xshift]``.
+            Shift plot origin in x-direction.
+        yshift : str
+            ``[a|c|f|r][yshift]``.
+            Shift plot origin in y-direction. Full documentation is at
+            :gmt-docs:`gmt.html#xy-full`.
+         """,
     "j": """\
         distcalc : str
             ``e|f|g``.
@@ -77,6 +86,13 @@ COMMON_OPTIONS = {
             - 'c' for bicubic [Default]
             - 'l' for bilinear
             - 'n' for nearest-neighbor""",
+    "p": """\
+        perspective : list or str
+            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
+            Select perspective view and set the azimuth and elevation angle of
+            the viewpoint. Default is [180, 90]. Full documentation is at
+            :gmt-docs:`gmt.html#perspective-full`.
+        """,
     "registration": """\
         registration : str
             ``[g|p]``
@@ -89,6 +105,16 @@ COMMON_OPTIONS = {
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
+    "x": """\
+        cores : int
+            ``[[-]n]``.
+            Limit the number of cores to be used in any OpenMP-enabled
+            multi-threaded algorithms. By default we try to use all available
+            cores. Set a number *n* to only use n cores (if too large it will
+            be truncated to the maximum cores available). Finally, give a
+            negative number *-n* to select (all - n) cores (or at least 1 if
+            n equals or exceeds all).
+            """,
 }
 
 
