@@ -33,5 +33,5 @@ for color in ["blue", "orange", "green"]:
         transparency=70,
     )
 
-fig.legend(t=30)
+fig.legend(transparency=30)
 fig.show()
