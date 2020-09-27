@@ -21,32 +21,35 @@ options, see the full option list at :gmt-docs:`colorbar.html`.
 import pygmt
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 3, 6, 9], projection="t0/3c", frame=True)
+fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", 'WSne+t"Colorbars"'])
 
-# Create a colorbar suitable for surface topography- oleron
+## Create a colorbar designed for seismic tomography- roma
+# Colorbar is placed at bottom center (BC) by default if no position is given
+fig.colorbar(cmap="roma", frame=["+Lvelocity", "y+lm/s"])
 
-fig.colorbar(
-    cmap="oleron",
-    position="jTC+w6c/1c+h",  # justified inside map frame (j) at Top Center (TC)
-    box=True,
-    frame=["+Loleron", "y+lm"],
-    scale=10,
-)
-# Create a colorbar designed for seismic tomography- roma
-fig.colorbar(
-    cmap="roma",
-    position="x1.2c/4.75c+w6c/1c+h",  # plot using paper coordinates (x) at 1.2cm,4.75cm
-    box=True,
-    frame=["+Lroma", "y+lm/s"],
-    scale=10,
-)
-# Create a colorbar showing the scientific rainbow - batlow
+## Create a colorbar showing the scientific rainbow - batlow
 fig.colorbar(
     cmap="batlow",
-    position="g0.45/6.6+w6c/1c+h",  # plot using map coordinates (g) at lon/lat 0.45/6.6
+    # Colorbar positioned at map coordinates (g) longitude/latitude 0.2/8.7,
+    # with a length/width (+w) of 4cm by 0.5cm, and plotted horizontally (+h)
+    position="g0.3/8.7+w4c/0.5c+h",
     box=True,
-    frame=["+Lbatlow", r"y+l\260C"],
+    frame=["+Ltemperature", r"y+l\260C"],
+    scale=100,
+)
+
+## Create a colorbar suitable for surface topography- oleron
+fig.colorbar(
+    cmap="oleron",
+    # Colorbar position justified outside map frame (J) at Middle Right (MR),
+    # offset (+o) by 1cm horizontally and 0cm vertically from anchor point,
+    # with a length/width (+w) of 7cm by 0.5cm and a box for NaN values (+n)
+    position="JMR+o1c/0c+w7c/0.5c+n+mc",
+    # The label (+L) 'Elevation' is moved to opposite side and plotted
+    # vertically as a column of text using (+mc) in the position argument above
+    frame=["+LElevation", "y+lm"],
     scale=10,
 )
+
 
 fig.show()
