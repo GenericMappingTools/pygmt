@@ -5,6 +5,7 @@ PyGMT
 
 `Documentation (development version) <https://www.pygmt.org/dev>`__ |
 `Contact <https://forum.generic-mapping-tools.org>`__ |
+`Try Online <https://github.com/GenericMappingTools/try-gmt>`__
 
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
@@ -72,7 +73,7 @@ Project goals
 * Build a Pythonic API for GMT.
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
-* Integration with the Scipy stack: numpy.ndarray or pandas.DataFrame for data tables
+* Integration with the PyData Ecosystem: numpy.ndarray or pandas.DataFrame for data tables
   and xarray.DataArray for grids.
 
 
@@ -171,6 +172,7 @@ Documentation for other versions
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   Github)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
 * `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
 * `v0.1.1 <https://www.pygmt.org/v0.1.1>`__
 * `v0.1.0 <https://www.pygmt.org/v0.1.0>`__

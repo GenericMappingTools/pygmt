@@ -114,12 +114,38 @@ def test_grdimage_over_dateline(xrgrid):
 
 
 @check_figures_equal()
-def test_grdimage_central_longitude(grid):
+@pytest.mark.parametrize("lon0", [0, 123, 180])
+@pytest.mark.parametrize("proj_type", ["H", "W"])
+def test_grdimage_central_meridians(grid, proj_type, lon0):
     """
-    Test that plotting a grid centred at different longitudes/meridians work.
+    Test that plotting a grid with different central meridians (lon0) using
+    Hammer (H) and Mollweide (W) projection systems work.
     """
-    fig_ref = Figure()
-    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
-    fig_test = Figure()
-    fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.grdimage(
+        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/15c", cmap="geo"
+    )
+    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/15c", cmap="geo")
+    return fig_ref, fig_test
+
+
+# Cylindrical Equidistant (Q) projections plotted with xarray and NetCDF grids
+# are still slightly different with an RMS error of 25, see issue at
+# https://github.com/GenericMappingTools/pygmt/issues/390
+# TO-DO remove tol=1.5 and pytest.mark.xfail once bug is solved in upstream GMT
+@check_figures_equal(tol=1.5)
+@pytest.mark.parametrize("lat0", [0, 30])
+@pytest.mark.parametrize("lon0", [0, 123, 180])
+@pytest.mark.parametrize("proj_type", [pytest.param("Q", marks=pytest.mark.xfail), "S"])
+def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0, lat0):
+    """
+    Test that plotting a grid with different central meridians (lon0) and
+    standard_parallels (lat0) using Cylindrical Equidistant (Q) and General
+    Stereographic (S) projection systems work.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.grdimage(
+        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo"
+    )
+    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo")
     return fig_ref, fig_test
