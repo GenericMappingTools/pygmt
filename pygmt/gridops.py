@@ -228,8 +228,4 @@ def grdfilter(grid, **kwargs):
             result = None  # if user sets an outgrid, return None
         
         return result
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 8b8403967589584bebd1b618afb717d3360dc123
