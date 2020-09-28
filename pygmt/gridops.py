@@ -118,7 +118,13 @@ def grdcut(grid, **kwargs):
 @use_alias(
            G="outgrid",
            F="filter",
-           D="distance"
+           D="distance",
+           I="increment",
+           N="nans",
+           R="region",
+           T="toggle",
+           V="verbose",
+           f="colinfo"
            )
 @kwargs_to_strings(R="sequence")
 
@@ -161,6 +167,25 @@ def grdfilter(grid, **kwargs):
         flag = 4: grid (x,y) in degrees, width in km, Spherical distance calculation.
         
         flag = 5: grid (x,y) in Mercator -Jm1 img units, width in km, Spherical distance calculation.
+    
+    {I}: str
+        x_inc [and optionally y_inc] is the grid spacing.
+        (http://docs.generic-mapping-tools.org/latest/grdfilter.html#i)
+    {N}: Str or Number
+        Determine how NaN-values in the input grid affects the filtered output.
+        Values are i|p|r (http://docs.generic-mapping-tools.org/latest/grdfilter.html#n)
+    {R}: Str or list or GMTgrid
+        Specify the region of interest. Set to data minimum BoundinBox if not provided.
+        (http://docs.generic-mapping-tools.org/latest/gmt.html#r-full)
+    {T}: Bool
+        Toggle the node registration for the output grid so as to become the opposite of the input grid
+        (http://docs.generic-mapping-tools.org/latest/grdfilter.html#t)
+    {V}: Bool or Str
+        Select verbosity level, which will send progress reports to stderr.
+        (http://docs.generic-mapping-tools.org/latest/gmt.html#v-full)
+    {f}: Str
+        Specify the data types of input and/or output columns (time or geographical data).
+        (http://docs.generic-mapping-tools.org/latest/gmt.html#f-full)
         
     Returns
     -------
@@ -203,4 +228,5 @@ def grdfilter(grid, **kwargs):
             result = None  # if user sets an outgrid, return None
         
         return result
+
 
