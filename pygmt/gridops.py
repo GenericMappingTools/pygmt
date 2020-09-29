@@ -114,18 +114,19 @@ def grdcut(grid, **kwargs):
 
         return result
 
+
 @fmt_docstring
 @use_alias(
-           G="outgrid",
-           F="filter",
-           D="distance",
-           I="increment",
-           N="nans",
-           R="region",
-           T="toggle",
-           V="verbose",
-           f="colinfo"
-           )
+    G="outgrid",
+    F="filter",
+    D="distance",
+    I="increment",
+    N="nans",
+    R="region",
+    T="toggle",
+    V="verbose",
+    f="colinfo",
+)
 @kwargs_to_strings(R="sequence")
 def grdfilter(grid, **kwargs):
     """
@@ -133,11 +134,11 @@ def grdfilter(grid, **kwargs):
     or non-convolution isotropic or rectangular filters and compute distances
     using Cartesian or Spherical geometries. The output grid file can optionally
     be generated as a sub-region of the input (via *region*) and/or with new increment
-    (via *spacing*) or registration (via *toggle*). In this way, one may have “extra space” in
-    the input data so that the edges will not be used and the output can be within
-    one half-width of the input edges. If the filter is low-pass, then the output
-    may be less frequently sampled than the input.
-        
+    (via *spacing*) or registration (via *toggle*).
+    In this way, one may have “extra space” in the input data so that the edges
+    will not be used and the output can be within one half-width of the input edges.
+    If the filter is low-pass, then the output may be less frequently sampled than the input.
+
     Parameters
     ----------
     grid : str or xarray.DataArray
@@ -147,26 +148,28 @@ def grdfilter(grid, **kwargs):
         in.
     filter : str
         Name of filter type you which to apply, followed by the width
-        b: Box Car; c: Cosine Arch; g: Gaussian; o: Operator; m: Median; p: Maximum Likelihood probability; h: histogram
-        Example: 'm600' for a median filter with width of 600
+        b: Box Car; c: Cosine Arch; g: Gaussian; o: Operator; m: Median;
+        p: Maximum Likelihood probability; h: histogram
+        Example: F='m600' for a median filter with width of 600
     {D}: str
         Distance flag, that tells how grid (x,y) rrlated to the filter width as follows:
         flag = p: grid (px,py) with width an odd number of pixels; Cartesian distances.
-        
+
         flag = 0: grid (x,y) same units as width, Cartesian distances.
-        
+
         flag = 1: grid (x,y) in degrees, width in kilometers, Cartesian distances.
-        
+
         flag = 2: grid (x,y) in degrees, width in km, dx scaled by cos(middle y), Cartesian distances.
-        
-        The above options are fastest because they allow weight matrix to be computed only once. The next three options are slower because they recompute weights for each latitude.
-        
+
+        The above options are fastest because they allow weight matrix to be computed only once.
+        The next three options are slower because they recompute weights for each latitude.
+
         flag = 3: grid (x,y) in degrees, width in km, dx scaled by cosine(y), Cartesian distance calculation.
-        
+
         flag = 4: grid (x,y) in degrees, width in km, Spherical distance calculation.
-        
+
         flag = 5: grid (x,y) in Mercator -Jm1 img units, width in km, Spherical distance calculation.
-    
+
     {I}: str
         x_inc [and optionally y_inc] is the grid spacing.
         (http://docs.generic-mapping-tools.org/latest/grdfilter.html#i)
@@ -183,24 +186,25 @@ def grdfilter(grid, **kwargs):
     {f}: Str
         Specify the data types of input and/or output columns (time or geographical data).
         (http://docs.generic-mapping-tools.org/latest/gmt.html#f-full)
-        
+
     Returns
     -------
     ret: xarray.DataArray or None
         Return type depends on whether the *outgrid* parameter is set:
         - xarray.DataArray if *outgrid* is not set
         - None if *outgrid* is set (grid output will be stored in *outgrid*)
-        
+
     Usage
     -------
-    pygmt.grdfilter('/Users/Desktop/input.nc',F='m1600',D='4', G='/Users/Desktop/filtered_output.nc')
-    Applies a filter of 1600km (full width) in the input.nc and returns a a filtered filed (saved as netcdf)
-    
-    out=pygmt.grdfiler(dataarray,F='g600',D='4')
-    Applies a gaussian smoothing filter of 600 km in the input data array, and returns a filtered data array 
+    pygmt.grdfilter('input.nc',F='m1600',D='4', G='filtered_output.nc')
+    Applies a filter of 1600km (full width) in the input.nc and returns a a filtered field (saved as netcdf)
+
+    smooth_field=pygmt.grdfiler(dataarray,F='g600',D='4')
+    Applies a gaussian smoothing filter of 600 km in the input data array,
+    and returns a filtered data array withthe smoothed field.
     """
     kind = data_kind(grid)
-    
+
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             if kind == "file":
@@ -209,19 +213,19 @@ def grdfilter(grid, **kwargs):
                 file_context = lib.virtualfile_from_grid(grid)
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
-            
+
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdfilter", arg_str)
-    
+
         if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
             with xr.open_dataarray(outgrid) as dataarray:
                 result = dataarray.load()
                 _ = result.gmt  # load GMTDataArray accessor information
         else:
             result = None  # if user sets an outgrid, return None
-        
+
         return result
