@@ -127,7 +127,6 @@ def grdcut(grid, **kwargs):
            f="colinfo"
            )
 @kwargs_to_strings(R="sequence")
-
 def grdfilter(grid, **kwargs):
     """
     filter a grid file in the time domain using one of the selected convolution
@@ -228,4 +227,3 @@ def grdfilter(grid, **kwargs):
             result = None  # if user sets an outgrid, return None
         
         return result
-
