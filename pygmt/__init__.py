@@ -15,7 +15,7 @@ from ._version import get_versions as _get_versions
 from .session_management import begin as _begin, end as _end
 from .figure import Figure
 from .filtering import blockmedian
-from .gridding import surface
+from .gridding import surface, xyz2grd
 from .sampling import grdtrack
 from .mathops import makecpt
 from .modules import GMTDataArrayAccessor, config, info, grdinfo, which
