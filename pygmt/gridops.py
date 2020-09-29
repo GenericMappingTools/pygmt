@@ -145,7 +145,7 @@ def grdfilter(grid, **kwargs):
         outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {F} : str
+    filter : str
         Name of filter type you which to apply, followed by the width
         b: Box Car; c: Cosine Arch; g: Gaussian; o: Operator; m: Median; p: Maximum Likelihood probability; h: histogram
         Example: 'm600' for a median filter with width of 600
