@@ -151,7 +151,7 @@ def grdfilter(grid, **kwargs):
         b: Box Car; c: Cosine Arch; g: Gaussian; o: Operator; m: Median;
         p: Maximum Likelihood probability; h: histogram
         Example: F='m600' for a median filter with width of 600
-    {D}: str
+    distance : str
         Distance flag, that tells how grid (x,y) rrlated to the filter width as follows:
         flag = p: grid (px,py) with width an odd number of pixels; Cartesian distances.
 
