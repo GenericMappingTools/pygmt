@@ -6,10 +6,9 @@ import os
 import numpy as np
 import pytest
 
-from .. import Figure, grdcut
+from .. import Figure
 from ..exceptions import GMTInvalidInput
 from ..datasets import load_earth_relief
-from ..helpers import GMTTempFile
 from ..helpers.testing import check_figures_equal
 
 
@@ -60,15 +59,11 @@ def test_grdcontour_slice(grid):
     fig_ref, fig_test = Figure(), Figure()
 
     grid_ = grid.sel(lat=slice(-30, 30))
-    fig_test.grdcontour(grid_, interval="1000", projection="M6i")
-
-    with GMTTempFile(suffix=".nc") as tmpgrid:
-        grdcut(
-            grid="@earth_relief_01d_g",
-            region=[-180, 180, -30, 30],
-            outgrid=tmpgrid.name,
-        )
-        fig_ref.grdcontour(tmpgrid.name, interval="1000", projection="M6i")
+    kwargs = dict(interval="1000", projection="M6i")
+    fig_ref.grdcontour(
+        grid="@earth_relief_01d_g", region=[-180, 180, -30, 30], **kwargs
+    )
+    fig_test.grdcontour(grid=grid_, **kwargs)
     return fig_ref, fig_test
 
 
