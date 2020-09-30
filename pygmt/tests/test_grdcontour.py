@@ -9,6 +9,7 @@ import pytest
 from .. import Figure
 from ..exceptions import GMTInvalidInput
 from ..datasets import load_earth_relief
+from ..helpers.testing import check_figures_equal
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -21,49 +22,49 @@ def fixture_grid():
     return load_earth_relief(registration="gridline")
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_grdcontour(grid):
     """Plot a contour image using an xarray grid
     with fixed contour interval
     """
-    fig = Figure()
-    fig.grdcontour(grid, interval="1000", projection="W0/6i")
-    return fig
+    fig_ref, fig_test = Figure(), Figure()
+    kwargs = dict(interval="1000", projection="W0/6i")
+    fig_ref.grdcontour("@earth_relief_01d_g", **kwargs)
+    fig_test.grdcontour(grid, **kwargs)
+    return fig_ref, fig_test
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_grdcontour_labels(grid):
     """Plot a contour image using a xarray grid
     with contour labels and alternate colors
     """
-    fig = Figure()
-    fig.grdcontour(
-        grid,
+    fig_ref, fig_test = Figure(), Figure()
+    kwargs = dict(
         interval="1000",
         annotation="5000",
         projection="W0/6i",
         pen=["a1p,red", "c0.5p,black"],
         label_placement="d3i",
     )
-    return fig
+    fig_ref.grdcontour("@earth_relief_01d_g", **kwargs)
+    fig_test.grdcontour(grid, **kwargs)
+    return fig_ref, fig_test
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_grdcontour_slice(grid):
     "Plot an contour image using an xarray grid that has been sliced"
+
+    fig_ref, fig_test = Figure(), Figure()
+
     grid_ = grid.sel(lat=slice(-30, 30))
-    fig = Figure()
-    fig.grdcontour(grid_, interval="1000", projection="M6i")
-    return fig
+    kwargs = dict(interval="1000", projection="M6i")
+    fig_ref.grdcontour(
+        grid="@earth_relief_01d_g", region=[-180, 180, -30, 30], **kwargs
+    )
+    fig_test.grdcontour(grid=grid_, **kwargs)
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare
