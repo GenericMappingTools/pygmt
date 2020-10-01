@@ -34,7 +34,8 @@ SHOW_CONFIG = {
 # Determine the default display mode
 try:
     IPython = sys.modules["IPython"]
-    if "IPKernelApp" in IPython.get_ipython().config:  # Jupyter Notebook enabled
+    get_ipython = IPython.get_ipython()
+    if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
         SHOW_CONFIG["notebook"] = True
         SHOW_CONFIG["external"] = False
     else:
