@@ -117,15 +117,14 @@ def grdcut(grid, **kwargs):
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
-    F="filter",
     D="distance",
-    I="increment",
+    F="filter",
+    G="outgrid",
+    I="spacing",
     N="nans",
     R="region",
     T="toggle",
     V="verbose",
-    f="colinfo",
 )
 @kwargs_to_strings(R="sequence")
 def grdfilter(grid, **kwargs):
