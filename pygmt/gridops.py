@@ -181,7 +181,6 @@ def grdfilter(grid, **kwargs):
         Toggle the node registration for the output grid so as to become the opposite of the input grid
         (http://docs.generic-mapping-tools.org/latest/grdfilter.html#t)
     {V}
-    {f}
 
     Returns
     -------
