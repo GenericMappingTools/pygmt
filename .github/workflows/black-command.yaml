@@ -1,0 +1,44 @@
+name: black-command
+on:
+  repository_dispatch:
+    types: [black-command]
+jobs:
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the pull request branch
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+
+      # Setup Python environment
+      - uses: actions/setup-python@v1
+
+      # Install black
+      - name: Install black
+        run: pip install black
+
+      # Execute black in check mode
+      - name: Black
+        id: black
+        run: echo ::set-output name=format::$(black --check --quiet . || echo "true")
+
+      # Execute black and commit the change to the PR branch
+      - name: Commit to the PR branch
+        if: steps.black.outputs.format == 'true'
+        run: |
+          black .
+          git config --global user.name 'actions-bot'
+          git config --global user.email '58130806+actions-bot@users.noreply.github.com'
+          git commit -am "[black-command] fixes"
+          git push
+
+      - name: Add reaction
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reaction-type: hooray

@@ -1,0 +1,15 @@
+name: Slash Command Dispatch
+on:
+  issue_comment:
+    # Type "edited" added here for test purposes. Where possible, avoid
+    # using to prevent processing unnecessary events.
+    types: [created, edited]
+jobs:
+  slashCommandDispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slash Command Dispatch
+        uses: peter-evans/slash-command-dispatch@v2
+        with:
+          token: ${{ secrets.PAT }}
+          commands: black
