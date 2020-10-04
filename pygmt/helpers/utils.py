@@ -127,7 +127,8 @@ def build_arg_string(kwargs):
     Examples
     --------
 
-    >>> print(build_arg_string(dict(R='1/2/3/4', J="X4i", P='', E=200)))
+    >>> print(build_arg_string(dict(R='1/2/3/4', J="X4i", P='',
+    ...                             E=200, X=None, Y=None)))
     -E200 -JX4i -P -R1/2/3/4
     >>> print(build_arg_string(dict(R='1/2/3/4', J="X4i",
     ...                             B=['xaf', 'yaf', 'WSen'],
@@ -140,6 +141,8 @@ def build_arg_string(kwargs):
         if is_nonstr_iter(kwargs[key]):
             for value in kwargs[key]:
                 sorted_args.append("-{}{}".format(key, value))
+        elif kwargs[key] is None:  # arguments like -XNone are invalid
+            continue
         else:
             sorted_args.append("-{}{}".format(key, kwargs[key]))
 
