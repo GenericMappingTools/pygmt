@@ -47,7 +47,7 @@ def dataarray_to_matrix(grid):
 
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
-    >>> grid = load_earth_relief(resolution='01d')
+    >>> grid = load_earth_relief(resolution="01d")
     >>> matrix, region, inc = dataarray_to_matrix(grid)
     >>> print(region)
     [-180.0, 180.0, -90.0, 90.0]
@@ -61,7 +61,7 @@ def dataarray_to_matrix(grid):
     True
     >>> # Using a slice of the grid, the matrix will be copied to guarantee
     >>> # that it's C-contiguous in memory. The increment should be unchanged.
-    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41,30:101])
+    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41, 30:101])
     >>> matrix.flags.c_contiguous
     True
     >>> print(matrix.shape)
@@ -71,7 +71,7 @@ def dataarray_to_matrix(grid):
     >>> print(inc)
     [1.0, 1.0]
     >>> # but not if only taking every other grid point.
-    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41:2,30:101:2])
+    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41:2, 30:101:2])
     >>> matrix.flags.c_contiguous
     True
     >>> print(matrix.shape)
@@ -231,11 +231,12 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
     --------
 
     >>> import ctypes as ct
-    >>> value = kwargs_to_ctypes_array('bla', {'bla': [10, 10]}, ct.c_long*2)
+    >>> value = kwargs_to_ctypes_array("bla", {"bla": [10, 10]}, ct.c_long * 2)
     >>> type(value)
     <class 'pygmt.clib.conversion.c_long_Array_2'>
     >>> should_be_none = kwargs_to_ctypes_array(
-    ...     'swallow', {'bla': 1, 'foo': [20, 30]}, ct.c_int*2)
+    ...     "swallow", {"bla": 1, "foo": [20, 30]}, ct.c_int * 2
+    ... )
     >>> print(should_be_none)
     None
 
@@ -313,9 +314,9 @@ def array_to_datetime(array):
 
     >>> # Mixed datetime types
     >>> x = [
-    ...    "2018-01-01",
-    ...    np.datetime64("2018-01-01"),
-    ...    datetime.datetime(2018, 1, 1),
+    ...     "2018-01-01",
+    ...     np.datetime64("2018-01-01"),
+    ...     datetime.datetime(2018, 1, 1),
     ... ]
     >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
     DatetimeIndex(['2018-01-01', '2018-01-01', '2018-01-01'],
