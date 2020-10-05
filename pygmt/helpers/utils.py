@@ -127,7 +127,11 @@ def build_arg_string(kwargs):
     Examples
     --------
 
-    >>> print(build_arg_string(dict(R="1/2/3/4", J="X4i", P="", E=200, X=None, Y=None)))
+    >>> print(
+    ...     build_arg_string(
+    ...         dict(R="1/2/3/4", J="X4i", P="", E=200, X=None, Y=None)
+    ...     )
+    ... )
     -E200 -JX4i -P -R1/2/3/4
     >>> print(
     ...     build_arg_string(
