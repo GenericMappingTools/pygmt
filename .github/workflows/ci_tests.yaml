@@ -28,7 +28,7 @@ jobs:
           python-version: 3.7
 
       - name: Install packages
-        run: pip install black flake8 pylint
+        run: pip install black blackdoc flake8 pylint
 
       - name: Formatting check (black and flake8)
         run: make check

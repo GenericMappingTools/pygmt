@@ -48,7 +48,7 @@ class BasePlotting:
         --------
 
         >>> base = BasePlotting()
-        >>> base._preprocess(resolution='low')
+        >>> base._preprocess(resolution="low")
         {'resolution': 'low'}
 
         """
