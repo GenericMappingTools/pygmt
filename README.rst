@@ -38,6 +38,22 @@ PyGMT
 .. placeholder-for-doc-index
 
 
+Why PyGMT?
+----------
+
+A beautiful map is worth a thousand words.
+To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
+But if you need some convincing first, watch this **1 hour introduction** to PyGMT!
+
+Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
+or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
+
+.. image:: https://user-images.githubusercontent.com/23487320/95393255-c0b72e80-0956-11eb-9471-24429461802b.png
+    :alt: Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT
+    :align: center
+    :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
+
+
 Disclaimer
 ----------
 
