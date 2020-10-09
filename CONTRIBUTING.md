@@ -245,8 +245,8 @@ directory).
 
 ### Code style
 
-We use [Black](https://github.com/ambv/black) to format the code so we don't have to
-think about it.
+We use [Black](https://github.com/ambv/black) and [blackdoc](https://github.com/keewis/blackdoc)
+to format the code so we don't have to think about it.
 Black loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
 Regardless, you won't have to worry about formatting the code yourself.
 Before committing, run it to automatically format your code:
@@ -265,7 +265,7 @@ common errors.
 The [`Makefile`](Makefile) contains rules for running both checks:
 
 ```bash
-make check   # Runs flake8 and black (in check mode)
+make check   # Runs flake8, black and blackdoc (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
