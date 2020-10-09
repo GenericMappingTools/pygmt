@@ -26,6 +26,7 @@ jobs:
         run: |
           make check
           echo ::set-output name=format::$?
+        continue-on-error: true
 
       # Run "make format" and commit the change to the PR branch
       - name: Commit to the PR branch
