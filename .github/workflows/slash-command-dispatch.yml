@@ -13,3 +13,4 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commands: black
+          issue-type: pull-request
