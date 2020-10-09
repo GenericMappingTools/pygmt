@@ -28,6 +28,10 @@ jobs:
           echo ::set-output name=format::$?
         continue-on-error: true
 
+      - name: Debug
+        run: |
+          echo ${{ steps.check.outputs.format }}
+
       # Run "make format" and commit the change to the PR branch
       - name: Commit to the PR branch
         if: steps.check.outputs.format != 0
