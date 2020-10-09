@@ -185,16 +185,17 @@ def grdfilter(grid, **kwargs):
         5: grid (x,y) in Mercator ``projection='m1'`` img units, *width* in km,
         Spherical distance calculation.
 
-    increment : str
+    spacing : str
+        ``xinc[+e|n][/yinc[+e|n]]``.
         x_inc [and optionally y_inc] is the grid spacing.
-        (http://docs.generic-mapping-tools.org/latest/grdfilter.html#i)
-    nans : Str or Number
+    nans : str or float
+        ``i|p|r``.
         Determine how NaN-values in the input grid affects the filtered output.
-        Values are i|p|r (http://docs.generic-mapping-tools.org/latest/grdfilter.html#n)
     {R}
-    toggle : Bool
-        Toggle the node registration for the output grid so as to become the opposite of the input grid
-        (http://docs.generic-mapping-tools.org/latest/grdfilter.html#t)
+    toggle : bool
+        Toggle the node registration for the output grid so as to become the
+        opposite of the input grid. [Default gives the same registration as the
+        input grid].
     {V}
 
     Returns
