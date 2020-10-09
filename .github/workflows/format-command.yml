@@ -24,7 +24,7 @@ jobs:
       - name: Commit to the PR branch if any changes
         run: |
           make format
-          if [ $(git ls-files -m) ]; then
+          if [[ $(git ls-files -m) ]]; then
             git config --global user.name 'actions-bot'
             git config --global user.email '58130806+actions-bot@users.noreply.github.com'
             git commit -am "[format-command] fixes"
