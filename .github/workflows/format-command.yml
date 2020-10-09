@@ -22,12 +22,14 @@ jobs:
 
       # Run "make check"
       - name: Style check
-        id: format
-        run: echo ::set-output name=format::$(make check || echo "true")
+        id: check
+        run: |
+          make check
+          echo ::set-output name=format::$?
 
       # Run "make format" and commit the change to the PR branch
       - name: Commit to the PR branch
-        if: steps.format.outputs.format == 'true'
+        if: steps.check.outputs.format != 0
         run: |
           make format
           git config --global user.name 'actions-bot'
