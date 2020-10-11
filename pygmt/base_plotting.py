@@ -887,25 +887,26 @@ class BasePlotting:
     @use_alias(
         R="region",
         J="projection",
-        U="timestamp",
         D="position",
         F="box",
+        S="style",
+        U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
-        p="perspective",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
     def logo(self, **kwargs):
         """
-        Place the GMT graphics logo on a map.
+        Plot the GMT logo.
 
         By default, the GMT logo is 2 inches wide and 1 inch high and
         will be positioned relative to the current plot origin.
         Use various options to change this and to place a transparent or
         opaque rectangular map panel behind the GMT logo.
 
-        Full option list at :gmt-docs:`logo.html`
+        Full option list at :gmt-docs:`gmtlogo.html`.
 
         {aliases}
 
@@ -919,15 +920,20 @@ class BasePlotting:
         box : bool or str
             Without further options, draws a rectangular border around the
             GMT logo.
+        style : str
+            ``l|n|u``.
+            Control what is written beneath the map portion of the logo.
+
+            - **l** to plot the text label “The Generic Mapping Tools”
+            - **n** to skip the label placement
+            - **u** to place the URL to the GMT site
         {U}
+        {V}
         {XY}
-        {p}
         {t}
 
         """
         kwargs = self._preprocess(**kwargs)
-        if "D" not in kwargs:
-            raise GMTInvalidInput("Option D must be specified.")
         with Session() as lib:
             lib.call_module("logo", build_arg_string(kwargs))
 
