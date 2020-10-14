@@ -71,7 +71,7 @@ def test_grdimage_file():
 
 @pytest.mark.xfail(reason="Upstream bug in GMT 6.1.1")
 @check_figures_equal()
-def test_grdimage_xarray_shading(grid, fig_ref, fig_test):
+def test_grdimage_xarray_shading(grid):
     """
     Test that shading works well for xarray.
     See https://github.com/GenericMappingTools/pygmt/issues/364
