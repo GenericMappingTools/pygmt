@@ -6,6 +6,7 @@ It is often useful to add annotations to a map plot. This is handled by
 :meth:`pygmt.Figure.text`.
 """
 
+import os
 import pygmt
 
 ########################################################################################
@@ -66,14 +67,21 @@ with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Plot region names / sea names
-fig.text(textfiles="examples.txt", font="22p,Helvetica-Bold,white")
+# Create space-delimited file
+with open("examples.txt", "w") as f:
+    f.write("114 0.5 0 22p,Helvetica-Bold,white CM BORNEO\n")
+    f.write("119 3.25 0 12p,Helvetica-Bold,black CM CELEBES SEA\n")
+    f.write("112 -4.6 0 12p,Helvetica-Bold,black CM JAVA SEA\n")
+    f.write("112 6 40 12p,Helvetica-Bold,black CM SOUTH CHINA SEA\n")
+    f.write("119.12 7.25 -40 12p,Helvetica-Bold,black CM SULU SEA\n")
+    f.write("118.4 -1 65 12p,Helvetica-Bold,black CM MAKASSAR STRAIT\n")
 
-# Plot names of seas
-fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
-fig.text(text="SULU SEA", x=119.12, y=7.25, angle=-40)
-fig.text(text="SOUTH CHINA SEA", x=112, y=6, angle=40)
-fig.text(text="MAKASSAR STRAIT", x=118.4, y=-1, angle=65)
+# Plot region names / sea names from a text file
+fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
+
+# Cleanups
+os.remove("examples.txt")
+
 fig.show()
 
 ########################################################################################
