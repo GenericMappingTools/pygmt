@@ -9,15 +9,12 @@ It is often useful to add annotations to a map plot. This is handled by
 import os
 import pygmt
 
-########################################################################################
+###############################################################################
 # Basic map annotation
 # --------------------
 #
 # Text annotations can be added to a map using the :meth:`text` method of the
 # :class:`pygmt.Figure`.
-#
-# Full details of the GMT6 command `text` can be found `here<https://docs.generic-mapping-tools.org/latest/text.html>`_.
-# The Python binding to this command is documented `here<https://www.pygmt.org/latest/api/generated/pygmt.Figure.text.html>`_.
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
 # and ``y`` arguments to specify the annotation text and position in the
@@ -37,13 +34,15 @@ fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
 
 fig.show()
 
-########################################################################################
+###############################################################################
 # Changing font style
 # -------------------
-# The size, family/weight, and colour of an annotation can be specified using the ``font`` argument.
+# The size, family/weight, and colour of an annotation can be specified using
+# the ``font`` argument.
 #
-# A list of all recognised fonts can be found `here<https://docs.generic-mapping-tools.org/latest/cookbook/postscript_fonts.html>`_),
-# including details of how to use non-default fonts.
+# A list of all recognised fonts can be found at
+# :gmt-docs:`cookbook/postscript_fonts.html`, including details of how to use
+# non-default fonts.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
@@ -55,7 +54,7 @@ fig.text(text="BORNEO", x=114.0, y=0.5, font="22p,Helvetica-Bold,white")
 
 fig.show()
 
-########################################################################################
+###############################################################################
 # Plotting from a text file
 # -------------------------
 #
@@ -84,7 +83,7 @@ os.remove("examples.txt")
 
 fig.show()
 
-########################################################################################
+###############################################################################
 # ``justify`` argument
 # --------------------
 #
@@ -108,7 +107,7 @@ for position in ("TL", "TC", "TR", "ML", "MC", "MR", "BL", "BC", "BR"):
     )
 fig.show()
 
-########################################################################################
+###############################################################################
 # ``angle`` argument
 # ------------------
 # ``angle`` is an optional argument used to specify the clockwise rotation of
@@ -120,16 +119,21 @@ for i in range(0, 360, 30):
     fig.text(text=f"`          {i} Degrees", x=2, y=2, justify="LM", angle=i)
 fig.show()
 
-########################################################################################
-# Additional arguments
-# --------------------
+###############################################################################
+# ``fill`` argument
+# -----------------
 #
-# Text can be further configured by passing an argument corresponding to the
-# flag names in GMT, following the same convention as described in the GMT
-# documentation. It is hoped that over time more bindings to these arguments
-# will be written into PyGMT.
+# ``fill`` is used to set the fill colour of the area surrounding the text.
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 1, 0, 1], projection="X5c", frame="WSen")
-fig.text(text="Green", x=0.5, y=0.5, G="green")
+fig.text(text="Green", x=0.5, y=0.5, fill="green")
 fig.show()
+
+###############################################################################
+# Advanced configuration
+# ----------------------
+#
+# For crafting more advanced styles, be sure to check out the GMT documentation
+# at :gmt-docs:`text.html` and also the cookbook at
+# :gmt-docs:`cookbook/features.html#placement-of-text`. Good luck!
