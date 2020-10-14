@@ -20,7 +20,8 @@ import pygmt
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
 # and ``y`` arguments to specify the annotation text and position in the
-# projection frame. ``text``, ``x``, and ``y`` accept `int`, `str`, or `float`.
+# projection frame. ``text`` accepts 'str' types, while ``x``, and ``y``
+# accepts either 'int' or 'float' types.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
@@ -85,25 +86,18 @@ fig.show()
 #
 # The anchor is specified with a two letter (order independent) code, chosen
 # from:
-# * Horizontal anchor: L(eft), C(entre), R(ight)
 # * Vertical anchor: T(op), M(iddle), B(ottom)
+# * Horizontal anchor: L(eft), C(entre), R(ight)
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 4, 0, 4], projection="X10c", frame="WSen")
-for i, y_justify in enumerate(["T", "M", "B"]):
-    y_pos = 3.5 - i * 1.5
-    fig.plot(x=[0.0, 4.0], y=[y_pos, y_pos], pen="3p,red@85")
-    for j, x_justify in enumerate(["L", "C", "R"]):
-        justify_text = x_justify + y_justify
-        x_pos = 0.5 + j * 1.5
-        fig.text(
-            text=justify_text,
-            x=x_pos,
-            y=y_pos,
-            font="28p,Helvetica-Bold,black",
-            justify=justify_text,
-        )
-        fig.plot(x=[x_pos, x_pos], y=[0.0, 4.0], pen="3p,red@85")
+fig.basemap(region=[0, 3, 0, 3], projection="X10c", frame=["WSne", "af0.5g"])
+for position in ("TL", "TC", "TR", "ML", "MC", "MR", "BL", "BC", "BR"):
+    fig.text(
+        text=position,
+        position=position,
+        font="28p,Helvetica-Bold,black",
+        justify=position,
+    )
 fig.show()
 
 ########################################################################################
