@@ -49,7 +49,7 @@ with pygmt.config(MAP_FRAME_TYPE="plain"):
 fig.coast(land="black", water="skyblue")
 
 # Customising the font style
-fig.text(text="BORNEO", x="114.", y=0.5, font="22p,Helvetica-Bold,white")
+fig.text(text="BORNEO", x=114.0, y=0.5, font="22p,Helvetica-Bold,white")
 
 fig.show()
 
@@ -91,14 +91,19 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[0, 4, 0, 4], projection="X10c", frame="WSen")
 for i, y_justify in enumerate(["T", "M", "B"]):
-    y_pos = 3.5 - i*1.5
-    fig.plot(x=[0., 4.], y=[y_pos, y_pos], W='3p,red@85')
+    y_pos = 3.5 - i * 1.5
+    fig.plot(x=[0.0, 4.0], y=[y_pos, y_pos], pen="3p,red@85")
     for j, x_justify in enumerate(["L", "C", "R"]):
         justify_text = x_justify + y_justify
-        x_pos = 0.5 + j*1.5
-        fig.text(text=justify_text, x=x_pos, y=y_pos,
-                 font="28p,Helvetica-Bold,black", justify=justify_text)
-        fig.plot(x=[x_pos, x_pos], y=[0., 4.], W="3p,red@85")
+        x_pos = 0.5 + j * 1.5
+        fig.text(
+            text=justify_text,
+            x=x_pos,
+            y=y_pos,
+            font="28p,Helvetica-Bold,black",
+            justify=justify_text,
+        )
+        fig.plot(x=[x_pos, x_pos], y=[0.0, 4.0], pen="3p,red@85")
 fig.show()
 
 ########################################################################################
