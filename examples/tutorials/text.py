@@ -13,13 +13,13 @@ import pygmt
 # Basic map annotation
 # --------------------
 #
-# Text annotations can be added to a map using the :meth:`text` method of the
-# :class:`pygmt.Figure`.
+# Text annotations can be added to a map using the :meth:`pygmt.Figure.text`
+# method of the :class:`pygmt.Figure` class.
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
 # and ``y`` arguments to specify the annotation text and position in the
 # projection frame. ``text`` accepts 'str' types, while ``x``, and ``y``
-# accepts either 'int' or 'float' types.
+# accepts either 'int'/'float' numbers, or a list/array of numbers.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
@@ -37,7 +37,7 @@ fig.show()
 ###############################################################################
 # Changing font style
 # -------------------
-# The size, family/weight, and colour of an annotation can be specified using
+# The size, family/weight, and color of an annotation can be specified using
 # the ``font`` argument.
 #
 # A list of all recognised fonts can be found at
@@ -75,7 +75,11 @@ with open("examples.txt", "w") as f:
     f.write("119.12 7.25 -40 12p,Helvetica-Bold,black CM SULU SEA\n")
     f.write("118.4 -1 65 12p,Helvetica-Bold,black CM MAKASSAR STRAIT\n")
 
-# Plot region names / sea names from a text file
+# Plot region names / sea names from a text file, where
+# the longitude (x) and latitude (y) coordinates are in the first two columns.
+# Setting angle/font/justiry to True will indicate that those columns are
+# present in the text file too (Note: must be in that order!).
+# Finally, the text to be printed will be in the last column
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
 
 # Cleanups
@@ -114,16 +118,16 @@ fig.show()
 # the text from the horizontal.
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 4, 0, 4], projection="X10c", frame="WSen")
+fig.basemap(region=[0, 4, 0, 4], projection="X5c", frame="WSen")
 for i in range(0, 360, 30):
-    fig.text(text=f"`          {i} Degrees", x=2, y=2, justify="LM", angle=i)
+    fig.text(text=f"`          {i}@.", x=2, y=2, justify="LM", angle=i)
 fig.show()
 
 ###############################################################################
 # ``fill`` argument
 # -----------------
 #
-# ``fill`` is used to set the fill colour of the area surrounding the text.
+# ``fill`` is used to set the fill color of the area surrounding the text.
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 1, 0, 1], projection="X5c", frame="WSen")
