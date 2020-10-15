@@ -1,3 +1,6 @@
+"""
+High level functions for making subplots.
+"""
 import numpy as np
 
 from .figure import SubPlot

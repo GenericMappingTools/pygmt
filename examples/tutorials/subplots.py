@@ -46,7 +46,7 @@ for index in axs.flatten():
     j = index % axs.shape[1]  # column
     fig.sca(ax=axs[i, j])  # sets the current Axes
     fig.text(
-        x=0.5, y=0.5, text=f"index: {index}, row: {i}, col: {j}", region=[0, 1, 0, 1]
+        position="MC", text=f"index: {index}, row: {i}, col: {j}", region=[0, 1, 0, 1]
     )
 fig.end_subplot()
 fig.show()

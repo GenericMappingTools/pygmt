@@ -396,10 +396,11 @@ class SubPlot(Figure):
         self._activate_figure()
         self.begin_subplot(row=nrows, col=ncols, figsize=figsize, **kwargs)
 
+    @staticmethod
     @fmt_docstring
     @use_alias(Ff="figsize", B="frame")
     @kwargs_to_strings(Ff="sequence")
-    def begin_subplot(self, row=None, col=None, **kwargs):
+    def begin_subplot(row=None, col=None, **kwargs):
         """
         The begin directive of subplot defines the layout of the entire
         multi-panel illustration. Several options are available to specify
@@ -412,9 +413,10 @@ class SubPlot(Figure):
         with Session() as lib:
             lib.call_module(module="subplot", args=arg_str)
 
+    @staticmethod
     @fmt_docstring
     @use_alias(F="dimensions")
-    def sca(self, ax=None, **kwargs):
+    def sca(ax=None, **kwargs):
         """
         Set the current Axes instance to *ax*.
 
@@ -432,9 +434,10 @@ class SubPlot(Figure):
         with Session() as lib:
             lib.call_module(module="subplot", args=arg_str)
 
+    @staticmethod
     @fmt_docstring
     @use_alias(V="verbose")
-    def end_subplot(self, **kwargs):
+    def end_subplot(**kwargs):
         """
         This command finalizes the current subplot, including any placement
         of tags, and updates the gmt.history to reflect the dimensions and
