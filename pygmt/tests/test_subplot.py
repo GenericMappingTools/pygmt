@@ -3,7 +3,8 @@ Tests subplot
 """
 import pytest
 
-from ..subplot import subplots
+from ..helpers.testing import check_figures_equal
+from ..subplot import SubPlot, subplots
 
 
 @pytest.mark.mpl_image_compare
@@ -44,3 +45,25 @@ def test_subplot_direct():
     fig.basemap(region=[0, 3, 0, 3], frame=True, ax=axs[1, 0])
     fig.end_subplot()
     return fig
+
+
+@check_figures_equal()
+def test_subplot_autolabel_margins_title():
+    """
+    Make subplot figure with autolabels, setting some margins and a title.
+    """
+    kwargs = dict(nrows=2, ncols=1, figsize=("15c", "6c"))
+
+    fig_ref = SubPlot(A="(1)", M="0.3c/0.1c", T='"Subplot Title"', **kwargs)
+    fig_ref.basemap(region=[0, 1, 2, 3], frame="WSne", c="0,0")
+    fig_ref.basemap(region=[4, 5, 6, 7], frame="WSne", c="1,0")
+    fig_ref.end_subplot()
+
+    fig_test, axs_test = subplots(
+        autolabel="(1)", margins=["0.3c", "0.1c"], title="Subplot Title", **kwargs
+    )
+    fig_test.basemap(region=[0, 1, 2, 3], frame="WSne", ax=axs_test[0, 0])
+    fig_test.basemap(region=[4, 5, 6, 7], frame="WSne", ax=axs_test[1, 0])
+    fig_test.end_subplot()
+
+    return fig_ref, fig_test
