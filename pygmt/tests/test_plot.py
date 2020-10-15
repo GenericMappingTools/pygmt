@@ -135,11 +135,11 @@ def test_plot_colors(data, region):
     # Use single-character arguments for the reference image
     fig_ref.plot(
         data=POINTS_DATA,
-        J="X3i",
         R="/".join(map(str, region)),
-        B="af",
+        J="X3i",
         S="c0.5c",
         C="cubhelix",
+        B="af",
     )
 
     fig_test.plot(

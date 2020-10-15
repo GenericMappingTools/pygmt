@@ -109,7 +109,7 @@ def test_grdcontour_interval_file_full_opts():
     fig_test.grdcontour(
         **comargs_test, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"]
     )
-    fig_test.grdcontour(**comargs_test, limit="0", pen=["a1p,black", "c0.5p,black"])
+    fig_test.grdcontour(**comargs_test, limit=0, pen=["a1p,black", "c0.5p,black"])
 
     return fig_ref, fig_test
 
