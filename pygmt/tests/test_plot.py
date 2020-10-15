@@ -128,11 +128,21 @@ def test_plot_projection(data):
     return fig
 
 
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_plot_colors(data, region):
     "Plot the data using z as colors"
-    fig = Figure()
-    fig.plot(
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.plot(
+        data=POINTS_DATA,
+        R="/".join(map(str, region)),
+        J="X3i",
+        S="c0.5c",
+        C="cubhelix",
+        B="af",
+    )
+
+    fig_test.plot(
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
@@ -142,7 +152,7 @@ def test_plot_colors(data, region):
         cmap="cubhelix",
         frame="af",
     )
-    return fig
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare
