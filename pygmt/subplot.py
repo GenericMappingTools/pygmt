@@ -28,7 +28,15 @@ class SubPlot(Figure):
 
     @staticmethod
     @fmt_docstring
-    @use_alias(Ff="figsize", A="autolabel", B="frame", M="margins", T="title")
+    @use_alias(
+        Ff="figsize",
+        A="autolabel",
+        B="frame",
+        C="clearance",
+        M="margins",
+        S="layout",
+        T="title",
+    )
     @kwargs_to_strings(Ff="sequence", M="sequence")
     def begin_subplot(row=None, col=None, **kwargs):
         """
@@ -87,7 +95,9 @@ def subplots(
     ncols=1,
     figsize=(6.4, 4.8),
     autolabel=None,
+    clearance=None,
     margins=None,
+    layout=None,
     title=None,
     **kwargs,
 ):
@@ -130,6 +140,20 @@ def subplots(
         uppercase Roman numerals [Arabic numerals]. Append **+v** to increase
         tag numbers vertically down columns [horizontally across rows].
 
+    clearance : str
+        ``[side]clearance``.
+        Reserve a space of dimension *clearance* between the margin and the
+        subplot on the specified side, using *side* values from **w**, **e**,
+        **s**, or **n**, or **x** for both **w** and **e** or **y** for both
+        **s** and **n**.  No *side* means all sides. The option is repeatable
+        to set aside space on more than one side. Such space will be left
+        untouched by the main map plotting but can be accessed by modules that
+        plot scales, bars, text, etc.  Settings specified under **begin**
+        directive apply to all subplots, while settings under **set** only
+        apply to the selected (active) subplot. **Note**: Common options
+        **x_offset** and **y_offset* are not available during subplots; use
+        **clearance** instead.
+
     margins : tuple
         This is margin space that is added between neighboring subplots (i.e.,
         the interior margins) in addition to the automatic space added for tick
@@ -145,6 +169,29 @@ def subplots(
         opposing sides (e.g., east plus west or south plus north margins)
         [Default is half the primary annotation font size, giving the full
         annotation font size as the default gap].
+
+    layout : str or list
+        Set subplot layout for shared axes. May be set separately for rows
+        (**R**) and columns (**C**). E.g. ``layout=['Rl', 'Cb']``.
+        Considerations for **C**: Use when all subplots in a **C**\\ olumn
+        share a common *x*-range. The first (i.e., **t**\\ op) and the last
+        (i.e., **b**\\ ottom) rows will have *x* annotations; append **t** or
+        **b** to select only one of those two rows [both]. Append **+l** if
+        annotated *x*-axes should have a label [none]; optionally append the
+        label if it is the same for the entire subplot. Append **+t** to make
+        space for subplot titles for each row; use **+tc** for top row titles
+        only [no subplot titles]. Labels and titles that depends on which row
+        or column are specified as usual via a subplot's own **frame** setting.
+        Considerations for **R**: Use when all subplots in a **R**\\ ow share a
+        common *y*-range. The first (i.e., **l**\\ eft) and the last (i.e.,
+        **r**\\ ight) columns will have *y*-annotations; append **l** or **r**
+        to select only one of those two columns [both]. Append **+l** if
+        annotated *y*-axes will have a label [none]; optionally, append the
+        label if it is the same for the entire subplot. Append **+p** to make
+        all annotations axis-parallel [horizontal]; if not used you may have to
+        set **clearance** to secure extra space for long horizontal
+        annotations. Append **+w** to draw horizontal and vertical lines
+        between interior panels using selected pen [no lines].
 
     title : str
         Overarching heading for the entire figure. Font is determined by
@@ -164,7 +211,9 @@ def subplots(
         ncols=ncols,
         figsize=figsize,
         autolabel=autolabel,
+        clearance=clearance,
         margins=margins,
+        layout=layout,
         title=f'"{title}"' if title else None,
         **kwargs,
     )

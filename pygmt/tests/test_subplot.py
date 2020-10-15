@@ -67,3 +67,24 @@ def test_subplot_autolabel_margins_title():
     fig_test.end_subplot()
 
     return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_subplot_clearance_and_shared_xy_axis_layout():
+    """
+    Ensure subplot clearance works, and that the layout can be set to use
+    shared X and Y axis labels across columns and rows.
+    """
+    kwargs = dict(nrows=2, ncols=2, frame="WSrt", figsize=("5c", "5c"))
+
+    fig_ref = SubPlot(C="y0.2", SR="l", SC="t", **kwargs)
+    fig_test, _ = subplots(clearance="y0.2", layout=["Rl", "Ct"], **kwargs)
+
+    for fig in (fig_ref, fig_test):
+        fig.basemap(region=[0, 4, 0, 4], projection="X?", ax=True)
+        fig.basemap(region=[0, 8, 0, 4], projection="X?", ax=True)
+        fig.basemap(region=[0, 4, 0, 8], projection="X?", ax=True)
+        fig.basemap(region=[0, 8, 0, 8], projection="X?", ax=True)
+        fig.end_subplot()
+
+    return fig_ref, fig_test

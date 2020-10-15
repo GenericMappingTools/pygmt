@@ -878,7 +878,7 @@ class BasePlotting:
 
         """
         kwargs = self._preprocess(**kwargs)
-        if not ("B" in kwargs or "L" in kwargs or "T" in kwargs):
+        if not ("B" in kwargs or "L" in kwargs or "T" in kwargs or "c" in kwargs):
             raise GMTInvalidInput("At least one of B, L, or T must be specified.")
         with Session() as lib:
             lib.call_module("basemap", build_arg_string(kwargs))
