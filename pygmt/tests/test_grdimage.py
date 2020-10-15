@@ -4,11 +4,15 @@ Test Figure.grdimage
 import numpy as np
 import pytest
 import xarray as xr
+from packaging.version import Version
 
-from .. import Figure
+from .. import Figure, clib
 from ..datasets import load_earth_relief
 from ..exceptions import GMTInvalidInput
 from ..helpers.testing import check_figures_equal
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -69,7 +73,10 @@ def test_grdimage_file():
     return fig
 
 
-@pytest.mark.xfail(reason="Upstream bug in GMT 6.1.1")
+@pytest.mark.xfail(
+    reason="Upstream bug in GMT 6.1.1",
+    condition=gmt_version <= Version("6.1.1"),
+)
 @check_figures_equal()
 def test_grdimage_xarray_shading(grid):
     """
