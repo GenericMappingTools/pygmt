@@ -43,21 +43,21 @@ class Figure(BasePlotting):
     --------
 
     >>> fig = Figure()
-    >>> fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
+    >>> fig.basemap(region=[0, 360, -90, 90], projection="W7i", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
     >>> import os
-    >>> os.path.exists('my-figure.png')
+    >>> os.path.exists("my-figure.png")
     True
-    >>> os.remove('my-figure.png')
+    >>> os.remove("my-figure.png")
 
     The plot region can be specified through ISO country codes (for example,
     ``'JP'`` for Japan):
 
     >>> fig = Figure()
-    >>> fig.basemap(region='JP', projection="M3i", frame=True)
+    >>> fig.basemap(region="JP", projection="M3i", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
-    >>> print(', '.join('{:.2f}'.format(i)  for i in fig.region))
+    >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
     122.94, 145.82, 20.53, 45.52
 
     """

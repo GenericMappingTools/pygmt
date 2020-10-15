@@ -21,7 +21,7 @@ help:
 	@echo "  doctest    run all doctests embedded in the documentation (if enabled)"
 
 clean:
-	rm -rf $(BUILDDIR)/html/*
+	rm -rf $(BUILDDIR)/html
 	rm -rf $(BUILDDIR)/doctrees
 	rm -rf $(BUILDDIR)/linkcheck
 	rm -rf modules
