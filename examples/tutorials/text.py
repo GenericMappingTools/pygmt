@@ -41,7 +41,7 @@ fig.show()
 # the ``font`` argument.
 #
 # A list of all recognised fonts can be found at
-# :gmt-docs:`cookbook/postscript_fonts.html`, including details of how to use
+# :gmt-docs:`cookbook/postscript-fonts.html`, including details of how to use
 # non-default fonts.
 
 fig = pygmt.Figure()
