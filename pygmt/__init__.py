@@ -13,13 +13,13 @@ from ._version import get_versions as _get_versions
 
 # Import modules to make the high-level GMT Python API
 from .session_management import begin as _begin, end as _end
-from .figure import Figure, SubPlot
+from .figure import Figure
 from .filtering import blockmedian
 from .gridding import surface
 from .sampling import grdtrack
 from .mathops import makecpt
 from .modules import GMTDataArrayAccessor, config, info, grdinfo, which
-from .pygmtplot import subplots
+from .subplot import SubPlot, subplots
 from .gridops import grdcut
 from .x2sys import x2sys_init, x2sys_cross
 from . import datasets

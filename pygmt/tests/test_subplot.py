@@ -3,7 +3,7 @@ Tests subplot
 """
 import pytest
 
-from ..pygmtplot import subplots
+from ..subplot import subplots
 
 
 @pytest.mark.mpl_image_compare
