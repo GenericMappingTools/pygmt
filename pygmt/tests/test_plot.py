@@ -13,6 +13,7 @@ import pytest
 
 from .. import Figure
 from ..exceptions import GMTInvalidInput
+from ..helpers.testing import check_figures_equal
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -126,11 +127,21 @@ def test_plot_projection(data):
     return fig
 
 
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_plot_colors(data, region):
     "Plot the data using z as sizes"
-    fig = Figure()
-    fig.plot(
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.plot(
+        data=POINTS_DATA,
+        J="X3i",
+        R="/".join(map(str, region)),
+        B="af",
+        S="c0.5c",
+        C="cubhelix",
+    )
+
+    fig_test.plot(
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
@@ -140,7 +151,7 @@ def test_plot_colors(data, region):
         cmap="cubhelix",
         frame="af",
     )
-    return fig
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare
