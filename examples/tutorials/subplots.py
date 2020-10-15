@@ -171,3 +171,54 @@ fig.show()
 # Of course, instead of using the **layout** option, you can also set a
 # different **frame** for each subplot to control the axis properties
 # individually for each subplot.
+
+###############################################################################
+# Advanced subplot layouts
+# ------------------------
+#
+# Nested subplot are currently not supported. If you want to create more
+# complex subplot layouts, some manual adjustments are needed.
+#
+# The following example draws three subplots in a 2-row, 2-column layout, with
+# the first subplot occupying the first row.
+
+fig, axs = pygmt.subplots(nrows=2, ncols=2, figsize=("15c", "6c"), autolabel=True)
+fig.basemap(
+    region=[0, 10, 0, 10], projection="X15c/3c", frame=["af", "WSne"], ax=axs[0, 0]
+)
+fig.text(text="TEXT", x=5, y=5, projection="X15c/3c")
+fig.basemap(region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], ax=axs[1, 0])
+fig.basemap(region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], ax=axs[1, 1])
+fig.end_subplot()
+fig.show()
+
+###############################################################################
+#
+# When drawing the three basemaps, the last two basemaps use
+# ``projection="X?"``, so GMT will automatically determine the size of the
+# subplot according to the size of the subplot area. In order for the first
+# subplot to fill up the entire top row space, we use manually adjusted the
+# subplot width to 15cm using ``projection="X15c/3c"``.
+
+###############################################################################
+# .. note::
+#
+#     There are bugs that have not been fixed in the above example.
+#
+#     In subplot mode, the size of each subgraph is controlled by the
+#     ``figsize`` option of :meth:`pygmt.subplots`. Users can override this and
+#     use``projection`` to specify the size of an individual subplot, but this
+#     size will not be remembered. If the next command does not specify
+#     ``projection``, the default size of the subplot mode will be used, and
+#     the resulting plot will be inccorect.
+#
+#     The current workaround is to use the same ``projection`` option in all
+#     commands for the subplot. For example, we forced subplot (a) to have a
+#     different size using ``projection="15c/3c``. The next command within the
+#     subplot (e.g. ``text``) must also use ``projection="x15c/3c"``, otherwise
+#     the placement will be wrong.
+
+###############################################################################
+# Since we skipped the second subplot, the auto label function will name the
+# three subplots as a, c and d, which is not what we want, so we have to use
+# ``fig.sca(A=""(a)"`` to manually set the subplot label.
