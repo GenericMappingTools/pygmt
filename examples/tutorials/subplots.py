@@ -89,14 +89,13 @@ fig.show()
 # -------------------------
 # Next, let's use what we learned above to make a 2 row by 2 column subplot
 # figure. We'll also pick up on some new parameters to configure our subplot.
-import pygmt
 
 fig, axs = pygmt.subplots(
     nrows=2,
     ncols=2,
     figsize=("15c", "6c"),
     autolabel=True,
-    margins=["0.3c", "0.1c"],
+    margins=["0.1c", "0.2c"],
     title="My Subplot Heading",
 )
 fig.basemap(region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], ax=axs[0, 0])
@@ -113,8 +112,8 @@ fig.show()
 # parameters to fine tune some details of the figure creation:
 #
 # - ``autolabel=True``: Each subplot is automatically labelled abcd
-# - ``margins=["0.2c", "0.1c"]``: adjusts the space between adjacent subplots.
-#   In this case, it is set as 0.2 cm in the X direction and 0.1 cm in the Y
+# - ``margins=["0.1c", "0.2c"]``: adjusts the space between adjacent subplots.
+#   In this case, it is set as 0.1 cm in the X direction and 0.2 cm in the Y
 #   direction.
 # - ``title="My Subplot Heading"``: adds a title on top of the whole figure.
 #
@@ -123,3 +122,52 @@ fig.show()
 # also possible to use a question mark ``"?"`` to let GMT decide automatically
 # on what is the most appropriate width/height for the each subplot's map
 # frame.
+
+###############################################################################
+# .. tip::
+#
+#     In the above example, we used the following commands to activate the
+#     four subplots explicitly one after another::
+#
+#         fig.basemap(..., ax=axs[0, 0])
+#         fig.basemap(..., ax=axs[0, 1])
+#         fig.basemap(..., ax=axs[1, 0])
+#         fig.basemap(..., ax=axs[1, 1])
+#
+#     In fact, we can just use ``fig.basemap(..., ax=True)`` without specifying
+#     any subplot index number, and GMT will automatically activate the next
+#     subplot.
+
+###############################################################################
+# Shared X and Y axis labels
+# --------------------------
+# In the example above with the four subplots, the two subplots for each row
+# have the same Y-axis range, and the two subplots for each column have the
+# same X-axis range. You can use the **layout** option to set a common X and/or
+# Y axis between subplots.
+
+fig, axs = pygmt.subplots(
+    nrows=2,
+    ncols=2,
+    figsize=("15c", "6c"),
+    autolabel=True,
+    margins=["0.3c", "0.2c"],
+    title="My Subplot Heading",
+    layout=["Rl", "Cb"],
+    frame="WSrt",
+)
+fig.basemap(region=[0, 10, 0, 10], projection="X?", ax=True)
+fig.basemap(region=[0, 20, 0, 10], projection="X?", ax=True)
+fig.basemap(region=[0, 10, 0, 20], projection="X?", ax=True)
+fig.basemap(region=[0, 20, 0, 20], projection="X?", ax=True)
+fig.end_subplot()
+fig.show()
+
+###############################################################################
+# **Rl** indicates that subplots within a **R**\ ow will share the y-axis, and
+# only the **l**\ eft axis is displayed. **Cb** indicates that subplots in
+# a column will share the x-axis, and only the **b**\ ottom axis is displayed.
+#
+# Of course, instead of using the **layout** option, you can also set a
+# different **frame** for each subplot to control the axis properties
+# individually for each subplot.
