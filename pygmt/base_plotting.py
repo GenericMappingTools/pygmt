@@ -15,6 +15,7 @@ from .helpers import (
     fmt_docstring,
     use_alias,
     kwargs_to_strings,
+    is_nonstr_iter,
 )
 
 
@@ -684,6 +685,9 @@ class BasePlotting:
 
         {p}
         {t}
+            *transparency* can also be a 1d array to set varying transparency
+            for symbols.
+
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -705,6 +709,10 @@ class BasePlotting:
                     "Can't use arrays for sizes if data is matrix or file."
                 )
             extra_arrays.append(sizes)
+
+        if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+            extra_arrays.append(kwargs["t"])
+            kwargs["t"] = ""
 
         with Session() as lib:
             # Choose how data will be passed in to the module
