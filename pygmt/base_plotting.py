@@ -924,7 +924,8 @@ class BasePlotting:
             ``l|n|u``.
             Control what is written beneath the map portion of the logo.
 
-            - **l** to plot the text label “The Generic Mapping Tools”
+            - **l** to plot the text label "The Generic Mapping Tools"
+              [Default]
             - **n** to skip the label placement
             - **u** to place the URL to the GMT site
         {U}
