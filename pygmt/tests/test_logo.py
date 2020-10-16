@@ -1,10 +1,7 @@
 """
 Tests for fig.logo
 """
-import pytest
-
 from .. import Figure
-from ..exceptions import GMTInvalidInput
 from ..helpers.testing import check_figures_equal
 
 
@@ -31,11 +28,3 @@ def test_logo_on_a_map():
     )
     fig_test.logo(position="jTR+o0.1i/0.1i+w3i", box=True)
     return fig_ref, fig_test
-
-
-def test_logo_fails():
-    "Make sure logo raises an exception when D is not given"
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.logo()
-    return fig
