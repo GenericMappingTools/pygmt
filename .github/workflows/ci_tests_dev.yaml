@@ -21,7 +21,7 @@ jobs:
       matrix:
         python-version: [3.8]
         os: [ubuntu-20.04, macOS-10.15]
-        gmt_git_ref: [6.1, master]
+        gmt_git_ref: [master]
     env:
       # LD_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib:$LD_LIBRARY_PATH
       GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir

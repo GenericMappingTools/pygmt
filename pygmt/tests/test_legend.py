@@ -6,6 +6,7 @@ import pytest
 from .. import Figure
 from ..exceptions import GMTInvalidInput
 from ..helpers import GMTTempFile
+from ..helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
@@ -44,32 +45,42 @@ def test_legend_default_position():
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_legend_entries():
     """
     Test different marker types/shapes.
     """
+    fig_ref, fig_test = Figure(), Figure()
 
-    fig = Figure()
+    # Use single-character arguments for the reference image
+    fig_ref = Figure()
+    fig_ref.basemap(J="x1i", R="0/7/3/7", B="")
+    fig_ref.plot(
+        data="@Table_5_11.txt",
+        S="c0.15i",
+        G="lightgreen",
+        W="faint",
+        l="Apples",
+    )
+    fig_ref.plot(data="@Table_5_11.txt", W="1.5p,gray", l='"My lines"')
+    fig_ref.plot(data="@Table_5_11.txt", S="t0.15i", G="orange", l="Oranges")
+    fig_ref.legend(D="JTR+jTR")
 
-    fig.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
-
-    fig.plot(
+    fig_test.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
+    fig_test.plot(
         data="@Table_5_11.txt",
         style="c0.15i",
         color="lightgreen",
         pen="faint",
-        l="Apples",
+        label="Apples",
     )
-    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
-    fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
+    fig_test.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
+    fig_test.plot(
+        data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges"
+    )
+    fig_test.legend(position="JTR+jTR")
 
-    fig.legend(position="JTR+jTR")
-
-    return fig
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare

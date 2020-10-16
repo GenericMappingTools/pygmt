@@ -4,11 +4,15 @@ Test Figure.grdimage
 import numpy as np
 import pytest
 import xarray as xr
+from packaging.version import Version
 
-from .. import Figure
+from .. import Figure, clib
 from ..datasets import load_earth_relief
 from ..exceptions import GMTInvalidInput
 from ..helpers.testing import check_figures_equal
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -69,12 +73,24 @@ def test_grdimage_file():
     return fig
 
 
-@pytest.mark.xfail(reason="Upstream bug in GMT 6.1.1")
+@pytest.mark.xfail(
+    reason="Upstream bug in GMT 6.1.1",
+    condition=gmt_version <= Version("6.1.1"),
+)
 @check_figures_equal()
-def test_grdimage_xarray_shading(grid, fig_ref, fig_test):
+@pytest.mark.parametrize(
+    "shading",
+    [True, 0.5, "+a30+nt0.8", "@earth_relief_01d_g+d", "@earth_relief_01d_g+a60+nt0.8"],
+)
+def test_grdimage_shading_xarray(grid, shading):
     """
     Test that shading works well for xarray.
-    See https://github.com/GenericMappingTools/pygmt/issues/364
+
+    The ``shading`` can be True, a constant intensity, some modifiers, or
+    a grid with modifiers.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/364 and
+    https://github.com/GenericMappingTools/pygmt/issues/618.
     """
     fig_ref, fig_test = Figure(), Figure()
     kwargs = dict(
@@ -82,7 +98,7 @@ def test_grdimage_xarray_shading(grid, fig_ref, fig_test):
         frame=True,
         projection="Cyl_stere/6i",
         cmap="geo",
-        shading=True,
+        shading=shading,
     )
 
     fig_ref.grdimage("@earth_relief_01d_g", **kwargs)

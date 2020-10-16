@@ -154,7 +154,7 @@ def fmt_docstring(module_func):
     --------
 
     >>> @fmt_docstring
-    ... @use_alias(R='region', J='projection')
+    ... @use_alias(R="region", J="projection")
     ... def gmtinfo(**kwargs):
     ...     '''
     ...     My nice module.
@@ -230,19 +230,19 @@ def use_alias(**aliases):
     Examples
     --------
 
-    >>> @use_alias(R='region', J='projection')
+    >>> @use_alias(R="region", J="projection")
     ... def my_module(**kwargs):
-    ...     print('R =', kwargs['R'], 'J =', kwargs['J'])
-    >>> my_module(R='bla', J='meh')
+    ...     print("R =", kwargs["R"], "J =", kwargs["J"])
+    >>> my_module(R="bla", J="meh")
     R = bla J = meh
-    >>> my_module(region='bla', J='meh')
+    >>> my_module(region="bla", J="meh")
     R = bla J = meh
-    >>> my_module(R='bla', projection='meh')
+    >>> my_module(R="bla", projection="meh")
     R = bla J = meh
-    >>> my_module(region='bla', projection='meh')
+    >>> my_module(region="bla", projection="meh")
     R = bla J = meh
     >>> my_module(
-    ...    region='bla', projection='meh', J="bla"
+    ...     region="bla", projection="meh", J="bla"
     ... )  # doctest: +NORMALIZE_WHITESPACE
     Traceback (most recent call last):
       ...
@@ -309,21 +309,25 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     --------
 
     >>> @kwargs_to_strings(
-    ...     R='sequence', i='sequence_comma', files='sequence_space'
+    ...     R="sequence", i="sequence_comma", files="sequence_space"
     ... )
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
-    ...     print('{', end='')
-    ...     print(', '.join(
-    ...         "'{}': {}".format(k, repr(kwargs[k])) for k in sorted(kwargs)),
-    ...         end='')
-    ...     print('}')
+    ...     print("{", end="")
+    ...     print(
+    ...         ", ".join(
+    ...             "'{}': {}".format(k, repr(kwargs[k]))
+    ...             for k in sorted(kwargs)
+    ...         ),
+    ...         end="",
+    ...     )
+    ...     print("}")
     ...     if args:
-    ...         print("args:", ' '.join('{}'.format(x) for x in args))
+    ...         print("args:", " ".join("{}".format(x) for x in args))
     >>> module(R=[1, 2, 3, 4])
     {'R': '1/2/3/4'}
     >>> # It's already a string, do nothing
-    >>> module(R='5/6/7/8')
+    >>> module(R="5/6/7/8")
     {'R': '5/6/7/8'}
     >>> module(P=True)
     {'P': ''}

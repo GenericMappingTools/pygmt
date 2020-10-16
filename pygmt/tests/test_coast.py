@@ -4,6 +4,7 @@ Tests for coast
 import pytest
 
 from .. import Figure
+from ..helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
@@ -25,15 +26,16 @@ def test_coast():
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_coast_iceland():
     "Test passing in R as a list"
-    fig = Figure()
-    fig.coast(R=[-30, -10, 60, 65], J="m1c", B=True, G="p28+r100")
-    return fig
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(R="-30/-10/60/65", J="m1c", B="", G="p28+r100")
+    fig_test.coast(
+        region=[-30, -10, 60, 65], projection="m1c", frame=True, land="p28+r100"
+    )
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare
