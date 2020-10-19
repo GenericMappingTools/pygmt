@@ -10,16 +10,16 @@ import numpy as np
 import pygmt
 
 # prepare the input x and y data
-x = np.linspace(0, 3.0 * np.pi, 100)
-y = np.sin(x)
+x = np.arange(0, 105, 5)
+y = np.ones(x.size)
 # transparency level in percentage from 0 (i.e., opaque) to 100
-transparency = np.linspace(0, 100, x.size)
+transparency = x
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[x.min(), x.max(), y.min() * 1.1, y.max() * 1.1],
-    frame=["af", 'WSrt+t"Varying Transparency"'],
-    projection="X10c/6c",
+    region=[-5, 105, 0, 2],
+    frame=['xaf+l"Transparency level"+u%', "WSrt"],
+    projection="X15c/6c",
 )
-fig.plot(x=x, y=y, style="c0.15c", color="blue", transparency=transparency)
+fig.plot(x=x, y=y, style="c0.6c", color="blue", pen="1p,red", transparency=transparency)
 fig.show()
