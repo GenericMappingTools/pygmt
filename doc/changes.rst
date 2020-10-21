@@ -59,10 +59,10 @@ Maintenance:
 * Eliminate unnecessary jobs from Travis CI (`#567 <https://github.com/GenericMappingTools/pygmt/pull/567>`__) and Azure Pipelines (`#513 <https://github.com/GenericMappingTools/pygmt/pull/513>`__)
 * Improve the workflow to test both GMT master (`#485 <https://github.com/GenericMappingTools/pygmt/pull/485>`__) and 6.1 branches (`#554 <https://github.com/GenericMappingTools/pygmt/pull/554>`__)
 * Automatically cancel in-progress CI runs of old commits (`#544 <https://github.com/GenericMappingTools/pygmt/pull/544>`__)
-* Remove the Stickler CI configuration file (`#538 <https://github.com/GenericMappingTools/pygmt/pull/538>`__), run style checks using Github Actions (`#519 <https://github.com/GenericMappingTools/pygmt/pull/519>`__)
-* Cache GMT remote data as artifacts on Github (`#530 <https://github.com/GenericMappingTools/pygmt/pull/530>`__)
+* Remove the Stickler CI configuration file (`#538 <https://github.com/GenericMappingTools/pygmt/pull/538>`__), run style checks using GitHub Actions (`#519 <https://github.com/GenericMappingTools/pygmt/pull/519>`__)
+* Cache GMT remote data as artifacts on GitHub (`#530 <https://github.com/GenericMappingTools/pygmt/pull/530>`__)
 * Let pytest generate both HTML and XML coverage reports (`#512 <https://github.com/GenericMappingTools/pygmt/pull/512>`__)
-* Run Continuous Integration tests on Github Actions (`#475 <https://github.com/GenericMappingTools/pygmt/pull/475>`__)
+* Run Continuous Integration tests on GitHub Actions (`#475 <https://github.com/GenericMappingTools/pygmt/pull/475>`__)
 
 Contributors:
 
@@ -225,7 +225,7 @@ Bug Fixes:
 Maintenance:
 
 * Quickfix Zeit Now miniconda installer link to anaconda.com (`#413 <https://github.com/GenericMappingTools/pygmt/pull/413>`__)
-* Fix Github Pages deployment from Travis (`#410 <https://github.com/GenericMappingTools/pygmt/pull/410>`__)
+* Fix GitHub Pages deployment from Travis (`#410 <https://github.com/GenericMappingTools/pygmt/pull/410>`__)
 * Update and clean TravisCI configuration (`#404 <https://github.com/GenericMappingTools/pygmt/pull/404>`__)
 * Quickfix min elevation for new SRTM15+V2.1 earth relief grids (`#401 <https://github.com/GenericMappingTools/pygmt/pull/401>`__)
 * Wrap docstrings to 79 chars and check with flake8 (`#384 <https://github.com/GenericMappingTools/pygmt/pull/384>`__)

@@ -61,8 +61,8 @@ jobs:
         env:
           GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
 
-      # Download cached remote files (artifacts) from Github
-      - name: Download remote data from Github
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
         uses: dawidd6/action-download-artifact@v2.6.3
         with:
           workflow: cache_data.yaml

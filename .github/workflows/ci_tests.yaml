@@ -89,8 +89,8 @@ jobs:
         shell: bash -l {0}
         run: conda list
 
-      # Download cached remote files (artifacts) from Github
-      - name: Download remote data from Github
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
         uses: dawidd6/action-download-artifact@v2.6.3
         with:
           workflow: cache_data.yaml
