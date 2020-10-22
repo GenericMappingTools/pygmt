@@ -603,6 +603,7 @@ class BasePlotting:
         B="frame",
         S="style",
         G="color",
+        N="no_clip",
         W="pen",
         i="columns",
         l="label",
@@ -674,6 +675,18 @@ class BasePlotting:
             ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
             Draw symmetrical error bars.
         {G}
+        no_clip : bool or str
+            ``'[c|r]'``
+            Do NOT clip symbols that fall outside map border [Default plots
+            points whose coordinates are strictly inside the map border only].
+            The option does not apply to lines and polygons which are always
+            clipped to the map region. For periodic (360-longitude) maps we
+            must plot all symbols twice in case they are clipped by the
+            repeating boundary. ``no_clip=True`` will turn off clipping and not
+            plot repeating symbols. Use ``no_clip="r"`` to turn off clipping
+            but retain the plotting of such repeating symbols, or use
+            ``no_clip="c"`` to retain clipping but turn off plotting of
+            repeating symbols.
         style : str
             Plot symbols (including vectors, pie slices, fronts, decorated or
             quoted lines).
@@ -738,6 +751,7 @@ class BasePlotting:
         G="label_placement",
         W="pen",
         L="triangular_mesh_pen",
+        N="no_clip",
         i="columns",
         l="label",
         C="levels",
@@ -787,8 +801,9 @@ class BasePlotting:
             Color the triangles using CPT
         triangular_mesh_pen : str
             Pen to draw the underlying triangulation (default none)
-        N : bool
-            Do not clip contours
+        no_clip : bool
+            Do NOT clip contours or image at the boundaries [Default will clip
+            to fit inside region].
         Q : float or str
             Do not draw contours with less than cut number of points.
             ``'[cut[unit]][+z]'``
@@ -1067,6 +1082,7 @@ class BasePlotting:
         C="clearance",
         D="offset",
         G="fill",
+        N="no_clip",
         W="pen",
         X="xshift",
         Y="yshift",
@@ -1178,6 +1194,8 @@ class BasePlotting:
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
+        no_clip : bool
+            Do NOT clip text at map boundaries [Default will clip].
         {XY}
         {p}
         {t}
@@ -1235,6 +1253,7 @@ class BasePlotting:
         J="projection",
         B="frame",
         C="offset",
+        N="no_clip",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -1332,6 +1351,9 @@ class BasePlotting:
             circle is plotted at the initial location and a line connects
             the beachball to the circle. Specify pen and optionally append
             ``+ssize`` to change the line style and/or size of the circle.
+        no_clip : bool
+            Does NOT skip symbols that fall outside frame boundary specified by
+            *region* [Default plots symbols inside frame only].
         {J}
         {R}
         {B}
