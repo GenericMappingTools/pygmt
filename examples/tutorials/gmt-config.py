@@ -35,10 +35,12 @@ fig.show()
 # The default uses degrees and minutes. Here we specify the ticks to be a decimal number
 # of degrees.
 
+fig = pygmt.Figure()
+
+# Configuration for the 'current figure'.
 pygmt.config(MAP_FRAME_TYPE="plain")
 pygmt.config(FORMAT_GEO_MAP="ddd.xx")
 
-fig = pygmt.Figure()
 fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
 fig.coast(land="black", water="skyblue")
 
@@ -52,17 +54,25 @@ fig.show()
 # useful for limiting the scope of changes to a particular plot. :class:`pygmt.config` is
 # implemented as a context manager, which handles the setup and teardown of a GMT
 # session. Python users are likely familiar with the `with open(...) as file:` snippet,
-# which returns a `file` context manager. An application of `pygmt.config` as a context
+# which returns a `file` context manager. In this way, it can be used to override a parameter
+# for a single command, or a sequence of commands. An application of `pygmt.config` as a context
 # manager is shown below:
+
+fig = pygmt.Figure()
 
 # This will have a fancy frame
 with pygmt.config(MAP_FRAME_TYPE="fancy"):
-    fig = pygmt.Figure()
     fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
-    fig.coast(land="black", water="skyblue")
+fig.coast(land="black", water="skyblue")
 
 # This figure retains the globally set plain frame
 fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", Y="-10c", frame=True)
 fig.coast(land="black", water="skyblue")
+
+# Set font for a sequence of commands
+with pygmt.config(FONT="14p,Helvetica-Bold,white"):
+    fig.text(text="Mt Kinabalu", x=116.549, y=6.058)
+    fig.text(text="Maliau Basin", x=116.913, y=4.787)
+    fig.text(text="Danum Valley", x=117.743, y=4.912)
 
 fig.show()
