@@ -165,7 +165,7 @@ which may help identify what went wrong).
 ## Known Limitations
 
 Some situations are known to cause problems for Versioneer. This details the
-most significant ones. More can be found on Github
+most significant ones. More can be found on GitHub
 [issues page](https://github.com/warner/python-versioneer/issues).
 
 ### Subprojects
