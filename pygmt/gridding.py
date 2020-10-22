@@ -17,7 +17,7 @@ from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
-@use_alias(I="spacing", R="region", G="outfile")
+@use_alias(I="spacing", R="region", G="outfile", V="verbose")
 @kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
     """
@@ -57,6 +57,8 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     outfile : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
+
+    {V}
 
     Returns
     -------
