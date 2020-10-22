@@ -17,7 +17,7 @@ from .helpers import (
 
 
 @fmt_docstring
-@use_alias(I="spacing", R="region")
+@use_alias(I="spacing", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def blockmedian(table, outfile=None, **kwargs):
     """
@@ -49,6 +49,8 @@ def blockmedian(table, outfile=None, **kwargs):
 
     outfile : str
         Required if 'table' is a file. The file name for the output ASCII file.
+
+    {V}
 
     Returns
     -------

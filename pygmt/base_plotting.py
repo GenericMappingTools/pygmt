@@ -69,6 +69,7 @@ class BasePlotting:
         G="land",
         S="water",
         U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -130,6 +131,7 @@ class BasePlotting:
         water : str
             Select filling or clipping of “wet” areas.
         {U}
+        {V}
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
@@ -152,6 +154,7 @@ class BasePlotting:
         F="box",
         G="truncate",
         W="scale",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -217,6 +220,7 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        {V}
         {XY}
         {p}
         {t}
@@ -238,6 +242,7 @@ class BasePlotting:
         R="region",
         S="resample",
         U="timestamp",
+        V="verbose",
         W="pen",
         l="label",
         X="xshift",
@@ -292,6 +297,7 @@ class BasePlotting:
         {B}
         {G}
         {U}
+        {V}
         {W}
         {XY}
         label : str
@@ -489,6 +495,7 @@ class BasePlotting:
         Wm="meshpen",
         Wf="facadepen",
         I="shading",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -565,6 +572,7 @@ class BasePlotting:
             intensity, and ambient arguments for that module, or just give
             ``+d`` to select the default arguments (``+a-45+nt1+m0``).
 
+        {V}
         {XY}
         {p}
         {t}
@@ -609,6 +617,7 @@ class BasePlotting:
         l="label",
         C="cmap",
         U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -692,6 +701,7 @@ class BasePlotting:
             quoted lines).
         {W}
         {U}
+        {V}
         {XY}
         label : str
             Add a legend entry for the symbol or line being plotted.
@@ -755,6 +765,7 @@ class BasePlotting:
         i="columns",
         l="label",
         C="levels",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -817,6 +828,7 @@ class BasePlotting:
             to be of the format [*annotcontlabel*][/*contlabel*]. If either
             label contains a slash (/) character then use ``|`` as the
             separator for the two labels instead.
+        {V}
         {XY}
         {p}
         {t}
@@ -850,6 +862,7 @@ class BasePlotting:
         Td="rose",
         Tm="compass",
         U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -887,6 +900,7 @@ class BasePlotting:
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
+        {V}
         {XY}
         {p}
         {t}
@@ -960,6 +974,7 @@ class BasePlotting:
         D="position",
         F="box",
         M="monochrome",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -998,6 +1013,7 @@ class BasePlotting:
         monochrome : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
+        {V}
         {XY}
         {p}
         {t}
@@ -1013,6 +1029,7 @@ class BasePlotting:
         J="projection",
         D="position",
         F="box",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -1052,6 +1069,7 @@ class BasePlotting:
             rectangular border around the legend using **MAP_FRAME_PEN**. By
             default, uses '+gwhite+p1p' which draws a box around the legend
             using a 1 point black pen and adds a white background.
+        {V}
         {XY}
         {p}
         {t}
@@ -1083,6 +1101,7 @@ class BasePlotting:
         D="offset",
         G="fill",
         N="no_clip",
+        V="verbose",
         W="pen",
         X="xshift",
         Y="yshift",
@@ -1196,6 +1215,7 @@ class BasePlotting:
             style = solid].
         no_clip : bool
             Do NOT clip text at map boundaries [Default is False, i.e. will clip].
+        {V}
         {XY}
         {p}
         {t}
@@ -1254,6 +1274,7 @@ class BasePlotting:
         B="frame",
         C="offset",
         N="no_clip",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -1357,6 +1378,7 @@ class BasePlotting:
         {J}
         {R}
         {B}
+        {V}
         {XY}
         {p}
         {t}
