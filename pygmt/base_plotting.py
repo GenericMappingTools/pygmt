@@ -676,7 +676,7 @@ class BasePlotting:
             Draw symmetrical error bars.
         {G}
         no_clip : bool or str
-            ``'[c|r]'``
+            ``'[c|r]'``.
             Do NOT clip symbols that fall outside map border [Default plots
             points whose coordinates are strictly inside the map border only].
             The option does not apply to lines and polygons which are always
@@ -1195,7 +1195,7 @@ class BasePlotting:
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
         no_clip : bool
-            Do NOT clip text at map boundaries [Default will clip].
+            Do NOT clip text at map boundaries [Default is False, i.e. will clip].
         {XY}
         {p}
         {t}
@@ -1353,7 +1353,7 @@ class BasePlotting:
             ``+ssize`` to change the line style and/or size of the circle.
         no_clip : bool
             Does NOT skip symbols that fall outside frame boundary specified by
-            *region* [Default plots symbols inside frame only].
+            *region* [Default is False, i.e. plot symbols inside map frame only].
         {J}
         {R}
         {B}
