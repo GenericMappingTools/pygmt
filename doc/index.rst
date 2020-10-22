@@ -32,7 +32,7 @@
     projections/index.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
-    tutorials/gmt-config.rst
+    tutorials/configuration.rst
 
 .. toctree::
     :maxdepth: 2
