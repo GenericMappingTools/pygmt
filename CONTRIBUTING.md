@@ -70,7 +70,7 @@ for the project where you can ask questions.
 
 ## Reporting a Bug
 
-Find the *Issues* tab on the top of the Github repository and click *New Issue*.
+Find the *Issues* tab on the top of the GitHub repository and click *New Issue*.
 You'll be prompted to choose between different types of issue, like bug reports and
 feature requests.
 Choose the one that best matches your need.
@@ -92,7 +92,7 @@ download and install anything:
 * On each documentation page, there should be an "Improve This Page" link at the very
   top.
 * Click on that link to open the respective source file (usually an `.rst` file in the
-  `doc` folder) on Github for editing online (you'll need a Github account).
+  `doc` folder) on GitHub for editing online (you'll need a GitHub account).
 * Make your desired changes.
 * When you're done, scroll to the bottom of the page.
 * Fill out the two fields under "Commit changes": the first is a short title describing
@@ -436,7 +436,7 @@ Some things that will increase the chance that your pull request is accepted qui
 
 Pull requests will automatically have tests run by TravisCI.
 This includes running both the unit tests as well as code linters.
-Github will show the status of these checks on the pull request.
+GitHub will show the status of these checks on the pull request.
 Try to get them all passing (green).
 If you have any trouble, leave a comment in the PR or
 [get in touch](#how-can-i-talk-to-you).
