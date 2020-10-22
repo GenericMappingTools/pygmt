@@ -308,13 +308,13 @@ in your browser. **Strive to get 100% coverage for the lines you changed.**
 It's OK if you can't or don't know how to test something.
 Leave a comment in the PR and we'll help you out.
 
-You can also run tests in a specific test script using:
+You can also run tests in just one test script using:
 
-    pytest -v --mpl --mpl-results-path=results pygmt/tests/NAME_OF_TEST_FILE.py
+    pytest --verbose --mpl --mpl-results-path=results --doctest_modules pygmt/tests/NAME_OF_TEST_FILE.py
 
 or run tests which contain names that match a specific keyword expression:
 
-    pytest -v --mpl --mpl-results-path=results -k KEYWORD pygmt/tests
+    pytest --verbose --mpl --mpl-results-path=results --doctest_modules -k KEYWORD pygmt/tests
 
 ### Testing plots
 
