@@ -643,12 +643,13 @@ class BasePlotting:
         If a symbol is selected and no symbol size given, then plot will
         interpret the third column of the input data as symbol size. Symbols
         whose size is <= 0 are skipped. If no symbols are specified then the
-        symbol code (see *symbol* below) must be present as last column in the
-        input. If *symbol* is not used, a line connecting the data points will
-        be drawn instead. To explicitly close polygons, use *close*. Select a
-        fill with *color*. If *color* is set, *pen* will control whether the
-        polygon outline is drawn or not. If a symbol is selected, *color* and
-        *pen* determines the fill and outline/no outline, respectively.
+        symbol code (see **symbol** below) must be present as last column in
+        the input. If **symbol** is not used, a line connecting the data points
+        will be drawn instead. To explicitly close polygons, use **close**.
+        Select a fill with **color**. If **color** is set, **pen** will control
+        whether the polygon outline is drawn or not. If a symbol is selected,
+        **color** and **pen** determines the fill and outline/no outline,
+        respectively.
 
         Full option list at :gmt-docs:`plot.html`
 
