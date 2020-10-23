@@ -1214,7 +1214,8 @@ class BasePlotting:
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
         no_clip : bool
-            Do NOT clip text at map boundaries [Default is False, i.e. will clip].
+            Do NOT clip text at map boundaries [Default is False, i.e. will
+            clip].
         {V}
         {XY}
         {p}
@@ -1374,7 +1375,8 @@ class BasePlotting:
             ``+ssize`` to change the line style and/or size of the circle.
         no_clip : bool
             Does NOT skip symbols that fall outside frame boundary specified by
-            *region* [Default is False, i.e. plot symbols inside map frame only].
+            *region* [Default is False, i.e. plot symbols inside map frame
+            only].
         {J}
         {R}
         {B}
