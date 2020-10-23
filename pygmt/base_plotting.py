@@ -609,7 +609,7 @@ class BasePlotting:
         A="straight_lines",
         B="frame",
         C="cmap",
-        D="position",
+        D="offset",
         E="error_bars",
         G="color",
         J="projection",
@@ -686,7 +686,7 @@ class BasePlotting:
             respectively.
         {B}
         {CPT}
-        position : str
+        offset : str
             ``dx/dy``.
             Offset the plot symbol or line locations by the given amounts
             *dx/dy* [Default is no offset]. If *dy* is not given it is set
@@ -697,9 +697,9 @@ class BasePlotting:
             :gmt-docs:`plot.html#e`.
         {G}
         close : str
-          ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
-          Force closed polygons. Full documentation is at
-          :gmt-docs:`plot.html#l`.
+            ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
+            Force closed polygons. Full documentation is at
+            :gmt-docs:`plot.html#l`.
         no_clip : bool or str
             ``'[c|r]'``.
             Do NOT clip symbols that fall outside map border [Default plots
