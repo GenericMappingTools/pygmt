@@ -43,7 +43,6 @@ def test_info_dataframe():
 
 
 @pytest.mark.xfail(
-    condition=gmt_version <= Version("6.1.1"),
     reason="UNIX timestamps returned instead of ISO datetime, should work on GMT 6.2.0 "
     "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
 )
@@ -63,7 +62,6 @@ def test_info_pandas_dataframe_time_column():
 
 
 @pytest.mark.xfail(
-    condition=gmt_version <= Version("6.1.1"),
     reason="UNIX timestamp returned instead of ISO datetime, should work on GMT 6.2.0 "
     "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
 )
