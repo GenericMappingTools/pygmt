@@ -73,7 +73,7 @@ def test_grdimage_file():
     return fig
 
 
-@pytest.mark.xfail(
+@pytest.mark.skip(
     reason="Upstream bug in GMT 6.1.1",
     condition=gmt_version <= Version("6.1.1"),
 )
