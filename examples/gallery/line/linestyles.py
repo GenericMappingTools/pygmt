@@ -47,8 +47,8 @@ for linestyle in [
 # plot the line like a railway track (black/white)
 # the trick here is plotting the same line twice but with different line styles
 y -= 1
-for linestyle in ["5p,black", "4p,white,20p_20p"]:
-    fig.plot(x=x, y=y, pen=linestyle)
+fig.plot(x=x, y=y, pen="5p,black")
+fig.plot(x=x, y=y, pen="4p,white,20p_20p")
 fig.text(x=x[-1], y=y[-1], text="5p,black", justify="ML", offset="0.2c/0.2c")
 fig.text(x=x[-1], y=y[-1], text="4p,white,20p_20p", justify="ML", offset="0.2c/-0.2c")
 
