@@ -8,16 +8,12 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 import xarray as xr
-from packaging.version import Version
 
-from .. import clib, info
+from .. import info
 from ..exceptions import GMTInvalidInput
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 def test_info():
