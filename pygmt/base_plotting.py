@@ -611,7 +611,9 @@ class BasePlotting:
         C="cmap",
         D="offset",
         E="error_bars",
+        F="connection",
         G="color",
+        I="intensity",
         J="projection",
         L="close",
         N="no_clip",
@@ -622,6 +624,7 @@ class BasePlotting:
         W="pen",
         X="xshift",
         Y="yshift",
+        Z="zvalue",
         i="columns",
         l="label",
         p="perspective",
@@ -696,7 +699,43 @@ class BasePlotting:
             ``[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]``.
             Draw symmetrical error bars. Full documentation is at
             :gmt-docs:`plot.html#e`.
+        connection : str
+            ``[c|n|r][a|f|s|r|refpoint]``.
+            Alter the way points are connected (by specifying a *scheme*) and
+            data are grouped (by specifying a *method*). Append one of three
+            line connection schemes:
+
+            - **c** : Draw continuous line segments for each group [Default].
+            - **r** : Draw line segments from a reference point reset for each
+              group.
+            - **n** : Draw networks of line segments between all points in
+              each group.
+
+            Optionally, append the one of four segmentation methods to define
+            the group:
+
+            - **a** : Ignore all segment headers, i.e., let all points belong
+              to a single group, and set group reference point to the very
+              first point of the first file.
+            - **f** : Consider all data in each file to be a single separate
+              group and reset the group reference point to the first point of
+              each group.
+            - **s** : Segment headers are honored so each segment is a group;
+              the group reference point is reset to the first point of each
+              incoming segment [Default].
+            - **r** : Same as **s**, but the group reference point is reset
+              after each record to the previous point (this method is only
+              available with the ``connection='r'`` scheme).
+
+            Instead of the codes **a**|**f**|**s**|**r** you may append the
+            coordinates of a *refpoint* which will serve as a fixed external
+            reference point for all groups.
         {G}
+        intensity : float or bool
+            Provide an *intens* value (nominally in the -1 to +1 range) to
+            modulate the fill color by simulating illumination [None]. If
+            using ``intensity=True``, we will instead read *intens* from the
+            first data column after the symbol parameters (if given).
         close : str
             ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
             Force closed polygons. Full documentation is at
@@ -720,6 +759,15 @@ class BasePlotting:
         {U}
         {V}
         {XY}
+        zvalue : str
+            ``value|file``.
+            Instead of specifying a symbol or polygon fill and outline color
+            via **color** and **pen**, give both a *value* via **zvalue** and a
+            color lookup table via **cmap**.  Alternatively, give the name of a
+            *file* with one z-value (read from the last column) for each
+            polygon in the input data. To apply it to the fill color, use
+            ``color='+z'``. To apply it to the pen color, append **+z** to
+            **pen**.
         label : str
             Add a legend entry for the symbol or line being plotted.
 
