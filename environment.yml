@@ -17,7 +17,7 @@ dependencies:
     - pytest
     - pytest-cov
     - pytest-mpl
-    - coverage
+    - coverage[toml]
     - black
     - blackdoc
     - pylint
