@@ -78,6 +78,10 @@ def test_grdimage_file():
     gmt_version <= Version("6.1.1") and sys.platform == "darwin",
     reason="Upstream bug in GMT 6.1.1",
 )
+@pytest.mark.skipif(
+    condition=gmt_version <= Version("6.1.1") and sys.platform != "darwin",
+    reason="Upstream bug in GMT 6.1.1",
+)
 @check_figures_equal()
 @pytest.mark.parametrize(
     "shading",
