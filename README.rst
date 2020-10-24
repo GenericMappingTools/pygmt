@@ -66,7 +66,7 @@ implement new features. **This is not a finished product, use with caution.**
 
 We welcome any feedback and ideas!
 Let us know by submitting
-`issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
+`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
 or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 About
@@ -96,7 +96,7 @@ Project goals
 Contacting Us
 -------------
 
-* Most discussion happens `on Github
+* Most discussion happens `on GitHub
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
@@ -150,7 +150,7 @@ Who we are
 
 PyGMT is a community developed project. See the
 `AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
-file on Github for a list of the people involved and a definition of the term "PyGMT
+file on GitHub for a list of the people involved and a definition of the term "PyGMT
 Developers".
 
 
@@ -186,7 +186,7 @@ Other Python wrappers for GMT:
 Documentation for other versions
 --------------------------------
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
-  Github)
+  GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
 * `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
 * `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
