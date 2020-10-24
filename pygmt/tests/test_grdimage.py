@@ -1,6 +1,7 @@
 """
 Test Figure.grdimage
 """
+import sys
 import numpy as np
 import pytest
 import xarray as xr
@@ -73,9 +74,9 @@ def test_grdimage_file():
     return fig
 
 
-@pytest.mark.xfail(
+@pytest.mark.skip(
     reason="Upstream bug in GMT 6.1.1",
-    condition=gmt_version <= Version("6.1.1"),
+    condition=gmt_version <= Version("6.1.1") and sys.platform == "darwin",
 )
 @check_figures_equal()
 @pytest.mark.parametrize(
