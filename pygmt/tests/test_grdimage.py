@@ -78,7 +78,7 @@ def test_grdimage_file():
     gmt_version <= Version("6.1.1") and sys.platform == "darwin",
     reason="Upstream bug in GMT 6.1.1",
 )
-@pytest.mark.skipif(
+@pytest.mark.xfail(
     condition=gmt_version <= Version("6.1.1") and sys.platform != "darwin",
     reason="Upstream bug in GMT 6.1.1",
 )
