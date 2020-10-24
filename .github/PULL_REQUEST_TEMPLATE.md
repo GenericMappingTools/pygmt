@@ -15,3 +15,7 @@ Fixes #
 - [ ] Add new public functions/methods/classes to `doc/api/index.rst`.
 - [ ] Write detailed docstrings for all functions/methods.
 - [ ] If adding new functionality, add an example to docstrings or tutorials.
+
+**Notes**
+
+- You can write `/foramt` in the first line of a comment to automatically format your codes
