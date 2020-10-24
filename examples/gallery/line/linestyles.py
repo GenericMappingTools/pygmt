@@ -31,7 +31,7 @@ fig.basemap(region=[0, 10, 0, 10], projection="X15c/8c", frame='+t"Line Styles"'
 fig.plot(x=x, y=y)
 fig.text(x=x[-1], y=y[-1], text="solid (default)", justify="ML", offset="0.2c/0c")
 
-# plot the line using different line styles
+# Plot the line using different line styles
 for linestyle in [
     "1p,red,-",  # dashed line
     "1p,blue,.",  # dotted line
@@ -44,9 +44,9 @@ for linestyle in [
     fig.plot(x=x, y=y, pen=linestyle)
     fig.text(x=x[-1], y=y[-1], text=linestyle, justify="ML", offset="0.2c/0c")
 
-# plot the line like a railway track (black/white)
-# the trick here is plotting the same line twice but with different line styles
-y -= 1
+# Plot the line like a railway track (black/white).
+# The trick here is plotting the same line twice but with different line styles
+y -= 1  # move the current line down
 fig.plot(x=x, y=y, pen="5p,black")
 fig.plot(x=x, y=y, pen="4p,white,20p_20p")
 fig.text(x=x[-1], y=y[-1], text="5p,black", justify="ML", offset="0.2c/0.2c")
