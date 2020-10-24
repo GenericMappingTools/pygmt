@@ -1,0 +1,24 @@
+name: Slash Command Dispatch
+on:
+  issue_comment:
+    types: [created]
+    # Add "edited" type for test purposes. Where possible, avoid using to prevent processing unnecessary events.
+    # types: [created, edited]
+jobs:
+  slashCommandDispatch:
+    runs-on: ubuntu-latest
+    steps:
+      # Generate token from GenericMappingTools bot
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Slash Command Dispatch
+        uses: peter-evans/slash-command-dispatch@v2
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          commands: |
+            format
+          issue-type: pull-request

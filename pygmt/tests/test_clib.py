@@ -161,13 +161,8 @@ def test_call_module_error_message():
         try:
             lib.call_module("info", "bogus-data.bla")
         except GMTCLibError as error:
-            msg = "\n".join(
-                [
-                    "Module 'info' failed with status code 71:",
-                    "gmtinfo [ERROR]: Cannot find file bogus-data.bla",
-                ]
-            )
-            assert str(error) == msg
+            assert "Module 'info' failed with status code" in str(error)
+            assert "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in str(error)
 
 
 def test_method_no_session():

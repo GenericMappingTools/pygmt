@@ -1,0 +1,47 @@
+name: format-command
+on:
+  repository_dispatch:
+    types: [format-command]
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      # Generate token from GenericMappingTools bot
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      # Checkout the pull request branch
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+
+      # Setup Python environment
+      - uses: actions/setup-python@v1
+
+      # Install formatting tools
+      - name: Install formatting tools
+        run: pip install black blackdoc flake8
+
+      # Run "make format" and commit the change to the PR branch
+      - name: Commit to the PR branch if any changes
+        run: |
+          make format
+          if [[ $(git ls-files -m) ]]; then
+            git config --global user.name 'actions-bot'
+            git config --global user.email '58130806+actions-bot@users.noreply.github.com'
+            git commit -am "[format-command] fixes"
+            git push
+          fi
+
+      - name: Add reaction
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reaction-type: hooray

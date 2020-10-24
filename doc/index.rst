@@ -32,6 +32,7 @@
     projections/index.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
+    tutorials/text.rst
 
 .. toctree::
     :maxdepth: 2

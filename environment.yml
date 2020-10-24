@@ -19,6 +19,7 @@ dependencies:
     - pytest-mpl
     - coverage
     - black
+    - blackdoc
     - pylint
     - flake8
     - sphinx=2.2.1
