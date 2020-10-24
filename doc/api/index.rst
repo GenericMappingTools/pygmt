@@ -71,6 +71,7 @@ Operations on grids:
     :toctree: generated
 
     grdcut
+    grdfilter
     grdtrack
 
 Crossover analysis with x2sys:
