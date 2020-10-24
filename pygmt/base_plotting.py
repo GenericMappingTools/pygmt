@@ -15,6 +15,7 @@ from .helpers import (
     fmt_docstring,
     use_alias,
     kwargs_to_strings,
+    is_nonstr_iter,
 )
 
 
@@ -68,6 +69,7 @@ class BasePlotting:
         G="land",
         S="water",
         U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -129,6 +131,7 @@ class BasePlotting:
         water : str
             Select filling or clipping of “wet” areas.
         {U}
+        {V}
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
@@ -151,6 +154,7 @@ class BasePlotting:
         F="box",
         G="truncate",
         W="scale",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -216,6 +220,7 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        {V}
         {XY}
         {p}
         {t}
@@ -237,6 +242,7 @@ class BasePlotting:
         R="region",
         S="resample",
         U="timestamp",
+        V="verbose",
         W="pen",
         l="label",
         X="xshift",
@@ -291,6 +297,7 @@ class BasePlotting:
         {B}
         {G}
         {U}
+        {V}
         {W}
         {XY}
         label : str
@@ -488,6 +495,7 @@ class BasePlotting:
         Wm="meshpen",
         Wf="facadepen",
         I="shading",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -564,6 +572,7 @@ class BasePlotting:
             intensity, and ambient arguments for that module, or just give
             ``+d`` to select the default arguments (``+a-45+nt1+m0``).
 
+        {V}
         {XY}
         {p}
         {t}
@@ -602,11 +611,13 @@ class BasePlotting:
         B="frame",
         S="style",
         G="color",
+        N="no_clip",
         W="pen",
         i="columns",
         l="label",
         C="cmap",
         U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -673,17 +684,33 @@ class BasePlotting:
             ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
             Draw symmetrical error bars.
         {G}
+        no_clip : bool or str
+            ``'[c|r]'``.
+            Do NOT clip symbols that fall outside map border [Default plots
+            points whose coordinates are strictly inside the map border only].
+            The option does not apply to lines and polygons which are always
+            clipped to the map region. For periodic (360-longitude) maps we
+            must plot all symbols twice in case they are clipped by the
+            repeating boundary. ``no_clip=True`` will turn off clipping and not
+            plot repeating symbols. Use ``no_clip="r"`` to turn off clipping
+            but retain the plotting of such repeating symbols, or use
+            ``no_clip="c"`` to retain clipping but turn off plotting of
+            repeating symbols.
         style : str
             Plot symbols (including vectors, pie slices, fronts, decorated or
             quoted lines).
         {W}
         {U}
+        {V}
         {XY}
         label : str
             Add a legend entry for the symbol or line being plotted.
 
         {p}
         {t}
+            *transparency* can also be a 1d array to set varying transparency
+            for symbols.
+
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -705,6 +732,10 @@ class BasePlotting:
                     "Can't use arrays for sizes if data is matrix or file."
                 )
             extra_arrays.append(sizes)
+
+        if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+            extra_arrays.append(kwargs["t"])
+            kwargs["t"] = ""
 
         with Session() as lib:
             # Choose how data will be passed in to the module
@@ -730,9 +761,11 @@ class BasePlotting:
         G="label_placement",
         W="pen",
         L="triangular_mesh_pen",
+        N="no_clip",
         i="columns",
         l="label",
         C="levels",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -779,8 +812,9 @@ class BasePlotting:
             Color the triangles using CPT
         triangular_mesh_pen : str
             Pen to draw the underlying triangulation (default none)
-        N : bool
-            Do not clip contours
+        no_clip : bool
+            Do NOT clip contours or image at the boundaries [Default will clip
+            to fit inside region].
         Q : float or str
             Do not draw contours with less than cut number of points.
             ``'[cut[unit]][+z]'``
@@ -794,6 +828,7 @@ class BasePlotting:
             to be of the format [*annotcontlabel*][/*contlabel*]. If either
             label contains a slash (/) character then use ``|`` as the
             separator for the two labels instead.
+        {V}
         {XY}
         {p}
         {t}
@@ -827,6 +862,7 @@ class BasePlotting:
         Td="rose",
         Tm="compass",
         U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -864,6 +900,7 @@ class BasePlotting:
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
+        {V}
         {XY}
         {p}
         {t}
@@ -879,25 +916,26 @@ class BasePlotting:
     @use_alias(
         R="region",
         J="projection",
-        U="timestamp",
         D="position",
         F="box",
+        S="style",
+        U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
-        p="perspective",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
     def logo(self, **kwargs):
         """
-        Place the GMT graphics logo on a map.
+        Plot the GMT logo.
 
         By default, the GMT logo is 2 inches wide and 1 inch high and
         will be positioned relative to the current plot origin.
         Use various options to change this and to place a transparent or
         opaque rectangular map panel behind the GMT logo.
 
-        Full option list at :gmt-docs:`logo.html`
+        Full option list at :gmt-docs:`gmtlogo.html`.
 
         {aliases}
 
@@ -911,15 +949,21 @@ class BasePlotting:
         box : bool or str
             Without further options, draws a rectangular border around the
             GMT logo.
+        style : str
+            ``l|n|u``.
+            Control what is written beneath the map portion of the logo.
+
+            - **l** to plot the text label "The Generic Mapping Tools"
+              [Default]
+            - **n** to skip the label placement
+            - **u** to place the URL to the GMT site
         {U}
+        {V}
         {XY}
-        {p}
         {t}
 
         """
         kwargs = self._preprocess(**kwargs)
-        if "D" not in kwargs:
-            raise GMTInvalidInput("Option D must be specified.")
         with Session() as lib:
             lib.call_module("logo", build_arg_string(kwargs))
 
@@ -930,6 +974,7 @@ class BasePlotting:
         D="position",
         F="box",
         M="monochrome",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -968,6 +1013,7 @@ class BasePlotting:
         monochrome : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
+        {V}
         {XY}
         {p}
         {t}
@@ -983,6 +1029,7 @@ class BasePlotting:
         J="projection",
         D="position",
         F="box",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -1022,6 +1069,7 @@ class BasePlotting:
             rectangular border around the legend using **MAP_FRAME_PEN**. By
             default, uses '+gwhite+p1p' which draws a box around the legend
             using a 1 point black pen and adds a white background.
+        {V}
         {XY}
         {p}
         {t}
@@ -1052,6 +1100,8 @@ class BasePlotting:
         C="clearance",
         D="offset",
         G="fill",
+        N="no_clip",
+        V="verbose",
         W="pen",
         X="xshift",
         Y="yshift",
@@ -1163,6 +1213,10 @@ class BasePlotting:
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
+        no_clip : bool
+            Do NOT clip text at map boundaries [Default is False, i.e. will
+            clip].
+        {V}
         {XY}
         {p}
         {t}
@@ -1220,6 +1274,8 @@ class BasePlotting:
         J="projection",
         B="frame",
         C="offset",
+        N="no_clip",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -1317,9 +1373,14 @@ class BasePlotting:
             circle is plotted at the initial location and a line connects
             the beachball to the circle. Specify pen and optionally append
             ``+ssize`` to change the line style and/or size of the circle.
+        no_clip : bool
+            Does NOT skip symbols that fall outside frame boundary specified by
+            *region* [Default is False, i.e. plot symbols inside map frame
+            only].
         {J}
         {R}
         {B}
+        {V}
         {XY}
         {p}
         {t}

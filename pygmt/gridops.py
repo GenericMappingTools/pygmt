@@ -25,6 +25,7 @@ from .exceptions import GMTInvalidInput
     J="projection",
     N="extend",
     S="circ_subregion",
+    V="verbose",
     Z="z_subregion",
 )
 @kwargs_to_strings(R="sequence")
@@ -78,6 +79,8 @@ def grdcut(grid, **kwargs):
         NaNs, append **+N** to strip off such columns before (optionally)
         considering the range of the core subset for further reduction of the
         area.
+
+    {V}
 
     Returns
     -------

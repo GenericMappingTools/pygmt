@@ -82,14 +82,23 @@ def test_grdcontour_file():
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_grdcontour_interval_file_full_opts():
     """ Plot based on external contour level file """
-    fig = Figure()
-    comargs = {
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    comargs_ref = {
+        "grid": "@earth_relief_10m",
+        "R": "-161.5/-154/18.5/23",
+        "C": TEST_CONTOUR_FILE,
+        "S": 100,
+        "J": "M6i",
+        "Q": 10,
+    }
+    fig_ref.grdcontour(**comargs_ref, L="-25000/-1", W=["a1p,blue", "c0.5p,blue"])
+    fig_ref.grdcontour(**comargs_ref, L="0", W=["a1p,black", "c0.5p,black"])
+
+    comargs_test = {
         "region": [-161.5, -154, 18.5, 23],
         "interval": TEST_CONTOUR_FILE,
         "grid": "@earth_relief_10m",
@@ -97,11 +106,12 @@ def test_grdcontour_interval_file_full_opts():
         "projection": "M6i",
         "cut": 10,
     }
+    fig_test.grdcontour(
+        **comargs_test, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"]
+    )
+    fig_test.grdcontour(**comargs_test, limit=0, pen=["a1p,black", "c0.5p,black"])
 
-    fig.grdcontour(**comargs, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"])
-
-    fig.grdcontour(**comargs, limit="0", pen=["a1p,black", "c0.5p,black"])
-    return fig
+    return fig_ref, fig_test
 
 
 def test_grdcontour_fails():
