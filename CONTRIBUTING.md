@@ -257,8 +257,8 @@ make format
 
 Don't worry if you forget to do it. Our continuous integration systems will
 warn us and you can make a new commit with the formatted code.
-Even better, you can just write `/format` in the first line of any comments to
-automatically format your codes.
+Even better, you can just write `/format` in the first line of any comment in a
+Pull Request to lint the code automatically.
 
 We also use [flake8](http://flake8.pycqa.org/en/latest/) and
 [pylint](https://www.pylint.org/) to check the quality of the code and quickly catch

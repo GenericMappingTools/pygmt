@@ -18,4 +18,4 @@ Fixes #
 
 **Notes**
 
-- You can write `/foramt` in the first line of a comment to automatically format your codes
+- You can write `/format` in the first line of a comment to lint the code automatically
