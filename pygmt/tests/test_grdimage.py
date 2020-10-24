@@ -80,7 +80,7 @@ def test_grdimage_file():
 )
 @pytest.mark.xfail(
     condition=gmt_version <= Version("6.1.1") and sys.platform != "darwin",
-    reason="Upstream bug in GMT 6.1.1",
+    reason="Upstream bug in GMT 6.1.1 that causes this test to fail on Linux/WIndows",
 )
 @check_figures_equal()
 @pytest.mark.parametrize(
