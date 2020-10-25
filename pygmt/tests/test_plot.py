@@ -305,32 +305,32 @@ def test_plot_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare
-def test_plot_matrix(data, region):
+def test_plot_matrix(data):
     "Plot the data passing in a matrix and specifying columns"
     fig = Figure()
     fig.plot(
         data=data,
-        region=region,
+        region=[10, 70, -5, 10],
         projection="M10i",
         style="cc",
         color="#aaaaaa",
-        frame="a",
+        B="a",
         columns="0,1,2+s0.005",
     )
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_plot_matrix_color(data, region):
+def test_plot_matrix_color(data):
     "Plot the data passing in a matrix and using a colormap"
     fig = Figure()
     fig.plot(
         data=data,
-        region=region,
+        region=[10, 70, -5, 10],
         projection="X5i",
         style="c0.5c",
         cmap="rainbow",
-        frame="a",
+        B="a",
     )
     return fig
 
