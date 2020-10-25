@@ -818,22 +818,25 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region",
+        A="straight_line",
+        B="frame",
+        C="cmap",
+        D="offset",
+        G="color",
         J="projection",
         Jz="zscale",
         JZ="zsize",
-        A="straight_lines",
-        B="frame",
-        C="cmap",
-        D="position",
-        E="error_bars",
-        G="color",
         L="close",
+        R="region",
         S="style",
+        V="verbose",
         W="pen",
+        X="xshift",
+        Y="yshift",
         i="columns",
         l="label",
         p="perspective",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
     def plot3d(
@@ -856,10 +859,9 @@ class BasePlotting:
         symbol code (see *style* below) must be present as last column in the
         input. If *style* is not used, a line connecting the data points will
         be drawn instead. To explicitly close polygons, use *close*. Select a
-        fill
-        with *color*. If *color* is set, *pen* will control whether the polygon
-        outline is drawn or not. If a symbol is selected, *color* and *pen*
-        determines the fill and outline/no outline, respectively.
+        fill with *color*. If *color* is set, *pen* will control whether the
+        polygon outline is drawn or not. If a symbol is selected, *color* and
+        *pen* determines the fill and outline/no outline, respectively.
 
         Full option list at :gmt-docs:`plot3d.html`
 
@@ -886,33 +888,41 @@ class BasePlotting:
         zscale/zsize : float or str
             Set z-axis scaling or z-axis size.
         {R}
-        straight_lines : bool or str
-            ``'[m|p|x|y]'``
+        straight_line : bool or str
+            ``[m|p|x|y]``.
             By default, geographic line segments are drawn as great circle
-            arcs. To draw them as straight lines, use *A*.
+            arcs. To draw them as straight lines, use *straight_line*.
+            Alternatively, add **m** to draw the line by first following a
+            meridian, then a parallel. Or append **p** to start following a
+            parallel, then a meridian. (This can be practical to draw a line
+            along parallels, for example). For Cartesian data, points are
+            simply connected, unless you append **x** or **y** to draw
+            stair-case curves that whose first move is along *x* or *y*,
+            respectively. **Note**: The **straight_line** option requires
+            constant *z*-coordinates.
         {B}
         {CPT}
-        position : str
-            ``'dx/dy'``: Offset the plot symbol or line locations by the given
-            amounts dx/dy.
-        error_bars : bool or str
-            ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
-            Draw symmetrical error bars.
+        offset : str
+            ``dx/dy[/dz]``.
+            Offset the plot symbol or line locations by the given amounts
+            *dx/dy*[*dz*] [Default is no offset].
         {G}
+        close : str
+            ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
+            Force closed polygons. Full documentation is at
+            :gmt-docs:`plot3d.html#l`.
         style : str
-            Plot symbols (including vectors, pie slices, fronts, decorated or
-            quoted lines).
-        {W}
+            Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
         {U}
-        columns : list or str
-            ``cols[+l][+sscale][+ooffset][,…][,t[word]]``
-            Select input columns and transformations (0 is first column, t is
-            trailing text, append word to read one word only).
+        {V}
+        {W}
+        {XY}
         label : str
             Add a legend entry for the symbol or line being plotted.
-        perspective : list or str
-            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
-            Select perspective view.
+        {p}
+        {t}
+            *transparency* can also be a 1d array to set varying transparency
+            for symbols.
 
         """
         kwargs = self._preprocess(**kwargs)
