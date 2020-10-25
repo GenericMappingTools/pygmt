@@ -625,6 +625,7 @@ class BasePlotting:
         X="xshift",
         Y="yshift",
         Z="zvalue",
+        i="columns",
         l="label",
         p="perspective",
         t="transparency",
