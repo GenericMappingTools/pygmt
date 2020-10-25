@@ -836,6 +836,7 @@ class BasePlotting:
         W="pen",
         X="xshift",
         Y="yshift",
+        Z="zvalue",
         i="columns",
         l="label",
         p="perspective",
@@ -941,6 +942,15 @@ class BasePlotting:
         {V}
         {W}
         {XY}
+        zvalue : str
+            ``value|file``.
+            Instead of specifying a symbol or polygon fill and outline color
+            via **color** and **pen**, give both a *value* via **zvalue** and a
+            color lookup table via **cmap**.  Alternatively, give the name of a
+            *file* with one z-value (read from the last column) for each
+            polygon in the input data. To apply it to the fill color, use
+            ``color='+z'``. To apply it to the pen color, append **+z** to
+            **pen**.
         label : str
             Add a legend entry for the symbol or line being plotted.
         {p}
