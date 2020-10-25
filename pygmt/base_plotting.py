@@ -1123,6 +1123,8 @@ class BasePlotting:
         Parameters
         ----------
         {J}
+        zscale/zsize : float or str
+            Set z-axis scaling or z-axis size.
         {R}
         {B}
         map_scale : str
@@ -1139,13 +1141,6 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
-        zscale/zsize : float or str
-            Set z-axis scaling or z-axis size.
-
-        perspective : list or str
-            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
-            Select perspective view.
 
         """
         kwargs = self._preprocess(**kwargs)
