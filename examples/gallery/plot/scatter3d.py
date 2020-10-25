@@ -35,7 +35,7 @@ fig.plot3d(
     x=df.petal_width,
     y=df.sepal_length,
     z=df.petal_length,
-    sizes=0.2 * df.sepal_width,  # Vary every symbol size according to a column
+    sizes=0.1 * df.sepal_width,  # Vary each symbol size according to a data column
     color=df.species.cat.codes.astype(int),  # Points colored by categorical number code
     cmap=True,  # Use colormap created by makecpt
     region=region,  # (xmin, xmax, ymin, ymax, zmin, zmax)
@@ -45,7 +45,7 @@ fig.plot3d(
         'yafg+l"Sepal Length"',
         'zafg+l"Petal Length"',
     ],
-    style="cc",  # circle, with size in centimeter units
+    style="uc",  # 3D cUbe, with size in centimeter units
     perspective=[315, 25],  # Azimuth NorthWest (315°), at elevation 25°
     zscale=1.5,  # Vertical exaggeration factor
 )
