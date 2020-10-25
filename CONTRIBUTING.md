@@ -311,11 +311,11 @@ Leave a comment in the PR and we'll help you out.
 
 You can also run tests in just one test script using:
 
-    pytest --verbose --mpl --mpl-results-path=results --doctest_modules pygmt/tests/NAME_OF_TEST_FILE.py
+    pytest --verbose --mpl --mpl-results-path=results --doctest-modules pygmt/tests/NAME_OF_TEST_FILE.py
 
 or run tests which contain names that match a specific keyword expression:
 
-    pytest --verbose --mpl --mpl-results-path=results --doctest_modules -k KEYWORD pygmt/tests
+    pytest --verbose --mpl --mpl-results-path=results --doctest-modules -k KEYWORD pygmt/tests
 
 ### Testing plots
 
