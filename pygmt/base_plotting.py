@@ -606,11 +606,11 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        A="straight_lines",
+        A="straight_line",
         B="frame",
         C="cmap",
         D="offset",
-        E="error_bars",
+        E="error_bar",
         F="connection",
         G="color",
         I="intensity",
@@ -625,7 +625,6 @@ class BasePlotting:
         X="xshift",
         Y="yshift",
         Z="zvalue",
-        i="columns",
         l="label",
         p="perspective",
         t="transparency",
@@ -646,12 +645,12 @@ class BasePlotting:
         If a symbol is selected and no symbol size given, then plot will
         interpret the third column of the input data as symbol size. Symbols
         whose size is <= 0 are skipped. If no symbols are specified then the
-        symbol code (see **style** below) must be present as last column in the
-        input. If **style** is not used, a line connecting the data points will
-        be drawn instead. To explicitly close polygons, use **close**. Select a
-        fill with **color**. If **color** is set, **pen** will control whether
-        the polygon outline is drawn or not. If a symbol is selected, **color**
-        and **pen** determines the fill and outline/no outline, respectively.
+        symbol code (see *style* below) must be present as last column in the
+        input. If *style* is not used, a line connecting the data points will
+        be drawn instead. To explicitly close polygons, use *close*. Select a
+        fill with *color*. If *color* is set, *pen* will control whether the
+        polygon outline is drawn or not. If a symbol is selected, *color* and
+        *pen* determines the fill and outline/no outline, respectively.
 
         Full option list at :gmt-docs:`plot.html`
 
@@ -676,10 +675,10 @@ class BasePlotting:
             depending on the style options chosen.
         {J}
         {R}
-        straight_lines : bool or str
+        straight_line : bool or str
             ``[m|p|x|y]``.
             By default, geographic line segments are drawn as great circle
-            arcs. To draw them as straight lines, use *straight_lines*.
+            arcs. To draw them as straight lines, use *straight_line*.
             Alternatively, add **m** to draw the line by first following a
             meridian, then a parallel. Or append **p** to start following a
             parallel, then a meridian. (This can be practical to draw a line
@@ -694,7 +693,7 @@ class BasePlotting:
             Offset the plot symbol or line locations by the given amounts
             *dx/dy* [Default is no offset]. If *dy* is not given it is set
             equal to *dx*.
-        error_bars : bool or str
+        error_bar : bool or str
             ``[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]``.
             Draw symmetrical error bars. Full documentation is at
             :gmt-docs:`plot.html#e`.
