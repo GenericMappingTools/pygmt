@@ -36,6 +36,7 @@ Plotting data and laying out the map:
     Figure.image
     Figure.shift_origin
     Figure.text
+    Figure.meca
 
 Color palette table generation:
 
@@ -63,7 +64,6 @@ Operations on tabular data:
     :toctree: generated
 
     blockmedian
-    info
     surface
 
 Operations on grids:
@@ -71,8 +71,17 @@ Operations on grids:
 .. autosummary::
     :toctree: generated
 
-    grdinfo
+    grdcut
+    grdfilter
     grdtrack
+
+Crossover analysis with x2sys:
+
+.. autosummary::
+    :toctree: generated
+
+    x2sys_init
+    x2sys_cross
 
 GMT Defaults
 ------------
@@ -83,6 +92,19 @@ Operations on GMT defaults:
     :toctree: generated
 
     config
+
+Metadata
+--------
+
+Getting metadata from tabular or grid data:
+
+.. autosummary::
+    :toctree: generated
+
+    GMTDataArrayAccessor
+    info
+    grdinfo
+
 
 Miscellaneous
 -------------

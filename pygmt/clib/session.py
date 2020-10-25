@@ -22,6 +22,7 @@ from .conversion import (
     vectors_to_arrays,
     dataarray_to_matrix,
     as_c_contiguous,
+    array_to_datetime,
 )
 
 FAMILIES = [
@@ -43,17 +44,20 @@ GEOMETRIES = [
     "GMT_IS_SURFACE",
 ]
 
-MODES = ["GMT_CONTAINER_ONLY", "GMT_OUTPUT"]
+METHODS = ["GMT_IS_DUPLICATE", "GMT_IS_REFERENCE"]
+
+MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
 DTYPES = {
-    "float64": "GMT_DOUBLE",
-    "float32": "GMT_FLOAT",
-    "int64": "GMT_LONG",
-    "int32": "GMT_INT",
-    "uint64": "GMT_ULONG",
-    "uint32": "GMT_UINT",
+    np.float64: "GMT_DOUBLE",
+    np.float32: "GMT_FLOAT",
+    np.int64: "GMT_LONG",
+    np.int32: "GMT_INT",
+    np.uint64: "GMT_ULONG",
+    np.uint32: "GMT_UINT",
+    np.datetime64: "GMT_DATETIME",
 }
 
 
@@ -74,7 +78,7 @@ class Session:
     look for the shared library in the directory specified by it.
 
     A ``GMTVersionError`` exception will be raised if the GMT shared library
-    reports a version < 6.0.0.
+    reports a version older than the required minimum GMT version.
 
     The ``session_pointer`` attribute holds a ctypes pointer to the currently
     open session.
@@ -111,11 +115,11 @@ class Session:
     ...             )
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
-    -180 180 -90 90 -8592.14453125 5558.79248047 1 1 361 181
+    -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
     """
 
     # The minimum version of GMT required
-    required_version = "6.0.0"
+    required_version = "6.1.1"
 
     @property
     def session_pointer(self):
@@ -233,7 +237,7 @@ class Session:
         value = c_get_enum(session, name.encode())
 
         if value is None or value == -99999:
-            raise GMTCLibError("Constant '{}' doesn't exits in libgmt.".format(name))
+            raise GMTCLibError(f"Constant '{name}' doesn't exist in libgmt.")
 
         return value
 
@@ -266,8 +270,9 @@ class Session:
 
         >>> from ctypes import c_void_p, c_int
         >>> with Session() as lib:
-        ...     func = lib.get_libgmt_func('GMT_Destroy_Session',
-        ...                                argtypes=[c_void_p], restype=c_int)
+        ...     func = lib.get_libgmt_func(
+        ...         "GMT_Destroy_Session", argtypes=[c_void_p], restype=c_int
+        ...     )
         >>> type(func)
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
 
@@ -509,13 +514,13 @@ class Session:
         ----------
         family : str
             A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
-            ``data_families`` attribute for valid names.
+            ``FAMILIES`` attribute for valid names.
         geometry : str
             A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``data_geometries`` attribute for valid names.
+            ``GEOMETRIES`` attribute for valid names.
         mode : str
-            A valid GMT data mode (e.g., ``'GMT_OUTPUT'``). See the
-            ``data_modes`` attribute for valid names.
+            A valid GMT data mode (e.g., ``'GMT_IS_OUTPUT'``). See the
+            ``MODES`` attribute for valid names.
         dim : list of 4 integers
             The dimensions of the dataset. See the documentation for the GMT C
             API function ``GMT_Create_Data`` (``src/gmt_api.c``) for the full
@@ -528,7 +533,7 @@ class Session:
         inc : list of 2 floats
             The increments between points of the dataset. See the C function
             documentation.
-        registration : int
+        registration : str
             The node registration (what the coordinates mean). Can be
             ``'GMT_GRID_PIXEL_REG'`` or ``'GMT_GRID_NODE_REG'``. Defaults to
             ``'GMT_GRID_NODE_REG'``.
@@ -561,7 +566,9 @@ class Session:
 
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         mode_int = self._parse_constant(
-            mode, valid=MODES, valid_modifiers=["GMT_GRID_IS_GEO"]
+            mode,
+            valid=MODES,
+            valid_modifiers=["GMT_GRID_IS_CARTESIAN", "GMT_GRID_IS_GEO"],
         )
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         registration_int = self._parse_constant(
@@ -696,33 +703,40 @@ class Session:
         --------
 
         >>> import numpy as np
-        >>> data = np.array([1, 2, 3], dtype='float64')
+        >>> data = np.array([1, 2, 3], dtype="float64")
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
         ...     gmttype == ses["GMT_DOUBLE"]
         True
-        >>> data = np.ones((5, 2), dtype='float32')
+        >>> data = np.ones((5, 2), dtype="float32")
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
-        ...     gmttype == ses['GMT_FLOAT']
+        ...     gmttype == ses["GMT_FLOAT"]
         True
 
         """
-        if array.dtype.name not in DTYPES:
-            raise GMTInvalidInput(
-                "Unsupported numpy data type '{}'.".format(array.dtype.name)
-            )
+        # check the array has the given dimension
         if array.ndim != ndim:
             raise GMTInvalidInput(
                 "Expected a numpy 1d array, got {}d.".format(array.ndim)
             )
-        return self[DTYPES[array.dtype.name]]
+
+        # check the array has a valid/known data type
+        if array.dtype.type not in DTYPES:
+            try:
+                # Try to convert any unknown numpy data types to np.datetime64
+                array = np.asarray(array, dtype=np.datetime64)
+            except ValueError as e:
+                raise GMTInvalidInput(
+                    f"Unsupported numpy data type '{array.dtype.type}'."
+                ) from e
+        return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
         """
         Attach a numpy 1D array as a column on a GMT dataset.
 
-        Use this functions to attach numpy array data to a GMT dataset and pass
+        Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Vector``.
 
         The dataset must be created by :meth:`~gmt.clib.Session.create_data`
@@ -762,7 +776,13 @@ class Session:
         )
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
-        vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
+        if gmt_type == self["GMT_DATETIME"]:
+            vector_pointer = (ctp.c_char_p * len(vector))()
+            vector_pointer[:] = np.char.encode(
+                np.datetime_as_string(array_to_datetime(vector))
+            )
+        else:
+            vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
             self.session_pointer, dataset, column, gmt_type, vector_pointer
         )
@@ -776,11 +796,72 @@ class Session:
                 )
             )
 
+    def put_strings(self, dataset, family, strings):
+        """
+        Attach a numpy 1D array of dtype str as a column on a GMT dataset.
+
+        Use this function to attach string type numpy array data to a GMT
+        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
+
+        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
+        first.
+
+        .. warning::
+            The numpy array must be C contiguous in memory. If it comes from a
+            column slice of a 2d array, for example, you will have to make a
+            copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
+            is contiguous (it won't copy if it already is).
+
+        Parameters
+        ----------
+        dataset : :class:`ctypes.c_void_p`
+            The ctypes void pointer to a ``GMT_Dataset``. Create it with
+            :meth:`~gmt.clib.Session.create_data`.
+        family : str
+            The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
+            ``GMT_IS_MATRIX``.
+        strings : numpy 1d-array
+            The array that will be attached to the dataset. Must be a 1d C
+            contiguous array.
+
+        Raises
+        ------
+        GMTCLibError
+            If given invalid input or ``GMT_Put_Strings`` exits with status !=
+            0.
+
+        """
+        c_put_strings = self.get_libgmt_func(
+            "GMT_Put_Strings",
+            argtypes=[
+                ctp.c_void_p,
+                ctp.c_uint,
+                ctp.c_void_p,
+                ctp.POINTER(ctp.c_char_p),
+            ],
+            restype=ctp.c_int,
+        )
+
+        strings_pointer = (ctp.c_char_p * len(strings))()
+        strings_pointer[:] = np.char.encode(strings)
+
+        family_int = self._parse_constant(
+            family, valid=FAMILIES, valid_modifiers=METHODS
+        )
+
+        status = c_put_strings(
+            self.session_pointer, family_int, dataset, strings_pointer
+        )
+        if status != 0:
+            raise GMTCLibError(
+                f"Failed to put strings of type {strings.dtype} into dataset"
+            )
+
     def put_matrix(self, dataset, matrix, pad=0):
         """
         Attach a numpy 2D array to a GMT dataset.
 
-        Use this functions to attach numpy array data to a GMT dataset and pass
+        Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Matrix``.
 
         The dataset must be created by :meth:`~gmt.clib.Session.create_data`
@@ -841,12 +922,12 @@ class Session:
         ----------
         family : str
             A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). See the
-            ``data_families`` attribute for valid names. Don't use the
+            ``FAMILIES`` attribute for valid names. Don't use the
             ``GMT_VIA_VECTOR`` or ``GMT_VIA_MATRIX`` constructs for this. Use
             ``GMT_IS_VECTOR`` and ``GMT_IS_MATRIX`` instead.
         geometry : str
             A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). See the
-            ``data_geometries`` attribute for valid names.
+            ``GEOMETRIES`` attribute for valid names.
         mode : str
             How the data is to be written to the file. This option varies
             depending on the given family. See the GMT API documentation for
@@ -924,7 +1005,7 @@ class Session:
             GMT or getting it out of GMT, respectively.
             By default, GMT can modify the data you pass in. Add modifier
             ``'GMT_IS_REFERENCE'`` to tell GMT the data are read-only, or
-            ``'GMT_IS_DUPLICATE'' to tell GMT to duplicate the data.
+            ``'GMT_IS_DUPLICATE'`` to tell GMT to duplicate the data.
         data : int
             The ctypes void pointer to your GMT data structure.
 
@@ -942,23 +1023,23 @@ class Session:
         >>> x = np.array([0, 1, 2, 3, 4])
         >>> y = np.array([5, 6, 7, 8, 9])
         >>> with Session() as lib:
-        ...     family = 'GMT_IS_DATASET|GMT_VIA_VECTOR'
-        ...     geometry = 'GMT_IS_POINT'
+        ...     family = "GMT_IS_DATASET|GMT_VIA_VECTOR"
+        ...     geometry = "GMT_IS_POINT"
         ...     dataset = lib.create_data(
         ...         family=family,
         ...         geometry=geometry,
-        ...         mode='GMT_CONTAINER_ONLY',
+        ...         mode="GMT_CONTAINER_ONLY",
         ...         dim=[2, 5, 1, 0],  # columns, lines, segments, type
         ...     )
         ...     lib.put_vector(dataset, column=0, vector=x)
         ...     lib.put_vector(dataset, column=1, vector=y)
         ...     # Add the dataset to a virtual file
-        ...     vfargs = (family, geometry, 'GMT_IN|GMT_IS_REFERENCE', dataset)
+        ...     vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
         ...     with lib.open_virtual_file(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
-        ...             args = '{} ->{}'.format(vfile, ofile.name)
-        ...             lib.call_module('info', args)
+        ...             args = "{} ->{}".format(vfile, ofile.name)
+        ...             lib.call_module("info", args)
         ...             print(ofile.read().strip())
         <vector memory>: N = 5 <0/4> <5/9>
 
@@ -985,17 +1066,10 @@ class Session:
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
-            direction,
-            valid=["GMT_IN", "GMT_OUT"],
-            valid_modifiers=["GMT_IS_REFERENCE", "GMT_IS_DUPLICATE"],
+            direction, valid=["GMT_IN", "GMT_OUT"], valid_modifiers=METHODS
         )
 
-        # The core GMT changes GMT_STR16 to GMT_VF_LEN in 6.1.0
-        # See https://github.com/GenericMappingTools/gmt/pull/2861
-        if Version(self.info["version"]) < Version("6.1.0"):
-            buff = ctp.create_string_buffer(self["GMT_STR16"])
-        else:
-            buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
+        buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
 
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
@@ -1060,21 +1134,30 @@ class Session:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module(
-        ...                 'info', '{} ->{}'.format(fin, fout.name)
+        ...                 "info", "{} ->{}".format(fin, fout.name)
         ...             )
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
 
         """
         # Conversion to a C-contiguous array needs to be done here and not in
-        # put_matrix because we need to maintain a reference to the copy while
-        # it is being used by the C API. Otherwise, the array would be garbage
-        # collected and the memory freed. Creating it in this context manager
-        # guarantees that the copy will be around until the virtual file is
-        # closed. The conversion is implicit in vectors_to_arrays.
+        # put_vector or put_strings because we need to maintain a reference to
+        # the copy while it is being used by the C API. Otherwise, the array
+        # would be garbage collected and the memory freed. Creating it in this
+        # context manager guarantees that the copy will be around until the
+        # virtual file is closed. The conversion is implicit in
+        # vectors_to_arrays.
         arrays = vectors_to_arrays(vectors)
 
         columns = len(arrays)
+        # Find arrays that are of string dtype from column 3 onwards
+        # Assumes that first 2 columns contains coordinates like longitude
+        # latitude, or datetime string types.
+        for col, array in enumerate(arrays[2:]):
+            if np.issubdtype(array.dtype, np.str_):
+                columns = col + 2
+                break
+
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
             raise GMTInvalidInput("All arrays must have same size.")
@@ -1086,8 +1169,23 @@ class Session:
             family, geometry, mode="GMT_CONTAINER_ONLY", dim=[columns, rows, 1, 0]
         )
 
-        for col, array in enumerate(arrays):
+        # Use put_vector for columns with numerical type data
+        for col, array in enumerate(arrays[:columns]):
             self.put_vector(dataset, column=col, vector=array)
+
+        # Use put_strings for last column(s) with string type data
+        # Have to use modifier "GMT_IS_DUPLICATE" to duplicate the strings
+        string_arrays = arrays[columns:]
+        if string_arrays:
+            if len(string_arrays) == 1:
+                strings = string_arrays[0]
+            elif len(string_arrays) > 1:
+                strings = np.apply_along_axis(
+                    func1d=" ".join, axis=0, arr=string_arrays
+                )
+            self.put_strings(
+                dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
+            )
 
         with self.open_virtual_file(
             family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
@@ -1148,7 +1246,7 @@ class Session:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module(
-        ...                 'info', '{} ->{}'.format(fin, fout.name)
+        ...                 "info", "{} ->{}".format(fin, fout.name)
         ...             )
         ...             print(fout.read().strip())
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
@@ -1217,26 +1315,29 @@ class Session:
 
         >>> from pygmt.datasets import load_earth_relief
         >>> from pygmt.helpers import GMTTempFile
-        >>> data = load_earth_relief(resolution='01d')
+        >>> data = load_earth_relief(resolution="01d")
         >>> print(data.shape)
-        (181, 361)
+        (180, 360)
         >>> print(data.lon.values.min(), data.lon.values.max())
-        -180.0 180.0
+        -179.5 179.5
         >>> print(data.lat.values.min(), data.lat.values.max())
-        -90.0 90.0
+        -89.5 89.5
         >>> print(data.values.min(), data.values.max())
-        -8592.145 5558.7925
+        -8182.0 5651.5
         >>> with Session() as ses:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
-        ...             ses.call_module('grdinfo', args)
+        ...             args = "{} -L0 -Cn ->{}".format(fin, fout.name)
+        ...             ses.call_module("grdinfo", args)
         ...             print(fout.read().strip())
-        -180 180 -90 90 -8592.14453125 5558.79248047 1 1 361 181
-        >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows
+        -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
+        >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
 
         """
+        _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[grid.gmt.gtype]
+        _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[grid.gmt.registration]
+
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_matrix because we need to maintain a reference to the copy while
         # it is being used by the C API. Otherwise, the array would be garbage
@@ -1244,10 +1345,16 @@ class Session:
         # guarantees that the copy will be around until the virtual file is
         # closed. The conversion is implicit in dataarray_to_matrix.
         matrix, region, inc = dataarray_to_matrix(grid)
+
         family = "GMT_IS_GRID|GMT_VIA_MATRIX"
         geometry = "GMT_IS_SURFACE"
         gmt_grid = self.create_data(
-            family, geometry, mode="GMT_CONTAINER_ONLY", ranges=region, inc=inc
+            family,
+            geometry,
+            mode=f"GMT_CONTAINER_ONLY|{_gtype}",
+            ranges=region,
+            inc=inc,
+            registration=_reg,
         )
         self.put_matrix(gmt_grid, matrix)
         args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)
@@ -1272,22 +1379,27 @@ class Session:
 
         >>> import pygmt
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region=[0, 10, -20, -10], projection="M6i", frame=True,
-        ...           land='black')
+        >>> fig.coast(
+        ...     region=[0, 10, -20, -10],
+        ...     projection="M6i",
+        ...     frame=True,
+        ...     land="black",
+        ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         0.00, 10.00, -20.00, -10.00
 
         Using ISO country codes for the regions (for example ``'US.HI'`` for
         Hawaii):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region='US.HI', projection="M6i", frame=True,
-        ...           land='black')
+        >>> fig.coast(
+        ...     region="US.HI", projection="M6i", frame=True, land="black"
+        ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         -164.71, -154.81, 18.91, 23.58
 
         The country codes can have an extra argument that rounds the region a
@@ -1295,11 +1407,12 @@ class Session:
         region to multiples of 5):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region='US.HI+r5', projection="M6i", frame=True,
-        ...           land='black')
+        >>> fig.coast(
+        ...     region="US.HI+r5", projection="M6i", frame=True, land="black"
+        ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         -165.00, -150.00, 15.00, 25.00
 
         """

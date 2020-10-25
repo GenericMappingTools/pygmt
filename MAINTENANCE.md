@@ -11,7 +11,7 @@ If you want to make a contribution to the project, see the
 
 * *master*: Always tested and ready to become a new version. Don't push directly to this
   branch. Make a new branch and submit a pull request instead.
-* *gh-pages*: Holds the HTML documentation and is served by Github. Pages for the master
+* *gh-pages*: Holds the HTML documentation and is served by GitHub. Pages for the master
   branch are in the `dev` folder. Pages for each release are in their own folders.
   **Automatically updated by TravisCI** so you shouldn't have to make commits here.
 
@@ -40,13 +40,35 @@ The main advantages of this are:
 
 ## Continuous Integration
 
-We use TravisCI continuous integration (CI) services to build and test the
-project on Linux, and Mac (Windows is still a work in progress).
-The configuration file for this service is `.travis.yml`.
-It relies on the `requirements.txt` file to install the required dependencies using
+We use GitHub Actions and TravisCI continuous integration (CI) services to
+build and test the project on Linux, macOS and Windows.
+They rely on the `requirements.txt` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
 
-Travis also handles all of our deployments automatically:
+### GitHub Actions
+
+There are 3 configuration files located in `.github/workflows`:
+
+1. `ci_tests.yaml` (Style Checks, Tests on Linux/macOS/Windows)
+
+This is ran on every commit on the *master* and Pull Request branches.
+It is also scheduled to run daily on the *master* branch.
+
+2. `ci_tests_dev.yaml` (GMT Latest Tests on Linux/macOS).
+
+This is only triggered when a review is requested or re-requested on a PR.
+It is also scheduled to run daily on the *master* branch.
+
+3. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
+
+This is scheduled to run every Sunday at 12 noon.
+If new remote files are needed urgently, maintainers can manually uncomment
+the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
+
+### Travis CI
+
+The configuration file is at `.travis.yml`.
+Travis runs tests (Linux only) and handles all of our deployments automatically:
 
 * Updating the development documentation by pushing the built HTML pages from the
   *master* branch onto the `dev` folder of the *gh-pages* branch.
@@ -63,7 +85,7 @@ submit pull requests to that repository.
 
 ## Continuous Documentation
 
-We use the [Zeit Now for Github integration](https://zeit.co/github) to preview changes
+We use the [Zeit Now for GitHub integration](https://zeit.co/github) to preview changes
 made to our documentation website every time we make a commit in a pull request.
 The integration service has a configuration file `now.json`, with a list of options to
 change the default behaviour at https://zeit.co/docs/configuration.
@@ -81,10 +103,10 @@ There are a few steps that still must be done manually, though.
 
 ### Updating the changelog
 
-The Release Drafter Github Action will automatically keep a draft changelog at
+The Release Drafter GitHub Action will automatically keep a draft changelog at
 https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
 every time a Pull Request (with a proper label) is merged into the master branch.
-This release drafter tool has two configuration files, one for the Github Action
+This release drafter tool has two configuration files, one for the GitHub Action
 at .github/workflows/release-drafter.yml, and one for the changelog template
 at .github/release-drafter.yml. Configuration settings can be found at
 https://github.com/release-drafter/release-drafter.
@@ -100,8 +122,8 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 
 2. Edit the changes list to remove any trivial changes (updates to the README, typo
    fixes, CI configuration, etc).
-3. Replace the PR number in the commit titles with a link to the Github PR page. In Vim,
-   use `` %s$#\([0-9]\+\)$`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__$g ``
+3. Replace the PR number in the commit titles with a link to the GitHub PR page.
+   Use ``sed -i.bak -E 's$\(#([0-9]*)\)$(`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__)$g' changes.rst``
    to make the change automatically.
 4. Copy the remaining changes to `doc/changes.rst` under a new section for the
    intended release.
@@ -120,7 +142,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 
 ### Check the README syntax
 
-Github is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
+GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
 So slightly broken RST can cause the PyPI page to not render the correct content. Check
 using the `rst2html.py` script that comes with docutils:
 
@@ -132,24 +154,20 @@ Open `index.html` and check for any flaws or error messages.
 
 ### Pushing to PyPI and updating the documentation
 
-After the changelog is updated, making a release should be as simple as creating a new
-git tag and pushing it to Github:
+After the changelog is updated, making a release can be done by going to
+https://github.com/GenericMappingTools/pygmt/releases, editing the draft release,
+and clicking on publish. A git tag will also be created, make sure that this
+tag is a proper version number (following [Semantic Versioning](https://semver.org/))
+with a leading `v`. E.g. `v0.2.1`.
 
-```bash
-git tag v0.2.0
-git push --tags
-```
-
-The tag should be version number (following [Semantic Versioning](https://semver.org/))
-with a leading `v`.
-This should trigger Travis to do all the work for us.
+Once the release/tag is created, this should trigger Travis to do all the work for us.
 A new source distribution will be uploaded to PyPI, a new folder with the documentation
 HTML will be pushed to *gh-pages*, and the `latest` link will be updated to point to
 this new folder.
 
 ### Archiving on Zenodo
 
-Grab a zip file from the Github release and upload to Zenodo using the previously
+Grab a zip file from the GitHub release and upload to Zenodo using the previously
 reserved DOI.
 
 ### Updating the conda package

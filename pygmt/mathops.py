@@ -7,7 +7,15 @@ from .helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_ali
 
 
 @fmt_docstring
-@use_alias(C="cmap", T="series", G="truncate", H="output", I="reverse", Z="continuous")
+@use_alias(
+    C="cmap",
+    T="series",
+    G="truncate",
+    H="output",
+    I="reverse",
+    V="verbose",
+    Z="continuous",
+)
 @kwargs_to_strings(T="sequence", G="sequence")
 def makecpt(**kwargs):
     """
@@ -51,6 +59,8 @@ def makecpt(**kwargs):
         is used, or when using *series=[z_min, z_max]*; in the first case the
         input CPT remains untouched, in the second case it is only scaled to
         match the range z_min/z_max.
+
+    {V}
 
     """
     with Session() as lib:

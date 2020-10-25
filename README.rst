@@ -5,6 +5,7 @@ PyGMT
 
 `Documentation (development version) <https://www.pygmt.org/dev>`__ |
 `Contact <https://forum.generic-mapping-tools.org>`__ |
+`Try Online <https://github.com/GenericMappingTools/try-gmt>`__
 
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
@@ -12,9 +13,12 @@ PyGMT
 .. image:: http://img.shields.io/travis/GenericMappingTools/pygmt/master.svg?style=flat-square&label=Linux
     :alt: Travis CI build status
     :target: https://travis-ci.org/GenericMappingTools/pygmt
-.. image:: https://img.shields.io/azure-devops/build/GenericMappingTools/7682ad4e-76bb-4775-849e-7c4f8dce4e1a/3/master.svg?label=Mac|Windows&style=flat-square
-    :alt: Azure Pipelines build status
-    :target: https://dev.azure.com/GenericMappingTools/PyGMT/_build
+.. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
+    :alt: GitHub Actions Tests status
+    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
+.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Latest%20Tests/badge.svg
+    :alt: GitHub Actions GMT Latest Tests status
+    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3A%22GMT+Latest+Tests%22
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/pygmt
@@ -34,6 +38,22 @@ PyGMT
 .. placeholder-for-doc-index
 
 
+Why PyGMT?
+----------
+
+A beautiful map is worth a thousand words.
+To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
+But if you need some convincing first, watch this **1 hour introduction** to PyGMT!
+
+Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
+or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
+
+.. image:: https://user-images.githubusercontent.com/23487320/95393255-c0b72e80-0956-11eb-9471-24429461802b.png
+    :alt: Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT
+    :align: center
+    :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
+
+
 Disclaimer
 ----------
 
@@ -42,11 +62,11 @@ Disclaimer
 All of the API (functions/classes/interfaces) is subject to change until we reach v1.0.0
 as per the `semantic versioning specification <https://semver.org/spec/v2.0.0.html>`__.
 There may be non-backward compatible changes as we experiment with new design ideas and
-implement new features. **This is not a finished product, use with caution**
+implement new features. **This is not a finished product, use with caution.**
 
 We welcome any feedback and ideas!
 Let us know by submitting
-`issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
+`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
 or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 About
@@ -69,22 +89,19 @@ Project goals
 * Build a Pythonic API for GMT.
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
-* Integration with the Scipy stack: numpy.ndarray or pandas.DataFrame for data tables
+* Integration with the PyData Ecosystem: numpy.ndarray or pandas.DataFrame for data tables
   and xarray.DataArray for grids.
 
 
 Contacting Us
 -------------
 
-* Most discussion happens `on Github
+* Most discussion happens `on GitHub
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
 * We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
   where you can ask questions and leave comments.
-* This project is released with a `Contributor Code of Conduct
-  <https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
-  By participating in this project you agree to abide by its terms.
 
 
 Contributing
@@ -133,7 +150,7 @@ Who we are
 
 PyGMT is a community developed project. See the
 `AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
-file on Github for a list of the people involved and a definition of the term "PyGMT
+file on GitHub for a list of the people involved and a definition of the term "PyGMT
 Developers".
 
 
@@ -169,7 +186,10 @@ Other Python wrappers for GMT:
 Documentation for other versions
 --------------------------------
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
-  Github)
+  GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
+* `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
+* `v0.1.1 <https://www.pygmt.org/v0.1.1>`__
 * `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
 * `v0.0.1a0 <https://www.pygmt.org/0.0.1a0>`__

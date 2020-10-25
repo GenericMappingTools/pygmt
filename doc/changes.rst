@@ -1,6 +1,130 @@
 Changelog
 =========
 
+Release v0.2.0 (2020/09/12)
+---------------------------
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4025418.svg
+   :alt: Digital Object Identifier for the Zenodo archive
+   :target: https://doi.org/10.5281/zenodo.4025418
+
+Highlights:
+
+* 🎉 **Second minor release of PyGMT** 🎉
+* Minimum required GMT version is now 6.1.1 or newer (`#577 <https://github.com/GenericMappingTools/pygmt/pull/577>`__)
+* Plotting xarray grids using grdimage and grdview should not crash anymore and works for most cases (`#560 <https://github.com/GenericMappingTools/pygmt/pull/560>`__)
+* Easier time-series plots with support for datetime-like inputs to plot (`#464 <https://github.com/GenericMappingTools/pygmt/pull/464>`__) and the region argument (`#562 <https://github.com/GenericMappingTools/pygmt/pull/562>`__)
+
+New Features:
+
+* Wrap GMT_Put_Strings to pass str columns into GMT C API directly (`#520 <https://github.com/GenericMappingTools/pygmt/pull/520>`__)
+* Wrap meca (`#516 <https://github.com/GenericMappingTools/pygmt/pull/516>`__)
+* Wrap x2sys_init and x2sys_cross (`#546 <https://github.com/GenericMappingTools/pygmt/pull/546>`__)
+* Let grdcut() accept xarray.DataArray as input (`#541 <https://github.com/GenericMappingTools/pygmt/pull/541>`__)
+* Initialize a GMTDataArrayAccessor (`#500 <https://github.com/GenericMappingTools/pygmt/pull/500>`__)
+
+Enhancements:
+
+* Allow passing in pandas dataframes to x2sys_cross (`#591 <https://github.com/GenericMappingTools/pygmt/pull/591>`__)
+* Sensible array outputs for pygmt info (`#575 <https://github.com/GenericMappingTools/pygmt/pull/575>`__)
+* Allow pandas.DataFrame table and 1D/2D numpy array inputs into pygmt.info (`#574 <https://github.com/GenericMappingTools/pygmt/pull/574>`__)
+* Add auto-legend feature to grdcontour and contour (`#568 <https://github.com/GenericMappingTools/pygmt/pull/568>`__)
+* Add common alias verbose (V) (`#550 <https://github.com/GenericMappingTools/pygmt/pull/550>`__)
+* Let load_earth_relief() support all resolutions and optional subregion (`#542 <https://github.com/GenericMappingTools/pygmt/pull/542>`__)
+* Allow load_earth_relief() to load pixel or gridline registered data (`#509 <https://github.com/GenericMappingTools/pygmt/pull/509>`__)
+
+Documentation:
+
+* Link to try-gmt binder repository (`#598 <https://github.com/GenericMappingTools/pygmt/pull/598>`__)
+* Improve docstring of data_kind() to include xarray grid (`#588 <https://github.com/GenericMappingTools/pygmt/pull/588>`__)
+* Improve the documentation of Figure.shift_origin() (`#536 <https://github.com/GenericMappingTools/pygmt/pull/536>`__)
+* Add shading to grdview gallery example (`#506 <https://github.com/GenericMappingTools/pygmt/pull/506>`__)
+
+Bug Fixes:
+
+* Ensure surface and grdcut loads GMTDataArray accessor info into xarray (`#539 <https://github.com/GenericMappingTools/pygmt/pull/539>`__)
+* Raise an error if short- and long-form arguments coexist (`#537 <https://github.com/GenericMappingTools/pygmt/pull/537>`__)
+* Fix the grdtrack example to avoid crashes on macOS (`#531 <https://github.com/GenericMappingTools/pygmt/pull/531>`__)
+* Properly allow for either pixel or gridline registered grids (`#476 <https://github.com/GenericMappingTools/pygmt/pull/476>`__)
+
+Maintenance:
+
+* Add a test for xarray shading (`#581 <https://github.com/GenericMappingTools/pygmt/pull/581>`__)
+* Remove expected failures on grdview tests (`#589 <https://github.com/GenericMappingTools/pygmt/pull/589>`__)
+* Redesign check_figures_equal testing function to be more explicit (`#590 <https://github.com/GenericMappingTools/pygmt/pull/590>`__)
+* Cut Windows CI build time in half to 15 min (`#586 <https://github.com/GenericMappingTools/pygmt/pull/586>`__)
+* Add a test for Session.write_data() writing netCDF grids (`#583 <https://github.com/GenericMappingTools/pygmt/pull/583>`__)
+* Add a test to make sure shift_origin does not crash (`#580 <https://github.com/GenericMappingTools/pygmt/pull/580>`__)
+* Add testing.check_figures_equal to avoid storing baseline images (`#555 <https://github.com/GenericMappingTools/pygmt/pull/555>`__)
+* Eliminate unnecessary jobs from Travis CI (`#567 <https://github.com/GenericMappingTools/pygmt/pull/567>`__) and Azure Pipelines (`#513 <https://github.com/GenericMappingTools/pygmt/pull/513>`__)
+* Improve the workflow to test both GMT master (`#485 <https://github.com/GenericMappingTools/pygmt/pull/485>`__) and 6.1 branches (`#554 <https://github.com/GenericMappingTools/pygmt/pull/554>`__)
+* Automatically cancel in-progress CI runs of old commits (`#544 <https://github.com/GenericMappingTools/pygmt/pull/544>`__)
+* Remove the Stickler CI configuration file (`#538 <https://github.com/GenericMappingTools/pygmt/pull/538>`__), run style checks using GitHub Actions (`#519 <https://github.com/GenericMappingTools/pygmt/pull/519>`__)
+* Cache GMT remote data as artifacts on GitHub (`#530 <https://github.com/GenericMappingTools/pygmt/pull/530>`__)
+* Let pytest generate both HTML and XML coverage reports (`#512 <https://github.com/GenericMappingTools/pygmt/pull/512>`__)
+* Run Continuous Integration tests on GitHub Actions (`#475 <https://github.com/GenericMappingTools/pygmt/pull/475>`__)
+
+Contributors:
+
+* `Dongdong Tian <https://github.com/seisman>`__
+* `Wei Ji Leong <https://github.com/weiji14>`__
+* `Tyler Newton <https://github.com/tjnewton>`__
+* `Liam Toney <https://github.com/liamtoney>`__
+
+----
+
+Release v0.1.2 (2020/07/07)
+---------------------------
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3930577.svg
+   :alt: Digital Object Identifier for the Zenodo archive
+   :target: https://doi.org/10.5281/zenodo.3930577
+
+Highlights:
+
+* Patch release in preparation for the SciPy 2020 sprint session
+* Last version to support GMT 6.0, future PyGMT versions will require GMT 6.1 or newer
+
+New Features:
+
+* Wrap grdcut (`#492 <https://github.com/GenericMappingTools/pygmt/pull/492>`__)
+* Add show_versions() function for printing debugging information used in issue reports (`#466 <https://github.com/GenericMappingTools/pygmt/pull/466>`__)
+
+Enhancements:
+
+* Change load_earth_relief()'s default resolution to 01d (`#488 <https://github.com/GenericMappingTools/pygmt/pull/488>`__)
+* Enhance text with extra functionality and aliases (`#481 <https://github.com/GenericMappingTools/pygmt/pull/481>`__)
+
+Documentation:
+
+* Add gallery example for grdview (`#502 <https://github.com/GenericMappingTools/pygmt/pull/502>`__)
+* Turn all short aliases into long form (`#474 <https://github.com/GenericMappingTools/pygmt/pull/474>`__)
+* Update the plotting example using the colormap generated by pygmt.makecpt (`#472 <https://github.com/GenericMappingTools/pygmt/pull/472>`__)
+* Add instructions to view the test coverage reports locally (`#468 <https://github.com/GenericMappingTools/pygmt/pull/468>`__)
+* Update the instructions for testing pygmt install (`#459 <https://github.com/GenericMappingTools/pygmt/pull/459>`__)
+
+Bug Fixes:
+
+* Fix a bug when passing data to GMT in Session.open_virtual_file() (`#490 <https://github.com/GenericMappingTools/pygmt/pull/490>`__)
+
+Maintenance:
+
+* Temporarily expect failures for some grdcontour and grdview tests (`#503 <https://github.com/GenericMappingTools/pygmt/pull/503>`__)
+* Fix several failures due to updates of earth relief data (`#498 <https://github.com/GenericMappingTools/pygmt/pull/498>`__)
+* Unpin pylint version and fix some lint warnings (`#484 <https://github.com/GenericMappingTools/pygmt/pull/484>`__)
+* Separate tests of gmtinfo and grdinfo (`#461 <https://github.com/GenericMappingTools/pygmt/pull/461>`__)
+* Fix the test for GMT_COMPATIBILITY=6 (`#454 <https://github.com/GenericMappingTools/pygmt/pull/454>`__)
+* Update baseline images for updates of earth relief data (`#452 <https://github.com/GenericMappingTools/pygmt/pull/452>`__)
+* Simplify PyGMT Release process (`#446 <https://github.com/GenericMappingTools/pygmt/pull/446>`__)
+
+Contributors:
+
+* `Dongdong Tian <https://github.com/seisman>`__
+* `Wei Ji Leong <https://github.com/weiji14>`__
+* `Liam Toney <https://github.com/liamtoney>`__
+
+----
+
 Release v0.1.1 (2020/05/22)
 ---------------------------
 
@@ -37,6 +161,7 @@ This release contains contributions from:
 
 * `Dongdong Tian <https://github.com/seisman>`__
 * `Wei Ji Leong <https://github.com/weiji14>`__
+* `Jason K. Moore <https://github.com/moorepants>`__
 
 ----
 
@@ -100,7 +225,7 @@ Bug Fixes:
 Maintenance:
 
 * Quickfix Zeit Now miniconda installer link to anaconda.com (`#413 <https://github.com/GenericMappingTools/pygmt/pull/413>`__)
-* Fix Github Pages deployment from Travis (`#410 <https://github.com/GenericMappingTools/pygmt/pull/410>`__)
+* Fix GitHub Pages deployment from Travis (`#410 <https://github.com/GenericMappingTools/pygmt/pull/410>`__)
 * Update and clean TravisCI configuration (`#404 <https://github.com/GenericMappingTools/pygmt/pull/404>`__)
 * Quickfix min elevation for new SRTM15+V2.1 earth relief grids (`#401 <https://github.com/GenericMappingTools/pygmt/pull/401>`__)
 * Wrap docstrings to 79 chars and check with flake8 (`#384 <https://github.com/GenericMappingTools/pygmt/pull/384>`__)

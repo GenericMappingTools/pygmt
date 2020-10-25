@@ -5,7 +5,7 @@ channels:
 dependencies:
     - python=3.7
     - pip
-    - gmt=6.0.0
+    - gmt=6.1.1
     - numpy
     - pandas
     - xarray
@@ -19,7 +19,8 @@ dependencies:
     - pytest-mpl
     - coverage
     - black
-    - pylint=2.2.2
+    - blackdoc
+    - pylint
     - flake8
     - sphinx=2.2.1
     - sphinx_rtd_theme=0.4.3
