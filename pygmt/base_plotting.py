@@ -823,10 +823,13 @@ class BasePlotting:
         C="cmap",
         D="offset",
         G="color",
+        I="intensity",
         J="projection",
         Jz="zscale",
         JZ="zsize",
         L="close",
+        N="no_clip",
+        Q="no_sort",
         R="region",
         S="style",
         V="verbose",
@@ -907,10 +910,31 @@ class BasePlotting:
             Offset the plot symbol or line locations by the given amounts
             *dx/dy*[*dz*] [Default is no offset].
         {G}
+        intensity : float or bool
+            Provide an *intens* value (nominally in the -1 to +1 range) to
+            modulate the fill color by simulating illumination [None]. If
+            using ``intensity=True``, we will instead read *intens* from the
+            first data column after the symbol parameters (if given).
         close : str
             ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
             Force closed polygons. Full documentation is at
             :gmt-docs:`plot3d.html#l`.
+        no_clip : bool or str
+            ``[c|r]``.
+            Do NOT clip symbols that fall outside map border [Default plots
+            points whose coordinates are strictly inside the map border only].
+            The option does not apply to lines and polygons which are always
+            clipped to the map region. For periodic (360-longitude) maps we
+            must plot all symbols twice in case they are clipped by the
+            repeating boundary. ``no_clip=True`` will turn off clipping and not
+            plot repeating symbols. Use ``no_clip="r"`` to turn off clipping
+            but retain the plotting of such repeating symbols, or use
+            ``no_clip="c"`` to retain clipping but turn off plotting of
+            repeating symbols.
+        no_sort : bool
+            Turn off the automatic sorting of items based on their distance
+            from the viewer. The default is to sort the items so that items in
+            the foreground are plotted after items in the background.
         style : str
             Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
         {U}
