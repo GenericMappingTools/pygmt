@@ -29,7 +29,8 @@ fig.show()
 # ----------------------------
 #
 # The ``MAP_FRAME_TYPE`` parameter specifies the style of map frame to use, of which there
-# are 3 options: ``fancy`` (default, seen above), ``plain``, and ``inside``.
+# are 5 options: ``fancy`` (default, seen above), ``fancy+``, ``plain``, ``graph``
+# (which does not apply to geographical maps) and ``inside``.
 #
 # The ``FORMAT_GEO_MAP`` parameter controls the format of geographical tick annotations.
 # The default uses degrees and minutes. Here we specify the ticks to be a decimal number
@@ -60,19 +61,13 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# This will have a fancy frame
-with pygmt.config(MAP_FRAME_TYPE="fancy"):
+# This will have a fancy+ frame
+with pygmt.config(MAP_FRAME_TYPE="fancy+"):
     fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
 fig.coast(land="black", water="skyblue")
 
-# This figure retains the globally set plain frame
+# This figure retains the default "fancy" frame
 fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", Y="-10c", frame=True)
 fig.coast(land="black", water="skyblue")
-
-# Set font for a sequence of commands
-with pygmt.config(FONT="14p,Helvetica-Bold,white"):
-    fig.text(text="Mt Kinabalu", x=116.549, y=6.058)
-    fig.text(text="Maliau Basin", x=116.913, y=4.787)
-    fig.text(text="Danum Valley", x=117.743, y=4.912)
 
 fig.show()
