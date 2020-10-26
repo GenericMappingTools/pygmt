@@ -308,6 +308,126 @@ def test_plot3d_colors_sizes_proj(data, region):
 
 
 @check_figures_equal()
+def test_plot3d_transparency():
+    "Plot the data with a constant transparency"
+    x = np.arange(1, 10)
+    y = np.arange(1, 10)
+    z = np.arange(1, 10) * 10
+
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    with GMTTempFile() as tmpfile:
+        np.savetxt(tmpfile.name, np.c_[x, y, z], fmt="%d")
+        fig_ref.plot3d(
+            data=tmpfile.name,
+            S="u0.2c",
+            G="blue",
+            R="0/10/0/10/10/90",
+            J="X4i",
+            Jz=0.1,
+            B="",
+            p="135/30",
+            t=80.0,
+        )
+
+    fig_test.plot3d(
+        x=x,
+        y=y,
+        z=z,
+        style="u0.2c",
+        color="blue",
+        region=[0, 10, 0, 10, 10, 90],
+        projection="X4i",
+        zscale=0.1,
+        frame=True,
+        perspective=[135, 30],
+        transparency=80.0,
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_plot3d_varying_transparency():
+    "Plot the data using z as transparency using 3-D column symbols"
+    x = np.arange(1, 10)
+    y = np.arange(1, 10)
+    z = np.arange(1, 10) * 10
+
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    with GMTTempFile() as tmpfile:
+        np.savetxt(tmpfile.name, np.c_[x, y, z, z, z], fmt="%d")
+        fig_ref.plot3d(
+            data=tmpfile.name,
+            S="o0.2c+B5",
+            G="blue",
+            R="0/10/0/10/10/90",
+            J="X4i",
+            Jz=0.1,
+            B="",
+            p="135/30",
+            t="",
+        )
+    fig_test.plot3d(
+        x=x,
+        y=y,
+        z=z,
+        style="o0.2c+B5",
+        color="blue",
+        region=[0, 10, 0, 10, 10, 90],
+        projection="X4i",
+        zscale=0.1,
+        frame=True,
+        perspective=[135, 30],
+        transparency=z,
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_plot3d_sizes_colors_transparencies():
+    "Plot the data with varying sizes and colors using z as transparency"
+    x = np.arange(1.0, 10.0)
+    y = np.arange(1.0, 10.0)
+    z = np.arange(1, 10) * 10
+    color = np.arange(1, 10) * 0.15
+    size = np.arange(1, 10) * 0.2
+    transparency = np.arange(1, 10) * 10
+
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    with GMTTempFile() as tmpfile:
+        np.savetxt(tmpfile.name, np.c_[x, y, z, color, size, transparency])
+        fig_ref.plot3d(
+            data=tmpfile.name,
+            R="0/10/0/10/10/90",
+            J="X4i",
+            Jz=0.1,
+            p="135/30",
+            B="",
+            S="uc",
+            C="gray",
+            t="",
+        )
+    fig_test.plot3d(
+        x=x,
+        y=y,
+        z=z,
+        region=[0, 10, 0, 10, 10, 90],
+        projection="X4i",
+        zscale=0.1,
+        perspective=[135, 30],
+        frame=True,
+        style="uc",
+        color=color,
+        sizes=size,
+        cmap="gray",
+        transparency=transparency,
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
 def test_plot3d_matrix(data, region):
     "Plot the data passing in a matrix and specifying columns"
     fig_ref, fig_test = Figure(), Figure()
@@ -438,10 +558,7 @@ def test_plot3d_scalar_xyz():
     with GMTTempFile() as tmpfile:
         np.savetxt(tmpfile.name, np.c_[[-1.5, 0, 1.5], [1.5, 0, -1.5], [-1.5, 0, 1.5]])
         fig_ref.basemap(
-            R="-2/2/-2/2/-2/2",
-            B=["xaf+lx", "yaf+ly", "zaf+lz"],
-            Jz=2,
-            p="225/30",
+            R="-2/2/-2/2/-2/2", B=["xaf+lx", "yaf+ly", "zaf+lz"], Jz=2, p="225/30"
         )
         fig_ref.plot3d(data=tmpfile.name, S="c1c", G="red", Jz="", p="", qi=0)
         fig_ref.plot3d(data=tmpfile.name, S="t1c", G="green", Jz="", p="", qi=1)

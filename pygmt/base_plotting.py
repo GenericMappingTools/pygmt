@@ -980,6 +980,10 @@ class BasePlotting:
                 )
             extra_arrays.append(sizes)
 
+        if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+            extra_arrays.append(kwargs["t"])
+            kwargs["t"] = ""
+
         with Session() as lib:
             # Choose how data will be passed in to the module
             if kind == "file":
