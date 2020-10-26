@@ -2,7 +2,7 @@
 Configuring PyGMT defaults
 ==========================
 
-Default GMT parameters can be set globally or locally using :class:`pygmt.config`
+Default GMT parameters can be set globally or locally using :class:`pygmt.config`.
 """
 
 import pygmt
@@ -11,9 +11,9 @@ import pygmt
 # Configuring default GMT parameters
 # ----------------------------------
 #
-# The user can override default parameters either temporarily (locally) or permanently
+# Users can override default parameters either temporarily (locally) or permanently
 # (globally) using :meth:`pygmt.config`. The full list of default parameters that can be
-# changed can be at :gmt-docs:`gmt.conf.html`.
+# changed can be found at :gmt-docs:`gmt.conf.html`.
 #
 # We demonstrate the usage of :meth:`pygmt.config` by configuring a map plot.
 
@@ -51,12 +51,12 @@ fig.show()
 # Locally overriding defaults
 # ---------------------------
 #
-# It is also possible to temporarily override the default parameters, which is a very
+# It is also possible to temporarily override the default parameters, which is very
 # useful for limiting the scope of changes to a particular plot. :class:`pygmt.config` is
 # implemented as a context manager, which handles the setup and teardown of a GMT
-# session. Python users are likely familiar with the `with open(...) as file:` snippet,
-# which returns a `file` context manager. In this way, it can be used to override a parameter
-# for a single command, or a sequence of commands. An application of `pygmt.config` as a context
+# session. Python users are likely familiar with the ``with open(...) as file:`` snippet,
+# which returns a ``file`` context manager. In this way, it can be used to override a parameter
+# for a single command, or a sequence of commands. An application of ``pygmt.config`` as a context
 # manager is shown below:
 
 fig = pygmt.Figure()
@@ -65,9 +65,11 @@ fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="fancy+"):
     fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
 fig.coast(land="black", water="skyblue")
+# shift plot origin to plot another map
+fig.shift_origin(yshift="-10c")  
 
 # This figure retains the default "fancy" frame
-fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", Y="-10c", frame=True)
+fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
 fig.coast(land="black", water="skyblue")
 
 fig.show()
