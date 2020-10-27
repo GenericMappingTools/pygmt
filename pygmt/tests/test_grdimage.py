@@ -74,13 +74,13 @@ def test_grdimage_file():
     return fig
 
 
+# @pytest.mark.xfail(
+#     condition=gmt_version <= Version("6.1.1") and sys.platform != "darwin",
+#     reason="Upstream bug in GMT 6.1.1 that causes this test to fail on Linux/Windows",
+# )
 @pytest.mark.skipif(
     gmt_version <= Version("6.1.1") and sys.platform == "darwin",
     reason="Upstream bug in GMT 6.1.1 that causes segfault on macOS",
-)
-@pytest.mark.xfail(
-    condition=gmt_version <= Version("6.1.1") and sys.platform != "darwin",
-    reason="Upstream bug in GMT 6.1.1 that causes this test to fail on Linux/Windows",
 )
 @check_figures_equal()
 @pytest.mark.parametrize(
