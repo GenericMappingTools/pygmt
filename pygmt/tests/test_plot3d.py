@@ -235,6 +235,8 @@ def test_plot3d_sizes(data, region):
         sizes=0.5 * data[:, 2],
         region=region,
         projection="X4i",
+        # Using inches instead of cm because of upstream bug at
+        # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
         color="blue",
         frame=["af", "zaf"],
@@ -267,6 +269,8 @@ def test_plot3d_colors_sizes(data, region):
         sizes=0.5 * data[:, 2],
         region=region,
         projection="X3i",
+        # Using inches instead of cm because of upstream bug at
+        # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
         cmap="copper",
         frame=["af", "zaf"],
@@ -301,6 +305,8 @@ def test_plot3d_colors_sizes_proj(data, region):
         frame=["af", "zaf"],
         color=data[:, 2],
         sizes=data[:, 2],
+        # Using inches instead of cm because of upstream bug at
+        # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
         cmap="copper",
     )
