@@ -8,6 +8,7 @@ import os
 import sys
 import ctypes
 from ctypes.util import find_library
+import subprocess as sp
 
 from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
@@ -97,16 +98,37 @@ def clib_full_names(env=None):
     """
     if env is None:
         env = os.environ
-    libnames = clib_names(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
-    libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
 
-    lib_fullnames = [os.path.join(libpath, libname) for libname in libnames]
-    # Search for DLLs in PATH if GMT_LIBRARY_PATH is not defined [Windows only]
-    if not libpath and sys.platform == "win32":
+    libnames = clib_names(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
+
+    # list of libraries paths to search, sort by priority from high to low
+    lib_fullnames = []
+
+    # Search for libraries in GMT_LIBRARY_PATH if defined.
+    libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
+    if libpath:
+        for libname in libnames:
+            lib_fullnames.append(os.path.join(libpath, libname))
+
+    # Search for the library returned by command "gmt --show-library"
+    try:
+        lib_fullpath = sp.check_output(
+            ["gmt", "--show-library"], encoding="utf-8"
+        ).rstrip("\n")
+        lib_fullnames.append(lib_fullpath)
+    except FileNotFoundError:  # command not found
+        pass
+
+    # Search for DLLs in PATH (done by calling "find_library")
+    if sys.platform == "win32":
         for libname in libnames:
             libfullpath = find_library(libname)
             if libfullpath:
                 lib_fullnames.append(libfullpath)
+
+    # Search for library names in the system default path [the lowest priority]
+    lib_fullnames.extend(libnames)
+
     return lib_fullnames
 
 
@@ -133,10 +155,5 @@ def check_libgmt(libgmt):
     functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
     for func in functions:
         if not hasattr(libgmt, "GMT_" + func):
-            msg = " ".join(
-                [
-                    "Error loading libgmt.",
-                    "Couldn't access function GMT_{}.".format(func),
-                ]
-            )
+            msg = f"Error loading libgmt. Couldn't access function GMT_{func}."
             raise GMTCLibError(msg)
