@@ -74,13 +74,13 @@ def test_grdimage_file():
     return fig
 
 
-# @pytest.mark.xfail(
-#     condition=gmt_version <= Version("6.1.1") and sys.platform != "darwin",
-#     reason="Upstream bug in GMT 6.1.1 that causes this test to fail on Linux/Windows",
-# )
 @pytest.mark.skipif(
     gmt_version <= Version("6.1.1") and sys.platform == "darwin",
     reason="Upstream bug in GMT 6.1.1 that causes segfault on macOS",
+)
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.1.1") and sys.platform != "darwin",
+    reason="Upstream bug in GMT 6.1.1 that causes this test to fail on Linux/Windows",
 )
 @check_figures_equal()
 @pytest.mark.parametrize(
@@ -154,7 +154,7 @@ def test_grdimage_central_meridians(grid, proj_type, lon0):
 # are still slightly different with an RMS error of 25, see issue at
 # https://github.com/GenericMappingTools/pygmt/issues/390
 # TO-DO remove tol=1.5 and pytest.mark.xfail once bug is solved in upstream GMT
-# @check_figures_equal(tol=1.5)
+@check_figures_equal(tol=1.5)
 @pytest.mark.parametrize("lat0", [0, 30])
 @pytest.mark.parametrize("lon0", [0, 123, 180])
 @pytest.mark.parametrize("proj_type", [pytest.param("Q", marks=pytest.mark.xfail), "S"])

@@ -92,5 +92,5 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ failure() }}
         with:
-          name: artifact-GMT ${{ matrix.gmt_git_ref }}-${{ runner.os }}
+          name: artifact-GMT-${{ matrix.gmt_git_ref }}-${{ runner.os }}
           path: tmp-test-dir-with-unique-name
