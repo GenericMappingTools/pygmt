@@ -222,7 +222,7 @@ def test_plot3d_sizes(data, region):
         i="0,1,2,2+s0.5",
         R="/".join(map(str, region)),
         J="X4i",
-        S="cc",
+        S="ui",
         G="blue",
         B=["af", "zaf"],
     )
@@ -235,7 +235,7 @@ def test_plot3d_sizes(data, region):
         sizes=0.5 * data[:, 2],
         region=region,
         projection="X4i",
-        style="cc",
+        style="ui",
         color="blue",
         frame=["af", "zaf"],
     )
@@ -253,7 +253,7 @@ def test_plot3d_colors_sizes(data, region):
         i="0,1,2,2,2+s0.5",
         R="/".join(map(str, region)),
         J="X3i",
-        S="cc",
+        S="ui",
         C="copper",
         B=["af", "zaf"],
     )
@@ -267,7 +267,7 @@ def test_plot3d_colors_sizes(data, region):
         sizes=0.5 * data[:, 2],
         region=region,
         projection="X3i",
-        style="cc",
+        style="ui",
         cmap="copper",
         frame=["af", "zaf"],
     )
@@ -287,7 +287,7 @@ def test_plot3d_colors_sizes_proj(data, region):
         B=["af", "zaf"],
         G="+z",
         i="0,1,2,2,2+s1",
-        S="cc",
+        S="ui",
         C="copper",
     )
     fig_test.plot3d(
@@ -301,7 +301,7 @@ def test_plot3d_colors_sizes_proj(data, region):
         frame=["af", "zaf"],
         color=data[:, 2],
         sizes=data[:, 2],
-        style="cc",
+        style="ui",
         cmap="copper",
     )
     return fig_ref, fig_test
