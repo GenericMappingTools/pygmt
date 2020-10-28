@@ -32,6 +32,25 @@ def makecpt(**kwargs):
     `cpt-city <http://soliton.vm.bytemark.co.uk/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
 
+    The CPT includes three additional colors beyond the range of z-values.
+    These are the background color (B) assigned to values lower than the lowest
+    *z*-value, the foreground color (F) assigned to values higher than the
+    highest *z*-value, and the NaN color (N) painted wherever values are
+    undefined.
+
+    If the master CPT includes B, F, and N entries, these will be copied into
+    the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
+    :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the
+    :gmt-docs:`gmt.conf <gmt.conf>` file or the command line will be used. This
+    default behavior can be overruled using the options **-D**, **-M** or
+    **-N**.
+
+    The color model (RGB, HSV or CMYK) of the palette created by **makecpt**
+    will be the same as specified in the header of the master CPT. When there
+    is no :gmt-term:`COLOR_MODEL` entry in the master CPT, the
+    :gmt-term:`COLOR_MODEL` specified in the :doc:`gmt.conf` file or on the
+    command line will be used.
+
     Full option list at :gmt-docs:`makecpt.html`
 
     {aliases}
