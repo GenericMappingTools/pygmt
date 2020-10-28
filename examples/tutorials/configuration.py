@@ -17,7 +17,7 @@ import pygmt
 #
 # We demonstrate the usage of :meth:`pygmt.config` by configuring a map plot.
 
-# Start with a basic figure
+# Start with a basic figure with the default style
 fig = pygmt.Figure()
 fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
 fig.coast(land="black", water="skyblue")
@@ -56,8 +56,8 @@ fig.show()
 # implemented as a context manager, which handles the setup and teardown of a GMT
 # session. Python users are likely familiar with the ``with open(...) as file:`` snippet,
 # which returns a ``file`` context manager. In this way, it can be used to override a parameter
-# for a single command, or a sequence of commands. An application of ``pygmt.config`` as a context
-# manager is shown below:
+# for a single command, or a sequence of commands. An application of :class:`pygmt.config`
+# as a context manager is shown below:
 
 fig = pygmt.Figure()
 
@@ -65,7 +65,8 @@ fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="fancy+"):
     fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
 fig.coast(land="black", water="skyblue")
-# shift plot origin to plot another map
+
+# Shift plot origin down by 10cm to plot another map
 fig.shift_origin(yshift="-10c")  
 
 # This figure retains the default "fancy" frame
