@@ -10,6 +10,7 @@ from .. import Figure, makecpt
 from ..datasets import load_earth_relief
 from ..exceptions import GMTInvalidInput
 from ..helpers import GMTTempFile
+from ..helpers.testing import check_figures_equal
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -62,19 +63,21 @@ def test_makecpt_to_plot_grid(grid):
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_makecpt_to_plot_grid_scaled_with_series(grid):
     """
     Use static color palette table scaled to a min/max series to change color
     of grid
     """
-    fig = Figure()
+    # Use single-character arguments for the reference image
+    fig_ref = Figure()
+    makecpt(C="oleron", T="-4500/4500")
+    fig_ref.grdimage(grid, J="W0/6i")
+
+    fig_test = Figure()
     makecpt(cmap="oleron", series="-4500/4500")
-    fig.grdimage(grid, projection="W0/6i")
-    return fig
+    fig_test.grdimage(grid, projection="W0/6i")
+    return fig_ref, fig_test
 
 
 def test_makecpt_output_to_cpt_file():

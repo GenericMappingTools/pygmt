@@ -17,6 +17,7 @@ from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
+@use_alias(V="verbose")
 def grdinfo(grid, **kwargs):
     """
     Get information about a grid.
@@ -29,6 +30,8 @@ def grdinfo(grid, **kwargs):
     ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
+
+    {V}
 
     Returns
     -------
@@ -55,7 +58,7 @@ def grdinfo(grid, **kwargs):
 
 
 @fmt_docstring
-@use_alias(C="per_column", I="spacing", T="nearest_multiple")
+@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose")
 def info(table, **kwargs):
     """
     Get information about data tables.
@@ -93,6 +96,8 @@ def info(table, **kwargs):
         ``'dz[+ccol]'``
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
+
+    {V}
 
     Returns
     -------
@@ -137,7 +142,7 @@ def info(table, **kwargs):
 
 
 @fmt_docstring
-@use_alias(G="download")
+@use_alias(G="download", V="verbose")
 def which(fname, **kwargs):
     """
     Find the full path to specified files.
@@ -165,6 +170,7 @@ def which(fname, **kwargs):
         it. Use True or 'l' (default) to download to the current directory. Use
         'c' to place in the user cache directory or 'u' user data directory
         instead.
+    {V}
 
     Returns
     -------

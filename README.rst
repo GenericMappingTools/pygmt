@@ -38,6 +38,22 @@ PyGMT
 .. placeholder-for-doc-index
 
 
+Why PyGMT?
+----------
+
+A beautiful map is worth a thousand words.
+To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
+But if you need some convincing first, watch this **1 hour introduction** to PyGMT!
+
+Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
+or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
+
+.. image:: https://user-images.githubusercontent.com/23487320/95393255-c0b72e80-0956-11eb-9471-24429461802b.png
+    :alt: Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT
+    :align: center
+    :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
+
+
 Disclaimer
 ----------
 
@@ -50,7 +66,7 @@ implement new features. **This is not a finished product, use with caution.**
 
 We welcome any feedback and ideas!
 Let us know by submitting
-`issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
+`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
 or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 About
@@ -80,7 +96,7 @@ Project goals
 Contacting Us
 -------------
 
-* Most discussion happens `on Github
+* Most discussion happens `on GitHub
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
@@ -134,7 +150,7 @@ Who we are
 
 PyGMT is a community developed project. See the
 `AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
-file on Github for a list of the people involved and a definition of the term "PyGMT
+file on GitHub for a list of the people involved and a definition of the term "PyGMT
 Developers".
 
 
@@ -170,7 +186,7 @@ Other Python wrappers for GMT:
 Documentation for other versions
 --------------------------------
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
-  Github)
+  GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
 * `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
 * `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
