@@ -67,7 +67,7 @@ with pygmt.config(MAP_FRAME_TYPE="fancy+"):
 fig.coast(land="black", water="skyblue")
 
 # Shift plot origin down by 10cm to plot another map
-fig.shift_origin(yshift="-10c")  
+fig.shift_origin(yshift="-10c")
 
 # This figure retains the default "fancy" frame
 fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
