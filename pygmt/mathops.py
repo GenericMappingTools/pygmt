@@ -10,10 +10,13 @@ from .helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_ali
 @use_alias(
     A="transparency",
     C="cmap",
+    D="background",
     F="color_model",
     G="truncate",
     H="output",
     I="reverse",
+    M="overrule_bg",
+    N="no_bg",
     Q="log",
     T="series",
     V="verbose",
@@ -28,8 +31,8 @@ def makecpt(**kwargs):
     This is a module that will help you make static color palette tables
     (CPTs). In classic mode we write the CPT to standard output, while under
     modern mode we simply save the CPT as the current session CPT (but see
-    **output**). You define an equidistant set of contour intervals or pass
-    your own z-table or list, and create a new CPT based on an existing master
+    *output*). You define an equidistant set of contour intervals or pass your
+    own z-table or list, and create a new CPT based on an existing master
     (dynamic) CPT. The resulting CPT can be reversed relative to the master
     cpt, and can be made continuous or discrete. For color tables beyond the
     standard GMT offerings, visit
@@ -46,14 +49,14 @@ def makecpt(**kwargs):
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
     :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the
     :gmt-docs:`gmt.conf <gmt.conf>` file or the command line will be used. This
-    default behavior can be overruled using the options **-D**, **-M** or
-    **-N**.
+    default behavior can be overruled using the options *background*,
+    *overrule_bg* or *no_bg*.
 
     The color model (RGB, HSV or CMYK) of the palette created by **makecpt**
     will be the same as specified in the header of the master CPT. When there
     is no :gmt-term:`COLOR_MODEL` entry in the master CPT, the
-    :gmt-term:`COLOR_MODEL` specified in the :doc:`gmt.conf` file or on the
-    command line will be used.
+    :gmt-term:`COLOR_MODEL` specified in the :gmt-docs:`gmt.conf <gmt.conf>`
+    file or on the command line will be used.
 
     Full option list at :gmt-docs:`makecpt.html`
 
@@ -69,6 +72,14 @@ def makecpt(**kwargs):
         Selects the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
         at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.
+    background : bool or str
+        Select the back- and foreground colors to match the colors for lowest
+        and highest *z*-values in the output CPT [Default (``background=True``
+        or ``background='o'``) uses the colors specified in the master file, or
+        those defined by the parameters :gmt-term:`COLOR_BACKGROUND`,
+        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use
+        ``background='i'`` to match the colors for the lowest and highest
+        values in the input (instead of the output) CPT.
     color_model :
         ``[R|r|h|c][+c[label]]``.
         Force output CPT to be written with r/g/b codes, gray-scale values or
@@ -107,6 +118,15 @@ def makecpt(**kwargs):
         happens before *truncate* and *series* values are used so the latter
         must be compatible with the changed *z*-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+    overrule_bg :
+        Overrule background, foreground, and NaN colors specified in the master
+        CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
+        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
+        the :gmt-docs:`gmt.conf <gmt.conf>` file or on the command line. When
+        combined with **background**, only :gmt-term:`COLOR_NAN` is considered.
+    no_bg : bool
+        Do not write out the background, foreground, and NaN-color fields
+        [Default will write them, i.e. ``no_bg=False``].
     log : bool
         For logarithmic interpolation scheme with input given as logarithms.
         Expects input z-values provided via **series** to be log10(*z*),
