@@ -21,6 +21,7 @@ from .helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_ali
     T="series",
     V="verbose",
     W="categorical",
+    Ww="cyclic",
     Z="continuous",
 )
 @kwargs_to_strings(T="sequence", G="sequence")
@@ -135,16 +136,19 @@ def makecpt(**kwargs):
         Force a continuous CPT when building from a list of colors and a list
         of z-values [Default is None, i.e. discrete values].
     {V}
-    categorical : bool or str
+    categorical : bool
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
         intervals are assigned. This is particularly useful in combination with
-        a categorical color table, like "categorical". Alternatively, use
-        ``categorical='w'`` to produce a wrapped (cyclic) color table that
-        endlessly repeats its range.
-
+        a categorical color table, like ``cmap='categorical'``.
+    cyclic : bool
+        Produce a wrapped (cyclic) color table that endlessly repeats its
+        range. Note that ``cyclic=True`` cannot be set together with
+        ``categorical=True``.
     """
     with Session() as lib:
+        if "W" in kwargs and "Ww" in kwargs:
+            raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
         if "H" not in kwargs.keys():  # if no output is set
             arg_str = build_arg_string(kwargs)
         elif "H" in kwargs.keys():  # if output is set
