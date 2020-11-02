@@ -8,10 +8,13 @@ from .helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_ali
 
 @fmt_docstring
 @use_alias(
+    A="transparency",
     C="cmap",
+    F="color_model",
     G="truncate",
     H="output",
     I="reverse",
+    Q="log",
     T="series",
     V="verbose",
     Z="continuous",
@@ -57,10 +60,26 @@ def makecpt(**kwargs):
 
     Parameters
     ----------
+    transparency : str
+        Sets a constant level of transparency (0-100) for all color slices.
+        Append **+a** to also affect the fore-, back-, and nan-colors
+        [Default is no transparency, i.e., 0 (opaque)].
     cmap : str
         Selects the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
         at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.
+    color_model :
+        ``[R|r|h|c][+c[label]]``.
+        Force output CPT to be written with r/g/b codes, gray-scale values or
+        color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes
+        (**h**), or c/m/y/k codes (**c**).  Optionally or alternatively, append
+        **+c** to write discrete palettes in categorical format. If *label* is
+        appended then we create labels for each category to be used when the
+        CPT is plotted. The *label* may be a comma-separated list of category
+        names (you can skip a category by not giving a name), or give
+        *start*[-], where we automatically build monotonically increasing
+        labels from *start* (a single letter or an integer). Append - to build
+        ranges *start*-*start+1* instead.
     series : list or str
         ``[min/max/inc[+b|l|n]|file|list]``.
         Defines the range of the new CPT by giving the lowest and highest
@@ -87,6 +106,10 @@ def makecpt(**kwargs):
         happens before *truncate* and *series* values are used so the latter
         must be compatible with the changed *z*-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+    log : bool
+        For logarithmic interpolation scheme with input given as logarithms.
+        Expects input z-values provided via **series** to be log10(*z*),
+        assigns colors, and writes out *z*.
     continuous : bool
         Force a continuous CPT when building from a list of colors and a list
         of z-values [Default is None, i.e. discrete values].
