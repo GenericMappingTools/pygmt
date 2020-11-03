@@ -30,13 +30,12 @@ def makecpt(**kwargs):
     Make GMT color palette tables.
 
     This is a module that will help you make static color palette tables
-    (CPTs). In classic mode we write the CPT to standard output, while under
-    modern mode we simply save the CPT as the current session CPT (but see
-    *output*). You define an equidistant set of contour intervals or pass your
-    own z-table or list, and create a new CPT based on an existing master
-    (dynamic) CPT. The resulting CPT can be reversed relative to the master
-    cpt, and can be made continuous or discrete. For color tables beyond the
-    standard GMT offerings, visit
+    (CPTs). By default, the CPT will simply be saved to the current session,
+    but you can use *output* to save it to a file. You define an equidistant
+    set of contour intervals or pass your own z-table or list, and create a new
+    CPT based on an existing master (dynamic) CPT. The resulting CPT can be
+    reversed relative to the master cpt, and can be made continuous or
+    discrete. For color tables beyond the standard GMT offerings, visit
     `cpt-city <http://soliton.vm.bytemark.co.uk/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <http://www.fabiocrameri.ch/colourmaps.php>`_.
 
