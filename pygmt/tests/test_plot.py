@@ -269,7 +269,7 @@ def test_plot_varying_transparency():
 
 @check_figures_equal()
 def test_plot_sizes_colors_transparencies():
-    "Plot the data using z as transparency"
+    "Plot the data with varying sizes and colors using z as transparency"
     x = np.arange(1.0, 10.0)
     y = np.arange(1.0, 10.0)
     color = np.arange(1, 10) * 0.15
