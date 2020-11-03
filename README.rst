@@ -34,6 +34,9 @@ PyGMT
 .. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
     :target: https://doi.org/10.5281/zenodo.3781524
+.. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
+    :alt: Contributor Code of Conduct
+    :target: CODE_OF_CONDUCT.md
 
 .. placeholder-for-doc-index
 
