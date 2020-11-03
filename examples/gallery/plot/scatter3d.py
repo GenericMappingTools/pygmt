@@ -31,7 +31,7 @@ region = pygmt.info(
 
 # Make our 3D scatter plot, coloring each of the 3 species differently
 fig = pygmt.Figure()
-pygmt.makecpt(cmap="cubhelix", series=(0, 3, 1))
+pygmt.makecpt(cmap="cubhelix", color_model="+c", series=(0, 3, 1))
 fig.plot3d(
     x=df.petal_width,
     y=df.sepal_length,
