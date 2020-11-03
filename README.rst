@@ -145,13 +145,38 @@ mistakes. That's how we all improve and we are happy to help others learn.
 `MetPy project <https://github.com/Unidata/MetPy>`__.
 
 
-Who we are
-----------
+Citing PyGMT
+------------
 
 PyGMT is a community developed project. See the
 `AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
 file on GitHub for a list of the people involved and a definition of the term "PyGMT
-Developers".
+Developers". Feel free to cite our work in your research using the following BibTeX:
+
+.. code-block::
+
+    @software{uieda_leonardo_2020_4025418,
+      author       = {Uieda, Leonardo and
+                      Tian, Dongdong and
+                      Leong, Wei Ji and
+                      Toney, Liam and
+                      Newton, Tyler and
+                      Wessel, Paul},
+      title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
+      month        = sep,
+      year         = 2020,
+      publisher    = {Zenodo},
+      version      = {v0.2.0},
+      doi          = {10.5281/zenodo.4025418},
+      url          = {https://doi.org/10.5281/zenodo.4025418}
+    }
+
+To cite a specific version of PyGMT, go to our Zenodo page at
+https://doi.org/10.5281/zenodo.3781524 and use the "Export to BibTeX" function there.
+It is also strongly recommended to cite the
+`GMT6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
+Note that some modules like ``surface`` and ``x2sys`` also have their dedicated citation.
+Further information for all these can be found at https://www.generic-mapping-tools.org/cite.
 
 
 License
