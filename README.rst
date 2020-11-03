@@ -162,12 +162,9 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Toney, Liam and
                       Newton, Tyler and
                       Wessel, Paul},
-      title        = {{PyGMT: A Python interface for the Generic Mapping
-                       Tools}},
+      title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
       month        = sep,
       year         = 2020,
-      note         = {{The development of PyGMT was supported by NSF
-                       grants 1558403 and 1948602.}},
       publisher    = {Zenodo},
       version      = {v0.2.0},
       doi          = {10.5281/zenodo.4025418},
