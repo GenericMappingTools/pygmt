@@ -34,6 +34,9 @@ PyGMT
 .. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
     :target: https://doi.org/10.5281/zenodo.3781524
+.. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
+    :alt: Contributor Code of Conduct
+    :target: CODE_OF_CONDUCT.md
 
 .. placeholder-for-doc-index
 
@@ -66,7 +69,7 @@ implement new features. **This is not a finished product, use with caution.**
 
 We welcome any feedback and ideas!
 Let us know by submitting
-`issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
+`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
 or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 About
@@ -96,7 +99,7 @@ Project goals
 Contacting Us
 -------------
 
-* Most discussion happens `on Github
+* Most discussion happens `on GitHub
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
@@ -145,13 +148,38 @@ mistakes. That's how we all improve and we are happy to help others learn.
 `MetPy project <https://github.com/Unidata/MetPy>`__.
 
 
-Who we are
-----------
+Citing PyGMT
+------------
 
 PyGMT is a community developed project. See the
 `AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
-file on Github for a list of the people involved and a definition of the term "PyGMT
-Developers".
+file on GitHub for a list of the people involved and a definition of the term "PyGMT
+Developers". Feel free to cite our work in your research using the following BibTeX:
+
+.. code-block::
+
+    @software{uieda_leonardo_2020_4025418,
+      author       = {Uieda, Leonardo and
+                      Tian, Dongdong and
+                      Leong, Wei Ji and
+                      Toney, Liam and
+                      Newton, Tyler and
+                      Wessel, Paul},
+      title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
+      month        = sep,
+      year         = 2020,
+      publisher    = {Zenodo},
+      version      = {v0.2.0},
+      doi          = {10.5281/zenodo.4025418},
+      url          = {https://doi.org/10.5281/zenodo.4025418}
+    }
+
+To cite a specific version of PyGMT, go to our Zenodo page at
+https://doi.org/10.5281/zenodo.3781524 and use the "Export to BibTeX" function there.
+It is also strongly recommended to cite the
+`GMT6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
+Note that some modules like ``surface`` and ``x2sys`` also have their dedicated citation.
+Further information for all these can be found at https://www.generic-mapping-tools.org/cite.
 
 
 License
@@ -186,7 +214,7 @@ Other Python wrappers for GMT:
 Documentation for other versions
 --------------------------------
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
-  Github)
+  GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
 * `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
 * `v0.1.2 <https://www.pygmt.org/v0.1.2>`__

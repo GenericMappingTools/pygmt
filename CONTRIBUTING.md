@@ -70,7 +70,7 @@ for the project where you can ask questions.
 
 ## Reporting a Bug
 
-Find the *Issues* tab on the top of the Github repository and click *New Issue*.
+Find the *Issues* tab on the top of the GitHub repository and click *New Issue*.
 You'll be prompted to choose between different types of issue, like bug reports and
 feature requests.
 Choose the one that best matches your need.
@@ -92,7 +92,7 @@ download and install anything:
 * On each documentation page, there should be an "Improve This Page" link at the very
   top.
 * Click on that link to open the respective source file (usually an `.rst` file in the
-  `doc` folder) on Github for editing online (you'll need a Github account).
+  `doc` folder) on GitHub for editing online (you'll need a GitHub account).
 * Make your desired changes.
 * When you're done, scroll to the bottom of the page.
 * Fill out the two fields under "Commit changes": the first is a short title describing
@@ -255,9 +255,10 @@ Before committing, run it to automatically format your code:
 make format
 ```
 
-Don't worry if you forget to do it.
-Our continuous integration systems will warn us and you can make a new commit with the
-formatted code.
+Don't worry if you forget to do it. Our continuous integration systems will
+warn us and you can make a new commit with the formatted code.
+Even better, you can just write `/format` in the first line of any comment in a
+Pull Request to lint the code automatically.
 
 We also use [flake8](http://flake8.pycqa.org/en/latest/) and
 [pylint](https://www.pylint.org/) to check the quality of the code and quickly catch
@@ -307,6 +308,14 @@ If all the tests pass, you can view the coverage reports by opening `htmlcov/ind
 in your browser. **Strive to get 100% coverage for the lines you changed.**
 It's OK if you can't or don't know how to test something.
 Leave a comment in the PR and we'll help you out.
+
+You can also run tests in just one test script using:
+
+    pytest --verbose --mpl --mpl-results-path=results --doctest-modules pygmt/tests/NAME_OF_TEST_FILE.py
+
+or run tests which contain names that match a specific keyword expression:
+
+    pytest --verbose --mpl --mpl-results-path=results --doctest-modules -k KEYWORD pygmt/tests
 
 ### Testing plots
 
@@ -428,7 +437,7 @@ Some things that will increase the chance that your pull request is accepted qui
 
 Pull requests will automatically have tests run by TravisCI.
 This includes running both the unit tests as well as code linters.
-Github will show the status of these checks on the pull request.
+GitHub will show the status of these checks on the pull request.
 Try to get them all passing (green).
 If you have any trouble, leave a comment in the PR or
 [get in touch](#how-can-i-talk-to-you).

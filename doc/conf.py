@@ -37,10 +37,8 @@ napoleon_use_ivar = True
 
 # configure links to GMT docs
 extlinks = {
-    "gmt-docs": (
-        "https://docs.generic-mapping-tools.org/latest/%s",
-        "https://docs.generic-mapping-tools.org/latest/",
-    )
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/latest/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/latest/gmt.conf#term-%s", ""),
 }
 
 # intersphinx configuration

@@ -37,8 +37,8 @@ jobs:
                         @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz \
                         @usgs_quakes_22.txt
 
-      # Upload the downloaded files as artifacts to Github
-      - name: Upload artifacts to Github
+      # Upload the downloaded files as artifacts to GitHub
+      - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v2
         with:
           name: gmt-cache
