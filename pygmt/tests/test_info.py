@@ -4,7 +4,10 @@ Tests for gmtinfo
 import os
 
 import numpy as np
+import numpy.testing as npt
+import pandas as pd
 import pytest
+import xarray as xr
 
 from .. import info
 from ..exceptions import GMTInvalidInput
@@ -14,8 +17,8 @@ POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
 def test_info():
-    "Make sure info works"
-    output = info(fname=POINTS_DATA)
+    "Make sure info works on file name inputs"
+    output = info(table=POINTS_DATA)
     expected_output = (
         f"{POINTS_DATA}: N = 20 "
         "<11.5309/61.7074> "
@@ -25,33 +28,117 @@ def test_info():
     assert output == expected_output
 
 
+def test_info_dataframe():
+    "Make sure info works on pandas.DataFrame inputs"
+    table = pd.read_csv(POINTS_DATA, sep=" ", header=None)
+    output = info(table=table)
+    expected_output = (
+        "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+    )
+    assert output == expected_output
+
+
+@pytest.mark.xfail(
+    reason="UNIX timestamps returned instead of ISO datetime, should work on GMT 6.2.0 "
+    "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
+)
+def test_info_pandas_dataframe_time_column():
+    "Make sure info works on pandas.DataFrame inputs with a time column"
+    table = pd.DataFrame(
+        data={
+            "z": [10, 13, 12, 15, 14],
+            "time": pd.date_range(start="2020-01-01", periods=5),
+        }
+    )
+    output = info(table=table)
+    expected_output = (
+        "<vector memory>: N = 5 <10/15> <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
+    )
+    assert output == expected_output
+
+
+@pytest.mark.xfail(
+    reason="UNIX timestamp returned instead of ISO datetime, should work on GMT 6.2.0 "
+    "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
+)
+def test_info_xarray_dataset_time_column():
+    "Make sure info works on xarray.Dataset 1D inputs with a time column"
+    table = xr.Dataset(
+        coords={"index": [0, 1, 2, 3, 4]},
+        data_vars={
+            "z": ("index", [10, 13, 12, 15, 14]),
+            "time": ("index", pd.date_range(start="2020-01-01", periods=5)),
+        },
+    )
+    output = info(table=table)
+    expected_output = (
+        "<vector memory>: N = 5 <10/15> <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
+    )
+    assert output == expected_output
+
+
+def test_info_2d_array():
+    "Make sure info works on 2D numpy.ndarray inputs"
+    table = np.loadtxt(POINTS_DATA)
+    output = info(table=table)
+    expected_output = (
+        "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+    )
+    assert output == expected_output
+
+
+def test_info_1d_array():
+    "Make sure info works on 1D numpy.ndarray inputs"
+    output = info(table=np.arange(20))
+    expected_output = "<vector memory>: N = 20 <0/19>\n"
+    assert output == expected_output
+
+
 def test_info_per_column():
     "Make sure the per_column option works"
-    output = info(fname=POINTS_DATA, per_column=True)
-    assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338\n"
+    output = info(table=POINTS_DATA, per_column=True)
+    npt.assert_allclose(
+        actual=output, desired=[11.5309, 61.7074, -2.9289, 7.8648, 0.1412, 0.9338]
+    )
 
 
 def test_info_spacing():
     "Make sure the spacing option works"
-    output = info(fname=POINTS_DATA, spacing=0.1)
-    assert output == "-R11.5/61.8/-3/7.9\n"
+    output = info(table=POINTS_DATA, spacing=0.1)
+    npt.assert_allclose(actual=output, desired=[11.5, 61.8, -3, 7.9])
+
+
+def test_info_spacing_bounding_box():
+    "Make sure the spacing option for writing a bounding box works"
+    output = info(table=POINTS_DATA, spacing="b")
+    npt.assert_allclose(
+        actual=output,
+        desired=[
+            [11.5309, -2.9289],
+            [61.7074, -2.9289],
+            [61.7074, 7.8648],
+            [11.5309, 7.8648],
+            [11.5309, -2.9289],
+        ],
+    )
 
 
 def test_info_per_column_spacing():
     "Make sure the per_column and spacing options work together"
-    output = info(fname=POINTS_DATA, per_column=True, spacing=0.1)
-    assert output == "11.5 61.8 -3 7.9 0.1412 0.9338\n"
+    output = info(table=POINTS_DATA, per_column=True, spacing=0.1)
+    npt.assert_allclose(actual=output, desired=[11.5, 61.8, -3, 7.9, 0.1412, 0.9338])
 
 
 def test_info_nearest_multiple():
     "Make sure the nearest_multiple option works"
-    output = info(fname=POINTS_DATA, nearest_multiple=0.1)
-    assert output == "-T11.5/61.8/0.1\n"
+    output = info(table=POINTS_DATA, nearest_multiple=0.1)
+    npt.assert_allclose(actual=output, desired=[11.5, 61.8, 0.1])
 
 
 def test_info_fails():
-    "Make sure info raises an exception if not given a file name"
+    """
+    Make sure info raises an exception if not given either a file name, pandas
+    DataFrame, or numpy ndarray
+    """
     with pytest.raises(GMTInvalidInput):
-        info(fname=21)
-    with pytest.raises(GMTInvalidInput):
-        info(fname=np.arange(20))
+        info(table=xr.DataArray(21))

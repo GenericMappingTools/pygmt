@@ -19,7 +19,8 @@ from .gridding import surface
 from .sampling import grdtrack
 from .mathops import makecpt
 from .modules import GMTDataArrayAccessor, config, info, grdinfo, which
-from .gridops import grdcut
+from .gridops import grdcut, grdfilter
+from .x2sys import x2sys_init, x2sys_cross
 from . import datasets
 
 

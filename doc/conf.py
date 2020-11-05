@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-import sys
-import os
-import glob
-import shutil
+"""
+Sphinx documentation configuration file.
+"""
+# pylint: disable=invalid-name
+
 import datetime
-import sphinx_rtd_theme
-import sphinx_gallery
-from sphinx_gallery.sorting import FileNameSortKey, ExplicitOrder
+from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
+    FileNameSortKey,
+    ExplicitOrder,
+)
 from pygmt import __version__, __commit__
 from pygmt.sphinx_gallery import PyGMTScraper
 
@@ -35,10 +37,8 @@ napoleon_use_ivar = True
 
 # configure links to GMT docs
 extlinks = {
-    "gmt-docs": (
-        "https://docs.generic-mapping-tools.org/latest/%s",
-        "https://docs.generic-mapping-tools.org/latest/",
-    )
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/latest/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/latest/gmt.conf#term-%s", ""),
 }
 
 # intersphinx configuration
@@ -60,6 +60,7 @@ sphinx_gallery_conf = {
     "gallery_dirs": ["gallery", "tutorials", "projections"],
     "subsection_order": ExplicitOrder(
         [
+            "../examples/gallery/line",
             "../examples/gallery/coast",
             "../examples/gallery/plot",
             "../examples/gallery/grid",
@@ -90,6 +91,7 @@ sphinx_gallery_conf = {
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "**.ipynb_checkpoints"]
 source_suffix = ".rst"
+needs_sphinx = "1.8"
 # The encoding of source files.
 source_encoding = "utf-8-sig"
 master_doc = "index"
@@ -97,11 +99,12 @@ master_doc = "index"
 # General information about the project
 year = datetime.date.today().year
 project = "PyGMT"
-copyright = "2017-{}, The PyGMT Developers.".format(year)
+copyright = f"2017-{year}, The PyGMT Developers."  # pylint: disable=redefined-builtin
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
 else:
     version = __version__
+release = __version__
 
 # These enable substitutions using |variable| in the rst files
 rst_epilog = """
@@ -116,6 +119,7 @@ html_short_title = "PyGMT"
 html_logo = ""
 html_favicon = "_static/favicon.png"
 html_static_path = ["_static"]
+html_css_files = ["style.css"]
 html_extra_path = []
 pygments_style = "default"
 add_function_parentheses = False
@@ -127,20 +131,21 @@ html_show_copyright = True
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
-commit_link = f'<a href="https://github.com/GenericMappingTools/pygmt/commit/{ __commit__ }">{ __commit__[:7] }</a>'
+repository_url = "https://github.com/GenericMappingTools/pygmt"
+commit_link = f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:7] }</a>'
 html_context = {
     "menu_links": [
         (
             '<i class="fa fa-users fa-fw"></i> Contributing',
-            "https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md",
+            f"{repository_url}/blob/master/CONTRIBUTING.md",
         ),
         (
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            "https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md",
+            f"{repository_url}/blob/master/CODE_OF_CONDUCT.md",
         ),
         (
             '<i class="fa fa-book fa-fw"></i> License',
-            "https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt",
+            f"{repository_url}/blob/master/LICENSE.txt",
         ),
         (
             '<i class="fa fa-comment fa-fw"></i> Contact',
@@ -148,7 +153,7 @@ html_context = {
         ),
         (
             '<i class="fa fa-github fa-fw"></i> Source Code',
-            "https://github.com/GenericMappingTools/pygmt",
+            repository_url,
         ),
     ],
     # Custom variables to enable "Improve this page"" and "Download notebook"
@@ -162,8 +167,3 @@ html_context = {
     "github_version": "master",
     "commit": commit_link,
 }
-
-
-# Load the custom CSS files (needs sphinx >= 1.6 for this to work)
-def setup(app):
-    app.add_stylesheet("style.css")

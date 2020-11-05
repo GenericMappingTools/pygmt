@@ -1,6 +1,7 @@
 """
 Non-plot GMT modules.
 """
+import numpy as np
 import xarray as xr
 
 from .clib import Session
@@ -16,6 +17,7 @@ from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
+@use_alias(V="verbose")
 def grdinfo(grid, **kwargs):
     """
     Get information about a grid.
@@ -28,6 +30,8 @@ def grdinfo(grid, **kwargs):
     ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
+
+    {V}
 
     Returns
     -------
@@ -54,19 +58,22 @@ def grdinfo(grid, **kwargs):
 
 
 @fmt_docstring
-@use_alias(C="per_column", I="spacing", T="nearest_multiple")
-def info(fname, **kwargs):
+@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose")
+def info(table, **kwargs):
     """
     Get information about data tables.
 
-    Reads from files and finds the extreme values in each of the columns.
-    It recognizes NaNs and will print warnings if the number of columns vary
-    from record to record. As an option, it will find the extent of the first
-    n columns rounded up and down to the nearest multiple of the supplied
-    increments. By default, this output will be in the form *-Rw/e/s/n*,
-    or the output will be in column form for as many columns as there are
-    increments provided. The *nearest_multiple* option will provide a
-    *-Tzmin/zmax/dz* string for makecpt.
+    Reads from files and finds the extreme values in each of the columns
+    reported as min/max pairs. It recognizes NaNs and will print warnings if
+    the number of columns vary from record to record. As an option, it will
+    find the extent of the first two columns rounded up and down to the nearest
+    multiple of the supplied increments given by *spacing*. Such output will be
+    in a numpy.ndarray form ``[w, e, s, n]``, which can be used directly as the
+    *region* argument for other modules (hence only dx and dy are needed). If
+    the *per_column* option is combined with *spacing*, then the numpy.ndarray
+    output will be rounded up/down for as many columns as there are increments
+    provided in *spacing*. A similar option *nearest_multiple* option will
+    provide a numpy.ndarray in the form of ``[zmin, zmax, dz]`` for makecpt.
 
     Full option list at :gmt-docs:`gmtinfo.html`
 
@@ -74,32 +81,68 @@ def info(fname, **kwargs):
 
     Parameters
     ----------
-    fname : str
-        The file name of the input data table file.
+    table : str or np.ndarray or pandas.DataFrame or xarray.Dataset
+        Pass in either a file name to an ASCII data table, a 1D/2D numpy array,
+        a pandas dataframe, or an xarray dataset made up of 1D xarray.DataArray
+        data variables.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
         ``'[b|p|f|s]dx[/dy[/dz...]]'``.
         Report the min/max of the first n columns to the nearest multiple of
-        the provided increments and output results in the form *-Rw/e/s/n*
-        (unless *per_column* is set).
+        the provided increments and output results in the form
+        ``[w, e, s, n]``.
     nearest_multiple : str
         ``'dz[+ccol]'``
         Report the min/max of the first (0'th) column to the nearest multiple
-        of dz and output this as the string *-Tzmin/zmax/dz*.
-    """
-    if not isinstance(fname, str):
-        raise GMTInvalidInput("'info' only accepts file names.")
+        of dz and output this in the form ``[zmin, zmax, dz]``.
 
-    with GMTTempFile() as tmpfile:
-        arg_str = " ".join([fname, build_arg_string(kwargs), "->" + tmpfile.name])
-        with Session() as lib:
-            lib.call_module("info", arg_str)
-        return tmpfile.read()
+    {V}
+
+    Returns
+    -------
+    output : np.ndarray or str
+        Return type depends on whether any of the 'per_column', 'spacing', or
+        'nearest_multiple' parameters are set.
+
+        - np.ndarray if either of the above parameters are used.
+        - str if none of the above parameters are used.
+    """
+    kind = data_kind(table)
+    with Session() as lib:
+        if kind == "file":
+            file_context = dummy_context(table)
+        elif kind == "matrix":
+            try:
+                # pandas.DataFrame and xarray.Dataset types
+                arrays = [array for _, array in table.items()]
+            except AttributeError:
+                # Python lists, tuples, and numpy ndarray types
+                arrays = np.atleast_2d(np.asanyarray(table).T)
+            file_context = lib.virtualfile_from_vectors(*arrays)
+        else:
+            raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
+
+        with GMTTempFile() as tmpfile:
+            with file_context as fname:
+                arg_str = " ".join(
+                    [fname, build_arg_string(kwargs), "->" + tmpfile.name]
+                )
+                lib.call_module("info", arg_str)
+            result = tmpfile.read()
+
+        if any(arg in kwargs for arg in ["C", "I", "T"]):
+            # Converts certain output types into a numpy array
+            # instead of a raw string that is less useful.
+            if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
+                result = result[2:].replace("/", " ")
+            result = np.loadtxt(result.splitlines())
+
+        return result
 
 
 @fmt_docstring
-@use_alias(G="download")
+@use_alias(G="download", V="verbose")
 def which(fname, **kwargs):
     """
     Find the full path to specified files.
@@ -127,6 +170,7 @@ def which(fname, **kwargs):
         it. Use True or 'l' (default) to download to the current directory. Use
         'c' to place in the user cache directory or 'u' user data directory
         instead.
+    {V}
 
     Returns
     -------

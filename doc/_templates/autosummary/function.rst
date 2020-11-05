@@ -4,6 +4,7 @@
 
 .. autofunction:: {{ objname }}
 
+.. include:: backreferences/{{ fullname }}.examples
 
 .. raw:: html
 

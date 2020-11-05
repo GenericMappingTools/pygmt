@@ -28,7 +28,7 @@ jobs:
           python-version: 3.7
 
       - name: Install packages
-        run: pip install black flake8 pylint
+        run: pip install black blackdoc flake8 pylint
 
       - name: Formatting check (black and flake8)
         run: make check
@@ -43,14 +43,19 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6, 3.7, 3.8]
-        #os: [ubuntu-latest, macOS-latest, windows-latest]
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
 
     steps:
+      # Cancel previous runs that are not completed
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
       # Checkout current git repository
       - name: Checkout
         uses: actions/checkout@v2.3.1
@@ -60,10 +65,11 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: goanpeca/setup-miniconda@v1.6.0
+        uses: conda-incubator/setup-miniconda@v1.7.0
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
+          miniconda-version: "latest"
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies
@@ -72,7 +78,7 @@ jobs:
           requirements_file=full-conda-requirements.txt
           cat requirements.txt requirements-dev.txt > $requirements_file
           cat << EOF >> $requirements_file
-          gmt=6.1.0
+          gmt=6.1.1
           make
           codecov
           EOF
@@ -83,39 +89,21 @@ jobs:
         shell: bash -l {0}
         run: conda list
 
-      # Cache the ${HOME}/.gmt directory, for docs and testing
-      - name: Cache GMT directory
-        uses: actions/cache@v2
-        id: cache
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
+        uses: dawidd6/action-download-artifact@v2.6.3
         with:
-          path: |
-            ~/.gmt/cache
-            ~/.gmt/server
-          key: cache-gmt-${{ runner.os }}-${{ github.ref }}-20200711
-          restore-keys: cache-gmt-${{ runner.os }}-refs/heads/master-
+          workflow: cache_data.yaml
+          name: gmt-cache
+          path: .gmt
 
-      # Workaround for the timeouts of 'gmt which' on Linux and Windows
-      - name: Download remote data using wget (Linux & Windows)
+      # Move downloaded files to ~/.gmt directory and list them
+      - name: Move and list downloaded remote files
         shell: bash -l {0}
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then choco install wget; fi  # install wget on Windows
-          mkdir -p ~/.gmt ~/.gmt/cache ~/.gmt/server/earth/earth_relief/
-          wget --no-check-certificate https://oceania.generic-mapping-tools.org/gmt_hash_server.txt -P ~/.gmt/server/
-          for data in earth_relief_01d_p.grd earth_relief_01d_g.grd earth_relief_30m_p.grd earth_relief_30m_g.grd earth_relief_10m_p.grd earth_relief_10m_g.grd; do
-            wget --no-check-certificate https://oceania.generic-mapping-tools.org/server/earth/earth_relief/${data} -P ~/.gmt/server/earth/earth_relief/
-          done
-          for data in ridge.txt Table_5_11.txt test.dat.nc tut_bathy.nc tut_quakes.ngdc tut_ship.xyz usgs_quakes_22.txt; do
-            wget --no-check-certificate https://oceania.generic-mapping-tools.org/cache/${data} -P ~/.gmt/cache/
-          done
-        if: steps.cache.outputs.cache-hit != 'true' && runner.os != 'macOS'
-
-      # Download remote files, if not already cached
-      - name: Download remote data (macOS)
-        shell: bash -l {0}
-        run: |
-          gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g @earth_relief_30m_p @earth_relief_30m_g @earth_relief_01d_p @earth_relief_01d_g
-          gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz @usgs_quakes_22.txt
-        if: steps.cache.outputs.cache-hit != 'true' && runner.os == 'macOS'
+          mkdir -p ~/.gmt
+          mv .gmt/* ~/.gmt
+          ls -lh ~/.gmt
 
       # Install the package that we want to test
       - name: Install the package
@@ -129,10 +117,18 @@ jobs:
         shell: bash -l {0}
         run: make test PYTEST_EXTRA="-r P"
 
+      # Upload diff images on test failure
+      - name: Upload diff images if any test fails
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: artifact-${{ runner.os }}-${{ matrix.python-version }}
+          path: tmp-test-dir-with-unique-name
+
       # Build the documentation
-      #- name: Build the documentation
-      #  shell: bash -l {0}
-      #  run: make -C doc clean all
+      - name: Build the documentation
+        shell: bash -l {0}
+        run: make -C doc clean all
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov

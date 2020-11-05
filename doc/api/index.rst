@@ -26,6 +26,7 @@ Plotting data and laying out the map:
     Figure.coast
     Figure.colorbar
     Figure.plot
+    Figure.plot3d
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
@@ -35,8 +36,9 @@ Plotting data and laying out the map:
     Figure.image
     Figure.shift_origin
     Figure.text
-    Figure.velo    
-
+    Figure.velo
+    Figure.meca
+    
 Color palette table generation:
 
 .. autosummary::
@@ -71,7 +73,16 @@ Operations on grids:
     :toctree: generated
 
     grdcut
+    grdfilter
     grdtrack
+
+Crossover analysis with x2sys:
+
+.. autosummary::
+    :toctree: generated
+
+    x2sys_init
+    x2sys_cross
 
 GMT Defaults
 ------------

@@ -9,7 +9,7 @@ Installing
 
     We welcome any feedback and ideas!
     Let us know by submitting
-    `issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
+    `issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
     or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 
@@ -31,7 +31,7 @@ Which GMT?
 PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the latest
 released version that can be found at
 the `GMT official site <https://www.generic-mapping-tools.org>`__.
-We need the latest GMT (>=6.1.0) since there are many changes being made to GMT itself in
+We need the latest GMT (>=6.1.1) since there are many changes being made to GMT itself in
 response to the development of PyGMT, mainly the new
 `modern execution mode <https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode>`__.
 
@@ -98,7 +98,7 @@ or use ``pip`` to install from `PyPI <https://pypi.org/project/pygmt>`__::
 
     pip install pygmt
 
-Alternatively, you can install the development version from the Github repository::
+Alternatively, you can install the development version from the GitHub repository::
 
     pip install https://github.com/GenericMappingTools/pygmt/archive/master.zip
 

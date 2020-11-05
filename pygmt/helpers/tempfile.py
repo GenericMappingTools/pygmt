@@ -45,11 +45,12 @@ class GMTTempFile:
     >>> with GMTTempFile() as tmpfile:
     ...     # write data to temporary file
     ...     x = y = z = np.arange(0, 3, 1)
-    ...     np.savetxt(tmpfile.name, (x, y, z), fmt='%.1f')
+    ...     np.savetxt(tmpfile.name, (x, y, z), fmt="%.1f")
     ...     lines = tmpfile.read()
     ...     print(lines)
     ...     nx, ny, nz = tmpfile.loadtxt(unpack=True, dtype=float)
     ...     print(nx, ny, nz)
+    ...
     0.0 1.0 2.0
     0.0 1.0 2.0
     0.0 1.0 2.0

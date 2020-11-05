@@ -2,6 +2,7 @@
 Functions to convert data types into ctypes friendly formats.
 """
 import numpy as np
+import pandas as pd
 
 from ..exceptions import GMTInvalidInput
 
@@ -46,10 +47,10 @@ def dataarray_to_matrix(grid):
 
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
-    >>> grid = load_earth_relief(resolution='01d')
+    >>> grid = load_earth_relief(resolution="01d")
     >>> matrix, region, inc = dataarray_to_matrix(grid)
     >>> print(region)
-    [-179.5, 179.5, -89.5, 89.5]
+    [-180.0, 180.0, -90.0, 90.0]
     >>> print(inc)
     [1.0, 1.0]
     >>> type(matrix)
@@ -60,23 +61,23 @@ def dataarray_to_matrix(grid):
     True
     >>> # Using a slice of the grid, the matrix will be copied to guarantee
     >>> # that it's C-contiguous in memory. The increment should be unchanged.
-    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41,30:101])
+    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41, 30:101])
     >>> matrix.flags.c_contiguous
     True
     >>> print(matrix.shape)
     (31, 71)
     >>> print(region)
-    [-149.5, -79.5, -79.5, -49.5]
+    [-150.0, -79.0, -80.0, -49.0]
     >>> print(inc)
     [1.0, 1.0]
     >>> # but not if only taking every other grid point.
-    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41:2,30:101:2])
+    >>> matrix, region, inc = dataarray_to_matrix(grid[10:41:2, 30:101:2])
     >>> matrix.flags.c_contiguous
     True
     >>> print(matrix.shape)
     (16, 36)
     >>> print(region)
-    [-149.5, -79.5, -79.5, -49.5]
+    [-150.5, -78.5, -80.5, -48.5]
     >>> print(inc)
     [2.0, 2.0]
 
@@ -101,14 +102,19 @@ def dataarray_to_matrix(grid):
                     dim
                 )
             )
-        region.extend([coord.min(), coord.max()])
+        region.extend(
+            [
+                coord.min() - coord_inc / 2 * grid.gmt.registration,
+                coord.max() + coord_inc / 2 * grid.gmt.registration,
+            ]
+        )
         inc.append(coord_inc)
 
-    if any([i < 0 for i in inc]):  # Sort grid when there are negative increments
+    if any(i < 0 for i in inc):  # Sort grid when there are negative increments
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
-    matrix = as_c_contiguous(grid.values[::-1])
+    matrix = as_c_contiguous(grid[::-1].values)
     return matrix, region, inc
 
 
@@ -225,11 +231,12 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
     --------
 
     >>> import ctypes as ct
-    >>> value = kwargs_to_ctypes_array('bla', {'bla': [10, 10]}, ct.c_long*2)
+    >>> value = kwargs_to_ctypes_array("bla", {"bla": [10, 10]}, ct.c_long * 2)
     >>> type(value)
     <class 'pygmt.clib.conversion.c_long_Array_2'>
     >>> should_be_none = kwargs_to_ctypes_array(
-    ...     'swallow', {'bla': 1, 'foo': [20, 30]}, ct.c_int*2)
+    ...     "swallow", {"bla": 1, "foo": [20, 30]}, ct.c_int * 2
+    ... )
     >>> print(should_be_none)
     None
 
@@ -237,3 +244,82 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
     if argument in kwargs:
         return dtype(*kwargs[argument])
     return None
+
+
+def array_to_datetime(array):
+    """
+    Convert an 1d datetime array from various types into pandas.DatetimeIndex
+    (i.e., numpy.datetime64).
+
+    If the input array is not in legal datetime formats, raise a "ParseError"
+    exception.
+
+    Parameters
+    ----------
+    array : list or 1d array
+        The input datetime array in various formats.
+
+        Supported types:
+
+        - str
+        - numpy.datetime64
+        - pandas.DateTimeIndex
+        - datetime.datetime and datetime.date
+
+    Returns
+    -------
+    array : 1d datetime array in pandas.DatetimeIndex (i.e., numpy.datetime64)
+
+    Examples
+    --------
+    >>> import datetime
+    >>> # numpy.datetime64 array
+    >>> x = np.array(
+    ...     ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
+    ...     dtype="datetime64",
+    ... )
+    >>> array_to_datetime(x)
+    DatetimeIndex(['2010-06-01 00:00:00', '2011-06-01 12:00:00',
+                   '2012-01-01 12:34:56'],
+                  dtype='datetime64[ns]', freq=None)
+
+    >>> # pandas.DateTimeIndex array
+    >>> x = pd.date_range("2013", freq="YS", periods=3)
+    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
+    DatetimeIndex(['2013-01-01', '2014-01-01', '2015-01-01'],
+                  dtype='datetime64[ns]', freq='AS-JAN')
+
+    >>> # Python's built-in date and datetime
+    >>> x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
+    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
+    DatetimeIndex(['2018-01-01', '2019-01-01'],
+        dtype='datetime64[ns]', freq=None)
+
+    >>> # Raw datetime strings in various format
+    >>> x = [
+    ...     "2018",
+    ...     "2018-02",
+    ...     "2018-03-01",
+    ...     "2018-04-01T01:02:03",
+    ...     "5/1/2018",
+    ...     "Jun 05, 2018",
+    ...     "2018/07/02",
+    ... ]
+    >>> array_to_datetime(x)
+    DatetimeIndex(['2018-01-01 00:00:00', '2018-02-01 00:00:00',
+                   '2018-03-01 00:00:00', '2018-04-01 01:02:03',
+                   '2018-05-01 00:00:00', '2018-06-05 00:00:00',
+                   '2018-07-02 00:00:00'],
+                  dtype='datetime64[ns]', freq=None)
+
+    >>> # Mixed datetime types
+    >>> x = [
+    ...     "2018-01-01",
+    ...     np.datetime64("2018-01-01"),
+    ...     datetime.datetime(2018, 1, 1),
+    ... ]
+    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
+    DatetimeIndex(['2018-01-01', '2018-01-01', '2018-01-01'],
+                  dtype='datetime64[ns]', freq=None)
+    """
+    return pd.to_datetime(array)

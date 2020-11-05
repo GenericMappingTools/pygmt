@@ -6,17 +6,14 @@ import pytest
 from .. import Figure, config
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
 @pytest.mark.mpl_image_compare
 def test_config():
     """
     Test if config works globally and locally.
     """
-    # Change global settings
-    config(FONT_ANNOT_PRIMARY="blue")
     fig = Figure()
+    # Change global settings of current figure
+    config(FONT_ANNOT_PRIMARY="blue")
     fig.basemap(
         region="0/10/0/10", projection="X10c/10c", frame=["af", '+t"Blue Annotation"']
     )
@@ -35,7 +32,7 @@ def test_config():
         frame=["af", '+t"Blue Annotation"'],
         X="15c",
     )
-    # Revert to default settings
+    # Revert to default settings in current figure
     config(FONT_ANNOT_PRIMARY="black")
     return fig
 

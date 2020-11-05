@@ -43,21 +43,21 @@ class Figure(BasePlotting):
     --------
 
     >>> fig = Figure()
-    >>> fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
+    >>> fig.basemap(region=[0, 360, -90, 90], projection="W7i", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
     >>> import os
-    >>> os.path.exists('my-figure.png')
+    >>> os.path.exists("my-figure.png")
     True
-    >>> os.remove('my-figure.png')
+    >>> os.remove("my-figure.png")
 
     The plot region can be specified through ISO country codes (for example,
     ``'JP'`` for Japan):
 
     >>> fig = Figure()
-    >>> fig.basemap(region='JP', projection="M3i", frame=True)
+    >>> fig.basemap(region="JP", projection="M3i", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
-    >>> print(', '.join('{:.2f}'.format(i)  for i in fig.region))
+    >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
     122.94, 145.82, 20.53, 45.52
 
     """
@@ -298,7 +298,7 @@ class Figure(BasePlotting):
         Shift plot origin in x and/or y directions.
 
         This method shifts plot origin relative to the current origin by
-        (*xshift*,*yshift*) and optionally append the length unit (**c**,
+        (*xshift*, *yshift*) and optionally append the length unit (**c**,
         **i**, or **p**).
 
         Prepend **a** to shift the origin back to the original position after
@@ -308,7 +308,7 @@ class Figure(BasePlotting):
         move the origin relative to its current location.
 
         Detailed usage at
-        :gmt-docs:`GMT_Docs.html#plot-positioning-and-layout-the-x-y-options`
+        :gmt-docs:`cookbook/options.html#plot-positioning-and-layout-the-x-y-options`
 
         Parameters
         ----------

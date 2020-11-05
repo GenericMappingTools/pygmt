@@ -23,6 +23,8 @@ def test_surface_input_file():
     fname = which("@tut_ship.xyz", download="c")
     output = surface(data=fname, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)
+    assert output.gmt.registration == 0  # Gridline registration
+    assert output.gmt.gtype == 0  # Cartesian type
     return output
 
 
