@@ -479,7 +479,7 @@ class BasePlotting:
             controlled by `PROJ_LENGTH_UNIT <https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-proj-length-unit>`_
             unless **c**, **i** , or **p** is appended).
 
-            "**-Se**\ *velscale/confidence*\ [\ **+f**\ font]"
+            r"**e**\ *velscale/confidence*\ [\ **+f**\ font]"
 
                 Velocity ellipses in (N,E) convention. velscale sets the
                 scaling of the velocity arrows. The confidence sets the
@@ -498,7 +498,7 @@ class BasePlotting:
                     **7**: correlation between eastward and northward components
                     **8**: name of station (optional).
 
-            "**-Sn**\ *barscale*"
+            r"**n**\ *barscale*"
 
                 Anisotropy bars. barscale sets the scaling of the bars.
                 Parameters are expected to be in the following columns:
@@ -506,7 +506,7 @@ class BasePlotting:
                     order) **3,4** : eastward, northward components of anisotropy
                     vector (-: option interchanges order)
 
-            "**-Sr**\ *velscale/confidence*\ [\ **+f**\ font]"
+            r"**r**\ *velscale/confidence*\ [\ **+f**\ font]"
 
                 Velocity ellipses in rotated convention. velscale sets the
                 scaling of the velocity arrows. The confidence sets the
@@ -523,7 +523,7 @@ class BasePlotting:
                     **7**: counter-clockwise angle, in degrees, from horizontal
                     axis to major axis of ellipse. 8: name of station (optional)
 
-            "**-Sw**\ *wedgescale/wedgemag*"
+            r"**w**\ *wedgescale/wedgemag*"
 
                 Rotational wedges. wedgescale sets the size of the wedges.
                 Values are multiplied by wedgemag before plotting. For example,
@@ -536,7 +536,7 @@ class BasePlotting:
                     interchanges order) **3**: rotation in radians **4**: rotation
                     uncertainty in radians
 
-            "**-Sx**\ *cross_scale*"
+            r"**x**\ *cross_scale*"
 
                 gives Strain crosses. cross_scale sets the size of the cross.
                 Parameters are expected to be in the following columns:
