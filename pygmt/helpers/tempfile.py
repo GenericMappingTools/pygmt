@@ -50,6 +50,7 @@ class GMTTempFile:
     ...     print(lines)
     ...     nx, ny, nz = tmpfile.loadtxt(unpack=True, dtype=float)
     ...     print(nx, ny, nz)
+    ...
     0.0 1.0 2.0
     0.0 1.0 2.0
     0.0 1.0 2.0

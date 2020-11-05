@@ -96,6 +96,7 @@ def dummy_context(arg):
 
     >>> with dummy_context("some argument") as temp:
     ...     print(temp)
+    ...
     some argument
 
     """
