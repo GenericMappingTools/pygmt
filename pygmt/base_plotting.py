@@ -1921,11 +1921,22 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region",
-        J="projection",
+        A="vector",
         B="frame",
         C="cmap",
+        D="rescale",
+        E="uncertainty_color",
+        G="facecolor",
+        J="projection",
+        L="line",
+        N="no_clip",
+        R="region",
+        S="scaling",
         U="timestamp",
+        V="verbose",
+        W="pen",
+        X="xshift",
+        Y="yshift",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
     def velo(self, data=None, scaling=None, **kwargs):
@@ -1958,7 +1969,7 @@ class BasePlotting:
             controlled by `PROJ_LENGTH_UNIT <https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-proj-length-unit>`_
             unless **c**, **i** , or **p** is appended).
 
-            r"**e**\ *velscale/confidence*\ [\ **+f**\ font]"
+            "**e**\\ *velscale/confidence*\\ [\\ **+f**\\ font]"
 
                 Velocity ellipses in (N,E) convention. velscale sets the
                 scaling of the velocity arrows. The confidence sets the
@@ -1977,7 +1988,7 @@ class BasePlotting:
                     **7**: correlation between eastward and northward components
                     **8**: name of station (optional).
 
-            r"**n**\ *barscale*"
+            "**n**\\ *barscale*"
 
                 Anisotropy bars. barscale sets the scaling of the bars.
                 Parameters are expected to be in the following columns:
@@ -1985,7 +1996,7 @@ class BasePlotting:
                     order) **3,4** : eastward, northward components of anisotropy
                     vector (-: option interchanges order)
 
-            r"**r**\ *velscale/confidence*\ [\ **+f**\ font]"
+            "**r**\\ *velscale/confidence*\\ [\\ **+f**\\ font]"
 
                 Velocity ellipses in rotated convention. velscale sets the
                 scaling of the velocity arrows. The confidence sets the
@@ -2002,7 +2013,7 @@ class BasePlotting:
                     **7**: counter-clockwise angle, in degrees, from horizontal
                     axis to major axis of ellipse. 8: name of station (optional)
 
-            r"**w**\ *wedgescale/wedgemag*"
+            "**w**\\ *wedgescale/wedgemag*"
 
                 Rotational wedges. wedgescale sets the size of the wedges.
                 Values are multiplied by wedgemag before plotting. For example,
@@ -2015,7 +2026,7 @@ class BasePlotting:
                     interchanges order) **3**: rotation in radians **4**: rotation
                     uncertainty in radians
 
-            r"**x**\ *cross_scale*"
+            "**x**\\ *cross_scale*"
 
                 gives Strain crosses. cross_scale sets the size of the cross.
                 Parameters are expected to be in the following columns:
@@ -2029,7 +2040,7 @@ class BasePlotting:
 
         Other Parameters
         ----------------
-        -A : bool or str
+        vector : bool or str
             Modify vector parameters. For vector heads, append vector head size
             [Default is 9p]. See `Vector Attributes <gmt-docs:supplements/geodesy/velo.html#vector-attributes>`_
             for specifying additional attributes.
@@ -2038,39 +2049,41 @@ class BasePlotting:
 
         {CPT}
 
-        -D : str
+        rescale : str
             can be used to rescale the uncertainties of velocities
             (-Se and -Sr) and rotations (-Sw).
             Can be combined with the confidence variable.
 
-        -E : str
+        uncertainty_color : str
             Sets the color or shade used for filling uncertainty wedges
             (-Sw) or velocity error ellipses (-Se or -Sr). [If -E is not
             specified, the uncertainty regions will be transparent.]
             `(more ...) <https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gfill-attrib>`_
 
-        -G : str
+        facecolor : str
             Select color or pattern for filling of symbols or polygons
             [Default is no fill]. `(more ...) <https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gfill-attrib>`_
 
-        -L: str
+        line: str
             Draw lines. Ellipses and fault planes will have their outlines drawn
             using current pen (see -W).
 
-        -N: str
+        no_clip: str
             Do NOT skip symbols that fall outside the frame boundary specified
             by -R. [Default plots symbols inside frame only].
 
+        pen : str
+            Set pen attributes for velocity arrows, ellipse circumference and
+            fault plane edges. [Defaults: width = default, color = black, style = solid].
+
         {U}
 
-        -W: str
-            Set pen attributes for velocity arrows, ellipse circumference and
-            ault plane edges. [Defaults: width = default, color = black, style = solid].
+        {V}
 
-        -X: str
+        xshift: str
             ``'[a|c|f|r][xshift]'``
 
-        -Y: str
+        yshift: str
             ``'[a|c|f|r][yshift]'``
             Shift plot origin. `(more ...) <https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full>`_
 

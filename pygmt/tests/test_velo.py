@@ -28,13 +28,13 @@ def test_velo_pandas_dataframe():
     fig.velo(
         data=df.to_numpy(),
         region=[-10, 10, -10, 10],
-        W="0.25p,red",
-        G="green",
-        L=True,
-        S="e0.2/0.39/18",
+        pen="0.25p,red",
+        facecolor="green",
+        line=True,
+        scaling="e0.2/0.39/18",
         frame="1g1",
         projection="x0.4/0.4",
-        A="0.3p",
-        V=True,
+        vector="0.3p",
+        verbose=True,
     )
     return fig
