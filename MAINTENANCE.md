@@ -47,7 +47,7 @@ conda and the `Makefile` to run the tests and checks.
 
 ### GitHub Actions
 
-There are 3 configuration files located in `.github/workflows`:
+There are 4 configuration files located in `.github/workflows`:
 
 1. `ci_tests.yaml` (Style Checks, Tests on Linux/macOS/Windows)
 
@@ -65,14 +65,20 @@ This is scheduled to run every Sunday at 12 noon.
 If new remote files are needed urgently, maintainers can manually uncomment
 the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
+4. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
+
+This workflow is ran to publish wheels to PyPI and TestPyPI (for testing only).
+Archives will be pushed to TestPyPI on every commit to the *master* branch and
+tagged releases, and to PyPI for tagged releases only.
+
+
 ### Travis CI
 
 The configuration file is at `.travis.yml`.
-Travis runs tests (Linux only) and handles all of our deployments automatically:
+Travis runs tests (Linux only) and handles the documentation deployment automatically:
 
 * Updating the development documentation by pushing the built HTML pages from the
   *master* branch onto the `dev` folder of the *gh-pages* branch.
-* Uploading new releases to PyPI (only when the build was triggered by a git tag).
 * Updated the `latest` documentation link to the new release.
 
 This way, most day-to-day maintenance operations are automatic.
