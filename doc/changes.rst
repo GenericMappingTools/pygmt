@@ -71,9 +71,10 @@ Release v0.2.1 (2020/XX/XX)
 
 ## Contributors
 
-@carocamargo, @hemmelig, @seisman and @weiji14
-
-
+* `Dongdong Tian <https://github.com/seisman>`__
+* `Wei Ji Leong <https://github.com/weiji14>`__
+* `Conor Bacon <https://github.com/hemmelig>`__
+* `carocamargo <https://github.com/carocamargo>`__
 
 Release v0.2.0 (2020/09/12)
 ---------------------------
