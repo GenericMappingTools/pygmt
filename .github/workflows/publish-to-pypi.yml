@@ -1,6 +1,15 @@
+# Workflow for publishing archives to PyPI
 name: Publish to PyPI
 
-on: push
+on:
+  # Runs for pull requests for testing purposes
+  pull_request:
+    branches:
+      - master
+  # Only runs for releases
+  release:
+    types:
+      - published
 
 jobs:
   publish-pypi:
@@ -15,33 +24,38 @@ jobs:
         fetch-depth: 0
 
     - name: Set up Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
 
     - name: Install dependencies
-      run: pip install wheel
+      run: python -m pip install setuptools wheel
 
-    - name: Build source and wheel distributions
+    - name: Fix up version string
       run: |
         # Change the versioneer format to "pre" so that the commit hash isn't
         # included (PyPI doesn't allow it). Can't do this permanently because
         # we rely the hash to indicate to the tests that this is a local
         # verison instead of a published version.
+        #
+        # The step is only necessary for testing purpose
         sed --in-place "s/pep440/pep440-pre/g" setup.cfg
+
+    - name: Build source and wheel distributions
+      run: |
         python setup.py sdist bdist_wheel
         echo ""
         echo "Generated files:"
         ls -lh dist/
 
     - name: Publish to Test PyPI
-      uses: pypa/gh-action-pypi-publish@master
+      uses: pypa/gh-action-pypi-publish@v1.4.1
       with:
         password: ${{ secrets.test_pypi_password }}
         repository_url: https://test.pypi.org/legacy/
 
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
+      uses: pypa/gh-action-pypi-publish@v1.4.1
       with:
         password: ${{ secrets.pypi_password }}
