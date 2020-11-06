@@ -8,23 +8,21 @@ Release v0.2.1 (2020/XX/XX)
    :alt: Digital Object Identifier for the Zenodo archive
    :target: https://doi.org/10.5281/zenodo.4025418
 
-## Highlights
+Highlights
 
 *
 
-## New Features
+New Features
 
 * Wrap plot3d (#471)
 * Wrap grdfilter (#616)
 
-## Enhancements
+Enhancements
 
 * Let plot() accept record-by-record transparency (#626)
 * Refactor info to allow datetime inputs from xarray.Dataset and pandas.DataFrame tables (#619)
 
-## Documentation
-
-### Tutorials & Gallery
+Tutorials & Gallery
 
 * Add Liam's ROSES 2020 PyGMT talk to website (#643)
 * Add tutorial for pygmt.config (#482)
@@ -34,7 +32,7 @@ Release v0.2.1 (2020/XX/XX)
 * Add an example for scatter plots with auto legends (#607)
 * Improve colorbar gallery example (#596)
 
-### Improvements
+Documentation Improvements
 
 * doc: Fix the description of grdcontour -G option (#681)
 * Refresh Code of Conduct from v1.4 to v2.0 (#673)
@@ -52,11 +50,11 @@ Release v0.2.1 (2020/XX/XX)
 * Enable switching different versions of documentation (#621)
 * Add common alias transparency (-t) to all plotting functions (#614)
 
-## Bug Fixes
+Bug Fixes
 
 * Disallow passing arguments like -XNone to GMT (#639)
 
-## Maintenance
+Maintenance
 
 * Migrate PyPI release to GitHub Actions (#679)
 * Upload artifacts showing diff images on test failure (#675)
@@ -69,7 +67,7 @@ Release v0.2.1 (2020/XX/XX)
 * Improve Makefile to clean ``__pycache__`` directory recursively (#611)
 * Update release process and checklist template (#602)
 
-## Contributors
+This release contains contributions from:
 
 * `Dongdong Tian <https://github.com/seisman>`__
 * `Wei Ji Leong <https://github.com/weiji14>`__
