@@ -1937,14 +1937,17 @@ class BasePlotting:
         W="pen",
         X="xshift",
         Y="yshift",
+        p="perspective",
+        t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
     def velo(self, data=None, scaling=None, **kwargs):
         """
         Plot velocity vectors, crosses, and wedges
 
-        Reads data values from files, numpy array or panda dataframe and will plot velocity
-        arrows on a map. Most options are the same as for plot, except -S.
+        Reads data values from files, numpy array or pandas DataFrame and will
+        plot velocity arrows on a map. Most options are the same as for plot,
+        except *scaling*.
 
         Must provide  *data* and *scaling*.
 
@@ -1955,8 +1958,9 @@ class BasePlotting:
 
         Parameters
         ----------
-        data : str or 2d array or dataframe
-            Either a data file name, a 2d numpy array or a panda dataframe.
+        data : str or np.ndarray or pandas.DataFrame
+            Pass in either a file name, a 2D numpy array, or a pandas dataframe
+            table.
 
         {J}
 
@@ -1964,10 +1968,10 @@ class BasePlotting:
 
         scaling: str
             Selects the meaning of the columns in the data file and the figure
-            to be plotted. In all cases, the scales are in data units per length
-            unit and sizes are in length units (default length unit is
-            controlled by `PROJ_LENGTH_UNIT <https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-proj-length-unit>`_
-            unless **c**, **i** , or **p** is appended).
+            to be plotted. In all cases, the scales are in data units per
+            length unit and sizes are in length units (default length unit is
+            controlled by :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i** , or
+            **p** is appended).
 
             "**e**\\ *velscale/confidence*\\ [\\ **+f**\\ font]"
 
@@ -2042,8 +2046,8 @@ class BasePlotting:
         ----------------
         vector : bool or str
             Modify vector parameters. For vector heads, append vector head size
-            [Default is 9p]. See `Vector Attributes <gmt-docs:supplements/geodesy/velo.html#vector-attributes>`_
-            for specifying additional attributes.
+            [Default is 9p]. For specifying additional attributes, see
+            :gmt-docs:`supplements/geodesy/velo.html#vector-attributes`.
 
         {B}
 
@@ -2077,17 +2081,10 @@ class BasePlotting:
             fault plane edges. [Defaults: width = default, color = black, style = solid].
 
         {U}
-
         {V}
-
-        xshift: str
-            ``'[a|c|f|r][xshift]'``
-
-        yshift: str
-            ``'[a|c|f|r][yshift]'``
-            Shift plot origin. `(more ...) <https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full>`_
-
-
+        {XY}
+        {p}
+        {t}
         """
         kwargs = self._preprocess(**kwargs)
 
