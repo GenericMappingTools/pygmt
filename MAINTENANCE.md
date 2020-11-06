@@ -65,10 +65,10 @@ This is scheduled to run every Sunday at 12 noon.
 If new remote files are needed urgently, maintainers can manually uncomment
 the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
-4. `publish-to-pypi.yml` (Publish archives to PyPI and TestPyPI)
+4. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
 
-This workflow is ran to publish archives to PyPI and TestPyPI (for testing only).
-Archives will be pushed to TestPyPI for every commit on the *master* branch and
+This workflow is ran to publish wheels to PyPI and TestPyPI (for testing only).
+Archives will be pushed to TestPyPI on every commit to the *master* branch and
 tagged releases, and to PyPI for tagged releases only.
 
 
