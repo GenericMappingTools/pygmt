@@ -1,15 +1,19 @@
-# Workflow for publishing archives to PyPI
+# Publish archives to PyPI and TestPyPI using GitHub Actions
+
 name: Publish to PyPI
 
+# Only run for pushes to the master branch and releases.
 on:
-  # Runs for pull requests for testing purposes
-  pull_request:
+  push:
     branches:
       - master
-  # Only runs for releases
   release:
     types:
       - published
+  # Runs for pull requests should be disable unless for testing purposes
+  pull_request:
+    branches:
+      - master
 
 jobs:
   publish-pypi:
