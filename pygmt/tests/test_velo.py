@@ -8,9 +8,9 @@ from pygmt import Figure
 
 
 @pytest.mark.mpl_image_compare
-def test_velo_pandas_dataframe():
+def test_velo_arrow_ellipse_pandas_df():
     """
-    Plot velocity vectors, crosses, and wedges from a pandas.DataFrame
+    Plot velocity arrow and confidence ellipse from a pandas.DataFrame
     """
     fig = Figure()
     dframe = pd.DataFrame(
@@ -28,13 +28,13 @@ def test_velo_pandas_dataframe():
     fig.velo(
         data=dframe.to_numpy(),
         region=[-10, 10, -10, 10],
-        pen="0.25p,red",
-        facecolor="green",
+        pen="0.6p,red",
+        uncertainty_color="green",
         line=True,
         scaling="e0.2/0.39/18",
         frame="1g1",
         projection="x0.4/0.4",
-        vector="0.3p",
+        vector="0.3c+p1p+e+gred",
         verbose=True,
     )
     return fig
