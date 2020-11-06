@@ -14,6 +14,7 @@ assignees: ''
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Update Changelog
 - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
+- [ ] Update citation information https://github.com/GenericMappingTools/pygmt#citing-pygmt
 
 **Release**:
 - [ ] Go to [GitHub Release](https://github.com/GenericMappingTools/pygmt/releases) and make a release, this will automatically create a tag too
