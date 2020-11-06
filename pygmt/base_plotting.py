@@ -300,7 +300,6 @@ class BasePlotting:
             The required argument controls the placement of labels along the
             quoted lines. It supports five controlling algorithms. See
             :gmt-docs:`grdcontour.html#g` for details.
-        {G}
         {U}
         {V}
         {W}
