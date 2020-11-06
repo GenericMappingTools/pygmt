@@ -4,9 +4,9 @@ Changelog
 Release v0.2.1 (2020/XX/XX)
 ---------------------------
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4025418.svg
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4253459.svg
    :alt: Digital Object Identifier for the Zenodo archive
-   :target: https://doi.org/10.5281/zenodo.4025418
+   :target: https://doi.org/10.5281/zenodo.4253459
 
 Highlights
 
