@@ -10,10 +10,10 @@ on:
   release:
     types:
       - published
-  # Runs for pull requests should be disable unless for testing purposes
-  pull_request:
-    branches:
-      - master
+  # Runs for pull requests should be disabled other than for testing purposes
+  #pull_request:
+  #  branches:
+  #    - master
 
 jobs:
   publish-pypi:
