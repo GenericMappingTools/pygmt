@@ -39,8 +39,8 @@ jobs:
       run: |
         # Change the versioneer format to "pre" so that the commit hash isn't
         # included (PyPI doesn't allow it). Can't do this permanently because
-        # we rely the hash to indicate to the tests that this is a local
-        # verison instead of a published version.
+        # we rely on the hash to tell the tests that this is a local version
+        # instead of a published version.
         #
         # The step is only necessary for testing purpose
         sed --in-place "s/pep440/pep440-pre/g" setup.cfg
