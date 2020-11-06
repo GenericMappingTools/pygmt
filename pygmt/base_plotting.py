@@ -2104,6 +2104,13 @@ class BasePlotting:
             extra_arrays.append(kwargs["G"])
             del kwargs["G"]
 
+        if scaling is not None:
+            if not isinstance(scaling,str):
+                raise GMTInvalidInput(
+                    "scaling has to be a string."
+                )
+            extra_arrays.append(scaling)
+
         with Session() as lib:
             # Choose how data will be passed in to the module
             if kind == "file":

@@ -13,7 +13,7 @@ def test_velo_pandas_dataframe():
     Plot velocity vectors, crosses, and wedges from a pandas.DataFrame
     """
     fig = Figure()
-    df = pd.DataFrame(
+    dframe = pd.DataFrame(
         data={
             "Long.": [0, -8, 0, -5, 5, 0],
             "Lat.": [-8, 5, 0, -5, 0, -5],
@@ -26,7 +26,7 @@ def test_velo_pandas_dataframe():
         }
     )
     fig.velo(
-        data=df.to_numpy(),
+        data=dframe.to_numpy(),
         region=[-10, 10, -10, 10],
         pen="0.25p,red",
         facecolor="green",
