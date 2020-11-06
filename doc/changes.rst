@@ -10,7 +10,8 @@ Release v0.2.1 (2020/XX/XX)
 
 Highlights
 
-*
+* 🎉 **Patch release with more tutorials and gallery examples!** 🎉
+* 📹 Add `Liam <https://github.com/liamtoney>`__'s `ROSES 2020 PyGMT talk <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ (#643)
 
 New Features
 
@@ -24,7 +25,6 @@ Enhancements
 
 Tutorials & Gallery
 
-* Add Liam's ROSES 2020 PyGMT talk to website (#643)
 * Add tutorial for pygmt.config (#482)
 * Add an example for different line styles (#604, #664)
 * Add a gallery example for varying transparent points (#654)
