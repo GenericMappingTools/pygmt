@@ -1985,20 +1985,21 @@ class BasePlotting:
                 with the pen attributes specified by the -W option. Parameters
                 are expected to be in the following columns:
 
-                    **1,2**: longitude, latitude of station (-: option interchanges
-                    order) **3,4**: eastward, northward velocity (-: option
-                    interchanges order) **5,6**: uncertainty of eastward, northward
-                    velocities (1-sigma) (-: option interchanges order)
-                    **7**: correlation between eastward and northward components
-                    **8**: name of station (optional).
+                    **1,2**: longitude, latitude of station (-: option
+                    interchanges order) **3,4**: eastward, northward velocity
+                    (-: option interchanges order) **5,6**: uncertainty of
+                    eastward, northward velocities (1-sigma, -: option
+                    interchanges order)  **7**: correlation between eastward
+                    and northward components **8**: name of station (optional).
 
             "**n**\\ *barscale*"
 
                 Anisotropy bars. barscale sets the scaling of the bars.
                 Parameters are expected to be in the following columns:
-                    **1,2** : longitude, latitude of station (-: option interchanges
-                    order) **3,4** : eastward, northward components of anisotropy
-                    vector (-: option interchanges order)
+                    **1,2** : longitude, latitude of station (-: option
+                    interchanges order) **3,4** : eastward, northward
+                    components of anisotropy vector (-: option interchanges
+                    order)
 
             "**r**\\ *velscale/confidence*\\ [\\ **+f**\\ font]"
 
@@ -2011,34 +2012,35 @@ class BasePlotting:
                 The arrow and the circumference of the ellipse will be drawn
                 with the pen attributes specified by the -W option. Parameters
                 are expected to be in the following columns:
-                    **1,2**: longitude, latitude, of station (-: option interchanges
-                    order) **3,4**: eastward, northward velocity (-: option
-                    interchanges order) **5,6**: semi-major, semi-minor axes
-                    **7**: counter-clockwise angle, in degrees, from horizontal
-                    axis to major axis of ellipse. 8: name of station (optional)
+                    **1,2**: longitude, latitude, of station (-: option
+                    interchanges order) **3,4**: eastward, northward velocity
+                    (-: option interchanges order) **5,6**: semi-major,
+                    semi-minor axes **7**: counter-clockwise angle, in degrees,
+                    from horizontal axis to major axis of ellipse. 8: name of
+                    station (optional)
 
             "**w**\\ *wedgescale/wedgemag*"
 
                 Rotational wedges. wedgescale sets the size of the wedges.
                 Values are multiplied by wedgemag before plotting. For example,
                 setting wedgemag to 1.e7 works well for rotations of the order
-                of 100 nanoradians/yr. Use **-G** to set the fill color or shade
-                for the wedge, and **-E** to set the color or shade for the
-                uncertainty. Parameters are expected to be in the
+                of 100 nanoradians/yr. Use **-G** to set the fill color or
+                shade for the wedge, and **-E** to set the color or shade for
+                the uncertainty. Parameters are expected to be in the
                 following columns:
                     **1,2**: longitude, latitude, of station (-: option
-                    interchanges order) **3**: rotation in radians **4**: rotation
-                    uncertainty in radians
+                    interchanges order) **3**: rotation in radians
+                    **4**: rotation uncertainty in radians
 
             "**x**\\ *cross_scale*"
 
                 gives Strain crosses. cross_scale sets the size of the cross.
                 Parameters are expected to be in the following columns:
                     **1,2**: longitude, latitude, of station
-                    (-: option interchanges order) 3: eps1, the most extensional
+                    (-: option interchanges order) 3: eps1, the most
+                    extensional eigenvalue of strain tensor, with extension
+                    taken positive. **4**: eps2, the most compressional
                     eigenvalue of strain tensor, with extension taken positive.
-                    **4**: eps2, the most compressional eigenvalue of strain
-                    tensor, with extension taken positive.
                     **5**: azimuth of eps2 in degrees CW from North.
 
 
@@ -2061,16 +2063,18 @@ class BasePlotting:
         uncertainty_color : str
             Sets the color or shade used for filling uncertainty wedges
             (-Sw) or velocity error ellipses (-Se or -Sr). [If -E is not
-            specified, the uncertainty regions will be transparent.]
-            `(more ...) <https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gfill-attrib>`_
+            specified, the uncertainty regions will be transparent].
+            More details on
+            :gmt-docs:`cookbook/features.html#gfill-attrib`.
 
         facecolor : str
             Select color or pattern for filling of symbols or polygons
-            [Default is no fill]. `(more ...) <https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gfill-attrib>`_
+            [Default is no fill]. More details on
+            :gmt-docs:cookbook/features.html#gfill-attrib`.
 
         line: str
-            Draw lines. Ellipses and fault planes will have their outlines drawn
-            using current pen (see -W).
+            Draw lines. Ellipses and fault planes will have their outlines
+            drawn using current pen (see -W).
 
         no_clip: str
             Do NOT skip symbols that fall outside the frame boundary specified
@@ -2078,7 +2082,8 @@ class BasePlotting:
 
         pen : str
             Set pen attributes for velocity arrows, ellipse circumference and
-            fault plane edges. [Defaults: width = default, color = black, style = solid].
+            fault plane edges. [Defaults: width = default, color = black,
+            style = solid].
 
         {U}
         {V}
