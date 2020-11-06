@@ -24,29 +24,33 @@ Release v0.2.1 (2020/XX/XX)
 
 ## Documentation
 
+### Tutorials & Gallery
+
+* Add Liam's ROSES 2020 PyGMT talk to website (#643)
+* Add tutorial for pygmt.config (#482)
+* Add an example for different line styles (#604, #664)
+* Add a gallery example for varying transparent points (#654)
+* Add tutorial for pygmt.Figure.text (#480)
+* Add an example for scatter plots with auto legends (#607)
+* Improve colorbar gallery example (#596)
+
+### Improvements
+
 * doc: Fix the description of grdcontour -G option (#681)
 * Refresh Code of Conduct from v1.4 to v2.0 (#673)
 * Add PyGMT Zenodo BibTeX entry to main README.md (#678)
 * Complete most of documentation for makecpt (#676)
-* Add tutorial for pygmt.config (#482)
 * Complete documentation for plot (#666)
-* Improve the gallery example for line styles (#664)
 * Add "no_clip" to plot, text, contour and meca (#661)
 * Add common alias "verbose" (V) to all functions (#662)
-* Add a gallery example for varying transparent points (#654)
 * Improve documentation of Figure.logo() (#651)
-* Add tutorial for pygmt.Figure.text (#480)
 * Add mini-galleries for methods and functions (#648)
-* Add Liam's ROSES 2020 PyGMT talk to website (#643)
-* Add an example for scatter plots with auto legends (#607)
-* Remove warnings and improve colorbar gallery example (#596)
 * Complete documentation of grdimage (#620)
 * Add common alias perspective (p) for plotting 3D illustrations (#627)
 * Add common aliases xshift (X) and yshift (Y) (#624)
 * Add common alias cores (x) for grdimage and other multi-threaded modules (#625)
 * Enable switching different versions of documentation (#621)
 * Add common alias transparency (-t) to all plotting functions (#614)
-* Add an example for different line styles (#604)
 
 ## Bug Fixes
 
@@ -62,7 +66,7 @@ Release v0.2.1 (2020/XX/XX)
 * Refactor xfail tests to avoid storing baseline images (#603)
 * Add blackdoc to format Python codes in docstrings (#641)
 * Check and lint sphinx configuration file doc/conf.py (#630)
-* Improve Makefile to clean __pycache__ directory recursively (#611)
+* Improve Makefile to clean ``__pycache__`` directory recursively (#611)
 * Update release process and checklist template (#602)
 
 ## Contributors
