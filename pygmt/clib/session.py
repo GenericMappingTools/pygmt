@@ -9,6 +9,7 @@ from contextlib import contextmanager
 
 from packaging.version import Version
 import numpy as np
+import pandas as pd
 
 from ..exceptions import (
     GMTCLibError,
@@ -1160,7 +1161,7 @@ class Session:
         # Assumes that first 2 columns contains coordinates like longitude
         # latitude, or datetime string types.
         for col, array in enumerate(arrays[2:]):
-            if np.issubdtype(array.dtype, np.str_):
+            if pd.api.types.is_string_dtype(array.dtype):
                 columns = col + 2
                 break
 
@@ -1189,6 +1190,7 @@ class Session:
                 strings = np.apply_along_axis(
                     func1d=" ".join, axis=0, arr=string_arrays
                 )
+            strings = np.asanyarray(a=strings, dtype=np.str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
