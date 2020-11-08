@@ -2153,3 +2153,5 @@ class BasePlotting:
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("velo", arg_str)
+
+# pylint: disable=too-many-lines
