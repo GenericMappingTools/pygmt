@@ -2143,7 +2143,12 @@ class BasePlotting:
             if kind == "file":
                 file_context = dummy_context(data)
             elif kind == "matrix":
-                file_context = lib.virtualfile_from_matrix(data)
+                if pd.api.types.is_numeric_dtype(data):
+                    file_context = lib.virtualfile_from_matrix(data)
+                else:
+                    file_context = lib.virtualfile_from_vectors(
+                        *[data[column] for column in data]
+                    )
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
