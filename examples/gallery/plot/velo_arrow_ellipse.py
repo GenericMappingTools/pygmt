@@ -1,6 +1,6 @@
 """
 Velocity arrows and confidence ellipse
-----------------
+--------------------------------------
 
 The :meth:`pygmt.Figure.velo` method can be used to plot mean velocity arrow
 and confidence ellipse on a map.
