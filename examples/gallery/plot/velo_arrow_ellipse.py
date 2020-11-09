@@ -27,7 +27,7 @@ dframe = pd.DataFrame(
     }
 )
 fig.velo(
-    data=dframe.to_numpy(),
+    data=dframe,
     region=[-10, 10, -10, 10],
     pen="0.6p,red",
     uncertainty_color="green",

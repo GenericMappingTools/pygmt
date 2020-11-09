@@ -1962,7 +1962,7 @@ class BasePlotting:
 
         Parameters
         ----------
-        data : str or np.ndarray or pandas.DataFrame
+        data : str or pandas.DataFrame
             Pass in either a file name, a 2D numpy array, or a pandas dataframe
             table.
 
