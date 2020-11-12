@@ -2150,10 +2150,18 @@ class BasePlotting:
             elif kind == "matrix":
                 if pd.api.types.is_numeric_dtype(data):
                     file_context = lib.virtualfile_from_matrix(data)
-                else:
+                elif isinstance(data,np.ndarray):
+                    raise GMTInvalidInput(
+                        "Text columns are not supported with numpy array. "
+                        "They are only supported with file or "
+                        "pandas dataframe inputs."
+                    )
+                elif isinstance(data,pd.core.frame.DataFrame):
                     file_context = lib.virtualfile_from_vectors(
                         *[data[column] for column in data]
                     )
+                else:
+                    raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
