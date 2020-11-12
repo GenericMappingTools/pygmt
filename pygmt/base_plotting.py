@@ -1935,7 +1935,6 @@ class BasePlotting:
         L="line",
         N="no_clip",
         R="region",
-        S="scaling",
         U="timestamp",
         V="verbose",
         W="pen",
@@ -1945,7 +1944,7 @@ class BasePlotting:
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
-    def velo(self, data=None, **kwargs):
+    def velo(self, data=None, scaling=None, **kwargs):
         """
         Plot velocity vectors, crosses, and wedges
 
@@ -2139,7 +2138,7 @@ class BasePlotting:
         if scaling is not None:
             if not isinstance(scaling,str):
                 raise GMTInvalidInput(
-                    "scaling has to be a string."
+                    "Scaling is a requirred argument and has to be a string."
                 )
             extra_arrays.append(scaling)
 
