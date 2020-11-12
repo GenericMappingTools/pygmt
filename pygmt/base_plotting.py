@@ -1945,7 +1945,7 @@ class BasePlotting:
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
-    def velo(self, data=None, scaling=None, **kwargs):
+    def velo(self, data=None, **kwargs):
         """
         Plot velocity vectors, crosses, and wedges
 
@@ -1962,9 +1962,10 @@ class BasePlotting:
 
         Parameters
         ----------
-        data : str or pandas.DataFrame
+        data : str or np.ndarray or pandas.DataFrame
             Pass in either a file name, a 2D numpy array, or a pandas dataframe
-            table.
+            table. Note that text columns are only supported with file or
+            pandas dataframe inputs.
 
         {J}
 
