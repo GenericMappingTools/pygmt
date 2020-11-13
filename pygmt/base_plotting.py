@@ -2147,7 +2147,7 @@ class BasePlotting:
                         "They are only supported with file or "
                         "pandas dataframe inputs."
                     )
-                elif isinstance(data,pd.core.frame.DataFrame):
+                elif type(data).__name__.lower().find('dataframe') != 1:
                     file_context = lib.virtualfile_from_vectors(
                         *[data[column] for column in data]
                     )
