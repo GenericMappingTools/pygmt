@@ -1945,7 +1945,7 @@ class BasePlotting:
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma")
-    def velo(self, data=None, **kwargs):
+    def velo(self, data=None, vector="+p1p+e", **kwargs):
         """
         Plot velocity vectors, crosses, and wedges
 
@@ -1953,7 +1953,7 @@ class BasePlotting:
         plot velocity arrows on a map. Most options are the same as for plot,
         except *scaling*.
 
-        Must provide  *data* and *scaling*.
+        Must provide  *data*, *projection*, *region* and *scaling*.
 
 
         Full option list at :gmt-docs:`supplements/geodesy/velo.html`
@@ -2079,8 +2079,9 @@ class BasePlotting:
         Other Parameters
         ----------------
         vector : bool or str
-            Modify vector parameters. For vector heads, append vector head size
-            [Default is 9p]. For specifying additional attributes, see
+            Modify vector parameters. By defaul, the vector head outline is
+            drawn (+p) and a vector head is placed at the end of the vector path
+            (+e). For specifying additional attributes, see
             :gmt-docs:`supplements/geodesy/velo.html#vector-attributes`.
 
         {B}
@@ -2127,18 +2128,10 @@ class BasePlotting:
 
         kind = data_kind(data)
 
-        extra_arrays = []
-        if "G" in kwargs and not isinstance(kwargs["G"], str):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    "Can't use arrays for color if data is matrix or file."
-                )
-            extra_arrays.append(kwargs["G"])
-            del kwargs["G"]
 
-        if "S" in kwargs and not isinstance(kwargs["S"],str):
+        if "S" not in kwargs or ( "S" in kwargs and not isinstance(kwargs["S"],str)):
                 raise GMTInvalidInput(
-                    "Scaling is a required and has to be a string."
+                    "Scaling is a required argument and has to be a string."
                 )
 
         with Session() as lib:
@@ -2159,7 +2152,7 @@ class BasePlotting:
                         *[data[column] for column in data]
                     )
                 else:
-                    raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
+                    raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
 
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
