@@ -44,6 +44,12 @@ jobs:
       matrix:
         python-version: [3.6, 3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        # Run Python 3.6 tests on master branch only to conserve CI resources
+        isMaster:
+          - ${{ contains(github.ref, 'master') }}
+        exclude:
+          - isMaster: false  # i.e. on Pull Requests
+            python-version: 3.6
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
