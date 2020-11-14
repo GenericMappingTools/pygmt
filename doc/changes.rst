@@ -11,7 +11,7 @@ Release v0.2.1 (2020/11/14)
 Highlights
 
 * 🎉 **Patch release with more tutorials and gallery examples!** 🎉
-* Support Python 3.9 (`#689 <https://github.com/GenericMappingTools/pygmt/pull/689>`__)
+* 🐍 Support Python 3.9 (`#689 <https://github.com/GenericMappingTools/pygmt/pull/689>`__)
 * 📹 Add `Liam <https://github.com/liamtoney>`__'s `ROSES 2020 PyGMT talk <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ (`#643 <https://github.com/GenericMappingTools/pygmt/pull/643>`__)
 
 New Features
