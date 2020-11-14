@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8]
+        python-version: [3.9]
         os: [ubuntu-20.04, macOS-10.15]
         gmt_git_ref: [master]
     env:
