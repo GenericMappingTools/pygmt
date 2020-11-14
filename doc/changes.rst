@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Release v0.2.1 (2020/XX/XX)
+Release v0.2.1 (2020/11/14)
 ---------------------------
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4253459.svg
@@ -28,7 +28,7 @@ Enhancements
 Tutorials & Gallery
 
 * Add tutorial for pygmt.config (`#482 <https://github.com/GenericMappingTools/pygmt/pull/482>`__)
-* Add an example for different line styles (#604, #664)
+* Add an example for different line styles (`#604 <https://github.com/GenericMappingTools/pygmt/pull/604>`__, `#664 <https://github.com/GenericMappingTools/pygmt/pull/664>`__)
 * Add a gallery example for varying transparent points (`#654 <https://github.com/GenericMappingTools/pygmt/pull/654>`__)
 * Add tutorial for pygmt.Figure.text (`#480 <https://github.com/GenericMappingTools/pygmt/pull/480>`__)
 * Add an example for scatter plots with auto legends (`#607 <https://github.com/GenericMappingTools/pygmt/pull/607>`__)
