@@ -120,6 +120,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -231,6 +233,7 @@
 
 
 <div class="viewcode-block" id="grdinfo"><a class="viewcode-back" href="../../api/generated/pygmt.grdinfo.html#pygmt.grdinfo">[docs]</a><span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdinfo</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get information about a grid.</span>
@@ -243,6 +246,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    grid : str or xarray.DataArray</span>
 <span class="sd">        The file name of the input grid or the grid loaded as a DataArray.</span>
+
+<span class="sd">    {V}</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -269,7 +274,7 @@
 
 
 <div class="viewcode-block" id="info"><a class="viewcode-back" href="../../api/generated/pygmt.info.html#pygmt.info">[docs]</a><span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;per_column&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;nearest_multiple&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;per_column&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;nearest_multiple&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get information about data tables.</span>
@@ -292,9 +297,10 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    table : pandas.DataFrame or np.ndarray or str</span>
-<span class="sd">        Either a pandas dataframe, a 1D/2D numpy.ndarray or a file name to an</span>
-<span class="sd">        ASCII data table.</span>
+<span class="sd">    table : str or np.ndarray or pandas.DataFrame or xarray.Dataset</span>
+<span class="sd">        Pass in either a file name to an ASCII data table, a 1D/2D numpy array,</span>
+<span class="sd">        a pandas dataframe, or an xarray dataset made up of 1D xarray.DataArray</span>
+<span class="sd">        data variables.</span>
 <span class="sd">    per_column : bool</span>
 <span class="sd">        Report the min/max values per column in separate columns.</span>
 <span class="sd">    spacing : str</span>
@@ -306,6 +312,8 @@
 <span class="sd">        ``&#39;dz[+ccol]&#39;``</span>
 <span class="sd">        Report the min/max of the first (0&#39;th) column to the nearest multiple</span>
 <span class="sd">        of dz and output this in the form ``[zmin, zmax, dz]``.</span>
+
+<span class="sd">    {V}</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -321,10 +329,13 @@
         <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
             <span class="n">file_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
-            <span class="n">_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">table</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 1D arrays need to be 2D and transposed</span>
-                <span class="n">_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">_table</span><span class="p">))</span>
-            <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_matrix</span><span class="p">(</span><span class="n">_table</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># pandas.DataFrame and xarray.Dataset types</span>
+                <span class="n">arrays</span> <span class="o">=</span> <span class="p">[</span><span class="n">array</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="c1"># Python lists, tuples, and numpy ndarray types</span>
+                <span class="n">arrays</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_vectors</span><span class="p">(</span><span class="o">*</span><span class="n">arrays</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -347,7 +358,7 @@
 
 
 <div class="viewcode-block" id="which"><a class="viewcode-back" href="../../api/generated/pygmt.which.html#pygmt.which">[docs]</a><span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">&quot;download&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">&quot;download&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the full path to specified files.</span>
@@ -375,6 +386,7 @@
 <span class="sd">        it. Use True or &#39;l&#39; (default) to download to the current directory. Use</span>
 <span class="sd">        &#39;c&#39; to place in the user cache directory or &#39;u&#39; user data directory</span>
 <span class="sd">        instead.</span>
+<span class="sd">    {V}</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -548,7 +560,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

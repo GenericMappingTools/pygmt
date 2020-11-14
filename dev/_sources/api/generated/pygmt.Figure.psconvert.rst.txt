@@ -5,6 +5,8 @@ pygmt.Figure.psconvert
 
 .. automethod:: Figure.psconvert
 
+.. include:: backreferences/pygmt.Figure.psconvert.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

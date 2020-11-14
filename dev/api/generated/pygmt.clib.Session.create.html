@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -288,13 +290,13 @@
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">destroy</span></code> manually.</p>
 </div>
 <p>Calls <code class="docutils literal notranslate"><span class="pre">GMT_Create_Session</span></code> and generates a new <code class="docutils literal notranslate"><span class="pre">GMTAPI_CTRL</span></code>
-struct, which is a <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a> pointer. Sets the
+struct, which is a <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a> pointer. Sets the
 <code class="docutils literal notranslate"><span class="pre">session_pointer</span></code> attribute to this pointer.</p>
 <p>Remember to terminate the current session using
 <a class="reference internal" href="pygmt.clib.Session.destroy.html#pygmt.clib.Session.destroy" title="pygmt.clib.Session.destroy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.destroy</span></code></a> before creating a new one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A name for this session. Doesn’t really affect the outcome.</p>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A name for this session. Doesn’t really affect the outcome.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -325,7 +327,7 @@ struct, which is a <a class="reference external" href="https://docs.python.org/3
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

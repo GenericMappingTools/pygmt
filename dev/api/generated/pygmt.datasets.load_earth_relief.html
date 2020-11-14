@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -132,7 +134,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#datasets">Datasets</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.datasets.load_earth_relief</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.datasets.load_earth_relief</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-datasets-load-earth-relief">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_earth_relief</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_japan_quakes.html">pygmt.datasets.load_japan_quakes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_ocean_ridge_points.html">pygmt.datasets.load_ocean_ridge_points</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_bathymetry.html">pygmt.datasets.load_sample_bathymetry</a></li>
@@ -275,14 +280,14 @@ Refer to <a class="reference external" href="https://docs.generic-mapping-tools.
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">d</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> stand for
+<li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">d</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> stand for
 arc-degree, arc-minute and arc-second. It can be <code class="docutils literal notranslate"><span class="pre">'01d'</span></code>, <code class="docutils literal notranslate"><span class="pre">'30m'</span></code>,
 <code class="docutils literal notranslate"><span class="pre">'20m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'15m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'10m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'06m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'05m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'04m'</span></code>,
 <code class="docutils literal notranslate"><span class="pre">'03m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'02m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'01m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'30s'</span></code>, <code class="docutils literal notranslate"><span class="pre">'15s'</span></code>, <code class="docutils literal notranslate"><span class="pre">'03s'</span></code>,
 or <code class="docutils literal notranslate"><span class="pre">'01s'</span></code>.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – The subregion of the grid to load. Required for Earth relief grids with
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The subregion of the grid to load. Required for Earth relief grids with
 resolutions &lt;= 05m.</p></li>
-<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">pixel</span></code> for pixel registration or
+<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">pixel</span></code> for pixel registration or
 <code class="docutils literal notranslate"><span class="pre">gridline</span></code> for gridline registration. Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, where
 a pixel-registered grid is returned unless only the
 gridline-registered grid is available.</p></li>
@@ -309,7 +314,14 @@ resolutions higher than “05m”, which are stored as smaller tiles.</p>
 </div>
 </dd></dl>
 
-<div style='clear:both'></div></div>
+<div class="section" id="examples-using-pygmt-datasets-load-earth-relief">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_earth_relief</span></code><a class="headerlink" href="#examples-using-pygmt-datasets-load-earth-relief" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id1">
+<img alt="Sampling along tracks" src="../../_images/sphx_glr_track_sampling_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style='clear:both'></div></div>
+</div>
 
 
            </div>
@@ -335,7 +347,7 @@ resolutions higher than “05m”, which are stored as smaller tiles.</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

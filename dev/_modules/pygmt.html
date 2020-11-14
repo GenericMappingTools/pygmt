@@ -120,6 +120,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -231,7 +233,7 @@
 <span class="kn">from</span> <span class="nn">.sampling</span> <span class="kn">import</span> <span class="n">grdtrack</span>
 <span class="kn">from</span> <span class="nn">.mathops</span> <span class="kn">import</span> <span class="n">makecpt</span>
 <span class="kn">from</span> <span class="nn">.modules</span> <span class="kn">import</span> <span class="n">GMTDataArrayAccessor</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">grdinfo</span><span class="p">,</span> <span class="n">which</span>
-<span class="kn">from</span> <span class="nn">.gridops</span> <span class="kn">import</span> <span class="n">grdcut</span>
+<span class="kn">from</span> <span class="nn">.gridops</span> <span class="kn">import</span> <span class="n">grdcut</span><span class="p">,</span> <span class="n">grdfilter</span>
 <span class="kn">from</span> <span class="nn">.x2sys</span> <span class="kn">import</span> <span class="n">x2sys_init</span><span class="p">,</span> <span class="n">x2sys_cross</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">datasets</span>
 
@@ -414,7 +416,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

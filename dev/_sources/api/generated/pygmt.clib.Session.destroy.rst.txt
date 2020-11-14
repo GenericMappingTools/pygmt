@@ -5,6 +5,8 @@ pygmt.clib.Session.destroy
 
 .. automethod:: Session.destroy
 
+.. include:: backreferences/pygmt.clib.Session.destroy.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

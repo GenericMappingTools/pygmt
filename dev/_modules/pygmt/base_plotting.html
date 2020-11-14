@@ -120,6 +120,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -229,6 +231,7 @@
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">is_nonstr_iter</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -262,7 +265,7 @@
 <span class="sd">        --------</span>
 
 <span class="sd">        &gt;&gt;&gt; base = BasePlotting()</span>
-<span class="sd">        &gt;&gt;&gt; base._preprocess(resolution=&#39;low&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; base._preprocess(resolution=&quot;low&quot;)</span>
 <span class="sd">        {&#39;resolution&#39;: &#39;low&#39;}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -282,9 +285,13 @@
         <span class="n">G</span><span class="o">=</span><span class="s2">&quot;land&quot;</span><span class="p">,</span>
         <span class="n">S</span><span class="o">=</span><span class="s2">&quot;water&quot;</span><span class="p">,</span>
         <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">coast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot continents, shorelines, rivers, and borders on maps</span>
@@ -340,9 +347,12 @@
 <span class="sd">        water : str</span>
 <span class="sd">            Select filling or clipping of “wet” areas.</span>
 <span class="sd">        {U}</span>
+<span class="sd">        {V}</span>
 <span class="sd">        shorelines : str</span>
 <span class="sd">            ``&#39;[level/]pen&#39;``</span>
 <span class="sd">            Draw shorelines [Default is no shorelines]. Append pen attributes.</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -360,9 +370,13 @@
         <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
         <span class="n">G</span><span class="o">=</span><span class="s2">&quot;truncate&quot;</span><span class="p">,</span>
         <span class="n">W</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">colorbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot a gray or color scale-bar on maps.</span>
@@ -422,6 +436,9 @@
 <span class="sd">        scale : float</span>
 <span class="sd">            Multiply all z-values in the CPT by the provided scale. By default</span>
 <span class="sd">            the CPT is used as is.</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -441,11 +458,15 @@
         <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
         <span class="n">S</span><span class="o">=</span><span class="s2">&quot;resample&quot;</span><span class="p">,</span>
         <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
         <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
         <span class="n">l</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="s2">&quot;sequence_plus&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="s2">&quot;sequence_plus&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">grdcontour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert grids or images to contours and plot them on maps</span>
@@ -490,9 +511,15 @@
 <span class="sd">        {J}</span>
 <span class="sd">        {R}</span>
 <span class="sd">        {B}</span>
-<span class="sd">        {G}</span>
+<span class="sd">        label_placement : str</span>
+<span class="sd">            ``[d|f|n|l|L|x|X]params``.</span>
+<span class="sd">            The required argument controls the placement of labels along the</span>
+<span class="sd">            quoted lines. It supports five controlling algorithms. See</span>
+<span class="sd">            :gmt-docs:`grdcontour.html#g` for details.</span>
 <span class="sd">        {U}</span>
+<span class="sd">        {V}</span>
 <span class="sd">        {W}</span>
+<span class="sd">        {XY}</span>
 <span class="sd">        label : str</span>
 <span class="sd">            Add a legend entry for the contour being plotted. Normally, the</span>
 <span class="sd">            annotated contour is selected for the legend. You can select the</span>
@@ -500,6 +527,7 @@
 <span class="sd">            to be of the format [*annotcontlabel*][/*contlabel*]. If either</span>
 <span class="sd">            label contains a slash (/) character then use ``|`` as the</span>
 <span class="sd">            separator for the two labels instead.</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -517,20 +545,59 @@
 
     <span class="nd">@fmt_docstring</span>
     <span class="nd">@use_alias</span><span class="p">(</span>
-        <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
-        <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
-        <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
+        <span class="n">A</span><span class="o">=</span><span class="s2">&quot;img_out&quot;</span><span class="p">,</span>
         <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
-        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
         <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
+        <span class="n">D</span><span class="o">=</span><span class="s2">&quot;img_in&quot;</span><span class="p">,</span>
+        <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span>
+        <span class="n">G</span><span class="o">=</span><span class="s2">&quot;bit_color&quot;</span><span class="p">,</span>
+        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
+        <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+        <span class="n">M</span><span class="o">=</span><span class="s2">&quot;monochrome&quot;</span><span class="p">,</span>
+        <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
+        <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;nan_transparent&quot;</span><span class="p">,</span>
+        <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+        <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;cores&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">grdimage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Project grids or images and plot them on maps.</span>
+<span class="sd">        Project and plot grids or images.</span>
 
-<span class="sd">        Takes a grid file name or an xarray.DataArray object as input.</span>
+<span class="sd">        Reads a 2-D grid file and produces a gray-shaded (or colored) map by</span>
+<span class="sd">        building a rectangular image and assigning pixels a gray-shade (or</span>
+<span class="sd">        color) based on the z-value and the CPT file. Optionally, illumination</span>
+<span class="sd">        may be added by providing a file with intensities in the (-1,+1) range</span>
+<span class="sd">        or instructions to derive intensities from the input data grid. Values</span>
+<span class="sd">        outside this range will be clipped. Such intensity files can be created</span>
+<span class="sd">        from the grid using `grdgradient` and, optionally, modified by</span>
+<span class="sd">        `grdmath` or `grdhisteq`. If GMT is built with GDAL support, *grid* can</span>
+<span class="sd">        be an image file (geo-referenced or not). In this case the image can</span>
+<span class="sd">        optionally be illuminated with the file provided via the *shading*</span>
+<span class="sd">        option. Here, if image has no coordinates then those of the intensity</span>
+<span class="sd">        file will be used.</span>
+
+<span class="sd">        When using map projections, the grid is first resampled on a new</span>
+<span class="sd">        rectangular grid with the same dimensions. Higher resolution images can</span>
+<span class="sd">        be obtained by using the *dpi* option. To obtain the resampled value</span>
+<span class="sd">        (and hence shade or color) of each map pixel, its location is inversely</span>
+<span class="sd">        projected back onto the input grid after which a value is interpolated</span>
+<span class="sd">        between the surrounding input grid values. By default bi-cubic</span>
+<span class="sd">        interpolation is used. Aliasing is avoided by also forward projecting</span>
+<span class="sd">        the input grid nodes. If two or more nodes are projected onto the same</span>
+<span class="sd">        pixel, their average will dominate in the calculation of the pixel</span>
+<span class="sd">        value. Interpolation and aliasing is controlled with the</span>
+<span class="sd">        *interpolation* option.</span>
+
+<span class="sd">        The *region* option can be used to select a map region larger or</span>
+<span class="sd">        smaller than that implied by the extent of the grid.</span>
 
 <span class="sd">        Full option list at :gmt-docs:`grdimage.html`</span>
 
@@ -539,8 +606,85 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        grid : str or xarray.DataArray</span>
-<span class="sd">            The file name of the input grid or the grid loaded as a DataArray.</span>
+<span class="sd">            The file name or a DataArray containing the input 2-D gridded data</span>
+<span class="sd">            set or image to be plotted (See GRID FILE FORMATS at</span>
+<span class="sd">            :gmt-docs:`grdimage.html#grid-file-formats`).</span>
+<span class="sd">        img_out : str</span>
+<span class="sd">            ``out_img[=driver]``.</span>
+<span class="sd">            Save an image in a raster format instead of PostScript. Use</span>
+<span class="sd">            extension .ppm for a Portable Pixel Map format which is the only</span>
+<span class="sd">            raster format GMT can natively write. For GMT installations</span>
+<span class="sd">            configured with GDAL support there are more choices: Append</span>
+<span class="sd">            *out_img* to select the image file name and extension. If the</span>
+<span class="sd">            extension is one of .bmp, .gif, .jpg, .png, or .tif then no driver</span>
+<span class="sd">            information is required. For other output formats you must append</span>
+<span class="sd">            the required GDAL driver. The *driver* is the driver code name used</span>
+<span class="sd">            by GDAL; see your GDAL installation&#39;s documentation for available</span>
+<span class="sd">            drivers. Append a **+c**\\ *options* string where options is a list</span>
+<span class="sd">            of one or more concatenated number of GDAL **-co** options. For</span>
+<span class="sd">            example, to write a GeoPDF with the TerraGo format use</span>
+<span class="sd">            ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is</span>
+<span class="sd">            selected then we will write a GeoTiff image if the GMT projection</span>
+<span class="sd">            syntax translates into a PROJ syntax, otherwise a plain tiff file</span>
+<span class="sd">            is produced. (2) Any vector elements will be lost.</span>
+<span class="sd">        {B}</span>
+<span class="sd">        {CPT}</span>
+<span class="sd">        img_in : str</span>
+<span class="sd">            ``[r]``</span>
+<span class="sd">            GMT will automatically detect standard image files (Geotiff, TIFF,</span>
+<span class="sd">            JPG, PNG, GIF, etc.) and will read those via GDAL. For very obscure</span>
+<span class="sd">            image formats you may need to explicitly set *img_in*, which</span>
+<span class="sd">            specifies that the grid is in fact an image file to be read via</span>
+<span class="sd">            GDAL. Append **r** to assign the region specified by *region*</span>
+<span class="sd">            to the image. For example, if you have used ``region=&#39;d&#39;`` then the</span>
+<span class="sd">            image will be assigned a global domain. This mode allows you to</span>
+<span class="sd">            project a raw image (an image without referencing coordinates).</span>
+<span class="sd">        dpi : int</span>
+<span class="sd">            ``[i|dpi]``.</span>
+<span class="sd">            Sets the resolution of the projected grid that will be created if a</span>
+<span class="sd">            map projection other than Linear or Mercator was selected [100]. By</span>
+<span class="sd">            default, the projected grid will be of the same size (rows and</span>
+<span class="sd">            columns) as the input file. Specify **i** to use the PostScript</span>
+<span class="sd">            image operator to interpolate the image at the device resolution.</span>
+<span class="sd">        bit_color : str</span>
+<span class="sd">            ``color[+b|f]``.</span>
+<span class="sd">            This option only applies when a resulting 1-bit image otherwise</span>
+<span class="sd">            would consist of only two colors: black (0) and white (255). If so,</span>
+<span class="sd">            this option will instead use the image as a transparent mask and</span>
+<span class="sd">            paint the mask with the given color. Append **+b** to paint the</span>
+<span class="sd">            background pixels (1) or **+f** for the foreground pixels</span>
+<span class="sd">            [Default].</span>
+<span class="sd">        shading : str</span>
+<span class="sd">            ``[intensfile|intensity|modifiers]``.</span>
+<span class="sd">            Give the name of a grid file with intensities in the (-1,+1) range,</span>
+<span class="sd">            or a constant intensity to apply everywhere (affects the ambient</span>
+<span class="sd">            light). Alternatively, derive an intensity grid from the input data</span>
+<span class="sd">            grid via a call to `grdgradient`; append **+a**\\ *azimuth*,</span>
+<span class="sd">            **+n**\\ *args*, and **+m**\\ *ambient* to specify azimuth,</span>
+<span class="sd">            intensity, and ambient arguments for that module, or just give</span>
+<span class="sd">            **+d** to select the default arguments (``+a-45+nt1+m0``). If you</span>
+<span class="sd">            want a more specific intensity scenario then run `grdgradient`</span>
+<span class="sd">            separately first. If we should derive intensities from another file</span>
+<span class="sd">            than grid, specify the file with suitable modifiers [Default is no</span>
+<span class="sd">            illumination].</span>
+<span class="sd">        {J}</span>
+<span class="sd">        monochrome : bool</span>
+<span class="sd">            Force conversion to monochrome image using the (television) YIQ</span>
+<span class="sd">            transformation. Cannot be used with *nan_transparent*.</span>
+<span class="sd">        no_clip : bool</span>
+<span class="sd">            Do not clip the image at the map boundary (only relevant for</span>
+<span class="sd">            non-rectangular maps).</span>
+<span class="sd">        nan_transparent : bool</span>
+<span class="sd">            Make grid nodes with z = NaN transparent, using the color-masking</span>
+<span class="sd">            feature in PostScript Level 3 (the PS device must support PS Level</span>
+<span class="sd">            3).</span>
+<span class="sd">        {R}</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {n}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
+<span class="sd">        {x}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -570,8 +714,11 @@
         <span class="n">Wc</span><span class="o">=</span><span class="s2">&quot;contourpen&quot;</span><span class="p">,</span>
         <span class="n">Wm</span><span class="o">=</span><span class="s2">&quot;meshpen&quot;</span><span class="p">,</span>
         <span class="n">Wf</span><span class="o">=</span><span class="s2">&quot;facadepen&quot;</span><span class="p">,</span>
-        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
@@ -636,10 +783,6 @@
 <span class="sd">            Sets the pen attributes used for the facade. You must also select</span>
 <span class="sd">            -N for the facade outline to be drawn.</span>
 
-<span class="sd">        perspective : list or str</span>
-<span class="sd">            ``&#39;[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]&#39;``.</span>
-<span class="sd">            Select perspective view.</span>
-
 <span class="sd">        shading : str</span>
 <span class="sd">            Provide the name of a grid file with intensities in the (-1,+1)</span>
 <span class="sd">            range, or a constant intensity to apply everywhere (affects the</span>
@@ -649,6 +792,9 @@
 <span class="sd">            intensity, and ambient arguments for that module, or just give</span>
 <span class="sd">            ``+d`` to select the default arguments (``+a-45+nt1+m0``).</span>
 
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -680,42 +826,52 @@
 
     <span class="nd">@fmt_docstring</span>
     <span class="nd">@use_alias</span><span class="p">(</span>
-        <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
-        <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+        <span class="n">A</span><span class="o">=</span><span class="s2">&quot;straight_line&quot;</span><span class="p">,</span>
         <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
-        <span class="n">S</span><span class="o">=</span><span class="s2">&quot;style&quot;</span><span class="p">,</span>
+        <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
+        <span class="n">D</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span>
+        <span class="n">E</span><span class="o">=</span><span class="s2">&quot;error_bar&quot;</span><span class="p">,</span>
+        <span class="n">F</span><span class="o">=</span><span class="s2">&quot;connection&quot;</span><span class="p">,</span>
         <span class="n">G</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>
+        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;intensity&quot;</span><span class="p">,</span>
+        <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+        <span class="n">L</span><span class="o">=</span><span class="s2">&quot;close&quot;</span><span class="p">,</span>
+        <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
+        <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+        <span class="n">S</span><span class="o">=</span><span class="s2">&quot;style&quot;</span><span class="p">,</span>
+        <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
         <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;zvalue&quot;</span><span class="p">,</span>
         <span class="n">i</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span>
         <span class="n">l</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
-        <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
-        <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Plot lines, polygons, and symbols on maps.</span>
-
-<span class="sd">        Used to be psxy.</span>
+<span class="sd">        Plot lines, polygons, and symbols in 2-D.</span>
 
 <span class="sd">        Takes a matrix, (x,y) pairs, or a file name as input and plots lines,</span>
 <span class="sd">        polygons, or symbols at those locations on a map.</span>
 
 <span class="sd">        Must provide either *data* or *x* and *y*.</span>
 
-<span class="sd">        If providing data through *x* and *y*, *color* (G) can be a 1d array</span>
-<span class="sd">        that will be mapped to a colormap.</span>
+<span class="sd">        If providing data through *x* and *y*, *color* can be a 1d array that</span>
+<span class="sd">        will be mapped to a colormap.</span>
 
-<span class="sd">        If a symbol is selected and no symbol size given, then psxy will</span>
+<span class="sd">        If a symbol is selected and no symbol size given, then plot will</span>
 <span class="sd">        interpret the third column of the input data as symbol size. Symbols</span>
 <span class="sd">        whose size is &lt;= 0 are skipped. If no symbols are specified then the</span>
-<span class="sd">        symbol code (see *S* below) must be present as last column in the</span>
-<span class="sd">        input. If *S* is not used, a line connecting the data points will be</span>
-<span class="sd">        drawn instead. To explicitly close polygons, use *L*. Select a fill</span>
-<span class="sd">        with *G*. If *G* is set, *W* will control whether the polygon outline</span>
-<span class="sd">        is drawn or not. If a symbol is selected, *G* and *W* determines the</span>
-<span class="sd">        fill and outline/no outline, respectively.</span>
+<span class="sd">        symbol code (see *style* below) must be present as last column in the</span>
+<span class="sd">        input. If *style* is not used, a line connecting the data points will</span>
+<span class="sd">        be drawn instead. To explicitly close polygons, use *close*. Select a</span>
+<span class="sd">        fill with *color*. If *color* is set, *pen* will control whether the</span>
+<span class="sd">        polygon outline is drawn or not. If a symbol is selected, *color* and</span>
+<span class="sd">        *pen* determines the fill and outline/no outline, respectively.</span>
 
 <span class="sd">        Full option list at :gmt-docs:`plot.html`</span>
 
@@ -740,28 +896,105 @@
 <span class="sd">            depending on the style options chosen.</span>
 <span class="sd">        {J}</span>
 <span class="sd">        {R}</span>
-<span class="sd">        A : bool or str</span>
-<span class="sd">            ``&#39;[m|p|x|y]&#39;``</span>
+<span class="sd">        straight_line : bool or str</span>
+<span class="sd">            ``[m|p|x|y]``.</span>
 <span class="sd">            By default, geographic line segments are drawn as great circle</span>
-<span class="sd">            arcs. To draw them as straight lines, use *A*.</span>
+<span class="sd">            arcs. To draw them as straight lines, use *straight_line*.</span>
+<span class="sd">            Alternatively, add **m** to draw the line by first following a</span>
+<span class="sd">            meridian, then a parallel. Or append **p** to start following a</span>
+<span class="sd">            parallel, then a meridian. (This can be practical to draw a line</span>
+<span class="sd">            along parallels, for example). For Cartesian data, points are</span>
+<span class="sd">            simply connected, unless you append **x** or **y** to draw</span>
+<span class="sd">            stair-case curves that whose first move is along *x* or *y*,</span>
+<span class="sd">            respectively.</span>
 <span class="sd">        {B}</span>
 <span class="sd">        {CPT}</span>
-<span class="sd">        D : str</span>
-<span class="sd">            ``&#39;dx/dy&#39;``: Offset the plot symbol or line locations by the given</span>
-<span class="sd">            amounts dx/dy.</span>
-<span class="sd">        E : bool or str</span>
-<span class="sd">            ``&#39;[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]&#39;``.</span>
-<span class="sd">            Draw symmetrical error bars.</span>
+<span class="sd">        offset : str</span>
+<span class="sd">            ``dx/dy``.</span>
+<span class="sd">            Offset the plot symbol or line locations by the given amounts</span>
+<span class="sd">            *dx/dy* [Default is no offset]. If *dy* is not given it is set</span>
+<span class="sd">            equal to *dx*.</span>
+<span class="sd">        error_bar : bool or str</span>
+<span class="sd">            ``[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]``.</span>
+<span class="sd">            Draw symmetrical error bars. Full documentation is at</span>
+<span class="sd">            :gmt-docs:`plot.html#e`.</span>
+<span class="sd">        connection : str</span>
+<span class="sd">            ``[c|n|r][a|f|s|r|refpoint]``.</span>
+<span class="sd">            Alter the way points are connected (by specifying a *scheme*) and</span>
+<span class="sd">            data are grouped (by specifying a *method*). Append one of three</span>
+<span class="sd">            line connection schemes:</span>
+
+<span class="sd">            - **c** : Draw continuous line segments for each group [Default].</span>
+<span class="sd">            - **r** : Draw line segments from a reference point reset for each</span>
+<span class="sd">              group.</span>
+<span class="sd">            - **n** : Draw networks of line segments between all points in</span>
+<span class="sd">              each group.</span>
+
+<span class="sd">            Optionally, append the one of four segmentation methods to define</span>
+<span class="sd">            the group:</span>
+
+<span class="sd">            - **a** : Ignore all segment headers, i.e., let all points belong</span>
+<span class="sd">              to a single group, and set group reference point to the very</span>
+<span class="sd">              first point of the first file.</span>
+<span class="sd">            - **f** : Consider all data in each file to be a single separate</span>
+<span class="sd">              group and reset the group reference point to the first point of</span>
+<span class="sd">              each group.</span>
+<span class="sd">            - **s** : Segment headers are honored so each segment is a group;</span>
+<span class="sd">              the group reference point is reset to the first point of each</span>
+<span class="sd">              incoming segment [Default].</span>
+<span class="sd">            - **r** : Same as **s**, but the group reference point is reset</span>
+<span class="sd">              after each record to the previous point (this method is only</span>
+<span class="sd">              available with the ``connection=&#39;r&#39;`` scheme).</span>
+
+<span class="sd">            Instead of the codes **a**|**f**|**s**|**r** you may append the</span>
+<span class="sd">            coordinates of a *refpoint* which will serve as a fixed external</span>
+<span class="sd">            reference point for all groups.</span>
 <span class="sd">        {G}</span>
+<span class="sd">        intensity : float or bool</span>
+<span class="sd">            Provide an *intens* value (nominally in the -1 to +1 range) to</span>
+<span class="sd">            modulate the fill color by simulating illumination [None]. If</span>
+<span class="sd">            using ``intensity=True``, we will instead read *intens* from the</span>
+<span class="sd">            first data column after the symbol parameters (if given).</span>
+<span class="sd">        close : str</span>
+<span class="sd">            ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.</span>
+<span class="sd">            Force closed polygons. Full documentation is at</span>
+<span class="sd">            :gmt-docs:`plot.html#l`.</span>
+<span class="sd">        no_clip : bool or str</span>
+<span class="sd">            ``&#39;[c|r]&#39;``.</span>
+<span class="sd">            Do NOT clip symbols that fall outside map border [Default plots</span>
+<span class="sd">            points whose coordinates are strictly inside the map border only].</span>
+<span class="sd">            The option does not apply to lines and polygons which are always</span>
+<span class="sd">            clipped to the map region. For periodic (360-longitude) maps we</span>
+<span class="sd">            must plot all symbols twice in case they are clipped by the</span>
+<span class="sd">            repeating boundary. ``no_clip=True`` will turn off clipping and not</span>
+<span class="sd">            plot repeating symbols. Use ``no_clip=&quot;r&quot;`` to turn off clipping</span>
+<span class="sd">            but retain the plotting of such repeating symbols, or use</span>
+<span class="sd">            ``no_clip=&quot;c&quot;`` to retain clipping but turn off plotting of</span>
+<span class="sd">            repeating symbols.</span>
 <span class="sd">        style : str</span>
 <span class="sd">            Plot symbols (including vectors, pie slices, fronts, decorated or</span>
 <span class="sd">            quoted lines).</span>
 <span class="sd">        {W}</span>
 <span class="sd">        {U}</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        zvalue : str</span>
+<span class="sd">            ``value|file``.</span>
+<span class="sd">            Instead of specifying a symbol or polygon fill and outline color</span>
+<span class="sd">            via **color** and **pen**, give both a *value* via **zvalue** and a</span>
+<span class="sd">            color lookup table via **cmap**.  Alternatively, give the name of a</span>
+<span class="sd">            *file* with one z-value (read from the last column) for each</span>
+<span class="sd">            polygon in the input data. To apply it to the fill color, use</span>
+<span class="sd">            ``color=&#39;+z&#39;``. To apply it to the pen color, append **+z** to</span>
+<span class="sd">            **pen**.</span>
 <span class="sd">        label : str</span>
 <span class="sd">            Add a legend entry for the symbol or line being plotted.</span>
 
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
+<span class="sd">            *transparency* can also be a 1d array to set varying transparency</span>
+<span class="sd">            for symbols.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -784,6 +1017,10 @@
                 <span class="p">)</span>
             <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="s2">&quot;t&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]):</span>
+            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">])</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
             <span class="c1"># Choose how data will be passed in to the module</span>
             <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
@@ -801,6 +1038,189 @@
 
     <span class="nd">@fmt_docstring</span>
     <span class="nd">@use_alias</span><span class="p">(</span>
+        <span class="n">A</span><span class="o">=</span><span class="s2">&quot;straight_line&quot;</span><span class="p">,</span>
+        <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
+        <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
+        <span class="n">D</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span>
+        <span class="n">G</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>
+        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;intensity&quot;</span><span class="p">,</span>
+        <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+        <span class="n">Jz</span><span class="o">=</span><span class="s2">&quot;zscale&quot;</span><span class="p">,</span>
+        <span class="n">JZ</span><span class="o">=</span><span class="s2">&quot;zsize&quot;</span><span class="p">,</span>
+        <span class="n">L</span><span class="o">=</span><span class="s2">&quot;close&quot;</span><span class="p">,</span>
+        <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
+        <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;no_sort&quot;</span><span class="p">,</span>
+        <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+        <span class="n">S</span><span class="o">=</span><span class="s2">&quot;style&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;zvalue&quot;</span><span class="p">,</span>
+        <span class="n">i</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span>
+        <span class="n">l</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
+        <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">plot3d</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot lines, polygons, and symbols in 3-D</span>
+
+<span class="sd">        Takes a matrix, (x,y,z) triplets, or a file name as input and plots</span>
+<span class="sd">        lines, polygons, or symbols at those locations in 3-D.</span>
+
+<span class="sd">        Must provide either *data* or *x*, *y* and *z*.</span>
+
+<span class="sd">        If providing data through *x*, *y* and *z*, *color* can be a 1d array</span>
+<span class="sd">        that will be mapped to a colormap.</span>
+
+<span class="sd">        If a symbol is selected and no symbol size given, then plot3d will</span>
+<span class="sd">        interpret the fourth column of the input data as symbol size. Symbols</span>
+<span class="sd">        whose size is &lt;= 0 are skipped. If no symbols are specified then the</span>
+<span class="sd">        symbol code (see *style* below) must be present as last column in the</span>
+<span class="sd">        input. If *style* is not used, a line connecting the data points will</span>
+<span class="sd">        be drawn instead. To explicitly close polygons, use *close*. Select a</span>
+<span class="sd">        fill with *color*. If *color* is set, *pen* will control whether the</span>
+<span class="sd">        polygon outline is drawn or not. If a symbol is selected, *color* and</span>
+<span class="sd">        *pen* determines the fill and outline/no outline, respectively.</span>
+
+<span class="sd">        Full option list at :gmt-docs:`plot3d.html`</span>
+
+<span class="sd">        {aliases}</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x/y/z : float or 1d arrays</span>
+<span class="sd">            The x, y, and z coordinates, or arrays of x, y and z coordinates of</span>
+<span class="sd">            the data points</span>
+<span class="sd">        data : str or 2d array</span>
+<span class="sd">            Either a data file name or a 2d numpy array with the tabular data.</span>
+<span class="sd">            Use option *columns* (i) to choose which columns are x, y, z,</span>
+<span class="sd">            color, and size, respectively.</span>
+<span class="sd">        sizes : 1d array</span>
+<span class="sd">            The sizes of the data points in units specified in *style* (S).</span>
+<span class="sd">            Only valid if using *x*, *y* and *z*.</span>
+<span class="sd">        direction : list of two 1d arrays</span>
+<span class="sd">            If plotting vectors (using ``style=&#39;V&#39;`` or ``style=&#39;v&#39;``), then</span>
+<span class="sd">            should be a list of two 1d arrays with the vector directions. These</span>
+<span class="sd">            can be angle and length, azimuth and length, or x and y components,</span>
+<span class="sd">            depending on the style options chosen.</span>
+<span class="sd">        {J}</span>
+<span class="sd">        zscale/zsize : float or str</span>
+<span class="sd">            Set z-axis scaling or z-axis size.</span>
+<span class="sd">        {R}</span>
+<span class="sd">        straight_line : bool or str</span>
+<span class="sd">            ``[m|p|x|y]``.</span>
+<span class="sd">            By default, geographic line segments are drawn as great circle</span>
+<span class="sd">            arcs. To draw them as straight lines, use *straight_line*.</span>
+<span class="sd">            Alternatively, add **m** to draw the line by first following a</span>
+<span class="sd">            meridian, then a parallel. Or append **p** to start following a</span>
+<span class="sd">            parallel, then a meridian. (This can be practical to draw a line</span>
+<span class="sd">            along parallels, for example). For Cartesian data, points are</span>
+<span class="sd">            simply connected, unless you append **x** or **y** to draw</span>
+<span class="sd">            stair-case curves that whose first move is along *x* or *y*,</span>
+<span class="sd">            respectively. **Note**: The **straight_line** option requires</span>
+<span class="sd">            constant *z*-coordinates.</span>
+<span class="sd">        {B}</span>
+<span class="sd">        {CPT}</span>
+<span class="sd">        offset : str</span>
+<span class="sd">            ``dx/dy[/dz]``.</span>
+<span class="sd">            Offset the plot symbol or line locations by the given amounts</span>
+<span class="sd">            *dx/dy*[*dz*] [Default is no offset].</span>
+<span class="sd">        {G}</span>
+<span class="sd">        intensity : float or bool</span>
+<span class="sd">            Provide an *intens* value (nominally in the -1 to +1 range) to</span>
+<span class="sd">            modulate the fill color by simulating illumination [None]. If</span>
+<span class="sd">            using ``intensity=True``, we will instead read *intens* from the</span>
+<span class="sd">            first data column after the symbol parameters (if given).</span>
+<span class="sd">        close : str</span>
+<span class="sd">            ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.</span>
+<span class="sd">            Force closed polygons. Full documentation is at</span>
+<span class="sd">            :gmt-docs:`plot3d.html#l`.</span>
+<span class="sd">        no_clip : bool or str</span>
+<span class="sd">            ``[c|r]``.</span>
+<span class="sd">            Do NOT clip symbols that fall outside map border [Default plots</span>
+<span class="sd">            points whose coordinates are strictly inside the map border only].</span>
+<span class="sd">            The option does not apply to lines and polygons which are always</span>
+<span class="sd">            clipped to the map region. For periodic (360-longitude) maps we</span>
+<span class="sd">            must plot all symbols twice in case they are clipped by the</span>
+<span class="sd">            repeating boundary. ``no_clip=True`` will turn off clipping and not</span>
+<span class="sd">            plot repeating symbols. Use ``no_clip=&quot;r&quot;`` to turn off clipping</span>
+<span class="sd">            but retain the plotting of such repeating symbols, or use</span>
+<span class="sd">            ``no_clip=&quot;c&quot;`` to retain clipping but turn off plotting of</span>
+<span class="sd">            repeating symbols.</span>
+<span class="sd">        no_sort : bool</span>
+<span class="sd">            Turn off the automatic sorting of items based on their distance</span>
+<span class="sd">            from the viewer. The default is to sort the items so that items in</span>
+<span class="sd">            the foreground are plotted after items in the background.</span>
+<span class="sd">        style : str</span>
+<span class="sd">            Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.</span>
+<span class="sd">        {U}</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {W}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        zvalue : str</span>
+<span class="sd">            ``value|file``.</span>
+<span class="sd">            Instead of specifying a symbol or polygon fill and outline color</span>
+<span class="sd">            via **color** and **pen**, give both a *value* via **zvalue** and a</span>
+<span class="sd">            color lookup table via **cmap**.  Alternatively, give the name of a</span>
+<span class="sd">            *file* with one z-value (read from the last column) for each</span>
+<span class="sd">            polygon in the input data. To apply it to the fill color, use</span>
+<span class="sd">            ``color=&#39;+z&#39;``. To apply it to the pen color, append **+z** to</span>
+<span class="sd">            **pen**.</span>
+<span class="sd">        label : str</span>
+<span class="sd">            Add a legend entry for the symbol or line being plotted.</span>
+<span class="sd">        {p}</span>
+<span class="sd">        {t}</span>
+<span class="sd">            *transparency* can also be a 1d array to set varying transparency</span>
+<span class="sd">            for symbols.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+        <span class="n">extra_arrays</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="s2">&quot;S&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="s2">&quot;vV&quot;</span> <span class="ow">and</span> <span class="n">direction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;G&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                    <span class="s2">&quot;Can&#39;t use arrays for color if data is matrix or file.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">])</span>
+            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">sizes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                    <span class="s2">&quot;Can&#39;t use arrays for sizes if data is matrix or file.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;t&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]):</span>
+            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">])</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="c1"># Choose how data will be passed in to the module</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+                <span class="n">file_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
+                <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_matrix</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
+                <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_vectors</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="o">*</span><span class="n">extra_arrays</span>
+                <span class="p">)</span>
+
+            <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
+                <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">fname</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)])</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;plot3d&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
+
+    <span class="nd">@fmt_docstring</span>
+    <span class="nd">@use_alias</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
         <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
@@ -808,12 +1228,17 @@
         <span class="n">G</span><span class="o">=</span><span class="s2">&quot;label_placement&quot;</span><span class="p">,</span>
         <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
         <span class="n">L</span><span class="o">=</span><span class="s2">&quot;triangular_mesh_pen&quot;</span><span class="p">,</span>
+        <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
         <span class="n">i</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span>
         <span class="n">l</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
         <span class="n">C</span><span class="o">=</span><span class="s2">&quot;levels&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">contour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Contour table data by direct triangulation.</span>
@@ -854,8 +1279,9 @@
 <span class="sd">            Color the triangles using CPT</span>
 <span class="sd">        triangular_mesh_pen : str</span>
 <span class="sd">            Pen to draw the underlying triangulation (default none)</span>
-<span class="sd">        N : bool</span>
-<span class="sd">            Do not clip contours</span>
+<span class="sd">        no_clip : bool</span>
+<span class="sd">            Do NOT clip contours or image at the boundaries [Default will clip</span>
+<span class="sd">            to fit inside region].</span>
 <span class="sd">        Q : float or str</span>
 <span class="sd">            Do not draw contours with less than cut number of points.</span>
 <span class="sd">            ``&#39;[cut[unit]][+z]&#39;``</span>
@@ -869,6 +1295,9 @@
 <span class="sd">            to be of the format [*annotcontlabel*][/*contlabel*]. If either</span>
 <span class="sd">            label contains a slash (/) character then use ``|`` as the</span>
 <span class="sd">            separator for the two labels instead.</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -895,22 +1324,28 @@
     <span class="nd">@use_alias</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+        <span class="n">Jz</span><span class="o">=</span><span class="s2">&quot;zscale&quot;</span><span class="p">,</span>
+        <span class="n">JZ</span><span class="o">=</span><span class="s2">&quot;zsize&quot;</span><span class="p">,</span>
         <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
         <span class="n">L</span><span class="o">=</span><span class="s2">&quot;map_scale&quot;</span><span class="p">,</span>
         <span class="n">Td</span><span class="o">=</span><span class="s2">&quot;rose&quot;</span><span class="p">,</span>
         <span class="n">Tm</span><span class="o">=</span><span class="s2">&quot;compass&quot;</span><span class="p">,</span>
         <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">basemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Produce a basemap for the figure.</span>
+<span class="sd">        Plot base maps and frames for the figure.</span>
 
-<span class="sd">        Several map projections are available, and the user may specify</span>
-<span class="sd">        separate tick-mark intervals for boundary annotation, ticking, and</span>
-<span class="sd">        [optionally] gridlines. A simple map scale or directional rose may also</span>
-<span class="sd">        be plotted.</span>
+<span class="sd">        Creates a basic or fancy basemap with axes, fill, and titles. Several</span>
+<span class="sd">        map projections are available, and the user may specify separate</span>
+<span class="sd">        tick-mark intervals for boundary annotation, ticking, and [optionally]</span>
+<span class="sd">        gridlines. A simple map scale or directional rose may also be plotted.</span>
 
 <span class="sd">        At least one of the options *frame*, *map_scale*, *rose* or *compass*</span>
 <span class="sd">        must be specified.</span>
@@ -922,6 +1357,8 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        {J}</span>
+<span class="sd">        zscale/zsize : float or str</span>
+<span class="sd">            Set z-axis scaling or z-axis size.</span>
 <span class="sd">        {R}</span>
 <span class="sd">        {B}</span>
 <span class="sd">        map_scale : str</span>
@@ -934,6 +1371,9 @@
 <span class="sd">            Draws a map magnetic rose on the map at the location defined by the</span>
 <span class="sd">            reference and anchor points</span>
 <span class="sd">        {U}</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -947,22 +1387,26 @@
     <span class="nd">@use_alias</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
-        <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
         <span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span>
         <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
+        <span class="n">S</span><span class="o">=</span><span class="s2">&quot;style&quot;</span><span class="p">,</span>
+        <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Place the GMT graphics logo on a map.</span>
+<span class="sd">        Plot the GMT logo.</span>
 
 <span class="sd">        By default, the GMT logo is 2 inches wide and 1 inch high and</span>
 <span class="sd">        will be positioned relative to the current plot origin.</span>
 <span class="sd">        Use various options to change this and to place a transparent or</span>
 <span class="sd">        opaque rectangular map panel behind the GMT logo.</span>
 
-<span class="sd">        Full option list at :gmt-docs:`logo.html`</span>
+<span class="sd">        Full option list at :gmt-docs:`gmtlogo.html`.</span>
 
 <span class="sd">        {aliases}</span>
 
@@ -976,13 +1420,21 @@
 <span class="sd">        box : bool or str</span>
 <span class="sd">            Without further options, draws a rectangular border around the</span>
 <span class="sd">            GMT logo.</span>
+<span class="sd">        style : str</span>
+<span class="sd">            ``l|n|u``.</span>
+<span class="sd">            Control what is written beneath the map portion of the logo.</span>
+
+<span class="sd">            - **l** to plot the text label &quot;The Generic Mapping Tools&quot;</span>
+<span class="sd">              [Default]</span>
+<span class="sd">            - **n** to skip the label placement</span>
+<span class="sd">            - **u** to place the URL to the GMT site</span>
 <span class="sd">        {U}</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
 <span class="sd">        {t}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;D&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Option D must be specified.&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;logo&quot;</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
 
@@ -993,9 +1445,13 @@
         <span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span>
         <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
         <span class="n">M</span><span class="o">=</span><span class="s2">&quot;monochrome&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imagefile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Place images or EPS files on maps.</span>
@@ -1028,6 +1484,9 @@
 <span class="sd">        monochrome : bool</span>
 <span class="sd">            Convert color image to monochrome grayshades using the (television)</span>
 <span class="sd">            YIQ-transformation.</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1041,9 +1500,13 @@
         <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
         <span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span>
         <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;JTR+jTR+o0.2c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+gwhite+p1p&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot legends on maps.</span>
@@ -1077,6 +1540,9 @@
 <span class="sd">            rectangular border around the legend using **MAP_FRAME_PEN**. By</span>
 <span class="sd">            default, uses &#39;+gwhite+p1p&#39; which draws a box around the legend</span>
 <span class="sd">            using a 1 point black pen and adds a white background.</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1105,7 +1571,12 @@
         <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span>
         <span class="n">D</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span>
         <span class="n">G</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+        <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
         <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">(</span>
@@ -1114,6 +1585,7 @@
         <span class="n">angle</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span>
         <span class="n">font</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span>
         <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">text</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1212,6 +1684,12 @@
 <span class="sd">            Sets the pen used to draw a rectangle around the text string</span>
 <span class="sd">            (see *clearance*) [Default is width = default, color = black,</span>
 <span class="sd">            style = solid].</span>
+<span class="sd">        no_clip : bool</span>
+<span class="sd">            Do NOT clip text at map boundaries [Default is False, i.e. will</span>
+<span class="sd">            clip].</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1267,9 +1745,14 @@
         <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
         <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
         <span class="n">C</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span>
+        <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
+        <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">meca</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">spec</span><span class="p">,</span>
@@ -1361,9 +1844,16 @@
 <span class="sd">            circle is plotted at the initial location and a line connects</span>
 <span class="sd">            the beachball to the circle. Specify pen and optionally append</span>
 <span class="sd">            ``+ssize`` to change the line style and/or size of the circle.</span>
+<span class="sd">        no_clip : bool</span>
+<span class="sd">            Does NOT skip symbols that fall outside frame boundary specified by</span>
+<span class="sd">            *region* [Default is False, i.e. plot symbols inside map frame</span>
+<span class="sd">            only].</span>
 <span class="sd">        {J}</span>
 <span class="sd">        {R}</span>
 <span class="sd">        {B}</span>
+<span class="sd">        {V}</span>
+<span class="sd">        {XY}</span>
+<span class="sd">        {p}</span>
 <span class="sd">        {t}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1664,7 +2154,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

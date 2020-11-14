@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -132,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
@@ -142,7 +145,10 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.meca.html">pygmt.Figure.meca</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.makecpt</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.makecpt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-makecpt">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.savefig.html">pygmt.Figure.savefig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.show.html">pygmt.Figure.show</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.psconvert.html">pygmt.Figure.psconvert</a></li>
@@ -278,52 +284,148 @@
 <dl class="function">
 <dt id="pygmt.makecpt">
 <code class="sig-prename descclassname">pygmt.</code><code class="sig-name descname">makecpt</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/mathops.html#makecpt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.makecpt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a static color palette table (CPT).</p>
+<dd><p>Make GMT color palette tables.</p>
+<p>This is a module that will help you make static color palette tables
+(CPTs). By default, the CPT will simply be saved to the current session,
+but you can use <em>output</em> to save it to a file. You define an equidistant
+set of contour intervals or pass your own z-table or list, and create a new
+CPT based on an existing master (dynamic) CPT. The resulting CPT can be
+reversed relative to the master cpt, and can be made continuous or
+discrete. For color tables beyond the standard GMT offerings, visit
+<a class="reference external" href="http://soliton.vm.bytemark.co.uk/pub/cpt-city/">cpt-city</a> and
+<a class="reference external" href="http://www.fabiocrameri.ch/colourmaps.php">Scientific Colour-Maps</a>.</p>
+<p>The CPT includes three additional colors beyond the range of z-values.
+These are the background color (B) assigned to values lower than the lowest
+<em>z</em>-value, the foreground color (F) assigned to values higher than the
+highest <em>z</em>-value, and the NaN color (N) painted wherever values are
+undefined.</p>
+<p>If the master CPT includes B, F, and N entries, these will be copied into
+the new master file. If not, the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> from the
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a> file or the command line will be used. This
+default behavior can be overruled using the options <em>background</em>,
+<em>overrule_bg</em> or <em>no_bg</em>.</p>
+<p>The color model (RGB, HSV or CMYK) of the palette created by <strong>makecpt</strong>
+will be the same as specified in the header of the master CPT. When there
+is no <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_MODEL">COLOR_MODEL</a> entry in the master CPT, the
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_MODEL">COLOR_MODEL</a> specified in the <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a>
+file or on the command line will be used.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/makecpt.html">https://docs.generic-mapping-tools.org/latest/makecpt.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
+<li><p>A = transparency</p></li>
 <li><p>C = cmap</p></li>
+<li><p>D = background</p></li>
+<li><p>F = color_model</p></li>
 <li><p>G = truncate</p></li>
 <li><p>H = output</p></li>
 <li><p>I = reverse</p></li>
+<li><p>M = overrule_bg</p></li>
+<li><p>N = no_bg</p></li>
+<li><p>Q = log</p></li>
 <li><p>T = series</p></li>
+<li><p>V = verbose</p></li>
+<li><p>W = categorical</p></li>
+<li><p>Ww = cyclic</p></li>
 <li><p>Z = continuous</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Selects the master color palette table (CPT) to use in the
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Sets a constant level of transparency (0-100) for all color slices.
+Append <strong>+a</strong> to also affect the fore-, back-, and nan-colors
+[Default is no transparency, i.e., 0 (opaque)].</p></li>
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Selects the master color palette table (CPT) to use in the
 interpolation. Full list of built-in color palette tables can be found
 at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt</a>.</p></li>
-<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[min/max/inc[+b|l|n]|file|list]</span></code>. Defines the range of the new CPT
-by giving the lowest and highest z-value (and optionally an interval).
-If this is not given, the existing range in the master CPT will be used
-intact.</p></li>
-<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">zlo/zhi</span></code>. Truncate the incoming CPT so that the lowest and highest
-z-levels are to zlo and zhi. If one of these equal NaN then we leave
-that end of the CPT alone. The truncation takes place before any
-resampling. See also
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Optional. The file name with extension .cpt to store the generated CPT
+<li><p><strong>background</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Select the back- and foreground colors to match the colors for lowest
+and highest <em>z</em>-values in the output CPT [Default (<code class="docutils literal notranslate"><span class="pre">background=True</span></code>
+or <code class="docutils literal notranslate"><span class="pre">background='o'</span></code>) uses the colors specified in the master file, or
+those defined by the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a>]. Use
+<code class="docutils literal notranslate"><span class="pre">background='i'</span></code> to match the colors for the lowest and highest
+values in the input (instead of the output) CPT.</p></li>
+<li><p><strong>color_model</strong> – <code class="docutils literal notranslate"><span class="pre">[R|r|h|c][+c[label]]</span></code>.
+Force output CPT to be written with r/g/b codes, gray-scale values or
+color name (<strong>R</strong>, default) or r/g/b codes only (<strong>r</strong>), or h-s-v codes
+(<strong>h</strong>), or c/m/y/k codes (<strong>c</strong>).  Optionally or alternatively, append
+<strong>+c</strong> to write discrete palettes in categorical format. If <em>label</em> is
+appended then we create labels for each category to be used when the
+CPT is plotted. The <em>label</em> may be a comma-separated list of category
+names (you can skip a category by not giving a name), or give
+<em>start*[-], where we automatically build monotonically increasing
+labels from *start</em> (a single letter or an integer). Append - to build
+ranges <em>start</em>-<em>start+1</em> instead.</p></li>
+<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[min/max/inc[+b|l|n]|file|list]</span></code>.
+Defines the range of the new CPT by giving the lowest and highest
+z-value (and optionally an interval). If this is not given, the
+existing range in the master CPT will be used intact. The values
+produced defines the color slice boundaries.  If <strong>+n</strong> is used it
+refers to the number of such boundaries and not the number of slices.
+For details on array creation, see
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array">https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array</a>.</p></li>
+<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">zlo/zhi</span></code>.
+Truncate the incoming CPT so that the lowest and highest z-levels are
+to <em>zlo</em> and <em>zhi</em>. If one of these equal NaN then we leave that end of
+the CPT alone. The truncation takes place before any resampling. See
+also <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Optional. The file name with extension .cpt to store the generated CPT
 file. If not given or False (default), saves the CPT as the session
 current CPT.</p></li>
-<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Set this to True or c [Default] to reverse the sense of color
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Set this to True or c [Default] to reverse the sense of color
 progression in the master CPT. Set this to z to reverse the sign of
 z-values in the color table. Note that this change of z-direction
 happens before <em>truncate</em> and <em>series</em> values are used so the latter
-must be compatible with the changed z-range. See also
+must be compatible with the changed <em>z</em>-range. See also
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Creates a continuous CPT [Default is discontinuous, i.e., constant
-colors for each interval]. This option has no effect when no <em>series</em>
-is used, or when using <em>series=[z_min, z_max]</em>; in the first case the
-input CPT remains untouched, in the second case it is only scaled to
-match the range z_min/z_max.</p></li>
+<li><p><strong>overrule_bg</strong> – Overrule background, foreground, and NaN colors specified in the master
+CPT with the values of the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> specified in
+the <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a> file or on the command line. When
+combined with <strong>background</strong>, only <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> is considered.</p></li>
+<li><p><strong>no_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Do not write out the background, foreground, and NaN-color fields
+[Default will write them, i.e. <code class="docutils literal notranslate"><span class="pre">no_bg=False</span></code>].</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – For logarithmic interpolation scheme with input given as logarithms.
+Expects input z-values provided via <strong>series</strong> to be log10(<em>z</em>),
+assigns colors, and writes out <em>z</em>.</p></li>
+<li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Force a continuous CPT when building from a list of colors and a list
+of z-values [Default is None, i.e. discrete values].</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
+<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+<li><p><strong>categorical</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Do not interpolate the input color table but pick the output colors
+starting at the beginning of the color table, until colors for all
+intervals are assigned. This is particularly useful in combination with
+a categorical color table, like <code class="docutils literal notranslate"><span class="pre">cmap='categorical'</span></code>.</p></li>
+<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Produce a wrapped (cyclic) color table that endlessly repeats its
+range. Note that <code class="docutils literal notranslate"><span class="pre">cyclic=True</span></code> cannot be set together with
+<code class="docutils literal notranslate"><span class="pre">categorical=True</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<div style='clear:both'></div></div>
+<div class="section" id="examples-using-pygmt-makecpt">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code><a class="headerlink" href="#examples-using-pygmt-makecpt" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3D. In the example below, we show..."><div class="figure align-default" id="id1">
+<img alt="3D Scatter plots" src="../../_images/sphx_glr_scatter3d_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/scatter3d.html#sphx-glr-gallery-plot-scatter3d-py"><span class="std std-ref">3D Scatter plots</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id2">
+<img alt="Plotting data points" src="../../_images/sphx_glr_plot_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style='clear:both'></div></div>
+</div>
 
 
            </div>
@@ -349,7 +451,7 @@ match the range z_min/z_max.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

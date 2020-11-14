@@ -121,11 +121,14 @@
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-2-1-2020-11-14">Release v0.2.1 (2020/11/14)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#release-v0-2-0-2020-09-12">Release v0.2.0 (2020/09/12)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#release-v0-1-2-2020-07-07">Release v0.1.2 (2020/07/07)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#release-v0-1-1-2020-05-22">Release v0.1.1 (2020/05/22)</a></li>
@@ -245,6 +248,78 @@
 </style>
 <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="release-v0-2-1-2020-11-14">
+<h2>Release v0.2.1 (2020/11/14)<a class="headerlink" href="#release-v0-2-1-2020-11-14" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4253459"><img alt="Digital Object Identifier for the Zenodo archive" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4253459.svg" /></a>
+<p>Highlights</p>
+<ul class="simple">
+<li><p>🎉 <strong>Patch release with more tutorials and gallery examples!</strong> 🎉</p></li>
+<li><p>🐍 Support Python 3.9 (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/689">#689</a>)</p></li>
+<li><p>📹 Add <a class="reference external" href="https://github.com/liamtoney">Liam</a>’s <a class="reference external" href="https://www.youtube.com/watch?v=SSIGJEe0BIk">ROSES 2020 PyGMT talk</a> (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/643">#643</a>)</p></li>
+</ul>
+<p>New Features</p>
+<ul class="simple">
+<li><p>Wrap plot3d (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/471">#471</a>)</p></li>
+<li><p>Wrap grdfilter (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/616">#616</a>)</p></li>
+</ul>
+<p>Enhancements</p>
+<ul class="simple">
+<li><p>Allow np.object dtypes into virtualfile_from_vectors (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/684">#684</a>)</p></li>
+<li><p>Let plot() accept record-by-record transparency (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/626">#626</a>)</p></li>
+<li><p>Refactor info to allow datetime inputs from xarray.Dataset and pandas.DataFrame tables (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/619">#619</a>)</p></li>
+</ul>
+<p>Tutorials &amp; Gallery</p>
+<ul class="simple">
+<li><p>Add tutorial for pygmt.config (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/482">#482</a>)</p></li>
+<li><p>Add an example for different line styles (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/604">#604</a>, <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/664">#664</a>)</p></li>
+<li><p>Add a gallery example for varying transparent points (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/654">#654</a>)</p></li>
+<li><p>Add tutorial for pygmt.Figure.text (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/480">#480</a>)</p></li>
+<li><p>Add an example for scatter plots with auto legends (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/607">#607</a>)</p></li>
+<li><p>Improve colorbar gallery example (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/596">#596</a>)</p></li>
+</ul>
+<p>Documentation Improvements</p>
+<ul class="simple">
+<li><p>doc: Fix the description of grdcontour -G option (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/681">#681</a>)</p></li>
+<li><p>Refresh Code of Conduct from v1.4 to v2.0 (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/673">#673</a>)</p></li>
+<li><p>Add PyGMT Zenodo BibTeX entry to main README.md (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/678">#678</a>)</p></li>
+<li><p>Complete most of documentation for makecpt (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/676">#676</a>)</p></li>
+<li><p>Complete documentation for plot (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/666">#666</a>)</p></li>
+<li><p>Add “no_clip” to plot, text, contour and meca (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/661">#661</a>)</p></li>
+<li><p>Add common alias “verbose” (V) to all functions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/662">#662</a>)</p></li>
+<li><p>Improve documentation of Figure.logo() (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/651">#651</a>)</p></li>
+<li><p>Add mini-galleries for methods and functions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/648">#648</a>)</p></li>
+<li><p>Complete documentation of grdimage (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/620">#620</a>)</p></li>
+<li><p>Add common alias perspective (p) for plotting 3D illustrations (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/627">#627</a>)</p></li>
+<li><p>Add common aliases xshift (X) and yshift (Y) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/624">#624</a>)</p></li>
+<li><p>Add common alias cores (x) for grdimage and other multi-threaded modules (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/625">#625</a>)</p></li>
+<li><p>Enable switching different versions of documentation (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/621">#621</a>)</p></li>
+<li><p>Add common alias transparency (-t) to all plotting functions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/614">#614</a>)</p></li>
+</ul>
+<p>Bug Fixes</p>
+<ul class="simple">
+<li><p>Disallow passing arguments like -XNone to GMT (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/639">#639</a>)</p></li>
+</ul>
+<p>Maintenance</p>
+<ul class="simple">
+<li><p>Migrate PyPI release to GitHub Actions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/679">#679</a>)</p></li>
+<li><p>Upload artifacts showing diff images on test failure (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/675">#675</a>)</p></li>
+<li><p>Add slash command “/format” to automatically format PRs (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/646">#646</a>)</p></li>
+<li><p>Add instructions to run specific tests (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/660">#660</a>)</p></li>
+<li><p>Add more tests for xarray grid shading (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/650">#650</a>)</p></li>
+<li><p>Refactor xfail tests to avoid storing baseline images (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/603">#603</a>)</p></li>
+<li><p>Add blackdoc to format Python codes in docstrings (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/641">#641</a>)</p></li>
+<li><p>Check and lint sphinx configuration file doc/conf.py (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/630">#630</a>)</p></li>
+<li><p>Improve Makefile to clean <code class="docutils literal notranslate"><span class="pre">__pycache__</span></code> directory recursively (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/611">#611</a>)</p></li>
+<li><p>Update release process and checklist template (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/602">#602</a>)</p></li>
+</ul>
+<p>This release contains contributions from:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
+<li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
+<li><p><a class="reference external" href="https://github.com/hemmelig">Conor Bacon</a></p></li>
+<li><p><a class="reference external" href="https://github.com/carocamargo">carocamargo</a></p></li>
+</ul>
+</div>
 <div class="section" id="release-v0-2-0-2020-09-12">
 <h2>Release v0.2.0 (2020/09/12)<a class="headerlink" href="#release-v0-2-0-2020-09-12" title="Permalink to this headline">¶</a></h2>
 <a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4025418"><img alt="Digital Object Identifier for the Zenodo archive" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4025418.svg" /></a>
@@ -299,10 +374,10 @@
 <li><p>Eliminate unnecessary jobs from Travis CI (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/567">#567</a>) and Azure Pipelines (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/513">#513</a>)</p></li>
 <li><p>Improve the workflow to test both GMT master (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/485">#485</a>) and 6.1 branches (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/554">#554</a>)</p></li>
 <li><p>Automatically cancel in-progress CI runs of old commits (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/544">#544</a>)</p></li>
-<li><p>Remove the Stickler CI configuration file (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/538">#538</a>), run style checks using Github Actions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/519">#519</a>)</p></li>
-<li><p>Cache GMT remote data as artifacts on Github (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/530">#530</a>)</p></li>
+<li><p>Remove the Stickler CI configuration file (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/538">#538</a>), run style checks using GitHub Actions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/519">#519</a>)</p></li>
+<li><p>Cache GMT remote data as artifacts on GitHub (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/530">#530</a>)</p></li>
 <li><p>Let pytest generate both HTML and XML coverage reports (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/512">#512</a>)</p></li>
-<li><p>Run Continuous Integration tests on Github Actions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/475">#475</a>)</p></li>
+<li><p>Run Continuous Integration tests on GitHub Actions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/475">#475</a>)</p></li>
 </ul>
 <p>Contributors:</p>
 <ul class="simple">
@@ -453,7 +528,7 @@
 <p>Maintenance:</p>
 <ul class="simple">
 <li><p>Quickfix Zeit Now miniconda installer link to anaconda.com (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/413">#413</a>)</p></li>
-<li><p>Fix Github Pages deployment from Travis (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/410">#410</a>)</p></li>
+<li><p>Fix GitHub Pages deployment from Travis (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/410">#410</a>)</p></li>
 <li><p>Update and clean TravisCI configuration (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/404">#404</a>)</p></li>
 <li><p>Quickfix min elevation for new SRTM15+V2.1 earth relief grids (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/401">#401</a>)</p></li>
 <li><p>Wrap docstrings to 79 chars and check with flake8 (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/384">#384</a>)</p></li>
@@ -513,7 +588,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

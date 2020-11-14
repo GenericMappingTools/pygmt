@@ -199,6 +199,27 @@ Plotting map items
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Points can be plotted with different transparency levels by passing in an array to the transpar...">
+
+.. only:: html
+
+ .. figure:: /gallery/plot/images/thumb/sphx_glr_points-transparency_thumb.png
+     :alt: Points with varying transparency
+
+     :ref:`sphx_glr_gallery_plot_points-transparency.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot/points-transparency
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. We must specify the plot symbol and size through ...">
 
 .. only:: html
@@ -217,6 +238,48 @@ Plotting map items
    :hidden:
 
    /gallery/plot/points
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with a legend one may use a loop and create one scatter plot per item ...">
+
+.. only:: html
+
+ .. figure:: /gallery/plot/images/thumb/sphx_glr_scatter_thumb.png
+     :alt: Scatter plots with a legend
+
+     :ref:`sphx_glr_gallery_plot_scatter.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot/scatter
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3D. In the example below, we show...">
+
+.. only:: html
+
+ .. figure:: /gallery/plot/images/thumb/sphx_glr_scatter3d_thumb.png
+     :alt: 3D Scatter plots
+
+     :ref:`sphx_glr_gallery_plot_scatter3d.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot/scatter3d
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>

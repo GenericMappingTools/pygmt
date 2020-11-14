@@ -5,6 +5,8 @@ pygmt.Figure.savefig
 
 .. automethod:: Figure.savefig
 
+.. include:: backreferences/pygmt.Figure.savefig.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

@@ -5,6 +5,8 @@ pygmt.Figure.meca
 
 .. automethod:: Figure.meca
 
+.. include:: backreferences/pygmt.Figure.meca.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

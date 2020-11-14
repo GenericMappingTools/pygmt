@@ -5,6 +5,8 @@ pygmt.Figure.grdcontour
 
 .. automethod:: Figure.grdcontour
 
+.. include:: backreferences/pygmt.Figure.grdcontour.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

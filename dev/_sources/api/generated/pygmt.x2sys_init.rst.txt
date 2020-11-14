@@ -5,6 +5,7 @@ pygmt.x2sys\_init
 
 .. autofunction:: x2sys_init
 
+.. include:: backreferences/pygmt.x2sys_init.examples
 
 .. raw:: html
 

@@ -5,6 +5,8 @@ pygmt.clib.Session.\_\_enter\_\_
 
 .. automethod:: Session.__enter__
 
+.. include:: backreferences/pygmt.clib.Session.__enter__.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

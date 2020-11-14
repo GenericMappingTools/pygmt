@@ -5,6 +5,7 @@ pygmt.show\_versions
 
 .. autofunction:: show_versions
 
+.. include:: backreferences/pygmt.show_versions.examples
 
 .. raw:: html
 

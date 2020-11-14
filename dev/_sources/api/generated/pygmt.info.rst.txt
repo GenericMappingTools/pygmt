@@ -5,6 +5,7 @@ pygmt.info
 
 .. autofunction:: info
 
+.. include:: backreferences/pygmt.info.examples
 
 .. raw:: html
 

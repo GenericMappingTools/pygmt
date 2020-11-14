@@ -5,6 +5,7 @@ pygmt.print\_clib\_info
 
 .. autofunction:: print_clib_info
 
+.. include:: backreferences/pygmt.print_clib_info.examples
 
 .. raw:: html
 

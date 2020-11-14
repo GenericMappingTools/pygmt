@@ -5,6 +5,8 @@ pygmt.clib.Session.put\_vector
 
 .. automethod:: Session.put_vector
 
+.. include:: backreferences/pygmt.clib.Session.put_vector.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

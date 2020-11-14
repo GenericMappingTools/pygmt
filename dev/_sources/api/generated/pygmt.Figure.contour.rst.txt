@@ -5,6 +5,8 @@ pygmt.Figure.contour
 
 .. automethod:: Figure.contour
 
+.. include:: backreferences/pygmt.Figure.contour.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

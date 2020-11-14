@@ -5,6 +5,8 @@ pygmt.clib.Session.\_\_getitem\_\_
 
 .. automethod:: Session.__getitem__
 
+.. include:: backreferences/pygmt.clib.Session.__getitem__.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

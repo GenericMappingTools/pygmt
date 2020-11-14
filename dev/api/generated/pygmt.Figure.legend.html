@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -132,11 +134,15 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdview.html">pygmt.Figure.grdview</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.Figure.legend</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.Figure.legend</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-figure-legend">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.legend</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
@@ -291,29 +297,54 @@ size in effect (i.e., FONT_ANNOT_PRIMARY).</p>
 <li><p>F = box</p></li>
 <li><p>J = projection</p></li>
 <li><p>R = region</p></li>
+<li><p>V = verbose</p></li>
+<li><p>X = xshift</p></li>
+<li><p>Y = yshift</p></li>
+<li><p>p = perspective</p></li>
 <li><p>t = transparency</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Either None (default) for using the automatically generated legend
+<li><p><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Either None (default) for using the automatically generated legend
 specification file, or a filename pointing to the legend
 specification file.</p></li>
-<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
 Select map projection.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
 <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
 Specify the region of interest.</p></li>
-<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing]</span>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[g|j|J|n|x]refpoint+wwidth[/height][+jjustify][+lspacing]</span>
 <span class="pre">[+odx[/dy]]'</span></code> Defines the reference point on the map for the
 legend. By default, uses ‘JTR+jTR+o0.2c’ which places the legend at
 the top-right corner inside the map frame, with a 0.2 cm offset.</p></li>
-<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]</span>
+<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]</span>
 <span class="pre">[+s[[dx/dy/][shade]]]'</span></code> Without further options, draws a
 rectangular border around the legend using <strong>MAP_FRAME_PEN</strong>. By
 default, uses ‘+gwhite+p1p’ which draws a box around the legend
 using a 1 point black pen and adds a white background.</p></li>
-<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
+<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+<li><p><strong>xshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[a|c|f|r][xshift]</span></code>.
+Shift plot origin in x-direction.</p></li>
+<li><p><strong>yshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[a|c|f|r][yshift]</span></code>.
+Shift plot origin in y-direction. Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full">https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full</a>.</p></li>
+<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'</span></code>.
+Select perspective view and set the azimuth and elevation angle of
+the viewpoint. Default is [180, 90]. Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full</a>.</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
 Default is 0, i.e., opaque.
 Only visible when PDF or raster format output is selected.
 Only the PNG format selection adds a transparency layer
@@ -323,7 +354,18 @@ in the image (for further processing).</p></li>
 </dl>
 </dd></dl>
 
-<div style='clear:both'></div></div>
+<div class="section" id="examples-using-pygmt-figure-legend">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.legend</span></code><a class="headerlink" href="#examples-using-pygmt-figure-legend" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm..."><div class="figure align-default" id="id1">
+<img alt="Legend" src="../../_images/sphx_glr_legend_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/legend.html#sphx-glr-gallery-plot-legend-py"><span class="std std-ref">Legend</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with a legend one may use a loop and create one scatter plot per item ..."><div class="figure align-default" id="id2">
+<img alt="Scatter plots with a legend" src="../../_images/sphx_glr_scatter_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/scatter.html#sphx-glr-gallery-plot-scatter-py"><span class="std std-ref">Scatter plots with a legend</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style='clear:both'></div></div>
+</div>
 
 
            </div>
@@ -349,7 +391,7 @@ in the image (for further processing).</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

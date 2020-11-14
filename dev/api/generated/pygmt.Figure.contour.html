@@ -48,7 +48,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.Figure.grdcontour" href="pygmt.Figure.grdcontour.html" />
-    <link rel="prev" title="pygmt.Figure.plot" href="pygmt.Figure.plot.html" />
+    <link rel="prev" title="pygmt.Figure.plot3d" href="pygmt.Figure.plot3d.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -132,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
@@ -291,45 +294,72 @@ polygons, or symbols at those locations on a map.</p>
 <li><p>G = label_placement</p></li>
 <li><p>J = projection</p></li>
 <li><p>L = triangular_mesh_pen</p></li>
+<li><p>N = no_clip</p></li>
 <li><p>R = region</p></li>
 <li><p>S = skip</p></li>
+<li><p>V = verbose</p></li>
 <li><p>W = pen</p></li>
+<li><p>X = xshift</p></li>
+<li><p>Y = yshift</p></li>
 <li><p>i = columns</p></li>
 <li><p>l = label</p></li>
+<li><p>p = perspective</p></li>
 <li><p>t = transparency</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x/y/z</strong> (<em>1d arrays</em>) – Arrays of x and y coordinates and values z of the data points.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>2d array</em>) – Either a data file name or a 2d numpy array with the tabular data.</p></li>
-<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>2d array</em>) – Either a data file name or a 2d numpy array with the tabular data.</p></li>
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
 Select map projection.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
 <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
 Specify the region of interest.</p></li>
-<li><p><strong>A</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[m|p|x|y]'</span></code>
+<li><p><strong>A</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[m|p|x|y]'</span></code>
 By default, geographic line segments are drawn as great circle
 arcs. To draw them as straight lines, use <em>A</em>.</p></li>
-<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Set map boundary frame and axes attributes.</p></li>
-<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Contour file or level(s)</p></li>
-<li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Dump contour coordinates</p></li>
-<li><p><strong>E</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Network information</p></li>
-<li><p><strong>label_placement</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Placement of labels</p></li>
-<li><p><strong>I</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Color the triangles using CPT</p></li>
-<li><p><strong>triangular_mesh_pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Pen to draw the underlying triangulation (default none)</p></li>
-<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Do not clip contours</p></li>
-<li><p><strong>Q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Do not draw contours with less than cut number of points.
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Set map boundary frame and axes attributes.</p></li>
+<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Contour file or level(s)</p></li>
+<li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Dump contour coordinates</p></li>
+<li><p><strong>E</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Network information</p></li>
+<li><p><strong>label_placement</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Placement of labels</p></li>
+<li><p><strong>I</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Color the triangles using CPT</p></li>
+<li><p><strong>triangular_mesh_pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Pen to draw the underlying triangulation (default none)</p></li>
+<li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Do NOT clip contours or image at the boundaries [Default will clip
+to fit inside region].</p></li>
+<li><p><strong>Q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Do not draw contours with less than cut number of points.
 <code class="docutils literal notranslate"><span class="pre">'[cut[unit]][+z]'</span></code></p></li>
-<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Skip input points outside region <code class="docutils literal notranslate"><span class="pre">'[p|t]'</span></code></p></li>
-<li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Set pen attributes for lines or the outline of symbols.</p></li>
-<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Add a legend entry for the contour being plotted. Normally, the
+<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Skip input points outside region <code class="docutils literal notranslate"><span class="pre">'[p|t]'</span></code></p></li>
+<li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Set pen attributes for lines or the outline of symbols.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Add a legend entry for the contour being plotted. Normally, the
 annotated contour is selected for the legend. You can select the
 regular contour instead, or both of them, by considering the label
 to be of the format [<em>annotcontlabel</em>][/<em>contlabel</em>]. If either
 label contains a slash (/) character then use <code class="docutils literal notranslate"><span class="pre">|</span></code> as the
 separator for the two labels instead.</p></li>
-<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
+<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+<li><p><strong>xshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[a|c|f|r][xshift]</span></code>.
+Shift plot origin in x-direction.</p></li>
+<li><p><strong>yshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[a|c|f|r][yshift]</span></code>.
+Shift plot origin in y-direction. Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full">https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full</a>.</p></li>
+<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'</span></code>.
+Select perspective view and set the azimuth and elevation angle of
+the viewpoint. Default is [180, 90]. Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full</a>.</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
 Default is 0, i.e., opaque.
 Only visible when PDF or raster format output is selected.
 Only the PNG format selection adds a transparency layer
@@ -353,7 +383,7 @@ in the image (for further processing).</p></li>
         <a href="pygmt.Figure.grdcontour.html" class="btn btn-neutral float-right" title="pygmt.Figure.grdcontour" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pygmt.Figure.plot.html" class="btn btn-neutral float-left" title="pygmt.Figure.plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pygmt.Figure.plot3d.html" class="btn btn-neutral float-left" title="pygmt.Figure.plot3d" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -365,7 +395,7 @@ in the image (for further processing).</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

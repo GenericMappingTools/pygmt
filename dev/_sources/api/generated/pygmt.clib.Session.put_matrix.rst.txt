@@ -5,6 +5,8 @@ pygmt.clib.Session.put\_matrix
 
 .. automethod:: Session.put_matrix
 
+.. include:: backreferences/pygmt.clib.Session.put_matrix.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

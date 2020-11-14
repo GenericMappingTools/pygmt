@@ -5,6 +5,8 @@ pygmt.Figure.legend
 
 .. automethod:: Figure.legend
 
+.. include:: backreferences/pygmt.Figure.legend.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

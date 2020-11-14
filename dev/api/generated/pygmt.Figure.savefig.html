@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -132,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
@@ -143,7 +146,10 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.meca.html">pygmt.Figure.meca</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.makecpt.html">pygmt.makecpt</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.Figure.savefig</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.Figure.savefig</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-figure-savefig">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.savefig</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.show.html">pygmt.Figure.show</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.psconvert.html">pygmt.Figure.psconvert</a></li>
 </ul>
@@ -289,24 +295,31 @@ The KML output generates a companion PNG file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The desired figure file name, including the extension. See the list
+<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The desired figure file name, including the extension. See the list
 of supported formats and their extensions above.</p></li>
-<li><p><strong>transparent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If True, will use a transparent background for the figure. Only
+<li><p><strong>transparent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, will use a transparent background for the figure. Only
 valid for PNG format.</p></li>
-<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If True, will crop the figure canvas (page) to the plot area.</p></li>
-<li><p><strong>anti_alias</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If True, will use anti aliasing when creating raster images (PNG,
+<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, will crop the figure canvas (page) to the plot area.</p></li>
+<li><p><strong>anti_alias</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, will use anti aliasing when creating raster images (PNG,
 JPG, TIf). More specifically, uses options <code class="docutils literal notranslate"><span class="pre">Qt=2,</span> <span class="pre">Qg=2</span></code> in
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">psconvert</span></code>. Ignored if creating vector graphics.
 Overrides values of <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">Qg</span></code> passed in through <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p></li>
-<li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If True, will open the figure in an external viewer.</p></li>
-<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Set raster resolution in dpi. Default is 720 for PDF, 300 for
+<li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, will open the figure in an external viewer.</p></li>
+<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Set raster resolution in dpi. Default is 720 for PDF, 300 for
 others.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<div style='clear:both'></div></div>
+<div class="section" id="examples-using-pygmt-figure-savefig">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.savefig</span></code><a class="headerlink" href="#examples-using-pygmt-figure-savefig" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Welcome to PyGMT! Here we&#x27;ll cover some of basic concepts, like creating simple figures and nam..."><div class="figure align-default" id="id1">
+<img alt="Making your first figure" src="../../_images/sphx_glr_first-figure_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/first-figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style='clear:both'></div></div>
+</div>
 
 
            </div>
@@ -332,7 +345,7 @@ others.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

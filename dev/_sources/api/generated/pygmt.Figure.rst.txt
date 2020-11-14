@@ -60,6 +60,10 @@ pygmt.Figure
     
     
     
+    Figure.plot3d
+    
+    
+    
     Figure.psconvert
     
     

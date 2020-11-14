@@ -5,6 +5,8 @@ pygmt.Figure.shift\_origin
 
 .. automethod:: Figure.shift_origin
 
+.. include:: backreferences/pygmt.Figure.shift_origin.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

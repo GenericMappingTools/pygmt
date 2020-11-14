@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -284,7 +286,7 @@ API session and destroy it in the end to clean up memory.</p>
 methods MUST be used with an open session (inside a <code class="docutils literal notranslate"><span class="pre">with</span></code> block). If
 creating GMT data structures to communicate data, put that code inside the
 same <code class="docutils literal notranslate"><span class="pre">with</span></code> block as the API calls that will use the data.</p>
-<p>By default, will let <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> try to find the GMT shared library
+<p>By default, will let <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> try to find the GMT shared library
 (<code class="docutils literal notranslate"><span class="pre">libgmt</span></code>). If the environment variable <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> is set, will
 look for the shared library in the directory specified by it.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">GMTVersionError</span></code> exception will be raised if the GMT shared library
@@ -321,6 +323,7 @@ open session.</p>
 <span class="gp">... </span>            <span class="p">)</span>
 <span class="gp">... </span>            <span class="c1"># Read the contents of the temp file before it&#39;s deleted.</span>
 <span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="n">fout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="gp">...</span>
 <span class="go">-180 180 -90 90 -8182 5651.5 1 1 360 180 1 1</span>
 </pre></div>
 </div>
@@ -406,7 +409,7 @@ open session.</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

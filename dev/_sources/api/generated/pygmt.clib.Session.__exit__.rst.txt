@@ -5,6 +5,8 @@ pygmt.clib.Session.\_\_exit\_\_
 
 .. automethod:: Session.__exit__
 
+.. include:: backreferences/pygmt.clib.Session.__exit__.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -317,9 +319,10 @@ GMT module.</p>
 <span class="gp">... </span>        <span class="c1"># Send the output to a file so that we can read it</span>
 <span class="gp">... </span>        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">fout</span><span class="p">:</span>
 <span class="gp">... </span>            <span class="n">ses</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-<span class="gp">... </span>                <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> -&gt;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fin</span><span class="p">,</span> <span class="n">fout</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">... </span>                <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> -&gt;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fin</span><span class="p">,</span> <span class="n">fout</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 <span class="gp">... </span>            <span class="p">)</span>
 <span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="n">fout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="gp">...</span>
 <span class="go">&lt;matrix memory&gt;: N = 4 &lt;0/9&gt; &lt;1/10&gt; &lt;2/11&gt;</span>
 </pre></div>
 </div>
@@ -351,7 +354,7 @@ GMT module.</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

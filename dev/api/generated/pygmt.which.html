@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -276,22 +278,35 @@ will not be found.</p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
 <li><p>G = download</p></li>
+<li><p>V = verbose</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The file name that you want to check.</p></li>
-<li><p><strong>download</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – If the file is downloadable and not found, we will try to download the
+<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The file name that you want to check.</p></li>
+<li><p><strong>download</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – If the file is downloadable and not found, we will try to download the
 it. Use True or ‘l’ (default) to download to the current directory. Use
 ‘c’ to place in the user cache directory or ‘u’ user data directory
 instead.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
+<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>path</strong> (<em>str</em>) – The path of the file, depending on the options used.</p>
 </dd>
 <dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.8)"><strong>FileNotFoundError</strong></a> – If the file is not found.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.9)"><strong>FileNotFoundError</strong></a> – If the file is not found.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -322,7 +337,7 @@ instead.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

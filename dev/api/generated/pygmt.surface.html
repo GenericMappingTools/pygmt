@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -131,6 +133,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdfilter.html">pygmt.grdfilter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_init.html">pygmt.x2sys_init</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
@@ -281,18 +284,31 @@ operator.</p>
 <li><p>G = outfile</p></li>
 <li><p>I = spacing</p></li>
 <li><p>R = region</p></li>
+<li><p>V = verbose</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x/y/z</strong> (<em>1d arrays</em>) – Arrays of x and y coordinates and values z of the data points.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>2d array</em>) – Either a data file name or a 2d numpy array with the tabular data.</p></li>
-<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'xinc[unit][+e|n][/yinc[unit][+e|n]]'</span></code>.
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>2d array</em>) – Either a data file name or a 2d numpy array with the tabular data.</p></li>
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'xinc[unit][+e|n][/yinc[unit][+e|n]]'</span></code>.
 x_inc [and optionally y_inc] is the grid spacing.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
 Specify the region of interest.</p></li>
-<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Optional. The file name for the output netcdf file with extension .nc
+<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Optional. The file name for the output netcdf file with extension .nc
 to store the grid in.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
+<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -332,7 +348,7 @@ to store the grid in.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

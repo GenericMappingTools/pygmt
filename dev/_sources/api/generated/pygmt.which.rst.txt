@@ -5,6 +5,7 @@ pygmt.which
 
 .. autofunction:: which
 
+.. include:: backreferences/pygmt.which.examples
 
 .. raw:: html
 

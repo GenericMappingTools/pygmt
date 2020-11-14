@@ -5,6 +5,8 @@ pygmt.clib.Session.extract\_region
 
 .. automethod:: Session.extract_region
 
+.. include:: backreferences/pygmt.clib.Session.extract_region.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

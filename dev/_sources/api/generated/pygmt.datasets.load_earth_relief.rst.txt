@@ -5,6 +5,7 @@ pygmt.datasets.load\_earth\_relief
 
 .. autofunction:: load_earth_relief
 
+.. include:: backreferences/pygmt.datasets.load_earth_relief.examples
 
 .. raw:: html
 

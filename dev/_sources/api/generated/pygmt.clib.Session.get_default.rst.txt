@@ -5,6 +5,8 @@ pygmt.clib.Session.get\_default
 
 .. automethod:: Session.get_default
 
+.. include:: backreferences/pygmt.clib.Session.get_default.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

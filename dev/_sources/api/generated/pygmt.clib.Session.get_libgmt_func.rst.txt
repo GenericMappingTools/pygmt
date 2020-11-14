@@ -5,6 +5,8 @@ pygmt.clib.Session.get\_libgmt\_func
 
 .. automethod:: Session.get_libgmt_func
 
+.. include:: backreferences/pygmt.clib.Session.get_libgmt_func.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

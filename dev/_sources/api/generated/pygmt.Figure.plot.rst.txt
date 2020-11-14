@@ -5,6 +5,8 @@ pygmt.Figure.plot
 
 .. automethod:: Figure.plot
 
+.. include:: backreferences/pygmt.Figure.plot.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

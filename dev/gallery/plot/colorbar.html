@@ -121,7 +121,10 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Colorbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="meca.html">Focal mechanisms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="points-transparency.html">Points with varying transparency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points.html">Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scatter.html">Scatter plots with a legend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scatter3d.html">3D Scatter plots</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#grids">Grids</a></li>
@@ -134,6 +137,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -263,37 +268,29 @@
 </div>
 <div class="sphx-glr-example-title section" id="colorbar">
 <span id="sphx-glr-gallery-plot-colorbar-py"></span><h1>Colorbar<a class="headerlink" href="#colorbar" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code></a> method creates a color scalebar. We must specify the
-colormap via the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> argument, and set the placement via the <code class="docutils literal notranslate"><span class="pre">position</span></code> argument.
-The full list of color paletted tables can be found at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html</a>.
-You can set the <cite>position</cite> of the colorbar using the following options:</p>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code></a> method creates a color scalebar. We must
+specify the colormap via the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> argument, and optionally set the
+placement via the <code class="docutils literal notranslate"><span class="pre">position</span></code> argument. The full list of color palette tables
+can be found at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html</a>. You can set the <cite>position</cite> of
+the colorbar using the following options:</p>
 <ul class="simple">
-<li><p>j/J: justified inside/outside the mapframe using any 2 character combination of
-vertical (<strong>T</strong> op, <strong>M</strong> iddle, <strong>B</strong> ottom) and horizontal (<strong>L</strong> eft, <strong>C</strong> enter,
-<strong>R</strong> ight) alignment codes, e.g. <cite>position=”jTR”</cite> for top right.</p></li>
-<li><p>g: using map coordinates, e.g. <cite>position=”g170/-45”</cite> for longitude 170E, latitude 45S.</p></li>
-<li><p>x: using paper coordinates, e.g. <cite>position=”x5c/7c”</cite> for 5cm,7cm from anchor point.</p></li>
+<li><p>j/J: justified inside/outside the map frame using any 2 character combination
+of vertical (<strong>T</strong> op, <strong>M</strong> iddle, <strong>B</strong> ottom) and horizontal (<strong>L</strong> eft,
+<strong>C</strong> enter, <strong>R</strong> ight) alignment codes, e.g. <cite>position=”jTR”</cite> for top
+right.</p></li>
+<li><p>g: using map coordinates, e.g. <cite>position=”g170/-45”</cite> for longitude 170E,
+latitude 45S.</p></li>
+<li><p>x: using paper coordinates, e.g. <cite>position=”x5c/7c”</cite> for 5cm,7cm from anchor
+point.</p></li>
 <li><p>n: using normalized (0-1) coordinates, e.g. <cite>position=”n0.4/0.8”</cite>.</p></li>
 </ul>
-<p>Note that the anchor point defaults to the bottom left (BL). Append +h to <code class="docutils literal notranslate"><span class="pre">position</span></code>
-to get a horizontal colorbar instead of a vertical one. For more advanced styling
-options, see the full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/colorbar.html">https://docs.generic-mapping-tools.org/latest/colorbar.html</a>.</p>
+<p>Note that the anchor point defaults to the bottom left (BL). Append +h to
+<code class="docutils literal notranslate"><span class="pre">position</span></code> to get a horizontal colorbar instead of a vertical one. For more
+advanced styling options, see the full option list at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/colorbar.html">https://docs.generic-mapping-tools.org/latest/colorbar.html</a>.</p>
 <img alt="colorbar" class="sphx-glr-single-img" src="../../_images/sphx_glr_colorbar_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>colorbar [WARNING]: Axis sub-item f set more than once (typo?)
-colorbar [WARNING]: Axis sub-item a set more than once (typo?)
-colorbar [WARNING]: Axis sub-item f set more than once (typo?)
-colorbar [WARNING]: Axis sub-item a set more than once (typo?)
-colorbar [WARNING]: Axis sub-item f set more than once (typo?)
-colorbar [WARNING]: Axis sub-item a set more than once (typo?)
-colorbar [WARNING]: Axis sub-item f set more than once (typo?)
-colorbar [WARNING]: Axis sub-item a set more than once (typo?)
-colorbar [WARNING]: Axis sub-item f set more than once (typo?)
-colorbar [WARNING]: Axis sub-item a set more than once (typo?)
-colorbar [WARNING]: Axis sub-item f set more than once (typo?)
-colorbar [WARNING]: Axis sub-item a set more than once (typo?)
-
-&lt;IPython.core.display.Image object&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -302,38 +299,40 @@ colorbar [WARNING]: Axis sub-item a set more than once (typo?)
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;t0/3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;af&quot;</span><span class="p">,</span> <span class="s1">&#39;WSne+t&quot;Colorbars&quot;&#39;</span><span class="p">])</span>
 
-<span class="c1"># Create a colorbar suitable for surface topography- oleron</span>
+<span class="c1">## Create a colorbar designed for seismic tomography - roma</span>
+<span class="c1"># Colorbar is placed at bottom center (BC) by default if no position is given</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;roma&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lVelocity&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm/s&quot;</span><span class="p">])</span>
 
-<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;oleron&quot;</span><span class="p">,</span>
-    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;jTC+w6c/1c+h&quot;</span><span class="p">,</span>  <span class="c1"># justified inside map frame (j) at Top Center (TC)</span>
-    <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;+Loleron&quot;</span><span class="p">,</span> <span class="s2">&quot;xaf&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">],</span>
-    <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="c1"># Create a colorbar designed for seismic tomography- roma</span>
-<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;roma&quot;</span><span class="p">,</span>
-    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;x1.2c/4.75c+w6c/1c+h&quot;</span><span class="p">,</span>  <span class="c1"># plot using paper coordinates (x) at 1.2cm,4.75cm</span>
-    <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;+Lroma&quot;</span><span class="p">,</span> <span class="s2">&quot;xaf&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm/s&quot;</span><span class="p">],</span>
-    <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="c1"># Create a colorbar showing the scientific rainbow - batlow</span>
+<span class="c1">## Create a colorbar showing the scientific rainbow - batlow</span>
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;batlow&quot;</span><span class="p">,</span>
-    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;g0.45/6.6+w6c/1c+h&quot;</span><span class="p">,</span>  <span class="c1"># plot using map coordinates (g) at lon/lat 0.45/6.6</span>
+    <span class="c1"># Colorbar positioned at map coordinates (g) longitude/latitude 0.3/8.7,</span>
+    <span class="c1"># with a length/width (+w) of 4cm by 0.5cm, and plotted horizontally (+h)</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;g0.3/8.7+w4c/0.5c+h&quot;</span><span class="p">,</span>
     <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;+Lbatlow&quot;</span><span class="p">,</span> <span class="s2">&quot;xaf&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;y+l\260C&quot;</span><span class="p">],</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lTemperature&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;y+l\260C&quot;</span><span class="p">],</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">## Create a colorbar suitable for surface topography - oleron</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;oleron&quot;</span><span class="p">,</span>
+    <span class="c1"># Colorbar position justified outside map frame (J) at Middle Right (MR),</span>
+    <span class="c1"># offset (+o) by 1cm horizontally and 0cm vertically from anchor point,</span>
+    <span class="c1"># with a length/width (+w) of 7cm by 0.5cm and a box for NaN values (+n)</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;JMR+o1c/0c+w7c/0.5c+n+mc&quot;</span><span class="p">,</span>
+    <span class="c1"># Note that the label &#39;Elevation&#39; is moved to the opposite side and plotted</span>
+    <span class="c1"># vertically as a column of text using &#39;+mc&#39; in the position argument above</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">],</span>
     <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 <span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.465 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.494 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-plot-colorbar-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/40f3e3bf98b6b80f41c2904a9a4bf7a2/colorbar.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">colorbar.py</span></code></a></p>
@@ -369,7 +368,7 @@ colorbar [WARNING]: Axis sub-item a set more than once (typo?)
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

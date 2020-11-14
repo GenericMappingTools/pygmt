@@ -5,6 +5,8 @@ pygmt.clib.Session.virtualfile\_from\_vectors
 
 .. automethod:: Session.virtualfile_from_vectors
 
+.. include:: backreferences/pygmt.clib.Session.virtualfile_from_vectors.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

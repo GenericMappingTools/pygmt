@@ -5,6 +5,8 @@ pygmt.clib.Session.write\_data
 
 .. automethod:: Session.write_data
 
+.. include:: backreferences/pygmt.clib.Session.write_data.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

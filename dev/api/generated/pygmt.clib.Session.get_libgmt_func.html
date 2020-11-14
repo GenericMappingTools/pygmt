@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -283,8 +285,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The name of the GMT API function.</p></li>
-<li><p><strong>argtypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – List of ctypes types used to convert the Python input arguments for
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the GMT API function.</p></li>
+<li><p><strong>argtypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – List of ctypes types used to convert the Python input arguments for
 the API function.</p></li>
 <li><p><strong>restype</strong> (<em>ctypes type</em>) – The ctypes type used to convert the input returned by the function
 into a Python type.</p></li>
@@ -297,8 +299,10 @@ into a Python type.</p></li>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">c_int</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">func</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span><span class="s1">&#39;GMT_Destroy_Session&#39;</span><span class="p">,</span>
-<span class="gp">... </span>                               <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">c_void_p</span><span class="p">],</span> <span class="n">restype</span><span class="o">=</span><span class="n">c_int</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">func</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="s2">&quot;GMT_Destroy_Session&quot;</span><span class="p">,</span> <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">c_void_p</span><span class="p">],</span> <span class="n">restype</span><span class="o">=</span><span class="n">c_int</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 <span class="go">&lt;class &#39;ctypes.CDLL.__init__.&lt;locals&gt;._FuncPtr&#39;&gt;</span>
 </pre></div>
@@ -331,7 +335,7 @@ into a Python type.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

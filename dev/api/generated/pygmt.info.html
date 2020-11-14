@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -131,7 +133,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#metadata">Metadata</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pygmt.GMTDataArrayAccessor.html">pygmt.GMTDataArrayAccessor</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.info</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.info</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-info">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.info</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdinfo.html">pygmt.grdinfo</a></li>
 </ul>
 </li>
@@ -280,20 +285,34 @@ provide a numpy.ndarray in the form of <code class="docutils literal notranslate
 <li><p>C = per_column</p></li>
 <li><p>I = spacing</p></li>
 <li><p>T = nearest_multiple</p></li>
+<li><p>V = verbose</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>table</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.2)"><em>pandas.DataFrame</em></a><em> or </em><em>np.ndarray</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Either a pandas dataframe, a 1D/2D numpy.ndarray or a file name to an
-ASCII data table.</p></li>
-<li><p><strong>per_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Report the min/max values per column in separate columns.</p></li>
-<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[b|p|f|s]dx[/dy[/dz...]]'</span></code>.
+<li><p><strong>table</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>np.ndarray</em><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.16.2.dev3)"><em>xarray.Dataset</em></a>) – Pass in either a file name to an ASCII data table, a 1D/2D numpy array,
+a pandas dataframe, or an xarray dataset made up of 1D xarray.DataArray
+data variables.</p></li>
+<li><p><strong>per_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Report the min/max values per column in separate columns.</p></li>
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[b|p|f|s]dx[/dy[/dz...]]'</span></code>.
 Report the min/max of the first n columns to the nearest multiple of
 the provided increments and output results in the form
 <code class="docutils literal notranslate"><span class="pre">[w,</span> <span class="pre">e,</span> <span class="pre">s,</span> <span class="pre">n]</span></code>.</p></li>
-<li><p><strong>nearest_multiple</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'dz[+ccol]'</span></code>
+<li><p><strong>nearest_multiple</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'dz[+ccol]'</span></code>
 Report the min/max of the first (0’th) column to the nearest multiple
 of dz and output this in the form <code class="docutils literal notranslate"><span class="pre">[zmin,</span> <span class="pre">zmax,</span> <span class="pre">dz]</span></code>.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
+<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -308,7 +327,14 @@ of dz and output this in the form <code class="docutils literal notranslate"><sp
 </dl>
 </dd></dl>
 
-<div style='clear:both'></div></div>
+<div class="section" id="examples-using-pygmt-info">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.info</span></code><a class="headerlink" href="#examples-using-pygmt-info" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3D. In the example below, we show..."><div class="figure align-default" id="id1">
+<img alt="3D Scatter plots" src="../../_images/sphx_glr_scatter3d_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/scatter3d.html#sphx-glr-gallery-plot-scatter3d-py"><span class="std std-ref">3D Scatter plots</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style='clear:both'></div></div>
+</div>
 
 
            </div>
@@ -334,7 +360,7 @@ of dz and output this in the form <code class="docutils literal notranslate"><sp
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

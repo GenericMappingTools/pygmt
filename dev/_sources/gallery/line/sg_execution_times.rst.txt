@@ -5,8 +5,8 @@
 
 Computation times
 =================
-**00:00.483** total execution time for **gallery_line** files:
+**00:00.471** total execution time for **gallery_line** files:
 
 +----------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_line_linestyles.py` (``linestyles.py``) | 00:00.483 | 0.0 MB |
+| :ref:`sphx_glr_gallery_line_linestyles.py` (``linestyles.py``) | 00:00.471 | 0.0 MB |
 +----------------------------------------------------------------+-----------+--------+

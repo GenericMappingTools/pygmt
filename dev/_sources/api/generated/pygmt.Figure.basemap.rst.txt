@@ -5,6 +5,8 @@ pygmt.Figure.basemap
 
 .. automethod:: Figure.basemap
 
+.. include:: backreferences/pygmt.Figure.basemap.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

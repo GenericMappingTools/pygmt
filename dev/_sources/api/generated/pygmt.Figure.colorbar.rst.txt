@@ -5,6 +5,8 @@ pygmt.Figure.colorbar
 
 .. automethod:: Figure.colorbar
 
+.. include:: backreferences/pygmt.Figure.colorbar.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

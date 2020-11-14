@@ -5,6 +5,8 @@ pygmt.clib.Session.virtualfile\_from\_matrix
 
 .. automethod:: Session.virtualfile_from_matrix
 
+.. include:: backreferences/pygmt.clib.Session.virtualfile_from_matrix.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

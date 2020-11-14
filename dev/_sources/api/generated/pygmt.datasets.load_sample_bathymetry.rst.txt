@@ -5,6 +5,7 @@ pygmt.datasets.load\_sample\_bathymetry
 
 .. autofunction:: load_sample_bathymetry
 
+.. include:: backreferences/pygmt.datasets.load_sample_bathymetry.examples
 
 .. raw:: html
 

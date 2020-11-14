@@ -5,6 +5,7 @@ pygmt.datasets.load\_usgs\_quakes
 
 .. autofunction:: load_usgs_quakes
 
+.. include:: backreferences/pygmt.datasets.load_usgs_quakes.examples
 
 .. raw:: html
 

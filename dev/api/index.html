@@ -48,7 +48,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pygmt.Figure" href="generated/pygmt.Figure.html" />
-    <link rel="prev" title="Plotting data points" href="../tutorials/plot.html" />
+    <link rel="prev" title="Configuring PyGMT defaults" href="../tutorials/configuration.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -132,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
@@ -152,6 +155,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.surface.html">pygmt.surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.grdcut.html">pygmt.grdcut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.grdfilter.html">pygmt.grdfilter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.grdtrack.html">pygmt.grdtrack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.x2sys_init.html">pygmt.x2sys_init</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
@@ -351,7 +355,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.basemap</span></code></a>(**kwargs)</p></td>
-<td><p>Produce a basemap for the figure.</p></td>
+<td><p>Plot base maps and frames for the figure.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.coast</span></code></a>(**kwargs)</p></td>
 <td><p>Plot continents, shorelines, rivers, and borders on maps</p></td>
@@ -360,36 +364,39 @@
 <td><p>Plot a gray or color scale-bar on maps.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot</span></code></a>([x, y, data, sizes, direction])</p></td>
-<td><p>Plot lines, polygons, and symbols on maps.</p></td>
+<td><p>Plot lines, polygons, and symbols in 2-D.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.contour</span></code></a>([x, y, z, data])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.plot3d.html#pygmt.Figure.plot3d" title="pygmt.Figure.plot3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot3d</span></code></a>([x, y, z, data, sizes, direction])</p></td>
+<td><p>Plot lines, polygons, and symbols in 3-D</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.contour</span></code></a>([x, y, z, data])</p></td>
 <td><p>Contour table data by direct triangulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour" title="pygmt.Figure.grdcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdcontour</span></code></a>(grid, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour" title="pygmt.Figure.grdcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdcontour</span></code></a>(grid, **kwargs)</p></td>
 <td><p>Convert grids or images to contours and plot them on maps</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdimage</span></code></a>(grid, **kwargs)</p></td>
-<td><p>Project grids or images and plot them on maps.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdimage</span></code></a>(grid, **kwargs)</p></td>
+<td><p>Project and plot grids or images.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid, **kwargs)</p></td>
 <td><p>Create 3-D perspective image or surface mesh from a grid.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.legend</span></code></a>([spec, position, box])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.legend</span></code></a>([spec, position, box])</p></td>
 <td><p>Plot legends on maps.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.logo</span></code></a>(**kwargs)</p></td>
-<td><p>Place the GMT graphics logo on a map.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.logo</span></code></a>(**kwargs)</p></td>
+<td><p>Plot the GMT logo.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.image</span></code></a>(imagefile, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.image</span></code></a>(imagefile, **kwargs)</p></td>
 <td><p>Place images or EPS files on maps.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.shift_origin</span></code></a>([xshift, yshift])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.shift_origin</span></code></a>([xshift, yshift])</p></td>
 <td><p>Shift plot origin in x and/or y directions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.text</span></code></a>([textfiles, x, y, position, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.text</span></code></a>([textfiles, x, y, position, …])</p></td>
 <td><p>Plot or typeset text strings of variable size, font type, and orientation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.meca</span></code></a>(spec, scale[, longitude, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.meca</span></code></a>(spec, scale[, longitude, …])</p></td>
 <td><p>Plot focal mechanisms.</p></td>
 </tr>
 </tbody>
@@ -402,7 +409,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makecpt</span></code></a>(**kwargs)</p></td>
-<td><p>Creates a static color palette table (CPT).</p></td>
+<td><p>Make GMT color palette tables.</p></td>
 </tr>
 </tbody>
 </table>
@@ -452,7 +459,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.grdcut.html#pygmt.grdcut" title="pygmt.grdcut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdcut</span></code></a>(grid, **kwargs)</p></td>
 <td><p>Extract subregion from a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdtrack</span></code></a>(points, grid[, newcolname, outfile])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.grdfilter.html#pygmt.grdfilter" title="pygmt.grdfilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdfilter</span></code></a>(grid, **kwargs)</p></td>
+<td><p>Filter a grid in the space (or time) domain.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdtrack</span></code></a>(points, grid[, newcolname, outfile])</p></td>
 <td><p>Sample grids at specified (x,y) locations.</p></td>
 </tr>
 </tbody>
@@ -596,7 +606,7 @@ and store them in the GMT cache folder.</p>
 <span class="target" id="module-pygmt.clib"></span></div>
 <div class="section" id="gmt-c-api">
 <h2>GMT C API<a class="headerlink" href="#gmt-c-api" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="#module-pygmt.clib" title="pygmt.clib"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.clib</span></code></a> package is a wrapper for the GMT C API built using <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a>.
+<p>The <a class="reference internal" href="#module-pygmt.clib" title="pygmt.clib"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.clib</span></code></a> package is a wrapper for the GMT C API built using <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a>.
 Most calls to the C API happen through the <a class="reference internal" href="generated/pygmt.clib.Session.html#pygmt.clib.Session" title="pygmt.clib.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.clib.Session</span></code></a> class.</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -623,7 +633,7 @@ the <a class="reference internal" href="generated/pygmt.clib.Session.call_module
 </tbody>
 </table>
 <p>Passing memory blocks between Python variables (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.19)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, and <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.2.dev3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) and GMT happens through <em>virtual
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, and <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.2.dev3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) and GMT happens through <em>virtual
 files</em>. These methods are context managers that automate the conversion of Python
 variables to GMT virtual files:</p>
 <table class="longtable docutils align-default">
@@ -706,7 +716,7 @@ variables to GMT virtual files:</p>
         <a href="generated/pygmt.Figure.html" class="btn btn-neutral float-right" title="pygmt.Figure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../tutorials/plot.html" class="btn btn-neutral float-left" title="Plotting data points" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../tutorials/configuration.html" class="btn btn-neutral float-left" title="Configuring PyGMT defaults" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -718,7 +728,7 @@ variables to GMT virtual files:</p>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.grdtrack" href="pygmt.grdtrack.html" />
+    <link rel="next" title="pygmt.grdfilter" href="pygmt.grdfilter.html" />
     <link rel="prev" title="pygmt.surface" href="pygmt.surface.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -131,6 +133,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.grdcut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdfilter.html">pygmt.grdfilter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_init.html">pygmt.x2sys_init</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
@@ -282,27 +285,28 @@ grid that fully covers the oblique domain.</p>
 <li><p>N = extend</p></li>
 <li><p>R = region</p></li>
 <li><p>S = circ_subregion</p></li>
+<li><p>V = verbose</p></li>
 <li><p>Z = z_subregion</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.2.dev3)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
-<li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a>) – The name of the output netCDF file with extension .nc to store the grid
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.2.dev3)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
+<li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – The name of the output netCDF file with extension .nc to store the grid
 in.</p></li>
-<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
 Select map projection.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
 <code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
 Specify the region of interest.</p></li>
-<li><p><strong>extend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Allow grid to be extended if new <em>region</em> exceeds existing boundaries.
+<li><p><strong>extend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Allow grid to be extended if new <em>region</em> exceeds existing boundaries.
 Give a value to initialize nodes outside current region.</p></li>
-<li><p><strong>circ_subregion</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'lon/lat/radius[unit][+n]'</span></code>.
+<li><p><strong>circ_subregion</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'lon/lat/radius[unit][+n]'</span></code>.
 Specify an origin (<em>lon</em> and <em>lat</em>) and <em>radius</em>; append a distance
 <em>unit</em> and we determine the corresponding rectangular region so that
 all grid nodes on or inside the circle are contained in the subset.
 If <strong>+n</strong> is appended we set all nodes outside the circle to NaN.</p></li>
-<li><p><strong>z_subregion</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[min/max][+n|N|r]'</span></code>.
+<li><p><strong>z_subregion</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[min/max][+n|N|r]'</span></code>.
 Determine a new rectangular region so that all nodes outside this
 region are also outside the given z-range [-inf/+inf]. To indicate no
 limit on <em>min</em> or <em>max</em> only, specify a hyphen (-). Normally, any NaNs
@@ -316,6 +320,18 @@ core subset grid is surrounded by rows and/or columns that are all
 NaNs, append <strong>+N</strong> to strip off such columns before (optionally)
 considering the range of the core subset for further reduction of the
 area.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
+<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -340,7 +356,7 @@ area.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pygmt.grdtrack.html" class="btn btn-neutral float-right" title="pygmt.grdtrack" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pygmt.grdfilter.html" class="btn btn-neutral float-right" title="pygmt.grdfilter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="pygmt.surface.html" class="btn btn-neutral float-left" title="pygmt.surface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -355,7 +371,7 @@ area.</p></li>
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

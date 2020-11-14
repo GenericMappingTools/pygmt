@@ -5,6 +5,8 @@ pygmt.Figure.grdimage
 
 .. automethod:: Figure.grdimage
 
+.. include:: backreferences/pygmt.Figure.grdimage.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>

@@ -5,6 +5,7 @@ pygmt.datasets.load\_japan\_quakes
 
 .. autofunction:: load_japan_quakes
 
+.. include:: backreferences/pygmt.datasets.load_japan_quakes.examples
 
 .. raw:: html
 

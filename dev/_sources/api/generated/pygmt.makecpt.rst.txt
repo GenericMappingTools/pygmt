@@ -5,6 +5,7 @@ pygmt.makecpt
 
 .. autofunction:: makecpt
 
+.. include:: backreferences/pygmt.makecpt.examples
 
 .. raw:: html
 

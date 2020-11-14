@@ -120,6 +120,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -231,7 +233,7 @@
 
 
 <div class="viewcode-block" id="surface"><a class="viewcode-back" href="../../api/generated/pygmt.surface.html#pygmt.surface">[docs]</a><span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outfile&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outfile&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">surface</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -271,6 +273,8 @@
 <span class="sd">    outfile : str</span>
 <span class="sd">        Optional. The file name for the output netcdf file with extension .nc</span>
 <span class="sd">        to store the grid in.</span>
+
+<span class="sd">    {V}</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -325,7 +329,7 @@
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

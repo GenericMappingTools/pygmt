@@ -122,6 +122,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -288,16 +290,16 @@ leaving the <code class="docutils literal notranslate"><span class="pre">with</s
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_DATASET'</span></code>). Should
+<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_DATASET'</span></code>). Should
 be the same as the one you used to create your data structure.</p></li>
-<li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_POINT'</span></code>). Should
+<li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_POINT'</span></code>). Should
 be the same as the one you used to create your data structure.</p></li>
-<li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Either <code class="docutils literal notranslate"><span class="pre">'GMT_IN'</span></code> or <code class="docutils literal notranslate"><span class="pre">'GMT_OUT'</span></code> to indicate if passing data to
+<li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Either <code class="docutils literal notranslate"><span class="pre">'GMT_IN'</span></code> or <code class="docutils literal notranslate"><span class="pre">'GMT_OUT'</span></code> to indicate if passing data to
 GMT or getting it out of GMT, respectively.
 By default, GMT can modify the data you pass in. Add modifier
 <code class="docutils literal notranslate"><span class="pre">'GMT_IS_REFERENCE'</span></code> to tell GMT the data are read-only, or
 <code class="docutils literal notranslate"><span class="pre">'GMT_IS_DUPLICATE'</span></code> to tell GMT to duplicate the data.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The ctypes void pointer to your GMT data structure.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The ctypes void pointer to your GMT data structure.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields</dt>
@@ -311,24 +313,25 @@ By default, GMT can modify the data you pass in. Add modifier
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">family</span> <span class="o">=</span> <span class="s1">&#39;GMT_IS_DATASET|GMT_VIA_VECTOR&#39;</span>
-<span class="gp">... </span>    <span class="n">geometry</span> <span class="o">=</span> <span class="s1">&#39;GMT_IS_POINT&#39;</span>
+<span class="gp">... </span>    <span class="n">family</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_DATASET|GMT_VIA_VECTOR&quot;</span>
+<span class="gp">... </span>    <span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_POINT&quot;</span>
 <span class="gp">... </span>    <span class="n">dataset</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">create_data</span><span class="p">(</span>
 <span class="gp">... </span>        <span class="n">family</span><span class="o">=</span><span class="n">family</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;GMT_CONTAINER_ONLY&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;GMT_CONTAINER_ONLY&quot;</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>  <span class="c1"># columns, lines, segments, type</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">put_vector</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">lib</span><span class="o">.</span><span class="n">put_vector</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vector</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="c1"># Add the dataset to a virtual file</span>
-<span class="gp">... </span>    <span class="n">vfargs</span> <span class="o">=</span> <span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s1">&#39;GMT_IN|GMT_IS_REFERENCE&#39;</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">vfargs</span> <span class="o">=</span> <span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN|GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span><span class="o">*</span><span class="n">vfargs</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
 <span class="gp">... </span>        <span class="c1"># Send the output to a temp file so that we can read it</span>
 <span class="gp">... </span>        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">ofile</span><span class="p">:</span>
-<span class="gp">... </span>            <span class="n">args</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> -&gt;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vfile</span><span class="p">,</span> <span class="n">ofile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="gp">... </span>            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="gp">... </span>            <span class="n">args</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> -&gt;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vfile</span><span class="p">,</span> <span class="n">ofile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">... </span>            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
 <span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="n">ofile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="gp">...</span>
 <span class="go">&lt;vector memory&gt;: N = 5 &lt;0/4&gt; &lt;5/9&gt;</span>
 </pre></div>
 </div>
@@ -360,7 +363,7 @@ By default, GMT can modify the data you pass in. Add modifier
         &copy; Copyright 2017-2020, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/a57685e140dfadc40f1872f69b7edf63fd5576ee">a57685e</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
         </span>
       
 

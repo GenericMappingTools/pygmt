@@ -5,6 +5,7 @@ pygmt.x2sys\_cross
 
 .. autofunction:: x2sys_cross
 
+.. include:: backreferences/pygmt.x2sys_cross.examples
 
 .. raw:: html
 

@@ -5,6 +5,8 @@ pygmt.clib.Session.create\_data
 
 .. automethod:: Session.create_data
 
+.. include:: backreferences/pygmt.clib.Session.create_data.examples
+
 .. raw:: html
 
-      <div style='clear:both'></div>
+     <div style='clear:both'></div>
