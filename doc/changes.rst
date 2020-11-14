@@ -19,7 +19,7 @@ New Features
 * Wrap grdfilter (#616)
 
 Enhancements
-
+* Allow np.object dtypes into virtualfile_from_vectors (#684)
 * Let plot() accept record-by-record transparency (#626)
 * Refactor info to allow datetime inputs from xarray.Dataset and pandas.DataFrame tables (#619)
 
@@ -55,7 +55,7 @@ Bug Fixes
 * Disallow passing arguments like -XNone to GMT (#639)
 
 Maintenance
-
+* Support Python 3.9 (#689)
 * Migrate PyPI release to GitHub Actions (#679)
 * Upload artifacts showing diff images on test failure (#675)
 * Add slash command "/format" to automatically format PRs (#646)
