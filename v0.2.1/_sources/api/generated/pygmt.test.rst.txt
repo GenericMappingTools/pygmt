@@ -1,0 +1,12 @@
+pygmt.test
+==========
+
+.. currentmodule:: pygmt
+
+.. autofunction:: test
+
+.. include:: backreferences/pygmt.test.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

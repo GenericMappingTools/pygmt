@@ -1,0 +1,12 @@
+pygmt.datasets.load\_usgs\_quakes
+=================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_usgs_quakes
+
+.. include:: backreferences/pygmt.datasets.load_usgs_quakes.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>
