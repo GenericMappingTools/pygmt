@@ -11,6 +11,7 @@ Release v0.2.1 (2020/XX/XX)
 Highlights
 
 * 🎉 **Patch release with more tutorials and gallery examples!** 🎉
+* Support Python 3.9 (#689)
 * 📹 Add `Liam <https://github.com/liamtoney>`__'s `ROSES 2020 PyGMT talk <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ (#643)
 
 New Features
@@ -19,6 +20,7 @@ New Features
 * Wrap grdfilter (#616)
 
 Enhancements
+
 * Allow np.object dtypes into virtualfile_from_vectors (#684)
 * Let plot() accept record-by-record transparency (#626)
 * Refactor info to allow datetime inputs from xarray.Dataset and pandas.DataFrame tables (#619)
@@ -55,7 +57,7 @@ Bug Fixes
 * Disallow passing arguments like -XNone to GMT (#639)
 
 Maintenance
-* Support Python 3.9 (#689)
+
 * Migrate PyPI release to GitHub Actions (#679)
 * Upload artifacts showing diff images on test failure (#675)
 * Add slash command "/format" to automatically format PRs (#646)
