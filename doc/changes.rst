@@ -1,6 +1,81 @@
 Changelog
 =========
 
+Release v0.2.1 (2020/11/14)
+---------------------------
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4253459.svg
+   :alt: Digital Object Identifier for the Zenodo archive
+   :target: https://doi.org/10.5281/zenodo.4253459
+
+Highlights
+
+* 🎉 **Patch release with more tutorials and gallery examples!** 🎉
+* 🐍 Support Python 3.9 (`#689 <https://github.com/GenericMappingTools/pygmt/pull/689>`__)
+* 📹 Add `Liam <https://github.com/liamtoney>`__'s `ROSES 2020 PyGMT talk <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ (`#643 <https://github.com/GenericMappingTools/pygmt/pull/643>`__)
+
+New Features
+
+* Wrap plot3d (`#471 <https://github.com/GenericMappingTools/pygmt/pull/471>`__)
+* Wrap grdfilter (`#616 <https://github.com/GenericMappingTools/pygmt/pull/616>`__)
+
+Enhancements
+
+* Allow np.object dtypes into virtualfile_from_vectors (`#684 <https://github.com/GenericMappingTools/pygmt/pull/684>`__)
+* Let plot() accept record-by-record transparency (`#626 <https://github.com/GenericMappingTools/pygmt/pull/626>`__)
+* Refactor info to allow datetime inputs from xarray.Dataset and pandas.DataFrame tables (`#619 <https://github.com/GenericMappingTools/pygmt/pull/619>`__)
+
+Tutorials & Gallery
+
+* Add tutorial for pygmt.config (`#482 <https://github.com/GenericMappingTools/pygmt/pull/482>`__)
+* Add an example for different line styles (`#604 <https://github.com/GenericMappingTools/pygmt/pull/604>`__, `#664 <https://github.com/GenericMappingTools/pygmt/pull/664>`__)
+* Add a gallery example for varying transparent points (`#654 <https://github.com/GenericMappingTools/pygmt/pull/654>`__)
+* Add tutorial for pygmt.Figure.text (`#480 <https://github.com/GenericMappingTools/pygmt/pull/480>`__)
+* Add an example for scatter plots with auto legends (`#607 <https://github.com/GenericMappingTools/pygmt/pull/607>`__)
+* Improve colorbar gallery example (`#596 <https://github.com/GenericMappingTools/pygmt/pull/596>`__)
+
+Documentation Improvements
+
+* doc: Fix the description of grdcontour -G option (`#681 <https://github.com/GenericMappingTools/pygmt/pull/681>`__)
+* Refresh Code of Conduct from v1.4 to v2.0 (`#673 <https://github.com/GenericMappingTools/pygmt/pull/673>`__)
+* Add PyGMT Zenodo BibTeX entry to main README.md (`#678 <https://github.com/GenericMappingTools/pygmt/pull/678>`__)
+* Complete most of documentation for makecpt (`#676 <https://github.com/GenericMappingTools/pygmt/pull/676>`__)
+* Complete documentation for plot (`#666 <https://github.com/GenericMappingTools/pygmt/pull/666>`__)
+* Add "no_clip" to plot, text, contour and meca (`#661 <https://github.com/GenericMappingTools/pygmt/pull/661>`__)
+* Add common alias "verbose" (V) to all functions (`#662 <https://github.com/GenericMappingTools/pygmt/pull/662>`__)
+* Improve documentation of Figure.logo() (`#651 <https://github.com/GenericMappingTools/pygmt/pull/651>`__)
+* Add mini-galleries for methods and functions (`#648 <https://github.com/GenericMappingTools/pygmt/pull/648>`__)
+* Complete documentation of grdimage (`#620 <https://github.com/GenericMappingTools/pygmt/pull/620>`__)
+* Add common alias perspective (p) for plotting 3D illustrations (`#627 <https://github.com/GenericMappingTools/pygmt/pull/627>`__)
+* Add common aliases xshift (X) and yshift (Y) (`#624 <https://github.com/GenericMappingTools/pygmt/pull/624>`__)
+* Add common alias cores (x) for grdimage and other multi-threaded modules (`#625 <https://github.com/GenericMappingTools/pygmt/pull/625>`__)
+* Enable switching different versions of documentation (`#621 <https://github.com/GenericMappingTools/pygmt/pull/621>`__)
+* Add common alias transparency (-t) to all plotting functions (`#614 <https://github.com/GenericMappingTools/pygmt/pull/614>`__)
+
+Bug Fixes
+
+* Disallow passing arguments like -XNone to GMT (`#639 <https://github.com/GenericMappingTools/pygmt/pull/639>`__)
+
+Maintenance
+
+* Migrate PyPI release to GitHub Actions (`#679 <https://github.com/GenericMappingTools/pygmt/pull/679>`__)
+* Upload artifacts showing diff images on test failure (`#675 <https://github.com/GenericMappingTools/pygmt/pull/675>`__)
+* Add slash command "/format" to automatically format PRs (`#646 <https://github.com/GenericMappingTools/pygmt/pull/646>`__)
+* Add instructions to run specific tests (`#660 <https://github.com/GenericMappingTools/pygmt/pull/660>`__)
+* Add more tests for xarray grid shading (`#650 <https://github.com/GenericMappingTools/pygmt/pull/650>`__)
+* Refactor xfail tests to avoid storing baseline images (`#603 <https://github.com/GenericMappingTools/pygmt/pull/603>`__)
+* Add blackdoc to format Python codes in docstrings (`#641 <https://github.com/GenericMappingTools/pygmt/pull/641>`__)
+* Check and lint sphinx configuration file doc/conf.py (`#630 <https://github.com/GenericMappingTools/pygmt/pull/630>`__)
+* Improve Makefile to clean ``__pycache__`` directory recursively (`#611 <https://github.com/GenericMappingTools/pygmt/pull/611>`__)
+* Update release process and checklist template (`#602 <https://github.com/GenericMappingTools/pygmt/pull/602>`__)
+
+This release contains contributions from:
+
+* `Dongdong Tian <https://github.com/seisman>`__
+* `Wei Ji Leong <https://github.com/weiji14>`__
+* `Conor Bacon <https://github.com/hemmelig>`__
+* `carocamargo <https://github.com/carocamargo>`__
+
 Release v0.2.0 (2020/09/12)
 ---------------------------
 

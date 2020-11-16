@@ -138,4 +138,3 @@ e.g. in a terminal run::
     export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
     # Windows
     set "GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\"
-

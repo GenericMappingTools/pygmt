@@ -25,7 +25,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: 3.8
 
       - name: Install packages
         run: pip install black blackdoc flake8 pylint
@@ -42,8 +42,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        # Run Python 3.6 tests on master branch only to conserve CI resources
+        isMaster:
+          - ${{ contains(github.ref, 'master') }}
+        exclude:
+          - isMaster: false  # i.e. on Pull Requests
+            python-version: 3.6
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
@@ -65,7 +71,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v1.7.0
+        uses: conda-incubator/setup-miniconda@v2.0.0
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
