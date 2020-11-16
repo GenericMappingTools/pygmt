@@ -24,7 +24,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2.3.4
       with:
-        # fecth all history so that versioneer works
+        # fecth all history so that setuptools-scm works
         fetch-depth: 0
 
     - name: Set up Python
@@ -37,13 +37,12 @@ jobs:
 
     - name: Fix up version string
       run: |
-        # Change the versioneer format to "pre" so that the commit hash isn't
-        # included (PyPI doesn't allow it). Can't do this permanently because
-        # we rely on the hash to tell the tests that this is a local version
-        # instead of a published version.
+        # Change setuptools-scm local_scheme to "no-local-version" so the
+        # local part of the version isn't included, making the version string
+        # compatible with PyPI.
         #
         # The step is only necessary for testing purpose
-        sed --in-place "s/pep440/pep440-pre/g" setup.cfg
+        sed --in-place "s/node-and-date/no-local-version/g" setup.py
 
     - name: Build source and wheel distributions
       run: |
