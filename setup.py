@@ -1,11 +1,7 @@
 """
 Build and install the project.
-
-Uses versioneer to manage version numbers using git tags.
 """
 from setuptools import setup, find_packages
-
-import versioneer
 
 
 NAME = "pygmt"
@@ -20,9 +16,6 @@ DESCRIPTION = "A Python interface for the Generic Mapping Tools"
 KEYWORDS = ""
 with open("README.rst") as f:
     LONG_DESCRIPTION = "".join(f.readlines())
-
-VERSION = versioneer.get_version()
-CMDCLASS = versioneer.get_cmdclass()
 
 PACKAGES = find_packages(exclude=["doc"])
 SCRIPTS = []
@@ -50,7 +43,10 @@ if __name__ == "__main__":
         fullname=FULLNAME,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
-        version=VERSION,
+        use_scm_version={
+            "write_to": "_version.py",
+            "write_to_template": 'version = "{version}"\n',
+        },
         author=AUTHOR,
         author_email=AUTHOR_EMAIL,
         maintainer=MAINTAINER,
@@ -64,5 +60,4 @@ if __name__ == "__main__":
         classifiers=CLASSIFIERS,
         keywords=KEYWORDS,
         install_requires=INSTALL_REQUIRES,
-        cmdclass=CMDCLASS,
     )

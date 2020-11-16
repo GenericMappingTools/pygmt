@@ -9,7 +9,7 @@
 
 import atexit as _atexit
 
-from ._version import get_versions as _get_versions
+from _version import version as __version__
 
 # Import modules to make the high-level GMT Python API
 from .session_management import begin as _begin, end as _end
@@ -22,11 +22,6 @@ from .modules import GMTDataArrayAccessor, config, info, grdinfo, which
 from .gridops import grdcut, grdfilter
 from .x2sys import x2sys_init, x2sys_cross
 from . import datasets
-
-
-# Get the version number through versioneer
-__version__ = _get_versions()["version"]
-__commit__ = _get_versions()["full-revisionid"]
 
 # Start our global modern mode session
 _begin()

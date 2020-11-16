@@ -11,6 +11,7 @@ MANIFEST
 .pytest_cache/
 .ipynb_checkpoints/
 .vscode/
+_version.py
 result_images/
 tmp-test-dir-with-unique-name/
 coverage.xml

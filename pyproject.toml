@@ -1,2 +1,2 @@
 [tool.coverage.run]
-omit = ["*/tests/*", "*/_version.py", "*pygmt/__init__.py"]
+omit = ["*/tests/*", "*pygmt/__init__.py"]
