@@ -102,6 +102,7 @@ def clib_full_names(env=None):
     lib_fullnames = [os.path.join(libpath, libname) for libname in libnames]
     # Search for DLLs in PATH if GMT_LIBRARY_PATH is not defined [Windows only]
     if not libpath and sys.platform == "win32":
+        lib_fullnames = []
         for libname in libnames:
             libfullpath = find_library(libname)
             if libfullpath:
