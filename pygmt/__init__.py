@@ -9,6 +9,7 @@
 
 import atexit as _atexit
 
+from pkg_resources import get_distribution
 from _version import version as __version__
 
 # Import modules to make the high-level GMT Python API
@@ -22,6 +23,9 @@ from .modules import GMTDataArrayAccessor, config, info, grdinfo, which
 from .gridops import grdcut, grdfilter
 from .x2sys import x2sys_init, x2sys_cross
 from . import datasets
+
+# Get the version SHA hash
+__commit__ = get_distribution("pygmt").version.split("+g")[-1]
 
 # Start our global modern mode session
 _begin()
