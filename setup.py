@@ -36,6 +36,12 @@ CLASSIFIERS = [
 ]
 PLATFORMS = "Any"
 INSTALL_REQUIRES = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+# Configuration for setuptools-scm
+SETUP_REQUIRES = ["setuptools_scm"]
+USE_SCM_VERSION = {
+    "write_to": "_version.py",
+    "write_to_template": '__version__ = "{version}"\n',
+}
 
 if __name__ == "__main__":
     setup(
@@ -43,10 +49,7 @@ if __name__ == "__main__":
         fullname=FULLNAME,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
-        use_scm_version={
-            "write_to": "_version.py",
-            "write_to_template": 'version = "{version}"\n',
-        },
+        use_scm_version=USE_SCM_VERSION,
         author=AUTHOR,
         author_email=AUTHOR_EMAIL,
         maintainer=MAINTAINER,
@@ -60,4 +63,5 @@ if __name__ == "__main__":
         classifiers=CLASSIFIERS,
         keywords=KEYWORDS,
         install_requires=INSTALL_REQUIRES,
+        setup_requires=SETUP_REQUIRES,
     )
