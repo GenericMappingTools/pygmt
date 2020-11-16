@@ -3,7 +3,7 @@ name: Cache data
 
 on:
   # Uncomment the 'pull_request' line below to manually re-cache data artifacts
-  # pull_request:
+  pull_request:
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
@@ -16,7 +16,7 @@ jobs:
     steps:
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-minicondav2.0.0
+        uses: conda-incubator/setup-miniconda@v2.0.0
         with:
           channels: conda-forge
           miniconda-version: "latest"
