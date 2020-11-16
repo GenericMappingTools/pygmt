@@ -119,6 +119,12 @@ jobs:
           python setup.py sdist --formats=zip
           pip install dist/*
 
+      # Debug GMT
+      - name: Debug GMT
+        shell: bash -l {0}
+        run: |
+          where gmt.dll
+
       # Run the tests
       - name: Test with pytest
         shell: bash -l {0}
