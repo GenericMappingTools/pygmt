@@ -29,8 +29,6 @@ plugins:
         enabled: false
 
 exclude_paths:
-- "versioneer.py"
-- "pygmt/_version.py"
 - "doc/**/*"
 - "pygmt/tests/baseline/*"
 - "pygmt/tests/data/*"
