@@ -126,6 +126,7 @@ jobs:
         shell: bash -l {0}
         run: |
           where gmt.dll
+          ls C:\Miniconda3\envs\test\Library\bin\gmt.dll
 
       # Run the tests
       - name: Test with pytest
