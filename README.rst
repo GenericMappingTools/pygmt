@@ -22,9 +22,6 @@ PyGMT
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/pygmt
-.. image:: https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy
-    :alt: Code quality grade on codacy
-    :target: https://www.codacy.com/app/leouieda/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt
