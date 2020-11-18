@@ -50,6 +50,11 @@ jobs:
         exclude:
           - isMaster: false  # i.e. on Pull Requests
             python-version: 3.6
+          # exclude Windows + Python 3.6 due to issue #693
+          # Remove it when we drop Python 3.6 support
+          - isMaster: true
+            python-version: 3.6
+            os: windows-latest
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
