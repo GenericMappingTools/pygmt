@@ -17,7 +17,7 @@ Which Python?
 -------------
 
 You'll need **Python 3.7 or greater** to run PyGMT. Old Python versions may
-work, but there is no guranteen that PyGMT will work as expected with old versions.
+work, but there is no guarantee that PyGMT will work as expected with old versions.
 
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__ Python
 distribution to ensure you have all dependencies installed and the ``conda``

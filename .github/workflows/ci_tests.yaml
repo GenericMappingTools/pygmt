@@ -44,8 +44,6 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        isMaster:
-          - ${{ contains(github.ref, 'master') }}
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
