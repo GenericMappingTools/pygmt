@@ -286,7 +286,7 @@ class Figure(BasePlotting):
                         [
                             "Cannot find IPython.",
                             "Make sure you have it installed",
-                            "or use 'external=True' to open in an external viewer.",
+                            "or use 'method=\"external\"' to open in an external viewer.",
                         ]
                     )
                 )
