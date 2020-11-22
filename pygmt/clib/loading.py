@@ -68,13 +68,14 @@ def clib_names(os_name):
     """
     if os_name.startswith("linux"):
         libnames = ["libgmt.so"]
-    elif os_name == "darwin":
-        # Darwin is macOS
+    elif os_name == "darwin":  # Darwin is macOS
         libnames = ["libgmt.dylib"]
     elif os_name == "win32":
         libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
+    elif os_name.startswith("freebsd"):  # FreeBSD
+        libnames = ["libgmt.so"]
     else:
-        raise GMTOSError('Operating system "{}" not supported.'.format(sys.platform))
+        raise GMTOSError(f'Operating system "{sys.platform}" not supported.')
     return libnames
 
 
