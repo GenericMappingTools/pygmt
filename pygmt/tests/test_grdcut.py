@@ -19,7 +19,7 @@ def fixture_grid():
 
 
 def test_grdcut_file_in_file_out():
-    "grduct an input grid file, and output to a grid file"
+    "grdcut an input grid file, and output to a grid file"
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdcut("@earth_relief_01d", outgrid=tmpfile.name, region="0/180/0/90")
         assert result is None  # return value is None
