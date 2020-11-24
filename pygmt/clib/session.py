@@ -9,6 +9,7 @@ from contextlib import contextmanager
 
 from packaging.version import Version
 import numpy as np
+import pandas as pd
 
 from ..exceptions import (
     GMTCLibError,
@@ -115,6 +116,7 @@ class Session:
     ...             )
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
+    ...
     -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
     """
 
@@ -270,8 +272,10 @@ class Session:
 
         >>> from ctypes import c_void_p, c_int
         >>> with Session() as lib:
-        ...     func = lib.get_libgmt_func('GMT_Destroy_Session',
-        ...                                argtypes=[c_void_p], restype=c_int)
+        ...     func = lib.get_libgmt_func(
+        ...         "GMT_Destroy_Session", argtypes=[c_void_p], restype=c_int
+        ...     )
+        ...
         >>> type(func)
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
 
@@ -702,15 +706,17 @@ class Session:
         --------
 
         >>> import numpy as np
-        >>> data = np.array([1, 2, 3], dtype='float64')
+        >>> data = np.array([1, 2, 3], dtype="float64")
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
         ...     gmttype == ses["GMT_DOUBLE"]
+        ...
         True
-        >>> data = np.ones((5, 2), dtype='float32')
+        >>> data = np.ones((5, 2), dtype="float32")
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
-        ...     gmttype == ses['GMT_FLOAT']
+        ...     gmttype == ses["GMT_FLOAT"]
+        ...
         True
 
         """
@@ -1022,24 +1028,25 @@ class Session:
         >>> x = np.array([0, 1, 2, 3, 4])
         >>> y = np.array([5, 6, 7, 8, 9])
         >>> with Session() as lib:
-        ...     family = 'GMT_IS_DATASET|GMT_VIA_VECTOR'
-        ...     geometry = 'GMT_IS_POINT'
+        ...     family = "GMT_IS_DATASET|GMT_VIA_VECTOR"
+        ...     geometry = "GMT_IS_POINT"
         ...     dataset = lib.create_data(
         ...         family=family,
         ...         geometry=geometry,
-        ...         mode='GMT_CONTAINER_ONLY',
+        ...         mode="GMT_CONTAINER_ONLY",
         ...         dim=[2, 5, 1, 0],  # columns, lines, segments, type
         ...     )
         ...     lib.put_vector(dataset, column=0, vector=x)
         ...     lib.put_vector(dataset, column=1, vector=y)
         ...     # Add the dataset to a virtual file
-        ...     vfargs = (family, geometry, 'GMT_IN|GMT_IS_REFERENCE', dataset)
+        ...     vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
         ...     with lib.open_virtual_file(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
-        ...             args = '{} ->{}'.format(vfile, ofile.name)
-        ...             lib.call_module('info', args)
+        ...             args = "{} ->{}".format(vfile, ofile.name)
+        ...             lib.call_module("info", args)
         ...             print(ofile.read().strip())
+        ...
         <vector memory>: N = 5 <0/4> <5/9>
 
         """
@@ -1133,9 +1140,10 @@ class Session:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module(
-        ...                 'info', '{} ->{}'.format(fin, fout.name)
+        ...                 "info", "{} ->{}".format(fin, fout.name)
         ...             )
         ...             print(fout.read().strip())
+        ...
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
 
         """
@@ -1153,7 +1161,7 @@ class Session:
         # Assumes that first 2 columns contains coordinates like longitude
         # latitude, or datetime string types.
         for col, array in enumerate(arrays[2:]):
-            if np.issubdtype(array.dtype, np.str_):
+            if pd.api.types.is_string_dtype(array.dtype):
                 columns = col + 2
                 break
 
@@ -1182,6 +1190,7 @@ class Session:
                 strings = np.apply_along_axis(
                     func1d=" ".join, axis=0, arr=string_arrays
                 )
+            strings = np.asanyarray(a=strings, dtype=np.str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
@@ -1245,9 +1254,10 @@ class Session:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module(
-        ...                 'info', '{} ->{}'.format(fin, fout.name)
+        ...                 "info", "{} ->{}".format(fin, fout.name)
         ...             )
         ...             print(fout.read().strip())
+        ...
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
 
         """
@@ -1314,7 +1324,7 @@ class Session:
 
         >>> from pygmt.datasets import load_earth_relief
         >>> from pygmt.helpers import GMTTempFile
-        >>> data = load_earth_relief(resolution='01d')
+        >>> data = load_earth_relief(resolution="01d")
         >>> print(data.shape)
         (180, 360)
         >>> print(data.lon.values.min(), data.lon.values.max())
@@ -1327,9 +1337,10 @@ class Session:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             args = '{} -L0 -Cn ->{}'.format(fin, fout.name)
-        ...             ses.call_module('grdinfo', args)
+        ...             args = "{} -L0 -Cn ->{}".format(fin, fout.name)
+        ...             ses.call_module("grdinfo", args)
         ...             print(fout.read().strip())
+        ...
         -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
 
@@ -1378,22 +1389,29 @@ class Session:
 
         >>> import pygmt
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region=[0, 10, -20, -10], projection="M6i", frame=True,
-        ...           land='black')
+        >>> fig.coast(
+        ...     region=[0, 10, -20, -10],
+        ...     projection="M6i",
+        ...     frame=True,
+        ...     land="black",
+        ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        ...
+        >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         0.00, 10.00, -20.00, -10.00
 
         Using ISO country codes for the regions (for example ``'US.HI'`` for
         Hawaii):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region='US.HI', projection="M6i", frame=True,
-        ...           land='black')
+        >>> fig.coast(
+        ...     region="US.HI", projection="M6i", frame=True, land="black"
+        ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        ...
+        >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         -164.71, -154.81, 18.91, 23.58
 
         The country codes can have an extra argument that rounds the region a
@@ -1401,11 +1419,13 @@ class Session:
         region to multiples of 5):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(region='US.HI+r5', projection="M6i", frame=True,
-        ...           land='black')
+        >>> fig.coast(
+        ...     region="US.HI+r5", projection="M6i", frame=True, land="black"
+        ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        >>> print(', '.join(['{:.2f}'.format(x) for x in wesn]))
+        ...
+        >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         -165.00, -150.00, 15.00, 25.00
 
         """

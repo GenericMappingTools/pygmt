@@ -15,6 +15,7 @@ from .helpers import (
     fmt_docstring,
     use_alias,
     kwargs_to_strings,
+    is_nonstr_iter,
 )
 
 
@@ -48,7 +49,7 @@ class BasePlotting:
         --------
 
         >>> base = BasePlotting()
-        >>> base._preprocess(resolution='low')
+        >>> base._preprocess(resolution="low")
         {'resolution': 'low'}
 
         """
@@ -68,6 +69,7 @@ class BasePlotting:
         G="land",
         S="water",
         U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -129,6 +131,7 @@ class BasePlotting:
         water : str
             Select filling or clipping of “wet” areas.
         {U}
+        {V}
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
@@ -151,6 +154,7 @@ class BasePlotting:
         F="box",
         G="truncate",
         W="scale",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -216,6 +220,7 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        {V}
         {XY}
         {p}
         {t}
@@ -237,6 +242,7 @@ class BasePlotting:
         R="region",
         S="resample",
         U="timestamp",
+        V="verbose",
         W="pen",
         l="label",
         X="xshift",
@@ -289,8 +295,13 @@ class BasePlotting:
         {J}
         {R}
         {B}
-        {G}
+        label_placement : str
+            ``[d|f|n|l|L|x|X]params``.
+            The required argument controls the placement of labels along the
+            quoted lines. It supports five controlling algorithms. See
+            :gmt-docs:`grdcontour.html#g` for details.
         {U}
+        {V}
         {W}
         {XY}
         label : str
@@ -488,6 +499,7 @@ class BasePlotting:
         Wm="meshpen",
         Wf="facadepen",
         I="shading",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -564,6 +576,7 @@ class BasePlotting:
             intensity, and ambient arguments for that module, or just give
             ``+d`` to select the default arguments (``+a-45+nt1+m0``).
 
+        {V}
         {XY}
         {p}
         {t}
@@ -597,45 +610,52 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        R="region",
-        J="projection",
+        A="straight_line",
         B="frame",
-        S="style",
-        G="color",
-        W="pen",
-        i="columns",
-        l="label",
         C="cmap",
+        D="offset",
+        E="error_bar",
+        F="connection",
+        G="color",
+        I="intensity",
+        J="projection",
+        L="close",
+        N="no_clip",
+        R="region",
+        S="style",
         U="timestamp",
+        V="verbose",
+        W="pen",
         X="xshift",
         Y="yshift",
+        Z="zvalue",
+        i="columns",
+        l="label",
         p="perspective",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
     def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         """
-        Plot lines, polygons, and symbols on maps.
-
-        Used to be psxy.
+        Plot lines, polygons, and symbols in 2-D.
 
         Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
         polygons, or symbols at those locations on a map.
 
         Must provide either *data* or *x* and *y*.
 
-        If providing data through *x* and *y*, *color* (G) can be a 1d array
-        that will be mapped to a colormap.
+        If providing data through *x* and *y*, *color* can be a 1d array that
+        will be mapped to a colormap.
 
-        If a symbol is selected and no symbol size given, then psxy will
+        If a symbol is selected and no symbol size given, then plot will
         interpret the third column of the input data as symbol size. Symbols
         whose size is <= 0 are skipped. If no symbols are specified then the
-        symbol code (see *S* below) must be present as last column in the
-        input. If *S* is not used, a line connecting the data points will be
-        drawn instead. To explicitly close polygons, use *L*. Select a fill
-        with *G*. If *G* is set, *W* will control whether the polygon outline
-        is drawn or not. If a symbol is selected, *G* and *W* determines the
-        fill and outline/no outline, respectively.
+        symbol code (see *style* below) must be present as last column in the
+        input. If *style* is not used, a line connecting the data points will
+        be drawn instead. To explicitly close polygons, use *close*. Select a
+        fill with *color*. If *color* is set, *pen* will control whether the
+        polygon outline is drawn or not. If a symbol is selected, *color* and
+        *pen* determines the fill and outline/no outline, respectively.
 
         Full option list at :gmt-docs:`plot.html`
 
@@ -660,30 +680,105 @@ class BasePlotting:
             depending on the style options chosen.
         {J}
         {R}
-        A : bool or str
-            ``'[m|p|x|y]'``
+        straight_line : bool or str
+            ``[m|p|x|y]``.
             By default, geographic line segments are drawn as great circle
-            arcs. To draw them as straight lines, use *A*.
+            arcs. To draw them as straight lines, use *straight_line*.
+            Alternatively, add **m** to draw the line by first following a
+            meridian, then a parallel. Or append **p** to start following a
+            parallel, then a meridian. (This can be practical to draw a line
+            along parallels, for example). For Cartesian data, points are
+            simply connected, unless you append **x** or **y** to draw
+            stair-case curves that whose first move is along *x* or *y*,
+            respectively.
         {B}
         {CPT}
-        D : str
-            ``'dx/dy'``: Offset the plot symbol or line locations by the given
-            amounts dx/dy.
-        E : bool or str
-            ``'[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]'``.
-            Draw symmetrical error bars.
+        offset : str
+            ``dx/dy``.
+            Offset the plot symbol or line locations by the given amounts
+            *dx/dy* [Default is no offset]. If *dy* is not given it is set
+            equal to *dx*.
+        error_bar : bool or str
+            ``[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]``.
+            Draw symmetrical error bars. Full documentation is at
+            :gmt-docs:`plot.html#e`.
+        connection : str
+            ``[c|n|r][a|f|s|r|refpoint]``.
+            Alter the way points are connected (by specifying a *scheme*) and
+            data are grouped (by specifying a *method*). Append one of three
+            line connection schemes:
+
+            - **c** : Draw continuous line segments for each group [Default].
+            - **r** : Draw line segments from a reference point reset for each
+              group.
+            - **n** : Draw networks of line segments between all points in
+              each group.
+
+            Optionally, append the one of four segmentation methods to define
+            the group:
+
+            - **a** : Ignore all segment headers, i.e., let all points belong
+              to a single group, and set group reference point to the very
+              first point of the first file.
+            - **f** : Consider all data in each file to be a single separate
+              group and reset the group reference point to the first point of
+              each group.
+            - **s** : Segment headers are honored so each segment is a group;
+              the group reference point is reset to the first point of each
+              incoming segment [Default].
+            - **r** : Same as **s**, but the group reference point is reset
+              after each record to the previous point (this method is only
+              available with the ``connection='r'`` scheme).
+
+            Instead of the codes **a**|**f**|**s**|**r** you may append the
+            coordinates of a *refpoint* which will serve as a fixed external
+            reference point for all groups.
         {G}
+        intensity : float or bool
+            Provide an *intens* value (nominally in the -1 to +1 range) to
+            modulate the fill color by simulating illumination [None]. If
+            using ``intensity=True``, we will instead read *intens* from the
+            first data column after the symbol parameters (if given).
+        close : str
+            ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
+            Force closed polygons. Full documentation is at
+            :gmt-docs:`plot.html#l`.
+        no_clip : bool or str
+            ``'[c|r]'``.
+            Do NOT clip symbols that fall outside map border [Default plots
+            points whose coordinates are strictly inside the map border only].
+            The option does not apply to lines and polygons which are always
+            clipped to the map region. For periodic (360-longitude) maps we
+            must plot all symbols twice in case they are clipped by the
+            repeating boundary. ``no_clip=True`` will turn off clipping and not
+            plot repeating symbols. Use ``no_clip="r"`` to turn off clipping
+            but retain the plotting of such repeating symbols, or use
+            ``no_clip="c"`` to retain clipping but turn off plotting of
+            repeating symbols.
         style : str
             Plot symbols (including vectors, pie slices, fronts, decorated or
             quoted lines).
         {W}
         {U}
+        {V}
         {XY}
+        zvalue : str
+            ``value|file``.
+            Instead of specifying a symbol or polygon fill and outline color
+            via **color** and **pen**, give both a *value* via **zvalue** and a
+            color lookup table via **cmap**.  Alternatively, give the name of a
+            *file* with one z-value (read from the last column) for each
+            polygon in the input data. To apply it to the fill color, use
+            ``color='+z'``. To apply it to the pen color, append **+z** to
+            **pen**.
         label : str
             Add a legend entry for the symbol or line being plotted.
 
         {p}
         {t}
+            *transparency* can also be a 1d array to set varying transparency
+            for symbols.
+
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -706,6 +801,10 @@ class BasePlotting:
                 )
             extra_arrays.append(sizes)
 
+        if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+            extra_arrays.append(kwargs["t"])
+            kwargs["t"] = ""
+
         with Session() as lib:
             # Choose how data will be passed in to the module
             if kind == "file":
@@ -723,6 +822,189 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
+        A="straight_line",
+        B="frame",
+        C="cmap",
+        D="offset",
+        G="color",
+        I="intensity",
+        J="projection",
+        Jz="zscale",
+        JZ="zsize",
+        L="close",
+        N="no_clip",
+        Q="no_sort",
+        R="region",
+        S="style",
+        V="verbose",
+        W="pen",
+        X="xshift",
+        Y="yshift",
+        Z="zvalue",
+        i="columns",
+        l="label",
+        p="perspective",
+        t="transparency",
+    )
+    @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+    def plot3d(
+        self, x=None, y=None, z=None, data=None, sizes=None, direction=None, **kwargs
+    ):
+        """
+        Plot lines, polygons, and symbols in 3-D
+
+        Takes a matrix, (x,y,z) triplets, or a file name as input and plots
+        lines, polygons, or symbols at those locations in 3-D.
+
+        Must provide either *data* or *x*, *y* and *z*.
+
+        If providing data through *x*, *y* and *z*, *color* can be a 1d array
+        that will be mapped to a colormap.
+
+        If a symbol is selected and no symbol size given, then plot3d will
+        interpret the fourth column of the input data as symbol size. Symbols
+        whose size is <= 0 are skipped. If no symbols are specified then the
+        symbol code (see *style* below) must be present as last column in the
+        input. If *style* is not used, a line connecting the data points will
+        be drawn instead. To explicitly close polygons, use *close*. Select a
+        fill with *color*. If *color* is set, *pen* will control whether the
+        polygon outline is drawn or not. If a symbol is selected, *color* and
+        *pen* determines the fill and outline/no outline, respectively.
+
+        Full option list at :gmt-docs:`plot3d.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        x/y/z : float or 1d arrays
+            The x, y, and z coordinates, or arrays of x, y and z coordinates of
+            the data points
+        data : str or 2d array
+            Either a data file name or a 2d numpy array with the tabular data.
+            Use option *columns* (i) to choose which columns are x, y, z,
+            color, and size, respectively.
+        sizes : 1d array
+            The sizes of the data points in units specified in *style* (S).
+            Only valid if using *x*, *y* and *z*.
+        direction : list of two 1d arrays
+            If plotting vectors (using ``style='V'`` or ``style='v'``), then
+            should be a list of two 1d arrays with the vector directions. These
+            can be angle and length, azimuth and length, or x and y components,
+            depending on the style options chosen.
+        {J}
+        zscale/zsize : float or str
+            Set z-axis scaling or z-axis size.
+        {R}
+        straight_line : bool or str
+            ``[m|p|x|y]``.
+            By default, geographic line segments are drawn as great circle
+            arcs. To draw them as straight lines, use *straight_line*.
+            Alternatively, add **m** to draw the line by first following a
+            meridian, then a parallel. Or append **p** to start following a
+            parallel, then a meridian. (This can be practical to draw a line
+            along parallels, for example). For Cartesian data, points are
+            simply connected, unless you append **x** or **y** to draw
+            stair-case curves that whose first move is along *x* or *y*,
+            respectively. **Note**: The **straight_line** option requires
+            constant *z*-coordinates.
+        {B}
+        {CPT}
+        offset : str
+            ``dx/dy[/dz]``.
+            Offset the plot symbol or line locations by the given amounts
+            *dx/dy*[*dz*] [Default is no offset].
+        {G}
+        intensity : float or bool
+            Provide an *intens* value (nominally in the -1 to +1 range) to
+            modulate the fill color by simulating illumination [None]. If
+            using ``intensity=True``, we will instead read *intens* from the
+            first data column after the symbol parameters (if given).
+        close : str
+            ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
+            Force closed polygons. Full documentation is at
+            :gmt-docs:`plot3d.html#l`.
+        no_clip : bool or str
+            ``[c|r]``.
+            Do NOT clip symbols that fall outside map border [Default plots
+            points whose coordinates are strictly inside the map border only].
+            The option does not apply to lines and polygons which are always
+            clipped to the map region. For periodic (360-longitude) maps we
+            must plot all symbols twice in case they are clipped by the
+            repeating boundary. ``no_clip=True`` will turn off clipping and not
+            plot repeating symbols. Use ``no_clip="r"`` to turn off clipping
+            but retain the plotting of such repeating symbols, or use
+            ``no_clip="c"`` to retain clipping but turn off plotting of
+            repeating symbols.
+        no_sort : bool
+            Turn off the automatic sorting of items based on their distance
+            from the viewer. The default is to sort the items so that items in
+            the foreground are plotted after items in the background.
+        style : str
+            Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
+        {U}
+        {V}
+        {W}
+        {XY}
+        zvalue : str
+            ``value|file``.
+            Instead of specifying a symbol or polygon fill and outline color
+            via **color** and **pen**, give both a *value* via **zvalue** and a
+            color lookup table via **cmap**.  Alternatively, give the name of a
+            *file* with one z-value (read from the last column) for each
+            polygon in the input data. To apply it to the fill color, use
+            ``color='+z'``. To apply it to the pen color, append **+z** to
+            **pen**.
+        label : str
+            Add a legend entry for the symbol or line being plotted.
+        {p}
+        {t}
+            *transparency* can also be a 1d array to set varying transparency
+            for symbols.
+
+        """
+        kwargs = self._preprocess(**kwargs)
+
+        kind = data_kind(data, x, y, z)
+
+        extra_arrays = []
+        if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
+            extra_arrays.extend(direction)
+        if "G" in kwargs and not isinstance(kwargs["G"], str):
+            if kind != "vectors":
+                raise GMTInvalidInput(
+                    "Can't use arrays for color if data is matrix or file."
+                )
+            extra_arrays.append(kwargs["G"])
+            del kwargs["G"]
+        if sizes is not None:
+            if kind != "vectors":
+                raise GMTInvalidInput(
+                    "Can't use arrays for sizes if data is matrix or file."
+                )
+            extra_arrays.append(sizes)
+
+        if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+            extra_arrays.append(kwargs["t"])
+            kwargs["t"] = ""
+
+        with Session() as lib:
+            # Choose how data will be passed in to the module
+            if kind == "file":
+                file_context = dummy_context(data)
+            elif kind == "matrix":
+                file_context = lib.virtualfile_from_matrix(data)
+            elif kind == "vectors":
+                file_context = lib.virtualfile_from_vectors(
+                    np.atleast_1d(x), np.atleast_1d(y), np.atleast_1d(z), *extra_arrays
+                )
+
+            with file_context as fname:
+                arg_str = " ".join([fname, build_arg_string(kwargs)])
+                lib.call_module("plot3d", arg_str)
+
+    @fmt_docstring
+    @use_alias(
         R="region",
         J="projection",
         B="frame",
@@ -730,9 +1012,11 @@ class BasePlotting:
         G="label_placement",
         W="pen",
         L="triangular_mesh_pen",
+        N="no_clip",
         i="columns",
         l="label",
         C="levels",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -779,8 +1063,9 @@ class BasePlotting:
             Color the triangles using CPT
         triangular_mesh_pen : str
             Pen to draw the underlying triangulation (default none)
-        N : bool
-            Do not clip contours
+        no_clip : bool
+            Do NOT clip contours or image at the boundaries [Default will clip
+            to fit inside region].
         Q : float or str
             Do not draw contours with less than cut number of points.
             ``'[cut[unit]][+z]'``
@@ -794,6 +1079,7 @@ class BasePlotting:
             to be of the format [*annotcontlabel*][/*contlabel*]. If either
             label contains a slash (/) character then use ``|`` as the
             separator for the two labels instead.
+        {V}
         {XY}
         {p}
         {t}
@@ -822,11 +1108,14 @@ class BasePlotting:
     @use_alias(
         R="region",
         J="projection",
+        Jz="zscale",
+        JZ="zsize",
         B="frame",
         L="map_scale",
         Td="rose",
         Tm="compass",
         U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -835,12 +1124,12 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence", p="sequence")
     def basemap(self, **kwargs):
         """
-        Produce a basemap for the figure.
+        Plot base maps and frames for the figure.
 
-        Several map projections are available, and the user may specify
-        separate tick-mark intervals for boundary annotation, ticking, and
-        [optionally] gridlines. A simple map scale or directional rose may also
-        be plotted.
+        Creates a basic or fancy basemap with axes, fill, and titles. Several
+        map projections are available, and the user may specify separate
+        tick-mark intervals for boundary annotation, ticking, and [optionally]
+        gridlines. A simple map scale or directional rose may also be plotted.
 
         At least one of the options *frame*, *map_scale*, *rose* or *compass*
         must be specified.
@@ -852,6 +1141,8 @@ class BasePlotting:
         Parameters
         ----------
         {J}
+        zscale/zsize : float or str
+            Set z-axis scaling or z-axis size.
         {R}
         {B}
         map_scale : str
@@ -864,6 +1155,7 @@ class BasePlotting:
             Draws a map magnetic rose on the map at the location defined by the
             reference and anchor points
         {U}
+        {V}
         {XY}
         {p}
         {t}
@@ -879,25 +1171,26 @@ class BasePlotting:
     @use_alias(
         R="region",
         J="projection",
-        U="timestamp",
         D="position",
         F="box",
+        S="style",
+        U="timestamp",
+        V="verbose",
         X="xshift",
         Y="yshift",
-        p="perspective",
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", p="sequence")
     def logo(self, **kwargs):
         """
-        Place the GMT graphics logo on a map.
+        Plot the GMT logo.
 
         By default, the GMT logo is 2 inches wide and 1 inch high and
         will be positioned relative to the current plot origin.
         Use various options to change this and to place a transparent or
         opaque rectangular map panel behind the GMT logo.
 
-        Full option list at :gmt-docs:`logo.html`
+        Full option list at :gmt-docs:`gmtlogo.html`.
 
         {aliases}
 
@@ -911,15 +1204,21 @@ class BasePlotting:
         box : bool or str
             Without further options, draws a rectangular border around the
             GMT logo.
+        style : str
+            ``l|n|u``.
+            Control what is written beneath the map portion of the logo.
+
+            - **l** to plot the text label "The Generic Mapping Tools"
+              [Default]
+            - **n** to skip the label placement
+            - **u** to place the URL to the GMT site
         {U}
+        {V}
         {XY}
-        {p}
         {t}
 
         """
         kwargs = self._preprocess(**kwargs)
-        if "D" not in kwargs:
-            raise GMTInvalidInput("Option D must be specified.")
         with Session() as lib:
             lib.call_module("logo", build_arg_string(kwargs))
 
@@ -930,6 +1229,7 @@ class BasePlotting:
         D="position",
         F="box",
         M="monochrome",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -968,6 +1268,7 @@ class BasePlotting:
         monochrome : bool
             Convert color image to monochrome grayshades using the (television)
             YIQ-transformation.
+        {V}
         {XY}
         {p}
         {t}
@@ -983,6 +1284,7 @@ class BasePlotting:
         J="projection",
         D="position",
         F="box",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -1022,6 +1324,7 @@ class BasePlotting:
             rectangular border around the legend using **MAP_FRAME_PEN**. By
             default, uses '+gwhite+p1p' which draws a box around the legend
             using a 1 point black pen and adds a white background.
+        {V}
         {XY}
         {p}
         {t}
@@ -1052,6 +1355,8 @@ class BasePlotting:
         C="clearance",
         D="offset",
         G="fill",
+        N="no_clip",
+        V="verbose",
         W="pen",
         X="xshift",
         Y="yshift",
@@ -1163,6 +1468,10 @@ class BasePlotting:
             Sets the pen used to draw a rectangle around the text string
             (see *clearance*) [Default is width = default, color = black,
             style = solid].
+        no_clip : bool
+            Do NOT clip text at map boundaries [Default is False, i.e. will
+            clip].
+        {V}
         {XY}
         {p}
         {t}
@@ -1220,6 +1529,8 @@ class BasePlotting:
         J="projection",
         B="frame",
         C="offset",
+        N="no_clip",
+        V="verbose",
         X="xshift",
         Y="yshift",
         p="perspective",
@@ -1317,9 +1628,14 @@ class BasePlotting:
             circle is plotted at the initial location and a line connects
             the beachball to the circle. Specify pen and optionally append
             ``+ssize`` to change the line style and/or size of the circle.
+        no_clip : bool
+            Does NOT skip symbols that fall outside frame boundary specified by
+            *region* [Default is False, i.e. plot symbols inside map frame
+            only].
         {J}
         {R}
         {B}
+        {V}
         {XY}
         {p}
         {t}

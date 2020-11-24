@@ -16,7 +16,7 @@ from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
-@use_alias(n="interpolation")
+@use_alias(n="interpolation", V="verbose")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     """
     Sample grids at specified (x,y) locations.
@@ -54,6 +54,8 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     outfile : str
         Required if 'points' is a file. The file name for the output ASCII
         file.
+
+    {V}
 
     {n}
 

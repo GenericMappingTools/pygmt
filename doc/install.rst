@@ -9,14 +9,15 @@ Installing
 
     We welcome any feedback and ideas!
     Let us know by submitting
-    `issues on Github <https://github.com/GenericMappingTools/pygmt/issues>`__
+    `issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
     or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 
 Which Python?
 -------------
 
-You'll need **Python 3.6 or greater** to run PyGMT.
+You'll need **Python 3.7 or greater** to run PyGMT. Old Python versions may
+work, but there is no guarantee that PyGMT will work as expected with old versions.
 
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__ Python
 distribution to ensure you have all dependencies installed and the ``conda``
@@ -98,7 +99,7 @@ or use ``pip`` to install from `PyPI <https://pypi.org/project/pygmt>`__::
 
     pip install pygmt
 
-Alternatively, you can install the development version from the Github repository::
+Alternatively, you can install the development version from the GitHub repository::
 
     pip install https://github.com/GenericMappingTools/pygmt/archive/master.zip
 
@@ -138,4 +139,3 @@ e.g. in a terminal run::
     export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
     # Windows
     set "GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\"
-
