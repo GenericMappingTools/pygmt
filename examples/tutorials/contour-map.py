@@ -15,7 +15,7 @@ import pygmt
 # It plots annotated contour lines, which are darker and have the elevation/depth written on them,
 # and unannotated contour lines. In the example blow, the default contour line intervals are 500 meters,
 # with an annotated contour line every 1000 meters.
-# By default, it plots the map with a Mercator projection and with no frame.
+# By default, it plots the map with a Equidistant cylindrical projection and with no frame.
 
 fig = pygmt.Figure()
 fig.grdcontour(grid="@earth_relief_15s", region=[-92, -90, -1.5, 0.5])
