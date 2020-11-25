@@ -99,7 +99,10 @@ jobs:
       # Run the tests
       - name: Test with pytest
         shell: bash -l {0}
-        run: make test PYTEST_EXTRA="-r P"
+        run: |
+          # Use the China data server mirror
+          gmt set GMT_DATA_SERVER http://china.generic-mapping-tools.org
+          make test PYTEST_EXTRA="-r P"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
