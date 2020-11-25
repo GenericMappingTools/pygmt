@@ -89,23 +89,6 @@ jobs:
         shell: bash -l {0}
         run: conda list
 
-      # Download cached remote files (artifacts) from GitHub
-      - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.10.0
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
-        shell: bash -l {0}
-        run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
-          ls -lh ~/.gmt
-
       # Install the package that we want to test
       - name: Install the package
         shell: bash -l {0}
