@@ -13,7 +13,7 @@ import pygmt
 #
 # The grdcontour method takes the grid input and the region values.
 # It plots annotated contour lines, which are darker and have the elevation/depth written on them,
-# and unannotated contour lines. In the example blow, the default contour line intervals are 500 meters,
+# and unannotated contour lines. In the example below, the default contour line intervals are 500 meters,
 # with an annotated contour line every 1000 meters.
 # By default, it plots the map with a Equidistant cylindrical projection and with no frame.
 
