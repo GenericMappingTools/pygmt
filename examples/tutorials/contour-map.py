@@ -33,8 +33,7 @@ fig = pygmt.Figure()
 fig.grdcontour(
     annotation=1000,
     interval=250,
-    grid="@earth_relief_15s",
-    region=[-92, -90, -1.5, 0.5],
+    grid=grid,
 )
 fig.show()
 
@@ -49,8 +48,7 @@ fig = pygmt.Figure()
 fig.grdcontour(
     annotation=1000,
     interval=250,
-    grid="@earth_relief_15s",
-    region=[-92, -90, -1.5, 0.5],
+    grid=grid,
     limit=[-4000, 0],
 )
 fig.show()
@@ -65,8 +63,7 @@ fig = pygmt.Figure()
 fig.grdcontour(
     annotation=1000,
     interval=250,
-    grid="@earth_relief_15s",
-    region=[-92, -90, -1.5, 0.5],
+    grid=grid,
     limit=[-4000, 0],
     projection="M4i",
     frame=True,
