@@ -41,5 +41,7 @@ def test_clib_names():
         assert clib_names(linux) == ["libgmt.so"]
     assert clib_names("darwin") == ["libgmt.dylib"]
     assert clib_names("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
+    for freebsd in ["freebsd10", "freebsd11", "freebsd12"]:
+        assert clib_names(freebsd) == ["libgmt.so"]
     with pytest.raises(GMTOSError):
         clib_names("meh")
