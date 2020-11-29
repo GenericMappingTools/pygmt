@@ -81,7 +81,7 @@ fig.show()
 # Adding a colormap
 # -----------------
 #
-# The ``cmap`` argument of the :meth:`pygmt.Figure.grdimage` method can be used to add a
+# The :meth:`pygmt.Figure.grdimage` method can be used to add a
 # colormap to the contour map. It must be called prior to
 # :meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the final map.
 # The ``projection`` argument must be the same for both :meth:`pygmt.Figure.grdimage`
