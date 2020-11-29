@@ -76,3 +76,28 @@ fig.grdcontour(
     frame=True,
 )
 fig.show()
+
+########################################################################################
+# Adding a colormap
+# -----------------
+#
+# The ``cmap`` argument of the :meth:`pygmt.Figure.grdimage` method can be used to add a
+# colormap to the contour map. It must be called prior to
+# :meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the final map.
+# The ``projection`` argument must be the same for both :meth:`pygmt.Figure.grdimage`
+# and :meth:`pygmt.Figure.grdcontour` for the images to be overlayed accurately.
+
+fig = pygmt.Figure()
+fig.grdimage(
+    grid=grid,
+    cmap="haxby",
+    projection="M4i")
+fig.grdcontour(
+    annotation=1000,
+    interval=250,
+    grid=grid,
+    limit=[-4000, 0],
+    projection="M4i",
+    frame=True,
+)
+fig.show()
