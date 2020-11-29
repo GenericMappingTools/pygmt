@@ -44,7 +44,7 @@ fig.show()
 # --------------
 #
 # The limit argument sets the minimum and maximum values for the contour lines, with the value.
-# The argument takes the low and high values, and is either a list (as below) or a string  limit="-4000/0"
+# The argument takes the low and high values, and is either a list (as below) or a string ``limit="-4000/0"``.
 
 fig = pygmt.Figure()
 fig.grdcontour(
