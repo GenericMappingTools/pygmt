@@ -99,7 +99,5 @@ fig.grdcontour(
     interval=250,
     grid=grid,
     limit=[-4000, 0],
-    projection="M4i",
-    frame=True,
 )
 fig.show()
