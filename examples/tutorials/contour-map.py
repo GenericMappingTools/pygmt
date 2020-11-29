@@ -15,7 +15,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="15s", region=[-92, -90, -1.5
 # -------------------
 #
 # The :meth:`pygmt.Figure.grdcontour` method takes the grid input.
-# It plots annotated contour lines, which are darker and have the
+# It plots annotated contour lines, which are thicker and have the
 # elevation/depth written on them, and unannotated contour lines.
 # In the example below, the default contour line intervals are 500 meters,
 # with an annotated contour line every 1000 meters.
