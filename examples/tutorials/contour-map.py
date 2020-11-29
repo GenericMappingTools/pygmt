@@ -18,7 +18,6 @@ import pygmt
 # By default, it plots the map with a Equidistant cylindrical projection and with no frame.
 
 fig = pygmt.Figure()
-grid = pygmt.datasets.load_earth_relief(resolution="15s", region=[-92, -90, -1.5, 0.5])
 fig.grdcontour(grid=grid)
 fig.show()
 
