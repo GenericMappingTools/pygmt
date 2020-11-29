@@ -59,7 +59,7 @@ fig.show()
 # Map settings
 # ------------
 #
-# The grdcontour method accepts additional arguments, including setting the projection and frame.
+# The :meth:`pygmt.Figure.grdcontour` method accepts additional arguments, including setting the projection and frame.
 
 fig = pygmt.Figure()
 fig.grdcontour(
