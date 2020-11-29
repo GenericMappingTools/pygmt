@@ -5,7 +5,7 @@ import os
 import pytest
 
 from ..clib.loading import clib_names, load_libgmt, check_libgmt
-from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError
+from ..exceptions import GMTCLibError, GMTOSError
 
 
 def test_check_libgmt():
