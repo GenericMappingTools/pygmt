@@ -29,7 +29,7 @@ fig.show()
 # ---------------------
 #
 # Use the ``annotation`` and ``interval`` arguments to adjust contour line intervals.
-# In the example below, there are contour intervals every 250 meters and an annotated contour line every 1,000 meters.
+# In the example below, there are contour intervals every 250 meters and annotated contour lines every 1,000 meters.
 
 fig = pygmt.Figure()
 fig.grdcontour(
