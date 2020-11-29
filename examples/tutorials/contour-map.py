@@ -7,6 +7,9 @@ Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
 
 import pygmt
 
+# Load sample earth relief data
+grid = pygmt.datasets.load_earth_relief(resolution="15s", region=[-92, -90, -1.5, 0.5])
+
 ########################################################################################
 # Create contour plot
 # -------------------
