@@ -91,7 +91,9 @@ fig = pygmt.Figure()
 fig.grdimage(
     grid=grid,
     cmap="haxby",
-    projection="M4i")
+    projection="M4i",
+    frame=True, 
+    )
 fig.grdcontour(
     annotation=1000,
     interval=250,
