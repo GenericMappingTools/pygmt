@@ -26,11 +26,21 @@ fig.grdimage(grid=grid)
 fig.show()
 
 ########################################################################################
+# A specific color pallete can be set using the optional ``cmap`` argument for
+# :meth:`pygmt.Figure.grdimage`. By default, the color pallete is set to *turbo*.
+# In the example below, the color pallete is set to *geo*.
+# The full list of color palette tables can be found at :gmt-docs:`cookbook/cpts.html`.
+
+fig = pygmt.Figure()
+fig.grdimage(grid=grid, cmap="geo")
+fig.show()
+
+########################################################################################
 # :meth:`pygmt.Figure.grdimage` accepts additional parameters, including  ``frame`` and
 # ``projection``.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame=True, projection="M4i")
+fig.grdimage(grid=grid, frame=True, projection="M6i", cmap="geo")
 fig.show()
 
 ########################################################################################
@@ -38,6 +48,6 @@ fig.show()
 # By default, it applies the color pallete created by :meth:`pygmt.Figure.grdimage`.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame=True, projection="M4i")
+fig.grdimage(grid=grid, frame=True, projection="M6i", cmap="geo")
 fig.colorbar(frame=["x+lElevation", "y+lm"])
 fig.show()
