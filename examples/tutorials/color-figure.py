@@ -24,3 +24,11 @@ grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-86, -64, 17, 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid)
 fig.show()
+
+########################################################################################
+# :meth:`pygmt.Figure.grdimage` accepts additional parameters, including  ``frame`` and
+# ``projection``.
+
+fig = pygmt.Figure()
+fig.grdimage(grid=grid, frame=True, projection="M4i")
+fig.show()
