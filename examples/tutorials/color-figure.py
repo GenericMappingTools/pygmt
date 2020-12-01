@@ -32,3 +32,12 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame=True, projection="M4i")
 fig.show()
+
+########################################################################################
+# The :meth:`pygmt.Figure.colorbar` method can be used to add a color bar to the figure.
+# By default, it applies the color pallete created by :meth:`pygmt.Figure.grdimage`.
+
+fig = pygmt.Figure()
+fig.grdimage(grid=grid, frame=True, projection="M4i")
+fig.colorbar(frame=["x+lElevation", "y+lm"])
+fig.show()
