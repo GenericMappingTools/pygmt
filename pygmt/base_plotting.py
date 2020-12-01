@@ -179,6 +179,8 @@ class BasePlotting:
 
         Parameters
         ----------
+        {B}
+        {CPT}
         position : str
             ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]
             [+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]``. Defines the
