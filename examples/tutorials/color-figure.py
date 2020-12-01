@@ -61,8 +61,8 @@ fig.show()
 # new color pallete on. The ``series`` argument sets the minimum and maximum values, and
 # optionally the intervals between them; without it, the new color pallete defaults to
 # the min/max values of the master color pallete.  The ``series`` argument can be given
-# as a string (as below) or a list ``limit="-4000/-2000"``. Any values that fall outside
-# the range of the series will be plotted as black (lower than the minimum)
+# as a string (as below) or as a list ``series=[-8500, 2500, 1000]``. Any values that
+# fall outside the range of the series will be plotted as black (lower than the minimum)
 # or white (higher than the maximum).
 #
 # The :meth:`pygmt.makecpt` method includes an ``output`` parameter, which allows the
