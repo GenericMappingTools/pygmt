@@ -532,6 +532,8 @@ class BasePlotting:
         zscale/zsize : float or str
             Set z-axis scaling or z-axis size.
 
+        {B}
+
         cmap : str
             The name of the color palette table to use.
 
