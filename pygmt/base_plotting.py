@@ -179,6 +179,9 @@ class BasePlotting:
 
         Parameters
         ----------
+        frame : str or list
+            Set color bar boundary frame, labels, and axes attributes.
+        {CPT}
         position : str
             ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]
             [+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]``. Defines the
@@ -529,6 +532,8 @@ class BasePlotting:
 
         zscale/zsize : float or str
             Set z-axis scaling or z-axis size.
+
+        {B}
 
         cmap : str
             The name of the color palette table to use.
