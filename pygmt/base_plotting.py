@@ -179,7 +179,8 @@ class BasePlotting:
 
         Parameters
         ----------
-        {B}
+        frame : str or list
+            Set color bar boundary frame, labels, and axes attributes.
         {CPT}
         position : str
             ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]
