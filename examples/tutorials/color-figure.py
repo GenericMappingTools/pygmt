@@ -71,9 +71,9 @@ fig.show()
 # the figure and color bar.
 
 fig = pygmt.Figure()
-pygmt.makecpt(cmap="jet", series="-8500/2500/1000")
+pygmt.makecpt(cmap="jet", series="-9000/3000/1500")
 fig.grdimage(grid=grid, projection="M6i", frame=True)
-fig.colorbar()
+fig.colorbar(frame=["x+lElevation", "y+lm"])
 fig.show()
 
 ########################################################################################
@@ -83,7 +83,7 @@ fig.show()
 # color for every value in its series.
 
 fig = pygmt.Figure()
-pygmt.makecpt(cmap="jet", series="-8500/2500/1000", continuous=True)
+pygmt.makecpt(cmap="jet", series="-9000/3000/1500", continuous=True)
 fig.grdimage(grid=grid, projection="M6i", frame=True)
-fig.colorbar()
+fig.colorbar(frame=["x+lElevation", "y+lm"])
 fig.show()
