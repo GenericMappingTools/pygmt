@@ -77,8 +77,10 @@ fig.colorbar()
 fig.show()
 
 ########################################################################################
-# The ``continuous`` argument forces the custom color pallete to be a continuous
-# color pallete.
+# The ``continuous`` argument forces the custom color pallete to be continuous or
+# discrete. Discrete color palletes will have a single color for a range of values
+# within the color pallete, while continuous color palletes will assign a different
+# color for every value in its series.
 
 fig = pygmt.Figure()
 pygmt.makecpt(cmap="jet", series="-8500/2500/1000", continuous=True)
