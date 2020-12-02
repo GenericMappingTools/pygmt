@@ -46,10 +46,14 @@ fig.show()
 ########################################################################################
 # The :meth:`pygmt.Figure.colorbar` method can be used to add a color bar to the figure.
 # By default, it applies the color pallete created by :meth:`pygmt.Figure.grdimage`.
+#
+# The `frame` argument can be used to set the color bar labels and intervals.
+# In the example below, ``p3000`` sets the color bar tick interval to 3,000 meters,
+# and ``x+lElevation`` and ``y+lm`` set the x- and y-axis labels for the color bar.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame=True, projection="M6i", cmap="geo")
-fig.colorbar(frame=["x+lElevation", "y+lm"])
+fig.colorbar(frame=["p3000", "x+lElevation", "y+lm"])
 fig.show()
 
 ########################################################################################
@@ -71,19 +75,21 @@ fig.show()
 # the figure and color bar.
 
 fig = pygmt.Figure()
-pygmt.makecpt(cmap="jet", series="-9000/3000/1500")
+pygmt.makecpt(cmap="jet", series="-9000/3000", continuous=True)
 fig.grdimage(grid=grid, projection="M6i", frame=True)
-fig.colorbar(frame=["x+lElevation", "y+lm"])
+fig.colorbar(frame=["p3000", "x+lElevation", "y+lm"])
 fig.show()
 
 ########################################################################################
 # The ``continuous`` argument forces the custom color pallete to be continuous or
 # discrete. Discrete color palletes will have a single color for a range of values
 # within the color pallete, while continuous color palletes will assign a different
-# color for every value in its series.
+# color for every value in its series. The ``series`` argument requires an interval
+# setting to create a discrete color pallete, or it will default to a
+# continuous color pallete.
 
 fig = pygmt.Figure()
-pygmt.makecpt(cmap="jet", series="-9000/3000/1500", continuous=True)
+pygmt.makecpt(cmap="jet", series="-9000/3000/1500", continuous=False)
 fig.grdimage(grid=grid, projection="M6i", frame=True)
-fig.colorbar(frame=["x+lElevation", "y+lm"])
+fig.colorbar(frame=["p1500", "x+lElevation", "y+lm"])
 fig.show()
