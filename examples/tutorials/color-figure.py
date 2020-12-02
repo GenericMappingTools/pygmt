@@ -1,5 +1,5 @@
 """
-Adding a color pallete to a figure
+Adding a color palette to a figure
 ==================================
 
 Plotting a map with a color pallete is handled by :meth:`pygmt.Figure.grdimage`. The
