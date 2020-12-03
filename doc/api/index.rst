@@ -26,6 +26,7 @@ Plotting data and laying out the map:
     Figure.coast
     Figure.colorbar
     Figure.plot
+    Figure.plot3d
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
@@ -78,6 +79,7 @@ Operations on grids:
     :toctree: generated
 
     grdcut
+    grdfilter
     grdtrack
 
 Crossover analysis with x2sys:

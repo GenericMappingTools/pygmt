@@ -37,10 +37,8 @@ napoleon_use_ivar = True
 
 # configure links to GMT docs
 extlinks = {
-    "gmt-docs": (
-        "https://docs.generic-mapping-tools.org/latest/%s",
-        "https://docs.generic-mapping-tools.org/latest/",
-    )
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/latest/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/latest/gmt.conf#term-%s", ""),
 }
 
 # intersphinx configuration
@@ -134,7 +132,7 @@ html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
 repository_url = "https://github.com/GenericMappingTools/pygmt"
-commit_link = f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:7] }</a>'
+commit_link = f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
 html_context = {
     "menu_links": [
         (

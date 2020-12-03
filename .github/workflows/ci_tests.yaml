@@ -25,7 +25,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: 3.8
 
       - name: Install packages
         run: pip install black blackdoc flake8 pylint
@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
     # environmental variables used in coverage
     env:
@@ -58,14 +58,14 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2.3.4
         with:
-          # fecth all history so that versioneer works
+          # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v1.7.0
+        uses: conda-incubator/setup-miniconda@v2.0.0
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
@@ -89,11 +89,12 @@ jobs:
         shell: bash -l {0}
         run: conda list
 
-      # Download cached remote files (artifacts) from Github
-      - name: Download remote data from Github
-        uses: dawidd6/action-download-artifact@v2.6.3
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
+        uses: dawidd6/action-download-artifact@v2.10.0
         with:
           workflow: cache_data.yaml
+          workflow_conclusion: success
           name: gmt-cache
           path: .gmt
 
@@ -116,6 +117,14 @@ jobs:
       - name: Test with pytest
         shell: bash -l {0}
         run: make test PYTEST_EXTRA="-r P"
+
+      # Upload diff images on test failure
+      - name: Upload diff images if any test fails
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: artifact-${{ runner.os }}-${{ matrix.python-version }}
+          path: tmp-test-dir-with-unique-name
 
       # Build the documentation
       - name: Build the documentation

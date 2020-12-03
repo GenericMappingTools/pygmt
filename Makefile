@@ -1,7 +1,7 @@
 # Build, package, test, and clean
 PROJECT=pygmt
 TESTDIR=tmp-test-dir-with-unique-name
-PYTEST_ARGS=--cov=$(PROJECT) --cov-config=../.coveragerc \
+PYTEST_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
 			--cov-report=term-missing --cov-report=xml --cov-report=html \
 			--doctest-modules -v --mpl --mpl-results-path=results \
 			--pyargs ${PYTEST_EXTRA}

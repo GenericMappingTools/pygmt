@@ -1,0 +1,64 @@
+# Publish archives to PyPI and TestPyPI using GitHub Actions
+
+name: Publish to PyPI
+
+# Only run for pushes to the master branch and releases.
+on:
+  push:
+    branches:
+      - master
+  release:
+    types:
+      - published
+  # Runs for pull requests should be disabled other than for testing purposes
+  #pull_request:
+  #  branches:
+  #    - master
+
+jobs:
+  publish-pypi:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        # fecth all history so that setuptools-scm works
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: python -m pip install setuptools wheel
+
+    - name: Fix up version string
+      run: |
+        # Change setuptools-scm local_scheme to "no-local-version" so the
+        # local part of the version isn't included, making the version string
+        # compatible with PyPI.
+        #
+        # The step is only necessary for testing purpose
+        sed --in-place "s/node-and-date/no-local-version/g" setup.py
+
+    - name: Build source and wheel distributions
+      run: |
+        python setup.py sdist bdist_wheel
+        echo ""
+        echo "Generated files:"
+        ls -lh dist/
+
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@v1.4.1
+      with:
+        password: ${{ secrets.test_pypi_password }}
+        repository_url: https://test.pypi.org/legacy/
+
+    - name: Publish to PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@v1.4.1
+      with:
+        password: ${{ secrets.pypi_password }}

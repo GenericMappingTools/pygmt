@@ -161,13 +161,8 @@ def test_call_module_error_message():
         try:
             lib.call_module("info", "bogus-data.bla")
         except GMTCLibError as error:
-            msg = "\n".join(
-                [
-                    "Module 'info' failed with status code 71:",
-                    "gmtinfo [ERROR]: Cannot find file bogus-data.bla",
-                ]
-            )
-            assert str(error) == msg
+            assert "Module 'info' failed with status code" in str(error)
+            assert "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in str(error)
 
 
 def test_method_no_session():
@@ -402,12 +397,16 @@ def test_virtualfile_from_vectors():
             assert output == expected
 
 
-def test_virtualfile_from_vectors_one_string_column():
-    "Test passing in one column with string dtype into virtual file dataset"
+@pytest.mark.parametrize("dtype", [np.str, np.object])
+def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
+    """
+    Test passing in one column with string or object dtype into virtual file
+    dataset
+    """
     size = 5
     x = np.arange(size, dtype=np.int32)
     y = np.arange(size, size * 2, 1, dtype=np.int32)
-    strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=np.str)
+    strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=dtype)
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings) as vfile:
             with GMTTempFile() as outfile:
@@ -417,13 +416,17 @@ def test_virtualfile_from_vectors_one_string_column():
         assert output == expected
 
 
-def test_virtualfile_from_vectors_two_string_columns():
-    "Test passing in two columns of string dtype into virtual file dataset"
+@pytest.mark.parametrize("dtype", [np.str, np.object])
+def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
+    """
+    Test passing in two columns of string or object dtype into virtual file
+    dataset
+    """
     size = 5
     x = np.arange(size, dtype=np.int32)
     y = np.arange(size, size * 2, 1, dtype=np.int32)
-    strings1 = np.array(["a", "bc", "def", "ghij", "klmno"], dtype=np.str)
-    strings2 = np.array(["pqrst", "uvwx", "yz!", "@#", "$"], dtype=np.str)
+    strings1 = np.array(["a", "bc", "def", "ghij", "klmno"], dtype=dtype)
+    strings2 = np.array(["pqrst", "uvwx", "yz!", "@#", "$"], dtype=dtype)
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
             with GMTTempFile() as outfile:

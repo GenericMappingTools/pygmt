@@ -18,10 +18,8 @@ branches:
 env:
     global:
         # Encrypted variables
-        # Github Token for pushing the built docs (GH_TOKEN)
+        # GitHub Token for pushing the built docs (GH_TOKEN)
         - secure: "QII0477v0mmCCW3qSNXLCOtqraJaCICtSghiyrxYsuUdJTrXzXBNhX2KLIjcKYXOK1HdwYOFGf8xBVLl44clHlAW7R32ecEGeTJizr0yqTBvT3rNG1Xb7+E6jdXqrIs//PmPRaF8zOZxPl1SJKDK4jJpCx5HnAflg7wl/6tQLD6K3/dQ6FG2s3UKsc8o4qchOiEfxYhOuKo3jt2S0HdsNAQFw3mFHCCrclxDr3llSQtWSY0mirZnta7AI4nMvzxl2nUhdHEpxgzIjWxCWLAwmj3/NxLz0VSgNCtl2bNYk6AYrc5RcANGk2fcYaZr9mTU3Aax60S4389B39Pq95hBN21jYdbw9vCN810dYpTUk2siLysx8gF6r2JWEF8SskXlF79r3phtaFTMOS4GqeiuwjifZeaLAL/H1PTQFDDG/UKEwBpLuzrPMDw/84iRtyWKqWR/f14YdKhH4YAkcOuRglEXiI/1A0qWKiZ1iZfky8Tys+wN5nyss23w/JeYXVgBdTkNzvp3diFWK8+Wl9j3HYpX9LlEHJwASA1wHLL85t4ToymgLjo9gvLvwzB7T+fWNtEbh4ELbvI7jaKrvir8uSGYy4bGbfRclh5CktD//mTLhDyAsQDS8obF/Ri9mVqFzjK6417ORfu8qnpXU+mIHPRBoKvpS2WqnPtSwF8KPv8="
-        # TWINE_PASSWORD to deploy to PyPI
-        - secure: "md4fgPt9RC/sCoN5//5PcNHLUd9gWQGewV5hFpWW88MRTjxTng1Zfs8r7SqlF2AkEEepFfyzq0BEe9c3FMAnFbec3KmqdlQen4V8xDbLrcTlvkPlTrYGbAScUvdhhqojB//hMHoTD4KvxAv9CiUwFBO4hCMmj2buWHUbV9Ksu5WCW9mF/gkt/hIuYAU6Mbwt8PiYyMgUpzMHO1vruofcWRaVnvKwmBqHB0ae86D4/drpwn4CWjlM12WUnphT2bssiyPkw24FZtCN6kPVta6bLZKBxu0bZpw2vbXuUG+Yh19Q4mp8wNYT3XSHJf8Hl5LfujF48+cLWu+6rlCkdcelyVylhWLFc3rGOONAv4G8jWW2yNSz/bLQfJnMpd81fQEu5eySmFxB7mdB0uyKpvIG1jMJQ73LlYKakKLAPdYhMFyQAHoX9gvCE3S4QR95DBMi5gM/pZubOCcMLdjPHB5JKpJHSjxbOzyVwgmsUIEgd5Bi2vZvvYQXn1plk4xpQ3PhXc+/gi33bzY89mKcfOn0HJ2pD1vLqDXRCBsMCakoLZ0JB/6bacaz4FngbsGWuQ+I1cz20lJGL/MSi9bW1G7Uoidt3GXXWDmXrWt70vIXlLIxr8XV0Mu/rPbauGgWE+ZSYEfvdM5sP+FNF7vQ5de+Fkvzg5Z3tTfR+O1W+d7+vM4="
         - TWINE_USERNAME=Leonardo.Uieda
         # The file with the listed requirements to be installed by conda
         - CONDA_REQUIREMENTS=requirements.txt
@@ -60,12 +58,6 @@ script:
     - make -C doc all
 
 deploy:
-    # Make a release on PyPI
-    - provider: script
-      script: continuous-integration/travis/deploy-pypi.sh
-      on:
-          tags: true
-          condition: '$DEPLOY == "true"'
     # Push the built HTML in doc/_build/html to the gh-pages branch
     - provider: script
       script: continuous-integration/travis/deploy-gh-pages.sh

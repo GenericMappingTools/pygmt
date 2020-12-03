@@ -11,7 +11,7 @@ If you want to make a contribution to the project, see the
 
 * *master*: Always tested and ready to become a new version. Don't push directly to this
   branch. Make a new branch and submit a pull request instead.
-* *gh-pages*: Holds the HTML documentation and is served by Github. Pages for the master
+* *gh-pages*: Holds the HTML documentation and is served by GitHub. Pages for the master
   branch are in the `dev` folder. Pages for each release are in their own folders.
   **Automatically updated by TravisCI** so you shouldn't have to make commits here.
 
@@ -40,14 +40,14 @@ The main advantages of this are:
 
 ## Continuous Integration
 
-We use Github Actions and TravisCI continuous integration (CI) services to
+We use GitHub Actions and TravisCI continuous integration (CI) services to
 build and test the project on Linux, macOS and Windows.
 They rely on the `requirements.txt` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
 
-### Github Actions
+### GitHub Actions
 
-There are 3 configuration files located in `.github/workflows`:
+There are 4 configuration files located in `.github/workflows`:
 
 1. `ci_tests.yaml` (Style Checks, Tests on Linux/macOS/Windows)
 
@@ -59,20 +59,26 @@ It is also scheduled to run daily on the *master* branch.
 This is only triggered when a review is requested or re-requested on a PR.
 It is also scheduled to run daily on the *master* branch.
 
-3. `cache_data.yaml` (Caches GMT remote data files needed for Github Actions CI)
+3. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
 This is scheduled to run every Sunday at 12 noon.
 If new remote files are needed urgently, maintainers can manually uncomment
 the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
+4. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
+
+This workflow is ran to publish wheels to PyPI and TestPyPI (for testing only).
+Archives will be pushed to TestPyPI on every commit to the *master* branch and
+tagged releases, and to PyPI for tagged releases only.
+
+
 ### Travis CI
 
 The configuration file is at `.travis.yml`.
-Travis runs tests (Linux only) and handles all of our deployments automatically:
+Travis runs tests (Linux only) and handles the documentation deployment automatically:
 
 * Updating the development documentation by pushing the built HTML pages from the
   *master* branch onto the `dev` folder of the *gh-pages* branch.
-* Uploading new releases to PyPI (only when the build was triggered by a git tag).
 * Updated the `latest` documentation link to the new release.
 
 This way, most day-to-day maintenance operations are automatic.
@@ -85,7 +91,7 @@ submit pull requests to that repository.
 
 ## Continuous Documentation
 
-We use the [Zeit Now for Github integration](https://zeit.co/github) to preview changes
+We use the [Zeit Now for GitHub integration](https://zeit.co/github) to preview changes
 made to our documentation website every time we make a commit in a pull request.
 The integration service has a configuration file `now.json`, with a list of options to
 change the default behaviour at https://zeit.co/docs/configuration.
@@ -97,16 +103,16 @@ see https://zeit.co/docs/v2/build-step/?query=package.json#defining-a-build-scri
 
 We try to automate the release process as much as possible.
 Travis handles publishing new releases to PyPI and updating the documentation.
-The version number is set automatically using versioneer based information it gets from
-git.
+The version number is set automatically using setuptools_scm based information
+obtained from git.
 There are a few steps that still must be done manually, though.
 
 ### Updating the changelog
 
-The Release Drafter Github Action will automatically keep a draft changelog at
+The Release Drafter GitHub Action will automatically keep a draft changelog at
 https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
 every time a Pull Request (with a proper label) is merged into the master branch.
-This release drafter tool has two configuration files, one for the Github Action
+This release drafter tool has two configuration files, one for the GitHub Action
 at .github/workflows/release-drafter.yml, and one for the changelog template
 at .github/release-drafter.yml. Configuration settings can be found at
 https://github.com/release-drafter/release-drafter.
@@ -122,7 +128,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 
 2. Edit the changes list to remove any trivial changes (updates to the README, typo
    fixes, CI configuration, etc).
-3. Replace the PR number in the commit titles with a link to the Github PR page.
+3. Replace the PR number in the commit titles with a link to the GitHub PR page.
    Use ``sed -i.bak -E 's$\(#([0-9]*)\)$(`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__)$g' changes.rst``
    to make the change automatically.
 4. Copy the remaining changes to `doc/changes.rst` under a new section for the
@@ -142,7 +148,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 
 ### Check the README syntax
 
-Github is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
+GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
 So slightly broken RST can cause the PyPI page to not render the correct content. Check
 using the `rst2html.py` script that comes with docutils:
 
@@ -167,7 +173,7 @@ this new folder.
 
 ### Archiving on Zenodo
 
-Grab a zip file from the Github release and upload to Zenodo using the previously
+Grab a zip file from the GitHub release and upload to Zenodo using the previously
 reserved DOI.
 
 ### Updating the conda package

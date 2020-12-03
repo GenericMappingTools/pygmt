@@ -9,6 +9,7 @@ from contextlib import contextmanager
 
 from packaging.version import Version
 import numpy as np
+import pandas as pd
 
 from ..exceptions import (
     GMTCLibError,
@@ -115,6 +116,7 @@ class Session:
     ...             )
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
+    ...
     -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
     """
 
@@ -273,6 +275,7 @@ class Session:
         ...     func = lib.get_libgmt_func(
         ...         "GMT_Destroy_Session", argtypes=[c_void_p], restype=c_int
         ...     )
+        ...
         >>> type(func)
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
 
@@ -707,11 +710,13 @@ class Session:
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
         ...     gmttype == ses["GMT_DOUBLE"]
+        ...
         True
         >>> data = np.ones((5, 2), dtype="float32")
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
         ...     gmttype == ses["GMT_FLOAT"]
+        ...
         True
 
         """
@@ -1041,6 +1046,7 @@ class Session:
         ...             args = "{} ->{}".format(vfile, ofile.name)
         ...             lib.call_module("info", args)
         ...             print(ofile.read().strip())
+        ...
         <vector memory>: N = 5 <0/4> <5/9>
 
         """
@@ -1137,6 +1143,7 @@ class Session:
         ...                 "info", "{} ->{}".format(fin, fout.name)
         ...             )
         ...             print(fout.read().strip())
+        ...
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
 
         """
@@ -1154,7 +1161,7 @@ class Session:
         # Assumes that first 2 columns contains coordinates like longitude
         # latitude, or datetime string types.
         for col, array in enumerate(arrays[2:]):
-            if np.issubdtype(array.dtype, np.str_):
+            if pd.api.types.is_string_dtype(array.dtype):
                 columns = col + 2
                 break
 
@@ -1183,6 +1190,7 @@ class Session:
                 strings = np.apply_along_axis(
                     func1d=" ".join, axis=0, arr=string_arrays
                 )
+            strings = np.asanyarray(a=strings, dtype=np.str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
@@ -1249,6 +1257,7 @@ class Session:
         ...                 "info", "{} ->{}".format(fin, fout.name)
         ...             )
         ...             print(fout.read().strip())
+        ...
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
 
         """
@@ -1331,6 +1340,7 @@ class Session:
         ...             args = "{} -L0 -Cn ->{}".format(fin, fout.name)
         ...             ses.call_module("grdinfo", args)
         ...             print(fout.read().strip())
+        ...
         -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
 
@@ -1387,6 +1397,7 @@ class Session:
         ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
+        ...
         >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         0.00, 10.00, -20.00, -10.00
 
@@ -1399,6 +1410,7 @@ class Session:
         ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
+        ...
         >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         -164.71, -154.81, 18.91, 23.58
 
@@ -1412,6 +1424,7 @@ class Session:
         ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
+        ...
         >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         -165.00, -150.00, 15.00, 25.00
 
