@@ -142,17 +142,18 @@ jobs:
           env_vars: OS,PYTHON
           fail_ci_if_error: true
 
-      - name: Checkout the gh-pages branch
+      - name: Checkout the gh-pages-testing branch
         uses: actions/checkout@28c7f3d2b5162b5ddd3dfd9a45aa55eaf396478b
         with:
-          ref: gh-pages
+          ref: gh-pages-testing
           # Checkout to this folder instead of the current one
           path: deploy
           # Download the entire history
           fetch-depth: 0
-        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+        if: (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+        #if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
 
-      - name: Push the built HTML to gh-pages
+      - name: Push the built HTML to gh-pages-testing
         run: |
           # Detect if this is a release or from the master branch
           if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
@@ -198,7 +199,8 @@ jobs:
           fi
           # Make the push quiet just in case there is anything that could leak
           # sensitive information.
-          echo -e "\nPushing changes to gh-pages."
-          git push -fq origin gh-pages 2>&1 >/dev/null
+          echo -e "\nPushing changes to gh-pages-testing."
+          git push -fq origin gh-pages-testing 2>&1 >/dev/null
           echo -e "\nFinished uploading generated files."
-        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+        if: (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+        #if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
