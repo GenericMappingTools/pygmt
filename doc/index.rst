@@ -34,8 +34,8 @@
     tutorials/plot.rst
     tutorials/text.rst
     tutorials/contour-map.rst
-    tutorials/configuration.rst
     tutorials/color-figure.rst
+    tutorials/configuration.rst
 
 .. toctree::
     :maxdepth: 2
