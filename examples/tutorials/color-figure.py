@@ -1,6 +1,6 @@
 """
-Adding a color palette to a figure
-==================================
+Plot grids
+==========
 
 Plotting a map with a color palette is handled by :meth:`pygmt.Figure.grdimage`. The
 :meth:`pygmt.makecpt` method creates a custom color palette that can be used with
