@@ -1529,7 +1529,10 @@ class BasePlotting:
                     file_context = dummy_context("")
                 else:
                     file_context = lib.virtualfile_from_vectors(
-                        np.atleast_1d(x), np.atleast_1d(y), *extra_arrays, np.atleast_1d(text)
+                        np.atleast_1d(x),
+                        np.atleast_1d(y),
+                        *extra_arrays,
+                        np.atleast_1d(text),
                     )
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
