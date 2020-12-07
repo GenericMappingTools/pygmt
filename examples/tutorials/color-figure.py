@@ -29,7 +29,7 @@ fig.show()
 ########################################################################################
 #
 # :meth:`pygmt.Figure.grdimage` can take the optional argument ``projection`` for the
-# map. In the example below, the ``projection`` is set as "`R5i`" for 5-inch figure
+# map. In the example below, the ``projection`` is set as ``"R5i"`` for 5-inch figure
 # with a Winkel Tripel projection. For a list of available projections,
 # see :gmt-docs:`cookbook/map_projections.html`.
 
@@ -99,7 +99,7 @@ fig.show()
 # The example below uses data with a 5 minute resolution, and plots it on a 6 inch
 # figure with a Mercator projection and a CPT set to *geo*.
 # :meth:`pygmt.Figure.basemap` is used to add a frame to the figure, using the argument
-# "``a``" for the ``frame`` parameter.
+# ``"a"`` for the ``frame`` parameter.
 
 grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
