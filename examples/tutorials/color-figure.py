@@ -36,3 +36,35 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R5i")
 fig.show()
+
+########################################################################################
+# Set a color map
+# ---------------
+#
+# :meth:`pygmt.Figure.grdimage` takes the ``cmap`` argument to set the CPT of the
+# figure. Examples of common CPTs for Earth relief are shown below.
+# A full list of CPTs can be found at :gmt-docs:`cookbook/cpts.html`.
+
+########################################################################################
+#
+# *geo*
+
+fig = pygmt.Figure()
+fig.grdimage(grid=grid, projection="R5i", cmap="geo")
+fig.show()
+
+########################################################################################
+#
+# *relief*
+
+fig = pygmt.Figure()
+fig.grdimage(grid=grid, projection="R5i", cmap="relief")
+fig.show()
+
+########################################################################################
+#
+# *etopo1*
+
+fig = pygmt.Figure()
+fig.grdimage(grid=grid, projection="R5i", cmap="etopo1")
+fig.show()
