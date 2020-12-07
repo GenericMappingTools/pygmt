@@ -34,34 +34,3 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R5i")
 fig.show()
-
-########################################################################################
-# A specific color palette can be set using the optional ``cmap`` argument for
-# :meth:`pygmt.Figure.grdimage`. By default, the color palette is set to *turbo*.
-# In the example below, the color palette is set to *geo*.
-# The full list of color palette tables can be found at :gmt-docs:`cookbook/cpts.html`.
-
-fig = pygmt.Figure()
-fig.grdimage(grid=grid, cmap="geo")
-fig.show()
-
-########################################################################################
-# :meth:`pygmt.Figure.grdimage` accepts additional parameters, including  ``frame`` and
-# ``projection``.
-
-fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame=True, projection="M6i", cmap="geo")
-fig.show()
-
-########################################################################################
-# The :meth:`pygmt.Figure.colorbar` method can be used to add a color bar to the figure.
-# By default, it applies the color palette created by :meth:`pygmt.Figure.grdimage`.
-#
-# The `frame` argument can be used to set the color bar labels and intervals.
-# In the example below, ``p3000`` sets the color bar tick interval to 3,000 meters,
-# and ``x+lElevation`` and ``y+lm`` set the x- and y-axis labels for the color bar.
-
-fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame=True, projection="M6i", cmap="geo")
-fig.colorbar(frame=["p3000", "x+lElevation", "y+lm"])
-fig.show()
