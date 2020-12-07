@@ -1481,6 +1481,10 @@ class BasePlotting:
         {p}
         {t}
         """
+
+        # pylint: disable=too-many-locals
+        # pylint: disable=too-many-branches
+
         kwargs = self._preprocess(**kwargs)
 
         # Ensure inputs are either textfiles, x/y/text, or position/text
