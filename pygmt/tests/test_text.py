@@ -5,10 +5,12 @@ Tests text
 import os
 
 import pytest
+import numpy as np
 
 from .. import Figure
 from ..exceptions import GMTCLibError, GMTInvalidInput
 from ..helpers import GMTTempFile
+from ..helpers.testing import check_figures_equal
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -295,3 +297,44 @@ def test_text_angle_font_justify_from_textfile():
             justify=True,
         )
     return fig
+
+
+@check_figures_equal()
+def test_text_transparency():
+    "Add texts with a constant transparency"
+    x = np.arange(1, 10)
+    y = np.arange(11, 20)
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    with GMTTempFile() as tmpfile:
+        np.savetxt(tmpfile.name, np.c_[x, y, text], fmt="%s")
+        fig_ref.basemap(R="0/10/10/20", J="X10c", B="")
+        fig_ref.text(textfiles=tmpfile.name, t=50)
+
+    fig_test.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
+    fig_test.text(x=x, y=y, text=text, transparency=50)
+
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_text_varying_transparency():
+    "Add texts with varying transparency"
+    x = np.arange(1, 10)
+    y = np.arange(11, 20)
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    transparency = np.arange(10, 100, 10)
+
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    with GMTTempFile() as tmpfile:
+        np.savetxt(tmpfile.name, np.c_[x, y, transparency, text], fmt="%s")
+        fig_ref.basemap(R="0/10/10/20", J="X10c", B="")
+        fig_ref.text(textfiles=tmpfile.name, t="")
+
+    fig_test.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
+    fig_test.text(x=x, y=y, text=text, transparency=transparency)
+
+    return fig_ref, fig_test
