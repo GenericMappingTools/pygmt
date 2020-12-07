@@ -1481,6 +1481,10 @@ class BasePlotting:
         {p}
         {t}
         """
+
+        # pylint: disable=too-many-locals
+        # pylint: disable=too-many-branches
+
         kwargs = self._preprocess(**kwargs)
 
         # Ensure inputs are either textfiles, x/y/text, or position/text
@@ -1515,6 +1519,13 @@ class BasePlotting:
         if position is not None and isinstance(position, str):
             kwargs["F"] += f'+c{position}+t"{text}"'
 
+        extra_arrays = []
+        # If an array of transparency is given, GMT will read it from
+        # the last numerical column per data record.
+        if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+            extra_arrays.append(kwargs["t"])
+            kwargs["t"] = ""
+
         with Session() as lib:
             file_context = dummy_context(textfiles) if kind == "file" else ""
             if kind == "vectors":
@@ -1522,7 +1533,10 @@ class BasePlotting:
                     file_context = dummy_context("")
                 else:
                     file_context = lib.virtualfile_from_vectors(
-                        np.atleast_1d(x), np.atleast_1d(y), np.atleast_1d(text)
+                        np.atleast_1d(x),
+                        np.atleast_1d(y),
+                        *extra_arrays,
+                        np.atleast_1d(text),
                     )
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
