@@ -34,7 +34,7 @@
     tutorials/plot.rst
     tutorials/text.rst
     tutorials/contour-map.rst
-    tutorials/color-figure.rst
+    tutorials/earth-relief.rst
     tutorials/configuration.rst
 
 .. toctree::
