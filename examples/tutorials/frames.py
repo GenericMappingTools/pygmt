@@ -47,3 +47,26 @@ fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="ag")
 fig.show()
+
+########################################################################################
+# Title
+# -----
+#
+# The figure title can be set by passing ``"+t<title>"`` to the ``frame`` parameter of
+# :meth:`pygmt.Figure.basemap`. Passing multiple arguments to ``frame`` can be done by
+# using a list, as show in the example below.
+
+fig = pygmt.Figure()
+fig.coast(shorelines="1/0.5p", region="IS", projection="M25c")
+fig.basemap(frame=["a", "+tIceland"])
+fig.show()
+
+########################################################################################
+# To use a title with multiple words, the title must be placed inside another set of
+# quotation marks. To prevent the quotation marks from appearing in the figure title,
+# the ``"\""`` escape character notation can be used to cancel out the quotation marks.
+
+fig = pygmt.Figure()
+fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
+fig.basemap(frame=["a", "+t\"Trinidad and Tobago\""])
+fig.show()
