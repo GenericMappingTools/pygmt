@@ -31,7 +31,7 @@ fig.show()
 # :meth:`pygmt.Figure.grdimage` can take the optional argument ``projection`` for the
 # map. In the example below, the ``projection`` is set as ``"R5i"`` for 5-inch figure
 # with a Winkel Tripel projection. For a list of available projections,
-# see :gmt-docs:`cookbook/map_projections.html`.
+# see :gmt-docs:`cookbook/map-projections.html`.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R5i")
