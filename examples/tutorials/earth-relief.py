@@ -56,7 +56,7 @@ fig.show()
 
 ########################################################################################
 #
-# *relief*
+# Using the *relief* CPT:
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="relief")
