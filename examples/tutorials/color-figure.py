@@ -91,7 +91,7 @@ fig.show()
 # -------------------
 #
 # In addition to providing global data, the ``region`` argument for
-# ``pygmt.datasets.load_earth_relief`` can be used to provide data for a specific
+# :meth:`pygmt.datasets.load_earth_relief` can be used to provide data for a specific
 # area. The ``region`` argument is required for resolutions at 5 minutes or lower, and
 # accepts a list (as in the example below) or a string. The geographic ranges are
 # passed as *x-min*/*x-max*/*y-min*/*y-max*.
