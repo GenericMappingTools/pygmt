@@ -63,14 +63,6 @@ fig.grdimage(grid=grid, projection="R12c", cmap="relief")
 fig.show()
 
 ########################################################################################
-#
-# *etopo1*
-
-fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R12c", cmap="etopo1")
-fig.show()
-
-########################################################################################
 # Add a color bar
 # ---------------
 #
