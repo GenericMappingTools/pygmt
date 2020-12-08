@@ -16,7 +16,7 @@ import pygmt
 # coastlines of the world with a Mercator projection:
 
 fig = pygmt.Figure()
-fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M10i")
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.show()
 
 ########################################################################################
@@ -24,7 +24,7 @@ fig.show()
 # :meth:`pygmt.Figure.basemap` or any other plotting module:
 
 fig = pygmt.Figure()
-fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M10i")
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="f")
 fig.show()
 
@@ -36,7 +36,7 @@ fig.show()
 # and automatically determines tick labels from the plot region.
 
 fig = pygmt.Figure()
-fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M10i")
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="a")
 fig.show()
 
@@ -44,6 +44,6 @@ fig.show()
 # Add automatic grid lines to the plot by adding a ``g`` to ``frame``:
 
 fig = pygmt.Figure()
-fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M10i")
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="ag")
 fig.show()
