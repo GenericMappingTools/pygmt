@@ -83,7 +83,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R5i", cmap="geo")
-fig.colorbar(frame=["p2500", "x+lElevation", "y+lm"])
+fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
 fig.show()
 
 ########################################################################################
