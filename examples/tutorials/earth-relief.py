@@ -48,7 +48,7 @@ fig.show()
 
 ########################################################################################
 #
-# *geo*
+# Using the *geo* CPT:
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="geo")
