@@ -30,12 +30,12 @@ fig.show()
 ########################################################################################
 #
 # :meth:`pygmt.Figure.grdimage` can take the optional argument ``projection`` for the
-# map. In the example below, the ``projection`` is set as ``"R5i"`` for 5-inch figure
-# with a Winkel Tripel projection. For a list of available projections,
+# map. In the example below, the ``projection`` is set as ``"R5i"`` for 12 centimeter
+# figure with a Winkel Tripel projection. For a list of available projections,
 # see :gmt-docs:`cookbook/map-projections.html`.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R5i")
+fig.grdimage(grid=grid, projection="R12c")
 fig.show()
 
 ########################################################################################
@@ -51,7 +51,7 @@ fig.show()
 # *geo*
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R5i", cmap="geo")
+fig.grdimage(grid=grid, projection="R12c", cmap="geo")
 fig.show()
 
 ########################################################################################
@@ -59,7 +59,7 @@ fig.show()
 # *relief*
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R5i", cmap="relief")
+fig.grdimage(grid=grid, projection="R12c", cmap="relief")
 fig.show()
 
 ########################################################################################
@@ -67,7 +67,7 @@ fig.show()
 # *etopo1*
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R5i", cmap="etopo1")
+fig.grdimage(grid=grid, projection="R12c", cmap="etopo1")
 fig.show()
 
 ########################################################################################
@@ -83,7 +83,7 @@ fig.show()
 # label, and ``"y+lm"`` sets the y-axis label.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R5i", cmap="geo")
+fig.grdimage(grid=grid, projection="R12c", cmap="geo")
 fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
 fig.show()
 
@@ -97,14 +97,14 @@ fig.show()
 # accepts a list (as in the example below) or a string. The geographic ranges are
 # passed as *x-min*/*x-max*/*y-min*/*y-max*.
 #
-# The example below uses data with a 5 minute resolution, and plots it on a 6 inch
-# figure with a Mercator projection and a CPT set to *geo*.
+# The example below uses data with a 5 minute resolution, and plots it on a
+# 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
 # :meth:`pygmt.Figure.basemap` is used to add a frame to the figure, using the argument
 # ``"a"`` for the ``frame`` parameter.
 
 grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="M6i", cmap="geo")
+fig.grdimage(grid=grid, projection="M15c", cmap="geo")
 fig.basemap(frame="a")
 fig.colorbar(frame=["p1000", "x+lElevation", "y+lm"])
 fig.show()
