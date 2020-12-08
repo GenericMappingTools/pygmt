@@ -96,7 +96,6 @@ fig.show()
 
 grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="M15c", cmap="geo")
-fig.basemap(frame="a")
+fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
