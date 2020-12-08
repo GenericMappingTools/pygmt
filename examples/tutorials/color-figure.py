@@ -78,7 +78,7 @@ fig.show()
 # for :meth:`pygmt.Figure.grdimage`. The ``frame`` argument for
 # :meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and labels. A
 # list is used to pass multiple arguments to ``frame``. In the example below,
-# ``"p2500"`` sets the axis interval to 2,500, ``"x+lElevation"`` sets  the x-axis
+# ``"a2500"`` sets the axis interval to 2,500, ``"x+lElevation"`` sets  the x-axis
 # label, and ``"y+lm"`` sets the y-axis label.
 
 fig = pygmt.Figure()
