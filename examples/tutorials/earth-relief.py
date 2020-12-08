@@ -11,7 +11,7 @@ import pygmt
 
 ########################################################################################
 # Load sample Earth relief data for the entire globe at a resolution of 30 minutes.
-# The other available resolutions are show at :gmt-docs:`datasets/earth_relief.html`.
+# The other available resolutions are show at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
 grid = pygmt.datasets.load_earth_relief(resolution="30m")
 
 ########################################################################################
