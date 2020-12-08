@@ -30,7 +30,7 @@ fig.show()
 ########################################################################################
 #
 # :meth:`pygmt.Figure.grdimage` can take the optional argument ``projection`` for the
-# map. In the example below, the ``projection`` is set as ``"R5i"`` for 12 centimeter
+# map. In the example below, the ``projection`` is set as ``"R12c"`` for 12 centimeter
 # figure with a Winkel Tripel projection. For a list of available projections,
 # see :gmt-docs:`cookbook/map-projections.html`.
 
