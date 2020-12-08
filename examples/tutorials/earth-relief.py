@@ -91,8 +91,7 @@ fig.show()
 #
 # The example below uses data with a 5 minute resolution, and plots it on a
 # 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
-# :meth:`pygmt.Figure.basemap` is used to add a frame to the figure, using the argument
-# ``"a"`` for the ``frame`` parameter.
+# ``frame="a"`` is used to add a frame to the figure.
 
 grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
