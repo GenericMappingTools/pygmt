@@ -18,7 +18,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="30m")
 # Create a plot
 # -------------
 #
-# The :meth:`pygmt.Figure.grdimage` method takes the ``grid`` input a
+# The :meth:`pygmt.Figure.grdimage` method takes the ``grid`` input to
 # create a figure. It creates and applies a color palette to the figure based upon the
 # z-values of the data. By default, it plots the map with the the *turbo* CPT, an
 # equidistant cylindrical projection, and with no frame.
