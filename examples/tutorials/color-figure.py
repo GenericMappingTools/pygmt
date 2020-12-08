@@ -94,7 +94,7 @@ fig.show()
 # ``pygmt.datasets.load_earth_relief`` can be used to provide data for a specific
 # area. The ``region`` argument is required for resolutions at 5 minutes or lower, and
 # accepts a list (as in the example below) or a string. The geographic ranges are
-# passed as x-min/x-max/y-min/y-max.
+# passed as *x-min*/*x-max*/*y-min*/*y-max*.
 #
 # The example below uses data with a 5 minute resolution, and plots it on a 6 inch
 # figure with a Mercator projection and a CPT set to *geo*.
