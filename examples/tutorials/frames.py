@@ -64,7 +64,8 @@ fig.show()
 ########################################################################################
 # To use a title with multiple words, the title must be placed inside another set of
 # quotation marks. To prevent the quotation marks from appearing in the figure title,
-# the ``"\""`` escape character notation can be used to cancel out the quotation marks.
+# the frame argument can be passed in single quotation marks and the title can be
+# passed in double quotation marks.
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
