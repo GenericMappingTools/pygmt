@@ -71,3 +71,22 @@ fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
 fig.basemap(frame=["a", '+t"Trinidad and Tobago"'])
 fig.show()
+
+########################################################################################
+# Axis labels
+# -----------
+#
+# Axis labels can be set by passing ``"<axis (either x or y)>+l<label>"`` to the
+# ``frame`` parameter of :meth:`pygmt.Figure.basemap`. Axis labels will be displayed on
+# all primary axes, which the default is all sides of the figure. To designate only
+# some of the axes as primary, an argument that capitlizes only the primary axes can be
+# passed, which is ``"WSne"`` in the example below. The letters correspond with
+# west (left), south (bottom), north (top), and east (right) sides of a figure.
+#
+# The example below used a Cartesian projection, as GMT does not allow axis labels to
+# be set for geographic maps.
+
+fig = pygmt.Figure()
+fig.basemap(region=[0, 10, 0, 20], projection="X4i/3i",
+            frame=["WSne", "x+lx-axis", "y+ly-axis"])
+fig.show()
