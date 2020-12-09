@@ -68,5 +68,5 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
-fig.basemap(frame=["a", "+t\"Trinidad and Tobago\""])
+fig.basemap(frame=["a", '+t"Trinidad and Tobago"'])
 fig.show()
