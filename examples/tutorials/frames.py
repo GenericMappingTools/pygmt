@@ -57,6 +57,7 @@ fig.show()
 # using a list, as show in the example below.
 
 fig = pygmt.Figure()
+# region="IS" specifies Iceland using the ISO country code
 fig.coast(shorelines="1/0.5p", region="IS", projection="M25c")
 fig.basemap(frame=["a", "+tIceland"])
 fig.show()
@@ -68,6 +69,7 @@ fig.show()
 # passed in double quotation marks.
 
 fig = pygmt.Figure()
+# region="TT" specifies Trinidad and Tobago
 fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
 fig.basemap(frame=["a", '+t"Trinidad and Tobago"'])
 fig.show()
