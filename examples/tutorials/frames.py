@@ -52,7 +52,7 @@ fig.show()
 # Title
 # -----
 #
-# The figure title can be set by passing ``"+t<title>"`` to the ``frame`` parameter of
+# The figure title can be set by passing ``**+t**\ *title*`` to the ``frame`` parameter of
 # :meth:`pygmt.Figure.basemap`. Passing multiple arguments to ``frame`` can be done by
 # using a list, as show in the example below.
 
@@ -78,12 +78,13 @@ fig.show()
 # Axis labels
 # -----------
 #
-# Axis labels can be set by passing ``"<axis (either x or y)>+l<label>"`` to the
-# ``frame`` parameter of :meth:`pygmt.Figure.basemap`. Axis labels will be displayed on
-# all primary axes, which the default is all sides of the figure. To designate only
-# some of the axes as primary, an argument that capitlizes only the primary axes can be
-# passed, which is ``"WSne"`` in the example below. The letters correspond with
-# west (left), south (bottom), north (top), and east (right) sides of a figure.
+# Axis labels can be set by passing ``**x+l**\ *label*`` (or starting with y if
+# labeling the y-axis) if  to the ``frame`` parameter of :meth:`pygmt.Figure.basemap`.
+# Axis labels will be displayed on all primary axes, which the default is all sides of
+# the figure. To designate only some of the axes as primary, an argument that
+# capitlizes only the primary axes can be passed, which is ``"WSne"`` in the example
+# below. The letters correspond with west (left), south (bottom), north (top), and
+# east (right) sides of a figure.
 #
 # The example below used a Cartesian projection, as GMT does not allow axis labels to
 # be set for geographic maps.
