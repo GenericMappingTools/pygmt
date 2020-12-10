@@ -1,6 +1,6 @@
 """
-Robinson projection
-===================
+Robinson
+========
 
 ``N[central meridian]/width``: Give the optional central meridian (default is the center
  of the region) and the map width.

@@ -1,6 +1,6 @@
 """
-Hammer projection
-=================
+Hammer
+======
 
 ``H[central meridian]/width``: Give the optional central meridian (default is the center
  of the region) and the map width.
