@@ -150,8 +150,7 @@ jobs:
           path: deploy
           # Download the entire history
           fetch-depth: 0
-        if: (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
-        #if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
 
       - name: Push the built HTML to gh-pages
         run: |
@@ -202,5 +201,4 @@ jobs:
           echo -e "\nPushing changes to gh-pages."
           git push -fq origin gh-pages 2>&1 >/dev/null
           echo -e "\nFinished uploading generated files."
-        if: (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
-        #if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
