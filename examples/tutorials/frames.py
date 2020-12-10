@@ -52,7 +52,7 @@ fig.show()
 # Title
 # -----
 #
-# The figure title can be set by passing ``**+t**\ *title*`` to the ``frame`` parameter of
+# The figure title can be set by passing **+t**\ *title* to the ``frame`` parameter of
 # :meth:`pygmt.Figure.basemap`. Passing multiple arguments to ``frame`` can be done by
 # using a list, as show in the example below.
 
