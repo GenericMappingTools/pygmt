@@ -8,6 +8,6 @@ Hammer
 import pygmt
 
 fig = pygmt.Figure()
-# Use region "d" to specify global region (-180/180)
+# Use region "d" to specify global region (-180/180/-90/90)
 fig.coast(region="d", projection="H12c", land="black", water="cornsilk", frame="afg")
 fig.show()

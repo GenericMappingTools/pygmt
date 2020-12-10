@@ -8,6 +8,6 @@ Winkel Tripel
 import pygmt
 
 fig = pygmt.Figure()
-# Use region "d" to specify global region (-180/180)
+# Use region "d" to specify global region (-180/180/-90/90)
 fig.coast(region="d", projection="R12c", land="burlywood4", water="wheat1", frame="afg")
 fig.show()
