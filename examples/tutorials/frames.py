@@ -78,7 +78,7 @@ fig.show()
 # Axis labels
 # -----------
 #
-# Axis labels can be set by passing ``**x+l**\ *label*`` (or starting with y if
+# Axis labels can be set by passing **x+l**\ *label* (or starting with y if
 # labeling the y-axis) if  to the ``frame`` parameter of :meth:`pygmt.Figure.basemap`.
 # Axis labels will be displayed on all primary axes, which the default is all sides of
 # the figure. To designate only some of the axes as primary, an argument that
