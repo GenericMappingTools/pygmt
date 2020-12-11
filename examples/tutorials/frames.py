@@ -90,6 +90,9 @@ fig.show()
 # be set for geographic maps.
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 20], projection="X10c/8c",
-            frame=["WSne", "x+lx-axis", "y+ly-axis"])
+fig.basemap(
+    region=[0, 10, 0, 20],
+    projection="X10c/8c",
+    frame=["WSne", "x+lx-axis", "y+ly-axis"],
+)
 fig.show()
