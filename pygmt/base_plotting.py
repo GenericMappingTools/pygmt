@@ -1536,7 +1536,8 @@ class BasePlotting:
                         np.atleast_1d(x),
                         np.atleast_1d(y),
                         *extra_arrays,
-                        np.atleast_1d(text),
+                        # text must be in str type, see issue #706
+                        np.atleast_1d(text).astype(str),
                     )
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])

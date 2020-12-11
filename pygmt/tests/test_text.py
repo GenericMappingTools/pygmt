@@ -338,3 +338,26 @@ def test_text_varying_transparency():
     fig_test.text(x=x, y=y, text=text, transparency=transparency)
 
     return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_text_nonstr_text():
+    "Input text is in non-string type (e.g., int, float)"
+    fig_ref, fig_test = Figure(), Figure()
+
+    # Use single-character arguments and input files for the reference image
+    with GMTTempFile(suffix=".txt") as tempfile:
+        with open(tempfile.name, "w") as tmpfile:
+            tmpfile.write("1 1 1.0\n2 2 2.0\n3 3 3.0\n4 4 4.0\n")
+        fig_ref.text(R="0/10/0/10", J="X10c", B="", textfiles=tempfile.name)
+
+    fig_test.text(
+        region=[0, 10, 0, 10],
+        projection="X10c",
+        frame=True,
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        text=[1, 2, 3.0, 4.0],
+    )
+
+    return fig_ref, fig_test
