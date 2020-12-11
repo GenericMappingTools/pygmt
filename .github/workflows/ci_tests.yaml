@@ -7,6 +7,9 @@ on:
   push:
     branches: [ master ]
   pull_request:
+  release:
+    types:
+      - published
   # Schedule daily tests
   schedule:
     - cron: '0 0 * * *'
@@ -42,14 +45,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        # Run Python 3.6 tests on master branch only to conserve CI resources
-        isMaster:
-          - ${{ contains(github.ref, 'master') }}
-        exclude:
-          - isMaster: false  # i.e. on Pull Requests
-            python-version: 3.6
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
@@ -64,9 +61,9 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2.3.4
         with:
-          # fecth all history so that versioneer works
+          # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
       # Setup Miniconda
@@ -97,9 +94,10 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.6.3
+        uses: dawidd6/action-download-artifact@v2.10.0
         with:
           workflow: cache_data.yaml
+          workflow_conclusion: success
           name: gmt-cache
           path: .gmt
 
@@ -143,3 +141,64 @@ jobs:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON
           fail_ci_if_error: true
+
+      - name: Checkout the gh-pages branch
+        uses: actions/checkout@28c7f3d2b5162b5ddd3dfd9a45aa55eaf396478b
+        with:
+          ref: gh-pages
+          # Checkout to this folder instead of the current one
+          path: deploy
+          # Download the entire history
+          fetch-depth: 0
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+
+      - name: Push the built HTML to gh-pages
+        run: |
+          # Detect if this is a release or from the master branch
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+              # Get the tag name without the "refs/tags/" part
+              version="${GITHUB_REF#refs/*/}"
+          else
+              version=dev
+          fi
+          echo "Deploying version: $version"
+          # Make the new commit message. Needs to happen before cd into deploy
+          # to get the right commit hash.
+          message="Deploy $version from $(git rev-parse --short HEAD)"
+          cd deploy
+          # Need to have this file so that Github doesn't try to run Jekyll
+          touch .nojekyll
+          # Delete all the files and replace with our new  set
+          echo -e "\nRemoving old files from previous builds of ${version}:"
+          rm -rvf ${version}
+          echo -e "\nCopying HTML files to ${version}:"
+          cp -Rvf ../doc/_build/html/ ${version}/
+          # If this is a new release, update the link from /latest to it
+          if [[ "${version}" != "dev" ]]; then
+              echo -e "\nSetup link from ${version} to 'latest'."
+              rm -f latest
+              ln -sf ${version} latest
+          fi
+          # Stage the commit
+          git add -A .
+          echo -e "\nChanges to be applied:"
+          git status
+          # Configure git to be the GitHub Actions account
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          # If this is a dev build and the last commit was from a dev build
+          # (detect if "dev" was in the previous commit message), reuse the
+          # same commit
+          if [[ "${version}" == "dev" && `git log -1 --format='%s'` == *"dev"* ]]; then
+              echo -e "\nAmending last commit:"
+              git commit --amend --reset-author -m "$message"
+          else
+              echo -e "\nMaking a new commit:"
+              git commit -m "$message"
+          fi
+          # Make the push quiet just in case there is anything that could leak
+          # sensitive information.
+          echo -e "\nPushing changes to gh-pages."
+          git push -fq origin gh-pages 2>&1 >/dev/null
+          echo -e "\nFinished uploading generated files."
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')

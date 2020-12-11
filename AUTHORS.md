@@ -10,6 +10,7 @@ and are considered the "PyGMT Developers":
 
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Tyler Newton](http://www.tnewton.com/)
+* [William Schlitzer](https://github.com/willschlitzer)
 * [Dongdong Tian](https://seisman.info/)
 * [Liam Toney](https://liam.earth/)
 * [Leonardo Uieda](http://www.leouieda.com/)

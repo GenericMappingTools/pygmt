@@ -39,9 +39,9 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2.3.4
         with:
-          # fecth all history so that versioneer works
+          # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
       # Setup Miniconda
@@ -64,9 +64,10 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.6.3
+        uses: dawidd6/action-download-artifact@v2.10.0
         with:
           workflow: cache_data.yaml
+          workflow_conclusion: success
           name: gmt-cache
           path: .gmt
 

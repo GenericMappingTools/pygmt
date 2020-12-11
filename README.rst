@@ -10,9 +10,6 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
-.. image:: http://img.shields.io/travis/GenericMappingTools/pygmt/master.svg?style=flat-square&label=Linux
-    :alt: Travis CI build status
-    :target: https://travis-ci.org/GenericMappingTools/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
@@ -22,9 +19,6 @@ PyGMT
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/pygmt
-.. image:: https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy
-    :alt: Code quality grade on codacy
-    :target: https://www.codacy.com/app/leouieda/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt

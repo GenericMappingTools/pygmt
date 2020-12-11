@@ -33,6 +33,8 @@
     tutorials/coastlines.rst
     tutorials/plot.rst
     tutorials/text.rst
+    tutorials/contour-map.rst
+    tutorials/earth-relief.rst
     tutorials/configuration.rst
 
 .. toctree::
