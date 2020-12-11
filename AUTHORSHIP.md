@@ -1,7 +1,7 @@
 # Authorship guidelines for academic papers and software archives
 
-First of all, we are deeply thankful to everyone who has helped make Fatiando a
-Terra what it is today. Our goal for this document is to establish guidelines
+First of all, we are deeply thankful to everyone who has helped make PyGMT
+what it is today. Our goal for this document is to establish guidelines
 for giving credit to contributors for their work.
 To do so, we will attempt to define:
 
