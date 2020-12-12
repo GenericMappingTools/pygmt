@@ -53,8 +53,8 @@ there are a few options:
 
 ## Scientific publications (papers)
 
-We aim to write academic papers for most of your software packages. Ideally, we
-will publish updated papers for major changes or large new components of the
+We aim to write academic papers for most of our software packages. Ideally, we
+will publish updated papers for major changes or significant new components of the
 package.
 
 To be included as an author on the paper, you *must* satisfy the following
