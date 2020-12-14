@@ -2,7 +2,7 @@
 Cartesian
 =========
 
-``Xwidth/[height]``: Give the ``width`` of the figure ``width`` and the optional argument ``height``.
+``Xwidth/[height]``: Give the ``width`` of the figure and the optional argument ``height``.
 """
 import pygmt
 
