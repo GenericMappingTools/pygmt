@@ -15,7 +15,7 @@ from pkg_resources import get_distribution
 from .session_management import begin as _begin, end as _end
 from .figure import Figure
 from .filtering import blockmedian
-from .gridding import surface
+from .gridding import surface, triangulate
 from .sampling import grdtrack
 from .mathops import makecpt
 from .modules import GMTDataArrayAccessor, config, info, grdinfo, which

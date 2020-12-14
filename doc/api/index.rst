@@ -65,6 +65,7 @@ Operations on tabular data:
 
     blockmedian
     surface
+    triangulate
 
 Operations on grids:
 
