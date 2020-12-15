@@ -86,7 +86,7 @@ def test_basemap_aliases():
 def test_basemap_rose():
     "Create a map with coast and use basemap to add a rose"
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.coast(R=[127.5, 128.5, 26, 27], W="1/0.5p")
+    fig_ref.coast(R="127.5/128.5/26/27", W="1/0.5p")
     fig_ref.basemap(Td="jBR+w5c")
     fig_test.coast(region=[127.5, 128.5, 26, 27], shorelines="1/0.5p")
     fig_test.basemap(rose="jBR+w5c")
