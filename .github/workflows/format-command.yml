@@ -33,7 +33,7 @@ jobs:
       - name: Commit to the PR branch if any changes
         run: |
           make format
-          find . -name "*.py" -exec dos2unix {} +
+          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix {} \;
           if [[ $(git ls-files -m) ]]; then
             git config --global user.name 'actions-bot'
             git config --global user.email '58130806+actions-bot@users.noreply.github.com'
