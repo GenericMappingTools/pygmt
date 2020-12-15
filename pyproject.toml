@@ -1,2 +1,6 @@
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--verbose --doctest-modules --mpl --mpl-results-path=results"

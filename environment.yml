@@ -14,7 +14,7 @@ dependencies:
     - ipython
     - matplotlib
     - jupyter
-    - pytest
+    - pytest>=6.0
     - pytest-cov
     - pytest-mpl
     - coverage[toml]
