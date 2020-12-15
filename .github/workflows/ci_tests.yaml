@@ -31,13 +31,20 @@ jobs:
           python-version: 3.8
 
       - name: Install packages
-        run: pip install black blackdoc flake8 pylint
+        run: |
+          pip install black blackdoc flake8 pylint
+          sudo apt-get install dos2unix
 
       - name: Formatting check (black and flake8)
         run: make check
 
       - name: Linting (pylint)
         run: make lint
+
+      - name: Line breaks check (dos2unix)
+        run: |
+          find . -name "*.py" -exec dos2unix {} +
+          if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
 
   test:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
