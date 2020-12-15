@@ -81,6 +81,7 @@ def test_basemap_aliases():
     fig.basemap(region=[0, 360, -90, 90], projection="W7i", frame=True)
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_basemap_rose():
     "Create a map with coast and use basemap to add a rose"
@@ -88,6 +89,7 @@ def test_basemap_rose():
     fig.coast(region=[127.5, 128.5, 26, 27], shorelines="1/0.5p")
     fig.basemap(rose="jBR+w5c")
     return fig
+
 
 @pytest.mark.mpl_image_compare
 def test_basemap_compass():
