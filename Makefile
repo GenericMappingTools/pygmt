@@ -1,9 +1,8 @@
 # Build, package, test, and clean
 PROJECT=pygmt
 TESTDIR=tmp-test-dir-with-unique-name
-PYTEST_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
+PYTEST_COV_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
 			--cov-report=term-missing --cov-report=xml --cov-report=html \
-			--doctest-modules -v --mpl --mpl-results-path=results \
 			--pyargs ${PYTEST_EXTRA}
 BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
 BLACKDOC_OPTIONS=--line-length 79
@@ -30,7 +29,7 @@ test:
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
-	cd $(TESTDIR); PYGMT_DISABLE_EXTERNAL_DISPLAY="true" pytest $(PYTEST_ARGS) $(PROJECT)
+	cd $(TESTDIR); PYGMT_DISABLE_EXTERNAL_DISPLAY="true" pytest $(PYTEST_COV_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
 	rm -r $(TESTDIR)

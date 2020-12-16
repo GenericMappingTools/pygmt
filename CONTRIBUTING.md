@@ -311,11 +311,11 @@ Leave a comment in the PR and we'll help you out.
 
 You can also run tests in just one test script using:
 
-    pytest --verbose --mpl --mpl-results-path=results --doctest-modules pygmt/tests/NAME_OF_TEST_FILE.py
+    pytest pygmt/tests/NAME_OF_TEST_FILE.py
 
 or run tests which contain names that match a specific keyword expression:
 
-    pytest --verbose --mpl --mpl-results-path=results --doctest-modules -k KEYWORD pygmt/tests
+    pytest -k KEYWORD pygmt/tests
 
 ### Testing plots
 
@@ -435,7 +435,7 @@ Some things that will increase the chance that your pull request is accepted qui
   [numpy guide](https://numpydoc.readthedocs.io/en/latest/format.html)
   for documentation.
 
-Pull requests will automatically have tests run by TravisCI.
+Pull requests will automatically have tests run by GitHub Actions.
 This includes running both the unit tests as well as code linters.
 GitHub will show the status of these checks on the pull request.
 Try to get them all passing (green).
