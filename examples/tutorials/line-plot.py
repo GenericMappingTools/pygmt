@@ -57,3 +57,71 @@ fig.plot(
 )
 fig.plot(x=[2, 4, 10], y=[3, 8, 9], pen="2p,red")
 fig.show()
+
+########################################################################################
+# Change line attributes
+# ----------------------
+#
+# The line attributes can be set using the ``pen`` parameter. ``pen`` takes a string
+# argument with the optional values *line width*,*line color*,*line style*.
+#
+# In the example below, the pen width is set to ``"5p"``, and with *black* as the
+# default color and *solid* as the default style.
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X25c/20c",
+    frame="a",
+    x=[1, 8],
+    y=[3, 9],
+    pen="5p",
+)
+fig.show()
+
+########################################################################################
+# The line color can be set and is added after the line width to the ``pen`` argument.
+# In the example below, the line color is set to "red".
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X25c/20c",
+    frame="a",
+    x=[1, 8],
+    y=[3, 9],
+    pen="5p,red",
+)
+fig.show()
+
+########################################################################################
+# The line style can be set and is added after the line width or color to the
+# ``pen`` argument.  In the example below, the line color is set to *dot dot dash*, and
+# the default color *black* is used.
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X25c/20c",
+    frame="a",
+    x=[1, 8],
+    y=[3, 9],
+    pen="5p,..-",
+)
+fig.show()
+
+########################################################################################
+# The line width, color, and style can all be set in the same ``pen`` argument. In the
+# example below, the line width is set to *7p*, the color is set to *green*, and the
+# line style is *dash dot dash*.
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X25c/20c",
+    frame="a",
+    x=[1, 8],
+    y=[3, 9],
+    pen="7p,green,-.-",
+)
+fig.show()
