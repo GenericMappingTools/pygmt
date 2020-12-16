@@ -12,7 +12,7 @@ import pygmt
 # ----------
 #
 # Create a Cartesian figure using ``projection`` parameter and set the axis scales
-# using ``region`` (in this case, each axis is 0-10). Pass a list of``x`` and ``y``
+# using ``region`` (in this case, each axis is 0-10). Pass a list of ``x`` and ``y``
 # values to be plotted as a line.
 
 fig = pygmt.Figure()
