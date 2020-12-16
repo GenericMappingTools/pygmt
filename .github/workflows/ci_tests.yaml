@@ -41,7 +41,7 @@ jobs:
       - name: Linting (pylint)
         run: make lint
 
-      - name: Line breaks check (dos2unix)
+      - name: Ensure files use UNIX line breaks and have 644 permission
         run: |
           find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
           find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
