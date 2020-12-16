@@ -72,7 +72,7 @@ fig.grdcontour(
     interval=250,
     grid=grid,
     limit=[-4000, -2000],
-    projection="M4i",
+    projection="M10c",
     frame=True,
 )
 fig.show()
@@ -85,14 +85,13 @@ fig.show()
 # colormap to the contour map. It must be called prior to
 # :meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the final map.
 # If the ``projection`` argument is specified in the :meth:`pygmt.Figure.grdimage`
-# method, it does not need to be repeated in
-# the :meth:`pygmt.Figure.grdcontour` method.
+# method, it does not need to be repeated in the :meth:`pygmt.Figure.grdcontour` method.
 
 fig = pygmt.Figure()
 fig.grdimage(
     grid=grid,
     cmap="haxby",
-    projection="M4i",
+    projection="M10c",
     frame=True,
 )
 fig.grdcontour(
