@@ -31,3 +31,19 @@ fig.grdview(
     zsize="1.5c",
 )
 fig.show()
+
+########################################################################################
+# The figure surface type can be set with the ``surftype`` parameter.
+# The default CPT is *turbo*.
+
+fig = pygmt.Figure()
+fig.grdview(
+    grid=grid,
+    perspective=[180, 30],
+    frame=["xa", "ya", "WSnE"],
+    projection="M15c",
+    zsize="1.5c",
+    # Sets the surface type to solid
+    surftype="s",
+)
+fig.show()
