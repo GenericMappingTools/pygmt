@@ -47,3 +47,94 @@ fig.grdview(
     surftype="s",
 )
 fig.show()
+
+########################################################################################
+# The CPT can be set with the ``cmap`` parameter.
+
+fig = pygmt.Figure()
+fig.grdview(
+    grid=grid,
+    perspective=[180, 30],
+    frame=["xa", "yaf", "WSnE"],
+    projection="M15c",
+    zsize="1.5c",
+    surftype="s",
+    # Set the CPT to "geo"
+    cmap="geo",
+)
+fig.show()
+
+########################################################################################
+# The ``plane`` argument sets the elevation and color of a plane that provides a fill
+# below the surface relief.
+
+fig = pygmt.Figure()
+fig.grdview(
+    grid=grid,
+    perspective=[180, 30],
+    frame=["xa", "yaf", "WSnE"],
+    projection="M15c",
+    zsize="1.5c",
+    surftype="s",
+    cmap="geo",
+    plane="1000+ggrey",
+)
+fig.show()
+
+########################################################################################
+# The ``perspective`` azimuth can be changed to set the direction that is "up"
+# in the figure.
+
+fig = pygmt.Figure()
+fig.grdview(
+    grid=grid,
+    # Set the azimuth to 135 degrees and the angle to 30 degrees
+    perspective=[135, 30],
+    frame=["xa", "yaf", "WSnE"],
+    projection="M15c",
+    zsize="1.5c",
+    surftype="s",
+    cmap="geo",
+    # Set the elevation of the plane at 1,000 meters and the color to grey
+    plane="1000+ggrey",
+)
+fig.show()
+
+########################################################################################
+# The ``contourpen`` parameter sets the pen used to draw contour lines on the surface.
+
+fig = pygmt.Figure()
+fig.grdview(
+    grid=grid,
+    perspective=[180, 30],
+    frame=["xaf", "yaf", "WSnE"],
+    projection="M15c",
+    zsize="1.5c",
+    surftype="s",
+    cmap="geo",
+    plane="1000+ggrey",
+    # Set the contour pen thickness to "0.5p"
+    contourpen="0.5p",
+)
+fig.show()
+
+########################################################################################
+# :meth:`pygmt.Figure.colorbar` can be used to add a color bar to the figure. The
+# ``cmap`` argument does not need to be passed again. To keep the color bar's alignment
+# similar to the figure, it also takes a ``perspective`` argument.
+
+fig = pygmt.Figure()
+perspective = [135, 30]
+fig.grdview(
+    grid=grid,
+    perspective=perspective,
+    frame=["xaf", "yaf", "WSnE"],
+    projection="M15c",
+    zsize="1.5c",
+    surftype="s",
+    cmap="geo",
+    plane="1000+ggrey",
+    contourpen="0.1p",
+)
+fig.colorbar(perspective=perspective, frame=["a500", "x+lElevation", "y+lm"])
+fig.show()
