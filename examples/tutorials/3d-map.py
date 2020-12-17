@@ -106,7 +106,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    perspective=[180, 30],
+    perspective=[135, 30],
     frame=["xaf", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
