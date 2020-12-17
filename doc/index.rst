@@ -32,10 +32,10 @@
     projections/index.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
+    tutorials/line-plot.rst
     tutorials/text.rst
     tutorials/contour-map.rst
     tutorials/earth-relief.rst
-    tutorials/line-plot.rst
     tutorials/configuration.rst
 
 .. toctree::
