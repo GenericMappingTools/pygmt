@@ -32,7 +32,7 @@ jobs:
 
       - name: Install packages
         run: |
-          pip install black blackdoc flake8 pylint
+          pip install black blackdoc flake8 pylint isort
           sudo apt-get install dos2unix
 
       - name: Formatting check (black and flake8)
