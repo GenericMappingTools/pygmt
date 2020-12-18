@@ -114,6 +114,8 @@ fig.show()
 # The line width, color, and style can all be set in the same ``pen`` argument. In the
 # example below, the line width is set to *7p*, the color is set to *green*, and the
 # line style is *dash dot dash*.
+#
+# For a gallery showing other ``pen`` settings, see :doc:`/gallery/line/linestyles`.
 
 fig = pygmt.Figure()
 fig.plot(
