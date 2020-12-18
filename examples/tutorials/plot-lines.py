@@ -63,7 +63,7 @@ fig.show()
 # ----------------------
 #
 # The line attributes can be set using the ``pen`` parameter. ``pen`` takes a string
-# argument with the optional values *width*,\ *color*,\ *style*. 
+# argument with the optional values *width*,\ *color*,\ *style*.
 #
 # In the example below, the pen width is set to ``"5p"``, and with *black* as the
 # default color and *solid* as the default style.
