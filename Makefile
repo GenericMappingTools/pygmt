@@ -18,6 +18,7 @@ help:
 	@echo "  check     run code style and quality checks (black, blackdoc and flake8)"
 	@echo "  lint      run pylint for a deeper (and slower) quality check"
 	@echo "  clean     clean up build and generated files"
+	@echo "  distclean clean up build and generated files, including project metadata files"
 	@echo ""
 
 install:
@@ -47,10 +48,13 @@ lint:
 	pylint $(LINT_FILES)
 
 clean:
-	find . -name "*.pyc" -exec rm -v {} \;
-	find . -name "*~" -exec rm -v {} \;
+	find . -name "*.pyc" -exec rm -v {} +
+	find . -name "*~" -exec rm -v {} +
 	find . -type d -name  "__pycache__" -exec rm -rv {} +
-	rm -rvf build dist MANIFEST *.egg-info .coverage .cache htmlcov coverage.xml
+	rm -rvf build dist MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
 	rm -rvf result_images
+
+distclean: clean
+	rm -r *.egg-info
