@@ -482,8 +482,15 @@ class BasePlotting:
             elif kind == "grid":
                 file_context = lib.virtualfile_from_grid(grid)
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
-            with file_context as fname:
+                raise GMTInvalidInput(f"Unrecognized data type: {type(grid)}")
+
+            with contextlib.ExitStack() as stack:
+                # shading using an xr.DataArray
+                if "I" in kwargs and data_kind(kwargs["I"]) == "grid":
+                    shading_context = lib.virtualfile_from_grid(kwargs["I"])
+                    kwargs["I"] = stack.enter_context(shading_context)
+
+                fname = stack.enter_context(file_context)
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("grdimage", arg_str)
 
