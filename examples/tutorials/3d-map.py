@@ -88,7 +88,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    # Set the azimuth to 135 degrees and the angle to 30 degrees
+    # Set the azimuth to 135 degrees and the elevation to 30 degrees
     perspective=[135, 30],
     frame=["xa", "yaf", "WSnE"],
     projection="M15c",
