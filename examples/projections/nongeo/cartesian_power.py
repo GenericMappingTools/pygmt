@@ -2,9 +2,9 @@
 Cartesian power
 ===============
 
-``**x**\ *width*\ [**p**\ *p-value*]/[*height*\ [**p**\ *p-value*]]``: Give the ``width`` of the figure and
-the optional argument ``height``. The axis or axes with a logarithmic transformation
-requires ``"p"`` and the power transformation for that axis.
+``**x**\ *width*\ [**p**\ *p-value*]/[*height*\ [**p**\ *p-value*]]``: Give the
+``width`` of the figure and the optional argument ``height``. The axis or axes with a
+logarithmic transformation requires ``"p"`` and the power transformation for that axis.
 """
 import pygmt
 import numpy as np
