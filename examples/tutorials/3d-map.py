@@ -44,7 +44,7 @@ fig.grdview(
     frame=["xa", "ya", "WSnE"],
     projection="M15c",
     zsize="1.5c",
-    # Sets the surface type to solid
+    # Set the surftype to *surface*
     surftype="s",
 )
 fig.show()
