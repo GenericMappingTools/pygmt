@@ -17,7 +17,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-108, -103, 35
 # default is [180, 90], which is looking directly down on the figure and north is "up".
 # The ``zsize`` argument sets how tall the three-dimensional portion appears.
 #
-# The default figure surface is *mesh plot*.
+# The default grid surface type is *mesh plot*.
 
 fig = pygmt.Figure()
 fig.grdview(
