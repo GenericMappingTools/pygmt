@@ -19,7 +19,6 @@ The projection codes for the projection styles are shown below.
 
    * - PyGMT Projection Argument
      - Projection Name
-     -
    * - ``projection=`` (upper case for *width*, lower case for *scale*)
      -
    * - **A**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
