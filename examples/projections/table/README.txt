@@ -1,5 +1,5 @@
 Projection Table
-================
+----------------
 
 PyGMT offers 31 map projections. These are specified using the ``projection`` argument.
 The projection codes for the projection styles are shown below.
