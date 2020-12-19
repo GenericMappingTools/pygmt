@@ -605,18 +605,17 @@ class BasePlotting:
                 raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
 
             with contextlib.ExitStack() as stack:
-                fname = stack.enter_context(file_context)
-                if "G" in kwargs:
+                if "G" in kwargs:  # deal with kwargs["G"] if drapegrid is xr.DataArray
                     drapegrid = kwargs["G"]
                     if data_kind(drapegrid) in ("file", "grid"):
                         if data_kind(drapegrid) == "grid":
                             drape_context = lib.virtualfile_from_grid(drapegrid)
-                            drapefile = stack.enter_context(drape_context)
-                            kwargs["G"] = drapefile
+                            kwargs["G"] = stack.enter_context(drape_context)
                     else:
                         raise GMTInvalidInput(
                             f"Unrecognized data type for drapegrid: {type(drapegrid)}"
                         )
+                fname = stack.enter_context(file_context)
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("grdview", arg_str)
 
