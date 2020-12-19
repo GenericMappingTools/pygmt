@@ -44,7 +44,7 @@ fig.grdview(
     frame=["xa", "ya", "WSnE"],
     projection="M15c",
     zsize="1.5c",
-    # Set the surftype to *surface*
+    # Set the surftype to "surface"
     surftype="s",
 )
 fig.show()
@@ -78,7 +78,7 @@ fig.grdview(
     zsize="1.5c",
     surftype="s",
     cmap="geo",
-    # Set the plane elevation to 1,000 meters and make the fill *grey*
+    # Set the plane elevation to 1,000 meters and make the fill "grey"
     plane="1000+ggrey",
 )
 fig.show()
@@ -97,7 +97,6 @@ fig.grdview(
     zsize="1.5c",
     surftype="s",
     cmap="geo",
-    # Set the elevation of the plane at 1,000 meters and the color to grey
     plane="1000+ggrey",
 )
 fig.show()
