@@ -22,8 +22,8 @@ grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-108, -103, 35
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    # Sets the view azimuth as 180 degrees, and the view angle as 30 degrees
-    perspective=[180, 30],
+    # Sets the view azimuth as 130 degrees, and the view angle as 30 degrees
+    perspective=[130, 30],
     # Sets the x- and y-axis labels, and annotates the west, south, and east axes
     frame=["xa", "ya", "WSnE"],
     # Sets a Mercator projection on a 15-centimeter figure
@@ -40,7 +40,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    perspective=[180, 30],
+    perspective=[130, 30],
     frame=["xa", "ya", "WSnE"],
     projection="M15c",
     zsize="1.5c",
@@ -55,7 +55,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    perspective=[180, 30],
+    perspective=[130, 30],
     frame=["xa", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
@@ -72,7 +72,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    perspective=[180, 30],
+    perspective=[130, 30],
     frame=["xa", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
@@ -89,8 +89,8 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    # Set the azimuth to 135 degrees and the elevation to 30 degrees
-    perspective=[135, 30],
+    # Set the azimuth to -130 (230) degrees and the elevation to 30 degrees
+    perspective=[-130, 30],
     frame=["xa", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
@@ -107,7 +107,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    perspective=[135, 30],
+    perspective=[-130, 30],
     frame=["xaf", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
@@ -125,7 +125,7 @@ fig.show()
 # similar to the figure, it also takes a ``perspective`` argument.
 
 fig = pygmt.Figure()
-perspective = [135, 30]
+perspective = [-130, 30]
 fig.grdview(
     grid=grid,
     perspective=perspective,
