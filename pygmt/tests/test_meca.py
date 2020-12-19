@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import numpy as np
 import pytest
-from pygmt.helpers import GMTTempFile
+from ..helpers import GMTTempFile
 
 from .. import Figure
 
