@@ -225,7 +225,7 @@ class BasePlotting:
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
         shading : bool
-            Set shading for the colorbar.
+            Set shading for the color bar.
         {V}
         {XY}
         {p}
