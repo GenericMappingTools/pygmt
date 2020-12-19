@@ -1,8 +1,9 @@
 """
-Creating a 3D map
-=================
+Creating a 3D perspective image
+===============================
 
-Plotting a three-dimensional map is handled by :meth:`pygmt.Figure.grdview`.
+Create 3-D perspective image or surface mesh from a grid
+using :meth:`pygmt.Figure.grdview`.
 """
 
 import pygmt
