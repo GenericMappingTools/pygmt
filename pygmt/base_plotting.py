@@ -153,6 +153,7 @@ class BasePlotting:
         D="position",
         F="box",
         G="truncate",
+        I="shading",
         W="scale",
         V="verbose",
         X="xshift",
@@ -223,6 +224,8 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        shading : bool
+            Set shading for the colorbar.
         {V}
         {XY}
         {p}
