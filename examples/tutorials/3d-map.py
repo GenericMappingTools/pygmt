@@ -49,7 +49,7 @@ fig.grdview(
 fig.show()
 
 ########################################################################################
-# The CPT can be set with the ``cmap`` parameter.
+# The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
 fig = pygmt.Figure()
 fig.grdview(
