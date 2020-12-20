@@ -2,7 +2,8 @@ Projection Table
 ----------------
 
 PyGMT offers 31 map projections. These are specified using the ``projection`` argument.
-The projection codes for the projection styles are shown below.
+The projection codes for the projection styles are shown below. Upper case arguments
+set *map width* and lower case arguments set *map scale*.
 
 .. Substitution definitions:
 .. |lon0| replace:: lon\ :sub:`0`
@@ -15,11 +16,9 @@ The projection codes for the projection styles are shown below.
 
 .. list-table::
    :widths: 33 33
-   :header-rows: 2
+   :header-rows: 1
 
    * - PyGMT Projection Argument
      - Projection Name
-   * - ``projection=`` (upper case for *width*, lower case for *scale*)
-     -
    * - **A**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
      - Lambert azimuthal equal area
