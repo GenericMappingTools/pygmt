@@ -34,7 +34,7 @@ fig.grdview(
 fig.show()
 
 ########################################################################################
-# The figure surface type can be set with the ``surftype`` parameter.
+# The grid surface type can be set with the ``surftype`` parameter.
 
 fig = pygmt.Figure()
 fig.grdview(
