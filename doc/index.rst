@@ -32,6 +32,7 @@
     projections/index.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
+    tutorials/plot-lines.rst
     tutorials/text.rst
     tutorials/contour-map.rst
     tutorials/earth-relief.rst
