@@ -18,7 +18,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 100, 0, 10],
     # Set the power transformation of the x-axis, with a power of 0.5
-    projection="x0.75cp0.5/0.4c",
+    projection="X15cp0.5/10c",
     # Set the figures frame, color, and gridlines
     frame=["WSne+givory", "xa1p", "ya2f1"],
     # Set the line thickness to *thick*

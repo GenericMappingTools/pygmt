@@ -22,7 +22,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[1, 100, 0, 10],
     # Set a logarithmic transformation on the x-axis
-    projection="x4cl/0.4c",
+    projection="X15cl/10c",
     # Set the figures frame, color, and gridlines
     frame=["WSne+gbisque", "x2g3", "ya2f1g2"],
     x=xline,
