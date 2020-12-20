@@ -224,8 +224,11 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
-        shading : bool
-            Set shading for the color bar.
+        shading : str or bool
+            Add illumination effects. Optionally, set the range of intensities from
+            -max_intens to +max_intens. If not specified, 1 is used. Alternatively,
+            append low/high intensities to specify an asymmetric range.
+            The default is no illumination.
         {V}
         {XY}
         {p}
