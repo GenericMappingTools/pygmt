@@ -22,7 +22,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-108, -103, 35
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    # Sets the view azimuth as 130 degrees, and the view angle as 30 degrees
+    # Sets the view azimuth as 130 degrees, and the view elevation as 30 degrees
     perspective=[130, 30],
     # Sets the x- and y-axis labels, and annotates the west, south, and east axes
     frame=["xa", "ya", "WSnE"],
