@@ -77,8 +77,8 @@ fig.grdview(
     zsize="1.5c",
     surftype="s",
     cmap="geo",
-    # Set the plane elevation to 1,000 meters and make the fill "grey"
-    plane="1000+ggrey",
+    # Set the plane elevation to 1,000 meters and make the fill "gray"
+    plane="1000+ggray",
 )
 fig.show()
 
