@@ -13,7 +13,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-108, -103, 35
 
 ########################################################################################
 # The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
-# The ``perspective`` argument changes the azimuth and angle of the viewpoint; the
+# The ``perspective`` argument changes the azimuth and elevation of the viewpoint; the
 # default is [180, 90], which is looking directly down on the figure and north is "up".
 # The ``zsize`` argument sets how tall the three-dimensional portion appears.
 #
