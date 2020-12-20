@@ -36,7 +36,7 @@
     tutorials/text.rst
     tutorials/contour-map.rst
     tutorials/earth-relief.rst
-    tutorials/3d-map.rst
+    tutorials/3d-perspective-image.rst
     tutorials/configuration.rst
 
 .. toctree::
