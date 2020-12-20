@@ -124,10 +124,9 @@ fig.show()
 # similar to the figure, it also takes a ``perspective`` argument.
 
 fig = pygmt.Figure()
-perspective = [-130, 30]
 fig.grdview(
     grid=grid,
-    perspective=perspective,
+    perspective=[-130, 30],
     frame=["xaf", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
@@ -136,5 +135,5 @@ fig.grdview(
     plane="1000+ggrey",
     contourpen="0.1p",
 )
-fig.colorbar(perspective=perspective, frame=["a500", "x+lElevation", "y+lm"])
+fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
 fig.show()
