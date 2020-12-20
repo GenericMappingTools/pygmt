@@ -35,7 +35,6 @@ fig.show()
 
 ########################################################################################
 # The figure surface type can be set with the ``surftype`` parameter.
-# The default CPT is *turbo*.
 
 fig = pygmt.Figure()
 fig.grdview(
