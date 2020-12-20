@@ -5,9 +5,9 @@ import os
 import pandas as pd
 import numpy as np
 import pytest
-from ..helpers import GMTTempFile
+from pygmt.helpers import GMTTempFile
 
-from .. import Figure
+from pygmt import Figure
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")

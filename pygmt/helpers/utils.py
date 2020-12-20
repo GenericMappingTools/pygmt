@@ -10,7 +10,7 @@ from contextlib import contextmanager
 
 import xarray as xr
 
-from ..exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 def data_kind(data, x=None, y=None, z=None):

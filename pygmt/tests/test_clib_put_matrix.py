@@ -7,10 +7,10 @@ import pytest
 import xarray as xr
 
 
-from .test_clib import mock
-from .. import clib
-from ..exceptions import GMTCLibError
-from ..helpers import GMTTempFile
+from pygmt.tests.test_clib import mock
+from pygmt import clib
+from pygmt.exceptions import GMTCLibError
+from pygmt.helpers import GMTTempFile
 
 
 def test_put_matrix():

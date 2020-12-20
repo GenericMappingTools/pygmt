@@ -3,8 +3,8 @@ GMT modules for Sampling of 1-D and 2-D Data
 """
 import pandas as pd
 
-from .clib import Session
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     GMTTempFile,
@@ -12,7 +12,7 @@ from .helpers import (
     dummy_context,
     use_alias,
 )
-from .exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 @fmt_docstring

@@ -5,14 +5,14 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 
-from ..datasets import (
+from pygmt.datasets import (
     load_japan_quakes,
     load_earth_relief,
     load_ocean_ridge_points,
     load_sample_bathymetry,
     load_usgs_quakes,
 )
-from ..exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 def test_japan_quakes():
