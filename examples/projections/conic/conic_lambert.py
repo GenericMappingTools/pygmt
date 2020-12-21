@@ -1,6 +1,7 @@
 """
 Lambert Conic Conformal Projection
 ==================================
+
 This conic projection was designed by the Alsatian mathematician Johann Heinrich
 Lambert (1772) and has been used extensively for mapping of regions with predominantly
 east-west orientation, just like the Albers projection. Unlike the Albers projection,

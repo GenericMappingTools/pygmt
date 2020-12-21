@@ -1,6 +1,7 @@
 """
 Polyconic Projection
 ====================
+
 The polyconic projection, in Europe usually referred to as the American polyconic
 projection, was introduced shortly before 1820 by the Swiss-American cartographer
 Ferdinand Rodulph Hassler (1770–1843). As head of the Survey of the Coast, he was

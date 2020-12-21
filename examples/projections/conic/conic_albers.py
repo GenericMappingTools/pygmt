@@ -1,6 +1,7 @@
 """
 Albers Conic Equal Area
 =======================
+
 This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map
 regions of large east-west extent, in particular the United States. It is a conic,
 equal-area projection, in which parallels are unequally spaced arcs of concentric

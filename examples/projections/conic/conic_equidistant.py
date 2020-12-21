@@ -1,6 +1,7 @@
 """
 Equidistant conic
 =================
+
 The equidistant conic projection was described by the Greek philosopher Claudius
 Ptolemy about A.D. 150. It is neither conformal or equal-area, but serves as a
 compromise between them. The scale is true along all meridians and the
