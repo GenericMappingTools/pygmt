@@ -161,7 +161,7 @@ class BasePlotting:
         p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", G="sequence", p="sequence")
+    @kwargs_to_strings(R="sequence", G="sequence", p="sequence", I="sequence")
     def colorbar(self, **kwargs):
         """
         Plot a gray or color scale-bar on maps.
@@ -224,7 +224,7 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
-        shading : str or bool
+        shading : str or list or bool
             Add illumination effects. Optionally, set the range of intensities from
             -max_intens to +max_intens. If not specified, 1 is used. Alternatively,
             append low/high intensities to specify an asymmetric range.
