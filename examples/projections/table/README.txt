@@ -22,7 +22,7 @@ set *map width* and lower case arguments set *map scale*.
      - Projection Name
    * - **A**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
      - Lambert azimuthal equal area
-   * - ****\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
+   * - **B**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
      - Albers conic equal area
    * - **C**\ |lon0|/|lat0|/\ *width*
      - Cassini cylindrical
