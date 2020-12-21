@@ -3,9 +3,9 @@ GMT modules for Filtering of 1-D and 2-D Data
 """
 import pandas as pd
 
-from .clib import Session
-from .exceptions import GMTInvalidInput
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
     build_arg_string,
     data_kind,
     dummy_context,

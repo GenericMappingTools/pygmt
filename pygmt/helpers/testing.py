@@ -6,7 +6,7 @@ import os
 import string
 
 from matplotlib.testing.compare import compare_images
-from ..exceptions import GMTImageComparisonFailure
+from pygmt.exceptions import GMTImageComparisonFailure
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):

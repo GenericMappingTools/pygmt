@@ -6,9 +6,9 @@ import numpy.testing as npt
 import pytest
 from packaging.version import Version
 
-from .. import clib
-from ..exceptions import GMTCLibError
-from ..helpers import GMTTempFile
+from pygmt import clib
+from pygmt.exceptions import GMTCLibError
+from pygmt.helpers import GMTTempFile
 
 with clib.Session() as _lib:
     gmt_version = Version(_lib.info["version"])

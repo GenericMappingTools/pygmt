@@ -5,8 +5,8 @@ GMT modules for grid operations
 import xarray as xr
 
 
-from .clib import Session
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
@@ -15,7 +15,7 @@ from .helpers import (
     data_kind,
     dummy_context,
 )
-from .exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 @fmt_docstring

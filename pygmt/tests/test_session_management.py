@@ -3,8 +3,8 @@ Test the session management modules.
 """
 import os
 
-from ..session_management import begin, end
-from ..clib import Session
+from pygmt.session_management import begin, end
+from pygmt.clib import Session
 
 
 def test_begin_end():

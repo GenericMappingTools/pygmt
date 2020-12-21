@@ -6,8 +6,8 @@ import os
 import pytest
 import numpy as np
 
-from ..helpers import kwargs_to_strings, GMTTempFile, unique_name, data_kind
-from ..exceptions import GMTInvalidInput
+from pygmt.helpers import kwargs_to_strings, GMTTempFile, unique_name, data_kind
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.parametrize(
