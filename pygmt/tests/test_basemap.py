@@ -3,9 +3,9 @@ Tests fig.basemap.
 """
 import pytest
 
-from .. import Figure
-from ..helpers.testing import check_figures_equal
-from ..exceptions import GMTInvalidInput
+from pygmt import Figure
+from pygmt.helpers.testing import check_figures_equal
+from pygmt.exceptions import GMTInvalidInput
 
 
 def test_basemap_required_args():

@@ -4,8 +4,8 @@ Test the behaviour of the GMTDataArrayAccessor class
 import pytest
 import xarray as xr
 
-from .. import which
-from ..exceptions import GMTInvalidInput
+from pygmt import which
+from pygmt.exceptions import GMTInvalidInput
 
 
 def test_accessor_gridline_cartesian():

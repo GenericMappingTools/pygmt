@@ -3,7 +3,7 @@ Tests for gmt config
 """
 import pytest
 
-from .. import Figure, config
+from pygmt import Figure, config
 
 
 @pytest.mark.mpl_image_compare

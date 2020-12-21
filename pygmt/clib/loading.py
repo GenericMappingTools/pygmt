@@ -9,7 +9,7 @@ import sys
 import ctypes
 from ctypes.util import find_library
 
-from ..exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
+from pygmt.exceptions import GMTOSError, GMTCLibError, GMTCLibNotFoundError
 
 
 def load_libgmt():

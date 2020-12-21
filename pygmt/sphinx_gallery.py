@@ -6,7 +6,7 @@ try:
 except ImportError:
     figure_rst = None
 
-from .figure import SHOWED_FIGURES
+from pygmt.figure import SHOWED_FIGURES
 
 
 class PyGMTScraper:  # pylint: disable=too-few-public-methods

@@ -4,8 +4,8 @@ Non-plot GMT modules.
 import numpy as np
 import xarray as xr
 
-from .clib import Session
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     GMTTempFile,
@@ -13,7 +13,7 @@ from .helpers import (
     data_kind,
     dummy_context,
 )
-from .exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 @fmt_docstring
