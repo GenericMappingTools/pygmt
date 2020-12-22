@@ -3,14 +3,12 @@ Tests for surface
 """
 import os
 
-import xarray as xr
 import pytest
-
-from .. import surface
-from .. import which
-from ..datasets import load_sample_bathymetry
-from ..exceptions import GMTInvalidInput
-from ..helpers import data_kind
+import xarray as xr
+from pygmt import surface, which
+from pygmt.datasets import load_sample_bathymetry
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import data_kind
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_GRID = os.path.join(TEST_DATA_DIR, "tmp_grid.nc")
