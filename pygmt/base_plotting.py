@@ -225,11 +225,10 @@ class BasePlotting:
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
         shading : str or list or bool
-            Add illumination effects. Optionally, set the range of intensities
-            from -max_intens to +max_intens. If not specified, 1 is used.
-            Alternatively, set ``shading=[low, high]`` to specify an
-            asymmetric intensity range from *low* to *high*.
-            The default is no illumination.
+            Add illumination effects. Passing a single numerical value sets the range
+            of intensities from -value to +value. If not specified, 1 is used.
+            Alternatively, set ``shading=[low, high]`` to specify an asymmetric
+            intensity range from *low* to *high*. The default is no illumination.
         {V}
         {XY}
         {p}
