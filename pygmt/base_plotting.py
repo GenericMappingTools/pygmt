@@ -6,9 +6,9 @@ import contextlib
 import numpy as np
 import pandas as pd
 
-from .clib import Session
-from .exceptions import GMTError, GMTInvalidInput
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.helpers import (
     build_arg_string,
     dummy_context,
     data_kind,

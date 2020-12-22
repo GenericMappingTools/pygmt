@@ -10,8 +10,8 @@ import functools
 
 import numpy as np
 
-from .utils import is_nonstr_iter
-from ..exceptions import GMTInvalidInput
+from pygmt.helpers.utils import is_nonstr_iter
+from pygmt.exceptions import GMTInvalidInput
 
 
 COMMON_OPTIONS = {

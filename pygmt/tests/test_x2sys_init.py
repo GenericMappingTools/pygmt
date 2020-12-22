@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-from .. import x2sys_init
+from pygmt import x2sys_init
 
 
 @pytest.fixture(name="mock_x2sys_home")

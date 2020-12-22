@@ -3,7 +3,7 @@ Functions to load sample data from the GMT tutorials.
 """
 import pandas as pd
 
-from .. import which
+from pygmt import which
 
 
 def load_japan_quakes():
