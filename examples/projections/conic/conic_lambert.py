@@ -11,9 +11,6 @@ with Albers projection, it is only the two standard parallels that are distortio
 
 ``Llon0/lat0/lat1/lat2/width``: Give projection center ``lon0/lat0``, two standard
 parallels ``lat1/lat2``, and the map width.
-
-For further information, see
-:gmt-docs:`cookbook/map-projections.html#lambert-conic-conformal-projection-jl-jl`
 """
 import pygmt
 

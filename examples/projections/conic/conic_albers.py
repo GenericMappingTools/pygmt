@@ -13,9 +13,6 @@ The opposite is true for the scale along meridians.
 
 ``Blon0/lat0/lat1/lat2/width``: Give projection center ``lon0/lat0`` and two standard
 parallels ``lat1/lat2``.
-
-For further information, see
-:gmt-docs:`cookbook/map-projections.html#albers-conic-equal-area-projection-jb-jb`
 """
 import pygmt
 

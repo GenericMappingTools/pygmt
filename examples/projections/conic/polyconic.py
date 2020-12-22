@@ -19,9 +19,6 @@ consequence, no parallel is standard because conformity is lost with the lengthe
 the meridians.
 
 ``Poly/width``:  The only additional argument for the projection is the map width.
-
-For further information, see
-:gmt-docs:`cookbook/map-projections.html#american-polyconic-projection-jpoly-jpoly`
 """
 import pygmt
 
