@@ -227,8 +227,9 @@ class BasePlotting:
         shading : str or list or bool
             Add illumination effects. Optionally, set the range of intensities
             from -max_intens to +max_intens. If not specified, 1 is used.
-            Alternatively, append low/high intensities to specify an
-            asymmetric range. The default is no illumination.
+            Alternatively, set ``shading=[low, high]`` to specify an
+            asymmetric intensity range from *low* to *high*. 
+            The default is no illumination.
         {V}
         {XY}
         {p}
