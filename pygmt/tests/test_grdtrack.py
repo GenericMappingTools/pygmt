@@ -6,9 +6,7 @@ import os
 import numpy.testing as npt
 import pandas as pd
 import pytest
-
-from pygmt import grdtrack
-from pygmt import which
+from pygmt import grdtrack, which
 from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind

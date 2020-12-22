@@ -3,19 +3,19 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
+
 import numpy as np
 import pandas as pd
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    dummy_context,
     data_kind,
+    dummy_context,
     fmt_docstring,
-    use_alias,
-    kwargs_to_strings,
     is_nonstr_iter,
+    kwargs_to_strings,
+    use_alias,
 )
 
 

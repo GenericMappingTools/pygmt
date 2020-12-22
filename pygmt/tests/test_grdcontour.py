@@ -5,12 +5,10 @@ import os
 
 import numpy as np
 import pytest
-
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.datasets import load_earth_relief
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
-
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEST_CONTOUR_FILE = os.path.join(TEST_DATA_DIR, "contours.txt")

@@ -7,6 +7,7 @@ It is often useful to add annotations to a map plot. This is handled by
 """
 
 import os
+
 import pygmt
 
 ###############################################################################

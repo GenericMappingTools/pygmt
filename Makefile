@@ -15,7 +15,7 @@ help:
 	@echo "  install   install in editable mode"
 	@echo "  test      run the test suite (including doctests) and report coverage"
 	@echo "  format    run black and blackdoc to automatically format the code"
-	@echo "  check     run code style and quality checks (black, blackdoc and flake8)"
+	@echo "  check     run code style and quality checks (black, blackdoc, isort and flake8)"
 	@echo "  lint      run pylint for a deeper (and slower) quality check"
 	@echo "  clean     clean up build and generated files"
 	@echo "  distclean clean up build and generated files, including project metadata files"
@@ -36,10 +36,12 @@ test:
 	rm -r $(TESTDIR)
 
 format:
+	isort .
 	black $(BLACK_FILES)
 	blackdoc $(BLACKDOC_OPTIONS) $(BLACK_FILES)
 
 check:
+	isort . --check
 	black --check $(BLACK_FILES)
 	blackdoc --check $(BLACKDOC_OPTIONS) $(BLACK_FILES)
 	flake8 $(FLAKE8_FILES)

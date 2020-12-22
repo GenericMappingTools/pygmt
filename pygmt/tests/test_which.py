@@ -4,7 +4,6 @@ Tests for pygmt.which
 import os
 
 import pytest
-
 from pygmt import which
 from pygmt.helpers import unique_name
 
