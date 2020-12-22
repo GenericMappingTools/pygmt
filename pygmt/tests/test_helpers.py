@@ -52,10 +52,10 @@ def test_kwargs_to_strings_no_bools():
 
 
 def test_gmttempfile():
-    "Check that file is really created and deleted."
+    "Check that file is not created by GMTTempFile()."
     with GMTTempFile() as tmpfile:
-        assert os.path.exists(tmpfile.name)
-    # File should be deleted when leaving the with block
+        assert not os.path.exists(tmpfile.name)
+    # File should not exist after leaving the with block
     assert not os.path.exists(tmpfile.name)
 
 

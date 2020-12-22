@@ -59,7 +59,7 @@ class GMTTempFile:
     """
 
     def __init__(self, prefix="pygmt-", suffix=".txt"):
-        args = dict(prefix=prefix, suffix=suffix, delete=False)
+        args = dict(prefix=prefix, suffix=suffix)
         with NamedTemporaryFile(**args) as tmpfile:
             self.name = tmpfile.name
 
