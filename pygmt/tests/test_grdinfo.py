@@ -4,9 +4,9 @@ Tests for grdinfo
 import numpy as np
 import pytest
 
-from .. import grdinfo
-from ..datasets import load_earth_relief
-from ..exceptions import GMTInvalidInput
+from pygmt import grdinfo
+from pygmt.datasets import load_earth_relief
+from pygmt.exceptions import GMTInvalidInput
 
 
 def test_grdinfo():

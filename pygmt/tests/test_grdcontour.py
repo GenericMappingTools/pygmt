@@ -6,10 +6,10 @@ import os
 import numpy as np
 import pytest
 
-from .. import Figure
-from ..exceptions import GMTInvalidInput
-from ..datasets import load_earth_relief
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.datasets import load_earth_relief
+from pygmt.helpers.testing import check_figures_equal
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")

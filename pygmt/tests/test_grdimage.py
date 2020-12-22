@@ -7,10 +7,10 @@ import pytest
 import xarray as xr
 from packaging.version import Version
 
-from .. import Figure, clib
-from ..datasets import load_earth_relief
-from ..exceptions import GMTInvalidInput
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure, clib
+from pygmt.datasets import load_earth_relief
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import check_figures_equal
 
 with clib.Session() as _lib:
     gmt_version = Version(_lib.info["version"])

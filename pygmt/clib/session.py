@@ -11,14 +11,14 @@ from packaging.version import Version
 import numpy as np
 import pandas as pd
 
-from ..exceptions import (
+from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
     GMTInvalidInput,
     GMTVersionError,
 )
-from .loading import load_libgmt
-from .conversion import (
+from pygmt.clib.loading import load_libgmt
+from pygmt.clib.conversion import (
     kwargs_to_ctypes_array,
     vectors_to_arrays,
     dataarray_to_matrix,

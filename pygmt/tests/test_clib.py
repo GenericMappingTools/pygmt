@@ -12,17 +12,17 @@ import xarray as xr
 from packaging.version import Version
 import pytest
 
-from .. import clib
-from ..clib.session import FAMILIES, VIAS
-from ..clib.conversion import dataarray_to_matrix
-from ..exceptions import (
+from pygmt import clib
+from pygmt.clib.session import FAMILIES, VIAS
+from pygmt.clib.conversion import dataarray_to_matrix
+from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
     GMTInvalidInput,
     GMTVersionError,
 )
-from ..helpers import GMTTempFile
-from .. import Figure
+from pygmt.helpers import GMTTempFile
+from pygmt import Figure
 
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")

@@ -3,8 +3,8 @@ GMT modules for Gridding of Data Tables
 """
 import xarray as xr
 
-from .clib import Session
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.helpers import (
     build_arg_string,
     data_kind,
     dummy_context,
@@ -13,7 +13,7 @@ from .helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from .exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 @fmt_docstring

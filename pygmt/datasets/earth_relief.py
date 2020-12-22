@@ -4,9 +4,9 @@ and load as DataArray. The grids are available in various resolutions.
 """
 import xarray as xr
 
-from .. import grdcut, which
-from ..exceptions import GMTInvalidInput
-from ..helpers import kwargs_to_strings
+from pygmt import grdcut, which
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import kwargs_to_strings
 
 
 @kwargs_to_strings(region="sequence")

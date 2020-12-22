@@ -10,8 +10,8 @@ try:
 except ImportError:
     sphinx_gallery = None
 
-from ..figure import Figure, SHOWED_FIGURES
-from ..sphinx_gallery import PyGMTScraper
+from pygmt.figure import Figure, SHOWED_FIGURES
+from pygmt.sphinx_gallery import PyGMTScraper
 
 
 @pytest.mark.skipif(sphinx_gallery is None, reason="requires sphinx-gallery")

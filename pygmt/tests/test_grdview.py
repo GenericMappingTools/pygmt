@@ -3,10 +3,10 @@ Tests grdview
 """
 import pytest
 
-from .. import Figure, grdcut, which
-from ..exceptions import GMTInvalidInput
-from ..helpers import GMTTempFile, data_kind
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure, grdcut, which
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.fixture(scope="module", name="region")
