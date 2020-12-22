@@ -1,8 +1,7 @@
 """
 Build and install the project.
 """
-from setuptools import setup, find_packages
-
+from setuptools import find_packages, setup
 
 NAME = "pygmt"
 FULLNAME = "PyGMT"

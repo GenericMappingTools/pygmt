@@ -2,11 +2,10 @@
 Tests for legend
 """
 import pytest
-
-from .. import Figure
-from ..exceptions import GMTInvalidInput
-from ..helpers import GMTTempFile
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
