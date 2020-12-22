@@ -189,7 +189,7 @@ def test_colorbar_shading_float():
 @check_figures_equal()
 def test_colorbar_shading_string():
     """
-    Create colorbar and set shading by passing the high/low values as a string
+    Create colorbar and set shading by passing the low/high values as a string
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
