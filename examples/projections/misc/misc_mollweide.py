@@ -10,7 +10,7 @@ mainly for global maps showing data distributions. It is occasionally referenced
 the name homalographic projection.
 
 ``W[central meridian]/width``: Give the optional central meridian (default is the center
- of the region) and the map width.
+of the region) and the map width.
 """
 import pygmt
 
