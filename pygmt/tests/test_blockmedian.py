@@ -6,11 +6,10 @@ import os
 import numpy.testing as npt
 import pandas as pd
 import pytest
-
 from pygmt import blockmedian
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import data_kind, GMTTempFile
+from pygmt.helpers import GMTTempFile, data_kind
 
 
 def test_blockmedian_input_dataframe():

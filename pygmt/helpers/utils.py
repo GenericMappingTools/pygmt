@@ -1,15 +1,14 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
-import sys
 import shutil
 import subprocess
+import sys
 import webbrowser
 from collections.abc import Iterable
 from contextlib import contextmanager
 
 import xarray as xr
-
 from pygmt.exceptions import GMTInvalidInput
 
 

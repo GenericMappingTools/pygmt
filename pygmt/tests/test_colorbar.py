@@ -2,7 +2,6 @@
 Tests colorbar
 """
 import pytest
-
 from pygmt import Figure
 from pygmt.helpers.testing import check_figures_equal
 

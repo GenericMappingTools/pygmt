@@ -2,13 +2,12 @@
 Tests for meca
 """
 import os
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 import pytest
-from pygmt.helpers import GMTTempFile
-
 from pygmt import Figure
-
+from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 

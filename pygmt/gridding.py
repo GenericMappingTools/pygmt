@@ -2,18 +2,17 @@
 GMT modules for Gridding of Data Tables
 """
 import xarray as xr
-
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
+    GMTTempFile,
     build_arg_string,
     data_kind,
     dummy_context,
     fmt_docstring,
-    GMTTempFile,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.exceptions import GMTInvalidInput
 
 
 @fmt_docstring

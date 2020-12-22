@@ -2,7 +2,6 @@
 Tests for legend
 """
 import pytest
-
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile

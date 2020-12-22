@@ -4,9 +4,8 @@ Tests text
 """
 import os
 
-import pytest
 import numpy as np
-
+import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
