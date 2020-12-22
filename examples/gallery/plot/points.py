@@ -5,8 +5,8 @@ Points
 The :meth:`pygmt.Figure.plot` method can plot points. We must specify the plot symbol
 and size through the ``style`` argument.
 """
-import numpy as np
 import pygmt
+import numpy as np
 
 # Generate a random set of points to plot
 np.random.seed(42)

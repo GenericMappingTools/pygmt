@@ -5,13 +5,13 @@ Sphinx documentation configuration file.
 # pylint: disable=invalid-name
 
 import datetime
-from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
-    FileNameSortKey,
-    ExplicitOrder,
-)
-from pygmt import __version__, __commit__
-from pygmt.sphinx_gallery import PyGMTScraper
 
+from pygmt import __commit__, __version__
+from pygmt.sphinx_gallery import PyGMTScraper
+from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
+    ExplicitOrder,
+    FileNameSortKey,
+)
 
 extensions = [
     "sphinx.ext.autodoc",

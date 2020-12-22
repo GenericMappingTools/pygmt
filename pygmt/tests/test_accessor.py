@@ -3,7 +3,6 @@ Test the behaviour of the GMTDataArrayAccessor class
 """
 import pytest
 import xarray as xr
-
 from pygmt import which
 from pygmt.exceptions import GMTInvalidInput
 

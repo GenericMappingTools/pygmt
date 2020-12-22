@@ -9,7 +9,6 @@ import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
-
 from pygmt import x2sys_cross, x2sys_init
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput

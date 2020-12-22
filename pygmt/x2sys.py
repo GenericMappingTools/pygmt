@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 
 import pandas as pd
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (

@@ -14,8 +14,8 @@ control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
 """
 
-import pandas as pd
 import pygmt
+import pandas as pd
 
 # Load sample iris data, and convert 'species' column to categorical dtype
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")

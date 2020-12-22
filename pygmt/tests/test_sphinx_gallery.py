@@ -3,6 +3,7 @@ Test the sphinx-gallery scraper and code required to make it work.
 """
 import os
 from tempfile import TemporaryDirectory
+
 import pytest
 
 try:
@@ -10,7 +11,7 @@ try:
 except ImportError:
     sphinx_gallery = None
 
-from pygmt.figure import Figure, SHOWED_FIGURES
+from pygmt.figure import SHOWED_FIGURES, Figure
 from pygmt.sphinx_gallery import PyGMTScraper
 
 

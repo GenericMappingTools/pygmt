@@ -4,10 +4,9 @@ Test basic functionality for loading datasets.
 import numpy as np
 import numpy.testing as npt
 import pytest
-
 from pygmt.datasets import (
-    load_japan_quakes,
     load_earth_relief,
+    load_japan_quakes,
     load_ocean_ridge_points,
     load_sample_bathymetry,
     load_usgs_quakes,

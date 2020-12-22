@@ -2,12 +2,12 @@
 Test Figure.grdimage
 """
 import sys
+
 import numpy as np
 import pytest
 import xarray as xr
-from packaging.version import Version
-
 from pygmt import Figure, clib
+from packaging.version import Version
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
