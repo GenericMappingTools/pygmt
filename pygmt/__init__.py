@@ -9,8 +9,8 @@
 
 import atexit as _atexit
 
-from pygmt import datasets
 from pkg_resources import get_distribution
+from pygmt import datasets
 from pygmt.figure import Figure
 from pygmt.filtering import blockmedian
 from pygmt.gridding import surface

@@ -9,8 +9,8 @@ Modified from the matplotlib example:
 https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html
 """
 
-import pygmt
 import numpy as np
+import pygmt
 
 np.random.seed(19680801)
 n = 200  # number of random data points

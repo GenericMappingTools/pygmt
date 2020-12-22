@@ -8,5 +8,4 @@ addopts = "--verbose --doctest-modules --mpl --mpl-results-path=results"
 [tool.isort]
 profile = "black"
 skip_gitignore = true
-force_to_top = "pygmt"
 known_third_party = "pygmt"

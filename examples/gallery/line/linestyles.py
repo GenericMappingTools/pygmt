@@ -17,8 +17,8 @@ For more advanced *pen* attributes, see the GMT cookbook
 
 """
 
-import pygmt
 import numpy as np
+import pygmt
 
 # Generate a two-point line for plotting
 x = np.array([0, 7])

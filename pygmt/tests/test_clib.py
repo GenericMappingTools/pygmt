@@ -10,8 +10,8 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import Figure, clib
 from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.clib.conversion import dataarray_to_matrix
 from pygmt.clib.session import FAMILIES, VIAS
 from pygmt.exceptions import (
