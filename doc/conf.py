@@ -6,12 +6,15 @@ Sphinx documentation configuration file.
 
 import datetime
 
-from pygmt import __commit__, __version__
-from pygmt.sphinx_gallery import PyGMTScraper
+# isort: off
 from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
     ExplicitOrder,
     FileNameSortKey,
 )
+from pygmt import __commit__, __version__
+from pygmt.sphinx_gallery import PyGMTScraper
+
+# isort: on
 
 extensions = [
     "sphinx.ext.autodoc",
