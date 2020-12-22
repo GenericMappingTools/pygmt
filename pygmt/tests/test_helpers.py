@@ -3,11 +3,10 @@ Tests the helper functions/classes/etc used in wrapping GMT
 """
 import os
 
-import pytest
 import numpy as np
-
-from ..helpers import kwargs_to_strings, GMTTempFile, unique_name, data_kind
-from ..exceptions import GMTInvalidInput
+import pytest
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile, data_kind, kwargs_to_strings, unique_name
 
 
 @pytest.mark.parametrize(

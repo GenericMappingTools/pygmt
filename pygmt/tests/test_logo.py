@@ -1,8 +1,8 @@
 """
 Tests for fig.logo
 """
-from .. import Figure
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure
+from pygmt.helpers.testing import check_figures_equal
 
 
 @check_figures_equal()

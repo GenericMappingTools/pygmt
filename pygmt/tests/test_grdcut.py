@@ -2,14 +2,14 @@
 Tests for grdcut
 """
 import os
+
 import numpy as np
 import pytest
 import xarray as xr
-
-from .. import grdcut, grdinfo
-from ..datasets import load_earth_relief
-from ..exceptions import GMTInvalidInput
-from ..helpers import GMTTempFile
+from pygmt import grdcut, grdinfo
+from pygmt.datasets import load_earth_relief
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="grid")
