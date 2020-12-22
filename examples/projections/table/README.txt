@@ -45,7 +45,7 @@ The projection codes for the projection styles are shown below.
      - Miller cylindrical
    * - **Kf**\ [|lon0|/]\ *width*
      - Eckert IV equal area
-   * - **-Ks**\ [|lon0|/]\ *width*
+   * - **Ks**\ [|lon0|/]\ *width*
      - Eckert VI equal area
    * - **L**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
      - Lambert conic conformal
