@@ -10,6 +10,8 @@
 import atexit as _atexit
 
 from pkg_resources import get_distribution
+
+# Import modules to make the high-level GMT Python API
 from pygmt import datasets
 from pygmt.figure import Figure
 from pygmt.filtering import blockmedian
@@ -18,8 +20,6 @@ from pygmt.gridops import grdcut, grdfilter
 from pygmt.mathops import makecpt
 from pygmt.modules import GMTDataArrayAccessor, config, grdinfo, info, which
 from pygmt.sampling import grdtrack
-
-# Import modules to make the high-level GMT Python API
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.x2sys import x2sys_cross, x2sys_init
