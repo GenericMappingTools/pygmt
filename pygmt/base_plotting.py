@@ -161,7 +161,7 @@ class BasePlotting:
         p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", G="sequence", p="sequence", I="sequence")
+    @kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
     def colorbar(self, **kwargs):
         """
         Plot a gray or color scale-bar on maps.
