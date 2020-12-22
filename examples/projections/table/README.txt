@@ -1,8 +1,7 @@
 Projection Table
 ----------------
 
-PyGMT offers 31 map projections. These are specified using the ``projection`` argument.
-The projection codes for the projection styles are shown below.
+The below table shows the projection codes for the 31 GMT projections.
 
 .. Substitution definitions:
 .. |lon0| replace:: lon\ :sub:`0`
