@@ -5,12 +5,10 @@ import os
 
 import numpy as np
 import pytest
-
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import check_figures_equal
-
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")

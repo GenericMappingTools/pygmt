@@ -2,10 +2,10 @@
 Tests for grdcut
 """
 import os
+
 import numpy as np
 import pytest
 import xarray as xr
-
 from pygmt import grdcut, grdinfo
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput

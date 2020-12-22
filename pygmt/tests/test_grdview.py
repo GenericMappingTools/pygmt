@@ -2,7 +2,6 @@
 Tests grdview
 """
 import pytest
-
 from pygmt import Figure, grdcut, which
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind

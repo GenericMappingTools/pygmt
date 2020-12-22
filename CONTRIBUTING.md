@@ -245,7 +245,12 @@ directory).
 
 ### Code style
 
-We use [Black](https://github.com/ambv/black) and [blackdoc](https://github.com/keewis/blackdoc)
+We use some tools:
+
+- [Black](https://github.com/ambv/black)
+- [blackdoc](https://github.com/keewis/blackdoc)
+- [isort](https://pycqa.github.io/isort/)
+
 to format the code so we don't have to think about it.
 Black loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
 Regardless, you won't have to worry about formatting the code yourself.
@@ -268,7 +273,7 @@ common errors.
 The [`Makefile`](Makefile) contains rules for running both checks:
 
 ```bash
-make check   # Runs flake8, black and blackdoc (in check mode)
+make check   # Runs flake8, black, blackdoc and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 

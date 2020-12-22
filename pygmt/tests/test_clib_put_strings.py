@@ -5,7 +5,6 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 from packaging.version import Version
-
 from pygmt import clib
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile

@@ -6,7 +6,6 @@ import os
 from tempfile import TemporaryDirectory
 
 import pytest
-
 from pygmt import x2sys_init
 
 

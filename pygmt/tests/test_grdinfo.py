@@ -3,7 +3,6 @@ Tests for grdinfo
 """
 import numpy as np
 import pytest
-
 from pygmt import grdinfo
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
