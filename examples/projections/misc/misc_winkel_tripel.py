@@ -17,7 +17,7 @@ obtained by averaging the coordinates of the Equidistant Cylindrical and Aitoff
 length of equator.
 
 ``R[central meridian]/width``: Give the optional central meridian (default is the center
- of the region) and the map width.
+of the region) and the map width.
 """
 import pygmt
 

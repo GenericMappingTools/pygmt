@@ -8,7 +8,7 @@ other meridians are arcs of circles. The scale is true along the Equator only. I
 main use is to show the entire world enclosed in a circle.
 
 ``V[central meridian]/width``: Give the optional central meridian (default is the center
- of the region) and the map width.
+of the region) and the map width.
 """
 import pygmt
 

@@ -11,7 +11,7 @@ originally developed for use by Rand McNally and is currently used by the
 National Geographic Society.
 
 ``N[central meridian]/width``: Give the optional central meridian (default is the center
- of the region) and the map width.
+of the region) and the map width.
 """
 import pygmt
 
