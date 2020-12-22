@@ -4,13 +4,12 @@ Tests text
 """
 import os
 
-import pytest
 import numpy as np
-
-from .. import Figure
-from ..exceptions import GMTCLibError, GMTInvalidInput
-from ..helpers import GMTTempFile
-from ..helpers.testing import check_figures_equal
+import pytest
+from pygmt import Figure
+from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import check_figures_equal
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")

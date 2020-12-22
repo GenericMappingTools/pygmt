@@ -8,6 +8,7 @@ pytest-mpl
 coverage[toml]
 black
 blackdoc
+isort>=5
 pylint
 flake8
 sphinx

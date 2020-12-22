@@ -12,16 +12,17 @@ import atexit as _atexit
 from pkg_resources import get_distribution
 
 # Import modules to make the high-level GMT Python API
-from .session_management import begin as _begin, end as _end
-from .figure import Figure
-from .filtering import blockmedian
-from .gridding import surface
-from .sampling import grdtrack
-from .mathops import makecpt
-from .modules import GMTDataArrayAccessor, config, info, grdinfo, which
-from .gridops import grdcut, grdfilter
-from .x2sys import x2sys_init, x2sys_cross
-from . import datasets
+from pygmt import datasets
+from pygmt.figure import Figure
+from pygmt.filtering import blockmedian
+from pygmt.gridding import surface
+from pygmt.gridops import grdcut, grdfilter
+from pygmt.mathops import makecpt
+from pygmt.modules import GMTDataArrayAccessor, config, grdinfo, info, which
+from pygmt.sampling import grdtrack
+from pygmt.session_management import begin as _begin
+from pygmt.session_management import end as _end
+from pygmt.x2sys import x2sys_cross, x2sys_init
 
 # Get semantic version through setuptools-scm
 __version__ = f'v{get_distribution("pygmt").version}'  # e.g. v0.1.2.dev3+g0ab3cd78
@@ -40,7 +41,7 @@ def print_clib_info():
     Includes the GMT version, default values for parameters, the path to the
     ``libgmt`` shared library, and GMT directories.
     """
-    from .clib import Session
+    from pygmt.clib import Session
 
     lines = ["GMT library information:"]
     with Session() as ses:
@@ -60,10 +61,10 @@ def show_versions():
     - GMT library information
     """
 
-    import sys
-    import platform
     import importlib
+    import platform
     import subprocess
+    import sys
 
     def _get_module_version(modname):
         """Get version information of a Python module."""

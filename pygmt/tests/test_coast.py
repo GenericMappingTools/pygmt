@@ -2,9 +2,8 @@
 Tests for coast
 """
 import pytest
-
-from .. import Figure
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure
+from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare

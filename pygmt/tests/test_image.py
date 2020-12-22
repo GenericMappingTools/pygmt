@@ -5,9 +5,7 @@ import os
 import sys
 
 import pytest
-
-from .. import Figure
-
+from pygmt import Figure
 
 TEST_IMG = os.path.join(os.path.dirname(__file__), "baseline", "test_logo.png")
 

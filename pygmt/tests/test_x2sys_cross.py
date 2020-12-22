@@ -9,11 +9,10 @@ import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
-
-from .. import x2sys_cross, x2sys_init
-from ..datasets import load_sample_bathymetry
-from ..exceptions import GMTInvalidInput
-from ..helpers import data_kind
+from pygmt import x2sys_cross, x2sys_init
+from pygmt.datasets import load_sample_bathymetry
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import data_kind
 
 
 @pytest.fixture(name="mock_x2sys_home")

@@ -1,7 +1,7 @@
 """
 Modern mode session management modules.
 """
-from .clib import Session
+from pygmt.clib import Session
 
 
 def begin():

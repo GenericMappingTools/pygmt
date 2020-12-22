@@ -8,9 +8,8 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 import xarray as xr
-
-from .. import info
-from ..exceptions import GMTInvalidInput
+from pygmt import info
+from pygmt.exceptions import GMTInvalidInput
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")

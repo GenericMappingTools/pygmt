@@ -2,13 +2,13 @@
 Test the functions that put vector data into GMT.
 """
 import itertools
+
 import numpy as np
 import numpy.testing as npt
 import pytest
-
-from .. import clib
-from ..exceptions import GMTCLibError, GMTInvalidInput
-from ..helpers import GMTTempFile
+from pygmt import clib
+from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 
 def test_put_vector():

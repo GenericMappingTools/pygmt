@@ -1,16 +1,15 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
-import sys
 import shutil
 import subprocess
+import sys
 import webbrowser
 from collections.abc import Iterable
 from contextlib import contextmanager
 
 import xarray as xr
-
-from ..exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 def data_kind(data, x=None, y=None, z=None):

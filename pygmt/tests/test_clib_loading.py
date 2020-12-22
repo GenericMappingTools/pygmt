@@ -2,10 +2,10 @@
 Test the functions that load libgmt
 """
 import os
-import pytest
 
-from ..clib.loading import clib_names, load_libgmt, check_libgmt
-from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError
+import pytest
+from pygmt.clib.loading import check_libgmt, clib_names, load_libgmt
+from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
 def test_check_libgmt():
