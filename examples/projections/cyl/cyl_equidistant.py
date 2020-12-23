@@ -2,6 +2,10 @@
 Cylindrical equidistant
 =======================
 
+This simple cylindrical projection is really a linear scaling of longitudes and
+latitudes. The most common form is the Plate Carrée projection, where the scaling of
+longitudes and latitudes is the same. All meridians and parallels are straight lines.
+
 ``Qwidth``: Give the figure ``width``.
 """
 import pygmt
