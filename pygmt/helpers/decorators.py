@@ -5,14 +5,12 @@ Apply them to functions wrapping GMT modules to automate: alias generation for
 arguments, insert common text into docstrings, transform arguments to strings,
 etc.
 """
-import textwrap
 import functools
+import textwrap
 
 import numpy as np
-
-from .utils import is_nonstr_iter
-from ..exceptions import GMTInvalidInput
-
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_OPTIONS = {
     "R": """\

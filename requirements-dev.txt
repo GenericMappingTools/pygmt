@@ -8,9 +8,10 @@ pytest-mpl
 coverage[toml]
 black
 blackdoc
+isort>=5
 pylint
 flake8
 sphinx
-sphinx_rtd_theme=0.4.3
+sphinx_rtd_theme==0.4.3
 sphinx-gallery
 nbsphinx
