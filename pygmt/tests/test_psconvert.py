@@ -3,7 +3,7 @@ Tests psconvert.
 """
 import os
 
-from .. import Figure
+from pygmt import Figure
 
 
 def test_psconvert():

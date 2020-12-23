@@ -7,9 +7,8 @@ import os
 import numpy as np
 import numpy.testing as npt
 import pytest
-
-from .. import Figure
-from ..exceptions import GMTInvalidInput
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
 def test_figure_region():

@@ -3,8 +3,7 @@ Functions to convert data types into ctypes friendly formats.
 """
 import numpy as np
 import pandas as pd
-
-from ..exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 def dataarray_to_matrix(grid):

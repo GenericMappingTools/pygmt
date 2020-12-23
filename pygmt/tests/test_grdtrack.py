@@ -6,12 +6,10 @@ import os
 import numpy.testing as npt
 import pandas as pd
 import pytest
-
-from .. import grdtrack
-from .. import which
-from ..datasets import load_earth_relief, load_ocean_ridge_points
-from ..exceptions import GMTInvalidInput
-from ..helpers import data_kind
+from pygmt import grdtrack, which
+from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import data_kind
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")

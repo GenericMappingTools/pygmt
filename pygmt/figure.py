@@ -1,24 +1,23 @@
 """
 Define the Figure class that handles all plotting.
 """
+import base64
 import os
 import sys
 from tempfile import TemporaryDirectory
-import base64
 
 
-from .clib import Session
-from .base_plotting import BasePlotting
-from .exceptions import GMTInvalidInput
-from .helpers import (
+from pygmt.base_plotting import BasePlotting
+from pygmt.clib import Session
+from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
-    use_alias,
     kwargs_to_strings,
     launch_external_viewer,
     unique_name,
+    use_alias,
 )
-
 
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py

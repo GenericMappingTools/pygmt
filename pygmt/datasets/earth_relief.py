@@ -3,10 +3,10 @@ Function to download the Earth relief datasets from the GMT data server,
 and load as DataArray. The grids are available in various resolutions.
 """
 import xarray as xr
-
-from .. import grdcut, which
-from ..exceptions import GMTInvalidInput
-from ..helpers import kwargs_to_strings
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.gridops import grdcut
+from pygmt.helpers import kwargs_to_strings
+from pygmt.modules import which
 
 
 @kwargs_to_strings(region="sequence")
