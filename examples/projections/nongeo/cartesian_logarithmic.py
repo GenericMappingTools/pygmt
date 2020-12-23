@@ -33,5 +33,5 @@ fig.plot(
 # Plot square root values as points on the line
 # Style of points is 0.3 cm square, color is *red* with a *black* outline
 # Points are set to clip if they go off the figure
-fig.plot(x=xpoints, y=ypoints, style="s0.3c", color="red", no_clip="c", pen="black")
+fig.plot(x=xpoints, y=ypoints, style="s0.3c", color="red", no_clip=True, pen="black")
 fig.show()
