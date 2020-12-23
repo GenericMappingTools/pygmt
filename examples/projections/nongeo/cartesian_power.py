@@ -6,8 +6,8 @@ Cartesian power
 *width* of the figure and the optional argument *height*. The axis or axes with a
 logarithmic transformation requires **p** and the power transformation for that axis.
 """
-import pygmt
 import numpy as np
+import pygmt
 
 # Create a list of y values 0-10
 yvalues = np.arange(0, 11)

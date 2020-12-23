@@ -6,8 +6,8 @@ Cartesian logarithmic
 ``height``. The axis or axes with a logarithmic transformation requires ``l`` after
 its size argument.
 """
-import pygmt
 import numpy as np
+import pygmt
 
 # Create a list of x values 0-100
 xline = np.arange(0, 101)
