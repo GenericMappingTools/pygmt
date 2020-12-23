@@ -29,6 +29,6 @@ fig.plot(
 )
 # Plot x,y values as points on the line
 # Style of points is 0.2 cm circles, color is *green* with a *black* outline
-# Points are set to clip if they go off the figure
+# Points are not clipped if they go off the figure
 fig.plot(x=xvalues, y=yvalues, style="c0.2c", color="green", no_clip=True, pen="black")
 fig.show()
