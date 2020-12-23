@@ -3,11 +3,9 @@ Tests for surface
 """
 import os
 
-import xarray as xr
 import pytest
-
-from pygmt import surface
-from pygmt import which
+import xarray as xr
+from pygmt import surface, which
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind

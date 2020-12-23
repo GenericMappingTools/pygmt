@@ -5,7 +5,6 @@ import os
 
 import numpy as np
 import pytest
-
 from pygmt import Figure, makecpt
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput

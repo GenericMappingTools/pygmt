@@ -2,8 +2,13 @@
 Hammer
 ======
 
+The equal-area Hammer projection, first presented by the German mathematician
+Ernst von Hammer in 1892, is also known as Hammer-Aitoff (the Aitoff projection looks
+similar, but is not equal-area). The border is an ellipse, equator and central
+meridian are straight lines, while other parallels and meridians are complex curves.
+
 ``H[central meridian]/width``: Give the optional central meridian (default is the center
- of the region) and the map width.
+of the region) and the map width.
 """
 import pygmt
 

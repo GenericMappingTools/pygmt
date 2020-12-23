@@ -8,7 +8,6 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 import xarray as xr
-
 from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
 
