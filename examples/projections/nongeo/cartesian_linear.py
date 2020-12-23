@@ -1,6 +1,6 @@
 """
-Cartesian
-=========
+Cartesian linear
+================
 
 ``Xwidth/[height]``: Give the ``width`` of the figure and the optional argument ``height``.
 """
