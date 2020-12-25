@@ -139,3 +139,21 @@ def test_coast_paint_country_continent():
         paint_country="=AF+gbisque+pblue",
     )
     return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_coast_paint_country_state():
+    "Test passing a US state code to paint_country"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(
+        R="-75/-69/40/44", J="M15c", B="a", G="brown", E="US.MA+gbisque+pblue"
+    )
+    fig_test.coast(
+        region=[-75, -69, 40, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        paint_country="US.MA+gbisque+pblue",
+    )
+    return fig_ref, fig_test
