@@ -123,3 +123,19 @@ def test_coast_paint_country_list():
         paint_country=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
     return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_coast_paint_country_continent():
+    "Test passing a continent code to paint_country"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="=AF+gbisque+pblue")
+    fig_test.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        paint_country="=AF+gbisque+pblue",
+    )
+    return fig_ref, fig_test
