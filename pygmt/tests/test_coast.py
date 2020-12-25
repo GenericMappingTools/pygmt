@@ -86,6 +86,7 @@ def test_coast_paint_country_single():
     )
     return fig_ref, fig_test
 
+
 @check_figures_equal()
 def test_coast_paint_country_multiple():
     "Test passing multiple country code to paint_country"
@@ -98,5 +99,27 @@ def test_coast_paint_country_multiple():
         projection="M15c",
         land="brown",
         paint_country="ES,IT+gbisque+pblue",
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_coast_paint_country_list():
+    "Test passing a list of country codes and fill options to paint_country"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(
+        R="-10/15/25/44",
+        J="M15c",
+        B="a",
+        G="brown",
+        E=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
+    )
+    fig_test.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        paint_country=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
     return fig_ref, fig_test
