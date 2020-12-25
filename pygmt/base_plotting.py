@@ -62,6 +62,7 @@ class BasePlotting:
         A="area_thresh",
         B="frame",
         D="resolution",
+        E="paint_country",
         I="rivers",
         L="map_scale",
         N="borders",
