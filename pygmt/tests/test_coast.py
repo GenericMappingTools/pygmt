@@ -69,3 +69,34 @@ def test_coast_world_mercator():
         water="white",
     )
     return fig
+
+
+@check_figures_equal()
+def test_coast_paint_country_single():
+    "Test passing a single country code to paint_country"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES+gbisque+pblue")
+    fig_test.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        paint_country="ES+gbisque+pblue",
+    )
+    return fig_ref, fig_test
+
+@check_figures_equal()
+def test_coast_paint_country_multiple():
+    "Test passing multiple country code to paint_country"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES,IT+gbisque+pblue")
+    fig_test.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        paint_country="ES,IT+gbisque+pblue",
+    )
+    return fig_ref, fig_test
