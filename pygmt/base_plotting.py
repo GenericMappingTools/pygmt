@@ -782,6 +782,12 @@ class BasePlotting:
             polygon in the input data. To apply it to the fill color, use
             ``color='+z'``. To apply it to the pen color, append **+z** to
             **pen**.
+        columns : str or 1d array
+            Choose which columns are x, y, color, and size, respectively if
+            input is provided via *data*. E.g. ``columns = [0, 1]`` or
+            ``columns = '0,1'`` if the *x* values are stored in the first
+            column and *y* values in the second one. Note: zero-based
+            indexing is used.
         label : str
             Add a legend entry for the symbol or line being plotted.
 
