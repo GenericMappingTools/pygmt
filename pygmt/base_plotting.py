@@ -786,7 +786,7 @@ class BasePlotting:
             Choose which columns are x, y, color, and size, respectively if input
             is provided via *data*. E.g. ``columns = [0, 1]`` or ``columns = '0,1'``
             if the *x* values are stored in the first column and *y* values in the
-            second one: Note: zero-based indexing is used.
+            second one. Note: zero-based indexing is used.
         label : str
             Add a legend entry for the symbol or line being plotted.
 
