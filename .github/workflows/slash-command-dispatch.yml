@@ -22,3 +22,4 @@ jobs:
           commands: |
             format
           issue-type: pull-request
+          permission: none
