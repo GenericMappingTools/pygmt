@@ -13,7 +13,7 @@ If you want to make a contribution to the project, see the
   branch. Make a new branch and submit a pull request instead.
 * *gh-pages*: Holds the HTML documentation and is served by GitHub. Pages for the master
   branch are in the `dev` folder. Pages for each release are in their own folders.
-  **Automatically updated by TravisCI** so you shouldn't have to make commits here.
+  **Automatically updated by GitHub Actions** so you shouldn't have to make commits here.
 
 
 ## Reviewing and merging pull requests
@@ -40,7 +40,7 @@ The main advantages of this are:
 
 ## Continuous Integration
 
-We use GitHub Actions and TravisCI continuous integration (CI) services to
+We use GitHub Actions continuous integration (CI) services to
 build and test the project on Linux, macOS and Windows.
 They rely on the `requirements.txt` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
@@ -54,7 +54,13 @@ There are 4 configuration files located in `.github/workflows`:
 This is ran on every commit on the *master* and Pull Request branches.
 It is also scheduled to run daily on the *master* branch.
 
-2. `ci_tests_dev.yaml` (GMT Latest Tests on Linux/macOS).
+On the *master* branch, the workflow also handles the documentation deployment:
+
+* Updating the development documentation by pushing the built HTML pages from the
+  *master* branch onto the `dev` folder of the *gh-pages* branch.
+* Updated the `latest` documentation link to the new release.
+
+2. `ci_tests_dev.yaml` (GMT Latest Tests on Linux/macOS/Windows).
 
 This is only triggered when a review is requested or re-requested on a PR.
 It is also scheduled to run daily on the *master* branch.
@@ -72,37 +78,20 @@ Archives will be pushed to TestPyPI on every commit to the *master* branch and
 tagged releases, and to PyPI for tagged releases only.
 
 
-### Travis CI
-
-The configuration file is at `.travis.yml`.
-Travis runs tests (Linux only) and handles the documentation deployment automatically:
-
-* Updating the development documentation by pushing the built HTML pages from the
-  *master* branch onto the `dev` folder of the *gh-pages* branch.
-* Updated the `latest` documentation link to the new release.
-
-This way, most day-to-day maintenance operations are automatic.
-
-The scripts that setup the test environment and run the deployments are loaded from the
-[fatiando/continuous-integration](https://github.com/fatiando/continuous-integration)
-repository to avoid duplicating work across multiple repositories.
-If you find any problems with the test setup and deployment, please create issues and
-submit pull requests to that repository.
-
 ## Continuous Documentation
 
-We use the [Zeit Now for GitHub integration](https://zeit.co/github) to preview changes
+We use the [Vercel for GitHub](https://github.com/apps/vercel) App to preview changes
 made to our documentation website every time we make a commit in a pull request.
-The integration service has a configuration file `now.json`, with a list of options to
-change the default behaviour at https://zeit.co/docs/configuration.
-The actual script `package.json` is used by Zeit Now to install the necessary packages,
+The service has a configuration file `vercel.json`, with a list of options to
+change the default behaviour at https://vercel.com/docs/configuration.
+The actual script `package.json` is used by Vercel to install the necessary packages,
 build the documentation, copy the files to a 'public' folder and deploy that to the web,
-see https://zeit.co/docs/v2/build-step/?query=package.json#defining-a-build-script.
+see https://vercel.com/docs/build-step.
 
 ## Making a Release
 
 We try to automate the release process as much as possible.
-Travis handles publishing new releases to PyPI and updating the documentation.
+GitHub Actions workflow handles publishing new releases to PyPI and updating the documentation.
 The version number is set automatically using setuptools_scm based information
 obtained from git.
 There are a few steps that still must be done manually, though.
@@ -166,7 +155,7 @@ and clicking on publish. A git tag will also be created, make sure that this
 tag is a proper version number (following [Semantic Versioning](https://semver.org/))
 with a leading `v`. E.g. `v0.2.1`.
 
-Once the release/tag is created, this should trigger Travis to do all the work for us.
+Once the release/tag is created, this should trigger GitHub Actions to do all the work for us.
 A new source distribution will be uploaded to PyPI, a new folder with the documentation
 HTML will be pushed to *gh-pages*, and the `latest` link will be updated to point to
 this new folder.

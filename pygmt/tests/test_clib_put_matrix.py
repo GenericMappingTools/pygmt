@@ -5,12 +5,10 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
-
-
-from .test_clib import mock
-from .. import clib
-from ..exceptions import GMTCLibError
-from ..helpers import GMTTempFile
+from pygmt import clib
+from pygmt.exceptions import GMTCLibError
+from pygmt.helpers import GMTTempFile
+from pygmt.tests.test_clib import mock
 
 
 def test_put_matrix():

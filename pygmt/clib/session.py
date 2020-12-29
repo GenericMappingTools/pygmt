@@ -3,27 +3,26 @@ Defines the Session class to create and destroy a GMT API session and provides
 access to the API functions. Uses ctypes to wrap most of the core functions
 from the C API.
 """
-import sys
 import ctypes as ctp
+import sys
 from contextlib import contextmanager
 
-from packaging.version import Version
 import numpy as np
 import pandas as pd
-
-from ..exceptions import (
+from packaging.version import Version
+from pygmt.clib.conversion import (
+    array_to_datetime,
+    as_c_contiguous,
+    dataarray_to_matrix,
+    kwargs_to_ctypes_array,
+    vectors_to_arrays,
+)
+from pygmt.clib.loading import load_libgmt
+from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
     GMTInvalidInput,
     GMTVersionError,
-)
-from .loading import load_libgmt
-from .conversion import (
-    kwargs_to_ctypes_array,
-    vectors_to_arrays,
-    dataarray_to_matrix,
-    as_c_contiguous,
-    array_to_datetime,
 )
 
 FAMILIES = [

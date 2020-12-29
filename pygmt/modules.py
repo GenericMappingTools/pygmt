@@ -3,17 +3,16 @@ Non-plot GMT modules.
 """
 import numpy as np
 import xarray as xr
-
-from .clib import Session
-from .helpers import (
-    build_arg_string,
-    fmt_docstring,
+from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
     GMTTempFile,
-    use_alias,
+    build_arg_string,
     data_kind,
     dummy_context,
+    fmt_docstring,
+    use_alias,
 )
-from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring

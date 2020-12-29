@@ -1,2 +1,11 @@
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--verbose --doctest-modules --mpl --mpl-results-path=results"
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true
+known_third_party = "pygmt"

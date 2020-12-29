@@ -3,19 +3,19 @@ Base class with plot generating commands.
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
+
 import numpy as np
 import pandas as pd
-
-from .clib import Session
-from .exceptions import GMTError, GMTInvalidInput
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.helpers import (
     build_arg_string,
-    dummy_context,
     data_kind,
+    dummy_context,
     fmt_docstring,
-    use_alias,
-    kwargs_to_strings,
     is_nonstr_iter,
+    kwargs_to_strings,
+    use_alias,
 )
 
 
@@ -153,6 +153,7 @@ class BasePlotting:
         D="position",
         F="box",
         G="truncate",
+        I="shading",
         W="scale",
         V="verbose",
         X="xshift",
@@ -160,7 +161,7 @@ class BasePlotting:
         p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", G="sequence", p="sequence")
+    @kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
     def colorbar(self, **kwargs):
         """
         Plot a gray or color scale-bar on maps.
@@ -223,6 +224,12 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        shading : str or list or bool
+            Add illumination effects. Passing a single numerical value sets the
+            range of intensities from -value to +value. If not specified, 1 is
+            used. Alternatively, set ``shading=[low, high]`` to specify an
+            asymmetric intensity range from *low* to *high*. The default is no
+            illumination.
         {V}
         {XY}
         {p}
@@ -598,18 +605,17 @@ class BasePlotting:
                 raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
 
             with contextlib.ExitStack() as stack:
-                fname = stack.enter_context(file_context)
-                if "G" in kwargs:
+                if "G" in kwargs:  # deal with kwargs["G"] if drapegrid is xr.DataArray
                     drapegrid = kwargs["G"]
                     if data_kind(drapegrid) in ("file", "grid"):
                         if data_kind(drapegrid) == "grid":
                             drape_context = lib.virtualfile_from_grid(drapegrid)
-                            drapefile = stack.enter_context(drape_context)
-                            kwargs["G"] = drapefile
+                            kwargs["G"] = stack.enter_context(drape_context)
                     else:
                         raise GMTInvalidInput(
                             f"Unrecognized data type for drapegrid: {type(drapegrid)}"
                         )
+                fname = stack.enter_context(file_context)
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("grdview", arg_str)
 
@@ -776,6 +782,12 @@ class BasePlotting:
             polygon in the input data. To apply it to the fill color, use
             ``color='+z'``. To apply it to the pen color, append **+z** to
             **pen**.
+        columns : str or 1d array
+            Choose which columns are x, y, color, and size, respectively if
+            input is provided via *data*. E.g. ``columns = [0, 1]`` or
+            ``columns = '0,1'`` if the *x* values are stored in the first
+            column and *y* values in the second one. Note: zero-based
+            indexing is used.
         label : str
             Add a legend entry for the symbol or line being plotted.
 
@@ -1167,8 +1179,10 @@ class BasePlotting:
 
         """
         kwargs = self._preprocess(**kwargs)
-        if not ("B" in kwargs or "L" in kwargs or "T" in kwargs):
-            raise GMTInvalidInput("At least one of B, L, or T must be specified.")
+        if not ("B" in kwargs or "L" in kwargs or "Td" in kwargs or "Tm" in kwargs):
+            raise GMTInvalidInput(
+                "At least one of frame, map_scale, compass, or rose must be specified."
+            )
         with Session() as lib:
             lib.call_module("basemap", build_arg_string(kwargs))
 
@@ -1481,6 +1495,10 @@ class BasePlotting:
         {p}
         {t}
         """
+
+        # pylint: disable=too-many-locals
+        # pylint: disable=too-many-branches
+
         kwargs = self._preprocess(**kwargs)
 
         # Ensure inputs are either textfiles, x/y/text, or position/text
@@ -1515,6 +1533,13 @@ class BasePlotting:
         if position is not None and isinstance(position, str):
             kwargs["F"] += f'+c{position}+t"{text}"'
 
+        extra_arrays = []
+        # If an array of transparency is given, GMT will read it from
+        # the last numerical column per data record.
+        if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+            extra_arrays.append(kwargs["t"])
+            kwargs["t"] = ""
+
         with Session() as lib:
             file_context = dummy_context(textfiles) if kind == "file" else ""
             if kind == "vectors":
@@ -1522,7 +1547,11 @@ class BasePlotting:
                     file_context = dummy_context("")
                 else:
                     file_context = lib.virtualfile_from_vectors(
-                        np.atleast_1d(x), np.atleast_1d(y), np.atleast_1d(text)
+                        np.atleast_1d(x),
+                        np.atleast_1d(y),
+                        *extra_arrays,
+                        # text must be in str type, see issue #706
+                        np.atleast_1d(text).astype(str),
                     )
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])

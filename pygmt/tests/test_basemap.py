@@ -2,10 +2,9 @@
 Tests fig.basemap.
 """
 import pytest
-
-from .. import Figure
-from ..helpers.testing import check_figures_equal
-from ..exceptions import GMTInvalidInput
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import check_figures_equal
 
 
 def test_basemap_required_args():
@@ -80,3 +79,36 @@ def test_basemap_aliases():
     fig = Figure()
     fig.basemap(region=[0, 360, -90, 90], projection="W7i", frame=True)
     return fig
+
+
+@check_figures_equal()
+def test_basemap_rose():
+    "Create a map with coast and use basemap to add a rose"
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.coast(R="127.5/128.5/26/27", W="1/0.5p")
+    fig_ref.basemap(Td="jBR+w5c")
+    fig_test.coast(region=[127.5, 128.5, 26, 27], shorelines="1/0.5p")
+    fig_test.basemap(rose="jBR+w5c")
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_basemap_compass():
+    "Create a map with coast and use basemap to add a compass"
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.coast(R="127.5/128.5/26/27", W="1/0.5p")
+    fig_ref.basemap(Tm="jBR+w5c+d11.5")
+    fig_test.coast(region=[127.5, 128.5, 26, 27], shorelines="1/0.5p")
+    fig_test.basemap(compass="jBR+w5c+d11.5")
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_basemap_map_scale():
+    "Create a map with coast and use basemap to add a map scale"
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.coast(R="127.5/128.5/26/27", W="1/0.5p")
+    fig_ref.basemap(L="jMB+c1+w10k+l+f")
+    fig_test.coast(region=[127.5, 128.5, 26, 27], shorelines="1/0.5p")
+    fig_test.basemap(map_scale="jMB+c1+w10k+f+l")
+    return fig_ref, fig_test
