@@ -139,7 +139,7 @@ class BasePlotting:
         paint_country : str or list
             ``code1,code2,…[+l|L][+gfill][+ppen][+z]``
             Select painting or dumping country polygons from the
-            'Digital Chart of the World
+            `Digital Chart of the World
             <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
             Append one or more comma-separated countries using the 2-character
             `ISO 3166-1 alpha-2 convention
