@@ -20,12 +20,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.9]
-        os: [ubuntu-20.04, macOS-10.15]
+        os: [ubuntu-20.04, macOS-10.15, windows-latest]
         gmt_git_ref: [master]
-    env:
-      # LD_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib:$LD_LIBRARY_PATH
-      GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
-      GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
     defaults:
       run:
         shell: bash -l {0}
@@ -57,10 +53,16 @@ jobs:
         run: conda install cmake libblas libcblas liblapack fftw gdal ghostscript libnetcdf hdf5 zlib curl pcre ipython pytest pytest-cov pytest-mpl
 
       # Build and install latest GMT from GitHub
-      - name: Install GMT ${{ matrix.gmt_git_ref }} branch
+      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
         run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
         env:
           GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
+          GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
+        if: runner.os != 'Windows'
+
+      - name: Install GMT dev version from conda-forge (Windows)
+        run: conda install -c conda-forge/label/dev gmt
+        if: runner.os == 'Windows'
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -86,8 +88,16 @@ jobs:
           pip install dist/*
 
       # Run the tests
-      - name: Test with pytest
+      - name: Test with pytest (Linux/macOS)
         run: make test PYTEST_EXTRA="-r P"
+        env:
+          GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
+        if: runner.os != 'Windows'
+
+      # Run the tests
+      - name: Test with pytest (Windows)
+        run: make test PYTEST_EXTRA="-r P"
+        if: runner.os == 'Windows'
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
