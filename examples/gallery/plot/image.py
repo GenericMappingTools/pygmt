@@ -16,12 +16,14 @@ import pygmt
 
 fig = pygmt.Figure()
 
-fig.basemap(region=[0, 2, 0, 2], projection="x3c", frame=True)    
+fig.basemap(region=[0, 2, 0, 2], projection="x3c", frame=True)
 
-# place and center the GMT logo from the GMT website to the position 1/1 
+# place and center the GMT logo from the GMT website to the position 1/1
 # on a basemap and draw a rectangular border around the image
-fig.image(imagefile='https://www.generic-mapping-tools.org/_static/gmt-logo.png', 
-          position='g1/1+w1.5i+jCM',
-          box=True)
+fig.image(
+    imagefile="https://www.generic-mapping-tools.org/_static/gmt-logo.png",
+    position="g1/1+w1.5i+jCM",
+    box=True,
+)
 
 fig.show()
