@@ -171,6 +171,10 @@ When editing documentation, use the following standards to demonstrate the examp
     (two asterisks) on both sides. The argument description should be in *italicized* 
     with \* (single asterisk) on both sides.<br>
     Example: \*\*+l\*\*\*label\* results in **+l***label*
+    <br><br>
+3. Optional arguments are placed wrapped with [ ] (square brackets).
+   <br><br>
+4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 
 ## Contributing Code
 
