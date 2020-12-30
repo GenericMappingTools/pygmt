@@ -4,13 +4,13 @@ Multi-parameter symbols
 
 The :meth:`pygmt.Figure.plot` method can plot individual multi-parameter symbols by passing 
 the corresponding shortcuts listed below to the ``style`` option. Additionally, we must define 
-the required parameters in a 2D numpy array (``np.array([[parameters]])`` for a single symbol 
+the required parameters in a 2d numpy array (``np.array([[parameters]])`` for a single symbol 
 or ``np.array([[parameters_1],[parameters_2],[parameters_i]])`` for several ones) or use an 
 appropriately formatted input file and pass it to ``data``. 
 
 The following symbols are available:
 
-- **e**: ellipses, ``np.array([[lon, lat, direction, major_axis, minor_axis]])``
+- **e**: ellipse, ``np.array([[lon, lat, direction, major_axis, minor_axis]])``
 - **j**: rotated rectangle, ``np.array([[lon, lat, direction, width, height]])``
 - **r**: rectangle, ``np.array([[lon, lat, width, height]])``
 - **R**: rounded rectangle, ``np.array([[lon, lat, width, height, radius]])``
