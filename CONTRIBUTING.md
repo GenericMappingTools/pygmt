@@ -159,6 +159,18 @@ Guidelines for a good tutorial:
 Note that the `Figure.show()` function needs to be called for a plot to be inserted into
 the documentation.
 
+### Example code standards
+
+When editing documentation, use the following standards to demonstrate the example code:
+
+1. Python arguments, such as import statements, Boolean expressions, and function 
+   arguments should be wrapped as ``code`` by using \`\` on both sides of the code.<br>
+   Example: \`\`import pygmt\`\` results in ``import pygmt``
+<br><br>
+2.  Literal GMT arguments should be **bold** by wrapping the arguments with \*\* 
+    (two asterisks) on both sides. The argument description should be in *italicized* 
+    with \* (single asterisk) on both sides.<br>
+    Example: \*\*+l\*\*\*label\* results in **+l***label*
 
 ## Contributing Code
 
