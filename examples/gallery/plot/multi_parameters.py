@@ -1,6 +1,6 @@
 """
 Multi-parameter symbols
-----------------
+-------------------------
 
 The :meth:`pygmt.Figure.plot` method can plot individual multi-parameter symbols by passing 
 the corresponding shortcuts listed below to the ``style`` option. Additionally, we must define 
