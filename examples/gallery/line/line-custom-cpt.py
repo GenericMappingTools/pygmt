@@ -3,7 +3,7 @@ Line colors with a custom CPT
 -----------------------------
 
 The color of the lines made by :meth:`pygmt.Figure.plot` can be set according to a
-custom CPT and assigned with the *pen* argument.
+custom CPT and assigned with the ``pen`` argument.
 
 The custom CPT can be used by setting the plot command's ``cmap`` argument to ``True``. The
 ``zvalue`` argument sets the z-value (color) to be used from the custom CPT, and the line
