@@ -1,4 +1,4 @@
-"""
+r"""
 Azimuthal Equidistant
 =====================
 
@@ -8,7 +8,7 @@ projection center are correct. It is very useful for a global view on locations
 that lie within a certain distance or for comparing distances of different
 locations relative to the projection center.
 
-**e***lon0*/*lat0*[/*horizon*]/*scale* or
+**e**\ *lon0*| */*\ *lat0*\ [/*horizon*]/*scale* or
 **E***lon0***/***lat0*[**/***horizon*]**/***width*
 
 *lon0***/***lat0* specifies the projection center. The optional parameter
