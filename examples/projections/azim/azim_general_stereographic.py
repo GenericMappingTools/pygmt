@@ -14,13 +14,6 @@ or **S**\ *lon0*\ **/**\ *lat0*\ [\ **/**\ *horizon*\ ]\ **/**\ *width*
 
 *lon0*\ **/**\ *lat0* specifies the projection center, the optional *horizon* parameter
 specifies the max distance from projection center (in degrees, < 180, default 90).
-
-This projection can be displayed:
-
-* With map boundaries coinciding with longitude and latitude:
-  ``region`` specified via ``xmin/xmax/ymin/ymax``
-* As a map with rectangular boundaries: ``region`` specified as lower left and
-  upper right corner ``xlleft/ylleft/xuright/yurightr``. Note the appended ``r``.
 """
 import pygmt
 
