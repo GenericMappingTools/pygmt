@@ -72,8 +72,8 @@ def test_coast_world_mercator():
 
 
 @check_figures_equal()
-def test_coast_paint_country_single():
-    "Test passing a single country code to paint_country"
+def test_coast_dcw_single():
+    "Test passing a single country code to dcw"
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES+gbisque+pblue")
@@ -82,14 +82,14 @@ def test_coast_paint_country_single():
         frame="a",
         projection="M15c",
         land="brown",
-        paint_country="ES+gbisque+pblue",
+        dcw="ES+gbisque+pblue",
     )
     return fig_ref, fig_test
 
 
 @check_figures_equal()
-def test_coast_paint_country_multiple():
-    "Test passing multiple country code to paint_country"
+def test_coast_dcw_multiple():
+    "Test passing multiple country code to dcw"
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES,IT+gbisque+pblue")
@@ -98,14 +98,14 @@ def test_coast_paint_country_multiple():
         frame="a",
         projection="M15c",
         land="brown",
-        paint_country="ES,IT+gbisque+pblue",
+        dcw="ES,IT+gbisque+pblue",
     )
     return fig_ref, fig_test
 
 
 @check_figures_equal()
-def test_coast_paint_country_list():
-    "Test passing a list of country codes and fill options to paint_country"
+def test_coast_dcw_list():
+    "Test passing a list of country codes and fill options to dcw"
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(
@@ -120,14 +120,14 @@ def test_coast_paint_country_list():
         frame="a",
         projection="M15c",
         land="brown",
-        paint_country=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
+        dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
     return fig_ref, fig_test
 
 
 @check_figures_equal()
-def test_coast_paint_country_continent():
-    "Test passing a continent code to paint_country"
+def test_coast_dcw_continent():
+    "Test passing a continent code to dcw"
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="=AF+gbisque+pblue")
@@ -136,14 +136,14 @@ def test_coast_paint_country_continent():
         frame="a",
         projection="M15c",
         land="brown",
-        paint_country="=AF+gbisque+pblue",
+        dcw="=AF+gbisque+pblue",
     )
     return fig_ref, fig_test
 
 
 @check_figures_equal()
-def test_coast_paint_country_state():
-    "Test passing a US state code to paint_country"
+def test_coast_dcw_state():
+    "Test passing a US state code to dcw"
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(
@@ -154,6 +154,6 @@ def test_coast_paint_country_state():
         frame="a",
         projection="M15c",
         land="brown",
-        paint_country="US.MA+gbisque+pblue",
+        dcw="US.MA+gbisque+pblue",
     )
     return fig_ref, fig_test

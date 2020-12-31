@@ -62,7 +62,7 @@ class BasePlotting:
         A="area_thresh",
         B="frame",
         D="resolution",
-        E="paint_country",
+        E="dcw",
         I="rivers",
         L="map_scale",
         N="borders",
@@ -136,7 +136,7 @@ class BasePlotting:
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
-        paint_country : str or list
+        dcw : str or list
             ``code1,code2,…[+l|L][+gfill][+ppen][+z]``
             Select painting or dumping country polygons from the
             `Digital Chart of the World
