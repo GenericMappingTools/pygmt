@@ -22,7 +22,7 @@ fig.basemap(region=[0, 2, 0, 2], projection="X6c", frame=True)
 # on a basemap and draw a rectangular border around the image
 fig.image(
     imagefile="https://www.generic-mapping-tools.org/_static/gmt-logo.png",
-    position="g1/1+w1.5i+jCM",
+    position="g1/1+w3c+jCM",
     box=True,
 )
 
