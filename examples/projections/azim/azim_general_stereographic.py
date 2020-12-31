@@ -12,9 +12,10 @@ projection.
 **s**\ *lon0*\ **/**\ *lat0*\ [\ **/**\ *horizon*\ ]\ **/**\ *scale*
 or **S**\ *lon0*\ **/**\ *lat0*\ [\ **/**\ *horizon*\ ]\ **/**\ *width*
 
-*lon0*\ **/**\ *lat0* specifies the projection center, the optional *horizon* parameter
-specifies the max distance from projection center (in degrees, < 180, default 90), and
-the *scale* or *width* sets the size of the figure.
+The ``projection`` is set with **s** or **S**. *lon0*\ **/**\ *lat0* specifies the
+projection center, the optional *horizon* parameter specifies the max distance from
+projection center (in degrees, < 180, default 90), and the *scale* or *width* sets the
+size of the figure.
 """
 import pygmt
 
