@@ -6,6 +6,13 @@ making releases, creating packages, etc.
 If you want to make a contribution to the project, see the
 [Contributing Guide](CONTRIBUTING.md) instead.
 
+## Onboarding Access Checklist
+
+### Python-Maintainers
+Get added to the python-maintainers team on GitHub
+
+### Generic Mapping Tools organization
+Get added to the GenericMappingTools organization on GitHub
 
 ## Branches
 
