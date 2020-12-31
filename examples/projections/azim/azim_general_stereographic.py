@@ -9,9 +9,10 @@ the distances in this projection are not displayed in correct proportions.
 It is often used as a hemisphere map like the Lambert Azimuthal Equal Area
 projection.
 
-``slon0/lat0[/horizon]/scale`` or ``Slon0/lat0[/horizon]/width``
+**s**\ *lon0*\ **/**\ *lat0*\ [\ **/**\ *horizon*\ ]\ **/**\ *scale*
+or **S**\ *lon0*\ **/**\ *lat0*\ [\ **/**\ *horizon*\ ]\ **/**\ *width*
 
-``lon0/lat0`` specifies the projection center, the optional ``horizon`` parameter
+*lon0*\ **/**\ *lat0* specifies the projection center, the optional *horizon* parameter
 specifies the max distance from projection center (in degrees, < 180, default 90).
 
 This projection can be displayed:
