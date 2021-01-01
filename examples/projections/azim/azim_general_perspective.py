@@ -9,7 +9,7 @@ be seen.
 **g**\ *lon0/lat0*\ */altitude*\ */azimuth*\ */tilt*\ */twist*\ */Width*\ */Height*\ */scale*
 or **G**\ *lon0/lat0*\ */altitude*\ */azimuth*\ */tilt*\ */twist*\ */Width*\ */Height*\ */width*
 
-The ``projection`` is set with **g** or **G**.
+The projection type is set with **g** or **G**.
 *lon0/lat0* specifies the projection center and *altitude* sets the height
 in km of the viewpoint above local sea level (If altitude is less than 10,
 then it is the distance from the center of the earth to the viewpoint in earth
