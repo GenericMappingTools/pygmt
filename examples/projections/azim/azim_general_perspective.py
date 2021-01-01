@@ -6,8 +6,8 @@ The general perspective projection imitates the view of the Earth from a finite
 point in space. In a full view of the earth one third of its surface area can
 be seen.
 
-**g**\ *lon0*\ **/**\ *lat0*\ **/**\ *altitude*\ **/**\ *azimuth*\ **/**\ *tilt*\ **/**\ *twist*\ **/**\ *Width*\ **/**\ *Height*\ **/**\ *scale*
-or **G**\ *lon0*\ **/**\ *lat0*\ **/**\ *altitude*\ **/**\ *azimuth*\ **/**\ *tilt*\ **/**\ *twist*\ **/**\ *Width*\ **/**\ *Height*\ **/**\ *width*
+**g**\ *lon0/lat0*\ */altitude*\ */azimuth*\ */tilt*\ */twist*\ */Width*\ */Height*\ */scale*
+or **G**\ *lon0/lat0*\ */altitude*\ */azimuth*\ */tilt*\ */twist*\ */Width*\ */Height*\ */width*
 
 The ``projection`` is set with **g** or **G**.
 *lon0*\ **/**\ *lat0* specifies the projection center, *altitude* the height
