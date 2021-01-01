@@ -18,10 +18,11 @@ The ``region`` argument has to include the :math:`x` and :math:`y` axis limits a
 """
 
 import datetime
+
 import numpy as np
 import pandas as pd
-import xarray as xr
 import pygmt
+import xarray as xr
 
 fig = pygmt.Figure()
 
@@ -30,8 +31,7 @@ fig = pygmt.Figure()
 fig.basemap(projection="X15c/5c", region="2010-01-01/2020-06-01/0/10", frame=True)
 
 # numpy.datetime64 types
-x = np.array(
-    ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
+x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
 y = [1, 2, 3]
 fig.plot(x, y, style="c0.4c", pen="1p", color="red3")
 
