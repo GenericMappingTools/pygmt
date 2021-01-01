@@ -11,9 +11,9 @@ equal-area and the distortion increases near the edges.
 **g**\ *lon0/lat0*\ [*/horizon*\ ]\ */scale*
 or **G**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*
 
-**g** or **G** specifies the projection type, ``lon0/lat0`` specifies the projection
-center, the optional parameter ``horizon`` specifies the max distance from projection
-center (in degrees, <= 90, default 90)
+**g** or **G** specifies the projection type, *lon0/lat0* specifies the projection
+center, the optional parameter *horizon* specifies the max distance from projection
+center (in degrees, <= 90, default 90), and *scale* and *width* set the figure size.
 """
 import pygmt
 
