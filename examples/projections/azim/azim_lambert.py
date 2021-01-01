@@ -11,7 +11,7 @@ projection, and increases radially away from this point.
 or **A**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*
 
 **a** or **A** specifies the projection type, and *lon0/lat0* specifies the projection
-center, ``horizon`` specifies the max distance from projection center (in degrees,
+center, *horizon* specifies the max distance from projection center (in degrees,
 <= 180, default 90), and *scale* or *width* sets the size of the figure.
 """
 import pygmt
