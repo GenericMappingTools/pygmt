@@ -13,9 +13,10 @@ projection center (at a maximum of 60°).
 **f**\ *lon0/lat0*\ [*/horizon*\ ]\ */scale*
 or **F**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*
 
-*lon0/lat0* specify the projection center, the optional parameter *horizon*
-specifies the max distance from projection center (in degrees, < 90, default 60), and
-*scale* or *width* sets the size of the figure..
+**f** or **F** specifies the projection type, *lon0/lat0* specifies the projection
+center, the optional parameter *horizon* specifies the max distance from projection
+center (in degrees, < 90, default 60), and *scale* or *width* sets the size of the
+figure.
 """
 import pygmt
 
