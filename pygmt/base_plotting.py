@@ -60,6 +60,7 @@ class BasePlotting:
         R="region",
         J="projection",
         A="area_thresh",
+        C="lakes",
         B="frame",
         D="resolution",
         I="rivers",
@@ -110,8 +111,12 @@ class BasePlotting:
             hierarchical level that is lower than min_level or higher than
             max_level will not be plotted.
         {B}
-        C : str
-            Set the shade, color, or pattern for lakes and river-lakes.
+        lakes : str or list
+            *color*\ [**+l**\ |**+r**\ ]
+            Set the shade, color, or pattern for lakes and river-lakes. The default is
+            the fill chosen for wet areas set by the ``water``.  Optionally, specify
+            separate fills by appending +l for lakes or +r for river-lakes, and passing
+            multiple strings in a list.
         resolution : str
             Selects the resolution of the data set to use ((f)ull, (h)igh,
             (i)ntermediate, (l)ow, and (c)rude).
