@@ -54,7 +54,6 @@ def test_coast_aliases():
         A=1000,
         L="jCM+c1+w1000k+f+l",
         U=True,
-        V="q",
         X="a4c",
         Y="a10c",
         p="135/25",
