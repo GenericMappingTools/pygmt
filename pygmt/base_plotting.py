@@ -112,7 +112,7 @@ class BasePlotting:
             max_level will not be plotted.
         {B}
         lakes : str or list
-            *color*\ [**+l**\ |**+r**\ ]
+            *fill*\ [**+l**\ |**+r**\ ]
             Set the shade, color, or pattern for lakes and river-lakes. The default is
             the fill chosen for wet areas set by the ``water``.  Optionally, specify
             separate fills by appending +l for lakes or +r for river-lakes, and passing
