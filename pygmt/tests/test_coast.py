@@ -52,7 +52,7 @@ def test_coast_aliases():
         S="skyblue",
         D="i",
         A=1000,
-        L="jMM+c1+w1000k+f+l",
+        L="jCM+c1+w1000k+f+l",
         U=True,
         V="q",
         X="a4c",
@@ -71,7 +71,7 @@ def test_coast_aliases():
         water="skyblue",  # S
         resolution="i",  # D
         area_thresh=1000,  # A
-        map_scale="jMM+c1+w1000k+f+l",  # L
+        map_scale="jCM+c1+w1000k+f+l",  # L
         timestamp=True,  # U
         verbose="q",  # V
         xshift="a4c",  # X
