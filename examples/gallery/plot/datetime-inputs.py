@@ -10,7 +10,7 @@ The :meth:`pygmt.Figure.plot` method can plot datetime inputs of individual type
 - raw datetime strings in ISO format (e.g. ``["YYYY-MM-DD", "YYYY-MM-DDTHH", "YYYY-MM-DDTHH:MM:SS"]``)
 - Python built-in :class:`datetime.datetime` and :class:`datetime.date`
 
-We can pass datetime inputs based on one of the types listed above directly to the ``x`` and ``y`` options.
+We can pass datetime inputs based on one of the types listed above directly to the ``x`` and ``y`` arguments.
  
 The ``region`` argument has to include the :math:`x` and :math:`y` axis limits as *str* in the form 
 ``"date_min/data_max/ymin/ymax"``.
