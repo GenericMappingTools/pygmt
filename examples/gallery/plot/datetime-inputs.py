@@ -4,7 +4,7 @@ Datetime inputs
 
 The :meth:`pygmt.Figure.plot` method can plot datetime inputs of individual types:
 
-- numpy.datetime64: for available options see https://numpy.org/doc/stable/reference/arrays.datetime.html
+- :class:`numpy.datetime64`
 - :class:`pandas.DatetimeIndex`
 - :class:`xarray.DataArray`: datetimes included in a *xarray.DataArray*
 - raw datetime strings in ISO format (e.g. ``["YYYY-MM-DD", "YYYY-MM-DDTHH", "YYYY-MM-DDTHH:MM:SS"]``)
