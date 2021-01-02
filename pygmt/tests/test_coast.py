@@ -58,7 +58,7 @@ def test_coast_aliases():
         Y="a10c",
         p="135/25",
         t=13,
-        C="blue"
+        C="blue",
     )
     fig_test.coast(
         region=[-30, 30, -40, 40],  # R
@@ -77,7 +77,7 @@ def test_coast_aliases():
         yshift="a10c",  # Y
         perspective=[135, 25],  # p
         transparency=13,  # t
-        lakes="blue" # C
+        lakes="blue",  # C
     )
     return fig_ref, fig_test
 
