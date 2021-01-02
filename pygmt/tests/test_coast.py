@@ -73,7 +73,6 @@ def test_coast_aliases():
         area_thresh=1000,  # A
         map_scale="jCM+c1+w1000k+f+l",  # L
         timestamp=True,  # U
-        verbose="q",  # V
         xshift="a4c",  # X
         yshift="a10c",  # Y
         perspective=[135, 25],  # p
