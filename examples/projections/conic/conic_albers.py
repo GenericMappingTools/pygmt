@@ -11,8 +11,12 @@ right angles. Distortion in scale and shape vanishes along the two standard para
 Between them, the scale along parallels is too small; beyond them it is too large.
 The opposite is true for the scale along meridians.
 
-``Blon0/lat0/lat1/lat2/width``: Give projection center ``lon0/lat0`` and two standard
-parallels ``lat1/lat2``.
+**b**\ *lon0/lat0*\ /\ *lat1/lat2*\ */scale*
+or **B**\ *lon0/lat0*\ /\ *lat1/lat2*\ */width*``
+
+The projection is set with **b** or **B**. The projection center is set by *lon0/lat0*
+and two standard parallels for the map are set with *lat1/lat2*. The figure size is set
+with *scale* or *width*.
 """
 import pygmt
 
