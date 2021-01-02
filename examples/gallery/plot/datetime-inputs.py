@@ -2,7 +2,7 @@
 Datetime inputs
 ---------------
 
-The :meth:`pygmt.Figure.plot` method can plot datetime inputs of individual types:
+Datetime inputs of the following types are supported in PyGMT:
 
 - :class:`numpy.datetime64`
 - :class:`pandas.DatetimeIndex`
@@ -10,10 +10,11 @@ The :meth:`pygmt.Figure.plot` method can plot datetime inputs of individual type
 - raw datetime strings in ISO format (e.g. ``["YYYY-MM-DD", "YYYY-MM-DDTHH", "YYYY-MM-DDTHH:MM:SS"]``)
 - Python built-in :class:`datetime.datetime` and :class:`datetime.date`
 
-We can pass datetime inputs based on one of the types listed above directly to the ``x`` and ``y`` arguments.
- 
+We can pass datetime inputs based on one of the types listed above directly to the ``x`` and ``y`` arguments
+of e.g. the :meth:`pygmt.Figure.plot` method:
+
 The ``region`` argument has to include the :math:`x` and :math:`y` axis limits as *str* in the form 
-``"date_min/data_max/ymin/ymax"``.
+``"date_min/date_max/ymin/ymax"``.
 
 """
 
