@@ -93,6 +93,7 @@ def test_coast_world_mercator():
     )
     return fig
 
+
 def test_coast_required_args():
     "Test if fig.coast fails when not given required arguments"
     fig = Figure()
