@@ -6,7 +6,7 @@ from pygmt import Figure
 from pygmt.helpers.testing import check_figures_equal
 
 
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_inset_aliases():
     "Test the aliases for the inset functions."
     fig_ref, fig_test = Figure(), Figure()
