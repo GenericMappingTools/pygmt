@@ -1190,11 +1190,30 @@ class BasePlotting:
     @use_alias(
         D="location",
         V="verbose",
+        F="border",
+        M="margin",
     )
-    @kwargs_to_strings(D="sequence")
+    @kwargs_to_strings(D="sequence", M="sequence")
     def inset_begin(self, **kwargs):
-        """
-        Function to begin an inset on a figure.
+        r"""
+        Create an inset within a figure to plot an additional figure.
+
+        This function create the location, frame, and margins for an inset figure.
+        This function can only be called once the original figure is created.
+        Additional plotting functions are called afterwards to add to the inset
+        figure. To stop adding to the inset figure and add to the original
+        figure, use :meth:`pygmt.Figure.inset_end`.
+
+        Full option list at :gmt-docs:`inset.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        location : str or list
+            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \| [**g**\|\ **j**\|\
+            **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *width*\
+            [/*height*][**+j**\ *justify*][**+o**\ *dx*\ [/*dy*]]
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
@@ -1211,7 +1230,6 @@ class BasePlotting:
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
             lib.call_module("inset", "end " + build_arg_string(kwargs))
-
 
     @fmt_docstring
     @use_alias(
