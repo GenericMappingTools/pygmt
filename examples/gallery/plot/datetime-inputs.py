@@ -29,7 +29,7 @@ fig = pygmt.Figure()
 
 # create a basemap with limits of 2010-01-01 to 2020-06-01 on the x axis and
 # 0 to 10 on the y axis
-fig.basemap(projection="X15c/5c", region="2010-01-01/2020-06-01/0/10", frame=True)
+fig.basemap(projection="X15c/5c", region="2010-01-01/2020-06-01/0/10", frame=["WSen", "af"])
 
 # numpy.datetime64 types
 x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
