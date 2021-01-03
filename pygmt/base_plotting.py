@@ -1215,6 +1215,7 @@ class BasePlotting:
             | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
             **+w**\ *width*\ [/*height*][**+j**\ *justify*]
             [**+o**\ *dx*\ [/*dy*]]
+
             Define the map inset rectangle on the map. Specify the rectangle
             in one of three ways:
 
