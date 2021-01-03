@@ -1191,7 +1191,7 @@ class BasePlotting:
         D="location",
         V="verbose",
     )
-    @kwargs_to_strings(R="sequence", p="sequence")
+    @kwargs_to_strings(D="sequence")
     def inset_begin(self, **kwargs):
         """
         Function to begin an inset on a figure.
@@ -1204,7 +1204,6 @@ class BasePlotting:
     @use_alias(
         V="verbose",
     )
-    @kwargs_to_strings(R="sequence", p="sequence")
     def inset_end(self, **kwargs):
         """
         Function to end adding to the inset in a figure.
