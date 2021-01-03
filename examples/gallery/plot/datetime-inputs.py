@@ -14,7 +14,7 @@ We can pass datetime inputs based on one of the types listed above directly to t
 of e.g. the :meth:`pygmt.Figure.plot` method:
 
 The ``region`` argument has to include the :math:`x` and :math:`y` axis limits as *str* in the form 
-``"date_min/date_max/ymin/ymax"``.
+*date_min/date_max/ymin/ymax*.
 
 """
 
