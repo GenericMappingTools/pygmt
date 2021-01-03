@@ -141,6 +141,19 @@ class BasePlotting:
 
         """
         kwargs = self._preprocess(**kwargs)
+        if not (
+            "C" in kwargs
+            or "G" in kwargs
+            or "S" in kwargs
+            or "I" in kwargs
+            or "N" in kwargs
+            or "Q" in kwargs
+            or "W" in kwargs
+        ):
+            raise GMTInvalidInput(
+                """At least one of the following arguments must be specified: C, land, 
+                water, rivers, borders, Q, or shorelines"""
+            )
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
