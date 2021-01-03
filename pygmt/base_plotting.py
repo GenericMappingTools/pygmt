@@ -1268,6 +1268,7 @@ class BasePlotting:
             [4\ **p**/-4\ **p**] and *shade* sets the fill style to use for
             shading [Default is gray50].
         margin : int or str or list
+
             This is clearance that is added around the inside of the inset.
             Plotting will take place within the inner region only. The margins
             can be a single value, a pair of values separated (for setting
@@ -1276,6 +1277,7 @@ class BasePlotting:
             margins). When passing multiple values, it can be either a list or
             a string with the values separated by forward
             slashes [Default is no margins].
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
