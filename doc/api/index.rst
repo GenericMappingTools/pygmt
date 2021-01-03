@@ -37,6 +37,8 @@ Plotting data and laying out the map:
     Figure.shift_origin
     Figure.text
     Figure.meca
+    Figure.inset_begin
+    Figure.inset_end
 
 Color palette table generation:
 
