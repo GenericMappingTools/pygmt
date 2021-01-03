@@ -14,7 +14,9 @@ def test_inset_aliases():
         region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a"
     )
     fig_ref.inset_begin(D="jTL+w3.5c+o0.2c", M=0, F="+pgreen")
-    fig_ref.coast(region="g", projection="G47/-20/4c", land="gray", water="white", E="MG+gred")
+    fig_ref.coast(
+        region="g", projection="G47/-20/4c", land="gray", water="white", E="MG+gred"
+    )
     fig_ref.inset_end()
     fig_test.coast(
         region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a"
