@@ -1216,6 +1216,7 @@ class BasePlotting:
             **+w**\ *width*\ [/*height*][**+j**\ *justify*]
             [**+o**\ *dx*\ [/*dy*]]
 
+            *This is a requirement parameter for inset_begin()*
             Define the map inset rectangle on the map. Specify the rectangle
             in one of three ways:
 
@@ -1251,9 +1252,10 @@ class BasePlotting:
             *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
             [[*dx*/*dy*/][*shade*]]]
 
-            Draws a rectangular border around the map inset using the default
-            pen; specify a different pen with **+p**\ *pen*. Add
-            **+g**\ *fill* to fill the logo  box [Default is no fill].
+            If passed ``True``, this draws a rectangular border around the map
+            inset using the default pen; specify a different pen
+            with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box
+            [Default is no fill].
             Append **+c**\ *clearance*  where *clearance* is either
             *gap*, *xgap*\ /\ *ygap*, or *lgap*\ /\ *rgap*\ /\ *bgap*\ /\
             *tgap* where these items are uniform, separate in x- and
