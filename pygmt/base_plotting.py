@@ -1214,6 +1214,38 @@ class BasePlotting:
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \| [**g**\|\ **j**\|\
             **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *width*\
             [/*height*][**+j**\ *justify*][**+o**\ *dx*\ [/*dy*]]
+            Define the map inset rectangle on the map. Specify the rectangle
+            in one of three ways:
+
+            Append **g**\ *lon*/*lat* for map (user) coordinates, **j**\ *code* or
+            **J**\ *code* for setting the *refpoint* via a 2-char justification code \
+            that refers to the (invisible) projected map bounding box,
+            **n**\ *xn*/*yn* for normalized (0-1) bounding box coordinates, or
+            **x**\ *x*/*y* for plot coordinates (inches, cm, points, append unit).
+            All but **x** requires both ``region`` and ``projection`` to be specified.
+            You can offset the reference point via **+o**\ *dx*/*dy* in the
+            direction implied by *code* or **+j**\ *justify*.
+
+            Alternatively, Give *west/east/south/north* of geographic rectangle
+            bounded by parallels and meridians; append **+r** if the coordinates
+            instead are the lower left and upper right corners of the desired
+            rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding rectangle in
+            projected coordinates and optionally append **+u**\ *unit*
+            [Default coordinate unit is meter (e)].
+            Append **+w**\ *width*\ [/*height*] of bounding rectangle or box in plot
+            coordinates (inches, cm, etc.). By default, the anchor point on the
+            scale is assumed to be the bottom left corner (BL), but this
+            can be changed by appending **+j** followed by a 2-char justification
+            code *justify* (see :doc:`text`).
+            **Note**: If **j** is used then *justify* defaults to the same
+            as *refpoint*, if **J** is used then *justify* defaults to the mirror
+            opposite of *refpoint*. Specify inset box attributes via the
+            ``border`` option [outline only].
+
+
+
+
+
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
