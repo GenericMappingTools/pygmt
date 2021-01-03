@@ -1208,14 +1208,15 @@ class BasePlotting:
 
         {aliases}
 
-        Required Parameter
-        ------------------
+        Parameters
+        ----------
         location : str or list
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \
             | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
             **+w**\ *width*\ [/*height*][**+j**\ *justify*]
             [**+o**\ *dx*\ [/*dy*]]
 
+            *This is the only required argument*
             Define the map inset rectangle on the map. Specify the rectangle
             in one of three ways:
 
@@ -1246,8 +1247,6 @@ class BasePlotting:
             as *refpoint*, if **J** is used then *justify* defaults to the
             mirror opposite of *refpoint*. Specify inset box attributes via
             the ``border`` option [outline only].
-        Optional Parameters
-        -------------------
         border : str or bool
             [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
             *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
