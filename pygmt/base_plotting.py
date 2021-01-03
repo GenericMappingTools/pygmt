@@ -1200,7 +1200,7 @@ class BasePlotting:
 
         This function create the location, frame, and margins for an inset
         figure. This function can only be called once the original figure is
-        created. Additional plotting functions are called afterwards to add to
+        created. Plotting functions that are called afterwards add to
         the inset figure. To stop adding to the inset figure and add to the
         original figure, use :meth:`pygmt.Figure.inset_end`.
 
