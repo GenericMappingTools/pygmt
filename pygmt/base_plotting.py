@@ -1270,7 +1270,6 @@ class BasePlotting:
             [4\ **p**/-4\ **p**] and *shade* sets the fill style to use for
             shading [Default is gray50].
         margin : int or str or list
-
             This is clearance that is added around the inside of the inset.
             Plotting will take place within the inner region only. The margins
             can be a single value, a pair of values separated (for setting
@@ -1290,8 +1289,21 @@ class BasePlotting:
         V="verbose",
     )
     def inset_end(self, **kwargs):
-        """
-        Function to end adding to the inset in a figure.
+        r"""
+        Stops plotting functions from applying to the inset portion of a
+        figure. This function is called after :meth:`pygmt.Figure.inset_begin`
+        and the plotting functions to add to the inset. Plotting functions
+        called after it will apply to the larger figure. This function is not
+        required if the inset if there are not further plotting functions
+        called.
+
+        Full option list at :gmt-docs:`inset.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
