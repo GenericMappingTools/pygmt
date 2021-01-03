@@ -1246,6 +1246,36 @@ class BasePlotting:
             as *refpoint*, if **J** is used then *justify* defaults to the
             mirror opposite of *refpoint*. Specify inset box attributes via
             the ``border`` option [outline only].
+        border : str or bool
+            [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
+            *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
+            [[*dx*/*dy*/][*shade*]]]
+
+            Draws a rectangular border around the map inset using the default
+            pen; specify a different pen with **+p**\ *pen*. Add
+            **+g**\ *fill* to fill the logo  box [Default is no fill].
+            Append **+c**\ *clearance*  where *clearance* is either
+            *gap*, *xgap*\ /\ *ygap*, or *lgap*\ /\ *rgap*\ /\ *bgap*\ /\
+            *tgap* where these items are uniform, separate in x- and
+            y-direction, or individual side spacings between logo and border.
+            Append **+i** to draw a secondary, inner border as well. We use a
+            uniform *gap* between borders of 2\ **p** and the default pen
+            unless other values are specified. Append **+r** to draw rounded
+            rectangular borders instead, with a 6\ **p** corner radius. You
+            can override this radius by appending another value. Append
+            **+s** to draw an offset background shaded region. Here, *dx*/*dy*
+            indicates the shift relative to the foreground frame
+            [4\ **p**/-4\ **p**] and *shade* sets the fill style to use for
+            shading [Default is gray50].
+        margin : int or str or list
+            This is clearance that is added around the inside of the inset.
+            Plotting will take place within the inner region only. The margins
+            can be a single value, a pair of values separated (for setting
+            separate horizontal and vertical margins), or the full set of four
+            margins (for setting separate left, right, bottom, and top
+            margins). When passing multiple values, it can be either a list or
+            a string with the values separated by forward
+            slashes [Default is no margins].
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
