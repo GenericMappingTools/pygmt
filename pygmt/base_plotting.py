@@ -114,9 +114,10 @@ class BasePlotting:
         lakes : str or list
             *fill*\ [**+l**\ |**+r**\ ]
             Set the shade, color, or pattern for lakes and river-lakes. The
-            default is the fill chosen for wet areas set by the ``water`` argument.
-            Optionally, specify separate fills by appending **+l** for lakes or
-            **+r** for river-lakes, and passing multiple strings in a list.
+            default is the fill chosen for wet areas set by the ``water``
+            argument. Optionally, specify separate fills by appending
+            **+l** for lakes or **+r** for river-lakes, and passing multiple
+            strings in a list.
         resolution : str
             Selects the resolution of the data set to use ((f)ull, (h)igh,
             (i)ntermediate, (l)ow, and (c)rude).
