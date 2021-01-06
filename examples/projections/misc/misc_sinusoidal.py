@@ -8,8 +8,10 @@ has been used since the mid-16th century. It has also been called the
 meridians are sinusoidal curves. Parallels are all equally spaced straight lines, with
 scale being true along all parallels (and central meridian).
 
-``I[central meridian]/width``: Give the optional central meridian (default is the center
-of the region) and the map width.
+**i**\ [*lon0/*]\ *scale* or **I**\ [*lon0/*]\ *width*
+
+The projection is set with **i** or **I**. The central meridian is set with the
+optional *lon0*, and the figure size is set with *scale* or *width*
 """
 import pygmt
 
