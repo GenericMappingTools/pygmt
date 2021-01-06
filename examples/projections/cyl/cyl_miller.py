@@ -11,7 +11,7 @@ singular poles; the result was then divided by 0.8.
 
 **j**\ [*lon0/*]\ */scale* or **J**\ [*lon0/*]\ */width*
 
-The projection is set with **y** or **Y**. The central meridian is set by the
+The projection is set with **j** or **J**. The central meridian is set by the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 """
 import pygmt
