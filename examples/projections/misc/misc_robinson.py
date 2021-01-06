@@ -10,8 +10,10 @@ the world map “look” right 22. The scale is true along latitudes 38. The pro
 originally developed for use by Rand McNally and is currently used by the
 National Geographic Society.
 
-``N[central meridian]/width``: Give the optional central meridian (default is the center
-of the region) and the map width.
+**n**\ [*lon0/*]\ *scale* or **N**\ [*lon0/*]\ *width*
+
+The projection is set with **n** or **N**. The central meridian is set with the
+optional *lon0*, and the figure size is set with *scale* or *width*
 """
 import pygmt
 
