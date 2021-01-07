@@ -8,8 +8,11 @@ distortion increases away from the central meridian and goes to infinity at 90°
 center. The central meridian, each meridian 90° away from the center, and equator are
 straight lines; other parallels and meridians are complex curves.
 
-``T[lon0/][lat0/]width``: Give central meridian ``lon0``, the latitude of the
-origin ``lat0`` (optional), and the figure width.
+**t**\ *lon0/*\ [*lat0/*\ ]\ *scale* or **T**\ *lon0/*\ [*lat0/*\ ]\ *width*
+
+The projection is set with **t** or **T**. The central meridian is set
+by  *lon0*, the latitude of the origin is set by the optional *lat0*, and the figure
+size is set with *scale* or *width*.
 """
 import pygmt
 
