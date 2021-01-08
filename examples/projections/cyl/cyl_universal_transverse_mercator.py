@@ -14,7 +14,10 @@ not a tangent projection like the transverse Mercator above. The scale only vari
 1 part in 1,000 from true scale at equator. The ellipsoidal projection expressions are
 accurate for map areas that extend less than 10 away from the central meridian.
 
-``U[UTM Zone/][lat0/]width``: Give UTM Zone ``UTM Zone``, and the figure width.
+**u**\ *zone/scale* or **U**\ *zone/width*
+
+the projection is set with **u** or **U**. *zone* sets the zone for the figure, and
+the figure size is set wtih *scale* or *width*.
 """
 import pygmt
 
