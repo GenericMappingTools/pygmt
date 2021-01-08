@@ -12,7 +12,7 @@ the name homalographic projection.
 **w**\ [*lon0/*]\ *scale* or **W**\ [*lon0/*]\ *width*
 
 The projection is set with **w** or **W**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*
+optional *lon0*, and the figure size is set with *scale* or *width*.
 """
 import pygmt
 

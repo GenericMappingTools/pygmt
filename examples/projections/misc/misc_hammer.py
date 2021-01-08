@@ -10,7 +10,7 @@ meridian are straight lines, while other parallels and meridians are complex cur
 **h**\ [*lon0/*]\ *scale* or **H**\ [*lon0/*]\ *width*
 
 The projection is set with **h** or **H**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*
+optional *lon0*, and the figure size is set with *scale* or *width*.
 """
 import pygmt
 

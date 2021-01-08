@@ -10,7 +10,7 @@ main use is to show the entire world enclosed in a circle.
 **v**\ [*lon0/*]\ *scale* or **V**\ [*lon0/*]\ *width*
 
 The projection is set with **v** or **V**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*
+optional *lon0*, and the figure size is set with *scale* or *width*.
 """
 import pygmt
 

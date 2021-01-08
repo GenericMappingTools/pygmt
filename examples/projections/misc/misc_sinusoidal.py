@@ -11,7 +11,7 @@ scale being true along all parallels (and central meridian).
 **i**\ [*lon0/*]\ *scale* or **I**\ [*lon0/*]\ *width*
 
 The projection is set with **i** or **I**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*
+optional *lon0*, and the figure size is set with *scale* or *width*.
 """
 import pygmt
 
