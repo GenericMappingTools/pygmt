@@ -7,8 +7,10 @@ Eckert-Greiffendorff in 1906, is a pseudo-cylindrical equal-area projection. Cen
 meridian and all parallels are straight lines; other meridians are equally spaced
 elliptical arcs. The scale is true along latitude 40°30’.
 
-``Kf[central meridian]/width``: Give the optional central meridian (default is the
-center of the region) and the map width.
+**kf**\ [*lon0/*]\ *scale* or **Kf**\ [*lon0/*]\ *width*
+
+The projection is set with **kf** or **Kf**. The central meridian is set with the
+optional *lon0*, and the figure size is set with *scale* or *width*.
 """
 import pygmt
 
