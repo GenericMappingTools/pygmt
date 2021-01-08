@@ -1,4 +1,4 @@
-"""
+r"""
 General Perspective
 ===================
 
@@ -6,16 +6,19 @@ The general perspective projection imitates the view of the Earth from a finite
 point in space. In a full view of the earth one third of its surface area can
 be seen.
 
-``lon0/lat0/altitude/azimuth/tilt/twist/Width/Height/scale`` or ``width``
+**g**\ *lon0/lat0*\ */altitude*\ */azimuth*\ */tilt*\ */twist*\ */Width*\ */Height*\ */scale*
+or **G**\ *lon0/lat0*\ */altitude*\ */azimuth*\ */tilt*\ */twist*\ */Width*\ */Height*\ */width*
 
-``lon0/lat0`` specifies the projection center, ``altitude`` the height
+The projection type is set with **g** or **G**.
+*lon0/lat0* specifies the projection center and *altitude* sets the height
 in km of the viewpoint above local sea level (If altitude is less than 10,
 then it is the distance from the center of the earth to the viewpoint in earth
-radii). With ``azimuth`` the direction (in degrees) in which you are looking is
-specified, measured clockwise from north. ``tilt`` is given in degrees and is the
+radii). With *azimuth* the direction (in degrees) in which you are looking is
+specified, measured clockwise from north. *tilt* is given in degrees and is the
 viewing angle relative to zenith. A tilt of 0° is looking straight down, 60° is
-looking 30° above horizon. ``twist`` is the clockwise rotation of the image (in
-degrees). ``Width`` and ``Height`` describe the viewport angle in degrees.
+looking 30° above horizon. *twist* is the clockwise rotation of the image (in
+degrees). *Width* and *Height* describe the viewport angle in degrees, and *scale*
+or *width* determine the size of the figure.
 
 The example shows the coast of northern europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the

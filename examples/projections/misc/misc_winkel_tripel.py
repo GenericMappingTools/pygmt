@@ -16,8 +16,10 @@ obtained by averaging the coordinates of the Equidistant Cylindrical and Aitoff
 (not Hammer-Aitoff) projections. The poles map into straight lines 0.4 times the
 length of equator.
 
-``R[central meridian]/width``: Give the optional central meridian (default is the center
-of the region) and the map width.
+**r**\ [*lon0/*]\ *scale* or **R**\ [*lon0/*]\ *width*
+
+The projection is set with **r** or **R**. The central meridian is set with the
+optional *lon0*, and the figure size is set with *scale* or *width*.
 """
 import pygmt
 
