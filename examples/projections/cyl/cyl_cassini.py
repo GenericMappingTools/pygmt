@@ -11,7 +11,10 @@ meridian. It is best suited for mapping regions of north-south extent. The centr
 meridian, each meridian 90° away, and equator are straight lines; all other meridians
 and parallels are complex curves.
 
-``Clon0/lat0/width``: ``lon0`` and ``lat0`` specifies the projection center.
+**c**\ *lon0/lat0*\ */scale* or **C**\ *lon0/lat0*\ */width*
+
+The projection is set with **c** or **C**. The projection center is set by *lon0/lat0*,
+and the figure size is set with *scale* or *width*.
 """
 import pygmt
 
