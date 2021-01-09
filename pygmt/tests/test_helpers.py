@@ -92,11 +92,15 @@ def test_gmttempfile_read():
         assert tmpfile.read(keep_tabs=True) == "in.dat: N = 2\t<1/3>\t<2/4>\n"
 
 def test_args_in_kwargs():
+    "Test that args_in_kwargs function returns correct Boolean responses."
     kwargs = {"A":1, "B":2, "C":3}
+    # Passing list of arguments with passing values in the beginning
     passing_args_1 = ["B", "C", "D"]
-    passing_args_2 = ["D", "X", "C"]
     assert args_in_kwargs(args=passing_args_1, kwargs=kwargs) == True
+    # Passing list of arguments that starts with failing arguments
+    passing_args_2 = ["D", "X", "C"]
     assert args_in_kwargs(args=passing_args_2, kwargs=kwargs) == True
+    # Failing list of arguments
     failing_args = ["D", "E", "F"]
     assert args_in_kwargs(args=failing_args, kwargs=kwargs) == False
 
