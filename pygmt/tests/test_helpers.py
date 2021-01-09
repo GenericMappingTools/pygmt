@@ -6,7 +6,13 @@ import os
 import numpy as np
 import pytest
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind, kwargs_to_strings, unique_name, args_in_kwargs
+from pygmt.helpers import (
+    GMTTempFile,
+    args_in_kwargs,
+    data_kind,
+    kwargs_to_strings,
+    unique_name,
+)
 
 
 @pytest.mark.parametrize(
@@ -91,9 +97,10 @@ def test_gmttempfile_read():
         assert tmpfile.read() == "in.dat: N = 2 <1/3> <2/4>\n"
         assert tmpfile.read(keep_tabs=True) == "in.dat: N = 2\t<1/3>\t<2/4>\n"
 
+
 def test_args_in_kwargs():
     "Test that args_in_kwargs function returns correct Boolean responses."
-    kwargs = {"A":1, "B":2, "C":3}
+    kwargs = {"A": 1, "B": 2, "C": 3}
     # Passing list of arguments with passing values in the beginning
     passing_args_1 = ["B", "C", "D"]
     assert args_in_kwargs(args=passing_args_1, kwargs=kwargs) == True
@@ -103,5 +110,3 @@ def test_args_in_kwargs():
     # Failing list of arguments
     failing_args = ["D", "E", "F"]
     assert args_in_kwargs(args=failing_args, kwargs=kwargs) == False
-
-

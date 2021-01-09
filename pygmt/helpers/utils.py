@@ -221,6 +221,7 @@ def launch_external_viewer(fname):
     else:
         webbrowser.open_new_tab("file://{}".format(fname))
 
+
 def args_in_kwargs(args, kwargs):
     """
     Take a list and a dictionary, and determine if any entries in the list are
@@ -238,6 +239,7 @@ def args_in_kwargs(args, kwargs):
         The dictionary of kwargs is the  format returned by the _preprocess
         function in BasePlotting in base_plotting.py. The keys are the GMT
         short aliases of the parameters.
+
     """
     for arg in args:
         if arg in list(kwargs.keys()):
