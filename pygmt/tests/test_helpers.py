@@ -103,10 +103,10 @@ def test_args_in_kwargs():
     kwargs = {"A": 1, "B": 2, "C": 3}
     # Passing list of arguments with passing values in the beginning
     passing_args_1 = ["B", "C", "D"]
-    assert args_in_kwargs(args=passing_args_1, kwargs=kwargs) == True
+    assert args_in_kwargs(args=passing_args_1, kwargs=kwargs)
     # Passing list of arguments that starts with failing arguments
     passing_args_2 = ["D", "X", "C"]
-    assert args_in_kwargs(args=passing_args_2, kwargs=kwargs) == True
+    assert args_in_kwargs(args=passing_args_2, kwargs=kwargs)
     # Failing list of arguments
     failing_args = ["D", "E", "F"]
-    assert args_in_kwargs(args=failing_args, kwargs=kwargs) == False
+    assert not args_in_kwargs(args=failing_args, kwargs=kwargs)
