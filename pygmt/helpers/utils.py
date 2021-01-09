@@ -220,3 +220,9 @@ def launch_external_viewer(fname):
         subprocess.run(["open", fname], check=False, **run_args)
     else:
         webbrowser.open_new_tab("file://{}".format(fname))
+
+def args_in_kwargs(args, kwargs):
+    for arg in args:
+        if arg in list(kwargs.keys()):
+            return True
+    return False
