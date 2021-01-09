@@ -222,6 +222,23 @@ def launch_external_viewer(fname):
         webbrowser.open_new_tab("file://{}".format(fname))
 
 def args_in_kwargs(args, kwargs):
+    """
+    Take a list and a dictionary, and determine if any entries in the list are
+    keys in the dictionary.
+
+    This function is used to determine if one of the required arguments is
+    passed to raise a GMTInvalidInput Error.
+
+    Parameters
+    ----------
+    args : list
+        List of required arguments, using the GMT short aliases.
+
+    kwargs : dict
+        The dictionary of kwargs is the  format returned by the _preprocess
+        function in BasePlotting in base_plotting.py. The keys are the GMT
+        short aliases of the parameters.
+    """
     for arg in args:
         if arg in list(kwargs.keys()):
             return True
