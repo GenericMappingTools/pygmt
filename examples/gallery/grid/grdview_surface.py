@@ -12,8 +12,8 @@ axis scaling. The ``shading`` argument specifies illumination; here we choose an
 45° with ``shading="+a45"``.
 """
 
-import pygmt
 import numpy as np
+import pygmt
 import xarray as xr
 
 

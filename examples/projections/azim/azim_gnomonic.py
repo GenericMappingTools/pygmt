@@ -1,4 +1,4 @@
-"""
+r"""
 Gnomonic
 ========
 
@@ -10,10 +10,13 @@ distortion increases greatly with distance to the projection center. It follows
 that the scope of application is restricted to a small area around the
 projection center (at a maximum of 60°).
 
-``flon0/lat0[/horizon]/scale`` or ``Flon0/lat0[/horizon]/width``
+**f**\ *lon0/lat0*\ [*/horizon*\ ]\ */scale*
+or **F**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*
 
-``lon0/lat0`` specify the projection center, the optional parameter ``horizon``
-specifies the max distance from projection center (in degrees, < 90, default 60).
+**f** or **F** specifies the projection type, *lon0/lat0* specifies the projection
+center, the optional parameter *horizon* specifies the max distance from projection
+center (in degrees, < 90, default 60), and *scale* or *width* sets the size of the
+figure.
 """
 import pygmt
 

@@ -5,13 +5,16 @@ Sphinx documentation configuration file.
 # pylint: disable=invalid-name
 
 import datetime
+
+# isort: off
 from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
-    FileNameSortKey,
     ExplicitOrder,
+    FileNameSortKey,
 )
-from pygmt import __version__, __commit__
+from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
 
+# isort: on
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -69,6 +72,7 @@ sphinx_gallery_conf = {
             "../examples/projections/cyl",
             "../examples/projections/misc",
             "../examples/projections/nongeo",
+            "../examples/projections/table",
         ]
     ),
     # Patter to search for example files

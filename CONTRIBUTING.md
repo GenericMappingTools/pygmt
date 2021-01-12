@@ -245,7 +245,12 @@ directory).
 
 ### Code style
 
-We use [Black](https://github.com/ambv/black) and [blackdoc](https://github.com/keewis/blackdoc)
+We use some tools:
+
+- [Black](https://github.com/ambv/black)
+- [blackdoc](https://github.com/keewis/blackdoc)
+- [isort](https://pycqa.github.io/isort/)
+
 to format the code so we don't have to think about it.
 Black loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
 Regardless, you won't have to worry about formatting the code yourself.
@@ -255,6 +260,8 @@ Before committing, run it to automatically format your code:
 make format
 ```
 
+For consistency, we also use UNIX-style line endings (`\n`) and file permission
+644 (`-rw-r--r--`) throughout the whole project.
 Don't worry if you forget to do it. Our continuous integration systems will
 warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
@@ -266,7 +273,7 @@ common errors.
 The [`Makefile`](Makefile) contains rules for running both checks:
 
 ```bash
-make check   # Runs flake8, black and blackdoc (in check mode)
+make check   # Runs flake8, black, blackdoc and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
@@ -311,11 +318,11 @@ Leave a comment in the PR and we'll help you out.
 
 You can also run tests in just one test script using:
 
-    pytest --verbose --mpl --mpl-results-path=results --doctest-modules pygmt/tests/NAME_OF_TEST_FILE.py
+    pytest pygmt/tests/NAME_OF_TEST_FILE.py
 
 or run tests which contain names that match a specific keyword expression:
 
-    pytest --verbose --mpl --mpl-results-path=results --doctest-modules -k KEYWORD pygmt/tests
+    pytest -k KEYWORD pygmt/tests
 
 ### Testing plots
 

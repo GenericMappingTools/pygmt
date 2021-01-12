@@ -11,7 +11,6 @@ automatically downloaded and saved to a cache directory the first time you use t
 
 import pygmt
 
-
 ########################################################################################
 # For example, let's load the sample dataset of tsunami generating earthquakes around
 # Japan (:func:`pygmt.datasets.load_japan_quakes`). The data is loaded as a
