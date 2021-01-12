@@ -240,6 +240,10 @@ def args_in_kwargs(args, kwargs):
         function in BasePlotting in base_plotting.py. The keys are the GMT
         short aliases of the parameters.
 
+   Returns
+   --------
+   bool 
+       If one of the required arguments is in `kwargs`.
     """
     for arg in args:
         if arg in list(kwargs.keys()):
