@@ -147,7 +147,7 @@ class BasePlotting:
             To select a state of a country (if available), append
             .*state*, (e.g, US.TX for Texas).  To specify a whole continent, prepend = to
             any of the continent codes (e.g. =EU for Europe).
-            Append **+p**pen to draw polygon outlines (default is no outline)
+            Append **+p**\ *pen* to draw polygon outlines (default is no outline)
             and **+g**fill to fill them (default is no fill). Append **+l**|**+L**
             to *=continent* to only list countries in that continent; repeat if more
             than one continent is requested. Append **+z** to place the country code in
