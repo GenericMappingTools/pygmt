@@ -245,7 +245,4 @@ def args_in_kwargs(args, kwargs):
    bool 
        If one of the required arguments is in `kwargs`.
     """
-    for arg in args:
-        if arg in kwargs.keys():
-            return True
-    return False
+    return any(arg in kwargs for arg in args)
