@@ -246,6 +246,6 @@ def args_in_kwargs(args, kwargs):
        If one of the required arguments is in `kwargs`.
     """
     for arg in args:
-        if arg in list(kwargs.keys()):
+        if arg in kwargs.keys():
             return True
     return False
