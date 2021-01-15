@@ -227,7 +227,7 @@ def args_in_kwargs(args, kwargs):
     Take a list and a dictionary, and determine if any entries in the list are
     keys in the dictionary.
 
-    This function is used to determine if one of the required arguments is
+    This function is used to determine if at least one of the required arguments is
     passed to raise a GMTInvalidInput Error.
 
     Parameters
