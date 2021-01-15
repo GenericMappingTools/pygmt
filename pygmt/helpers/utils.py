@@ -237,7 +237,7 @@ def args_in_kwargs(args, kwargs):
 
     kwargs : dict
         The dictionary of kwargs is the  format returned by the _preprocess
-        function in BasePlotting in base_plotting.py. The keys are the GMT
+        function of the BasePlotting class. The keys are the GMT
         short-form aliases of the parameters.
 
    Returns
