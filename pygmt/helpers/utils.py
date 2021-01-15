@@ -243,6 +243,6 @@ def args_in_kwargs(args, kwargs):
     Returns
     --------
     bool
-        If one of the required arguments is in `kwargs`.
+        If one of the required arguments is in ``kwargs``.
     """
     return any(arg in kwargs for arg in args)
