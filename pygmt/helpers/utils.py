@@ -224,21 +224,21 @@ def launch_external_viewer(fname):
 
 def args_in_kwargs(args, kwargs):
     """
-     Take a list and a dictionary, and determine if any entries in the list are
-     keys in the dictionary.
+    Take a list and a dictionary, and determine if any entries in the list are
+    keys in the dictionary.
 
-     This function is used to determine if at least one of the required arguments is
-     passed to raise a GMTInvalidInput Error.
+    This function is used to determine if at least one of the required arguments is
+    passed to raise a GMTInvalidInput Error.
 
-     Parameters
-     ----------
-     args : list
-         List of required arguments, using the GMT short-form aliases.
+    Parameters
+    ----------
+    args : list
+        List of required arguments, using the GMT short-form aliases.
 
-     kwargs : dict
-         The dictionary of kwargs is the format returned by the _preprocess
-         function of the BasePlotting class. The keys are the GMT
-         short-form aliases of the parameters.
+    kwargs : dict
+        The dictionary of kwargs is the format returned by the _preprocess
+        function of the BasePlotting class. The keys are the GMT
+        short-form aliases of the parameters.
 
     Returns
     --------
