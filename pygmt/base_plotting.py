@@ -141,15 +141,7 @@ class BasePlotting:
 
         """
         kwargs = self._preprocess(**kwargs)
-        if not (
-            "C" in kwargs
-            or "G" in kwargs
-            or "S" in kwargs
-            or "I" in kwargs
-            or "N" in kwargs
-            or "Q" in kwargs
-            or "W" in kwargs
-        ):
+        if not any(arg in kwargs for arg in ["C", "G", "S", "I", "N", "Q", "W"]):
             raise GMTInvalidInput(
                 """At least one of the following arguments must be specified:
                 C, land, water, rivers, borders, Q, or shorelines"""
