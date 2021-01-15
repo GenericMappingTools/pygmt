@@ -233,7 +233,7 @@ def args_in_kwargs(args, kwargs):
     Parameters
     ----------
     args : list
-        List of required arguments, using the GMT short aliases.
+        List of required arguments, using the GMT short-form aliases.
 
     kwargs : dict
         The dictionary of kwargs is the  format returned by the _preprocess
