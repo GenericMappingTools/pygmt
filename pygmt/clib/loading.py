@@ -6,9 +6,9 @@ through the GMT_LIBRARY_PATH environment variable.
 """
 import ctypes
 import os
+import subprocess as sp
 import sys
 from ctypes.util import find_library
-import subprocess as sp
 
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
@@ -33,9 +33,10 @@ def load_libgmt():
         couldn't access the functions).
 
     """
-    lib_fullnames = clib_full_names()
+    lib_fullnames = []
     error = True
-    for libname in lib_fullnames:
+    for libname in clib_full_names():
+        lib_fullnames.append(libname)
         try:
             libgmt = ctypes.CDLL(libname)
             check_libgmt(libgmt)
@@ -100,22 +101,20 @@ def clib_full_names(env=None):
         env = os.environ
 
     libnames = clib_names(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
+    libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
 
     # list of libraries paths to search, sort by priority from high to low
-    lib_fullnames = []
-
     # Search for libraries in GMT_LIBRARY_PATH if defined.
-    libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
     if libpath:
         for libname in libnames:
-            lib_fullnames.append(os.path.join(libpath, libname))
+            yield os.path.join(libpath, libname)
 
     # Search for the library returned by command "gmt --show-library"
     try:
         lib_fullpath = sp.check_output(
             ["gmt", "--show-library"], encoding="utf-8"
         ).rstrip("\n")
-        lib_fullnames.append(lib_fullpath)
+        yield lib_fullpath
     except FileNotFoundError:  # command not found
         pass
 
@@ -124,12 +123,11 @@ def clib_full_names(env=None):
         for libname in libnames:
             libfullpath = find_library(libname)
             if libfullpath:
-                lib_fullnames.append(libfullpath)
+                yield libfullpath
 
     # Search for library names in the system default path [the lowest priority]
-    lib_fullnames.extend(libnames)
-
-    return lib_fullnames
+    for libname in libnames:
+        yield libname
 
 
 def check_libgmt(libgmt):
