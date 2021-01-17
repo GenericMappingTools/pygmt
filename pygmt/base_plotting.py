@@ -2050,7 +2050,7 @@ class BasePlotting:
              by the radial gridline spacing.
 
         scale : float or str
-             Multiply the data radii by scale. E.g., use ```scale = 0.001`` to
+             Multiply the data radii by scale. E.g., use ``scale = 0.001`` to
              convert your data from m to km. To exclude the radii from
              consideration, set them all to unity with ``scale = 'u'`` [Default
              is no scaling].
@@ -2071,16 +2071,16 @@ class BasePlotting:
 
         pen : str
             Set pen attributes for sector outline or rose plot, e.g.
-            ``pen = "0.5p"``. [Default is no outline]. To change pen used to
+            ``pen = '0.5p'``. [Default is no outline]. To change pen used to
             draw vector (requires **plot_vectors**) [Default is same as sector
-            outline] use e.g. ``pen = "v0.5p"``.
+            outline] use e.g. ``pen = 'v0.5p'``.
 
         labels : str
-             ``"wlabel,elabel,slabel,nlabel"``. Specify labels for the 0, 90,
+             ``'wlabel,elabel,slabel,nlabel'``. Specify labels for the 0, 90,
              180, and 270 degree marks. For full-circle plot the default is
              WEST,EAST,SOUTH,NORTH and for half-circle the default is
              90W,90E,-,0. A **-** in any entry disables that label
-             (e.g. ``labels = "W,E,-,N"``). Use (``labels = ""``) to disable
+             (e.g. ``labels = 'W,E,-,N'``). Use (``labels = ''``) to disable
              all four labels. Note that the *GMT_LANGUAGE* setting will
              affect the  words used.
 
