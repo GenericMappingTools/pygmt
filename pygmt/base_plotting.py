@@ -1962,13 +1962,12 @@ class BasePlotting:
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("meca", arg_str)
-                
-  
+
     @fmt_docstring
     @use_alias(
         A="sector_width",
         B="frame",
-        C="cmap", 
+        C="cmap",
         D="shift_sectors",
         Em="plot_vectors",
         F="no_scalebar",
@@ -1989,153 +1988,152 @@ class BasePlotting:
         Z="scale",
         i="columns",
         p="perspective",
-        t="transparency"
+        t="transparency",
     )
-    
     @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
     def rose(self, data=None, **kwargs):
-        """  
-        Plot windrose diagram or polar histogram (sector diagram or rose 
-        diagram) based on length-azimuth data pairs. Options include full 
-        circle and half circle plots. The outline of the windrose is drawn 
-        with the same color as *MAP_DEFAULT_PEN* (see 
+        """
+        Plot windrose diagram or polar histogram (sector diagram or rose
+        diagram) based on length-azimuth data pairs. Options include full
+        circle and half circle plots. The outline of the windrose is drawn
+        with the same color as *MAP_DEFAULT_PEN* (see
         :gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
-        
+
         Full option list at :gmt-docs:`rose.html`
-        
+
         {aliases}
 
         Parameters
         ----------
-   
+
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
-            Use option *columns* (i) to choose which columns are length and 
-            azimuth, respectively. If a file with only azimuths are given, 
-            use **columns** to indicate the single column with azimuths; then 
-            all lengths are set to unity (see ``scale = 'u'`` to set actual 
-            lengths to unity as well).   
-        
+            Use option *columns* (i) to choose which columns are length and
+            azimuth, respectively. If a file with only azimuths are given,
+            use **columns** to indicate the single column with azimuths; then
+            all lengths are set to unity (see ``scale = 'u'`` to set actual
+            lengths to unity as well).
+
         orient_data : bool
-            Specifies that the input data are orientation data (i.e., have a 
-            180 degree ambiguity) instead of true 0-360 degree directions 
-            [Default]. We compensate by counting each record twice: First as 
-            azimuth and second as azimuth +180. Ignored if range is given as 
+            Specifies that the input data are orientation data (i.e., have a
+            180 degree ambiguity) instead of true 0-360 degree directions
+            [Default]. We compensate by counting each record twice: First as
+            azimuth and second as azimuth +180. Ignored if range is given as
             -90/90 or 0/180.
-              
-        region : str or list    
-            *Required if this is the first plot command*. ``'r0/r1/az0/az1'``. 
-            Specifies the ‘region’ of interest in (*r*,*azimuth*) space. Here, 
-            *r0* is 0, *r1* is max length in units. For *az0* and *az1*, 
-            specify either -90/90 or 0/180 for half circle plot or 0/360 for 
+
+        region : str or list
+            *Required if this is the first plot command*. ``'r0/r1/az0/az1'``.
+            Specifies the ‘region’ of interest in (*r*,*azimuth*) space. Here,
+            *r0* is 0, *r1* is max length in units. For *az0* and *az1*,
+            specify either -90/90 or 0/180 for half circle plot or 0/360 for
             full circle.
-   
+
         diameter : str
-             Sets the diameter of the rose diagram. Only this form of the 
-             projection machinery is supported for this module. If not given, 
+             Sets the diameter of the rose diagram. Only this form of the
+             projection machinery is supported for this module. If not given,
              then we default to a diameter of 7.5 cm.
 
         sector_width : str
-             Gives the sector width in degrees for sector and rose diagram. 
-             Default ``'0'`` means windrose diagram. Append *r* to draw rose 
+             Gives the sector width in degrees for sector and rose diagram.
+             Default ``'0'`` means windrose diagram. Append *r* to draw rose
              diagram instead of sector diagram (e.g. ``'10r'``).
-                          
+
         norm : bool
-             Normalize input radii (or bin counts if **sector_width** is used) 
-             by the largest value so all radii (or bin counts) range from 0 
+             Normalize input radii (or bin counts if **sector_width** is used)
+             by the largest value so all radii (or bin counts) range from 0
              to 1.
-             
-        frame : str 
-             Set map boundary frame and axes attributes. Remember that *x* 
-             here is radial distance and *y* is azimuth. The ylabel may be 
-             used to plot a figure caption. The scale bar length is determined 
+
+        frame : str
+             Set map boundary frame and axes attributes. Remember that *x*
+             here is radial distance and *y* is azimuth. The ylabel may be
+             used to plot a figure caption. The scale bar length is determined
              by the radial gridline spacing.
 
         scale : float or str
-             Multiply the data radii by scale. E.g., use ```scale = 0.001`` to 
-             convert your data from m to km. To exclude the radii from 
-             consideration, set them all to unity with ``scale = 'u'`` [Default 
+             Multiply the data radii by scale. E.g., use ```scale = 0.001`` to
+             convert your data from m to km. To exclude the radii from
+             consideration, set them all to unity with ``scale = 'u'`` [Default
              is no scaling].
- 
-        columns : str or 1d array 
-             Select input columns and transformations. E.g. choose 
-             ``columns = [1, 0]`` or ``columns = '1,0'`` if the length values 
-             are stored in the second column and the direction (azimuth) 
-             values in the first one. Note: zero-based indexing is used.  
-              
+
+        columns : str or 1d array
+             Select input columns and transformations. E.g. choose
+             ``columns = [1, 0]`` or ``columns = '1,0'`` if the length values
+             are stored in the second column and the direction (azimuth)
+             values in the first one. Note: zero-based indexing is used.
+
         color : str
-             Selects shade, color or pattern for filling the sectors. Default 
-             is no fill.     
-             
+             Selects shade, color or pattern for filling the sectors. Default
+             is no fill.
+
         cmap : str
-            Give a CPT. The *r*-value for each sector is used to look-up the 
-            sector color. Cannot be used with a rose diagram. 
-            
+            Give a CPT. The *r*-value for each sector is used to look-up the
+            sector color. Cannot be used with a rose diagram.
+
         pen : str
-            Set pen attributes for sector outline or rose plot, e.g. 
-            ``pen = "0.5p"``. [Default is no outline]. To change pen used to 
-            draw vector (requires **plot_vectors**) [Default is same as sector 
+            Set pen attributes for sector outline or rose plot, e.g.
+            ``pen = "0.5p"``. [Default is no outline]. To change pen used to
+            draw vector (requires **plot_vectors**) [Default is same as sector
             outline] use e.g. ``pen = "v0.5p"``.
-        
+
         labels : str
-             ``"wlabel,elabel,slabel,nlabel"``. Specify labels for the 0, 90, 
-             180, and 270 degree marks. For full-circle plot the default is 
-             WEST,EAST,SOUTH,NORTH and for half-circle the default is 
-             90W,90E,-,0. A **-** in any entry disables that label 
-             (e.g. ``labels = "W,E,-,N"``). Use (``labels = ""``) to disable 
-             all four labels. Note that the *GMT_LANGUAGE* setting will 
+             ``"wlabel,elabel,slabel,nlabel"``. Specify labels for the 0, 90,
+             180, and 270 degree marks. For full-circle plot the default is
+             WEST,EAST,SOUTH,NORTH and for half-circle the default is
+             90W,90E,-,0. A **-** in any entry disables that label
+             (e.g. ``labels = "W,E,-,N"``). Use (``labels = ""``) to disable
+             all four labels. Note that the *GMT_LANGUAGE* setting will
              affect the  words used.
-        
+
         no_scalebar : bool
-             Do NOT draw the scale length bar (``no_scalebar = True``). 
-             Default plots scale in lower right corner provided **frame** 
+             Do NOT draw the scale length bar (``no_scalebar = True``).
+             Default plots scale in lower right corner provided **frame**
              is used.
-             
+
         shift_sectors : bool
-             Shift sectors so that they are centered on the bin interval 
+             Shift sectors so that they are centered on the bin interval
              (e.g., first sector is centered on 0 degrees).
-             
-        plot_vectors : str  
-              ``plot_vectors = 'mode_file'``. Plot vectors showing the 
-              principal directions given in the *mode_file* file. 
-              Alternatively, specify **plot_vectors** to compute and plot 
-              mean direction. See **vector_params** to control the vector 
-              attributes. Finally, to instead save the computed mean 
-              direction and other statistics, use 
-              ``plot_vectors = '+wmode_file'``. The eight items saved to 
-              a single record are: *mean_az*, *mean_r*, *mean_resultant*, 
-              *max_r*, *scaled_mean_r*, *length_sum*, *n*, *sign@alpha*, 
-              where the last term is 0 or 1 depending on whether the mean 
-              resultant is significant at the level of confidence set via 
+
+        plot_vectors : str
+              ``plot_vectors = 'mode_file'``. Plot vectors showing the
+              principal directions given in the *mode_file* file.
+              Alternatively, specify **plot_vectors** to compute and plot
+              mean direction. See **vector_params** to control the vector
+              attributes. Finally, to instead save the computed mean
+              direction and other statistics, use
+              ``plot_vectors = '+wmode_file'``. The eight items saved to
+              a single record are: *mean_az*, *mean_r*, *mean_resultant*,
+              *max_r*, *scaled_mean_r*, *length_sum*, *n*, *sign@alpha*,
+              where the last term is 0 or 1 depending on whether the mean
+              resultant is significant at the level of confidence set via
               **conf_level**.
-              
-        vector_params : str  
-            Used with **plot_vectors** to modify vector parameters. For 
-            vector heads, append vector head size [Default is 0, i.e., a 
-            line]. See VECTOR ATTRIBUTES under :gmt-docs:`rose.html` for 
-            specifying additional attributes. If **plot_vectors** is not 
-            given and the current plot mode is to draw a windrose diagram 
-            then using **vector_params** will add vector heads to all 
+
+        vector_params : str
+            Used with **plot_vectors** to modify vector parameters. For
+            vector heads, append vector head size [Default is 0, i.e., a
+            line]. See VECTOR ATTRIBUTES under :gmt-docs:`rose.html` for
+            specifying additional attributes. If **plot_vectors** is not
+            given and the current plot mode is to draw a windrose diagram
+            then using **vector_params** will add vector heads to all
             individual directions using the supplied attributes.
-              
-        conf_level : float or str 
-            Sets the confidence level used to determine if the mean 
-            resultant is significant (i.e., Lord Rayleigh test for 
-            uniformity) [``conf_level = 0.05``]. Note: The critical 
-            values are approximated [Berens, 2009] and requires at 
-            least 10 points; the critical resultants are accurate to at 
-            least 3 significant digits. For smaller data sets you 
+
+        conf_level : float or str
+            Sets the confidence level used to determine if the mean
+            resultant is significant (i.e., Lord Rayleigh test for
+            uniformity) [``conf_level = 0.05``]. Note: The critical
+            values are approximated [Berens, 2009] and requires at
+            least 10 points; the critical resultants are accurate to at
+            least 3 significant digits. For smaller data sets you
             should consult exact statistical tables.
-            
-            Berens, P., 2009, CircStat: A MATLAB Toolbox for Circular 
-            Statistics, *J. Stat. Software*, 31(10), 1-21, 
-            10.18637/jss.v031.i10. 
-            
-        inquire : 
-            Inquire. Computes statistics needed to specify a useful 
-            **frame**. No plot is generated. The following statistics 
-            are written to stdout: *n*, *mean az*, *mean r*, *mean 
-            resultant length*, *max bin sum*, *scaled mean*, and 
+
+            Berens, P., 2009, CircStat: A MATLAB Toolbox for Circular
+            Statistics, *J. Stat. Software*, 31(10), 1-21,
+            10.18637/jss.v031.i10.
+
+        inquire :
+            Inquire. Computes statistics needed to specify a useful
+            **frame**. No plot is generated. The following statistics
+            are written to stdout: *n*, *mean az*, *mean r*, *mean
+            resultant length*, *max bin sum*, *scaled mean*, and
             *linear length sum*.
 
         {U}
@@ -2169,5 +2167,3 @@ class BasePlotting:
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("rose", arg_str)
-                
-                
