@@ -9,7 +9,10 @@ Mercator and other cylindrical projections. Specifically, Miller spaced the para
 by using Mercator’s formula with 0.8 times the actual latitude, thus avoiding the
 singular poles; the result was then divided by 0.8.
 
-``J[lon0/]width``: Give the optional central meridian ``lon0`` and the figure ``width``.
+**j**\ [*lon0/*]\ */scale* or **J**\ [*lon0/*]\ */width*
+
+The projection is set with **j** or **J**. The central meridian is set by the
+optional *lon0*, and the figure size is set with *scale* or *width*.
 """
 import pygmt
 
