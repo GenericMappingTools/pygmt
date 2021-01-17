@@ -1991,7 +1991,7 @@ class BasePlotting:
         t="transparency",
     )
     @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
-    def rose(self, data=None, **kwargs):
+    def rose(self, length=None, azimuth=None, data=None, **kwargs):
         """
         Plot windrose diagram or polar histogram (sector diagram or rose
         diagram) based on length-azimuth data pairs. Options include full
@@ -2005,6 +2005,10 @@ class BasePlotting:
 
         Parameters
         ----------
+        
+        length/azimuth : float or 1d arrays  
+            The length and azimuth values, or arrays of length and azimuth 
+            values 
 
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
@@ -2146,7 +2150,7 @@ class BasePlotting:
 
         kwargs = self._preprocess(**kwargs)
 
-        kind = data_kind(data)
+        kind = data_kind(data, length, azimuth)
 
         extra_arrays = []
         if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
@@ -2161,7 +2165,7 @@ class BasePlotting:
                 file_context = lib.virtualfile_from_matrix(data)
             elif kind == "vectors":
                 file_context = lib.virtualfile_from_vectors(
-                    np.atleast_1d(x), np.atleast_1d(y), *extra_arrays
+                    np.atleast_1d(length), np.atleast_1d(azimuth), *extra_arrays
                 )
 
             with file_context as fname:
