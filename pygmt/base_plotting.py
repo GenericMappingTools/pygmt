@@ -2080,7 +2080,7 @@ class BasePlotting:
              180, and 270 degree marks. For full-circle plot the default is
              WEST,EAST,SOUTH,NORTH and for half-circle the default is
              90W,90E,-,0. A **-** in any entry disables that label
-             (e.g. ``labels = 'W,E,-,N'``). Use (``labels = ''``) to disable
+             (e.g. ``labels = 'W,E,-,N'``). Use ``labels = ''`` to disable
              all four labels. Note that the *GMT_LANGUAGE* setting will
              affect the  words used.
 
