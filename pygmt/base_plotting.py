@@ -143,7 +143,7 @@ class BasePlotting:
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
         dcw : str or list
-            ``*code1,code2,…*\ [**+l**\ |**L**\ ][**+g**\ *fill*\ ][**+p**\ *pen*\ ][**+z**]``
+            *code1,code2,…*\ [**+l**\ |**L**\ ][**+g**\ *fill*\ ][**+p**\ *pen*\ ][**+z**]
             Select painting or dumping country polygons from the
             `Digital Chart of the World
             <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
