@@ -9,6 +9,7 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
+    args_in_kwargs,
     build_arg_string,
     data_kind,
     dummy_context,
@@ -16,7 +17,6 @@ from pygmt.helpers import (
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
-    args_in_kwargs
 )
 
 
