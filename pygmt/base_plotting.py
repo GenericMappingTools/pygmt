@@ -60,6 +60,7 @@ class BasePlotting:
         R="region",
         J="projection",
         A="area_thresh",
+        C="lakes",
         B="frame",
         D="resolution",
         E="dcw",
@@ -78,7 +79,7 @@ class BasePlotting:
     )
     @kwargs_to_strings(R="sequence", p="sequence")
     def coast(self, **kwargs):
-        """
+        r"""
         Plot continents, shorelines, rivers, and borders on maps
 
         Plots grayshaded, colored, or textured land-masses [or water-masses] on
@@ -111,8 +112,13 @@ class BasePlotting:
             hierarchical level that is lower than min_level or higher than
             max_level will not be plotted.
         {B}
-        C : str
-            Set the shade, color, or pattern for lakes and river-lakes.
+        lakes : str or list
+            *fill*\ [**+l**\ |**+r**\ ]
+            Set the shade, color, or pattern for lakes and river-lakes. The
+            default is the fill chosen for wet areas set by the ``water``
+            argument. Optionally, specify separate fills by appending
+            **+l** for lakes or **+r** for river-lakes, and passing multiple
+            strings in a list.
         resolution : str
             Selects the resolution of the data set to use ((f)ull, (h)igh,
             (i)ntermediate, (l)ow, and (c)rude).
@@ -145,13 +151,13 @@ class BasePlotting:
             `ISO 3166-1 alpha-2 convention
             <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
             To select a state of a country (if available), append
-            .state, (e.g, US.TX for Texas).  To specify a whole continent, prepend = to
+            .*state*, (e.g, US.TX for Texas).  To specify a whole continent, prepend = to
             any of the continent codes (e.g. =EU for Europe).
-            Append **+p**pen to draw polygon outlines (default is no outline)
-            and **+g**fill to fill them (default is no fill). Append **+l**|**+L**
+            Append **+p**\ *pen* to draw polygon outlines (default is no outline)
+            and **+g**\ *fill* to fill them (default is no fill). Append **+l**\ |**+L**
             to *=continent* to only list countries in that continent; repeat if more
             than one continent is requested. Append **+z** to place the country code in
-            the segment headers via -Zcode settings.To apply different settings to
+            the segment headers via **-Z**\ *code* settings.To apply different settings to
             different countries, pass a list of string arguments.
         {XY}
         {p}
