@@ -152,7 +152,7 @@ class BasePlotting:
             `ISO 3166-1 alpha-2 convention
             <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
             To select a state of a country (if available), append
-            .*state*, (e.g, US.TX for Texas).  To specify a whole continent,
+            .\ *state*, (e.g, US.TX for Texas).  To specify a whole continent,
             prepend **=** to any of the continent codes (e.g. =EU for Europe).
             Append **+p**\ *pen* to draw polygon outlines
             (default is no outline) and **+g**\ *fill* to fill them
