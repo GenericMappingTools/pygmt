@@ -16,6 +16,7 @@ from pygmt.helpers import (
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
+    args_in_kwargs
 )
 
 
@@ -147,7 +148,7 @@ class BasePlotting:
 
         """
         kwargs = self._preprocess(**kwargs)
-        if not any(arg in kwargs for arg in ["C", "G", "S", "I", "N", "Q", "W"]):
+        if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
             raise GMTInvalidInput(
                 """At least one of the following arguments must be specified:
                 C, land, water, rivers, borders, Q, or shorelines"""
