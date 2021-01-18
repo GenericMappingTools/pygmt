@@ -1993,11 +1993,17 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
     def rose(self, length=None, azimuth=None, data=None, **kwargs):
         """
-        Plot windrose diagram or polar histogram (sector diagram or rose
-        diagram) based on length-azimuth data pairs. Options include full
-        circle and half circle plots. The outline of the windrose is drawn
-        with the same color as *MAP_DEFAULT_PEN* (see
-        :gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
+        Plot windrose diagrams or polar histograms. 
+        
+        Takes a matrix, (length,azimuth) pairs, or a file name as input 
+        and plots windrose diagrams or polar histograms (sector diagram 
+        or rose diagram).
+        
+        Must provide either *data* or *length* and *azimuth*.
+       
+        Options include full circle and half circle plots. The outline 
+        of the windrose is drawn with the same color as *MAP_DEFAULT_PEN* 
+        (see:gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
 
         Full option list at :gmt-docs:`rose.html`
 
@@ -2056,8 +2062,8 @@ class BasePlotting:
         scale : float or str
              Multiply the data radii by scale. E.g., use ``scale = 0.001`` to
              convert your data from m to km. To exclude the radii from
-             consideration, set them all to unity with ``scale = 'u'`` [Default
-             is no scaling].
+             consideration, set them all to unity with ``scale = 'u'`` 
+             [Default is no scaling].
 
         columns : str or 1d array
              Select input columns and transformations. E.g. choose
