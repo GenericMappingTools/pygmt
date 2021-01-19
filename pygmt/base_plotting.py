@@ -2023,7 +2023,7 @@ class BasePlotting:
 
         Options include full circle and half circle plots. The outline
         of the windrose is drawn with the same color as *MAP_DEFAULT_PEN*
-        (see:gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
+        (see: gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
 
         Full option list at :gmt-docs:`rose.html`
 
@@ -2033,13 +2033,13 @@ class BasePlotting:
         ----------
 
         length/azimuth : float or 1d arrays
-            The length and azimuth values, or arrays of length and azimuth
+            Length and azimuth values, or arrays of length and azimuth
             values
 
         data : str or 2d array
             Either a data file name or a 2d numpy array with the tabular data.
             Use option *columns* (i) to choose which columns are length and
-            azimuth, respectively. If a file with only azimuths are given,
+            azimuth, respectively. If a file with only azimuths is given,
             use **columns** to indicate the single column with azimuths; then
             all lengths are set to unity (see ``scale = 'u'`` to set actual
             lengths to unity as well).
@@ -2053,7 +2053,7 @@ class BasePlotting:
 
         region : str or list
             *Required if this is the first plot command*. ``'r0/r1/az0/az1'``.
-            Specifies the ‘region’ of interest in (*r*,*azimuth*) space. Here,
+            Specifies the ‘region’ of interest in (*r*, *azimuth*) space. Here,
             *r0* is 0, *r1* is max length in units. For *az0* and *az1*,
             specify either -90/90 or 0/180 for half circle plot or 0/360 for
             full circle.
@@ -2157,7 +2157,7 @@ class BasePlotting:
 
             Berens, P., 2009, CircStat: A MATLAB Toolbox for Circular
             Statistics, *J. Stat. Software*, 31(10), 1-21,
-            10.18637/jss.v031.i10.
+            https://doi.org/10.18637/jss.v031.i10.
 
         inquire :
             Inquire. Computes statistics needed to specify a useful
