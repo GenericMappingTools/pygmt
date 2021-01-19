@@ -151,7 +151,7 @@ class BasePlotting:
         if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
             raise GMTInvalidInput(
                 """At least one of the following arguments must be specified:
-                C, land, water, rivers, borders, Q, or shorelines"""
+                lakes, land, water, rivers, borders, Q, or shorelines"""
             )
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
