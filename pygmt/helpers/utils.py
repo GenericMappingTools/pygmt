@@ -3,7 +3,6 @@ Utilities and common tasks for wrapping the GMT modules.
 """
 
 import os
-import sys
 import shutil
 import subprocess
 import sys

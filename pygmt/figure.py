@@ -6,10 +6,9 @@ import os
 import sys
 from tempfile import TemporaryDirectory
 
-
 from pygmt.base_plotting import BasePlotting
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
