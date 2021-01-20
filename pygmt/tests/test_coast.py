@@ -3,6 +3,7 @@ Tests for coast
 """
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
 
 
@@ -95,6 +96,13 @@ def test_coast_world_mercator():
         water="white",
     )
     return fig
+
+
+def test_coast_required_args():
+    "Test if fig.coast fails when not given required arguments"
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.coast(region="EG")
 
 
 @check_figures_equal()

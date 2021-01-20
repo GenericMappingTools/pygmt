@@ -9,6 +9,7 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
+    args_in_kwargs,
     build_arg_string,
     data_kind,
     dummy_context,
@@ -167,6 +168,11 @@ class BasePlotting:
 
         """
         kwargs = self._preprocess(**kwargs)
+        if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
+            raise GMTInvalidInput(
+                """At least one of the following arguments must be specified:
+                lakes, land, water, rivers, borders, Q, or shorelines"""
+            )
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
