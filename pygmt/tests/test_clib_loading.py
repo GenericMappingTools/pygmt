@@ -1,8 +1,6 @@
 """
 Test the functions that load libgmt
 """
-import os
-
 import pytest
 from pygmt.clib.loading import check_libgmt, clib_names, load_libgmt
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
@@ -19,19 +17,11 @@ def test_load_libgmt():
     check_libgmt(load_libgmt())
 
 
-def test_load_libgmt_with_a_bad_library_path():
+def test_load_libgmt_with_a_bad_library_path(monkeypatch):
     "Test that loading still works when given a bad library path."
-    # save the old value (if any) before setting a fake "GMT_LIBRARY_PATH"
-    old_gmt_library_path = os.environ.get("GMT_LIBRARY_PATH")
-
-    os.environ["GMT_LIBRARY_PATH"] = "/not/a/real/path"
-    check_libgmt(load_libgmt())
-
-    # revert back to the original status (if any)
-    if old_gmt_library_path:
-        os.environ["GMT_LIBRARY_PATH"] = old_gmt_library_path
-    else:
-        del os.environ["GMT_LIBRARY_PATH"]
+    # Set a fake "GMT_LIBRARY_PATH"
+    monkeypatch.setenv("GMT_LIBRARY_PATH", "/not/a/real/path")
+    assert check_libgmt(load_libgmt()) is None
 
 
 def test_clib_names():
