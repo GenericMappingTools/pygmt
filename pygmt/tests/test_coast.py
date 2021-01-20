@@ -103,7 +103,7 @@ def test_coast_required_args():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.coast(region="EG")
-        
+
 
 @check_figures_equal()
 def test_coast_dcw_single():
