@@ -1,6 +1,9 @@
 """
 Test the functions that load libgmt
 """
+import subprocess
+import sys
+
 import pytest
 from pygmt.clib.loading import check_libgmt, clib_names, load_libgmt
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
@@ -15,6 +18,21 @@ def test_check_libgmt():
 def test_load_libgmt():
     "Test that loading libgmt works and doesn't crash."
     check_libgmt(load_libgmt())
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="run on UNIX platforms only")
+def test_load_libgmt_fails(monkeypatch):
+    """
+    Test that GMTCLibNotFoundError is raised when GMT's shared library cannot
+    be found.
+    """
+    with monkeypatch.context() as mpatch:
+        mpatch.setattr(sys, "platform", "win32")  # pretend to be on Windows
+        mpatch.setattr(
+            subprocess, "check_output", lambda cmd, encoding: "libfakegmt.so"
+        )
+        with pytest.raises(GMTCLibNotFoundError):
+            check_libgmt(load_libgmt())
 
 
 def test_load_libgmt_with_a_bad_library_path(monkeypatch):

@@ -77,7 +77,7 @@ def clib_names(os_name):
     elif os_name.startswith("freebsd"):  # FreeBSD
         libnames = ["libgmt.so"]
     else:
-        raise GMTOSError(f'Operating system "{sys.platform}" not supported.')
+        raise GMTOSError(f'Operating system "{os_name}" not supported.')
     return libnames
 
 
@@ -114,8 +114,9 @@ def clib_full_names(env=None):
         lib_fullpath = sp.check_output(
             ["gmt", "--show-library"], encoding="utf-8"
         ).rstrip("\n")
+        assert os.path.exists(lib_fullpath)
         yield lib_fullpath
-    except FileNotFoundError:  # command not found
+    except (FileNotFoundError, AssertionError):  # command not found
         pass
 
     # Search for DLLs in PATH (done by calling "find_library")
