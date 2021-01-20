@@ -58,6 +58,7 @@ def test_coast_aliases():
         Y="a10c",
         p="135/25",
         t=13,
+        E="MA+gred",
         C="blue",
     )
     fig_test.coast(
@@ -76,6 +77,7 @@ def test_coast_aliases():
         yshift="a10c",  # Y
         perspective=[135, 25],  # p
         transparency=13,  # t
+        dcw="MA+gred",  # E
         lakes="blue",  # C
     )
     return fig_ref, fig_test
@@ -101,3 +103,91 @@ def test_coast_required_args():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.coast(region="EG")
+        
+
+@check_figures_equal()
+def test_coast_dcw_single():
+    "Test passing a single country code to dcw"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES+gbisque+pblue")
+    fig_test.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        dcw="ES+gbisque+pblue",
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_coast_dcw_multiple():
+    "Test passing multiple country code to dcw"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES,IT+gbisque+pblue")
+    fig_test.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        dcw="ES,IT+gbisque+pblue",
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_coast_dcw_list():
+    "Test passing a list of country codes and fill options to dcw"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(
+        R="-10/15/25/44",
+        J="M15c",
+        B="a",
+        G="brown",
+        E=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
+    )
+    fig_test.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_coast_dcw_continent():
+    "Test passing a continent code to dcw"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="=AF+gbisque+pblue")
+    fig_test.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        dcw="=AF+gbisque+pblue",
+    )
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_coast_dcw_state():
+    "Test passing a US state code to dcw"
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.coast(
+        R="-75/-69/40/44", J="M15c", B="a", G="brown", E="US.MA+gbisque+pblue"
+    )
+    fig_test.coast(
+        region=[-75, -69, 40, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        dcw="US.MA+gbisque+pblue",
+    )
+    return fig_ref, fig_test
