@@ -92,6 +92,17 @@ def grdinfo(grid, **kwargs):
     minxmax_pos : bool
         Include the x/y values at the location of the minimum and maximum
         z-values.
+    nearest_multiple : str
+        [*dz*\ ][**+a**\ [*alpha*\ ]][**+s**\ ]
+        Determine min and max z-value. If dz is provided then we first round
+        these values off to multiples of dz. To exclude the two tails of the
+        distribution when determining the min and max you can add **+a** to
+        set the *alpha* value (in percent): We then sort the grid, exclude the
+        data in the 0.5*\ *alpha* and 100 - 0.5*\ *alpha* tails, and revise
+        the min and max. To force a symmetrical range about zero, using
+        minus/plus the max absolute value of the two extremes, append **+s**\ .
+        We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
+        (if dz was given) as expected by makecpt.
     {V}
 
     Returns
