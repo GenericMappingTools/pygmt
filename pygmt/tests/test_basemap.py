@@ -135,6 +135,7 @@ def test_basemap_map_scale():
     fig_test.basemap(map_scale="jMB+c1+w10k+f+l")
     return fig_ref, fig_test
 
+
 def test_basemap_required_args():
     """
     Test if fig.basemap fails when not given required arguments.
