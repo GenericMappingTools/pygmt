@@ -134,12 +134,3 @@ def test_basemap_map_scale():
     fig_test.coast(region=[127.5, 128.5, 26, 27], shorelines="1/0.5p")
     fig_test.basemap(map_scale="jMB+c1+w10k+f+l")
     return fig_ref, fig_test
-
-
-def test_basemap_required_args():
-    """
-    Test if fig.basemap fails when not given required arguments.
-    """
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.coast(region="EG")
