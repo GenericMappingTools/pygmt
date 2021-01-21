@@ -1335,6 +1335,23 @@ class BasePlotting:
             lib.call_module("inset", "end " + build_arg_string(kwargs))
 
     @fmt_docstring
+    @contextlib.contextmanager
+    @use_alias(
+        D="location",
+        V="verbose",
+        F="border",
+        M="margin",
+    )
+    @kwargs_to_strings(D="sequence", M="sequence")
+    def inset(self, **kwargs):
+        try:
+            kwargs = self._preprocess(**kwargs)
+            Session.call_module("inset", "begin " + build_arg_string(kwargs))
+        finally:
+            Session.call_module("inset", "end "  + build_arg_string(kwargs))
+
+
+    @fmt_docstring
     @use_alias(
         R="region",
         J="projection",
