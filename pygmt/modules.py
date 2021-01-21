@@ -58,7 +58,7 @@ def grdinfo(grid, **kwargs):
         Report grid domain and x/y-increments in world mapping format
         The default value is ``False``. This cannot be called if ``tab`` is
         also set.
-    zdata : int or str
+    force_scan : int or str
         **0**\ |**1**\ |**2**\ |**p**\ |**a**
         **0**\ : Report range of z after actually scanning the data, not just
         reporting what the header says.
@@ -68,6 +68,9 @@ def grdinfo(grid, **kwargs):
         of z.
         **p**\ : Report mode (LMS) and LMS scale of z.
         **a**\ : Include all of the above.
+    minxmax_pos : bool
+        Include the x/y values at the location of the minimum and maximum
+        z-values
     {V}
 
     Returns
