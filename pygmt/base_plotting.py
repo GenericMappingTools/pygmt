@@ -9,6 +9,7 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
+    args_in_kwargs,
     build_arg_string,
     data_kind,
     dummy_context,
@@ -63,6 +64,7 @@ class BasePlotting:
         C="lakes",
         B="frame",
         D="resolution",
+        E="dcw",
         I="rivers",
         L="map_scale",
         N="borders",
@@ -141,12 +143,36 @@ class BasePlotting:
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
+        dcw : str or list
+            *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
+            [**+p**\ *pen*\ ][**+z**]
+            Select painting or dumping country polygons from the
+            `Digital Chart of the World
+            <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
+            Append one or more comma-separated countries using the 2-character
+            `ISO 3166-1 alpha-2 convention
+            <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
+            To select a state of a country (if available), append
+            .\ *state*, (e.g, US.TX for Texas).  To specify a whole continent,
+            prepend **=** to any of the continent codes (e.g. =EU for Europe).
+            Append **+p**\ *pen* to draw polygon outlines
+            (default is no outline) and **+g**\ *fill* to fill them
+            (default is no fill). Append **+l**\|\ **+L** to *=continent* to
+            only list countries in that continent; repeat if more than one
+            continent is requested. Append **+z** to place the country code in
+            the segment headers via **-Z**\ *code* settings.To apply different
+            settings to different countries, pass a list of string arguments.
         {XY}
         {p}
         {t}
 
         """
         kwargs = self._preprocess(**kwargs)
+        if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
+            raise GMTInvalidInput(
+                """At least one of the following arguments must be specified:
+                lakes, land, water, rivers, borders, Q, or shorelines"""
+            )
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
