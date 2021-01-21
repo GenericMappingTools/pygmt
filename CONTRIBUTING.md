@@ -130,10 +130,11 @@ General guidelines for making a good gallery plot:
   dataset isn't available, open an issue requesting one and we'll work together to add
   it.
 * Add comments to explain things are aren't obvious from reading the code. Good: *Use a
-  Mercator projection and make the plot 6 inches wide*. Bad: *Draw coastlines and plot
-  the data*.
+  Mercator projection and make the plot 15 centimeters wide*. Bad: *Draw coastlines and 
+  plot the data*.
 * Describe the feature that you're showcasing and link to other relevant parts of the
   documentation.
+* SI units should be used in the example code for gallery plots.
 
 ### Tutorials
 
@@ -155,6 +156,7 @@ Guidelines for a good tutorial:
   features or abbreviations.
 * Explain the options and features in as much detail as possible. The gallery has
   concise examples while the tutorials are detailed and full of text.
+* SI units should be used in the example code for tutorial plots.  
 
 Note that the `Figure.show()` function needs to be called for a plot to be inserted into
 the documentation.
