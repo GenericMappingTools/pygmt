@@ -1,5 +1,5 @@
 """
-Tests colorbar
+Tests colorbar.
 """
 import pytest
 from pygmt import Figure
@@ -19,7 +19,8 @@ def test_colorbar_using_paper_coordinates():
 @pytest.mark.mpl_image_compare
 def test_colorbar_using_paper_coordinates_horizontal():
     """
-    Create colorbar positioned at 0cm,0cm with length 2cm oriented horizontally
+    Create colorbar positioned at 0cm,0cm with length 2cm oriented
+    horizontally.
     """
     fig = Figure()
     fig.colorbar(cmap="rainbow", position="x0c/0c+w2c+h")
@@ -158,7 +159,7 @@ def test_colorbar_scaled_z_values():
 @check_figures_equal()
 def test_colorbar_shading_boolean():
     """
-    Create colorbar and set shading with a Boolean value
+    Create colorbar and set shading with a Boolean value.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
@@ -173,7 +174,7 @@ def test_colorbar_shading_boolean():
 @check_figures_equal()
 def test_colorbar_shading_float():
     """
-    Create colorbar and set shading with a single float variable
+    Create colorbar and set shading with a single float variable.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
@@ -188,7 +189,7 @@ def test_colorbar_shading_float():
 @check_figures_equal()
 def test_colorbar_shading_string():
     """
-    Create colorbar and set shading by passing the low/high values as a string
+    Create colorbar and set shading by passing the low/high values as a string.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
@@ -203,7 +204,7 @@ def test_colorbar_shading_string():
 @check_figures_equal()
 def test_colorbar_shading_list():
     """
-    Create colorbar and set shading by passing the high/low values as a list
+    Create colorbar and set shading by passing the high/low values as a list.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image

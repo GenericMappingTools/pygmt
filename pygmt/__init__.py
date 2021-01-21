@@ -67,7 +67,9 @@ def show_versions():
     import sys
 
     def _get_module_version(modname):
-        """Get version information of a Python module."""
+        """
+        Get version information of a Python module.
+        """
         try:
             if modname in sys.modules:
                 module = sys.modules[modname]
@@ -82,7 +84,9 @@ def show_versions():
             return None
 
     def _get_ghostscript_version():
-        """Get ghostscript version."""
+        """
+        Get ghostscript version.
+        """
         os_name = sys.platform
         if os_name.startswith("linux") or os_name == "darwin":
             cmds = ["gs"]
@@ -102,7 +106,9 @@ def show_versions():
         return None
 
     def _get_gmt_version():
-        """Get GMT version."""
+        """
+        Get GMT version.
+        """
         try:
             version = subprocess.check_output(
                 ["gmt", "--version"], universal_newlines=True
@@ -164,7 +170,6 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     AssertionError
         If pytest returns a non-zero error code indicating that some tests have
         failed.
-
     """
     import pytest
 

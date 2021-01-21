@@ -30,7 +30,6 @@ def load_libgmt():
     GMTCLibNotFoundError
         If there was any problem loading the library (couldn't find it or
         couldn't access the functions).
-
     """
     lib_fullnames = clib_full_names()
     error = True
@@ -64,7 +63,6 @@ def clib_names(os_name):
     -------
     libnames : list of str
         List of possible names of GMT's shared library.
-
     """
     if os_name.startswith("linux"):
         libnames = ["libgmt.so"]
@@ -93,7 +91,6 @@ def clib_full_names(env=None):
     -------
     lib_fullnames: list of str
         List of possible full names of GMT's shared library.
-
     """
     if env is None:
         env = os.environ
@@ -127,7 +124,6 @@ def check_libgmt(libgmt):
     Raises
     ------
     GMTCLibError
-
     """
     # Check if a few of the functions we need are in the library
     functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
