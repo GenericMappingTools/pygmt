@@ -48,7 +48,16 @@ def grdinfo(grid, **kwargs):
         Report grid domain and x/y-increments in world mapping format
         The default value is ``False``. This cannot be called if ``tab`` is
         also set.
-
+    zdata : int or str
+        **0**\ |**1**\ |**2**\ |**p**\ |**a**
+        **0**\ : Report range of z after actually scanning the data, not just
+        reporting what the header says.
+        **1**\ : Report median and L1 scale of z (L1 scale = 1.4826 * Median
+        Absolute Deviation (MAD)).
+        **2**\ : Report mean, standard deviation, and root-mean-square (rms)
+        of z.
+        **p**\ : Report mode (LMS) and LMS scale of z.
+        **a**\ : Include all of the above.
     {V}
 
     Returns
