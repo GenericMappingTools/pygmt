@@ -133,7 +133,7 @@ class BasePlotting:
             Draw rivers. Specify the type of rivers and [optionally] append pen
             attributes.
         map_scale : str
-            ``'[g|j|J|n|x]refpoint'``
+            [**g**\ |**j**\ |**J**\ |**n**\ |**x**\ ]*refpoint*
             Draws a simple map scale centered on the reference point specified.
         borders : str
             ``'border[/pen]'``
