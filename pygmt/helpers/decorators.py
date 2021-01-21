@@ -15,9 +15,9 @@ from pygmt.helpers.utils import is_nonstr_iter
 COMMON_OPTIONS = {
     "R": """\
         region : str or list
-            *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**\ ][**+u**\ *unit*]
-            Specify the region of interest.""",
+            Specify the region of interest. This is a required argument if this 
+            is the first plot command.""",
     "J": """\
         projection : str
             *Required if this is the first plot command*.
