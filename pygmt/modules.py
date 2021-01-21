@@ -20,7 +20,7 @@ from pygmt.helpers import (
 @use_alias(C="tab", F="geographic", L="zdata", M="zextemes", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def grdinfo(grid, **kwargs):
-    """
+    r"""
     Get information about a grid.
 
     Can read the grid from a file or given as an xarray.DataArray grid.
