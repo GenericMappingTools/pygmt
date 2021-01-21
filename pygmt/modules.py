@@ -54,6 +54,16 @@ def grdinfo(grid, **kwargs):
         either 0 (gridline) or 1 (pixel), while gtype is either 0 (Cartesian)
         or 1 (geographic). The default value is ``False``. This cannot be
         called if ``geographic`` is also set.
+    tiles : str
+        *xoff*\ [/*yoff*\ ][**+i**\ ]
+        Divide a single grid’s domain (or the ``regio``n domain, if no grid
+        given) into tiles of size dx times dy (set via ``spacing``). You can
+        specify overlap between tiles by appending *xoff*\ [/*yoff*\ ]. If the
+        single grid is given you may use the modifier **+i** to ignore tiles
+        that have no data within each tile subregion. Default output is text
+        region strings. Use ``per_column`` to instead report four columns with \
+        xmin xmax ymin ymax per tile, or use ``per_column=t`` to also have the
+        region string appended as trailing text.
     geographic : bool
         Report grid domain and x/y-increments in world mapping format
         The default value is ``False``. This cannot be called if ``tab`` is
