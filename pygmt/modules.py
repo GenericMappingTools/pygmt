@@ -56,7 +56,7 @@ def grdinfo(grid, **kwargs):
         called if ``geographic`` is also set.
     tiles : str
         *xoff*\ [/*yoff*\ ][**+i**\ ]
-        Divide a single grid’s domain (or the ``regio``n domain, if no grid
+        Divide a single grid’s domain (or the ``region`` domain, if no grid
         given) into tiles of size dx times dy (set via ``spacing``). You can
         specify overlap between tiles by appending *xoff*\ [/*yoff*\ ]. If the
         single grid is given you may use the modifier **+i** to ignore tiles
