@@ -68,6 +68,17 @@ def grdinfo(grid, **kwargs):
         Report grid domain and x/y-increments in world mapping format
         The default value is ``False``. This cannot be called if
         ``per_column`` is also set.
+    spacing : str
+        *dx*\ [/*dy*\ ]|**b**\ |**i**\ |**r**\ ]
+        Report the min/max of the region to the nearest multiple of dx and dy,
+        and output this in the form w/e/s/n (unless ``per_column`` is set). To
+        report the actual grid region, append **r**. For a grid produced by
+        the img supplement (a Cartesian Mercator grid), the exact geographic
+        region is given with **i** (if not found then we return the actual
+        grid region instead). If no argument is given then we report the grid
+        increment in the form *xinc*\ [/*yinc*\ ]. If **b** is given we write
+        each grid’s bounding box polygon instead. Finally, if ``tiles`` is in
+        effect then dx and dy are the dimensions of the desired tiles.
     force_scan : int or str
         **0**\ |**1**\ |**2**\ |**p**\ |**a**
         **0**\ : Report range of z after actually scanning the data, not just
