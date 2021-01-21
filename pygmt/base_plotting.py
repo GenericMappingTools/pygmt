@@ -136,7 +136,7 @@ class BasePlotting:
             [**g**\ |**j**\ |**J**\ |**n**\ |**x**\ ]*refpoint*
             Draws a simple map scale centered on the reference point specified.
         borders : str
-            ``'border[/pen]'``
+            *border*\ [/*pen*\ ]
             Draw political boundaries. Specify the type of boundary and
             [optionally] append pen attributes
         water : str
