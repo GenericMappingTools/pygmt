@@ -129,7 +129,7 @@ class BasePlotting:
         land : str
             Select filling or clipping of “dry” areas.
         rivers : str
-            ``'river[/pen]'``
+            *river*\ [/*pen*\ ]
             Draw rivers. Specify the type of rivers and [optionally] append pen
             attributes.
         map_scale : str
