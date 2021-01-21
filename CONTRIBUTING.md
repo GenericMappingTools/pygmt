@@ -301,6 +301,12 @@ Please write tests for your code so that we can be sure that it won't break any 
 existing functionality.
 Tests also help us be confident that we won't break your code in the future.
 
+When writing tests, don't test everything that the GMT function already tests, such as
+the every unique combination arguments. An exception to this would be the most popular 
+modules, such as `plot` and `basemap`. The highest priority for tests should be the 
+Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile 
+mechanism.
+
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
 If you're not sure how to do this or are having trouble, submit your pull request
