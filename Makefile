@@ -17,7 +17,7 @@ help:
 	@echo "  install   install in editable mode"
 	@echo "  test      run the test suite (including doctests) and report coverage"
 	@echo "  format    run black, blackdoc, docformatter and isort to automatically format the code"
-	@echo "  check     run code style and quality checks (black, blackdoc, docformatter, isort and flake8)"
+	@echo "  check     run code style and quality checks (black, blackdoc, docformatter, flake8 and isort)"
 	@echo "  lint      run pylint for a deeper (and slower) quality check"
 	@echo "  clean     clean up build and generated files"
 	@echo "  distclean clean up build and generated files, including project metadata files"

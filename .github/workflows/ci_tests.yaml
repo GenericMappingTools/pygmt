@@ -35,7 +35,7 @@ jobs:
           pip install black blackdoc docformatter flake8 pylint isort
           sudo apt-get install dos2unix
 
-      - name: Formatting check (black and flake8)
+      - name: Formatting check (black, blackdoc, docformatter, flake8 and isort)
         run: make check
 
       - name: Linting (pylint)

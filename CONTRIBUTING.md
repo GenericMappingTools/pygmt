@@ -274,7 +274,7 @@ common errors.
 The [`Makefile`](Makefile) contains rules for running both checks:
 
 ```bash
-make check   # Runs flake8, black, blackdoc, docformatter and isort (in check mode)
+make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
