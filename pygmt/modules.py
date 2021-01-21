@@ -61,7 +61,7 @@ def grdinfo(grid, **kwargs):
         specify overlap between tiles by appending *xoff*\ [/*yoff*\ ]. If the
         single grid is given you may use the modifier **+i** to ignore tiles
         that have no data within each tile subregion. Default output is text
-        region strings. Use ``per_column`` to instead report four columns with \
+        region strings. Use ``per_column`` to instead report four columns with
         xmin xmax ymin ymax per tile, or use ``per_column=t`` to also have the
         region string appended as trailing text.
     geographic : bool
