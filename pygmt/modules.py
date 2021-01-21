@@ -66,8 +66,8 @@ def grdinfo(grid, **kwargs):
         region string appended as trailing text.
     geographic : bool
         Report grid domain and x/y-increments in world mapping format
-        The default value is ``False``. This cannot be called if ``tab`` is
-        also set.
+        The default value is ``False``. This cannot be called if
+        ``per_column`` is also set.
     force_scan : int or str
         **0**\ |**1**\ |**2**\ |**p**\ |**a**
         **0**\ : Report range of z after actually scanning the data, not just
