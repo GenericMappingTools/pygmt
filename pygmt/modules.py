@@ -38,8 +38,11 @@ def grdinfo(grid, **kwargs):
         Formats the report using tab-separated fields on a single line. The
         output is name w e s n z0 z1 dx dy nx ny[ x0 y0 x1 y1 ] [ med scale ]
         [mean std rms] [n_nan] registration gtype. The data in brackets are
-        output only if the corresponding options -M, -L1, -L2, and -M are
-        used, respectively. Use -Ct to place file name at the end of the output record or -Cn to only output numerical columns. The registration is either 0 (gridline) or 1 (pixel), while gtype is either 0 (Cartesian) or 1 (geographic).
+        outputted depending on the `zdata` and `zextremes` arguments.
+        Use **t** to place file name at the end of the output record or,
+        **n** or `True` to only output numerical columns. The registration is
+        either 0 (gridline) or 1 (pixel), while gtype is either 0 (Cartesian)
+        or 1 (geographic).
 
     {V}
 
