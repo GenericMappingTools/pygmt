@@ -184,7 +184,6 @@ def fmt_docstring(module_func):
     - J = projection
     - R = region
     <BLANKLINE>
-
     """
     filler_text = {}
 
@@ -356,7 +355,6 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     ...     ]
     ... )
     {'R': '2005-01-01T08:00:00.000000000/2015-01-01T12:00:00.123456'}
-
     """
     valid_conversions = [
         "sequence",
@@ -380,11 +378,15 @@ def kwargs_to_strings(convert_bools=True, **conversions):
 
     # Make the actual decorator function
     def converter(module_func):
-        "The decorator that creates our new function with the conversions"
+        """
+        The decorator that creates our new function with the conversions.
+        """
 
         @functools.wraps(module_func)
         def new_module(*args, **kwargs):
-            "New module instance that converts the arguments first"
+            """
+            New module instance that converts the arguments first.
+            """
             if convert_bools:
                 kwargs = remove_bools(kwargs)
             for arg, fmt in conversions.items():
@@ -429,7 +431,6 @@ def remove_bools(kwargs):
     -------
     new_kwargs : dict
         A copy of `kwargs` with the booleans parsed.
-
     """
     new_kwargs = {}
     for arg, value in kwargs.items():

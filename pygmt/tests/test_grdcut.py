@@ -1,5 +1,5 @@
 """
-Tests for grdcut
+Tests for grdcut.
 """
 import os
 
@@ -14,12 +14,16 @@ from pygmt.helpers import GMTTempFile
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
-    "Load the grid data from the sample earth_relief file"
+    """
+    Load the grid data from the sample earth_relief file.
+    """
     return load_earth_relief(registration="pixel")
 
 
 def test_grdcut_file_in_file_out():
-    "grdcut an input grid file, and output to a grid file"
+    """
+    grdcut an input grid file, and output to a grid file.
+    """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdcut("@earth_relief_01d", outgrid=tmpfile.name, region="0/180/0/90")
         assert result is None  # return value is None
@@ -29,7 +33,9 @@ def test_grdcut_file_in_file_out():
 
 
 def test_grdcut_file_in_dataarray_out():
-    "grdcut an input grid file, and output as DataArray"
+    """
+    grdcut an input grid file, and output as DataArray.
+    """
     outgrid = grdcut("@earth_relief_01d", region="0/180/0/90")
     assert isinstance(outgrid, xr.DataArray)
     assert outgrid.gmt.registration == 1  # Pixel registration
@@ -48,7 +54,9 @@ def test_grdcut_file_in_dataarray_out():
 
 
 def test_grdcut_dataarray_in_file_out(grid):
-    "grdcut an input DataArray, and output to a grid file"
+    """
+    grdcut an input DataArray, and output to a grid file.
+    """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdcut(grid, outgrid=tmpfile.name, region="0/180/0/90")
         assert result is None  # grdcut returns None if output to a file
@@ -57,7 +65,9 @@ def test_grdcut_dataarray_in_file_out(grid):
 
 
 def test_grdcut_dataarray_in_dataarray_out(grid):
-    "grdcut an input DataArray, and output as DataArray"
+    """
+    grdcut an input DataArray, and output as DataArray.
+    """
     outgrid = grdcut(grid, region="0/180/0/90")
     assert isinstance(outgrid, xr.DataArray)
     # check information of the output grid
@@ -74,6 +84,8 @@ def test_grdcut_dataarray_in_dataarray_out(grid):
 
 
 def test_grdcut_fails():
-    "Check that grdcut fails correctly"
+    """
+    Check that grdcut fails correctly.
+    """
     with pytest.raises(GMTInvalidInput):
         grdcut(np.arange(10).reshape((5, 2)))
