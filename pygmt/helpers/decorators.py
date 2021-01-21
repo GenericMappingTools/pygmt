@@ -20,8 +20,9 @@ COMMON_OPTIONS = {
             is the first plot command.""",
     "J": """\
         projection : str
-            *Required if this is the first plot command*.
-            Select map projection.""",
+            *projection*\ [*projection-specific arguments*\ ]*figure size*
+            Select map projection. This is a required argument if this 
+            is the first plot command.""",
     "B": """\
         frame : str or list
             Set map boundary frame and axes attributes.""",
