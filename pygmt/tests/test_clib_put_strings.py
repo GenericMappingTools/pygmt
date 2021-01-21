@@ -14,7 +14,9 @@ with clib.Session() as _lib:
 
 
 def test_put_strings():
-    "Check that assigning a numpy array of dtype str to a dataset works"
+    """
+    Check that assigning a numpy array of dtype str to a dataset works.
+    """
     with clib.Session() as lib:
         dataset = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
@@ -52,7 +54,9 @@ def test_put_strings():
 
 
 def test_put_strings_fails():
-    "Check that put_strings raises an exception if return code is not zero"
+    """
+    Check that put_strings raises an exception if return code is not zero.
+    """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
             lib.put_strings(

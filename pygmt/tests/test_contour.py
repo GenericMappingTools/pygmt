@@ -16,18 +16,24 @@ POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 @pytest.fixture(scope="module")
 def data():
-    "Load the point data from the test file"
+    """
+    Load the point data from the test file.
+    """
     return np.loadtxt(POINTS_DATA)
 
 
 @pytest.fixture(scope="module")
 def region():
-    "The data region"
+    """
+    The data region.
+    """
     return [10, 70, -5, 10]
 
 
 def test_contour_fail_no_data(data):
-    "Should raise an exception if no data is given"
+    """
+    Should raise an exception if no data is given.
+    """
     # Contour should raise an exception if no or not sufficient data
     # is given
     fig = Figure()
@@ -66,7 +72,9 @@ def test_contour_fail_no_data(data):
 
 @pytest.mark.mpl_image_compare
 def test_contour_vec(region):
-    "Plot an x-centered gaussian kernel with different y scale"
+    """
+    Plot an x-centered gaussian kernel with different y scale.
+    """
     fig = Figure()
     x, y = np.meshgrid(
         np.linspace(region[0], region[1]), np.linspace(region[2], region[3])
@@ -81,7 +89,9 @@ def test_contour_vec(region):
 
 @pytest.mark.mpl_image_compare
 def test_contour_matrix(data, region):
-    "Plot data"
+    """
+    Plot data.
+    """
     fig = Figure()
     fig.contour(data=data, projection="X3i", region=region, frame="ag", pen="")
     return fig
@@ -89,7 +99,9 @@ def test_contour_matrix(data, region):
 
 @pytest.mark.mpl_image_compare
 def test_contour_from_file(region):
-    "Plot using the data file name instead of loaded data"
+    """
+    Plot using the data file name instead of loaded data.
+    """
     fig = Figure()
     fig.contour(
         data=POINTS_DATA, projection="X4i", region=region, frame="af", pen="#ffcb87"
