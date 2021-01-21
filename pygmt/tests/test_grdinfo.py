@@ -31,3 +31,16 @@ def test_grdinfo_fails():
     """
     with pytest.raises(GMTInvalidInput):
         grdinfo(np.arange(10).reshape((5, 2)))
+
+
+def test_grdinfo_region():
+    """
+    Check that the region argument works in grdinfo.
+    """
+    result = grdinfo(
+        grid="@earth_relief_01d",
+        force_scan=0,
+        per_column="n",
+        region=[-170, 170, -80, 80],
+    )
+    assert result.strip() == "-170 170 -80 80 -8182 5651.5 1 1 340 160 1 1"
