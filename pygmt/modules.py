@@ -17,7 +17,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(C="tab", F="geographic", L="zdata", M="zextemes", R="region", V="verbose")
+@use_alias(C="per_column", F="geographic", L="zdata", M="zextemes", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def grdinfo(grid, **kwargs):
     r"""
@@ -33,7 +33,7 @@ def grdinfo(grid, **kwargs):
         The file name of the input grid or the grid loaded as a DataArray.
         This is the only required argument.
     {R}
-    tab : str or bool
+    per_column : str or bool
         **n**\ |**t**
         Formats the report using tab-separated fields on a single line. The
         output is name w e s n z0 z1 dx dy nx ny[ x0 y0 x1 y1 ] [ med scale ]
