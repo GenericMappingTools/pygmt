@@ -13,7 +13,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_OPTIONS = {
-    "R": r"""\
+    "R": """\
         region : str or list
             *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**\ ][**+u**\ *unit*]
