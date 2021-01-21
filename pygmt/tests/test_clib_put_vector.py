@@ -12,7 +12,9 @@ from pygmt.helpers import GMTTempFile
 
 
 def test_put_vector():
-    "Check that assigning a numpy array to a dataset works"
+    """
+    Check that assigning a numpy array to a dataset works.
+    """
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     for dtype in dtypes:
         with clib.Session() as lib:
@@ -48,7 +50,9 @@ def test_put_vector():
 
 
 def test_put_vector_mixed_dtypes():
-    """Passing a numpy array of mixed dtypes to a dataset.
+    """
+    Passing a numpy array of mixed dtypes to a dataset.
+
     See https://github.com/GenericMappingTools/pygmt/issues/255
     """
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
@@ -87,7 +91,9 @@ def test_put_vector_mixed_dtypes():
 
 
 def test_put_vector_invalid_dtype():
-    "Check that it fails with an exception for invalid data types"
+    """
+    Check that it fails with an exception for invalid data types.
+    """
     with clib.Session() as lib:
         dataset = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
@@ -101,7 +107,9 @@ def test_put_vector_invalid_dtype():
 
 
 def test_put_vector_wrong_column():
-    "Check that it fails with an exception when giving an invalid column"
+    """
+    Check that it fails with an exception when giving an invalid column.
+    """
     with clib.Session() as lib:
         dataset = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
@@ -115,7 +123,9 @@ def test_put_vector_wrong_column():
 
 
 def test_put_vector_2d_fails():
-    "Check that it fails with an exception for multidimensional arrays"
+    """
+    Check that it fails with an exception for multidimensional arrays.
+    """
     with clib.Session() as lib:
         dataset = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",

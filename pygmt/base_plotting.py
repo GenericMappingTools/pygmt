@@ -1,5 +1,6 @@
 """
 Base class with plot generating commands.
+
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
@@ -9,6 +10,7 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
+    args_in_kwargs,
     build_arg_string,
     data_kind,
     dummy_context,
@@ -51,7 +53,6 @@ class BasePlotting:
         >>> base = BasePlotting()
         >>> base._preprocess(resolution="low")
         {'resolution': 'low'}
-
         """
         return kwargs
 
@@ -63,6 +64,7 @@ class BasePlotting:
         C="lakes",
         B="frame",
         D="resolution",
+        E="dcw",
         I="rivers",
         L="map_scale",
         N="borders",
@@ -141,12 +143,36 @@ class BasePlotting:
         shorelines : str
             ``'[level/]pen'``
             Draw shorelines [Default is no shorelines]. Append pen attributes.
+        dcw : str or list
+            *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
+            [**+p**\ *pen*\ ][**+z**]
+            Select painting or dumping country polygons from the
+            `Digital Chart of the World
+            <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
+            Append one or more comma-separated countries using the 2-character
+            `ISO 3166-1 alpha-2 convention
+            <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
+            To select a state of a country (if available), append
+            .\ *state*, (e.g, US.TX for Texas).  To specify a whole continent,
+            prepend **=** to any of the continent codes (e.g. =EU for Europe).
+            Append **+p**\ *pen* to draw polygon outlines
+            (default is no outline) and **+g**\ *fill* to fill them
+            (default is no fill). Append **+l**\|\ **+L** to *=continent* to
+            only list countries in that continent; repeat if more than one
+            continent is requested. Append **+z** to place the country code in
+            the segment headers via **-Z**\ *code* settings.To apply different
+            settings to different countries, pass a list of string arguments.
         {XY}
         {p}
         {t}
 
         """
         kwargs = self._preprocess(**kwargs)
+        if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
+            raise GMTInvalidInput(
+                """At least one of the following arguments must be specified:
+                lakes, land, water, rivers, borders, Q, or shorelines"""
+            )
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
@@ -240,7 +266,6 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
@@ -269,7 +294,7 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus", p="sequence")
     def grdcontour(self, grid, **kwargs):
         """
-        Convert grids or images to contours and plot them on maps
+        Convert grids or images to contours and plot them on maps.
 
         Takes a grid file name or an xarray.DataArray object as input.
 
@@ -485,7 +510,6 @@ class BasePlotting:
         {p}
         {t}
         {x}
-
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -598,7 +622,6 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -801,7 +824,6 @@ class BasePlotting:
         {t}
             *transparency* can also be a 1d array to set varying transparency
             for symbols.
-
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -874,7 +896,7 @@ class BasePlotting:
         self, x=None, y=None, z=None, data=None, sizes=None, direction=None, **kwargs
     ):
         """
-        Plot lines, polygons, and symbols in 3-D
+        Plot lines, polygons, and symbols in 3-D.
 
         Takes a matrix, (x,y,z) triplets, or a file name as input and plots
         lines, polygons, or symbols at those locations in 3-D.
@@ -984,7 +1006,6 @@ class BasePlotting:
         {t}
             *transparency* can also be a 1d array to set varying transparency
             for symbols.
-
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -1106,7 +1127,6 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -1182,7 +1202,6 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
         if not ("B" in kwargs or "L" in kwargs or "Td" in kwargs or "Tm" in kwargs):
@@ -1241,7 +1260,6 @@ class BasePlotting:
         {V}
         {XY}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
@@ -1689,17 +1707,20 @@ class BasePlotting:
         # pylint: disable=too-many-statements
 
         def set_pointer(data_pointers, spec):
-            """Set optional parameter pointers based on DataFrame or dict, if
-            those parameters are present in the DataFrame or dict."""
+            """
+            Set optional parameter pointers based on DataFrame or dict, if
+            those parameters are present in the DataFrame or dict.
+            """
             for param in list(data_pointers.keys()):
                 if param in spec:
                     # set pointer based on param name
                     data_pointers[param] = spec[param]
 
         def update_pointers(data_pointers):
-            """Updates variables based on the location of data, as the
-            following data can be passed as parameters or it can be
-            contained in `spec`."""
+            """
+            Updates variables based on the location of data, as the following
+            data can be passed as parameters or it can be contained in `spec`.
+            """
             # update all pointers
             longitude = data_pointers["longitude"]
             latitude = data_pointers["latitude"]

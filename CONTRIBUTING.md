@@ -251,10 +251,11 @@ We use some tools:
 
 - [Black](https://github.com/ambv/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
+- [docformatter](https://github.com/myint/docformatter)
 - [isort](https://pycqa.github.io/isort/)
 
 to format the code so we don't have to think about it.
-Black loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
+Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
 Regardless, you won't have to worry about formatting the code yourself.
 Before committing, run it to automatically format your code:
 
@@ -275,7 +276,7 @@ common errors.
 The [`Makefile`](Makefile) contains rules for running both checks:
 
 ```bash
-make check   # Runs flake8, black, blackdoc and isort (in check mode)
+make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
