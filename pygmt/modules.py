@@ -42,7 +42,12 @@ def grdinfo(grid, **kwargs):
         Use **t** to place file name at the end of the output record or,
         **n** or ``True`` to only output numerical columns. The registration is
         either 0 (gridline) or 1 (pixel), while gtype is either 0 (Cartesian)
-        or 1 (geographic). The default value is ``False``.
+        or 1 (geographic). The default value is ``False``. This cannot be
+        called if ``geographic`` is also set.
+    geographic : bool
+        Report grid domain and x/y-increments in world mapping format
+        The default value is ``False``. This cannot be called if ``tab`` is
+        also set.
 
     {V}
 
