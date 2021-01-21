@@ -17,7 +17,17 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(C="per_column", F="geographic", L="zdata", M="zextemes", R="region", V="verbose")
+@use_alias(
+    C="per_column",
+    D="tiles",
+    F="geographic",
+    I="spacing",
+    T="nearest_multiple",
+    L="force_scan",
+    M="minmax_pos",
+    R="region",
+    V="verbose",
+)
 @kwargs_to_strings(R="sequence")
 def grdinfo(grid, **kwargs):
     r"""
