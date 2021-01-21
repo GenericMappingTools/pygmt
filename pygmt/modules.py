@@ -70,7 +70,7 @@ def grdinfo(grid, **kwargs):
         **a**\ : Include all of the above.
     minxmax_pos : bool
         Include the x/y values at the location of the minimum and maximum
-        z-values
+        z-values.
     {V}
 
     Returns
