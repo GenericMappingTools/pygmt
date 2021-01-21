@@ -1,6 +1,8 @@
 """
-Function to download the Earth relief datasets from the GMT data server,
-and load as DataArray. The grids are available in various resolutions.
+Function to download the Earth relief datasets from the GMT data server, and
+load as DataArray.
+
+The grids are available in various resolutions.
 """
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
@@ -64,7 +66,6 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
     >>> grid = load_earth_relief(
     ...     "05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
-
     """
 
     # earth relief data stored as single grids for low resolutions

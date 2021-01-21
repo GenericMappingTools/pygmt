@@ -1,5 +1,5 @@
 """
-Tests for gmt config
+Tests for gmt config.
 """
 import pytest
 from pygmt import Figure, config
@@ -43,7 +43,9 @@ def test_config():
 def test_config_font_one():
     """
     Test that setting `FONT` config changes all `FONT_*` settings except
-    `FONT_LOGO`. Specifically, this test only checks that `FONT_ANNOT_PRIMARY`,
+    `FONT_LOGO`.
+
+    Specifically, this test only checks that `FONT_ANNOT_PRIMARY`,
     `FONT_ANNOT_SECONDARY`, `FONT_LABEL`, and `FONT_TITLE` are modified.
     """
     fig = Figure()
@@ -123,8 +125,8 @@ def test_config_map_grid_cross_size():
 @pytest.mark.mpl_image_compare
 def test_config_map_grid_pen():
     """
-    Test that setting `MAP_GRID_PEN` config changes both
-    `MAP_GRID_PEN_PRIMARY` and `MAP_GRID_PEN_SECONDARY`.
+    Test that setting `MAP_GRID_PEN` config changes both `MAP_GRID_PEN_PRIMARY`
+    and `MAP_GRID_PEN_SECONDARY`.
     """
     fig = Figure()
     with config(MAP_GRID_PEN="thick,red"):
@@ -157,8 +159,8 @@ def test_config_map_tick_length():
 @pytest.mark.mpl_image_compare
 def test_config_map_tick_pen():
     """
-    Test that setting `MAP_TICK_PEN` config changes both
-    `MAP_TICK_PEN_PRIMARY` and `MAP_TICK_PEN_SECONDARY`.
+    Test that setting `MAP_TICK_PEN` config changes both `MAP_TICK_PEN_PRIMARY`
+    and `MAP_TICK_PEN_SECONDARY`.
     """
     fig = Figure()
     with config(MAP_TICK_PEN="thick,red"):

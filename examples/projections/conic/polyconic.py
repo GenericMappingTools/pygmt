@@ -1,4 +1,4 @@
-"""
+r"""
 Polyconic Projection
 ====================
 
@@ -18,7 +18,10 @@ but the meridians are not as they get further away from the central meridian. As
 consequence, no parallel is standard because conformity is lost with the lengthening of
 the meridians.
 
-``Poly/width``:  The only additional argument for the projection is the map width.
+**poly**\ */scale* or **Poly**\ */width*
+
+The projection is set with **poly** or **Poly**. The figure size is set
+with *scale* or *width*.
 """
 import pygmt
 
