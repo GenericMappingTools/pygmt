@@ -122,8 +122,10 @@ class BasePlotting:
             **+l** for lakes or **+r** for river-lakes, and passing multiple
             strings in a list.
         resolution : str
-            Selects the resolution of the data set to use ((f)ull, (h)igh,
-            (i)ntermediate, (l)ow, and (c)rude).
+            **f**\ |**h**\ |**i**\ |**l**\ |**c**
+            Selects the resolution of the data set to: (**f**\ )ull,
+            (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
+            and (**c**\ )rude).
         land : str
             Select filling or clipping of “dry” areas.
         rivers : str
