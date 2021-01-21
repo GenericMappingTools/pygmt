@@ -17,7 +17,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(R="region", V="verbose")
+@use_alias(C="tab", F="geographic", L="zdata", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def grdinfo(grid, **kwargs):
     """
@@ -31,6 +31,7 @@ def grdinfo(grid, **kwargs):
     ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
+        This is the only required argument.
     {R}
     {V}
 
