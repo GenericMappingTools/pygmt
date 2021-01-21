@@ -11,12 +11,14 @@ from pygmt.helpers import (
     data_kind,
     dummy_context,
     fmt_docstring,
+    kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(V="verbose")
+@use_alias(R="region", V="verbose")
+@kwargs_to_strings(R="sequence")
 def grdinfo(grid, **kwargs):
     """
     Get information about a grid.
@@ -29,7 +31,7 @@ def grdinfo(grid, **kwargs):
     ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
-
+    {R}
     {V}
 
     Returns
