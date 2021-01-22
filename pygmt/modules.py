@@ -69,7 +69,7 @@ def grdinfo(grid, **kwargs):
         The default value is ``False``. This cannot be called if
         ``per_column`` is also set.
     spacing : str
-        *dx*\ [/*dy*\ ]|**b**\ |**i**\ |**r**\ ]
+        *dx*\ [/*dy*\ ]|\ **b**\ |**i**\ |**r**\ ]
         Report the min/max of the region to the nearest multiple of dx and dy,
         and output this in the form w/e/s/n (unless ``per_column`` is set). To
         report the actual grid region, append **r**. For a grid produced by
