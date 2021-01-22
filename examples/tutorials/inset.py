@@ -85,4 +85,32 @@ with fig.inset(location="jBL+w3c+o0.5/0.2c", border="+pblack+glightred"):
     pass
 fig.show()
 
+########################################################################################
+#
+# Standard plotting functions can be called from within the ``inset`` context manager.
+# The example below uses :meth:`pygmt.Figure.coast` to plot a zoomed out map that
+# selectively paints the state of Massachusetts to shows its location relative to
+# other states.
 
+fig = pygmt.Figure()
+fig.coast(
+    region=[-74, -69.5, 41, 43],
+    borders="2/thin",
+    shorelines="thin",
+    projection="M15c",
+    land="lightyellow",
+    water="lightblue",
+    frame="a",
+)
+# This does not include an inset fill as it is covered by the inset map
+with fig.inset(location="jBL+w3c+o0.5/0.2c", border="+pblack"):
+    fig.coast(
+        region=[-80, -65, 35, 50],
+        projection="M3c",
+        land="gray",
+        borders=[1, 2],
+        shorelines="1/thin",
+        water="white",
+        dcw="US.MA+gred",
+    )
+fig.show()
