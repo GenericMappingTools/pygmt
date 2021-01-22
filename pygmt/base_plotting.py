@@ -2022,8 +2022,8 @@ class BasePlotting:
         Must provide either *data* or *length* and *azimuth*.
 
         Options include full circle and half circle plots. The outline
-        of the windrose is drawn with the same color as *MAP_DEFAULT_PEN*
-        (see: gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
+        of the windrose is drawn with the same color as
+        :gmt-term:`MAP_DEFAULT_PEN`
 
         Full option list at :gmt-docs:`rose.html`
 
@@ -2140,7 +2140,7 @@ class BasePlotting:
         vector_params : str
             Used with **plot_vectors** to modify vector parameters. For
             vector heads, append vector head size [Default is 0, i.e., a
-            line]. See VECTOR ATTRIBUTES under :gmt-docs:`rose.html` for
+            line]. See :gmt-docs:`rose.html#vector-attributes` for
             specifying additional attributes. If **plot_vectors** is not
             given and the current plot mode is to draw a windrose diagram
             then using **vector_params** will add vector heads to all
