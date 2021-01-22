@@ -20,7 +20,7 @@ COMMON_OPTIONS = {
             is the first plot command.""",
     "J": """\
         projection : str
-            *projection*\ [*projection-specific arguments*\ ]*figure size*
+            *projection*\ [*projection-specific arguments*\ ]*figure size*.
             Select map projection. This is a required argument if this 
             is the first plot command.""",
     "B": """\
