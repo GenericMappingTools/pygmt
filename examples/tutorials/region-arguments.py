@@ -113,3 +113,43 @@ fig.coast(
     frame="ag",
 )
 fig.show()
+
+########################################################################################
+# ISO code
+# --------
+#
+# The ``region`` can be set to include a specific area specified by the two-character
+# `ISO 3166-1 alpha-2 convention <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`.
+
+fig = pygmt.Figure()
+fig.coast(
+    # Sets the figure region to encompass Japan with the ISO code "JP"
+    region="JP",
+    projection="M12c",
+    land="lightgray",
+    water="white",
+    borders="1/0.5p",
+    shorelines="1/0.5p",
+    frame="ag",
+)
+fig.show()
+
+########################################################################################
+#
+# The area encompassed by the ISO code can be expanded by appending **+r**\ *increment*
+# to the ISO code. The *increment* unit is in degrees and expands the range of the
+# region in all directions.
+
+fig = pygmt.Figure()
+fig.coast(
+    # Expands the region setting outside the range of Japan by 3 degrees in all
+    # directions
+    region="JP+r3",
+    projection="M12c",
+    land="lightgray",
+    water="white",
+    borders="1/0.5p",
+    shorelines="1/0.5p",
+    frame="ag",
+)
+fig.show()
