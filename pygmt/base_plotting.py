@@ -2023,7 +2023,7 @@ class BasePlotting:
 
         Options include full circle and half circle plots. The outline
         of the windrose is drawn with the same color as *MAP_DEFAULT_PEN*
-        (see: gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
+        (see :gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
 
         Full option list at :gmt-docs:`rose.html`
 
