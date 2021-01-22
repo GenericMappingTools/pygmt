@@ -74,11 +74,42 @@ fig.coast(
 fig.show()
 
 ########################################################################################
+# Global regions
+# --------------
 #
-# Passing **g** to ``region`` sets the region to
+# In addition to passing coordinates, the argument **d** can be passed to set the
+# region to the entire globe. The range is 180W to 180E (-180, 180) and 90S to
+# 90N (-90 to 90). With no parameters set for the projection, the figure defaults to be
+# centered at the mid-point of both x- and y-axes. Using **d**\ , the figure is
+# centered at 0,0, or the intersection of the equator and prime meridian.
 
 fig = pygmt.Figure()
 fig.coast(
-    region="g", projection="Cyl_stere/12c", land="tomato1", water="skyblue", frame="ag"
+    region="d",
+    projection="Cyl_stere/12c",
+    land="lightgray",
+    water="white",
+    borders="1/0.5p",
+    shorelines="1/0.5p",
+    frame="ag",
+)
+fig.show()
+
+########################################################################################
+#
+# The argument **g** can be passed, which encompasses the entire globe. The range is
+# 0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters set for the
+# projection, the figure is centered at 180,0, or the intersection of the equator and
+# International Date Line.
+
+fig = pygmt.Figure()
+fig.coast(
+    region="g",
+    projection="Cyl_stere/12c",
+    land="lightgray",
+    water="white",
+    borders="1/0.5p",
+    shorelines="1/0.5p",
+    frame="ag",
 )
 fig.show()
