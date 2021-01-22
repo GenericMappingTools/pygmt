@@ -2022,8 +2022,13 @@ class BasePlotting:
         Must provide either *data* or *length* and *azimuth*.
 
         Options include full circle and half circle plots. The outline
+<<<<<<< HEAD
         of the windrose is drawn with the same color as
         :gmt-term:`MAP_DEFAULT_PEN`
+=======
+        of the windrose is drawn with the same color as *MAP_DEFAULT_PEN*
+        (see :gmt-docs:`gmt.conf.html#term-MAP_DEFAULT_PEN`).
+>>>>>>> 70cd24425a1493878225e255d87625038af4fd83
 
         Full option list at :gmt-docs:`rose.html`
 
