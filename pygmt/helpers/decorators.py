@@ -173,12 +173,13 @@ def fmt_docstring(module_func):
     Parameters
     ----------
     region : str or list
-        *Required if this is the first plot command*.
-        ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
-        Specify the region of interest.
+        *xmin/xmax/ymin/ymax*\ [**+r**\ ][**+u**\ *unit*].
+        Specify the region of interest. This is a required argument if this
+        is the first plot command.
     projection : str
-        *Required if this is the first plot command*.
-        Select map projection.
+        *projection*\ [*projection-specific arguments*\ ]\ *figure size*.
+        Select map projection. This is a required argument if this
+        is the first plot command.
     <BLANKLINE>
     **Aliases:**
     <BLANKLINE>
