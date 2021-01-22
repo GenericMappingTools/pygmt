@@ -201,8 +201,8 @@ class BasePlotting:
             apply to all four levels. To set the pen for a single level,
             pass a string with *level*\ /*pen*\ , where level is
             1-4 and represent coastline, lakeshore, island-in-lake shore, and
-            lake-in-island-in-lake shore. Pass a list of *level*\ /*pen* to
-            ``shorelines`` to set multiple levels When specific
+            lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
+            strings to ``shorelines`` to set multiple levels. When specific
             level pens are set, those not listed will not be drawn.
         dcw : str or list
             *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
