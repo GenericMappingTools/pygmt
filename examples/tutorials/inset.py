@@ -100,8 +100,9 @@ fig.coast(
     water="lightblue",
     frame="a",
 )
-# This does not include an inset fill as it is covered by the inset map
+# This does not include an inset fill as it is covered by the inset figure
 with fig.inset(location="jBL+w3c+o0.5/0.2c", border="+pblack"):
+    # Use a plotting function to create a figure inside the inset
     fig.coast(
         region=[-80, -65, 35, 50],
         projection="M3c",
@@ -109,6 +110,7 @@ with fig.inset(location="jBL+w3c+o0.5/0.2c", border="+pblack"):
         borders=[1, 2],
         shorelines="1/thin",
         water="white",
+        # Use dcw to selectively highlight an area
         dcw="US.MA+gred",
     )
 fig.show()
