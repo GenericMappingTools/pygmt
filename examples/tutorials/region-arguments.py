@@ -38,7 +38,7 @@ fig.show()
 ########################################################################################
 #
 # The coordinates coordinates can be passed to ``region`` as a list, in the form
-# of [*xmin*\ ,*xmax*\ ,*ymin*\ ,*ymax*\ ].
+# of [*xmin*\ ,\ *xmax*\ ,\ *ymin*\ ,\ *ymax*\ ].
 
 fig = pygmt.Figure()
 fig.coast(
@@ -119,7 +119,8 @@ fig.show()
 # --------
 #
 # The ``region`` can be set to include a specific area specified by the two-character
-# `ISO 3166-1 alpha-2 convention <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`.
+# `ISO 3166-1 alpha-2 convention
+# (for futher information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 fig = pygmt.Figure()
 fig.coast(
