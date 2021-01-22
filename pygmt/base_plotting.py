@@ -128,17 +128,71 @@ class BasePlotting:
             and (**c**\ )rude).
         land : str
             Select filling or clipping of “dry” areas.
-        rivers : str
+        rivers : int or str or list
             *river*\ [/*pen*\ ]
-            Draw rivers. Specify the type of rivers and [optionally] append pen
-            attributes.
+            Draw rivers. Specify the type of rivers and [optionally] append
+            pen attributes [Default pen: width = default, color = black,
+            style = solid].
+
+            Choose from the list of river types below; pass a list to
+            ``rivers`` to use multiple arguments.
+
+            0 = Double-lined rivers (river-lakes)
+
+            1 = Permanent major rivers
+
+            2 = Additional major rivers
+
+            3 = Additional rivers
+
+            4 = Minor rivers
+
+            5 = Intermittent rivers - major
+
+            6 = Intermittent rivers - additional
+
+            7 = Intermittent rivers - minor
+
+            8 = Major canals
+
+            9 = Minor canals
+
+            10 = Irrigation canals
+
+            You can also choose from several preconfigured river groups:
+
+            a = All rivers and canals (0-10)
+
+            A = All rivers and canals except river-lakes (1-10)
+
+            r = All permanent rivers (0-4)
+
+            R = All permanent rivers except river-lakes (1-4)
+
+            i = All intermittent rivers (5-7)
+
+            c = All canals (8-10)
+
         map_scale : str
             [**g**\ |**j**\ |**J**\ |**n**\ |**x**\ ]\ *refpoint*
             Draws a simple map scale centered on the reference point specified.
-        borders : str
+        borders : int or str or list
             *border*\ [/*pen*\ ]
             Draw political boundaries. Specify the type of boundary and
-            [optionally] append pen attributes
+            [optionally] append pen attributes [Default pen: width = default,
+            color = black, style = solid].
+
+            Choose from the list of boundaries below. pass a list to
+            ``borders`` to use multiple arguments.
+
+            1 = National boundaries
+
+            2 = State boundaries within the Americas
+
+            3 = Marine boundaries
+
+            a = All boundaries (1-3)
+
         water : str
             Select filling or clipping of “wet” areas.
         {U}
