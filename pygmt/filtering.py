@@ -1,5 +1,5 @@
 """
-GMT modules for Filtering of 1-D and 2-D Data
+GMT modules for Filtering of 1-D and 2-D Data.
 """
 import pandas as pd
 from pygmt.clib import Session

@@ -130,10 +130,11 @@ General guidelines for making a good gallery plot:
   dataset isn't available, open an issue requesting one and we'll work together to add
   it.
 * Add comments to explain things are aren't obvious from reading the code. Good: *Use a
-  Mercator projection and make the plot 6 inches wide*. Bad: *Draw coastlines and plot
-  the data*.
+  Mercator projection and make the plot 15 centimeters wide*. Bad: *Draw coastlines and 
+  plot the data*.
 * Describe the feature that you're showcasing and link to other relevant parts of the
   documentation.
+* SI units should be used in the example code for gallery plots.
 
 ### Tutorials
 
@@ -155,6 +156,7 @@ Guidelines for a good tutorial:
   features or abbreviations.
 * Explain the options and features in as much detail as possible. The gallery has
   concise examples while the tutorials are detailed and full of text.
+* SI units should be used in the example code for tutorial plots.  
 
 Note that the `Figure.show()` function needs to be called for a plot to be inserted into
 the documentation.
@@ -264,10 +266,11 @@ We use some tools:
 
 - [Black](https://github.com/ambv/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
+- [docformatter](https://github.com/myint/docformatter)
 - [isort](https://pycqa.github.io/isort/)
 
 to format the code so we don't have to think about it.
-Black loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
+Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
 Regardless, you won't have to worry about formatting the code yourself.
 Before committing, run it to automatically format your code:
 
@@ -288,7 +291,7 @@ common errors.
 The [`Makefile`](Makefile) contains rules for running both checks:
 
 ```bash
-make check   # Runs flake8, black, blackdoc and isort (in check mode)
+make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
