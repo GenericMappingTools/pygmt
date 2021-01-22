@@ -172,7 +172,6 @@ class BasePlotting:
             i = All intermittent rivers (5-7)
 
             c = All canals (8-10)
-
         map_scale : str
             [**g**\ |**j**\ |**J**\ |**n**\ |**x**\ ]\ *refpoint*
             Draws a simple map scale centered on the reference point specified.
@@ -182,7 +181,7 @@ class BasePlotting:
             [optionally] append pen attributes [Default pen: width = default,
             color = black, style = solid].
 
-            Choose from the list of boundaries below. pass a list to
+            Choose from the list of boundaries below. Pass a list to
             ``borders`` to use multiple arguments.
 
             1 = National boundaries
@@ -192,14 +191,19 @@ class BasePlotting:
             3 = Marine boundaries
 
             a = All boundaries (1-3)
-
         water : str
             Select filling or clipping of “wet” areas.
         {U}
-        {V}
-        shorelines : str
+        shorelines : int or str or list
             [*level*\ /]\ *pen*
-            Draw shorelines [Default is no shorelines]. Append pen attributes.
+            Draw shorelines [Default is no shorelines]. Append pen attributes
+            [Defaults: width = default, color = black, style = solid] which
+            apply to all four levels. To set the pen for a single level,
+            pass a string with *level*\ /*pen*\ , where level is
+            1-4 and represent coastline, lakeshore, island-in-lake shore, and
+            lake-in-island-in-lake shore. Pass a list of *level*\ /*pen* to
+            ``shorelines`` to set multiple levels When specific
+            level pens are set, those not listed will not be drawn.
         dcw : str or list
             *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
             [**+p**\ *pen*\ ][**+z**]
@@ -222,7 +226,7 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
         if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
