@@ -1307,7 +1307,11 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
-            lib.call_module("inset", "begin " + build_arg_string(kwargs))
+            try:
+                lib.call_module("inset", f"begin {build_arg_string(kwargs)}")
+                yield
+            finally:
+                lib.call_module("inset", "end")
 
     @fmt_docstring
     @use_alias(
