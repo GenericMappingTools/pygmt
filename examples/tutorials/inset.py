@@ -11,8 +11,6 @@ figure.
 import pygmt
 
 ########################################################################################
-# Create a figure
-# ---------------
 #
 # Prior to creating an inset figure, a larger figure must first be plotted. In the
 # example below, :meth:`pygmt.Figure.coast` is used to create a map of the US state of
