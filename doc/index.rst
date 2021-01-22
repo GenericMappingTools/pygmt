@@ -32,6 +32,7 @@
     projections/index.rst
     tutorials/coastlines.rst
     tutorials/plot.rst
+    tutorials/region-arguments.rst
     tutorials/plot-lines.rst
     tutorials/text.rst
     tutorials/contour-map.rst

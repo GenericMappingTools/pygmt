@@ -61,8 +61,8 @@ fig.show()
 # end of the ``region`` string.
 
 fig = pygmt.Figure()
-# Use region "d" to specify global region (-180/180/-90/90)
 fig.coast(
+    # Sets the bottom-left corner as 10E, 35N and the top-right corner as 20E, 45N
     region="10/35/20/45+r",
     projection="M12c",
     land="lightgray",
@@ -80,81 +80,5 @@ fig.show()
 fig = pygmt.Figure()
 fig.coast(
     region="g", projection="Cyl_stere/12c", land="tomato1", water="skyblue", frame="ag"
-)
-fig.show()
-
-########################################################################################
-# Contour line settings
-# ---------------------
-#
-# Use the ``annotation`` and ``interval`` arguments to adjust contour line intervals.
-# In the example below, there are contour intervals every 250 meters and
-# annotated contour lines every 1,000 meters.
-
-fig = pygmt.Figure()
-fig.grdcontour(
-    annotation=1000,
-    interval=250,
-    grid=grid,
-)
-fig.show()
-
-########################################################################################
-# Contour limits
-# --------------
-#
-# The ``limit`` argument sets the minimum and maximum values for the contour lines.
-# The argument takes the low and high values,
-# and is either a list (as below) or a string ``limit="-4000/-2000"``.
-
-fig = pygmt.Figure()
-fig.grdcontour(
-    annotation=1000,
-    interval=250,
-    grid=grid,
-    limit=[-4000, -2000],
-)
-fig.show()
-
-########################################################################################
-# Map settings
-# ------------
-#
-# The :meth:`pygmt.Figure.grdcontour` method accepts additional arguments,
-# including setting the projection and frame.
-
-fig = pygmt.Figure()
-fig.grdcontour(
-    annotation=1000,
-    interval=250,
-    grid=grid,
-    limit=[-4000, -2000],
-    projection="M10c",
-    frame=True,
-)
-fig.show()
-
-########################################################################################
-# Adding a colormap
-# -----------------
-#
-# The :meth:`pygmt.Figure.grdimage` method can be used to add a
-# colormap to the contour map. It must be called prior to
-# :meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the final map.
-# If the ``projection`` argument is specified in the :meth:`pygmt.Figure.grdimage`
-# method, it does not need to be repeated in the :meth:`pygmt.Figure.grdcontour` method.
-
-fig = pygmt.Figure()
-fig.grdimage(
-    grid=grid,
-    cmap="haxby",
-    projection="M10c",
-    frame=True,
-)
-fig.grdcontour(
-    annotation=1000,
-    interval=250,
-    grid=grid,
-    limit=[-4000, -2000],
 )
 fig.show()
