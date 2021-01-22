@@ -16,12 +16,12 @@ COMMON_OPTIONS = {
     "R": """\
         region : str or list
             *xmin/xmax/ymin/ymax*\ [**+r**\ ][**+u**\ *unit*].
-            Specify the region of interest. This is a required argument if this 
+            Specify the region of interest. This is a required argument if this
             is the first plot command.""",
     "J": """\
         projection : str
             *projection*\ [*projection-specific arguments*\ ]\ *figure size*.
-            Select map projection. This is a required argument if this 
+            Select map projection. This is a required argument if this
             is the first plot command.""",
     "B": """\
         frame : str or list
