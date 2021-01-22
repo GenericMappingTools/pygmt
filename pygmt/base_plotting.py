@@ -2111,8 +2111,8 @@ class BasePlotting:
              WEST,EAST,SOUTH,NORTH and for half-circle the default is
              90W,90E,-,0. A **-** in any entry disables that label
              (e.g. ``labels = 'W,E,-,N'``). Use ``labels = ''`` to disable
-             all four labels. Note that the *GMT_LANGUAGE* setting will
-             affect the  words used.
+             all four labels. Note that the :gmt-term:`GMT_LANGUAGE` setting
+             will affect the words used.
 
         no_scalebar : bool
              Do NOT draw the scale length bar (``no_scalebar = True``).
