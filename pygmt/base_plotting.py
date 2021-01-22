@@ -1204,7 +1204,7 @@ class BasePlotting:
         {t}
         """
         kwargs = self._preprocess(**kwargs)
-        if not ("B" in kwargs or "L" in kwargs or "Td" in kwargs or "Tm" in kwargs):
+        if not args_in_kwargs(args=["B", "L", "Td", "Tm"], kwargs=kwargs):
             raise GMTInvalidInput(
                 "At least one of frame, map_scale, compass, or rose must be specified."
             )
@@ -1307,7 +1307,11 @@ class BasePlotting:
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
-            lib.call_module("inset", "begin " + build_arg_string(kwargs))
+            try:
+                lib.call_module("inset", f"begin {build_arg_string(kwargs)}")
+                yield
+            finally:
+                lib.call_module("inset", "end")
 
     @fmt_docstring
     @use_alias(
