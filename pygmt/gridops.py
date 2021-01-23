@@ -377,13 +377,13 @@ def grd2cpt(grid, **kwargs):
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
         the :gmt-docs:`gmt.conf <gmt.conf>` file or on the command line. When
-        combined with **background**, only :gmt-term:`COLOR_NAN` is considered.
+        combined with ``background``, only :gmt-term:`COLOR_NAN` is considered.
     no_bg : bool
         Do not write out the background, foreground, and NaN-color fields
         [Default will write them, i.e. ``no_bg=False``].
     log : bool
         For logarithmic interpolation scheme with input given as logarithms.
-        Expects input z-values provided via **series** to be log10(*z*),
+        Expects input z-values provided via ``series`` to be log10(*z*),
         assigns colors, and writes out *z*.
     continuous : bool
         Force a continuous CPT when building from a list of colors and a list
