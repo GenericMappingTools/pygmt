@@ -276,7 +276,12 @@ def grdfilter(grid, **kwargs):
     Ww="cyclic",
     Z="continuous",
 )
-@kwargs_to_strings(T="sequence", G="sequence", L="sequence")
+@kwargs_to_strings(
+    T="sequence",
+    G="sequence",
+    L="sequence",
+    R="sequence"
+)
 def grd2cpt(grid, **kwargs):
     """
     Make GMT color palette tables from a grid file.
