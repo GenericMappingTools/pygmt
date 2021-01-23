@@ -191,6 +191,22 @@ def test_grd2cpt_reverse_color_only(grid):
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
+@check_figures_equal()
+def test_grd2cpt_reverse_zsign_only(grid):
+    """
+    Create CPT with its z-values reversed.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid=grid, C="earth", I="z")
+    fig_ref.grdimage(grid=grid)
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, cmap="earth", reverse="z")
+    fig_test.grdimage(grid=grid)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
 
 def test_grd2cpt_blank_output(grid):
     """
