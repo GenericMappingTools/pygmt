@@ -2,7 +2,7 @@
 Set the region argument
 =======================
 
-Many of the plotting functions take an argument for the ``region`` argument, which sets
+Many of the plotting functions take the ``region`` argument, which sets
 the area that will be shown in the figure. This tutorial covers the different types of
 inputs that it can accept.
 """
