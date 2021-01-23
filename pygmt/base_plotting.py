@@ -2172,7 +2172,6 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
         """
 
         kwargs = self._preprocess(**kwargs)

@@ -1,5 +1,5 @@
 """
-Tests for rose
+Tests for rose.
 """
 import numpy as np
 from pygmt import Figure
@@ -9,11 +9,11 @@ from pygmt.helpers.testing import check_figures_equal
 @check_figures_equal()
 def test_rose_data_file():
     """
-    Test supplying a data file containing a list of
-    fracture lengths and directions as digitized
-    from geological maps to the data argument
-    (lengths are stored in the second column,
-    directions in the first, specify via columns).
+    Test supplying a data file containing a list of fracture lengths and
+    directions as digitized from geological maps to the data argument (lengths
+    are stored in the second column, directions in the first, specify via
+    columns).
+
     Passing in R as list and string.
     """
 
@@ -51,8 +51,8 @@ def test_rose_data_file():
 @check_figures_equal()
 def test_rose_2d_array_single():
     """
-    Test supplying a 2D numpy array containing a
-    single pair of lengths and directions.
+    Test supplying a 2D numpy array containing a single pair of lengths and
+    directions.
     """
 
     fig_ref, fig_test = Figure(), Figure()
@@ -85,11 +85,12 @@ def test_rose_2d_array_single():
 
     return fig_ref, fig_test
 
+
 @check_figures_equal()
 def test_rose_2d_array_multiple():
     """
-    Test supplying a 2D numpy array containing a
-    list of lengths and directions.
+    Test supplying a 2D numpy array containing a list of lengths and
+    directions.
     """
 
     fig_ref, fig_test = Figure(), Figure()
@@ -128,8 +129,10 @@ def test_rose_2d_array_multiple():
 @check_figures_equal()
 def test_rose_plot_data_using_cpt():
     """
-    Test supplying a 2D numpy array containing a list of
-    lengths and directions. Use a cmap to color sectors.
+    Test supplying a 2D numpy array containing a list of lengths and
+    directions.
+
+    Use a cmap to color sectors.
     """
 
     fig_ref, fig_test = Figure(), Figure()
@@ -168,11 +171,11 @@ def test_rose_plot_data_using_cpt():
 @check_figures_equal()
 def test_rose_plot_with_transparency():
     """
-    Test supplying a data file containing a list of
-    fracture lengths and directions as digitized
-    from geological maps to the data argument
-    (lengths are stored in the second column,
-    directions in the first, specify via columns).
+    Test supplying a data file containing a list of fracture lengths and
+    directions as digitized from geological maps to the data argument (lengths
+    are stored in the second column, directions in the first, specify via
+    columns).
+
     Use transparency.
     """
 
@@ -212,13 +215,12 @@ def test_rose_plot_with_transparency():
 @check_figures_equal()
 def test_rose_no_sectors():
     """
-    Test supplying a data file containing a list of
-    fracture lengths and directions as digitized
-    from geological maps to the data argument
-    (lengths are stored in the second column,
-    directions in the first, specify via columns).
-    Plot data without defining a sector width,
-    add a title and rename labels.
+    Test supplying a data file containing a list of fracture lengths and
+    directions as digitized from geological maps to the data argument (lengths
+    are stored in the second column, directions in the first, specify via
+    columns).
+
+    Plot data without defining a sector width, add a title and rename labels.
     """
 
     fig_ref, fig_test = Figure(), Figure()
