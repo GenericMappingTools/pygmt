@@ -55,16 +55,18 @@ def test_grd2cpt(grid, region):
 
 
 @check_figures_equal()
-def test_grd2cpt_grdimage(grid, region):
+def test_grd2cpt_grdimage(grid):
     """
     Test creating a CPT with grd2cpt and plot it with grdimage.
     """
     fig_ref, fig_test = Figure(), Figure()
+    fig_ref.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", continuous=True)
-    fig_ref.grdimage(grid, projection="W0/15c")
+    fig_ref.grdimage(grid)
     fig_ref.colorbar(frame="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", continuous=True)
-    fig_test.grdimage(grid, projection="W0/15c")
+    fig_test.grdimage(grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
