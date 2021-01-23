@@ -55,6 +55,21 @@ def test_grd2cpt(grid, region):
 
 
 @check_figures_equal()
+def test_grd2cpt_grdimage(grid, region):
+    """
+    Test creating a CPT with grd2cpt and plot it with grdimage.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    grd2cpt(grid=grid, cmap="rainbow", continuous=True)
+    fig_ref.grdimage(grid, projection="W0/15c")
+    fig_ref.colorbar(frame="a2000")
+    grd2cpt(grid=grid, cmap="rainbow", continuous=True)
+    fig_test.grdimage(grid, projection="W0/15c")
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
 def test_grd2cpt_to_plot_points(points, region, grid):
     """
     Use color palette table to change color of points.
@@ -122,6 +137,7 @@ def test_grd2cpt_set_cpt(grid, region):
     grd2cpt(grid=grid, cmap="rainbow")
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
+
 
 @check_figures_equal()
 def test_grd2cpt_truncated_to_zlow_zhigh(grid, region):
