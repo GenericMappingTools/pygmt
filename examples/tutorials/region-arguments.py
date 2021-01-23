@@ -195,3 +195,22 @@ fig.coast(
     frame="ag",
 )
 fig.show()
+
+########################################################################################
+#
+# The ``region`` increment can be appended with **+R**, which adds the increment
+# without rounding.
+
+fig = pygmt.Figure()
+fig.coast(
+    # Expands the region setting outside the range of Japan by 3 degrees in all
+    # directions, without rounding to the nearest increment.
+    region="JP+r3",
+    projection="M12c",
+    land="lightgray",
+    water="white",
+    borders="1/0.5p",
+    shorelines="1/0.5p",
+    frame="ag",
+)
+fig.show()
