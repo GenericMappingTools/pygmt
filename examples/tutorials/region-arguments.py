@@ -56,9 +56,9 @@ fig.show()
 ########################################################################################
 #
 # Instead of passing axes minima and maxima, the coordinates can be passed for the
-# bottom-left and top-right corners/ The string format takes the coordinates for the
-# bottom-left and top-right coordinates. To specify classic mode, append **+r** at the
-# end of the ``region`` string.
+# bottom-left and top-right corners. The string format takes the coordinates for the
+# bottom-left and top-right coordinates. To specify corner coordinates, append **+r**
+# at the end of the ``region`` string.
 
 fig = pygmt.Figure()
 fig.coast(
