@@ -55,8 +55,8 @@ fig.show()
 
 ########################################################################################
 #
-# GMT has the option for region coordinates to be passed in classic mode, which was the
-# standard prior to GMT version 6. The string format takes the coordinates for the
+# Instead of passing axes minima and maxima, the coordinates can be passed for the
+# bottom-left and top-right corners/ The string format takes the coordinates for the
 # bottom-left and top-right coordinates. To specify classic mode, append **+r** at the
 # end of the ``region`` string.
 
@@ -138,8 +138,8 @@ fig.show()
 ########################################################################################
 #
 # The area encompassed by the ISO code can be expanded by appending **+r**\ *increment*
-# to the ISO code. The *increment* unit is in degrees and expands the range of the
-# region in all directions.
+# to the ISO code. The *increment* unit is in degrees, and if only value is added it
+# expands the range of the region in all directions.
 
 fig = pygmt.Figure()
 fig.coast(
