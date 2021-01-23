@@ -224,7 +224,7 @@ fig = pygmt.Figure()
 fig.coast(
     # Expands the region setting outside the range of Japan by 3 degrees in all
     # directions, without rounding to the nearest increment.
-    region="JP+R3",
+    region="JP+e3",
     projection="M12c",
     land="lightgray",
     water="white",
