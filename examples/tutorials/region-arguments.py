@@ -119,7 +119,7 @@ fig.show()
 # --------
 #
 # The ``region`` can be set to include a specific area specified by the two-character
-# `ISO 3166-1 alpha-2 convention
+# ISO 3166-1 alpha-2 convention
 # (for futher information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 fig = pygmt.Figure()
