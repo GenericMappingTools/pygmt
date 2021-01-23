@@ -154,3 +154,22 @@ fig.coast(
     frame="ag",
 )
 fig.show()
+
+########################################################################################
+#
+# Instead of expanding the range of the plot uniformly in all directions, two values
+# can be passed to expand differently on each axis. The format is *xinc*\ /\ *yinc*.
+
+fig = pygmt.Figure()
+fig.coast(
+    # Expands the region setting outside the range of Japan by 3 degrees on the x-axis
+    # and 5 degrees on the y-axis.
+    region="JP+r3/5",
+    projection="M12c",
+    land="lightgray",
+    water="white",
+    borders="1/0.5p",
+    shorelines="1/0.5p",
+    frame="ag",
+)
+fig.show()
