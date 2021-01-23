@@ -139,7 +139,8 @@ fig.show()
 #
 # The area encompassed by the ISO code can be expanded by appending **+r**\ *increment*
 # to the ISO code. The *increment* unit is in degrees, and if only value is added it
-# expands the range of the region in all directions.
+# expands the range of the region in all directions. Using **+r** rounds to the nearest
+# increment.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -165,6 +166,27 @@ fig.coast(
     # Expands the region setting outside the range of Japan by 3 degrees on the x-axis
     # and 5 degrees on the y-axis.
     region="JP+r3/5",
+    projection="M12c",
+    land="lightgray",
+    water="white",
+    borders="1/0.5p",
+    shorelines="1/0.5p",
+    frame="ag",
+)
+fig.show()
+
+########################################################################################
+#
+# Instead of expanding the range of the plot uniformly in all directions, four values
+# can be passed to expand differently in each direction.
+# The format is *winc*\ /\ *einc*\ /\ *sinc*\ /\ *ninc*\ , which expands on the west,
+# east, south, and north axes.
+
+fig = pygmt.Figure()
+fig.coast(
+    # Expands the region setting outside the range of Japan by 3 degrees to the west,
+    # 5 degrees to the east, 7 degrees to the south, and 9 degrees to the north.
+    region="JP+r3/5/7/9",
     projection="M12c",
     land="lightgray",
     water="white",
