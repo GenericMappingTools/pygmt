@@ -1,14 +1,17 @@
 """
-Tests for coast
+Tests for coast.
 """
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
 def test_coast():
-    "Simple plot from the GMT docs"
+    """
+    Simple plot from the GMT docs.
+    """
     fig = Figure()
     fig.coast(
         R="-30/30/-40/40",
@@ -27,7 +30,9 @@ def test_coast():
 
 @check_figures_equal()
 def test_coast_iceland():
-    "Test passing in R as a list"
+    """
+    Test passing in R as a list.
+    """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(R="-30/-10/60/65", J="m1c", B="", G="p28+r100")
@@ -39,7 +44,9 @@ def test_coast_iceland():
 
 @check_figures_equal()
 def test_coast_aliases():
-    "Test that all aliases work"
+    """
+    Test that all aliases work.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.coast(
         R="-30/30/-40/40",
@@ -84,7 +91,9 @@ def test_coast_aliases():
 
 @pytest.mark.mpl_image_compare
 def test_coast_world_mercator():
-    "Test passing generating a global Mercator map with coastlines"
+    """
+    Test passing generating a global Mercator map with coastlines.
+    """
     fig = Figure()
     fig.coast(
         region=[-180, 180, -80, 80],
@@ -97,9 +106,20 @@ def test_coast_world_mercator():
     return fig
 
 
+def test_coast_required_args():
+    """
+    Test if fig.coast fails when not given required arguments.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.coast(region="EG")
+
+
 @check_figures_equal()
 def test_coast_dcw_single():
-    "Test passing a single country code to dcw"
+    """
+    Test passing a single country code to dcw.
+    """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES+gbisque+pblue")
@@ -115,7 +135,9 @@ def test_coast_dcw_single():
 
 @check_figures_equal()
 def test_coast_dcw_multiple():
-    "Test passing multiple country code to dcw"
+    """
+    Test passing multiple country code to dcw.
+    """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES,IT+gbisque+pblue")
@@ -131,7 +153,9 @@ def test_coast_dcw_multiple():
 
 @check_figures_equal()
 def test_coast_dcw_list():
-    "Test passing a list of country codes and fill options to dcw"
+    """
+    Test passing a list of country codes and fill options to dcw.
+    """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(
@@ -153,7 +177,9 @@ def test_coast_dcw_list():
 
 @check_figures_equal()
 def test_coast_dcw_continent():
-    "Test passing a continent code to dcw"
+    """
+    Test passing a continent code to dcw.
+    """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="=AF+gbisque+pblue")
@@ -169,7 +195,9 @@ def test_coast_dcw_continent():
 
 @check_figures_equal()
 def test_coast_dcw_state():
-    "Test passing a US state code to dcw"
+    """
+    Test passing a US state code to dcw.
+    """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(
