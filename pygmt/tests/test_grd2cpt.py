@@ -11,7 +11,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import check_figures_equal
 
-
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
@@ -29,7 +28,7 @@ def fixture_region():
     """
     The data region.
     """
-    return [10, 70, -5, 10]
+    return [0, 10, 0, 10]
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -39,19 +38,21 @@ def fixture_grid():
     """
     return load_earth_relief(registration="gridline")
 
+
 @check_figures_equal()
-def test_grd2cpt(grid):
+def test_grd2cpt(grid, region):
     """
     Test the basic function of grd2cpt to create a CPT based off a grid input.
     """
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.basemap(R="0/10/0/10", J="X15c", B="a")
+    fig_ref.basemap(R=region, J="X15c", B="a")
     grd2cpt(grid=grid)
     fig_ref.colorbar(frame="a2000")
-    fig_test.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
+    fig_test.basemap(region=region, projection="X15c", frame="a")
     grd2cpt(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
+
 
 @check_figures_equal()
 def test_grd2cpt_to_plot_points(points, region, grid):
@@ -59,7 +60,7 @@ def test_grd2cpt_to_plot_points(points, region, grid):
     Use color palette table to change color of points.
     """
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.basemap(R=region, J="X15c", B="a")
+    fig_ref.basemap(R=[10, 70, -5, 10], J="X15c", B="a")
     grd2cpt(grid=grid, C="rainbow")
     fig_ref.plot(
         x=points[:, 0],
@@ -69,7 +70,7 @@ def test_grd2cpt_to_plot_points(points, region, grid):
         style="c1c",
         cmap=True,
     )
-    fig_test.basemap(region=region, projection="X15c", frame="a")
+    fig_test.basemap(region=[10, 70, -5, 10], projection="X15c", frame="a")
     grd2cpt(grid=grid, cmap="rainbow")
     fig_test.plot(
         x=points[:, 0],
@@ -80,6 +81,7 @@ def test_grd2cpt_to_plot_points(points, region, grid):
         cmap=True,
     )
     return fig_ref, fig_test
+
 
 def test_grd2cpt_blank_output(grid):
     """
@@ -96,6 +98,7 @@ def test_grd2cpt_invalid_output(grid):
     with pytest.raises(GMTInvalidInput):
         grd2cpt(grid=grid, output=["some.cpt"])
 
+
 def test_grd2cpt_output_to_cpt_file(grid):
     """
     Save the generated static color palette table to a .cpt file.
@@ -105,3 +108,17 @@ def test_grd2cpt_output_to_cpt_file(grid):
         assert os.path.exists(cptfile.name)
 
 
+@check_figures_equal()
+def test_grd2cpt_truncated_to_zlow_zhigh(grid, region):
+    """
+    Test the basic function of grd2cpt to create a CPT based off a grid input.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.basemap(R=region, J="X15c", B="a")
+    grd2cpt(grid=grid, cmap="rainbow", truncate="0.15/0.85", series="-4500/4500")
+    fig_ref.colorbar(frame="a2000")
+
+    fig_test.basemap(region=region, projection="X15c", frame="a")
+    grd2cpt(grid=grid, cmap="rainbow", truncate="0.15/0.85", series="-4500/4500")
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
