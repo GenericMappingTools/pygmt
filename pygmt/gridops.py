@@ -254,3 +254,54 @@ def grdfilter(grid, **kwargs):
             result = None  # if user sets an outgrid, return None
 
         return result
+
+
+@fmt_docstring
+@use_alias(
+    A="transparency",
+    C="cmap",
+    D="background",
+    F="color_model",
+    G="truncate",
+    H="output",
+    I="reverse",
+    L="limit",
+    M="overrule_bg",
+    N="no_bg",
+    Q="log",
+    R="region",
+    T="series",
+    V="verbose",
+    W="categorical",
+    Ww="cyclic",
+    Z="continuous",
+)
+@kwargs_to_strings(T="sequence", G="sequence", L="sequence")
+def grd2cpt(grid, **kwargs):
+    """
+    Function to create cpt from grd input.
+    """
+    kind = data_kind(grid)
+
+    with GMTTempFile(suffix=".nc"):
+        with Session() as lib:
+            if kind == "file":
+                file_context = dummy_context(grid)
+            elif kind == "grid":
+                file_context = lib.virtualfile_from_grid(grid)
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+
+            with file_context as infile:
+                if "W" in kwargs and "Ww" in kwargs:
+                    raise GMTInvalidInput(
+                        "Set only categorical or cyclic to True, not both."
+                    )
+                if "H" not in kwargs.keys():  # if no output is set
+                    arg_str = build_arg_string(kwargs)
+                elif "H" in kwargs.keys():  # if output is set
+                    outfile = kwargs.pop("H")
+                    if not outfile or not isinstance(outfile, str):
+                        raise GMTInvalidInput("'output' should be a proper file name.")
+                arg_str = " ".join([infile, build_arg_string(kwargs)])
+                lib.call_module("grd2cpt", arg_str)

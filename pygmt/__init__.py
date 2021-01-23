@@ -16,7 +16,7 @@ from pygmt import datasets
 from pygmt.figure import Figure
 from pygmt.filtering import blockmedian
 from pygmt.gridding import surface
-from pygmt.gridops import grdcut, grdfilter
+from pygmt.gridops import grd2cpt, grdcut, grdfilter
 from pygmt.mathops import makecpt
 from pygmt.modules import GMTDataArrayAccessor, config, grdinfo, info, which
 from pygmt.sampling import grdtrack
