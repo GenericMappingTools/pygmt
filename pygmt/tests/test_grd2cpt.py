@@ -105,6 +105,7 @@ def test_grd2cpt_set_cpt(grid):
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
+
 @check_figures_equal()
 def test_grd2cpt_scaled_with_series(grid):
     """
@@ -138,6 +139,7 @@ def test_grd2cpt_truncated_to_zlow_zhigh(grid):
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
+
 @check_figures_equal()
 def test_grd2cpt_truncated_to_zlow_only(grid):
     """
@@ -154,6 +156,7 @@ def test_grd2cpt_truncated_to_zlow_only(grid):
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
+
 @check_figures_equal()
 def test_grd2cpt_truncated_to_zhigh_only(grid):
     """
@@ -166,6 +169,24 @@ def test_grd2cpt_truncated_to_zhigh_only(grid):
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", truncate=[None, 0.5], series=[-4500, 4500, 500])
+    fig_test.grdimage(grid=grid)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_grd2cpt_reverse_color_only(grid):
+    """
+    Create CPT with its colors reversed.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid=grid, C="rainbow", I=True)
+    fig_ref.grdimage(grid=grid)
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, cmap="rainbow", reverse=True)
     fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
