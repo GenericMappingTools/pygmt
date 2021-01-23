@@ -85,7 +85,6 @@ def test_rose_2d_array_single():
 
     return fig_ref, fig_test
 
-
 @check_figures_equal()
 def test_rose_2d_array_multiple():
     """
