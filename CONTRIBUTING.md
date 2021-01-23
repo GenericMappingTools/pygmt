@@ -436,10 +436,12 @@ The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
 function/class/module listed there.
 
-You can reference classes, functions, and modules from anywhere (including docstrings)
-using <code>:func:\`package.module.function\`</code>,
-<code>:class:\`package.module.class\`</code>, or
-<code>:mod:\`package.module\`</code>.
+You can reference classes, functions, methods, and modules from anywhere 
+(including docstrings) using <code>:func:\`package.module.function\`</code>,
+<code>:class:\`package.module.class\`</code>, 
+<code>:meth:\`package.module.method\`</code>, or
+<code>:mod:\`package.module\`</code>. GMT documentation can be linked with 
+<code>:gmt-docs:\`page_name.html\`</code>.
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
 
