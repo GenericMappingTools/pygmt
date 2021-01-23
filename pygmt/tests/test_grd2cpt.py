@@ -191,6 +191,7 @@ def test_grd2cpt_reverse_color_only(grid):
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
+
 @check_figures_equal()
 def test_grd2cpt_reverse_zsign_only(grid):
     """
@@ -208,6 +209,7 @@ def test_grd2cpt_reverse_zsign_only(grid):
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
+
 @check_figures_equal()
 def test_grd2cpt_reverse_color_and_zsign(grid):
     """
@@ -224,6 +226,61 @@ def test_grd2cpt_reverse_color_and_zsign(grid):
     fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_grd2cpt_continuous(grid):
+    """
+    Create a CPT with that is continuous.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid=grid, C="blue,white", Z=True)
+    fig_ref.grdimage(grid=grid)
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, cmap="blue,white", continuous=True)
+    fig_test.grdimage(grid=grid)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_grd2cpt_categorical(grid):
+    """
+    Create a CPT with that is categorical.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid=grid, C="geo", W=True)
+    fig_ref.grdimage(grid=grid)
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, cmap="geo", categorical=True)
+    fig_test.grdimage(grid=grid)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_grd2cpt_cyclic(grid):
+    """
+    Create a CPT with that is cyclic.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid=grid, C="geo", Ww=True)
+    fig_ref.grdimage(grid=grid)
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, cmap="geo", cyclic=True)
+    fig_test.grdimage(grid=grid)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
 
 def test_grd2cpt_blank_output(grid):
     """
