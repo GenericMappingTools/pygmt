@@ -46,13 +46,14 @@ def test_grd2cpt(grid):
     plot it with grdimage.
     """
     fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid)
-    fig_ref.grdimage(grid)
+    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid)
-    fig_test.grdimage(grid)
+    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -60,18 +61,19 @@ def test_grd2cpt(grid):
 @check_figures_equal()
 def test_grd2cpt_to_plot_points(points, region, grid):
     """
-    Use color palette table to change color of points.
+    Use CPT to change color of points.
     """
     fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
     fig_ref.basemap(R=region, J="X15c", B="a")
     grd2cpt(grid=grid, C="rainbow")
     fig_ref.plot(
         x=points[:, 0],
         y=points[:, 1],
-        color=points[:, 2],
-        region=region,
-        style="c1c",
-        cmap=True,
+        G=points[:, 2],
+        R=region,
+        S="c1c",
+        C=True,
     )
     fig_test.basemap(region=region, projection="X15c", frame="a")
     grd2cpt(grid=grid, cmap="rainbow")
@@ -87,35 +89,84 @@ def test_grd2cpt_to_plot_points(points, region, grid):
 
 
 @check_figures_equal()
-def test_grd2cpt_set_cpt(grid, region):
+def test_grd2cpt_set_cpt(grid):
     """
     Test function grd2cpt to create a CPT based off a grid input and a set CPT.
     """
     fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, cmap="rainbow")
-    fig_ref.grdimage(grid)
+    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow")
-    fig_test.grdimage(grid)
+    fig_test.grdimage(grid=grid)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+@check_figures_equal()
+def test_grd2cpt_scaled_with_series(grid):
+    """
+    Create CPT scaled to a min/max series to change color of grid.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid=grid, cmap="rainbow", T="-4500/4500/500")
+    fig_ref.grdimage(grid=grid)
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, cmap="rainbow", series=[-4500, 4500, 500])
+    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
 
 @check_figures_equal()
-def test_grd2cpt_truncated_to_zlow_zhigh(grid, region):
+def test_grd2cpt_truncated_to_zlow_zhigh(grid):
     """
-    Test the basic function of grd2cpt to create a CPT based off a grid input.
+    Create CPT that is truncated to z-low and z-high.
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, cmap="rainbow", G="0.15/0.85", T="-4500/4500/500")
-    fig_ref.grdimage(grid)
+    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", truncate=[0.15, 0.85], series=[-4500, 4500, 500])
-    fig_test.grdimage(grid)
+    fig_test.grdimage(grid=grid)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+@check_figures_equal()
+def test_grd2cpt_truncated_to_zlow_only(grid):
+    """
+    Create CPT that is truncated at z-low only.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid=grid, cmap="rainbow", G="0.5/NaN", T="-4500/4500/500")
+    fig_ref.grdimage(grid=grid)
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, cmap="rainbow", truncate=[0.5, None], series=[-4500, 4500, 500])
+    fig_test.grdimage(grid=grid)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+@check_figures_equal()
+def test_grd2cpt_truncated_to_zhigh_only(grid):
+    """
+    Create CPT that is truncated at z-high only.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid=grid, cmap="rainbow", G="NaN/0.5", T="-4500/4500/500")
+    fig_ref.grdimage(grid=grid)
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, cmap="rainbow", truncate=[None, 0.5], series=[-4500, 4500, 500])
+    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
