@@ -1,5 +1,5 @@
 """
-GMT modules for grid operations
+GMT modules for grid operations.
 """
 
 import xarray as xr
@@ -227,7 +227,6 @@ def grdfilter(grid, **kwargs):
     >>> # and returns a filtered data array with the smoothed field.
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
-
     """
     kind = data_kind(grid)
 
