@@ -109,16 +109,30 @@ def test_grd2cpt_output_to_cpt_file(grid):
 
 
 @check_figures_equal()
+def test_grd2cpt_set_cpt(grid, region):
+    """
+    Test function grd2cpt to create a CPT based off a grid input and a set CPT.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.basemap(R=region, J="X15c", B="a")
+    grd2cpt(grid=grid, cmap="rainbow")
+    fig_ref.colorbar(frame="a2000")
+
+    fig_test.basemap(region=region, projection="X15c", frame="a")
+    grd2cpt(grid=grid, cmap="rainbow")
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+@check_figures_equal()
 def test_grd2cpt_truncated_to_zlow_zhigh(grid, region):
     """
     Test the basic function of grd2cpt to create a CPT based off a grid input.
     """
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.basemap(R=region, J="X15c", B="a")
-    grd2cpt(grid=grid, cmap="rainbow", truncate="0.15/0.85", series="-4500/4500")
+    fig_ref.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
+    grd2cpt(grid=grid, cmap="rainbow", truncate="0.15/0.85", series="-4500/4500/500")
     fig_ref.colorbar(frame="a2000")
-
-    fig_test.basemap(region=region, projection="X15c", frame="a")
-    grd2cpt(grid=grid, cmap="rainbow", truncate="0.15/0.85", series="-4500/4500")
+    fig_test.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
+    grd2cpt(grid=grid, cmap="rainbow", truncate="0.15/0.85", series="-4500/4500/500")
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
