@@ -5,7 +5,7 @@ import os
 
 import numpy as np
 import pytest
-from pygmt import Figure, makecpt, grd2cpt
+from pygmt import Figure, grd2cpt
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -32,4 +32,19 @@ def test_grd2cpt(grid):
     grd2cpt(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
+
+def test_grd2cpt_blank_output(grid):
+    """
+    Use incorrect setting by passing in blank file name to output parameter.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grd2cpt(grid=grid, output="")
+
+
+def test_grd2cpt_invalid_output(grid):
+    """
+    Use incorrect setting by passing in invalid type to output parameter.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grd2cpt(grid=grid, output=["some.cpt"])
 
