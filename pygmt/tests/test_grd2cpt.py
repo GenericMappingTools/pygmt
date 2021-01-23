@@ -39,12 +39,11 @@ def fixture_grid():
     return load_earth_relief(registration="gridline")
 
 
-
 @check_figures_equal()
 def test_grd2cpt(grid):
     """
-    Test creating a CPT with grd2cpt to create a CPT based off a grid input
-    and plot it with grdimage.
+    Test creating a CPT with grd2cpt to create a CPT based off a grid input and
+    plot it with grdimage.
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.basemap(B="a", J="W0/15c", R="d")
@@ -86,6 +85,7 @@ def test_grd2cpt_to_plot_points(points, region, grid):
     )
     return fig_ref, fig_test
 
+
 @check_figures_equal()
 def test_grd2cpt_set_cpt(grid, region):
     """
@@ -114,10 +114,11 @@ def test_grd2cpt_truncated_to_zlow_zhigh(grid, region):
     fig_ref.grdimage(grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
-    grd2cpt(grid=grid, cmap="rainbow", truncate=[0.15,0.85], series=[-4500,4500,500])
+    grd2cpt(grid=grid, cmap="rainbow", truncate=[0.15, 0.85], series=[-4500, 4500, 500])
     fig_test.grdimage(grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
+
 
 def test_grd2cpt_blank_output(grid):
     """
@@ -142,3 +143,20 @@ def test_grd2cpt_output_to_cpt_file(grid):
     with GMTTempFile(suffix=".cpt") as cptfile:
         grd2cpt(grid=grid, output=cptfile.name)
         assert os.path.exists(cptfile.name)
+
+
+def test_grd2cpt_unrecognized_data_type():
+    """
+    Test that an error will be raised if an invalid data type is passed to
+    grid.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grd2cpt(grid=0)
+
+
+def test_grd2cpt_categorical_and_cyclic(grid):
+    """
+    Use incorrect setting by setting both categorical and cyclic to True.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grd2cpt(grid=grid, cmap="batlow", categorical=True, cyclic=True)
