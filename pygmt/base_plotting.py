@@ -1983,3 +1983,30 @@ class BasePlotting:
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("meca", arg_str)
+
+    @fmt_docstring
+    @use_alias(
+        R="region",
+        J="projection",
+        G="fill",
+        N="inverse",
+        B="frame",
+        Td="terminator",
+        Tc="civil_twighlight",
+        Tn="nautical_twighlight",
+        Ta="astronomical_twighlight",
+        W="pen",
+        U="timestamp",
+        V="verbose",
+        X="xshift",
+        Y="yshift",
+        p="perspective",
+    )
+    @kwargs_to_strings(R="sequence", p="sequence")
+    def solar(self, **kwargs):
+        r"""
+        Wrap solar
+        """
+        kwargs = self._preprocess(**kwargs)
+        with Session() as lib:
+            lib.call_module("solar", build_arg_string(kwargs))
