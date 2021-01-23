@@ -388,7 +388,6 @@ def grd2cpt(grid, **kwargs):
     continuous : bool
         Force a continuous CPT when building from a list of colors and a list
         of z-values [Default is None, i.e. discrete values].
-    {V}
     categorical : bool
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
@@ -398,6 +397,7 @@ def grd2cpt(grid, **kwargs):
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
+    {V}
     """
     kind = data_kind(grid)
 
