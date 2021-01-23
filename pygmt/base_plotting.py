@@ -3,6 +3,8 @@ Base class with plot generating commands.
 
 Does not define any special non-GMT methods (savefig, show, etc).
 """
+# pylint: disable=C0302
+
 import contextlib
 
 import numpy as np
