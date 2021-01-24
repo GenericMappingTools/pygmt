@@ -2004,7 +2004,9 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence", p="sequence")
     def solar(self, **kwargs):
         r"""
-        Plots the day-night terminator.
+        A plotting function the day-night terminator. Additionally, it can
+        plot the terminators for civil twighlight, nautical twighlight, and
+        astronomical twighlight.
 
         {aliases}
 
