@@ -122,7 +122,7 @@ class BasePlotting:
             **+l** for lakes or **+r** for river-lakes, and passing multiple
             strings in a list.
         resolution : str
-            **f**\ |**h**\ |**i**\ |**l**\ |**c**
+            **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**
             Selects the resolution of the data set to: (**f**\ )ull,
             (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
             and (**c**\ )rude).
