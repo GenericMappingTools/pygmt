@@ -2021,44 +2021,36 @@ class BasePlotting:
             transparency parameter can be appended after the color
             using **@** after the color.
         day_night : bool or str
-            [**+d**\ *date*\ ][**+z**\ *time zone*\ ]
+            [**+d**\ *date*\ ]
             Plots the day/night terminator. If the argument is ``True``, the
             current day-night terminator is plotted. Optionally, **+d** can be
             added, along with the date and time, to see the day/night
             terminator at a specific time. The date is added in ISO format,
-            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
-            use a timezone  other than UTC, append **+z** followed by
-            the *time zone*\ .
+            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
         civil_twighlight" : bool or str
-            [**+d**\ *date*\ ][**+z**\ *time zone*\ ]
+            [**+d**\ *date*\ ]
             Plots the civil twighlight terminator. If the argument is
             ``True``, the current civil twighlight terminator is plotted.
             Optionally, **+d** can be added, along with the date and time, to
             see the day/night terminator at a specific time. The date is added
             in ISO format,
-            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
-            use a timezone  other than UTC, append **+z** followed by
-            the *time zone*\ .
+            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
         nautical_twighlight : bool or str
-            [**+d**\ *date*\ ][**+z**\ *time zone*\ ]
+            [**+d**\ *date*\ ]
             Plots the nautical twighlight terminator. If the argument is
             ``True``, the current nautical twighlight terminator is plotted.
             Optionally, **+d** can be added, along with the date and time, to
             see the day/night terminator at a specific time. The date is added
             in ISO format,
-            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
-            use a timezone  other than UTC, append **+z** followed by
-            the *time zone*\ .
+            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
         astronomical_twighlight : bool or str
-            [**+d**\ *date*\ ][**+z**\ *time zone*\ ]
+            [**+d**\ *date*\ ]
             Plots the astronomical twighlight terminator. If the argument is
             ``True``, the current astronomical twighlight terminator is
             plotted. Optionally, **+d** can be added, along with the date and
             time, to see the day/night terminator at a specific time. The date
             is added in ISO format,
-            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
-            use a timezone  other than UTC, append **+z** followed by
-            the *time zone*\ .
+            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
         pen : str
             Set pen attributes for lines or the outline of symbols
             [Defaults: width = default, color = black, style = solid].
