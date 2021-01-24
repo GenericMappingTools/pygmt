@@ -115,21 +115,21 @@ class BasePlotting:
             max_level will not be plotted.
         {B}
         lakes : str or list
-            *fill*\ [**+l**\|**+r**\ ]
+            *fill*\ [**+l**\|**+r**\ ].
             Set the shade, color, or pattern for lakes and river-lakes. The
             default is the fill chosen for wet areas set by the ``water``
             argument. Optionally, specify separate fills by appending
             **+l** for lakes or **+r** for river-lakes, and passing multiple
             strings in a list.
         resolution : str
-            **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**
+            **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
             Selects the resolution of the data set to: (**f**\ )ull,
             (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
             and (**c**\ )rude).
         land : str
             Select filling or clipping of “dry” areas.
         rivers : int or str or list
-            *river*\ [/*pen*\ ]
+            *river*\ [/*pen*\ ].
             Draw rivers. Specify the type of rivers and [optionally] append
             pen attributes [Default pen: width = default, color = black,
             style = solid].
@@ -173,10 +173,10 @@ class BasePlotting:
 
             c = All canals (8-10)
         map_scale : str
-            [**g**\|**j**\|**J**\|**n**\|**x**\ ]\ *refpoint*
+            [**g**\|**j**\|**J**\|**n**\|**x**\ ]\ *refpoint*.
             Draws a simple map scale centered on the reference point specified.
         borders : int or str or list
-            *border*\ [/*pen*\ ]
+            *border*\ [/*pen*\ ].
             Draw political boundaries. Specify the type of boundary and
             [optionally] append pen attributes [Default pen: width = default,
             color = black, style = solid].
@@ -195,7 +195,7 @@ class BasePlotting:
             Select filling or clipping of “wet” areas.
         {U}
         shorelines : int or str or list
-            [*level*\ /]\ *pen*
+            [*level*\ /]\ *pen*.
             Draw shorelines [Default is no shorelines]. Append pen attributes
             [Defaults: width = default, color = black, style = solid] which
             apply to all four levels. To set the pen for a single level,
@@ -206,7 +206,7 @@ class BasePlotting:
             level pens are set, those not listed will not be drawn.
         dcw : str or list
             *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
-            [**+p**\ *pen*\ ][**+z**]
+            [**+p**\ *pen*\ ][**+z**].
             Select painting or dumping country polygons from the
             `Digital Chart of the World
             <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
