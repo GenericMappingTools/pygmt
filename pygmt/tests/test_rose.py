@@ -22,7 +22,7 @@ def test_rose_data_file():
     fig_ref.rose(
         data="@fractures_06.txt",
         region="0/1/0/360",
-        sector_width=15,
+        sector=15,
         diameter="5.5c",
         color="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
@@ -62,7 +62,7 @@ def test_rose_2d_array_single():
     fig_ref.rose(
         data=data,
         region="0/1/0/360",
-        sector_width=10,
+        sector=10,
         diameter="5.5c",
         color="cyan",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
@@ -74,7 +74,7 @@ def test_rose_2d_array_single():
     fig_test.rose(
         data=data,
         region=[0, 1, 0, 360],
-        sector_width=10,
+        sector=10,
         diameter="5.5c",
         color="cyan",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
@@ -102,7 +102,7 @@ def test_rose_2d_array_multiple():
     fig_ref.rose(
         data=data,
         region="0/1/0/360",
-        sector_width=10,
+        sector=10,
         diameter="5.5c",
         color="blue",
         frame=["x0.2g0.2", "y30g30", "+ggray"],
@@ -114,7 +114,7 @@ def test_rose_2d_array_multiple():
     fig_test.rose(
         data=data,
         region=[0, 1, 0, 360],
-        sector_width=10,
+        sector=10,
         diameter="5.5c",
         color="blue",
         frame=["x0.2g0.2", "y30g30", "+ggray"],
@@ -144,7 +144,7 @@ def test_rose_plot_data_using_cpt():
     fig_ref.rose(
         data=data,
         region=[0, 1, 0, 360],
-        sector_width=15,
+        sector=15,
         diameter="5.5c",
         cmap="batlow",
         frame=["x0.2g0.2", "y30g30", "+gdarkgray"],
@@ -156,7 +156,7 @@ def test_rose_plot_data_using_cpt():
     fig_test.rose(
         data=data,
         region="0/1/0/360",
-        sector_width=15,
+        sector=15,
         diameter="5.5c",
         cmap="batlow",
         frame=["x0.2g0.2", "y30g30", "+gdarkgray"],
@@ -184,7 +184,7 @@ def test_rose_plot_with_transparency():
     fig_ref.rose(
         data="@fractures_06.txt",
         region=[0, 1, 0, 360],
-        sector_width=15,
+        sector=15,
         diameter="5.5c",
         color="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
@@ -198,7 +198,7 @@ def test_rose_plot_with_transparency():
     fig_test.rose(
         data="@fractures_06.txt",
         region="0/1/0/360",
-        sector_width=15,
+        sector=15,
         diameter="5.5c",
         color="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],

@@ -1988,21 +1988,21 @@ class BasePlotting:
 
     @fmt_docstring
     @use_alias(
-        A="sector_width",
+        A="sector",
         B="frame",
         C="cmap",
-        D="shift_sectors",
-        Em="plot_vectors",
-        F="no_scalebar",
+        D="shift",
+        Em="vectors",
+        F="no_scale",
         G="color",
         I="inquire",
         JX="diameter",
         L="labels",
         M="vector_params",
-        Q="conf_level",
+        Q="alpha",
         R="region",
         S="norm",
-        T="orient_data",
+        T="orientation",
         U="timestamp",
         V="verbose",
         W="pen",
@@ -2047,7 +2047,7 @@ class BasePlotting:
             all lengths are set to unity (see ``scale = 'u'`` to set actual
             lengths to unity as well).
 
-        orient_data : bool
+        orientation : bool
             Specifies that the input data are orientation data (i.e., have a
             180 degree ambiguity) instead of true 0-360 degree directions
             [Default]. We compensate by counting each record twice: First as
@@ -2066,7 +2066,7 @@ class BasePlotting:
              projection machinery is supported for this module. If not given,
              then we default to a diameter of 7.5 cm.
 
-        sector_width : str
+        sector : str
              Gives the sector width in degrees for sector and rose diagram.
              Default ``'0'`` means windrose diagram. Append *r* to draw rose
              diagram instead of sector diagram (e.g. ``'10r'``).
@@ -2105,7 +2105,7 @@ class BasePlotting:
         pen : str
             Set pen attributes for sector outline or rose plot, e.g.
             ``pen = '0.5p'``. [Default is no outline]. To change pen used to
-            draw vector (requires **plot_vectors**) [Default is same as sector
+            draw vector (requires **vectors**) [Default is same as sector
             outline] use e.g. ``pen = 'v0.5p'``.
 
         labels : str
@@ -2117,23 +2117,23 @@ class BasePlotting:
              all four labels. Note that the :gmt-term:`GMT_LANGUAGE` setting
              will affect the words used.
 
-        no_scalebar : bool
-             Do NOT draw the scale length bar (``no_scalebar = True``).
+        no_scale : bool
+             Do NOT draw the scale length bar (``no_scale = True``).
              Default plots scale in lower right corner provided **frame**
              is used.
 
-        shift_sectors : bool
+        shift : bool
              Shift sectors so that they are centered on the bin interval
              (e.g., first sector is centered on 0 degrees).
 
-        plot_vectors : str
-              ``plot_vectors = 'mode_file'``. Plot vectors showing the
+        vectors : str
+              ``vectors = 'mode_file'``. Plot vectors showing the
               principal directions given in the *mode_file* file.
-              Alternatively, specify **plot_vectors** to compute and plot
+              Alternatively, specify **vectors** to compute and plot
               mean direction. See **vector_params** to control the vector
               attributes. Finally, to instead save the computed mean
               direction and other statistics, use
-              ``plot_vectors = '+wmode_file'``. The eight items saved to
+              ``vectors = '+wmode_file'``. The eight items saved to
               a single record are: *mean_az*, *mean_r*, *mean_resultant*,
               *max_r*, *scaled_mean_r*, *length_sum*, *n*, *sign@alpha*,
               where the last term is 0 or 1 depending on whether the mean
@@ -2141,18 +2141,18 @@ class BasePlotting:
               **conf_level**.
 
         vector_params : str
-            Used with **plot_vectors** to modify vector parameters. For
+            Used with **vectors** to modify vector parameters. For
             vector heads, append vector head size [Default is 0, i.e., a
             line]. See :gmt-docs:`rose.html#vector-attributes` for
-            specifying additional attributes. If **plot_vectors** is not
+            specifying additional attributes. If **vectors** is not
             given and the current plot mode is to draw a windrose diagram
             then using **vector_params** will add vector heads to all
             individual directions using the supplied attributes.
 
-        conf_level : float or str
+        alpha : float or str
             Sets the confidence level used to determine if the mean
             resultant is significant (i.e., Lord Rayleigh test for
-            uniformity) [``conf_level = 0.05``]. Note: The critical
+            uniformity) [``alpha = 0.05``]. Note: The critical
             values are approximated [Berens, 2009] and requires at
             least 10 points; the critical resultants are accurate to at
             least 3 significant digits. For smaller data sets you
@@ -2162,7 +2162,7 @@ class BasePlotting:
             Statistics, *J. Stat. Software*, 31(10), 1-21,
             https://doi.org/10.18637/jss.v031.i10.
 
-        inquire :
+        inquire : bool
             Inquire. Computes statistics needed to specify a useful
             **frame**. No plot is generated. The following statistics
             are written to stdout: *n*, *mean az*, *mean r*, *mean
