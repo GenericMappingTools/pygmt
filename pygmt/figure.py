@@ -66,7 +66,7 @@ class Figure(BasePlotting):
         self._activate_figure()
 
     # GMT Supplementary modules
-    from .meca import meca
+    from pygmt.src.meca import meca
 
     def __del__(self):
         # Clean up the temporary directory that stores the previews
