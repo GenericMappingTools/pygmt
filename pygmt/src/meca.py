@@ -31,7 +31,6 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def meca(
-    self,
     spec,
     scale,
     longitude=None,
@@ -138,7 +137,6 @@ def meca(
     # pylint: disable=too-many-locals
     # pylint: disable=too-many-nested-blocks
     # pylint: disable=too-many-branches
-    # pylint: disable=no-self-use
     # pylint: disable=too-many-statements
 
     def set_pointer(data_pointers, spec):
