@@ -1989,9 +1989,9 @@ class BasePlotting:
         R="region",
         J="projection",
         G="fill",
-        N="inverse",
+        #N="inverse",
         B="frame",
-        Td="terminator",
+        Td="day_night",
         Tc="civil_twighlight",
         Tn="nautical_twighlight",
         Ta="astronomical_twighlight",
@@ -2005,7 +2005,29 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence", p="sequence")
     def solar(self, **kwargs):
         r"""
-        Wrap solar
+        Plots the day-night terminator.
+
+        {aliases}
+
+        Parameters
+        ----------
+        {R}
+        {J}
+        {B}
+        fill : str
+            *fill color*\ [**@**\ *transparency*]
+            The fill color for the night-area plotted. The optional
+            transparency parameter can be appended after the color
+            using **@** after the color.
+        day_night : bool or str
+            [**+d**\ *date*\ ][**+z**\ *time zone*\ ]
+            Plots the day/night terminator. If the argument is ``True``, the
+            current day-night terminator is plotted. Optionally, **+d** can be
+            added, along with the date and time, to see the day/night
+            terminator at a specific time. The date is added in ISO format,
+            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
+            use a timezone  other than UTC, append **+z** followed by
+            the *time zone*\ .
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
