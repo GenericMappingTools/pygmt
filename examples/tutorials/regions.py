@@ -1,6 +1,6 @@
 """
-Set the region argument
-=======================
+Set the region
+==============
 
 Many of the plotting functions take the ``region`` argument, which sets
 the area that will be shown in the figure. This tutorial covers the different types of
