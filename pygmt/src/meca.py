@@ -31,6 +31,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def meca(
+    self,  # pylint: disable=unused-argument
     spec,
     scale,
     longitude=None,
