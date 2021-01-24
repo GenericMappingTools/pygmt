@@ -161,6 +161,21 @@ Guidelines for a good tutorial:
 Note that the `Figure.show()` function needs to be called for a plot to be inserted into
 the documentation.
 
+### Example code standards
+
+When editing documentation, use the following standards to demonstrate the example code:
+
+1. Python arguments, such as import statements, Boolean expressions, and function 
+   arguments should be wrapped as ``code`` by using \`\` on both sides of the code.
+   Example: \`\`import pygmt\`\` results in ``import pygmt``
+   
+2.  Literal GMT arguments should be **bold** by wrapping the arguments with \*\* 
+    (two asterisks) on both sides. The argument description should be in *italicized* 
+    with \* (single asterisk) on both sides.
+    Example: `**+l**\ *label*` results in **+l***label*
+    
+3. Optional arguments are placed wrapped with [ ] (square brackets).
+4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 
 ## Contributing Code
 
@@ -302,6 +317,12 @@ We use the [pytest](https://pytest.org/) framework to run the test suite.
 Please write tests for your code so that we can be sure that it won't break any of the
 existing functionality.
 Tests also help us be confident that we won't break your code in the future.
+
+When writing tests, don't test everything that the GMT function already tests, such as
+the every unique combination arguments. An exception to this would be the most popular 
+modules, such as `plot` and `basemap`. The highest priority for tests should be the 
+Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile 
+mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
