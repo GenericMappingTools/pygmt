@@ -50,81 +50,75 @@ def meca(
 
     Note
     ----
-        Currently, labeling of beachballs with text strings is only
-        supported via providing a file to `spec` as input.
+        Currently, labeling of beachballs with text strings is only supported
+        via providing a file to `spec` as input.
 
     {aliases}
 
     Parameters
     ----------
     spec: dict, 1D array, 2D array, pd.DataFrame, or str
-        Either a filename containing focal mechanism parameters as columns,
-        a 1- or 2-D array with the same, or a dictionary. If a filename or
-        array, `convention` is required so we know how to interpret the
-        columns/entries. If a dictionary, the following combinations of
-        keys are supported; these determine the convention. Dictionary
-        may contain values for a single focal mechanism or lists of
-        values for many focal mechanisms. A Pandas DataFrame may
-        optionally contain columns latitude, longitude, depth,
-        plot_longitude,
-        and/or plot_latitude instead of passing them to the meca method.
+        Either a filename containing focal mechanism parameters as columns, a
+        1- or 2-D array with the same, or a dictionary. If a filename or array,
+        `convention` is required so we know how to interpret the
+        columns/entries. If a dictionary, the following combinations of keys
+        are supported; these determine the convention. Dictionary may contain
+        values for a single focal mechanism or lists of values for many focal
+        mechanisms. A Pandas DataFrame may optionally contain columns latitude,
+        longitude, depth, plot_longitude, and/or plot_latitude instead of
+        passing them to the meca method.
 
         - ``"aki"`` — *strike, dip, rake, magnitude*
-        - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2,
-          mantissa, exponent*
+        - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,
+          exponent*
         - ``"mt"`` — *mrr, mtt, mff, mrt, mrf, mtf, exponent*
         - ``"partial"`` — *strike1, dip1, strike2, fault_type, magnitude*
-        - ``"principal_axis"`` — *t_exponent, t_azimuth, t_plunge,
-          n_exponent, n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge,
-          exponent*
+        - ``"principal_axis"`` — *t_exponent, t_azimuth, t_plunge, n_exponent,
+          n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent*
 
     scale: str
         Adjusts the scaling of the radius of the beachball, which is
-        proportional to the magnitude. Scale defines the size for
-        magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
+        proportional to the magnitude. Scale defines the size for magnitude = 5
+        (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
     longitude: int, float, list, or 1d numpy array
-        Longitude(s) of event location. Ignored if `spec` is not a
-        dictionary. List must be the length of the number of events.
-        Ignored if `spec` is a DataFrame and contains a 'longitude' column.
+        Longitude(s) of event location. Ignored if `spec` is not a dictionary.
+        List must be the length of the number of events. Ignored if `spec` is a
+        DataFrame and contains a 'longitude' column.
     latitude: int, float, list, or 1d numpy array
-        Latitude(s) of event location. Ignored if `spec` is not a
-        dictionary. List must be the length of the number of events.
-        Ignored if `spec` is a DataFrame and contains a 'latitude' column.
+        Latitude(s) of event location. Ignored if `spec` is not a dictionary.
+        List must be the length of the number of events. Ignored if `spec` is a
+        DataFrame and contains a 'latitude' column.
     depth: int, float, list, or 1d numpy array
-        Depth(s) of event location in kilometers. Ignored if `spec` is
-        not a dictionary. List must be the length of the number of events.
-        Ignored if `spec` is a DataFrame and contains a 'depth' column.
+        Depth(s) of event location in kilometers. Ignored if `spec` is not a
+        dictionary. List must be the length of the number of events. Ignored if
+        `spec` is a DataFrame and contains a 'depth' column.
     convention: str
-        ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"``
-        (seismic moment tensor), ``"partial"`` (partial focal mechanism),
-        or ``"principal_axis"`` (principal axis). Ignored if `spec` is a
+        ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"`` (seismic
+        moment tensor), ``"partial"`` (partial focal mechanism), or
+        ``"principal_axis"`` (principal axis). Ignored if `spec` is a
         dictionary or dataframe.
     component: str
         The component of the seismic moment tensor to plot. ``"full"`` (the
-        full seismic moment tensor), ``"dc"`` (the closest double couple
-        with zero trace and zero determinant), ``"deviatoric"`` (zero
-        trace)
+        full seismic moment tensor), ``"dc"`` (the closest double couple with
+        zero trace and zero determinant), ``"deviatoric"`` (zero trace)
     plot_longitude: int, float, list, or 1d numpy array
         Longitude(s) at which to place beachball, only used if `spec` is a
-        dictionary. List must be the length of the number of events.
-        Ignored if `spec` is a DataFrame and contains a 'plot_longitude'
-        column.
+        dictionary. List must be the length of the number of events. Ignored if
+        `spec` is a DataFrame and contains a 'plot_longitude' column.
     plot_latitude: int, float, list, or 1d numpy array
         Latitude(s) at which to place beachball, only used if `spec` is a
-        dictionary. List must be the length of the number of events.
-        Ignored if `spec` is a DataFrame and contains a 'plot_latitude'
-        column.
+        dictionary. List must be the length of the number of events. Ignored if
+        `spec` is a DataFrame and contains a 'plot_latitude' column.
     offset: bool or str
-        Offsets beachballs to the longitude, latitude specified in
-        the last two columns of the input file or array,
-        or by `plot_longitude` and `plot_latitude` if provided. A small
-        circle is plotted at the initial location and a line connects
-        the beachball to the circle. Specify pen and optionally append
-        ``+ssize`` to change the line style and/or size of the circle.
+        Offsets beachballs to the longitude, latitude specified in the last two
+        columns of the input file or array, or by `plot_longitude` and
+        `plot_latitude` if provided. A small circle is plotted at the initial
+        location and a line connects the beachball to the circle. Specify pen
+        and optionally append ``+ssize`` to change the line style and/or size
+        of the circle.
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
-        *region* [Default is False, i.e. plot symbols inside map frame
-        only].
+        *region* [Default is False, i.e. plot symbols inside map frame only].
     {J}
     {R}
     {B}
