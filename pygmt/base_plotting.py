@@ -2027,6 +2027,37 @@ class BasePlotting:
             e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
             use a timezone  other than UTC, append **+z** followed by
             the *time zone*\ .
+        civil_twighlight" : bool or str
+            [**+d**\ *date*\ ][**+z**\ *time zone*\ ]
+            Plots the civil twighlight terminator. If the argument is
+            ``True``, the current civil twighlight terminator is plotted.
+            Optionally, **+d** can be added, along with the date and time, to
+            see the day/night terminator at a specific time. The date is added
+            in ISO format,
+            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
+            use a timezone  other than UTC, append **+z** followed by
+            the *time zone*\ .
+        nautical_twighlight : bool or str
+            [**+d**\ *date*\ ][**+z**\ *time zone*\ ]
+            Plots the nautical twighlight terminator. If the argument is
+            ``True``, the current nautical twighlight terminator is plotted.
+            Optionally, **+d** can be added, along with the date and time, to
+            see the day/night terminator at a specific time. The date is added
+            in ISO format,
+            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
+            use a timezone  other than UTC, append **+z** followed by
+            the *time zone*\ .
+        astronomical_twighlight : bool or str
+            [**+d**\ *date*\ ][**+z**\ *time zone*\ ]
+            Plots the astronomical twighlight terminator. If the argument is
+            ``True``, the current astronomical twighlight terminator is
+            plotted. Optionally, **+d** can be added, along with the date and
+            time, to see the day/night terminator at a specific time. The date
+            is added in ISO format,
+            e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
+            use a timezone  other than UTC, append **+z** followed by
+            the *time zone*\ .
+
         pen : str
             Set pen attributes for lines or the outline of symbols
             [Defaults: width = default, color = black, style = solid].
