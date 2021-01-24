@@ -6,9 +6,8 @@ Does not define any special non-GMT methods (savefig, show, etc).
 import contextlib
 
 import numpy as np
-import pandas as pd
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     args_in_kwargs,
     build_arg_string,
@@ -1580,3 +1579,6 @@ class BasePlotting:
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
+
+    # GMT Supplementary modules
+    from pygmt.src.meca import meca
