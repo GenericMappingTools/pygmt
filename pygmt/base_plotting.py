@@ -2057,12 +2057,12 @@ class BasePlotting:
             e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``. To
             use a timezone  other than UTC, append **+z** followed by
             the *time zone*\ .
-
         pen : str
             Set pen attributes for lines or the outline of symbols
             [Defaults: width = default, color = black, style = solid].
         {XY}
         {p}
+        {U}
         {V}
         """
         kwargs = self._preprocess(**kwargs)
