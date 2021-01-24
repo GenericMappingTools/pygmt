@@ -2138,7 +2138,7 @@ class BasePlotting:
               *max_r*, *scaled_mean_r*, *length_sum*, *n*, *sign@alpha*,
               where the last term is 0 or 1 depending on whether the mean
               resultant is significant at the level of confidence set via
-              **conf_level**.
+              **alpha**.
 
         vector_params : str
             Used with **vectors** to modify vector parameters. For
