@@ -43,17 +43,15 @@ def fixture_grid():
 def test_grd2cpt(grid):
     """
     Test creating a CPT with grd2cpt to create a CPT based off a grid input and
-    plot it with grdimage.
+    plot it with a color bar.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid)
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid)
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -97,11 +95,9 @@ def test_grd2cpt_set_cpt(grid):
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, cmap="rainbow")
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow")
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -114,11 +110,9 @@ def test_grd2cpt_scaled_with_series(grid):
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, cmap="rainbow", T="-4500/4500/500")
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", series=[-4500, 4500, 500])
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -131,11 +125,9 @@ def test_grd2cpt_truncated_to_zlow_zhigh(grid):
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, cmap="rainbow", G="0.15/0.85", T="-4500/4500/500")
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", truncate=[0.15, 0.85], series=[-4500, 4500, 500])
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -148,11 +140,9 @@ def test_grd2cpt_truncated_to_zlow_only(grid):
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, cmap="rainbow", G="0.5/NaN", T="-4500/4500/500")
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", truncate=[0.5, None], series=[-4500, 4500, 500])
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -165,11 +155,9 @@ def test_grd2cpt_truncated_to_zhigh_only(grid):
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, cmap="rainbow", G="NaN/0.5", T="-4500/4500/500")
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", truncate=[None, 0.5], series=[-4500, 4500, 500])
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -183,11 +171,9 @@ def test_grd2cpt_reverse_color_only(grid):
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, C="rainbow", I=True)
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="rainbow", reverse=True)
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -201,11 +187,9 @@ def test_grd2cpt_reverse_zsign_only(grid):
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, C="earth", I="z")
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="earth", reverse="z")
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -219,11 +203,9 @@ def test_grd2cpt_reverse_color_and_zsign(grid):
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, C="earth", I="cz")
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="earth", reverse="cz")
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -237,11 +219,9 @@ def test_grd2cpt_continuous(grid):
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, C="blue,white", Z=True)
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="blue,white", continuous=True)
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -255,11 +235,9 @@ def test_grd2cpt_categorical(grid):
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, C="geo", W=True)
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="geo", categorical=True)
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -273,11 +251,9 @@ def test_grd2cpt_cyclic(grid):
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, C="geo", Ww=True)
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="geo", cyclic=True)
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
@@ -291,11 +267,9 @@ def test_grd2cpt_limit(grid):
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
     grd2cpt(grid=grid, C="haxby", L="-1000/1000")
-    fig_ref.grdimage(grid=grid)
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid, cmap="haxby", limit=[-1000, 1000])
-    fig_test.grdimage(grid=grid)
     fig_test.colorbar(frame="a2000")
     return fig_ref, fig_test
 
