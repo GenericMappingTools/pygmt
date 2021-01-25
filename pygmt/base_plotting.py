@@ -1311,7 +1311,11 @@ class BasePlotting:
                 lib.call_module("inset", f"begin {build_arg_string(kwargs)}")
                 yield
             finally:
-                lib.call_module("inset", "end")
+                if "V" in kwargs:
+                    verbose_dict = {"V": kwargs["V"]}
+                    lib.call_module("inset", f"end {build_arg_string(verbose_dict)}")
+                else:
+                    lib.call_module("inset", "end")
 
     @fmt_docstring
     @use_alias(
