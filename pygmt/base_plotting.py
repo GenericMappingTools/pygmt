@@ -1991,9 +1991,9 @@ class BasePlotting:
         G="fill",
         B="frame",
         Td="day_night",
-        Tc="civil_twighlight",
-        Tn="nautical_twighlight",
-        Ta="astronomical_twighlight",
+        Tc="civil_twilight",
+        Tn="nautical_twilight",
+        Ta="astronomical_twilight",
         W="pen",
         U="timestamp",
         V="verbose",
@@ -2005,8 +2005,8 @@ class BasePlotting:
     def solar(self, **kwargs):
         r"""
         A plotting function the day-night terminator. Additionally, it can
-        plot the terminators for civil twighlight, nautical twighlight, and
-        astronomical twighlight.
+        plot the terminators for civil twilight, nautical twilight, and
+        astronomical twilight.
 
         {aliases}
 
@@ -2027,26 +2027,26 @@ class BasePlotting:
             added, along with the date and time, to see the day/night
             terminator at a specific time. The date is added in ISO format,
             e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
-        civil_twighlight" : bool or str
+        civil_twilight" : bool or str
             [**+d**\ *date*\ ]
-            Plots the civil twighlight terminator. If the argument is
-            ``True``, the current civil twighlight terminator is plotted.
+            Plots the civil twilight terminator. If the argument is
+            ``True``, the current civil twilight terminator is plotted.
             Optionally, **+d** can be added, along with the date and time, to
             see the day/night terminator at a specific time. The date is added
             in ISO format,
             e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
-        nautical_twighlight : bool or str
+        nautical_twilight : bool or str
             [**+d**\ *date*\ ]
-            Plots the nautical twighlight terminator. If the argument is
-            ``True``, the current nautical twighlight terminator is plotted.
+            Plots the nautical twilight terminator. If the argument is
+            ``True``, the current nautical twilight terminator is plotted.
             Optionally, **+d** can be added, along with the date and time, to
             see the day/night terminator at a specific time. The date is added
             in ISO format,
             e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
-        astronomical_twighlight : bool or str
+        astronomical_twilight : bool or str
             [**+d**\ *date*\ ]
-            Plots the astronomical twighlight terminator. If the argument is
-            ``True``, the current astronomical twighlight terminator is
+            Plots the astronomical twilight terminator. If the argument is
+            ``True``, the current astronomical twilight terminator is
             plotted. Optionally, **+d** can be added, along with the date and
             time, to see the day/night terminator at a specific time. The date
             is added in ISO format,

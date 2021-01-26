@@ -39,9 +39,9 @@ def test_solar_day_night():
 
 
 @check_figures_equal()
-def test_solar_civil_twighlight():
+def test_solar_civil_twilight():
     """
-    Test passing the solar argument with the civil_twighlight argument.
+    Test passing the solar argument with the civil_twilight argument.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
@@ -50,15 +50,15 @@ def test_solar_civil_twighlight():
         region="d",
         projection="W0/15c",
         frame="a",
-        civil_twighlight="+d1990-02-17T04:25:00",
+        civil_twilight="+d1990-02-17T04:25:00",
     )
     return fig_ref, fig_test
 
 
 @check_figures_equal()
-def test_solar_astronomical_twighlight():
+def test_solar_astronomical_twilight():
     """
-    Test passing the solar argument with the astronomical_twighlight argument.
+    Test passing the solar argument with the astronomical_twilight argument.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
@@ -67,15 +67,15 @@ def test_solar_astronomical_twighlight():
         region="d",
         projection="W0/15c",
         frame="a",
-        astronomical_twighlight="+d1990-02-17T04:25:00",
+        astronomical_twilight="+d1990-02-17T04:25:00",
     )
     return fig_ref, fig_test
 
 
 @check_figures_equal()
-def test_solar_nautical_twighlight():
+def test_solar_nautical_twilight():
     """
-    Test passing the solar argument with the nautical_twighlight argument.
+    Test passing the solar argument with the nautical_twilight argument.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
@@ -84,6 +84,6 @@ def test_solar_nautical_twighlight():
         region="d",
         projection="W0/15c",
         frame="a",
-        nautical_twighlight="+d1990-02-17T04:25:00",
+        nautical_twilight="+d1990-02-17T04:25:00",
     )
     return fig_ref, fig_test
