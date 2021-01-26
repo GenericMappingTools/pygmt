@@ -12,6 +12,7 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
+    GMTTempFile,
     args_in_kwargs,
     build_arg_string,
     data_kind,
@@ -2197,5 +2198,24 @@ class BasePlotting:
                 )
 
             with file_context as fname:
-                arg_str = " ".join([fname, build_arg_string(kwargs)])
-                lib.call_module("rose", arg_str)
+                if "I" not in kwargs:
+                    arg_str = " ".join([fname, build_arg_string(kwargs)])
+                    lib.call_module("rose", arg_str)
+                # if inquire only, give back statistics about input data
+                else:
+                    with GMTTempFile() as outfile:
+                        if "JX" not in kwargs:
+                            arg_str = " ".join(
+                                [
+                                    fname,
+                                    build_arg_string(kwargs),
+                                    " -JX1 ->" + outfile.name,
+                                ]
+                            )
+                        else:
+                            arg_str = " ".join(
+                                [fname, build_arg_string(kwargs), "->" + outfile.name]
+                            )
+                        lib.call_module("rose", arg_str)
+                        result = outfile.read().strip()
+                        print(result)
