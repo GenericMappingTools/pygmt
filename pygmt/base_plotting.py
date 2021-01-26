@@ -126,7 +126,7 @@ class BasePlotting:
             **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
             Selects the resolution of the data set to: (**f**\ )ull,
             (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
-            and (**c**\ )rude).
+            and (**c**\ )rude.
         land : str
             Select filling or clipping of “dry” areas.
         rivers : int or str or list
