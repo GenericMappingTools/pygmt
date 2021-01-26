@@ -107,44 +107,106 @@ class BasePlotting:
         {J}
         {R}
         area_thresh : int, float, or str
-            ``'min_area[/min_level/max_level][+ag|i|s|S][+r|l][+ppercent]'``
+            *min_area*\ [/*min_level*/*max_level*][**+ag**\|\ **i**\
+            \|\ **s**\|\ **S**][**+r**\|\ **l**][**+p**\
+            *percent*].
             Features with an area smaller than min_area in km^2 or of
             hierarchical level that is lower than min_level or higher than
             max_level will not be plotted.
         {B}
         lakes : str or list
-            *fill*\ [**+l**\ |**+r**\ ]
+            *fill*\ [**+l**\|\ **+r**].
             Set the shade, color, or pattern for lakes and river-lakes. The
             default is the fill chosen for wet areas set by the ``water``
             argument. Optionally, specify separate fills by appending
             **+l** for lakes or **+r** for river-lakes, and passing multiple
             strings in a list.
         resolution : str
-            Selects the resolution of the data set to use ((f)ull, (h)igh,
-            (i)ntermediate, (l)ow, and (c)rude).
+            **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
+            Selects the resolution of the data set to: (**f**\ )ull,
+            (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
+            and (**c**\ )rude.
         land : str
             Select filling or clipping of “dry” areas.
-        rivers : str
-            ``'river[/pen]'``
-            Draw rivers. Specify the type of rivers and [optionally] append pen
-            attributes.
+        rivers : int or str or list
+            *river*\ [/*pen*].
+            Draw rivers. Specify the type of rivers and [optionally] append
+            pen attributes [Default pen: width = default, color = black,
+            style = solid].
+
+            Choose from the list of river types below; pass a list to
+            ``rivers`` to use multiple arguments.
+
+            0 = Double-lined rivers (river-lakes)
+
+            1 = Permanent major rivers
+
+            2 = Additional major rivers
+
+            3 = Additional rivers
+
+            4 = Minor rivers
+
+            5 = Intermittent rivers - major
+
+            6 = Intermittent rivers - additional
+
+            7 = Intermittent rivers - minor
+
+            8 = Major canals
+
+            9 = Minor canals
+
+            10 = Irrigation canals
+
+            You can also choose from several preconfigured river groups:
+
+            a = All rivers and canals (0-10)
+
+            A = All rivers and canals except river-lakes (1-10)
+
+            r = All permanent rivers (0-4)
+
+            R = All permanent rivers except river-lakes (1-4)
+
+            i = All intermittent rivers (5-7)
+
+            c = All canals (8-10)
         map_scale : str
-            ``'[g|j|J|n|x]refpoint'``
+            [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*.
             Draws a simple map scale centered on the reference point specified.
-        borders : str
-            ``'border[/pen]'``
+        borders : int or str or list
+            *border*\ [/*pen*].
             Draw political boundaries. Specify the type of boundary and
-            [optionally] append pen attributes
+            [optionally] append pen attributes [Default pen: width = default,
+            color = black, style = solid].
+
+            Choose from the list of boundaries below. Pass a list to
+            ``borders`` to use multiple arguments.
+
+            1 = National boundaries
+
+            2 = State boundaries within the Americas
+
+            3 = Marine boundaries
+
+            a = All boundaries (1-3)
         water : str
             Select filling or clipping of “wet” areas.
         {U}
-        {V}
-        shorelines : str
-            ``'[level/]pen'``
-            Draw shorelines [Default is no shorelines]. Append pen attributes.
+        shorelines : int or str or list
+            [*level*\ /]\ *pen*.
+            Draw shorelines [Default is no shorelines]. Append pen attributes
+            [Defaults: width = default, color = black, style = solid] which
+            apply to all four levels. To set the pen for a single level,
+            pass a string with *level*\ /*pen*\ , where level is
+            1-4 and represent coastline, lakeshore, island-in-lake shore, and
+            lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
+            strings to ``shorelines`` to set multiple levels. When specific
+            level pens are set, those not listed will not be drawn.
         dcw : str or list
             *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
-            [**+p**\ *pen*\ ][**+z**]
+            [**+p**\ *pen*\ ][**+z**].
             Select painting or dumping country polygons from the
             `Digital Chart of the World
             <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
@@ -164,7 +226,7 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
         if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
