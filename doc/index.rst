@@ -31,6 +31,7 @@
     tutorials/frames.rst
     projections/index.rst
     tutorials/coastlines.rst
+    tutorials/regions.rst
     tutorials/plot.rst
     tutorials/plot-lines.rst
     tutorials/text.rst
