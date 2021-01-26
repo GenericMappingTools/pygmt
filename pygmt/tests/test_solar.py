@@ -1,9 +1,7 @@
 """
 Tests for solar.
 """
-import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
 
 
