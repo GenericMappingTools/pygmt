@@ -10,13 +10,32 @@ from pygmt.helpers.testing import check_figures_equal
 @check_figures_equal()
 def test_solar_day_night():
     """
-    Test passing the solar argument with the day_night argument.
+    Test passing the solar argument with the day_night argument and confirm the
+    working aliases for the solar function.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
-    fig_ref.solar(R="d", J="W0/15c", B="a", Td="+d1990-02-17T04:25:00", G="navyblue@75", W="1p,red,-.-", X=3, Y=5)
+    fig_ref.solar(
+        R="d",
+        J="W0/15c",
+        B="a",
+        Td="+d1990-02-17T04:25:00",
+        G="navyblue@75",
+        W="1p,red,-.-",
+        X=3,
+        Y=5,
+        p="135/45",
+    )
     fig_test.solar(
-        region="d", projection="W0/15c", frame="a", day_night="+d1990-02-17T04:25:00", fill="navyblue@75", pen="1p,red,-.-", xshift=3, yshift=5
+        region="d",
+        projection="W0/15c",
+        frame="a",
+        day_night="+d1990-02-17T04:25:00",
+        fill="navyblue@75",
+        pen="1p,red,-.-",
+        xshift=3,
+        yshift=5,
+        perspective=[135, 45],
     )
     return fig_ref, fig_test
 
@@ -69,18 +88,4 @@ def test_solar_nautical_twighlight():
         frame="a",
         nautical_twighlight="+d1990-02-17T04:25:00",
     )
-    return fig_ref, fig_test
-
-
-@check_figures_equal()
-def test_solar_perspective():
-    """
-    Test plotting solar terminator with a perspective shift on top of a coast figure.
-    """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.coast(R="d", J="W0/15c", G="darkgreen", S="lightblue")
-    fig_ref.solar(Td="+d1990-02-17T04:27:00", p="135/45")
-    fig_test.coast(region="d", projection="W0/15c", land="darkgreen", water="lightblue")
-    fig_test.solar(day_night="+d1990-02-17T04:27:00", perspective=[135, 45])
     return fig_ref, fig_test
