@@ -2198,24 +2198,20 @@ class BasePlotting:
                 )
 
             with file_context as fname:
-                if "I" not in kwargs:
+                # if required JX aka diameter is not given add it
+                # with default of 7.5c
+                if "JX" not in kwargs:
+                    arg_str = " ".join([fname, build_arg_string(kwargs), "-JX7.5c"])
+                else:
                     arg_str = " ".join([fname, build_arg_string(kwargs)])
+
+                if "I" not in kwargs:
                     lib.call_module("rose", arg_str)
                 # if inquire only, give back statistics about input data
                 else:
                     with GMTTempFile() as outfile:
-                        if "JX" not in kwargs:
-                            arg_str = " ".join(
-                                [
-                                    fname,
-                                    build_arg_string(kwargs),
-                                    " -JX1 ->" + outfile.name,
-                                ]
-                            )
-                        else:
-                            arg_str = " ".join(
-                                [fname, build_arg_string(kwargs), "->" + outfile.name]
-                            )
+                        arg_str = " ".join([arg_str, " ->" + outfile.name])
+
                         lib.call_module("rose", arg_str)
                         result = outfile.read().strip()
                         print(result)
