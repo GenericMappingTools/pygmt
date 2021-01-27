@@ -1644,8 +1644,7 @@ class BasePlotting:
             with file_context as fname:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
-                
-                
+
     @fmt_docstring
     @use_alias(
         A="sector",
@@ -1844,7 +1843,7 @@ class BasePlotting:
         if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
             extra_arrays.append(kwargs["t"])
             kwargs["t"] = ""
-        
+
         with Session() as lib:
             # Choose how data will be passed in to the module
             if kind == "file":
@@ -1855,31 +1854,24 @@ class BasePlotting:
                 file_context = lib.virtualfile_from_vectors(
                     np.atleast_1d(length), np.atleast_1d(azimuth), *extra_arrays
                 )
-                 
-            with file_context as fname: 
-                    # if JX aka diameter is not given add it with default of 7.5c
-                    if "JX" not in kwargs:
-                        arg_str = " ".join(
-                        [fname, build_arg_string(kwargs), "-JX7.5c"])
-                    else:
-                        arg_str = " ".join([fname, build_arg_string(kwargs)]) 
 
-                    if "I" not in kwargs:
-                        lib.call_module("rose", arg_str) 
-                    # if inquire only, give back statistics about input data            
-                    else: 
-                        with GMTTempFile() as outfile:
-                            arg_str = " ".join(
-                            [arg_str, " ->" + outfile.name]
-                            )
-                            
-                            lib.call_module("rose", arg_str)
-                            result = outfile.read().strip() 
-                            print(result)                
-                
-                
+            with file_context as fname:
+                # if JX aka diameter is not given add it with default of 7.5c
+                if "JX" not in kwargs:
+                    arg_str = " ".join([fname, build_arg_string(kwargs), "-JX7.5c"])
+                else:
+                    arg_str = " ".join([fname, build_arg_string(kwargs)])
 
+                if "I" not in kwargs:
+                    lib.call_module("rose", arg_str)
+                # if inquire only, give back statistics about input data
+                else:
+                    with GMTTempFile() as outfile:
+                        arg_str = " ".join([arg_str, " ->" + outfile.name])
+
+                        lib.call_module("rose", arg_str)
+                        result = outfile.read().strip()
+                        print(result)
 
     # GMT Supplementary modules
     from pygmt.src import meca  # pylint: disable=import-outside-toplevel
-
