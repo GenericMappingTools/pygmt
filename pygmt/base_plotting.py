@@ -898,65 +898,10 @@ class BasePlotting:
         with Session() as lib:
             lib.call_module("basemap", build_arg_string(kwargs))
 
-    @fmt_docstring
-    @use_alias(
-        R="region",
-        J="projection",
-        D="position",
-        F="box",
-        M="monochrome",
-        V="verbose",
-        X="xshift",
-        Y="yshift",
-        p="perspective",
-        t="transparency",
-    )
-    @kwargs_to_strings(R="sequence", p="sequence")
-    def image(self, imagefile, **kwargs):
-        """
-        Place images or EPS files on maps.
-
-        Reads an Encapsulated PostScript file or a raster image file and plots
-        it on a map.
-
-        Full option list at :gmt-docs:`image.html`
-
-        {aliases}
-
-        Parameters
-        ----------
-        imagefile : str
-            This must be an Encapsulated PostScript (EPS) file or a raster
-            image. An EPS file must contain an appropriate BoundingBox. A
-            raster file can have a depth of 1, 8, 24, or 32 bits and is read
-            via GDAL. Note: If GDAL was not configured during GMT installation
-            then only EPS files are supported.
-        {J}
-        {R}
-        position : str
-            ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify]
-            [+nnx[/ny]][+odx[/dy]]'`` Sets reference point on the map for the
-            image.
-        box : bool or str
-            ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
-            [+s[[dx/dy/][shade]]]'`` Without further options, draws a
-            rectangular border around the image using **MAP_FRAME_PEN**.
-        monochrome : bool
-            Convert color image to monochrome grayshades using the (television)
-            YIQ-transformation.
-        {V}
-        {XY}
-        {p}
-        {t}
-        """
-        kwargs = self._preprocess(**kwargs)
-        with Session() as lib:
-            arg_str = " ".join([imagefile, build_arg_string(kwargs)])
-            lib.call_module("image", arg_str)
-
     from pygmt.src import coast  # pylint: disable=import-outside-toplevel
     from pygmt.src import colorbar  # pylint: disable=import-outside-toplevel
     from pygmt.src import grdcontour  # pylint: disable=import-outside-toplevel
+    from pygmt.src import image  # pylint: disable=import-outside-toplevel
     from pygmt.src import legend  # pylint: disable=import-outside-toplevel
     from pygmt.src import logo  # pylint: disable=import-outside-toplevel
     from pygmt.src import meca  # pylint: disable=import-outside-toplevel
