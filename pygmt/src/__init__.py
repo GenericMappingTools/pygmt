@@ -11,5 +11,6 @@ from pygmt.src.image import image
 from pygmt.src.legend import legend
 from pygmt.src.logo import logo
 from pygmt.src.meca import meca
+from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
 from pygmt.src.text import text
