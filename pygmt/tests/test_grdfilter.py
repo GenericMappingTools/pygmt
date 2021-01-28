@@ -19,6 +19,21 @@ def fixture_grid():
     """
     return load_earth_relief(registration="pixel")
 
+def test_grfilter_dataarray_in_dataarray_out(grid):
+    """
+    grdfilter an input DataArray, and output as DataArray.
+    """
+    grid = load_earth_relief(registration="pixel")
+    smooth_field = grdfilter(grid=grid, filter="g600", distance="4")
+    # check information of the output grid
+    assert isinstance(smooth_field, xr.DataArray)
+    assert smooth_field.coords["lat"].data.min() == -89.5
+    assert smooth_field.coords["lat"].data.max() == 89.5
+    assert smooth_field.coords["lon"].data.min() == -179.5
+    assert smooth_field.coords["lon"].data.max() == 179.5
+    assert smooth_field.sizes["lat"] == 180
+    assert smooth_field.sizes["lon"] == 360
+
 def test_grdfilter_fails():
     """
     Check that grdfilter fails correctly.
