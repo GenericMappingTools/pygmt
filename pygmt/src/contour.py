@@ -1,13 +1,10 @@
 """
 contour - Plot contour table data.
 """
-import contextlib
 
-import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    args_in_kwargs,
     build_arg_string,
     data_kind,
     dummy_context,
