@@ -1278,60 +1278,6 @@ class BasePlotting:
         J="projection",
         D="position",
         F="box",
-        S="style",
-        U="timestamp",
-        V="verbose",
-        X="xshift",
-        Y="yshift",
-        t="transparency",
-    )
-    @kwargs_to_strings(R="sequence", p="sequence")
-    def logo(self, **kwargs):
-        """
-        Plot the GMT logo.
-
-        By default, the GMT logo is 2 inches wide and 1 inch high and
-        will be positioned relative to the current plot origin.
-        Use various options to change this and to place a transparent or
-        opaque rectangular map panel behind the GMT logo.
-
-        Full option list at :gmt-docs:`gmtlogo.html`.
-
-        {aliases}
-
-        Parameters
-        ----------
-        {J}
-        {R}
-        position : str
-            ``'[g|j|J|n|x]refpoint+wwidth[+jjustify][+odx[/dy]]'``.
-            Sets reference point on the map for the image.
-        box : bool or str
-            Without further options, draws a rectangular border around the
-            GMT logo.
-        style : str
-            ``l|n|u``.
-            Control what is written beneath the map portion of the logo.
-
-            - **l** to plot the text label "The Generic Mapping Tools"
-              [Default]
-            - **n** to skip the label placement
-            - **u** to place the URL to the GMT site
-        {U}
-        {V}
-        {XY}
-        {t}
-        """
-        kwargs = self._preprocess(**kwargs)
-        with Session() as lib:
-            lib.call_module("logo", build_arg_string(kwargs))
-
-    @fmt_docstring
-    @use_alias(
-        R="region",
-        J="projection",
-        D="position",
-        F="box",
         M="monochrome",
         V="verbose",
         X="xshift",
@@ -1642,5 +1588,5 @@ class BasePlotting:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
 
-    # GMT Supplementary modules
+    from pygmt.src import logo  # pylint: disable=import-outside-toplevel
     from pygmt.src import meca  # pylint: disable=import-outside-toplevel
