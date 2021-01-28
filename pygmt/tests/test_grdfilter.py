@@ -39,7 +39,7 @@ def test_grdfilter_dataarray_in_file_out(grid):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdfilter(grid, outgrid=tmpfile.name, filter="g600", distance="4")
-        assert result is None  # grdcut returns None if output to a file
+        assert result is None  # grdfilter returns None if output to a file
         result = grdinfo(tmpfile.name, C=True)
         assert (
             result == "-180 180 -90 90 -6147.47265625 5164.11572266 1 1 360 180 1 1\n"
