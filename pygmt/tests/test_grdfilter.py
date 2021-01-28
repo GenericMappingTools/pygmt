@@ -32,8 +32,8 @@ def test_grfilter_dataarray_in_dataarray_out(grid):
     assert result.coords["lat"].data.max() == 89.5
     assert result.coords["lon"].data.min() == -179.5
     assert result.coords["lon"].data.max() == 179.5
-    np.testing.assert_almost_equal(result.data.min(), -6147.47265625, decimal=2)
-    np.testing.assert_almost_equal(result.data.max(), 5164.1157, decimal=2)
+    npt.assert_almost_equal(result.data.min(), -6147.47265625, decimal=2)
+    npt.assert_almost_equal(result.data.max(), 5164.1157, decimal=2)
     assert result.sizes["lat"] == 180
     assert result.sizes["lon"] == 360
 
