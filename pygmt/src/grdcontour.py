@@ -1,5 +1,5 @@
 """
-colorbar - Plot a colorbar.
+grdcontour - Plot a contour figure.
 """
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
