@@ -250,3 +250,47 @@ def test_rose_no_sectors():
     )
 
     return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_rose_bools():
+    """
+    Test supplying a data file containing a list of fracture lengths and
+    directions as digitized from geological maps to the data argument (lengths
+    are stored in the second column, directions in the first, specify via
+    columns).
+
+    Test bools.
+    """
+
+    fig_ref, fig_test = Figure(), Figure()
+
+    fig_ref.rose(
+        data="@fractures_06.txt",
+        region=[0, 1, 0, 360],
+        sector=10,
+        columns=[1, 0],
+        frame=["x0.2g0.2", "y30g30", "+glightgray"],
+        color="red3",
+        pen="1p",
+        orientation=False,
+        norm=True,
+        vectors=True,
+        no_scale=True,
+        shift=False,
+    )
+
+    fig_test.rose(
+        data="@fractures_06.txt",
+        region="0/1/0/360",
+        sector=10,
+        columns="1,0",
+        frame=["x0.2g0.2", "y30g30", "+glightgray"],
+        color="red3",
+        pen="1p",
+        norm="",
+        vectors="",
+        no_scale="",
+    )
+
+    return fig_ref, fig_test
