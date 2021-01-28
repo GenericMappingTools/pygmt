@@ -1,4 +1,4 @@
-# Requirements for development using conda
+# Optional packages for development
 black
 blackdoc
 coverage[toml]
