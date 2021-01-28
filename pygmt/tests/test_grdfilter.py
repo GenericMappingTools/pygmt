@@ -50,7 +50,7 @@ def test_grdfilter_dataarray_in_file_out(grid):
         )
 
 
-def test_grfilter_file_in_dataarray_out(grid):
+def test_grfilter_file_in_dataarray_out():
     """
     grdfilter an input grid file, and output as DataArray.
     """
