@@ -65,6 +65,19 @@ def test_figure_savefig_exists():
         os.remove(fname)
 
 
+def test_figure_savefig_unknown_extension():
+    """
+    Check that an error is raised when an unknown extension is passed.
+    """
+    fig = Figure()
+    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    prefix = "test_figure_savefig_transparent"
+    fmt = "123"
+    fname = ".".join([prefix, fmt])
+    with pytest.raises(GMTInvalidInput):
+        fig.savefig(fname)
+
+
 def test_figure_savefig_transparent():
     """
     Check if fails when transparency is not supported.
