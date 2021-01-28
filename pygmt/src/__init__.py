@@ -10,3 +10,4 @@ from pygmt.src.logo import logo
 
 # GMT Supplementary modules
 from pygmt.src.meca import meca
+from pygmt.src.text import text
