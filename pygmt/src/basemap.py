@@ -1,5 +1,5 @@
 """
-basemap - Plot a base map and frames.
+basemap - Plot base maps and frames for the figure.
 """
 
 from pygmt.clib import Session
