@@ -3,10 +3,8 @@ logo - Plot the GMT logo
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
