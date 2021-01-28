@@ -64,7 +64,6 @@ def test_grfilter_file_in_dataarray_out():
     # check information of the output DataArray
     # the '@earth_relief_01d' is in pixel registration, so the grid range is
     # not exactly 0/180/0/90
-    assert isinstance(outgrid, xr.DataArray)
     assert outgrid.coords["lat"].data.min() == 0.5
     assert outgrid.coords["lat"].data.max() == 89.5
     assert outgrid.coords["lon"].data.min() == 0.5
