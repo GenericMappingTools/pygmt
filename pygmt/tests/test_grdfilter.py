@@ -22,7 +22,6 @@ def test_grfilter_dataarray_in_dataarray_out(grid):
     """
     grdfilter an input DataArray, and output as DataArray.
     """
-    # grid = load_earth_relief(registration="pixel")
     result = grdfilter(grid=grid, filter="g600", distance="4")
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
