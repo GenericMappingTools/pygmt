@@ -2,7 +2,6 @@
 legend - Plot a legend.
 """
 
-import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
