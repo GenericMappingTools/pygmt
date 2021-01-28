@@ -1,6 +1,8 @@
 """
 Tests for grdfilter.
 """
+import os
+
 import numpy as np
 import pytest
 import xarray as xr
@@ -46,6 +48,48 @@ def test_grdfilter_dataarray_in_file_out(grid):
         assert (
             result == "-180 180 -90 90 -6147.47265625 5164.11572266 1 1 360 180 1 1\n"
         )
+
+
+def test_grfilter_file_in_dataarray_out(grid):
+    """
+    grdfilter an input grid file, and output as DataArray.
+    """
+    outgrid = grdfilter(
+        "@earth_relief_01d", region="0/180/0/90", filter="g600", distance="4"
+    )
+    assert isinstance(outgrid, xr.DataArray)
+    assert outgrid.gmt.registration == 1  # Pixel registration
+    assert outgrid.gmt.gtype == 1  # Geographic type
+    # check information of the output DataArray
+    # the '@earth_relief_01d' is in pixel registration, so the grid range is
+    # not exactly 0/180/0/90
+    assert isinstance(outgrid, xr.DataArray)
+    assert outgrid.coords["lat"].data.min() == 0.5
+    assert outgrid.coords["lat"].data.max() == 89.5
+    assert outgrid.coords["lon"].data.min() == 0.5
+    assert outgrid.coords["lon"].data.max() == 179.5
+    np.testing.assert_almost_equal(outgrid.data.min(), -6147.4907, decimal=2)
+    np.testing.assert_almost_equal(outgrid.data.max(), 5164.06, decimal=2)
+    assert outgrid.sizes["lat"] == 90
+    assert outgrid.sizes["lon"] == 180
+
+
+def test_grdfilter_file_in_file_out():
+    """
+    grdfilter an input grid file, and output to a grid file.
+    """
+    with GMTTempFile(suffix=".nc") as tmpfile:
+        result = grdfilter(
+            "@earth_relief_01d",
+            outgrid=tmpfile.name,
+            region=[0, 180, 0, 90],
+            filter="g600",
+            distance="4",
+        )
+        assert result is None  # return value is None
+        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        result = grdinfo(tmpfile.name, C=True)
+        assert result == "0 180 0 90 -6147.49072266 5164.06005859 1 1 180 90 1 1\n"
 
 
 def test_grdfilter_fails():
