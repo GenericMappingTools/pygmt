@@ -3,6 +3,7 @@ Source code for PyGMT modules.
 """
 # pylint: disable=import-outside-toplevel
 # GMT Primary modules
+from pygmt.src.coast import coast
 from pygmt.src.logo import logo
 
 # GMT Supplementary modules
