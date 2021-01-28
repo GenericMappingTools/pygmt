@@ -4,6 +4,7 @@ Tests for grdfilter.
 import os
 
 import numpy as np
+import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt import grdfilter, grdinfo
@@ -68,8 +69,8 @@ def test_grfilter_file_in_dataarray_out():
     assert outgrid.coords["lat"].data.max() == 89.5
     assert outgrid.coords["lon"].data.min() == 0.5
     assert outgrid.coords["lon"].data.max() == 179.5
-    np.testing.assert_almost_equal(outgrid.data.min(), -6147.4907, decimal=2)
-    np.testing.assert_almost_equal(outgrid.data.max(), 5164.06, decimal=2)
+    npt.assert_almost_equal(outgrid.data.min(), -6147.4907, decimal=2)
+    npt.assert_almost_equal(outgrid.data.max(), 5164.06, decimal=2)
     assert outgrid.sizes["lat"] == 90
     assert outgrid.sizes["lon"] == 180
 
