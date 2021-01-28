@@ -1,8 +1,6 @@
 """
 Tests for grdfilter.
 """
-import os
-
 import numpy as np
 import pytest
 import xarray as xr
