@@ -3,21 +3,6 @@ Base class with plot generating commands.
 
 Does not define any special non-GMT methods (savefig, show, etc).
 """
-import contextlib
-
-import numpy as np
-from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    args_in_kwargs,
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    is_nonstr_iter,
-    kwargs_to_strings,
-    use_alias,
-)
 
 
 class BasePlotting:
