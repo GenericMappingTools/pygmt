@@ -19,8 +19,8 @@ import pygmt
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
 # and ``y`` arguments to specify the annotation text and position in the
-# projection frame. ``text`` accepts 'str' types, while ``x``, and ``y``
-# accepts either 'int'/'float' numbers, or a list/array of numbers.
+# projection frame. ``text`` accepts *str* types, while ``x``, and ``y``
+# accepts either *int* or *float* numbers, or a list/array of numbers.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
@@ -59,8 +59,8 @@ fig.show()
 # Plotting from a text file
 # -------------------------
 #
-# It is also possible to add annotations from a file containing `x`, `y`, and
-# `text` fields. Here we give a complete example.
+# It is also possible to add annotations from a file containing ``x``, ``y``, and
+# ``text`` fields. Here we give a complete example.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
@@ -78,7 +78,7 @@ with open("examples.txt", "w") as f:
 
 # Plot region names / sea names from a text file, where
 # the longitude (x) and latitude (y) coordinates are in the first two columns.
-# Setting angle/font/justiry to True will indicate that those columns are
+# Setting angle/font/justify to ``True`` will indicate that those columns are
 # present in the text file too (Note: must be in that order!).
 # Finally, the text to be printed will be in the last column
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
@@ -98,8 +98,9 @@ fig.show()
 #
 # The anchor is specified with a two letter (order independent) code, chosen
 # from:
-# * Vertical anchor: T(op), M(iddle), B(ottom)
-# * Horizontal anchor: L(eft), C(entre), R(ight)
+#
+# * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
+# * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 3, 0, 3], projection="X10c", frame=["WSne", "af0.5g"])
