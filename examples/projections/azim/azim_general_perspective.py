@@ -20,7 +20,7 @@ looking 30° above horizon. *twist* is the clockwise rotation of the image (in
 degrees). *Width* and *Height* describe the viewport angle in degrees, and *scale*
 or *width* determine the size of the figure.
 
-The example shows the coast of northern europe viewed from 250 km above sea
+The example shows the coast of Northern Europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the
 viewing angle is both 60°, which imitates viewing with naked eye.
 """
@@ -28,7 +28,7 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.coast(
-    projection="G4/52/250/30/45/0/60/60/5i",
+    projection="G4/52/250/30/45/0/60/60/12c",
     region="g",
     frame=["x10g10", "y5g5"],
     land="gray",
