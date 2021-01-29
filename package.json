@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "build:miniconda": "curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash ~/miniconda.sh -b -p $HOME/miniconda",
-    "build:pygmt": "conda env create -f environment.yml && source activate pygmt && conda install -c conda-forge -y gmt==6.1.1 && make install",
-    "build:docs": "source activate pygmt && cd doc && make all && mv _build/html ../public",
-    "build": "export PATH=$HOME/miniconda/bin:$PATH && npm run build:miniconda && npm run build:pygmt && npm run build:docs"
+    "build:micromamba": "touch ~/.bashrc && curl -Ls https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba && ./bin/micromamba shell init -s bash -p ~/micromamba",
+    "build:pygmt": "source ~/.bashrc && micromamba create --file environment.yml --yes && micromamba activate pygmt && make install",
+    "build:docs": "source ~/.bashrc && micromamba activate pygmt && cd doc && make all && mv _build/html ../public",
+    "build": "npm run build:micromamba && npm run build:pygmt && npm run build:docs"
   }
 }
