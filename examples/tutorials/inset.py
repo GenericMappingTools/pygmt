@@ -37,7 +37,7 @@ fig.show()
 
 ########################################################################################
 #
-# The :meth:`pygmt.Figure.inset` method use a context manager, and is called using a
+# The :meth:`pygmt.Figure.inset` method uses a context manager, and is called using a
 # ``with`` statement. It does not require any arguments, but will not display an inset
 # figure without a ``location`` argument. Both the location and width of the inset must
 # be set for it to be displayed. Using the **j** argument, the grid of the inset can
