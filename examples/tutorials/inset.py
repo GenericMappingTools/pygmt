@@ -40,10 +40,11 @@ fig.show()
 # The :meth:`pygmt.Figure.inset` method uses a context manager, and is called using a
 # ``with`` statement. It does not require any arguments, but will not display an inset
 # figure without a ``location`` argument. Both the location and width of the inset must
-# be set for it to be displayed. Using the **j** argument, the grid of the inset can
-# be set. In the example below, ``BL`` sets the inset to the bottom left. The
-# ``border`` argument can set the fill and border of the inset. In the example below,
-# ``+pblack`` sets the border color to black and ``+gred`` sets the fill to red.
+# be set for it to be displayed. Using the **j** argument, the location of the inset is
+# set to one of 9 grid squares (bottom-middle-top and left-center-right) be set. In the
+# example below, ``BL`` sets the inset to the bottom left. The ``border`` argument can
+# set the fill and border of the inset. In the example below, ``+pblack`` sets the
+# border color to black and ``+gred`` sets the fill to red.
 
 fig = pygmt.Figure()
 fig.coast(
