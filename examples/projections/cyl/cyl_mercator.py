@@ -15,7 +15,7 @@ rather large.
 **m**\ [*lon0[/lat0]*]\ */scale* or **M**\ [*lon0*][*/lat0*]\ */width*
 
 The projection is set with **m** or **M**. The central meridian is set with the
-option *lon0* and the standard parallel is set with the option *lat0*.
+optional *lon0* and the standard parallel is set with the optional *lat0*.
 The figure size is set with *scale* or *width*.
 """
 import pygmt
