@@ -19,7 +19,7 @@ from pygmt.helpers import (
 @use_alias(
     D="location",
     V="verbose",
-    F="border",
+    F="box",
     M="margin",
 )
 @kwargs_to_strings(D="sequence", M="sequence")
@@ -74,13 +74,13 @@ def inset(self, **kwargs):
         **Note**: If **j** is used then *justify* defaults to the same
         as *refpoint*, if **J** is used then *justify* defaults to the
         mirror opposite of *refpoint*. Specify inset box attributes via
-        the ``border`` option [outline only].
-    border : str or bool
+        the ``box`` option [outline only].
+    box : str or bool
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
         *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
         [[*dx*/*dy*/][*shade*]]]
 
-        If passed ``True``, this draws a rectangular border around the map
+        If passed ``True``, this draws a rectangular box around the map
         inset using the default pen; specify a different pen
         with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box
         [Default is no fill].

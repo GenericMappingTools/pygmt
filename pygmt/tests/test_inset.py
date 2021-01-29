@@ -25,7 +25,7 @@ def test_inset_aliases():
     fig_test.coast(
         region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a"
     )
-    with fig_test.inset(location="jTL+w3.5c+o0.2c", margin=0, border="+pgreen"):
+    with fig_test.inset(location="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
         fig_test.coast(
             region="g",
             projection="G47/-20/4c",
@@ -53,7 +53,7 @@ def test_inset_context_manager():
     )
     # Test passing the frame argument with basemap before the inset
     fig_ref.basemap(frame="a")
-    with fig_ref.inset(location="jBL+w3c+o0.2c", margin=0, border="+pblack"):
+    with fig_ref.inset(location="jBL+w3c+o0.2c", margin=0, box="+pblack"):
         fig_ref.coast(
             region=[-80, -65, 35, 50],
             projection="M3c",
@@ -72,7 +72,7 @@ def test_inset_context_manager():
         water="lightblue",
     )
 
-    with fig_test.inset(location="jBL+w3c+o0.2c", margin=0, border="+pblack"):
+    with fig_test.inset(location="jBL+w3c+o0.2c", margin=0, box="+pblack"):
         fig_test.coast(
             region=[-80, -65, 35, 50],
             projection="M3c",
