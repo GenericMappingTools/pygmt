@@ -41,7 +41,7 @@ fig.show()
 # ``with`` statement. It does not require any arguments, but will not display an inset
 # figure without a ``location`` argument. Both the location and width of the inset must
 # be set for it to be displayed. Using the **j** argument, the grid of the inset can
-# be set . In the example below, ``BL`` sets the inset to the bottom left. The
+# be set. In the example below, ``BL`` sets the inset to the bottom left. The
 # ``border`` argument can set the fill and border of the inset. In the example below,
 # ``+pblack`` sets the border color to black and ``+gred`` sets the fill to red.
 
