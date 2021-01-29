@@ -42,7 +42,7 @@ fig.show()
 # figure without a ``location`` argument. Both the location and width of the inset must
 # be set for it to be displayed. Using the **j** argument, the location of the inset is
 # set to one of 9 grid squares (bottom-middle-top and left-center-right) be set. In the
-# example below, ``BL`` sets the inset to the bottom left. The ``border`` argument can
+# example below, ``BL`` sets the inset to the bottom left. The ``box`` argument can
 # set the fill and border of the inset. In the example below, ``+pblack`` sets the
 # border color to black and ``+gred`` sets the fill to red.
 
@@ -56,7 +56,7 @@ fig.coast(
     water="lightblue",
     frame="a",
 )
-with fig.inset(location="jBL+w3c", border="+pblack+glightred"):
+with fig.inset(location="jBL+w3c", box="+pblack+glightred"):
     # pass is used to exit the with statement as no plotting functions are called
     pass
 fig.show()
@@ -80,7 +80,7 @@ fig.coast(
     water="lightblue",
     frame="a",
 )
-with fig.inset(location="jBL+w3c+o0.5/0.2c", border="+pblack+glightred"):
+with fig.inset(location="jBL+w3c+o0.5/0.2c", box="+pblack+glightred"):
     pass
 fig.show()
 
@@ -102,7 +102,7 @@ fig.coast(
     frame="a",
 )
 # This does not include an inset fill as it is covered by the inset figure
-with fig.inset(location="jBL+w3c+o0.5/0.2c", border="+pblack"):
+with fig.inset(location="jBL+w3c+o0.5/0.2c", box="+pblack"):
     # Use a plotting function to create a figure inside the inset
     fig.coast(
         region=[-80, -65, 35, 50],
