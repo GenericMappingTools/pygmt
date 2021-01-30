@@ -2,9 +2,9 @@
 Cartesian logarithmic
 =====================
 
-``xwidth[l]/[height[l]]``: Give the ``width`` of the figure and the optional argument \
-``height``. The axis or axes with a logarithmic transformation requires ``l`` after
-its size argument.
+**X**\ *width*\ [**l**]/[*height*\ [**l**]]: Give the *width* of the figure and
+the optional *height*. The axis or axes with a logarithmic transformation requires
+**l** after its size argument.
 """
 import numpy as np
 import pygmt

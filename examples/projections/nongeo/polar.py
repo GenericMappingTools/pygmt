@@ -2,7 +2,7 @@
 Polar
 =====
 
-``Pwidth``: Give the ``width`` of the figure.
+**P**\ *width*: Give the *width* of the figure.
 
 """
 import pygmt
