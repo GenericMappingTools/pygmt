@@ -114,8 +114,5 @@ def inset(self, **kwargs):
             lib.call_module("inset", f"begin {build_arg_string(kwargs)}")
             yield
         finally:
-            if "V" in kwargs:
-                verbose_dict = {"V": kwargs["V"]}
-                lib.call_module("inset", f"end {build_arg_string(verbose_dict)}")
-            else:
-                lib.call_module("inset", "end")
+            v_arg = build_arg_string(kwargs.fromkeys("V"))
+            lib.call_module("inset", f"end {v_arg}".strip())
