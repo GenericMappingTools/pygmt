@@ -62,11 +62,11 @@ with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb") as axs:
 fig.show()
 
 ###############################################################################
-# The ``fig.sca`` command activates a specified subplot, and all subsequent
-# plotting commands will take place in that subplot. This is similar to
-# matplotlib's ``plt.sca`` method. In order to specify a subplot, you will need
-# to provide the identifier for that subplot via the ``ax`` argument. This can
-# be found in the ``axs`` variable referenced by the ``row`` and ``col``
+# The :meth:`pygmt.Figure.sca` command activates a specified subplot, and all
+# subsequent plotting commands will take place in that subplot. This is similar
+# to matplotlib's ``plt.sca`` method. In order to specify a subplot, you will
+# need to provide the identifier for that subplot via the ``ax`` argument. This
+# can be found in the ``axs`` variable referenced by the ``row`` and ``col``
 # number.
 
 ###############################################################################
@@ -235,4 +235,4 @@ fig.show()
 ###############################################################################
 # Since we skipped the second subplot, the auto label function will name the
 # three subplots as a, c and d, which is not what we want, so we have to use
-# ``fig.sca(A=""(a)"`` to manually set the subplot label.
+# ``fig.sca(autolabel=""(a)"`` to manually set the subplot label.

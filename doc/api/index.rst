@@ -34,7 +34,9 @@ Plotting data and laying out the map:
     Figure.legend
     Figure.logo
     Figure.image
+    Figure.sca
     Figure.shift_origin
+    Figure.subplot
     Figure.text
     Figure.meca
 
