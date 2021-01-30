@@ -31,7 +31,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", p="sequence")
 def solar(self, **kwargs):
     r"""
-    A plotting function the day-night terminator. Additionally, it can
+    A function that plots the day-night terminator. Additionally, it can
     plot the terminators for civil twilight, nautical twilight, and
     astronomical twilight.
 
