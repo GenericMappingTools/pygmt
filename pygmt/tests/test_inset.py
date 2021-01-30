@@ -11,28 +11,13 @@ def test_inset_aliases():
     Test the aliases for the inset function.
     """
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.coast(
-        region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a"
-    )
+    fig_ref.basemap(region="MG+r2", frame="afg")
     with fig_ref.inset(D="jTL+w3.5c+o0.2c", M=0, F="+pgreen"):
-        fig_ref.coast(
-            region="g",
-            projection="G47/-20/4c",
-            land="gray",
-            water="white",
-            dcw="MG+gred",
-        )
-    fig_test.coast(
-        region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a"
-    )
-    with fig_test.inset(location="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
-        fig_test.coast(
-            region="g",
-            projection="G47/-20/4c",
-            land="gray",
-            water="white",
-            dcw="MG+gred",
-        )
+        fig_ref.basemap(region="g", projection="G47/-20/4c", frame="afg")
+
+    fig_test.basemap(region="MG+r2", frame="afg")
+    with fig_test.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
+        fig_test.basemap(region="g", projection="G47/-20/4c", frame="afg")
     return fig_ref, fig_test
 
 
