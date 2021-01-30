@@ -119,6 +119,20 @@ def test_grdimage_shading_xarray(grid, shading):
     return fig_ref, fig_test
 
 
+@check_figures_equal()
+def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
+    """
+    Test that shading works well when xarray.DataArray is input to both the
+    ``grid`` and ``shading`` arguments.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.grdimage(
+        grid="@earth_relief_01d_g", region="GL", cmap="geo", shading=xrgrid
+    )
+    fig_test.grdimage(grid=grid, region="GL", cmap="geo", shading=xrgrid)
+    return fig_ref, fig_test
+
+
 def test_grdimage_fails():
     """
     Should fail for unrecognized input.
