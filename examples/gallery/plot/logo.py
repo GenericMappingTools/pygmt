@@ -12,8 +12,8 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 2], projection="X6c", frame=True)
 
-# add the GMT logo in the upper right corner of the current map, 
+# add the GMT logo in the upper right corner of the current map,
 # scaled up to be 3 cm wide and offset by 0.3 cm from the border
-fig.logo(position = "jTR+o0.3c/0.3c+w3c") 
+fig.logo(position="jTR+o0.3c/0.3c+w3c")
 
 fig.show()
