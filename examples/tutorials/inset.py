@@ -2,10 +2,10 @@
 Adding an inset to the figure
 ======================
 
-Plotting an inset figure inside another figure can be done with the
-:meth:`pygmt.Figure.inset` method. After a large figure as been created,
-``inset`` is called using a ``with`` statement to add elements to the inset
-figure.
+To plot an inset figure inside another larger figure, we can use the
+:meth:`pygmt.Figure.inset` method. After a large figure has been created,
+call ``inset`` using a ``with`` statement, and new plot elements will be
+added to the inset figure instead of the larger figure.
 """
 
 import pygmt
