@@ -28,45 +28,15 @@ def test_inset_context_manager():
     elements are added to the larger figure.
     """
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.coast(
-        region=[-74, -69.5, 41, 43],
-        borders="2/thin",
-        shorelines="thin",
-        projection="M15c",
-        land="lightyellow",
-        water="lightblue",
-    )
-    # Test passing the frame argument with basemap before the inset
-    fig_ref.basemap(frame="a")
-    with fig_ref.inset(location="jBL+w3c+o0.2c", margin=0, box="+pblack"):
-        fig_ref.coast(
-            region=[-80, -65, 35, 50],
-            projection="M3c",
-            land="gray",
-            borders=[1, 2],
-            shorelines="1/thin",
-            water="white",
-            dcw="US.MA+gred",
-        )
-    fig_test.coast(
-        region=[-74, -69.5, 41, 43],
-        borders="2/thin",
-        shorelines="thin",
-        projection="M15c",
-        land="lightyellow",
-        water="lightblue",
-    )
 
-    with fig_test.inset(location="jBL+w3c+o0.2c", margin=0, box="+pblack"):
-        fig_test.coast(
-            region=[-80, -65, 35, 50],
-            projection="M3c",
-            land="gray",
-            borders=[1, 2],
-            shorelines="1/thin",
-            water="white",
-            dcw="US.MA+gred",
-        )
-    # Test passing the frame argument with basemap after the inset
-    fig_test.basemap(frame="a")
+    fig_ref.basemap(region=[-74, -69.5, 41, 43], projection="M9c", frame=True)
+    fig_ref.basemap(rose="jTR+w3c")  # Pass rose argument with basemap before the inset
+    with fig_ref.inset(position="jBL+w3c+o0.2c", margin=0, box="+pblack"):
+        fig_ref.basemap(region=[-80, -65, 35, 50], projection="M3c", frame="afg")
+
+    fig_test.basemap(region=[-74, -69.5, 41, 43], projection="M9c", frame=True)
+    with fig_test.inset(position="jBL+w3c+o0.2c", margin=0, box="+pblack"):
+        fig_test.basemap(region=[-80, -65, 35, 50], projection="M3c", frame="afg")
+    fig_test.basemap(rose="jTR+w3c")  # Pass rose argument with basemap after the inset
+
     return fig_ref, fig_test
