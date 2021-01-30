@@ -54,7 +54,7 @@ def solar(self, **kwargs):
         added, along with the date and time, to see the day/night
         terminator at a specific time. The date is added in ISO format,
         e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
-    civil_twilight" : bool or str
+    civil_twilight : bool or str
         [**+d**\ *date*\ ]
         Plots the civil twilight terminator. If the argument is
         ``True``, the current civil twilight terminator is plotted.
