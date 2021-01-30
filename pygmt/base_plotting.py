@@ -1222,6 +1222,7 @@ class BasePlotting:
         V="verbose",
         X="xshift",
         Y="yshift",
+        c="ax",
         p="perspective",
         t="transparency",
     )
@@ -1265,9 +1266,9 @@ class BasePlotting:
         {t}
         """
         kwargs = self._preprocess(**kwargs)
-        if not args_in_kwargs(args=["B", "L", "Td", "Tm"], kwargs=kwargs):
+        if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
             raise GMTInvalidInput(
-                "At least one of frame, map_scale, compass, or rose must be specified."
+                "At least one of frame, map_scale, compass, rose, or ax must be specified."
             )
         with Session() as lib:
             lib.call_module("basemap", build_arg_string(kwargs))
@@ -1642,5 +1643,5 @@ class BasePlotting:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
 
-    # GMT Supplementary modules
-    from pygmt.src import meca  # pylint: disable=import-outside-toplevel
+    # GMT plotting modules
+    from pygmt.src import meca, sca, subplot  # pylint: disable=import-outside-toplevel

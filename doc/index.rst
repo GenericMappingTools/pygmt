@@ -33,6 +33,7 @@
     tutorials/coastlines.rst
     tutorials/regions.rst
     tutorials/plot.rst
+    tutorials/subplots.rst
     tutorials/lines.rst
     tutorials/text.rst
     tutorials/contour-map.rst
