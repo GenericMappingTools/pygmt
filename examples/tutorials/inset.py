@@ -38,7 +38,7 @@ fig.show()
 ########################################################################################
 #
 # The :meth:`pygmt.Figure.inset` method uses a context manager, and is called using a
-# ``with`` statement. The ``location`` argument, including the inset width, is required
+# ``with`` statement. The ``position`` argument, including the inset width, is required
 # to plot the inset. Using the **j** argument, the location of the inset is
 # set to one of 9 grid squares (bottom-middle-top and left-center-right) be set. In the
 # example below, ``BL`` sets the inset to the bottom left. The ``box`` argument can
@@ -55,7 +55,7 @@ fig.coast(
     water="lightblue",
     frame="a",
 )
-with fig.inset(location="jBL+w3c", box="+pblack+glightred"):
+with fig.inset(position="jBL+w3c", box="+pblack+glightred"):
     # pass is used to exit the with statement as no plotting functions are called
     pass
 fig.show()
@@ -79,7 +79,7 @@ fig.coast(
     water="lightblue",
     frame="a",
 )
-with fig.inset(location="jBL+w3c+o0.5/0.2c", box="+pblack+glightred"):
+with fig.inset(position="jBL+w3c+o0.5/0.2c", box="+pblack+glightred"):
     pass
 fig.show()
 
@@ -101,7 +101,7 @@ fig.coast(
     frame="a",
 )
 # This does not include an inset fill as it is covered by the inset figure
-with fig.inset(location="jBL+w3c+o0.5/0.2c", box="+pblack"):
+with fig.inset(position="jBL+w3c+o0.5/0.2c", box="+pblack"):
     # Use a plotting function to create a figure inside the inset
     fig.coast(
         region=[-80, -65, 35, 50],
