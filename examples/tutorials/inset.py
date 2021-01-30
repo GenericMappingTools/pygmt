@@ -1,5 +1,5 @@
 """
-Create an inset figure
+Adding an inset to the figure
 ======================
 
 Plotting an inset figure inside another figure can be done with the
