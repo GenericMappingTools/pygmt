@@ -16,12 +16,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(
-    D="location",
-    V="verbose",
-    F="box",
-    M="margin",
-)
+@use_alias(D="position", F="box", M="margin", V="verbose")
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(self, **kwargs):
     r"""
