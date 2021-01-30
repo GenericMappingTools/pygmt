@@ -2,7 +2,7 @@
 Inset
 -----
 
-The :meth:`pygmt.Figure.inset` method creates adds an inset figure to a larger
+The :meth:`pygmt.Figure.inset` method creates adds an inset figure inside a larger
 figure. The function is called using a ``with`` statement, and it's location,
 border, offset, and margin parameters are set. Within the ``with`` statement,
 pygmt plotting functions can be called that add to the inset figure.
