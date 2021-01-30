@@ -44,8 +44,7 @@ def load_libgmt():
     if error:
         raise GMTCLibNotFoundError(
             "Error loading the GMT shared library "
-            f"'{', '.join(lib_fullnames)}'.\n {error}."
-            )
+            f"{', '.join(lib_fullnames)}.\n {error}."
         )
     return libgmt
 
