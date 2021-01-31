@@ -26,12 +26,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
@@ -45,6 +44,7 @@
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.makecpt" href="pygmt.makecpt.html" />
@@ -121,8 +121,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -281,15 +286,15 @@
 </style>
 <div class="section" id="pygmt-figure-meca">
 <h1>pygmt.Figure.meca<a class="headerlink" href="#pygmt-figure-meca" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
+<dl class="py method">
 <dt id="pygmt.Figure.meca">
-<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">meca</code><span class="sig-paren">(</span><em class="sig-param">spec</em>, <em class="sig-param">scale</em>, <em class="sig-param">longitude=None</em>, <em class="sig-param">latitude=None</em>, <em class="sig-param">depth=None</em>, <em class="sig-param">convention=None</em>, <em class="sig-param">component='full'</em>, <em class="sig-param">plot_longitude=None</em>, <em class="sig-param">plot_latitude=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.meca" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">meca</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spec</span></em>, <em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">longitude</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">latitude</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">convention</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">component</span><span class="o">=</span><span class="default_value">'full'</span></em>, <em class="sig-param"><span class="n">plot_longitude</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">plot_latitude</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.meca" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot focal mechanisms.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/supplements/seis/meca.html">https://docs.generic-mapping-tools.org/latest/supplements/seis/meca.html</a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Currently, labeling of beachballs with text strings is only
-supported via providing a file to <cite>spec</cite> as input.</p>
+<p>Currently, labeling of beachballs with text strings is only supported
+via providing a file to <cite>spec</cite> as input.</p>
 </div>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
@@ -307,64 +312,58 @@ supported via providing a file to <cite>spec</cite> as input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>, </em><em>1D array</em><em>, </em><em>2D array</em><em>, </em><em>pd.DataFrame</em><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Either a filename containing focal mechanism parameters as columns,
-a 1- or 2-D array with the same, or a dictionary. If a filename or
-array, <cite>convention</cite> is required so we know how to interpret the
-columns/entries. If a dictionary, the following combinations of
-keys are supported; these determine the convention. Dictionary
-may contain values for a single focal mechanism or lists of
-values for many focal mechanisms. A Pandas DataFrame may
-optionally contain columns latitude, longitude, depth,
-plot_longitude,
-and/or plot_latitude instead of passing them to the meca method.</p>
+<li><p><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>, </em><em>1D array</em><em>, </em><em>2D array</em><em>, </em><em>pd.DataFrame</em><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Either a filename containing focal mechanism parameters as columns, a
+1- or 2-D array with the same, or a dictionary. If a filename or array,
+<cite>convention</cite> is required so we know how to interpret the
+columns/entries. If a dictionary, the following combinations of keys
+are supported; these determine the convention. Dictionary may contain
+values for a single focal mechanism or lists of values for many focal
+mechanisms. A Pandas DataFrame may optionally contain columns latitude,
+longitude, depth, plot_longitude, and/or plot_latitude instead of
+passing them to the meca method.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;aki&quot;</span></code> — <em>strike, dip, rake, magnitude</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;gcmt&quot;</span></code> — <em>strike1, dip1, rake1, strike2, dip2, rake2,
-mantissa, exponent</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;gcmt&quot;</span></code> — <em>strike1, dip1, rake1, strike2, dip2, rake2, mantissa,
+exponent</em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;mt&quot;</span></code> — <em>mrr, mtt, mff, mrt, mrf, mtf, exponent</em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;partial&quot;</span></code> — <em>strike1, dip1, strike2, fault_type, magnitude</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;principal_axis&quot;</span></code> — <em>t_exponent, t_azimuth, t_plunge,
-n_exponent, n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge,
-exponent</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;principal_axis&quot;</span></code> — <em>t_exponent, t_azimuth, t_plunge, n_exponent,
+n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent</em></p></li>
 </ul>
 </p></li>
 <li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adjusts the scaling of the radius of the beachball, which is
-proportional to the magnitude. Scale defines the size for
-magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)</p></li>
-<li><p><strong>longitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, or </em><em>1d numpy array</em>) – Longitude(s) of event location. Ignored if <cite>spec</cite> is not a
-dictionary. List must be the length of the number of events.
-Ignored if <cite>spec</cite> is a DataFrame and contains a ‘longitude’ column.</p></li>
-<li><p><strong>latitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, or </em><em>1d numpy array</em>) – Latitude(s) of event location. Ignored if <cite>spec</cite> is not a
-dictionary. List must be the length of the number of events.
-Ignored if <cite>spec</cite> is a DataFrame and contains a ‘latitude’ column.</p></li>
-<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, or </em><em>1d numpy array</em>) – Depth(s) of event location in kilometers. Ignored if <cite>spec</cite> is
-not a dictionary. List must be the length of the number of events.
-Ignored if <cite>spec</cite> is a DataFrame and contains a ‘depth’ column.</p></li>
-<li><p><strong>convention</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">&quot;aki&quot;</span></code> (Aki &amp; Richards), <code class="docutils literal notranslate"><span class="pre">&quot;gcmt&quot;</span></code> (global CMT), <code class="docutils literal notranslate"><span class="pre">&quot;mt&quot;</span></code>
-(seismic moment tensor), <code class="docutils literal notranslate"><span class="pre">&quot;partial&quot;</span></code> (partial focal mechanism),
-or <code class="docutils literal notranslate"><span class="pre">&quot;principal_axis&quot;</span></code> (principal axis). Ignored if <cite>spec</cite> is a
+proportional to the magnitude. Scale defines the size for magnitude = 5
+(i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)</p></li>
+<li><p><strong>longitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, or </em><em>1d numpy array</em>) – Longitude(s) of event location. Ignored if <cite>spec</cite> is not a dictionary.
+List must be the length of the number of events. Ignored if <cite>spec</cite> is a
+DataFrame and contains a ‘longitude’ column.</p></li>
+<li><p><strong>latitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, or </em><em>1d numpy array</em>) – Latitude(s) of event location. Ignored if <cite>spec</cite> is not a dictionary.
+List must be the length of the number of events. Ignored if <cite>spec</cite> is a
+DataFrame and contains a ‘latitude’ column.</p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, or </em><em>1d numpy array</em>) – Depth(s) of event location in kilometers. Ignored if <cite>spec</cite> is not a
+dictionary. List must be the length of the number of events. Ignored if
+<cite>spec</cite> is a DataFrame and contains a ‘depth’ column.</p></li>
+<li><p><strong>convention</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">&quot;aki&quot;</span></code> (Aki &amp; Richards), <code class="docutils literal notranslate"><span class="pre">&quot;gcmt&quot;</span></code> (global CMT), <code class="docutils literal notranslate"><span class="pre">&quot;mt&quot;</span></code> (seismic
+moment tensor), <code class="docutils literal notranslate"><span class="pre">&quot;partial&quot;</span></code> (partial focal mechanism), or
+<code class="docutils literal notranslate"><span class="pre">&quot;principal_axis&quot;</span></code> (principal axis). Ignored if <cite>spec</cite> is a
 dictionary or dataframe.</p></li>
 <li><p><strong>component</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The component of the seismic moment tensor to plot. <code class="docutils literal notranslate"><span class="pre">&quot;full&quot;</span></code> (the
-full seismic moment tensor), <code class="docutils literal notranslate"><span class="pre">&quot;dc&quot;</span></code> (the closest double couple
-with zero trace and zero determinant), <code class="docutils literal notranslate"><span class="pre">&quot;deviatoric&quot;</span></code> (zero
-trace)</p></li>
+full seismic moment tensor), <code class="docutils literal notranslate"><span class="pre">&quot;dc&quot;</span></code> (the closest double couple with
+zero trace and zero determinant), <code class="docutils literal notranslate"><span class="pre">&quot;deviatoric&quot;</span></code> (zero trace)</p></li>
 <li><p><strong>plot_longitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, or </em><em>1d numpy array</em>) – Longitude(s) at which to place beachball, only used if <cite>spec</cite> is a
-dictionary. List must be the length of the number of events.
-Ignored if <cite>spec</cite> is a DataFrame and contains a ‘plot_longitude’
-column.</p></li>
+dictionary. List must be the length of the number of events. Ignored if
+<cite>spec</cite> is a DataFrame and contains a ‘plot_longitude’ column.</p></li>
 <li><p><strong>plot_latitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, or </em><em>1d numpy array</em>) – Latitude(s) at which to place beachball, only used if <cite>spec</cite> is a
-dictionary. List must be the length of the number of events.
-Ignored if <cite>spec</cite> is a DataFrame and contains a ‘plot_latitude’
-column.</p></li>
-<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Offsets beachballs to the longitude, latitude specified in
-the last two columns of the input file or array,
-or by <cite>plot_longitude</cite> and <cite>plot_latitude</cite> if provided. A small
-circle is plotted at the initial location and a line connects
-the beachball to the circle. Specify pen and optionally append
-<code class="docutils literal notranslate"><span class="pre">+ssize</span></code> to change the line style and/or size of the circle.</p></li>
+dictionary. List must be the length of the number of events. Ignored if
+<cite>spec</cite> is a DataFrame and contains a ‘plot_latitude’ column.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Offsets beachballs to the longitude, latitude specified in the last two
+columns of the input file or array, or by <cite>plot_longitude</cite> and
+<cite>plot_latitude</cite> if provided. A small circle is plotted at the initial
+location and a line connects the beachball to the circle. Specify pen
+and optionally append <code class="docutils literal notranslate"><span class="pre">+ssize</span></code> to change the line style and/or size
+of the circle.</p></li>
 <li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Does NOT skip symbols that fall outside frame boundary specified by
-<em>region</em> [Default is False, i.e. plot symbols inside map frame
-only].</p></li>
+<em>region</em> [Default is False, i.e. plot symbols inside map frame only].</p></li>
 <li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
 Select map projection.</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
@@ -432,10 +431,10 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b369">8e2b369</a></code>.
         </span>
       
 

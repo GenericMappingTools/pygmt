@@ -26,12 +26,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
@@ -45,6 +44,7 @@
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.Figure.plot" href="pygmt.Figure.plot.html" />
@@ -121,8 +121,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -281,9 +286,9 @@
 </style>
 <div class="section" id="pygmt-figure-colorbar">
 <h1>pygmt.Figure.colorbar<a class="headerlink" href="#pygmt-figure-colorbar" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
+<dl class="py method">
 <dt id="pygmt.Figure.colorbar">
-<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">colorbar</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.colorbar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">colorbar</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.colorbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot a gray or color scale-bar on maps.</p>
 <p>Both horizontal and vertical scales are supported. For CPTs with
 gradational colors (i.e., the lower and upper boundary of an interval
@@ -300,6 +305,7 @@ widths.</p>
 <li><p>D = position</p></li>
 <li><p>F = box</p></li>
 <li><p>G = truncate</p></li>
+<li><p>I = shading</p></li>
 <li><p>J = projection</p></li>
 <li><p>R = region</p></li>
 <li><p>V = verbose</p></li>
@@ -312,6 +318,9 @@ widths.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Set color bar boundary frame, labels, and axes attributes.</p></li>
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – File name of a CPT file or <code class="docutils literal notranslate"><span class="pre">C='color1,color2[,color3,...]'</span></code> to
+build a linear continuous CPT from those colors automatically.</p></li>
 <li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]</span>
 <span class="pre">[+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]</span></code>. Defines the
 reference point on the map for the color scale using one of four
@@ -349,6 +358,11 @@ we leave that end of the CPT alone. The truncation takes place
 before the plotting.</p></li>
 <li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Multiply all z-values in the CPT by the provided scale. By default
 the CPT is used as is.</p></li>
+<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Add illumination effects. Passing a single numerical value sets the
+range of intensities from -value to +value. If not specified, 1 is
+used. Alternatively, set <code class="docutils literal notranslate"><span class="pre">shading=[low,</span> <span class="pre">high]</span></code> to specify an
+asymmetric intensity range from <em>low</em> to <em>high</em>. The default is no
+illumination.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
@@ -382,13 +396,25 @@ in the image (for further processing).</p></li>
 
 <div class="section" id="examples-using-pygmt-figure-colorbar">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code><a class="headerlink" href="#examples-using-pygmt-figure-colorbar" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><div class="figure align-default" id="id1">
-<img alt="Colorbar" src="../../_images/sphx_glr_colorbar_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/colorbar.html#sphx-glr-gallery-plot-colorbar-py"><span class="std std-ref">Colorbar</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig..."><div class="figure align-default" id="id1">
+<img alt="Line colors with a custom CPT" src="../../_images/sphx_glr_line-custom-cpt_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/line/line-custom-cpt.html#sphx-glr-gallery-line-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id2">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><div class="figure align-default" id="id2">
+<img alt="Colorbar" src="../../_images/sphx_glr_colorbar_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/colorbar.html#sphx-glr-gallery-plot-colorbar-py"><span class="std std-ref">Colorbar</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><div class="figure align-default" id="id3">
+<img alt="Creating a 3D perspective image" src="../../_images/sphx_glr_3d-perspective-image_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/3d-perspective-image.html#sphx-glr-tutorials-3d-perspective-image-py"><span class="std std-ref">Creating a 3D perspective image</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><div class="figure align-default" id="id4">
+<img alt="Plotting Earth relief" src="../../_images/sphx_glr_earth-relief_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/earth-relief.html#sphx-glr-tutorials-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id5">
 <img alt="Plotting data points" src="../../_images/sphx_glr_plot_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 </div><div style='clear:both'></div></div>
 </div>
@@ -414,10 +440,10 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b369">8e2b369</a></code>.
         </span>
       
 
