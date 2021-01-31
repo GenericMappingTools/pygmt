@@ -1,6 +1,6 @@
 """
 Adding an inset to the figure
-======================
+=============================
 
 To plot an inset figure inside another larger figure, we can use the
 :meth:`pygmt.Figure.inset` method. After a large figure has been created,
@@ -18,20 +18,13 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.coast(
-    # Sets the region plotted in the larger figure
-    region=[-74, -69.5, 41, 43],
-    # Sets the state boundaries to be plotted with thin lines
-    borders="2/thin",
-    # Plots all shorelines with thin lines
-    shorelines="thin",
-    # Sets a 15 centimeter figure showing a Mercator projection
-    projection="M15c",
-    # Sets the color of the land to "lightyellow"
-    land="lightyellow",
-    # Sets the color of the water to "lightblue"
-    water="lightblue",
-    # Sets the frame to use the automatic settings
-    frame="a",
+    region=[-74, -69.5, 41, 43],  # Set bounding box of the large figure
+    borders="2/thin",  # Plot state boundaries with thin lines
+    shorelines="thin",  # Plot coastline with thin lines
+    projection="M15c",  # Set Mercator projection and size of 15 centimeter
+    land="lightyellow",  # Color land areas light yellow
+    water="lightblue",  # Color water areas light blue
+    frame="a",  # Set frame with annotation and major tick spacing
 )
 fig.show()
 
@@ -105,7 +98,7 @@ with fig.inset(position="jBL+w3c+o0.5/0.2c", box="+pblack"):
     # Use a plotting function to create a figure inside the inset
     fig.coast(
         region=[-80, -65, 35, 50],
-        projection="M3c",
+        projection="M?c",
         land="gray",
         borders=[1, 2],
         shorelines="1/thin",

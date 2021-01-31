@@ -15,7 +15,7 @@ def inset(self, **kwargs):
     r"""
     Create an inset within a figure to plot an additional figure.
 
-    This function create the location, frame, and margins for an inset
+    This function sets the location, frame, and margins for an inset
     figure. This function can only be called once the original figure is
     created. Plotting functions that are called within the context manager
     are added to the inset figure.
@@ -26,13 +26,14 @@ def inset(self, **kwargs):
 
     Parameters
     ----------
-    location : str or list
+    position : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \
         | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*][**+j**\ *justify*]
         [**+o**\ *dx*\ [/*dy*]]
 
-        *This is the only required argument*
+        *This is the only required argument.*
+        
         Define the map inset rectangle on the map. Specify the rectangle
         in one of three ways:
 
@@ -96,7 +97,7 @@ def inset(self, **kwargs):
         slashes [Default is no margins].
     {V}
     """
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
         try:
             lib.call_module("inset", f"begin {build_arg_string(kwargs)}")

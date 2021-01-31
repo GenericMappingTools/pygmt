@@ -21,6 +21,6 @@ with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
     # extends beyond the inset width, and isn't shown. The land is set to "gray" and
     # Madagascar is highlighted in "red".
     fig.coast(
-        region="g", projection="G47/-20/4c", land="gray", water="white", dcw="MG+gred"
+        region="g", projection="G47/-20/?c", land="gray", water="white", dcw="MG+gred"
     )
 fig.show()
