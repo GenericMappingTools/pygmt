@@ -3,8 +3,6 @@ Rose diagram
 ------------
 
 The :meth:`pygmt.Figure.rose` method can plot windrose diagrams or polar histograms.
-
-For more advanced options, see the full option list at :gmt-docs:`rose.html`.
 """
 
 import pygmt
@@ -15,6 +13,7 @@ fig = pygmt.Figure()
 # lengths and directions as digitized from geological maps
 fig.rose(
     data="@fractures_06.txt",
+    diameter="7.5c",
     columns=[1, 0],
     sector="10r",
     norm=True,
