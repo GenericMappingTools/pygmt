@@ -10,7 +10,6 @@ from pygmt.helpers import (
     data_kind,
     dummy_context,
     fmt_docstring,
-    is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
@@ -210,11 +209,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     kind = data_kind(data, length, azimuth)
 
-    extra_arrays = []
-    if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
-        extra_arrays.append(kwargs["t"])
-        kwargs["t"] = ""
-
     with Session() as lib:
         # Choose how data will be passed in to the module
         if kind == "file":
@@ -223,7 +217,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
             file_context = lib.virtualfile_from_matrix(data)
         elif kind == "vectors":
             file_context = lib.virtualfile_from_vectors(
-                np.atleast_1d(length), np.atleast_1d(azimuth), *extra_arrays
+                np.atleast_1d(length), np.atleast_1d(azimuth)
             )
 
         with file_context as fname:
