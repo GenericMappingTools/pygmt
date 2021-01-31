@@ -227,11 +227,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
             )
 
         with file_context as fname:
-            # if JX aka diameter is not given add it with default of 7.5c
-            if "JX" not in kwargs:
-                arg_str = " ".join([fname, build_arg_string(kwargs), "-JX7.5c"])
-            else:
-                arg_str = " ".join([fname, build_arg_string(kwargs)])
+            arg_str = " ".join([fname, build_arg_string(kwargs)])
 
             if "I" not in kwargs:
                 lib.call_module("rose", arg_str)
