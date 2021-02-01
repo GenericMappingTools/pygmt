@@ -47,7 +47,7 @@ jobs:
           find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
           if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
 
-  test:
+  install-deps:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -55,10 +55,6 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
-    # environmental variables used in coverage
-    env:
-      OS: ${{ matrix.os }}
-      PYTHON: ${{ matrix.python-version }}
 
     steps:
       # Cancel previous runs that are not completed
@@ -124,6 +120,20 @@ jobs:
           python setup.py sdist --formats=zip
           pip install dist/*
 
+  test:
+    needs: install-deps
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    # environmental variables used in coverage
+    env:
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python-version }}
+
+    steps:
       # Run the tests
       - name: Test with pytest
         shell: bash -l {0}
@@ -137,11 +147,6 @@ jobs:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}
           path: tmp-test-dir-with-unique-name
 
-      # Build the documentation
-      - name: Build the documentation
-        shell: bash -l {0}
-        run: make -C doc clean all
-
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.10
@@ -149,6 +154,21 @@ jobs:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON
           fail_ci_if_error: true
+
+  docs:
+    needs: install-deps
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.9]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+
+    steps:
+      # Build the documentation
+      - name: Build the documentation
+        shell: bash -l {0}
+        run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@28c7f3d2b5162b5ddd3dfd9a45aa55eaf396478b
@@ -210,3 +230,10 @@ jobs:
           git push -fq origin gh-pages 2>&1 >/dev/null
           echo -e "\nFinished uploading generated files."
         if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+
+  # just for blocking the merge until the parallel test and docs are successful
+  success-all-test:
+    needs: [test, docs]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All Done"
