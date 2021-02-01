@@ -18,8 +18,8 @@ For example, to draw national boundaries with 1p thickness black lines use
 import pygmt
 
 fig = pygmt.Figure()
-# Make a Sinusoidal projection map of the Americas with automatic ticks
-fig.basemap(region=[-150, -30, -60, 60], projection="I-90/8i", frame="afg")
+# Make a Sinusoidal projection map of the Americas with automatic annotations, ticks and gridlines
+fig.basemap(region=[-150, -30, -60, 60], projection="I-90/15c", frame="afg")
 # Plot each level of the boundaries dataset with a different color.
 fig.coast(borders=["1/0.5p,black", "2/0.5p,red", "3/0.5p,blue"], land="gray")
 fig.show()
