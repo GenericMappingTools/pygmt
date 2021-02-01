@@ -1643,4 +1643,4 @@ class BasePlotting:
                 lib.call_module("text", arg_str)
 
     # GMT Supplementary modules
-    from pygmt.src import meca, rose # pylint: disable=import-outside-toplevel
+    from pygmt.src import meca, rose  # pylint: disable=import-outside-toplevel
