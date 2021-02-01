@@ -62,8 +62,8 @@ On the *master* branch, the workflow also handles the documentation deployment:
 
 2. `ci_tests_dev.yaml` (GMT Latest Tests on Linux/macOS/Windows).
 
-This is only triggered when a review is requested or re-requested on a PR.
-It is also scheduled to run daily on the *master* branch.
+This is triggered when a PR is marked as "ready for review", or using the slash
+command `/test-gmt-master`. It is also scheduled to run daily on the *master* branch.
 
 3. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
