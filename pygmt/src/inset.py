@@ -15,10 +15,9 @@ def inset(self, **kwargs):
     r"""
     Create an inset within a figure to plot an additional figure.
 
-    This function sets the location, frame, and margins for an inset
-    figure. This function can only be called once the original figure is
-    created. Plotting functions that are called within the context manager
-    are added to the inset figure.
+    This function sets the position, frame, and margins for a smaller figure
+    inside of the larger figure. Plotting functions that are called within the
+    context manager are added to the inset figure.
 
     Full option list at :gmt-docs:`inset.html`
 
@@ -96,6 +95,28 @@ def inset(self, **kwargs):
         a string with the values separated by forward
         slashes [Default is no margins].
     {V}
+    Examples
+    --------
+    >>> # Create the larger figure
+    >>> fig.coast(
+    ...     region="MG+r2",
+    ...     land="brown",
+    ...     water="lightblue",
+    ...     shorelines="thin",
+    ...     frame="a",
+    ... )
+    >>> # Create an inset, setting the position to top left, the width to 3.5 centimeters, and
+    >>> # Use a "with" statement to use the inset context manager
+    >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
+    ...     # Map elements plotted under the "with" statement are added to the inset
+    ...     fig.coast(
+    ...         region="g",
+    ...         projection="G47/-20/?c",
+    ...         land="gray",
+    ...         water="white",
+    ...         dcw="MG+gred",
+    ...     )
+    ...
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
