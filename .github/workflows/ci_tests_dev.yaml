@@ -79,7 +79,7 @@ jobs:
         run: |
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
-          ls -lh ~/.gmt
+          ls -lhR ~/.gmt
 
       # Install the package that we want to test
       - name: Install the package
