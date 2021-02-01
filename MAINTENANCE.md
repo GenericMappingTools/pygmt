@@ -60,7 +60,7 @@ On the *master* branch, the workflow also handles the documentation deployment:
   *master* branch onto the `dev` folder of the *gh-pages* branch.
 * Updated the `latest` documentation link to the new release.
 
-2. `ci_tests_dev.yaml` (GMT Latest Tests on Linux/macOS/Windows).
+2. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
 This is triggered when a PR is marked as "ready for review", or using the slash
 command `/test-gmt-dev`. It is also scheduled to run daily on the *master* branch.

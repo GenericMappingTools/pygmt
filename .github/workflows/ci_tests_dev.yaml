@@ -1,7 +1,7 @@
-# This workflow installs PyGMT dependencies, builds documentation and runs tests on GMT latest
+# This workflow installs PyGMT dependencies, builds documentation and runs tests on GMT dev version
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: GMT Latest Tests
+name: GMT Dev Tests
 
 on:
   # push:

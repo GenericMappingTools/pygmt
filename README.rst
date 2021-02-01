@@ -13,8 +13,8 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
-.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Latest%20Tests/badge.svg
-    :alt: GitHub Actions GMT Latest Tests status
+.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
+    :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3A%22GMT+Latest+Tests%22
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
