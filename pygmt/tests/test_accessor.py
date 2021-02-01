@@ -1,5 +1,5 @@
 """
-Test the behaviour of the GMTDataArrayAccessor class
+Test the behaviour of the GMTDataArrayAccessor class.
 """
 import pytest
 import xarray as xr
@@ -56,7 +56,8 @@ def test_accessor_set_geographic_cartesian_roundtrip():
 
 def test_accessor_set_non_boolean():
     """
-    Check that setting non boolean values on registration and gtype do not work
+    Check that setting non boolean values on registration and gtype do not
+    work.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
 

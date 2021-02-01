@@ -1,5 +1,5 @@
 """
-Tests for fig.logo
+Tests for fig.logo.
 """
 from pygmt import Figure
 from pygmt.helpers.testing import check_figures_equal
@@ -7,7 +7,9 @@ from pygmt.helpers.testing import check_figures_equal
 
 @check_figures_equal()
 def test_logo():
-    "Plot a GMT logo of a 2 inch width as a stand-alone plot"
+    """
+    Plot a GMT logo of a 2 inch width as a stand-alone plot.
+    """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.logo(D="x0/0+w2i")
@@ -17,7 +19,9 @@ def test_logo():
 
 @check_figures_equal()
 def test_logo_on_a_map():
-    "Plot a GMT logo in the upper right corner of a map"
+    """
+    Plot a GMT logo in the upper right corner of a map.
+    """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.coast(R="-90/-70/0/20", J="M6i", G="chocolate", B="")
