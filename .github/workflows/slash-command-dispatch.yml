@@ -21,5 +21,6 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           commands: |
             format
+            test-gmt-master
           issue-type: pull-request
           permission: none
