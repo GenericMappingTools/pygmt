@@ -1642,7 +1642,5 @@ class BasePlotting:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
 
-    # GMT Primary modules
     # GMT Supplementary modules
-    from pygmt.src import meca  # pylint: disable=import-outside-toplevel
-    from pygmt.src import rose  # pylint: disable=import-outside-toplevel
+    from pygmt.src import meca, rose # pylint: disable=import-outside-toplevel
