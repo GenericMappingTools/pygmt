@@ -9,7 +9,7 @@ on:
   pull_request:
     types: [ready_for_review]
   repository_dispatch:
-    types: [test-gmt-master-command]
+    types: [test-gmt-dev-command]
   # Schedule daily tests
   schedule:
     - cron: '0 0 * * *'
