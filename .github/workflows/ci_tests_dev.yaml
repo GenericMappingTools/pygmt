@@ -7,7 +7,7 @@ on:
   # push:
   #   branches: [ master ]
   pull_request:
-    types: [review_requested, ready_for_review]
+    types: [ready_for_review]
   repository_dispatch:
     types: [test-gmt-master-command]
   # Schedule daily tests
