@@ -60,14 +60,15 @@ class GMTTempFile:
     def __init__(self, prefix="pygmt-", suffix=".txt"):
         args = dict(prefix=prefix, suffix=suffix)
         with NamedTemporaryFile(**args) as tmpfile:
+            self._tmpfile = tmpfile
             self.name = tmpfile.name
 
     def __enter__(self):
         return self
 
     def __exit__(self, *args):
+        self._tmpfile.close()
         if os.path.exists(self.name):
-            os.close(self.name)
             os.remove(self.name)
 
     def read(self, keep_tabs=False):
