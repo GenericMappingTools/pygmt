@@ -3,7 +3,7 @@ Utilities for dealing with temporary file management.
 """
 import os
 import uuid
-from tempfile import NamedTemporaryFile
+import tempfile
 
 import numpy as np
 
@@ -58,17 +58,14 @@ class GMTTempFile:
     """
 
     def __init__(self, prefix="pygmt-", suffix=".txt"):
-        args = dict(prefix=prefix, suffix=suffix)
-        with NamedTemporaryFile(**args) as tmpfile:
-            self._tmpfile = tmpfile
-            self.name = tmpfile.name
+        self._id, self.name = tempfile.mkstemp(prefix=prefix, suffix=suffix)
 
     def __enter__(self):
         return self
 
     def __exit__(self, *args):
-        self._tmpfile.close()
         if os.path.exists(self.name):
+            os.close(self._id)
             os.remove(self.name)
 
     def read(self, keep_tabs=False):
