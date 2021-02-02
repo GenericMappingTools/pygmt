@@ -71,7 +71,7 @@ The below table shows the projection codes for the 31 GMT projections.
    * - **T**\ [|lon0|\ [/|lat0|]/]\ *width*
      - Transverse Mercator
    * - **U**\ *zone*/*width*
-     - Universal Transverse Mercator (UTM) :ref:`... <-Ju_full>`
+     - Universal Transverse Mercator (UTM)
    * - **V**\ [|lon0|/]\ *width*
      - Van der Grinten
    * - **W**\ [|lon0|/]\ *width*

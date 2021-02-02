@@ -17,7 +17,9 @@ from pygmt.sphinx_gallery import PyGMTScraper
 
 @pytest.mark.skipif(sphinx_gallery is None, reason="requires sphinx-gallery")
 def test_pygmtscraper():
-    "Make sure the scraper finds the figures and removes them from the pool."
+    """
+    Make sure the scraper finds the figures and removes them from the pool.
+    """
 
     showed = SHOWED_FIGURES.copy()
     for _ in range(len(SHOWED_FIGURES)):

@@ -26,7 +26,7 @@ jobs:
       # Install formatting tools
       - name: Install formatting tools
         run: |
-          pip install black blackdoc flake8 isort
+          pip install black blackdoc docformatter flake8 isort
           sudo apt-get install dos2unix
 
       # Run "make format" and commit the change to the PR branch

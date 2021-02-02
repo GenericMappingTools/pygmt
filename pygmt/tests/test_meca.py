@@ -1,5 +1,5 @@
 """
-Tests for meca
+Tests for meca.
 """
 import os
 
@@ -66,8 +66,8 @@ def test_meca_spec_dict_list():
 @pytest.mark.mpl_image_compare
 def test_meca_spec_dataframe():
     """
-    Test supplying a pandas DataFrame containing focal mechanisms and
-    locations to the `spec` argument.
+    Test supplying a pandas DataFrame containing focal mechanisms and locations
+    to the `spec` argument.
     """
 
     fig = Figure()
@@ -92,8 +92,8 @@ def test_meca_spec_dataframe():
 @pytest.mark.mpl_image_compare
 def test_meca_spec_1d_array():
     """
-    Test supplying a 1D numpy array containing focal mechanisms and
-    locations to the `spec` argument.
+    Test supplying a 1D numpy array containing focal mechanisms and locations
+    to the `spec` argument.
     """
 
     fig = Figure()
@@ -134,8 +134,8 @@ def test_meca_spec_1d_array():
 @pytest.mark.mpl_image_compare
 def test_meca_spec_2d_array():
     """
-    Test supplying a 2D numpy array containing focal mechanisms and
-    locations to the `spec` argument.
+    Test supplying a 2D numpy array containing focal mechanisms and locations
+    to the `spec` argument.
     """
 
     fig = Figure()

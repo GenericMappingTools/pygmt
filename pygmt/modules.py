@@ -36,7 +36,6 @@ def grdinfo(grid, **kwargs):
     -------
     info : str
         A string with information about the grid.
-
     """
     kind = data_kind(grid, None, None)
     with GMTTempFile() as outfile:
@@ -180,7 +179,6 @@ def which(fname, **kwargs):
     ------
     FileNotFoundError
         If the file is not found.
-
     """
     with GMTTempFile() as tmpfile:
         arg_str = " ".join([fname, build_arg_string(kwargs), "->" + tmpfile.name])
