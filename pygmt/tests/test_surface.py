@@ -1,5 +1,5 @@
 """
-Tests for surface
+Tests for surface.
 """
 import os
 
@@ -16,7 +16,7 @@ TEMP_GRID = os.path.join(TEST_DATA_DIR, "tmp_grid.nc")
 
 def test_surface_input_file():
     """
-    Run surface by passing in a filename
+    Run surface by passing in a filename.
     """
     fname = which("@tut_ship.xyz", download="c")
     output = surface(data=fname, spacing="5m", region=[245, 255, 20, 30])
@@ -28,7 +28,7 @@ def test_surface_input_file():
 
 def test_surface_input_data_array():
     """
-    Run surface by passing in a numpy array into data
+    Run surface by passing in a numpy array into data.
     """
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
@@ -39,7 +39,7 @@ def test_surface_input_data_array():
 
 def test_surface_input_xyz():
     """
-    Run surface by passing in x, y, z numpy.ndarrays individually
+    Run surface by passing in x, y, z numpy.ndarrays individually.
     """
     ship_data = load_sample_bathymetry()
     output = surface(
@@ -55,7 +55,7 @@ def test_surface_input_xyz():
 
 def test_surface_input_xy_no_z():
     """
-    Run surface by passing in x and y, but no z
+    Run surface by passing in x and y, but no z.
     """
     ship_data = load_sample_bathymetry()
     with pytest.raises(GMTInvalidInput):
@@ -69,7 +69,7 @@ def test_surface_input_xy_no_z():
 
 def test_surface_wrong_kind_of_input():
     """
-    Run surface using grid input that is not file/matrix/vectors
+    Run surface using grid input that is not file/matrix/vectors.
     """
     ship_data = load_sample_bathymetry()
     data = ship_data.bathymetry.to_xarray()  # convert pandas.Series to xarray.DataArray
@@ -80,7 +80,7 @@ def test_surface_wrong_kind_of_input():
 
 def test_surface_with_outfile_param():
     """
-    Run surface with the -Goutputfile.nc parameter
+    Run surface with the -Goutputfile.nc parameter.
     """
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
@@ -100,7 +100,7 @@ def test_surface_with_outfile_param():
 def test_surface_short_aliases():
     """
     Run surface using short aliases -I for spacing, -R for region, -G for
-    outfile
+    outfile.
     """
     ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
