@@ -67,6 +67,7 @@ class GMTTempFile:
 
     def __exit__(self, *args):
         if os.path.exists(self.name):
+            os.close(self.name)
             os.remove(self.name)
 
     def read(self, keep_tabs=False):
