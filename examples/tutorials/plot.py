@@ -8,6 +8,7 @@ packaged with GMT to try this out. PyGMT provides access to these datasets throu
 automatically downloaded and saved to a cache directory the first time you use them
 (usually ``~/.gmt/cache``).
 """
+# sphinx_gallery_thumbnail_number = 3
 
 import pygmt
 
