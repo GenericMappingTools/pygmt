@@ -31,7 +31,9 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", p="sequence")
 def solar(self, **kwargs):
     r"""
-    A function that plots the day-night terminator. Additionally, it can
+    Plot day-light terminators.
+    
+    This function plots the day-night terminator. Additionally, it can
     plot the terminators for civil twilight, nautical twilight, and
     astronomical twilight.
 
@@ -43,19 +45,16 @@ def solar(self, **kwargs):
     {J}
     {B}
     fill : str
-        *fill color*\ [**@**\ *transparency*]
-        The fill color for the night-area plotted. The optional
-        transparency parameter can be appended after the color
-        using **@** after the color.
+        Color or pattern for filling of terminators.
     day_night : bool or str
-        [**+d**\ *date*\ ]
+        [**+d**\ *date*].
         Plots the day/night terminator. If the argument is ``True``, the
         current day-night terminator is plotted. Optionally, **+d** can be
         added, along with the date and time, to see the day/night
         terminator at a specific time. The date is added in ISO format,
         e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
     civil_twilight : bool or str
-        [**+d**\ *date*\ ]
+        [**+d**\ *date*].
         Plots the civil twilight terminator. If the argument is
         ``True``, the current civil twilight terminator is plotted.
         Optionally, **+d** can be added, along with the date and time, to
@@ -63,7 +62,7 @@ def solar(self, **kwargs):
         in ISO format,
         e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
     nautical_twilight : bool or str
-        [**+d**\ *date*\ ]
+        [**+d**\ *date*].
         Plots the nautical twilight terminator. If the argument is
         ``True``, the current nautical twilight terminator is plotted.
         Optionally, **+d** can be added, along with the date and time, to
@@ -71,7 +70,7 @@ def solar(self, **kwargs):
         in ISO format,
         e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
     astronomical_twilight : bool or str
-        [**+d**\ *date*\ ]
+        [**+d**\ *date*].
         Plots the astronomical twilight terminator. If the argument is
         ``True``, the current astronomical twilight terminator is
         plotted. Optionally, **+d** can be added, along with the date and
@@ -79,8 +78,7 @@ def solar(self, **kwargs):
         is added in ISO format,
         e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
     pen : str
-        Set pen attributes for lines or the outline of symbols
-        [Defaults: width = default, color = black, style = solid].
+        Set pen attributes for lines. The default pen is ``default,black,solid``. 
     {XY}
     {p}
     {U}
