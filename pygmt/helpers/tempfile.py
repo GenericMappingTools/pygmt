@@ -68,8 +68,10 @@ class GMTTempFile:
 
     def __exit__(self, *args):
         self._tmpfile.close()
-        if os.path.exists(self.name):
+        try:
             os.remove(self.name)
+        except FileNotFoundError:
+            pass
 
     def read(self, keep_tabs=False):
         """
