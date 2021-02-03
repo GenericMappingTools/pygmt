@@ -89,6 +89,8 @@ sphinx_gallery_conf = {
     # Insert links to documentation of objects in the examples
     "reference_url": {"pygmt": None},
     "image_scrapers": (PyGMTScraper(),),
+    # Removes configuration comments from scripts
+    "remove_config_comments": True,
 }
 
 # Sphinx project configuration
