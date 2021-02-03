@@ -1,6 +1,7 @@
 """
 Utilities for dealing with temporary file management.
 """
+import gc
 import os
 import uuid
 from tempfile import NamedTemporaryFile
@@ -72,6 +73,9 @@ class GMTTempFile:
             os.remove(self.name)
         except FileNotFoundError:
             pass
+        except PermissionError:
+            gc.collect()
+            os.remove(self.name)
 
     def read(self, keep_tabs=False):
         """
