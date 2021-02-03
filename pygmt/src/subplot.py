@@ -146,6 +146,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
 
 
 @fmt_docstring
+@contextlib.contextmanager
 @use_alias(A="fixedlabel", C="clearance", V="verbose")
 def sca(self, ax=None, **kwargs):
     r"""
@@ -193,6 +194,7 @@ def sca(self, ax=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    arg_str = " ".join(["set", f"{ax}", build_arg_string(kwargs)])
     with Session() as lib:
+        arg_str = " ".join(["set", f"{ax}", build_arg_string(kwargs)])
         lib.call_module(module="subplot", args=arg_str)
+        yield

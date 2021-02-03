@@ -53,12 +53,12 @@ with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb") as axs:
     for index in axs.flatten():
         i = index // axs.shape[1]  # row
         j = index % axs.shape[1]  # column
-        fig.sca(ax=axs[i, j])  # sets the current Axes
-        fig.text(
-            position="MC",
-            text=f"index: {index}, row: {i}, col: {j}",
-            region=[0, 1, 0, 1],
-        )
+        with fig.sca(ax=axs[i, j]):  # sets the current Axes
+            fig.text(
+                position="MC",
+                text=f"index: {index}, row: {i}, col: {j}",
+                region=[0, 1, 0, 1],
+            )
 fig.show()
 
 ###############################################################################
@@ -84,7 +84,8 @@ fig.show()
 ###############################################################################
 # .. code-block:: default
 #
-#     fig.sca(ax=axs[0, 2])
+#     with fig.sca(ax=axs[0, 2]):
+#         ...
 
 ###############################################################################
 # Making your first subplot
@@ -235,4 +236,4 @@ fig.show()
 ###############################################################################
 # Since we skipped the second subplot, the auto label function will name the
 # three subplots as a, c and d, which is not what we want, so we have to use
-# ``fig.sca(fixedlabel=""(a)"`` to manually set the subplot label.
+# ``fig.sca(fixedlabel="(a)"`` to manually set the subplot label.

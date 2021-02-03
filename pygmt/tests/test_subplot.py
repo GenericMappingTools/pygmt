@@ -13,15 +13,15 @@ def test_subplot_basic_frame():
     """
     fig_ref, fig_test = Figure(), Figure()
     with fig_ref.subplot(nrows=1, ncols=2, Ff="6c/3c", B="WSne"):
-        fig_ref.sca(ax=0)
-        fig_ref.basemap(region=[0, 3, 0, 3], frame="+tplot0")
-        fig_ref.sca(ax=1)
-        fig_ref.basemap(region=[0, 3, 0, 3], frame="+tplot1")
+        with fig_ref.sca(ax=0):
+            fig_ref.basemap(region=[0, 3, 0, 3], frame="+tplot0")
+        with fig_ref.sca(ax=1):
+            fig_ref.basemap(region=[0, 3, 0, 3], frame="+tplot1")
     with fig_test.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame="WSne") as axs:
-        fig_test.sca(ax=axs[0, 0])
-        fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot0")
-        fig_test.sca(ax=axs[0, 1])
-        fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot1")
+        with fig_test.sca(ax=axs[0, 0]):
+            fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot0")
+        with fig_test.sca(ax=axs[0, 1]):
+            fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot1")
     return fig_ref, fig_test
 
 
@@ -32,11 +32,11 @@ def test_subplot_direct():
     """
     fig_ref, fig_test = Figure(), Figure()
     with fig_ref.subplot(nrows=2, ncols=1, Fs="3c/3c"):
-        fig_ref.basemap(region=[0, 3, 0, 3], frame=True, ax=0)
-        fig_ref.basemap(region=[0, 3, 0, 3], frame=True, ax=1)
+        fig_ref.basemap(region=[0, 3, 0, 3], frame="af", ax=0)
+        fig_ref.basemap(region=[0, 3, 0, 3], frame="af", ax=1)
     with fig_test.subplot(nrows=2, ncols=1, subsize=("3c", "3c")) as axs:
-        fig_test.basemap(region=[0, 3, 0, 3], frame=True, ax=axs[0, 0])
-        fig_test.basemap(region=[0, 3, 0, 3], frame=True, ax=axs[1, 0])
+        fig_test.basemap(region=[0, 3, 0, 3], frame="af", ax=axs[0, 0])
+        fig_test.basemap(region=[0, 3, 0, 3], frame="af", ax=axs[1, 0])
     return fig_ref, fig_test
 
 
