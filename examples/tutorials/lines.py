@@ -4,6 +4,7 @@ Plot lines
 
 Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 """
+# sphinx_gallery_thumbnail_number = 3
 
 import pygmt
 

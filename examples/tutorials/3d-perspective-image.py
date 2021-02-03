@@ -5,6 +5,7 @@ Creating a 3D perspective image
 Create 3-D perspective image or surface mesh from a grid
 using :meth:`pygmt.Figure.grdview`.
 """
+# sphinx_gallery_thumbnail_number = 7
 
 import pygmt
 
