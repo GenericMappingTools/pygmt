@@ -20,7 +20,6 @@ fig.coast(
     land="grey",
     water="lightblue",
     shorelines=True,
-    resolution="f",
     frame="a",
 )
 
