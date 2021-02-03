@@ -146,9 +146,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
 
 
 @fmt_docstring
-@use_alias(F="dimensions")
+@use_alias(A="fixedlabel", C="clearance", V="verbose")
 def sca(self, ax=None, **kwargs):
-    """
+    r"""
     Set the current Axes instance to *ax*.
 
     Before you start plotting you must first select the active subplot. Note:
@@ -160,6 +160,36 @@ def sca(self, ax=None, **kwargs):
     using unequal scales].
 
     {aliases}
+
+    Parameters
+    ----------
+    ax : str
+        *row,col*\|\ *index*.
+        Sets the current subplot until further notice.  **Note**: First *row*
+        or *col* is 0, not 1. If not given we go to the next subplot by order
+        specified via **autolabel**.  As an alternative, you may bypass the
+        **sca** mode and instead supply the common option **ax**\ [*row,col*]
+        to the first plot command you issue in that subplot. GMT maintains
+        information about the current figure and subplot. Also, you may give
+        the one-dimensional *index* instead which starts at 0 and follows the
+        row or column order set via **autolabel**.
+
+    fixedlabel : str
+        Overrides the automatic labeling with the given string. No modifiers
+        are allowed. Placement, justification, etc. are all inherited from how
+        **autolabel** was specified by the initial **subplot** command.
+
+    clearance : str
+        [*side*]\ *clearance*.
+        Reserve a space of dimension *clearance* between the margin and the
+        subplot on the specified side, using *side* values from **w**, **e**,
+        **s**, or **n**.  The option is repeatable to set aside space on more
+        than one side.  Such space will be left untouched by the main map
+        plotting but can be accessed by modules that plot scales, bars, text,
+        etc.  This setting overrides the common clearances set by **clearance**
+        in the initial **subplot** call.
+
+    {V}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
