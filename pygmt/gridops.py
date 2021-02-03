@@ -400,25 +400,23 @@ def grd2cpt(grid, **kwargs):
     {V}
     """
     kind = data_kind(grid)
+    with Session() as lib:
+        if kind == "file":
+            file_context = dummy_context(grid)
+        elif kind == "grid":
+            file_context = lib.virtualfile_from_grid(grid)
+        else:
+            raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
 
-    with GMTTempFile(suffix=".nc"):
-        with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+        with file_context as infile:
+            if "W" in kwargs and "Ww" in kwargs:
+                raise GMTInvalidInput(
+                    "Set only categorical or cyclic to True, not both."
+                )
 
-            with file_context as infile:
-                if "W" in kwargs and "Ww" in kwargs:
-                    raise GMTInvalidInput(
-                        "Set only categorical or cyclic to True, not both."
-                    )
-
-                if "H" in kwargs.keys():  # if output file is set
-                    outfile = kwargs.pop("H")
-                    if not outfile or not isinstance(outfile, str):
-                        raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grd2cpt", arg_str)
+            if "H" in kwargs.keys():  # if output file is set
+                outfile = kwargs.pop("H")
+                if not outfile or not isinstance(outfile, str):
+                    raise GMTInvalidInput("'output' should be a proper file name.")
+            arg_str = " ".join([infile, build_arg_string(kwargs)])
+            lib.call_module("grd2cpt", arg_str)
