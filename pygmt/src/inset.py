@@ -9,7 +9,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(D="position", F="box", M="margin", V="verbose")
+@use_alias(D="position", F="box", M="margin", N="no_clip", V="verbose")
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(self, **kwargs):
     r"""
@@ -94,21 +94,22 @@ def inset(self, **kwargs):
         margins). When passing multiple values, it can be either a list or
         a string with the values separated by forward
         slashes [Default is no margins].
+    no_clip : bool
+        Do NOT clip features extruding outside map inset boundaries [Default
+        will clip].
     {V}
+
     Examples
     --------
+    >>> import pygmt
+    >>>
     >>> # Create the larger figure
-    >>> fig.coast(
-    ...     region="MG+r2",
-    ...     land="brown",
-    ...     water="lightblue",
-    ...     shorelines="thin",
-    ...     frame="a",
-    ... )
-    >>> # Create an inset, setting the position to top left, the width to 3.5 centimeters, and
-    >>> # Use a "with" statement to use the inset context manager
+    >>> fig = pygmt.Figure()
+    >>> fig.coast(region="MG+r2", water="lightblue", shorelines="thin")
+    >>> # Use a "with" statement to initialize the inset context manager
+    >>> # Setting the position to top left and a width of 3.5 centimeters
     >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
-    ...     # Map elements plotted under the "with" statement are added to the inset
+    ...     # Map elements under the "with" statement are plotted in the inset
     ...     fig.coast(
     ...         region="g",
     ...         projection="G47/-20/?c",
@@ -117,6 +118,8 @@ def inset(self, **kwargs):
     ...         dcw="MG+gred",
     ...     )
     ...
+    >>> # Map elements outside the `with` block are plotted in the main figure
+    >>> fig.logo(position="jBR+o0.2c+w3c")
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
