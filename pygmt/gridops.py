@@ -97,7 +97,7 @@ def grdcut(grid, **kwargs):
             elif kind == "grid":
                 file_context = lib.virtualfile_from_grid(grid)
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+                raise GMTInvalidInput(f"Unrecognized data type: {type(grid)}")
 
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
@@ -113,7 +113,7 @@ def grdcut(grid, **kwargs):
         else:
             result = None  # if user sets an outgrid, return None
 
-        return result
+    return result
 
 
 @fmt_docstring
@@ -237,7 +237,7 @@ def grdfilter(grid, **kwargs):
             elif kind == "grid":
                 file_context = lib.virtualfile_from_grid(grid)
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+                raise GMTInvalidInput(f"Unrecognized data type: {type(grid)}")
 
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
@@ -253,4 +253,4 @@ def grdfilter(grid, **kwargs):
         else:
             result = None  # if user sets an outgrid, return None
 
-        return result
+    return result
