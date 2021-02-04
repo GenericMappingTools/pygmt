@@ -18,10 +18,9 @@ from pygmt.gridding import surface
 from pygmt.gridops import grdcut, grdfilter
 from pygmt.mathops import makecpt
 from pygmt.modules import GMTDataArrayAccessor, config, grdinfo, info, which
-from pygmt.sampling import grdtrack
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
-from pygmt.src import blockmedian
+from pygmt.src import blockmedian, grdtrack
 from pygmt.x2sys import x2sys_cross, x2sys_init
 
 # Get semantic version through setuptools-scm
