@@ -443,8 +443,11 @@ You can reference classes, functions, methods, and modules from anywhere
 (including docstrings) using <code>:func:\`package.module.function\`</code>,
 <code>:class:\`package.module.class\`</code>, 
 <code>:meth:\`package.module.method\`</code>, or
-<code>:mod:\`package.module\`</code>. GMT documentation can be linked with 
-<code>:gmt-docs:\`page_name.html\`</code>.
+<code>:mod:\`package.module\`</code>.
+
+GMT documentation can be linked with 
+<code>:gmt-docs:\`page_name.html\`</code>. An example would be using
+<code>\`:gmt-docs:\`makecpt.html\`\`</code> to link to :gmt-docs:`makecpt.html`.
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
 
