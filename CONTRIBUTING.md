@@ -448,6 +448,7 @@ You can reference classes, functions, methods, and modules from anywhere
 GMT documentation can be linked with 
 <code>:gmt-docs:\`page_name.html\`</code>. An example would be using
 <code>\`:gmt-docs:\`makecpt.html\`\`</code> to link to :gmt-docs:`makecpt.html`.
+
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
 
