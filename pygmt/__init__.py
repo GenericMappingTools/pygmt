@@ -14,11 +14,10 @@ from pkg_resources import get_distribution
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
 from pygmt.figure import Figure
-from pygmt.gridops import grdcut
 from pygmt.modules import GMTDataArrayAccessor, config, grdinfo, info, which
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
-from pygmt.src import blockmedian, grdfilter, grdtrack, makecpt, surface
+from pygmt.src import blockmedian, grdcut, grdfilter, grdtrack, makecpt, surface
 from pygmt.x2sys import x2sys_cross, x2sys_init
 
 # Get semantic version through setuptools-scm

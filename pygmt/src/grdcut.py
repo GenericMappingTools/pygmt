@@ -1,5 +1,5 @@
 """
-GMT modules for grid operations.
+grdcut - Extract subregion from a grid.
 """
 
 import xarray as xr
