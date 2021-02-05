@@ -10,3 +10,4 @@ from pygmt.src.info import info
 from pygmt.src.makecpt import makecpt
 from pygmt.src.meca import meca
 from pygmt.src.surface import surface
+from pygmt.src.which import which

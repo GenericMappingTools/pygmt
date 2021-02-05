@@ -7,8 +7,7 @@ The grids are available in various resolutions.
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
-from pygmt.modules import which
-from pygmt.src import grdcut
+from pygmt.src import grdcut, which
 
 
 @kwargs_to_strings(region="sequence")
