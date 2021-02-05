@@ -4,6 +4,7 @@ Coastlines and borders
 
 Plotting coastlines and borders is handled by :meth:`pygmt.Figure.coast`.
 """
+# sphinx_gallery_thumbnail_number = 5
 
 import pygmt
 
@@ -14,7 +15,7 @@ import pygmt
 # Use the ``shorelines`` argument to plot only the shorelines:
 
 fig = pygmt.Figure()
-fig.basemap(region="g", projection="W10i", frame=True)
+fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines=True)
 fig.show()
 
@@ -31,7 +32,7 @@ fig.show()
 # lines:
 
 fig = pygmt.Figure()
-fig.basemap(region="g", projection="W10i", frame=True)
+fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines="1/0.5p,black")
 fig.show()
 
@@ -40,7 +41,7 @@ fig.show()
 # ``shorelines``:
 
 fig = pygmt.Figure()
-fig.basemap(region="g", projection="W10i", frame=True)
+fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines=["1/1p,black", "2/0.5p,red"])
 fig.show()
 
@@ -60,15 +61,15 @@ fig.show()
 oahu = [-158.3, -157.6, 21.2, 21.8]
 fig = pygmt.Figure()
 for res in ["c", "l", "i", "h", "f"]:
-    fig.coast(resolution=res, shorelines="1p", region=oahu, projection="M5i")
-    fig.shift_origin(xshift="5i")
+    fig.coast(resolution=res, shorelines="1p", region=oahu, projection="M5c")
+    fig.shift_origin(xshift="5c")
 fig.show()
 
 ########################################################################################
 # Land and water
 # --------------
 #
-# Use the ``land`` and ``water`` attributes to specify a fill color for land and water
+# Use the ``land`` and ``water`` arguments to specify a fill color for land and water
 # bodies. The colors can be given by name or hex codes (like the ones used in HTML and
 # CSS):
 
