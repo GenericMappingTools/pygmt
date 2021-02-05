@@ -44,7 +44,7 @@ def grdinfo(grid, **kwargs):
         This is the only required argument.
     {R}
     per_column : str or bool
-        **n**\ |**t**
+        **n**\|\ **t**.
         Formats the report using tab-separated fields on a single line. The
         output is name *w e s n z0 z1 dx dy nx ny* [ *x0 y0 x1 y1* ] [ *med scale* ]
         [ *mean std rms* ] [ *n_nan* ] *registration gtype*. The data in brackets are
@@ -55,7 +55,7 @@ def grdinfo(grid, **kwargs):
         or 1 (geographic). The default value is ``False``. This cannot be
         called if ``geographic`` is also set.
     tiles : str or list
-        *xoff*\ [/*yoff*][**+i**]
+        *xoff*\ [/*yoff*][**+i**].
         Divide a single grid's domain (or the ``region`` domain, if no grid
         given) into tiles of size dx times dy (set via ``spacing``). You can
         specify overlap between tiles by appending *xoff*\ [/*yoff*]. If the
@@ -69,7 +69,7 @@ def grdinfo(grid, **kwargs):
         The default value is ``False``. This cannot be called if
         ``per_column`` is also set.
     spacing : str or list
-        *dx*\ [/*dy*]\|\ **b**\|\ **i**\|\ **r**
+        *dx*\ [/*dy*]\|\ **b**\|\ **i**\|\ **r**.
         Report the min/max of the region to the nearest multiple of dx and dy,
         and output this in the form w/e/s/n (unless ``per_column`` is set). To
         report the actual grid region, append **r**. For a grid produced by
@@ -93,7 +93,7 @@ def grdinfo(grid, **kwargs):
         Include the x/y values at the location of the minimum and maximum
         z-values.
     nearest_multiple : str
-        [*dz*]\ [**+a**\ [*alpha*]]\ [**+s**]
+        [*dz*]\ [**+a**\ [*alpha*]]\ [**+s**].
         Determine min and max z-value. If *dz* is provided then we first round
         these values off to multiples of *dz*. To exclude the two tails of the
         distribution when determining the min and max you can add **+a** to
