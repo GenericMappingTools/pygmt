@@ -3,6 +3,7 @@ Tests for gmt config.
 """
 import pytest
 from pygmt import Figure, config
+from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
@@ -36,10 +37,7 @@ def test_config():
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_config_font_one():
     """
     Test that setting `FONT` config changes all `FONT_*` settings except
@@ -48,27 +46,40 @@ def test_config_font_one():
     Specifically, this test only checks that `FONT_ANNOT_PRIMARY`,
     `FONT_ANNOT_SECONDARY`, `FONT_LABEL`, and `FONT_TITLE` are modified.
     """
-    fig = Figure()
+    fig_ref, fig_test = Figure(), Figure()
+
     with config(FONT="8p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", T="mjTL+w4c+d4.5+l")
-    fig.basemap(T="mjBR+w5c+d-4.5+l")
-    return fig
+        fig_ref.basemap(R="0/9/0/9", J="C3/3/9c", Tm="jTL+w4c+d4.5+l")
+    fig_ref.basemap(Tm="jBR+w5c+d-4.5+l")
+
+    with config(FONT="8p,red"):
+        fig_test.basemap(
+            region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5+l"
+        )
+    fig_test.basemap(compass="jBR+w5c+d-4.5+l")
+
+    return fig_ref, fig_test
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_config_font_annot():
     """
     Test that setting `FONT_ANNOT` config changes both `FONT_ANNOT_PRIMARY` and
     `FONT_ANNOT_SECONDARY`.
     """
-    fig = Figure()
+    fig_ref, fig_test = Figure(), Figure()
+
     with config(FONT_ANNOT="6p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", T="mjTL+w4c+d4.5")
-    fig.basemap(T="mjBR+w5c+d-4.5")
-    return fig
+        fig_ref.basemap(R="0/9/0/9", J="C3/3/9c", Tm="jTL+w4c+d4.5")
+    fig_ref.basemap(compass="jBR+w5c+d-4.5")
+
+    with config(FONT_ANNOT="6p,red"):
+        fig_test.basemap(
+            region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5"
+        )
+    fig_test.basemap(compass="jBR+w5c+d-4.5")
+
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare
