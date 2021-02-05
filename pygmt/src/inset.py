@@ -32,7 +32,6 @@ def inset(self, **kwargs):
         [**+o**\ *dx*\ [/*dy*]]
 
         *This is the only required argument.*
-        
         Define the map inset rectangle on the map. Specify the rectangle
         in one of three ways:
 
