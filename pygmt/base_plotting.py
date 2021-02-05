@@ -40,7 +40,9 @@ class BasePlotting:
         """
         return kwargs
 
-    from pygmt.src import basemap  # pylint: disable=import-outside-toplevel
+    from pygmt.src import (
+        basemap,  # pylint: disable=import-outside-toplevel; pylint: disable=import-outside-toplevel
+    )
     from pygmt.src import coast  # pylint: disable=import-outside-toplevel
     from pygmt.src import colorbar  # pylint: disable=import-outside-toplevel
     from pygmt.src import contour  # pylint: disable=import-outside-toplevel
@@ -54,4 +56,4 @@ class BasePlotting:
     from pygmt.src import plot  # pylint: disable=import-outside-toplevel
     from pygmt.src import plot3d  # pylint: disable=import-outside-toplevel
     from pygmt.src import text  # pylint: disable=import-outside-toplevel
-    from pygmt.src import inset, meca  # pylint: disable=import-outside-toplevel
+    from pygmt.src import inset

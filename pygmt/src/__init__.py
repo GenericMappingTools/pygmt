@@ -10,9 +10,9 @@ from pygmt.src.grdcontour import grdcontour
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdview import grdview
 from pygmt.src.image import image
+from pygmt.src.inset import inset
 from pygmt.src.legend import legend
 from pygmt.src.logo import logo
-from pygmt.src.inset import inset
 from pygmt.src.meca import meca
 from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
