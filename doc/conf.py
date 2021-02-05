@@ -55,7 +55,7 @@ intersphinx_mapping = {
 
 # options for sphinx-copybutton
 # https://sphinx-copybutton.readthedocs.io
-copybutton_prompt_text = r'>>> |\.\.\. '
+copybutton_prompt_text = r">>> |\.\.\. "
 copybutton_prompt_is_regexp = True
 copybutton_only_copy_prompt_lines = True
 copybutton_remove_prompts = True
