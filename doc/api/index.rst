@@ -39,6 +39,7 @@ Plotting data and laying out the map:
     Figure.subplot
     Figure.text
     Figure.meca
+    Figure.inset
 
 Color palette table generation:
 

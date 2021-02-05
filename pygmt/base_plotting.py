@@ -1643,5 +1643,9 @@ class BasePlotting:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
 
-    # GMT plotting modules
-    from pygmt.src import meca, sca, subplot  # pylint: disable=import-outside-toplevel
+    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+        inset,
+        meca,
+        sca,
+        subplot,
+    )
