@@ -13,7 +13,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(self, **kwargs):
     r"""
-    Create an inset within a figure to plot an additional figure.
+    Create an inset figure to be placed within a larger figure.
 
     This function sets the position, frame, and margins for a smaller figure
     inside of the larger figure. Plotting functions that are called within the
