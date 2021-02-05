@@ -128,5 +128,5 @@ def inset(self, **kwargs):
             lib.call_module("inset", f"begin {build_arg_string(kwargs)}")
             yield
         finally:
-            v_arg = build_arg_string(kwargs.fromkeys("V"))
+            v_arg = build_arg_string({"V": kwargs.get("V")})
             lib.call_module("inset", f"end {v_arg}".strip())
