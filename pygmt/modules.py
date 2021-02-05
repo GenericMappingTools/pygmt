@@ -80,7 +80,8 @@ def grdinfo(grid, **kwargs):
         each grid's bounding box polygon instead. Finally, if ``tiles`` is in
         effect then *dx* and *dy* are the dimensions of the desired tiles.
     force_scan : int or str
-        **0**\|\ **1**\|\ **2**\|\ **p**\|\ **a**
+        **0**\|\ **1**\|\ **2**\|\ **p**\|\ **a**.
+        
         **0**\ : Report range of z after actually scanning the data, not just
         reporting what the header says.
         **1**\ : Report median and L1 scale of z (L1 scale = 1.4826 * Median
