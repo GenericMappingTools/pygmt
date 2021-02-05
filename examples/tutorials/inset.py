@@ -34,7 +34,7 @@ fig.show()
 # The :meth:`pygmt.Figure.inset` method uses a context manager, and is called using a
 # ``with`` statement. The ``position`` argument, including the inset width, is required
 # to plot the inset. Using the **j** argument, the location of the inset is
-# set to one of 9 anchors (bottom-middle-top and left-center-right) be set. In the
+# set to one of the 9 anchors (bottom-middle-top and left-center-right). In the
 # example below, ``BL`` sets the inset to the bottom left. The ``box`` argument can
 # set the fill and border of the inset. In the example below, ``+pblack`` sets the
 # border color to black and ``+gred`` sets the fill to red.
