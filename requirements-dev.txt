@@ -14,5 +14,6 @@ pytest-cov
 pytest-mpl
 pytest>=6.0
 sphinx
+sphinx-copybutton
 sphinx-gallery
 sphinx_rtd_theme==0.4.3
