@@ -84,6 +84,12 @@ def solar(self, **kwargs):
     {U}
     {V}
     """
+    # if statement to determine if type is datetime object or string
+    # if string:
+        # try to parse date to datetime object
+    # if not recognizable
+        # raise error
+    # function to pass datetime object to return datetime string to pass to GMT API
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         lib.call_module("solar", build_arg_string(kwargs))
