@@ -25,5 +25,4 @@ fig.coast(
     water="lightblue",
     frame="afg",
 )
-
 fig.show()
