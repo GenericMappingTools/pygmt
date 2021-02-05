@@ -17,8 +17,7 @@ fig.coast(region="MG+r2", land="brown", water="lightblue", shorelines="thin", fr
 # the x-offset to 0.2 centimeters. The margin is set to 0, and the border is "green".
 with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
     # Create a figure in the inset using coast. This example uses the azimuthal
-    # orthogonal projection centered at 47E, 20S. The 4 centimeter width of this figure
-    # extends beyond the inset width, and isn't shown. The land is set to "gray" and
+    # orthogonal projection centered at 47E, 20S. The land is set to "gray" and
     # Madagascar is highlighted in "red".
     fig.coast(
         region="g", projection="G47/-20/3.5c", land="gray", water="white", dcw="MG+gred"
