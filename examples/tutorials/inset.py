@@ -7,6 +7,7 @@ To plot an inset figure inside another larger figure, we can use the
 call ``inset`` using a ``with`` statement, and new plot elements will be
 added to the inset figure instead of the larger figure.
 """
+# sphinx_gallery_thumbnail_number = 4
 
 import pygmt
 
@@ -33,7 +34,7 @@ fig.show()
 # The :meth:`pygmt.Figure.inset` method uses a context manager, and is called using a
 # ``with`` statement. The ``position`` argument, including the inset width, is required
 # to plot the inset. Using the **j** argument, the location of the inset is
-# set to one of 9 grid squares (bottom-middle-top and left-center-right) be set. In the
+# set to one of 9 anchors (bottom-middle-top and left-center-right) be set. In the
 # example below, ``BL`` sets the inset to the bottom left. The ``box`` argument can
 # set the fill and border of the inset. In the example below, ``+pblack`` sets the
 # border color to black and ``+gred`` sets the fill to red.
@@ -55,10 +56,10 @@ fig.show()
 
 ########################################################################################
 #
-# When using **j** to set the grid location of the inset, the default location is in
+# When using **j** to set the anchor of the inset, the default location is in
 # contact with the nearby axis or axes. The offset of the inset can be set with **+o**,
-# followed by the offset distance along the x- and y-axis. If only one distance is
-# passed, it is applied to both axes. The unit of the distance is placed at the end. In
+# followed by the offsets along the x- and y-axis. If only one offset is
+# passed, it is applied to both axes. Each offset can have its own unit. In
 # the example below, the inset is shifted 0.5 centimeters on the x-axis and
 # 0.2 centimeters on the y-axis.
 
@@ -72,7 +73,7 @@ fig.coast(
     water="lightblue",
     frame="a",
 )
-with fig.inset(position="jBL+w3c+o0.5/0.2c", box="+pblack+glightred"):
+with fig.inset(position="jBL+w3c+o0.5c/0.2c", box="+pblack+glightred"):
     pass
 fig.show()
 
@@ -94,7 +95,7 @@ fig.coast(
     frame="a",
 )
 # This does not include an inset fill as it is covered by the inset figure
-with fig.inset(position="jBL+w3c+o0.5/0.2c", box="+pblack"):
+with fig.inset(position="jBL+w3c+o0.5c/0.2c", box="+pblack"):
     # Use a plotting function to create a figure inside the inset
     fig.coast(
         region=[-80, -65, 35, 50],
