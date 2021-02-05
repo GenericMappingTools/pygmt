@@ -151,7 +151,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
                 axs[i, j] = index
             yield axs
         finally:
-            v_arg = build_arg_string(kwargs.fromkeys("V"))
+            v_arg = build_arg_string({"V": kwargs.get("V")})
             lib.call_module("subplot", f"end {v_arg}".strip())
 
 
