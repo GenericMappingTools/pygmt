@@ -112,13 +112,13 @@ def inset(self, **kwargs):
     ...     # Map elements under the "with" statement are plotted in the inset
     ...     fig.coast(
     ...         region="g",
-    ...         projection="G47/-20/?c",
+    ...         projection="G47/-20/3.5c",
     ...         land="gray",
     ...         water="white",
     ...         dcw="MG+gred",
     ...     )
     ...
-    >>> # Map elements outside the `with` block are plotted in the main figure
+    >>> # Map elements outside the "with" block are plotted in the main figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
