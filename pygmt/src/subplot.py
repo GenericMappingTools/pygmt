@@ -16,9 +16,14 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     A="autolabel",
     B="frame",
     C="clearance",
+    J="projecton",
     M="margins",
+    R="region",
     S="layout",
     T="title",
+    V="verbose",
+    X="xshift",
+    Y="yshift",
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence")
 def subplot(self, nrows=1, ncols=1, **kwargs):
@@ -68,6 +73,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         your tag numbers using lowercase Roman numerals; use **+R** for
         uppercase Roman numerals [Arabic numerals]. Append **+v** to increase
         tag numbers vertically down columns [horizontally across rows].
+    {B}
     clearance : str
         ``[side]clearance``.
         Reserve a space of dimension *clearance* between the margin and the
@@ -81,6 +87,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         apply to the selected (active) subplot. **Note**: Common options
         **x_offset** and **y_offset* are not available during subplots; use
         **clearance** instead.
+    {J}
     margins : tuple
         This is margin space that is added between neighboring subplots (i.e.,
         the interior margins) in addition to the automatic space added for tick
@@ -96,6 +103,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         opposing sides (e.g., east plus west or south plus north margins)
         [Default is half the primary annotation font size, giving the full
         annotation font size as the default gap].
+    {R}
     layout : str or list
         Set subplot layout for shared axes. May be set separately for rows
         (**R**) and columns (**C**). E.g. ``layout=['Rl', 'Cb']``.
@@ -121,6 +129,8 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     title : str
         Overarching heading for the entire figure. Font is determined by
         setting ``FONT_HEADING``.
+    {V}
+    {XY}
 
     Yields
     ------
