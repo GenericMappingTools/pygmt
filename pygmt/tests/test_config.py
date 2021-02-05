@@ -47,7 +47,12 @@ def test_config_font_one():
     `FONT_ANNOT_SECONDARY`, `FONT_LABEL`, and `FONT_TITLE` are modified.
     """
     fig_ref = Figure()
-    with config(FONT="8p,red"):
+    with config(
+        FONT_ANNOT_PRIMARY="8p,red",
+        FONT_ANNOT_SECONDARY="8p,red",
+        FONT_LABEL="8p,red",
+        FONT_TITLE="8p,red",
+    ):
         fig_ref.basemap(R="0/9/0/9", J="C3/3/9c", Tm="jTL+w4c+d4.5+l")
     fig_ref.basemap(Tm="jBR+w5c+d-4.5+l")
 
@@ -68,7 +73,7 @@ def test_config_font_annot():
     `FONT_ANNOT_SECONDARY`.
     """
     fig_ref = Figure()
-    with config(FONT_ANNOT="6p,red"):
+    with config(FONT_ANNOT_PRIMARY="6p,red", FONT_ANNOT_SECONDARY="6p,red"):
         fig_ref.basemap(R="0/9/0/9", J="C3/3/9c", Tm="jTL+w4c+d4.5")
     fig_ref.basemap(compass="jBR+w5c+d-4.5")
 
