@@ -1,6 +1,6 @@
 """
-Subplots
-========
+Making subplot panels
+=====================
 
 When you're preparing a figure for a paper, there will often be times when
 you'll need to put many individual plots into one large figure, and label them
@@ -17,11 +17,13 @@ couple of subplots. For more advanced subplot layouts however, we recommend the
 use of :meth:`pygmt.Figure.subplot` which offers finer grained control, and
 this is what the tutorial below will cover.
 """
-
-###############################################################################
-# Let's start by importing the PyGMT library and initializing a Figure
+# sphinx_gallery_thumbnail_number = 3
 
 import pygmt
+
+###############################################################################
+#
+# Let's start by initializing a :class:`pygmt.Figure` instance.
 
 fig = pygmt.Figure()
 
@@ -222,10 +224,10 @@ fig.show()
 #
 #     In subplot mode, the size of each subgraph is controlled by the
 #     ``figsize`` option of :meth:`pygmt.Figure.subplot`. Users can override
-#     this and use``projection`` to specify the size of an individual subplot,
+#     this and use ``projection`` to specify the size of an individual subplot,
 #     but this size will not be remembered. If the next command does not
-#     specify``projection``, the default size of the subplot mode will be used,
-#     and the resulting plot will be inccorect.
+#     specify ``projection``, the default size of the subplot mode will be
+#     used, and the resulting plot will be inccorect.
 #
 #     The current workaround is to use the same ``projection`` option in all
 #     commands for the subplot. For example, we forced subplot (a) to have a
@@ -236,4 +238,4 @@ fig.show()
 ###############################################################################
 # Since we skipped the second subplot, the auto label function will name the
 # three subplots as a, c and d, which is not what we want, so we have to use
-# ``fig.sca(fixedlabel="(a)"`` to manually set the subplot label.
+# ``fig.sca(fixedlabel="(a)")`` to manually set the subplot label.
