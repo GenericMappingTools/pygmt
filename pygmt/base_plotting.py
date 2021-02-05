@@ -54,3 +54,4 @@ class BasePlotting:
     from pygmt.src import plot  # pylint: disable=import-outside-toplevel
     from pygmt.src import plot3d  # pylint: disable=import-outside-toplevel
     from pygmt.src import text  # pylint: disable=import-outside-toplevel
+    from pygmt.src import inset, meca  # pylint: disable=import-outside-toplevel
