@@ -1,10 +1,9 @@
 """
 Source code for PyGMT modules.
 """
-from pygmt.src.grd2cpt import grd2cpt
-
 # pylint: disable=import-outside-toplevel
 from pygmt.src.blockmedian import blockmedian
+from pygmt.src.grd2cpt import grd2cpt
 from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfilter import grdfilter
 from pygmt.src.grdtrack import grdtrack
