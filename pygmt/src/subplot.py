@@ -24,7 +24,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     X="xshift",
     Y="yshift",
 )
-@kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence")
+@kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
 def subplot(self, nrows=1, ncols=1, **kwargs):
     r"""
     Create multi-panel subplot figures.
@@ -88,7 +88,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         **x_offset** and **y_offset* are not available during subplots; use
         **clearance** instead.
     {J}
-    margins : tuple
+    margins : list
         This is margin space that is added between neighboring subplots (i.e.,
         the interior margins) in addition to the automatic space added for tick
         marks, annotations, and labels. The margins can be specified as either:
