@@ -4,15 +4,6 @@ Non-plot GMT modules.
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
 from pygmt.src.grdinfo import grdinfo
 
 

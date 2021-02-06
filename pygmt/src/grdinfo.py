@@ -20,10 +20,10 @@ from pygmt.helpers import (
     D="tiles",
     F="geographic",
     I="spacing",
-    T="nearest_multiple",
     L="force_scan",
     M="minmax_pos",
     R="region",
+    T="nearest_multiple",
     V="verbose",
 )
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
