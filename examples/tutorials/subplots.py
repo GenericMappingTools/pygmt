@@ -99,7 +99,7 @@ with fig.subplot(
     figsize=("15c", "6c"),
     autolabel=True,
     margins=["0.1c", "0.2c"],
-    title='"My Subplot Heading"',
+    title="My Subplot Heading",
 ):
     fig.basemap(region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], ax=[0, 0])
     fig.basemap(region=[0, 20, 0, 10], projection="X?", frame=["af", "WSne"], ax=[0, 1])
@@ -155,7 +155,7 @@ with fig.subplot(
     figsize=("15c", "6c"),
     autolabel=True,
     margins=["0.3c", "0.2c"],
-    title='"My Subplot Heading"',
+    title="My Subplot Heading",
     layout=["Rl", "Cb"],
     frame="WSrt",
 ):

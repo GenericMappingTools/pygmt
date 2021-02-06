@@ -135,6 +135,8 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     {XY}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs["A"] = f'"{kwargs.get("A")}"' if kwargs.get("A") else None
+    kwargs["T"] = f'"{kwargs.get("T")}"' if kwargs.get("T") else None
 
     with Session() as lib:
         try:
@@ -196,8 +198,9 @@ def sca(self, ax=None, **kwargs):
     {V}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs["A"] = f'"{kwargs.get("A")}"' if kwargs.get("A") else None
 
     with Session() as lib:
-        arg_str = " ".join(["set", f"{ax}", build_arg_string(kwargs)])
+        arg_str = " ".join(["set", f"{ax}", build_arg_string(kwargs)]).strip()
         lib.call_module(module="subplot", args=arg_str)
         yield
