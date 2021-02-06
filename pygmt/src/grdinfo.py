@@ -1,7 +1,6 @@
 """
-Non-plot GMT modules.
+Retrieve info about grid file.
 """
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
