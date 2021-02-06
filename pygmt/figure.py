@@ -26,7 +26,7 @@ from pygmt.helpers import (
 SHOWED_FIGURES = []
 
 
-class Figure():
+class Figure:
     """
     A GMT figure to handle all plotting.
 
