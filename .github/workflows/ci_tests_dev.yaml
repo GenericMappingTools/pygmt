@@ -8,6 +8,12 @@ on:
   #   branches: [ master ]
   pull_request:
     types: [ready_for_review]
+    paths-ignore:
+      - 'doc/**'
+      - '*.md'
+      - '*.json'
+      - 'README.rst'
+      - 'LICENSE.txt'
   repository_dispatch:
     types: [test-gmt-dev-command]
   # Schedule daily tests
