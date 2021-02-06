@@ -26,7 +26,7 @@ from pygmt.helpers import (
     R="region",
     V="verbose",
 )
-@kwargs_to_strings(R="sequence", D="sequence", I="sequence")
+@kwargs_to_strings(D="sequence", I="sequence", R="sequence")
 def grdinfo(grid, **kwargs):
     r"""
     Get information about a grid.
