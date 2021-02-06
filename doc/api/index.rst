@@ -45,6 +45,7 @@ Color palette table generation:
     :toctree: generated
 
     makecpt
+    grd2cpt
 
 Saving and displaying the figure:
 
@@ -75,7 +76,6 @@ Operations on grids:
     grdcut
     grdfilter
     grdtrack
-    grd2cpt
 
 Crossover analysis with x2sys:
 
