@@ -39,7 +39,7 @@ from pygmt.helpers import (
     justify="sequence_comma",
     p="sequence",
 )
-def text(
+def text_(
     self,
     textfiles=None,
     x=None,
