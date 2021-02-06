@@ -2,11 +2,9 @@
 grd2cpt - Create a CPT from a grid file.
 """
 
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     data_kind,
     dummy_context,
