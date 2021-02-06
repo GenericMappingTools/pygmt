@@ -95,7 +95,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     {p}
     {t}
     """
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     kind = data_kind(data, x, y, z)
     if kind == "vectors" and z is None:

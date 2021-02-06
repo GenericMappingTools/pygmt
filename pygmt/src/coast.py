@@ -186,7 +186,7 @@ def coast(self, **kwargs):
     {t}
     {V}
     """
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
             """At least one of the following arguments must be specified:

@@ -114,7 +114,7 @@ def grdview(self, grid, **kwargs):
     {p}
     {t}
     """
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     kind = data_kind(grid, None, None)
     with Session() as lib:
         if kind == "file":

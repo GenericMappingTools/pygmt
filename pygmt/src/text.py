@@ -147,7 +147,7 @@ def text(
     # pylint: disable=too-many-locals
     # pylint: disable=too-many-branches
 
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
