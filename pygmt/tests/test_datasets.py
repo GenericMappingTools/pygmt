@@ -4,19 +4,20 @@ Test basic functionality for loading datasets.
 import numpy as np
 import numpy.testing as npt
 import pytest
-
-from ..datasets import (
-    load_japan_quakes,
+from pygmt.datasets import (
     load_earth_relief,
+    load_japan_quakes,
     load_ocean_ridge_points,
     load_sample_bathymetry,
     load_usgs_quakes,
 )
-from ..exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 def test_japan_quakes():
-    "Check that the dataset loads without errors"
+    """
+    Check that the dataset loads without errors.
+    """
     data = load_japan_quakes()
     assert data.shape == (115, 7)
     summary = data.describe()
@@ -29,7 +30,9 @@ def test_japan_quakes():
 
 
 def test_ocean_ridge_points():
-    "Check that the @ridge.txt dataset loads without errors"
+    """
+    Check that the @ridge.txt dataset loads without errors.
+    """
     data = load_ocean_ridge_points()
     assert data.shape == (4146, 2)
     summary = data.describe()
@@ -40,7 +43,9 @@ def test_ocean_ridge_points():
 
 
 def test_sample_bathymetry():
-    "Check that the @tut_ship.xyz dataset loads without errors"
+    """
+    Check that the @tut_ship.xyz dataset loads without errors.
+    """
     data = load_sample_bathymetry()
     assert data.shape == (82970, 3)
     summary = data.describe()
@@ -53,13 +58,17 @@ def test_sample_bathymetry():
 
 
 def test_usgs_quakes():
-    "Check that the dataset loads without errors"
+    """
+    Check that the dataset loads without errors.
+    """
     data = load_usgs_quakes()
     assert data.shape == (1197, 22)
 
 
 def test_earth_relief_fails():
-    "Make sure earth relief fails for invalid resolutions"
+    """
+    Make sure earth relief fails for invalid resolutions.
+    """
     resolutions = "1m 1d bla 60d 001m 03".split()
     resolutions.append(60)
     for resolution in resolutions:
@@ -69,7 +78,9 @@ def test_earth_relief_fails():
 
 # Only test 01d and 30m to avoid downloading large datasets in CI
 def test_earth_relief_01d():
-    "Test some properties of the earth relief 01d data"
+    """
+    Test some properties of the earth relief 01d data.
+    """
     data = load_earth_relief(resolution="01d", registration="gridline")
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
@@ -79,13 +90,17 @@ def test_earth_relief_01d():
 
 
 def test_earth_relief_01d_with_region():
-    "Test loading low-resolution earth relief with 'region'"
+    """
+    Test loading low-resolution earth relief with 'region'.
+    """
     with pytest.raises(NotImplementedError):
         load_earth_relief("01d", region=[0, 180, 0, 90])
 
 
 def test_earth_relief_30m():
-    "Test some properties of the earth relief 30m data"
+    """
+    Test some properties of the earth relief 30m data.
+    """
     data = load_earth_relief(resolution="30m", registration="gridline")
     assert data.shape == (361, 721)
     npt.assert_allclose(data.lat, np.arange(-90, 90.5, 0.5))
@@ -95,7 +110,9 @@ def test_earth_relief_30m():
 
 
 def test_earth_relief_05m_with_region():
-    "Test loading a subregion of high-resolution earth relief grid"
+    """
+    Test loading a subregion of high-resolution earth relief grid.
+    """
     data = load_earth_relief(
         resolution="05m", region=[120, 160, 30, 60], registration="gridline"
     )
@@ -110,12 +127,16 @@ def test_earth_relief_05m_with_region():
 
 
 def test_earth_relief_05m_without_region():
-    "Test loading high-resolution earth relief without passing 'region'"
+    """
+    Test loading high-resolution earth relief without passing 'region'.
+    """
     with pytest.raises(GMTInvalidInput):
         load_earth_relief("05m")
 
 
 def test_earth_relief_incorrect_registration():
-    "Test loading earth relief with incorrect registration type"
+    """
+    Test loading earth relief with incorrect registration type.
+    """
     with pytest.raises(GMTInvalidInput):
         load_earth_relief(registration="improper_type")

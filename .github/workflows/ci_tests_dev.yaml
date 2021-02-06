@@ -1,13 +1,21 @@
-# This workflow installs PyGMT dependencies, builds documentation and runs tests on GMT latest
+# This workflow installs PyGMT dependencies, builds documentation and runs tests on GMT dev version
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: GMT Latest Tests
+name: GMT Dev Tests
 
 on:
   # push:
   #   branches: [ master ]
   pull_request:
-    types: [review_requested, ready_for_review]
+    types: [ready_for_review]
+    paths-ignore:
+      - 'doc/**'
+      - '*.md'
+      - '*.json'
+      - 'README.rst'
+      - 'LICENSE.txt'
+  repository_dispatch:
+    types: [test-gmt-dev-command]
   # Schedule daily tests
   schedule:
     - cron: '0 0 * * *'
@@ -20,12 +28,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.9]
-        os: [ubuntu-20.04, macOS-10.15]
+        os: [ubuntu-20.04, macOS-10.15, windows-latest]
         gmt_git_ref: [master]
-    env:
-      # LD_LIBRARY_PATH: ${{ github.workspace }}/gmt/lib:$LD_LIBRARY_PATH
-      GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
-      GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
     defaults:
       run:
         shell: bash -l {0}
@@ -40,7 +44,28 @@ jobs:
       # Checkout current git repository
       - name: Checkout
         uses: actions/checkout@v2.3.4
+        if: github.event_name != 'repository_dispatch'
         with:
+          # fecth all history so that setuptools-scm works
+          fetch-depth: 0
+
+      # Generate token from GenericMappingTools bot
+      - name: Generate token from GenericMappingTools bot
+        uses: tibdex/github-app-token@v1
+        if: github.event_name == 'repository_dispatch'
+        id: generate-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      # Checkout the pull request branch
+      - name: Checkout
+        uses: actions/checkout@v2
+        if: github.event_name == 'repository_dispatch'
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
@@ -57,10 +82,16 @@ jobs:
         run: conda install cmake libblas libcblas liblapack fftw gdal ghostscript libnetcdf hdf5 zlib curl pcre ipython pytest pytest-cov pytest-mpl
 
       # Build and install latest GMT from GitHub
-      - name: Install GMT ${{ matrix.gmt_git_ref }} branch
+      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
         run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
         env:
           GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
+          GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
+        if: runner.os != 'Windows'
+
+      - name: Install GMT dev version from conda-forge (Windows)
+        run: conda install -c conda-forge/label/dev gmt
+        if: runner.os == 'Windows'
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -86,8 +117,16 @@ jobs:
           pip install dist/*
 
       # Run the tests
-      - name: Test with pytest
+      - name: Test with pytest (Linux/macOS)
         run: make test PYTEST_EXTRA="-r P"
+        env:
+          GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
+        if: runner.os != 'Windows'
+
+      # Run the tests
+      - name: Test with pytest (Windows)
+        run: make test PYTEST_EXTRA="-r P"
+        if: runner.os == 'Windows'
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
@@ -96,3 +135,12 @@ jobs:
         with:
           name: artifact-GMT-${{ matrix.gmt_git_ref }}-${{ runner.os }}
           path: tmp-test-dir-with-unique-name
+
+      - name: Add reaction
+        uses: peter-evans/create-or-update-comment@v1
+        if: github.event_name == 'repository_dispatch'
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reaction-type: hooray

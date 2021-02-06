@@ -25,12 +25,16 @@ jobs:
 
       # Install formatting tools
       - name: Install formatting tools
-        run: pip install black blackdoc flake8
+        run: |
+          pip install black blackdoc docformatter flake8 isort
+          sudo apt-get install dos2unix
 
       # Run "make format" and commit the change to the PR branch
       - name: Commit to the PR branch if any changes
         run: |
           make format
+          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix {} \;
+          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
           if [[ $(git ls-files -m) ]]; then
             git config --global user.name 'actions-bot'
             git config --global user.email '58130806+actions-bot@users.noreply.github.com'

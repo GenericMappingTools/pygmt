@@ -8,22 +8,19 @@ from contextlib import contextmanager
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
+import pytest
 import xarray as xr
 from packaging.version import Version
-import pytest
-
-from .. import clib
-from ..clib.session import FAMILIES, VIAS
-from ..clib.conversion import dataarray_to_matrix
-from ..exceptions import (
+from pygmt import Figure, clib
+from pygmt.clib.conversion import dataarray_to_matrix
+from pygmt.clib.session import FAMILIES, VIAS
+from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
     GMTInvalidInput,
     GMTVersionError,
 )
-from ..helpers import GMTTempFile
-from .. import Figure
-
+from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
@@ -71,7 +68,9 @@ def mock(session, func, returns=None, mock_func=None):
 
 
 def test_getitem():
-    "Test that I can get correct constants from the C lib"
+    """
+    Test that I can get correct constants from the C lib.
+    """
     ses = clib.Session()
     assert ses["GMT_SESSION_EXTERNAL"] != -99999
     assert ses["GMT_MODULE_CMD"] != -99999
@@ -82,7 +81,9 @@ def test_getitem():
 
 
 def test_create_destroy_session():
-    "Test that create and destroy session are called without errors"
+    """
+    Test that create and destroy session are called without errors.
+    """
     # Create two session and make sure they are not pointing to the same memory
     session1 = clib.Session()
     session1.create(name="test_session1")
@@ -106,7 +107,9 @@ def test_create_destroy_session():
 
 
 def test_create_session_fails():
-    "Check that an exception is raised when failing to create a session"
+    """
+    Check that an exception is raised when failing to create a session.
+    """
     ses = clib.Session()
     with mock(ses, "GMT_Create_Session", returns=None):
         with pytest.raises(GMTCLibError):
@@ -118,7 +121,9 @@ def test_create_session_fails():
 
 
 def test_destroy_session_fails():
-    "Fail to destroy session when given bad input"
+    """
+    Fail to destroy session when given bad input.
+    """
     ses = clib.Session()
     with pytest.raises(GMTCLibNoSessionError):
         ses.destroy()
@@ -130,7 +135,9 @@ def test_destroy_session_fails():
 
 
 def test_call_module():
-    "Run a command to see if call_module works"
+    """
+    Run a command to see if call_module works.
+    """
     data_fname = os.path.join(TEST_DATA_DIR, "points.txt")
     out_fname = "test_call_module.txt"
     with clib.Session() as lib:
@@ -142,21 +149,27 @@ def test_call_module():
 
 
 def test_call_module_invalid_arguments():
-    "Fails for invalid module arguments"
+    """
+    Fails for invalid module arguments.
+    """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
             lib.call_module("info", "bogus-data.bla")
 
 
 def test_call_module_invalid_name():
-    "Fails when given bad input"
+    """
+    Fails when given bad input.
+    """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
             lib.call_module("meh", "")
 
 
 def test_call_module_error_message():
-    "Check is the GMT error message was captured."
+    """
+    Check is the GMT error message was captured.
+    """
     with clib.Session() as lib:
         try:
             lib.call_module("info", "bogus-data.bla")
@@ -166,7 +179,9 @@ def test_call_module_error_message():
 
 
 def test_method_no_session():
-    "Fails when not in a session"
+    """
+    Fails when not in a session.
+    """
     # Create an instance of Session without "with" so no session is created.
     lib = clib.Session()
     with pytest.raises(GMTCLibNoSessionError):
@@ -176,7 +191,9 @@ def test_method_no_session():
 
 
 def test_parse_constant_single():
-    "Parsing a single family argument correctly."
+    """
+    Parsing a single family argument correctly.
+    """
     lib = clib.Session()
     for family in FAMILIES:
         parsed = lib._parse_constant(family, valid=FAMILIES)
@@ -184,7 +201,9 @@ def test_parse_constant_single():
 
 
 def test_parse_constant_composite():
-    "Parsing a composite constant argument (separated by |) correctly."
+    """
+    Parsing a composite constant argument (separated by |) correctly.
+    """
     lib = clib.Session()
     test_cases = ((family, via) for family in FAMILIES for via in VIAS)
     for family, via in test_cases:
@@ -195,7 +214,9 @@ def test_parse_constant_composite():
 
 
 def test_parse_constant_fails():
-    "Check if the function fails when given bad input"
+    """
+    Check if the function fails when given bad input.
+    """
     lib = clib.Session()
     test_cases = [
         "SOME_random_STRING",
@@ -221,7 +242,9 @@ def test_parse_constant_fails():
 
 
 def test_create_data_dataset():
-    "Run the function to make sure it doesn't fail badly."
+    """
+    Run the function to make sure it doesn't fail badly.
+    """
     with clib.Session() as lib:
         # Dataset from vectors
         data_vector = lib.create_data(
@@ -241,7 +264,9 @@ def test_create_data_dataset():
 
 
 def test_create_data_grid_dim():
-    "Create a grid ignoring range and inc."
+    """
+    Create a grid ignoring range and inc.
+    """
     with clib.Session() as lib:
         # Grids from matrices using dim
         lib.create_data(
@@ -253,7 +278,9 @@ def test_create_data_grid_dim():
 
 
 def test_create_data_grid_range():
-    "Create a grid specifying range and inc instead of dim."
+    """
+    Create a grid specifying range and inc instead of dim.
+    """
     with clib.Session() as lib:
         # Grids from matrices using range and int
         lib.create_data(
@@ -266,7 +293,9 @@ def test_create_data_grid_range():
 
 
 def test_create_data_fails():
-    "Check that create_data raises exceptions for invalid input and output"
+    """
+    Check that create_data raises exceptions for invalid input and output.
+    """
     # Passing in invalid mode
     with pytest.raises(GMTInvalidInput):
         with clib.Session() as lib:
@@ -303,7 +332,9 @@ def test_create_data_fails():
 
 
 def test_virtual_file():
-    "Test passing in data via a virtual file with a Dataset"
+    """
+    Test passing in data via a virtual file with a Dataset.
+    """
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (5, 3)
     for dtype in dtypes:
@@ -333,8 +364,8 @@ def test_virtual_file():
 
 def test_virtual_file_fails():
     """
-    Check that opening and closing virtual files raises an exception for
-    non-zero return codes
+    Check that opening and closing virtual files raises an exception for non-
+    zero return codes.
     """
     vfargs = (
         "GMT_IS_DATASET|GMT_VIA_MATRIX",
@@ -364,7 +395,9 @@ def test_virtual_file_fails():
 
 
 def test_virtual_file_bad_direction():
-    "Test passing an invalid direction argument"
+    """
+    Test passing an invalid direction argument.
+    """
     with clib.Session() as lib:
         vfargs = (
             "GMT_IS_DATASET|GMT_VIA_MATRIX",
@@ -378,7 +411,9 @@ def test_virtual_file_bad_direction():
 
 
 def test_virtualfile_from_vectors():
-    "Test the automation for transforming vectors to virtual file dataset"
+    """
+    Test the automation for transforming vectors to virtual file dataset.
+    """
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     size = 10
     for dtype in dtypes:
@@ -401,7 +436,7 @@ def test_virtualfile_from_vectors():
 def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     """
     Test passing in one column with string or object dtype into virtual file
-    dataset
+    dataset.
     """
     size = 5
     x = np.arange(size, dtype=np.int32)
@@ -420,7 +455,7 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
 def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
     """
     Test passing in two columns of string or object dtype into virtual file
-    dataset
+    dataset.
     """
     size = 5
     x = np.arange(size, dtype=np.int32)
@@ -439,7 +474,9 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
 
 
 def test_virtualfile_from_vectors_transpose():
-    "Test transforming matrix columns to virtual file dataset"
+    """
+    Test transforming matrix columns to virtual file dataset.
+    """
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
@@ -457,7 +494,9 @@ def test_virtualfile_from_vectors_transpose():
 
 
 def test_virtualfile_from_vectors_diff_size():
-    "Test the function fails for arrays of different sizes"
+    """
+    Test the function fails for arrays of different sizes.
+    """
     x = np.arange(5)
     y = np.arange(6)
     with clib.Session() as lib:
@@ -467,7 +506,9 @@ def test_virtualfile_from_vectors_diff_size():
 
 
 def test_virtualfile_from_matrix():
-    "Test transforming a matrix to virtual file dataset"
+    """
+    Test transforming a matrix to virtual file dataset.
+    """
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
@@ -485,7 +526,9 @@ def test_virtualfile_from_matrix():
 
 
 def test_virtualfile_from_matrix_slice():
-    "Test transforming a slice of a larger array to virtual file dataset"
+    """
+    Test transforming a slice of a larger array to virtual file dataset.
+    """
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (10, 6)
     for dtype in dtypes:
@@ -506,7 +549,9 @@ def test_virtualfile_from_matrix_slice():
 
 
 def test_virtualfile_from_vectors_pandas():
-    "Pass vectors to a dataset using pandas Series"
+    """
+    Pass vectors to a dataset using pandas Series.
+    """
     dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     size = 13
     for dtype in dtypes:
@@ -533,7 +578,9 @@ def test_virtualfile_from_vectors_pandas():
 
 
 def test_virtualfile_from_vectors_arraylike():
-    "Pass array-like vectors to a dataset"
+    """
+    Pass array-like vectors to a dataset.
+    """
     size = 13
     x = list(range(0, size, 1))
     y = tuple(range(size, size * 2, 1))
@@ -551,7 +598,9 @@ def test_virtualfile_from_vectors_arraylike():
 
 
 def test_extract_region_fails():
-    "Check that extract region fails if nothing has been plotted."
+    """
+    Check that extract region fails if nothing has been plotted.
+    """
     Figure()
     with pytest.raises(GMTCLibError):
         with clib.Session() as lib:
@@ -559,7 +608,9 @@ def test_extract_region_fails():
 
 
 def test_extract_region_two_figures():
-    "Extract region should handle multiple figures existing at the same time"
+    """
+    Extract region should handle multiple figures existing at the same time.
+    """
     # Make two figures before calling extract_region to make sure that it's
     # getting from the current figure, not the last figure.
     fig1 = Figure()
@@ -586,7 +637,9 @@ def test_extract_region_two_figures():
 
 
 def test_write_data_fails():
-    "Check that write data raises an exception for non-zero return codes"
+    """
+    Check that write data raises an exception for non-zero return codes.
+    """
     # It's hard to make the C API function fail without causing a Segmentation
     # Fault. Can't test this if by giving a bad file name because if
     # output=='', GMT will just write to stdout and spaces are valid file
@@ -605,7 +658,9 @@ def test_write_data_fails():
 
 
 def test_dataarray_to_matrix_works():
-    "Check that dataarray_to_matrix returns correct output"
+    """
+    Check that dataarray_to_matrix returns correct output.
+    """
     data = np.diag(v=np.arange(3))
     x = np.linspace(start=0, stop=4, num=3)
     y = np.linspace(start=5, stop=9, num=3)
@@ -618,7 +673,9 @@ def test_dataarray_to_matrix_works():
 
 
 def test_dataarray_to_matrix_negative_x_increment():
-    "Check if dataarray_to_matrix returns correct output with flipped x"
+    """
+    Check if dataarray_to_matrix returns correct output with flipped x.
+    """
     data = np.diag(v=np.arange(3))
     x = np.linspace(start=4, stop=0, num=3)
     y = np.linspace(start=5, stop=9, num=3)
@@ -631,7 +688,9 @@ def test_dataarray_to_matrix_negative_x_increment():
 
 
 def test_dataarray_to_matrix_negative_y_increment():
-    "Check that dataarray_to_matrix returns correct output with flipped y"
+    """
+    Check that dataarray_to_matrix returns correct output with flipped y.
+    """
     data = np.diag(v=np.arange(3))
     x = np.linspace(start=0, stop=4, num=3)
     y = np.linspace(start=9, stop=5, num=3)
@@ -644,7 +703,9 @@ def test_dataarray_to_matrix_negative_y_increment():
 
 
 def test_dataarray_to_matrix_negative_x_and_y_increment():
-    "Check that dataarray_to_matrix returns correct output with flipped x/y"
+    """
+    Check that dataarray_to_matrix returns correct output with flipped x/y.
+    """
     data = np.diag(v=np.arange(3))
     x = np.linspace(start=4, stop=0, num=3)
     y = np.linspace(start=9, stop=5, num=3)
@@ -657,7 +718,9 @@ def test_dataarray_to_matrix_negative_x_and_y_increment():
 
 
 def test_dataarray_to_matrix_dims_fails():
-    "Check that it fails for > 2 dims"
+    """
+    Check that it fails for > 2 dims.
+    """
     # Make a 3D regular grid
     data = np.ones((10, 12, 11), dtype="float32")
     x = np.arange(11)
@@ -669,7 +732,9 @@ def test_dataarray_to_matrix_dims_fails():
 
 
 def test_dataarray_to_matrix_inc_fails():
-    "Check that it fails for variable increments"
+    """
+    Check that it fails for variable increments.
+    """
     data = np.ones((4, 5), dtype="float64")
     x = np.linspace(0, 1, 5)
     y = np.logspace(2, 3, 4)
@@ -679,7 +744,9 @@ def test_dataarray_to_matrix_inc_fails():
 
 
 def test_get_default():
-    "Make sure get_default works without crashing and gives reasonable results"
+    """
+    Make sure get_default works without crashing and gives reasonable results.
+    """
     with clib.Session() as lib:
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
@@ -687,14 +754,18 @@ def test_get_default():
 
 
 def test_get_default_fails():
-    "Make sure get_default raises an exception for invalid names"
+    """
+    Make sure get_default raises an exception for invalid names.
+    """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
             lib.get_default("NOT_A_VALID_NAME")
 
 
 def test_info_dict():
-    "Make sure the clib.Session.info dict is working."
+    """
+    Make sure the clib.Session.info dict is working.
+    """
     # Check if there are no errors or segfaults from getting all of the
     # properties.
     with clib.Session() as lib:
@@ -702,7 +773,9 @@ def test_info_dict():
 
     # Mock GMT_Get_Default to return always the same string
     def mock_defaults(api, name, value):  # pylint: disable=unused-argument
-        "Put 'bla' in the value buffer"
+        """
+        Put 'bla' in the value buffer.
+        """
         value.value = b"bla"
         return 0
 
@@ -717,11 +790,15 @@ def test_info_dict():
 
 
 def test_fails_for_wrong_version():
-    "Make sure the clib.Session raises an exception if GMT is too old"
+    """
+    Make sure the clib.Session raises an exception if GMT is too old.
+    """
 
     # Mock GMT_Get_Default to return an old version
     def mock_defaults(api, name, value):  # pylint: disable=unused-argument
-        "Return an old version"
+        """
+        Return an old version.
+        """
         if name == b"API_VERSION":
             value.value = b"5.4.3"
         else:

@@ -13,8 +13,8 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
-.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Latest%20Tests/badge.svg
-    :alt: GitHub Actions GMT Latest Tests status
+.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
+    :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3A%22GMT+Latest+Tests%22
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
@@ -40,7 +40,7 @@ Why PyGMT?
 
 A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
-But if you need some convincing first, watch this **1 hour introduction** to PyGMT!
+But if you need some convincing first, watch this `1 hour introduction <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ to PyGMT!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
 or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
@@ -207,6 +207,7 @@ Other Python wrappers for GMT:
 
 Documentation for other versions
 --------------------------------
+
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
@@ -216,3 +217,14 @@ Documentation for other versions
 * `v0.1.1 <https://www.pygmt.org/v0.1.1>`__
 * `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
 * `v0.0.1a0 <https://www.pygmt.org/0.0.1a0>`__
+
+Compatibility with Python and GMT versions
+------------------------------------------
+
+======= ========== =========
+PyGMT   GMT        Python
+======= ========== =========
+0.2.1   >=6.1.1    >=3.6
+0.2.0   >=6.1.1    3.6 - 3.8
+0.1.x   >=6.0.0    3.6 - 3.8
+======= ========== =========

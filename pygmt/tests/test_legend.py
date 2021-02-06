@@ -1,12 +1,11 @@
 """
-Tests for legend
+Tests for legend.
 """
 import pytest
-
-from .. import Figure
-from ..exceptions import GMTInvalidInput
-from ..helpers import GMTTempFile
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
@@ -131,7 +130,7 @@ T so we may have to adjust the box height to get the right size box.
 
 def test_legend_fails():
     """
-    Test legend fails with invalid spec
+    Test legend fails with invalid spec.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):

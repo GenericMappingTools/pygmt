@@ -1,21 +1,22 @@
 """
 Base class with plot generating commands.
+
 Does not define any special non-GMT methods (savefig, show, etc).
 """
 import contextlib
-import numpy as np
-import pandas as pd
 
-from .clib import Session
-from .exceptions import GMTError, GMTInvalidInput
-from .helpers import (
+import numpy as np
+from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
+    args_in_kwargs,
     build_arg_string,
-    dummy_context,
     data_kind,
+    dummy_context,
     fmt_docstring,
-    use_alias,
-    kwargs_to_strings,
     is_nonstr_iter,
+    kwargs_to_strings,
+    use_alias,
 )
 
 
@@ -51,7 +52,6 @@ class BasePlotting:
         >>> base = BasePlotting()
         >>> base._preprocess(resolution="low")
         {'resolution': 'low'}
-
         """
         return kwargs
 
@@ -60,8 +60,10 @@ class BasePlotting:
         R="region",
         J="projection",
         A="area_thresh",
+        C="lakes",
         B="frame",
         D="resolution",
+        E="dcw",
         I="rivers",
         L="map_scale",
         N="borders",
@@ -77,7 +79,7 @@ class BasePlotting:
     )
     @kwargs_to_strings(R="sequence", p="sequence")
     def coast(self, **kwargs):
-        """
+        r"""
         Plot continents, shorelines, rivers, and borders on maps
 
         Plots grayshaded, colored, or textured land-masses [or water-masses] on
@@ -105,42 +107,133 @@ class BasePlotting:
         {J}
         {R}
         area_thresh : int, float, or str
-            ``'min_area[/min_level/max_level][+ag|i|s|S][+r|l][+ppercent]'``
+            *min_area*\ [/*min_level*/*max_level*][**+ag**\|\ **i**\
+            \|\ **s**\|\ **S**][**+r**\|\ **l**][**+p**\
+            *percent*].
             Features with an area smaller than min_area in km^2 or of
             hierarchical level that is lower than min_level or higher than
             max_level will not be plotted.
         {B}
-        C : str
-            Set the shade, color, or pattern for lakes and river-lakes.
+        lakes : str or list
+            *fill*\ [**+l**\|\ **+r**].
+            Set the shade, color, or pattern for lakes and river-lakes. The
+            default is the fill chosen for wet areas set by the ``water``
+            argument. Optionally, specify separate fills by appending
+            **+l** for lakes or **+r** for river-lakes, and passing multiple
+            strings in a list.
         resolution : str
-            Selects the resolution of the data set to use ((f)ull, (h)igh,
-            (i)ntermediate, (l)ow, and (c)rude).
+            **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
+            Selects the resolution of the data set to: (**f**\ )ull,
+            (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
+            and (**c**\ )rude.
         land : str
             Select filling or clipping of “dry” areas.
-        rivers : str
-            ``'river[/pen]'``
-            Draw rivers. Specify the type of rivers and [optionally] append pen
-            attributes.
+        rivers : int or str or list
+            *river*\ [/*pen*].
+            Draw rivers. Specify the type of rivers and [optionally] append
+            pen attributes [Default pen: width = default, color = black,
+            style = solid].
+
+            Choose from the list of river types below; pass a list to
+            ``rivers`` to use multiple arguments.
+
+            0 = Double-lined rivers (river-lakes)
+
+            1 = Permanent major rivers
+
+            2 = Additional major rivers
+
+            3 = Additional rivers
+
+            4 = Minor rivers
+
+            5 = Intermittent rivers - major
+
+            6 = Intermittent rivers - additional
+
+            7 = Intermittent rivers - minor
+
+            8 = Major canals
+
+            9 = Minor canals
+
+            10 = Irrigation canals
+
+            You can also choose from several preconfigured river groups:
+
+            a = All rivers and canals (0-10)
+
+            A = All rivers and canals except river-lakes (1-10)
+
+            r = All permanent rivers (0-4)
+
+            R = All permanent rivers except river-lakes (1-4)
+
+            i = All intermittent rivers (5-7)
+
+            c = All canals (8-10)
         map_scale : str
-            ``'[g|j|J|n|x]refpoint'``
+            [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*.
             Draws a simple map scale centered on the reference point specified.
-        borders : str
-            ``'border[/pen]'``
+        borders : int or str or list
+            *border*\ [/*pen*].
             Draw political boundaries. Specify the type of boundary and
-            [optionally] append pen attributes
+            [optionally] append pen attributes [Default pen: width = default,
+            color = black, style = solid].
+
+            Choose from the list of boundaries below. Pass a list to
+            ``borders`` to use multiple arguments.
+
+            1 = National boundaries
+
+            2 = State boundaries within the Americas
+
+            3 = Marine boundaries
+
+            a = All boundaries (1-3)
         water : str
             Select filling or clipping of “wet” areas.
         {U}
-        {V}
-        shorelines : str
-            ``'[level/]pen'``
-            Draw shorelines [Default is no shorelines]. Append pen attributes.
+        shorelines : int or str or list
+            [*level*\ /]\ *pen*.
+            Draw shorelines [Default is no shorelines]. Append pen attributes
+            [Defaults: width = default, color = black, style = solid] which
+            apply to all four levels. To set the pen for a single level,
+            pass a string with *level*\ /*pen*\ , where level is
+            1-4 and represent coastline, lakeshore, island-in-lake shore, and
+            lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
+            strings to ``shorelines`` to set multiple levels. When specific
+            level pens are set, those not listed will not be drawn.
+        dcw : str or list
+            *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
+            [**+p**\ *pen*\ ][**+z**].
+            Select painting or dumping country polygons from the
+            `Digital Chart of the World
+            <https://en.wikipedia.org/wiki/Digital_Chart_of_the_World>`__.
+            Append one or more comma-separated countries using the 2-character
+            `ISO 3166-1 alpha-2 convention
+            <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`__.
+            To select a state of a country (if available), append
+            .\ *state*, (e.g, US.TX for Texas).  To specify a whole continent,
+            prepend **=** to any of the continent codes (e.g. =EU for Europe).
+            Append **+p**\ *pen* to draw polygon outlines
+            (default is no outline) and **+g**\ *fill* to fill them
+            (default is no fill). Append **+l**\|\ **+L** to *=continent* to
+            only list countries in that continent; repeat if more than one
+            continent is requested. Append **+z** to place the country code in
+            the segment headers via **-Z**\ *code* settings.To apply different
+            settings to different countries, pass a list of string arguments.
         {XY}
         {p}
         {t}
-
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
+        if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
+            raise GMTInvalidInput(
+                """At least one of the following arguments must be specified:
+                lakes, land, water, rivers, borders, Q, or shorelines"""
+            )
         with Session() as lib:
             lib.call_module("coast", build_arg_string(kwargs))
 
@@ -153,6 +246,7 @@ class BasePlotting:
         D="position",
         F="box",
         G="truncate",
+        I="shading",
         W="scale",
         V="verbose",
         X="xshift",
@@ -160,7 +254,7 @@ class BasePlotting:
         p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", G="sequence", p="sequence")
+    @kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
     def colorbar(self, **kwargs):
         """
         Plot a gray or color scale-bar on maps.
@@ -223,11 +317,16 @@ class BasePlotting:
         scale : float
             Multiply all z-values in the CPT by the provided scale. By default
             the CPT is used as is.
+        shading : str or list or bool
+            Add illumination effects. Passing a single numerical value sets the
+            range of intensities from -value to +value. If not specified, 1 is
+            used. Alternatively, set ``shading=[low, high]`` to specify an
+            asymmetric intensity range from *low* to *high*. The default is no
+            illumination.
         {V}
         {XY}
         {p}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
@@ -256,7 +355,7 @@ class BasePlotting:
     @kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus", p="sequence")
     def grdcontour(self, grid, **kwargs):
         """
-        Convert grids or images to contours and plot them on maps
+        Convert grids or images to contours and plot them on maps.
 
         Takes a grid file name or an xarray.DataArray object as input.
 
@@ -472,7 +571,6 @@ class BasePlotting:
         {p}
         {t}
         {x}
-
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -585,7 +683,6 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
         kind = data_kind(grid, None, None)
@@ -598,18 +695,17 @@ class BasePlotting:
                 raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
 
             with contextlib.ExitStack() as stack:
-                fname = stack.enter_context(file_context)
-                if "G" in kwargs:
+                if "G" in kwargs:  # deal with kwargs["G"] if drapegrid is xr.DataArray
                     drapegrid = kwargs["G"]
                     if data_kind(drapegrid) in ("file", "grid"):
                         if data_kind(drapegrid) == "grid":
                             drape_context = lib.virtualfile_from_grid(drapegrid)
-                            drapefile = stack.enter_context(drape_context)
-                            kwargs["G"] = drapefile
+                            kwargs["G"] = stack.enter_context(drape_context)
                     else:
                         raise GMTInvalidInput(
                             f"Unrecognized data type for drapegrid: {type(drapegrid)}"
                         )
+                fname = stack.enter_context(file_context)
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("grdview", arg_str)
 
@@ -776,6 +872,12 @@ class BasePlotting:
             polygon in the input data. To apply it to the fill color, use
             ``color='+z'``. To apply it to the pen color, append **+z** to
             **pen**.
+        columns : str or 1d array
+            Choose which columns are x, y, color, and size, respectively if
+            input is provided via *data*. E.g. ``columns = [0, 1]`` or
+            ``columns = '0,1'`` if the *x* values are stored in the first
+            column and *y* values in the second one. Note: zero-based
+            indexing is used.
         label : str
             Add a legend entry for the symbol or line being plotted.
 
@@ -783,7 +885,6 @@ class BasePlotting:
         {t}
             *transparency* can also be a 1d array to set varying transparency
             for symbols.
-
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -856,7 +957,7 @@ class BasePlotting:
         self, x=None, y=None, z=None, data=None, sizes=None, direction=None, **kwargs
     ):
         """
-        Plot lines, polygons, and symbols in 3-D
+        Plot lines, polygons, and symbols in 3-D.
 
         Takes a matrix, (x,y,z) triplets, or a file name as input and plots
         lines, polygons, or symbols at those locations in 3-D.
@@ -966,7 +1067,6 @@ class BasePlotting:
         {t}
             *transparency* can also be a 1d array to set varying transparency
             for symbols.
-
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -1088,7 +1188,6 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
 
@@ -1164,11 +1263,12 @@ class BasePlotting:
         {XY}
         {p}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
-        if not ("B" in kwargs or "L" in kwargs or "T" in kwargs):
-            raise GMTInvalidInput("At least one of B, L, or T must be specified.")
+        if not args_in_kwargs(args=["B", "L", "Td", "Tm"], kwargs=kwargs):
+            raise GMTInvalidInput(
+                "At least one of frame, map_scale, compass, or rose must be specified."
+            )
         with Session() as lib:
             lib.call_module("basemap", build_arg_string(kwargs))
 
@@ -1221,7 +1321,6 @@ class BasePlotting:
         {V}
         {XY}
         {t}
-
         """
         kwargs = self._preprocess(**kwargs)
         with Session() as lib:
@@ -1543,402 +1642,4 @@ class BasePlotting:
                 arg_str = " ".join([fname, build_arg_string(kwargs)])
                 lib.call_module("text", arg_str)
 
-    @fmt_docstring
-    @use_alias(
-        R="region",
-        J="projection",
-        B="frame",
-        C="offset",
-        N="no_clip",
-        V="verbose",
-        X="xshift",
-        Y="yshift",
-        p="perspective",
-        t="transparency",
-    )
-    @kwargs_to_strings(R="sequence", p="sequence")
-    def meca(
-        self,
-        spec,
-        scale,
-        longitude=None,
-        latitude=None,
-        depth=None,
-        convention=None,
-        component="full",
-        plot_longitude=None,
-        plot_latitude=None,
-        **kwargs,
-    ):
-        """
-        Plot focal mechanisms.
-
-        Full option list at :gmt-docs:`supplements/seis/meca.html`
-
-        Note
-        ----
-            Currently, labeling of beachballs with text strings is only
-            supported via providing a file to `spec` as input.
-
-        {aliases}
-
-        Parameters
-        ----------
-        spec: dict, 1D array, 2D array, pd.DataFrame, or str
-            Either a filename containing focal mechanism parameters as columns,
-            a 1- or 2-D array with the same, or a dictionary. If a filename or
-            array, `convention` is required so we know how to interpret the
-            columns/entries. If a dictionary, the following combinations of
-            keys are supported; these determine the convention. Dictionary
-            may contain values for a single focal mechanism or lists of
-            values for many focal mechanisms. A Pandas DataFrame may
-            optionally contain columns latitude, longitude, depth,
-            plot_longitude,
-            and/or plot_latitude instead of passing them to the meca method.
-
-            - ``"aki"`` — *strike, dip, rake, magnitude*
-            - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2,
-              mantissa, exponent*
-            - ``"mt"`` — *mrr, mtt, mff, mrt, mrf, mtf, exponent*
-            - ``"partial"`` — *strike1, dip1, strike2, fault_type, magnitude*
-            - ``"principal_axis"`` — *t_exponent, t_azimuth, t_plunge,
-              n_exponent, n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge,
-              exponent*
-
-        scale: str
-            Adjusts the scaling of the radius of the beachball, which is
-            proportional to the magnitude. Scale defines the size for
-            magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
-        longitude: int, float, list, or 1d numpy array
-            Longitude(s) of event location. Ignored if `spec` is not a
-            dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'longitude' column.
-        latitude: int, float, list, or 1d numpy array
-            Latitude(s) of event location. Ignored if `spec` is not a
-            dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'latitude' column.
-        depth: int, float, list, or 1d numpy array
-            Depth(s) of event location in kilometers. Ignored if `spec` is
-            not a dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'depth' column.
-        convention: str
-            ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"``
-            (seismic moment tensor), ``"partial"`` (partial focal mechanism),
-            or ``"principal_axis"`` (principal axis). Ignored if `spec` is a
-            dictionary or dataframe.
-        component: str
-            The component of the seismic moment tensor to plot. ``"full"`` (the
-            full seismic moment tensor), ``"dc"`` (the closest double couple
-            with zero trace and zero determinant), ``"deviatoric"`` (zero
-            trace)
-        plot_longitude: int, float, list, or 1d numpy array
-            Longitude(s) at which to place beachball, only used if `spec` is a
-            dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'plot_longitude'
-            column.
-        plot_latitude: int, float, list, or 1d numpy array
-            Latitude(s) at which to place beachball, only used if `spec` is a
-            dictionary. List must be the length of the number of events.
-            Ignored if `spec` is a DataFrame and contains a 'plot_latitude'
-            column.
-        offset: bool or str
-            Offsets beachballs to the longitude, latitude specified in
-            the last two columns of the input file or array,
-            or by `plot_longitude` and `plot_latitude` if provided. A small
-            circle is plotted at the initial location and a line connects
-            the beachball to the circle. Specify pen and optionally append
-            ``+ssize`` to change the line style and/or size of the circle.
-        no_clip : bool
-            Does NOT skip symbols that fall outside frame boundary specified by
-            *region* [Default is False, i.e. plot symbols inside map frame
-            only].
-        {J}
-        {R}
-        {B}
-        {V}
-        {XY}
-        {p}
-        {t}
-        """
-
-        # pylint warnings that need to be fixed
-        # pylint: disable=too-many-locals
-        # pylint: disable=too-many-nested-blocks
-        # pylint: disable=too-many-branches
-        # pylint: disable=no-self-use
-        # pylint: disable=too-many-statements
-
-        def set_pointer(data_pointers, spec):
-            """Set optional parameter pointers based on DataFrame or dict, if
-            those parameters are present in the DataFrame or dict."""
-            for param in list(data_pointers.keys()):
-                if param in spec:
-                    # set pointer based on param name
-                    data_pointers[param] = spec[param]
-
-        def update_pointers(data_pointers):
-            """Updates variables based on the location of data, as the
-            following data can be passed as parameters or it can be
-            contained in `spec`."""
-            # update all pointers
-            longitude = data_pointers["longitude"]
-            latitude = data_pointers["latitude"]
-            depth = data_pointers["depth"]
-            plot_longitude = data_pointers["plot_longitude"]
-            plot_latitude = data_pointers["plot_latitude"]
-            return (longitude, latitude, depth, plot_longitude, plot_latitude)
-
-        # Check the spec and parse the data according to the specified
-        # convention
-        if isinstance(spec, (dict, pd.DataFrame)):
-            # dicts and DataFrames are handed similarly but not identically
-            if (
-                longitude is None or latitude is None or depth is None
-            ) and not isinstance(spec, (dict, pd.DataFrame)):
-                raise GMTError("Location not fully specified.")
-
-            param_conventions = {
-                "AKI": ["strike", "dip", "rake", "magnitude"],
-                "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent"],
-                "MT": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
-                "PARTIAL": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-                "PRINCIPAL_AXIS": [
-                    "t_exponent",
-                    "t_azimuth",
-                    "t_plunge",
-                    "n_exponent",
-                    "n_azimuth",
-                    "n_plunge",
-                    "p_exponent",
-                    "p_azimuth",
-                    "p_plunge",
-                    "exponent",
-                ],
-            }
-
-            # to keep track of where optional parameters exist
-            data_pointers = {
-                "longitude": longitude,
-                "latitude": latitude,
-                "depth": depth,
-                "plot_longitude": plot_longitude,
-                "plot_latitude": plot_latitude,
-            }
-
-            # make a DataFrame copy to check convention if it contains
-            # other parameters
-            if isinstance(spec, (dict, pd.DataFrame)):
-                # check if a copy is necessary
-                copy = False
-                drop_list = []
-                for pointer in data_pointers:
-                    if pointer in spec:
-                        copy = True
-                        drop_list.append(pointer)
-                if copy:
-                    spec_conv = spec.copy()
-                    # delete optional parameters from copy for convention check
-                    for item in drop_list:
-                        del spec_conv[item]
-                else:
-                    spec_conv = spec
-
-            # set convention and focal parameters based on spec convention
-            convention_assigned = False
-            for conv in param_conventions:
-                if set(spec_conv.keys()) == set(param_conventions[conv]):
-                    convention = conv.lower()
-                    foc_params = param_conventions[conv]
-                    convention_assigned = True
-                    break
-            if not convention_assigned:
-                raise GMTError(
-                    "Parameters in spec dictionary do not match known " "conventions."
-                )
-
-            # create a dict type pointer for easier to read code
-            if isinstance(spec, dict):
-                dict_type_pointer = list(spec.values())[0]
-            elif isinstance(spec, pd.DataFrame):
-                # use df.values as pointer for DataFrame behavior
-                dict_type_pointer = spec.values
-
-            # assemble the 1D array for the case of floats and ints as values
-            if isinstance(dict_type_pointer, (int, float)):
-                # update pointers
-                set_pointer(data_pointers, spec)
-                # look for optional parameters in the right place
-                (
-                    longitude,
-                    latitude,
-                    depth,
-                    plot_longitude,
-                    plot_latitude,
-                ) = update_pointers(data_pointers)
-
-                # Construct the array (order matters)
-                spec = [longitude, latitude, depth] + [spec[key] for key in foc_params]
-
-                # Add in plotting options, if given, otherwise add 0s
-                for arg in plot_longitude, plot_latitude:
-                    if arg is None:
-                        spec.append(0)
-                    else:
-                        if "C" not in kwargs:
-                            kwargs["C"] = True
-                        spec.append(arg)
-
-            # or assemble the 2D array for the case of lists as values
-            elif isinstance(dict_type_pointer, list):
-                # update pointers
-                set_pointer(data_pointers, spec)
-                # look for optional parameters in the right place
-                (
-                    longitude,
-                    latitude,
-                    depth,
-                    plot_longitude,
-                    plot_latitude,
-                ) = update_pointers(data_pointers)
-
-                # before constructing the 2D array lets check that each key
-                # of the dict has the same quantity of values to avoid bugs
-                list_length = len(list(spec.values())[0])
-                for value in list(spec.values()):
-                    if len(value) != list_length:
-                        raise GMTError(
-                            "Unequal number of focal mechanism "
-                            "parameters supplied in 'spec'."
-                        )
-                    # lets also check the inputs for longitude, latitude,
-                    # and depth if it is a list or array
-                    if (
-                        isinstance(longitude, (list, np.ndarray))
-                        or isinstance(latitude, (list, np.ndarray))
-                        or isinstance(depth, (list, np.ndarray))
-                    ):
-                        if (len(longitude) != len(latitude)) or (
-                            len(longitude) != len(depth)
-                        ):
-                            raise GMTError(
-                                "Unequal number of focal mechanism "
-                                "locations supplied."
-                            )
-
-                # values are ok, so build the 2D array
-                spec_array = []
-                for index in range(list_length):
-                    # Construct the array one row at a time (note that order
-                    # matters here, hence the list comprehension!)
-                    row = [longitude[index], latitude[index], depth[index]] + [
-                        spec[key][index] for key in foc_params
-                    ]
-
-                    # Add in plotting options, if given, otherwise add 0s as
-                    # required by GMT
-                    for arg in plot_longitude, plot_latitude:
-                        if arg is None:
-                            row.append(0)
-                        else:
-                            if "C" not in kwargs:
-                                kwargs["C"] = True
-                            row.append(arg[index])
-                    spec_array.append(row)
-                spec = spec_array
-
-            # or assemble the array for the case of pd.DataFrames
-            elif isinstance(dict_type_pointer, np.ndarray):
-                # update pointers
-                set_pointer(data_pointers, spec)
-                # look for optional parameters in the right place
-                (
-                    longitude,
-                    latitude,
-                    depth,
-                    plot_longitude,
-                    plot_latitude,
-                ) = update_pointers(data_pointers)
-
-                # lets also check the inputs for longitude, latitude, and depth
-                # just in case the user entered different length lists
-                if (
-                    isinstance(longitude, (list, np.ndarray))
-                    or isinstance(latitude, (list, np.ndarray))
-                    or isinstance(depth, (list, np.ndarray))
-                ):
-                    if (len(longitude) != len(latitude)) or (
-                        len(longitude) != len(depth)
-                    ):
-                        raise GMTError(
-                            "Unequal number of focal mechanism locations supplied."
-                        )
-
-                # values are ok, so build the 2D array in the correct order
-                spec_array = []
-                for index in range(len(spec)):
-                    # Construct the array one row at a time (note that order
-                    # matters here, hence the list comprehension!)
-                    row = [longitude[index], latitude[index], depth[index]] + [
-                        spec[key][index] for key in foc_params
-                    ]
-
-                    # Add in plotting options, if given, otherwise add 0s as
-                    # required by GMT
-                    for arg in plot_longitude, plot_latitude:
-                        if arg is None:
-                            row.append(0)
-                        else:
-                            if "C" not in kwargs:
-                                kwargs["C"] = True
-                            row.append(arg[index])
-                    spec_array.append(row)
-                spec = spec_array
-
-            else:
-                raise GMTError(
-                    "Parameter 'spec' contains values of an unsupported type."
-                )
-
-        # Add condition and scale to kwargs
-        if convention == "aki":
-            data_format = "a"
-        elif convention == "gcmt":
-            data_format = "c"
-        elif convention == "mt":
-            # Check which component of mechanism the user wants plotted
-            if component == "deviatoric":
-                data_format = "z"
-            elif component == "dc":
-                data_format = "d"
-            else:  # component == 'full'
-                data_format = "m"
-        elif convention == "partial":
-            data_format = "p"
-        elif convention == "principal_axis":
-            # Check which component of mechanism the user wants plotted
-            if component == "deviatoric":
-                data_format = "t"
-            elif component == "dc":
-                data_format = "y"
-            else:  # component == 'full'
-                data_format = "x"
-        # Support old-school GMT format options
-        elif convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
-            data_format = convention
-        else:
-            raise GMTError("Convention not recognized.")
-
-        # Assemble -S flag
-        kwargs["S"] = data_format + scale
-
-        kind = data_kind(spec)
-        with Session() as lib:
-            if kind == "matrix":
-                file_context = lib.virtualfile_from_matrix(np.atleast_2d(spec))
-            elif kind == "file":
-                file_context = dummy_context(spec)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
-            with file_context as fname:
-                arg_str = " ".join([fname, build_arg_string(kwargs)])
-                lib.call_module("meca", arg_str)
+    from pygmt.src import inset, meca  # pylint: disable=import-outside-toplevel

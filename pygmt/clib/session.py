@@ -1,29 +1,29 @@
 """
 Defines the Session class to create and destroy a GMT API session and provides
-access to the API functions. Uses ctypes to wrap most of the core functions
-from the C API.
+access to the API functions.
+
+Uses ctypes to wrap most of the core functions from the C API.
 """
-import sys
 import ctypes as ctp
+import sys
 from contextlib import contextmanager
 
-from packaging.version import Version
 import numpy as np
 import pandas as pd
-
-from ..exceptions import (
+from packaging.version import Version
+from pygmt.clib.conversion import (
+    array_to_datetime,
+    as_c_contiguous,
+    dataarray_to_matrix,
+    kwargs_to_ctypes_array,
+    vectors_to_arrays,
+)
+from pygmt.clib.loading import load_libgmt
+from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
     GMTInvalidInput,
     GMTVersionError,
-)
-from .loading import load_libgmt
-from .conversion import (
-    kwargs_to_ctypes_array,
-    vectors_to_arrays,
-    dataarray_to_matrix,
-    as_c_contiguous,
-    array_to_datetime,
 )
 
 FAMILIES = [
@@ -133,7 +133,6 @@ class Session:
         GMTCLibNoSessionError
             If trying to access without a currently open GMT session (i.e.,
             outside of the context manager).
-
         """
         if not hasattr(self, "_session_pointer") or self._session_pointer is None:
             raise GMTCLibNoSessionError("No currently open GMT API session.")
@@ -148,7 +147,9 @@ class Session:
 
     @property
     def info(self):
-        "Dictionary with the GMT version and default paths and parameters."
+        """
+        Dictionary with the GMT version and default paths and parameters.
+        """
         if not hasattr(self, "_info"):
             self._info = {
                 "version": self.get_default("API_VERSION"),
@@ -178,7 +179,6 @@ class Session:
             If the version reported by libgmt is less than
             ``Session.required_version``. Will destroy the session before
             raising the exception.
-
         """
         self.create("pygmt-session")
         # Need to store the version info because 'get_default' won't work after
@@ -203,7 +203,7 @@ class Session:
 
     def __getitem__(self, name):
         """
-        Get the value of a GMT constant (C enum) from gmt_resources.h
+        Get the value of a GMT constant (C enum) from gmt_resources.h.
 
         Used to set configuration values for other API calls. Wraps
         ``GMT_Get_Enum``.
@@ -223,7 +223,6 @@ class Session:
         ------
         GMTCLibError
             If the constant doesn't exist.
-
         """
         c_get_enum = self.get_libgmt_func(
             "GMT_Get_Enum", argtypes=[ctp.c_void_p, ctp.c_char_p], restype=ctp.c_int
@@ -278,7 +277,6 @@ class Session:
         ...
         >>> type(func)
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
-
         """
         if not hasattr(self, "_libgmt"):
             self._libgmt = load_libgmt()
@@ -314,7 +312,6 @@ class Session:
         ----------
         name : str
             A name for this session. Doesn't really affect the outcome.
-
         """
         try:
             # Won't raise an exception if there is a currently open session
@@ -344,8 +341,10 @@ class Session:
         def print_func(file_pointer, message):  # pylint: disable=unused-argument
             """
             Callback function that the GMT C API will use to print log and
-            error messages. We'll capture the messages and print them to stderr
-            so that they will show up on the Jupyter notebook.
+            error messages.
+
+            We'll capture the messages and print them to stderr so that they
+            will show up on the Jupyter notebook.
             """
             message = message.decode().strip()
             self._error_log.append(message)
@@ -447,7 +446,6 @@ class Session:
         ------
         GMTCLibError
             If the parameter doesn't exist.
-
         """
         c_get_default = self.get_libgmt_func(
             "GMT_Get_Default",
@@ -490,7 +488,6 @@ class Session:
         ------
         GMTCLibError
             If the returned status code of the function is non-zero.
-
         """
         c_call_module = self.get_libgmt_func(
             "GMT_Call_Module",
@@ -548,7 +545,6 @@ class Session:
         data_ptr : int
             A ctypes pointer (an integer) to the allocated ``GMT_Dataset``
             object.
-
         """
         c_create_data = self.get_libgmt_func(
             "GMT_Create_Data",
@@ -718,7 +714,6 @@ class Session:
         ...     gmttype == ses["GMT_FLOAT"]
         ...
         True
-
         """
         # check the array has the given dimension
         if array.ndim != ndim:
@@ -772,7 +767,6 @@ class Session:
         GMTCLibError
             If given invalid input or ``GMT_Put_Vector`` exits with status !=
             0.
-
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
@@ -834,7 +828,6 @@ class Session:
         GMTCLibError
             If given invalid input or ``GMT_Put_Strings`` exits with status !=
             0.
-
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
@@ -897,7 +890,6 @@ class Session:
         GMTCLibError
             If given invalid input or ``GMT_Put_Matrix`` exits with status !=
             0.
-
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
@@ -951,7 +943,6 @@ class Session:
         GMTCLibError
             For invalid input arguments or if the GMT API functions returns a
             non-zero status code.
-
         """
         c_write_data = self.get_libgmt_func(
             "GMT_Write_Data",
@@ -1048,7 +1039,6 @@ class Session:
         ...             print(ofile.read().strip())
         ...
         <vector memory>: N = 5 <0/4> <5/9>
-
         """
         c_open_virtualfile = self.get_libgmt_func(
             "GMT_Open_VirtualFile",
@@ -1145,7 +1135,6 @@ class Session:
         ...             print(fout.read().strip())
         ...
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
-
         """
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_vector or put_strings because we need to maintain a reference to
@@ -1259,7 +1248,6 @@ class Session:
         ...             print(fout.read().strip())
         ...
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
-
         """
         # Conversion to a C-contiguous array needs to be done here and not in
         # put_matrix because we need to maintain a reference to the copy while
@@ -1343,7 +1331,6 @@ class Session:
         ...
         -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
-
         """
         _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[grid.gmt.gtype]
         _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[grid.gmt.registration]
@@ -1427,7 +1414,6 @@ class Session:
         ...
         >>> print(", ".join(["{:.2f}".format(x) for x in wesn]))
         -165.00, -150.00, 15.00, 25.00
-
         """
         c_extract_region = self.get_libgmt_func(
             "GMT_Extract_Region",

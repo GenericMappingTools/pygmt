@@ -3,13 +3,14 @@ Test the session management modules.
 """
 import os
 
-from ..session_management import begin, end
-from ..clib import Session
+from pygmt.clib import Session
+from pygmt.session_management import begin, end
 
 
 def test_begin_end():
     """
     Run a command inside a begin-end modern mode block.
+
     First, end the global session. When finished, restart it.
     """
     end()  # Kill the global session
@@ -25,6 +26,7 @@ def test_begin_end():
 def test_gmt_compat_6_is_applied(capsys):
     """
     Ensure that users with old gmt.conf files won't get pygmt-session [ERROR]:
+
     GMT_COMPATIBILITY: Expects values from 6 to 6; reset to 6.
     """
     end()  # Kill the global session

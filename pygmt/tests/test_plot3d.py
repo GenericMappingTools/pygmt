@@ -5,12 +5,10 @@ import os
 
 import numpy as np
 import pytest
-
-from .. import Figure
-from ..exceptions import GMTInvalidInput
-from ..helpers import GMTTempFile
-from ..helpers.testing import check_figures_equal
-
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import check_figures_equal
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -18,13 +16,17 @@ POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 @pytest.fixture(scope="module", name="data")
 def fixture_data():
-    "Load the point data from the test file"
+    """
+    Load the point data from the test file.
+    """
     return np.loadtxt(POINTS_DATA)
 
 
 @pytest.fixture(scope="module", name="region")
 def fixture_region():
-    "The data region"
+    """
+    The data region.
+    """
     return [10, 70, -5, 10, 0, 1]
 
 
@@ -87,7 +89,9 @@ def test_plot3d_red_circles_zsize(data, region):
 
 
 def test_plot3d_fail_no_data(data, region):
-    "Plot should raise an exception if no data is given"
+    """
+    Plot should raise an exception if no data is given.
+    """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(
@@ -127,7 +131,9 @@ def test_plot3d_fail_no_data(data, region):
 
 
 def test_plot3d_fail_size_color(data, region):
-    "Should raise an exception if array sizes and color are used with matrix"
+    """
+    Should raise an exception if array sizes and color are used with matrix.
+    """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(
@@ -152,7 +158,9 @@ def test_plot3d_fail_size_color(data, region):
 
 @check_figures_equal()
 def test_plot3d_projection(data, region):
-    "Plot the data in green squares with a projection"
+    """
+    Plot the data in green squares with a projection.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.plot3d(
         data=POINTS_DATA,
@@ -181,7 +189,9 @@ def test_plot3d_projection(data, region):
 
 @check_figures_equal()
 def test_plot3d_colors(data, region):
-    "Plot the data using z as colors"
+    """
+    Plot the data using z as colors.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.plot3d(
         data=POINTS_DATA,
@@ -213,7 +223,9 @@ def test_plot3d_colors(data, region):
 
 @check_figures_equal()
 def test_plot3d_sizes(data, region):
-    "Plot the data using z as sizes"
+    """
+    Plot the data using z as sizes.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.plot3d(
         data=POINTS_DATA,
@@ -246,7 +258,9 @@ def test_plot3d_sizes(data, region):
 
 @check_figures_equal()
 def test_plot3d_colors_sizes(data, region):
-    "Plot the data using z as sizes and colors"
+    """
+    Plot the data using z as sizes and colors.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.plot3d(
         data=POINTS_DATA,
@@ -280,7 +294,9 @@ def test_plot3d_colors_sizes(data, region):
 
 @check_figures_equal()
 def test_plot3d_colors_sizes_proj(data, region):
-    "Plot the data using z as sizes and colors with a projection"
+    """
+    Plot the data using z as sizes and colors with a projection.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.plot3d(
         data=POINTS_DATA,
@@ -315,7 +331,9 @@ def test_plot3d_colors_sizes_proj(data, region):
 
 @check_figures_equal()
 def test_plot3d_transparency():
-    "Plot the data with a constant transparency"
+    """
+    Plot the data with a constant transparency.
+    """
     x = np.arange(1, 10)
     y = np.arange(1, 10)
     z = np.arange(1, 10) * 10
@@ -354,7 +372,9 @@ def test_plot3d_transparency():
 
 @check_figures_equal()
 def test_plot3d_varying_transparency():
-    "Plot the data using z as transparency using 3-D column symbols"
+    """
+    Plot the data using z as transparency using 3-D column symbols.
+    """
     x = np.arange(1, 10)
     y = np.arange(1, 10)
     z = np.arange(1, 10) * 10
@@ -392,7 +412,9 @@ def test_plot3d_varying_transparency():
 
 @check_figures_equal()
 def test_plot3d_sizes_colors_transparencies():
-    "Plot the data with varying sizes and colors using z as transparency"
+    """
+    Plot the data with varying sizes and colors using z as transparency.
+    """
     x = np.arange(1.0, 10.0)
     y = np.arange(1.0, 10.0)
     z = np.arange(1, 10) * 10
@@ -435,7 +457,9 @@ def test_plot3d_sizes_colors_transparencies():
 
 @check_figures_equal()
 def test_plot3d_matrix(data, region):
-    "Plot the data passing in a matrix and specifying columns"
+    """
+    Plot the data passing in a matrix and specifying columns.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.plot3d(
         data=POINTS_DATA,
@@ -464,7 +488,9 @@ def test_plot3d_matrix(data, region):
 
 @check_figures_equal()
 def test_plot3d_matrix_color(data, region):
-    "Plot the data passing in a matrix and using a colormap"
+    """
+    Plot the data passing in a matrix and using a colormap.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.plot3d(
         data=POINTS_DATA,
@@ -493,7 +519,9 @@ def test_plot3d_matrix_color(data, region):
 
 @check_figures_equal()
 def test_plot3d_from_file(region):
-    "Plot using the data file name instead of loaded data"
+    """
+    Plot using the data file name instead of loaded data.
+    """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.plot3d(
         data=POINTS_DATA,
@@ -522,7 +550,9 @@ def test_plot3d_from_file(region):
 
 @check_figures_equal()
 def test_plot3d_vectors():
-    "Plot vectors"
+    """
+    Plot vectors.
+    """
     azimuth = np.array([0, 45, 90, 135, 180, 225, 270, 310])
     lengths = np.linspace(0.1, 1, len(azimuth))
     lon = np.sin(np.deg2rad(azimuth))
@@ -559,7 +589,9 @@ def test_plot3d_vectors():
 
 @check_figures_equal()
 def test_plot3d_scalar_xyz():
-    "Plot symbols given scalar x, y, z coordinates"
+    """
+    Plot symbols given scalar x, y, z coordinates.
+    """
     fig_ref, fig_test = Figure(), Figure()
     with GMTTempFile() as tmpfile:
         np.savetxt(tmpfile.name, np.c_[[-1.5, 0, 1.5], [1.5, 0, -1.5], [-1.5, 0, 1.5]])

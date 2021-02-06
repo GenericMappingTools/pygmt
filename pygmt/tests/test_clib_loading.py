@@ -1,26 +1,32 @@
 """
-Test the functions that load libgmt
+Test the functions that load libgmt.
 """
 import os
-import pytest
 
-from ..clib.loading import clib_names, load_libgmt, check_libgmt
-from ..exceptions import GMTCLibError, GMTOSError, GMTCLibNotFoundError
+import pytest
+from pygmt.clib.loading import check_libgmt, clib_names, load_libgmt
+from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
 def test_check_libgmt():
-    "Make sure check_libgmt fails when given a bogus library"
+    """
+    Make sure check_libgmt fails when given a bogus library.
+    """
     with pytest.raises(GMTCLibError):
         check_libgmt(dict())
 
 
 def test_load_libgmt():
-    "Test that loading libgmt works and doesn't crash."
+    """
+    Test that loading libgmt works and doesn't crash.
+    """
     check_libgmt(load_libgmt())
 
 
 def test_load_libgmt_fail():
-    "Test that loading fails when given a bad library path."
+    """
+    Test that loading fails when given a bad library path.
+    """
     # save the old value (if any) before setting a fake "GMT_LIBRARY_PATH"
     old_gmt_library_path = os.environ.get("GMT_LIBRARY_PATH")
 
@@ -36,7 +42,9 @@ def test_load_libgmt_fail():
 
 
 def test_clib_names():
-    "Make sure we get the correct library name for different OS names"
+    """
+    Make sure we get the correct library name for different OS names.
+    """
     for linux in ["linux", "linux2", "linux3"]:
         assert clib_names(linux) == ["libgmt.so"]
     assert clib_names("darwin") == ["libgmt.dylib"]

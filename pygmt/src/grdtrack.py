@@ -1,18 +1,17 @@
 """
-GMT modules for Sampling of 1-D and 2-D Data
+grdtrack - Sample grids at specified (x,y) locations.
 """
 import pandas as pd
-
-from .clib import Session
-from .helpers import (
-    build_arg_string,
-    fmt_docstring,
+from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
     GMTTempFile,
+    build_arg_string,
     data_kind,
     dummy_context,
+    fmt_docstring,
     use_alias,
 )
-from .exceptions import GMTInvalidInput
 
 
 @fmt_docstring
@@ -67,7 +66,6 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         - pandas.DataFrame table with (x, y, ..., newcolname) if outfile is not
           set
         - None if outfile is set (track output will be stored in outfile)
-
     """
 
     with GMTTempFile(suffix=".csv") as tmpfile:
