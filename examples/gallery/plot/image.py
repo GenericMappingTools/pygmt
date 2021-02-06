@@ -9,6 +9,7 @@ also use a full URL pointing to your desired image. The ``position``
 argument allows us to set a reference point on the map for the image.
 
 """
+import os
 
 import pygmt
 
@@ -23,5 +24,8 @@ fig.image(
     position="g1/1+w3c+jCM",
     box=True,
 )
+
+# clean up the image downloaded in the current directory
+os.remove("gmt-logo.png")
 
 fig.show()

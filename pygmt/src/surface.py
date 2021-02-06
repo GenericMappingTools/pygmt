@@ -1,5 +1,6 @@
 """
-GMT modules for Gridding of Data Tables.
+surface - Grids table data using adjustable tension continuous curvature
+splines.
 """
 import xarray as xr
 from pygmt.clib import Session
