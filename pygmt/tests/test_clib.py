@@ -432,7 +432,7 @@ def test_virtualfile_from_vectors():
             assert output == expected
 
 
-@pytest.mark.parametrize("dtype", [str, np.object])
+@pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     """
     Test passing in one column with string or object dtype into virtual file
@@ -451,7 +451,7 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
         assert output == expected
 
 
-@pytest.mark.parametrize("dtype", [str, np.object])
+@pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
     """
     Test passing in two columns of string or object dtype into virtual file
