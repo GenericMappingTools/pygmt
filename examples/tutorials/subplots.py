@@ -83,7 +83,7 @@ fig.show()
 ###############################################################################
 # .. code-block:: default
 #
-#     with fig.sca(ax="0,2"):
+#     with fig.sca(ax=[0, 2]):
 #         ...
 
 ###############################################################################
@@ -223,4 +223,4 @@ fig.show()
 ###############################################################################
 # Since we skipped the second subplot, the auto label function will name the
 # three subplots as a, c and d, which is not what we want, so we have to use
-# ``fig.sca(fixedlabel="(a)")`` to manually set the subplot label.
+# ``fig.sca(..., fixedlabel="(a)")`` to manually set the subplot label.

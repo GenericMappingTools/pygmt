@@ -20,7 +20,7 @@ def test_subplot_basic_frame():
     with fig_test.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame="WSne"):
         with fig_test.sca(ax="0,0"):
             fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot0")
-        with fig_test.sca(ax="0,1"):
+        with fig_test.sca(ax=[0, 1]):
             fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot1")
     return fig_ref, fig_test
 

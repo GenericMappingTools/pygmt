@@ -4,7 +4,13 @@ subplot - Manage modern mode figure subplot configuration and selection.
 import contextlib
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    fmt_docstring,
+    is_nonstr_iter,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
@@ -167,7 +173,7 @@ def sca(self, ax=None, **kwargs):
 
     Parameters
     ----------
-    ax : str
+    ax : str or list
         *row,col*\|\ *index*.
         Sets the current subplot until further notice. **Note**: First *row*
         or *col* is 0, not 1. If not given we go to the next subplot by order
@@ -199,6 +205,8 @@ def sca(self, ax=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     kwargs["A"] = f'"{kwargs.get("A")}"' if kwargs.get("A") else None
+    # convert tuple or list to comma-separated str
+    ax = ",".join(map(str, ax)) if is_nonstr_iter(ax) else ax
 
     with Session() as lib:
         arg_str = " ".join(["set", f"{ax}", build_arg_string(kwargs)]).strip()
