@@ -40,20 +40,20 @@ class BasePlotting:
         """
         return kwargs
 
-    from pygmt.src import (
-        basemap,  # pylint: disable=import-outside-toplevel; pylint: disable=import-outside-toplevel
+    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+        basemap,
+        coast,
+        colorbar,
+        contour,
+        grdcontour,
+        grdimage,
+        grdview,
+        image,
+        inset,
+        legend,
+        logo,
+        meca,
+        plot,
+        plot3d,
+        text,
     )
-    from pygmt.src import coast  # pylint: disable=import-outside-toplevel
-    from pygmt.src import colorbar  # pylint: disable=import-outside-toplevel
-    from pygmt.src import contour  # pylint: disable=import-outside-toplevel
-    from pygmt.src import grdcontour  # pylint: disable=import-outside-toplevel
-    from pygmt.src import grdimage  # pylint: disable=import-outside-toplevel
-    from pygmt.src import grdview  # pylint: disable=import-outside-toplevel
-    from pygmt.src import image  # pylint: disable=import-outside-toplevel
-    from pygmt.src import legend  # pylint: disable=import-outside-toplevel
-    from pygmt.src import logo  # pylint: disable=import-outside-toplevel
-    from pygmt.src import meca  # pylint: disable=import-outside-toplevel
-    from pygmt.src import plot  # pylint: disable=import-outside-toplevel
-    from pygmt.src import plot3d  # pylint: disable=import-outside-toplevel
-    from pygmt.src import text  # pylint: disable=import-outside-toplevel
-    from pygmt.src import inset
