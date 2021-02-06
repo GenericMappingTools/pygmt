@@ -36,7 +36,7 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(registration="gridline")
+    return load_earth_relief()
 
 
 @check_figures_equal()
@@ -48,7 +48,7 @@ def test_grd2cpt(grid):
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
     fig_ref.basemap(B="a", J="W0/15c", R="d")
-    grd2cpt(grid=grid)
+    grd2cpt(grid="@earth_relief_01d")
     fig_ref.colorbar(B="a2000")
     fig_test.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid)
@@ -66,12 +66,7 @@ def test_grd2cpt_to_plot_points(points, region, grid):
     fig_ref.basemap(R=region, J="X15c", B="a")
     grd2cpt(grid=grid, C="rainbow")
     fig_ref.plot(
-        x=points[:, 0],
-        y=points[:, 1],
-        G=points[:, 2],
-        R=region,
-        S="c1c",
-        C=True,
+        x=points[:, 0], y=points[:, 1], G=points[:, 2], R=region, S="c1c", C=True
     )
     fig_test.basemap(region=region, projection="X15c", frame="a")
     grd2cpt(grid=grid, cmap="rainbow")
