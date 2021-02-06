@@ -1179,7 +1179,7 @@ class Session:
                 strings = np.apply_along_axis(
                     func1d=" ".join, axis=0, arr=string_arrays
                 )
-            strings = np.asanyarray(a=strings, dtype=np.str)
+            strings = np.asanyarray(a=strings, dtype=str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
