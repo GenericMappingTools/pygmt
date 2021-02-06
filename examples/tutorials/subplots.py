@@ -39,9 +39,7 @@ fig = pygmt.Figure()
 ###############################################################################
 # .. code-block:: default
 #
-#     with fig.subplot(
-#        nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"
-#     ) as axs:
+#     with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
 #         ...
 
 ###############################################################################
@@ -51,11 +49,11 @@ fig = pygmt.Figure()
 # for all subplots instead of setting them individually. The figure layout will
 # look like the following:
 
-with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb") as axs:
-    for index in axs.flatten():
-        i = index // axs.shape[1]  # row
-        j = index % axs.shape[1]  # column
-        with fig.sca(ax=axs[i, j]):  # sets the current Axes
+with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
+    for index in range(2 * 3):
+        i = index // 3  # row
+        j = index % 3  # column
+        with fig.sca(ax=index):  # sets the current Axes
             fig.text(
                 position="MC",
                 text=f"index: {index}, row: {i}, col: {j}",
@@ -67,9 +65,8 @@ fig.show()
 # The :meth:`pygmt.Figure.sca` command activates a specified subplot, and all
 # subsequent plotting commands will take place in that subplot. This is similar
 # to matplotlib's ``plt.sca`` method. In order to specify a subplot, you will
-# need to provide the identifier for that subplot via the ``ax`` argument. This
-# can be found in the ``axs`` variable referenced by the ``row`` and ``col``
-# number.
+# need to provide the identifier for that subplot via the ``ax`` argument. Pass
+# in either the ``index`` number, or a tuple like (``row``, ``col``) to ``ax``.
 
 ###############################################################################
 # .. note::
@@ -86,7 +83,7 @@ fig.show()
 ###############################################################################
 # .. code-block:: default
 #
-#     with fig.sca(ax=axs[0, 2]):
+#     with fig.sca(ax="0,2"):
 #         ...
 
 ###############################################################################
@@ -103,19 +100,11 @@ with fig.subplot(
     autolabel=True,
     margins=["0.1c", "0.2c"],
     title='"My Subplot Heading"',
-) as axs:
-    fig.basemap(
-        region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], ax=axs[0, 0]
-    )
-    fig.basemap(
-        region=[0, 20, 0, 10], projection="X?", frame=["af", "WSne"], ax=axs[0, 1]
-    )
-    fig.basemap(
-        region=[0, 10, 0, 20], projection="X?", frame=["af", "WSne"], ax=axs[1, 0]
-    )
-    fig.basemap(
-        region=[0, 20, 0, 20], projection="X?", frame=["af", "WSne"], ax=axs[1, 1]
-    )
+):
+    fig.basemap(region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], ax=[0, 0])
+    fig.basemap(region=[0, 20, 0, 10], projection="X?", frame=["af", "WSne"], ax=[0, 1])
+    fig.basemap(region=[0, 10, 0, 20], projection="X?", frame=["af", "WSne"], ax=[1, 0])
+    fig.basemap(region=[0, 20, 0, 20], projection="X?", frame=["af", "WSne"], ax=[1, 1])
 fig.show()
 
 ###############################################################################
@@ -142,10 +131,10 @@ fig.show()
 #     In the above example, we used the following commands to activate the
 #     four subplots explicitly one after another::
 #
-#         fig.basemap(..., ax=axs[0, 0])
-#         fig.basemap(..., ax=axs[0, 1])
-#         fig.basemap(..., ax=axs[1, 0])
-#         fig.basemap(..., ax=axs[1, 1])
+#         fig.basemap(..., ax=[0, 0])
+#         fig.basemap(..., ax=[0, 1])
+#         fig.basemap(..., ax=[1, 0])
+#         fig.basemap(..., ax=[1, 1])
 #
 #     In fact, we can just use ``fig.basemap(..., ax=True)`` without specifying
 #     any subplot index number, and GMT will automatically activate the next
@@ -169,7 +158,7 @@ with fig.subplot(
     title='"My Subplot Heading"',
     layout=["Rl", "Cb"],
     frame="WSrt",
-) as axs:
+):
     fig.basemap(region=[0, 10, 0, 10], projection="X?", ax=True)
     fig.basemap(region=[0, 20, 0, 10], projection="X?", ax=True)
     fig.basemap(region=[0, 10, 0, 20], projection="X?", ax=True)
@@ -198,15 +187,11 @@ fig.show()
 fig = pygmt.Figure()
 with fig.subplot(nrows=2, ncols=2, figsize=("15c", "6c"), autolabel=True):
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X15c/3c", frame=["af", "WSne"], ax=axs[0, 0]
+        region=[0, 10, 0, 10], projection="X15c/3c", frame=["af", "WSne"], ax=[0, 0]
     )
     fig.text(text="TEXT", x=5, y=5, projection="X15c/3c")
-    fig.basemap(
-        region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], ax=axs[1, 0]
-    )
-    fig.basemap(
-        region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], ax=axs[1, 1]
-    )
+    fig.basemap(region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], ax=[1, 0])
+    fig.basemap(region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], ax=[1, 1])
 fig.show()
 
 ###############################################################################

@@ -3,7 +3,6 @@ subplot - Manage modern mode figure subplot configuration and selection.
 """
 import contextlib
 
-import numpy as np
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -134,11 +133,6 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {V}
     {XY}
-
-    Yields
-    ------
-    axs : numpy.ndarray
-        Array of Axes objects.
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
@@ -146,13 +140,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         try:
             arg_str = " ".join(["begin", f"{nrows}x{ncols}", build_arg_string(kwargs)])
             lib.call_module(module="subplot", args=arg_str)
-            # Setup matplotlib-like Axes
-            axs = np.empty(shape=(nrows, ncols), dtype=object)
-            for index in range(nrows * ncols):
-                i = index // ncols  # row
-                j = index % ncols  # column
-                axs[i, j] = index
-            yield axs
+            yield
         finally:
             v_arg = build_arg_string({"V": kwargs.get("V")})
             lib.call_module("subplot", f"end {v_arg}".strip())
