@@ -45,14 +45,14 @@ def grdinfo(grid, **kwargs):
     per_column : str or bool
         **n**\|\ **t**.
         Formats the report using tab-separated fields on a single line. The
-        output is name *w e s n z0 z1 dx dy nx ny* [ *x0 y0 x1 y1* ] [ *med scale* ]
-        [ *mean std rms* ] [ *n_nan* ] *registration gtype*. The data in brackets are
-        outputted depending on the ``force_scan`` and ``minmax_pos`` arguments.
-        Use **t** to place file name at the end of the output record or,
-        **n** or ``True`` to only output numerical columns. The registration is
-        either 0 (gridline) or 1 (pixel), while gtype is either 0 (Cartesian)
-        or 1 (geographic). The default value is ``False``. This cannot be
-        called if ``geographic`` is also set.
+        output is name *w e s n z0 z1 dx dy nx ny* [ *x0 y0 x1 y1* ]
+        [ *med scale* ] [ *mean std rms* ] [ *n_nan* ] *registration gtype*.
+        The data in brackets are outputted depending on the ``force_scan``
+        and ``minmax_pos`` arguments. Use **t** to place file name at the end
+        of the output record or, **n** or ``True`` to only output numerical
+        columns. The registration is either 0 (gridline) or 1 (pixel), while
+        gtype is either 0 (Cartesian) or 1 (geographic). The default value is
+        ``False``. This cannot be called if ``geographic`` is also set.
     tiles : str or list
         *xoff*\ [/*yoff*][**+i**].
         Divide a single grid's domain (or the ``region`` domain, if no grid
@@ -61,8 +61,8 @@ def grdinfo(grid, **kwargs):
         single grid is given you may use the modifier **+i** to ignore tiles
         that have no data within each tile subregion. Default output is text
         region strings. Use ``per_column`` to instead report four columns with
-        xmin xmax ymin ymax per tile, or use ``per_column="t"`` to also have the
-        region string appended as trailing text.
+        xmin xmax ymin ymax per tile, or use ``per_column="t"`` to also have
+        the region string appended as trailing text.
     geographic : bool
         Report grid domain and x/y-increments in world mapping format
         The default value is ``False``. This cannot be called if
@@ -223,7 +223,7 @@ class GMTDataArrayAccessor:
             # From the shortened summary information of `grdinfo`,
             # get grid registration in column 10, and grid type in column 11
             self._registration, self._gtype = map(
-                int, grdinfo(self._source, C="n", o="10,11").split()
+                int, grdinfo(self._source, per_column="n", o="10,11").split()
             )
         except KeyError:
             self._registration = 0  # Default to Gridline registration
