@@ -35,8 +35,8 @@ def test_subplot_direct():
         fig_ref.basemap(region=[0, 3, 0, 3], frame="af", ax=0)
         fig_ref.basemap(region=[0, 3, 0, 3], frame="af", ax=1)
     with fig_test.subplot(nrows=2, ncols=1, subsize=("3c", "3c")) as axs:
-        fig_test.basemap(region=[0, 3, 0, 3], frame="af", ax=axs[0, 0])
-        fig_test.basemap(region=[0, 3, 0, 3], frame="af", ax=axs[1, 0])
+        fig_test.basemap(region=[0, 3, 0, 3], frame="af", ax=[0, 0])
+        fig_test.basemap(region=[0, 3, 0, 3], frame="af", ax=[1, 0])
     return fig_ref, fig_test
 
 

@@ -1226,7 +1226,7 @@ class BasePlotting:
         p="perspective",
         t="transparency",
     )
-    @kwargs_to_strings(R="sequence", p="sequence")
+    @kwargs_to_strings(R="sequence", c="sequence", p="sequence")
     def basemap(self, **kwargs):
         """
         Plot base maps and frames for the figure.

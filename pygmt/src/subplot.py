@@ -68,7 +68,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         dimension]. Append **+g**\ *fill* to paint the tag's text box with
         *fill* [no painting]. Append **+o**\ *dx*\ [/*dy*] to offset the tag's
         reference point in the direction implied by the justification [4p/4p,
-        i.e., 20% of the :gmt-term:`FONT_TAG` size]. Append **+p**\\ *pen* to
+        i.e., 20% of the :gmt-term:`FONT_TAG` size]. Append **+p**\ *pen* to
         draw the outline of the tag's text box using selected *pen* [no
         outline]. Append **+r** to typeset your tag numbers using lowercase
         Roman numerals; use **+R** for uppercase Roman numerals [Arabic
