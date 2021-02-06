@@ -1,5 +1,5 @@
 """
-Retrieve info about grid file.
+grdinfo - Retrieve info about grid file.
 """
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
