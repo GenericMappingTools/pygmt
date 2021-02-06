@@ -1,5 +1,5 @@
 """
-GMT modules for Filtering of 1-D and 2-D Data.
+blockmedian - Block average (x,y,z) data tables by median estimation.
 """
 import pandas as pd
 from pygmt.clib import Session
