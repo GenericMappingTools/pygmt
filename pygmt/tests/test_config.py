@@ -3,6 +3,7 @@ Tests for gmt config.
 """
 import pytest
 from pygmt import Figure, config
+from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
@@ -36,10 +37,7 @@ def test_config():
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_config_font_one():
     """
     Test that setting `FONT` config changes all `FONT_*` settings except
@@ -48,27 +46,45 @@ def test_config_font_one():
     Specifically, this test only checks that `FONT_ANNOT_PRIMARY`,
     `FONT_ANNOT_SECONDARY`, `FONT_LABEL`, and `FONT_TITLE` are modified.
     """
-    fig = Figure()
+    fig_ref = Figure()
+    with config(
+        FONT_ANNOT_PRIMARY="8p,red",
+        FONT_ANNOT_SECONDARY="8p,red",
+        FONT_LABEL="8p,red",
+        FONT_TITLE="8p,red",
+    ):
+        fig_ref.basemap(R="0/9/0/9", J="C3/3/9c", Tm="jTL+w4c+d4.5+l")
+    fig_ref.basemap(Tm="jBR+w5c+d-4.5+l")
+
+    fig_test = Figure()
     with config(FONT="8p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", T="mjTL+w4c+d4.5+l")
-    fig.basemap(T="mjBR+w5c+d-4.5+l")
-    return fig
+        fig_test.basemap(
+            region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5+l"
+        )
+    fig_test.basemap(compass="jBR+w5c+d-4.5+l")
+
+    return fig_ref, fig_test
 
 
-@pytest.mark.xfail(
-    reason="Baseline image not updated to use earth relief grid in GMT 6.1.0",
-)
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_config_font_annot():
     """
     Test that setting `FONT_ANNOT` config changes both `FONT_ANNOT_PRIMARY` and
     `FONT_ANNOT_SECONDARY`.
     """
-    fig = Figure()
+    fig_ref = Figure()
+    with config(FONT_ANNOT_PRIMARY="6p,red", FONT_ANNOT_SECONDARY="6p,red"):
+        fig_ref.basemap(R="0/9/0/9", J="C3/3/9c", Tm="jTL+w4c+d4.5")
+    fig_ref.basemap(compass="jBR+w5c+d-4.5")
+
+    fig_test = Figure()
     with config(FONT_ANNOT="6p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", T="mjTL+w4c+d4.5")
-    fig.basemap(T="mjBR+w5c+d-4.5")
-    return fig
+        fig_test.basemap(
+            region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5"
+        )
+    fig_test.basemap(compass="jBR+w5c+d-4.5")
+
+    return fig_ref, fig_test
 
 
 @pytest.mark.mpl_image_compare
@@ -117,8 +133,9 @@ def test_config_map_grid_cross_size():
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
             frame=["pa1Hg", "sa45mg45m", "NWse"],
+            verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], Y=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
     return fig
 
 
@@ -134,8 +151,9 @@ def test_config_map_grid_pen():
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
             frame=["pa1Hg", "sa45mg45m", "NWse"],
+            verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], Y=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
     return fig
 
 
@@ -151,8 +169,9 @@ def test_config_map_tick_length():
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
             frame=["pa1Hg", "sa45mg45m", "NWse"],
+            verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], Y=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
     return fig
 
 
@@ -168,6 +187,7 @@ def test_config_map_tick_pen():
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
             frame=["pa1Hg", "sa45mg45m", "NWse"],
+            verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], Y=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
     return fig
