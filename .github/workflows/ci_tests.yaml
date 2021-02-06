@@ -30,7 +30,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.1
 
-      # Setup Miniconda
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -82,11 +81,12 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.0.0
+        uses: conda-incubator/setup-miniconda@2fc91a2ef82dfb50ded2d80e56f83b7039ba5955
         with:
           python-version: ${{ matrix.python-version }}
-          channels: conda-forge
-          miniconda-version: "latest"
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+          use-mamba: true
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies
@@ -99,12 +99,12 @@ jobs:
           make
           codecov
           EOF
-          conda install --yes --file $requirements_file
+          mamba install --yes --file $requirements_file
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
         shell: bash -l {0}
-        run: conda list
+        run: mamba list
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
