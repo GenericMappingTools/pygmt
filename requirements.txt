@@ -1,4 +1,3 @@
-# Requirements for installing with conda
 numpy
 pandas
 xarray

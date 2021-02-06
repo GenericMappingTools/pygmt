@@ -79,27 +79,16 @@ jobs:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Setup Miniconda
-      - name: Setup Miniconda
+      # Install Mambaforge with GMT and other conda-forge dependencies
+      - name: Setup Mambaforge with GMT and required dependencies
         uses: conda-incubator/setup-miniconda@2fc91a2ef82dfb50ded2d80e56f83b7039ba5955
         with:
           python-version: ${{ matrix.python-version }}
+          environment-file: environment.yml
           miniforge-variant: Mambaforge
           miniforge-version: latest
+          mamba-version: "*"
           use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install GMT and required dependencies
-        shell: bash -l {0}
-        run: |
-          requirements_file=full-conda-requirements.txt
-          cat requirements.txt requirements-dev.txt > $requirements_file
-          cat << EOF >> $requirements_file
-          gmt=6.1.1
-          make
-          codecov
-          EOF
-          mamba install --yes --file $requirements_file
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
