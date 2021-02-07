@@ -39,6 +39,7 @@ read it carefully.
 * [Editing the Documentation](#editing-the-documentation)
   - [Gallery plots](#gallery-plots)
   - [Tutorials](#tutorials)
+  - [Example code standards](#example-code-standards)
 * [Contributing Code](#contributing-code)
   - [General guidelines](#general-guidelines)
   - [Setting up your environment](#setting-up-your-environment)
@@ -267,7 +268,7 @@ directory).
 
 We use some tools:
 
-- [Black](https://github.com/ambv/black)
+- [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
 - [docformatter](https://github.com/myint/docformatter)
 - [isort](https://pycqa.github.io/isort/)
