@@ -8,6 +8,7 @@ packaged with GMT to try this out. PyGMT provides access to these datasets throu
 automatically downloaded and saved to a cache directory the first time you use them
 (usually ``~/.gmt/cache``).
 """
+# sphinx_gallery_thumbnail_number = 3
 
 import pygmt
 
@@ -35,21 +36,21 @@ print(data.head())
 # hypocenters of the earthquakes.
 
 fig = pygmt.Figure()
-fig.basemap(region=region, projection="M8i", frame=True)
+fig.basemap(region=region, projection="M15c", frame=True)
 fig.coast(land="black", water="skyblue")
 fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", color="white", pen="black")
 fig.show()
 
 ########################################################################################
 # We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The ``pen``
-# attribute controls the outline of the symbols and the ``color`` controls the fill.
+# argument controls the outline of the symbols and the ``color`` controls the fill.
 #
 # We can map the size of the circles to the earthquake magnitude by passing an array to
 # the ``sizes`` argument. Because the magnitude is on a logarithmic scale, it helps to
 # show the differences by scaling the values using a power law.
 
 fig = pygmt.Figure()
-fig.basemap(region=region, projection="M8i", frame=True)
+fig.basemap(region=region, projection="M15c", frame=True)
 fig.coast(land="black", water="skyblue")
 fig.plot(
     x=data.longitude,
@@ -76,7 +77,7 @@ fig.show()
 #
 
 fig = pygmt.Figure()
-fig.basemap(region=region, projection="M8i", frame=True)
+fig.basemap(region=region, projection="M15c", frame=True)
 fig.coast(land="black", water="skyblue")
 pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
 fig.plot(

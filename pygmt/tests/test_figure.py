@@ -65,6 +65,19 @@ def test_figure_savefig_exists():
         os.remove(fname)
 
 
+def test_figure_savefig_unknown_extension():
+    """
+    Check that an error is raised when an unknown extension is passed.
+    """
+    fig = Figure()
+    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    prefix = "test_figure_savefig_unknown_extension"
+    fmt = "test"
+    fname = ".".join([prefix, fmt])
+    with pytest.raises(GMTInvalidInput):
+        fig.savefig(fname)
+
+
 def test_figure_savefig_transparent():
     """
     Check if fails when transparency is not supported.
@@ -150,3 +163,14 @@ def test_shift_origin():
     fig.shift_origin(xshift="-4i", yshift="6i")
     fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
     return fig
+
+
+def test_figure_show_invalid_method():
+    """
+    Test to check if an error is raised when an invalid method is passed to
+    show.
+    """
+    fig = Figure()
+    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    with pytest.raises(GMTInvalidInput):
+        fig.show(method="test")
