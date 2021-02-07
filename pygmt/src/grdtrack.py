@@ -1,5 +1,5 @@
 """
-GMT modules for Sampling of 1-D and 2-D Data.
+grdtrack - Sample grids at specified (x,y) locations.
 """
 import pandas as pd
 from pygmt.clib import Session
