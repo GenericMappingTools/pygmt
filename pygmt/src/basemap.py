@@ -27,10 +27,11 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="ax",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def basemap(self, **kwargs):
     """
     Plot base maps and frames for the figure.
@@ -66,6 +67,7 @@ def basemap(self, **kwargs):
     {U}
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """

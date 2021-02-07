@@ -26,10 +26,11 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="ax",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def meca(
     self,  # pylint: disable=unused-argument
     spec,
@@ -124,6 +125,7 @@ def meca(
     {B}
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """

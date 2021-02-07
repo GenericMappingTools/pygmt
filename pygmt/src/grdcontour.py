@@ -30,10 +30,13 @@ from pygmt.helpers import (
     l="label",
     X="xshift",
     Y="yshift",
+    c="ax",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus", p="sequence")
+@kwargs_to_strings(
+    R="sequence", L="sequence", A="sequence_plus", c="sequence_comma", p="sequence"
+)
 def grdcontour(self, grid, **kwargs):
     """
     Convert grids or images to contours and plot them on maps.
@@ -87,6 +90,7 @@ def grdcontour(self, grid, **kwargs):
     {V}
     {W}
     {XY}
+    {c}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the

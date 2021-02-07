@@ -38,10 +38,11 @@ from pygmt.helpers import (
     Z="zvalue",
     i="columns",
     l="label",
+    c="ax",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     """
     Plot lines, polygons, and symbols in 2-D.
@@ -178,6 +179,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         polygon in the input data. To apply it to the fill color, use
         ``color='+z'``. To apply it to the pen color, append **+z** to
         **pen**.
+    {c}
     columns : str or 1d array
         Choose which columns are x, y, color, and size, respectively if
         input is provided via *data*. E.g. ``columns = [0, 1]`` or

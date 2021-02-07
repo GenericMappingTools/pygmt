@@ -20,10 +20,13 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="ax",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", G="sequence", I="sequence", p="sequence")
+@kwargs_to_strings(
+    R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
+)
 def colorbar(self, **kwargs):
     """
     Plot a gray or color scale-bar on maps.
@@ -94,6 +97,7 @@ def colorbar(self, **kwargs):
         illumination.
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """

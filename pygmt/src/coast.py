@@ -32,10 +32,11 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="ax",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def coast(self, **kwargs):
     r"""
     Plot continents, shorelines, rivers, and borders on maps
@@ -182,6 +183,7 @@ def coast(self, **kwargs):
         the segment headers via **-Z**\ *code* settings.To apply different
         settings to different countries, pass a list of string arguments.
     {XY}
+    {c}
     {p}
     {t}
     {V}

@@ -17,9 +17,10 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="ax",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def logo(self, **kwargs):
     """
     Plot the GMT logo.
@@ -54,6 +55,7 @@ def logo(self, **kwargs):
     {U}
     {V}
     {XY}
+    {c}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
