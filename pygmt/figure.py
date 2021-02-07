@@ -387,6 +387,6 @@ class Figure:
         meca,
         plot,
         plot3d,
-        text,
         solar,
+        text,
     )

@@ -3,12 +3,7 @@ solar - Plot day-night terminators.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -32,7 +27,7 @@ from pygmt.helpers import (
 def solar(self, **kwargs):
     r"""
     Plot day-light terminators.
-    
+
     This function plots the day-night terminator. Additionally, it can
     plot the terminators for civil twilight, nautical twilight, and
     astronomical twilight.
@@ -78,7 +73,7 @@ def solar(self, **kwargs):
         is added in ISO format,
         e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
     pen : str
-        Set pen attributes for lines. The default pen is ``default,black,solid``. 
+        Set pen attributes for lines. The default pen is ``default,black,solid``.
     {XY}
     {p}
     {U}
@@ -86,9 +81,9 @@ def solar(self, **kwargs):
     """
     # if statement to determine if type is datetime object or string
     # if string:
-        # try to parse date to datetime object
+    # try to parse date to datetime object
     # if not recognizable
-        # raise error
+    # raise error
     # function to pass datetime object to return datetime string to pass to GMT API
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
