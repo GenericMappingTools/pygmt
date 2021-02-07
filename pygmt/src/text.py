@@ -1,5 +1,5 @@
 """
-text - Plot text on a figure figure.
+text - Plot text on a figure.
 """
 import numpy as np
 from pygmt.clib import Session
