@@ -38,6 +38,7 @@ Plotting data and laying out the map:
     Figure.text
     Figure.meca
     Figure.solar
+    Figure.inset
 
 Color palette table generation:
 
