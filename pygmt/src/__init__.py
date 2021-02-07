@@ -23,5 +23,6 @@ from pygmt.src.meca import meca
 from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
 from pygmt.src.surface import surface
+# "text" is an argument within the function "text_"
 from pygmt.src.text import text_ as text
 from pygmt.src.which import which
