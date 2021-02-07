@@ -10,8 +10,8 @@ from pygmt.src.contour import contour
 from pygmt.src.grdcontour import grdcontour
 from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfilter import grdfilter
-from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdimage import grdimage
+from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
 from pygmt.src.image import image
