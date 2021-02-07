@@ -225,11 +225,11 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
             if "I" not in kwargs:
                 lib.call_module("rose", arg_str)
+                result = None
             # if inquire only, give back statistics about input data
             else:
                 with GMTTempFile() as outfile:
                     arg_str = " ".join([arg_str, " ->" + outfile.name])
-
                     lib.call_module("rose", arg_str)
                     result = outfile.read().strip()
-                    print(result)
+    return result
