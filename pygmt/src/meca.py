@@ -157,6 +157,7 @@ def meca(
         plot_latitude = data_pointers["plot_latitude"]
         return (longitude, latitude, depth, plot_longitude, plot_latitude)
 
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     # Check the spec and parse the data according to the specified
     # convention
     if isinstance(spec, (dict, pd.DataFrame)):
