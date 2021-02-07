@@ -387,5 +387,6 @@ class Figure:
         meca,
         plot,
         plot3d,
+        rose,
         text,
     )
