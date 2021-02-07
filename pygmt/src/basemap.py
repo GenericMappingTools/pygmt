@@ -72,9 +72,9 @@ def basemap(self, **kwargs):
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if not args_in_kwargs(args=["B", "L", "Td", "Tm"], kwargs=kwargs):
+    if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
         raise GMTInvalidInput(
-            "At least one of frame, map_scale, compass, or rose must be specified."
+            "At least one of frame, map_scale, compass, rose, or ax must be specified."
         )
     with Session() as lib:
         lib.call_module("basemap", build_arg_string(kwargs))
