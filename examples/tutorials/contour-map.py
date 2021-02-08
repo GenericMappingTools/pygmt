@@ -11,6 +11,7 @@ To see the figures while using a Python script instead, use
 To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
 is the desired name and file extension for the saved figure.
 """
+# sphinx_gallery_thumbnail_number = 5
 
 import pygmt
 

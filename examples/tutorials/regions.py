@@ -21,7 +21,7 @@ import pygmt
 # -----------
 #
 # A string of coordinates can be passed to ``region``, in the form of
-# *xmin*\ /*xmax*\ /*ymin*\ /*ymax*\ .
+# *xmin*/*xmax*/*ymin*/*ymax*.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -33,19 +33,19 @@ fig.coast(
     land="lightgray",
     # Set the color of the water to white
     water="white",
-    # Display the national borders and set the pen-size to 0.5p
+    # Display the national borders and set the pen thickness to 0.5p
     borders="1/0.5p",
-    # Display the shorelines and set the pen-size to 0.5p
+    # Display the shorelines and set the pen thickness to 0.5p
     shorelines="1/0.5p",
-    # Set the frame to automatic and display gridlines
+    # Set the frame to display annotations and gridlines
     frame="ag",
 )
 fig.show()
 
 ########################################################################################
 #
-# The coordinates coordinates can be passed to ``region`` as a list, in the form
-# of [*xmin*\ ,\ *xmax*\ ,\ *ymin*\ ,\ *ymax*\ ].
+# The coordinates can be passed to ``region`` as a list, in the form
+# of [*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
 
 fig = pygmt.Figure()
 fig.coast(
@@ -88,7 +88,7 @@ fig.show()
 # region to the entire globe. The range is 180W to 180E (-180, 180) and 90S to
 # 90N (-90 to 90). With no parameters set for the projection, the figure defaults to be
 # centered at the mid-point of both x- and y-axes. Using **d**\ , the figure is
-# centered at 0,0, or the intersection of the equator and prime meridian.
+# centered at (0, 0), or the intersection of the equator and prime meridian.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -106,7 +106,7 @@ fig.show()
 #
 # The argument **g** can be passed, which encompasses the entire globe. The range is
 # 0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters set for the
-# projection, the figure is centered at 180,0, or the intersection of the equator and
+# projection, the figure is centered at (180, 0), or the intersection of the equator and
 # International Date Line.
 
 fig = pygmt.Figure()
@@ -166,7 +166,7 @@ fig.show()
 ########################################################################################
 #
 # Instead of expanding the range of the plot uniformly in all directions, two values
-# can be passed to expand differently on each axis. The format is *xinc*\ /\ *yinc*.
+# can be passed to expand differently on each axis. The format is *xinc*/*yinc*.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -186,7 +186,7 @@ fig.show()
 #
 # Instead of expanding the range of the plot uniformly in all directions, four values
 # can be passed to expand differently in each direction.
-# The format is *winc*\ /\ *einc*\ /\ *sinc*\ /\ *ninc*\ , which expands on the west,
+# The format is *winc*/*einc*/*sinc*/*ninc*, which expands on the west,
 # east, south, and north axes.
 
 fig = pygmt.Figure()

@@ -12,6 +12,7 @@ To see the figures while using a Python script instead, use
 To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
 is the desired name and file extension for the saved figure.
 """
+# sphinx_gallery_thumbnail_number = 7
 
 import pygmt
 
@@ -128,7 +129,7 @@ fig.show()
 ########################################################################################
 # :meth:`pygmt.Figure.colorbar` can be used to add a color bar to the figure. The
 # ``cmap`` argument does not need to be passed again. To keep the color bar's alignment
-# similar to the figure, use **True** as the ``perspective`` argument.
+# similar to the figure, use ``True`` as the ``perspective`` argument.
 
 fig = pygmt.Figure()
 fig.grdview(

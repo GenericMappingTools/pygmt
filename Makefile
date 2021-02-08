@@ -63,4 +63,4 @@ clean:
 	rm -rvf result_images
 
 distclean: clean
-	rm -r *.egg-info
+	rm -rvf *.egg-info
