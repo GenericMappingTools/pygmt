@@ -28,92 +28,78 @@ COMMON_OPTIONS = {
     "CPT": r"""cmap : str
     File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
     build a linear continuous CPT from those colors automatically.""",
-    "G": """\
-        color : str
-            Select color or pattern for filling of symbols or polygons. Default
-            is no fill.""",
-    "V": """\
-        verbose : str
-            Select verbosity level [Default is w], which modulates the messages
-            written to stderr. Choose among 7 levels of verbosity:
+    "G": r"""color : str
+    Select color or pattern for filling of symbols or polygons. Default
+    is no fill.""",
+    "V": r"""verbose : str
+    Select verbosity level [Default is w], which modulates the messages
+    written to stderr. Choose among 7 levels of verbosity:
+        - **q** - Quiet, not even fatal error messages are produced
+        - **e** - Error messages only
+        - **w** - Warnings [Default]
+        - **t** - Timings (report runtimes for time-intensive algorthms);
+        - **i** - Informational messages (same as "verbose=True")
+        - **c** - Compatibility warnings
+        - **d** - Debugging messages""",
+    "W": r"""pen : str
+    Set pen attributes for lines or the outline of symbols.""",
+    "XY": r"""xshift : str
+    ``[a|c|f|r][xshift]``.
+    Shift plot origin in x-direction.
+    yshift : str
+    ``[a|c|f|r][yshift]``.
+    Shift plot origin in y-direction. Full documentation is at
+    :gmt-docs:`gmt.html#xy-full`.""",
+    "j": r"""distcalc : str
+    ``e|f|g``.
+    Determine how spherical distances are calculated.
+    
+        - **e** - Ellipsoidal (or geodesic) mode
+        - **f** - Flat Earth mode
+        - **g** - Great circle distance [Default]
 
-            - **q** - Quiet, not even fatal error messages are produced
-            - **e** - Error messages only
-            - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorthms);
-            - **i** - Informational messages (same as "verbose=True")
-            - **c** - Compatibility warnings
-            - **d** - Debugging messages""",
-    "W": """\
-        pen : str
-            Set pen attributes for lines or the outline of symbols.""",
-    "XY": """\
-        xshift : str
-            ``[a|c|f|r][xshift]``.
-            Shift plot origin in x-direction.
-        yshift : str
-            ``[a|c|f|r][yshift]``.
-            Shift plot origin in y-direction. Full documentation is at
-            :gmt-docs:`gmt.html#xy-full`.
-         """,
-    "j": """\
-        distcalc : str
-            ``e|f|g``.
-            Determine how spherical distances are calculated.
+        All spherical distance calculations depend on the current ellipsoid
+        (PROJ_ELLIPSOID), the definition of the mean radius
+        (PROJ_MEAN_RADIUS), and the specification of latitude type
+        (PROJ_AUX_LATITUDE). Geodesic distance calculations is also
+        controlled by method (PROJ_GEODESIC).""",
+    "n": r"""interpolation : str
+    ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
+    Select interpolation mode for grids. You can select the type of 
+    spline used:
 
-            - **e** - Ellipsoidal (or geodesic) mode
-            - **f** - Flat Earth mode
-            - **g** - Great circle distance [Default]
-
-            All spherical distance calculations depend on the current ellipsoid
-            (PROJ_ELLIPSOID), the definition of the mean radius
-            (PROJ_MEAN_RADIUS), and the specification of latitude type
-            (PROJ_AUX_LATITUDE). Geodesic distance calculations is also
-            controlled by method (PROJ_GEODESIC).""",
-    "n": """\
-        interpolation : str
-            ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
-            Select interpolation mode for grids. You can select the type of
-            spline used:
-
-            - 'b' for B-spline
-            - 'c' for bicubic [Default]
-            - 'l' for bilinear
-            - 'n' for nearest-neighbor""",
-    "p": """\
-        perspective : list or str
-            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
-            Select perspective view and set the azimuth and elevation angle of
-            the viewpoint. Default is [180, 90]. Full documentation is at
-            :gmt-docs:`gmt.html#perspective-full`.
-        """,
-    "registration": """\
-        registration : str
-            ``[g|p]``
-            Force output grid to be gridline (g) or pixel (p) node registered.
-            Default is gridline (g).""",
-    "t": """\
-        transparency : float
-            Set transparency level, in [0-100] percent range.
-            Default is 0, i.e., opaque.
-            Only visible when PDF or raster format output is selected.
-            Only the PNG format selection adds a transparency layer
-            in the image (for further processing). """,
-    "x": """\
-        cores : int
-            ``[[-]n]``.
-            Limit the number of cores to be used in any OpenMP-enabled
-            multi-threaded algorithms. By default we try to use all available
-            cores. Set a number *n* to only use n cores (if too large it will
-            be truncated to the maximum cores available). Finally, give a
-            negative number *-n* to select (all - n) cores (or at least 1 if
-            n equals or exceeds all).
-            """,
+        - 'b' for B-spline
+        - 'c' for bicubic [Default]
+        - 'l' for bilinear
+        - 'n' for nearest-neighbor""",
+    "p": r"""perspective : list or str
+    ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
+    Select perspective view and set the azimuth and elevation angle of
+    the viewpoint. Default is [180, 90]. Full documentation is at
+    :gmt-docs:`gmt.html#perspective-full`.""",
+    "registration": r"""registration : str
+    ``[g|p]``
+    Force output grid to be gridline (g) or pixel (p) node registered.
+    Default is gridline (g).""",
+    "t": r"""transparency : float
+    Set transparency level, in [0-100] percent range.
+    Default is 0, i.e., opaque.
+    Only visible when PDF or raster format output is selected.
+    Only the PNG format selection adds a transparency layer
+    in the image (for further processing).""",
+    "x": r"""cores : int
+    ``[[-]n]``.
+    Limit the number of cores to be used in any OpenMP-enabled
+    multi-threaded algorithms. By default we try to use all available
+    cores. Set a number *n* to only use n cores (if too large it will
+    be truncated to the maximum cores available). Finally, give a
+    negative number *-n* to select (all - n) cores (or at least 1 if
+    n equals or exceeds all).""",
 }
 
 
 def fmt_docstring(module_func):
-    """
+    r"""
     Decorator to insert common text into module docstrings.
 
     Should be the last decorator (at the top).
