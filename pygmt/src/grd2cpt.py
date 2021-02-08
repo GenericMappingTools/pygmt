@@ -115,7 +115,7 @@ def grd2cpt(grid, **kwargs):
         z-range as the new  limits in the CPT. Alternatively, set *nlevels*
         and to resample the color table into nlevels equidistant slices.
     series : list or str
-        ``[min/max/inc[+b|l|n]|file|list]``.
+        [*min/max/inc*\ [**+b**\|\**l**\|\**n**\]|\*file*\|\*list*\].
         Defines the range of the new CPT by giving the lowest and highest
         z-value (and optionally an interval). If this is not given, the
         existing range in the master CPT will be used intact. The values
@@ -124,15 +124,15 @@ def grd2cpt(grid, **kwargs):
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
     truncate : list or str
-        ``zlo/zhi``.
+        *zlo/zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
         to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
         the CPT alone. The truncation takes place before any resampling. See
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
-        Optional. The file name with extension .cpt to store the generated CPT
-        file. If not given or False (default), saves the CPT as the session
-        current CPT.
+        Optional argument to set the file name with extension .cpt to store
+        the generated CPT file. If not given or False (default), saves the CPT
+        as the session current CPT.
     reverse : str
         Set this to True or c [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
