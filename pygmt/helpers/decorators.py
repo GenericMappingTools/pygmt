@@ -14,24 +14,20 @@ from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_OPTIONS = {
     "R": r"""region : str or list
-            *xmin/xmax/ymin/ymax*\ [**+r**\ ][**+u**\ *unit*].
-            Specify the region of interest. This is a required argument if this
-            is the first plot command.""",
-    "J": """\
-        projection : str
-            *projection*\ [*projection-specific arguments*\ ]\ *figure size*.
-            Select map projection. This is a required argument if this
-            is the first plot command.""",
-    "B": """\
-        frame : str or list
-            Set map boundary frame and axes attributes.""",
-    "U": """\
-        timestamp : bool or str
-            Draw GMT time stamp logo on plot.""",
-    "CPT": """\
-        cmap : str
-           File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
-           build a linear continuous CPT from those colors automatically.""",
+    *xmin/xmax/ymin/ymax*\ [**+r**\ ][**+u**\ *unit*].
+    Specify the region of interest. This is a required argument if this
+    is the first plot command.""",
+    "J": r"""projection : str
+    *projection*\ [*projection-specific arguments*\ ]\ *figure size*.
+    Select map projection. This is a required argument if this
+    is the first plot command.""",
+    "B": r"""frame : str or list
+    Set map boundary frame and axes attributes.""",
+    "U": r"""timestamp : bool or str
+    Draw GMT time stamp logo on plot.""",
+    "CPT": r"""cmap : str
+    File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
+    build a linear continuous CPT from those colors automatically.""",
     "G": """\
         color : str
             Select color or pattern for filling of symbols or polygons. Default
