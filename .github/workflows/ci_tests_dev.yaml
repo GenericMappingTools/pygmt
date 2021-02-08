@@ -110,15 +110,16 @@ jobs:
           pip install dist/*
 
       # Run the tests
-      - name: Test with pytest (Linux/macOS)
-        run: make test PYTEST_EXTRA="-r P"
-        env:
-          GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
-        if: runner.os != 'Windows'
+      #- name: Test with pytest (Linux/macOS)
+      #  run: make test PYTEST_EXTRA="-r P"
+      #  env:
+      #    GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
+      #  if: runner.os != 'Windows'
 
       # Run the tests
       - name: Test with pytest (Windows)
-        run: make test PYTEST_EXTRA="-r P"
+        #run: make test PYTEST_EXTRA="-r P"
+        run: pytest -r P pygmt/tests/test_grdcut.py
         if: runner.os == 'Windows'
 
       # Upload diff images on test failure
