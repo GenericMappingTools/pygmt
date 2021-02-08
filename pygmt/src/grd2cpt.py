@@ -20,6 +20,7 @@ from pygmt.helpers import (
     C="cmap",
     D="background",
     F="color_model",
+    E="nlevels",
     G="truncate",
     H="output",
     I="reverse",
@@ -109,6 +110,10 @@ def grd2cpt(grid, **kwargs):
         *start*[-], where we automatically build monotonically increasing
         labels from *start* (a single letter or an integer). Append - to build
         ranges *start*-*start+1* instead.
+    nlevels : bool or int or str
+        Set to ``True`` to create a linear color table by using the grid
+        z-range as the new  limits in the CPT. Alternatively, set *nlevels*
+        and to resample the color table into nlevels equidistant slices.
     series : list or str
         ``[min/max/inc[+b|l|n]|file|list]``.
         Defines the range of the new CPT by giving the lowest and highest

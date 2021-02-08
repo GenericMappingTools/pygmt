@@ -310,3 +310,35 @@ def test_grd2cpt_categorical_and_cyclic(grid):
     """
     with pytest.raises(GMTInvalidInput):
         grd2cpt(grid=grid, cmap="batlow", categorical=True, cyclic=True)
+
+
+@check_figures_equal()
+def test_grd2cpt_nlevels_number(grid):
+    """
+    Set number of equidistant slices with nlevels alias in CPT.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid="@earth_relief_01d", E="10")
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, nlevels=10)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
+
+
+@check_figures_equal()
+def test_grd2cpt_nlevels_bool(grid):
+    """
+    Set equidistant slices with nlevels alias in CPT.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    # Use single-character arguments for the reference image
+    fig_ref.basemap(B="a", J="W0/15c", R="d")
+    grd2cpt(grid="@earth_relief_01d", E="")
+    fig_ref.colorbar(B="a2000")
+    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    grd2cpt(grid=grid, nlevels=True)
+    fig_test.colorbar(frame="a2000")
+    return fig_ref, fig_test
