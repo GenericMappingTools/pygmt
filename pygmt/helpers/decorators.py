@@ -53,7 +53,6 @@ COMMON_OPTIONS = {
     "j": r"""distcalc : str
     ``e|f|g``.
     Determine how spherical distances are calculated.
-    
         - **e** - Ellipsoidal (or geodesic) mode
         - **f** - Flat Earth mode
         - **g** - Great circle distance [Default]
@@ -67,7 +66,6 @@ COMMON_OPTIONS = {
     ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
     Select interpolation mode for grids. You can select the type of 
     spline used:
-
         - 'b' for B-spline
         - 'c' for bicubic [Default]
         - 'l' for bilinear
