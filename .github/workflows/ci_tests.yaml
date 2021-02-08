@@ -6,13 +6,13 @@ name: Tests
 on:
   push:
     branches: [ master ]
-  pull_request:
-    paths-ignore:
-      - 'doc/**'
-      - '*.md'
-      - '*.json'
-      - 'README.rst'
-      - 'LICENSE.txt'
+  #pull_request:
+  #  paths-ignore:
+  #    - 'doc/**'
+  #    - '*.md'
+  #    - '*.json'
+  #    - 'README.rst'
+  #    - 'LICENSE.txt'
   release:
     types:
       - published
