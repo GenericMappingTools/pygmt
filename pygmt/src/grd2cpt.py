@@ -115,7 +115,7 @@ def grd2cpt(grid, **kwargs):
         z-range as the new  limits in the CPT. Alternatively, set *nlevels*
         and to resample the color table into nlevels equidistant slices.
     series : list or str
-        [*min/max/inc*\ [**+b**\|\**l**\|\**n**\]|\*file*\|\*list*\].
+        [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**\]|\ *file*\|\ *list*\].
         Defines the range of the new CPT by giving the lowest and highest
         z-value (and optionally an interval). If this is not given, the
         existing range in the master CPT will be used intact. The values
