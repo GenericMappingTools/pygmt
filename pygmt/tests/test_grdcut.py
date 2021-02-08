@@ -24,12 +24,18 @@ def test_grdcut_file_in_file_out():
     """
     grdcut an input grid file, and output to a grid file.
     """
+    fname = ""
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdcut("@earth_relief_01d", outgrid=tmpfile.name, region="0/180/0/90")
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = grdinfo(tmpfile.name, per_column=True)
         assert result == "0 180 0 90 -8182 5651.5 1 1 180 90 1 1\n"
+        # debugging
+        fname = tmpfile.name
+        print(tmpfile.name, fname)
+        print(os.path.exists(path=tmpfile.name))
+    print(os.path.exists(path=tmpfile.name))
 
 
 def test_grdcut_file_in_dataarray_out():
