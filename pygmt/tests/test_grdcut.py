@@ -36,6 +36,7 @@ def test_grdcut_file_in_file_out():
         print(tmpfile.name, fname)
         print(os.path.exists(path=tmpfile.name))
     print(os.path.exists(path=tmpfile.name))
+    os.remove(tmpfile.name)
 
 
 def test_grdcut_file_in_dataarray_out():
