@@ -37,7 +37,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(T="sequence", G="sequence", L="sequence", R="sequence")
 def grd2cpt(grid, **kwargs):
-    """
+    r"""
     Make GMT color palette tables from a grid file.
 
     This is a module that will help you make static color palette tables
