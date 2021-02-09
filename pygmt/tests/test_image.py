@@ -2,7 +2,6 @@
 Tests image.
 """
 import os
-import sys
 
 import pytest
 from pygmt import Figure
