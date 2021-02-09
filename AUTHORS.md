@@ -13,5 +13,5 @@ and are considered the "PyGMT Developers":
 * [Tyler Newton](http://www.tnewton.com/)
 * [William Schlitzer](https://github.com/willschlitzer)
 * [Dongdong Tian](https://seisman.info/)
-* [Liam Toney](https://liam.earth/)
+* [Liam Toney](https://liam.earth/) | Alaska Volcano Observatory and Wilson Alaska Technical Center, Geophysical Institute, University of Alaska Fairbanks, Fairbanks, Alaska, USA | [0000-0003-0167-9433](https://orcid.org/0000-0003-0167-9433)
 * [Leonardo Uieda](http://www.leouieda.com/)
