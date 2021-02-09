@@ -21,17 +21,17 @@ COMMON_OPTIONS = {
     *projection*\ [*projection-specific arguments*\ ]\ *figure size*.
     Select map projection. This is a required argument if this
     is the first plot command.""",
-    "B": r"""frame : str or list
+    "B": """frame : bool or str or list
     Set map boundary frame and axes attributes.""",
     "U": r"""timestamp : bool or str
     Draw GMT time stamp logo on plot.""",
-    "CPT": r"""cmap : str
+    "CPT": """cmap : str
     File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
     build a linear continuous CPT from those colors automatically.""",
-    "G": r"""color : str
+    "G": """color : str
     Select color or pattern for filling of symbols or polygons. Default
     is no fill.""",
-    "V": r"""verbose : str
+    "V": """verbose : str
     Select verbosity level [Default is w], which modulates the messages
     written to stderr. Choose among 7 levels of verbosity:
         - **q** - Quiet, not even fatal error messages are produced
@@ -41,7 +41,7 @@ COMMON_OPTIONS = {
         - **i** - Informational messages (same as "verbose=True")
         - **c** - Compatibility warnings
         - **d** - Debugging messages""",
-    "W": r"""pen : str
+    "W": """pen : str
     Set pen attributes for lines or the outline of symbols.""",
     "XY": r"""xshift : str
     [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*]. 
@@ -52,7 +52,7 @@ COMMON_OPTIONS = {
     Shift plot origin in y-direction. Full documentation is at
     :gmt-docs:`gmt.html#xy-full`.""",
     "j": r"""distcalc : str
-    ``e|f|g``.
+    **e**\|\ **f**\|\ **g**.
     Determine how spherical distances are calculated.
         - **e** - Ellipsoidal (or geodesic) mode
         - **f** - Flat Earth mode
