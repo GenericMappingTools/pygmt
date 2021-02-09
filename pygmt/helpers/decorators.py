@@ -64,7 +64,8 @@ COMMON_OPTIONS = {
         (PROJ_AUX_LATITUDE). Geodesic distance calculations is also
         controlled by method (PROJ_GEODESIC).""",
     "n": r"""interpolation : str
-    ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
+    [**b**\|\ **c**\|\ **l**\|\ **n**\][**+a**][**+b**\ *BC*]
+    [**+c**][**+t**\ *threshold*]
     Select interpolation mode for grids. You can select the type of
     spline used:
         - 'b' for B-spline
