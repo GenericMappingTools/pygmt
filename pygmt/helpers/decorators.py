@@ -23,7 +23,7 @@ COMMON_OPTIONS = {
     is the first plot command.""",
     "B": """frame : bool or str or list
     Set map boundary frame and axes attributes.""",
-    "U": r"""timestamp : bool or str
+    "U": """timestamp : bool or str
     Draw GMT time stamp logo on plot.""",
     "CPT": """cmap : str
     File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
@@ -79,17 +79,17 @@ COMMON_OPTIONS = {
     the viewpoint. Default is [180, 90]. Full documentation is at
     :gmt-docs:`gmt.html#perspective-full`.""",
     "registration": r"""registration : str
-    ``[g|p]``
+    [**g**\|\ **p**].
     Force output grid to be gridline (g) or pixel (p) node registered.
     Default is gridline (g).""",
-    "t": r"""transparency : float
+    "t": """transparency : float
     Set transparency level, in [0-100] percent range.
     Default is 0, i.e., opaque.
     Only visible when PDF or raster format output is selected.
     Only the PNG format selection adds a transparency layer
     in the image (for further processing).""",
     "x": r"""cores : int
-    ``[[-]n]``.
+    [[**-**\]\ *n*].
     Limit the number of cores to be used in any OpenMP-enabled
     multi-threaded algorithms. By default we try to use all available
     cores. Set a number *n* to only use n cores (if too large it will
