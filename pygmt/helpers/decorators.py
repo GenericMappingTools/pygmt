@@ -19,6 +19,7 @@ COMMON_OPTIONS = {
     is the first plot command.""",
     "J": r"""projection : str
     *projection*\ [*projection-specific arguments*\ ]\ *figure size*.
+    
     Select map projection. This is a required argument if this
     is the first plot command.""",
     "B": """frame : bool or str or list
@@ -48,6 +49,7 @@ COMMON_OPTIONS = {
     Shift plot origin in x-direction.
 
     yshift : str
+    
     [**a**\|\ **c**\|\ **f**\|\ **r**\][*yshift*].
     Shift plot origin in y-direction. Full documentation is at
     :gmt-docs:`gmt.html#xy-full`.""",
