@@ -60,16 +60,14 @@ COMMON_OPTIONS = {
             Shift plot origin in y-direction. Full documentation is at
             :gmt-docs:`gmt.html#xy-full`.
          """,
-    "c": r"""panel : int or list
+    "c": r"""panel : int or list or bool
             [*row*\ ,\ *col*\|\ *index*].
-            Used to advance to the selected subplot panel. Only allowed when in
-            subplot mode. Available to all plot modules. If no arguments are
-            given then we advance to the next panel in the selected order. If
-            no **panel** is given and we just entered subplot mode then the
-            first panel (top, left) is selected. Instead of *row, col* you may
-            give the one-dimensional *index* which depends on the order you set
-            via **autolabel** when the subplot was defined. **Note**: *row*,
-            *col*, and *index* all start at 0.
+            Selects a specific subplot panel. Only allowed when in subplot
+            mode. Use ``panel=True`` to advance to the next panel in the
+            selected order. Instead of *row,col* you may also give a scalar
+            value *index* which depends on the order you set via ``autolabel``
+            when the subplot was defined. **Note**: *row*, *col*, and *index*
+            all start at 0.
          """,
     "j": """\
         distcalc : str
