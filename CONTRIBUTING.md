@@ -66,7 +66,7 @@ read it carefully.
 
 Discussion often happens in the issues and pull requests.
 In addition, there is a
-[Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11) for
+[Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
 the project where you can ask questions.
 
 

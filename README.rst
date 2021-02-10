@@ -98,7 +98,7 @@ Contacting Us
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
 * We have a `Discourse forum
-  <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11>`__ where you can ask
+  <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__ where you can ask
   questions and leave comments.
 
 
