@@ -6,6 +6,15 @@ To plot an inset figure inside another larger figure, we can use the
 :meth:`pygmt.Figure.inset` method. After a large figure has been created,
 call ``inset`` using a ``with`` statement, and new plot elements will be
 added to the inset figure instead of the larger figure.
+
+.. note::
+
+    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
+    To see the figures while using a Python script instead, use
+    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+
+    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
+    is the desired name and file extension for the saved figure.
 """
 # sphinx_gallery_thumbnail_number = 4
 
