@@ -286,15 +286,6 @@ def test_grd2cpt_invalid_output(grid):
         grd2cpt(grid=grid, output=["some.cpt"])
 
 
-def test_grd2cpt_output_to_cpt_file(grid):
-    """
-    Save the generated static color palette table to a .cpt file.
-    """
-    with GMTTempFile(suffix=".cpt") as cptfile:
-        grd2cpt(grid=grid, output=cptfile.name)
-        assert os.path.exists(cptfile.name)
-
-
 def test_grd2cpt_unrecognized_data_type():
     """
     Test that an error will be raised if an invalid data type is passed to
