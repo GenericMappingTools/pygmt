@@ -60,8 +60,9 @@ package.
 To be included as an author on the paper, you *must* satisfy the following
 criteria:
 
-1. Have made a contribution to the repository or significant non-coding
-   contributions.
+1. Have made multiple and regular contributions to the repository, or the GMT repository, in numerous facets, such as wrapping functions, testing, and/or writing documentation.
+2. Have made non-coding contributions, including project administration and decision making.
+3. Have participated in the writing and reviewing of the paper.
 2. Add your full name, affiliation, and (optionally) ORCID to the paper. These
    can be submitted on pull requests to the corresponding paper repository.
 3. Write and/or read and review the manuscript in a timely manner and provide
