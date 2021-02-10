@@ -42,7 +42,7 @@ def grd2cpt(grid, **kwargs):
 
     This is a module that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
-    but you can use *output* to save it to a file. The CPT is based on an
+    but you can use ``output`` to save it to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
     to colors is through the data's cumulative distribution function (CDF), so
     that the colors are histogram equalized. Thus if the grid(s) and the
@@ -71,7 +71,7 @@ def grd2cpt(grid, **kwargs):
     :meth:`pygmt.grd2cpt` will be the same as specified in the header of the
     master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the master
     CPT, the :gmt-term:`COLOR_MODEL` specified in the
-    :gmt-docs:`gmt.conf <gmt.conf>` file or the *color_model* option will be
+    :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` option will be
     used.
 
     Full option list at :gmt-docs:`grd2cpt.html`
@@ -82,7 +82,7 @@ def grd2cpt(grid, **kwargs):
     ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
-    transparency : str
+    transparency : int or float or str
         Sets a constant level of transparency (0-100) for all color slices.
         Append **+a** to also affect the fore-, back-, and nan-colors
         [Default is no transparency, i.e., 0 (opaque)].
@@ -107,8 +107,8 @@ def grd2cpt(grid, **kwargs):
         appended then we create labels for each category to be used when the
         CPT is plotted. The *label* may be a comma-separated list of category
         names (you can skip a category by not giving a name), or give
-        *start*[-], where we automatically build monotonically increasing
-        labels from *start* (a single letter or an integer). Append - to build
+        *start*\[-], where we automatically build monotonically increasing
+        labels from *start* (a single letter or an integer). Append ``-`` to build
         ranges *start*-*start+1* instead.
     nlevels : bool or int or str
         Set to ``True`` to create a linear color table by using the grid
@@ -174,7 +174,7 @@ def grd2cpt(grid, **kwargs):
         elif kind == "grid":
             file_context = lib.virtualfile_from_grid(grid)
         else:
-            raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+            raise GMTInvalidInput(f"Unrecognized data type: {type(grid)}")
 
         with file_context as infile:
             if "W" in kwargs and "Ww" in kwargs:
