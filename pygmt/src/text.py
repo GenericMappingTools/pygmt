@@ -28,7 +28,7 @@ from pygmt.helpers import (
     W="pen",
     X="xshift",
     Y="yshift",
-    c="ax",
+    c="panel",
     p="perspective",
     t="transparency",
 )

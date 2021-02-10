@@ -38,7 +38,7 @@ from pygmt.helpers import (
     Z="zvalue",
     i="columns",
     l="label",
-    c="ax",
+    c="panel",
     p="perspective",
     t="transparency",
 )

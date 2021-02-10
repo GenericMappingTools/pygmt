@@ -22,7 +22,7 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
-    c="ax",
+    c="panel",
     p="perspective",
     t="transparency",
 )

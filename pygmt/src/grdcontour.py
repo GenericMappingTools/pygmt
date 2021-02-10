@@ -30,7 +30,7 @@ from pygmt.helpers import (
     l="label",
     X="xshift",
     Y="yshift",
-    c="ax",
+    c="panel",
     p="perspective",
     t="transparency",
 )

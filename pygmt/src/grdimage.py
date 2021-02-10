@@ -32,7 +32,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     n="interpolation",
-    c="ax",
+    c="panel",
     p="perspective",
     t="transparency",
     x="cores",

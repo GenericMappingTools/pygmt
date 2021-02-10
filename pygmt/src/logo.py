@@ -17,7 +17,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     V="verbose",
     X="xshift",
     Y="yshift",
-    c="ax",
+    c="panel",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
