@@ -181,8 +181,9 @@ def grd2cpt(grid, **kwargs):
                 raise GMTInvalidInput(
                     "Set only categorical or cyclic to True, not both."
                 )
-
-            if "H" in kwargs.keys():  # if output file is set
+            if "H" not in kwargs.keys():  # if no output is set
+                arg_str = build_arg_string(kwargs)
+            elif "H" in kwargs.keys():  # if output is set
                 outfile = kwargs.pop("H")
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
