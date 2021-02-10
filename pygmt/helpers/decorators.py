@@ -27,13 +27,13 @@ COMMON_OPTIONS = {
     "U": """timestamp : bool or str
     Draw GMT time stamp logo on plot.""",
     "CPT": """cmap : str
-    File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
+    File name of a CPT file or a series of comma-separated colors (e.g., *color1*,\ *color2*,\ *color3*) to
     build a linear continuous CPT from those colors automatically.""",
     "G": """color : str
     Select color or pattern for filling of symbols or polygons. Default
     is no fill.""",
     "V": """verbose : str
-    Select verbosity level [Default is w], which modulates the messages
+    Select verbosity level [Default is **w**], which modulates the messages
     written to stderr. Choose among 7 levels of verbosity:
         - **q** - Quiet, not even fatal error messages are produced
         - **e** - Error messages only
