@@ -8,6 +8,7 @@ import pytest
 from pygmt import Figure
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import check_figures_equal
 from pygmt.src.grd2cpt import grd2cpt
 
@@ -291,7 +292,7 @@ def test_grd2cpt_output_to_cpt_file(grid):
     """
     with GMTTempFile(suffix=".cpt") as cptfile:
         grd2cpt(grid=grid, output=cptfile.name)
-        assert os.path.exists(cptfile.name)
+        assert os.path.getsize(cptfile.name) > 0
 
 
 def test_grd2cpt_unrecognized_data_type():

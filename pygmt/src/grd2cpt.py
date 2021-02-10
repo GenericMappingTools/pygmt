@@ -168,9 +168,7 @@ def grd2cpt(grid, **kwargs):
     {V}
     """
     if "W" in kwargs and "Ww" in kwargs:
-        raise GMTInvalidInput(
-            "Set only categorical or cyclic to True, not both."
-        )
+        raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
     kind = data_kind(grid)
     with Session() as lib:
         if kind == "file":
