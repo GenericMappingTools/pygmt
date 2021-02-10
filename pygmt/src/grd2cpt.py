@@ -167,6 +167,10 @@ def grd2cpt(grid, **kwargs):
         ``categorical=True``.
     {V}
     """
+    if "W" in kwargs and "Ww" in kwargs:
+        raise GMTInvalidInput(
+            "Set only categorical or cyclic to True, not both."
+        )
     kind = data_kind(grid)
     with Session() as lib:
         if kind == "file":
@@ -175,12 +179,7 @@ def grd2cpt(grid, **kwargs):
             file_context = lib.virtualfile_from_grid(grid)
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(grid)}")
-
         with file_context as infile:
-            if "W" in kwargs and "Ww" in kwargs:
-                raise GMTInvalidInput(
-                    "Set only categorical or cyclic to True, not both."
-                )
             if "H" not in kwargs.keys():  # if no output is set
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
             elif "H" in kwargs.keys():  # if output is set
