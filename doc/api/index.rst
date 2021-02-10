@@ -25,20 +25,20 @@ Plotting data and laying out the map:
     Figure.basemap
     Figure.coast
     Figure.colorbar
-    Figure.plot
-    Figure.plot3d
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
     Figure.grdview
+    Figure.image
+    Figure.inset
     Figure.legend
     Figure.logo
-    Figure.image
+    Figure.meca
+    Figure.plot
+    Figure.plot3d
+    Figure.rose
     Figure.shift_origin
     Figure.text
-    Figure.meca
-    Figure.inset
-    Figure.rose
 
 Color palette table generation:
 
