@@ -21,38 +21,6 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  style_check:
-    name: Style Checks
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checkout current git repository
-      - name: Checkout
-        uses: actions/checkout@v2.3.1
-
-      # Setup Miniconda
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install packages
-        run: |
-          pip install black blackdoc docformatter flake8 pylint isort
-          sudo apt-get install dos2unix
-
-      - name: Formatting check (black, blackdoc, docformatter, flake8 and isort)
-        run: make check
-
-      - name: Linting (pylint)
-        run: make lint
-
-      - name: Ensure files use UNIX line breaks and have 644 permission
-        run: |
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
-          if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
-
   test:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}

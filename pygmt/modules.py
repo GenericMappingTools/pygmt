@@ -4,54 +4,7 @@ Non-plot GMT modules.
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    use_alias,
-)
-
-
-@fmt_docstring
-@use_alias(V="verbose")
-def grdinfo(grid, **kwargs):
-    """
-    Get information about a grid.
-
-    Can read the grid from a file or given as an xarray.DataArray grid.
-
-    Full option list at :gmt-docs:`grdinfo.html`
-
-    Parameters
-    ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-
-    {V}
-
-    Returns
-    -------
-    info : str
-        A string with information about the grid.
-    """
-    kind = data_kind(grid, None, None)
-    with GMTTempFile() as outfile:
-        with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
-            with file_context as infile:
-                arg_str = " ".join(
-                    [infile, build_arg_string(kwargs), "->" + outfile.name]
-                )
-                lib.call_module("grdinfo", arg_str)
-        result = outfile.read()
-    return result
+from pygmt.src.grdinfo import grdinfo
 
 
 class config:  # pylint: disable=invalid-name
@@ -149,7 +102,7 @@ class GMTDataArrayAccessor:
             # From the shortened summary information of `grdinfo`,
             # get grid registration in column 10, and grid type in column 11
             self._registration, self._gtype = map(
-                int, grdinfo(self._source, C="n", o="10,11").split()
+                int, grdinfo(self._source, per_column="n", o="10,11").split()
             )
         except KeyError:
             self._registration = 0  # Default to Gridline registration
