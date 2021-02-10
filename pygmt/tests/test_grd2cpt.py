@@ -8,7 +8,6 @@ import pytest
 from pygmt import Figure
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import check_figures_equal
 from pygmt.src.grd2cpt import grd2cpt
 
