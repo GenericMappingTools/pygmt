@@ -10,7 +10,8 @@ Installing
     We welcome any feedback and ideas!
     Let us know by submitting
     `issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
-    or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
+    or by posting on our `Discourse forum
+    <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11>`__.
 
 
 Which Python?
