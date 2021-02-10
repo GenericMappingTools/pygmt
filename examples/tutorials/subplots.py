@@ -53,7 +53,7 @@ with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
     for index in range(2 * 3):
         i = index // 3  # row
         j = index % 3  # column
-        with fig.sca(ax=index):  # sets the current Axes
+        with fig.set_panel(panel=index):  # sets the current panel
             fig.text(
                 position="MC",
                 text=f"index: {index}, row: {i}, col: {j}",
@@ -62,11 +62,12 @@ with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
 fig.show()
 
 ###############################################################################
-# The :meth:`pygmt.Figure.sca` command activates a specified subplot, and all
-# subsequent plotting commands will take place in that subplot. This is similar
-# to matplotlib's ``plt.sca`` method. In order to specify a subplot, you will
-# need to provide the identifier for that subplot via the ``ax`` argument. Pass
-# in either the ``index`` number, or a tuple like (``row``, ``col``) to ``ax``.
+# The :meth:`pygmt.Figure.set_panel` command activates a specified subplot, and
+# all subsequent plotting commands will take place in that subplot panel. This
+# is similar to matplotlib's ``plt.sca`` method. In order to specify a subplot,
+# you will need to provide the identifier for that subplot via the ``panel``
+# argument. Pass in either the ``index`` number, or a tuple like
+# (``row``, ``col``) to ``panel``.
 
 ###############################################################################
 # .. note::
@@ -83,7 +84,7 @@ fig.show()
 ###############################################################################
 # .. code-block:: default
 #
-#     with fig.sca(ax=[0, 2]):
+#     with fig.set_panel(panel=[0, 2]):
 #         ...
 
 ###############################################################################
@@ -101,10 +102,18 @@ with fig.subplot(
     margins=["0.1c", "0.2c"],
     title="My Subplot Heading",
 ):
-    fig.basemap(region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], ax=[0, 0])
-    fig.basemap(region=[0, 20, 0, 10], projection="X?", frame=["af", "WSne"], ax=[0, 1])
-    fig.basemap(region=[0, 10, 0, 20], projection="X?", frame=["af", "WSne"], ax=[1, 0])
-    fig.basemap(region=[0, 20, 0, 20], projection="X?", frame=["af", "WSne"], ax=[1, 1])
+    fig.basemap(
+        region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], panel=[0, 0]
+    )
+    fig.basemap(
+        region=[0, 20, 0, 10], projection="X?", frame=["af", "WSne"], panel=[0, 1]
+    )
+    fig.basemap(
+        region=[0, 10, 0, 20], projection="X?", frame=["af", "WSne"], panel=[1, 0]
+    )
+    fig.basemap(
+        region=[0, 20, 0, 20], projection="X?", frame=["af", "WSne"], panel=[1, 1]
+    )
 fig.show()
 
 ###############################################################################
@@ -131,14 +140,14 @@ fig.show()
 #     In the above example, we used the following commands to activate the
 #     four subplots explicitly one after another::
 #
-#         fig.basemap(..., ax=[0, 0])
-#         fig.basemap(..., ax=[0, 1])
-#         fig.basemap(..., ax=[1, 0])
-#         fig.basemap(..., ax=[1, 1])
+#         fig.basemap(..., panel=[0, 0])
+#         fig.basemap(..., panel=[0, 1])
+#         fig.basemap(..., panel=[1, 0])
+#         fig.basemap(..., panel=[1, 1])
 #
-#     In fact, we can just use ``fig.basemap(..., ax=True)`` without specifying
-#     any subplot index number, and GMT will automatically activate the next
-#     subplot.
+#     In fact, we can just use ``fig.basemap(..., panel=True)`` without
+#     specifying any subplot index number, and GMT will automatically activate
+#     the next subplot panel.
 
 ###############################################################################
 # Shared X and Y axis labels
@@ -159,10 +168,10 @@ with fig.subplot(
     layout=["Rl", "Cb"],
     frame="WSrt",
 ):
-    fig.basemap(region=[0, 10, 0, 10], projection="X?", ax=True)
-    fig.basemap(region=[0, 20, 0, 10], projection="X?", ax=True)
-    fig.basemap(region=[0, 10, 0, 20], projection="X?", ax=True)
-    fig.basemap(region=[0, 20, 0, 20], projection="X?", ax=True)
+    fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
+    fig.basemap(region=[0, 20, 0, 10], projection="X?", panel=True)
+    fig.basemap(region=[0, 10, 0, 20], projection="X?", panel=True)
+    fig.basemap(region=[0, 20, 0, 20], projection="X?", panel=True)
 fig.show()
 
 ###############################################################################
@@ -187,11 +196,15 @@ fig.show()
 fig = pygmt.Figure()
 with fig.subplot(nrows=2, ncols=2, figsize=("15c", "6c"), autolabel=True):
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X15c/3c", frame=["af", "WSne"], ax=[0, 0]
+        region=[0, 10, 0, 10], projection="X15c/3c", frame=["af", "WSne"], panel=[0, 0]
     )
     fig.text(text="TEXT", x=5, y=5, projection="X15c/3c")
-    fig.basemap(region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], ax=[1, 0])
-    fig.basemap(region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], ax=[1, 1])
+    fig.basemap(
+        region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[1, 0]
+    )
+    fig.basemap(
+        region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[1, 1]
+    )
 fig.show()
 
 ###############################################################################
@@ -223,4 +236,4 @@ fig.show()
 ###############################################################################
 # Since we skipped the second subplot, the auto label function will name the
 # three subplots as a, c and d, which is not what we want, so we have to use
-# ``fig.sca(..., fixedlabel="(a)")`` to manually set the subplot label.
+# ``fig.set_panel(..., fixedlabel="(a)")`` to manually set the subplot label.

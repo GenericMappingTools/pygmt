@@ -36,7 +36,7 @@ Plotting data and laying out the map:
     Figure.meca
     Figure.plot
     Figure.plot3d
-    Figure.sca
+    Figure.set_panel
     Figure.shift_origin
     Figure.subplot
     Figure.text

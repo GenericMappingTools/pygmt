@@ -23,7 +23,7 @@ from pygmt.src.makecpt import makecpt
 from pygmt.src.meca import meca
 from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
-from pygmt.src.subplot import sca, subplot
+from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
 from pygmt.src.text import text_ as text  # "text" is an argument within "text_"
 from pygmt.src.which import which

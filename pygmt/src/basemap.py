@@ -27,7 +27,7 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
-    c="ax",
+    c="panel",
     p="perspective",
     t="transparency",
 )
@@ -73,7 +73,7 @@ def basemap(self, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
         raise GMTInvalidInput(
-            "At least one of frame, map_scale, compass, rose, or ax must be specified."
+            "At least one of frame, map_scale, compass, rose, or panel must be specified."
         )
     with Session() as lib:
         lib.call_module("basemap", build_arg_string(kwargs))

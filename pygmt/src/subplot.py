@@ -157,9 +157,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
 @fmt_docstring
 @contextlib.contextmanager
 @use_alias(A="fixedlabel", C="clearance", V="verbose")
-def sca(self, ax=None, **kwargs):
+def set_panel(self, panel=None, **kwargs):
     r"""
-    Set the current Axes instance to *ax*.
+    Set the current subplot panel to plot on.
 
     Before you start plotting you must first select the active subplot. Note:
     If any *projection* option is passed with **?** as scale or width when
@@ -173,17 +173,17 @@ def sca(self, ax=None, **kwargs):
 
     Parameters
     ----------
-    ax : str or list
+    panel : str or list
         *row,col*\|\ *index*.
         Sets the current subplot until further notice. **Note**: First *row*
         or *col* is 0, not 1. If not given we go to the next subplot by order
         specified via **autolabel** in :meth:`pygmt.Figure.subplot`. As an
         alternative, you may bypass the **sca** mode and instead supply the
-        common option **ax**=\ [*row,col*] to the first plot command you issue
-        in that subplot. GMT maintains information about the current figure and
-        subplot. Also, you may give the one-dimensional *index* instead which
-        starts at 0 and follows the row or column order set via **autolabel**
-        in :meth:`pygmt.Figure.subplot`.
+        common option **panel**=\ [*row,col*] to the first plot command you
+        issue in that subplot. GMT maintains information about the current
+        figure and subplot. Also, you may give the one-dimensional *index*
+        instead which starts at 0 and follows the row or column order set via
+        **autolabel** in :meth:`pygmt.Figure.subplot`.
 
     fixedlabel : str
         Overrides the automatic labeling with the given string. No modifiers
@@ -206,9 +206,9 @@ def sca(self, ax=None, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     kwargs["A"] = f'"{kwargs.get("A")}"' if kwargs.get("A") else None
     # convert tuple or list to comma-separated str
-    ax = ",".join(map(str, ax)) if is_nonstr_iter(ax) else ax
+    panel = ",".join(map(str, panel)) if is_nonstr_iter(panel) else panel
 
     with Session() as lib:
-        arg_str = " ".join(["set", f"{ax}", build_arg_string(kwargs)]).strip()
+        arg_str = " ".join(["set", f"{panel}", build_arg_string(kwargs)]).strip()
         lib.call_module(module="subplot", args=arg_str)
         yield

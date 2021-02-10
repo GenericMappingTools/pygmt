@@ -13,14 +13,14 @@ def test_subplot_basic_frame():
     """
     fig_ref, fig_test = Figure(), Figure()
     with fig_ref.subplot(nrows=1, ncols=2, Ff="6c/3c", B="WSne"):
-        with fig_ref.sca(ax=0):
+        with fig_ref.set_panel(panel=0):
             fig_ref.basemap(region=[0, 3, 0, 3], frame="+tplot0")
-        with fig_ref.sca(ax=1):
+        with fig_ref.set_panel(panel=1):
             fig_ref.basemap(region=[0, 3, 0, 3], frame="+tplot1")
     with fig_test.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame="WSne"):
-        with fig_test.sca(ax="0,0"):
+        with fig_test.set_panel(panel="0,0"):
             fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot0")
-        with fig_test.sca(ax=[0, 1]):
+        with fig_test.set_panel(panel=[0, 1]):
             fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot1")
     return fig_ref, fig_test
 
@@ -32,11 +32,11 @@ def test_subplot_direct():
     """
     fig_ref, fig_test = Figure(), Figure()
     with fig_ref.subplot(nrows=2, ncols=1, Fs="3c/3c"):
-        fig_ref.basemap(region=[0, 3, 0, 3], frame="af", ax=0)
-        fig_ref.basemap(region=[0, 3, 0, 3], frame="af", ax=1)
+        fig_ref.basemap(region=[0, 3, 0, 3], frame="af", panel=0)
+        fig_ref.basemap(region=[0, 3, 0, 3], frame="af", panel=1)
     with fig_test.subplot(nrows=2, ncols=1, subsize=("3c", "3c")):
-        fig_test.basemap(region=[0, 3, 0, 3], frame="af", ax=[0, 0])
-        fig_test.basemap(region=[0, 3, 0, 3], frame="af", ax=[1, 0])
+        fig_test.basemap(region=[0, 3, 0, 3], frame="af", panel=[0, 0])
+        fig_test.basemap(region=[0, 3, 0, 3], frame="af", panel=[1, 0])
     return fig_ref, fig_test
 
 
@@ -55,8 +55,8 @@ def test_subplot_autolabel_margins_title():
     with fig_test.subplot(
         autolabel="(1)", margins=["0.3c", "0.1c"], title="Subplot Title", **kwargs
     ):
-        fig_test.basemap(region=[0, 1, 2, 3], frame="WSne", ax=[0, 0])
-        fig_test.basemap(region=[4, 5, 6, 7], frame="WSne", ax=[1, 0])
+        fig_test.basemap(region=[0, 1, 2, 3], frame="WSne", panel=[0, 0])
+        fig_test.basemap(region=[4, 5, 6, 7], frame="WSne", panel=[1, 0])
 
     return fig_ref, fig_test
 
@@ -71,15 +71,15 @@ def test_subplot_clearance_and_shared_xy_axis_layout():
     kwargs = dict(nrows=2, ncols=2, frame="WSrt", figsize=("5c", "5c"))
 
     with fig_ref.subplot(C="y0.2", SR="l", SC="t", **kwargs):
-        fig_ref.basemap(region=[0, 4, 0, 4], projection="X?", ax=True)
-        fig_ref.basemap(region=[0, 8, 0, 4], projection="X?", ax=True)
-        fig_ref.basemap(region=[0, 4, 0, 8], projection="X?", ax=True)
-        fig_ref.basemap(region=[0, 8, 0, 8], projection="X?", ax=True)
+        fig_ref.basemap(region=[0, 4, 0, 4], projection="X?", panel=True)
+        fig_ref.basemap(region=[0, 8, 0, 4], projection="X?", panel=True)
+        fig_ref.basemap(region=[0, 4, 0, 8], projection="X?", panel=True)
+        fig_ref.basemap(region=[0, 8, 0, 8], projection="X?", panel=True)
 
     with fig_test.subplot(clearance="y0.2", layout=["Rl", "Ct"], **kwargs):
-        fig_test.basemap(region=[0, 4, 0, 4], projection="X?", ax=True)
-        fig_test.basemap(region=[0, 8, 0, 4], projection="X?", ax=True)
-        fig_test.basemap(region=[0, 4, 0, 8], projection="X?", ax=True)
-        fig_test.basemap(region=[0, 8, 0, 8], projection="X?", ax=True)
+        fig_test.basemap(region=[0, 4, 0, 4], projection="X?", panel=True)
+        fig_test.basemap(region=[0, 8, 0, 4], projection="X?", panel=True)
+        fig_test.basemap(region=[0, 4, 0, 8], projection="X?", panel=True)
+        fig_test.basemap(region=[0, 8, 0, 8], projection="X?", panel=True)
 
     return fig_ref, fig_test
