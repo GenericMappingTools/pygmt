@@ -187,5 +187,7 @@ def grd2cpt(grid, **kwargs):
                 outfile = kwargs.pop("H")
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = " ".join([infile, build_arg_string(kwargs), f"-H > {outfile}"])
+                arg_str = " ".join(
+                    [infile, build_arg_string(kwargs), f"-H > {outfile}"]
+                )
             lib.call_module("grd2cpt", arg_str)
