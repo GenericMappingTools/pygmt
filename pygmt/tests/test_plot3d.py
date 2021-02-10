@@ -498,7 +498,7 @@ def test_plot3d_matrix_color(data, region):
         p="225/30",
         R="/".join(map(str, region)),
         J="X5i",
-        S="c0.5cc",
+        S="c0.5c",
         C="rainbow",
         i="0,1,2,2",
         B=["a", "za"],
