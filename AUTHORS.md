@@ -5,7 +5,7 @@ during [an NSF funded postdoc](http://www.leouieda.com/blog/hawaii-gmt-postdoc.h
 with [Paul Wessel](http://www.soest.hawaii.edu/wessel) at the University of Hawaii at
 Manoa.
 
-The following people have contributed code to the project (alphabetical by last name)
+The following people have contributed code to the project (alphabetical by name)
 and are considered the "PyGMT Developers":
 
 * [Michael Grund](https://github.com/michaelgrund) | [0000-0001-8759-2018](https://orcid.org/0000-0001-8759-2018)
