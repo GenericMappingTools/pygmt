@@ -64,8 +64,8 @@ def grd2cpt(grid, **kwargs):
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
     :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the
     :gmt-docs:`gmt.conf <gmt.conf>` file or the command line will be used. This
-    default behavior can be overruled using the options *background*,
-    *overrule_bg* or *no_bg*.
+    default behavior can be overruled using the options ``background``,
+    ``overrule_bg`` or ``no_bg``.
 
     The color model (RGB, HSV or CMYK) of the palette created by
     :meth:`pygmt.grd2cpt` will be the same as specified in the header of the
