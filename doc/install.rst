@@ -80,7 +80,7 @@ Now we can create a new conda environment with Python and all our dependencies i
 
      conda create --name pygmt python=3.9 pip numpy pandas xarray netcdf4 packaging gmt
 
-Activate the environment by running::
+Activate the environment by running the following (**do not forget this step!**))::
 
     conda activate pygmt
 
@@ -91,28 +91,61 @@ affect your default installation.
 Installing PyGMT
 ----------------
 
-Now that you have GMT installed and your conda environment activated, you can
-use ``conda`` to install the latest release of PyGMT from `conda-forge <https://anaconda.org/conda-forge/pygmt>`__::
+Now that you have GMT installed and your conda virtual environment activated, you can
+install PyGMT using any of the following methods:
+
+Using conda (recommended)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This installs the latest stable release of PyGMT from
+`conda-forge <https://anaconda.org/conda-forge/pygmt>`__::
 
     conda install pygmt
 
-or use ``pip`` to install from `PyPI <https://pypi.org/project/pygmt>`__::
+Using pip
+~~~~~~~~~
+
+This installs the latest stable release from
+`PyPI <https://pypi.org/project/pygmt>`__::
 
     pip install pygmt
 
-Alternatively, you can install the development version from the GitHub repository::
+Alternatively, you can install the latest development version from
+`TestPyPI <https://test.pypi.org/project/pygmt>`__::
 
-    pip install https://github.com/GenericMappingTools/pygmt/archive/master.zip
+    pip install --pre --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pygmt
 
-This will allow you to use the ``pygmt`` library from Python.
+or from PyGMT's GitHub repository (slower as it downloads the whole archive)::
+
+    pip install git+https://github.com/GenericMappingTools/pygmt.git#egg=pygmt
+
+Any of the above methods (conda/pip) should allow you to use the ``pygmt``
+library from Python.
 
 
 Testing your install
 --------------------
 
+Quick check
+~~~~~~~~~~~
+
+To ensure that PyGMT and its depedencies are installed correctly, run the
+following in your Python interpreter::
+
+    import pygmt
+    pygmt.show_versions()
+
+Or run this in the command line::
+
+    python -c "import pygmt; pygmt.show_versions()
+
+
+Full test (optional)
+~~~~~~~~~~~~~~~~~~~~
+
 PyGMT ships with a full test suite.
-You can run our tests after you install it but you will need a few extra dependencies as
-well (be sure to have your conda env activated)::
+You can run our tests after you install it but you will need a few extra
+dependencies as well (be sure to have your conda environment activated)::
 
     conda install pytest pytest-mpl ipython
 
