@@ -1,5 +1,5 @@
 """
-GMT modules for Mathematical operations on tables or grids.
+makecpt - Make GMT color palette tables.
 """
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
