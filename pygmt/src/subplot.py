@@ -131,8 +131,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         append the label if it is the same for the entire subplot. Append
         **+p** to make all annotations axis-parallel [horizontal]; if not used
         you may have to set **clearance** to secure extra space for long
-        horizontal annotations. Append **+w** to draw horizontal and vertical
-        lines between interior panels using selected pen [no lines].
+        horizontal annotations. Append **+w** to the **figsize** or **subsize**
+        argument to draw horizontal and vertical lines between interior panels
+        using selected pen [no lines].
     title : str
         While individual subplots can have titles (see **layout** or
         **frame**), the entire figure may also have an overarching *heading*
