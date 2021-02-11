@@ -38,10 +38,11 @@ from pygmt.helpers import (
     Z="zvalue",
     i="columns",
     l="label",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot3d(
     self, x=None, y=None, z=None, data=None, sizes=None, direction=None, **kwargs
 ):
@@ -150,6 +151,7 @@ def plot3d(
         polygon in the input data. To apply it to the fill color, use
         ``color='+z'``. To apply it to the pen color, append **+z** to
         **pen**.
+    {c}
     label : str
         Add a legend entry for the symbol or line being plotted.
     {p}
