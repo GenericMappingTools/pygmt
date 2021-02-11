@@ -205,7 +205,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     {t}
     """
 
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     kind = data_kind(data, length, azimuth)
 
