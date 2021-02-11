@@ -65,8 +65,9 @@ read it carefully.
 ## How Can I Talk to You?
 
 Discussion often happens in the issues and pull requests.
-In addition, there is a [Discourse forum](https://forum.generic-mapping-tools.org)
-for the project where you can ask questions.
+In addition, there is a
+[Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
+the project where you can ask questions.
 
 
 ## Reporting a Bug
