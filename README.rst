@@ -40,7 +40,7 @@ Why PyGMT?
 
 A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
-But if you need some convincing first, watch this **1 hour introduction** to PyGMT!
+But if you need some convincing first, watch this `1 hour introduction <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ to PyGMT!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
 or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
@@ -97,8 +97,9 @@ Contacting Us
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
-* We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
-  where you can ask questions and leave comments.
+* We have a `Discourse forum
+  <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__ where you can ask
+  questions and leave comments.
 
 
 Contributing
