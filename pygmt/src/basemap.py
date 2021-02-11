@@ -67,6 +67,7 @@ def basemap(self, **kwargs):
     {U}
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """

@@ -30,10 +30,11 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     """
     Contour table data by direct triangulation.
@@ -92,6 +93,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         separator for the two labels instead.
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """
