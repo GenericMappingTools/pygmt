@@ -28,6 +28,7 @@ from pygmt.helpers import (
     W="pen",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
@@ -37,6 +38,7 @@ from pygmt.helpers import (
     angle="sequence_comma",
     font="sequence_comma",
     justify="sequence_comma",
+    c="sequence_comma",
     p="sequence",
 )
 def text_(
@@ -140,6 +142,7 @@ def text_(
         clip].
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """
