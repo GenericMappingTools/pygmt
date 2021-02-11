@@ -6,7 +6,7 @@ with [Paul Wessel](http://www.soest.hawaii.edu/wessel) at the University of Hawa
 Manoa.
 
 The following people have contributed code to the project (alphabetical by name)
-and are considered the "PyGMT Developers":
+and are considered to be "PyGMT Developers":
 
 * [Dongdong Tian](https://seisman.info/) | [0000-0001-7967-1197](https://orcid.org/0000-0001-7967-1197) | Department of Earth and Environmental Sciences, Michigan State University, East Lansing, MI, USA
 * [Leonardo Uieda](http://www.leouieda.com/)
