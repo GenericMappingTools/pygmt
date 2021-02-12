@@ -14,11 +14,38 @@ Installing
     <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__.
 
 
+Quickstart
+----------
+
+The fastest way to install PyGMT is with the
+`conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__
+package manager which takes care of setting up a virtual environment, as well
+as the installation of GMT and all the dependencies PyGMT depends on::
+
+    conda create --name pygmt --channel conda-forge pygmt
+
+To activate the virtual environment, you can do::
+
+    conda activate pygmt
+
+After this, check that everything works by running the following in a Python
+interpreter. If you are using Jupyter, make sure you have connected to the
+'pygmt' kernel before running the below::
+
+    import pygmt
+    pygmt.show_versions()
+
+You are now ready to make you first figure!
+Start by looking at the tutorials on our sidebar, good luck!
+
+The sections below provide a more detailed, step by step instructions to
+installing and testing PyGMT for those who may have a slightly different setup.
+
 Which Python?
 -------------
 
-You'll need **Python 3.7 or greater** to run PyGMT. Older Python versions may
-work, but there is no guarantee that PyGMT will work as expected.
+PyGMT is tested to run on **Python 3.7 or greater**. Older Python versions may
+work, but there is no guarantee that PyGMT will behave as expected.
 
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
 Python distribution to ensure you have all dependencies installed and the
