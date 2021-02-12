@@ -29,8 +29,7 @@ To activate the virtual environment, you can do::
     conda activate pygmt
 
 After this, check that everything works by running the following in a Python
-interpreter. If you are using Jupyter, make sure you have connected to the
-'pygmt' kernel before running the below::
+interpreter (e.g. in a Jupyter notebook)::
 
     import pygmt
     pygmt.show_versions()
@@ -38,8 +37,11 @@ interpreter. If you are using Jupyter, make sure you have connected to the
 You are now ready to make you first figure!
 Start by looking at the tutorials on our sidebar, good luck!
 
-The sections below provide a more detailed, step by step instructions to
-installing and testing PyGMT for those who may have a slightly different setup.
+.. note::
+
+    The sections below provide more detailed, step by step instructions to
+    installing and testing PyGMT for those who may have a slightly different
+    setup.
 
 Which Python?
 -------------
@@ -110,7 +112,7 @@ want)::
 
      conda create --name pygmt python=3.9 pip numpy pandas xarray netcdf4 packaging gmt
 
-Activate the environment by running the following (**do not forget this step!**))::
+Activate the environment by running the following (**do not forget this step!**)::
 
     conda activate pygmt
 
@@ -145,7 +147,8 @@ Alternatively, you can install the latest development version from
 
     pip install --pre --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pygmt
 
-or from PyGMT's GitHub repository (slower as it downloads the whole archive)::
+or from PyGMT's `GitHub repository <https://github.com/GenericMappingTools/pygmt>`__ 
+(slower as it downloads the whole archive)::
 
     pip install git+https://github.com/GenericMappingTools/pygmt.git#egg=pygmt
 
