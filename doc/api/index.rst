@@ -44,6 +44,7 @@ Color palette table generation:
 .. autosummary::
     :toctree: generated
 
+    grd2cpt
     makecpt
 
 Saving and displaying the figure:
