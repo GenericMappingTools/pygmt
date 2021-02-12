@@ -21,8 +21,9 @@ import pygmt
 
 ########################################################################################
 # Load sample Earth relief data for the entire globe at a resolution of 30 arc minutes.
-# The other available resolutions are show at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
-grid = pygmt.datasets.load_earth_relief(resolution="30m")
+# The other available resolutions are show
+# at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
+grid = pygmt.datasets.load_earth_relief(resolution="30m", registration="gridline")
 
 ########################################################################################
 # Create a plot
@@ -95,8 +96,8 @@ fig.show()
 #
 # In addition to providing global data, the ``region`` argument for
 # :meth:`pygmt.datasets.load_earth_relief` can be used to provide data for a specific
-# area. The ``region`` argument is required for resolutions at 5 arc minutes or higher, and
-# accepts a list (as in the example below) or a string. The geographic ranges are
+# area. The ``region`` argument is required for resolutions at 5 arc minutes or higher,
+# and accepts a list (as in the example below) or a string. The geographic ranges are
 # passed as *xmin*/*xmax*/*ymin*/*ymax*.
 #
 # The example below uses data with a 5 arc minute resolution, and plots it on a
