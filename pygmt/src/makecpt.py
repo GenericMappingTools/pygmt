@@ -118,7 +118,7 @@ def makecpt(**kwargs):
         happens before *truncate* and *series* values are used so the latter
         must be compatible with the changed *z*-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
-    overrule_bg :
+    overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
