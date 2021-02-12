@@ -92,7 +92,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         plot scales, bars, text, etc.  Settings specified under **begin**
         directive apply to all subplots, while settings under **set** only
         apply to the selected (active) subplot. **Note**: Common options
-        **x_offset** and **y_offset* are not available during subplots; use
+        **x_offset** and **y_offset** are not available during subplots; use
         **clearance** instead.
     {J}
     margins : list
