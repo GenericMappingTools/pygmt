@@ -3,7 +3,6 @@ Tests for grd2cpt.
 """
 import os
 
-import numpy as np
 import pytest
 from pygmt import Figure
 from pygmt.datasets import load_earth_relief
