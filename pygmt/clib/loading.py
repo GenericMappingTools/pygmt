@@ -97,21 +97,23 @@ def clib_full_names(env=None):
         env = os.environ
 
     libnames = clib_names(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
-    libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
 
     # list of libraries paths to search, sort by priority from high to low
     # Search for libraries in GMT_LIBRARY_PATH if defined.
+    libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
     if libpath:
         for libname in libnames:
-            yield os.path.join(libpath, libname)
+            libfullpath = os.path.join(libpath, libname)
+            if os.path.exists(libfullpath):
+                yield libfullpath
 
     # Search for the library returned by command "gmt --show-library"
     try:
-        lib_fullpath = sp.check_output(
+        libfullpath = sp.check_output(
             ["gmt", "--show-library"], encoding="utf-8"
         ).rstrip("\n")
-        assert os.path.exists(lib_fullpath)
-        yield lib_fullpath
+        assert os.path.exists(libfullpath)
+        yield libfullpath
     except (FileNotFoundError, AssertionError):  # command not found
         pass
 
