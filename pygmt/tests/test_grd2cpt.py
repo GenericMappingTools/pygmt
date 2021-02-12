@@ -12,25 +12,6 @@ from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import check_figures_equal
 from pygmt.src.grd2cpt import grd2cpt
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-
-
-@pytest.fixture(scope="module", name="points")
-def fixture_points():
-    """
-    Load the points data from the test file.
-    """
-    return np.loadtxt(POINTS_DATA)
-
-
-@pytest.fixture(scope="module", name="region")
-def fixture_region():
-    """
-    The data region.
-    """
-    return [10, 70, -5, 10]
-
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
