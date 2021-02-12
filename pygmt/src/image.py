@@ -15,10 +15,11 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def image(self, imagefile, **kwargs):
     """
     Place images or EPS files on maps.
@@ -53,6 +54,7 @@ def image(self, imagefile, **kwargs):
         YIQ-transformation.
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """
