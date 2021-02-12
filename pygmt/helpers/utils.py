@@ -210,11 +210,7 @@ def launch_external_viewer(fname):
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
     os_name = sys.platform
-    if (
-        os_name.startswith("linux")
-        or os_name.startswith("freebsd")
-        and shutil.which("xdg-open")
-    ):
+    if os_name.startswith(("linux", "freebsd")) and shutil.which("xdg-open"):
         subprocess.run(["xdg-open", fname], check=False, **run_args)
     elif os_name == "darwin":  # Darwin is macOS
         subprocess.run(["open", fname], check=False, **run_args)
