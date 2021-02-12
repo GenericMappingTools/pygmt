@@ -153,7 +153,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
             yield
         finally:
             v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module("subplot", f"end {v_arg}".strip())
+            lib.call_module("subplot", f"end {v_arg}")
 
 
 @fmt_docstring
@@ -212,6 +212,6 @@ def set_panel(self, panel=None, **kwargs):
     panel = ",".join(map(str, panel)) if is_nonstr_iter(panel) else panel
 
     with Session() as lib:
-        arg_str = " ".join(["set", f"{panel}", build_arg_string(kwargs)]).strip()
+        arg_str = " ".join(["set", f"{panel}", build_arg_string(kwargs)])
         lib.call_module(module="subplot", args=arg_str)
         yield
