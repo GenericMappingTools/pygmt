@@ -48,12 +48,12 @@ def test_subplot_autolabel_margins_title():
     fig_ref, fig_test = Figure(), Figure()
     kwargs = dict(nrows=2, ncols=1, figsize=("15c", "6c"))
 
-    with fig_ref.subplot(A="(1)", M="0.3c/0.1c", T="Subplot Title", **kwargs):
+    with fig_ref.subplot(A="a)", M="0.3c/0.1c", T="Subplot Title", **kwargs):
         fig_ref.basemap(region=[0, 1, 2, 3], frame="WSne", c="0,0")
         fig_ref.basemap(region=[4, 5, 6, 7], frame="WSne", c="1,0")
 
     with fig_test.subplot(
-        autolabel="(1)", margins=["0.3c", "0.1c"], title="Subplot Title", **kwargs
+        autolabel=True, margins=["0.3c", "0.1c"], title="Subplot Title", **kwargs
     ):
         fig_test.basemap(region=[0, 1, 2, 3], frame="WSne", panel=[0, 0])
         fig_test.basemap(region=[4, 5, 6, 7], frame="WSne", panel=[1, 0])
