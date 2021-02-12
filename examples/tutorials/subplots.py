@@ -99,21 +99,14 @@ with fig.subplot(
     ncols=2,
     figsize=("15c", "6c"),
     autolabel=True,
+    frame=["af", "WSne"],
     margins=["0.1c", "0.2c"],
     title="My Subplot Heading",
 ):
-    fig.basemap(
-        region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], panel=[0, 0]
-    )
-    fig.basemap(
-        region=[0, 20, 0, 10], projection="X?", frame=["af", "WSne"], panel=[0, 1]
-    )
-    fig.basemap(
-        region=[0, 10, 0, 20], projection="X?", frame=["af", "WSne"], panel=[1, 0]
-    )
-    fig.basemap(
-        region=[0, 20, 0, 20], projection="X?", frame=["af", "WSne"], panel=[1, 1]
-    )
+    fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=[0, 0])
+    fig.basemap(region=[0, 20, 0, 10], projection="X?", panel=[0, 1])
+    fig.basemap(region=[0, 10, 0, 20], projection="X?", panel=[1, 0])
+    fig.basemap(region=[0, 20, 0, 20], projection="X?", panel=[1, 1])
 fig.show()
 
 ###############################################################################
@@ -148,6 +141,16 @@ fig.show()
 #     In fact, we can just use ``fig.basemap(..., panel=True)`` without
 #     specifying any subplot index number, and GMT will automatically activate
 #     the next subplot panel.
+
+###############################################################################
+# .. note::
+#
+#     All plotting functions (e.g. :meth:`pygmt.Figure.coast`,
+#     :meth:`pygmt.Figure.text`, etc) are able to use ``panel`` argument when
+#     in subplot mode. Once a panel is activated using ``panel`` or
+#     :meth:`pygmt.Figure.set_panel`, subsequent plotting commands that don't
+#     set a ``panel`` will have their elements added to the same panel as
+#     before.
 
 ###############################################################################
 # Shared X and Y axis labels
