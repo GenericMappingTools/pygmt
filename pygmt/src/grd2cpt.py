@@ -35,7 +35,7 @@ from pygmt.helpers import (
     Ww="cyclic",
     Z="continuous",
 )
-@kwargs_to_strings(T="sequence", G="sequence", L="sequence", R="sequence")
+@kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
 def grd2cpt(grid, **kwargs):
     r"""
     Make GMT color palette tables from a grid file.
@@ -112,8 +112,8 @@ def grd2cpt(grid, **kwargs):
         build ranges *start*-*start+1* instead.
     nlevels : bool or int or str
         Set to ``True`` to create a linear color table by using the grid
-        z-range as the new  limits in the CPT. Alternatively, set *nlevels*
-        and to resample the color table into nlevels equidistant slices.
+        z-range as the new limits in the CPT. Alternatively, set *nlevels*
+        to resample the color table into *nlevels* equidistant slices.
     series : list or str
         [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**\]|\ *file*\|\ *list*\].
         Defines the range of the new CPT by giving the lowest and highest
@@ -140,7 +140,7 @@ def grd2cpt(grid, **kwargs):
         happens before *truncate* and *series* values are used so the latter
         must be compatible with the changed *z*-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
-    overrule_bg :
+    overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
