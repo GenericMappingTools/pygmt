@@ -1,8 +1,8 @@
 ---
 name: PyGMT release checklist
 about: Checklist for a new PyGMT release.
-title: 'Release PyGMT x.x.x'
-labels: 'maintenance'
+title: Release PyGMT x.x.x
+labels: maintenance
 assignees: ''
 
 ---

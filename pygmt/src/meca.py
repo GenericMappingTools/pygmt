@@ -26,10 +26,11 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def meca(
     self,  # pylint: disable=unused-argument
     spec,
@@ -124,6 +125,7 @@ def meca(
     {B}
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """
@@ -157,6 +159,7 @@ def meca(
         plot_latitude = data_pointers["plot_latitude"]
         return (longitude, latitude, depth, plot_longitude, plot_latitude)
 
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     # Check the spec and parse the data according to the specified
     # convention
     if isinstance(spec, (dict, pd.DataFrame)):
