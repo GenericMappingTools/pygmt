@@ -40,7 +40,9 @@ def test_load_libgmt_fails(monkeypatch):
 
 
 def test_load_libgmt_with_a_bad_library_path(monkeypatch):
-    "Test that loading still works when given a bad library path."
+    """
+    Test that loading still works when given a bad library path.
+    """
     # Set a fake "GMT_LIBRARY_PATH"
     monkeypatch.setenv("GMT_LIBRARY_PATH", "/not/a/real/path")
     assert check_libgmt(load_libgmt()) is None
