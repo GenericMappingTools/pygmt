@@ -34,11 +34,12 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     n="interpolation",
+    c="panel",
     p="perspective",
     t="transparency",
     x="cores",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def grdimage(self, grid, **kwargs):
     """
     Project and plot grids or images.
@@ -155,6 +156,7 @@ def grdimage(self, grid, **kwargs):
     {R}
     {V}
     {XY}
+    {c}
     {n}
     {p}
     {t}
