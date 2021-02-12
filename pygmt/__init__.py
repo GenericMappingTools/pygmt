@@ -95,7 +95,11 @@ def show_versions():
         Get ghostscript version.
         """
         os_name = sys.platform
-        if os_name.startswith("linux") or os_name == "darwin":
+        if (
+            os_name.startswith("linux")
+            or os_name.startswith("freebsd")
+            or os_name == "darwin"
+        ):
             cmds = ["gs"]
         elif os_name == "win32":
             cmds = ["gswin64c.exe", "gswin32c.exe"]
