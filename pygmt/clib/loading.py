@@ -88,8 +88,8 @@ def clib_full_names(env=None):
         A dictionary containing the environment variables. If ``None``, will
         default to ``os.environ``.
 
-    Returns
-    -------
+    Yields
+    ------
     lib_fullnames: list of str
         List of possible full names of GMT's shared library.
     """
