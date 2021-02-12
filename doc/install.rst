@@ -170,7 +170,7 @@ following in your Python interpreter::
 
 Or run this in the command line::
 
-    python -c "import pygmt; pygmt.show_versions()
+    python -c "import pygmt; pygmt.show_versions()"
 
 
 Full test (optional)
