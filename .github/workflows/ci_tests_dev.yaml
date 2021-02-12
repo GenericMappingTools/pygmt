@@ -118,6 +118,10 @@ jobs:
           python setup.py sdist --formats=zip
           pip install dist/*
 
+      - name: Add GMT's bin to PATH (Linux/macOS)
+        run: echo ${GITHUB_WORKSPACE}/gmt-install-dir/bin >> $GITHUB_PATH
+        if: runner.os != 'Windows'
+
       # Run the tests
       - name: Test with pytest (Linux/macOS)
         run: make test PYTEST_EXTRA="-r P"
