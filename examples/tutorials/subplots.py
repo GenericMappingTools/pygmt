@@ -78,7 +78,7 @@ fig.show()
 
 ###############################################################################
 # For example, to activate the subplot on the top right corner (index: 2) at
-#  *row*\=0 and *col*\=2, so that all subsequent plotting commands happen
+# *row*\=0 and *col*\=2, so that all subsequent plotting commands happen
 # there, you can use the following command:
 
 ###############################################################################
@@ -157,18 +157,19 @@ fig.show()
 # --------------------------
 # In the example above with the four subplots, the two subplots for each row
 # have the same Y-axis range, and the two subplots for each column have the
-# same X-axis range. You can use the ``layout`` argument to set a common X and/or
-# Y axis between subplots.
+# same X-axis range. You can use the ``sharex``/``sharey`` arguments to set a
+# common X and/or Y axis between subplots.
 
 fig = pygmt.Figure()
 with fig.subplot(
     nrows=2,
     ncols=2,
-    figsize=("15c", "6c"),
+    figsize=("15c", "6c"),  # width of 15 cm, height of 6 cm
     autolabel=True,
-    margins=["0.3c", "0.2c"],
+    margins=["0.3c", "0.2c"],  # horizontal 0.3 cm and vertical 0.2 cm margins
     title="My Subplot Heading",
-    layout=["Rl", "Cb"],
+    sharex="b",  # shared x-axis on the bottom side
+    sharey="l",  # shared y-axis on the left side
     frame="WSrt",
 ):
     fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
@@ -178,12 +179,13 @@ with fig.subplot(
 fig.show()
 
 ###############################################################################
-# **Rl** indicates that subplots within a **R**\ ow will share the y-axis, and
-# only the **l**\ eft axis is displayed. **Cb** indicates that subplots in
-# a column will share the x-axis, and only the **b**\ ottom axis is displayed.
+# ``sharex="b"`` indicates that subplots in a column will share the x-axis, and
+# only the **b**\ ottom axis is displayed. ``sharey="l"`` indicates that
+# subplots within a **R**\ ow will share the y-axis, and only the **l**\ eft
+# axis is displayed.
 #
-# Of course, instead of using the **layout** option, you can also set a
-# different **frame** for each subplot to control the axis properties
+# Of course, instead of using the **sharex**/**sharey** option, you can also
+# set a different **frame** for each subplot to control the axis properties
 # individually for each subplot.
 
 ###############################################################################

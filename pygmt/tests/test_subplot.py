@@ -70,13 +70,13 @@ def test_subplot_clearance_and_shared_xy_axis_layout():
     fig_ref, fig_test = Figure(), Figure()
     kwargs = dict(nrows=2, ncols=2, frame="WSrt", figsize=("5c", "5c"))
 
-    with fig_ref.subplot(C="y0.2", SR="l", SC="t", **kwargs):
+    with fig_ref.subplot(C="y0.2", SC="t", SR="", **kwargs):
         fig_ref.basemap(region=[0, 4, 0, 4], projection="X?", panel=True)
         fig_ref.basemap(region=[0, 8, 0, 4], projection="X?", panel=True)
         fig_ref.basemap(region=[0, 4, 0, 8], projection="X?", panel=True)
         fig_ref.basemap(region=[0, 8, 0, 8], projection="X?", panel=True)
 
-    with fig_test.subplot(clearance="y0.2", layout=["Rl", "Ct"], **kwargs):
+    with fig_test.subplot(clearance="y0.2", sharex="t", sharey=True, **kwargs):
         fig_test.basemap(region=[0, 4, 0, 4], projection="X?", panel=True)
         fig_test.basemap(region=[0, 8, 0, 4], projection="X?", panel=True)
         fig_test.basemap(region=[0, 4, 0, 8], projection="X?", panel=True)

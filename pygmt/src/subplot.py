@@ -24,7 +24,8 @@ from pygmt.helpers import (
     J="projecton",
     M="margins",
     R="region",
-    S="layout",
+    SC="sharex",
+    SR="sharey",
     T="title",
     V="verbose",
     X="xshift",
@@ -110,30 +111,34 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         [Default is half the primary annotation font size, giving the full
         annotation font size as the default gap].
     {R}
-    layout : str or list
-        Set subplot layout for shared axes. May be set separately for rows
-        (**R**) and columns (**C**). E.g. ``layout=['Rl', 'Cb']`` will set
-        shared axis labels for rows on the **l**eft, and for columns on the
-        **b**ottom. Considerations for **C**: Use when all subplots in a
-        **C**\ olumn share a common *x*-range. The first (i.e., **t**\ op) and
-        the last (i.e., **b**\ ottom) rows will have *x* annotations; append
-        **t** or **b** to select only one of those two rows [both]. Append
-        **+l** if annotated *x*-axes should have a label [none]; optionally
-        append the label if it is the same for the entire subplot. Append
-        **+t** to make space for subplot titles for each row; use **+tc** for
-        top row titles only [no subplot titles]. Labels and titles that depends
-        on which row or column are specified as usual via a subplot's own
-        **frame** setting. Considerations for **R**: Use when all subplots in a
-        **R**\ ow share a common *y*-range. The first (i.e., **l**\ eft) and
-        the last (i.e., **r**\ ight) columns will have *y*-annotations; append
-        **l** or **r** to select only one of those two columns [both]. Append
-        **+l** if annotated *y*-axes will have a label [none]; optionally,
-        append the label if it is the same for the entire subplot. Append
-        **+p** to make all annotations axis-parallel [horizontal]; if not used
-        you may have to set **clearance** to secure extra space for long
-        horizontal annotations. Append **+w** to the **figsize** or **subsize**
-        argument to draw horizontal and vertical lines between interior panels
-        using selected pen [no lines].
+    sharex : bool or str
+        Set subplot layout for shared x-axes. Use when all subplots in a column
+        share a common *x*-range. If ``sharex=True``, the first (i.e.,
+        **t**\ op) and the last (i.e., **b**\ ottom) rows will have
+        *x*-annotations; use ``sharex='t'`` or ``sharex='b'`` to select only
+        one of those two rows [both]. Append **+l** if annotated *x*-axes
+        should have a label [none]; optionally append the label if it is the
+        same for the entire subplot. Append **+t** to make space for subplot
+        titles for each row; use **+tc** for top row titles only [no subplot
+        titles].
+    sharey : bool or str
+        Set subplot layout for shared y-axes. Use when all subplots in a row
+        share a common *y*-range. If ``sharey=True``, the first (i.e.,
+        **l**\ eft) and the last (i.e., **r**\ ight) columns will have
+        *y*-annotations; use ``sharey='l'`` or ``sharey='r'`` to select only
+        one of those two columns [both]. Append **+l** if annotated *y*-axes
+        will have a label [none]; optionally, append the label if it is the
+        same for the entire subplot. Append **+p** to make all annotations
+        axis-parallel [horizontal]; if not used you may have to set
+        **clearance** to secure extra space for long horizontal annotations.
+
+        Notes for sharex/sharey:
+
+        - Labels and titles that depends on which row or column are specified
+          as usual via a subplot's own **frame** setting.
+        - Append **+w** to the **figsize** or **subsize** argument to draw
+          horizontal and vertical lines between interior panels using selected
+          pen [no lines].
     title : str
         While individual subplots can have titles (see **layout** or
         **frame**), the entire figure may also have an overarching *heading*
