@@ -19,6 +19,7 @@ from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
     blockmedian,
+    grd2cpt,
     grdcut,
     grdfilter,
     grdinfo,
