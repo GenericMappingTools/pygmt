@@ -70,21 +70,8 @@ def test_clib_full_names(monkeypatch):
     Make sure that clib_full_names() returns a generator with expected length
     for different cases.
     """
-
-    def check_clib_list_length(os_name, lib_fullpaths, linux=1, macos=1, windows=1):
-        """
-        A utitlity function to check the length of lib_fullpaths in different
-        OS.
-        """
-        length = len(list(lib_fullpaths))
-        if os_name.startswith("linux"):
-            assert length == linux
-        elif os_name == "darwin":
-            assert length == macos
-        elif os_name == "win32":
-            assert length == windows
-
     os_name = sys.platform
+
     # 1. GMT_LIBRARY_PATH and PATH are undefined
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
