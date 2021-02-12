@@ -378,7 +378,8 @@ class Figure:
 
 
 def set_display(mode, dpi=200):
-    """Set the display mode.
+    """
+    Set the display mode.
 
     Parameters
     ----------
@@ -401,7 +402,6 @@ def set_display(mode, dpi=200):
             f'Invalid display mode {mode}, should be either "notebook" or "external".'
         )
     SHOW_CONFIG["dpi"] = dpi
-    
 
     from pygmt.src import (  # pylint: disable=import-outside-toplevel
         basemap,
