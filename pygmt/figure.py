@@ -10,7 +10,6 @@ try:
 except ImportError:
     Image = None
 
-from pygmt.base_plotting import BasePlotting
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
@@ -27,7 +26,7 @@ from pygmt.helpers import (
 SHOWED_FIGURES = []
 
 
-class Figure(BasePlotting):
+class Figure:
     """
     A GMT figure to handle all plotting.
 
@@ -372,3 +371,21 @@ class Figure(BasePlotting):
         base64_png = base64.encodebytes(raw_png)
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
+
+    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+        basemap,
+        coast,
+        colorbar,
+        contour,
+        grdcontour,
+        grdimage,
+        grdview,
+        image,
+        inset,
+        legend,
+        logo,
+        meca,
+        plot,
+        plot3d,
+        text,
+    )

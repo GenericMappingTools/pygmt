@@ -1,16 +1,15 @@
 """
 Images or EPS files on maps
 ---------------------------
-The :meth:`pygmt.Figure.image` method can be used to read and 
+The :meth:`pygmt.Figure.image` method can be used to read and
 place a raster image file or an Encapsulated PostScript file
-on a map. We must specify the file as *str* via the ``imagefile`` 
-argument or simply use the filename as first argument. You can 
-also use a full URL pointing to your desired image. The ``position`` 
+on a map. We must specify the file as *str* via the ``imagefile``
+argument or simply use the filename as the first argument. You can
+also use a full URL pointing to your desired image. The ``position``
 argument allows us to set a reference point on the map for the image.
 
-For more advanced style options, see the full option list 
-at :gmt-docs:`image.html`.
 """
+import os
 
 import pygmt
 
@@ -25,5 +24,8 @@ fig.image(
     position="g1/1+w3c+jCM",
     box=True,
 )
+
+# clean up the image downloaded in the current directory
+os.remove("gmt-logo.png")
 
 fig.show()

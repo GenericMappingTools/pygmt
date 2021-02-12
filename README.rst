@@ -13,8 +13,8 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
-.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Latest%20Tests/badge.svg
-    :alt: GitHub Actions GMT Latest Tests status
+.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
+    :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3A%22GMT+Latest+Tests%22
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
@@ -40,7 +40,7 @@ Why PyGMT?
 
 A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
-But if you need some convincing first, watch this **1 hour introduction** to PyGMT!
+But if you need some convincing first, watch this `1 hour introduction <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ to PyGMT!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
 or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
@@ -97,8 +97,9 @@ Contacting Us
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
-* We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
-  where you can ask questions and leave comments.
+* We have a `Discourse forum
+  <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__ where you can ask
+  questions and leave comments.
 
 
 Contributing

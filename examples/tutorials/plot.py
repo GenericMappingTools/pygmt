@@ -7,7 +7,17 @@ packaged with GMT to try this out. PyGMT provides access to these datasets throu
 :mod:`pygmt.datasets` package. If you don't have the data files already, they are
 automatically downloaded and saved to a cache directory the first time you use them
 (usually ``~/.gmt/cache``).
+
+.. note::
+
+    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
+    To see the figures while using a Python script instead, use
+    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+
+    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
+    is the desired name and file extension for the saved figure.
 """
+# sphinx_gallery_thumbnail_number = 3
 
 import pygmt
 
