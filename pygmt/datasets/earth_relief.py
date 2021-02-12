@@ -83,26 +83,24 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
             "gridline-registered grid is available."
         )
 
+    if resolution not in non_tiled_resolutions + tiled_resolutions:
+        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
+
     # different ways to load tiled and non-tiled earth relief data
-    if resolution in non_tiled_resolutions:
-        if region is not None:
-            raise NotImplementedError(
-                f"'region' is not supported for Earth relief resolution '{resolution}'"
-            )
-        fname = which(f"@earth_relief_{resolution}{reg}", download="a")
-        with xr.open_dataarray(fname) as dataarray:
-            grid = dataarray.load()
-            _ = grid.gmt  # load GMTDataArray accessor information
-    elif resolution in tiled_resolutions:
-        # Titled grid can't be sliced.
-        # See https://github.com/GenericMappingTools/pygmt/issues/524
-        if region is None:
+    # Known issue: tiled grids don't support slice operation
+    # See https://github.com/GenericMappingTools/pygmt/issues/524
+    if region is None:
+        if resolution in non_tiled_resolutions:
+            fname = which(f"@earth_relief_{resolution}{reg}", download="a")
+            with xr.open_dataarray(fname) as dataarray:
+                grid = dataarray.load()
+                _ = grid.gmt  # load GMTDataArray accessor information
+        else:
             raise GMTInvalidInput(
-                f"'region' is required for Earth relief resolution '{resolution}'"
+                f"'region' is required for Earth relief resolution '{resolution}'."
             )
-        grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
     else:
-        raise GMTInvalidInput(f'Invalid Earth relief resolution "{resolution}"')
+        grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
 
     # Add some metadata to the grid
     grid.name = "elevation"
