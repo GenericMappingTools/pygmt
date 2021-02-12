@@ -20,7 +20,7 @@ jobs:
 
       # Setup Miniconda
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v2.2.1
         with:
           python-version: 3.9
 
