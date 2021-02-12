@@ -1,6 +1,6 @@
 """
 Function to download the Earth relief datasets from the GMT data server, and
-load as DataArray.
+load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -12,7 +12,7 @@ from pygmt.src import grdcut, which
 
 @kwargs_to_strings(region="sequence")
 def load_earth_relief(resolution="01d", region=None, registration=None):
-    """
+    r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
     The grids are downloaded to a user data directory
@@ -21,8 +21,11 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    ``'@earth_relief_rru[_reg]'`` to any grid plotting/processing function.
-    Refer to :gmt-docs:`datasets/remote-data.html` for more details.
+    **@earth_relief**\_\ *res*\[_\ *reg*] to any grid plotting/processing
+    function. *res* is the grid resolution (see below), and *reg* is grid
+    registration type (**p** for pixel registration or *g* for gridline
+    registration). Refer to :gmt-docs:`datasets/remote-data.html` for more
+    details.
 
     Parameters
     ----------
@@ -35,7 +38,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
 
     region : str or list
         The subregion of the grid to load. Required for Earth relief grids with
-        resolutions <= 05m.
+        resolutions higher than 5 arc-minute (i.e., ``05m``).
 
     registration : str
         Grid registration type. Either ``pixel`` for pixel registration or
@@ -45,14 +48,15 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
 
     Returns
     -------
-    grid : xarray.DataArray
+    grid : :class:`xarray.DataArray`
         The Earth relief grid. Coordinates are latitude and longitude in
         degrees. Relief is in meters.
 
     Notes
     -----
-    The DataArray doesn's support slice operation, for Earth relief data with
-    resolutions higher than "05m", which are stored as smaller tiles.
+    The :class:`xarray.DataArray` grid doesn't support slice operation, for
+    Earth relief data with resolutions higher than "05m", which are stored as
+    smaller tiles.
 
     Examples
     --------
