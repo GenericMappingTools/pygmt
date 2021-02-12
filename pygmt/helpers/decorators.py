@@ -13,56 +13,68 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_OPTIONS = {
-    "R": """\
+    "R": r"""
         region : str or list
             *Required if this is the first plot command*.
-            ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
+            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the region of interest.""",
-    "J": """\
+    "J": r"""
         projection : str
             *Required if this is the first plot command*.
+            *projcode*\[*projparams*/]\ *width*.
             Select map projection.""",
-    "B": """\
-        frame : str or list
+    "B": r"""
+        frame : bool or str or list
             Set map boundary frame and axes attributes.""",
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
-    "CPT": """\
+    "CPT": r"""
         cmap : str
-           File name of a CPT file or ``C='color1,color2[,color3,...]'`` to
-           build a linear continuous CPT from those colors automatically.""",
+           File name of a CPT file or a series of comma-separated colors
+           (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
+           CPT from those colors automatically.""",
     "G": """\
         color : str
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
     "V": """\
-        verbose : str
-            Select verbosity level [Default is w], which modulates the messages
+        verbose : bool or str
+            Select verbosity level [Default is **w**], which modulates the messages
             written to stderr. Choose among 7 levels of verbosity:
 
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
             - **t** - Timings (report runtimes for time-intensive algorthms);
-            - **i** - Informational messages (same as "verbose=True")
+            - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
-    "XY": """\
+    "XY": r"""
         xshift : str
-            ``[a|c|f|r][xshift]``.
+            [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
             Shift plot origin in x-direction.
         yshift : str
-            ``[a|c|f|r][yshift]``.
+            [**a**\|\ **c**\|\ **f**\|\ **r**\][*yshift*].
             Shift plot origin in y-direction. Full documentation is at
             :gmt-docs:`gmt.html#xy-full`.
          """,
-    "j": """\
+    "c": r"""
+        panel : bool or int or list
+            [*row,col*\|\ *index*].
+            Selects a specific subplot panel. Only allowed when in subplot
+            mode. Use ``panel=True`` to advance to the next panel in the
+            selected order. Instead of *row,col* you may also give a scalar
+            value *index* which depends on the order you set via ``autolabel``
+            when the subplot was defined. **Note**: *row*, *col*, and *index*
+            all start at 0.
+         """,
+    "j": r"""
         distcalc : str
-            ``e|f|g``.
+            **e**\|\ **f**\|\ **g**.
             Determine how spherical distances are calculated.
 
             - **e** - Ellipsoidal (or geodesic) mode
@@ -70,54 +82,55 @@ COMMON_OPTIONS = {
             - **g** - Great circle distance [Default]
 
             All spherical distance calculations depend on the current ellipsoid
-            (PROJ_ELLIPSOID), the definition of the mean radius
-            (PROJ_MEAN_RADIUS), and the specification of latitude type
-            (PROJ_AUX_LATITUDE). Geodesic distance calculations is also
-            controlled by method (PROJ_GEODESIC).""",
-    "n": """\
+            (:gmt-term:`PROJ_ELLIPSOID`), the definition of the mean radius
+            (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
+            (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
+            controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
+    "n": r"""
         interpolation : str
-            ``[b|c|l|n][+a][+bBC][+c][+tthreshold]``
+            [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
             Select interpolation mode for grids. You can select the type of
             spline used:
 
-            - 'b' for B-spline
-            - 'c' for bicubic [Default]
-            - 'l' for bilinear
-            - 'n' for nearest-neighbor""",
-    "p": """\
+            - **b** for B-spline
+            - **c** for bicubic [Default]
+            - **l** for bilinear
+            - **n** for nearest-neighbor""",
+    "p": r"""
         perspective : list or str
-            ``'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'``.
+            [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]
+            [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
             Select perspective view and set the azimuth and elevation angle of
             the viewpoint. Default is [180, 90]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
-    "registration": """\
+    "registration": r"""
         registration : str
-            ``[g|p]``
+            **g**\|\ **p**.
             Force output grid to be gridline (g) or pixel (p) node registered.
             Default is gridline (g).""",
     "t": """\
-        transparency : float
+        transparency : int or float
             Set transparency level, in [0-100] percent range.
             Default is 0, i.e., opaque.
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
-    "x": """\
-        cores : int
-            ``[[-]n]``.
+    "x": r"""
+        cores : bool or int
+            [[**-**]\ *n*].
             Limit the number of cores to be used in any OpenMP-enabled
             multi-threaded algorithms. By default we try to use all available
             cores. Set a number *n* to only use n cores (if too large it will
             be truncated to the maximum cores available). Finally, give a
-            negative number *-n* to select (all - n) cores (or at least 1 if
-            n equals or exceeds all).
+            negative number *-n* to select (all - *n*) cores (or at least 1 if
+            *n* equals or exceeds all).
             """,
 }
 
 
 def fmt_docstring(module_func):
-    """
+    r"""
     Decorator to insert common text into module docstrings.
 
     Should be the last decorator (at the top).
@@ -173,10 +186,11 @@ def fmt_docstring(module_func):
     ----------
     region : str or list
         *Required if this is the first plot command*.
-        ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
+        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the region of interest.
     projection : str
         *Required if this is the first plot command*.
+        *projcode*\[*projparams*/]\ *width*.
         Select map projection.
     <BLANKLINE>
     **Aliases:**
@@ -184,7 +198,6 @@ def fmt_docstring(module_func):
     - J = projection
     - R = region
     <BLANKLINE>
-
     """
     filler_text = {}
 
@@ -196,9 +209,9 @@ def fmt_docstring(module_func):
         filler_text["aliases"] = "\n".join(aliases)
 
     for marker, text in COMMON_OPTIONS.items():
-        # Remove the indentation from the multiline strings so that it doesn't
-        # mess up the original docstring
-        filler_text[marker] = textwrap.dedent(text)
+        # Remove the indentation and the first line break from the multiline
+        # strings so that it doesn't mess up the original docstring
+        filler_text[marker] = textwrap.dedent(text.lstrip("\n"))
 
     # Dedent the docstring to make it all match the option text.
     docstring = textwrap.dedent(module_func.__doc__)
@@ -356,7 +369,6 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     ...     ]
     ... )
     {'R': '2005-01-01T08:00:00.000000000/2015-01-01T12:00:00.123456'}
-
     """
     valid_conversions = [
         "sequence",
@@ -380,11 +392,15 @@ def kwargs_to_strings(convert_bools=True, **conversions):
 
     # Make the actual decorator function
     def converter(module_func):
-        "The decorator that creates our new function with the conversions"
+        """
+        The decorator that creates our new function with the conversions.
+        """
 
         @functools.wraps(module_func)
         def new_module(*args, **kwargs):
-            "New module instance that converts the arguments first"
+            """
+            New module instance that converts the arguments first.
+            """
             if convert_bools:
                 kwargs = remove_bools(kwargs)
             for arg, fmt in conversions.items():
@@ -429,7 +445,6 @@ def remove_bools(kwargs):
     -------
     new_kwargs : dict
         A copy of `kwargs` with the booleans parsed.
-
     """
     new_kwargs = {}
     for arg, value in kwargs.items():

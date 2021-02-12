@@ -3,7 +3,17 @@ Plot lines
 ==========
 
 Plotting lines is handled by :meth:`pygmt.Figure.plot`.
+
+.. note::
+
+    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
+    To see the figures while using a Python script instead, use
+    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+
+    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
+    is the desired name and file extension for the saved figure.
 """
+# sphinx_gallery_thumbnail_number = 3
 
 import pygmt
 
@@ -11,7 +21,7 @@ import pygmt
 # Plot lines
 # ----------
 #
-# Create a Cartesian figure using ``projection`` parameter and set the axis scales
+# Create a Cartesian figure using ``projection`` argument and set the axis scales
 # using ``region`` (in this case, each axis is 0-10). Pass a list of ``x`` and ``y``
 # values to be plotted as a line.
 
@@ -43,7 +53,7 @@ fig.show()
 
 ########################################################################################
 # To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
-# additional line. Parameters such as ``region``, ``projection``, and ``frame`` do
+# additional line. Arguments such as ``region``, ``projection``, and ``frame`` do
 # not need to be repeated in subsequent uses.
 
 fig = pygmt.Figure()
@@ -62,11 +72,11 @@ fig.show()
 # Change line attributes
 # ----------------------
 #
-# The line attributes can be set using the ``pen`` parameter. ``pen`` takes a string
+# The line attributes can be set by the ``pen`` argument. ``pen`` takes a string
 # argument with the optional values *width*,\ *color*,\ *style*.
 #
-# In the example below, the pen width is set to ``"5p"``, and with *black* as the
-# default color and *solid* as the default style.
+# In the example below, the pen width is set to ``5p``, and with ``black`` as the
+# default color and ``solid`` as the default style.
 
 fig = pygmt.Figure()
 fig.plot(
@@ -81,7 +91,7 @@ fig.show()
 
 ########################################################################################
 # The line color can be set and is added after the line width to the ``pen`` argument.
-# In the example below, the line color is set to "red".
+# In the example below, the line color is set to ``red``.
 
 fig = pygmt.Figure()
 fig.plot(
@@ -96,8 +106,8 @@ fig.show()
 
 ########################################################################################
 # The line style can be set and is added after the line width or color to the
-# ``pen`` argument.  In the example below, the line color is set to *dot dot dash*, and
-# the default color *black* is used.
+# ``pen`` argument.  In the example below, the line style is set to
+# ``..-`` (*dot dot dash*), and the default color ``black`` is used.
 
 fig = pygmt.Figure()
 fig.plot(
@@ -112,8 +122,8 @@ fig.show()
 
 ########################################################################################
 # The line width, color, and style can all be set in the same ``pen`` argument. In the
-# example below, the line width is set to *7p*, the color is set to *green*, and the
-# line style is *dash dot dash*.
+# example below, the line width is set to ``7p``, the color is set to ``green``, and the
+# line style is ``-.-`` (*dash dot dash*).
 #
 # For a gallery showing other ``pen`` settings, see :doc:`/gallery/line/linestyles`.
 

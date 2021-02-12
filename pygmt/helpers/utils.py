@@ -56,7 +56,6 @@ def data_kind(data, x=None, y=None, z=None):
     'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
-
     """
     if data is None and x is None and y is None:
         raise GMTInvalidInput("No input data provided.")
@@ -99,7 +98,6 @@ def dummy_context(arg):
     ...     print(temp)
     ...
     some argument
-
     """
     yield arg
 
@@ -146,7 +144,6 @@ def build_arg_string(kwargs):
     ...     )
     ... )
     -Bxaf -Byaf -BWSen -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
-
     """
     sorted_args = []
     for key in sorted(kwargs):
@@ -192,7 +189,6 @@ def is_nonstr_iter(value):
     True
     >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
     True
-
     """
     return isinstance(value, Iterable) and not isinstance(value, str)
 
@@ -208,7 +204,6 @@ def launch_external_viewer(fname):
     ----------
     fname : str
         The file name of the file (preferably a full path).
-
     """
     # Redirect stdout and stderr to devnull so that the terminal isn't filled
     # with noise

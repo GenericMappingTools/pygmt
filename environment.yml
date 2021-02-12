@@ -11,19 +11,21 @@ dependencies:
     - xarray
     - netCDF4
     - packaging
-    - ipython
-    - matplotlib
-    - jupyter
-    - pytest>=6.0
-    - pytest-cov
-    - pytest-mpl
-    - coverage[toml]
     - black
     - blackdoc
-    - isort>=5
-    - pylint
+    - coverage[toml]
+    - docformatter
     - flake8
-    - sphinx
-    - sphinx_rtd_theme=0.4.3
-    - sphinx-gallery
+    - ipython
+    - isort>=5
+    - jupyter
+    - matplotlib
     - nbsphinx
+    - pylint
+    - pytest-cov
+    - pytest-mpl
+    - pytest>=6.0
+    - sphinx
+    - sphinx-copybutton
+    - sphinx-gallery
+    - sphinx_rtd_theme=0.4.3

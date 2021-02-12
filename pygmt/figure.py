@@ -6,7 +6,11 @@ import os
 import sys
 from tempfile import TemporaryDirectory
 
-from pygmt.base_plotting import BasePlotting
+try:
+    from IPython.display import Image
+except ImportError:
+    Image = None
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -49,7 +53,7 @@ if os.environ.get("PYGMT_DISABLE_EXTERNAL_DISPLAY", "default").lower() == "true"
     SHOW_CONFIG["external"] = False
 
 
-class Figure(BasePlotting):
+class Figure:
     """
     A GMT figure to handle all plotting.
 
@@ -80,7 +84,6 @@ class Figure(BasePlotting):
     >>> # The fig.region attribute shows the WESN bounding box for the figure
     >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
     122.94, 145.82, 20.53, 45.52
-
     """
 
     def __init__(self):
@@ -119,7 +122,9 @@ class Figure(BasePlotting):
 
     @property
     def region(self):
-        "The geographic WESN bounding box for the current figure."
+        """
+        The geographic WESN bounding box for the current figure.
+        """
         self._activate_figure()
         with Session() as lib:
             wesn = lib.extract_region()
@@ -185,7 +190,6 @@ class Figure(BasePlotting):
             formats. For example, ``'ef'`` creates both an EPS and a PDF file.
             Using ``'F'`` creates a multi-page PDF file from the list of input
             PS or PDF files. It requires the *prefix* option.
-
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
@@ -230,7 +234,6 @@ class Figure(BasePlotting):
         dpi : int
             Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
-
         """
         # All supported formats
         fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
@@ -272,7 +275,6 @@ class Figure(BasePlotting):
         ``PYGMT_DISABLE_EXTERNAL_DISPLAY`` environment variable to ``true``.
         This is mainly used for running our tests and building the
         documentation.
-
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -343,7 +345,6 @@ class Figure(BasePlotting):
         preview : str or bytes
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
-
         """
         fname = os.path.join(self._preview_dir.name, "{}.{}".format(self._name, fmt))
         self.savefig(fname, dpi=dpi, **kwargs)
@@ -356,6 +357,7 @@ class Figure(BasePlotting):
     def _repr_png_(self):
         """
         Show a PNG preview if the object is returned in an interactive shell.
+
         For the Jupyter notebook or IPython Qt console.
         """
         png = self._preview(
@@ -366,6 +368,7 @@ class Figure(BasePlotting):
     def _repr_html_(self):
         """
         Show the PNG image embedded in HTML with a controlled width.
+
         Looks better than the raw PNG.
         """
         raw_png = self._preview(fmt="png", dpi=300, anti_alias=True, as_bytes=True)
@@ -398,3 +401,22 @@ def set_display(mode, dpi=200):
             f'Invalid display mode {mode}, should be either "notebook" or "external".'
         )
     SHOW_CONFIG["dpi"] = dpi
+    
+
+    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+        basemap,
+        coast,
+        colorbar,
+        contour,
+        grdcontour,
+        grdimage,
+        grdview,
+        image,
+        inset,
+        legend,
+        logo,
+        meca,
+        plot,
+        plot3d,
+        text,
+    )

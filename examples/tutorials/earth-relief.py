@@ -5,12 +5,22 @@ Plotting Earth relief
 Plotting a map of Earth relief can use the data accessed by the
 :meth:`pygmt.datasets.load_earth_relief` method. The data can then be plotted using the
 :meth:`pygmt.Figure.grdimage` method.
+
+.. note::
+
+    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
+    To see the figures while using a Python script instead, use
+    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+
+    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
+    is the desired name and file extension for the saved figure.
 """
+# sphinx_gallery_thumbnail_number = 5
 
 import pygmt
 
 ########################################################################################
-# Load sample Earth relief data for the entire globe at a resolution of 30 minutes.
+# Load sample Earth relief data for the entire globe at a resolution of 30 arc minutes.
 # The other available resolutions are show at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
 grid = pygmt.datasets.load_earth_relief(resolution="30m")
 
@@ -30,7 +40,7 @@ fig.show()
 ########################################################################################
 #
 # :meth:`pygmt.Figure.grdimage` can take the optional argument ``projection`` for the
-# map. In the example below, the ``projection`` is set as ``"R12c"`` for 12 centimeter
+# map. In the example below, the ``projection`` is set as ``R12c`` for 12 centimeter
 # figure with a Winkel Tripel projection. For a list of available projections,
 # see :gmt-docs:`cookbook/map-projections.html`.
 
@@ -71,8 +81,8 @@ fig.show()
 # for :meth:`pygmt.Figure.grdimage`. The ``frame`` argument for
 # :meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and labels. A
 # list is used to pass multiple arguments to ``frame``. In the example below,
-# ``"a2500"`` sets the axis interval to 2,500, ``"x+lElevation"`` sets  the x-axis
-# label, and ``"y+lm"`` sets the y-axis label.
+# ``a2500`` sets the axis interval to 2,500, ``x+lElevation`` sets the x-axis
+# label, and ``y+lm`` sets the y-axis label.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="geo")
@@ -85,11 +95,11 @@ fig.show()
 #
 # In addition to providing global data, the ``region`` argument for
 # :meth:`pygmt.datasets.load_earth_relief` can be used to provide data for a specific
-# area. The ``region`` argument is required for resolutions at 5 minutes or higher, and
+# area. The ``region`` argument is required for resolutions at 5 arc minutes or higher, and
 # accepts a list (as in the example below) or a string. The geographic ranges are
-# passed as *x-min*/*x-max*/*y-min*/*y-max*.
+# passed as *xmin*/*xmax*/*ymin*/*ymax*.
 #
-# The example below uses data with a 5 minute resolution, and plots it on a
+# The example below uses data with a 5 arc minute resolution, and plots it on a
 # 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
 # ``frame="a"`` is used to add a frame to the figure.
 
