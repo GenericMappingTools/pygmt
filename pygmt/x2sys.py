@@ -232,7 +232,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         split_file4coes.m that lives in the x2sys supplement source code.
 
     override : bool or str
-        ``S|N``.
+        **S**\|\ **N**.
         Control how geographic coordinates are handled (Cartesian data are
         unaffected). By default, we determine if the data are closer to one
         pole than the other, and then we use a cylindrical polar conversion to
@@ -246,7 +246,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         longitudinal range at higher latitudes.
 
     interpolation : str
-        ``l|a|c``.
+        **l**\|\ **a**\|\ **c**.
         Sets the interpolation mode for estimating values at the crossover.
         Choose among:
 
@@ -261,7 +261,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     {R}
 
     speed : str or list
-        ``l|u|hspeed``.
+        **l**\|\ **u**\|\ **h**\ *speed*.
         Defines window of track speeds. If speeds are outside this window we do
         not calculate a COE. Specify:
 
