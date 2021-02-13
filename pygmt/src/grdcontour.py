@@ -57,22 +57,22 @@ def grdcontour(self, grid, **kwargs):
         - The filename of a `CPT`  file where the color boundaries will
           be used as contour levels.
         - The filename of a 2 (or 3) column file containing the contour
-          levels (col 1), (C)ontour or (A)nnotate (col 2), and optional
+          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
           angle (col 3)
-        - A fixed contour interval ``cont_int`` or a single contour with
-          ``+[cont_int]``
+        - A fixed contour interval *cont_int* or a single contour with
+          +\ *cont_int*
     annotation : str,  int, or list
         Specify or disable annotated contour levels, modifies annotated
-        contours specified in ``-C``.
+        contours specified in ``interval``.
 
-        - Specify a fixed annotation interval ``annot_int`` or a
-          single annotation level ``+[annot_int]``
-        - Disable all annotation  with  ``'-'``
+        - Specify a fixed annotation interval *annot_int* or a
+          single annotation level +\ *annot_int*
+        - Disable all annotation  with  **-**
         - Optional label modifiers can be specified as a single string
           ``'[annot_int]+e'``  or with a list of options
           ``([annot_int], 'e', 'f10p', 'gred')``.
     limit : str or list of 2 ints
-        *low*/*high*
+        *low*/*high*.
         Do no draw contours below `low` or above `high`, specify as string
     cut : str or int
         Do not draw contours with less than `cut` number of points.
@@ -82,7 +82,8 @@ def grdcontour(self, grid, **kwargs):
     {R}
     {B}
     label_placement : str
-        [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\ *params*
+        [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]
+        *params*.
         The required argument controls the placement of labels along the
         quoted lines. It supports five controlling algorithms. See
         :gmt-docs:`grdcontour.html#g` for details.
