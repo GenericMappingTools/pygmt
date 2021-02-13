@@ -56,8 +56,8 @@ def colorbar(self, **kwargs):
         [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
         Defines the reference point on the map for the color scale using one of
         four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
-        use **j** or **J** for setting *refpoint* via a 2-char justification code
-        that refers to the (invisible) map domain rectangle, (3) use *n*
+        use **j** or **J** for setting *refpoint* via a 2-char justification
+        code that refers to the (invisible) map domain rectangle, (3) use *n*
         for normalized (0-1) coordinates, or (4) use *x* for plot
         coordinates (inches, cm, etc.). All but *x* requires both *region*
         and *projection* to be specified. Append +w followed by the length
@@ -72,12 +72,13 @@ def colorbar(self, **kwargs):
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to True, draws a rectangular border around the color scale.
-        Alternatively, specify a different pen with **+p**\ *pen*. Add **+g**\ *fill* to fill
-        the scale panel [no fill]. Append **+c**\ *clearance* where *clearance* is either
-        gap, xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate in x- and y-direction, or individual side spacings between
-        scale and border. Append **+** to draw a secondary, inner border as well.
-        We use a uniform gap between borders of 2p and the :gmt-term:`MAP_DEFAULTS_PEN`
+        Alternatively, specify a different pen with **+p**\ *pen*. Add
+        **+g**\ *fill* to fill the scale panel [no fill]. Append
+        **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or
+        lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
+        y-direction, or individual side spacings between scale and border.
+        Append **+** to draw a secondary, inner border as well. We use a
+        uniform gap between borders of 2p and the :gmt-term:`MAP_DEFAULTS_PEN`
         unless other values are specified. Append **+r** to draw rounded
         rectangular borders instead, with a 6p corner radius. You can override
         this radius by appending another value. Finally, append **+s** to draw an
@@ -87,8 +88,8 @@ def colorbar(self, **kwargs):
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
-        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of the
-        CPT alone. The truncation takes place before the plotting.
+        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
+        the CPT alone. The truncation takes place before the plotting.
     scale : float
         Multiply all z-values in the CPT by the provided scale. By default
         the CPT is used as is.
