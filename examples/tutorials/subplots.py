@@ -199,46 +199,38 @@ fig.show()
 # the first subplot occupying the first row.
 
 fig = pygmt.Figure()
-with fig.subplot(nrows=2, ncols=2, figsize=("15c", "6c"), autolabel=True):
+# Bottom row, two subplots
+with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), autolabel="b)"):
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X15c/3c", frame=["af", "WSne"], panel=[0, 0]
-    )
-    fig.text(text="TEXT", x=5, y=5, projection="X15c/3c")
-    fig.basemap(
-        region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[1, 0]
+        region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[0, 0]
     )
     fig.basemap(
-        region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[1, 1]
+        region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[0, 1]
     )
+# Top row, one subplot
+with fig.subplot(
+    nrows=1, ncols=1, figsize=("15c", "3c"), autolabel="a)", yshift="h+1c"
+):
+    fig.basemap(
+        region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], panel=[0, 0]
+    )
+    fig.text(text="TEXT", x=5, y=5)
+
 fig.show()
 
 ###############################################################################
 #
-# When drawing the three basemaps, the last two basemaps use
-# ``projection="X?"``, so GMT will automatically determine the size of the
-# subplot according to the size of the subplot area. In order for the first
-# subplot to fill up the entire top row space, we use manually adjusted the
-# subplot width to 15cm using ``projection="X15c/3c"``.
+# We start by drawing the bottom two subplots, setting ``autolabel="b)"`` so
+# that the subplots are labelled 'b)' and 'c)'. Then, we plot a single subplot
+# on the top row by using ``fig.subplot(..., yshift="h+1c")`` which shifts the
+# plot origin 1 cm beyond the **h**\ eight of the previous (bottom row) plot.
+# You may need to adjust this ``yshift`` parameter to make your plot look nice.
+# This top row uses ``autolabel="a)"``, and we also plotted some text inside.
+# Note that ``projection="X?"`` was used to let GMT automatically determine the
+# size of the subplot according to the size of the subplot area.
 
 ###############################################################################
-# .. note::
-#
-#     There are bugs that have not been fixed in the above example.
-#
-#     In subplot mode, the size of each subgraph is controlled by the
-#     ``figsize`` option of :meth:`pygmt.Figure.subplot`. Users can override
-#     this and use ``projection`` to specify the size of an individual subplot,
-#     but this size will not be remembered. If the next command does not
-#     specify ``projection``, the default size of the subplot mode will be
-#     used, and the resulting plot will be inccorect.
-#
-#     The current workaround is to use the same ``projection`` option in all
-#     commands for the subplot. For example, we forced subplot (a) to have a
-#     different size using ``projection="15c/3c``. The next command within the
-#     subplot (e.g. ``text``) must also use ``projection="x15c/3c"``, otherwise
-#     the placement will be wrong.
-
-###############################################################################
-# Since we skipped the second subplot, the auto label function will name the
-# three subplots as a, c and d, which is not what we want, so we have to use
-# ``fig.set_panel(..., fixedlabel="(a)")`` to manually set the subplot label.
+# You can also manually override the ``autolabel`` for each subplot using for
+# example, ``fig.set_panel(..., fixedlabel="b) Panel 2"`` which would allow you
+# to manually label a single subplot as you wish. This can be useful for adding
+# a more descriptive subtitle to individual subplots.
