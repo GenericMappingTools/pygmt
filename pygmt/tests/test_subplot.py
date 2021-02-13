@@ -1,7 +1,9 @@
 """
 Tests subplot.
 """
+import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
 
 
@@ -85,3 +87,24 @@ def test_subplot_clearance_and_shared_xy_axis_layout():
         fig_test.basemap(region=[0, 8, 0, 8], projection="X?", panel=True)
 
     return fig_ref, fig_test
+
+
+def test_subplot_figsize_and_subsize_error():
+    """
+    Check that an error is raised when both figsize and subsize arguments are
+    passed into subplot.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(figsize=("2c", "1c"), subsize=("2c", "1c")):
+            pass
+
+
+def test_subplot_nrows_ncols_less_than_one_error():
+    """
+    Check that an error is raised when nrows or ncols is less than one.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=0, ncols=-1, figsize=("2c", "1c")):
+            pass

@@ -4,6 +4,7 @@ subplot - Manage modern mode figure subplot configuration and selection.
 import contextlib
 
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
@@ -56,6 +57,8 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         Specify the final figure dimensions as ``(width, height)``.
     subsize : tuple
         Specify the dimensions of each subplot directly as ``(width, height)``.
+        Note that only one of ``figsize`` or ``subsize`` can be provided at
+        once.
 
     autolabel : bool or str
         [*autolabel*][**+c**\ *dx*\ [/*dy*]][**+g**\ *fill*][**+j**\|\ **J**\
@@ -148,6 +151,13 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     # allow for spaces in string with needing double quotes
     kwargs["A"] = f'"{kwargs.get("A")}"' if kwargs.get("A") is not None else None
     kwargs["T"] = f'"{kwargs.get("T")}"' if kwargs.get("T") else None
+
+    if nrows < 1 or ncols < 1:
+        raise GMTInvalidInput("Please ensure that both `nrows`>=1 and `ncols`>=1.")
+    if kwargs.get("Ff") and kwargs.get("Fs"):
+        raise GMTInvalidInput(
+            "Please provide either one of `figsize` or `subsize` only."
+        )
 
     with Session() as lib:
         try:
