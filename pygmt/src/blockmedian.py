@@ -39,11 +39,12 @@ def blockmedian(table, outfile=None, **kwargs):
         ASCII data table.
 
     spacing : str
-        ``'xinc[unit][+e|n][/yinc[unit][+e|n]]'``.
+        *xinc*\[\ *unit*\][**+e**\|\ **n**]
+        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
         x_inc [and optionally y_inc] is the grid spacing.
 
     region : str or list
-        ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
+        *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
         Specify the region of interest.
 
     outfile : str
