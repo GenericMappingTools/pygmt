@@ -209,14 +209,14 @@ def launch_external_viewer(fname):
     # with noise
     run_args = dict(stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    platform = sys.platform
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
-    if platform.startswith("linux") and shutil.which("xdg-open"):
+    os_name = sys.platform
+    if os_name.startswith(("linux", "freebsd")) and shutil.which("xdg-open"):
         subprocess.run(["xdg-open", fname], check=False, **run_args)
-    elif platform == "darwin":  # Darwin is macOS
+    elif os_name == "darwin":  # Darwin is macOS
         subprocess.run(["open", fname], check=False, **run_args)
-    elif platform == "win32":
+    elif os_name == "win32":
         os.startfile(fname)  # pylint: disable=no-member
     else:
         webbrowser.open_new_tab("file://{}".format(fname))
