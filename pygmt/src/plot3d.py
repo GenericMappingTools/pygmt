@@ -46,7 +46,7 @@ from pygmt.helpers import (
 def plot3d(
     self, x=None, y=None, z=None, data=None, sizes=None, direction=None, **kwargs
 ):
-    """
+    r"""
     Plot lines, polygons, and symbols in 3-D.
 
     Takes a matrix, (x,y,z) triplets, or a file name as input and plots

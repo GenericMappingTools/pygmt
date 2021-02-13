@@ -39,7 +39,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def grdview(self, grid, **kwargs):
-    """
+    r"""
     Create 3-D perspective image or surface mesh from a grid.
 
     Reads a 2-D grid file and produces a 3-D perspective plot by drawing a

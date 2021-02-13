@@ -28,7 +28,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
-    """
+    r"""
     Plot legends on maps.
 
     Makes legends that can be overlaid on maps. Reads specific

@@ -22,7 +22,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def logo(self, **kwargs):
-    """
+    r"""
     Plot the GMT logo.
 
     By default, the GMT logo is 2 inches wide and 1 inch high and

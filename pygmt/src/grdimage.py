@@ -39,7 +39,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def grdimage(self, grid, **kwargs):
-    """
+    r"""
     Project and plot grids or images.
 
     Reads a 2-D grid file and produces a gray-shaded (or colored) map by

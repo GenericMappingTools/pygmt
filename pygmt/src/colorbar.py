@@ -28,7 +28,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
 )
 def colorbar(self, **kwargs):
-    """
+    r"""
     Plot a gray or color scale-bar on maps.
 
     Both horizontal and vertical scales are supported. For CPTs with

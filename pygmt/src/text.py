@@ -53,7 +53,7 @@ def text_(
     justify=None,
     **kwargs,
 ):
-    """
+    r"""
     Plot or typeset text strings of variable size, font type, and orientation.
 
     Must provide at least one of the following combinations as input:

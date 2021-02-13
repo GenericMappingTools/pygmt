@@ -33,7 +33,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def basemap(self, **kwargs):
-    """
+    r"""
     Plot base maps and frames for the figure.
 
     Creates a basic or fancy basemap with axes, fill, and titles. Several

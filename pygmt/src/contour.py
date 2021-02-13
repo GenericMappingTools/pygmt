@@ -36,7 +36,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def contour(self, x=None, y=None, z=None, data=None, **kwargs):
-    """
+    r"""
     Contour table data by direct triangulation.
 
     Takes a matrix, (x,y,z) pairs, or a file name as input and plots lines,

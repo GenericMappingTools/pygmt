@@ -38,7 +38,7 @@ from pygmt.helpers import (
     R="sequence", L="sequence", A="sequence_plus", c="sequence_comma", p="sequence"
 )
 def grdcontour(self, grid, **kwargs):
-    """
+    r"""
     Convert grids or images to contours and plot them on maps.
 
     Takes a grid file name or an xarray.DataArray object as input.

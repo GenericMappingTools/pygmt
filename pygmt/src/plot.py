@@ -44,7 +44,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
-    """
+    r"""
     Plot lines, polygons, and symbols in 2-D.
 
     Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
