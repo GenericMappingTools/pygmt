@@ -82,7 +82,7 @@ def grdcontour(self, grid, **kwargs):
     {R}
     {B}
     label_placement : str
-        ``[d|f|n|l|L|x|X]params``.
+        [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\ *params*
         The required argument controls the placement of labels along the
         quoted lines. It supports five controlling algorithms. See
         :gmt-docs:`grdcontour.html#g` for details.

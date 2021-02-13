@@ -93,7 +93,7 @@ def plot3d(
         Set z-axis scaling or z-axis size.
     {R}
     straight_line : bool or str
-        ``[m|p|x|y]``.
+        [**m**\|\ **p**\|\ **x**\|\ **y**].
         By default, geographic line segments are drawn as great circle
         arcs. To draw them as straight lines, use *straight_line*.
         Alternatively, add **m** to draw the line by first following a
@@ -107,9 +107,9 @@ def plot3d(
     {B}
     {CPT}
     offset : str
-        ``dx/dy[/dz]``.
+        *dx*/*dy*\ [/*dz*].
         Offset the plot symbol or line locations by the given amounts
-        *dx/dy*[*dz*] [Default is no offset].
+        *dx*/*dy*\ [/*dz*] [Default is no offset].
     {G}
     intensity : float or bool
         Provide an *intens* value (nominally in the -1 to +1 range) to
@@ -117,11 +117,12 @@ def plot3d(
         using ``intensity=True``, we will instead read *intens* from the
         first data column after the symbol parameters (if given).
     close : str
-        ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
+        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]
+        [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
         Force closed polygons. Full documentation is at
         :gmt-docs:`plot3d.html#l`.
     no_clip : bool or str
-        ``[c|r]``.
+        [**c**\|\ **r**].
         Do NOT clip symbols that fall outside map border [Default plots
         points whose coordinates are strictly inside the map border only].
         The option does not apply to lines and polygons which are always
@@ -143,7 +144,7 @@ def plot3d(
     {W}
     {XY}
     zvalue : str
-        ``value|file``.
+        *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
         via **color** and **pen**, give both a *value* via **zvalue** and a
         color lookup table via **cmap**.  Alternatively, give the name of a

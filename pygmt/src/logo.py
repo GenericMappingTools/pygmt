@@ -39,13 +39,14 @@ def logo(self, **kwargs):
     {J}
     {R}
     position : str
-        ``'[g|j|J|n|x]refpoint+wwidth[+jjustify][+odx[/dy]]'``.
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*
+        **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
         Sets reference point on the map for the image.
     box : bool or str
         Without further options, draws a rectangular border around the
         GMT logo.
     style : str
-        ``l|n|u``.
+        [**l**\|\ **n**\|\ **u**].
         Control what is written beneath the map portion of the logo.
 
         - **l** to plot the text label "The Generic Mapping Tools"

@@ -89,7 +89,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     {J}
     {R}
     straight_line : bool or str
-        ``[m|p|x|y]``.
+        [**m**\|\ **p**\|\ **x**\|\ **y**].
         By default, geographic line segments are drawn as great circle
         arcs. To draw them as straight lines, use *straight_line*.
         Alternatively, add **m** to draw the line by first following a
@@ -102,16 +102,17 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     {B}
     {CPT}
     offset : str
-        ``dx/dy``.
+        *dx*/*dy*.
         Offset the plot symbol or line locations by the given amounts
         *dx/dy* [Default is no offset]. If *dy* is not given it is set
         equal to *dx*.
     error_bar : bool or str
-        ``[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]``.
+        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]
+        [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
         Draw symmetrical error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
-        ``[c|n|r][a|f|s|r|refpoint]``.
+        [**c**\|\ **n**\|\ **r**][**a**\|\ **f**\|\ **s**\|\ **r**\|\ *refpoint*].
         Alter the way points are connected (by specifying a *scheme*) and
         data are grouped (by specifying a *method*). Append one of three
         line connection schemes:
@@ -138,7 +139,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
           after each record to the previous point (this method is only
           available with the ``connection='r'`` scheme).
 
-        Instead of the codes **a**|**f**|**s**|**r** you may append the
+        Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append the
         coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
     {G}
@@ -148,11 +149,12 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         using ``intensity=True``, we will instead read *intens* from the
         first data column after the symbol parameters (if given).
     close : str
-        ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
+        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]
+        [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
         Force closed polygons. Full documentation is at
         :gmt-docs:`plot.html#l`.
     no_clip : bool or str
-        ``'[c|r]'``.
+        [**c**\|\ **r**].
         Do NOT clip symbols that fall outside map border [Default plots
         points whose coordinates are strictly inside the map border only].
         The option does not apply to lines and polygons which are always
@@ -171,7 +173,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     {V}
     {XY}
     zvalue : str
-        ``value|file``.
+        *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
         via **color** and **pen**, give both a *value* via **zvalue** and a
         color lookup table via **cmap**.  Alternatively, give the name of a

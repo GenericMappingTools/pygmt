@@ -42,13 +42,16 @@ def image(self, imagefile, **kwargs):
     {J}
     {R}
     position : str
-        ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify]
-        [+nnx[/ny]][+odx[/dy]]'`` Sets reference point on the map for the
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*
+        **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]
+        [**+n**\ *nx*\ [/*ny*] ]\ [**+o**\ *dx*\ [/*dy*]].
+        Sets reference point on the map for the
         image.
     box : bool or str
-        ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
-        [+s[[dx/dy/][shade]]]'`` Without further options, draws a
-        rectangular border around the image using **MAP_FRAME_PEN**.
+        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]
+        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
+        Without further options, draws a rectangular border around the image
+        using **MAP_FRAME_PEN**.
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.

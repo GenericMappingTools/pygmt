@@ -42,7 +42,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     Takes a matrix, (x,y,z) pairs, or a file name as input and plots lines,
     polygons, or symbols at those locations on a map.
 
-    Must provide either *data* or *x*, *y*, and *z*.
+    Must provide either **data** or **x**/**y**/**z**.
 
     [TODO: Insert more documentation]
 
@@ -79,10 +79,11 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         Do NOT clip contours or image at the boundaries [Default will clip
         to fit inside region].
     Q : float or str
+        [*cut*][**+z**].
         Do not draw contours with less than cut number of points.
-        ``'[cut[unit]][+z]'``
     skip : bool or str
-        Skip input points outside region ``'[p|t]'``
+        [**p**\|\ **t**].
+        Skip input points outside region
     {W}
     label : str
         Add a legend entry for the contour being plotted. Normally, the

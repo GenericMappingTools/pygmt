@@ -49,10 +49,12 @@ def colorbar(self, **kwargs):
         Set color bar boundary frame, labels, and axes attributes.
     {CPT}
     position : str
-        ``[g|j|J|n|x]refpoint[+wlength[/width]][+e[b|f][length]][+h|v]
-        [+jjustify][+m[a|c|l|u]][+n[txt]][+odx[/dy]]``. Defines the
-        reference point on the map for the color scale using one of four
-        coordinate systems: (1) Use *g* for map (user) coordinates, (2) use
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*
+        [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]
+        [**+h**\|\ **v**][**+j**\ *justify*][**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]
+        [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
+        Defines the reference point on the map for the color scale using one of
+        four coordinate systems: (1) Use *g* for map (user) coordinates, (2) use
         *j* or *J* for setting refpoint via a 2-char justification code
         that refers to the (invisible) map domain rectangle, (3) use *n*
         for normalized (0-1) coordinates, or (4) use *x* for plot
@@ -66,26 +68,26 @@ def colorbar(self, **kwargs):
         changed by appending +j followed by a 2-char justification code
         *justify*.
     box : bool or str
-        ``[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
-        [+s[[dx/dy/][shade]]]``. If set to True, draws a rectangular
-        border around the color scale. Alternatively, specify a different
-        pen with +ppen. Add +gfill to fill the scale panel [no fill].
-        Append +cclearance where clearance is either gap, xgap/ygap, or
-        lgap/rgap/bgap/tgap where these items are uniform, separate in x-
-        and y-direction, or individual side spacings between scale and
-        border. Append +i to draw a secondary, inner border as well. We use
-        a uniform gap between borders of 2p and the MAP_DEFAULTS_PEN unless
-        other values are specified. Append +r to draw rounded rectangular
+        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]
+        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
+        If set to True, draws a rectangular border around the color scale.
+        Alternatively, specify a different pen with +ppen. Add +gfill to fill
+        the scale panel [no fill]. Append +cclearance where clearance is either
+        gap, xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
+        separate in x- and y-direction, or individual side spacings between
+        scale and border. Append +i to draw a secondary, inner border as well.
+        We use a uniform gap between borders of 2p and the MAP_DEFAULTS_PEN
+        unless other values are specified. Append +r to draw rounded rectangular
         borders instead, with a 6p corner radius. You can override this
         radius by appending another value. Finally, append +s to draw an
         offset background shaded region. Here, dx/dy indicates the shift
         relative to the foreground frame [4p/-4p] and shade sets the fill
         style to use for shading [gray50].
     truncate : list or str
-        ``zlo/zhi`` Truncate the incoming CPT so that the lowest and
-        highest z-levels are to zlo and zhi. If one of these equal NaN then
-        we leave that end of the CPT alone. The truncation takes place
-        before the plotting.
+        *zlo*/*zhi*.
+        Truncate the incoming CPT so that the lowest and highest z-levels are to
+        zlo and zhi. If one of these equal NaN then we leave that end of the CPT
+        alone. The truncation takes place before the plotting.
     scale : float
         Multiply all z-values in the CPT by the provided scale. By default
         the CPT is used as is.

@@ -109,28 +109,28 @@ def text_(
     {J}
     {R}
     clearance : str
-        ``[dx/dy][+to|O|c|C]``
+        [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [15%]. Only used if *pen* or *fill* are specified. Append the unit
-        you want ('c' for cm, 'i' for inch, or 'p' for point; if not given
-        we consult 'PROJ_LENGTH_UNIT') or '%' for a percentage of the
-        font size. Optionally, use modifier '+t' to set the shape of the
-        textbox when using *fill* and/or *pen*. Append lower case 'o' to
-        get a straight rectangle [Default]. Append upper case 'O' to get a
+        you want (*c* for cm, *i* for inch, or *p* for point; if not given
+        we consult 'PROJ_LENGTH_UNIT') or *%* for a percentage of the
+        font size. Optionally, use modifier **+t** to set the shape of the
+        textbox when using *fill* and/or *pen*. Append lower case **o** to
+        get a straight rectangle [Default]. Append upper case **O** to get a
         rounded rectangle. In paragraph mode (*paragraph*) you can also
-        append lower case 'c' to get a concave rectangle or append upper
-        case 'C' to get a convex rectangle.
+        append lower case **c** to get a concave rectangle or append upper
+        case **C** to get a convex rectangle.
     fill : str
         Sets the shade or color used for filling the text box [Default is
         no fill].
     offset : str
-        ``[j|J]dx[/dy][+v[pen]]``
-        Offsets the text from the projected (x,y) point by dx,dy [0/0]. If
-        dy is not specified then it is set equal to dx. Use offset='j' to
+        [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
+        Offsets the text from the projected (x,y) point by *dx*,*dy* [0/0]. If
+        dy is not specified then it is set equal to dx. Use **j** to
         offset the text away from the point instead (i.e., the text
         justification will determine the direction of the shift). Using
-        offset='J' will shorten diagonal offsets at corners by sqrt(2).
-        Optionally, append '+v' which will draw a line from the original
+        **J** will shorten diagonal offsets at corners by sqrt(2).
+        Optionally, append **+v** which will draw a line from the original
         point to the shifted point; append a pen to change the attributes
         for this line.
     pen : str

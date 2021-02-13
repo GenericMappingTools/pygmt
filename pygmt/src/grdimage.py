@@ -81,7 +81,7 @@ def grdimage(self, grid, **kwargs):
         set or image to be plotted (See GRID FILE FORMATS at
         :gmt-docs:`grdimage.html#grid-file-formats`).
     img_out : str
-        ``out_img[=driver]``.
+        *out_img*\[=\ *driver*].
         Save an image in a raster format instead of PostScript. Use
         extension .ppm for a Portable Pixel Map format which is the only
         raster format GMT can natively write. For GMT installations
@@ -101,7 +101,7 @@ def grdimage(self, grid, **kwargs):
     {B}
     {CPT}
     img_in : str
-        ``[r]``
+        [**r**].
         GMT will automatically detect standard image files (Geotiff, TIFF,
         JPG, PNG, GIF, etc.) and will read those via GDAL. For very obscure
         image formats you may need to explicitly set *img_in*, which
@@ -111,14 +111,14 @@ def grdimage(self, grid, **kwargs):
         image will be assigned a global domain. This mode allows you to
         project a raw image (an image without referencing coordinates).
     dpi : int
-        ``[i|dpi]``.
+        [**i**\|\ *dpi*].
         Sets the resolution of the projected grid that will be created if a
         map projection other than Linear or Mercator was selected [100]. By
         default, the projected grid will be of the same size (rows and
         columns) as the input file. Specify **i** to use the PostScript
         image operator to interpolate the image at the device resolution.
     bit_color : str
-        ``color[+b|f]``.
+        *color*\ [**+b**\|\ **f**\].
         This option only applies when a resulting 1-bit image otherwise
         would consist of only two colors: black (0) and white (255). If so,
         this option will instead use the image as a transparent mask and
@@ -126,7 +126,7 @@ def grdimage(self, grid, **kwargs):
         background pixels (1) or **+f** for the foreground pixels
         [Default].
     shading : str
-        ``[intensfile|intensity|modifiers]``.
+        *intensfile*\|\ *intensity*\|\ *modifiers*.
         Give the name of a grid file with intensities in the (-1,+1) range,
         or a constant intensity to apply everywhere (affects the ambient
         light). Alternatively, derive an intensity grid from the input data
