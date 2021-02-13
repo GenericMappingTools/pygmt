@@ -55,8 +55,8 @@ def colorbar(self, **kwargs):
         [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]
         [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
         Defines the reference point on the map for the color scale using one of
-        four coordinate systems: (1) Use *g* for map (user) coordinates, (2)
-        use *j* or *J* for setting refpoint via a 2-char justification code
+        four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
+        use **j** or **J** for setting *refpoint* via a 2-char justification code
         that refers to the (invisible) map domain rectangle, (3) use *n*
         for normalized (0-1) coordinates, or (4) use *x* for plot
         coordinates (inches, cm, etc.). All but *x* requires both *region*
