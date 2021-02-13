@@ -73,7 +73,7 @@ def colorbar(self, **kwargs):
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to True, draws a rectangular border around the color scale.
         Alternatively, specify a different pen with **+p**\ *pen*. Add
-        **+g**\ *fill* to fill the scale panel [no fill]. Append
+        **+g**\ *fill* to fill the scale panel [default is no fill]. Append
         **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or
         lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
         y-direction, or individual side spacings between scale and border.
