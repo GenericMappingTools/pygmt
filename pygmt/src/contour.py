@@ -66,15 +66,15 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     levels : str
         Contour file or level(s)
     D : str
-        Dump contour coordinates
+        Dump contour coordinates.
     E : str
-        Network information
+        Network information.
     label_placement : str
-        Placement of labels
+        Placement of labels.
     I : bool
-        Color the triangles using CPT
+        Color the triangles using CPT.
     triangular_mesh_pen : str
-        Pen to draw the underlying triangulation (default none)
+        Pen to draw the underlying triangulation [Default is none].
     no_clip : bool
         Do NOT clip contours or image at the boundaries [Default will clip
         to fit inside region].
@@ -83,7 +83,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         Do not draw contours with less than cut number of points.
     skip : bool or str
         [**p**\|\ **t**].
-        Skip input points outside region
+        Skip input points outside region.
     {W}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
