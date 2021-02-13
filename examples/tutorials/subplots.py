@@ -1,6 +1,6 @@
 """
-Making subplot panels
-=====================
+Making subplots
+===============
 
 When you're preparing a figure for a paper, there will often be times when
 you'll need to put many individual plots into one large figure, and label them
@@ -181,11 +181,11 @@ fig.show()
 ###############################################################################
 # ``sharex="b"`` indicates that subplots in a column will share the x-axis, and
 # only the **b**\ ottom axis is displayed. ``sharey="l"`` indicates that
-# subplots within a **R**\ ow will share the y-axis, and only the **l**\ eft
-# axis is displayed.
+# subplots within a row will share the y-axis, and only the **l**\ eft axis is
+# displayed.
 #
-# Of course, instead of using the **sharex**/**sharey** option, you can also
-# set a different **frame** for each subplot to control the axis properties
+# Of course, instead of using the ``sharex``/``sharey`` option, you can also
+# set a different ``frame`` for each subplot to control the axis properties
 # individually for each subplot.
 
 ###############################################################################

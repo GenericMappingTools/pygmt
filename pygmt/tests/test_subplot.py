@@ -30,7 +30,7 @@ def test_subplot_basic_frame():
 @check_figures_equal()
 def test_subplot_direct():
     """
-    Plot map elements to subplot directly using ax argument.
+    Plot map elements to subplot directly using the panel argument.
     """
     fig_ref, fig_test = Figure(), Figure()
     with fig_ref.subplot(nrows=2, ncols=1, Fs="3c/3c"):

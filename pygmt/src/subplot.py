@@ -133,7 +133,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         axis-parallel [horizontal]; if not used you may have to set
         ``clearance`` to secure extra space for long horizontal annotations.
 
-        Notes for sharex/sharey:
+        Notes for ``sharex``/``sharey``:
 
         - Labels and titles that depends on which row or column are specified
           as usual via a subplot's own ``frame`` setting.
@@ -141,7 +141,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
           horizontal and vertical lines between interior panels using selected
           pen [no lines].
     title : str
-        While individual subplots can have titles (see ``layout`` or
+        While individual subplots can have titles (see ``sharex``/``sharey`` or
         ``frame``), the entire figure may also have an overarching *heading*
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {V}
