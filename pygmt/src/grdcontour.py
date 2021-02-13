@@ -72,8 +72,8 @@ def grdcontour(self, grid, **kwargs):
           ``'[annot_int]+e'``  or with a list of options
           ``([annot_int], 'e', 'f10p', 'gred')``.
     limit : str or list of 2 ints
+        *low*/*high*
         Do no draw contours below `low` or above `high`, specify as string
-        ``'[low]/[high]'``  or list ``[low,high]``.
     cut : str or int
         Do not draw contours with less than `cut` number of points.
     resample : str or int
