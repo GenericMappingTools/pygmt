@@ -51,11 +51,12 @@ def colorbar(self, **kwargs):
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*
         [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]
-        [**+h**\|\ **v**][**+j**\ *justify*][**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]
+        [**+h**\|\ **v**][**+j**\ *justify*]
+        [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]
         [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
         Defines the reference point on the map for the color scale using one of
-        four coordinate systems: (1) Use *g* for map (user) coordinates, (2) use
-        *j* or *J* for setting refpoint via a 2-char justification code
+        four coordinate systems: (1) Use *g* for map (user) coordinates, (2)
+        use *j* or *J* for setting refpoint via a 2-char justification code
         that refers to the (invisible) map domain rectangle, (3) use *n*
         for normalized (0-1) coordinates, or (4) use *x* for plot
         coordinates (inches, cm, etc.). All but *x* requires both *region*
@@ -77,17 +78,17 @@ def colorbar(self, **kwargs):
         separate in x- and y-direction, or individual side spacings between
         scale and border. Append +i to draw a secondary, inner border as well.
         We use a uniform gap between borders of 2p and the MAP_DEFAULTS_PEN
-        unless other values are specified. Append +r to draw rounded rectangular
-        borders instead, with a 6p corner radius. You can override this
-        radius by appending another value. Finally, append +s to draw an
+        unless other values are specified. Append +r to draw rounded
+        rectangular borders instead, with a 6p corner radius. You can override
+        this radius by appending another value. Finally, append +s to draw an
         offset background shaded region. Here, dx/dy indicates the shift
         relative to the foreground frame [4p/-4p] and shade sets the fill
         style to use for shading [gray50].
     truncate : list or str
         *zlo*/*zhi*.
-        Truncate the incoming CPT so that the lowest and highest z-levels are to
-        zlo and zhi. If one of these equal NaN then we leave that end of the CPT
-        alone. The truncation takes place before the plotting.
+        Truncate the incoming CPT so that the lowest and highest z-levels are
+        to zlo and zhi. If one of these equal NaN then we leave that end of the
+        CPT alone. The truncation takes place before the plotting.
     scale : float
         Multiply all z-values in the CPT by the provided scale. By default
         the CPT is used as is.

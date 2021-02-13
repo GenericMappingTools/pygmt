@@ -66,8 +66,8 @@ def grdview(self, grid, **kwargs):
     drapegrid : str or xarray.DataArray
         The file name or a DataArray of the image grid to be draped on top
         of the relief provided by grid. [Default determines colors from
-        grid]. Note that **zscale** and **plane** always refers to the grid. The
-        drapegrid only provides the information pertaining to colors, which
+        grid]. Note that **zscale** and **plane** always refers to the grid.
+        The drapegrid only provides the information pertaining to colors, which
         (if drapegrid is a grid) will be looked-up via the CPT (see **cmap**).
     plane : float or str
         *level*\ [**+g**\ *fill*].
@@ -102,7 +102,8 @@ def grdview(self, grid, **kwargs):
         input data grid reliefgrid via a call to ``grdgradient``; append
         **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
         azimuth, intensity, and ambient arguments for that module, or just give
-        **+d** to select the default arguments (**+a**\ -45\ **+nt**\ 1\ **+m**\ 0).
+        **+d** to select the default arguments
+        (**+a**\ -45\ **+nt**\ 1\ **+m**\ 0).
     {V}
     {XY}
     {c}
