@@ -81,7 +81,7 @@ def makecpt(**kwargs):
         ``background='i'`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
     color_model :
-        ``[R|r|h|c][+c[label]]``.
+        [**R**\|\ **r**\|\ **h**\|\ **c**\ ][**+c**\ [*label*\ ]].
         Force output CPT to be written with r/g/b codes, gray-scale values or
         color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes
         (**h**), or c/m/y/k codes (**c**).  Optionally or alternatively, append
@@ -93,7 +93,7 @@ def makecpt(**kwargs):
         labels from *start* (a single letter or an integer). Append - to build
         ranges *start*-*start+1* instead.
     series : list or str
-        ``[min/max/inc[+b|l|n]|file|list]``.
+        [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**\ ]\|\ *file*\|\ *list*\ ].
         Defines the range of the new CPT by giving the lowest and highest
         z-value (and optionally an interval). If this is not given, the
         existing range in the master CPT will be used intact. The values
@@ -102,7 +102,7 @@ def makecpt(**kwargs):
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
     truncate : list or str
-        ``zlo/zhi``.
+        *zlo/zhi*\ .
         Truncate the incoming CPT so that the lowest and highest z-levels are
         to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
         the CPT alone. The truncation takes place before any resampling. See
