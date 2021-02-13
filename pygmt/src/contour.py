@@ -57,7 +57,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         Either a data file name or a 2d numpy array with the tabular data.
     {J}
     {R}
-    annotation : str,  int, or list
+    annotation : str or int
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
