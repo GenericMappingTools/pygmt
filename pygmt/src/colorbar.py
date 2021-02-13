@@ -87,7 +87,7 @@ def colorbar(self, **kwargs):
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
-        to zlo and zhi. If one of these equal NaN then we leave that end of the
+        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of the
         CPT alone. The truncation takes place before the plotting.
     scale : float
         Multiply all z-values in the CPT by the provided scale. By default
