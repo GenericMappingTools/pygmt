@@ -66,9 +66,9 @@ def grdview(self, grid, **kwargs):
     drapegrid : str or xarray.DataArray
         The file name or a DataArray of the image grid to be draped on top
         of the relief provided by grid. [Default determines colors from
-        grid]. Note that **zscale** and **plane** always refers to the grid.
+        grid]. Note that ``zscale`` and ``plane`` always refers to the grid.
         The drapegrid only provides the information pertaining to colors, which
-        (if drapegrid is a grid) will be looked-up via the CPT (see **cmap**).
+        (if drapegrid is a grid) will be looked-up via the CPT (see ``cmap``).
     plane : float or str
         *level*\ [**+g**\ *fill*].
         Draws a plane at this z-level. If the optional color is provided
@@ -84,6 +84,7 @@ def grdview(self, grid, **kwargs):
           drawn on top of the surface.
         - **i** - image plot.
         - **c** - Same as **i** but will make nodes with z = NaN transparent.
+
         For any of these choices, you may force a monochrome image by
         appending the modifier **+m**.
     contourpen : str
@@ -91,10 +92,10 @@ def grdview(self, grid, **kwargs):
         pen attributes used for the contours.
     meshpen : str
         Sets the pen attributes used for the mesh. You must also select
-        **surftype** of **m** or **sm** for meshlines to be drawn.
+        ``surftype`` of **m** or **sm** for meshlines to be drawn.
     facadepen :str
         Sets the pen attributes used for the facade. You must also select
-        **plane** for the facade outline to be drawn.
+        ``plane`` for the facade outline to be drawn.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1)
         range, or a constant intensity to apply everywhere (affects the
@@ -103,7 +104,7 @@ def grdview(self, grid, **kwargs):
         **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
         azimuth, intensity, and ambient arguments for that module, or just give
         **+d** to select the default arguments
-        (**+a**\ -45\ **+nt**\ 1\ **+m**\ 0).
+        [default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {V}
     {XY}
     {c}
