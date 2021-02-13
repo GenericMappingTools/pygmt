@@ -16,35 +16,34 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
+    A="annotation",
     B="frame",
-    S="skip",
+    C="levels",
     G="label_placement",
-    W="pen",
+    J="projection",
     L="triangular_mesh_pen",
     N="no_clip",
-    i="columns",
-    l="label",
-    C="levels",
+    R="region",
+    S="skip",
     V="verbose",
+    W="pen",
     X="xshift",
     Y="yshift",
     c="panel",
+    i="columns",
+    l="label",
     p="perspective",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def contour(self, x=None, y=None, z=None, data=None, **kwargs):
-    """
+    r"""
     Contour table data by direct triangulation.
 
     Takes a matrix, (x,y,z) pairs, or a file name as input and plots lines,
     polygons, or symbols at those locations on a map.
 
     Must provide either *data* or *x*, *y*, and *z*.
-
-    [TODO: Insert more documentation]
 
     Full option list at :gmt-docs:`contour.html`
 
@@ -58,10 +57,12 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         Either a data file name or a 2d numpy array with the tabular data.
     {J}
     {R}
-    A : bool or str
-        ``'[m|p|x|y]'``
-        By default, geographic line segments are drawn as great circle
-        arcs. To draw them as straight lines, use *A*.
+    annotation : str,  int, or list
+        Specify or disable annotated contour levels, modifies annotated
+        contours specified in ``interval``.
+
+        - Specify a fixed annotation interval *annot_int* or a
+          single annotation level +\ *annot_int* .
     {B}
     levels : str
         Contour file or level(s)
