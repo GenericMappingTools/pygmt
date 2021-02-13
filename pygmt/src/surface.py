@@ -20,7 +20,7 @@ from pygmt.helpers import (
 @use_alias(I="spacing", R="region", G="outfile", V="verbose")
 @kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
-    """
+    r"""
     Grids table data using adjustable tension continuous curvature splines.
 
     Surface reads randomly-spaced (x,y,z) triples and produces gridded values

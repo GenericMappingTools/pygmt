@@ -69,7 +69,7 @@ def tempfile_from_dftrack(track, suffix):
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def x2sys_init(tag, **kwargs):
-    """
+    r"""
     Initialize a new x2sys track database.
 
     x2sys_init is the starting point for anyone wishing to use x2sys; it
@@ -178,7 +178,7 @@ def x2sys_init(tag, **kwargs):
 )
 @kwargs_to_strings(R="sequence")
 def x2sys_cross(tracks=None, outfile=None, **kwargs):
-    """
+    r"""
     Calculate crossovers between track data files.
 
     x2sys_cross is used to determine all intersections between ("external

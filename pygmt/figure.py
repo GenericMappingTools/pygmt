@@ -115,7 +115,7 @@ class Figure:
     )
     @kwargs_to_strings()
     def psconvert(self, **kwargs):
-        """
+        r"""
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,

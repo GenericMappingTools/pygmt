@@ -26,7 +26,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 @kwargs_to_strings(T="sequence", G="sequence")
 def makecpt(**kwargs):
-    """
+    r"""
     Make GMT color palette tables.
 
     This is a module that will help you make static color palette tables

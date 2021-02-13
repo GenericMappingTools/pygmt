@@ -19,7 +19,7 @@ from pygmt.helpers import (
 @use_alias(I="spacing", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def blockmedian(table, outfile=None, **kwargs):
-    """
+    r"""
     Block average (x,y,z) data tables by median estimation.
 
     Reads arbitrarily located (x,y,z) triples [or optionally weighted

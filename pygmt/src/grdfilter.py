@@ -29,7 +29,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence")
 def grdfilter(grid, **kwargs):
-    """
+    r"""
     Filter a grid in the space (or time) domain.
 
     Filter a grid file in the time domain using one of the selected convolution

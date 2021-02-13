@@ -17,7 +17,7 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose")
 def info(table, **kwargs):
-    """
+    r"""
     Get information about data tables.
 
     Reads from files and finds the extreme values in each of the columns

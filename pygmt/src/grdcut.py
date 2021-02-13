@@ -28,7 +28,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence")
 def grdcut(grid, **kwargs):
-    """
+    r"""
     Extract subregion from a grid.
 
     Produce a new *outgrid* file which is a subregion of *grid*. The
