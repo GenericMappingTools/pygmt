@@ -72,16 +72,16 @@ def colorbar(self, **kwargs):
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to True, draws a rectangular border around the color scale.
-        Alternatively, specify a different pen with +ppen. Add +gfill to fill
-        the scale panel [no fill]. Append +cclearance where clearance is either
+        Alternatively, specify a different pen with **+p**\ *pen*. Add **+g**\ *fill* to fill
+        the scale panel [no fill]. Append **+c**\ *clearance* where *clearance* is either
         gap, xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
         separate in x- and y-direction, or individual side spacings between
-        scale and border. Append +i to draw a secondary, inner border as well.
-        We use a uniform gap between borders of 2p and the MAP_DEFAULTS_PEN
-        unless other values are specified. Append +r to draw rounded
+        scale and border. Append **+** to draw a secondary, inner border as well.
+        We use a uniform gap between borders of 2p and the :gmt-term:`MAP_DEFAULTS_PEN`
+        unless other values are specified. Append **+r** to draw rounded
         rectangular borders instead, with a 6p corner radius. You can override
-        this radius by appending another value. Finally, append +s to draw an
-        offset background shaded region. Here, dx/dy indicates the shift
+        this radius by appending another value. Finally, append **+s** to draw an
+        offset background shaded region. Here, *dx/dy* indicates the shift
         relative to the foreground frame [4p/-4p] and shade sets the fill
         style to use for shading [gray50].
     truncate : list or str
