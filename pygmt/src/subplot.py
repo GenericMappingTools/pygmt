@@ -36,11 +36,11 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     r"""
     Create multi-panel subplot figures.
 
-    The **subplot** module is used to split the current figure into a
-    rectangular layout of subplots that each may contain a single self-
-    contained figure. Begin by defining the layout of the entire multi-panel
-    illustration. Several options are available to specify the systematic
-    layout, labeling, dimensions, and more for the subplots.
+    This function is used to split the current figure into a rectangular layout
+    of subplots that each may contain a single self-contained figure. Begin by
+    defining the layout of the entire multi-panel illustration. Several
+    arguments are available to specify the systematic layout, labeling,
+    dimensions, and more for the subplots.
 
     Full option list at :gmt-docs:`subplot.html#synopsis-begin-mode`
 
@@ -68,7 +68,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         *refpoint* to specify where the tag should be placed in the subplot
         [TL]. Note: **+j** sets the justification of the tag to *refpoint*
         (suitable for interior tags) while **+J** instead selects the mirror
-        opposite (suitable for exterior tags). Append **+c**\ *dx*[/*dy*] to
+        opposite (suitable for exterior tags). Append **+c**\ *dx*\[/*dy*] to
         set the clearance between the tag and a surrounding text box requested
         via **+g** or **+p** [3p/3p, i.e., 15% of the :gmt-term:`FONT_TAG` size
         dimension]. Append **+g**\ *fill* to paint the tag's text box with
@@ -81,21 +81,19 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         numerals]. Append **+v** to increase tag numbers vertically down
         columns [horizontally across rows].
     {B}
-    clearance : str
+    clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
         subplot on the specified side, using *side* values from **w**, **e**,
-        **s**, or **n**, or **x** for both **w** and **e** or **y** for both
-        **s** and **n**.  No *side* means all sides. The option is repeatable
-        to set aside space on more than one side. Such space will be left
-        untouched by the main map plotting but can be accessed by modules that
-        plot scales, bars, text, etc.  Settings specified under **begin**
-        directive apply to all subplots, while settings under **set** only
-        apply to the selected (active) subplot. **Note**: Common options
-        **x_offset** and **y_offset** are not available during subplots; use
-        **clearance** instead.
+        **s**, or **n**; or **x** for both **w** and **e**; or **y** for both
+        **s** and **n**. No *side* means all sides (i.e. ``clearance='1c'``
+        would set a clearance of 1 cm on all sides). The option is repeatable
+        to set aside space on more than one side (e.g. ``clearance=['w1c',
+        's2c']`` would set a clearance of 1 cm on west side and 2 cm on south
+        side). Such space will be left untouched by the main map plotting but
+        can be accessed by modules that plot scales, bars, text, etc.
     {J}
-    margins : list
+    margins : str or list
         This is margin space that is added between neighboring subplots (i.e.,
         the interior margins) in addition to the automatic space added for tick
         marks, annotations, and labels. The margins can be specified as either:
@@ -130,18 +128,18 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         will have a label [none]; optionally, append the label if it is the
         same for the entire subplot. Append **+p** to make all annotations
         axis-parallel [horizontal]; if not used you may have to set
-        **clearance** to secure extra space for long horizontal annotations.
+        ``clearance`` to secure extra space for long horizontal annotations.
 
         Notes for sharex/sharey:
 
         - Labels and titles that depends on which row or column are specified
-          as usual via a subplot's own **frame** setting.
-        - Append **+w** to the **figsize** or **subsize** argument to draw
+          as usual via a subplot's own ``frame`` setting.
+        - Append **+w** to the ``figsize`` or ``subsize`` argument to draw
           horizontal and vertical lines between interior panels using selected
           pen [no lines].
     title : str
-        While individual subplots can have titles (see **layout** or
-        **frame**), the entire figure may also have an overarching *heading*
+        While individual subplots can have titles (see ``layout`` or
+        ``frame``), the entire figure may also have an overarching *heading*
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {V}
     {XY}
@@ -184,18 +182,18 @@ def set_panel(self, panel=None, **kwargs):
         *row,col*\|\ *index*.
         Sets the current subplot until further notice. **Note**: First *row*
         or *col* is 0, not 1. If not given we go to the next subplot by order
-        specified via **autolabel** in :meth:`pygmt.Figure.subplot`. As an
-        alternative, you may bypass the **sca** mode and instead supply the
-        common option **panel**=\ [*row,col*] to the first plot command you
-        issue in that subplot. GMT maintains information about the current
-        figure and subplot. Also, you may give the one-dimensional *index*
-        instead which starts at 0 and follows the row or column order set via
-        **autolabel** in :meth:`pygmt.Figure.subplot`.
+        specified via ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an
+        alternative, you may bypass using :meth:`pygmt.Figure.set_panel` and
+        instead supply the common option **panel**\ =[*row,col*] to the first
+        plot command you issue in that subplot. GMT maintains information about
+        the current figure and subplot. Also, you may give the one-dimensional
+        *index* instead which starts at 0 and follows the row or column order
+        set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.
 
     fixedlabel : str
         Overrides the automatic labeling with the given string. No modifiers
         are allowed. Placement, justification, etc. are all inherited from how
-        **autolabel** was specified by the initial :meth:`pygmt.Figure.subplot`
+        ``autolabel`` was specified by the initial :meth:`pygmt.Figure.subplot`
         command.
 
     clearance : str
@@ -205,7 +203,7 @@ def set_panel(self, panel=None, **kwargs):
         **s**, or **n**. The option is repeatable to set aside space on more
         than one side. Such space will be left untouched by the main map
         plotting but can be accessed by modules that plot scales, bars, text,
-        etc.  This setting overrides the common clearances set by **clearance**
+        etc. This setting overrides the common clearances set by ``clearance``
         in the initial :meth:`pygmt.Figure.subplot` call.
 
     {V}
