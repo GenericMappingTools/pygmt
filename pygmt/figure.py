@@ -149,9 +149,10 @@ class Figure:
         icc_gray : bool
             Enforce gray-shades by using ICC profiles.
         anti_aliasing : str
-            Set the anti-aliasing options for graphics or text. Append the size
-            of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing
-            (same as bits = 1).
+            [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
+            Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
+            Append the size of the subsample box (1, 2, or 4) [4]. Default is
+            no anti-aliasing (same as bits = 1).
         fmt : str
             Sets the output format, where *b* means BMP, *e* means EPS, *E*
             means EPS with PageSize command, *f* means PDF, *F* means
