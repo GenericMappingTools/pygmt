@@ -80,8 +80,8 @@ def text_(
         through *x* and *y*. Specify with a two letter (order independent)
         code, chosen from:
 
-        * Horizontal: L(eft), C(entre), R(ight)
-        * Vertical: T(op), M(iddle), B(ottom)
+        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
+        * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
 
         For example, position="TL" plots the text at the Upper Left corner
         of the map.
@@ -102,10 +102,10 @@ def text_(
     justify : str or bool
         Set the alignment which refers to the part of the text string that
         will be mapped onto the (x,y) point. Choose a 2 character
-        combination of L, C, R (for left, center, or right) and T, M, B for
-        top, middle, or bottom. E.g., BL for lower left. If no
-        justification is explicitly given (i.e. justify=True), then the
-        input textfile(s) must have this as a column.
+        combination of **L**, **C**, **R** (for left, center, or right) and
+        **T**, **M**, **B** for top, middle, or bottom. E.g., **BL** for lower
+        left. If no justification is explicitly given (i.e. justify=True), then
+        the input textfile(s) must have this as a column.
     {J}
     {R}
     clearance : str
@@ -125,8 +125,8 @@ def text_(
         no fill].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offsets the text from the projected (x,y) point by *dx*,*dy* [0/0]. If
-        dy is not specified then it is set equal to dx. Use **j** to
+        Offsets the text from the projected (x,y) point by *dx*,\ *dy* [0/0].
+        If *dy* is not specified then it is set equal to *dx*. Use **j** to
         offset the text away from the point instead (i.e., the text
         justification will determine the direction of the shift). Using
         **J** will shorten diagonal offsets at corners by sqrt(2).

@@ -81,8 +81,8 @@ def colorbar(self, **kwargs):
         uniform gap between borders of 2p and the :gmt-term:`MAP_DEFAULTS_PEN`
         unless other values are specified. Append **+r** to draw rounded
         rectangular borders instead, with a 6p corner radius. You can override
-        this radius by appending another value. Finally, append **+s** to draw an
-        offset background shaded region. Here, *dx/dy* indicates the shift
+        this radius by appending another value. Finally, append **+s** to draw
+        an offset background shaded region. Here, *dx/dy* indicates the shift
         relative to the foreground frame [4p/-4p] and shade sets the fill
         style to use for shading [default is gray50].
     truncate : list or str
