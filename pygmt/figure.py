@@ -178,7 +178,7 @@ class Figure:
         Save the figure to a file.
 
         This method implements a matplotlib-like interface for
-        :meth:`~gmt.Figure.psconvert`.
+        :doc:psconvert </psconvert>.
 
         Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
         BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
@@ -199,9 +199,8 @@ class Figure:
             If True, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIf). More specifically, uses options ``Qt=2, Qg=2`` in
-            :meth:`~gmt.Figure.psconvert`. Ignored if creating vector graphics.
-            Overrides values of ``Qt`` and ``Qg`` passed in through ``kwargs``.
+            JPG, TIFF). More specifically, it uses options ``t2, g2`` in
+            :doc:psconvert </psconvert>. Ignored if creating vector graphics.
         show: bool
             If True, will open the figure in an external viewer.
         dpi : int
