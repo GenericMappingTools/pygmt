@@ -45,12 +45,12 @@ def info(table, **kwargs):
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
-        ``'[b|p|f|s]dx[/dy[/dz...]]'``.
+        [**b**\|\ **p**\|\ **f**\|\ **s**]\ *dx*\[/*dy*\[/*dz*...]].
         Report the min/max of the first n columns to the nearest multiple of
         the provided increments and output results in the form
         ``[w, e, s, n]``.
     nearest_multiple : str
-        ``'dz[+ccol]'``
+        **dz**\[\ **+c**\ *col*].
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
