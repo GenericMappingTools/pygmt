@@ -54,11 +54,23 @@ def grdfilter(grid, **kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     filter : str
-        ``xwidth[/width2][modifiers]``.
-        Name of filter type you which to apply, followed by the width
-        b: Box Car; c: Cosine Arch; g: Gaussian; o: Operator; m: Median;
-        p: Maximum Likelihood probability; h: histogram
-        Example: F='m600' for a median filter with width of 600
+        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *xwidth*\
+        [/*width2*\][*modifiers*].
+        Name of filter type you which to apply, followed by the width:
+
+        b: Box Car
+
+        c: Cosine Arch
+
+        g: Gaussian
+
+        o: Operator
+
+        m: Median
+
+        p: Maximum Likelihood probability
+
+        h: histogram
     distance : str
         Distance *flag* tells how grid (x,y) relates to filter width as
         follows:
@@ -87,10 +99,11 @@ def grdfilter(grid, **kwargs):
         Spherical distance calculation.
 
     spacing : str
-        ``xinc[+e|n][/yinc[+e|n]]``.
+        *xinc*\[\ *unit*\][**+e**\|\ **n**]
+        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
         x_inc [and optionally y_inc] is the grid spacing.
     nans : str or float
-        ``i|p|r``.
+        **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.
     {R}
     toggle : bool
