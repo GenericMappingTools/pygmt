@@ -113,21 +113,22 @@ def x2sys_init(tag, **kwargs):
         *fmtfile*).
 
     discontinuity : str
-        ``d|g``
+        **d**\|\ **g**.
         Selects geographical coordinates. Append **d** for discontinuity at the
         Dateline (makes longitude go from -180 to + 180) or **g** for
         discontinuity at Greenwich (makes longitude go from 0 to 360
         [Default]). If not given we assume the data are Cartesian.
 
     spacing : str or list
-         ``dx[/dy]``
+         *dx*\[/*dy*\].
          x_inc [and optionally y_inc] is the grid spacing. Append **m** to
          indicate minutes or **s** to indicate seconds for geographic data.
          These spacings refer to the binning used in the track bin-index data
          base.
 
     units : str or list
-        ``d|sunit``.
+        **d**\|\ **s**\
+        **c**\|\ **e**\|\ **f**\|\ **k**\|\ **m**\|\ **n**\|\ **u** .
         Sets the units used for distance and speed when requested by other
         programs. Append **d** for distance or **s** for speed, then give the
         desired unit as:
@@ -147,7 +148,7 @@ def x2sys_init(tag, **kwargs):
     {V}
 
     gap : str or list
-        ``t|dgap``.
+        **t**\|\ **d**\ *gap*.
         Give **t** or **d** and append the corresponding maximum time gap (in
         user units; this is typically seconds [Infinity]), or distance (for
         units, see *units*) gap [Infinity]) allowed between the two data points
