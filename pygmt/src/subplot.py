@@ -196,15 +196,17 @@ def set_panel(self, panel=None, **kwargs):
         ``autolabel`` was specified by the initial :meth:`pygmt.Figure.subplot`
         command.
 
-    clearance : str
+    clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
         subplot on the specified side, using *side* values from **w**, **e**,
         **s**, or **n**. The option is repeatable to set aside space on more
-        than one side. Such space will be left untouched by the main map
-        plotting but can be accessed by modules that plot scales, bars, text,
-        etc. This setting overrides the common clearances set by ``clearance``
-        in the initial :meth:`pygmt.Figure.subplot` call.
+        than one side (e.g. ``clearance=['w1c', 's2c']`` would set a clearance
+        of 1 cm on west side and 2 cm on south side). Such space will be left
+        untouched by the main map plotting but can be accessed by modules that
+        plot scales, bars, text, etc. This setting overrides the common
+        clearances set by ``clearance`` in the initial
+        :meth:`pygmt.Figure.subplot` call.
 
     {V}
     """
