@@ -29,7 +29,7 @@ def inset(self, **kwargs):
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \
         | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*][**+j**\ *justify*]
-        [**+o**\ *dx*\ [/*dy*]]
+        [**+o**\ *dx*\ [/*dy*]].
 
         *This is the only required argument.*
         Define the map inset rectangle on the map. Specify the rectangle
@@ -46,7 +46,7 @@ def inset(self, **kwargs):
         **+o**\ *dx*/*dy* in the direction implied by *code* or
         **+j**\ *justify*.
 
-        Alternatively, Give *west/east/south/north* of geographic
+        Alternatively, give *west/east/south/north* of geographic
         rectangle bounded by parallels and meridians; append **+r** if the
         coordinates instead are the lower left and upper right corners of
         the desired rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding
@@ -55,17 +55,17 @@ def inset(self, **kwargs):
 
         Append **+w**\ *width*\ [/*height*] of bounding rectangle or box
         in plot coordinates (inches, cm, etc.). By default, the anchor
-        point on the scale is assumed to be the bottom left corner (BL),
+        point on the scale is assumed to be the bottom left corner (**BL**),
         but this can be changed by appending **+j** followed by a 2-char
         justification code *justify*.
         **Note**: If **j** is used then *justify* defaults to the same
         as *refpoint*, if **J** is used then *justify* defaults to the
         mirror opposite of *refpoint*. Specify inset box attributes via
-        the ``box`` option [outline only].
+        the ``box`` option [Default is outline only].
     box : str or bool
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
         *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
-        [[*dx*/*dy*/][*shade*]]]
+        [[*dx*/*dy*/][*shade*]]].
 
         If passed ``True``, this draws a rectangular box around the map
         inset using the default pen; specify a different pen
@@ -78,11 +78,11 @@ def inset(self, **kwargs):
         Append **+i** to draw a secondary, inner border as well. We use a
         uniform *gap* between borders of 2\ **p** and the default pen
         unless other values are specified. Append **+r** to draw rounded
-        rectangular borders instead, with a 6\ **p** corner radius. You
+        rectangular borders instead, with a 6p corner radius. You
         can override this radius by appending another value. Append
         **+s** to draw an offset background shaded region. Here, *dx*/*dy*
         indicates the shift relative to the foreground frame
-        [4\ **p**/-4\ **p**] and *shade* sets the fill style to use for
+        [4p/-4p] and ``shade`` sets the fill style to use for
         shading [Default is gray50].
     margin : int or str or list
         This is clearance that is added around the inside of the inset.
@@ -95,7 +95,7 @@ def inset(self, **kwargs):
         slashes [Default is no margins].
     no_clip : bool
         Do NOT clip features extruding outside map inset boundaries [Default
-        will clip].
+        is clip].
     {V}
 
     Examples
