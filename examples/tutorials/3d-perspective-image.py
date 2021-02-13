@@ -19,7 +19,7 @@ using :meth:`pygmt.Figure.grdview`.
 import pygmt
 
 # Load sample earth relief data
-grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-108, -103, 35, 40])
+grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35, 40])
 
 ########################################################################################
 # The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
