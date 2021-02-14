@@ -59,7 +59,7 @@ def colorbar(self, **kwargs):
         use **j** or **J** for setting *refpoint* via a 2-char justification
         code that refers to the (invisible) map domain rectangle, (3) use *n*
         for normalized (0-1) coordinates, or (4) use *x* for plot
-        coordinates (inches, cm, etc.). All but *x* requires both ``region``
+        coordinates (inches, cm, etc.). All but **x** requires both ``region``
         and ``projection`` to be specified. Append **+w** followed by the
         length and width of the color bar. If width is not specified then it is
         set to 4% of the given length. Give a negative length to reverse
