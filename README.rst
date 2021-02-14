@@ -215,6 +215,7 @@ Documentation for other versions
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.3.0 <https://www.pygmt.org/v0.3.0>`__
 * `v0.2.1 <https://www.pygmt.org/v0.2.1>`__
 * `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
 * `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
@@ -228,7 +229,8 @@ Compatibility with Python and GMT versions
 ======= ========== =========
 PyGMT   GMT        Python
 ======= ========== =========
-0.2.1   >=6.1.1    >=3.6
+0.3.0   >=6.1.1    >=3.6
+0.2.1   >=6.1.1    3.6 - 3.9
 0.2.0   >=6.1.1    3.6 - 3.8
 0.1.x   >=6.0.0    3.6 - 3.8
 ======= ========== =========
