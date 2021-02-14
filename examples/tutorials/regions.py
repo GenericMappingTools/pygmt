@@ -98,6 +98,7 @@ fig.coast(
     projection="Cyl_stere/12c",
     land="darkgray",
     water="white",
+    borders="1/0.5p",
     shorelines="1/0.5p",
     frame="ag",
 )
@@ -116,6 +117,7 @@ fig.coast(
     projection="Cyl_stere/12c",
     land="darkgray",
     water="white",
+    borders="1/0.5p",
     shorelines="1/0.5p",
     frame="ag",
 )
