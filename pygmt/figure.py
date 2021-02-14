@@ -201,7 +201,7 @@ class Figure:
             If True, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIFF). More specifically, it passes arguments ``t2`` 
+            JPG, TIFF). More specifically, it passes arguments ``t2``
             and ``g2`` to the ``anti_aliasing`` parameter of
             :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
             graphics.
