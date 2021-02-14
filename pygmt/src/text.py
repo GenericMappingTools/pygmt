@@ -77,7 +77,7 @@ def text_(
     position : str
         Sets reference point on the map for the text by using x,y
         coordinates extracted from ``region`` instead of providing them
-        through ``x/y``. Specify with a two letter (order independent)
+        through ``x``/``y``. Specify with a two letter (order independent)
         code, chosen from:
 
         * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
