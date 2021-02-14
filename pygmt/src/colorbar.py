@@ -49,10 +49,10 @@ def colorbar(self, **kwargs):
         Set color bar boundary frame, labels, and axes attributes.
     {CPT}
     position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*
-        [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]
-        [**+h**\|\ **v**][**+j**\ *justify*]
-        [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
+        [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]\
+        [**+h**\|\ **v**][**+j**\ *justify*]\
+        [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]\
         [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
         Defines the reference point on the map for the color scale using one of
         four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
@@ -69,7 +69,7 @@ def colorbar(self, **kwargs):
         changed by appending **+j** followed by a 2-char justification code
         *justify*.
     box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]
+        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to True, draws a rectangular border around the color scale.
         Alternatively, specify a different pen with **+p**\ *pen*. Add

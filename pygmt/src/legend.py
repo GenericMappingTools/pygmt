@@ -50,8 +50,8 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     {J}
     {R}
     position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*
-        **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
+        **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
         [**+o**\ *dx*\ [/*dy*]].
         Defines the reference point on the map for the
         legend. By default, uses **JTR**\ +\ **jTR**\ +\ **o**\ *0.2c* which
