@@ -104,7 +104,7 @@ fig.show()
 # 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
 # ``frame="a"`` is used to add a frame to the figure.
 
-grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-14, 30, 35, 60])
+grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
