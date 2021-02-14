@@ -28,7 +28,7 @@ def inset(self, **kwargs):
     position : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \
         | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *width*\ [/*height*][**+j**\ *justify*]
+        **+w**\ *width*\ [/*height*][**+j**\ *justify*]\
         [**+o**\ *dx*\ [/*dy*]].
 
         *This is the only required parameter.*
