@@ -56,7 +56,7 @@ def basemap(self, **kwargs):
     {R}
     {B}
     map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ 
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
         Draws a simple map scale centered on the reference point specified.
     rose : str

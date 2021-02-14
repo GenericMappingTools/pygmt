@@ -61,9 +61,9 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         Without further options, draws a rectangular border around the legend
-        using :gmt-term:`MAP_FRAME_PEN`. By default, uses **+g**\ white\ **+p**\ 1p
-        which draws a box around the legend using a 1p black pen and adds
-        a white background.
+        using :gmt-term:`MAP_FRAME_PEN`. By default, uses
+        **+g**\ white\ **+p**\ 1p which draws a box around the legend using a
+        1p black pen and adds a white background.
     {V}
     {XY}
     {c}
