@@ -42,7 +42,7 @@ The main advantages of this are:
 
 We use GitHub Actions continuous integration (CI) services to
 build and test the project on Linux, macOS and Windows.
-They rely on the `requirements.txt` file to install required dependencies using
+They rely on the `environment.yml` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
 
 ### GitHub Actions

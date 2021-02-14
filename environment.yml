@@ -3,7 +3,6 @@ channels:
     - conda-forge
     - defaults
 dependencies:
-    - python=3.8
     - pip
     - gmt=6.1.1
     - numpy
@@ -13,12 +12,14 @@ dependencies:
     - packaging
     - black
     - blackdoc
+    - codecov
     - coverage[toml]
     - docformatter
     - flake8
     - ipython
     - isort>=5
     - jupyter
+    - make
     - matplotlib
     - nbsphinx
     - pylint
