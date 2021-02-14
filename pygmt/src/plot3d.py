@@ -117,7 +117,7 @@ def plot3d(
         If using ``intensity=True``, we will instead read *intens* from the
         first data column after the symbol parameters (if given).
     close : str
-        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]
+        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
         Force closed polygons. Full documentation is at
         :gmt-docs:`plot3d.html#l`.
