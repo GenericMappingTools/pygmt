@@ -25,7 +25,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[0, 60, -50, 50], projection="X10c/10c", frame=True)
 
 ################################
-# plot simple horizontal vectors
+# Plot simple horizontal vectors (1)-(5)
 
 x = 5
 y = 40
@@ -44,7 +44,7 @@ for vecstyle in [
     idx += 1
 
 ################################
-# (6)-(8) plot simple vertical vectors using different pens and colors
+# Plot simple vertical vectors using different pens and colors (6)-(8)
 
 x = 37
 y = -5
@@ -52,8 +52,8 @@ y = -5
 vectorsv = [
     ["v1.2c+e+b+h0.5", "lightgreen", "4p,seagreen"],  # (6)
     ["v1.2c+bi+eA+h0.2", "lightblue", "2p,dodgerblue4"],  # (7)
-    ["v1.3c+bi+ea+h0.4+r", "orchid", "2p,darkmagenta"],
-]  # (8)
+    ["v1.3c+bi+ea+h0.4+r", "orchid", "2p,darkmagenta"],  # (8)
+]
 
 for vector in vectorsv:
     fig.plot(
@@ -67,7 +67,7 @@ for vector in vectorsv:
 
 
 ################################
-# (9)-(12) circular vectors
+# Plot circular vectors (9)-(12)
 
 # (9) plot a math angle arc with its center at 10/-26,
 #     a radius of 1 and a start angle of 0 and end angle of 300 degrees
@@ -77,29 +77,33 @@ fig.plot(data=data, style="m0.5c+ea", color="red3", pen="2p,gray25")
 fig.text(x=10, y=-43, text="(" + str(idx) + ")")
 idx += 1
 
-# (10-12) plot math angle arcs with different radii
-#         and start/end vector modifiers
+# (10-12) plot math angle arcs starting at 0 degrees and ending at 90 degrees
+#         with different radii and start/end vector modifiers
 x = 20
 y = -40
 startdir = 0
 stopdir = 90
-radius = 2.5
+radius = 1.5
 pen = "1.5p,gray25"
 xtext = 24.5
 
-for arcstyle in ["m0.5c+ea+ba+r", "m0.5c+ea+ba", "m0.5c+ea"]:  # (9)  # (10)  # (11)
+for arcstyle in [
+    "m0.5c+ea+ba+r",  # (9) right-sided half-arrow heads at beginning and end
+    "m0.5c+ea+ba",  # (10) arrow head at beginning and end
+    "m0.5c+ea",  # (11) arrow head at the vector end
+]:
 
     data = np.array([[x, y, radius, startdir, stopdir]])
     fig.plot(data=data, style=arcstyle, color="red3", pen=pen)
 
     fig.text(x=xtext + 3, y=-43, text="(" + str(idx) + ")")
 
-    radius -= 0.5
+    radius += 0.5
     xtext += 4.55
     idx += 1
 
 ################################
-# (13) set of vectors with arrow ends starting from one center point
+# Plot set of vectors with arrow ends starting from one center point (13)
 
 x = np.repeat(48, 8)
 y = np.repeat(-23, 8)
