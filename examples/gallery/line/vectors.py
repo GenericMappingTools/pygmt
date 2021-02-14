@@ -2,16 +2,19 @@
 Vectors
 -------
 
-The :meth:`pygmt.Figure.plot` method can plot individual types of vectors. 
-There are three classes of vectors: Cartesian, circular and geographic. While 
-their use is slightly different, they all share common modifiers that affect 
-how they are displayed.
+The :meth:`pygmt.Figure.plot` method can plot three classes of vectors: 
+Cartesian, circular and geographic. While their use is slightly different, 
+they all share common modifiers that affect how they are displayed. 
+We must specify the vector type and the modifiers by passing the corresponding 
+shortcuts listed below to the  ``style``` argument. Additionally, we must define 
+the vector directions (angle and length, azimuth and length, or x and y 
+components) via the ``direction`` argument.
 
 The following vectors are available:
 
-- **v**: vector, ``x```, ``y``, ``direction``
-- **m**: math arc angle, ``x```, ``y``, ``direction``
-- **=**: geographic vector, ``x```, ``y``, ``direction``
+- **v**: cartesian
+- **m**: circular
+- **=**: geographic
 
 Upper-case versions **V** and **M** are similar to **v** and **m** but expect geographic
 azimuths and distances.
@@ -119,6 +122,5 @@ fig.plot(
 )
 
 fig.text(x=48, y=-43, text="(" + str(idx) + ")")
-idx += 1
 
 fig.show()
