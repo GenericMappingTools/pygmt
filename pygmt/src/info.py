@@ -26,11 +26,12 @@ def info(table, **kwargs):
     find the extent of the first two columns rounded up and down to the nearest
     multiple of the supplied increments given by *spacing*. Such output will be
     in a numpy.ndarray form ``[w, e, s, n]``, which can be used directly as the
-    *region* argument for other modules (hence only dx and dy are needed). If
-    the *per_column* option is combined with *spacing*, then the numpy.ndarray
-    output will be rounded up/down for as many columns as there are increments
-    provided in *spacing*. A similar option *nearest_multiple* option will
-    provide a numpy.ndarray in the form of ``[zmin, zmax, dz]`` for makecpt.
+    ``region`` argument for other modules (hence only dx and dy are needed).
+    If the ``per_column`` option is combined with ``spacing``, then the
+    numpy.ndarray output will be rounded up/down for as many columns as there
+    are increments provided in ``spacing``. A similar option
+    ``nearest_multiple`` option will provide a numpy.ndarray in the form of
+    ``[zmin, zmax, dz]`` for makecpt.
 
     Full option list at :gmt-docs:`gmtinfo.html`
 

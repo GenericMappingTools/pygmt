@@ -48,7 +48,8 @@ def blockmedian(table, outfile=None, **kwargs):
         Specify the region of interest.
 
     outfile : str
-        Required if 'table' is a file. The file name for the output ASCII file.
+        Required if ``table`` is a file. The file name for the output ASCII
+        file.
 
     {V}
 
