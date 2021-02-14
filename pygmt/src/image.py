@@ -42,11 +42,10 @@ def image(self, imagefile, **kwargs):
     {J}
     {R}
     position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*
-        **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
+        **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
         [**+n**\ *nx*\ [/*ny*] ]\ [**+o**\ *dx*\ [/*dy*]].
-        Sets reference point on the map for the
-        image.
+        Sets reference point on the map for the image.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
