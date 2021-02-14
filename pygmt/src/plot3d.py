@@ -82,7 +82,7 @@ def plot3d(
         color, and size, respectively.
     sizes : 1d array
         The sizes of the data points in units specified in ``style``.
-        Only valid if using ``x/y/z``.
+        Only valid if using ``x``/``y``/``z``.
     direction : list of two 1d arrays
         If plotting vectors (using ``style='V'`` or ``style='v'``), then
         should be a list of two 1d arrays with the vector directions. These
