@@ -6,14 +6,14 @@ The :meth:`pygmt.Figure.plot` method can plot three classes of vectors:
 Cartesian, circular and geographic. While their use is slightly different, 
 they all share common modifiers that affect how they are displayed. 
 We must specify the vector type and the modifiers by passing the corresponding 
-shortcuts listed below to the  ``style``` argument. Additionally, we must define 
+shortcuts listed below to the  ``style`` argument. Additionally, we must define 
 the vector directions (angle and length, azimuth and length, or x and y 
 components) via the ``direction`` argument.
 
 The following vectors are available:
 
 - **v**: cartesian
-- **m**: circular
+- **m**: circular (math angle arc)
 - **=**: geographic
 
 Upper-case versions **V** and **M** are similar to **v** and **m** but expect geographic
@@ -35,7 +35,7 @@ y = 40
 idx = 1
 
 for vecstyle in [
-    "v0.5c+e",  # (1) simple vector with arrow head at the end
+    "v0.5c+e",  # (1) simple vector (angle of 0 degrees and length of 4) with arrow head at the end
     "v0.3c+bc+ea+a80",  # (2) vector with arrow head at the end and a circle at the beginning
     "v0.3c+bt+et+a80",  # (3) vector with terminal lines at beginning and end
     "v0.85c+bi+ea+h0.5",  # (4) vector with tail at the beginning and an arrow with modified vector head at the end
@@ -55,7 +55,7 @@ y = -5
 vectorsv = [
     ["v1.2c+e+b+h0.5", "lightgreen", "4p,seagreen"],  # (6)
     ["v1.2c+bi+eA+h0.2", "lightblue", "2p,dodgerblue4"],  # (7)
-    ["v1.3c+bi+ea+h0.4+r", "orchid", "2p,darkmagenta"],  # (8)
+    ["v1.3c+bi+ea+h0.4+r", "white", "2p,darkmagenta"],  # (8)
 ]
 
 for vector in vectorsv:
