@@ -40,7 +40,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     This function is used to split the current figure into a rectangular layout
     of subplots that each may contain a single self-contained figure. Begin by
     defining the layout of the entire multi-panel illustration. Several
-    arguments are available to specify the systematic layout, labeling,
+    parameters are available to specify the systematic layout, labeling,
     dimensions, and more for the subplots.
 
     Full option list at :gmt-docs:`subplot.html#synopsis-begin-mode`
@@ -137,7 +137,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
 
         - Labels and titles that depends on which row or column are specified
           as usual via a subplot's own ``frame`` setting.
-        - Append **+w** to the ``figsize`` or ``subsize`` argument to draw
+        - Append **+w** to the ``figsize`` or ``subsize`` parameter to draw
           horizontal and vertical lines between interior panels using selected
           pen [no lines].
     title : str

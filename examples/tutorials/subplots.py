@@ -66,7 +66,7 @@ fig.show()
 # all subsequent plotting functions will take place in that subplot panel. This
 # is similar to matplotlib's ``plt.sca`` method. In order to specify a subplot,
 # you will need to provide the identifier for that subplot via the ``panel``
-# argument. Pass in either the *index* number, or a tuple/list like
+# parameter. Pass in either the *index* number, or a tuple/list like
 # (*row*, *col*) to ``panel``.
 
 ###############################################################################
@@ -91,7 +91,7 @@ fig.show()
 # Making your first subplot
 # -------------------------
 # Next, let's use what we learned above to make a 2 row by 2 column subplot
-# figure. We'll also pick up on some new arguments to configure our subplot.
+# figure. We'll also pick up on some new parameters to configure our subplot.
 
 fig = pygmt.Figure()
 with fig.subplot(
@@ -111,9 +111,9 @@ fig.show()
 
 ###############################################################################
 # In this example, we define a 2-row, 2-column (2x2) subplot layout using
-# :meth:`pygmt.Figure.subplot`. The overall figure dimensions is set to be 15 cm
-# wide and 6 cm high (``figsize=["15c", "6c"]``). In addition, we use some
-# optional arguments to fine-tune some details of the figure creation:
+# :meth:`pygmt.Figure.subplot`. The overall figure dimensions is set to be
+# 15 cm wide and 6 cm high (``figsize=["15c", "6c"]``). In addition, we use
+# some optional parameters to fine-tune some details of the figure creation:
 #
 # - ``autolabel=True``: Each subplot is automatically labelled abcd
 # - ``margins=["0.1c", "0.2c"]``: adjusts the space between adjacent subplots.
@@ -146,7 +146,7 @@ fig.show()
 # .. note::
 #
 #     All plotting functions (e.g. :meth:`pygmt.Figure.coast`,
-#     :meth:`pygmt.Figure.text`, etc) are able to use ``panel`` argument when
+#     :meth:`pygmt.Figure.text`, etc) are able to use ``panel`` parameter when
 #     in subplot mode. Once a panel is activated using ``panel`` or
 #     :meth:`pygmt.Figure.set_panel`, subsequent plotting commands that don't
 #     set a ``panel`` will have their elements added to the same panel as
@@ -157,7 +157,7 @@ fig.show()
 # --------------------------
 # In the example above with the four subplots, the two subplots for each row
 # have the same Y-axis range, and the two subplots for each column have the
-# same X-axis range. You can use the ``sharex``/``sharey`` arguments to set a
+# same X-axis range. You can use the ``sharex``/``sharey`` parameters to set a
 # common X and/or Y axis between subplots.
 
 fig = pygmt.Figure()

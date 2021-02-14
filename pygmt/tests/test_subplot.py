@@ -30,7 +30,7 @@ def test_subplot_basic_frame():
 @check_figures_equal()
 def test_subplot_direct():
     """
-    Plot map elements to subplot directly using the panel argument.
+    Plot map elements to subplot directly using the panel parameter.
     """
     fig_ref, fig_test = Figure(), Figure()
     with fig_ref.subplot(nrows=2, ncols=1, Fs="3c/3c"):
@@ -91,7 +91,7 @@ def test_subplot_clearance_and_shared_xy_axis_layout():
 
 def test_subplot_figsize_and_subsize_error():
     """
-    Check that an error is raised when both figsize and subsize arguments are
+    Check that an error is raised when both figsize and subsize parameters are
     passed into subplot.
     """
     fig = Figure()
