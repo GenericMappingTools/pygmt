@@ -54,9 +54,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     ncols : int
         Number of horizontal columns of the subplot grid.
     figsize : tuple
-        Specify the final figure dimensions as ``(width, height)``.
+        Specify the final figure dimensions as (*width*, *height*).
     subsize : tuple
-        Specify the dimensions of each subplot directly as ``(width, height)``.
+        Specify the dimensions of each subplot directly as (*width*, *height*).
         Note that only one of ``figsize`` or ``subsize`` can be provided at
         once.
 
@@ -153,10 +153,10 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     kwargs["T"] = f'"{kwargs.get("T")}"' if kwargs.get("T") else None
 
     if nrows < 1 or ncols < 1:
-        raise GMTInvalidInput("Please ensure that both `nrows`>=1 and `ncols`>=1.")
+        raise GMTInvalidInput("Please ensure that both 'nrows'>=1 and 'ncols'>=1.")
     if kwargs.get("Ff") and kwargs.get("Fs"):
         raise GMTInvalidInput(
-            "Please provide either one of `figsize` or `subsize` only."
+            "Please provide either one of 'figsize' or 'subsize' only."
         )
 
     with Session() as lib:
@@ -177,12 +177,12 @@ def set_panel(self, panel=None, **kwargs):
     Set the current subplot panel to plot on.
 
     Before you start plotting you must first select the active subplot. Note:
-    If any *projection* option is passed with **?** as scale or width when
-    plotting subplots, then the dimensions of the map are automatically
-    determined by the subplot size and your region. For Cartesian plots: If you
-    want the scale to apply equally to both dimensions then you must specify
-    ``projection="x"`` [The default ``projection="X"`` will fill the subplot by
-    using unequal scales].
+    If any *projection* option is passed with the question mark **?** as scale
+    or width when plotting subplots, then the dimensions of the map are
+    automatically determined by the subplot size and your region. For Cartesian
+    plots: If you want the scale to apply equally to both dimensions then you
+    must specify ``projection="x"`` [The default ``projection="X"`` will fill
+    the subplot by using unequal scales].
 
     {aliases}
 
