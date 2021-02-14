@@ -62,7 +62,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         contours specified in ``interval``.
 
         - Specify a fixed annotation interval *annot_int* or a
-          single annotation level +\ *annot_int* .
+          single annotation level +\ *annot_int*.
     {B}
     levels : str
         Contour file or level(s)
