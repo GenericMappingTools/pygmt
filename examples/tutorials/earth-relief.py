@@ -100,7 +100,7 @@ fig.show()
 # and accepts a list (as in the example below) or a string. The geographic ranges are
 # passed as *xmin*/*xmax*/*ymin*/*ymax*.
 #
-# The example below uses data with a 5 arc minute resolution, and plots it on a
+# The example below uses data with a 10 arc minute resolution, and plots it on a
 # 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
 # ``frame="a"`` is used to add a frame to the figure.
 
