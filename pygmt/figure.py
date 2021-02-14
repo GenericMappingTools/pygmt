@@ -164,7 +164,7 @@ class Figure:
             combined with any of the other formats. For example, **ef** creates
             both an EPS and a PDF file. Using **F** creates a multi-page PDF
             file from the list of input PS or PDF files. It requires the
-            ``prefix`` option.
+            ``prefix`` parameter.
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
@@ -201,7 +201,8 @@ class Figure:
             If True, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIFF). More specifically, it uses options ``t2, g2`` in
+            JPG, TIFF). More specifically, it passes arguments ``t2`` 
+            and ``g2`` to the ``anti_aliasing`` parameter of
             :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
             graphics.
         show: bool
