@@ -96,7 +96,7 @@ fig = pygmt.Figure()
 fig.coast(
     region="d",
     projection="Cyl_stere/12c",
-    land="lightgray",
+    land="darkgray",
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
@@ -115,7 +115,7 @@ fig = pygmt.Figure()
 fig.coast(
     region="g",
     projection="Cyl_stere/12c",
-    land="lightgray",
+    land="darkgray",
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
