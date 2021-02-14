@@ -59,7 +59,7 @@ def text_(
     Must provide at least one of the following combinations as input:
 
     - ``textfiles``
-    - ``x/y``, and ``text``
+    - ``x``/``y``, and ``text``
     - ``position`` and ``text``
 
     Full option list at :gmt-docs:`text.html`
