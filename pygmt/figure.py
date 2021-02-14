@@ -154,16 +154,17 @@ class Figure:
             Append the size of the subsample box (1, 2, or 4) [4]. Default is
             no anti-aliasing (same as bits = 1).
         fmt : str
-            Sets the output format, where *b* means BMP, *e* means EPS, *E*
-            means EPS with PageSize command, *f* means PDF, *F* means
-            multi-page PDF, *j* means JPEG, *g* means PNG, *G* means
-            transparent PNG (untouched regions are transparent), *m* means PPM,
-            *s* means SVG, and *t* means TIFF [default is JPEG]. To ``'bjgt'``
-            you can append ``'+m'`` in order to get a monochrome (grayscale)
-            image. The EPS format can be combined with any of the other
-            formats. For example, ``'ef'`` creates both an EPS and a PDF file.
-            Using ``'F'`` creates a multi-page PDF file from the list of input
-            PS or PDF files. It requires the *prefix* option.
+            Sets the output format, where **b** means BMP, **e** means EPS,
+            **E** means EPS with PageSize command, **f** means PDF, **F** means
+            multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
+            transparent PNG (untouched regions are transparent), **m** means
+            PPM, **s** means SVG, and **t** means TIFF [default is JPEG]. To
+            **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
+            order to get a monochrome (grayscale) image. The EPS format can be
+            combined with any of the other formats. For example, **ef** creates
+            both an EPS and a PDF file. Using **F** creates a multi-page PDF
+            file from the list of input PS or PDF files. It requires the
+            ``prefix`` option.
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
