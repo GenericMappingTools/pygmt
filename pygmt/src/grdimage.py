@@ -133,7 +133,7 @@ def grdimage(self, grid, **kwargs):
         intensity, and ambient arguments for that module, or just give
         **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0]. If you want a more
-        specific intensity scenario then run `grdgradient` separately first. If
+        specific intensity scenario then run ``grdgradient`` separately first. If
         we should derive intensities from another file than grid, specify the
         file with suitable modifiers [Default is no illumination].
     {J}

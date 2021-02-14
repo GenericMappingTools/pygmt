@@ -104,7 +104,7 @@ def grdview(self, grid, **kwargs):
         **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
         azimuth, intensity, and ambient arguments for that module, or just give
         **+d** to select the default arguments
-        [default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
+        [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {V}
     {XY}
     {c}
