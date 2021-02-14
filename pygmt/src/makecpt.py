@@ -31,7 +31,7 @@ def makecpt(**kwargs):
 
     This is a module that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
-    but you can use *output* to save it to a file. You define an equidistant
+    but you can use ``output`` to save it to a file. You define an equidistant
     set of contour intervals or pass your own z-table or list, and create a new
     CPT based on an existing master (dynamic) CPT. The resulting CPT can be
     reversed relative to the master cpt, and can be made continuous or
@@ -49,8 +49,8 @@ def makecpt(**kwargs):
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
     :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the
     :gmt-docs:`gmt.conf <gmt.conf>` file or the command line will be used. This
-    default behavior can be overruled using the options *background*,
-    *overrule_bg* or *no_bg*.
+    default behavior can be overruled using the options ``background``,
+    ``overrule_bg`` or ``no_bg``.
 
     The color model (RGB, HSV or CMYK) of the palette created by **makecpt**
     will be the same as specified in the header of the master CPT. When there
@@ -90,7 +90,7 @@ def makecpt(**kwargs):
         CPT is plotted. The *label* may be a comma-separated list of category
         names (you can skip a category by not giving a name), or give
         *start*[-], where we automatically build monotonically increasing
-        labels from *start* (a single letter or an integer). Append - to build
+        labels from *start*\ (a single letter or an integer). Append - to build
         ranges *start*-*start+1* instead.
     series : list or str
         [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**\ ]\|\ *file*\|\ *list*\ ].
@@ -112,11 +112,11 @@ def makecpt(**kwargs):
         file. If not given or False (default), saves the CPT as the session
         current CPT.
     reverse : str
-        Set this to True or c [Default] to reverse the sense of color
+        Set this to True or **c**\ [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
         z-values in the color table. Note that this change of z-direction
-        happens before *truncate* and *series* values are used so the latter
-        must be compatible with the changed *z*-range. See also
+        happens before ``truncate`` and ``series`` values are used so the
+        latter must be compatible with the changed *z*-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
