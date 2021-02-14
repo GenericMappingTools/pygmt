@@ -19,6 +19,7 @@ from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
     blockmedian,
+    grd2cpt,
     grdcut,
     grdfilter,
     grdinfo,
@@ -94,7 +95,7 @@ def show_versions():
         Get ghostscript version.
         """
         os_name = sys.platform
-        if os_name.startswith("linux") or os_name == "darwin":
+        if os_name.startswith(("linux", "freebsd", "darwin")):
             cmds = ["gs"]
         elif os_name == "win32":
             cmds = ["gswin64c.exe", "gswin32c.exe"]
