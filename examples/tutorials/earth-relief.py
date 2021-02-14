@@ -20,10 +20,10 @@ Plotting a map of Earth relief can use the data accessed by the
 import pygmt
 
 ########################################################################################
-# Load sample Earth relief data for the entire globe at a resolution of 30 arc minutes.
+# Load sample Earth relief data for the entire globe at a resolution of 1 arc degree.
 # The other available resolutions are show
 # at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
-grid = pygmt.datasets.load_earth_relief(resolution="01d", registration="gridline")
+grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
 ########################################################################################
 # Create a plot
