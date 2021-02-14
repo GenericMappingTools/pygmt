@@ -31,7 +31,7 @@ def grdcut(grid, **kwargs):
     r"""
     Extract subregion from a grid.
 
-    Produce a new *outgrid* file which is a subregion of *grid*. The
+    Produce a new ``outgrid`` file which is a subregion of ``grid``. The
     subregion is specified with *region*; the specified range must not exceed
     the range of *grid* (but see *extend*). If in doubt, run
     :meth:`pygmt.grdinfo` to check range. Alternatively, define the subregion
@@ -54,7 +54,7 @@ def grdcut(grid, **kwargs):
     {J}
     {R}
     extend : bool or int or float
-        Allow grid to be extended if new *region* exceeds existing boundaries.
+        Allow grid to be extended if new ``region`` exceeds existing boundaries.
         Give a value to initialize nodes outside current region.
     circ_subregion : str
         *lon/lat/radius*\[\ *unit*\][**+n**].

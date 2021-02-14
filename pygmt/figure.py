@@ -151,8 +151,8 @@ class Figure:
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
-            Append the size of the subsample box (1, 2, or 4) [4]. Default is
-            no anti-aliasing (same as bits = 1).
+            Append the size of the subsample box (1, 2, or 4) [4]. [Default is
+            no anti-aliasing (same as bits = 1)].
         fmt : str
             Sets the output format, where **b** means BMP, **e** means EPS,
             **E** means EPS with PageSize command, **f** means PDF, **F** means
@@ -180,7 +180,7 @@ class Figure:
         Save the figure to a file.
 
         This method implements a matplotlib-like interface for
-        :doc:psconvert </psconvert>.
+        :meth:`pygmt.Figure.psconvert`.
 
         Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
         BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
@@ -202,7 +202,7 @@ class Figure:
         anti_alias: bool
             If True, will use anti aliasing when creating raster images (PNG,
             JPG, TIFF). More specifically, it uses options ``t2, g2`` in
-            :doc:psconvert </psconvert>. Ignored if creating vector graphics.
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector graphics.
         show: bool
             If True, will open the figure in an external viewer.
         dpi : int

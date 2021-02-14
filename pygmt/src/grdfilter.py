@@ -101,7 +101,7 @@ def grdfilter(grid, **kwargs):
     spacing : str
         *xinc*\[\ *unit*\][**+e**\|\ **n**]
         [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        x_inc [and optionally y_inc] is the grid spacing.
+        *xinc* [and optionally *yinc*] is the grid spacing.
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.
