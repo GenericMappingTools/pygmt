@@ -50,9 +50,9 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
     polygons, or symbols at those locations on a map.
 
-    Must provide either ``data`` or ``x/y``.
+    Must provide either ``data`` or ``x``/``y``.
 
-    If providing data through ``x/y``, ``color`` can be a 1d array that
+    If providing data through ``x``/``y``, ``color`` can be a 1d array that
     will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot will
@@ -80,7 +80,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         and size, respectively.
     sizes : 1d array
         The sizes of the data points in units specified using ``style``.
-        Only valid if using ``x/y``.
+        Only valid if using ``x``/``y``.
     direction : list of two 1d arrays
         If plotting vectors (using ``style='V'`` or ``style='v'``), then
         should be a list of two 1d arrays with the vector directions. These
@@ -107,7 +107,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         *dx/dy* [Default is no offset]. If *dy* is not given it is set
         equal to *dx*.
     error_bar : bool or str
-        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]
+        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
         Draw symmetrical error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
@@ -150,7 +150,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         using ``intensity=True``, we will instead read *intens* from the
         first data column after the symbol parameters (if given).
     close : str
-        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]
+        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
         Force closed polygons. Full documentation is at
         :gmt-docs:`plot.html#l`.
