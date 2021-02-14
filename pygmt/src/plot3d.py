@@ -52,7 +52,7 @@ def plot3d(
     Takes a matrix, (x,y,z) triplets, or a file name as input and plots
     lines, polygons, or symbols at those locations in 3-D.
 
-    Must provide either ``data`` or ``x/y/z``.
+    Must provide either ``data`` or ``x``/``y``/``z``.
 
     If providing data through ``x/y/z``, ``color`` can be a 1d array
     that will be mapped to a colormap.
