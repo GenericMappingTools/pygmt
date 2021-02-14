@@ -67,22 +67,22 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         Specify automatic tagging of each subplot. Append either a number or
         letter [a]. This sets the tag of the first, top-left subplot and others
         follow sequentially. Surround the number or letter by parentheses on
-        any side if these should be typeset as part of the tag. Use **+j|J**\
-        *refpoint* to specify where the tag should be placed in the subplot
-        [TL]. Note: **+j** sets the justification of the tag to *refpoint*
-        (suitable for interior tags) while **+J** instead selects the mirror
-        opposite (suitable for exterior tags). Append **+c**\ *dx*\[/*dy*] to
-        set the clearance between the tag and a surrounding text box requested
-        via **+g** or **+p** [3p/3p, i.e., 15% of the :gmt-term:`FONT_TAG` size
-        dimension]. Append **+g**\ *fill* to paint the tag's text box with
-        *fill* [no painting]. Append **+o**\ *dx*\ [/*dy*] to offset the tag's
-        reference point in the direction implied by the justification [4p/4p,
-        i.e., 20% of the :gmt-term:`FONT_TAG` size]. Append **+p**\ *pen* to
-        draw the outline of the tag's text box using selected *pen* [no
-        outline]. Append **+r** to typeset your tag numbers using lowercase
-        Roman numerals; use **+R** for uppercase Roman numerals [Arabic
-        numerals]. Append **+v** to increase tag numbers vertically down
-        columns [horizontally across rows].
+        any side if these should be typeset as part of the tag. Use
+        **+j**\|\ **J**\ *refpoint* to specify where the tag should be placed
+        in the subplot [TL]. Note: **+j** sets the justification of the tag to
+        *refpoint* (suitable for interior tags) while **+J** instead selects
+        the mirror opposite (suitable for exterior tags). Append
+        **+c**\ *dx*\[/*dy*] to set the clearance between the tag and a
+        surrounding text box requested via **+g** or **+p** [3p/3p, i.e., 15%
+        of the :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to
+        paint the tag's text box with *fill* [no painting]. Append
+        **+o**\ *dx*\ [/*dy*] to offset the tag's reference point in the
+        direction implied by the justification [4p/4p, i.e., 20% of the
+        :gmt-term:`FONT_TAG` size]. Append **+p**\ *pen* to draw the outline of
+        the tag's text box using selected *pen* [no outline]. Append **+r** to
+        typeset your tag numbers using lowercase Roman numerals; use **+R** for
+        uppercase Roman numerals [Arabic numerals]. Append **+v** to increase
+        tag numbers vertically down columns [horizontally across rows].
     {B}
     clearance : str or list
         [*side*]\ *clearance*.

@@ -207,7 +207,7 @@ with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), autolabel="b)"):
     fig.basemap(
         region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[0, 1]
     )
-# Move the plot origin upward by 1 cm
+# Move plot origin by 1 cm above the height of the entire figure
 fig.shift_origin(yshift="h+1c")
 # Top row, one subplot
 with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), autolabel="a)"):
@@ -221,12 +221,12 @@ fig.show()
 ###############################################################################
 #
 # We start by drawing the bottom two subplots, setting ``autolabel="b)"`` so
-# that the subplots are labelled 'b)' and 'c)'. Then, we plot a single subplot
-# on the top row by using ``fig.subplot(..., yshift="h+1c")`` which shifts the
-# plot origin 1 cm above the **h**\ eight of the entire figure that is
-# currently plotted (i.e. the bottom row subplots). You may need to adjust this
-# ``yshift`` parameter to make your plot look nice. This top row uses
-# ``autolabel="a)"``, and we also plotted some text inside. Note that
+# that the subplots are labelled 'b)' and 'c)'. Next, we use
+# :meth:`pygmt.Figure.shift_origin` to move the plot origin 1 cm above the
+# **h**\ eight of the entire figure that is currently plotted (i.e. the bottom
+# row subplots). A single subplot is then plotted on the top row. You may need
+# to adjust the ``yshift`` parameter to make your plot look nice. This top row
+# uses ``autolabel="a)"``, and we also plotted some text inside. Note that
 # ``projection="X?"`` was used to let GMT automatically determine the size of
 # the subplot according to the size of the subplot area.
 
