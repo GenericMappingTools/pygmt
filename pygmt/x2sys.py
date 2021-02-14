@@ -153,7 +153,8 @@ def x2sys_init(tag, **kwargs):
         user units; this is typically seconds [Infinity]), or distance (for
         units, see ``units``) gap [Default is infinity]) allowed between the
         two data points immediately on either side of a crossover. If these
-        limits are exceeded then a data gap is assumed and no COE will be determined.
+        limits are exceeded then a data gap is assumed and no COE will be
+        determined.
 
     {j}
     """
