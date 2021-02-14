@@ -19,7 +19,7 @@ from pygmt.helpers import (
 @use_alias(I="spacing", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 def blockmedian(table, outfile=None, **kwargs):
-    """
+    r"""
     Block average (x,y,z) data tables by median estimation.
 
     Reads arbitrarily located (x,y,z) triples [or optionally weighted
@@ -39,15 +39,17 @@ def blockmedian(table, outfile=None, **kwargs):
         ASCII data table.
 
     spacing : str
-        ``'xinc[unit][+e|n][/yinc[unit][+e|n]]'``.
-        x_inc [and optionally y_inc] is the grid spacing.
+        *xinc*\[\ *unit*\][**+e**\|\ **n**]
+        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
+        *xinc* [and optionally *yinc*] is the grid spacing.
 
     region : str or list
-        ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
+        *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
         Specify the region of interest.
 
     outfile : str
-        Required if 'table' is a file. The file name for the output ASCII file.
+        Required if ``table`` is a file. The file name for the output ASCII
+        file.
 
     {V}
 
