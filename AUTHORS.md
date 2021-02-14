@@ -5,8 +5,8 @@ during [an NSF funded postdoc](http://www.leouieda.com/blog/hawaii-gmt-postdoc.h
 with [Paul Wessel](http://www.soest.hawaii.edu/wessel) at the University of Hawaii at
 Manoa.
 
-The following people have contributed code to the project (alphabetical by name)
-and are considered to be "PyGMT Developers":
+The following people have contributed code and/or documentation to the project
+(alphabetical by name) and are considered to be "PyGMT Developers":
 
 * [Dongdong Tian](https://seisman.info/) | [0000-0001-7967-1197](https://orcid.org/0000-0001-7967-1197) | Department of Earth and Environmental Sciences, Michigan State University, East Lansing, MI, USA
 * [Leonardo Uieda](http://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | Department of Earth, Ocean and Ecological Sciences, University of Liverpool, Liverpool, United Kingdom
