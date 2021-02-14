@@ -58,7 +58,7 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         places the legend at the top-right corner inside the map frame, with a
         0.2 cm offset.
     box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]
+        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         Without further options, draws a rectangular border around the legend
         using **MAP_FRAME_PEN**. By default, uses **+g**\ white\ **+p**\ 1p
