@@ -60,8 +60,8 @@ def info(table, **kwargs):
     Returns
     -------
     output : np.ndarray or str
-        Return type depends on whether any of the 'per_column', 'spacing', or
-        'nearest_multiple' parameters are set.
+        Return type depends on whether any of the ``per_column``,
+        ``spacing``, or ``nearest_multiple`` parameters are set.
 
         - np.ndarray if either of the above parameters are used.
         - str if none of the above parameters are used.
