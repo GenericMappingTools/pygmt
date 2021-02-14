@@ -47,7 +47,7 @@ def image(self, imagefile, **kwargs):
         [**+n**\ *nx*\ [/*ny*] ]\ [**+o**\ *dx*\ [/*dy*]].
         Sets reference point on the map for the image.
     box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]
+        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         Without further options, draws a rectangular border around the image
         using :gmt-term:`MAP_FRAME_PEN`.
