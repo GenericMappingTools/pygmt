@@ -390,5 +390,7 @@ class Figure:
         meca,
         plot,
         plot3d,
+        set_panel,
+        subplot,
         text,
     )
