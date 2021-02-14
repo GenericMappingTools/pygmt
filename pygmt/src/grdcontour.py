@@ -69,7 +69,7 @@ def grdcontour(self, grid, **kwargs):
           single annotation level +\ *annot_int*
         - Disable all annotation  with  **-**
         - Optional label modifiers can be specified as a single string
-          ``'[annot_int]+e'``  or with a list of options
+          ``'[annot_int]+e'``  or with a list of arguments
           ``([annot_int], 'e', 'f10p', 'gred')``.
     limit : str or list of 2 ints
         *low*/*high*.
@@ -83,8 +83,8 @@ def grdcontour(self, grid, **kwargs):
     {B}
     label_placement : str
         [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
-        *params*.
-        The required argument controls the placement of labels along the
+        *args*.
+        The required parameter controls the placement of labels along the
         quoted lines. It supports five controlling algorithms. See
         :gmt-docs:`grdcontour.html#g` for details.
     {U}

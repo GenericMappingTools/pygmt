@@ -62,7 +62,7 @@ def text_(
     - ``x``/``y``, and ``text``
     - ``position`` and ``text``
 
-    Full option list at :gmt-docs:`text.html`
+    Full parameter list at :gmt-docs:`text.html`
 
     {aliases}
 

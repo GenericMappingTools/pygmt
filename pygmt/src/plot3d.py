@@ -67,7 +67,7 @@ def plot3d(
     polygon outline is drawn or not. If a symbol is selected, ``color`` and
     ``pen`` determines the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot3d.html`
+    Full parameter list at :gmt-docs:`plot3d.html`
 
     {aliases}
 
@@ -78,7 +78,7 @@ def plot3d(
         the data points
     data : str or 2d array
         Either a data file name or a 2d numpy array with the tabular data.
-        Use option ``columns`` to choose which columns are x, y, z,
+        Use parameter ``columns`` to choose which columns are x, y, z,
         color, and size, respectively.
     sizes : 1d array
         The sizes of the data points in units specified in ``style``.
@@ -102,7 +102,7 @@ def plot3d(
         along parallels, for example). For Cartesian data, points are
         simply connected, unless you append **x** or **y** to draw
         stair-case curves that whose first move is along *x* or *y*,
-        respectively. **Note**: The ``straight_line`` option requires
+        respectively. **Note**: The ``straight_line`` parameter requires
         constant *z*-coordinates.
     {B}
     {CPT}
@@ -115,7 +115,7 @@ def plot3d(
         Provide an *intens* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination [Default is None].
         If using ``intensity=True``, we will instead read *intens* from the
-        first data column after the symbol parameters (if given).
+        first data column after the ``style`` parameter (if given).
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
@@ -125,7 +125,7 @@ def plot3d(
         [**c**\|\ **r**].
         Do NOT clip symbols that fall outside map border [Default plots
         points whose coordinates are strictly inside the map border only].
-        The option does not apply to lines and polygons which are always
+        This parameter does not apply to lines and polygons which are always
         clipped to the map region. For periodic (360-longitude) maps we
         must plot all symbols twice in case they are clipped by the
         repeating boundary. ``no_clip=True`` will turn off clipping and not

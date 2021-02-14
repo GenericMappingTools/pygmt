@@ -31,7 +31,7 @@ def inset(self, **kwargs):
         **+w**\ *width*\ [/*height*][**+j**\ *justify*]
         [**+o**\ *dx*\ [/*dy*]].
 
-        *This is the only required argument.*
+        *This is the only required parameter.*
         Define the map inset rectangle on the map. Specify the rectangle
         in one of three ways:
 
@@ -61,7 +61,7 @@ def inset(self, **kwargs):
         **Note**: If **j** is used then *justify* defaults to the same
         as *refpoint*, if **J** is used then *justify* defaults to the
         mirror opposite of *refpoint*. Specify inset box attributes via
-        the ``box`` option [Default is outline only].
+        the ``box`` parameter [Default is outline only].
     box : str or bool
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
         *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
