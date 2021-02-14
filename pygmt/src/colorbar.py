@@ -57,8 +57,8 @@ def colorbar(self, **kwargs):
         Defines the reference point on the map for the color scale using one of
         four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
         use **j** or **J** for setting *refpoint* via a 2-char justification
-        code that refers to the (invisible) map domain rectangle, (3) use *n*
-        for normalized (0-1) coordinates, or (4) use *x* for plot
+        code that refers to the (invisible) map domain rectangle, (3) use **n**
+        for normalized (0-1) coordinates, or (4) use **x** for plot
         coordinates (inches, cm, etc.). All but **x** requires both ``region``
         and ``projection`` to be specified. Append **+w** followed by the
         length and width of the color bar. If width is not specified then it is
@@ -71,7 +71,7 @@ def colorbar(self, **kwargs):
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to True, draws a rectangular border around the color scale.
+        If set to ``True``, draws a rectangular border around the color scale.
         Alternatively, specify a different pen with **+p**\ *pen*. Add
         **+g**\ *fill* to fill the scale panel [default is no fill]. Append
         **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or
