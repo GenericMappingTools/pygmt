@@ -202,7 +202,8 @@ class Figure:
         anti_alias: bool
             If True, will use anti aliasing when creating raster images (PNG,
             JPG, TIFF). More specifically, it uses options ``t2, g2`` in
-            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector graphics.
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
+            graphics.
         show: bool
             If True, will open the figure in an external viewer.
         dpi : int

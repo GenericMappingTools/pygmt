@@ -54,8 +54,8 @@ def grdcut(grid, **kwargs):
     {J}
     {R}
     extend : bool or int or float
-        Allow grid to be extended if new ``region`` exceeds existing boundaries.
-        Give a value to initialize nodes outside current region.
+        Allow grid to be extended if new ``region`` exceeds existing
+        boundaries. Give a value to initialize nodes outside current region.
     circ_subregion : str
         *lon/lat/radius*\[\ *unit*\][**+n**].
         Specify an origin (*lon* and *lat*) and *radius*; append a distance
