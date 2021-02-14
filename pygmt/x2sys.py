@@ -120,7 +120,7 @@ def x2sys_init(tag, **kwargs):
         [Default]). If not given we assume the data are Cartesian.
 
     spacing : str or list
-         *dx*\[/*dy*\].
+         *dx*\[/*dy*].
          *dx* [and optionally *dy*] is the grid spacing. Append **m** to
          indicate minutes or **s** to indicate seconds for geographic data.
          These spacings refer to the binning used in the track bin-index data
