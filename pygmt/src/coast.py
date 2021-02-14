@@ -131,8 +131,8 @@ def coast(self, **kwargs):
 
         c = All canals (8-10)
     map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*
-        +\ **w**\ *length*.
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
+        **+w**\ *length*.
         Draws a simple map scale centered on the reference point specified.
     borders : int or str or list
         *border*\ [/*pen*].
