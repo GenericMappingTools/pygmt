@@ -148,7 +148,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         Provide an *intens* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination [None]. If
         using ``intensity=True``, we will instead read *intens* from the
-        first data column after the ``style`` parameter (if given).
+        first data column after the symbol parameters (if given).
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
