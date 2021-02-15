@@ -31,6 +31,7 @@ Enhancements
 * Add GMTInvalidInput Error for Figure.coast (#787)
 
 Documentation
+
 * Add authorship policy (#726)
 * Update the docstrings in the plotting modules (#881)
 * Update the doc strings in the non-plotting modules (#882)
@@ -66,6 +67,8 @@ Bug Fixes
 
 * Fix a bug of Figure.text() when "text" is a non-string array (#724)
 * Fix the error message when IPython is not available (#701)
+
+Maintenance
 
 * Add dependabot to keep GitHub Actions up to date (#861)
 * Skip workflows in PRs if only non-source-code files are changed (#839)
