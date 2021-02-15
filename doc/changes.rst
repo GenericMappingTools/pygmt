@@ -28,12 +28,12 @@ Enhancements
 * Add common alias panel (-c) to all plotting functions (#853)
 * Add aliases dcw (#765) and lakes (#781) to Figure.coast
 * Add alias shading to Figure.colorbar (#752)
-* Add alias annotation (A) to Figure.contour() (#883)
+* Add alias annotation (A) to Figure.contour (#883)
 * Wrap Figure.grdinfo() aliases (#799)
-* Add aliases frame and cmap to Figure.colorbar() (#709)
-* Add alias frame to Figure.grdview() (#707)
+* Add aliases frame and cmap to Figure.colorbar (#709)
+* Add alias frame to Figure.grdview (#707)
 * Improve the error message when PyGMT fails to load the GMT library (#814)
-* Add GMTInvalidInput Error for Figure.coast (#787)
+* Add GMTInvalidInput error to Figure.coast (#787)
 
 Documentation
 
@@ -56,7 +56,7 @@ Documentation
 * Update Figure.coast() docstrings (#798)
 * Update the docstrings of common aliases (#862)
 * Add sphinx-copybutton extension to easily copy codes (#838)
-* Choosing the thumbnail figures in tutorials (#826)
+* Choose the best figures in tutorials for thumbnails (#826)
 * Update axis label explanation in frames tutorial (#820)
 * Add guidelines for types of tests to write (#796)
 * Recommend using SI units in documentation (#795)
