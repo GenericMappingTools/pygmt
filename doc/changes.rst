@@ -1,6 +1,127 @@
 Changelog
 =========
 
+Release v0.3.0 (2021/02/15)
+---------------------------
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4522136.svg
+   :alt: Digital Object Identifier for the Zenodo archive
+   :target: https://doi.org/10.5281/zenodo.4522136
+
+Highlights
+
+*
+
+New Features
+
+* Wrap subplot using with statement (#822)
+* Wrap grd2cpt (#803)
+* Wrap inset (#788)
+* Let Figure.text() support record-by-record transparency (#716)
+* Provide basic support for FreeBSD (#700)
+
+Enhancements
+
+* Let load_earth_relief() support 'region' argument for all resolutions (#873)
+* Detect ghostscript and default image viewer in FreeBSD (#878)
+* Improve how PyGMT finds the GMT library (#702)
+* Add dcw alias (E) to Figure.coast (#765)
+* Add lakes alias to Figure.coast() (#781)
+* Add the shading parameter to colorbar() in base_plotting.py (#752)
+
+Documentation
+
+* Update the docstrings in the plotting modules (#881)
+* Update the doc strings in the non-plotting modules (#882)
+* Add alias annotation (A) to Figure.contour() (#883)
+* Revise pygmt development installation instructions (#865)
+* Update the docstrings of common aliases (#862)
+* Add common alias panel (-c) to all plotting functions (#853)
+* Update forum link to pygmt specific category (#858)
+* Wrap grdinfo aliases (#799)
+* Add sphinx-copybutton extension to easily copy codes (#838)
+* Add additional video link in text for clarity (#836)
+* Choosing the thumbnail figures in tutorials (#826)
+* Add a gallery example for logo (#823)
+* Update axis label explanation in frames tutorial (#820)
+* Update GMT arguments in coast doc strings (#798)
+* Add tutorial for region arguments (#800)
+* Add guidelines for types of tests to write (#796)
+* Recommend using SI units in documentation (#795)
+* Update GMT argument in the miscellaneous projections gallery to doc standards (#790)
+* Update GMT argument in the cylindric projections gallery to doc standards (#789)
+* Create gallery example for datetime inputs (#779)
+* Update GMT argument in the conic projections gallery to doc standards (#780)
+* Update GMT argument in the azimuthal projections gallery to doc standards (#776)
+* Add an example for plotting multi-parameter symbols (#772)
+* Add a gallery example for the fig.image() method (#777)
+* Add a gallery example of setting line colors with a custom CPT (#774)
+* Add a table for compatibility of PyGMT with Python and GMT (#763)
+* Add description for the "columns" arguments (#766)
+* Add logarithmic and power projections (#742)
+* Add table for projections (#753)
+* Add miscellaneous projections descriptions (#762)
+* Add cylindric descriptions (#761)
+* Conic projection descriptions (#757)
+* Add projection description for Lambert Azimuthal Equal-Area (#760)
+* Add tutorial for 3D perspective image (#743)
+* Add plotting lines tutorial (#741)
+* Change text when GMTInvalidInput error is raised for basemap (#729)
+* Add non-geographic plots to projection gallery (#728)
+* Adding cylindrical projections to gallery (#727)
+* Add tutorial for adding a map title (#720)
+* Adding miscellaneous projections to gallery (#723)
+* Add conic projections to the projection gallery (#721)
+* Add tutorial for plotting Earth relief (#712)
+* Add frame and cmap to the colorbar parameters list (#709)
+* Add tutorial for contour maps (#705)
+* Add frame as a parameter on the grdview documentation (#707)
+
+Bug Fixes
+
+* Fix a bug of Figure.text() when "text" is a non-string array (#724)
+* Fix the error message when IPython is not available (#701)
+
+Maintenance
+
+* Add dependabot to keep GitHub Actions up to date (#861)
+* Add authorship policy (#726)
+* Move plotting functions to separate modules (#808)
+* Skip workflows in PRs if only non-source-code files are changed (#839)
+* Move non-plotting modules to separate files in src directory (#832)
+* Show test execution times in pytest (#835)
+* Add slash command '/test-gmt-dev' to test GMT dev version (#831)
+* Add tests for grdfilter (#809)
+* Improve the error message when PyGMT fails to load the GMT library (#814)
+* Add tests for GMTInvalidInput for figure.py (#810)
+* Split meca into a standalone module from base_plotting.py (#686)
+* Update CONTRIBUTING.md with formatting conventions (#775)
+* Use args_in_kwargs for basemap error raising (#797)
+* Add docformatter to format plain text in docstrings (#642)
+* Add GMTInvalidInput Error for Figure.coast (#787)
+* Add args_in_kwargs function (#791)
+* Add a CI job testing GMT master branch on Windows (#756)
+* Add isort to sort imports alphabetically (#745)
+* Convert relative imports to absolute imports (#754)
+* Add a Makefile target 'distclean' for deleting project metadata files (#744)
+* Add test test_basemap_map_scale (#739)
+* Check files for UNIX-style line breaks and 644 permission (#736)
+* Rename vercel configuration file from now.json to vercel.json (#738)
+* Migrate pytest configurations to pyproject.toml (#725)
+* Migrate documentation deployment from Travis CI to GitHub Actions (#713)
+* Switch from versioneer to setuptools-scm (#695)
+* Migrate coverage configurations to pyproject.toml (#667)
+
+Deprecations
+
+* Drop Python 3.6 support (#699)
+
+Contributors
+
+@dependabot, @dependabot[bot], @liamtoney, @meghanrjones, @michaelgrund, @seisman, @weiji14 and @willschlitzer
+
+----
+
 Release v0.2.1 (2020/11/14)
 ---------------------------
 
@@ -75,6 +196,8 @@ This release contains contributions from:
 * `Wei Ji Leong <https://github.com/weiji14>`__
 * `Conor Bacon <https://github.com/hemmelig>`__
 * `carocamargo <https://github.com/carocamargo>`__
+
+----
 
 Release v0.2.0 (2020/09/12)
 ---------------------------
