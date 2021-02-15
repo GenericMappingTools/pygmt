@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.Figure.colorbar" href="pygmt.Figure.colorbar.html" />
@@ -121,8 +122,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -136,18 +144,22 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdview.html">pygmt.Figure.grdview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.meca.html">pygmt.Figure.meca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.set_panel.html">pygmt.Figure.set_panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.subplot.html">pygmt.Figure.subplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grd2cpt.html">pygmt.grd2cpt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.makecpt.html">pygmt.makecpt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.savefig.html">pygmt.Figure.savefig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.show.html">pygmt.Figure.show</a></li>
@@ -281,9 +293,9 @@
 </style>
 <div class="section" id="pygmt-figure-coast">
 <h1>pygmt.Figure.coast<a class="headerlink" href="#pygmt-figure-coast" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
+<dl class="py method">
 <dt id="pygmt.Figure.coast">
-<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">coast</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.coast" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">Figure.</span></code><code class="sig-name descname"><span class="pre">coast</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.coast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot continents, shorelines, rivers, and borders on maps</p>
 <p>Plots grayshaded, colored, or textured land-masses [or water-masses] on
 maps and [optionally] draws coastlines, rivers, and political
@@ -304,7 +316,9 @@ land fill is set then the land-areas will be transparent.</p>
 <ul class="simple">
 <li><p>A = area_thresh</p></li>
 <li><p>B = frame</p></li>
+<li><p>C = lakes</p></li>
 <li><p>D = resolution</p></li>
+<li><p>E = dcw</p></li>
 <li><p>G = land</p></li>
 <li><p>I = rivers</p></li>
 <li><p>J = projection</p></li>
@@ -317,6 +331,7 @@ land fill is set then the land-areas will be transparent.</p>
 <li><p>W = shorelines</p></li>
 <li><p>X = xshift</p></li>
 <li><p>Y = yshift</p></li>
+<li><p>c = panel</p></li>
 <li><p>p = perspective</p></li>
 <li><p>t = transparency</p></li>
 </ul>
@@ -324,57 +339,123 @@ land fill is set then the land-areas will be transparent.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>Required if this is the first plot command</em>.
+<em>projcode</em>[<em>projparams</em>/]<em>width</em>.
 Select map projection.</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
-<code class="docutils literal notranslate"><span class="pre">'xmin/xmax/ymin/ymax[+r][+uunit]'</span></code>.
+<em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the region of interest.</p></li>
-<li><p><strong>area_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'min_area[/min_level/max_level][+ag|i|s|S][+r|l][+ppercent]'</span></code>
-Features with an area smaller than min_area in km^2 or of
-hierarchical level that is lower than min_level or higher than
-max_level will not be plotted.</p></li>
-<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Set map boundary frame and axes attributes.</p></li>
-<li><p><strong>C</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Set the shade, color, or pattern for lakes and river-lakes.</p></li>
-<li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Selects the resolution of the data set to use ((f)ull, (h)igh,
-(i)ntermediate, (l)ow, and (c)rude).</p></li>
+<li><p><strong>area_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>min_area</em>[/<em>min_level</em>/<em>max_level</em>][<strong>+a</strong>[<strong>g</strong>|<strong>i</strong>][<strong>s</strong>|<strong>S</strong>][<strong>+l</strong>|<strong>r</strong>][<strong>+p</strong><em>percent</em>].
+Features with an area smaller than <em>min_area</em> in km<sup>2</sup> or of
+hierarchical level that is lower than <em>min_level</em> or higher than
+<em>max_level</em> will not be plotted.</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Set map boundary frame and axes attributes.</p></li>
+<li><p><strong>lakes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>fill</em>[<strong>+l</strong>|<strong>+r</strong>].
+Set the shade, color, or pattern for lakes and river-lakes. The
+default is the fill chosen for wet areas set by the <code class="docutils literal notranslate"><span class="pre">water</span></code>
+argument. Optionally, specify separate fills by appending
+<strong>+l</strong> for lakes or <strong>+r</strong> for river-lakes, and passing multiple
+strings in a list.</p></li>
+<li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <strong>f</strong>|<strong>h</strong>|<strong>i</strong>|<strong>l</strong>|<strong>c</strong>.
+Selects the resolution of the data set to: (<strong>f</strong>)ull,
+(<strong>h</strong>)igh, (<strong>i</strong>)ntermediate, (<strong>l</strong>)ow,
+and (<strong>c</strong>)rude.</p></li>
 <li><p><strong>land</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Select filling or clipping of “dry” areas.</p></li>
-<li><p><strong>rivers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'river[/pen]'</span></code>
-Draw rivers. Specify the type of rivers and [optionally] append pen
-attributes.</p></li>
-<li><p><strong>map_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[g|j|J|n|x]refpoint'</span></code>
+<li><p><strong>rivers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <p><em>river</em>[/<em>pen</em>].
+Draw rivers. Specify the type of rivers and [optionally] append
+pen attributes [Default pen is width = default, color = black,
+style = solid].</p>
+<p>Choose from the list of river types below; pass a list to
+<code class="docutils literal notranslate"><span class="pre">rivers</span></code> to use multiple arguments.</p>
+<p>0 = Double-lined rivers (river-lakes)</p>
+<p>1 = Permanent major rivers</p>
+<p>2 = Additional major rivers</p>
+<p>3 = Additional rivers</p>
+<p>4 = Minor rivers</p>
+<p>5 = Intermittent rivers - major</p>
+<p>6 = Intermittent rivers - additional</p>
+<p>7 = Intermittent rivers - minor</p>
+<p>8 = Major canals</p>
+<p>9 = Minor canals</p>
+<p>10 = Irrigation canals</p>
+<p>You can also choose from several preconfigured river groups:</p>
+<p>a = All rivers and canals (0-10)</p>
+<p>A = All rivers and canals except river-lakes (1-10)</p>
+<p>r = All permanent rivers (0-4)</p>
+<p>R = All permanent rivers except river-lakes (1-4)</p>
+<p>i = All intermittent rivers (5-7)</p>
+<p>c = All canals (8-10)</p>
+</p></li>
+<li><p><strong>map_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>length</em>.
 Draws a simple map scale centered on the reference point specified.</p></li>
-<li><p><strong>borders</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'border[/pen]'</span></code>
+<li><p><strong>borders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <p><em>border</em>[/<em>pen</em>].
 Draw political boundaries. Specify the type of boundary and
-[optionally] append pen attributes</p></li>
+[optionally] append pen attributes [Default pen is width = default,
+color = black, style = solid].</p>
+<p>Choose from the list of boundaries below. Pass a list to
+<code class="docutils literal notranslate"><span class="pre">borders</span></code> to use multiple arguments.</p>
+<p>1 = National boundaries</p>
+<p>2 = State boundaries within the Americas</p>
+<p>3 = Marine boundaries</p>
+<p>a = All boundaries (1-3)</p>
+</p></li>
 <li><p><strong>water</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Select filling or clipping of “wet” areas.</p></li>
 <li><p><strong>timestamp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Draw GMT time stamp logo on plot.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+<li><p><strong>shorelines</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – [<em>level</em>/]<em>pen</em>.
+Draw shorelines [Default is no shorelines]. Append pen attributes
+[Default is width = default, color = black, style = solid] which
+apply to all four levels. To set the pen for a single level,
+pass a string with <em>level</em>/<em>pen</em>, where level is
+1-4 and represent coastline, lakeshore, island-in-lake shore, and
+lake-in-island-in-lake shore. Pass a list of <em>level</em>/<em>pen</em>
+strings to <code class="docutils literal notranslate"><span class="pre">shorelines</span></code> to set multiple levels. When specific
+level pens are set, those not listed will not be drawn.</p></li>
+<li><p><strong>dcw</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>code1,code2,…</em>[<strong>+l</strong>|<strong>L</strong>][<strong>+g</strong><em>fill</em>]
+[<strong>+p</strong><em>pen</em>][<strong>+z</strong>].
+Select painting or dumping country polygons from the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Chart_of_the_World">Digital Chart of the World</a>.
+Append one or more comma-separated countries using the 2-character
+<a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 convention</a>.
+To select a state of a country (if available), append
+.<em>state</em>, (e.g, US.TX for Texas).  To specify a whole continent,
+prepend <strong>=</strong> to any of the continent codes (e.g. =EU for Europe).
+Append <strong>+p</strong><em>pen</em> to draw polygon outlines
+(default is no outline) and <strong>+g</strong><em>fill</em> to fill them
+(default is no fill). Append <strong>+l</strong>|<strong>+L</strong> to =<em>continent</em> to
+only list countries in that continent; repeat if more than one
+continent is requested.</p></li>
+<li><p><strong>xshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>a</strong>|<strong>c</strong>|<strong>f</strong>|<strong>r</strong>][<em>xshift</em>].
+Shift plot origin in x-direction.</p></li>
+<li><p><strong>yshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>a</strong>|<strong>c</strong>|<strong>f</strong>|<strong>r</strong>][<em>yshift</em>].
+Shift plot origin in y-direction. Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full">https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full</a>.</p></li>
+<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
+Selects a specific subplot panel. Only allowed when in subplot
+mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
+selected order. Instead of <em>row,col</em> you may also give a scalar
+value <em>index</em> which depends on the order you set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code>
+when the subplot was defined. <strong>Note</strong>: <em>row</em>, <em>col</em>, and <em>index</em>
+all start at 0.</p></li>
+<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
+Select perspective view and set the azimuth and elevation angle of
+the viewpoint. Default is [180, 90]. Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full</a>.</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
+Default is 0, i.e., opaque.
+Only visible when PDF or raster format output is selected.
+Only the PNG format selection adds a transparency layer
+in the image (for further processing).</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
 <li><p><strong>e</strong> - Error messages only</p></li>
 <li><p><strong>w</strong> - Warnings [Default]</p></li>
 <li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
-<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
 <li><p><strong>c</strong> - Compatibility warnings</p></li>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
 </p></li>
-<li><p><strong>shorelines</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[level/]pen'</span></code>
-Draw shorelines [Default is no shorelines]. Append pen attributes.</p></li>
-<li><p><strong>xshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[a|c|f|r][xshift]</span></code>.
-Shift plot origin in x-direction.</p></li>
-<li><p><strong>yshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[a|c|f|r][yshift]</span></code>.
-Shift plot origin in y-direction. Full documentation is at
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full">https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full</a>.</p></li>
-<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'</span></code>.
-Select perspective view and set the azimuth and elevation angle of
-the viewpoint. Default is [180, 90]. Full documentation is at
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full</a>.</p></li>
-<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
-Default is 0, i.e., opaque.
-Only visible when PDF or raster format output is selected.
-Only the PNG format selection adds a transparency layer
-in the image (for further processing).</p></li>
 </ul>
 </dd>
 </dl>
@@ -390,81 +471,161 @@ in the image (for further processing).</p></li>
 <img alt="Color land and water" src="../../_images/sphx_glr_land_and_water_thumb.png" />
 <p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/coast/land_and_water.html#sphx-glr-gallery-coast-land-and-water-py"><span class="std std-ref">Color land and water</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines. "><div class="figure align-default" id="id3">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines."><div class="figure align-default" id="id3">
 <img alt="Shorelines" src="../../_images/sphx_glr_shorelines_thumb.png" />
 <p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/coast/shorelines.html#sphx-glr-gallery-coast-shorelines-py"><span class="std std-ref">Shorelines</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms, or beachballs. We can specify the focal..."><div class="figure align-default" id="id4">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The function is call..."><div class="figure align-default" id="id4">
+<img alt="Inset" src="../../_images/sphx_glr_inset_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/inset.html#sphx-glr-gallery-plot-inset-py"><span class="std std-ref">Inset</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms, or beachballs. We can specify the focal..."><div class="figure align-default" id="id5">
 <img alt="Focal mechanisms" src="../../_images/sphx_glr_meca_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/meca.html#sphx-glr-gallery-plot-meca-py"><span class="std std-ref">Focal mechanisms</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/meca.html#sphx-glr-gallery-plot-meca-py"><span class="std std-ref">Focal mechanisms</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id5">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id6">
 <img alt="Sampling along tracks" src="../../_images/sphx_glr_track_sampling_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast. "><div class="figure align-default" id="id6">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><div class="figure align-default" id="id7">
 <img alt="Coastlines and borders" src="../../_images/sphx_glr_coastlines_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config. "><div class="figure align-default" id="id7">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><div class="figure align-default" id="id8">
 <img alt="Configuring PyGMT defaults" src="../../_images/sphx_glr_configuration_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/configuration.html#sphx-glr-tutorials-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/configuration.html#sphx-glr-tutorials-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Welcome to PyGMT! Here we&#x27;ll cover some of basic concepts, like creating simple figures and nam..."><div class="figure align-default" id="id8">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Welcome to PyGMT! Here we&#x27;ll cover some of basic concepts, like creating simple figures and nam..."><div class="figure align-default" id="id9">
 <img alt="Making your first figure" src="../../_images/sphx_glr_first-figure_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/first-figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/first-figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Setting the style of the map frames, ticks, etc, is handled by the frame argument that all plot..."><div class="figure align-default" id="id9">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Setting the style of the map frames, ticks, etc, is handled by the frame argument that all plot..."><div class="figure align-default" id="id10">
 <img alt="Frames, ticks, titles, and labels" src="../../_images/sphx_glr_frames_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id10">
+</div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method...."><div class="figure align-default" id="id11">
+<img alt="Adding an inset to the figure" src="../../_images/sphx_glr_inset_thumb1.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/inset.html#sphx-glr-tutorials-inset-py"><span class="std std-ref">Adding an inset to the figure</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id12">
 <img alt="Plotting data points" src="../../_images/sphx_glr_plot_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a map plot. This is handled by pygmt.Figure.text. "><div class="figure align-default" id="id11">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting functions take the region argument, which sets the area that will be shown..."><div class="figure align-default" id="id13">
+<img alt="Set the region" src="../../_images/sphx_glr_regions_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/regions.html#sphx-glr-tutorials-regions-py"><span class="std std-ref">Set the region</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put m..."><div class="figure align-default" id="id14">
+<img alt="Making subplots" src="../../_images/sphx_glr_subplots_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/subplots.html#sphx-glr-tutorials-subplots-py"><span class="std std-ref">Making subplots</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a map plot. This is handled by pygmt.Figure.text."><div class="figure align-default" id="id15">
 <img alt="Plotting text" src="../../_images/sphx_glr_text_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/text.html#sphx-glr-tutorials-text-py"><span class="std std-ref">Plotting text</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/text.html#sphx-glr-tutorials-text-py"><span class="std std-ref">Plotting text</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><div class="figure align-default" id="id12">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><div class="figure align-default" id="id16">
 <img alt="Azimuthal Equidistant" src="../../_images/sphx_glr_azim_equidistant_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space...."><div class="figure align-default" id="id13">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space...."><div class="figure align-default" id="id17">
 <img alt="General Perspective" src="../../_images/sphx_glr_azim_general_perspective_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">General Perspective</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">General Perspective</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection c..."><div class="figure align-default" id="id14">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection c..."><div class="figure align-default" id="id18">
 <img alt="General Stereographic" src="../../_images/sphx_glr_azim_general_stereographic_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General Stereographic</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General Stereographic</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the earth. As a conse..."><div class="figure align-default" id="id15">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the earth. As a conse..."><div class="figure align-default" id="id19">
 <img alt="Gnomonic" src="../../_images/sphx_glr_azim_gnomonic_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Alon0/lat0[/horizon]/width: lon0 and lat0 specifies the projection center. horizon specifies th..."><div class="figure align-default" id="id16">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This projection was developed by Johann Heinrich Lambert in 1772 and is typically used for mapp..."><div class="figure align-default" id="id20">
 <img alt="Lambert Azimuthal Equal Area" src="../../_images/sphx_glr_azim_lambert_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert Azimuthal Equal Area</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert Azimuthal Equal Area</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the..."><div class="figure align-default" id="id17">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the..."><div class="figure align-default" id="id21">
 <img alt="Orthographic" src="../../_images/sphx_glr_azim_orthographic_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Blon0/lat0/lat1/lat2/width: Give projection center lon0/lat0 and two standard parallels lat1/la..."><div class="figure align-default" id="id18">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions ..."><div class="figure align-default" id="id22">
 <img alt="Albers Conic Equal Area" src="../../_images/sphx_glr_conic_albers_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Clon0/lat0/width: lon0 and lat0 specifies the projection center. "><div class="figure align-default" id="id19">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The equidistant conic projection was described by the Greek philosopher Claudius Ptolemy about ..."><div class="figure align-default" id="id23">
+<img alt="Equidistant conic" src="../../_images/sphx_glr_conic_equidistant_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/conic/conic_equidistant.html#sphx-glr-projections-conic-conic-equidistant-py"><span class="std std-ref">Equidistant conic</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This conic projection was designed by the Alsatian mathematician Johann Heinrich Lambert (1772)..."><div class="figure align-default" id="id24">
+<img alt="Lambert Conic Conformal Projection" src="../../_images/sphx_glr_conic_lambert_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/conic/conic_lambert.html#sphx-glr-projections-conic-conic-lambert-py"><span class="std std-ref">Lambert Conic Conformal Projection</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The polyconic projection, in Europe usually referred to as the American polyconic projection, w..."><div class="figure align-default" id="id25">
+<img alt="Polyconic Projection" src="../../_images/sphx_glr_polyconic_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/conic/polyconic.html#sphx-glr-projections-conic-polyconic-py"><span class="std std-ref">Polyconic Projection</span></a></span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the su..."><div class="figure align-default" id="id26">
 <img alt="Cassini Cylindrical" src="../../_images/sphx_glr_cyl_cassini_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="M[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0 (optiona..."><div class="figure align-default" id="id20">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection is actually several projections, depending on what latitude is sele..."><div class="figure align-default" id="id27">
+<img alt="Cylindrical equal-area" src="../../_images/sphx_glr_cyl_equal_area_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_equal_area.html#sphx-glr-projections-cyl-cyl-equal-area-py"><span class="std std-ref">Cylindrical equal-area</span></a></span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This simple cylindrical projection is really a linear scaling of longitudes and latitudes. The ..."><div class="figure align-default" id="id28">
+<img alt="Cylindrical equidistant" src="../../_images/sphx_glr_cyl_equidistant_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_equidistant.html#sphx-glr-projections-cyl-cyl-equidistant-py"><span class="std std-ref">Cylindrical equidistant</span></a></span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Mercator projection takes its name from the Flemish cartographer Gheert Cremer, better know..."><div class="figure align-default" id="id29">
 <img alt="Mercator" src="../../_images/sphx_glr_cyl_mercator_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator</span></a></span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Cyl_stere/[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0..."><div class="figure align-default" id="id21">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection, presented by Osborn Maitland Miller of the American Geographic Soc..."><div class="figure align-default" id="id30">
+<img alt="Miller cylindrical" src="../../_images/sphx_glr_cyl_miller_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_miller.html#sphx-glr-projections-cyl-cyl-miller-py"><span class="std std-ref">Miller cylindrical</span></a></span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical pro..."><div class="figure align-default" id="id31">
 <img alt="Cylindrical Stereographic" src="../../_images/sphx_glr_cyl_stereographic_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical Stereographic</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical Stereographic</span></a></span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the..."><div class="figure align-default" id="id32">
+<img alt="Transverse Mercator" src="../../_images/sphx_glr_cyl_transverse_mercator_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_transverse_mercator.html#sphx-glr-projections-cyl-cyl-transverse-mercator-py"><span class="std std-ref">Transverse Mercator</span></a></span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="A particular subset of the transverse Mercator is the Universal Transverse Mercator (UTM) which..."><div class="figure align-default" id="id33">
+<img alt="Universal Transverse Mercator" src="../../_images/sphx_glr_cyl_universal_transverse_mercator_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_universal_transverse_mercator.html#sphx-glr-projections-cyl-cyl-universal-transverse-mercator-py"><span class="std std-ref">Universal Transverse Mercator</span></a></span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906..."><div class="figure align-default" id="id34">
+<img alt="Eckert IV" src="../../_images/sphx_glr_misc_eckertIV_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/misc/misc_eckertIV.html#sphx-glr-projections-misc-misc-eckertiv-py"><span class="std std-ref">Eckert IV</span></a></span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert VI projections, presented by the German cartographer Max Eckert-Greiffendorff in 190..."><div class="figure align-default" id="id35">
+<img alt="Eckert VI" src="../../_images/sphx_glr_misc_eckertVI_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/misc/misc_eckertVI.html#sphx-glr-projections-misc-misc-eckertvi-py"><span class="std std-ref">Eckert VI</span></a></span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The equal-area Hammer projection, first presented by the German mathematician Ernst von Hammer ..."><div class="figure align-default" id="id36">
+<img alt="Hammer" src="../../_images/sphx_glr_misc_hammer_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/misc/misc_hammer.html#sphx-glr-projections-misc-misc-hammer-py"><span class="std std-ref">Hammer</span></a></span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This pseudo-cylindrical, equal-area projection was developed by the German mathematician and as..."><div class="figure align-default" id="id37">
+<img alt="Mollweide" src="../../_images/sphx_glr_misc_mollweide_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/misc/misc_mollweide.html#sphx-glr-projections-misc-misc-mollweide-py"><span class="std std-ref">Mollweide</span></a></span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Robinson projection, presented by the American geographer and cartographer Arthur H. Robins..."><div class="figure align-default" id="id38">
+<img alt="Robinson" src="../../_images/sphx_glr_misc_robinson_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/misc/misc_robinson.html#sphx-glr-projections-misc-misc-robinson-py"><span class="std std-ref">Robinson</span></a></span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The sinusoidal projection is one of the oldest known projections, is equal-area, and has been u..."><div class="figure align-default" id="id39">
+<img alt="Sinusoidal" src="../../_images/sphx_glr_misc_sinusoidal_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/misc/misc_sinusoidal.html#sphx-glr-projections-misc-misc-sinusoidal-py"><span class="std std-ref">Sinusoidal</span></a></span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is neither equ..."><div class="figure align-default" id="id40">
+<img alt="Van der Grinten" src="../../_images/sphx_glr_misc_van_der_grinten_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/misc/misc_van_der_grinten.html#sphx-glr-projections-misc-misc-van-der-grinten-py"><span class="std std-ref">Van der Grinten</span></a></span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel a projection that was to strike a compromise be..."><div class="figure align-default" id="id41">
+<img alt="Winkel Tripel" src="../../_images/sphx_glr_misc_winkel_tripel_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../projections/misc/misc_winkel_tripel.html#sphx-glr-projections-misc-misc-winkel-tripel-py"><span class="std std-ref">Winkel Tripel</span></a></span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
 </div>
 </div><div style='clear:both'></div></div>
 </div>
@@ -490,10 +651,10 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

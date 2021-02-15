@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,14 +40,16 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Political Boundaries" href="../coast/borders.html" />
-    <link rel="prev" title="Gallery" href="../index.html" />
+    <link rel="prev" title="Line colors with a custom CPT" href="line-custom-cpt.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -116,6 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-figure.html">Making your first figure</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Gallery</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#lines">Lines</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="line-custom-cpt.html">Line colors with a custom CPT</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Line styles</a></li>
 </ul>
 </li>
@@ -130,8 +132,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -258,7 +267,8 @@
 </style>
 <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-line-linestyles-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-line-linestyles-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="line-styles">
 <span id="sphx-glr-gallery-line-linestyles-py"></span><h1>Line styles<a class="headerlink" href="#line-styles" title="Permalink to this headline">¶</a></h1>
@@ -318,7 +328,7 @@ dot-dashed line, are allowed.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.471 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.221 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-line-linestyles-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/29afdceaf83abc23112d2cfcbba360ad/linestyles.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">linestyles.py</span></code></a></p>
@@ -342,7 +352,7 @@ dot-dashed line, are allowed.</p>
         <a href="../coast/borders.html" class="btn btn-neutral float-right" title="Political Boundaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral float-left" title="Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="line-custom-cpt.html" class="btn btn-neutral float-left" title="Line colors with a custom CPT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -351,10 +361,10 @@ dot-dashed line, are allowed.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

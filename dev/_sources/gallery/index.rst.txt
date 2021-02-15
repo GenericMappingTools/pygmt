@@ -28,6 +28,27 @@ Lines
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig...">
+
+.. only:: html
+
+ .. figure:: /gallery/line/images/thumb/sphx_glr_line-custom-cpt_thumb.png
+     :alt: Line colors with a custom CPT
+
+     :ref:`sphx_glr_gallery_line_line-custom-cpt.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/line/line-custom-cpt
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0....">
 
 .. only:: html
@@ -103,7 +124,7 @@ Coastlines and boundaries
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines. ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines.">
 
 .. only:: html
 
@@ -157,6 +178,69 @@ Plotting map items
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Datetime inputs of the following types are supported in PyGMT:">
+
+.. only:: html
+
+ .. figure:: /gallery/plot/images/thumb/sphx_glr_datetime-inputs_thumb.png
+     :alt: Datetime inputs
+
+     :ref:`sphx_glr_gallery_plot_datetime-inputs.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot/datetime-inputs
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Images or EPS files on maps">
+
+.. only:: html
+
+ .. figure:: /gallery/plot/images/thumb/sphx_glr_image_thumb.png
+     :alt: Images or EPS files on maps
+
+     :ref:`sphx_glr_gallery_plot_image.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot/image
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The function is call...">
+
+.. only:: html
+
+ .. figure:: /gallery/plot/images/thumb/sphx_glr_inset_thumb.png
+     :alt: Inset
+
+     :ref:`sphx_glr_gallery_plot_inset.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot/inset
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm...">
 
 .. only:: html
@@ -178,6 +262,27 @@ Plotting map items
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map.  ">
+
+.. only:: html
+
+ .. figure:: /gallery/plot/images/thumb/sphx_glr_logo_thumb.png
+     :alt: Logo
+
+     :ref:`sphx_glr_gallery_plot_logo.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot/logo
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms, or beachballs. We can specify the focal...">
 
 .. only:: html
@@ -196,6 +301,27 @@ Plotting map items
    :hidden:
 
    /gallery/plot/meca
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual multi-parameter symbols by passing the corresp...">
+
+.. only:: html
+
+ .. figure:: /gallery/plot/images/thumb/sphx_glr_multi-parameter-symbols_thumb.png
+     :alt: Multi-parameter symbols
+
+     :ref:`sphx_glr_gallery_plot_multi-parameter-symbols.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot/multi-parameter-symbols
 
 .. raw:: html
 

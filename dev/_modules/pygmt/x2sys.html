@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <!-- Google Analytics tracking code -->
@@ -119,8 +120,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -222,10 +230,9 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="kn">from</span> <span class="nn">.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">GMTTempFile</span><span class="p">,</span>
     <span class="n">build_arg_string</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
@@ -286,7 +293,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">x2sys_init</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize a new x2sys track database.</span>
 
 <span class="sd">    x2sys_init is the starting point for anyone wishing to use x2sys; it</span>
@@ -330,21 +337,22 @@
 <span class="sd">        *fmtfile*).</span>
 
 <span class="sd">    discontinuity : str</span>
-<span class="sd">        ``d|g``</span>
+<span class="sd">        **d**\|\ **g**.</span>
 <span class="sd">        Selects geographical coordinates. Append **d** for discontinuity at the</span>
 <span class="sd">        Dateline (makes longitude go from -180 to + 180) or **g** for</span>
 <span class="sd">        discontinuity at Greenwich (makes longitude go from 0 to 360</span>
 <span class="sd">        [Default]). If not given we assume the data are Cartesian.</span>
 
 <span class="sd">    spacing : str or list</span>
-<span class="sd">         ``dx[/dy]``</span>
-<span class="sd">         x_inc [and optionally y_inc] is the grid spacing. Append **m** to</span>
+<span class="sd">         *dx*\[/*dy*].</span>
+<span class="sd">         *dx* [and optionally *dy*] is the grid spacing. Append **m** to</span>
 <span class="sd">         indicate minutes or **s** to indicate seconds for geographic data.</span>
 <span class="sd">         These spacings refer to the binning used in the track bin-index data</span>
 <span class="sd">         base.</span>
 
 <span class="sd">    units : str or list</span>
-<span class="sd">        ``d|sunit``.</span>
+<span class="sd">        **d**\|\ **s**\</span>
+<span class="sd">        **c**\|\ **e**\|\ **f**\|\ **k**\|\ **m**\|\ **n**\|\ **u** .</span>
 <span class="sd">        Sets the units used for distance and speed when requested by other</span>
 <span class="sd">        programs. Append **d** for distance or **s** for speed, then give the</span>
 <span class="sd">        desired unit as:</span>
@@ -364,12 +372,13 @@
 <span class="sd">    {V}</span>
 
 <span class="sd">    gap : str or list</span>
-<span class="sd">        ``t|dgap``.</span>
+<span class="sd">        **t**\|\ **d**\ *gap*.</span>
 <span class="sd">        Give **t** or **d** and append the corresponding maximum time gap (in</span>
 <span class="sd">        user units; this is typically seconds [Infinity]), or distance (for</span>
-<span class="sd">        units, see *units*) gap [Infinity]) allowed between the two data points</span>
-<span class="sd">        immediately on either side of a crossover. If these limits are exceeded</span>
-<span class="sd">        then a data gap is assumed and no COE will be determined.</span>
+<span class="sd">        units, see ``units``) gap [Default is infinity]) allowed between the</span>
+<span class="sd">        two data points immediately on either side of a crossover. If these</span>
+<span class="sd">        limits are exceeded then a data gap is assumed and no COE will be</span>
+<span class="sd">        determined.</span>
 
 <span class="sd">    {j}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -394,7 +403,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">x2sys_cross</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate crossovers between track data files.</span>
 
 <span class="sd">    x2sys_cross is used to determine all intersections between (&quot;external</span>
@@ -448,7 +457,7 @@
 <span class="sd">        split_file4coes.m that lives in the x2sys supplement source code.</span>
 
 <span class="sd">    override : bool or str</span>
-<span class="sd">        ``S|N``.</span>
+<span class="sd">        **S**\|\ **N**.</span>
 <span class="sd">        Control how geographic coordinates are handled (Cartesian data are</span>
 <span class="sd">        unaffected). By default, we determine if the data are closer to one</span>
 <span class="sd">        pole than the other, and then we use a cylindrical polar conversion to</span>
@@ -462,7 +471,7 @@
 <span class="sd">        longitudinal range at higher latitudes.</span>
 
 <span class="sd">    interpolation : str</span>
-<span class="sd">        ``l|a|c``.</span>
+<span class="sd">        **l**\|\ **a**\|\ **c**.</span>
 <span class="sd">        Sets the interpolation mode for estimating values at the crossover.</span>
 <span class="sd">        Choose among:</span>
 
@@ -477,7 +486,7 @@
 <span class="sd">    {R}</span>
 
 <span class="sd">    speed : str or list</span>
-<span class="sd">        ``l|u|hspeed``.</span>
+<span class="sd">        **l**\|\ **u**\|\ **h**\ *speed*.</span>
 <span class="sd">        Defines window of track speeds. If speeds are outside this window we do</span>
 <span class="sd">        not calculate a COE. Specify:</span>
 
@@ -571,10 +580,10 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

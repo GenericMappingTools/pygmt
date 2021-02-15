@@ -10,8 +10,8 @@ Projections
 PyGMT support many map projections. Use the ``projection`` argument to specify which one
 you want to use in all plotting modules. The projection is specified by a one letter
 code along with (sometimes optional) reference longitude and latitude and the width of
-the map (for example, ``Alon0/lat0[/horizon]/width``). The map height is determined
-based on the region and projection.
+the map (for example, **A**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*). The map height is
+determined based on the region and projection.
 
 These are all the available projections:
 
@@ -115,7 +115,7 @@ Azimuthal Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Alon0/lat0[/horizon]/width: lon0 and lat0 specifies the projection center. horizon specifies th...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This projection was developed by Johann Heinrich Lambert in 1772 and is typically used for mapp...">
 
 .. only:: html
 
@@ -169,7 +169,7 @@ Conic Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Blon0/lat0/lat1/lat2/width: Give projection center lon0/lat0 and two standard parallels lat1/la...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions ...">
 
 .. only:: html
 
@@ -187,6 +187,69 @@ Conic Projections
    :hidden:
 
    /projections/conic/conic_albers
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The equidistant conic projection was described by the Greek philosopher Claudius Ptolemy about ...">
+
+.. only:: html
+
+ .. figure:: /projections/conic/images/thumb/sphx_glr_conic_equidistant_thumb.png
+     :alt: Equidistant conic
+
+     :ref:`sphx_glr_projections_conic_conic_equidistant.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/conic/conic_equidistant
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This conic projection was designed by the Alsatian mathematician Johann Heinrich Lambert (1772)...">
+
+.. only:: html
+
+ .. figure:: /projections/conic/images/thumb/sphx_glr_conic_lambert_thumb.png
+     :alt: Lambert Conic Conformal Projection
+
+     :ref:`sphx_glr_projections_conic_conic_lambert.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/conic/conic_lambert
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The polyconic projection, in Europe usually referred to as the American polyconic projection, w...">
+
+.. only:: html
+
+ .. figure:: /projections/conic/images/thumb/sphx_glr_polyconic_thumb.png
+     :alt: Polyconic Projection
+
+     :ref:`sphx_glr_projections_conic_polyconic.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/conic/polyconic
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
@@ -202,7 +265,7 @@ Cylindric Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Clon0/lat0/width: lon0 and lat0 specifies the projection center. ">
+    <div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the su...">
 
 .. only:: html
 
@@ -223,7 +286,49 @@ Cylindric Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="M[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0 (optiona...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection is actually several projections, depending on what latitude is sele...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_equal_area_thumb.png
+     :alt: Cylindrical equal-area
+
+     :ref:`sphx_glr_projections_cyl_cyl_equal_area.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_equal_area
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This simple cylindrical projection is really a linear scaling of longitudes and latitudes. The ...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_equidistant_thumb.png
+     :alt: Cylindrical equidistant
+
+     :ref:`sphx_glr_projections_cyl_cyl_equidistant.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_equidistant
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Mercator projection takes its name from the Flemish cartographer Gheert Cremer, better know...">
 
 .. only:: html
 
@@ -244,7 +349,28 @@ Cylindric Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Cyl_stere/[lon0/][lat0/]width: Give central meridian lon0 (optional) and standard parallel lat0...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection, presented by Osborn Maitland Miller of the American Geographic Soc...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_miller_thumb.png
+     :alt: Miller cylindrical
+
+     :ref:`sphx_glr_projections_cyl_cyl_miller.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_miller
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical pro...">
 
 .. only:: html
 
@@ -262,6 +388,48 @@ Cylindric Projections
    :hidden:
 
    /projections/cyl/cyl_stereographic
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_transverse_mercator_thumb.png
+     :alt: Transverse Mercator
+
+     :ref:`sphx_glr_projections_cyl_cyl_transverse_mercator.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_transverse_mercator
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A particular subset of the transverse Mercator is the Universal Transverse Mercator (UTM) which...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_universal_transverse_mercator_thumb.png
+     :alt: Universal Transverse Mercator
+
+     :ref:`sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_universal_transverse_mercator
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
@@ -274,6 +442,174 @@ Miscellaneous Projections
 -------------------------
 
 
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906...">
+
+.. only:: html
+
+ .. figure:: /projections/misc/images/thumb/sphx_glr_misc_eckertIV_thumb.png
+     :alt: Eckert IV
+
+     :ref:`sphx_glr_projections_misc_misc_eckertIV.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/misc/misc_eckertIV
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Eckert VI projections, presented by the German cartographer Max Eckert-Greiffendorff in 190...">
+
+.. only:: html
+
+ .. figure:: /projections/misc/images/thumb/sphx_glr_misc_eckertVI_thumb.png
+     :alt: Eckert VI
+
+     :ref:`sphx_glr_projections_misc_misc_eckertVI.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/misc/misc_eckertVI
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The equal-area Hammer projection, first presented by the German mathematician Ernst von Hammer ...">
+
+.. only:: html
+
+ .. figure:: /projections/misc/images/thumb/sphx_glr_misc_hammer_thumb.png
+     :alt: Hammer
+
+     :ref:`sphx_glr_projections_misc_misc_hammer.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/misc/misc_hammer
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This pseudo-cylindrical, equal-area projection was developed by the German mathematician and as...">
+
+.. only:: html
+
+ .. figure:: /projections/misc/images/thumb/sphx_glr_misc_mollweide_thumb.png
+     :alt: Mollweide
+
+     :ref:`sphx_glr_projections_misc_misc_mollweide.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/misc/misc_mollweide
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Robinson projection, presented by the American geographer and cartographer Arthur H. Robins...">
+
+.. only:: html
+
+ .. figure:: /projections/misc/images/thumb/sphx_glr_misc_robinson_thumb.png
+     :alt: Robinson
+
+     :ref:`sphx_glr_projections_misc_misc_robinson.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/misc/misc_robinson
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The sinusoidal projection is one of the oldest known projections, is equal-area, and has been u...">
+
+.. only:: html
+
+ .. figure:: /projections/misc/images/thumb/sphx_glr_misc_sinusoidal_thumb.png
+     :alt: Sinusoidal
+
+     :ref:`sphx_glr_projections_misc_misc_sinusoidal.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/misc/misc_sinusoidal
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is neither equ...">
+
+.. only:: html
+
+ .. figure:: /projections/misc/images/thumb/sphx_glr_misc_van_der_grinten_thumb.png
+     :alt: Van der Grinten
+
+     :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/misc/misc_van_der_grinten
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel a projection that was to strike a compromise be...">
+
+.. only:: html
+
+ .. figure:: /projections/misc/images/thumb/sphx_glr_misc_winkel_tripel_thumb.png
+     :alt: Winkel Tripel
+
+     :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/misc/misc_winkel_tripel
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
@@ -284,6 +620,182 @@ Miscellaneous Projections
 
 Non-geographic Projections
 --------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*/[*height*]: Give the *width* of the figure and the optional *height*.">
+
+.. only:: html
+
+ .. figure:: /projections/nongeo/images/thumb/sphx_glr_cartesian_linear_thumb.png
+     :alt: Cartesian linear
+
+     :ref:`sphx_glr_projections_nongeo_cartesian_linear.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/nongeo/cartesian_linear
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*\ [**l**]/[*height*\ [**l**]]: Give the *width* of the figure and the optional *h...">
+
+.. only:: html
+
+ .. figure:: /projections/nongeo/images/thumb/sphx_glr_cartesian_logarithmic_thumb.png
+     :alt: Cartesian logarithmic
+
+     :ref:`sphx_glr_projections_nongeo_cartesian_logarithmic.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/nongeo/cartesian_logarithmic
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*\ [**p**\ *pvalue*]/[*height*\ [**p**\ *pvalue*]]: Give the *width* of the figure...">
+
+.. only:: html
+
+ .. figure:: /projections/nongeo/images/thumb/sphx_glr_cartesian_power_thumb.png
+     :alt: Cartesian power
+
+     :ref:`sphx_glr_projections_nongeo_cartesian_power.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/nongeo/cartesian_power
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="**P**\ *width*: Give the *width* of the figure.">
+
+.. only:: html
+
+ .. figure:: /projections/nongeo/images/thumb/sphx_glr_polar_thumb.png
+     :alt: Polar
+
+     :ref:`sphx_glr_projections_nongeo_polar.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/nongeo/polar
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_projections_table:
+
+Projection Table
+----------------
+
+The below table shows the projection codes for the 31 GMT projections.
+
+.. Substitution definitions:
+.. |lon0| replace:: lon\ :sub:`0`
+.. |lat0| replace:: lat\ :sub:`0`
+.. |lon1| replace:: lon\ :sub:`1`
+.. |lat1| replace:: lat\ :sub:`1`
+.. |lat2| replace:: lat\ :sub:`2`
+.. |lonp| replace:: lon\ :sub:`p`
+.. |latp| replace:: lat\ :sub:`p`
+
+.. list-table::
+   :widths: 20 28
+   :header-rows: 1
+
+   * - PyGMT Projection Argument
+     - Projection Name
+   * - **A**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
+     - Lambert azimuthal equal area
+   * - **B**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
+     - Albers conic equal area
+   * - **C**\ |lon0|/|lat0|/\ *width*
+     - Cassini cylindrical
+   * - **Cyl_stere/**\ [|lon0|\ [/|lat0|/]]\ *width*
+     - Cylindrical stereographic
+   * - **D**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
+     - Equidistant conic
+   * - **E**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
+     - Azimuthal equidistant
+   * - **F**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
+     - Azimuthal gnomonic
+   * - **G**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
+     - Azimuthal orthographic
+   * - **G**\ |lon0|/|lat0|/\ *alt*/*azim*/*tilt*/*twist*/*W*/*H*/*width*
+     - General perspective
+   * - **H**\ [|lon0|/]\ *width*
+     - Hammer equal area
+   * - **I**\ [|lon0|/]\ *width*
+     - Sinusoidal equal area
+   * - **J**\ [|lon0|/]\ *width*
+     - Miller cylindrical
+   * - **Kf**\ [|lon0|/]\ *width*
+     - Eckert IV equal area
+   * - **Ks**\ [|lon0|/]\ *width*
+     - Eckert VI equal area
+   * - **L**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
+     - Lambert conic conformal
+   * - **M**\ [|lon0|\ [/|lat0|]/]\ *width*
+     - Mercator cylindrical
+   * - **N**\ [|lon0|/]\ *width*
+     - Robinson
+   * - **Oa**\ |lon0|/|lat0|/\ *azim*/*width*\ [**+v**]
+     - Oblique Mercator, 1: origin and azim
+   * - **Ob**\ |lon0|/|lat0|/|lon1|/|lat1|/\ *width*\ [**+v**]
+     - Oblique Mercator, 2: two points
+   * - **Oc**\ |lon0|/|lat0|/|lonp|/|latp|/\ *width*\ [**+v**]
+     - Oblique Mercator, 3: origin and pole
+   * - **P**\ *width*\ [**+a**]\ [**+f**\ [**e**\|\ **p**\|\ *radius*]][**+r**\ *offset*][**+t**\ *origin*][**+z**\ [**p**\|\ *radius*]]
+     - Polar [azimuthal] (:math:`\theta, r`) (or cylindrical)
+   * - **Poly**\ [|lon0|\ [/|lat0|]/]\ *width*
+     - Polyconic
+   * - **Q**\ [|lon0|\ [/|lat0|/]]\ *width*
+     - Equidistant cylindrical
+   * - **R**\ [|lon0|/]\ *width*
+     - Winkel Tripel
+   * - **S**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
+     - General stereographic
+   * - **T**\ [|lon0|\ [/|lat0|]/]\ *width*
+     - Transverse Mercator
+   * - **U**\ *zone*/*width*
+     - Universal Transverse Mercator (UTM)
+   * - **V**\ [|lon0|/]\ *width*
+     - Van der Grinten
+   * - **W**\ [|lon0|/]\ *width*
+     - Mollweide
+   * - **X**\ *width*\ [**l**\|\ **p**\ *exp*\|\ **T**\|\ **t**][/\ *height*\ [**l**\|\ **p**\ *exp*\|\ **T**\|\ **t**]][**d**]
+     - Linear, log\ :math:`_{10}`, :math:`x^a-y^b`, and time
+   * - **Y**\ |lon0|/|lat0|/\ *width*
+     - Cylindrical equal area
 
 
 .. raw:: html

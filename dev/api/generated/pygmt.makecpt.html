@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,14 +40,16 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.Figure.savefig" href="pygmt.Figure.savefig.html" />
-    <link rel="prev" title="pygmt.Figure.meca" href="pygmt.Figure.meca.html" />
+    <link rel="prev" title="pygmt.grd2cpt" href="pygmt.grd2cpt.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -121,8 +122,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -133,18 +141,22 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.basemap.html">pygmt.Figure.basemap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdview.html">pygmt.Figure.grdview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.meca.html">pygmt.Figure.meca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.set_panel.html">pygmt.Figure.set_panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.subplot.html">pygmt.Figure.subplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grd2cpt.html">pygmt.grd2cpt</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.makecpt</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-makecpt">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a></li>
 </ul>
@@ -281,13 +293,13 @@
 </style>
 <div class="section" id="pygmt-makecpt">
 <h1>pygmt.makecpt<a class="headerlink" href="#pygmt-makecpt" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="pygmt.makecpt">
-<code class="sig-prename descclassname">pygmt.</code><code class="sig-name descname">makecpt</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/mathops.html#makecpt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.makecpt" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">pygmt.</span></code><code class="sig-name descname"><span class="pre">makecpt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/makecpt.html#makecpt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.makecpt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make GMT color palette tables.</p>
 <p>This is a module that will help you make static color palette tables
 (CPTs). By default, the CPT will simply be saved to the current session,
-but you can use <em>output</em> to save it to a file. You define an equidistant
+but you can use <code class="docutils literal notranslate"><span class="pre">output</span></code> to save it to a file. You define an equidistant
 set of contour intervals or pass your own z-table or list, and create a new
 CPT based on an existing master (dynamic) CPT. The resulting CPT can be
 reversed relative to the master cpt, and can be made continuous or
@@ -303,8 +315,8 @@ undefined.</p>
 the new master file. If not, the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> from the
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a> file or the command line will be used. This
-default behavior can be overruled using the options <em>background</em>,
-<em>overrule_bg</em> or <em>no_bg</em>.</p>
+default behavior can be overruled using the parameters <code class="docutils literal notranslate"><span class="pre">background</span></code>,
+<code class="docutils literal notranslate"><span class="pre">overrule_bg</span></code> or <code class="docutils literal notranslate"><span class="pre">no_bg</span></code>.</p>
 <p>The color model (RGB, HSV or CMYK) of the palette created by <strong>makecpt</strong>
 will be the same as specified in the header of the master CPT. When there
 is no <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_MODEL">COLOR_MODEL</a> entry in the master CPT, the
@@ -345,7 +357,7 @@ those defined by the parameters <a class="reference external" href="https://docs
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a>]. Use
 <code class="docutils literal notranslate"><span class="pre">background='i'</span></code> to match the colors for the lowest and highest
 values in the input (instead of the output) CPT.</p></li>
-<li><p><strong>color_model</strong> – <code class="docutils literal notranslate"><span class="pre">[R|r|h|c][+c[label]]</span></code>.
+<li><p><strong>color_model</strong> – [<strong>R</strong>|<strong>r</strong>|<strong>h</strong>|<strong>c</strong>][<strong>+c</strong>[<em>label</em>]].
 Force output CPT to be written with r/g/b codes, gray-scale values or
 color name (<strong>R</strong>, default) or r/g/b codes only (<strong>r</strong>), or h-s-v codes
 (<strong>h</strong>), or c/m/y/k codes (<strong>c</strong>).  Optionally or alternatively, append
@@ -356,7 +368,7 @@ names (you can skip a category by not giving a name), or give
 <em>start*[-], where we automatically build monotonically increasing
 labels from *start</em> (a single letter or an integer). Append - to build
 ranges <em>start</em>-<em>start+1</em> instead.</p></li>
-<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[min/max/inc[+b|l|n]|file|list]</span></code>.
+<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<em>min/max/inc</em>[<strong>+b</strong>|<strong>l</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em>].
 Defines the range of the new CPT by giving the lowest and highest
 z-value (and optionally an interval). If this is not given, the
 existing range in the master CPT will be used intact. The values
@@ -364,21 +376,22 @@ produced defines the color slice boundaries.  If <strong>+n</strong> is used it
 refers to the number of such boundaries and not the number of slices.
 For details on array creation, see
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array">https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array</a>.</p></li>
-<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">zlo/zhi</span></code>.
+<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>zlow/zhigh</em>.
 Truncate the incoming CPT so that the lowest and highest z-levels are
-to <em>zlo</em> and <em>zhi</em>. If one of these equal NaN then we leave that end of
-the CPT alone. The truncation takes place before any resampling. See
+to <em>zlow</em> and <em>zhigh</em>. If one of these equal NaN then we leave that
+end of the CPT alone. The truncation takes place before any
+resampling. See
 also <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
 <li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Optional. The file name with extension .cpt to store the generated CPT
 file. If not given or False (default), saves the CPT as the session
 current CPT.</p></li>
-<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Set this to True or c [Default] to reverse the sense of color
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Set this to True or <strong>c</strong>[Default] to reverse the sense of color
 progression in the master CPT. Set this to z to reverse the sign of
 z-values in the color table. Note that this change of z-direction
-happens before <em>truncate</em> and <em>series</em> values are used so the latter
-must be compatible with the changed <em>z</em>-range. See also
+happens before <code class="docutils literal notranslate"><span class="pre">truncate</span></code> and <code class="docutils literal notranslate"><span class="pre">series</span></code> values are used so the
+latter must be compatible with the changed <em>z</em>-range. See also
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>overrule_bg</strong> – Overrule background, foreground, and NaN colors specified in the master
+<li><p><strong>overrule_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Overrule background, foreground, and NaN colors specified in the master
 CPT with the values of the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> specified in
 the <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a> file or on the command line. When
@@ -390,14 +403,14 @@ Expects input z-values provided via <strong>series</strong> to be log10(<em>z</e
 assigns colors, and writes out <em>z</em>.</p></li>
 <li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Force a continuous CPT when building from a list of colors and a list
 of z-values [Default is None, i.e. discrete values].</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
 <li><p><strong>e</strong> - Error messages only</p></li>
 <li><p><strong>w</strong> - Warnings [Default]</p></li>
 <li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
-<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
 <li><p><strong>c</strong> - Compatibility warnings</p></li>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
@@ -416,13 +429,17 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
 
 <div class="section" id="examples-using-pygmt-makecpt">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code><a class="headerlink" href="#examples-using-pygmt-makecpt" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3D. In the example below, we show..."><div class="figure align-default" id="id1">
-<img alt="3D Scatter plots" src="../../_images/sphx_glr_scatter3d_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/scatter3d.html#sphx-glr-gallery-plot-scatter3d-py"><span class="std std-ref">3D Scatter plots</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig..."><div class="figure align-default" id="id1">
+<img alt="Line colors with a custom CPT" src="../../_images/sphx_glr_line-custom-cpt_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/line/line-custom-cpt.html#sphx-glr-gallery-line-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id2">
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3D. In the example below, we show..."><div class="figure align-default" id="id2">
+<img alt="3D Scatter plots" src="../../_images/sphx_glr_scatter3d_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/plot/scatter3d.html#sphx-glr-gallery-plot-scatter3d-py"><span class="std std-ref">3D Scatter plots</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id3">
 <img alt="Plotting data points" src="../../_images/sphx_glr_plot_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div><div style='clear:both'></div></div>
 </div>
@@ -439,7 +456,7 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
         <a href="pygmt.Figure.savefig.html" class="btn btn-neutral float-right" title="pygmt.Figure.savefig" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pygmt.Figure.meca.html" class="btn btn-neutral float-left" title="pygmt.Figure.meca" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pygmt.grd2cpt.html" class="btn btn-neutral float-left" title="pygmt.grd2cpt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -448,10 +465,10 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

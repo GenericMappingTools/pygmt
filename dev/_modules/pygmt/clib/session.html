@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <!-- Google Analytics tracking code -->
@@ -119,8 +120,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -216,30 +224,30 @@
   <h1>Source code for pygmt.clib.session</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Defines the Session class to create and destroy a GMT API session and provides</span>
-<span class="sd">access to the API functions. Uses ctypes to wrap most of the core functions</span>
-<span class="sd">from the C API.</span>
+<span class="sd">access to the API functions.</span>
+
+<span class="sd">Uses ctypes to wrap most of the core functions from the C API.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">ctp</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 
-<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">pygmt.clib.conversion</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">array_to_datetime</span><span class="p">,</span>
+    <span class="n">as_c_contiguous</span><span class="p">,</span>
+    <span class="n">dataarray_to_matrix</span><span class="p">,</span>
+    <span class="n">kwargs_to_ctypes_array</span><span class="p">,</span>
+    <span class="n">vectors_to_arrays</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pygmt.clib.loading</span> <span class="kn">import</span> <span class="n">load_libgmt</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">GMTCLibError</span><span class="p">,</span>
     <span class="n">GMTCLibNoSessionError</span><span class="p">,</span>
     <span class="n">GMTInvalidInput</span><span class="p">,</span>
     <span class="n">GMTVersionError</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.loading</span> <span class="kn">import</span> <span class="n">load_libgmt</span>
-<span class="kn">from</span> <span class="nn">.conversion</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">kwargs_to_ctypes_array</span><span class="p">,</span>
-    <span class="n">vectors_to_arrays</span><span class="p">,</span>
-    <span class="n">dataarray_to_matrix</span><span class="p">,</span>
-    <span class="n">as_c_contiguous</span><span class="p">,</span>
-    <span class="n">array_to_datetime</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">FAMILIES</span> <span class="o">=</span> <span class="p">[</span>
@@ -349,7 +357,6 @@
 <span class="sd">        GMTCLibNoSessionError</span>
 <span class="sd">            If trying to access without a currently open GMT session (i.e.,</span>
 <span class="sd">            outside of the context manager).</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_session_pointer&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_pointer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibNoSessionError</span><span class="p">(</span><span class="s2">&quot;No currently open GMT API session.&quot;</span><span class="p">)</span>
@@ -364,7 +371,9 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="s2">&quot;Dictionary with the GMT version and default paths and parameters.&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dictionary with the GMT version and default paths and parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_info&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_info</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">(</span><span class="s2">&quot;API_VERSION&quot;</span><span class="p">),</span>
@@ -394,7 +403,6 @@
 <span class="sd">            If the version reported by libgmt is less than</span>
 <span class="sd">            ``Session.required_version``. Will destroy the session before</span>
 <span class="sd">            raising the exception.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;pygmt-session&quot;</span><span class="p">)</span>
         <span class="c1"># Need to store the version info because &#39;get_default&#39; won&#39;t work after</span>
@@ -419,7 +427,7 @@
 
 <div class="viewcode-block" id="Session.__getitem__"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.__getitem__.html#pygmt.clib.Session.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the value of a GMT constant (C enum) from gmt_resources.h</span>
+<span class="sd">        Get the value of a GMT constant (C enum) from gmt_resources.h.</span>
 
 <span class="sd">        Used to set configuration values for other API calls. Wraps</span>
 <span class="sd">        ``GMT_Get_Enum``.</span>
@@ -439,7 +447,6 @@
 <span class="sd">        ------</span>
 <span class="sd">        GMTCLibError</span>
 <span class="sd">            If the constant doesn&#39;t exist.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_get_enum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Get_Enum&quot;</span><span class="p">,</span> <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">],</span> <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span>
@@ -494,7 +501,6 @@
 <span class="sd">        ...</span>
 <span class="sd">        &gt;&gt;&gt; type(func)</span>
 <span class="sd">        &lt;class &#39;ctypes.CDLL.__init__.&lt;locals&gt;._FuncPtr&#39;&gt;</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_libgmt&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_libgmt</span> <span class="o">=</span> <span class="n">load_libgmt</span><span class="p">()</span>
@@ -530,7 +536,6 @@
 <span class="sd">        ----------</span>
 <span class="sd">        name : str</span>
 <span class="sd">            A name for this session. Doesn&#39;t really affect the outcome.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># Won&#39;t raise an exception if there is a currently open session</span>
@@ -560,8 +565,10 @@
         <span class="k">def</span> <span class="nf">print_func</span><span class="p">(</span><span class="n">file_pointer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Callback function that the GMT C API will use to print log and</span>
-<span class="sd">            error messages. We&#39;ll capture the messages and print them to stderr</span>
-<span class="sd">            so that they will show up on the Jupyter notebook.</span>
+<span class="sd">            error messages.</span>
+
+<span class="sd">            We&#39;ll capture the messages and print them to stderr so that they</span>
+<span class="sd">            will show up on the Jupyter notebook.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_error_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -663,7 +670,6 @@
 <span class="sd">        ------</span>
 <span class="sd">        GMTCLibError</span>
 <span class="sd">            If the parameter doesn&#39;t exist.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_get_default</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Get_Default&quot;</span><span class="p">,</span>
@@ -706,7 +712,6 @@
 <span class="sd">        ------</span>
 <span class="sd">        GMTCLibError</span>
 <span class="sd">            If the returned status code of the function is non-zero.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_call_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Call_Module&quot;</span><span class="p">,</span>
@@ -764,7 +769,6 @@
 <span class="sd">        data_ptr : int</span>
 <span class="sd">            A ctypes pointer (an integer) to the allocated ``GMT_Dataset``</span>
 <span class="sd">            object.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_create_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Create_Data&quot;</span><span class="p">,</span>
@@ -934,7 +938,6 @@
 <span class="sd">        ...     gmttype == ses[&quot;GMT_FLOAT&quot;]</span>
 <span class="sd">        ...</span>
 <span class="sd">        True</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check the array has the given dimension</span>
         <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="n">ndim</span><span class="p">:</span>
@@ -988,7 +991,6 @@
 <span class="sd">        GMTCLibError</span>
 <span class="sd">            If given invalid input or ``GMT_Put_Vector`` exits with status !=</span>
 <span class="sd">            0.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_put_vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Put_Vector&quot;</span><span class="p">,</span>
@@ -1050,7 +1052,6 @@
 <span class="sd">        GMTCLibError</span>
 <span class="sd">            If given invalid input or ``GMT_Put_Strings`` exits with status !=</span>
 <span class="sd">            0.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_put_strings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Put_Strings&quot;</span><span class="p">,</span>
@@ -1113,7 +1114,6 @@
 <span class="sd">        GMTCLibError</span>
 <span class="sd">            If given invalid input or ``GMT_Put_Matrix`` exits with status !=</span>
 <span class="sd">            0.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_put_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Put_Matrix&quot;</span><span class="p">,</span>
@@ -1167,7 +1167,6 @@
 <span class="sd">        GMTCLibError</span>
 <span class="sd">            For invalid input arguments or if the GMT API functions returns a</span>
 <span class="sd">            non-zero status code.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_write_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Write_Data&quot;</span><span class="p">,</span>
@@ -1264,7 +1263,6 @@
 <span class="sd">        ...             print(ofile.read().strip())</span>
 <span class="sd">        ...</span>
 <span class="sd">        &lt;vector memory&gt;: N = 5 &lt;0/4&gt; &lt;5/9&gt;</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_open_virtualfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Open_VirtualFile&quot;</span><span class="p">,</span>
@@ -1361,7 +1359,6 @@
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        ...</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;1/3&gt; &lt;4/6&gt; &lt;7/9&gt;</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in</span>
         <span class="c1"># put_vector or put_strings because we need to maintain a reference to</span>
@@ -1406,7 +1403,7 @@
                 <span class="n">strings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span>
                     <span class="n">func1d</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">arr</span><span class="o">=</span><span class="n">string_arrays</span>
                 <span class="p">)</span>
-            <span class="n">strings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">strings</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">str</span><span class="p">)</span>
+            <span class="n">strings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">strings</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put_strings</span><span class="p">(</span>
                 <span class="n">dataset</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s2">&quot;GMT_IS_VECTOR|GMT_IS_DUPLICATE&quot;</span><span class="p">,</span> <span class="n">strings</span><span class="o">=</span><span class="n">strings</span>
             <span class="p">)</span>
@@ -1475,7 +1472,6 @@
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        ...</span>
 <span class="sd">        &lt;matrix memory&gt;: N = 4 &lt;0/9&gt; &lt;1/10&gt; &lt;2/11&gt;</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Conversion to a C-contiguous array needs to be done here and not in</span>
         <span class="c1"># put_matrix because we need to maintain a reference to the copy while</span>
@@ -1559,7 +1555,6 @@
 <span class="sd">        ...</span>
 <span class="sd">        -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1</span>
 <span class="sd">        &gt;&gt;&gt; # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_gtype</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;GMT_GRID_IS_CARTESIAN&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;GMT_GRID_IS_GEO&quot;</span><span class="p">}[</span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span><span class="p">]</span>
         <span class="n">_reg</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;GMT_GRID_NODE_REG&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;GMT_GRID_PIXEL_REG&quot;</span><span class="p">}[</span><span class="n">grid</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">registration</span><span class="p">]</span>
@@ -1643,7 +1638,6 @@
 <span class="sd">        ...</span>
 <span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([&quot;{:.2f}&quot;.format(x) for x in wesn]))</span>
 <span class="sd">        -165.00, -150.00, 15.00, 25.00</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_extract_region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
             <span class="s2">&quot;GMT_Extract_Region&quot;</span><span class="p">,</span>
@@ -1673,10 +1667,10 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

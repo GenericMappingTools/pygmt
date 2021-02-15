@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <!-- Google Analytics tracking code -->
@@ -119,8 +120,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -223,24 +231,31 @@
 
 <span class="kn">import</span> <span class="nn">atexit</span> <span class="k">as</span> <span class="nn">_atexit</span>
 
-<span class="kn">from</span> <span class="nn">._version</span> <span class="kn">import</span> <span class="n">get_versions</span> <span class="k">as</span> <span class="n">_get_versions</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">get_distribution</span>
 
 <span class="c1"># Import modules to make the high-level GMT Python API</span>
-<span class="kn">from</span> <span class="nn">.session_management</span> <span class="kn">import</span> <span class="n">begin</span> <span class="k">as</span> <span class="n">_begin</span><span class="p">,</span> <span class="n">end</span> <span class="k">as</span> <span class="n">_end</span>
-<span class="kn">from</span> <span class="nn">.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
-<span class="kn">from</span> <span class="nn">.filtering</span> <span class="kn">import</span> <span class="n">blockmedian</span>
-<span class="kn">from</span> <span class="nn">.gridding</span> <span class="kn">import</span> <span class="n">surface</span>
-<span class="kn">from</span> <span class="nn">.sampling</span> <span class="kn">import</span> <span class="n">grdtrack</span>
-<span class="kn">from</span> <span class="nn">.mathops</span> <span class="kn">import</span> <span class="n">makecpt</span>
-<span class="kn">from</span> <span class="nn">.modules</span> <span class="kn">import</span> <span class="n">GMTDataArrayAccessor</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">grdinfo</span><span class="p">,</span> <span class="n">which</span>
-<span class="kn">from</span> <span class="nn">.gridops</span> <span class="kn">import</span> <span class="n">grdcut</span><span class="p">,</span> <span class="n">grdfilter</span>
-<span class="kn">from</span> <span class="nn">.x2sys</span> <span class="kn">import</span> <span class="n">x2sys_init</span><span class="p">,</span> <span class="n">x2sys_cross</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">pygmt</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">pygmt.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
+<span class="kn">from</span> <span class="nn">pygmt.modules</span> <span class="kn">import</span> <span class="n">GMTDataArrayAccessor</span><span class="p">,</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">pygmt.session_management</span> <span class="kn">import</span> <span class="n">begin</span> <span class="k">as</span> <span class="n">_begin</span>
+<span class="kn">from</span> <span class="nn">pygmt.session_management</span> <span class="kn">import</span> <span class="n">end</span> <span class="k">as</span> <span class="n">_end</span>
+<span class="kn">from</span> <span class="nn">pygmt.src</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">blockmedian</span><span class="p">,</span>
+    <span class="n">grd2cpt</span><span class="p">,</span>
+    <span class="n">grdcut</span><span class="p">,</span>
+    <span class="n">grdfilter</span><span class="p">,</span>
+    <span class="n">grdinfo</span><span class="p">,</span>
+    <span class="n">grdtrack</span><span class="p">,</span>
+    <span class="n">info</span><span class="p">,</span>
+    <span class="n">makecpt</span><span class="p">,</span>
+    <span class="n">surface</span><span class="p">,</span>
+    <span class="n">which</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pygmt.x2sys</span> <span class="kn">import</span> <span class="n">x2sys_cross</span><span class="p">,</span> <span class="n">x2sys_init</span>
 
-
-<span class="c1"># Get the version number through versioneer</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="n">_get_versions</span><span class="p">()[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span>
-<span class="n">__commit__</span> <span class="o">=</span> <span class="n">_get_versions</span><span class="p">()[</span><span class="s2">&quot;full-revisionid&quot;</span><span class="p">]</span>
+<span class="c1"># Get semantic version through setuptools-scm</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;v</span><span class="si">{</span><span class="n">get_distribution</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># e.g. v0.1.2.dev3+g0ab3cd78</span>
+<span class="n">__commit__</span> <span class="o">=</span> <span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;+g&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 0ab3cd78</span>
 
 <span class="c1"># Start our global modern mode session</span>
 <span class="n">_begin</span><span class="p">()</span>
@@ -255,7 +270,7 @@
 <span class="sd">    Includes the GMT version, default values for parameters, the path to the</span>
 <span class="sd">    ``libgmt`` shared library, and GMT directories.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+    <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT library information:&quot;</span><span class="p">]</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">ses</span><span class="p">:</span>
@@ -275,13 +290,15 @@
 <span class="sd">    - GMT library information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">import</span> <span class="nn">sys</span>
-    <span class="kn">import</span> <span class="nn">platform</span>
     <span class="kn">import</span> <span class="nn">importlib</span>
+    <span class="kn">import</span> <span class="nn">platform</span>
     <span class="kn">import</span> <span class="nn">subprocess</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
 
     <span class="k">def</span> <span class="nf">_get_module_version</span><span class="p">(</span><span class="n">modname</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get version information of a Python module.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get version information of a Python module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">modname</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
                 <span class="n">module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">modname</span><span class="p">]</span>
@@ -296,9 +313,11 @@
             <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_get_ghostscript_version</span><span class="p">():</span>
-        <span class="sd">&quot;&quot;&quot;Get ghostscript version.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get ghostscript version.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">os_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span>
-        <span class="k">if</span> <span class="n">os_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;linux&quot;</span><span class="p">,</span> <span class="s2">&quot;freebsd&quot;</span><span class="p">,</span> <span class="s2">&quot;darwin&quot;</span><span class="p">)):</span>
             <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gs&quot;</span><span class="p">]</span>
         <span class="k">elif</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
             <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gswin64c.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;gswin32c.exe&quot;</span><span class="p">]</span>
@@ -316,7 +335,9 @@
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_get_gmt_version</span><span class="p">():</span>
-        <span class="sd">&quot;&quot;&quot;Get GMT version.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get GMT version.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">version</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
                 <span class="p">[</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
@@ -378,7 +399,6 @@
 <span class="sd">    AssertionError</span>
 <span class="sd">        If pytest returns a non-zero error code indicating that some tests have</span>
 <span class="sd">        failed.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">pytest</span>
 
@@ -413,10 +433,10 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

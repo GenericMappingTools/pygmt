@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.Figure.show" href="pygmt.Figure.show.html" />
@@ -121,8 +122,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -133,18 +141,22 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.basemap.html">pygmt.Figure.basemap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdview.html">pygmt.Figure.grdview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.meca.html">pygmt.Figure.meca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.set_panel.html">pygmt.Figure.set_panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.subplot.html">pygmt.Figure.subplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grd2cpt.html">pygmt.grd2cpt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.makecpt.html">pygmt.makecpt</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.Figure.savefig</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-figure-savefig">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.savefig</span></code></a></li>
@@ -281,12 +293,12 @@
 </style>
 <div class="section" id="pygmt-figure-savefig">
 <h1>pygmt.Figure.savefig<a class="headerlink" href="#pygmt-figure-savefig" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
+<dl class="py method">
 <dt id="pygmt.Figure.savefig">
-<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">savefig</code><span class="sig-paren">(</span><em class="sig-param">fname</em>, <em class="sig-param">transparent=False</em>, <em class="sig-param">crop=True</em>, <em class="sig-param">anti_alias=True</em>, <em class="sig-param">show=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure.savefig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.Figure.savefig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">Figure.</span></code><code class="sig-name descname"><span class="pre">savefig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure.savefig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.Figure.savefig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the figure to a file.</p>
 <p>This method implements a matplotlib-like interface for
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">psconvert</span></code>.</p>
+<a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>.</p>
 <p>Supported formats: PNG (<code class="docutils literal notranslate"><span class="pre">.png</span></code>), JPEG (<code class="docutils literal notranslate"><span class="pre">.jpg</span></code>), PDF (<code class="docutils literal notranslate"><span class="pre">.pdf</span></code>),
 BMP (<code class="docutils literal notranslate"><span class="pre">.bmp</span></code>), TIFF (<code class="docutils literal notranslate"><span class="pre">.tif</span></code>), EPS (<code class="docutils literal notranslate"><span class="pre">.eps</span></code>), and KML (<code class="docutils literal notranslate"><span class="pre">.kml</span></code>).
 The KML output generates a companion PNG file.</p>
@@ -301,9 +313,10 @@ of supported formats and their extensions above.</p></li>
 valid for PNG format.</p></li>
 <li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, will crop the figure canvas (page) to the plot area.</p></li>
 <li><p><strong>anti_alias</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, will use anti aliasing when creating raster images (PNG,
-JPG, TIf). More specifically, uses options <code class="docutils literal notranslate"><span class="pre">Qt=2,</span> <span class="pre">Qg=2</span></code> in
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">psconvert</span></code>. Ignored if creating vector graphics.
-Overrides values of <code class="docutils literal notranslate"><span class="pre">Qt</span></code> and <code class="docutils literal notranslate"><span class="pre">Qg</span></code> passed in through <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p></li>
+JPG, TIFF). More specifically, it passes arguments <code class="docutils literal notranslate"><span class="pre">t2</span></code>
+and <code class="docutils literal notranslate"><span class="pre">g2</span></code> to the <code class="docutils literal notranslate"><span class="pre">anti_aliasing</span></code> parameter of
+<a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>. Ignored if creating vector
+graphics.</p></li>
 <li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, will open the figure in an external viewer.</p></li>
 <li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Set raster resolution in dpi. Default is 720 for PDF, 300 for
 others.</p></li>
@@ -342,10 +355,10 @@ others.</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

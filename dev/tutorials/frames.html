@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Projections" href="../projections/index.html" />
@@ -121,12 +122,21 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Frames, ticks, titles, and labels</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#plot-frame">Plot frame</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ticks-and-grid-lines">Ticks and grid lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#title">Title</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#axis-labels">Axis labels</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -251,12 +261,21 @@
 </style>
 <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-frames-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-frames-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="frames-ticks-titles-and-labels">
 <span id="sphx-glr-tutorials-frames-py"></span><h1>Frames, ticks, titles, and labels<a class="headerlink" href="#frames-ticks-titles-and-labels" title="Permalink to this headline">¶</a></h1>
 <p>Setting the style of the map frames, ticks, etc, is handled by the <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument
 that all plotting methods of <a class="reference internal" href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.Figure</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
+To see the figures while using a Python script instead, use
+<code class="docutils literal notranslate"><span class="pre">fig.show(method=&quot;external)</span></code> to display the figure in the default PDF viewer.</p>
+<p>To save the figure, use <code class="docutils literal notranslate"><span class="pre">fig.savefig(&quot;figname.pdf&quot;)</span></code> where <code class="docutils literal notranslate"><span class="pre">&quot;figname.pdf&quot;</span></code>
+is the desired name and file extension for the saved figure.</p>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
 </div>
@@ -265,7 +284,7 @@ that all plotting methods of <a class="reference internal" href="../api/generate
 <p>By default, PyGMT does not add a frame to your plot. For example, we can plot the
 coastlines of the world with a Mercator projection:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10i&quot;</span><span class="p">)</span>
+<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M25c&quot;</span><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
@@ -277,7 +296,7 @@ coastlines of the world with a Mercator projection:</p>
 <p>To add the default GMT frame to the plot, use <code class="docutils literal notranslate"><span class="pre">frame=&quot;f&quot;</span></code> in
 <a class="reference internal" href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a> or any other plotting module:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10i&quot;</span><span class="p">)</span>
+<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M25c&quot;</span><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -293,7 +312,7 @@ coastlines of the world with a Mercator projection:</p>
 <p>The automatic frame (<code class="docutils literal notranslate"><span class="pre">frame=True</span></code> or <code class="docutils literal notranslate"><span class="pre">frame=&quot;a&quot;</span></code>) sets the default GMT style frame
 and automatically determines tick labels from the plot region.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10i&quot;</span><span class="p">)</span>
+<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M25c&quot;</span><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -305,7 +324,7 @@ and automatically determines tick labels from the plot region.</p>
 </div>
 <p>Add automatic grid lines to the plot by adding a <code class="docutils literal notranslate"><span class="pre">g</span></code> to <code class="docutils literal notranslate"><span class="pre">frame</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10i&quot;</span><span class="p">)</span>
+<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M25c&quot;</span><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="s2">&quot;ag&quot;</span><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -315,7 +334,69 @@ and automatically determines tick labels from the plot region.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.910 seconds)</p>
+</div>
+<div class="section" id="title">
+<h2>Title<a class="headerlink" href="#title" title="Permalink to this headline">¶</a></h2>
+<p>The figure title can be set by passing <strong>+t</strong><em>title</em> to the <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument of
+<a class="reference internal" href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a>. Passing multiple arguments to <code class="docutils literal notranslate"><span class="pre">frame</span></code> can be done by
+using a list, as show in the example below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<span class="c1"># region=&quot;IS&quot; specifies Iceland using the ISO country code</span>
+<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;IS&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M25c&quot;</span><span class="p">)</span>
+<a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;+tIceland&quot;</span><span class="p">])</span>
+<a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="frames" class="sphx-glr-single-img" src="../_images/sphx_glr_frames_005.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
+</pre></div>
+</div>
+<p>To use a title with multiple words, the title must be placed inside another set of
+quotation marks. To prevent the quotation marks from appearing in the figure title,
+the <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument can be passed in single quotation marks and the title can be
+passed in double quotation marks.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<span class="c1"># region=&quot;TT&quot; specifies Trinidad and Tobago</span>
+<a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;TT&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M25c&quot;</span><span class="p">)</span>
+<a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s1">&#39;+t&quot;Trinidad and Tobago&quot;&#39;</span><span class="p">])</span>
+<a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="frames" class="sphx-glr-single-img" src="../_images/sphx_glr_frames_006.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="axis-labels">
+<h2>Axis labels<a class="headerlink" href="#axis-labels" title="Permalink to this headline">¶</a></h2>
+<p>Axis labels can be set by passing <strong>x+l</strong><em>label</em> (or starting with <strong>y</strong> if
+labeling the y-axis) to the <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument of <a class="reference internal" href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a>.
+By default, all 4 map boundaries (or plot axes) are plotted with both tick marks and
+axis labels. The axes are named as <strong>W</strong> (west/left), <strong>S</strong> (south/bottom),
+<strong>N</strong> (north/top), and <strong>E</strong> (east/right) sides of a figure. If an upper-case axis
+name is passed, the axis is plotted with tick marks and axis labels. A lower case
+axis name plots only the axis and tick marks.</p>
+<p>The example below uses a Cartesian projection, as GMT does not allow axis labels to
+be set for geographic maps.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/8c&quot;</span><span class="p">,</span>
+    <span class="c1"># Plot axis, tick marks, and axis labels on the west/left and south/bottom axes</span>
+    <span class="c1"># Plot axis and tick marks on the north/top and east/right axes</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;x+lx-axis&quot;</span><span class="p">,</span> <span class="s2">&quot;y+ly-axis&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="frames" class="sphx-glr-single-img" src="../_images/sphx_glr_frames_007.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.729 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-frames-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/58d87c29128f202a59b161adaf8976c4/frames.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">frames.py</span></code></a></p>
@@ -349,10 +430,10 @@ and automatically determines tick labels from the plot region.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

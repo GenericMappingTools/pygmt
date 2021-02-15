@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Overview" href="overview.html" />
@@ -120,8 +121,15 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -249,7 +257,7 @@
 <h1>Why PyGMT?<a class="headerlink" href="#why-pygmt" title="Permalink to this headline">¶</a></h1>
 <p>A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on <a class="reference external" href="https://github.com/GenericMappingTools/try-gmt">Binder</a>!
-But if you need some convincing first, watch this <strong>1 hour introduction</strong> to PyGMT!</p>
+But if you need some convincing first, watch this <a class="reference external" href="https://www.youtube.com/watch?v=SSIGJEe0BIk">1 hour introduction</a> to PyGMT!</p>
 <p>Afterwards, feel free to look at our <a class="reference external" href="https://www.pygmt.org/latest/tutorials">Tutorials</a>
 or visit the <a class="reference external" href="https://www.pygmt.org/latest/gallery">PyGMT Gallery</a>.</p>
 <a class="reference external image-reference" href="https://www.youtube.com/watch?v=SSIGJEe0BIk"><img alt="Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT" class="align-center" src="https://user-images.githubusercontent.com/23487320/95393255-c0b72e80-0956-11eb-9471-24429461802b.png" /></a>
@@ -292,8 +300,8 @@ and xarray.DataArray for grids.</p></li>
 <ul class="simple">
 <li><p>Most discussion happens <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">on GitHub</a>. Feel free to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/new">open an issue</a> or comment on any
 open issue or pull request.</p></li>
-<li><p>We have a <a class="reference external" href="https://forum.generic-mapping-tools.org">Discourse forum</a>
-where you can ask questions and leave comments.</p></li>
+<li><p>We have a <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a">Discourse forum</a> where you can ask
+questions and leave comments.</p></li>
 </ul>
 </div>
 <div class="section" id="contributing">
@@ -333,20 +341,24 @@ mistakes. That’s how we all improve and we are happy to help others learn.</p>
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md">AUTHORS.md</a>
 file on GitHub for a list of the people involved and a definition of the term “PyGMT
 Developers”. Feel free to cite our work in your research using the following BibTeX:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">uieda_leonardo_2020_4025418</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">pygmt_2021_4522136</span><span class="p">,</span>
   <span class="n">author</span>       <span class="o">=</span> <span class="p">{</span><span class="n">Uieda</span><span class="p">,</span> <span class="n">Leonardo</span> <span class="ow">and</span>
                   <span class="n">Tian</span><span class="p">,</span> <span class="n">Dongdong</span> <span class="ow">and</span>
                   <span class="n">Leong</span><span class="p">,</span> <span class="n">Wei</span> <span class="n">Ji</span> <span class="ow">and</span>
                   <span class="n">Toney</span><span class="p">,</span> <span class="n">Liam</span> <span class="ow">and</span>
+                  <span class="n">Schlitzer</span><span class="p">,</span> <span class="n">William</span> <span class="ow">and</span>
+                  <span class="n">Grund</span><span class="p">,</span> <span class="n">Michael</span> <span class="ow">and</span>
                   <span class="n">Newton</span><span class="p">,</span> <span class="n">Tyler</span> <span class="ow">and</span>
+                  <span class="n">Ziebarth</span><span class="p">,</span> <span class="n">Malte</span> <span class="ow">and</span>
+                  <span class="n">Jones</span><span class="p">,</span> <span class="n">Meghan</span> <span class="ow">and</span>
                   <span class="n">Wessel</span><span class="p">,</span> <span class="n">Paul</span><span class="p">},</span>
   <span class="n">title</span>        <span class="o">=</span> <span class="p">{{</span><span class="n">PyGMT</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">interface</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Generic</span> <span class="n">Mapping</span> <span class="n">Tools</span><span class="p">}},</span>
-  <span class="n">month</span>        <span class="o">=</span> <span class="n">nov</span><span class="p">,</span>
-  <span class="n">year</span>         <span class="o">=</span> <span class="mi">2020</span><span class="p">,</span>
+  <span class="n">month</span>        <span class="o">=</span> <span class="n">feb</span><span class="p">,</span>
+  <span class="n">year</span>         <span class="o">=</span> <span class="mi">2021</span><span class="p">,</span>
   <span class="n">publisher</span>    <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
-  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="n">v0</span><span class="o">.</span><span class="mf">2.1</span><span class="p">},</span>
-  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4253459</span><span class="p">},</span>
-  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4253459</span><span class="p">}</span>
+  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="n">v0</span><span class="o">.</span><span class="mf">3.0</span><span class="p">},</span>
+  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4522136</span><span class="p">},</span>
+  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4522136</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -365,8 +377,9 @@ the <strong>BSD 3-clause License</strong>. A copy of this license is provided in
 </div>
 <div class="section" id="support">
 <h1>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h1>
-<p>The development of PyGMT was funded by
-<a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403">NSF grant OCE-1558403</a>.</p>
+<p>The development of PyGMT has been supported by NSF grants
+<a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403">OCE-1558403</a> and
+<a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602">EAR-1948603</a>.</p>
 </div>
 <div class="section" id="related-projects">
 <h1>Related projects<a class="headerlink" href="#related-projects" title="Permalink to this headline">¶</a></h1>
@@ -388,6 +401,7 @@ for GMT.</p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/dev">Development</a> (reflects the <em>master</em> branch on
 GitHub)</p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/latest">Latest release</a></p></li>
+<li><p><a class="reference external" href="https://www.pygmt.org/v0.3.0">v0.3.0</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.2.1">v0.2.1</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.2.0">v0.2.0</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.1.2">v0.1.2</a></p></li>
@@ -395,6 +409,40 @@ GitHub)</p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.1.0">v0.1.0</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/0.0.1a0">v0.0.1a0</a></p></li>
 </ul>
+</div>
+<div class="section" id="compatibility-with-python-and-gmt-versions">
+<h1>Compatibility with Python and GMT versions<a class="headerlink" href="#compatibility-with-python-and-gmt-versions" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 38%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>PyGMT</p></th>
+<th class="head"><p>GMT</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.3.0</p></td>
+<td><p>&gt;=6.1.1</p></td>
+<td><p>&gt;=3.7</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.2.1</p></td>
+<td><p>&gt;=6.1.1</p></td>
+<td><p>&gt;=3.6</p></td>
+</tr>
+<tr class="row-even"><td><p>0.2.0</p></td>
+<td><p>&gt;=6.1.1</p></td>
+<td><p>3.6 - 3.8</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1.x</p></td>
+<td><p>&gt;=6.0.0</p></td>
+<td><p>3.6 - 3.8</p></td>
+</tr>
+</tbody>
+</table>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -422,10 +470,10 @@ GitHub)</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

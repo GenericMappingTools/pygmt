@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -41,14 +40,16 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Configuring PyGMT defaults" href="configuration.html" />
-    <link rel="prev" title="Plotting data points" href="plot.html" />
+    <link rel="next" title="Creating a map with contour lines" href="contour-map.html" />
+    <link rel="prev" title="Plot lines" href="lines.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -121,7 +122,9 @@
 <li class="toctree-l1"><a class="reference internal" href="frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">Plot lines</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting text</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basic-map-annotation">Basic map annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#changing-font-style">Changing font style</a></li>
@@ -132,6 +135,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -256,13 +264,23 @@
 </style>
 <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-text-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-text-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="plotting-text">
 <span id="sphx-glr-tutorials-text-py"></span><h1>Plotting text<a class="headerlink" href="#plotting-text" title="Permalink to this headline">¶</a></h1>
 <p>It is often useful to add annotations to a map plot. This is handled by
 <a class="reference internal" href="../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.text</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
+To see the figures while using a Python script instead, use
+<code class="docutils literal notranslate"><span class="pre">fig.show(method=&quot;external)</span></code> to display the figure in the default PDF viewer.</p>
+<p>To save the figure, use <code class="docutils literal notranslate"><span class="pre">fig.savefig(&quot;figname.pdf&quot;)</span></code> where <code class="docutils literal notranslate"><span class="pre">&quot;figname.pdf&quot;</span></code>
+is the desired name and file extension for the saved figure.</p>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
 <span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
 </div>
@@ -272,8 +290,8 @@
 method of the <a class="reference internal" href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.Figure</span></code></a> class.</p>
 <p>Here we create a simple map and add an annotation using the <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>,
 and <code class="docutils literal notranslate"><span class="pre">y</span></code> arguments to specify the annotation text and position in the
-projection frame. <code class="docutils literal notranslate"><span class="pre">text</span></code> accepts ‘str’ types, while <code class="docutils literal notranslate"><span class="pre">x</span></code>, and <code class="docutils literal notranslate"><span class="pre">y</span></code>
-accepts either ‘int’/’float’ numbers, or a list/array of numbers.</p>
+projection frame. <code class="docutils literal notranslate"><span class="pre">text</span></code> accepts <em>str</em> types, while <code class="docutils literal notranslate"><span class="pre">x</span></code>, and <code class="docutils literal notranslate"><span class="pre">y</span></code>
+accepts either <em>int</em> or <em>float</em> numbers, or a list/array of numbers.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="k">with</span> <a href="../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;plain&quot;</span><span class="p">):</span>
     <a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">108</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M20c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
@@ -320,8 +338,8 @@ non-default fonts.</p>
 </div>
 <div class="section" id="plotting-from-a-text-file">
 <h2>Plotting from a text file<a class="headerlink" href="#plotting-from-a-text-file" title="Permalink to this headline">¶</a></h2>
-<p>It is also possible to add annotations from a file containing <cite>x</cite>, <cite>y</cite>, and
-<cite>text</cite> fields. Here we give a complete example.</p>
+<p>It is also possible to add annotations from a file containing <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">text</span></code> fields. Here we give a complete example.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="k">with</span> <a href="../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;plain&quot;</span><span class="p">):</span>
     <a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">108</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M20c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
@@ -338,7 +356,7 @@ non-default fonts.</p>
 
 <span class="c1"># Plot region names / sea names from a text file, where</span>
 <span class="c1"># the longitude (x) and latitude (y) coordinates are in the first two columns.</span>
-<span class="c1"># Setting angle/font/justiry to True will indicate that those columns are</span>
+<span class="c1"># Setting angle/font/justify to ``True`` will indicate that those columns are</span>
 <span class="c1"># present in the text file too (Note: must be in that order!).</span>
 <span class="c1"># Finally, the text to be printed will be in the last column</span>
 <a href="../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">textfiles</span><span class="o">=</span><span class="s2">&quot;examples.txt&quot;</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -361,9 +379,11 @@ non-default fonts.</p>
 being added to a plot. The following code segment demonstrates the
 positioning of the anchor point relative to the text.</p>
 <p>The anchor is specified with a two letter (order independent) code, chosen
-from:
-* Vertical anchor: T(op), M(iddle), B(ottom)
-* Horizontal anchor: L(eft), C(entre), R(ight)</p>
+from:</p>
+<ul class="simple">
+<li><p>Vertical anchor: <strong>T</strong>(op), <strong>M</strong>(iddle), <strong>B</strong>(ottom)</p></li>
+<li><p>Horizontal anchor: <strong>L</strong>(eft), <strong>C</strong>(entre), <strong>R</strong>(ight)</p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;af0.5g&quot;</span><span class="p">])</span>
 <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">position</span></a> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;TL&quot;</span><span class="p">,</span> <span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="s2">&quot;TR&quot;</span><span class="p">,</span> <span class="s2">&quot;ML&quot;</span><span class="p">,</span> <span class="s2">&quot;MC&quot;</span><span class="p">,</span> <span class="s2">&quot;MR&quot;</span><span class="p">,</span> <span class="s2">&quot;BL&quot;</span><span class="p">,</span> <span class="s2">&quot;BC&quot;</span><span class="p">,</span> <span class="s2">&quot;BR&quot;</span><span class="p">):</span>
@@ -419,7 +439,7 @@ the text from the horizontal.</p>
 <p>For crafting more advanced styles, be sure to check out the GMT documentation
 at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/text.html">https://docs.generic-mapping-tools.org/latest/text.html</a> and also the cookbook at
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#placement-of-text">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#placement-of-text</a>. Good luck!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.407 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.507 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-text-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/53b3891e31a2c7291e7d56b4c1274523/text.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">text.py</span></code></a></p>
@@ -441,10 +461,10 @@ at <a class="reference external" href="https://docs.generic-mapping-tools.org/la
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuring PyGMT defaults" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="contour-map.html" class="btn btn-neutral float-right" title="Creating a map with contour lines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="plot.html" class="btn btn-neutral float-left" title="Plotting data points" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="lines.html" class="btn btn-neutral float-left" title="Plot lines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -453,10 +473,10 @@ at <a class="reference external" href="https://docs.generic-mapping-tools.org/la
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

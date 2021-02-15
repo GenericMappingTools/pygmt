@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.grdinfo" href="pygmt.grdinfo.html" />
@@ -121,8 +122,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -264,21 +272,22 @@
 </style>
 <div class="section" id="pygmt-info">
 <h1>pygmt.info<a class="headerlink" href="#pygmt-info" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="pygmt.info">
-<code class="sig-prename descclassname">pygmt.</code><code class="sig-name descname">info</code><span class="sig-paren">(</span><em class="sig-param">table</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/modules.html#info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.info" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">pygmt.</span></code><code class="sig-name descname"><span class="pre">info</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/info.html#info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get information about data tables.</p>
 <p>Reads from files and finds the extreme values in each of the columns
 reported as min/max pairs. It recognizes NaNs and will print warnings if
 the number of columns vary from record to record. As an option, it will
 find the extent of the first two columns rounded up and down to the nearest
-multiple of the supplied increments given by <em>spacing</em>. Such output will be
-in a numpy.ndarray form <code class="docutils literal notranslate"><span class="pre">[w,</span> <span class="pre">e,</span> <span class="pre">s,</span> <span class="pre">n]</span></code>, which can be used directly as the
-<em>region</em> argument for other modules (hence only dx and dy are needed). If
-the <em>per_column</em> option is combined with <em>spacing</em>, then the numpy.ndarray
-output will be rounded up/down for as many columns as there are increments
-provided in <em>spacing</em>. A similar option <em>nearest_multiple</em> option will
-provide a numpy.ndarray in the form of <code class="docutils literal notranslate"><span class="pre">[zmin,</span> <span class="pre">zmax,</span> <span class="pre">dz]</span></code> for makecpt.</p>
+multiple of the supplied increments given by <code class="docutils literal notranslate"><span class="pre">spacing</span></code>. Such output will
+be in a numpy.ndarray form [<em>w</em>, <em>e</em>, <em>s</em>, <em>n</em>], which can be used
+directly as the <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter for other modules (hence only <em>dx</em>
+and <em>dy</em> are needed). If the <code class="docutils literal notranslate"><span class="pre">per_column</span></code> parameter is combined with
+<code class="docutils literal notranslate"><span class="pre">spacing</span></code>, then the numpy.ndarray output will be rounded up/down for as
+many columns as there are increments provided in <code class="docutils literal notranslate"><span class="pre">spacing</span></code>. A similar
+parameter <code class="docutils literal notranslate"><span class="pre">nearest_multiple</span></code> option will provide a numpy.ndarray in the
+form of [<em>zmin</em>, <em>zmax</em>, <em>dz</em>]`` for makecpt.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmtinfo.html">https://docs.generic-mapping-tools.org/latest/gmtinfo.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
@@ -290,25 +299,25 @@ provide a numpy.ndarray in the form of <code class="docutils literal notranslate
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>table</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>np.ndarray</em><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.16.2.dev3)"><em>xarray.Dataset</em></a>) – Pass in either a file name to an ASCII data table, a 1D/2D numpy array,
+<li><p><strong>table</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>np.ndarray</em><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.2)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.16.3.dev0)"><em>xarray.Dataset</em></a>) – Pass in either a file name to an ASCII data table, a 1D/2D numpy array,
 a pandas dataframe, or an xarray dataset made up of 1D xarray.DataArray
 data variables.</p></li>
 <li><p><strong>per_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Report the min/max values per column in separate columns.</p></li>
-<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[b|p|f|s]dx[/dy[/dz...]]'</span></code>.
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>b</strong>|<strong>p</strong>|<strong>f</strong>|<strong>s</strong>]<em>dx</em>[/<em>dy</em>[/<em>dz</em>…]].
 Report the min/max of the first n columns to the nearest multiple of
 the provided increments and output results in the form
 <code class="docutils literal notranslate"><span class="pre">[w,</span> <span class="pre">e,</span> <span class="pre">s,</span> <span class="pre">n]</span></code>.</p></li>
-<li><p><strong>nearest_multiple</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'dz[+ccol]'</span></code>
+<li><p><strong>nearest_multiple</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <strong>dz</strong>[<strong>+c</strong><em>col</em>].
 Report the min/max of the first (0’th) column to the nearest multiple
 of dz and output this in the form <code class="docutils literal notranslate"><span class="pre">[zmin,</span> <span class="pre">zmax,</span> <span class="pre">dz]</span></code>.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
 <li><p><strong>e</strong> - Error messages only</p></li>
 <li><p><strong>w</strong> - Warnings [Default]</p></li>
 <li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
-<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
 <li><p><strong>c</strong> - Compatibility warnings</p></li>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
@@ -316,8 +325,8 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p><strong>output</strong> (<em>np.ndarray or str</em>) – Return type depends on whether any of the ‘per_column’, ‘spacing’, or
-‘nearest_multiple’ parameters are set.</p>
+<dd class="field-even"><p><p><strong>output</strong> (<em>np.ndarray or str</em>) – Return type depends on whether any of the <code class="docutils literal notranslate"><span class="pre">per_column</span></code>,
+<code class="docutils literal notranslate"><span class="pre">spacing</span></code>, or <code class="docutils literal notranslate"><span class="pre">nearest_multiple</span></code> parameters are set.</p>
 <ul class="simple">
 <li><p>np.ndarray if either of the above parameters are used.</p></li>
 <li><p>str if none of the above parameters are used.</p></li>
@@ -357,10 +366,10 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

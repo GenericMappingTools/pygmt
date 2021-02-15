@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <!-- Google Analytics tracking code -->
@@ -119,8 +120,15 @@
 <li class="toctree-l1"><a class="reference internal" href="frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -245,40 +253,81 @@
 </style>
 <div class="section" id="tutorials">
 <span id="sphx-glr-tutorials"></span><h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
-<p>This file is a placeholder and not included in the docs.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast. "><div class="figure align-default" id="id1">
+<div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><div class="figure align-default" id="id1">
+<img alt="Creating a 3D perspective image" src="../_images/sphx_glr_3d-perspective-image_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="3d-perspective-image.html#sphx-glr-tutorials-3d-perspective-image-py"><span class="std std-ref">Creating a 3D perspective image</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><div class="figure align-default" id="id2">
 <img alt="Coastlines and borders" src="../_images/sphx_glr_coastlines_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config. "><div class="figure align-default" id="id2">
+<div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><div class="figure align-default" id="id3">
 <img alt="Configuring PyGMT defaults" src="../_images/sphx_glr_configuration_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="configuration.html#sphx-glr-tutorials-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="configuration.html#sphx-glr-tutorials-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Welcome to PyGMT! Here we&#x27;ll cover some of basic concepts, like creating simple figures and nam..."><div class="figure align-default" id="id3">
+<div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><div class="figure align-default" id="id4">
+<img alt="Creating a map with contour lines" src="../_images/sphx_glr_contour-map_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="contour-map.html#sphx-glr-tutorials-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><div class="figure align-default" id="id5">
+<img alt="Plotting Earth relief" src="../_images/sphx_glr_earth-relief_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="earth-relief.html#sphx-glr-tutorials-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Welcome to PyGMT! Here we&#x27;ll cover some of basic concepts, like creating simple figures and nam..."><div class="figure align-default" id="id6">
 <img alt="Making your first figure" src="../_images/sphx_glr_first-figure_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="first-figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="first-figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Setting the style of the map frames, ticks, etc, is handled by the frame argument that all plot..."><div class="figure align-default" id="id4">
+<div class="sphx-glr-thumbcontainer" tooltip="Setting the style of the map frames, ticks, etc, is handled by the frame argument that all plot..."><div class="figure align-default" id="id7">
 <img alt="Frames, ticks, titles, and labels" src="../_images/sphx_glr_frames_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id5">
+<div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method...."><div class="figure align-default" id="id8">
+<img alt="Adding an inset to the figure" src="../_images/sphx_glr_inset_thumb1.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="inset.html#sphx-glr-tutorials-inset-py"><span class="std std-ref">Adding an inset to the figure</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by pygmt.Figure.plot."><div class="figure align-default" id="id9">
+<img alt="Plot lines" src="../_images/sphx_glr_lines_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="lines.html#sphx-glr-tutorials-lines-py"><span class="std std-ref">Plot lines</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><div class="figure align-default" id="id10">
 <img alt="Plotting data points" src="../_images/sphx_glr_plot_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a map plot. This is handled by pygmt.Figure.text. "><div class="figure align-default" id="id6">
+<div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting functions take the region argument, which sets the area that will be shown..."><div class="figure align-default" id="id11">
+<img alt="Set the region" src="../_images/sphx_glr_regions_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="regions.html#sphx-glr-tutorials-regions-py"><span class="std std-ref">Set the region</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put m..."><div class="figure align-default" id="id12">
+<img alt="Making subplots" src="../_images/sphx_glr_subplots_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="subplots.html#sphx-glr-tutorials-subplots-py"><span class="std std-ref">Making subplots</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a map plot. This is handled by pygmt.Figure.text."><div class="figure align-default" id="id13">
 <img alt="Plotting text" src="../_images/sphx_glr_text_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="text.html#sphx-glr-tutorials-text-py"><span class="std std-ref">Plotting text</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="text.html#sphx-glr-tutorials-text-py"><span class="std std-ref">Plotting text</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
@@ -297,10 +346,10 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

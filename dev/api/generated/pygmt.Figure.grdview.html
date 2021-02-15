@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,13 +40,15 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.Figure.legend" href="pygmt.Figure.legend.html" />
+    <link rel="next" title="pygmt.Figure.image" href="pygmt.Figure.image.html" />
     <link rel="prev" title="pygmt.Figure.grdimage" href="pygmt.Figure.grdimage.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -121,8 +122,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -133,8 +141,6 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.basemap.html">pygmt.Figure.basemap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
@@ -142,12 +148,18 @@
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-figure-grdview">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.grdview</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.meca.html">pygmt.Figure.meca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot.html">pygmt.Figure.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.plot3d.html">pygmt.Figure.plot3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.set_panel.html">pygmt.Figure.set_panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.subplot.html">pygmt.Figure.subplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grd2cpt.html">pygmt.grd2cpt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.makecpt.html">pygmt.makecpt</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.savefig.html">pygmt.Figure.savefig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.Figure.show.html">pygmt.Figure.show</a></li>
@@ -281,9 +293,9 @@
 </style>
 <div class="section" id="pygmt-figure-grdview">
 <h1>pygmt.Figure.grdview<a class="headerlink" href="#pygmt-figure-grdview" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
+<dl class="py method">
 <dt id="pygmt.Figure.grdview">
-<code class="sig-prename descclassname">Figure.</code><code class="sig-name descname">grdview</code><span class="sig-paren">(</span><em class="sig-param">grid</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdview" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">Figure.</span></code><code class="sig-name descname"><span class="pre">grdview</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdview" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create 3-D perspective image or surface mesh from a grid.</p>
 <p>Reads a 2-D grid file and produces a 3-D perspective plot by drawing a
 mesh, painting a colored/gray-shaded surface made up of polygons, or by
@@ -310,69 +322,83 @@ intensities provided in a separate grid file.</p>
 <li><p>Wm = meshpen</p></li>
 <li><p>X = xshift</p></li>
 <li><p>Y = yshift</p></li>
+<li><p>c = panel</p></li>
 <li><p>p = perspective</p></li>
 <li><p>t = transparency</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.2.dev3)"><em>xarray.DataArray</em></a>) – The file name of the input relief grid or the grid loaded as a
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.3.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input relief grid or the grid loaded as a
 DataArray.</p></li>
 <li><p><strong>zscale/zsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Set z-axis scaling or z-axis size.</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Set map boundary frame and axes attributes.</p></li>
 <li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the color palette table to use.</p></li>
-<li><p><strong>drapegrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.2.dev3)"><em>xarray.DataArray</em></a>) – The file name or a DataArray of the image grid to be draped on top
+<li><p><strong>drapegrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.3.dev0)"><em>xarray.DataArray</em></a>) – The file name or a DataArray of the image grid to be draped on top
 of the relief provided by grid. [Default determines colors from
-grid]. Note that -Jz and -N always refers to the grid. The
-drapegrid only provides the information pertaining to colors, which
-(if drapegrid is a grid) will be looked-up via the CPT (see -C).</p></li>
-<li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">level[+gfill]</span></code>.
+grid]. Note that <code class="docutils literal notranslate"><span class="pre">zscale</span></code> and <code class="docutils literal notranslate"><span class="pre">plane</span></code> always refers to the grid.
+The drapegrid only provides the information pertaining to colors, which
+(if drapegrid is a grid) will be looked-up via the CPT (see <code class="docutils literal notranslate"><span class="pre">cmap</span></code>).</p></li>
+<li><p><strong>plane</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>level</em>[<strong>+g</strong><em>fill</em>].
 Draws a plane at this z-level. If the optional color is provided
-via the +g modifier, and the projection is not oblique, the frontal
+via the <strong>+g</strong> modifier, and the projection is not oblique, the frontal
 facade between the plane and the data perimeter is colored.</p></li>
-<li><p><strong>surftype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Specifies cover type of the grid.
-Select one of following settings:
-1. ‘m’ for mesh plot [Default].
-2. ‘mx’ or ‘my’ for waterfall plots (row or column profiles).
-3. ‘s’ for surface plot.
-4. ‘i’ for image plot.
-5. ‘c’. Same as ‘i’ but will make nodes with z = NaN transparent.
-For any of these choices, you may force a monochrome image by
-appending the modifier +m.</p></li>
+<li><p><strong>surftype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Specifies cover type of the grid.
+Select one of following settings:</p>
+<ul>
+<li><p><strong>m</strong> - mesh plot [Default].</p></li>
+<li><p><strong>mx</strong> or <strong>my</strong> - waterfall plots (row or column profiles).</p></li>
+<li><p><strong>s</strong> - surface plot, and optionally append <strong>m</strong> to have mesh lines
+drawn on top of the surface.</p></li>
+<li><p><strong>i</strong> - image plot.</p></li>
+<li><p><strong>c</strong> - Same as <strong>i</strong> but will make nodes with z = NaN transparent.</p></li>
+</ul>
+<p>For any of these choices, you may force a monochrome image by
+appending the modifier <strong>+m</strong>.</p>
+</p></li>
 <li><p><strong>contourpen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Draw contour lines on top of surface or mesh (not image). Append
 pen attributes used for the contours.</p></li>
-<li><p><strong>meshpen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Sets the pen attributes used for the mesh. You must also select -Qm
-or -Qsm for meshlines to be drawn.</p></li>
+<li><p><strong>meshpen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Sets the pen attributes used for the mesh. You must also select
+<code class="docutils literal notranslate"><span class="pre">surftype</span></code> of <strong>m</strong> or <strong>sm</strong> for meshlines to be drawn.</p></li>
 <li><p><strong>facadepen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Sets the pen attributes used for the facade. You must also select
--N for the facade outline to be drawn.</p></li>
+<code class="docutils literal notranslate"><span class="pre">plane</span></code> for the facade outline to be drawn.</p></li>
 <li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Provide the name of a grid file with intensities in the (-1,+1)
 range, or a constant intensity to apply everywhere (affects the
 ambient light). Alternatively, derive an intensity grid from the
 input data grid reliefgrid via a call to <code class="docutils literal notranslate"><span class="pre">grdgradient</span></code>; append
-<code class="docutils literal notranslate"><span class="pre">+aazimuth</span></code>, <code class="docutils literal notranslate"><span class="pre">+nargs</span></code>, and <code class="docutils literal notranslate"><span class="pre">+mambient</span></code> to specify azimuth,
-intensity, and ambient arguments for that module, or just give
-<code class="docutils literal notranslate"><span class="pre">+d</span></code> to select the default arguments (<code class="docutils literal notranslate"><span class="pre">+a-45+nt1+m0</span></code>).</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+<strong>+a</strong><em>azimuth</em>, <strong>+n</strong><em>args</em>, and <strong>+m</strong><em>ambient</em> to specify
+azimuth, intensity, and ambient arguments for that module, or just give
+<strong>+d</strong> to select the default arguments
+[Default is <strong>+a</strong>-45<strong>+nt</strong>1<strong>+m</strong>0].</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
 <li><p><strong>e</strong> - Error messages only</p></li>
 <li><p><strong>w</strong> - Warnings [Default]</p></li>
 <li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
-<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
 <li><p><strong>c</strong> - Compatibility warnings</p></li>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
 </p></li>
-<li><p><strong>xshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[a|c|f|r][xshift]</span></code>.
+<li><p><strong>xshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>a</strong>|<strong>c</strong>|<strong>f</strong>|<strong>r</strong>][<em>xshift</em>].
 Shift plot origin in x-direction.</p></li>
-<li><p><strong>yshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">[a|c|f|r][yshift]</span></code>.
+<li><p><strong>yshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>a</strong>|<strong>c</strong>|<strong>f</strong>|<strong>r</strong>][<em>yshift</em>].
 Shift plot origin in y-direction. Full documentation is at
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full">https://docs.generic-mapping-tools.org/latest/gmt.html#xy-full</a>.</p></li>
-<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">'[x|y|z]azim[/elev[/zlevel]][+wlon0/lat0[/z0]][+vx0/y0]'</span></code>.
+<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
+Selects a specific subplot panel. Only allowed when in subplot
+mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
+selected order. Instead of <em>row,col</em> you may also give a scalar
+value <em>index</em> which depends on the order you set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code>
+when the subplot was defined. <strong>Note</strong>: <em>row</em>, <em>col</em>, and <em>index</em>
+all start at 0.</p></li>
+<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
 Select perspective view and set the azimuth and elevation angle of
 the viewpoint. Default is [180, 90]. Full documentation is at
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full</a>.</p></li>
-<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Set transparency level, in [0-100] percent range.
 Default is 0, i.e., opaque.
 Only visible when PDF or raster format output is selected.
 Only the PNG format selection adds a transparency layer
@@ -388,6 +414,10 @@ in the image (for further processing).</p></li>
 <img alt="Plotting a surface" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
 <p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/grid/grdview_surface.html#sphx-glr-gallery-grid-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><div class="figure align-default" id="id2">
+<img alt="Creating a 3D perspective image" src="../../_images/sphx_glr_3d-perspective-image_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/3d-perspective-image.html#sphx-glr-tutorials-3d-perspective-image-py"><span class="std std-ref">Creating a 3D perspective image</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
 </div><div style='clear:both'></div></div>
 </div>
 
@@ -400,7 +430,7 @@ in the image (for further processing).</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pygmt.Figure.legend.html" class="btn btn-neutral float-right" title="pygmt.Figure.legend" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pygmt.Figure.image.html" class="btn btn-neutral float-right" title="pygmt.Figure.image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="pygmt.Figure.grdimage.html" class="btn btn-neutral float-left" title="pygmt.Figure.grdimage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -412,10 +442,10 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

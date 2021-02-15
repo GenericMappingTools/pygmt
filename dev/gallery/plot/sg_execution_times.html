@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <!-- Google Analytics tracking code -->
@@ -119,8 +120,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -245,40 +253,60 @@
 </style>
 <div class="section" id="computation-times">
 <span id="sphx-glr-gallery-plot-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>00:04.470</strong> total execution time for <strong>gallery_plot</strong> files:</p>
+<p><strong>00:16.928</strong> total execution time for <strong>gallery_plot</strong> files:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 81%" />
-<col style="width: 11%" />
-<col style="width: 8%" />
+<col style="width: 83%" />
+<col style="width: 10%" />
+<col style="width: 7%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="scatter3d.html#sphx-glr-gallery-plot-scatter3d-py"><span class="std std-ref">3D Scatter plots</span></a> (<code class="docutils literal notranslate"><span class="pre">scatter3d.py</span></code>)</p></td>
-<td><p>00:00.956</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="inset.html#sphx-glr-gallery-plot-inset-py"><span class="std std-ref">Inset</span></a> (<code class="docutils literal notranslate"><span class="pre">inset.py</span></code>)</p></td>
+<td><p>00:02.311</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="scatter.html#sphx-glr-gallery-plot-scatter-py"><span class="std std-ref">Scatter plots with a legend</span></a> (<code class="docutils literal notranslate"><span class="pre">scatter.py</span></code>)</p></td>
-<td><p>00:00.777</p></td>
-<td><p>0.0 MB</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="points-transparency.html#sphx-glr-gallery-plot-points-transparency-py"><span class="std std-ref">Points with varying transparency</span></a> (<code class="docutils literal notranslate"><span class="pre">points-transparency.py</span></code>)</p></td>
-<td><p>00:00.639</p></td>
-<td><p>0.0 MB</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="points.html#sphx-glr-gallery-plot-points-py"><span class="std std-ref">Points</span></a> (<code class="docutils literal notranslate"><span class="pre">points.py</span></code>)</p></td>
-<td><p>00:00.573</p></td>
+<td><p>00:01.703</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="legend.html#sphx-glr-gallery-plot-legend-py"><span class="std std-ref">Legend</span></a> (<code class="docutils literal notranslate"><span class="pre">legend.py</span></code>)</p></td>
-<td><p>00:00.559</p></td>
+<td><p>00:01.630</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="multi-parameter-symbols.html#sphx-glr-gallery-plot-multi-parameter-symbols-py"><span class="std std-ref">Multi-parameter symbols</span></a> (<code class="docutils literal notranslate"><span class="pre">multi-parameter-symbols.py</span></code>)</p></td>
+<td><p>00:01.538</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="datetime-inputs.html#sphx-glr-gallery-plot-datetime-inputs-py"><span class="std std-ref">Datetime inputs</span></a> (<code class="docutils literal notranslate"><span class="pre">datetime-inputs.py</span></code>)</p></td>
+<td><p>00:01.430</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="colorbar.html#sphx-glr-gallery-plot-colorbar-py"><span class="std std-ref">Colorbar</span></a> (<code class="docutils literal notranslate"><span class="pre">colorbar.py</span></code>)</p></td>
-<td><p>00:00.494</p></td>
+<td><p>00:01.321</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="meca.html#sphx-glr-gallery-plot-meca-py"><span class="std std-ref">Focal mechanisms</span></a> (<code class="docutils literal notranslate"><span class="pre">meca.py</span></code>)</p></td>
-<td><p>00:00.472</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="scatter3d.html#sphx-glr-gallery-plot-scatter3d-py"><span class="std std-ref">3D Scatter plots</span></a> (<code class="docutils literal notranslate"><span class="pre">scatter3d.py</span></code>)</p></td>
+<td><p>00:01.262</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="logo.html#sphx-glr-gallery-plot-logo-py"><span class="std std-ref">Logo</span></a> (<code class="docutils literal notranslate"><span class="pre">logo.py</span></code>)</p></td>
+<td><p>00:01.199</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="points-transparency.html#sphx-glr-gallery-plot-points-transparency-py"><span class="std std-ref">Points with varying transparency</span></a> (<code class="docutils literal notranslate"><span class="pre">points-transparency.py</span></code>)</p></td>
+<td><p>00:01.146</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="points.html#sphx-glr-gallery-plot-points-py"><span class="std std-ref">Points</span></a> (<code class="docutils literal notranslate"><span class="pre">points.py</span></code>)</p></td>
+<td><p>00:01.138</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="image.html#sphx-glr-gallery-plot-image-py"><span class="std std-ref">Images or EPS files on maps</span></a> (<code class="docutils literal notranslate"><span class="pre">image.py</span></code>)</p></td>
+<td><p>00:01.126</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="meca.html#sphx-glr-gallery-plot-meca-py"><span class="std std-ref">Focal mechanisms</span></a> (<code class="docutils literal notranslate"><span class="pre">meca.py</span></code>)</p></td>
+<td><p>00:01.124</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 </tbody>
@@ -297,10 +325,10 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 

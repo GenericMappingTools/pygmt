@@ -1,0 +1,18 @@
+
+:orphan:
+
+.. _sphx_glr_projections_nongeo_sg_execution_times:
+
+Computation times
+=================
+**00:04.317** total execution time for **projections_nongeo** files:
+
++--------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_nongeo_cartesian_logarithmic.py` (``cartesian_logarithmic.py``) | 00:01.152 | 0.0 MB |
++--------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_nongeo_cartesian_power.py` (``cartesian_power.py``)             | 00:01.131 | 0.0 MB |
++--------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_nongeo_polar.py` (``polar.py``)                                 | 00:01.096 | 0.0 MB |
++--------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_nongeo_cartesian_linear.py` (``cartesian_linear.py``)           | 00:00.938 | 0.0 MB |
++--------------------------------------------------------------------------------------------+-----------+--------+

@@ -44,6 +44,10 @@ pygmt.Figure
     
     
     
+    Figure.inset
+    
+    
+    
     Figure.legend
     
     
@@ -72,11 +76,19 @@ pygmt.Figure
     
     
     
+    Figure.set_panel
+    
+    
+    
     Figure.shift_origin
     
     
     
     Figure.show
+    
+    
+    
+    Figure.subplot
     
     
     

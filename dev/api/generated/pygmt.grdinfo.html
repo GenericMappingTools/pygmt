@@ -26,13 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -41,10 +40,12 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.which" href="pygmt.which.html" />
@@ -121,8 +122,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
@@ -261,24 +269,82 @@
 </style>
 <div class="section" id="pygmt-grdinfo">
 <h1>pygmt.grdinfo<a class="headerlink" href="#pygmt-grdinfo" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="pygmt.grdinfo">
-<code class="sig-prename descclassname">pygmt.</code><code class="sig-name descname">grdinfo</code><span class="sig-paren">(</span><em class="sig-param">grid</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/modules.html#grdinfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygmt.grdinfo" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">pygmt.</span></code><code class="sig-name descname"><span class="pre">grdinfo</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grdinfo.html#grdinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdinfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get information about a grid.</p>
 <p>Can read the grid from a file or given as an xarray.DataArray grid.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/grdinfo.html">https://docs.generic-mapping-tools.org/latest/grdinfo.html</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.2.dev3)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is w], which modulates the messages
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.3.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.
+This is the only required argument.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
+<em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the region of interest.</p></li>
+<li><p><strong>per_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – <strong>n</strong>|<strong>t</strong>.
+Formats the report using tab-separated fields on a single line. The
+output is name <em>w e s n z0 z1 dx dy nx ny</em> [ <em>x0 y0 x1 y1</em> ]
+[ <em>med scale</em> ] [ <em>mean std rms</em> ] [ <em>n_nan</em> ] <em>registration gtype</em>.
+The data in brackets are outputted depending on the <code class="docutils literal notranslate"><span class="pre">force_scan</span></code>
+and <code class="docutils literal notranslate"><span class="pre">minmax_pos</span></code> arguments. Use <strong>t</strong> to place file name at the end
+of the output record or, <strong>n</strong> or <code class="docutils literal notranslate"><span class="pre">True</span></code> to only output numerical
+columns. The registration is either 0 (gridline) or 1 (pixel), while
+gtype is either 0 (Cartesian) or 1 (geographic). The default value is
+<code class="docutils literal notranslate"><span class="pre">False</span></code>. This cannot be called if <code class="docutils literal notranslate"><span class="pre">geographic</span></code> is also set.</p></li>
+<li><p><strong>tiles</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>xoff</em>[/<em>yoff</em>][<strong>+i</strong>].
+Divide a single grid’s domain (or the <code class="docutils literal notranslate"><span class="pre">region</span></code> domain, if no grid
+given) into tiles of size dx times dy (set via <code class="docutils literal notranslate"><span class="pre">spacing</span></code>). You can
+specify overlap between tiles by appending <em>xoff</em>[/<em>yoff</em>]. If the
+single grid is given you may use the modifier <strong>+i</strong> to ignore tiles
+that have no data within each tile subregion. Default output is text
+region strings. Use <code class="docutils literal notranslate"><span class="pre">per_column</span></code> to instead report four columns with
+xmin xmax ymin ymax per tile, or use <code class="docutils literal notranslate"><span class="pre">per_column=&quot;t&quot;</span></code> to also have
+the region string appended as trailing text.</p></li>
+<li><p><strong>geographic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Report grid domain and x/y-increments in world mapping format
+The default value is <code class="docutils literal notranslate"><span class="pre">False</span></code>. This cannot be called if
+<code class="docutils literal notranslate"><span class="pre">per_column</span></code> is also set.</p></li>
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>dx</em>[/<em>dy</em>]|<strong>b</strong>|<strong>i</strong>|<strong>r</strong>.
+Report the min/max of the region to the nearest multiple of dx and dy,
+and output this in the form w/e/s/n (unless <code class="docutils literal notranslate"><span class="pre">per_column</span></code> is set). To
+report the actual grid region, append <strong>r</strong>. For a grid produced by
+the img supplement (a Cartesian Mercator grid), the exact geographic
+region is given with <strong>i</strong> (if not found then we return the actual
+grid region instead). If no argument is given then we report the grid
+increment in the form <em>xinc</em>[/<em>yinc</em>]. If <strong>b</strong> is given we write
+each grid’s bounding box polygon instead. Finally, if <code class="docutils literal notranslate"><span class="pre">tiles</span></code> is in
+effect then <em>dx</em> and <em>dy</em> are the dimensions of the desired tiles.</p></li>
+<li><p><strong>force_scan</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p><strong>0</strong>|<strong>1</strong>|<strong>2</strong>|<strong>p</strong>|<strong>a</strong>.</p>
+<p><strong>0</strong>: Report range of z after actually scanning the data, not just
+reporting what the header says.
+<strong>1</strong>: Report median and L1 scale of z (L1 scale = 1.4826 * Median
+Absolute Deviation (MAD)).
+<strong>2</strong>: Report mean, standard deviation, and root-mean-square (rms)
+of z.
+<strong>p</strong>: Report mode (LMS) and LMS scale of z.
+<strong>a</strong>: Include all of the above.</p>
+</p></li>
+<li><p><strong>minxmax_pos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Include the x/y values at the location of the minimum and maximum
+z-values.</p></li>
+<li><p><strong>nearest_multiple</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<em>dz</em>][<strong>+a</strong>[<em>alpha</em>]][<strong>+s</strong>].
+Determine min and max z-value. If <em>dz</em> is provided then we first round
+these values off to multiples of <em>dz</em>. To exclude the two tails of the
+distribution when determining the min and max you can add <strong>+a</strong> to
+set the <em>alpha</em> value (in percent): We then sort the grid, exclude the
+data in the 0.5*<em>alpha</em> and 100 - 0.5*<em>alpha</em> tails, and revise
+the min and max. To force a symmetrical range about zero, using
+minus/plus the max absolute value of the two extremes, append <strong>+s</strong>.
+We report the result via the text string <em>zmin/zmax</em> or <em>zmin/zmax/dz</em>
+(if <em>dz</em> was given) as expected by <a class="reference internal" href="pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a>.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
 <li><p><strong>e</strong> - Error messages only</p></li>
 <li><p><strong>w</strong> - Warnings [Default]</p></li>
 <li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
-<li><p><strong>i</strong> - Informational messages (same as “verbose=True”)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
 <li><p><strong>c</strong> - Compatibility warnings</p></li>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
@@ -314,10 +380,10 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, The PyGMT Developers.
+        &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/2aa4aab1cc5cf925bbe01c9114d79ea9e1cb1a96">2aa4aab</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
         </span>
       
 
