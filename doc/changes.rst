@@ -25,43 +25,46 @@ Enhancements
 
 * Let load_earth_relief() support the 'region' parameter for all resolutions (#873)
 * Improve how PyGMT finds the GMT library (#702)
-* Add dcw (#765) and lakes (#781) aliases to Figure.coast
-* Add the shading parameter to Figure.colorbar (#752)
+* Add common alias panel (-c) to all plotting functions (#853)
+* Add aliases dcw (#765) and lakes (#781) to Figure.coast
+* Add alias shading to Figure.colorbar (#752)
+* Add alias annotation (A) to Figure.contour() (#883)
+* Wrap Figure.grdinfo() aliases (#799)
+* Add aliases frame and cmap to Figure.colorbar() (#709)
+* Add alias frame to Figure.grdview() (#707)
 * Improve the error message when PyGMT fails to load the GMT library (#814)
 * Add GMTInvalidInput Error for Figure.coast (#787)
 
 Documentation
 
 * Add authorship policy (#726)
+* Update PyGMT development installation instructions (#865)
+* Add a tutorial for adding a map title (#720)
+* Add a tutorial for plotting Earth relief (#712)
+* Add a tutorial for 3D perspective image (#743)
+* Add a tutorial for contour maps (#705)
+* Add a tutorial for plotting lines
+* Add a turorial for the region argument (#800)
+* Add a gallery example for datetime inputs (#779)
+* Add a gallery example for Figure.logo() (#823)
+* Add a gallery example for plotting multi-parameter symbols (#772)
+* Add a gallery example for Figure.image() (#777)
+* Add a gallery example for setting line colors with a custom CPT (#774)
+* Add more gallery examples for projections (#761, #721, #757, #723, #762, #742, #728, #727)
 * Update the docstrings in the plotting modules (#881)
-* Update the doc strings in the non-plotting modules (#882)
-* Add alias annotation (A) to Figure.contour() (#883)
-* Revise pygmt development installation instructions (#865)
+* Update the docstrings in the non-plotting modules (#882)
+* Update Figure.coast() docstrings (#798)
 * Update the docstrings of common aliases (#862)
-* Add common alias panel (-c) to all plotting functions (#853)
-* Wrap grdinfo aliases (#799)
 * Add sphinx-copybutton extension to easily copy codes (#838)
 * Choosing the thumbnail figures in tutorials (#826)
-* Add a gallery example for logo (#823)
 * Update axis label explanation in frames tutorial (#820)
-* Update GMT arguments in coast doc strings (#798)
 * Add guidelines for types of tests to write (#796)
 * Recommend using SI units in documentation (#795)
-* Create gallery example for datetime inputs (#779)
-* Add an example for plotting multi-parameter symbols (#772)
-* Add a gallery example for the fig.image() method (#777)
-* Add a gallery example of setting line colors with a custom CPT (#774)
 * Add a table for compatibility of PyGMT with Python and GMT (#763)
 * Add description for the "columns" arguments (#766)
-* Add table for projections (#753)
-* Add more gallery examples for projections (#761, #721, #757, #723, #762, #742)
+* Add a table for projections (#753)
 * Add projection description for Lambert Azimuthal Equal-Area (#760)
 * Change text when GMTInvalidInput error is raised for basemap (#729)
-* Add non-geographic plots to projection gallery (#728)
-* Adding cylindrical projections to gallery (#727)
-* Add tutorials, for adding a map title (#720), plotting Earth relief (#712), 3D perspective image (#743), contour maps (#705), plotting lines tutorial (#741), region arguments (#800)
-* Add frame and cmap to the colorbar parameters list (#709)
-* Add frame as a parameter on the grdview documentation (#707)
 
 Bug Fixes
 
@@ -91,8 +94,8 @@ Maintenance
 * Add tests for GMTInvalidInput of Figure.savefig() and Figure.show() (#810)
 * Add args_in_kwargs function (#791)
 * Add a Makefile target 'distclean' for deleting project metadata files (#744)
-* Add a test Figure.basemap() map_scale (#739)
-* Use args_in_kwargs for basemap error raising (#797)
+* Add a test for Figure.basemap() map_scale (#739)
+* Use args_in_kwargs for Figure.basemap() error raising (#797)
 
 Contributors
 
