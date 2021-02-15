@@ -27,9 +27,11 @@ Enhancements
 * Improve how PyGMT finds the GMT library (#702)
 * Add dcw (#765) and lakes (#781) aliases to Figure.coast
 * Add the shading parameter to Figure.colorbar (#752)
+* Improve the error message when PyGMT fails to load the GMT library (#814)
+* Add GMTInvalidInput Error for Figure.coast (#787)
 
 Documentation
-
+* Add authorship policy (#726)
 * Update the docstrings in the plotting modules (#881)
 * Update the doc strings in the non-plotting modules (#882)
 * Add alias annotation (A) to Figure.contour() (#883)
@@ -65,34 +67,29 @@ Bug Fixes
 * Fix a bug of Figure.text() when "text" is a non-string array (#724)
 * Fix the error message when IPython is not available (#701)
 
-Maintenance
-
 * Add dependabot to keep GitHub Actions up to date (#861)
-* Add authorship policy (#726)
-* Move plotting functions to separate modules (#808)
 * Skip workflows in PRs if only non-source-code files are changed (#839)
-* Move non-plotting modules to separate files in src directory (#832)
-* Show test execution times in pytest (#835)
 * Add slash command '/test-gmt-dev' to test GMT dev version (#831)
-* Add tests for grdfilter (#809)
-* Improve the error message when PyGMT fails to load the GMT library (#814)
-* Add tests for GMTInvalidInput for figure.py (#810)
-* Split meca into a standalone module from base_plotting.py (#686)
-* Use args_in_kwargs for basemap error raising (#797)
-* Add docformatter to format plain text in docstrings (#642)
-* Add GMTInvalidInput Error for Figure.coast (#787)
-* Add args_in_kwargs function (#791)
-* Add a CI job testing GMT master branch on Windows (#756)
-* Add isort to sort imports alphabetically (#745)
-* Convert relative imports to absolute imports (#754)
-* Add a Makefile target 'distclean' for deleting project metadata files (#744)
-* Add test test_basemap_map_scale (#739)
 * Check files for UNIX-style line breaks and 644 permission (#736)
 * Rename vercel configuration file from now.json to vercel.json (#738)
-* Migrate pytest configurations to pyproject.toml (#725)
+* Add a CI job testing GMT master branch on Windows (#756)
 * Migrate documentation deployment from Travis CI to GitHub Actions (#713)
+* Move Figure.meca() into a standalone module (#686)
+* Move plotting functions to separate modules (#808)
+* Move non-plotting modules to separate modules (#832)
+* Add isort to sort imports alphabetically (#745)
+* Convert relative imports to absolute imports (#754)
 * Switch from versioneer to setuptools-scm (#695)
+* Add docformatter to format plain text in docstrings (#642)
+* Migrate pytest configurations to pyproject.toml (#725)
 * Migrate coverage configurations to pyproject.toml (#667)
+* Show test execution times in pytest (#835)
+* Add tests for grdfilter (#809)
+* Add tests for GMTInvalidInput of Figure.savefig() and Figure.show() (#810)
+* Add args_in_kwargs function (#791)
+* Add a Makefile target 'distclean' for deleting project metadata files (#744)
+* Add a test Figure.basemap() map_scale (#739)
+* Use args_in_kwargs for basemap error raising (#797)
 
 Contributors
 
