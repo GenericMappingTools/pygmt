@@ -91,7 +91,7 @@ Maintenance
 * Migrate coverage configurations to pyproject.toml (`#667 <https://github.com/GenericMappingTools/pygmt/pull/667>`__)
 * Show test execution times in pytest (`#835 <https://github.com/GenericMappingTools/pygmt/pull/835>`__)
 * Add tests for grdfilter (`#809 <https://github.com/GenericMappingTools/pygmt/pull/809>`__)
-* Add tests for GMTInvalidInput of Figure.savefig() and Figure.show() (`#810 <https://github.com/GenericMappingTools/pygmt/pull/810>`__)
+* Add tests for GMTInvalidInput of Figure.savefig and Figure.show (`#810 <https://github.com/GenericMappingTools/pygmt/pull/810>`__)
 * Add args_in_kwargs function (`#791 <https://github.com/GenericMappingTools/pygmt/pull/791>`__)
 * Add a Makefile target 'distclean' for deleting project metadata files (`#744 <https://github.com/GenericMappingTools/pygmt/pull/744>`__)
 * Add a test for Figure.basemap map_scale (`#739 <https://github.com/GenericMappingTools/pygmt/pull/739>`__)
