@@ -188,8 +188,9 @@ the **BSD 3-clause License**. A copy of this license is provided in
 Support
 -------
 
-The development of PyGMT was funded by
-`NSF grant OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__.
+The development of PyGMT was supported by NSF grants
+`OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__ and
+`EAR-1948603 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602>`__.
 
 
 Related projects
