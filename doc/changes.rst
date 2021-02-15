@@ -14,9 +14,7 @@ Highlights
 
 New Features
 
-* Wrap subplot using with statement (#822)
-* Wrap grd2cpt (#803)
-* Wrap inset (#788)
+* Wrap grd2cpt (#803), inset (#788), and subplot (#822)
 * Let Figure.text() support record-by-record transparency (#716)
 * Provide basic support for FreeBSD (#700)
 
@@ -25,8 +23,7 @@ Enhancements
 * Let load_earth_relief() support 'region' argument for all resolutions (#873)
 * Detect ghostscript and default image viewer in FreeBSD (#878)
 * Improve how PyGMT finds the GMT library (#702)
-* Add dcw alias (E) to Figure.coast (#765)
-* Add lakes alias to Figure.coast() (#781)
+* Add dcw (#765) and lakes (#781) aliases to Figure.coast
 * Add the shading parameter to colorbar() in base_plotting.py (#752)
 
 Documentation
@@ -45,36 +42,23 @@ Documentation
 * Add a gallery example for logo (#823)
 * Update axis label explanation in frames tutorial (#820)
 * Update GMT arguments in coast doc strings (#798)
-* Add tutorial for region arguments (#800)
 * Add guidelines for types of tests to write (#796)
 * Recommend using SI units in documentation (#795)
-* Update GMT argument in the miscellaneous projections gallery to doc standards (#790)
-* Update GMT argument in the cylindric projections gallery to doc standards (#789)
 * Create gallery example for datetime inputs (#779)
-* Update GMT argument in the conic projections gallery to doc standards (#780)
-* Update GMT argument in the azimuthal projections gallery to doc standards (#776)
+* Update GMT argument in the azimuthal (#776), conic (#780), cylindric (#789), and miscellaneous (#790) projections gallery to doc standards
 * Add an example for plotting multi-parameter symbols (#772)
 * Add a gallery example for the fig.image() method (#777)
 * Add a gallery example of setting line colors with a custom CPT (#774)
 * Add a table for compatibility of PyGMT with Python and GMT (#763)
 * Add description for the "columns" arguments (#766)
-* Add logarithmic and power projections (#742)
 * Add table for projections (#753)
-* Add miscellaneous projections descriptions (#762)
-* Add cylindric descriptions (#761)
-* Conic projection descriptions (#757)
+* Add cylindric (#761), conic projection (#721, #757), miscellaneous projections descriptions (#723, #762), logarithmic and power projections (#742) to gallery
 * Add projection description for Lambert Azimuthal Equal-Area (#760)
-* Add tutorial for 3D perspective image (#743)
-* Add plotting lines tutorial (#741)
 * Change text when GMTInvalidInput error is raised for basemap (#729)
 * Add non-geographic plots to projection gallery (#728)
 * Adding cylindrical projections to gallery (#727)
-* Add tutorial for adding a map title (#720)
-* Adding miscellaneous projections to gallery (#723)
-* Add conic projections to the projection gallery (#721)
-* Add tutorial for plotting Earth relief (#712)
+* Add tutorials, for adding a map title (#720), plotting Earth relief (#712), 3D perspective image (#743), contour maps (#705), plotting lines tutorial (#741), region arguments (#800)
 * Add frame and cmap to the colorbar parameters list (#709)
-* Add tutorial for contour maps (#705)
 * Add frame as a parameter on the grdview documentation (#707)
 
 Bug Fixes
@@ -118,7 +102,7 @@ Deprecations
 
 Contributors
 
-@dependabot, @dependabot[bot], @liamtoney, @meghanrjones, @michaelgrund, @seisman, @weiji14 and @willschlitzer
+@liamtoney, @meghanrjones, @michaelgrund, @seisman, @weiji14 and @willschlitzer
 
 ----
 
