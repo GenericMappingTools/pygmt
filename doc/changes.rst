@@ -19,7 +19,7 @@ New Features
 
 * Wrap grd2cpt (`#803 <https://github.com/GenericMappingTools/pygmt/pull/803>`__)
 * Let Figure.text support record-by-record transparency (`#716 <https://github.com/GenericMappingTools/pygmt/pull/716>`__)
-* Provide basic support for FreeBSD (`#700 <https://github.com/GenericMappingTools/pygmt/pull/700>`__) (`#878 <https://github.com/GenericMappingTools/pygmt/pull/878>`__)
+* Provide basic support for FreeBSD (`#700 <https://github.com/GenericMappingTools/pygmt/pull/700>`__, `#878 <https://github.com/GenericMappingTools/pygmt/pull/878>`__)
 
 Enhancements
 
@@ -50,7 +50,7 @@ Documentation
 * Add a gallery example for plotting multi-parameter symbols (`#772 <https://github.com/GenericMappingTools/pygmt/pull/772>`__)
 * Add a gallery example for Figure.image (`#777 <https://github.com/GenericMappingTools/pygmt/pull/777>`__)
 * Add a gallery example for setting line colors with a custom CPT (`#774 <https://github.com/GenericMappingTools/pygmt/pull/774>`__)
-* Add more gallery examples for projections (`#761 <https://github.com/GenericMappingTools/pygmt/pull/761>`__) (`#721 <https://github.com/GenericMappingTools/pygmt/pull/721>`__) (`#757 <https://github.com/GenericMappingTools/pygmt/pull/757>`__) (`#723 <https://github.com/GenericMappingTools/pygmt/pull/723>`__) (`#762 <https://github.com/GenericMappingTools/pygmt/pull/762>`__) (`#742 <https://github.com/GenericMappingTools/pygmt/pull/742>`__) (`#728 <https://github.com/GenericMappingTools/pygmt/pull/728>`__) (`#727 <https://github.com/GenericMappingTools/pygmt/pull/727>`__)
+* Add more gallery examples for projections (`#761 <https://github.com/GenericMappingTools/pygmt/pull/761>`__, `#721 <https://github.com/GenericMappingTools/pygmt/pull/721>`__, `#757 <https://github.com/GenericMappingTools/pygmt/pull/757>`__, `#723 <https://github.com/GenericMappingTools/pygmt/pull/723>`__, `#762 <https://github.com/GenericMappingTools/pygmt/pull/762>`__, `#742 <https://github.com/GenericMappingTools/pygmt/pull/742>`__, `#728 <https://github.com/GenericMappingTools/pygmt/pull/728>`__, `#727 <https://github.com/GenericMappingTools/pygmt/pull/727>`__)
 * Update the docstrings in the plotting modules (`#881 <https://github.com/GenericMappingTools/pygmt/pull/881>`__)
 * Update the docstrings in the non-plotting modules (`#882 <https://github.com/GenericMappingTools/pygmt/pull/882>`__)
 * Update Figure.coast docstrings (`#798 <https://github.com/GenericMappingTools/pygmt/pull/798>`__)
