@@ -59,7 +59,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies
         shell: bash -l {0}
-        run: conda env update --file environment.yml
+        run: conda env update --name test --file environment.yml
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
