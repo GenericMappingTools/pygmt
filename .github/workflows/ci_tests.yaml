@@ -52,6 +52,7 @@ jobs:
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v2.0.1
         with:
+          activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
           miniconda-version: "latest"
@@ -59,7 +60,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install GMT and required dependencies
         shell: bash -l {0}
-        run: conda env update --name test --file environment.yml
+        run: conda env update --file environment.yml
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
