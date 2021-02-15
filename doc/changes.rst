@@ -10,11 +10,14 @@ Release v0.3.0 (2021/02/15)
 
 Highlights
 
-*
+* 🎉 **Third minor release of PyGMT** 🎉
+* Wrap inset (#788) for making overview maps and subplot (#822) for multi-panel figures
+* Apply standardized formatting conventions (#775) across most documentation pages
+* Drop Python 3.6 support (#699) so PyGMT now requires Python 3.7 or newer
 
 New Features
 
-* Wrap grd2cpt (#803), inset (#788), and subplot (#822)
+* Wrap grd2cpt (#803)
 * Let Figure.text() support record-by-record transparency (#716)
 * Provide basic support for FreeBSD (#700, #878)
 
@@ -75,7 +78,6 @@ Maintenance
 * Improve the error message when PyGMT fails to load the GMT library (#814)
 * Add tests for GMTInvalidInput for figure.py (#810)
 * Split meca into a standalone module from base_plotting.py (#686)
-* Update CONTRIBUTING.md with formatting conventions (#775)
 * Use args_in_kwargs for basemap error raising (#797)
 * Add docformatter to format plain text in docstrings (#642)
 * Add GMTInvalidInput Error for Figure.coast (#787)
@@ -92,13 +94,14 @@ Maintenance
 * Switch from versioneer to setuptools-scm (#695)
 * Migrate coverage configurations to pyproject.toml (#667)
 
-Deprecations
-
-* Drop Python 3.6 support (#699)
-
 Contributors
 
-@liamtoney, @meghanrjones, @michaelgrund, @seisman, @weiji14 and @willschlitzer
+* `Will Schlitzer <https://github.com/willschlitzer>`__
+* `Dongdong Tian <https://github.com/seisman>`__
+* `Wei Ji Leong <https://github.com/weiji14>`__
+* `Michael Grund <https://github.com/michaelgrund>`__
+* `Liam Toney <https://github.com/liamtoney>`__
+* `Meghan Jones <https://github.com/meghanrjones>`__
 
 ----
 
