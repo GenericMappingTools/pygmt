@@ -1,0 +1,12 @@
+pygmt.print\_clib\_info
+=======================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: print_clib_info
+
+.. include:: backreferences/pygmt.print_clib_info.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

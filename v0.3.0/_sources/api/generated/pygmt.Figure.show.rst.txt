@@ -1,0 +1,12 @@
+pygmt.Figure.show
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.show
+
+.. include:: backreferences/pygmt.Figure.show.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

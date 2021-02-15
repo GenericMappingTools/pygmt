@@ -1,0 +1,12 @@
+pygmt.grd2cpt
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grd2cpt
+
+.. include:: backreferences/pygmt.grd2cpt.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

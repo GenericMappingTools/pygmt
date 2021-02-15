@@ -1,0 +1,12 @@
+pygmt.clib.Session.create\_data
+===============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.create_data
+
+.. include:: backreferences/pygmt.clib.Session.create_data.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>
