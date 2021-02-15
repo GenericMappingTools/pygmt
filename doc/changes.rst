@@ -18,18 +18,18 @@ Highlights
 New Features
 
 * Wrap grd2cpt (`#803 <https://github.com/GenericMappingTools/pygmt/pull/803>`__)
-* Let Figure.text() support record-by-record transparency (`#716 <https://github.com/GenericMappingTools/pygmt/pull/716>`__)
-* Provide basic support for FreeBSD (#700, #878)
+* Let Figure.text support record-by-record transparency (`#716 <https://github.com/GenericMappingTools/pygmt/pull/716>`__)
+* Provide basic support for FreeBSD (`#700 <https://github.com/GenericMappingTools/pygmt/pull/700>`__) (`#878 <https://github.com/GenericMappingTools/pygmt/pull/878>`__)
 
 Enhancements
 
-* Let load_earth_relief() support the 'region' parameter for all resolutions (`#873 <https://github.com/GenericMappingTools/pygmt/pull/873>`__)
+* Let load_earth_relief support the 'region' parameter for all resolutions (`#873 <https://github.com/GenericMappingTools/pygmt/pull/873>`__)
 * Improve how PyGMT finds the GMT library (`#702 <https://github.com/GenericMappingTools/pygmt/pull/702>`__)
 * Add common alias panel (-c) to all plotting functions (`#853 <https://github.com/GenericMappingTools/pygmt/pull/853>`__)
 * Add aliases dcw (`#765 <https://github.com/GenericMappingTools/pygmt/pull/765>`__) and lakes (`#781 <https://github.com/GenericMappingTools/pygmt/pull/781>`__) to Figure.coast
 * Add alias shading to Figure.colorbar (`#752 <https://github.com/GenericMappingTools/pygmt/pull/752>`__)
 * Add alias annotation (A) to Figure.contour (`#883 <https://github.com/GenericMappingTools/pygmt/pull/883>`__)
-* Wrap Figure.grdinfo() aliases (`#799 <https://github.com/GenericMappingTools/pygmt/pull/799>`__)
+* Wrap Figure.grdinfo aliases (`#799 <https://github.com/GenericMappingTools/pygmt/pull/799>`__)
 * Add aliases frame and cmap to Figure.colorbar (`#709 <https://github.com/GenericMappingTools/pygmt/pull/709>`__)
 * Add alias frame to Figure.grdview (`#707 <https://github.com/GenericMappingTools/pygmt/pull/707>`__)
 * Improve the error message when PyGMT fails to load the GMT library (`#814 <https://github.com/GenericMappingTools/pygmt/pull/814>`__)
@@ -43,17 +43,17 @@ Documentation
 * Add a tutorial for plotting Earth relief (`#712 <https://github.com/GenericMappingTools/pygmt/pull/712>`__)
 * Add a tutorial for 3D perspective image (`#743 <https://github.com/GenericMappingTools/pygmt/pull/743>`__)
 * Add a tutorial for contour maps (`#705 <https://github.com/GenericMappingTools/pygmt/pull/705>`__)
-* Add a tutorial for plotting lines
+* Add a tutorial for plotting lines (`#741 <https://github.com/GenericMappingTools/pygmt/pull/741>`__)
 * Add a turorial for the region argument (`#800 <https://github.com/GenericMappingTools/pygmt/pull/800>`__)
 * Add a gallery example for datetime inputs (`#779 <https://github.com/GenericMappingTools/pygmt/pull/779>`__)
-* Add a gallery example for Figure.logo() (`#823 <https://github.com/GenericMappingTools/pygmt/pull/823>`__)
+* Add a gallery example for Figure.logo (`#823 <https://github.com/GenericMappingTools/pygmt/pull/823>`__)
 * Add a gallery example for plotting multi-parameter symbols (`#772 <https://github.com/GenericMappingTools/pygmt/pull/772>`__)
-* Add a gallery example for Figure.image() (`#777 <https://github.com/GenericMappingTools/pygmt/pull/777>`__)
+* Add a gallery example for Figure.image (`#777 <https://github.com/GenericMappingTools/pygmt/pull/777>`__)
 * Add a gallery example for setting line colors with a custom CPT (`#774 <https://github.com/GenericMappingTools/pygmt/pull/774>`__)
-* Add more gallery examples for projections (#761, #721, #757, #723, #762, #742, #728, #727)
+* Add more gallery examples for projections (`#761 <https://github.com/GenericMappingTools/pygmt/pull/761>`__) (`#721 <https://github.com/GenericMappingTools/pygmt/pull/721>`__) (`#757 <https://github.com/GenericMappingTools/pygmt/pull/757>`__) (`#723 <https://github.com/GenericMappingTools/pygmt/pull/723>`__) (`#762 <https://github.com/GenericMappingTools/pygmt/pull/762>`__) (`#742 <https://github.com/GenericMappingTools/pygmt/pull/742>`__) (`#728 <https://github.com/GenericMappingTools/pygmt/pull/728>`__) (`#727 <https://github.com/GenericMappingTools/pygmt/pull/727>`__)
 * Update the docstrings in the plotting modules (`#881 <https://github.com/GenericMappingTools/pygmt/pull/881>`__)
 * Update the docstrings in the non-plotting modules (`#882 <https://github.com/GenericMappingTools/pygmt/pull/882>`__)
-* Update Figure.coast() docstrings (`#798 <https://github.com/GenericMappingTools/pygmt/pull/798>`__)
+* Update Figure.coast docstrings (`#798 <https://github.com/GenericMappingTools/pygmt/pull/798>`__)
 * Update the docstrings of common aliases (`#862 <https://github.com/GenericMappingTools/pygmt/pull/862>`__)
 * Add sphinx-copybutton extension to easily copy codes (`#838 <https://github.com/GenericMappingTools/pygmt/pull/838>`__)
 * Choose the best figures in tutorials for thumbnails (`#826 <https://github.com/GenericMappingTools/pygmt/pull/826>`__)
@@ -68,7 +68,7 @@ Documentation
 
 Bug Fixes
 
-* Fix a bug of Figure.text() when "text" is a non-string array (`#724 <https://github.com/GenericMappingTools/pygmt/pull/724>`__)
+* Fix a bug of Figure.text when "text" is a non-string array (`#724 <https://github.com/GenericMappingTools/pygmt/pull/724>`__)
 * Fix the error message when IPython is not available (`#701 <https://github.com/GenericMappingTools/pygmt/pull/701>`__)
 
 Maintenance
@@ -80,7 +80,7 @@ Maintenance
 * Rename vercel configuration file from now.json to vercel.json (`#738 <https://github.com/GenericMappingTools/pygmt/pull/738>`__)
 * Add a CI job testing GMT master branch on Windows (`#756 <https://github.com/GenericMappingTools/pygmt/pull/756>`__)
 * Migrate documentation deployment from Travis CI to GitHub Actions (`#713 <https://github.com/GenericMappingTools/pygmt/pull/713>`__)
-* Move Figure.meca() into a standalone module (`#686 <https://github.com/GenericMappingTools/pygmt/pull/686>`__)
+* Move Figure.meca into a standalone module (`#686 <https://github.com/GenericMappingTools/pygmt/pull/686>`__)
 * Move plotting functions to separate modules (`#808 <https://github.com/GenericMappingTools/pygmt/pull/808>`__)
 * Move non-plotting modules to separate modules (`#832 <https://github.com/GenericMappingTools/pygmt/pull/832>`__)
 * Add isort to sort imports alphabetically (`#745 <https://github.com/GenericMappingTools/pygmt/pull/745>`__)
@@ -94,8 +94,8 @@ Maintenance
 * Add tests for GMTInvalidInput of Figure.savefig() and Figure.show() (`#810 <https://github.com/GenericMappingTools/pygmt/pull/810>`__)
 * Add args_in_kwargs function (`#791 <https://github.com/GenericMappingTools/pygmt/pull/791>`__)
 * Add a Makefile target 'distclean' for deleting project metadata files (`#744 <https://github.com/GenericMappingTools/pygmt/pull/744>`__)
-* Add a test for Figure.basemap() map_scale (`#739 <https://github.com/GenericMappingTools/pygmt/pull/739>`__)
-* Use args_in_kwargs for Figure.basemap() error raising (`#797 <https://github.com/GenericMappingTools/pygmt/pull/797>`__)
+* Add a test for Figure.basemap map_scale (`#739 <https://github.com/GenericMappingTools/pygmt/pull/739>`__)
+* Use args_in_kwargs for Figure.basemap error raising (`#797 <https://github.com/GenericMappingTools/pygmt/pull/797>`__)
 
 Contributors
 
