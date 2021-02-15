@@ -36,6 +36,7 @@ jobs:
       run: python -m pip install setuptools wheel
 
     - name: Fix up version string
+      if: !startsWith(github.ref, 'refs/tags')
       run: |
         # Change setuptools-scm local_scheme to "no-local-version" so the
         # local part of the version isn't included, making the version string
