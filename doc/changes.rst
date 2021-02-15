@@ -16,15 +16,14 @@ New Features
 
 * Wrap grd2cpt (#803), inset (#788), and subplot (#822)
 * Let Figure.text() support record-by-record transparency (#716)
-* Provide basic support for FreeBSD (#700)
+* Provide basic support for FreeBSD (#700, #878)
 
 Enhancements
 
-* Let load_earth_relief() support 'region' argument for all resolutions (#873)
-* Detect ghostscript and default image viewer in FreeBSD (#878)
+* Let load_earth_relief() support the 'region' parameter for all resolutions (#873)
 * Improve how PyGMT finds the GMT library (#702)
 * Add dcw (#765) and lakes (#781) aliases to Figure.coast
-* Add the shading parameter to colorbar() in base_plotting.py (#752)
+* Add the shading parameter to Figure.colorbar (#752)
 
 Documentation
 
@@ -34,10 +33,8 @@ Documentation
 * Revise pygmt development installation instructions (#865)
 * Update the docstrings of common aliases (#862)
 * Add common alias panel (-c) to all plotting functions (#853)
-* Update forum link to pygmt specific category (#858)
 * Wrap grdinfo aliases (#799)
 * Add sphinx-copybutton extension to easily copy codes (#838)
-* Add additional video link in text for clarity (#836)
 * Choosing the thumbnail figures in tutorials (#826)
 * Add a gallery example for logo (#823)
 * Update axis label explanation in frames tutorial (#820)
@@ -45,14 +42,13 @@ Documentation
 * Add guidelines for types of tests to write (#796)
 * Recommend using SI units in documentation (#795)
 * Create gallery example for datetime inputs (#779)
-* Update GMT argument in the azimuthal (#776), conic (#780), cylindric (#789), and miscellaneous (#790) projections gallery to doc standards
 * Add an example for plotting multi-parameter symbols (#772)
 * Add a gallery example for the fig.image() method (#777)
 * Add a gallery example of setting line colors with a custom CPT (#774)
 * Add a table for compatibility of PyGMT with Python and GMT (#763)
 * Add description for the "columns" arguments (#766)
 * Add table for projections (#753)
-* Add cylindric (#761), conic projection (#721, #757), miscellaneous projections descriptions (#723, #762), logarithmic and power projections (#742) to gallery
+* Add more gallery examples for projections (#761, #721, #757, #723, #762, #742)
 * Add projection description for Lambert Azimuthal Equal-Area (#760)
 * Change text when GMTInvalidInput error is raised for basemap (#729)
 * Add non-geographic plots to projection gallery (#728)

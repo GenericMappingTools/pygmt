@@ -161,6 +161,7 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Schlitzer, William and
                       Grund, Michael and
                       Newton, Tyler and
+                      Ziebarth, Malte and
                       Jones, Meghan and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
