@@ -62,7 +62,7 @@ Documentation
 * Recommend using SI units in documentation (#795)
 * Add a table for compatibility of PyGMT with Python and GMT (#763)
 * Add description for the "columns" arguments (#766)
-* Add a table for projections (#753)
+* Add a table of the available projections (#753)
 * Add projection description for Lambert Azimuthal Equal-Area (#760)
 * Change text when GMTInvalidInput error is raised for basemap (#729)
 
