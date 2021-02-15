@@ -44,7 +44,7 @@ Documentation
 * Add a tutorial for 3D perspective image (`#743 <https://github.com/GenericMappingTools/pygmt/pull/743>`__)
 * Add a tutorial for contour maps (`#705 <https://github.com/GenericMappingTools/pygmt/pull/705>`__)
 * Add a tutorial for plotting lines (`#741 <https://github.com/GenericMappingTools/pygmt/pull/741>`__)
-* Add a turorial for the region argument (`#800 <https://github.com/GenericMappingTools/pygmt/pull/800>`__)
+* Add a tutorial for the region argument (`#800 <https://github.com/GenericMappingTools/pygmt/pull/800>`__)
 * Add a gallery example for datetime inputs (`#779 <https://github.com/GenericMappingTools/pygmt/pull/779>`__)
 * Add a gallery example for Figure.logo (`#823 <https://github.com/GenericMappingTools/pygmt/pull/823>`__)
 * Add a gallery example for plotting multi-parameter symbols (`#772 <https://github.com/GenericMappingTools/pygmt/pull/772>`__)
