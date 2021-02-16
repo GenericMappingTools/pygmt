@@ -94,7 +94,12 @@ def fixture_gmt_lib_realpath():
     """
     Return the real path of the GMT library.
     """
-    return subprocess.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
+    # need to convert "\\" to "/" on Windows
+    return (
+        subprocess.check_output(["gmt", "--show-library"], encoding="utf-8")
+        .rstrip("\n")
+        .replace("\\", "/")
+    )
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_empty(

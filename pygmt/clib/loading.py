@@ -6,10 +6,10 @@ through the GMT_LIBRARY_PATH environment variable.
 """
 import ctypes
 import os
-from pathlib import Path
 import subprocess as sp
 import sys
 from ctypes.util import find_library
+from pathlib import Path
 
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
@@ -110,9 +110,9 @@ def clib_full_names(env=None):
 
     # Search for the library returned by command "gmt --show-library"
     try:
-        libfullpath = Path(sp.check_output(
-            ["gmt", "--show-library"], encoding="utf-8"
-        ).rstrip("\n"))
+        libfullpath = Path(
+            sp.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
+        )
         assert libfullpath.exists()
         yield str(libfullpath)
     except (FileNotFoundError, AssertionError):  # command not found
