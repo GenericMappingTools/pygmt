@@ -187,10 +187,10 @@ def coast(self, **kwargs):
     {V}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
+    if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
             """At least one of the following arguments must be specified:
-            lakes, land, water, rivers, borders, Q, or shorelines"""
+            lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
     with Session() as lib:
         lib.call_module("coast", build_arg_string(kwargs))
