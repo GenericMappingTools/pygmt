@@ -94,8 +94,12 @@ def fixture_gmt_lib_realpath():
     """
     Return the real path of the GMT library.
     """
-    return subprocess.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip(
-        "\n"
+    # on Windows, GMT returns a path like
+    # "C:/Miniconda3/envs/test/Library/bin\\gmt.dll"
+    return (
+        subprocess.check_output(["gmt", "--show-library"], encoding="utf-8")
+        .rstrip("\n")
+        .replace("\\", "/")
     )
 
 
@@ -179,7 +183,8 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
 ):
     """
     Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is defined but incorrect and PATH includes GMT's bin path.
+    when GMT_LIBRARY_PATH is defined but incorrect and PATH includes GMT's bin
+    path.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", "/not/a/valid/library/path")
