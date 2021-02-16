@@ -38,7 +38,7 @@ jobs:
 
     # This step is only necessary for testing purposes and for TestPyPI
     - name: Fix up version string for TestPyPI
-      if: !startsWith(github.ref, 'refs/tags')
+      if: ${{ !startsWith(github.ref, 'refs/tags') }}
       run: |
         # Change setuptools-scm local_scheme to "no-local-version" so the
         # local part of the version isn't included, making the version string
