@@ -39,7 +39,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def grdview(self, grid, **kwargs):
-    """
+    r"""
     Create 3-D perspective image or surface mesh from a grid.
 
     Reads a 2-D grid file and produces a 3-D perspective plot by drawing a
@@ -58,58 +58,53 @@ def grdview(self, grid, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input relief grid or the grid loaded as a
         DataArray.
-
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
-
     {B}
-
     cmap : str
         The name of the color palette table to use.
-
     drapegrid : str or xarray.DataArray
         The file name or a DataArray of the image grid to be draped on top
         of the relief provided by grid. [Default determines colors from
-        grid]. Note that -Jz and -N always refers to the grid. The
-        drapegrid only provides the information pertaining to colors, which
-        (if drapegrid is a grid) will be looked-up via the CPT (see -C).
-
+        grid]. Note that ``zscale`` and ``plane`` always refers to the grid.
+        The drapegrid only provides the information pertaining to colors, which
+        (if drapegrid is a grid) will be looked-up via the CPT (see ``cmap``).
     plane : float or str
-        ``level[+gfill]``.
+        *level*\ [**+g**\ *fill*].
         Draws a plane at this z-level. If the optional color is provided
-        via the +g modifier, and the projection is not oblique, the frontal
+        via the **+g** modifier, and the projection is not oblique, the frontal
         facade between the plane and the data perimeter is colored.
-
     surftype : str
         Specifies cover type of the grid.
         Select one of following settings:
-        1. 'm' for mesh plot [Default].
-        2. 'mx' or 'my' for waterfall plots (row or column profiles).
-        3. 's' for surface plot.
-        4. 'i' for image plot.
-        5. 'c'. Same as 'i' but will make nodes with z = NaN transparent.
-        For any of these choices, you may force a monochrome image by
-        appending the modifier +m.
 
+        - **m** - mesh plot [Default].
+        - **mx** or **my** - waterfall plots (row or column profiles).
+        - **s** - surface plot, and optionally append **m** to have mesh lines
+          drawn on top of the surface.
+        - **i** - image plot.
+        - **c** - Same as **i** but will make nodes with z = NaN transparent.
+
+        For any of these choices, you may force a monochrome image by
+        appending the modifier **+m**.
     contourpen : str
         Draw contour lines on top of surface or mesh (not image). Append
         pen attributes used for the contours.
     meshpen : str
-        Sets the pen attributes used for the mesh. You must also select -Qm
-        or -Qsm for meshlines to be drawn.
+        Sets the pen attributes used for the mesh. You must also select
+        ``surftype`` of **m** or **sm** for meshlines to be drawn.
     facadepen :str
         Sets the pen attributes used for the facade. You must also select
-        -N for the facade outline to be drawn.
-
+        ``plane`` for the facade outline to be drawn.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1)
         range, or a constant intensity to apply everywhere (affects the
         ambient light). Alternatively, derive an intensity grid from the
         input data grid reliefgrid via a call to ``grdgradient``; append
-        ``+aazimuth``, ``+nargs``, and ``+mambient`` to specify azimuth,
-        intensity, and ambient arguments for that module, or just give
-        ``+d`` to select the default arguments (``+a-45+nt1+m0``).
-
+        **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
+        azimuth, intensity, and ambient arguments for that module, or just give
+        **+d** to select the default arguments
+        [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {V}
     {XY}
     {c}
