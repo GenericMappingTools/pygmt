@@ -6,6 +6,7 @@ through the GMT_LIBRARY_PATH environment variable.
 """
 import ctypes
 import os
+from pathlib import Path
 import subprocess as sp
 import sys
 from ctypes.util import find_library
@@ -103,17 +104,17 @@ def clib_full_names(env=None):
     libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
     if libpath:
         for libname in libnames:
-            libfullpath = os.path.join(libpath, libname)
-            if os.path.exists(libfullpath):
-                yield libfullpath
+            libfullpath = Path(libpath) / libname
+            if libfullpath.exists():
+                yield str(libfullpath)
 
     # Search for the library returned by command "gmt --show-library"
     try:
-        libfullpath = sp.check_output(
+        libfullpath = Path(sp.check_output(
             ["gmt", "--show-library"], encoding="utf-8"
-        ).rstrip("\n")
-        assert os.path.exists(libfullpath)
-        yield libfullpath
+        ).rstrip("\n"))
+        assert libfullpath.exists()
+        yield str(libfullpath)
     except (FileNotFoundError, AssertionError):  # command not found
         pass
 

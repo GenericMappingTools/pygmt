@@ -94,13 +94,7 @@ def fixture_gmt_lib_realpath():
     """
     Return the real path of the GMT library.
     """
-    # on Windows, GMT returns a path like
-    # "C:/Miniconda3/envs/test/Library/bin\\gmt.dll"
-    return (
-        subprocess.check_output(["gmt", "--show-library"], encoding="utf-8")
-        .rstrip("\n")
-        .replace("\\", "/")
-    )
+    return subprocess.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_empty(
@@ -153,7 +147,8 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
         if os_name.startswith("linux") or os_name == "darwin":
             assert lib_fullpaths == [gmt_lib_realpath] + gmt_lib_names
         elif os_name == "win32":
-            # On Windows: we also call find_library() to find the library in PATH
+            # On Windows: we call find_library() to find the library in PATH
+            # So [gmt_lib_realpath] * 2
             assert lib_fullpaths == [gmt_lib_realpath] * 2 + gmt_lib_names
 
 
