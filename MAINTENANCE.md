@@ -58,6 +58,8 @@ It is also scheduled to run daily on the *master* branch.
 
 This is ran on every commit to the *master* and Pull Request branches.
 It is also scheduled to run daily on the *master* branch.
+In draft PRs, only one job (Ubuntu + Python latest) is triggered to
+save CI resources.
 
 On the *master* branch, the workflow also handles the documentation deployment:
 
