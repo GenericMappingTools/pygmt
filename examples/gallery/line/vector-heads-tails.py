@@ -1,5 +1,5 @@
 """
-Vectors heads and tails
+Vector heads and tails
 -------
 
 The :meth:`pygmt.Figure.plot` method can plot vectors with individual 
