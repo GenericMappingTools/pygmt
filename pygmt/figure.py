@@ -49,7 +49,7 @@ except KeyError:
 
 # If the environment variable is set to "true", disable the external viewer.
 # Use this for running the tests and building the docs to avoid pop up windows.
-if os.environ.get("PYGMT_DISABLE_EXTERNAL_DISPLAY", "default").lower() == "true":
+if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "default").lower() == "false":
     SHOW_CONFIG["external"] = False
 
 
@@ -275,7 +275,7 @@ class Figure:
         "notebook" or "external").
 
         The external viewer can also be disabled by setting the
-        ``PYGMT_DISABLE_EXTERNAL_DISPLAY`` environment variable to ``true``.
+        ``PYGMT_USE_EXTERNAL_DISPLAY`` environment variable to ``false``.
         This is mainly used for running our tests and building the
         documentation.
         """

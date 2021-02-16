@@ -2,7 +2,7 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = PYGMT_DISABLE_EXTERNAL_DISPLAY="true" sphinx-build
+SPHINXBUILD   = PYGMT_USE_EXTERNAL_DISPLAY="false" sphinx-build
 SPHINXAUTOGEN = sphinx-autogen
 BUILDDIR      = _build
 
