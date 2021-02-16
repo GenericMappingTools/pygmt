@@ -98,7 +98,7 @@ COMMON_OPTIONS = {
             - **n** for nearest-neighbor""",
     "p": r"""
         perspective : list or str
-            [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]
+            [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
             [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
             Select perspective view and set the azimuth and elevation angle of
             the viewpoint. Default is [180, 90]. Full documentation is at

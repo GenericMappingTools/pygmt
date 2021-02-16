@@ -7,6 +7,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
     paths-ignore:
       - 'doc/**'
       - '*.md'
@@ -29,6 +30,22 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        # Is it a draft Pull Request (true or false)?
+        isDraft:
+          - ${{ github.event.pull_request.draft }}
+        # Only run one job (Ubuntu + Python 3.9) for draft PRs
+        exclude:
+          - os: macOS-latest
+            isDraft: true
+          - os: windows-latest
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.7
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.8
+            isDraft: true
+
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
@@ -50,7 +67,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.0.0
+        uses: conda-incubator/setup-miniconda@v2.0.1
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
@@ -76,7 +93,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.10.0
+        uses: dawidd6/action-download-artifact@v2.11.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -120,7 +137,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.0.10
+        uses: codecov/codecov-action@v1.2.1
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON
