@@ -34,7 +34,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", p="sequence")
 def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     """
-    " Plot one or a collection of horizontal lines.
+    Plot one or a collection of horizontal lines.
 
     Takes a single y value or a list of individual y values and optionally
     lower and upper x value limits as input.
