@@ -190,6 +190,3 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
         # Windows: find_library() searches the library in PATH, so one more
         npath = 2 if os_name == "win32" else 1
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
-
-
-#######################################################################################
