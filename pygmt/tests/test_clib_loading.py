@@ -67,20 +67,12 @@ def test_clib_names():
 
 #######################################################################################
 # Tests for clib_full_names
-@pytest.fixture(scope="module", name="os_name")
-def fixture_os_name():
-    """
-    Return the name of the current operating system.
-    """
-    return sys.platform
-
-
 @pytest.fixture(scope="module", name="gmt_lib_names")
-def fixture_gmt_lib_names(os_name):
+def fixture_gmt_lib_names():
     """
     Return a list of the library names for the current operating system.
     """
-    return clib_names(os_name)
+    return clib_names(sys.platform)
 
 
 @pytest.fixture(scope="module", name="gmt_bin_dir")
@@ -138,7 +130,7 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_included(
-    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir, os_name
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
     Make sure that clib_full_names() returns a generator with expected names
@@ -151,12 +143,12 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
 
         assert isinstance(lib_fullpaths, types.GeneratorType)
         # Windows: find_library() searches the library in PATH, so one more
-        npath = 2 if os_name == "win32" else 1
+        npath = 2 if sys.platform == "win32" else 1
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
 
 
 def test_clib_full_names_gmt_library_path_defined_path_included(
-    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir, os_name
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
     Make sure that clib_full_names() returns a generator with expected names
@@ -169,12 +161,12 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
 
         assert isinstance(lib_fullpaths, types.GeneratorType)
         # Windows: find_library() searches the library in PATH, so one more
-        npath = 3 if os_name == "win32" else 2
+        npath = 3 if sys.platform == "win32" else 2
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
 
 
 def test_clib_full_names_gmt_library_path_incorrect_path_included(
-    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir, os_name
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
     Make sure that clib_full_names() returns a generator with expected names
@@ -188,5 +180,5 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
 
         assert isinstance(lib_fullpaths, types.GeneratorType)
         # Windows: find_library() searches the library in PATH, so one more
-        npath = 2 if os_name == "win32" else 1
+        npath = 2 if sys.platform == "win32" else 1
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
