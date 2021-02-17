@@ -1,8 +1,9 @@
-import textwrap
 import difflib
+import textwrap
+
 import pygmt
 
-
+# Raw GMT docstrings
 gmt_doc = r"""
     Select painting or dumping country polygons from the Digital Chart of the World.
     This is another dataset independent of GSHHG and hence the **-A** and **-D** options do not apply.
@@ -25,6 +26,9 @@ gmt_doc = r"""
     If neither **-J** nor **-M** are set then we just print the **-R**\ *wesn* string.
 """
 
+line_length = 79
+indentation_length = 8  # 8 whitspaces for most docstrings
+
 # function to document
 function = pygmt.Figure.coast
 
@@ -33,7 +37,6 @@ gmt_doc = gmt_doc.lstrip("\n")
 pygmt_doc = gmt_doc
 for key, value in function.aliases.items():
     pygmt_doc = pygmt_doc.replace(f"**-{key}**", f"**{value}**")
-
 
 # output
 diff = difflib.unified_diff(gmt_doc.splitlines(), pygmt_doc.splitlines(), lineterm="")
@@ -46,6 +49,7 @@ print(gmt_doc)
 
 print("Translate PyGMT docstring:\n")
 pygmt_doc = textwrap.indent(
-    textwrap.fill(textwrap.dedent(pygmt_doc), width=72), " " * 8
+    textwrap.fill(textwrap.dedent(pygmt_doc), width=line_length - indentation_length),
+    " " * indentation_length,
 )
 print(pygmt_doc)
