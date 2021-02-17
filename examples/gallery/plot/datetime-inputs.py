@@ -11,7 +11,7 @@ Datetime inputs of the following types are supported in PyGMT:
 - Python built-in :class:`datetime.datetime` and :class:`datetime.date`
 
 We can pass datetime inputs based on one of the types listed above directly to the ``x`` and ``y`` arguments
-of e.g. the :meth:`pygmt.Figure.plot` method:
+of e.g. the :meth:`pygmt.Figure.plot` method.
 
 The ``region`` argument has to include the :math:`x` and :math:`y` axis limits as *str* in the form 
 *date_min/date_max/ymin/ymax*.
