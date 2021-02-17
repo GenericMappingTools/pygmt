@@ -151,5 +151,10 @@ def check_libgmt(libgmt):
     functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
     for func in functions:
         if not hasattr(libgmt, "GMT_" + func):
-            msg = f"Error loading libgmt. Couldn't access function GMT_{func}."
+            # pylint: disable=protected-access
+            msg = (
+                f"Error loading '{libgmt._name}'. "
+                f"Couldn't access function GMT_{func}. "
+                "Maybe loading an old version of the GMT shared library."
+            )
             raise GMTCLibError(msg)
