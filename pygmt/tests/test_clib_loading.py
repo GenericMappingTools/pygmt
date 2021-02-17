@@ -65,7 +65,7 @@ def test_clib_names():
         clib_names("meh")
 
 
-#######################################################################################
+###############################################################################
 # Tests for clib_full_names
 @pytest.fixture(scope="module", name="gmt_lib_names")
 def fixture_gmt_lib_names():
@@ -93,7 +93,7 @@ def fixture_gmt_lib_realpath():
     ).rstrip("\n")
     # On Windows, clib_full_names() returns paths with separator "\\",
     # but "gmt --show-library" returns paths with separator "/".
-    # Use `str(PurePath(realpath)` to mimic what we're doing in clib_full_names()
+    # Use `str(PurePath(realpath)` to mimic the behavior of clib_full_names()
     return str(PurePath(lib_realpath))
 
 
