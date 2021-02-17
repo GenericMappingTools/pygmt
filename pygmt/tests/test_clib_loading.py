@@ -65,6 +65,8 @@ def test_clib_names():
         clib_names("meh")
 
 
+#######################################################################################
+# Tests for clib_full_names
 @pytest.fixture(scope="module", name="os_name")
 def fixture_os_name():
     """
@@ -98,8 +100,8 @@ def fixture_gmt_lib_realpath():
         ["gmt", "--show-library"], encoding="utf-8"
     ).rstrip("\n")
     # On Windows, clib_full_names() returns paths with separator "\\",
-    # but "gmt --show-library" returns paths with separator "/"
-    # mimic what we're doing in clib_full_names()
+    # but "gmt --show-library" returns paths with separator "/".
+    # Use `str(PurePath(realpath)` to mimic what we're doing in clib_full_names()
     return str(PurePath(lib_realpath))
 
 
@@ -113,8 +115,8 @@ def test_clib_full_names_gmt_library_path_undefined_path_empty(
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
         mpatch.setenv("PATH", "")
-
         lib_fullpaths = clib_full_names()
+
         assert isinstance(lib_fullpaths, types.GeneratorType)
         assert list(lib_fullpaths) == gmt_lib_names
 
@@ -129,8 +131,8 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
         mpatch.setenv("PATH", "")
-
         lib_fullpaths = clib_full_names()
+
         assert isinstance(lib_fullpaths, types.GeneratorType)
         assert list(lib_fullpaths) == [gmt_lib_realpath] + gmt_lib_names
 
@@ -145,12 +147,10 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
         mpatch.setenv("PATH", gmt_bin_dir)
-
         lib_fullpaths = clib_full_names()
-        assert isinstance(lib_fullpaths, types.GeneratorType)
 
-        # On Windows: we call find_library() to find the library in PATH
-        # so npath is larger than other OS by 1
+        assert isinstance(lib_fullpaths, types.GeneratorType)
+        # Windows: find_library() searches the library in PATH, so one more
         npath = 2 if os_name == "win32" else 1
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
 
@@ -165,10 +165,10 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
         mpatch.setenv("PATH", gmt_bin_dir)
-
         lib_fullpaths = clib_full_names()
-        assert isinstance(lib_fullpaths, types.GeneratorType)
 
+        assert isinstance(lib_fullpaths, types.GeneratorType)
+        # Windows: find_library() searches the library in PATH, so one more
         npath = 3 if os_name == "win32" else 2
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
 
@@ -184,9 +184,12 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", "/not/a/valid/library/path")
         mpatch.setenv("PATH", gmt_bin_dir)
-
         lib_fullpaths = clib_full_names()
-        assert isinstance(lib_fullpaths, types.GeneratorType)
 
+        assert isinstance(lib_fullpaths, types.GeneratorType)
+        # Windows: find_library() searches the library in PATH, so one more
         npath = 2 if os_name == "win32" else 1
         assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
+
+
+#######################################################################################
