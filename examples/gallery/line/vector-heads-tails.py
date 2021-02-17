@@ -1,6 +1,6 @@
 """
 Vector heads and tails
--------
+----------------------
 
 The :meth:`pygmt.Figure.plot` method can plot vectors with individual 
 heads and tails. We must specify the modifiers (together with the vector type)
