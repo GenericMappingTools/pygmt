@@ -47,8 +47,8 @@ except KeyError:
     SHOW_CONFIG["notebook"] = False
     SHOW_CONFIG["external"] = True
 
-# If the environment variable is set to "true", disable the external viewer.
-# Use this for running the tests and building the docs to avoid pop up windows.
+# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to false to disable external viewer.
+# Use it for running the tests and building the docs to avoid pop up windows.
 if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "default").lower() == "false":
     SHOW_CONFIG["external"] = False
 
