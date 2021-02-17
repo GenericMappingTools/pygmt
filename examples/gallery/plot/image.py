@@ -4,9 +4,9 @@ Images or EPS files on maps
 The :meth:`pygmt.Figure.image` method can be used to read and
 place a raster image file or an Encapsulated PostScript file
 on a map. We must specify the file as *str* via the ``imagefile``
-argument or simply use the filename as the first argument. You can
+parameter or simply use the filename as the first parameter. You can
 also use a full URL pointing to your desired image. The ``position``
-argument allows us to set a reference point on the map for the image.
+parameter allows us to set a reference point on the map for the image.
 
 """
 import os
