@@ -25,7 +25,7 @@ corresponding module.
 In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors 
 with individual heads and tails. We must specify the modifiers (together with 
 the vector type) by passing the corresponding shortcuts to the ``style`` 
-argument. 
+parameter. 
  
 """
 
