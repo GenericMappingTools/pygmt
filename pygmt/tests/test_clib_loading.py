@@ -1,11 +1,11 @@
 """
 Test the functions that load libgmt.
 """
-import os
 import shutil
 import subprocess
 import sys
 import types
+from pathlib import Path, PurePath
 
 import pytest
 from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_libgmt
@@ -81,12 +81,12 @@ def fixture_gmt_lib_names(os_name):
     return clib_names(os_name)
 
 
-@pytest.fixture(scope="module", name="gmt_bin_realpath")
-def fixture_gmt_bin_realpath():
+@pytest.fixture(scope="module", name="gmt_bin_dir")
+def fixture_gmt_bin_dir():
     """
-    Return the real path of GMT's "gmt" command.
+    Return GMT's bin directory.
     """
-    return shutil.which("gmt")
+    return str(PurePath(shutil.which("gmt")).parent)
 
 
 @pytest.fixture(scope="module", name="gmt_lib_realpath")
@@ -94,10 +94,11 @@ def fixture_gmt_lib_realpath():
     """
     Return the real path of the GMT library.
     """
-    # need to convert "\\" to "/" on Windows
-    return subprocess.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip(
-        "\n"
-    )
+    lib_realpath = subprocess.check_output(
+        ["gmt", "--show-library"], encoding="utf-8"
+    ).rstrip("\n")
+    # mimic what we're doing in clib_full_names()
+    return str(Path(lib_realpath))
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_empty(
@@ -124,7 +125,7 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
     when GMT_LIBRARY_PATH is defined and PATH is empty.
     """
     with monkeypatch.context() as mpatch:
-        mpatch.setenv("GMT_LIBRARY_PATH", os.path.dirname(gmt_lib_realpath))
+        mpatch.setenv("GMT_LIBRARY_PATH", str(Path(gmt_lib_realpath).parent))
         mpatch.setenv("PATH", "")
 
         lib_fullpaths = clib_full_names()
@@ -137,7 +138,7 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_included(
-    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_realpath, os_name
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir, os_name
 ):
     """
     Make sure that clib_full_names() returns a generator with expected names
@@ -145,7 +146,7 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
     """
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
-        mpatch.setenv("PATH", os.path.dirname(gmt_bin_realpath))
+        mpatch.setenv("PATH", gmt_bin_dir)
 
         lib_fullpaths = clib_full_names()
         assert isinstance(lib_fullpaths, types.GeneratorType)
@@ -161,15 +162,15 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
 
 
 def test_clib_full_names_gmt_library_path_defined_path_included(
-    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_realpath, os_name
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir, os_name
 ):
     """
     Make sure that clib_full_names() returns a generator with expected names
     when GMT_LIBRARY_PATH is defined and PATH includes GMT's bin path.
     """
     with monkeypatch.context() as mpatch:
-        mpatch.setenv("GMT_LIBRARY_PATH", os.path.dirname(gmt_lib_realpath))
-        mpatch.setenv("PATH", os.path.dirname(gmt_bin_realpath))
+        mpatch.setenv("GMT_LIBRARY_PATH", str(Path(gmt_lib_realpath).parent))
+        mpatch.setenv("PATH", gmt_bin_dir)
 
         lib_fullpaths = clib_full_names()
         assert isinstance(lib_fullpaths, types.GeneratorType)
@@ -183,7 +184,7 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
 
 
 def test_clib_full_names_gmt_library_path_incorrect_path_included(
-    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_realpath, os_name
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir, os_name
 ):
     """
     Make sure that clib_full_names() returns a generator with expected names
@@ -192,7 +193,7 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", "/not/a/valid/library/path")
-        mpatch.setenv("PATH", os.path.dirname(gmt_bin_realpath))
+        mpatch.setenv("PATH", gmt_bin_dir)
 
         lib_fullpaths = clib_full_names()
         assert isinstance(lib_fullpaths, types.GeneratorType)
