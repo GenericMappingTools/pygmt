@@ -1,34 +1,32 @@
 """
 Define the Figure class that handles all plotting.
 """
+import base64
 import os
 from tempfile import TemporaryDirectory
-import base64
 
 try:
     from IPython.display import Image
 except ImportError:
     Image = None
 
-from .clib import Session
-from .base_plotting import BasePlotting
-from .exceptions import GMTError, GMTInvalidInput
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
-    use_alias,
     kwargs_to_strings,
     launch_external_viewer,
     unique_name,
+    use_alias,
 )
-
 
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
 
 
-class Figure(BasePlotting):
+class Figure:
     """
     A GMT figure to handle all plotting.
 
@@ -59,7 +57,6 @@ class Figure(BasePlotting):
     >>> # The fig.region attribute shows the WESN bounding box for the figure
     >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
     122.94, 145.82, 20.53, 45.52
-
     """
 
     def __init__(self):
@@ -98,7 +95,9 @@ class Figure(BasePlotting):
 
     @property
     def region(self):
-        "The geographic WESN bounding box for the current figure."
+        """
+        The geographic WESN bounding box for the current figure.
+        """
         self._activate_figure()
         with Session() as lib:
             wesn = lib.extract_region()
@@ -116,7 +115,7 @@ class Figure(BasePlotting):
     )
     @kwargs_to_strings()
     def psconvert(self, **kwargs):
-        """
+        r"""
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
@@ -150,21 +149,22 @@ class Figure(BasePlotting):
         icc_gray : bool
             Enforce gray-shades by using ICC profiles.
         anti_aliasing : str
-            Set the anti-aliasing options for graphics or text. Append the size
-            of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing
-            (same as bits = 1).
+            [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
+            Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
+            Append the size of the subsample box (1, 2, or 4) [4]. [Default is
+            no anti-aliasing (same as bits = 1)].
         fmt : str
-            Sets the output format, where *b* means BMP, *e* means EPS, *E*
-            means EPS with PageSize command, *f* means PDF, *F* means
-            multi-page PDF, *j* means JPEG, *g* means PNG, *G* means
-            transparent PNG (untouched regions are transparent), *m* means PPM,
-            *s* means SVG, and *t* means TIFF [default is JPEG]. To ``'bjgt'``
-            you can append ``'+m'`` in order to get a monochrome (grayscale)
-            image. The EPS format can be combined with any of the other
-            formats. For example, ``'ef'`` creates both an EPS and a PDF file.
-            Using ``'F'`` creates a multi-page PDF file from the list of input
-            PS or PDF files. It requires the *prefix* option.
-
+            Sets the output format, where **b** means BMP, **e** means EPS,
+            **E** means EPS with PageSize command, **f** means PDF, **F** means
+            multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
+            transparent PNG (untouched regions are transparent), **m** means
+            PPM, **s** means SVG, and **t** means TIFF [default is JPEG]. To
+            **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
+            order to get a monochrome (grayscale) image. The EPS format can be
+            combined with any of the other formats. For example, **ef** creates
+            both an EPS and a PDF file. Using **F** creates a multi-page PDF
+            file from the list of input PS or PDF files. It requires the
+            ``prefix`` parameter.
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
@@ -180,7 +180,7 @@ class Figure(BasePlotting):
         Save the figure to a file.
 
         This method implements a matplotlib-like interface for
-        :meth:`~gmt.Figure.psconvert`.
+        :meth:`pygmt.Figure.psconvert`.
 
         Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
         BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
@@ -201,15 +201,15 @@ class Figure(BasePlotting):
             If True, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIf). More specifically, uses options ``Qt=2, Qg=2`` in
-            :meth:`~gmt.Figure.psconvert`. Ignored if creating vector graphics.
-            Overrides values of ``Qt`` and ``Qg`` passed in through ``kwargs``.
+            JPG, TIFF). More specifically, it passes arguments ``t2``
+            and ``g2`` to the ``anti_aliasing`` parameter of
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
+            graphics.
         show: bool
             If True, will open the figure in an external viewer.
         dpi : int
             Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
-
         """
         # All supported formats
         fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
@@ -264,7 +264,6 @@ class Figure(BasePlotting):
         -------
         img : IPython.display.Image
             Only if ``method != 'external'``.
-
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -286,7 +285,7 @@ class Figure(BasePlotting):
                         [
                             "Cannot find IPython.",
                             "Make sure you have it installed",
-                            "or use 'external=True' to open in an external viewer.",
+                            "or use 'method=\"external\"' to open in an external viewer.",
                         ]
                     )
                 )
@@ -347,7 +346,6 @@ class Figure(BasePlotting):
         preview : str or bytes
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
-
         """
         fname = os.path.join(self._preview_dir.name, "{}.{}".format(self._name, fmt))
         self.savefig(fname, dpi=dpi, **kwargs)
@@ -360,6 +358,7 @@ class Figure(BasePlotting):
     def _repr_png_(self):
         """
         Show a PNG preview if the object is returned in an interactive shell.
+
         For the Jupyter notebook or IPython Qt console.
         """
         png = self._preview(fmt="png", dpi=70, anti_alias=True, as_bytes=True)
@@ -368,9 +367,30 @@ class Figure(BasePlotting):
     def _repr_html_(self):
         """
         Show the PNG image embedded in HTML with a controlled width.
+
         Looks better than the raw PNG.
         """
         raw_png = self._preview(fmt="png", dpi=300, anti_alias=True, as_bytes=True)
         base64_png = base64.encodebytes(raw_png)
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
+
+    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+        basemap,
+        coast,
+        colorbar,
+        contour,
+        grdcontour,
+        grdimage,
+        grdview,
+        image,
+        inset,
+        legend,
+        logo,
+        meca,
+        plot,
+        plot3d,
+        set_panel,
+        subplot,
+        text,
+    )

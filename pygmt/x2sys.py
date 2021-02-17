@@ -6,10 +6,9 @@ import os
 from pathlib import Path
 
 import pandas as pd
-
-from .clib import Session
-from .exceptions import GMTInvalidInput
-from .helpers import (
+from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     data_kind,
@@ -70,7 +69,7 @@ def tempfile_from_dftrack(track, suffix):
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def x2sys_init(tag, **kwargs):
-    """
+    r"""
     Initialize a new x2sys track database.
 
     x2sys_init is the starting point for anyone wishing to use x2sys; it
@@ -114,21 +113,22 @@ def x2sys_init(tag, **kwargs):
         *fmtfile*).
 
     discontinuity : str
-        ``d|g``
+        **d**\|\ **g**.
         Selects geographical coordinates. Append **d** for discontinuity at the
         Dateline (makes longitude go from -180 to + 180) or **g** for
         discontinuity at Greenwich (makes longitude go from 0 to 360
         [Default]). If not given we assume the data are Cartesian.
 
     spacing : str or list
-         ``dx[/dy]``
-         x_inc [and optionally y_inc] is the grid spacing. Append **m** to
+         *dx*\[/*dy*].
+         *dx* [and optionally *dy*] is the grid spacing. Append **m** to
          indicate minutes or **s** to indicate seconds for geographic data.
          These spacings refer to the binning used in the track bin-index data
          base.
 
     units : str or list
-        ``d|sunit``.
+        **d**\|\ **s**\
+        **c**\|\ **e**\|\ **f**\|\ **k**\|\ **m**\|\ **n**\|\ **u** .
         Sets the units used for distance and speed when requested by other
         programs. Append **d** for distance or **s** for speed, then give the
         desired unit as:
@@ -148,12 +148,13 @@ def x2sys_init(tag, **kwargs):
     {V}
 
     gap : str or list
-        ``t|dgap``.
+        **t**\|\ **d**\ *gap*.
         Give **t** or **d** and append the corresponding maximum time gap (in
         user units; this is typically seconds [Infinity]), or distance (for
-        units, see *units*) gap [Infinity]) allowed between the two data points
-        immediately on either side of a crossover. If these limits are exceeded
-        then a data gap is assumed and no COE will be determined.
+        units, see ``units``) gap [Default is infinity]) allowed between the
+        two data points immediately on either side of a crossover. If these
+        limits are exceeded then a data gap is assumed and no COE will be
+        determined.
 
     {j}
     """
@@ -178,7 +179,7 @@ def x2sys_init(tag, **kwargs):
 )
 @kwargs_to_strings(R="sequence")
 def x2sys_cross(tracks=None, outfile=None, **kwargs):
-    """
+    r"""
     Calculate crossovers between track data files.
 
     x2sys_cross is used to determine all intersections between ("external
@@ -232,7 +233,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         split_file4coes.m that lives in the x2sys supplement source code.
 
     override : bool or str
-        ``S|N``.
+        **S**\|\ **N**.
         Control how geographic coordinates are handled (Cartesian data are
         unaffected). By default, we determine if the data are closer to one
         pole than the other, and then we use a cylindrical polar conversion to
@@ -246,7 +247,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         longitudinal range at higher latitudes.
 
     interpolation : str
-        ``l|a|c``.
+        **l**\|\ **a**\|\ **c**.
         Sets the interpolation mode for estimating values at the crossover.
         Choose among:
 
@@ -261,7 +262,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     {R}
 
     speed : str or list
-        ``l|u|hspeed``.
+        **l**\|\ **u**\|\ **h**\ *speed*.
         Defines window of track speeds. If speeds are outside this window we do
         not calculate a COE. Specify:
 

@@ -2,8 +2,7 @@
 Functions to load sample data from the GMT tutorials.
 """
 import pandas as pd
-
-from .. import which
+from pygmt.src import which
 
 
 def load_japan_quakes():
@@ -22,7 +21,6 @@ def load_japan_quakes():
     data :  pandas.Dataframe
         The data table. Columns are year, month, day, latitude, longitude,
         depth (in km), and magnitude of the earthquakes.
-
     """
     fname = which("@tut_quakes.ngdc", download="c")
     data = pd.read_csv(fname, header=1, sep=r"\s+")
@@ -99,7 +97,6 @@ def load_usgs_quakes():
     data : pandas.Dataframe
         The data table. Use ``print(data.describe())`` to see the available
         columns.
-
     """
     fname = which("@usgs_quakes_22.txt", download="c")
     data = pd.read_csv(fname)

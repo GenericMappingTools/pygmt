@@ -1,17 +1,15 @@
 """
-Tests for grdtrack
+Tests for grdtrack.
 """
 import os
 
 import numpy.testing as npt
 import pandas as pd
 import pytest
-
-from .. import grdtrack
-from .. import which
-from ..datasets import load_earth_relief, load_ocean_ridge_points
-from ..exceptions import GMTInvalidInput
-from ..helpers import data_kind
+from pygmt import grdtrack, which
+from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import data_kind
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
@@ -19,7 +17,9 @@ TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
 
 @pytest.fixture(scope="module", name="dataarray")
 def fixture_dataarray():
-    "Load the grid data from the sample earth_relief file"
+    """
+    Load the grid data from the sample earth_relief file.
+    """
     return load_earth_relief(registration="gridline").sel(
         lat=slice(-49, -42), lon=slice(-118, -107)
     )
@@ -29,7 +29,7 @@ def fixture_dataarray():
 def test_grdtrack_input_dataframe_and_dataarray(dataarray):
     """
     Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
-    inputs
+    inputs.
     """
     dataframe = load_ocean_ridge_points()
 
@@ -44,7 +44,7 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray):
 @pytest.mark.xfail(reason="The reason why it fails is unclear now")
 def test_grdtrack_input_csvfile_and_dataarray(dataarray):
     """
-    Run grdtrack by passing in a csvfile and xarray.DataArray as inputs
+    Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
     """
     csvfile = which("@ridge.txt", download="c")
 
@@ -63,7 +63,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray):
 
 def test_grdtrack_input_dataframe_and_ncfile():
     """
-    Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs
+    Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs.
     """
     dataframe = load_ocean_ridge_points()
     ncfile = which("@earth_relief_01d", download="a")
@@ -78,7 +78,7 @@ def test_grdtrack_input_dataframe_and_ncfile():
 
 def test_grdtrack_input_csvfile_and_ncfile():
     """
-    Run grdtrack by passing in a csvfile and netcdf file as inputs
+    Run grdtrack by passing in a csvfile and netcdf file as inputs.
     """
     csvfile = which("@ridge.txt", download="c")
     ncfile = which("@earth_relief_01d", download="a")
@@ -99,7 +99,7 @@ def test_grdtrack_input_csvfile_and_ncfile():
 def test_grdtrack_wrong_kind_of_points_input(dataarray):
     """
     Run grdtrack using points input that is not a pandas.DataFrame (matrix) or
-    file
+    file.
     """
     dataframe = load_ocean_ridge_points()
     invalid_points = dataframe.longitude.to_xarray()
@@ -112,7 +112,7 @@ def test_grdtrack_wrong_kind_of_points_input(dataarray):
 def test_grdtrack_wrong_kind_of_grid_input(dataarray):
     """
     Run grdtrack using grid input that is not as xarray.DataArray (grid) or
-    file
+    file.
     """
     dataframe = load_ocean_ridge_points()
     invalid_grid = dataarray.to_dataset()
@@ -124,7 +124,7 @@ def test_grdtrack_wrong_kind_of_grid_input(dataarray):
 
 def test_grdtrack_without_newcolname_setting(dataarray):
     """
-    Run grdtrack by not passing in newcolname parameter setting
+    Run grdtrack by not passing in newcolname parameter setting.
     """
     dataframe = load_ocean_ridge_points()
 
@@ -134,7 +134,7 @@ def test_grdtrack_without_newcolname_setting(dataarray):
 
 def test_grdtrack_without_outfile_setting(dataarray):
     """
-    Run grdtrack by not passing in outfile parameter setting
+    Run grdtrack by not passing in outfile parameter setting.
     """
     csvfile = which("@ridge.txt", download="c")
 

@@ -25,23 +25,28 @@ Plotting data and laying out the map:
     Figure.basemap
     Figure.coast
     Figure.colorbar
-    Figure.plot
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
     Figure.grdview
+    Figure.image
+    Figure.inset
     Figure.legend
     Figure.logo
-    Figure.image
-    Figure.shift_origin
-    Figure.text
     Figure.meca
+    Figure.plot
+    Figure.plot3d
+    Figure.set_panel
+    Figure.shift_origin
+    Figure.subplot
+    Figure.text
 
 Color palette table generation:
 
 .. autosummary::
     :toctree: generated
 
+    grd2cpt
     makecpt
 
 Saving and displaying the figure:

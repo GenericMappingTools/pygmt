@@ -6,7 +6,7 @@ import os
 import string
 
 from matplotlib.testing.compare import compare_images
-from ..exceptions import GMTImageComparisonFailure
+from pygmt.exceptions import GMTImageComparisonFailure
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -57,6 +57,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     return fig_ref, fig_test
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
+    ...
     >>> for suffix in ["", "-expected", "-failed-diff"]:
     ...     assert os.path.exists(
     ...         os.path.join(
@@ -64,6 +65,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...             f"test_check_figures_unequal{suffix}.png",
     ...         )
     ...     )
+    ...
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
     # pylint: disable=invalid-name

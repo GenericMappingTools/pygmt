@@ -1,16 +1,15 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
-import sys
 import shutil
 import subprocess
+import sys
 import webbrowser
 from collections.abc import Iterable
 from contextlib import contextmanager
 
 import xarray as xr
-
-from ..exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 def data_kind(data, x=None, y=None, z=None):
@@ -55,7 +54,6 @@ def data_kind(data, x=None, y=None, z=None):
     'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
-
     """
     if data is None and x is None and y is None:
         raise GMTInvalidInput("No input data provided.")
@@ -96,8 +94,8 @@ def dummy_context(arg):
 
     >>> with dummy_context("some argument") as temp:
     ...     print(temp)
+    ...
     some argument
-
     """
     yield arg
 
@@ -144,7 +142,6 @@ def build_arg_string(kwargs):
     ...     )
     ... )
     -Bxaf -Byaf -BWSen -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
-
     """
     sorted_args = []
     for key in sorted(kwargs):
@@ -190,7 +187,6 @@ def is_nonstr_iter(value):
     True
     >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
     True
-
     """
     return isinstance(value, Iterable) and not isinstance(value, str)
 
@@ -206,7 +202,6 @@ def launch_external_viewer(fname):
     ----------
     fname : str
         The file name of the file (preferably a full path).
-
     """
     # Redirect stdout and stderr to devnull so that the terminal isn't filled
     # with noise
@@ -214,9 +209,36 @@ def launch_external_viewer(fname):
 
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
-    if sys.platform.startswith("linux") and shutil.which("xdg-open"):
+    os_name = sys.platform
+    if os_name.startswith(("linux", "freebsd")) and shutil.which("xdg-open"):
         subprocess.run(["xdg-open", fname], check=False, **run_args)
-    elif sys.platform == "darwin":  # Darwin is macOS
+    elif os_name == "darwin":  # Darwin is macOS
         subprocess.run(["open", fname], check=False, **run_args)
     else:
         webbrowser.open_new_tab("file://{}".format(fname))
+
+
+def args_in_kwargs(args, kwargs):
+    """
+    Take a list and a dictionary, and determine if any entries in the list are
+    keys in the dictionary.
+
+    This function is used to determine if at least one of the required
+    arguments is passed to raise a GMTInvalidInput Error.
+
+    Parameters
+    ----------
+    args : list
+        List of required arguments, using the GMT short-form aliases.
+
+    kwargs : dict
+        The dictionary of kwargs is the format returned by the _preprocess
+        function of the BasePlotting class. The keys are the GMT
+        short-form aliases of the parameters.
+
+    Returns
+    --------
+    bool
+        If one of the required arguments is in ``kwargs``.
+    """
+    return any(arg in kwargs for arg in args)
