@@ -31,6 +31,7 @@ Plotting data and laying out the map:
     Figure.grdview
     Figure.image
     Figure.inset
+    Figure.hlines
     Figure.legend
     Figure.logo
     Figure.meca

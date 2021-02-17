@@ -15,6 +15,7 @@ from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
+from pygmt.src.hlines import hlines
 from pygmt.src.image import image
 from pygmt.src.info import info
 from pygmt.src.inset import inset

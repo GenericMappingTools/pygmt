@@ -383,6 +383,7 @@ class Figure:
         grdcontour,
         grdimage,
         grdview,
+        hlines,
         image,
         inset,
         legend,
