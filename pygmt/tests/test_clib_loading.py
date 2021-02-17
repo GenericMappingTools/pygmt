@@ -95,10 +95,8 @@ def fixture_gmt_lib_realpath():
     Return the real path of the GMT library.
     """
     # need to convert "\\" to "/" on Windows
-    return (
-        subprocess.check_output(["gmt", "--show-library"], encoding="utf-8")
-        .rstrip("\n")
-        .replace("\\", "/")
+    return subprocess.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip(
+        "\n"
     )
 
 
