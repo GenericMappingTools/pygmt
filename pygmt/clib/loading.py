@@ -109,6 +109,7 @@ def clib_full_names(env=None):
                 yield str(libfullpath)
 
     # Search for the library returned by command "gmt --show-library"
+    # Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/"
     try:
         libfullpath = Path(
             sp.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
