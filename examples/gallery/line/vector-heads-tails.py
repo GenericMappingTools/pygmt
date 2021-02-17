@@ -2,10 +2,31 @@
 Vector heads and tails
 ----------------------
 
-The :meth:`pygmt.Figure.plot` method can plot vectors with individual 
-heads and tails. We must specify the modifiers (together with the vector type)
-by passing the corresponding shortcuts to the  ``style`` argument. 
+Many modules in PyGMT allow to plot vectors with individual 
+heads and tails. For this purpose, several modifiers may be appended to 
+the corresponding vector-producing options for specifying the placement 
+of vector heads and tails, their shapes, and the justification of the vector. 
 
+To place a vector head at the beginning of the vector path 
+simply append **+b** to the vector-producing option (use **+e** to place 
+one at the end). Optionally, append **+t** for a terminal line, **+c** for a 
+circle, **+a** for arrow (default), **+i** for tail, **+A** for plain open 
+arrow, and **+I** for plain open tail. Further append **+l** or **+r** to 
+only draw the left or right half-sides of the selected head/tail 
+(default is both sides). In this context left and right refers to the side of 
+the vector line when viewed from the beginning point to the end point of a 
+line segment. The angle $\theta$ of the vector head apex can be set using 
+**+a**_angle_ (default is 30). The shape of the vector head can be adjusted 
+using **+h**_shape_ (e.g. `+h0.5`). 
+
+For further modifiers see the **_Vector Attributes_** subsection of the 
+corresponding module. 
+
+In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors 
+with individual heads and tails. We must specify the modifiers (together with 
+the vector type) by passing the corresponding shortcuts to the ``style`` 
+argument. 
+ 
 """
 
 import pygmt
@@ -21,19 +42,32 @@ angle = 0  # in degrees, measured counter-clockwise from horizontal
 length = 7
 
 for vecstyle in [
-    "v0c",  # vector without head and tail (line)
-    "v0.6c+bA+eA+a50",  # plain open arrow at the beginning and end of the vector path, angle of the vector head apex is set to 50
-    "v0.4c+bI+eI",  # plain open tail at the beginning and end
-    "v0.3c+bt+et+a80",  # terminal line at the beginning and end, angle of the vector head apep is set to 80
-    "v0.6c+e",  # arrow head at the end
-    "v0.6c+bc+ea",  # circle at the beginning and an arrow head at the end
-    "v0.6c+bt+ea",  # terminal line at the beginning and an arrow head at the end
-    "v1c+e+h0.5",  # arrow head at the end, shape of the vector head is set to 0.5
-    "v1c+b+e+h0.5",  # modified arrow heads at the beginning and end
-    "v1c+bi+ea+h0.5",  # tail at the beginning and an arrow with modified vector head at the end
-    "v1c+bar+ea+h0.8",  # half-sided arrow head (right side) at the beginning and an arrow at the end
-    "v1c+bar+eal+h0.5",  # half-sided arrow heads at the beginning (right side) and end (left side)
-    "v1c+bi+ea+r+h0.5+a45",  # half-sided tail at the beginning and arrow at the at the end (right side for both)
+    # vector without head and tail (line)
+    "v0c",
+    # plain open arrow at beginning and end, angle of the vector head apex is set to 50
+    "v0.6c+bA+eA+a50",
+    # plain open tail at beginning and end
+    "v0.4c+bI+eI",
+    # terminal line at beginning and end, angle of vector head apex is set to 80
+    "v0.3c+bt+et+a80",
+    # arrow head at end
+    "v0.6c+e",
+    # circle at beginning and arrow head at end
+    "v0.6c+bc+ea",
+    # terminal line at beginning and arrow head at end
+    "v0.6c+bt+ea",
+    # arrow head at end, shape of vector head is set to 0.5
+    "v1c+e+h0.5",
+    # modified arrow heads at beginning and end
+    "v1c+b+e+h0.5",
+    # tail at beginning and arrow with modified vector head at end
+    "v1c+bi+ea+h0.5",
+    # half-sided arrow head (right side) at beginning and arrow at the end
+    "v1c+bar+ea+h0.8",
+    # half-sided arrow heads at beginning (right side) and end (left side)
+    "v1c+bar+eal+h0.5",
+    # half-sided tail at beginning and arrow at end (right side for both)
+    "v1c+bi+ea+r+h0.5+a45",
 ]:
     fig.plot(
         x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", color="red3"
