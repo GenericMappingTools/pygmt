@@ -32,7 +32,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
-def hlines(self, y=None, xmin=None, xmax=None, pen=None, label=None, **kwargs):
+def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     """
     " Plot one or a collection of horizontal lines.
 
@@ -111,7 +111,7 @@ def hlines(self, y=None, xmin=None, xmax=None, pen=None, label=None, **kwargs):
 
     else:
         # if only a single xmin and xmax without [], repeat to fit size of y
-        if isinstance(xmin, int) or isinstance(xmin, float):
+        if isinstance(xmin, (int, float)):
             x = np.array([[xmin], [xmax]])
             x = np.repeat(x, list_length, axis=1)
         else:
