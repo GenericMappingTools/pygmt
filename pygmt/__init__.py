@@ -28,6 +28,7 @@ from pygmt.src import (
     makecpt,
     surface,
     which,
+    xyz2grd,
 )
 from pygmt.x2sys import x2sys_cross, x2sys_init
 
