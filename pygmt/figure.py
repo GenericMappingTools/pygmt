@@ -379,6 +379,26 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
+    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+        basemap,
+        coast,
+        colorbar,
+        contour,
+        grdcontour,
+        grdimage,
+        grdview,
+        image,
+        inset,
+        legend,
+        logo,
+        meca,
+        plot,
+        plot3d,
+        set_panel,
+        subplot,
+        text,
+    )
+
 
 def set_display(mode, dpi=200):
     """
@@ -405,23 +425,3 @@ def set_display(mode, dpi=200):
             f'Invalid display mode {mode}, should be either "notebook" or "external".'
         )
     SHOW_CONFIG["dpi"] = dpi
-
-    from pygmt.src import (  # pylint: disable=import-outside-toplevel
-        basemap,
-        coast,
-        colorbar,
-        contour,
-        grdcontour,
-        grdimage,
-        grdview,
-        image,
-        inset,
-        legend,
-        logo,
-        meca,
-        plot,
-        plot3d,
-        set_panel,
-        subplot,
-        text,
-    )
