@@ -129,7 +129,11 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
 
         lib_fullpaths = clib_full_names()
         assert isinstance(lib_fullpaths, types.GeneratorType)
-        assert list(lib_fullpaths) == [gmt_lib_realpath] + gmt_lib_names
+
+        # On Windows, clib_full_names() returns paths with separator "\\",
+        # GMT returns paths with separator "/"
+        lib_fullpaths = [path.replace("\\", "/") for path in lib_fullpaths]
+        assert lib_fullpaths == [gmt_lib_realpath] + gmt_lib_names
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_included(
@@ -152,6 +156,7 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
         elif os_name == "win32":
             # On Windows: we call find_library() to find the library in PATH
             # So [gmt_lib_realpath] * 2
+            lib_fullpaths = [path.replace("\\", "/") for path in lib_fullpaths]
             assert lib_fullpaths == [gmt_lib_realpath] * 2 + gmt_lib_names
 
 
@@ -173,6 +178,7 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
         if os_name.startswith("linux") or os_name == "darwin":
             assert lib_fullpaths == [gmt_lib_realpath] * 2 + gmt_lib_names
         elif os_name == "win32":
+            lib_fullpaths = [path.replace("\\", "/") for path in lib_fullpaths]
             assert lib_fullpaths == [gmt_lib_realpath] * 3 + gmt_lib_names
 
 
@@ -195,4 +201,5 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
         if os_name.startswith("linux") or os_name == "darwin":
             assert lib_fullpaths == [gmt_lib_realpath] + gmt_lib_names
         elif os_name == "win32":
+            lib_fullpaths = [path.replace("\\", "/") for path in lib_fullpaths]
             assert lib_fullpaths == [gmt_lib_realpath] * 2 + gmt_lib_names
