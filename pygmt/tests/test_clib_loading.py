@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import sys
 import types
-from pathlib import Path, PurePath
+from pathlib import PurePath
 
 import pytest
 from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_libgmt
@@ -100,7 +100,7 @@ def fixture_gmt_lib_realpath():
     # On Windows, clib_full_names() returns paths with separator "\\",
     # but "gmt --show-library" returns paths with separator "/"
     # mimic what we're doing in clib_full_names()
-    return str(Path(lib_realpath))
+    return str(PurePath(lib_realpath))
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_empty(
@@ -127,7 +127,7 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
     when GMT_LIBRARY_PATH is defined and PATH is empty.
     """
     with monkeypatch.context() as mpatch:
-        mpatch.setenv("GMT_LIBRARY_PATH", str(Path(gmt_lib_realpath).parent))
+        mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
         mpatch.setenv("PATH", "")
 
         lib_fullpaths = clib_full_names()
@@ -163,7 +163,7 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
     when GMT_LIBRARY_PATH is defined and PATH includes GMT's bin path.
     """
     with monkeypatch.context() as mpatch:
-        mpatch.setenv("GMT_LIBRARY_PATH", str(Path(gmt_lib_realpath).parent))
+        mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
         mpatch.setenv("PATH", gmt_bin_dir)
 
         lib_fullpaths = clib_full_names()
