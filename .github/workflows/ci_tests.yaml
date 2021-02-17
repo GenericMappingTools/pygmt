@@ -58,7 +58,7 @@ jobs:
           miniconda-version: "latest"
 
       # Install GMT and other required dependencies from conda-forge
-      - name: Install GMT and required dependencies
+      - name: Install dependencies
         shell: bash -l {0}
         run: conda env update --file environment.yml
 
