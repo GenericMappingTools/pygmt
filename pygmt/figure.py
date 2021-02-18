@@ -26,26 +26,22 @@ from pygmt.helpers import (
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
 
-# Configuration options for Jupyter notebook support
+# Configurations for figure display
 SHOW_CONFIG = {
-    "external": True,  # Open in an external viewer
-    "notebook": True,  # Notebook display
-    "dpi": 200,  # default DPI
+    "external": True,   # Open in an external viewer
+    "notebook": False,  # Notebook display
+    "dpi": 200,         # default DPI
 }
 
-# Determine the default display mode
+# Show figures in Jupyter notebooks if available
 try:
     IPython = sys.modules["IPython"]
     get_ipython = IPython.get_ipython()
     if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
         SHOW_CONFIG["notebook"] = True
         SHOW_CONFIG["external"] = False
-    else:
-        SHOW_CONFIG["notebook"] = False
-        SHOW_CONFIG["external"] = True
 except KeyError:
-    SHOW_CONFIG["notebook"] = False
-    SHOW_CONFIG["external"] = True
+    pass
 
 # Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to false to disable external viewer.
 # Use it for running the tests and building the docs to avoid pop up windows.
@@ -214,7 +210,7 @@ class Figure:
         The KML output generates a companion PNG file.
 
         You can pass in any keyword arguments that
-        :meth:`~gmt.Figure.psconvert` accepts.
+        :meth:`pygmt.Figure.psconvert` accepts.
 
         Parameters
         ----------
@@ -262,33 +258,52 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self):
+    def show(self, dpi=300, width=500, method=None):
         """
         Display a preview of the figure.
 
-        Inserts the preview in the Jupyter notebook output, otherwise opens it
-        in the default viewer for your operating system (falls back to the
-        default web browser). Note that the external viewer does not block the
-        current process, so this won't work in a script.
+        Inserts the preview in the Jupyter notebook output if available,
+        otherwise opens it in the default viewer for your operating system
+        (falls back to the default web browser).
 
         :func:`pygmt.set_display` can select the default display mode (either
         "notebook" or "external").
 
-        The external viewer can also be disabled by setting the
+        The ``mode`` parameter can also override the default display mode
+        for the current figure. Parameters ``dpi`` and ``width`` can be used
+        control the figures in the notebook.
+
+        The external viewer can be disabled by setting the
         ``PYGMT_USE_EXTERNAL_DISPLAY`` environment variable to ``false``.
-        This is mainly used for running our tests and building the
+        This is mainly used for running the tests and building the
         documentation.
+
+        Note that the external viewer does not block the current process,
+        so this won't work if multiple figures are shown in one script.
+
+        Parameters
+        ----------
+        dpi : int
+            The image resolution (dots per inch). Only works for "notebook" mode.
+        width : int
+            Width of the figure shown in the notebook in pixels. Only works for
+            "notebook" mode.
+        method : str
+            How the figure will be displayed. Options are
+
+            - ``'notebook'``: PNG preview (default)
+            - ``'external'``: PDF preview in an external program.
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
-        if SHOW_CONFIG["notebook"]:
+        if SHOW_CONFIG["notebook"] or method == "notebook":
             png = self._repr_png_()
             if IPython is not None:
                 IPython.display.display(IPython.display.Image(data=png))
 
-        if SHOW_CONFIG["external"]:
+        if SHOW_CONFIG["external"] or method == "external":
             pdf = self._preview(
                 fmt="pdf", dpi=SHOW_CONFIG["dpi"], anti_alias=False, as_bytes=False
             )
@@ -336,7 +351,7 @@ class Figure:
         ----------
         fmt : str
             The image format. Can be any extension that
-            :meth:`~gmt.Figure.savefig` recognizes.
+            :meth:`pygmt.Figure.savefig` recognizes.
         dpi : int
             The image resolution (dots per inch).
         as_bytes : bool
