@@ -99,8 +99,8 @@ def clib_full_names(env=None):
 
     libnames = clib_names(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
 
-    # list of libraries paths to search, sort by priority from high to low
-    # Search for libraries in GMT_LIBRARY_PATH if defined.
+    # Search for the library in different ways, sorted by priority.
+    # 1. Search for the library in GMT_LIBRARY_PATH if defined.
     libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
     if libpath:
         for libname in libnames:
@@ -108,8 +108,8 @@ def clib_full_names(env=None):
             if libfullpath.exists():
                 yield str(libfullpath)
 
-    # Search for the library returned by command "gmt --show-library"
-    # Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/"
+    # 2. Search for the library returned by command "gmt --show-library"
+    #    Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/"
     try:
         libfullpath = Path(
             sp.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
@@ -119,14 +119,14 @@ def clib_full_names(env=None):
     except (FileNotFoundError, AssertionError):  # command not found
         pass
 
-    # Search for DLLs in PATH (done by calling "find_library")
+    # 3. Search for DLLs in PATH by calling find_library() (Windows only)
     if sys.platform == "win32":
         for libname in libnames:
             libfullpath = find_library(libname)
             if libfullpath:
                 yield libfullpath
 
-    # Search for library names in the system default path [the lowest priority]
+    # 4. Search for library names in the system default path
     for libname in libnames:
         yield libname
 
