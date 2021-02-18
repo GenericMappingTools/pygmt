@@ -39,6 +39,7 @@ read it carefully.
 * [Editing the Documentation](#editing-the-documentation)
   - [Gallery plots](#gallery-plots)
   - [Tutorials](#tutorials)
+  - [Example code standards](#example-code-standards)
 * [Contributing Code](#contributing-code)
   - [General guidelines](#general-guidelines)
   - [Setting up your environment](#setting-up-your-environment)
@@ -64,8 +65,9 @@ read it carefully.
 ## How Can I Talk to You?
 
 Discussion often happens in the issues and pull requests.
-In addition, there is a [Discourse forum](https://forum.generic-mapping-tools.org)
-for the project where you can ask questions.
+In addition, there is a
+[Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
+the project where you can ask questions.
 
 
 ## Reporting a Bug
@@ -240,7 +242,7 @@ conda env create
 Before building and testing the project, you have to activate the environment:
 
 ```bash
-source activate ENVIRONMENT_NAME
+conda activate pygmt
 ```
 
 You'll need to do this every time you start a new terminal.
@@ -267,7 +269,7 @@ directory).
 
 We use some tools:
 
-- [Black](https://github.com/ambv/black)
+- [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
 - [docformatter](https://github.com/myint/docformatter)
 - [isort](https://pycqa.github.io/isort/)

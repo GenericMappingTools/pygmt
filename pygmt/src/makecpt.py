@@ -26,12 +26,12 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 @kwargs_to_strings(T="sequence", G="sequence")
 def makecpt(**kwargs):
-    """
+    r"""
     Make GMT color palette tables.
 
     This is a module that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
-    but you can use *output* to save it to a file. You define an equidistant
+    but you can use ``output`` to save it to a file. You define an equidistant
     set of contour intervals or pass your own z-table or list, and create a new
     CPT based on an existing master (dynamic) CPT. The resulting CPT can be
     reversed relative to the master cpt, and can be made continuous or
@@ -49,8 +49,8 @@ def makecpt(**kwargs):
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
     :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the
     :gmt-docs:`gmt.conf <gmt.conf>` file or the command line will be used. This
-    default behavior can be overruled using the options *background*,
-    *overrule_bg* or *no_bg*.
+    default behavior can be overruled using the parameters ``background``,
+    ``overrule_bg`` or ``no_bg``.
 
     The color model (RGB, HSV or CMYK) of the palette created by **makecpt**
     will be the same as specified in the header of the master CPT. When there
@@ -81,7 +81,7 @@ def makecpt(**kwargs):
         ``background='i'`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
     color_model :
-        ``[R|r|h|c][+c[label]]``.
+        [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].
         Force output CPT to be written with r/g/b codes, gray-scale values or
         color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes
         (**h**), or c/m/y/k codes (**c**).  Optionally or alternatively, append
@@ -93,7 +93,7 @@ def makecpt(**kwargs):
         labels from *start* (a single letter or an integer). Append - to build
         ranges *start*-*start+1* instead.
     series : list or str
-        ``[min/max/inc[+b|l|n]|file|list]``.
+        [*min/max/inc*\[**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
         Defines the range of the new CPT by giving the lowest and highest
         z-value (and optionally an interval). If this is not given, the
         existing range in the master CPT will be used intact. The values
@@ -102,23 +102,24 @@ def makecpt(**kwargs):
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
     truncate : list or str
-        ``zlo/zhi``.
+        *zlow/zhigh*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
-        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
-        the CPT alone. The truncation takes place before any resampling. See
+        to *zlow* and *zhigh*. If one of these equal NaN then we leave that
+        end of the CPT alone. The truncation takes place before any
+        resampling. See
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
         file. If not given or False (default), saves the CPT as the session
         current CPT.
     reverse : str
-        Set this to True or c [Default] to reverse the sense of color
+        Set this to True or **c**\ [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
         z-values in the color table. Note that this change of z-direction
-        happens before *truncate* and *series* values are used so the latter
-        must be compatible with the changed *z*-range. See also
+        happens before ``truncate`` and ``series`` values are used so the
+        latter must be compatible with the changed *z*-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
-    overrule_bg :
+    overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in

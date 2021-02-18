@@ -42,17 +42,24 @@ The main advantages of this are:
 
 We use GitHub Actions continuous integration (CI) services to
 build and test the project on Linux, macOS and Windows.
-They rely on the `requirements.txt` file to install required dependencies using
+They rely on the `environment.yml` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
 
 ### GitHub Actions
 
-There are 4 configuration files located in `.github/workflows`:
+There are 5 configuration files located in `.github/workflows`:
 
-1. `ci_tests.yaml` (Style Checks, Tests on Linux/macOS/Windows)
+1. `style_checks.yaml` (Code lint and style checks)
 
-This is ran on every commit on the *master* and Pull Request branches.
+This is ran on every commit to the *master* and Pull Request branches.
 It is also scheduled to run daily on the *master* branch.
+
+2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
+
+This is ran on every commit to the *master* and Pull Request branches.
+It is also scheduled to run daily on the *master* branch.
+In draft Pull Requests, only one job (Ubuntu + Python latest)
+is triggered to save on Continuous Integration resources.
 
 On the *master* branch, the workflow also handles the documentation deployment:
 
@@ -60,18 +67,18 @@ On the *master* branch, the workflow also handles the documentation deployment:
   *master* branch onto the `dev` folder of the *gh-pages* branch.
 * Updated the `latest` documentation link to the new release.
 
-2. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
+3. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
 This is triggered when a PR is marked as "ready for review", or using the slash
 command `/test-gmt-dev`. It is also scheduled to run daily on the *master* branch.
 
-3. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
+4. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
 This is scheduled to run every Sunday at 12 noon.
 If new remote files are needed urgently, maintainers can manually uncomment
 the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
-4. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
+5. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
 
 This workflow is ran to publish wheels to PyPI and TestPyPI (for testing only).
 Archives will be pushed to TestPyPI on every commit to the *master* branch and

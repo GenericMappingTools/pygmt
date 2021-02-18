@@ -7,6 +7,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
     paths-ignore:
       - 'doc/**'
       - '*.md'
@@ -21,37 +22,6 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  style_check:
-    name: Style Checks
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checkout current git repository
-      - name: Checkout
-        uses: actions/checkout@v2.3.1
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install packages
-        run: |
-          pip install black blackdoc docformatter flake8 pylint isort
-          sudo apt-get install dos2unix
-
-      - name: Formatting check (black, blackdoc, docformatter, flake8 and isort)
-        run: make check
-
-      - name: Linting (pylint)
-        run: make lint
-
-      - name: Ensure files use UNIX line breaks and have 644 permission
-        run: |
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
-          if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
-
   test:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
@@ -60,6 +30,22 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        # Is it a draft Pull Request (true or false)?
+        isDraft:
+          - ${{ github.event.pull_request.draft }}
+        # Only run one job (Ubuntu + Python 3.9) for draft PRs
+        exclude:
+          - os: macOS-latest
+            isDraft: true
+          - os: windows-latest
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.7
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.8
+            isDraft: true
+
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
@@ -68,7 +54,7 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.4.1
+        uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
 
@@ -79,10 +65,11 @@ jobs:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with GMT and other conda-forge dependencies
-      - name: Setup Mambaforge with GMT and required dependencies
+      # Install Mambaforge with conda-forge dependencies
+      - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@2fc91a2ef82dfb50ded2d80e56f83b7039ba5955
         with:
+          activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
           environment-file: environment.yml
           miniforge-variant: Mambaforge
@@ -97,7 +84,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.10.0
+        uses: dawidd6/action-download-artifact@v2.11.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -110,7 +97,9 @@ jobs:
         run: |
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
-          ls -lh ~/.gmt
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          ls -lhR ~/.gmt
 
       # Install the package that we want to test
       - name: Install the package
@@ -139,7 +128,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.0.10
+        uses: codecov/codecov-action@v1.2.1
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON

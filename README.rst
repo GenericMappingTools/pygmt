@@ -97,8 +97,9 @@ Contacting Us
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
-* We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
-  where you can ask questions and leave comments.
+* We have a `Discourse forum
+  <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__ where you can ask
+  questions and leave comments.
 
 
 Contributing
@@ -152,20 +153,24 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{uieda_leonardo_2020_4025418,
+    @software{pygmt_2021_4522136,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
                       Toney, Liam and
+                      Schlitzer, William and
+                      Grund, Michael and
                       Newton, Tyler and
+                      Ziebarth, Malte and
+                      Jones, Meghan and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = nov,
-      year         = 2020,
+      month        = feb,
+      year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.2.1},
-      doi          = {10.5281/zenodo.4253459},
-      url          = {https://doi.org/10.5281/zenodo.4253459}
+      version      = {v0.3.0},
+      doi          = {10.5281/zenodo.4522136},
+      url          = {https://doi.org/10.5281/zenodo.4522136}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -187,8 +192,9 @@ the **BSD 3-clause License**. A copy of this license is provided in
 Support
 -------
 
-The development of PyGMT was funded by
-`NSF grant OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__.
+The development of PyGMT has been supported by NSF grants
+`OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__ and
+`EAR-1948603 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602>`__.
 
 
 Related projects
@@ -211,6 +217,7 @@ Documentation for other versions
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.3.0 <https://www.pygmt.org/v0.3.0>`__
 * `v0.2.1 <https://www.pygmt.org/v0.2.1>`__
 * `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
 * `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
@@ -224,6 +231,7 @@ Compatibility with Python and GMT versions
 ======= ========== =========
 PyGMT   GMT        Python
 ======= ========== =========
+0.3.0   >=6.1.1    >=3.7
 0.2.1   >=6.1.1    >=3.6
 0.2.0   >=6.1.1    3.6 - 3.8
 0.1.x   >=6.0.0    3.6 - 3.8
