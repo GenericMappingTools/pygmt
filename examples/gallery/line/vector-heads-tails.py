@@ -9,9 +9,9 @@ of vector heads and tails, their shapes, and the justification of the vector.
 
 To place a vector head at the beginning of the vector path 
 simply append **+b** to the vector-producing option (use **+e** to place 
-one at the end). Optionally, append **+t** for a terminal line, **+c** for a 
-circle, **+a** for arrow (default), **+i** for tail, **+A** for plain open 
-arrow, and **+I** for plain open tail. Further append **+l** or **+r** to 
+one at the end). Optionally, append **t** for a terminal line, **c** for a 
+circle, **a** for arrow (default), **i** for tail, **A** for plain open 
+arrow, and **I** for plain open tail. Further append **+l** or **+r** to 
 only draw the left or right half-sides of the selected head/tail 
 (default is both sides). In this context left and right refers to the side of 
 the vector line when viewed from the beginning point to the end point of a 
