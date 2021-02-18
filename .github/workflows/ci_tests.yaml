@@ -38,6 +38,10 @@ jobs:
           - os: macOS-latest
             isDraft: true
           - os: windows-latest
+            python-version: 3.7
+            isDraft: true
+          - os: windows-latest
+            python-version: 3.8
             isDraft: true
           - os: ubuntu-latest
             python-version: 3.7
