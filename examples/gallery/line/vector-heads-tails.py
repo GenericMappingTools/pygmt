@@ -15,7 +15,7 @@ arrow, and **+I** for plain open tail. Further append **+l** or **+r** to
 only draw the left or right half-sides of the selected head/tail 
 (default is both sides). In this context left and right refers to the side of 
 the vector line when viewed from the beginning point to the end point of a 
-line segment. The angle :math:`\theta` of the vector head apex can be set using
+line segment. The angle :math:`{\theta}` of the vector head apex can be set using
 **+a**\ *angle* (default is 30). The shape of the vector head can be adjusted 
 using **+h**\ *shape* (e.g. ``+h0.5``). 
 
