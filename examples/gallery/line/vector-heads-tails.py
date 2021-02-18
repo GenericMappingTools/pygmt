@@ -4,7 +4,7 @@ Vector heads and tails
 
 Many modules in PyGMT allow to plot vectors with individual 
 heads and tails. For this purpose, several modifiers may be appended to 
-the corresponding vector-producing options for specifying the placement 
+the corresponding vector-producing parameters for specifying the placement 
 of vector heads and tails, their shapes, and the justification of the vector. 
 
 To place a vector head at the beginning of the vector path 
