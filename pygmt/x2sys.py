@@ -143,7 +143,7 @@ def x2sys_init(tag, **kwargs):
         - **u** - survey feet or survey feet/s
 
         [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is
-        set, and ``units=["dc", "sc"]`` otherwise (i.g., for Cartesian units)].
+        set, and ``units=["dc", "sc"]`` otherwise (e.g., for Cartesian units)].
 
     {R}
     {V}
