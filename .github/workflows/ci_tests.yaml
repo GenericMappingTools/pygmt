@@ -36,8 +36,16 @@ jobs:
         # Only run one job (Ubuntu + Python 3.9) for draft PRs
         exclude:
           - os: macOS-latest
+            python-version: 3.7
+            isDraft: true
+          - os: macOS-latest
+            python-version: 3.8
             isDraft: true
           - os: windows-latest
+            python-version: 3.7
+            isDraft: true
+          - os: windows-latest
+            python-version: 3.8
             isDraft: true
           - os: ubuntu-latest
             python-version: 3.7
