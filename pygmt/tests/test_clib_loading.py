@@ -19,9 +19,12 @@ def test_check_libgmt():
 
     libgmt._name = "/path/to/libgmt.so"  # pylint: disable=protected-access
     msg = (
-        f"Error loading '{libgmt._name}'. "  # pylint: disable=protected-access
+        # pylint: disable=protected-access
+        f"Error loading '{libgmt._name}'. "
         "Couldn't access function GMT_Create_Session. "
-        "Maybe loading an old version of the GMT shared library."
+        "Ensure that you have installed an up-to-date GMT version 6 library. "
+        "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
+        "directory of the GMT 6 library."
     )
     with pytest.raises(GMTCLibError, match=msg):
         check_libgmt(libgmt)
