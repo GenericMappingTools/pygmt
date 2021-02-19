@@ -81,11 +81,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
           miniconda-version: "latest"
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        shell: bash -l {0}
-        run: conda env update --file environment.yml
+          environment-file: environment.yml
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
