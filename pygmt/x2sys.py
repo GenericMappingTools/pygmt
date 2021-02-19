@@ -268,7 +268,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
         - **l** sets lower speed [Default is 0].
         - **u** sets upper speed [Default is Infinity].
-        - **h** does not limit the speed but sets a lower speed below which \
+        - **h** does not limit the speed but sets a lower speed below which
           headings will not be computed (i.e., set to NaN) [Default
           calculates headings regardless of speed].
 
