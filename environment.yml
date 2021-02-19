@@ -1,7 +1,7 @@
 name: pygmt
 channels:
     - conda-forge
-    - defaults
+    - nodefaults
 dependencies:
     # Required dependencies
     - pip
