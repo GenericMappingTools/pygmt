@@ -72,7 +72,7 @@ for vecstyle in [
     fig.plot(
         x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", color="red3"
     )
-    fig.text(x=6, y=y, text=vecstyle, justify="ML", offset="0.2c/0c")
+    fig.text(x=6, y=y, text=vecstyle, font="Courier-Bold", justify="ML", offset="0.2c/0c")
     y -= 1  # move the next vector down
 
 fig.show()
