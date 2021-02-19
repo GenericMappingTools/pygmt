@@ -445,7 +445,9 @@ You can reference classes, functions, methods, and modules from anywhere
 (including docstrings) using <code>:func:\`package.module.function\`</code>,
 <code>:class:\`package.module.class\`</code>, 
 <code>:meth:\`package.module.method\`</code>, or
-<code>:mod:\`package.module\`</code>.
+<code>:mod:\`package.module\`</code>. An example would be to use 
+<code>\`:meth:\`pygmt.Figure.grdview\`\`</code> to link 
+to :meth:`pygmt.Figure.grdview`.
 
 GMT documentation can be linked with 
 <code>:gmt-docs:\`page_name.html\`</code>. An example would be using
