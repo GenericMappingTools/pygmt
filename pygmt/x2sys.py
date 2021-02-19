@@ -116,7 +116,7 @@ def x2sys_init(tag, **kwargs):
     discontinuity : str
         **d**\|\ **g**.
         Selects geographical coordinates. Append **d** for discontinuity at the
-        Dateline (makes longitude go from -180 to + 180) or **g** for
+        Dateline (makes longitude go from -180 to +180) or **g** for
         discontinuity at Greenwich (makes longitude go from 0 to 360
         [Default]). If not given we assume the data are Cartesian.
 
@@ -128,11 +128,10 @@ def x2sys_init(tag, **kwargs):
          base.
 
     units : str or list
-        **d**\|\ **s**\
-        **c**\|\ **e**\|\ **f**\|\ **k**\|\ **m**\|\ **n**\|\ **u** .
+        **d**\|\ **s**\ *unit*.
         Sets the units used for distance and speed when requested by other
         programs. Append **d** for distance or **s** for speed, then give the
-        desired unit as:
+        desired *unit* as:
 
         - **c** - Cartesian userdist or userdist/usertime
         - **e** - meters or m/s
