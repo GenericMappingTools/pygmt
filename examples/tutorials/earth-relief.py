@@ -5,15 +5,25 @@ Plotting Earth relief
 Plotting a map of Earth relief can use the data accessed by the
 :meth:`pygmt.datasets.load_earth_relief` method. The data can then be plotted using the
 :meth:`pygmt.Figure.grdimage` method.
+
+.. note::
+
+    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
+    To see the figures while using a Python script instead, use
+    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+
+    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
+    is the desired name and file extension for the saved figure.
 """
 # sphinx_gallery_thumbnail_number = 5
 
 import pygmt
 
 ########################################################################################
-# Load sample Earth relief data for the entire globe at a resolution of 30 arc minutes.
-# The other available resolutions are show at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
-grid = pygmt.datasets.load_earth_relief(resolution="30m")
+# Load sample Earth relief data for the entire globe at a resolution of 1 arc degree.
+# The other available resolutions are show
+# at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
+grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
 ########################################################################################
 # Create a plot
@@ -86,15 +96,15 @@ fig.show()
 #
 # In addition to providing global data, the ``region`` argument for
 # :meth:`pygmt.datasets.load_earth_relief` can be used to provide data for a specific
-# area. The ``region`` argument is required for resolutions at 5 arc minutes or higher, and
-# accepts a list (as in the example below) or a string. The geographic ranges are
+# area. The ``region`` argument is required for resolutions at 5 arc minutes or higher,
+# and accepts a list (as in the example below) or a string. The geographic ranges are
 # passed as *xmin*/*xmax*/*ymin*/*ymax*.
 #
-# The example below uses data with a 5 arc minute resolution, and plots it on a
+# The example below uses data with a 10 arc minute resolution, and plots it on a
 # 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
 # ``frame="a"`` is used to add a frame to the figure.
 
-grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-14, 30, 35, 60])
+grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])

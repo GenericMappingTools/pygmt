@@ -5,6 +5,15 @@ Set the region
 Many of the plotting functions take the ``region`` argument, which sets
 the area that will be shown in the figure. This tutorial covers the different types of
 inputs that it can accept.
+
+.. note::
+
+    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
+    To see the figures while using a Python script instead, use
+    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+
+    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
+    is the desired name and file extension for the saved figure.
 """
 
 import pygmt
@@ -87,7 +96,7 @@ fig = pygmt.Figure()
 fig.coast(
     region="d",
     projection="Cyl_stere/12c",
-    land="lightgray",
+    land="darkgray",
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
@@ -106,7 +115,7 @@ fig = pygmt.Figure()
 fig.coast(
     region="g",
     projection="Cyl_stere/12c",
-    land="lightgray",
+    land="darkgray",
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
