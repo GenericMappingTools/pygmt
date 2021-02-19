@@ -14,7 +14,7 @@ circle, **a** for arrow (default), **i** for tail, **A** for plain open
 arrow, and **I** for plain open tail. Further append **l** or **r** (e.g.
 ``+bar``) to only draw the left or right half-sides of the selected head/tail 
 (default is both sides) or use **+l** or **+r** to apply simultaneously to both 
-sides. In this context left and right refers to the side of  the vector line 
+sides. In this context left and right refer to the side of the vector line 
 when viewed from the beginning point to the end point of a line segment. 
 The angle of the vector head apex can be set using **+a**\ *angle* 
 (default is 30). The shape of the vector head can be adjusted using 
