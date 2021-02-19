@@ -3,12 +3,12 @@ html {
 }
 
 body {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: "IBM Plex Sans", sans-serif;
 }
 
 h1, h2, h3, h4 {
     font-weight: 300;
-    font-family: "IBM Plex Sans",sans-serif;
+    font-family: "IBM Plex Sans", sans-serif;
 }
 
 h1 {
@@ -131,3 +131,34 @@ a.copybtn {
     user-select: none;
 }
 
+/* IBM Plex Sans regular */
+@font-face {
+    font-family: "IBM Plex Sans";
+    src: url("./fonts/IBMPlexSans-Regular.woff") format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* IBM Plex Sans italic */
+@font-face {
+    font-family: "IBM Plex Sans";
+    src: url("./fonts/IBMPlexSans-Italic.woff") format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* IBM Plex Sans bold */
+@font-face {
+    font-family: "IBM Plex Sans";
+    src: url("./fonts/IBMPlexSans-Bold.woff") format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* IBM Plex Sans bold italic */
+@font-face {
+    font-family: "IBM Plex Sans";
+    src: url("./fonts/IBMPlexSans-BoldItalic.woff") format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
