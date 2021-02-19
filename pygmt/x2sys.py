@@ -207,7 +207,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         in the current directory and second in all directories listed in
         $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
         set it will default to $GMT_SHAREDIR/x2sys]. (Note: MGD77 files will
-        also be looked for via $MGD77_HOME/mgd77_paths.txt and \\*.gmt files
+        also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt files
         will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
 
     outfile : str
@@ -231,7 +231,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         is to use the knowledge of run-times to split the main process in a
         number of sub-processes that can each be launched in a different
         processor of your multi-core machine. See the MATLAB function
-        split_file4coes.m that lives in the x2sys supplement source code.
+        `split_file4coes.m
+        <https://github.com/GenericMappingTools/gmt/blob/master/src/x2sys/>`_.
 
     override : bool or str
         **S**\|\ **N**.
@@ -289,11 +290,11 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
     Returns
     -------
-    crossover_errors : pandas.DataFrame or None
+    crossover_errors : :class:`pandas.DataFrame` or None
         Table containing crossover error information.
         Return type depends on whether the outfile parameter is set:
 
-        - pandas.DataFrame table with (x, y, ..., etc) if outfile is not set
+        - :class:`pandas.DataFrame` with (x, y, ..., etc) if outfile is not set
         - None if outfile is set (track output will be stored in outfile)
     """
     with Session() as lib:
