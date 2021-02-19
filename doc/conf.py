@@ -26,7 +26,6 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
-    "nbsphinx",
     "sphinx_gallery.gen_gallery",
     "sphinx_copybutton",
 ]
