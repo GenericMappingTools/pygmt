@@ -2,32 +2,32 @@
 Vector heads and tails
 ----------------------
 
-Many modules in PyGMT allow plotting vectors with individual 
-heads and tails. For this purpose, several modifiers may be appended to 
-the corresponding vector-producing parameters for specifying the placement 
-of vector heads and tails, their shapes, and the justification of the vector. 
+Many modules in PyGMT allow plotting vectors with individual
+heads and tails. For this purpose, several modifiers may be appended to
+the corresponding vector-producing parameters for specifying the placement
+of vector heads and tails, their shapes, and the justification of the vector.
 
-To place a vector head at the beginning of the vector path 
-simply append **+b** to the vector-producing option (use **+e** to place 
-one at the end). Optionally, append **t** for a terminal line, **c** for a 
-circle, **a** for arrow (default), **i** for tail, **A** for plain open 
+To place a vector head at the beginning of the vector path
+simply append **+b** to the vector-producing option (use **+e** to place
+one at the end). Optionally, append **t** for a terminal line, **c** for a
+circle, **a** for arrow (default), **i** for tail, **A** for plain open
 arrow, and **I** for plain open tail. Further append **l** or **r** (e.g.
-``+bar``) to only draw the left or right half-sides of the selected head/tail 
-(default is both sides) or use **+l** or **+r** to apply simultaneously to both 
-sides. In this context left and right refer to the side of the vector line 
-when viewed from the beginning point to the end point of a line segment. 
-The angle of the vector head apex can be set using **+a**\ *angle* 
-(default is 30). The shape of the vector head can be adjusted using 
-**+h**\ *shape* (e.g. ``+h0.5``). 
+``+bar``) to only draw the left or right half-sides of the selected head/tail
+(default is both sides) or use **+l** or **+r** to apply simultaneously to both
+sides. In this context left and right refer to the side of the vector line
+when viewed from the beginning point to the end point of a line segment.
+The angle of the vector head apex can be set using **+a**\ *angle*
+(default is 30). The shape of the vector head can be adjusted using
+**+h**\ *shape* (e.g. ``+h0.5``).
 
-For further modifiers see the *Vector Attributes* subsection of the 
-corresponding module. 
+For further modifiers see the *Vector Attributes* subsection of the
+corresponding module.
 
-In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors 
-with individual heads and tails. We must specify the modifiers (together with 
-the vector type, here ``v``) by passing the corresponding shortcuts to the 
-``style`` parameter. 
- 
+In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors
+with individual heads and tails. We must specify the modifiers (together with
+the vector type, here ``v``) by passing the corresponding shortcuts to the
+``style`` parameter.
+
 """
 
 import pygmt
