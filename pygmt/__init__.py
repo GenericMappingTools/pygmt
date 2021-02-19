@@ -14,14 +14,21 @@ from pkg_resources import get_distribution
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
 from pygmt.figure import Figure
-from pygmt.filtering import blockmedian
-from pygmt.gridding import surface
-from pygmt.gridops import grdcut, grdfilter
-from pygmt.mathops import makecpt
-from pygmt.modules import GMTDataArrayAccessor, config, grdinfo, info, which
-from pygmt.sampling import grdtrack
+from pygmt.modules import GMTDataArrayAccessor, config
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
+from pygmt.src import (
+    blockmedian,
+    grd2cpt,
+    grdcut,
+    grdfilter,
+    grdinfo,
+    grdtrack,
+    info,
+    makecpt,
+    surface,
+    which,
+)
 from pygmt.x2sys import x2sys_cross, x2sys_init
 
 # Get semantic version through setuptools-scm
@@ -67,7 +74,9 @@ def show_versions():
     import sys
 
     def _get_module_version(modname):
-        """Get version information of a Python module."""
+        """
+        Get version information of a Python module.
+        """
         try:
             if modname in sys.modules:
                 module = sys.modules[modname]
@@ -82,9 +91,11 @@ def show_versions():
             return None
 
     def _get_ghostscript_version():
-        """Get ghostscript version."""
+        """
+        Get ghostscript version.
+        """
         os_name = sys.platform
-        if os_name.startswith("linux") or os_name == "darwin":
+        if os_name.startswith(("linux", "freebsd", "darwin")):
             cmds = ["gs"]
         elif os_name == "win32":
             cmds = ["gswin64c.exe", "gswin32c.exe"]
@@ -102,7 +113,9 @@ def show_versions():
         return None
 
     def _get_gmt_version():
-        """Get GMT version."""
+        """
+        Get GMT version.
+        """
         try:
             version = subprocess.check_output(
                 ["gmt", "--version"], universal_newlines=True
@@ -164,7 +177,6 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     AssertionError
         If pytest returns a non-zero error code indicating that some tests have
         failed.
-
     """
     import pytest
 

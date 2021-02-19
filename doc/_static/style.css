@@ -114,3 +114,20 @@ h1 {
         margin-top: 20px;
     }
 }
+
+/* Style for the copy button */
+/* Safe to remove for sphinx-copybutton>0.3.1
+ * https://github.com/executablebooks/sphinx-copybutton/pull/107
+ */
+a.copybtn {
+    position: absolute;
+    top: .2em;
+    right: .2em;
+    width: 1.3em;
+    height: 1.3em;
+    opacity: .3;
+    transition: opacity 0.5s;
+    border: none;
+    user-select: none;
+}
+

@@ -1,5 +1,6 @@
 """
-GMT modules for Gridding of Data Tables
+surface - Grids table data using adjustable tension continuous curvature
+splines.
 """
 import xarray as xr
 from pygmt.clib import Session
@@ -19,7 +20,7 @@ from pygmt.helpers import (
 @use_alias(I="spacing", R="region", G="outfile", V="verbose")
 @kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
-    """
+    r"""
     Grids table data using adjustable tension continuous curvature splines.
 
     Surface reads randomly-spaced (x,y,z) triples and produces gridded values
@@ -46,11 +47,12 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
         Either a data file name or a 2d numpy array with the tabular data.
 
     spacing : str
-        ``'xinc[unit][+e|n][/yinc[unit][+e|n]]'``.
-        x_inc [and optionally y_inc] is the grid spacing.
+        *xinc*\[\ *unit*\][**+e**\|\ **n**]\
+        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
+        *xinc* [and optionally *yinc*] is the grid spacing.
 
     region : str or list
-        ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
+        *xmin/xmax/ymin/ymax*\[**+r**][**+u**\ *unit*].
         Specify the region of interest.
 
     outfile : str

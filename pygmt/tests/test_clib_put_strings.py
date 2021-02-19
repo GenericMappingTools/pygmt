@@ -14,7 +14,9 @@ with clib.Session() as _lib:
 
 
 def test_put_strings():
-    "Check that assigning a numpy array of dtype str to a dataset works"
+    """
+    Check that assigning a numpy array of dtype str to a dataset works.
+    """
     with clib.Session() as lib:
         dataset = lib.create_data(
             family="GMT_IS_DATASET|GMT_VIA_VECTOR",
@@ -24,7 +26,7 @@ def test_put_strings():
         )
         x = np.array([1, 2, 3, 4, 5], dtype=np.int32)
         y = np.array([6, 7, 8, 9, 10], dtype=np.int32)
-        strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=np.str)
+        strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=str)
         lib.put_vector(dataset, column=lib["GMT_X"], vector=x)
         lib.put_vector(dataset, column=lib["GMT_Y"], vector=y)
         lib.put_strings(
@@ -52,11 +54,13 @@ def test_put_strings():
 
 
 def test_put_strings_fails():
-    "Check that put_strings raises an exception if return code is not zero"
+    """
+    Check that put_strings raises an exception if return code is not zero.
+    """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
             lib.put_strings(
                 dataset=None,
                 family="GMT_IS_VECTOR|GMT_IS_DUPLICATE",
-                strings=np.empty(shape=(3,), dtype=np.str),
+                strings=np.empty(shape=(3,), dtype=str),
             )

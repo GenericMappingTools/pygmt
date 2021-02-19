@@ -1,13 +1,21 @@
-# This workflow installs PyGMT dependencies, builds documentation and runs tests on GMT latest
+# This workflow installs PyGMT dependencies, builds documentation and runs tests on GMT dev version
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: GMT Latest Tests
+name: GMT Dev Tests
 
 on:
   # push:
   #   branches: [ master ]
   pull_request:
-    types: [review_requested, ready_for_review]
+    types: [ready_for_review]
+    paths-ignore:
+      - 'doc/**'
+      - '*.md'
+      - '*.json'
+      - 'README.rst'
+      - 'LICENSE.txt'
+  repository_dispatch:
+    types: [test-gmt-dev-command]
   # Schedule daily tests
   schedule:
     - cron: '0 0 * * *'
@@ -29,20 +37,41 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.4.1
+        uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
 
       # Checkout current git repository
       - name: Checkout
         uses: actions/checkout@v2.3.4
+        if: github.event_name != 'repository_dispatch'
         with:
+          # fecth all history so that setuptools-scm works
+          fetch-depth: 0
+
+      # Generate token from GenericMappingTools bot
+      - name: Generate token from GenericMappingTools bot
+        uses: tibdex/github-app-token@v1
+        if: github.event_name == 'repository_dispatch'
+        id: generate-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      # Checkout the pull request branch
+      - name: Checkout
+        uses: actions/checkout@v2
+        if: github.event_name == 'repository_dispatch'
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.0.0
+        uses: conda-incubator/setup-miniconda@v2.0.1
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
@@ -66,7 +95,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.10.0
+        uses: dawidd6/action-download-artifact@v2.11.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -79,13 +108,19 @@ jobs:
         run: |
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
-          ls -lh ~/.gmt
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          ls -lhR ~/.gmt
 
       # Install the package that we want to test
       - name: Install the package
         run: |
           python setup.py sdist --formats=zip
           pip install dist/*
+
+      - name: Add GMT's bin to PATH (Linux/macOS)
+        run: echo ${GITHUB_WORKSPACE}/gmt-install-dir/bin >> $GITHUB_PATH
+        if: runner.os != 'Windows'
 
       # Run the tests
       - name: Test with pytest (Linux/macOS)
@@ -106,3 +141,12 @@ jobs:
         with:
           name: artifact-GMT-${{ matrix.gmt_git_ref }}-${{ runner.os }}
           path: tmp-test-dir-with-unique-name
+
+      - name: Add reaction
+        uses: peter-evans/create-or-update-comment@v1
+        if: github.event_name == 'repository_dispatch'
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reaction-type: hooray

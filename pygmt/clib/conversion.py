@@ -79,7 +79,6 @@ def dataarray_to_matrix(grid):
     [-150.5, -78.5, -80.5, -48.5]
     >>> print(inc)
     [2.0, 2.0]
-
     """
     if len(grid.dims) != 2:
         raise GMTInvalidInput(
@@ -158,7 +157,6 @@ def vectors_to_arrays(vectors):
     >>> data = [[1, 2], (3, 4), range(5, 7)]
     >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
     True
-
     """
     arrays = [as_c_contiguous(np.asarray(i)) for i in vectors]
     return arrays
@@ -200,7 +198,6 @@ def as_c_contiguous(array):
     True
     >>> as_c_contiguous(x).flags.c_contiguous
     True
-
     """
     if not array.flags.c_contiguous:
         return array.copy(order="C")
@@ -238,7 +235,6 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
     ... )
     >>> print(should_be_none)
     None
-
     """
     if argument in kwargs:
         return dtype(*kwargs[argument])

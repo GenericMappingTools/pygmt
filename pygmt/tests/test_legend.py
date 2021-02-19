@@ -1,5 +1,5 @@
 """
-Tests for legend
+Tests for legend.
 """
 import pytest
 from pygmt import Figure
@@ -130,7 +130,7 @@ T so we may have to adjust the box height to get the right size box.
 
 def test_legend_fails():
     """
-    Test legend fails with invalid spec
+    Test legend fails with invalid spec.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):

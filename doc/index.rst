@@ -31,12 +31,15 @@
     tutorials/frames.rst
     projections/index.rst
     tutorials/coastlines.rst
+    tutorials/regions.rst
     tutorials/plot.rst
-    tutorials/plot-lines.rst
+    tutorials/lines.rst
     tutorials/text.rst
     tutorials/contour-map.rst
     tutorials/earth-relief.rst
     tutorials/3d-perspective-image.rst
+    tutorials/inset.rst
+    tutorials/subplots.rst
     tutorials/configuration.rst
 
 .. toctree::

@@ -1,7 +1,8 @@
 """
-Test the functions that load libgmt
+Test the functions that load libgmt.
 """
-import os
+import subprocess
+import sys
 
 import pytest
 from pygmt.clib.loading import check_libgmt, clib_names, load_libgmt
@@ -9,37 +10,66 @@ from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
 def test_check_libgmt():
-    "Make sure check_libgmt fails when given a bogus library"
-    with pytest.raises(GMTCLibError):
-        check_libgmt(dict())
+    """
+    Make sure check_libgmt fails when given a bogus library.
+    """
+    # create a fake library with a "_name" property
+    def libgmt():
+        pass
+
+    libgmt._name = "/path/to/libgmt.so"  # pylint: disable=protected-access
+    msg = (
+        # pylint: disable=protected-access
+        f"Error loading '{libgmt._name}'. "
+        "Couldn't access function GMT_Create_Session. "
+        "Ensure that you have installed an up-to-date GMT version 6 library. "
+        "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
+        "directory of the GMT 6 library."
+    )
+    with pytest.raises(GMTCLibError, match=msg):
+        check_libgmt(libgmt)
 
 
 def test_load_libgmt():
-    "Test that loading libgmt works and doesn't crash."
+    """
+    Test that loading libgmt works and doesn't crash.
+    """
     check_libgmt(load_libgmt())
 
 
-def test_load_libgmt_fail():
-    "Test that loading fails when given a bad library path."
-    # save the old value (if any) before setting a fake "GMT_LIBRARY_PATH"
-    old_gmt_library_path = os.environ.get("GMT_LIBRARY_PATH")
+@pytest.mark.skipif(sys.platform == "win32", reason="run on UNIX platforms only")
+def test_load_libgmt_fails(monkeypatch):
+    """
+    Test that GMTCLibNotFoundError is raised when GMT's shared library cannot
+    be found.
+    """
+    with monkeypatch.context() as mpatch:
+        mpatch.setattr(sys, "platform", "win32")  # pretend to be on Windows
+        mpatch.setattr(
+            subprocess, "check_output", lambda cmd, encoding: "libfakegmt.so"
+        )
+        with pytest.raises(GMTCLibNotFoundError):
+            check_libgmt(load_libgmt())
 
-    os.environ["GMT_LIBRARY_PATH"] = "/not/a/real/path"
-    with pytest.raises(GMTCLibNotFoundError):
-        load_libgmt()
 
-    # revert back to the original status (if any)
-    if old_gmt_library_path:
-        os.environ["GMT_LIBRARY_PATH"] = old_gmt_library_path
-    else:
-        del os.environ["GMT_LIBRARY_PATH"]
+def test_load_libgmt_with_a_bad_library_path(monkeypatch):
+    """
+    Test that loading still works when given a bad library path.
+    """
+    # Set a fake "GMT_LIBRARY_PATH"
+    monkeypatch.setenv("GMT_LIBRARY_PATH", "/not/a/real/path")
+    assert check_libgmt(load_libgmt()) is None
 
 
 def test_clib_names():
-    "Make sure we get the correct library name for different OS names"
+    """
+    Make sure we get the correct library name for different OS names.
+    """
     for linux in ["linux", "linux2", "linux3"]:
         assert clib_names(linux) == ["libgmt.so"]
     assert clib_names("darwin") == ["libgmt.dylib"]
     assert clib_names("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
+    for freebsd in ["freebsd10", "freebsd11", "freebsd12"]:
+        assert clib_names(freebsd) == ["libgmt.so"]
     with pytest.raises(GMTOSError):
         clib_names("meh")
