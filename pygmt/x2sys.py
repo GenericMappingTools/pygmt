@@ -188,7 +188,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     segment, and the crossover error (COE) and mean values for all observables.
     By default, :meth:`pygmt.x2sys_cross` will look for both external and
     internal COEs. As an option, you may choose to project all data using one
-    of the map-projections prior to calculating the COE.
+    of the map projections prior to calculating the COE.
 
     Full option list at :gmt-docs:`supplements/x2sys/x2sys_cross.html`
 
