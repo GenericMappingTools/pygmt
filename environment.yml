@@ -12,18 +12,9 @@ dependencies:
     - netCDF4
     - packaging
     # Development dependencies
-    - black
-    - blackdoc
     - codecov
     - coverage[toml]
-    - docformatter
-    - flake8
-    - ipython
-    - isort>=5
-    - jupyter
     - make
-    - matplotlib
-    - pylint
     - pytest-cov
     - pytest-mpl
     - pytest>=6.0
