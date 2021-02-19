@@ -2,7 +2,7 @@
 Vector heads and tails
 ----------------------
 
-Many modules in PyGMT allow to plot vectors with individual 
+Many modules in PyGMT allow plotting vectors with individual 
 heads and tails. For this purpose, several modifiers may be appended to 
 the corresponding vector-producing parameters for specifying the placement 
 of vector heads and tails, their shapes, and the justification of the vector. 
