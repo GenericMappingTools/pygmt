@@ -448,7 +448,7 @@ You can reference classes, functions, methods, and modules from anywhere
 <code>:mod:\`package.module\`</code>. An example would be to use 
 <code>:meth:\`pygmt.Figure.grdview\`</code> to link 
 to :meth:`pygmt.Figure.grdview`. PyGMT documentation that is not a class, method, 
-or module can be linked with :doc:`Any Link Text </path/to/the/file>`
+or module can be linked with :doc:`Any Link Text </path/to/the/file>`.
 For example, <code>:doc:`Install instructions </install>`</code> links 
 to https://www.pygmt.org/dev/install.html.
 
