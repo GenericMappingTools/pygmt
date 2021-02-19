@@ -37,7 +37,7 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.4.1
+        uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
 
@@ -71,7 +71,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.0.0
+        uses: conda-incubator/setup-miniconda@v2.0.1
         with:
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
@@ -95,7 +95,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.10.0
+        uses: dawidd6/action-download-artifact@v2.11.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -108,13 +108,19 @@ jobs:
         run: |
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
-          ls -lh ~/.gmt
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          ls -lhR ~/.gmt
 
       # Install the package that we want to test
       - name: Install the package
         run: |
           python setup.py sdist --formats=zip
           pip install dist/*
+
+      - name: Add GMT's bin to PATH (Linux/macOS)
+        run: echo ${GITHUB_WORKSPACE}/gmt-install-dir/bin >> $GITHUB_PATH
+        if: runner.os != 'Windows'
 
       # Run the tests
       - name: Test with pytest (Linux/macOS)

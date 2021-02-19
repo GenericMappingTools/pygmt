@@ -32,10 +32,11 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def coast(self, **kwargs):
     r"""
     Plot continents, shorelines, rivers, and borders on maps
@@ -65,12 +66,11 @@ def coast(self, **kwargs):
     {J}
     {R}
     area_thresh : int, float, or str
-        *min_area*\ [/*min_level*/*max_level*][**+ag**\|\ **i**\
-        \|\ **s**\|\ **S**][**+r**\|\ **l**][**+p**\
-        *percent*].
-        Features with an area smaller than min_area in km^2 or of
-        hierarchical level that is lower than min_level or higher than
-        max_level will not be plotted.
+        *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
+        [**s**\|\ **S**][**+l**\|\ **r**][**+p**\ *percent*].
+        Features with an area smaller than *min_area* in km\ :sup:`2` or of
+        hierarchical level that is lower than *min_level* or higher than
+        *max_level* will not be plotted.
     {B}
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
@@ -89,7 +89,7 @@ def coast(self, **kwargs):
     rivers : int or str or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
-        pen attributes [Default pen: width = default, color = black,
+        pen attributes [Default pen is width = default, color = black,
         style = solid].
 
         Choose from the list of river types below; pass a list to
@@ -131,12 +131,13 @@ def coast(self, **kwargs):
 
         c = All canals (8-10)
     map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*.
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
+        **+w**\ *length*.
         Draws a simple map scale centered on the reference point specified.
     borders : int or str or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
-        [optionally] append pen attributes [Default pen: width = default,
+        [optionally] append pen attributes [Default pen is width = default,
         color = black, style = solid].
 
         Choose from the list of boundaries below. Pass a list to
@@ -155,7 +156,7 @@ def coast(self, **kwargs):
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
-        [Defaults: width = default, color = black, style = solid] which
+        [Default is width = default, color = black, style = solid] which
         apply to all four levels. To set the pen for a single level,
         pass a string with *level*\ /*pen*\ , where level is
         1-4 and represent coastline, lakeshore, island-in-lake shore, and
@@ -176,21 +177,20 @@ def coast(self, **kwargs):
         prepend **=** to any of the continent codes (e.g. =EU for Europe).
         Append **+p**\ *pen* to draw polygon outlines
         (default is no outline) and **+g**\ *fill* to fill them
-        (default is no fill). Append **+l**\|\ **+L** to *=continent* to
+        (default is no fill). Append **+l**\|\ **+L** to =\ *continent* to
         only list countries in that continent; repeat if more than one
-        continent is requested. Append **+z** to place the country code in
-        the segment headers via **-Z**\ *code* settings.To apply different
-        settings to different countries, pass a list of string arguments.
+        continent is requested.
     {XY}
+    {c}
     {p}
     {t}
     {V}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if not args_in_kwargs(args=["C", "G", "S", "I", "N", "Q", "W"], kwargs=kwargs):
+    if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
             """At least one of the following arguments must be specified:
-            lakes, land, water, rivers, borders, Q, or shorelines"""
+            lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
     with Session() as lib:
         lib.call_module("coast", build_arg_string(kwargs))

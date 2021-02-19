@@ -27,12 +27,13 @@ from pygmt.helpers import (
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def basemap(self, **kwargs):
-    """
+    r"""
     Plot base maps and frames for the figure.
 
     Creates a basic or fancy basemap with axes, fill, and titles. Several
@@ -40,8 +41,8 @@ def basemap(self, **kwargs):
     tick-mark intervals for boundary annotation, ticking, and [optionally]
     gridlines. A simple map scale or directional rose may also be plotted.
 
-    At least one of the options *frame*, *map_scale*, *rose* or *compass*
-    must be specified.
+    At least one of the parameters ``frame``, ``map_scale``, ``rose`` or
+    ``compass`` must be specified.
 
     Full option list at :gmt-docs:`basemap.html`
 
@@ -55,7 +56,8 @@ def basemap(self, **kwargs):
     {R}
     {B}
     map_scale : str
-        ``'[g|j|J|n|x]refpoint'``
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
+        **+w**\ *length*.
         Draws a simple map scale centered on the reference point specified.
     rose : str
         Draws a map directional rose on the map at the location defined by
@@ -66,13 +68,14 @@ def basemap(self, **kwargs):
     {U}
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if not args_in_kwargs(args=["B", "L", "Td", "Tm"], kwargs=kwargs):
+    if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
         raise GMTInvalidInput(
-            "At least one of frame, map_scale, compass, or rose must be specified."
+            "At least one of frame, map_scale, compass, rose, or panel must be specified."
         )
     with Session() as lib:
         lib.call_module("basemap", build_arg_string(kwargs))

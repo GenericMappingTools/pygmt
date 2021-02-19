@@ -42,7 +42,7 @@ The main advantages of this are:
 
 We use GitHub Actions continuous integration (CI) services to
 build and test the project on Linux, macOS and Windows.
-They rely on the `requirements.txt` file to install required dependencies using
+They rely on the `environment.yml` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
 
 ### GitHub Actions
@@ -58,6 +58,8 @@ It is also scheduled to run daily on the *master* branch.
 
 This is ran on every commit to the *master* and Pull Request branches.
 It is also scheduled to run daily on the *master* branch.
+In draft Pull Requests, only one job (Ubuntu + Python latest)
+is triggered to save on Continuous Integration resources.
 
 On the *master* branch, the workflow also handles the documentation deployment:
 

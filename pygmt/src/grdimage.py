@@ -32,13 +32,14 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     n="interpolation",
+    c="panel",
     p="perspective",
     t="transparency",
     x="cores",
 )
-@kwargs_to_strings(R="sequence", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def grdimage(self, grid, **kwargs):
-    """
+    r"""
     Project and plot grids or images.
 
     Reads a 2-D grid file and produces a gray-shaded (or colored) map by
@@ -46,17 +47,15 @@ def grdimage(self, grid, **kwargs):
     color) based on the z-value and the CPT file. Optionally, illumination
     may be added by providing a file with intensities in the (-1,+1) range
     or instructions to derive intensities from the input data grid. Values
-    outside this range will be clipped. Such intensity files can be created
-    from the grid using `grdgradient` and, optionally, modified by
-    `grdmath` or `grdhisteq`. If GMT is built with GDAL support, *grid* can
-    be an image file (geo-referenced or not). In this case the image can
-    optionally be illuminated with the file provided via the *shading*
-    option. Here, if image has no coordinates then those of the intensity
-    file will be used.
+    outside this range will be clipped. If GMT is built with GDAL support,
+    ``grid`` can be an image file (geo-referenced or not). In this case the
+    image can optionally be illuminated with the file provided via the
+    ``shading`` parameter. Here, if image has no coordinates then those of the
+    intensity file will be used.
 
     When using map projections, the grid is first resampled on a new
     rectangular grid with the same dimensions. Higher resolution images can
-    be obtained by using the *dpi* option. To obtain the resampled value
+    be obtained by using the ``dpi`` parameter. To obtain the resampled value
     (and hence shade or color) of each map pixel, its location is inversely
     projected back onto the input grid after which a value is interpolated
     between the surrounding input grid values. By default bi-cubic
@@ -64,12 +63,12 @@ def grdimage(self, grid, **kwargs):
     the input grid nodes. If two or more nodes are projected onto the same
     pixel, their average will dominate in the calculation of the pixel
     value. Interpolation and aliasing is controlled with the
-    *interpolation* option.
+    ``interpolation`` parameter.
 
-    The *region* option can be used to select a map region larger or
+    The ``region`` parameter can be used to select a map region larger or
     smaller than that implied by the extent of the grid.
 
-    Full option list at :gmt-docs:`grdimage.html`
+    Full parameter list at :gmt-docs:`grdimage.html`
 
     {aliases}
 
@@ -80,7 +79,7 @@ def grdimage(self, grid, **kwargs):
         set or image to be plotted (See GRID FILE FORMATS at
         :gmt-docs:`grdimage.html#grid-file-formats`).
     img_out : str
-        ``out_img[=driver]``.
+        *out_img*\[=\ *driver*].
         Save an image in a raster format instead of PostScript. Use
         extension .ppm for a Portable Pixel Map format which is the only
         raster format GMT can natively write. For GMT installations
@@ -90,8 +89,8 @@ def grdimage(self, grid, **kwargs):
         information is required. For other output formats you must append
         the required GDAL driver. The *driver* is the driver code name used
         by GDAL; see your GDAL installation's documentation for available
-        drivers. Append a **+c**\\ *options* string where options is a list
-        of one or more concatenated number of GDAL **-co** options. For
+        drivers. Append a **+c**\ *args* string where *args* is a list
+        of one or more concatenated number of GDAL **-co** arguments. For
         example, to write a GeoPDF with the TerraGo format use
         ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
         selected then we will write a GeoTiff image if the GMT projection
@@ -100,47 +99,47 @@ def grdimage(self, grid, **kwargs):
     {B}
     {CPT}
     img_in : str
-        ``[r]``
+        [**r**].
         GMT will automatically detect standard image files (Geotiff, TIFF,
         JPG, PNG, GIF, etc.) and will read those via GDAL. For very obscure
-        image formats you may need to explicitly set *img_in*, which
+        image formats you may need to explicitly set ``img_in``, which
         specifies that the grid is in fact an image file to be read via
-        GDAL. Append **r** to assign the region specified by *region*
+        GDAL. Append **r** to assign the region specified by ``region``
         to the image. For example, if you have used ``region='d'`` then the
         image will be assigned a global domain. This mode allows you to
         project a raw image (an image without referencing coordinates).
     dpi : int
-        ``[i|dpi]``.
+        [**i**\|\ *dpi*].
         Sets the resolution of the projected grid that will be created if a
         map projection other than Linear or Mercator was selected [100]. By
         default, the projected grid will be of the same size (rows and
         columns) as the input file. Specify **i** to use the PostScript
         image operator to interpolate the image at the device resolution.
     bit_color : str
-        ``color[+b|f]``.
-        This option only applies when a resulting 1-bit image otherwise
+        *color*\ [**+b**\|\ **f**\].
+        This parameter only applies when a resulting 1-bit image otherwise
         would consist of only two colors: black (0) and white (255). If so,
-        this option will instead use the image as a transparent mask and
+        this parameter will instead use the image as a transparent mask and
         paint the mask with the given color. Append **+b** to paint the
         background pixels (1) or **+f** for the foreground pixels
-        [Default].
+        [Default is **+f**].
     shading : str
-        ``[intensfile|intensity|modifiers]``.
+        *intensfile*\|\ *intensity*\|\ *modifiers*.
         Give the name of a grid file with intensities in the (-1,+1) range,
         or a constant intensity to apply everywhere (affects the ambient
         light). Alternatively, derive an intensity grid from the input data
-        grid via a call to `grdgradient`; append **+a**\\ *azimuth*,
-        **+n**\\ *args*, and **+m**\\ *ambient* to specify azimuth,
+        grid via a call to ``grdgradient``; append **+a**\ *azimuth*,
+        **+n**\ *args*, and **+m**\ *ambient* to specify azimuth,
         intensity, and ambient arguments for that module, or just give
-        **+d** to select the default arguments (``+a-45+nt1+m0``). If you
-        want a more specific intensity scenario then run `grdgradient`
-        separately first. If we should derive intensities from another file
-        than grid, specify the file with suitable modifiers [Default is no
-        illumination].
+        **+d** to select the default arguments
+        [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0]. If you want a more
+        specific intensity scenario then run ``grdgradient`` separately first.
+        If we should derive intensities from another file than grid, specify
+        the file with suitable modifiers [Default is no illumination].
     {J}
     monochrome : bool
         Force conversion to monochrome image using the (television) YIQ
-        transformation. Cannot be used with *nan_transparent*.
+        transformation. Cannot be used with ``nan_transparent``.
     no_clip : bool
         Do not clip the image at the map boundary (only relevant for
         non-rectangular maps).
@@ -151,6 +150,7 @@ def grdimage(self, grid, **kwargs):
     {R}
     {V}
     {XY}
+    {c}
     {n}
     {p}
     {t}

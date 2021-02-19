@@ -38,33 +38,34 @@ from pygmt.helpers import (
     Z="zvalue",
     i="columns",
     l="label",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
-    """
+    r"""
     Plot lines, polygons, and symbols in 2-D.
 
     Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
     polygons, or symbols at those locations on a map.
 
-    Must provide either *data* or *x* and *y*.
+    Must provide either ``data`` or ``x``/``y``.
 
-    If providing data through *x* and *y*, *color* can be a 1d array that
+    If providing data through ``x``/``y``, ``color`` can be a 1d array that
     will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot will
     interpret the third column of the input data as symbol size. Symbols
     whose size is <= 0 are skipped. If no symbols are specified then the
-    symbol code (see *style* below) must be present as last column in the
-    input. If *style* is not used, a line connecting the data points will
-    be drawn instead. To explicitly close polygons, use *close*. Select a
-    fill with *color*. If *color* is set, *pen* will control whether the
-    polygon outline is drawn or not. If a symbol is selected, *color* and
-    *pen* determines the fill and outline/no outline, respectively.
+    symbol code (see ``style`` below) must be present as last column in the
+    input. If ``style`` is not used, a line connecting the data points will
+    be drawn instead. To explicitly close polygons, use ``close``. Select a
+    fill with ``color``. If ``color`` is set, ``pen`` will control whether the
+    polygon outline is drawn or not. If a symbol is selected, ``color`` and
+    ``pen`` determines the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot.html`
+    Full parameter list at :gmt-docs:`plot.html`
 
     {aliases}
 
@@ -75,11 +76,11 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         data points
     data : str or 2d array
         Either a data file name or a 2d numpy array with the tabular data.
-        Use option *columns* (i) to choose which columns are x, y, color,
+        Use parameter ``columns`` to choose which columns are x, y, color,
         and size, respectively.
     sizes : 1d array
-        The sizes of the data points in units specified in *style* (S).
-        Only valid if using *x* and *y*.
+        The sizes of the data points in units specified using ``style``.
+        Only valid if using ``x``/``y``.
     direction : list of two 1d arrays
         If plotting vectors (using ``style='V'`` or ``style='v'``), then
         should be a list of two 1d arrays with the vector directions. These
@@ -88,9 +89,9 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     {J}
     {R}
     straight_line : bool or str
-        ``[m|p|x|y]``.
+        [**m**\|\ **p**\|\ **x**\|\ **y**].
         By default, geographic line segments are drawn as great circle
-        arcs. To draw them as straight lines, use *straight_line*.
+        arcs. To draw them as straight lines, use ``straight_line``.
         Alternatively, add **m** to draw the line by first following a
         meridian, then a parallel. Or append **p** to start following a
         parallel, then a meridian. (This can be practical to draw a line
@@ -101,16 +102,18 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     {B}
     {CPT}
     offset : str
-        ``dx/dy``.
+        *dx*/*dy*.
         Offset the plot symbol or line locations by the given amounts
         *dx/dy* [Default is no offset]. If *dy* is not given it is set
         equal to *dx*.
     error_bar : bool or str
-        ``[x|y|X|Y][+a][+cl|f][+n][+wcap][+ppen]``.
+        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
+        [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
         Draw symmetrical error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
-        ``[c|n|r][a|f|s|r|refpoint]``.
+        [**c**\|\ **n**\|\ **r**]\
+        [**a**\|\ **f**\|\ **s**\|\ **r**\|\ *refpoint*].
         Alter the way points are connected (by specifying a *scheme*) and
         data are grouped (by specifying a *method*). Append one of three
         line connection schemes:
@@ -137,8 +140,8 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
           after each record to the previous point (this method is only
           available with the ``connection='r'`` scheme).
 
-        Instead of the codes **a**|**f**|**s**|**r** you may append the
-        coordinates of a *refpoint* which will serve as a fixed external
+        Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append
+        the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
     {G}
     intensity : float or bool
@@ -147,14 +150,15 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         using ``intensity=True``, we will instead read *intens* from the
         first data column after the symbol parameters (if given).
     close : str
-        ``[+b|d|D][+xl|r|x0][+yl|r|y0][+ppen]``.
+        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
+        [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
         Force closed polygons. Full documentation is at
         :gmt-docs:`plot.html#l`.
     no_clip : bool or str
-        ``'[c|r]'``.
+        [**c**\|\ **r**].
         Do NOT clip symbols that fall outside map border [Default plots
         points whose coordinates are strictly inside the map border only].
-        The option does not apply to lines and polygons which are always
+        The parameter does not apply to lines and polygons which are always
         clipped to the map region. For periodic (360-longitude) maps we
         must plot all symbols twice in case they are clipped by the
         repeating boundary. ``no_clip=True`` will turn off clipping and not
@@ -170,14 +174,15 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     {V}
     {XY}
     zvalue : str
-        ``value|file``.
+        *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
-        via **color** and **pen**, give both a *value* via **zvalue** and a
-        color lookup table via **cmap**.  Alternatively, give the name of a
+        via ``color`` and ``pen``, give both a *value* via ``zvalue`` and a
+        color lookup table via ``cmap``.  Alternatively, give the name of a
         *file* with one z-value (read from the last column) for each
         polygon in the input data. To apply it to the fill color, use
         ``color='+z'``. To apply it to the pen color, append **+z** to
-        **pen**.
+        ``pen``.
+    {c}
     columns : str or 1d array
         Choose which columns are x, y, color, and size, respectively if
         input is provided via *data*. E.g. ``columns = [0, 1]`` or

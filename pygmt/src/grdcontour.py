@@ -30,12 +30,15 @@ from pygmt.helpers import (
     l="label",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", L="sequence", A="sequence_plus", p="sequence")
+@kwargs_to_strings(
+    R="sequence", L="sequence", A="sequence_plus", c="sequence_comma", p="sequence"
+)
 def grdcontour(self, grid, **kwargs):
-    """
+    r"""
     Convert grids or images to contours and plot them on maps.
 
     Takes a grid file name or an xarray.DataArray object as input.
@@ -54,23 +57,23 @@ def grdcontour(self, grid, **kwargs):
         - The filename of a `CPT`  file where the color boundaries will
           be used as contour levels.
         - The filename of a 2 (or 3) column file containing the contour
-          levels (col 1), (C)ontour or (A)nnotate (col 2), and optional
+          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
           angle (col 3)
-        - A fixed contour interval ``cont_int`` or a single contour with
-          ``+[cont_int]``
+        - A fixed contour interval *cont_int* or a single contour with
+          +\ *cont_int*
     annotation : str,  int, or list
         Specify or disable annotated contour levels, modifies annotated
-        contours specified in ``-C``.
+        contours specified in ``interval``.
 
-        - Specify a fixed annotation interval ``annot_int`` or a
-          single annotation level ``+[annot_int]``
-        - Disable all annotation  with  ``'-'``
+        - Specify a fixed annotation interval *annot_int* or a
+          single annotation level +\ *annot_int*
+        - Disable all annotation with  **-**
         - Optional label modifiers can be specified as a single string
-          ``'[annot_int]+e'``  or with a list of options
+          ``'[annot_int]+e'``  or with a list of arguments
           ``([annot_int], 'e', 'f10p', 'gred')``.
     limit : str or list of 2 ints
+        *low*/*high*.
         Do no draw contours below `low` or above `high`, specify as string
-        ``'[low]/[high]'``  or list ``[low,high]``.
     cut : str or int
         Do not draw contours with less than `cut` number of points.
     resample : str or int
@@ -79,14 +82,16 @@ def grdcontour(self, grid, **kwargs):
     {R}
     {B}
     label_placement : str
-        ``[d|f|n|l|L|x|X]params``.
-        The required argument controls the placement of labels along the
+        [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
+        *args*.
+        The required parameter controls the placement of labels along the
         quoted lines. It supports five controlling algorithms. See
         :gmt-docs:`grdcontour.html#g` for details.
     {U}
     {V}
     {W}
     {XY}
+    {c}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
