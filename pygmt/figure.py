@@ -6,11 +6,6 @@ import os
 import sys
 from tempfile import TemporaryDirectory
 
-try:
-    from IPython.display import Image
-except ImportError:
-    Image = None
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -28,9 +23,9 @@ SHOWED_FIGURES = []
 
 # Configurations for figure display
 SHOW_CONFIG = {
-    "external": True,   # Open in an external viewer [default behavior]
+    "external": True,  # Open in an external viewer [default behavior]
     "notebook": False,  # Notebook display
-    "dpi": 300,         # default DPI
+    "dpi": 300,  # default DPI
 }
 
 # Show figures in Jupyter notebooks if available
@@ -43,8 +38,9 @@ try:
 except KeyError:
     pass
 
-# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to false to disable external viewer.
-# Use it for running the tests and building the docs to avoid pop up windows.
+# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
+# external viewer. Use it for running the tests and building the docs to
+# avoid pop up windows.
 if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "default").lower() == "false":
     SHOW_CONFIG["external"] = False
 
@@ -284,7 +280,8 @@ class Figure:
         Parameters
         ----------
         dpi : int
-            The image resolution (dots per inch). Only works for "notebook" mode.
+            The image resolution (dots per inch). Only works for "notebook"
+            mode.
         width : int
             Width of the figure shown in the notebook in pixels. Only works for
             "notebook" mode.
@@ -298,16 +295,24 @@ class Figure:
         # called. Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
-        if SHOW_CONFIG["notebook"] or method == "notebook":
-            png = self._repr_png_()
-            if IPython is not None:
-                IPython.display.display(IPython.display.Image(data=png))
+        if method is None:
+            if SHOW_CONFIG["notebook"]:
+                method = "notebook"
+            elif SHOW_CONFIG["external"]:
+                method = "external"
 
-        if SHOW_CONFIG["external"] or method == "external":
-            pdf = self._preview(
-                fmt="pdf", dpi=SHOW_CONFIG["dpi"], anti_alias=False, as_bytes=False
-            )
+        if method == "notebook" and IPython is not None:
+            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            IPython.display.display(IPython.display.Image(data=png, width=width))
+        elif method == "external":
+            pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
+        elif method is None:
+            pass
+        else:
+            raise GMTInvalidInput(
+                f'Invalid display method {method}, should be either "notebook" or "external".'
+            )
 
     def shift_origin(self, xshift=None, yshift=None):
         """
@@ -415,7 +420,7 @@ class Figure:
     )
 
 
-def set_display(mode, dpi=200):
+def set_display(mode, dpi=300):
     """
     Set the display mode.
 
