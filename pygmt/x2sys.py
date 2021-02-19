@@ -72,16 +72,15 @@ def x2sys_init(tag, **kwargs):
     r"""
     Initialize a new x2sys track database.
 
-    x2sys_init is the starting point for anyone wishing to use x2sys; it
-    initializes a set of data bases that are particular to one kind of track
-    data. These data, their associated data bases, and key parameters are given
-    a short-hand notation called an x2sys TAG. The TAG keeps track of settings
-    such as file format, whether the data are geographic or not, and the
-    binning resolution for track indices.
+    Serves as the starting point for x2sys and initializes a set of data bases
+    that are particular to one kind of track data. These data, their associated
+    data bases, and key parameters are given a short-hand notation called an
+    x2sys TAG. The TAG keeps track of settings such as file format, whether the
+    data are geographic or not, and the binning resolution for track indices.
 
-    Before you can run x2sys_init you must set the environmental parameter
-    X2SYS_HOME to a directory where you have write permission, which is where
-    x2sys can keep track of your settings.
+    Before you can run :meth:`pygmt.x2sys_init` you must set the environmental
+    parameter X2SYS_HOME to a directory where you have write permission, which
+    is where x2sys can keep track of your settings.
 
     Full option list at :gmt-docs:`supplements/x2sys/x2sys_init.html`
 
@@ -93,24 +92,26 @@ def x2sys_init(tag, **kwargs):
         The unique name of this data type x2sys TAG.
 
     fmtfile : str
-        Format definition file prefix for this data set [See Format Definition
-        Files for more information]. Specify full path if the file is not in
-        the current directory.
+        Format definition file prefix for this data set (see
+        :gmt-docs:`GMT's Format Definition Files
+        <supplements/x2sys/x2sys_init.html#format-definition-files>`
+        for more information). Specify full path if the file is not in the
+        current directory.
 
         Some file formats already have definition files premade. These include:
 
-        - mgd77 (for plain ASCII MGD77 data files)
-        - mgd77+ (for enhanced MGD77+ netCDF files)
-        - gmt (for old mgg supplement binary files)
-        - xy (for plain ASCII x, y tables)
-        - xyz (same, with one z-column)
-        - geo (for plain ASCII longitude, latitude files)
-        - geoz (same, with one z-column).
+        - **mgd77** (for plain ASCII MGD77 data files)
+        - **mgd77+** (for enhanced MGD77+ netCDF files)
+        - **gmt** (for old mgg supplement binary files)
+        - **xy** (for plain ASCII x, y tables)
+        - **xyz** (same, with one z-column)
+        - **geo** (for plain ASCII longitude, latitude files)
+        - **geoz** (same, with one z-column).
 
     suffix : str
         Specifies the file extension (suffix) for these data files. If not
         given we use the format definition file prefix as the suffix (see
-        *fmtfile*).
+        ``fmtfile``).
 
     discontinuity : str
         **d**\|\ **g**.
@@ -121,7 +122,7 @@ def x2sys_init(tag, **kwargs):
 
     spacing : str or list
          *dx*\[/*dy*].
-         *dx* [and optionally *dy*] is the grid spacing. Append **m** to
+         *dx* and optionally *dy* is the grid spacing. Append **m** to
          indicate minutes or **s** to indicate seconds for geographic data.
          These spacings refer to the binning used in the track bin-index data
          base.
@@ -136,13 +137,13 @@ def x2sys_init(tag, **kwargs):
         - **c** - Cartesian userdist or userdist/usertime
         - **e** - meters or m/s
         - **f** - feet or feet/s
-        - **k** - km or kms/hr
+        - **k** - km or km/hr
         - **m** - miles or miles/hr
         - **n** - nautical miles or knots
         - **u** - survey feet or survey feet/s
 
-        Default is ``units=["dk", "se"]`` (km and m/s) if *discontinuity* is
-        set, and ``units=["dc", "sc"]`` otherwise (Cartesian units).
+        [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is
+        set, and ``units=["dc", "sc"]`` otherwise (i.g., for Cartesian units)].
 
     {R}
     {V}
@@ -150,11 +151,11 @@ def x2sys_init(tag, **kwargs):
     gap : str or list
         **t**\|\ **d**\ *gap*.
         Give **t** or **d** and append the corresponding maximum time gap (in
-        user units; this is typically seconds [Infinity]), or distance (for
-        units, see ``units``) gap [Default is infinity]) allowed between the
-        two data points immediately on either side of a crossover. If these
-        limits are exceeded then a data gap is assumed and no COE will be
-        determined.
+        user units; this is typically seconds [Default is infinity]), or
+        distance (for units, see ``units``) gap [Default is infinity]) allowed
+        between the two data points immediately on either side of a crossover.
+        If these limits are exceeded then a data gap is assumed and no COE will
+        be determined.
 
     {j}
     """
@@ -182,13 +183,13 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     r"""
     Calculate crossovers between track data files.
 
-    x2sys_cross is used to determine all intersections between ("external
-    cross-overs") or within ("internal cross-overs") tracks (Cartesian or
-    geographic), and report the time, position, distance along track, heading
-    and speed along each track segment, and the crossover error (COE) and mean
-    values for all observables. By default, x2sys_cross will look for both
-    external and internal COEs. As an option, you may choose to project all
-    data using one of the map-projections prior to calculating the COE.
+    Determines all intersections between ("external cross-overs") or within
+    ("internal cross-overs") tracks (Cartesian or geographic), and report the
+    time, position, distance along track, heading and speed along each track
+    segment, and the crossover error (COE) and mean values for all observables.
+    By default, :meth:`pygmt.x2sys_cross` will look for both external and
+    internal COEs. As an option, you may choose to project all data using one
+    of the map-projections prior to calculating the COE.
 
     Full option list at :gmt-docs:`supplements/x2sys/x2sys_cross.html`
 
@@ -221,7 +222,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     combitable : str
         Only process the pair-combinations found in the file *combitable*
         [Default process all possible combinations among the specified files].
-        The file *combitable* is created by *x2sys_get*'s -L option
+        The file *combitable* is created by :gmt-docs:`x2sys_get's -L option
+        <supplements/x2sys/x2sys_get.html#l>`.
 
     runtimes : bool or str
         Compute and append the processing run-time for each pair to the
@@ -238,7 +240,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         unaffected). By default, we determine if the data are closer to one
         pole than the other, and then we use a cylindrical polar conversion to
         avoid problems with longitude jumps. You can turn this off entirely
-        with *override* and then the calculations uses the original data (we
+        with ``override`` and then the calculations uses the original data (we
         have protections against longitude jumps). However, you can force the
         selection of the pole for the projection by appending **S** or **N**
         for the south or north pole, respectively. The conversion is used
@@ -267,7 +269,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         not calculate a COE. Specify:
 
         - **l** sets lower speed [Default is 0].
-        - **u** sets upper speed [Default is Infinity].
+        - **u** sets upper speed [Default is infinity].
         - **h** does not limit the speed but sets a lower speed below which
           headings will not be computed (i.e., set to NaN) [Default
           calculates headings regardless of speed].
