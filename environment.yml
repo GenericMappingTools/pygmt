@@ -14,6 +14,7 @@ dependencies:
     # Development dependencies
     - codecov
     - coverage[toml]
+    - ipython
     - make
     - pytest-cov
     - pytest-mpl
