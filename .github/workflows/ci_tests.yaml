@@ -69,6 +69,16 @@ jobs:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
+      - name: Cache conda
+        uses: actions/cache@v1
+        env:
+          # Increase this value to reset cache if etc/example-environment.yml has not changed
+          CACHE_NUMBER: 0
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
+
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@2fc91a2ef82dfb50ded2d80e56f83b7039ba5955
