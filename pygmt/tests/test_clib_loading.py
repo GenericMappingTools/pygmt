@@ -16,8 +16,21 @@ def test_check_libgmt():
     """
     Make sure check_libgmt fails when given a bogus library.
     """
-    with pytest.raises(GMTCLibError):
-        check_libgmt(dict())
+    # create a fake library with a "_name" property
+    def libgmt():
+        pass
+
+    libgmt._name = "/path/to/libgmt.so"  # pylint: disable=protected-access
+    msg = (
+        # pylint: disable=protected-access
+        f"Error loading '{libgmt._name}'. "
+        "Couldn't access function GMT_Create_Session. "
+        "Ensure that you have installed an up-to-date GMT version 6 library. "
+        "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
+        "directory of the GMT 6 library."
+    )
+    with pytest.raises(GMTCLibError, match=msg):
+        check_libgmt(libgmt)
 
 
 def test_load_libgmt():

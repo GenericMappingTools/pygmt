@@ -153,5 +153,11 @@ def check_libgmt(libgmt):
     functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
     for func in functions:
         if not hasattr(libgmt, "GMT_" + func):
-            msg = f"Error loading libgmt. Couldn't access function GMT_{func}."
+            # pylint: disable=protected-access
+            msg = (
+                f"Error loading '{libgmt._name}'. Couldn't access function GMT_{func}. "
+                "Ensure that you have installed an up-to-date GMT version 6 library. "
+                "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
+                "directory of the GMT 6 library."
+            )
             raise GMTCLibError(msg)

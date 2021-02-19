@@ -7,14 +7,16 @@ Datetime inputs of the following types are supported in PyGMT:
 - :class:`numpy.datetime64`
 - :class:`pandas.DatetimeIndex`
 - :class:`xarray.DataArray`: datetimes included in a *xarray.DataArray*
-- raw datetime strings in `ISO format <https://en.wikipedia.org/wiki/ISO_8601>`__  (e.g. ``"YYYY-MM-DD"``, ``"YYYY-MM-DDTHH"``, and ``"YYYY-MM-DDTHH:MM:SS"``)
+- raw datetime strings in `ISO format <https://en.wikipedia.org/wiki/ISO_8601>`__
+  (e.g. ``"YYYY-MM-DD"``, ``"YYYY-MM-DDTHH"``, and ``"YYYY-MM-DDTHH:MM:SS"``) 
 - Python built-in :class:`datetime.datetime` and :class:`datetime.date`
 
-We can pass datetime inputs based on one of the types listed above directly to the ``x`` and ``y`` arguments
-of e.g. the :meth:`pygmt.Figure.plot` method:
+We can pass datetime inputs based on one of the types listed above directly to 
+the ``x`` and ``y`` parameters of e.g. the :meth:`pygmt.Figure.plot` method.
 
-The ``region`` argument has to include the :math:`x` and :math:`y` axis limits as *str* in the form 
-*date_min/date_max/ymin/ymax*.
+The ``region`` parameter has to include the :math:`x` and :math:`y` axis limits 
+in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and 
+*date_max* can be directly defined as datetime input.
 
 """
 
@@ -30,7 +32,9 @@ fig = pygmt.Figure()
 # create a basemap with limits of 2010-01-01 to 2020-06-01 on the x axis and
 # 0 to 10 on the y axis
 fig.basemap(
-    projection="X15c/5c", region="2010-01-01/2020-06-01/0/10", frame=["WSen", "af"]
+    projection="X15c/5c",
+    region=[datetime.date(2010, 1, 1), datetime.date(2020, 6, 1), 0, 10],
+    frame=["WSen", "af"],
 )
 
 # numpy.datetime64 types
