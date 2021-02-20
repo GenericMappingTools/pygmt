@@ -17,7 +17,9 @@ exclude-labels:
   - 'skip-changelog'
 change-template: '* $TITLE (#$NUMBER)'
 template: |
-  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+  ## Release v$NEXT_PATCH_VERSION (20YY/MM/DD)
+
+  [![Digital Object Identifier for PyGMT v$NEXT_PATCH_VERSION](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
 
   ## Highlights
 
