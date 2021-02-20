@@ -79,8 +79,7 @@ jobs:
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
-          channels: conda-forge
-          miniconda-version: "latest"
+          channels: conda-forge,nodefaults
           environment-file: environment.yml
 
       # Show installed pkg information for postmortem diagnostic
