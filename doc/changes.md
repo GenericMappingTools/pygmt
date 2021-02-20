@@ -4,20 +4,20 @@
 
 [![Digital Object Identifier for PyGMT v0.3.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4522136.svg)](https://doi.org/10.5281/zenodo.3781524)
 
-Highlights
+### Highlights
 
 * 🎉 **Third minor release of PyGMT** 🎉
 * Wrap inset ([#788](https://github.com/GenericMappingTools/pygmt/pull/788)) for making overview maps and subplot ([#822](https://github.com/GenericMappingTools/pygmt/pull/822)) for multi-panel figures
 * Apply standardized formatting conventions ([#775](https://github.com/GenericMappingTools/pygmt/pull/775)) across most documentation pages
 * Drop Python 3.6 support ([#699](https://github.com/GenericMappingTools/pygmt/pull/699)) so PyGMT now requires Python 3.7 or newer
 
-New Features
+### New Features
 
 * Wrap grd2cpt ([#803](https://github.com/GenericMappingTools/pygmt/pull/803))
 * Let Figure.text support record-by-record transparency ([#716](https://github.com/GenericMappingTools/pygmt/pull/716))
 * Provide basic support for FreeBSD ([#700](https://github.com/GenericMappingTools/pygmt/pull/700), [#878](https://github.com/GenericMappingTools/pygmt/pull/878))
 
-Enhancements
+### Enhancements
 
 * Let load_earth_relief support the 'region' parameter for all resolutions ([#873](https://github.com/GenericMappingTools/pygmt/pull/873))
 * Improve how PyGMT finds the GMT library ([#702](https://github.com/GenericMappingTools/pygmt/pull/702))
@@ -31,7 +31,7 @@ Enhancements
 * Improve the error message when PyGMT fails to load the GMT library ([#814](https://github.com/GenericMappingTools/pygmt/pull/814))
 * Add GMTInvalidInput error to Figure.coast ([#787](https://github.com/GenericMappingTools/pygmt/pull/787))
 
-Documentation
+### Documentation
 
 * Add authorship policy ([#726](https://github.com/GenericMappingTools/pygmt/pull/726))
 * Update PyGMT development installation instructions ([#865](https://github.com/GenericMappingTools/pygmt/pull/865))
@@ -62,12 +62,12 @@ Documentation
 * Add projection description for Lambert Azimuthal Equal-Area ([#760](https://github.com/GenericMappingTools/pygmt/pull/760))
 * Change text when GMTInvalidInput error is raised for basemap ([#729](https://github.com/GenericMappingTools/pygmt/pull/729))
 
-Bug Fixes
+### Bug Fixes
 
 * Fix a bug of Figure.text when "text" is a non-string array ([#724](https://github.com/GenericMappingTools/pygmt/pull/724))
 * Fix the error message when IPython is not available ([#701](https://github.com/GenericMappingTools/pygmt/pull/701))
 
-Maintenance
+### Maintenance
 
 * Add dependabot to keep GitHub Actions up to date ([#861](https://github.com/GenericMappingTools/pygmt/pull/861))
 * Skip workflows in PRs if only non-source-code files are changed ([#839](https://github.com/GenericMappingTools/pygmt/pull/839))
@@ -93,7 +93,7 @@ Maintenance
 * Add a test for Figure.basemap map_scale ([#739](https://github.com/GenericMappingTools/pygmt/pull/739))
 * Use args_in_kwargs for Figure.basemap error raising ([#797](https://github.com/GenericMappingTools/pygmt/pull/797))
 
-Contributors
+### Contributors
 
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Dongdong Tian](https://github.com/seisman)
@@ -108,24 +108,24 @@ Contributors
 
 [![Digital Object Identifier for PyGMT v0.2.1](https://zenodo.org/badge/DOI/10.5281/zenodo.4253459.svg)](https://doi.org/10.5281/zenodo.4253459)
 
-Highlights
+### Highlights
 
 * 🎉 **Patch release with more tutorials and gallery examples!** 🎉
 * 🐍 Support Python 3.9 ([#689](https://github.com/GenericMappingTools/pygmt/pull/689))
 * 📹 Add [Liam](https://github.com/liamtoney)'s [ROSES 2020 PyGMT talk](https://www.youtube.com/watch?v=SSIGJEe0BIk) ([#643](https://github.com/GenericMappingTools/pygmt/pull/643))
 
-New Features
+### New Features
 
 * Wrap plot3d ([#471](https://github.com/GenericMappingTools/pygmt/pull/471))
 * Wrap grdfilter ([#616](https://github.com/GenericMappingTools/pygmt/pull/616))
 
-Enhancements
+### Enhancements
 
 * Allow np.object dtypes into virtualfile_from_vectors ([#684](https://github.com/GenericMappingTools/pygmt/pull/684))
 * Let plot() accept record-by-record transparency ([#626](https://github.com/GenericMappingTools/pygmt/pull/626))
 * Refactor info to allow datetime inputs from xarray.Dataset and pandas.DataFrame tables ([#619](https://github.com/GenericMappingTools/pygmt/pull/619))
 
-Tutorials & Gallery
+### Tutorials & Gallery
 
 * Add tutorial for pygmt.config ([#482](https://github.com/GenericMappingTools/pygmt/pull/482))
 * Add an example for different line styles ([#604](https://github.com/GenericMappingTools/pygmt/pull/604), [#664](https://github.com/GenericMappingTools/pygmt/pull/664))
@@ -134,7 +134,7 @@ Tutorials & Gallery
 * Add an example for scatter plots with auto legends ([#607](https://github.com/GenericMappingTools/pygmt/pull/607))
 * Improve colorbar gallery example ([#596](https://github.com/GenericMappingTools/pygmt/pull/596))
 
-Documentation Improvements
+### Documentation Improvements
 
 * doc: Fix the description of grdcontour -G option ([#681](https://github.com/GenericMappingTools/pygmt/pull/681))
 * Refresh Code of Conduct from v1.4 to v2.0 ([#673](https://github.com/GenericMappingTools/pygmt/pull/673))
@@ -152,11 +152,11 @@ Documentation Improvements
 * Enable switching different versions of documentation ([#621](https://github.com/GenericMappingTools/pygmt/pull/621))
 * Add common alias transparency (-t) to all plotting functions ([#614](https://github.com/GenericMappingTools/pygmt/pull/614))
 
-Bug Fixes
+### Bug Fixes
 
 * Disallow passing arguments like -XNone to GMT ([#639](https://github.com/GenericMappingTools/pygmt/pull/639))
 
-Maintenance
+### Maintenance
 
 * Migrate PyPI release to GitHub Actions ([#679](https://github.com/GenericMappingTools/pygmt/pull/679))
 * Upload artifacts showing diff images on test failure ([#675](https://github.com/GenericMappingTools/pygmt/pull/675))
@@ -169,7 +169,7 @@ Maintenance
 * Improve Makefile to clean ``__pycache__`` directory recursively ([#611](https://github.com/GenericMappingTools/pygmt/pull/611))
 * Update release process and checklist template ([#602](https://github.com/GenericMappingTools/pygmt/pull/602))
 
-This release contains contributions from:
+### Contributors
 
 * [Dongdong Tian](https://github.com/seisman)
 * [Wei Ji Leong](https://github.com/weiji14)
@@ -182,14 +182,14 @@ This release contains contributions from:
 
 [![Digital Object Identifier for PyGMT v0.2.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4025418.svg)](https://doi.org/10.5281/zenodo.4025418)
 
-Highlights:
+### Highlights
 
 * 🎉 **Second minor release of PyGMT** 🎉
 * Minimum required GMT version is now 6.1.1 or newer ([#577](https://github.com/GenericMappingTools/pygmt/pull/577))
 * Plotting xarray grids using grdimage and grdview should not crash anymore and works for most cases ([#560](https://github.com/GenericMappingTools/pygmt/pull/560))
 * Easier time-series plots with support for datetime-like inputs to plot ([#464](https://github.com/GenericMappingTools/pygmt/pull/464)) and the region argument ([#562](https://github.com/GenericMappingTools/pygmt/pull/562))
 
-New Features:
+### New Features
 
 * Wrap GMT_Put_Strings to pass str columns into GMT C API directly ([#520](https://github.com/GenericMappingTools/pygmt/pull/520))
 * Wrap meca ([#516](https://github.com/GenericMappingTools/pygmt/pull/516))
@@ -197,7 +197,7 @@ New Features:
 * Let grdcut() accept xarray.DataArray as input ([#541](https://github.com/GenericMappingTools/pygmt/pull/541))
 * Initialize a GMTDataArrayAccessor ([#500](https://github.com/GenericMappingTools/pygmt/pull/500))
 
-Enhancements:
+### Enhancements
 
 * Allow passing in pandas dataframes to x2sys_cross ([#591](https://github.com/GenericMappingTools/pygmt/pull/591))
 * Sensible array outputs for pygmt info ([#575](https://github.com/GenericMappingTools/pygmt/pull/575))
@@ -207,21 +207,21 @@ Enhancements:
 * Let load_earth_relief() support all resolutions and optional subregion ([#542](https://github.com/GenericMappingTools/pygmt/pull/542))
 * Allow load_earth_relief() to load pixel or gridline registered data ([#509](https://github.com/GenericMappingTools/pygmt/pull/509))
 
-Documentation:
+### Documentation
 
 * Link to try-gmt binder repository ([#598](https://github.com/GenericMappingTools/pygmt/pull/598))
 * Improve docstring of data_kind() to include xarray grid ([#588](https://github.com/GenericMappingTools/pygmt/pull/588))
 * Improve the documentation of Figure.shift_origin() ([#536](https://github.com/GenericMappingTools/pygmt/pull/536))
 * Add shading to grdview gallery example ([#506](https://github.com/GenericMappingTools/pygmt/pull/506))
 
-Bug Fixes:
+### Bug Fixes
 
 * Ensure surface and grdcut loads GMTDataArray accessor info into xarray ([#539](https://github.com/GenericMappingTools/pygmt/pull/539))
 * Raise an error if short- and long-form arguments coexist ([#537](https://github.com/GenericMappingTools/pygmt/pull/537))
 * Fix the grdtrack example to avoid crashes on macOS ([#531](https://github.com/GenericMappingTools/pygmt/pull/531))
 * Properly allow for either pixel or gridline registered grids ([#476](https://github.com/GenericMappingTools/pygmt/pull/476))
 
-Maintenance:
+### Maintenance
 
 * Add a test for xarray shading ([#581](https://github.com/GenericMappingTools/pygmt/pull/581))
 * Remove expected failures on grdview tests ([#589](https://github.com/GenericMappingTools/pygmt/pull/589))
@@ -238,7 +238,7 @@ Maintenance:
 * Let pytest generate both HTML and XML coverage reports ([#512](https://github.com/GenericMappingTools/pygmt/pull/512))
 * Run Continuous Integration tests on GitHub Actions ([#475](https://github.com/GenericMappingTools/pygmt/pull/475))
 
-Contributors:
+### Contributors
 
 * [Dongdong Tian](https://github.com/seisman)
 * [Wei Ji Leong](https://github.com/weiji14)
@@ -251,22 +251,22 @@ Contributors:
 
 [![Digital Object Identifier for PyGMT v0.1.2](https://zenodo.org/badge/DOI/10.5281/zenodo.3930577.svg)](https://doi.org/10.5281/zenodo.3930577)
 
-Highlights:
+### Highlights
 
 * Patch release in preparation for the SciPy 2020 sprint session
 * Last version to support GMT 6.0, future PyGMT versions will require GMT 6.1 or newer
 
-New Features:
+### New Features
 
 * Wrap grdcut ([#492](https://github.com/GenericMappingTools/pygmt/pull/492))
 * Add show_versions() function for printing debugging information used in issue reports ([#466](https://github.com/GenericMappingTools/pygmt/pull/466))
 
-Enhancements:
+### Enhancements
 
 * Change load_earth_relief()'s default resolution to 01d ([#488](https://github.com/GenericMappingTools/pygmt/pull/488))
 * Enhance text with extra functionality and aliases ([#481](https://github.com/GenericMappingTools/pygmt/pull/481))
 
-Documentation:
+### Documentation
 
 * Add gallery example for grdview ([#502](https://github.com/GenericMappingTools/pygmt/pull/502))
 * Turn all short aliases into long form ([#474](https://github.com/GenericMappingTools/pygmt/pull/474))
@@ -274,11 +274,11 @@ Documentation:
 * Add instructions to view the test coverage reports locally ([#468](https://github.com/GenericMappingTools/pygmt/pull/468))
 * Update the instructions for testing pygmt install ([#459](https://github.com/GenericMappingTools/pygmt/pull/459))
 
-Bug Fixes:
+### Bug Fixes
 
 * Fix a bug when passing data to GMT in Session.open_virtual_file() ([#490](https://github.com/GenericMappingTools/pygmt/pull/490))
 
-Maintenance:
+### Maintenance
 
 * Temporarily expect failures for some grdcontour and grdview tests ([#503](https://github.com/GenericMappingTools/pygmt/pull/503))
 * Fix several failures due to updates of earth relief data ([#498](https://github.com/GenericMappingTools/pygmt/pull/498))
@@ -288,7 +288,7 @@ Maintenance:
 * Update baseline images for updates of earth relief data ([#452](https://github.com/GenericMappingTools/pygmt/pull/452))
 * Simplify PyGMT Release process ([#446](https://github.com/GenericMappingTools/pygmt/pull/446))
 
-Contributors:
+### Contributors
 
 * [Dongdong Tian](https://github.com/seisman)
 * [Wei Ji Leong](https://github.com/weiji14)
@@ -300,32 +300,32 @@ Contributors:
 
 [![Digital Object Identifier for PyGMT v0.1.1](https://zenodo.org/badge/DOI/10.5281/zenodo.3837197.svg)](https://doi.org/10.5281/zenodo.3837197)
 
-Highlights:
+### Highlights
 
 * 🏁Windows users rejoice, this bugfix release is for you!🏁
 * Let PyGMT work with the conda GMT package on Windows ([#434](https://github.com/GenericMappingTools/pygmt/pull/434))
 
-Enhancements:
+### Enhancements
 
 * Handle setting special parameters without default settings for config ([#411](https://github.com/GenericMappingTools/pygmt/pull/411))
 
-Documentation:
+### Documentation
 
 * Update install instructions ([#430](https://github.com/GenericMappingTools/pygmt/pull/430))
 * Add PyGMT AGU 2019 poster to website ([#425](https://github.com/GenericMappingTools/pygmt/pull/425))
 * Redirect www.pygmt.org to latest, instead of dev ([#423](https://github.com/GenericMappingTools/pygmt/pull/423))
 
-Bug Fixes:
+### Bug Fixes
 
 * Set GMT_COMPATIBILITY to 6 when pygmt session starts ([#432](https://github.com/GenericMappingTools/pygmt/pull/432))
 * Improve how PyGMT finds the GMT library ([#440](https://github.com/GenericMappingTools/pygmt/pull/440))
 
-Maintenance:
+### Maintenance
 
 * Finalize fixes on Windows test suite for v0.1.1 ([#441](https://github.com/GenericMappingTools/pygmt/pull/441))
 * Cache test data on Azure Pipelines ([#438](https://github.com/GenericMappingTools/pygmt/pull/438))
 
-This release contains contributions from:
+### Contributors
 
 * [Dongdong Tian](https://github.com/seisman)
 * [Wei Ji Leong](https://github.com/weiji14)
@@ -337,14 +337,14 @@ This release contains contributions from:
 
 [![Digital Object Identifier for PyGMT v0.1.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3782862.svg)](https://doi.org/10.5281/zenodo.3782862)
 
-Highlights:
+### Highlights
 
 * 🎉 **First official release of PyGMT** 🎉
 * Python 3.8 is now supported ([#398](https://github.com/GenericMappingTools/pygmt/pull/398))
 * PyGMT now uses the stable version of GMT 6.0.0 by default ([#363](https://github.com/GenericMappingTools/pygmt/pull/363))
 * Use sphinx-gallery to manage examples and tutorials ([#268](https://github.com/GenericMappingTools/pygmt/pull/268))
 
-New Features:
+### New Features
 
 * Wrap blockmedian ([#349](https://github.com/GenericMappingTools/pygmt/pull/349))
 * Add pygmt.config() to change gmt defaults locally and globally ([#293](https://github.com/GenericMappingTools/pygmt/pull/293))
@@ -356,7 +356,7 @@ New Features:
 * Wrap makecpt ([#329](https://github.com/GenericMappingTools/pygmt/pull/329))
 * Add a new method to shift plot origins ([#289](https://github.com/GenericMappingTools/pygmt/pull/289))
 
-Enhancements:
+### Enhancements
 
 * Allow text accepting "frame" as an argument ([#385](https://github.com/GenericMappingTools/pygmt/pull/385))
 * Allow for grids with negative lat/lon increments ([#369](https://github.com/GenericMappingTools/pygmt/pull/369))
@@ -365,7 +365,7 @@ Enhancements:
 * Implement default position/box for legend ([#359](https://github.com/GenericMappingTools/pygmt/pull/359))
 * Add sequence_space converter in kwargs_to_string ([#325](https://github.com/GenericMappingTools/pygmt/pull/325))
 
-Documentation:
+### Documentation
 
 * Update PyPI install instructions and API disclaimer message ([#421](https://github.com/GenericMappingTools/pygmt/pull/421))
 * Fix the link to GMT documentation ([#419](https://github.com/GenericMappingTools/pygmt/pull/419))
@@ -380,14 +380,14 @@ Documentation:
 * Comment about country code in projection examples ([#290](https://github.com/GenericMappingTools/pygmt/pull/290))
 * Add an overview page listing presentations ([#286](https://github.com/GenericMappingTools/pygmt/pull/286))
 
-Bug Fixes:
+### Bug Fixes
 
 * Let surface return xr.DataArray instead of xr.Dataset ([#408](https://github.com/GenericMappingTools/pygmt/pull/408))
 * Update GMT constant GMT_STR16 to GMT_VF_LEN for GMT API change in 6.1.0 ([#397](https://github.com/GenericMappingTools/pygmt/pull/397))
 * Properly trigger pytest matplotlib image comparison ([#352](https://github.com/GenericMappingTools/pygmt/pull/352))
 * Use uuid.uuid4 to generate unique names ([#274](https://github.com/GenericMappingTools/pygmt/pull/274))
 
-Maintenance:
+### Maintenance
 
 * Quickfix Zeit Now miniconda installer link to anaconda.com ([#413](https://github.com/GenericMappingTools/pygmt/pull/413))
 * Fix GitHub Pages deployment from Travis ([#410](https://github.com/GenericMappingTools/pygmt/pull/410))
@@ -405,14 +405,14 @@ Maintenance:
 * Fixes for using GMT 6.0.0rc1 ([#311](https://github.com/GenericMappingTools/pygmt/pull/311))
 * Assign authorship to "The PyGMT Developers" ([#284](https://github.com/GenericMappingTools/pygmt/pull/284))
 
-Deprecations:
+### Deprecations
 
 * Remove mention of gitter.im ([#405](https://github.com/GenericMappingTools/pygmt/pull/405))
 * Remove portrait (-P) from common options ([#339](https://github.com/GenericMappingTools/pygmt/pull/339))
 * Remove require.js since WorldWind was dropped ([#278](https://github.com/GenericMappingTools/pygmt/pull/278))
 * Remove Web WorldWind support ([#275](https://github.com/GenericMappingTools/pygmt/pull/275))
 
-This release contains contributions from:
+### Contributors
 
 * [Dongdong Tian](https://github.com/seisman)
 * [Wei Ji Leong](https://github.com/weiji14)
