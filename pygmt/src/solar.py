@@ -97,7 +97,7 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
         if not terminator_datetime:
             terminator_datetime = datetime.datetime.now()
         datetime_string = get_datetime_string(terminator_datetime=terminator_datetime)
-        kwargs["T"] = term_string + datetime_string
+        kwargs["T"] = term_string + "+d" + datetime_string
     with Session() as lib:
         lib.call_module("solar", build_arg_string(kwargs))
 
