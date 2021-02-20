@@ -122,10 +122,9 @@ def get_datetime_string(terminator_datetime):
         try:
             terminator_timestamp = pd.to_datetime(terminator_datetime)
             return terminator_timestamp.strftime("%Y-%m-%dT%H-%M-%S")
-        except:
+        except ParserError:
             raise GMTInvalidInput("""Unrecognized datetime format.""")
     else:
         raise GMTInvalidInput(
-            """Accepted types for terminator_datetime are 
-        string and datetime object."""
+            """Accepted types for terminator_datetime are string and datetime object."""
         )
