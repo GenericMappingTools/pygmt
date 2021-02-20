@@ -390,8 +390,8 @@ class Figure:
         meca,
         plot,
         plot3d,
-        solar,
         set_panel,
+        solar,
         subplot,
         text,
     )
