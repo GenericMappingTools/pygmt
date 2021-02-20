@@ -23,7 +23,6 @@ dependencies:
     - jupyter
     - make
     - matplotlib
-    - nbsphinx
     - pylint
     - pytest-cov
     - pytest-mpl
