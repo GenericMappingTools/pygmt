@@ -25,7 +25,7 @@ fig.image(
     box=True,
 )
 
-# clean up the image downloaded in the current directory
+# clean up the downloaded image in the current directory
 os.remove("gmt-logo.png")
 
 fig.show()
