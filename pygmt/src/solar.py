@@ -73,7 +73,8 @@ def solar(self, **kwargs):
         is added in ISO format,
         e.g. 12:15 UTC on April 25, 2000 is ``2000-04-25T12:15:00``.
     pen : str
-        Set pen attributes for lines. The default pen is ``default,black,solid``.
+        Set pen attributes for lines. The default pen
+        is ``default,black,solid``.
     {XY}
     {p}
     {U}
@@ -84,7 +85,8 @@ def solar(self, **kwargs):
     # try to parse date to datetime object
     # if not recognizable
     # raise error
-    # function to pass datetime object to return datetime string to pass to GMT API
+    # function to pass datetime object to return datetime string to pass to
+    # GMT API
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         lib.call_module("solar", build_arg_string(kwargs))
