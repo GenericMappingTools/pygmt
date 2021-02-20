@@ -292,7 +292,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     -------
     crossover_errors : :class:`pandas.DataFrame` or None
         Table containing crossover error information.
-        Return type depends on whether the outfile parameter is set:
+        Return type depends on whether the ``outfile`` parameter is set:
 
         - :class:`pandas.DataFrame` with (x, y, ..., etc) if ``outfile`` is not
           set
