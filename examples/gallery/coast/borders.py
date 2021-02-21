@@ -2,7 +2,7 @@
 Political Boundaries
 --------------------
 
-The ``borders`` argument of :meth:`pygmt.Figure.coast` specifies levels of political
+The ``borders`` parameter of :meth:`pygmt.Figure.coast` specifies levels of political
 boundaries to plot and the pen used to draw them. Choose from the list of boundaries
 below:
 
