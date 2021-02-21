@@ -4,11 +4,11 @@ Plotting a surface
 
 The :meth:`pygmt.Figure.grdview()` method can plot 3-D surfaces with ``surftype="s"``. Here,
 we supply the data as an :class:`xarray.DataArray` with the coordinate vectors ``x`` and
-``y`` defined. Note that the ``perspective`` argument here controls the azimuth and
+``y`` defined. Note that the ``perspective`` parameter here controls the azimuth and
 elevation angle of the view. We provide a list of two arguments to ``frame`` — the
 second argument, prepended with ``"z"``, specifies the :math:`z`-axis frame attributes.
-Specifying the same scale for the ``projection`` and ``zcale`` arguments ensures equal
-axis scaling. The ``shading`` argument specifies illumination; here we choose an azimuth of
+Specifying the same scale for the ``projection`` and ``zcale`` parameters ensures equal
+axis scaling. The ``shading`` parameter specifies illumination; here we choose an azimuth of
 45° with ``shading="+a45"``.
 """
 
