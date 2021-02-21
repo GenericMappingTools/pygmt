@@ -10,7 +10,7 @@ from pygmt.helpers.testing import check_figures_equal
 
 
 @check_figures_equal()
-def test_solar_set_terminator_string_datetime():
+def test_solar_set_terminator_datetime_string():
     """
     Test passing the solar argument with the day_night terminator and a
     datetime string.
@@ -42,7 +42,7 @@ def test_solar_default_terminator():
 
 
 @check_figures_equal()
-def test_solar_set_terminator_string_datetime():
+def test_solar_set_terminator_datetime_object():
     """
     Test passing the solar argument with the day_night terminator and a
     datetime string.
