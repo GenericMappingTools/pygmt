@@ -8,7 +8,7 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.plot(
-    # The ``x`` and ``y`` arguments determine the coordinates of lines
+    # The ``x`` and ``y`` parameters determine the coordinates of lines
     x=[3, 9, 2],
     y=[4, 9, 37],
     pen="3p,red",
