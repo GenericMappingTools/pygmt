@@ -7,13 +7,7 @@ import datetime
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    args_in_kwargs,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -42,6 +36,17 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
 
     Parameters
     ----------
+    terminator : str
+        Set the type of terminator displayed. The parameters are
+        ``day_night``, ``civil``, ``nautical``, and ``astronomical``, which
+        can be set with either the full name or the first letter of the name.
+        [Default is ``day_night``]
+    terminator_datetime : str or datetime object
+        Set the UTC date and time of the displayed terminator. It can be
+        passed as a string, using the format *YYYY-MM-DD*\ **T**\ *HH:MM:SS*
+        (e.g. 0600 on January 1, 2000 would be ``2000-01-01T06:00:00``). A
+        datetime object can be passed as well.
+        [Default is the current date and time].
     {R}
     {J}
     {B}
