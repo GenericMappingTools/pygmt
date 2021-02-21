@@ -116,31 +116,26 @@ https://github.com/release-drafter/release-drafter.
 The drafted release notes are not perfect, so we will need to tidy it prior to
 publishing the actual release notes at https://www.pygmt.org/latest/changes.html.
 
-1. Generate a list of commits between the last release tag and now:
-
-    ```bash
-    git log HEAD...v0.1.2 --pretty="* %s" > changes.txt
-    ```
-
-2. Edit the changes list to remove any trivial changes (updates to the README, typo
-   fixes, CI configuration, etc).
-3. Replace the PR number in the commit titles with a link to the GitHub PR page.
-   Use ``sed -i.bak -E 's$\(#([0-9]*)\)$(`#\1 <https://github.com/GenericMappingTools/pygmt/pull/\1>`__)$g' changes.rst``
-   to make the change automatically.
-4. Copy the remaining changes to `doc/changes.rst` under a new section for the
-   intended release.
-5. Add a list of people who contributed to the release (use
-   `` git shortlog HEAD...v0.1.2 -sne ``).
-6. Include the DOI badge in the changelog. Remember to replace your DOI inside the badge url.
+1. Go to https://github.com/GenericMappingTools/pygmt/releases and click on the
+   'Edit' button next to the current draft release note. Copy the text of the
+   automatically drafted release notes under the 'Write' tab to
+   `doc/changes.md`. Add a section separator `---` between the new and old
+   changelog sections.
+2. Update the DOI badge in the changelog. Remember to replace the DOI number
+   inside the badge url.
 
     ```
-    .. image:: https://zenodo.org/badge/DOI/<INSERT-DOI-HERE>.svg
-        :alt: Digital Object Identifier for the Zenodo archive
-        :target: https://doi.org/<INSERT-DOI-HERE>
+    [![Digital Object Identifier for PyGMT vX.Y.Z](https://zenodo.org/badge/DOI/10.5281/zenodo.<INSERT-DOI-HERE>.svg)](https://doi.org/10.5281/zenodo.<INSERT-DOI-HERE>)
     ```
-
-7. Add a link to the new release version documentation in `README.rst`.
-8. Open a new PR with the updated changelog.
+3. Open a new Pull Request using the title 'Changelog entry for vX.Y.Z' with
+   the updated release notes, so that other people can help to review and
+   collaborate on the changelog curation process described next.
+4. Edit the change list to remove any trivial changes (updates to the README,
+   typo fixes, CI configuration, etc).
+5. Edit the list of people who contributed to the release, linking to their
+   GitHub account. Sort their names by the number of commits made since the
+   last release (e.g. use `` git shortlog HEAD...v0.1.2 -sne ``).
+6. Add a link to the new release version documentation in `README.rst`.
 
 ### Check the README syntax
 
