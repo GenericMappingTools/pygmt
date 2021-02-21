@@ -18,4 +18,3 @@ def test_solar_default_terminator_string_datetime():
     fig_ref.solar(R="d", J="W0/15c", B="a", T="d+d1990-02-17T04:25:00")
     fig_test.solar(R="d", J="W0/15c", B="a", terminator_datetime="1990-02-17 04:25:00")
     return fig_ref, fig_test
-

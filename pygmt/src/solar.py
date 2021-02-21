@@ -69,28 +69,24 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
 
 
 def get_terminator_type(terminator):
-    if terminator in ["day_night", "d"]:
-        return "d"
-    elif terminator in ["nautical", "n"]:
-        return "n"
-    elif terminator in ["civil", "c"]:
-        return "c"
-    elif terminator in ["astro", "a", "astronomical"]:
-        return "a"
-    else:
+    if terminator not in [
+        "day_night",
+        "nautical",
+        "civil",
+        "astronomical",
+        "astro",
+        "d",
+        "n",
+        "c",
+        "a",
+    ]:
         raise GMTInvalidInput("""Unrecognized solar terminator type.""")
+    return terminator[0]
 
 
 def get_datetime_string(terminator_datetime):
-    if type(terminator_datetime) == datetime.datetime:
-        return terminator_datetime.strftime("%Y-%m-%dT%H:%M:%S")
-    elif type(terminator_datetime) == str:
-        try:
-            terminator_timestamp = pd.to_datetime(terminator_datetime)
-            return terminator_timestamp.strftime("%Y-%m-%dT%H:%M:%S")
-        except ValueError:
-            raise GMTInvalidInput("""Unrecognized datetime string format.""")
-    else:
-        raise GMTInvalidInput(
-            """Accepted types for terminator_datetime are string and datetime object."""
-        )
+    try:
+        terminator_timestamp = pd.to_datetime(terminator_datetime)
+        return terminator_timestamp.strftime("%Y-%m-%dT%H:%M:%S")
+    except ValueError:
+        raise GMTInvalidInput("""Unrecognized datetime string format.""")
