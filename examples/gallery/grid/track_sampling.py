@@ -4,7 +4,7 @@ Sampling along tracks
 
 The :func:`pygmt.grdtrack` function samples a raster grid's value along specified
 points. We will need to input a 2D raster to ``grid`` which can be an
-:class:`xarray.DataArray`. The ``points`` argument can be a :class:`pandas.DataFrame` table where
+:class:`xarray.DataArray`. The argument passed to the ``points`` parameters can be a :class:`pandas.DataFrame` table where
 the first two columns are x and y (or longitude and latitude). Note also that there is a
 ``newcolname`` argument that will be used to name the new column of values we sampled
 from the grid.
