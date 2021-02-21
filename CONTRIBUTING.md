@@ -450,7 +450,7 @@ You can reference classes, functions, methods, and modules from anywhere
 to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html. 
 PyGMT documentation that is not a class, method, 
 or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
-For example, <code>:doc:\`Install instructions </install>\`</code> links 
+For example, <code>:doc:\`Install instructions \</install\>\`</code> links 
 to https://www.pygmt.org/latest/install.html.
 
 GMT documentation can be linked with 
