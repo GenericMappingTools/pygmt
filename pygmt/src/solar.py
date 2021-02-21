@@ -69,6 +69,7 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
             "c",
             "a",
         ]:
+            print(kwargs)
             raise GMTInvalidInput("""Unrecognized solar terminator type.""")
         term_string = terminator[0]
         if not terminator_datetime:
@@ -79,6 +80,5 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
         except ValueError:
             raise GMTInvalidInput("""Unrecognized datetime format.""")
         kwargs["T"] = term_string + "+d" + datetime_string
-    print(kwargs["T"])
     with Session() as lib:
         lib.call_module("solar", build_arg_string(kwargs))
