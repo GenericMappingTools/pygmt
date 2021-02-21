@@ -23,9 +23,9 @@ grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35
 
 ########################################################################################
 # The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
-# The ``perspective`` argument changes the azimuth and elevation of the viewpoint; the
+# The ``perspective`` parameter changes the azimuth and elevation of the viewpoint; the
 # default is [180, 90], which is looking directly down on the figure and north is "up".
-# The ``zsize`` argument sets how tall the three-dimensional portion appears.
+# The ``zsize`` parameter sets how tall the three-dimensional portion appears.
 #
 # The default grid surface type is *mesh plot*.
 
@@ -62,7 +62,7 @@ fig.grdview(
 fig.show()
 
 ########################################################################################
-# The ``plane`` argument sets the elevation and color of a plane that provides a fill
+# The ``plane`` parameter sets the elevation and color of a plane that provides a fill
 # below the surface relief.
 
 fig = pygmt.Figure()
