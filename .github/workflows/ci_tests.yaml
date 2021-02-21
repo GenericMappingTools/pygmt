@@ -7,6 +7,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
     paths-ignore:
       - 'doc/**'
       - '*.md'
@@ -29,6 +30,22 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        # Is it a draft Pull Request (true or false)?
+        isDraft:
+          - ${{ github.event.pull_request.draft }}
+        # Only run one job (Ubuntu + Python 3.9) for draft PRs
+        exclude:
+          - os: macOS-latest
+            isDraft: true
+          - os: windows-latest
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.7
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.8
+            isDraft: true
+
     # environmental variables used in coverage
     env:
       OS: ${{ matrix.os }}
@@ -52,22 +69,15 @@ jobs:
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v2.0.1
         with:
+          activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
           channels: conda-forge
           miniconda-version: "latest"
 
       # Install GMT and other required dependencies from conda-forge
-      - name: Install GMT and required dependencies
+      - name: Install dependencies
         shell: bash -l {0}
-        run: |
-          requirements_file=full-conda-requirements.txt
-          cat requirements.txt requirements-dev.txt > $requirements_file
-          cat << EOF >> $requirements_file
-          gmt=6.1.1
-          make
-          codecov
-          EOF
-          conda install --yes --file $requirements_file
+        run: conda env update --file environment.yml
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
@@ -120,7 +130,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.0.10
+        uses: codecov/codecov-action@v1.2.1
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON
