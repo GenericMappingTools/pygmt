@@ -16,7 +16,7 @@ categories:
 exclude-labels:
   - 'skip-changelog'
 category-template: '### $TITLE'
-change-template: '* $TITLE [#$NUMBER]($URL)'
+change-template: '* $TITLE ([#$NUMBER]($URL))'
 template: |
   ## Release v$NEXT_PATCH_VERSION (20YY/MM/DD)
 
