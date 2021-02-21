@@ -6,7 +6,7 @@ The :meth:`pygmt.Figure.plot3d` method can be used to plot symbols in 3D.
 In the example below, we show how the
 `Iris flower dataset <https://en.wikipedia.org/wiki/Iris_flower_data_set>`__
 can be visualized using a perspective 3-dimensional plot. The ``region``
-argument has to include the :math:`x`, :math:`y`, :math:`z` axis limits in the
+parameter has to include the :math:`x`, :math:`y`, :math:`z` axis limits in the
 form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically
 using :meth:`pygmt.info`. To include the z-axis stick, set ``frame`` as a
 minimum to something like ``frame=["WsNeZ", "zaf"]``. Use ``perspective`` to
