@@ -26,9 +26,9 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     Surface reads randomly-spaced (x,y,z) triples and produces gridded values
     z(x,y) by solving:
 
-    .. math::    (1 - T)\nabla^2(z)+t\nabla(z) = 0
+    .. math::    (1 - t)\nabla^2(z)+t\nabla(z) = 0
 
-    where :math:`T` is a tension factor between 0 and 1, and :math:`\nabla`
+    where :math:`t` is a tension factor between 0 and 1, and :math:`\nabla`
     indicates the Laplacian operator.
 
     Takes a matrix, xyz triples, or a file name as input.
