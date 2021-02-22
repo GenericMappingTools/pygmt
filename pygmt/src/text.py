@@ -165,7 +165,7 @@ def text_(
     if kind == "vectors" and text is None:
         raise GMTInvalidInput("Must provide text with x/y pairs or position")
 
-    # Build the `-F` argument in gmt text.
+    # Build the `-F` parameter in gmt text.
     if "F" not in kwargs.keys() and (
         (
             position is not None
