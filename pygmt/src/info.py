@@ -31,7 +31,7 @@ def info(table, **kwargs):
     ``spacing``, then the numpy.ndarray output will be rounded up/down for as
     many columns as there are increments provided in ``spacing``. A similar
     parameter ``nearest_multiple`` will provide a numpy.ndarray in the form
-    of ``[zmin, zmax, dz]`` for makecpt.
+    of [*zmin*, *zmax*, *dz*] for makecpt.
 
     Full option list at :gmt-docs:`gmtinfo.html`
 
