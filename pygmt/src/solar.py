@@ -37,8 +37,8 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
     Parameters
     ----------
     terminator : str
-        Set the type of terminator displayed. The parameters are
-        ``day_night``, ``civil``, ``nautical``, and ``astronomical``, which
+        Set the type of terminator displayed. Valid arguments are
+        **day_night**, **civil**, **nautical**, and **astronomical**, which
         can be set with either the full name or the first letter of the name.
         [Default is ``day_night``]
     terminator_datetime : str or datetime object
@@ -55,10 +55,12 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
     pen : str
         Set pen attributes for lines. The default pen
         is ``default,black,solid``.
-    {XY}
-    {p}
     {U}
     {V}
+    {XY}
+    {c}
+    {p}
+    {t}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
@@ -74,8 +76,10 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
             "c",
             "a",
         ]:
-            print(kwargs)
-            raise GMTInvalidInput("""Unrecognized solar terminator type.""")
+            raise GMTInvalidInput(
+               f"Unrecognized solar terminator type '{terminator}'. Valid values "
+               "are 'day_night', 'civil', 'nautical', and 'astronomical'."
+            )
         if not terminator_datetime:
             terminator_datetime = datetime.datetime.now()
         try:
