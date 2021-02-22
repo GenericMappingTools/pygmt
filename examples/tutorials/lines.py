@@ -21,7 +21,7 @@ import pygmt
 # Plot lines
 # ----------
 #
-# Create a Cartesian figure using ``projection`` argument and set the axis scales
+# Create a Cartesian figure using ``projection`` parameter and set the axis scales
 # using ``region`` (in this case, each axis is 0-10). Pass a list of ``x`` and ``y``
 # values to be plotted as a line.
 
@@ -72,7 +72,7 @@ fig.show()
 # Change line attributes
 # ----------------------
 #
-# The line attributes can be set by the ``pen`` argument. ``pen`` takes a string
+# The line attributes can be set by the ``pen`` parameter. ``pen`` takes a string
 # argument with the optional values *width*,\ *color*,\ *style*.
 #
 # In the example below, the pen width is set to ``5p``, and with ``black`` as the
@@ -90,7 +90,7 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# The line color can be set and is added after the line width to the ``pen`` argument.
+# The line color can be set and is added after the line width to the ``pen`` parameter.
 # In the example below, the line color is set to ``red``.
 
 fig = pygmt.Figure()
@@ -106,7 +106,7 @@ fig.show()
 
 ########################################################################################
 # The line style can be set and is added after the line width or color to the
-# ``pen`` argument.  In the example below, the line style is set to
+# ``pen`` parameter.  In the example below, the line style is set to
 # ``..-`` (*dot dot dash*), and the default color ``black`` is used.
 
 fig = pygmt.Figure()
@@ -121,7 +121,7 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# The line width, color, and style can all be set in the same ``pen`` argument. In the
+# The line width, color, and style can all be set in the same ``pen`` parameter. In the
 # example below, the line width is set to ``7p``, the color is set to ``green``, and the
 # line style is ``-.-`` (*dash dot dash*).
 #

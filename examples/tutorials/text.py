@@ -28,7 +28,7 @@ import pygmt
 # method of the :class:`pygmt.Figure` class.
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
-# and ``y`` arguments to specify the annotation text and position in the
+# and ``y`` parameters to specify the annotation text and position in the
 # projection frame. ``text`` accepts *str* types, while ``x``, and ``y``
 # accepts either *int* or *float* numbers, or a list/array of numbers.
 
@@ -49,7 +49,7 @@ fig.show()
 # Changing font style
 # -------------------
 # The size, family/weight, and color of an annotation can be specified using
-# the ``font`` argument.
+# the ``font`` parameter.
 #
 # A list of all recognised fonts can be found at
 # :gmt-docs:`cookbook/postscript-fonts.html`, including details of how to use
@@ -99,8 +99,8 @@ os.remove("examples.txt")
 fig.show()
 
 ###############################################################################
-# ``justify`` argument
-# --------------------
+# ``justify`` parameter
+# ---------------------
 #
 # ``justify`` is used to define the anchor point for the bounding box for text
 # being added to a plot. The following code segment demonstrates the
@@ -124,9 +124,9 @@ for position in ("TL", "TC", "TR", "ML", "MC", "MR", "BL", "BC", "BR"):
 fig.show()
 
 ###############################################################################
-# ``angle`` argument
-# ------------------
-# ``angle`` is an optional argument used to specify the clockwise rotation of
+# ``angle`` parameter
+# -------------------
+# ``angle`` is an optional parameter used to specify the clockwise rotation of
 # the text from the horizontal.
 
 fig = pygmt.Figure()
@@ -136,8 +136,8 @@ for i in range(0, 360, 30):
 fig.show()
 
 ###############################################################################
-# ``fill`` argument
-# -----------------
+# ``fill`` parameter
+# ------------------
 #
 # ``fill`` is used to set the fill color of the area surrounding the text.
 

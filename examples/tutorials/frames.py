@@ -2,7 +2,7 @@
 Frames, ticks, titles, and labels
 =================================
 
-Setting the style of the map frames, ticks, etc, is handled by the ``frame`` argument
+Setting the style of the map frames, ticks, etc, is handled by the ``frame`` parameter
 that all plotting methods of :class:`pygmt.Figure`.
 
 .. note::
@@ -62,7 +62,7 @@ fig.show()
 # Title
 # -----
 #
-# The figure title can be set by passing **+t**\ *title* to the ``frame`` argument of
+# The figure title can be set by passing **+t**\ *title* to the ``frame`` parameter of
 # :meth:`pygmt.Figure.basemap`. Passing multiple arguments to ``frame`` can be done by
 # using a list, as show in the example below.
 
@@ -75,7 +75,7 @@ fig.show()
 ########################################################################################
 # To use a title with multiple words, the title must be placed inside another set of
 # quotation marks. To prevent the quotation marks from appearing in the figure title,
-# the ``frame`` argument can be passed in single quotation marks and the title can be
+# the ``frame`` parameter can be passed in single quotation marks and the title can be
 # passed in double quotation marks.
 
 fig = pygmt.Figure()
@@ -89,7 +89,7 @@ fig.show()
 # -----------
 #
 # Axis labels can be set by passing **x+l**\ *label* (or starting with **y** if
-# labeling the y-axis) to the ``frame`` argument of :meth:`pygmt.Figure.basemap`.
+# labeling the y-axis) to the ``frame`` parameter of :meth:`pygmt.Figure.basemap`.
 # By default, all 4 map boundaries (or plot axes) are plotted with both tick marks and
 # axis labels. The axes are named as **W** (west/left), **S** (south/bottom),
 # **N** (north/top), and **E** (east/right) sides of a figure. If an upper-case axis
