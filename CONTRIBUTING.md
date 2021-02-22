@@ -457,6 +457,10 @@ GMT documentation can be linked with
 <code>:gmt-docs:\`page_name.html\`</code>. An example would be using
 <code>:gmt-docs:\`makecpt.html\`</code> to link to 
 https://docs.generic-mapping-tools.org/latest/makecpt.html.
+GMT default settings can be linked with 
+<code>:gmt-term:\`DEFAULT_NAME\`</code>. An example would be using
+<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to 
+https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
 
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
