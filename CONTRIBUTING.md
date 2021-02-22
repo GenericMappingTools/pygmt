@@ -441,11 +441,15 @@ The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
 function/class/module listed there.
 
-You can reference classes, functions, methods, and modules from anywhere 
-(including docstrings) using <code>:func:\`package.module.function\`</code>,
-<code>:class:\`package.module.class\`</code>, 
-<code>:meth:\`package.module.method\`</code>, or
-<code>:mod:\`package.module\`</code>. An example would be to use 
+You can reference functions, classes, methods, and modules from anywhere 
+(including docstrings) using:
+
+- <code>:func:\`package.module.function\`</code>
+- <code>:class:\`package.module.class\`</code>
+- <code>:meth:\`package.module.method\`</code>
+- <code>:mod:\`package.module\`</code>
+
+An example would be to use 
 <code>:meth:\`pygmt.Figure.grdview\`</code> to link 
 to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html. 
 PyGMT documentation that is not a class, method, 
