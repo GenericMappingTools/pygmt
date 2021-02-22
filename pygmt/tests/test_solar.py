@@ -12,17 +12,17 @@ from pygmt.helpers.testing import check_figures_equal
 @check_figures_equal()
 def test_solar_set_terminator_datetime_string():
     """
-    Test passing the solar argument with the day_night terminator and a
+    Test passing the solar argument with the civil terminator and a
     datetime string.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
-    fig_ref.solar(R="d", J="W0/15c", B="a", T="d+d1990-02-17T04:25:00")
+    fig_ref.solar(R="d", J="W0/15c", B="a", T="c+d1990-02-17T04:25:00")
     fig_test.solar(
         R="d",
         J="W0/15c",
         B="a",
-        termiantor="day_night",
+        terminator="civil",
         terminator_datetime="1990-02-17 04:25:00",
     )
     return fig_ref, fig_test
