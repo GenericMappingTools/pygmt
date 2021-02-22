@@ -12,8 +12,8 @@ from pygmt.helpers.testing import check_figures_equal
 @check_figures_equal()
 def test_solar_set_terminator_datetime_string():
     """
-    Test passing the solar argument with the civil terminator and a
-    datetime string.
+    Test passing the solar argument with the civil terminator and a datetime
+    string.
     """
     fig_ref, fig_test = Figure(), Figure()
     # Use single-character arguments for the reference image
