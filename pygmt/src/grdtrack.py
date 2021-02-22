@@ -26,7 +26,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     table with the interpolated values added as (one or more) new columns. A
     bicubic [Default], bilinear, B-spline or nearest-neighbor interpolation is
     used, requiring boundary conditions at the limits of the region (see
-    *interpolation*; Default uses “natural” conditions (second partial
+    ``interpolation``; Default uses “natural” conditions (second partial
     derivative normal to edge is zero) unless the grid is automatically
     recognized as periodic.)
 
@@ -46,12 +46,12 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         format).
 
     newcolname : str
-        Required if 'points' is a pandas.DataFrame. The name for the new column
-        in the track pandas.DataFrame table where the sampled values will be
-        placed.
+        Required if ``points`` is a :class:`pandas.DataFrame`. The name for the
+        new column in the track :class:`pandas.DataFrame` table where the
+        sampled values will be placed.
 
     outfile : str
-        Required if 'points' is a file. The file name for the output ASCII
+        Required if ``points`` is a file. The file name for the output ASCII
         file.
 
     {V}
@@ -61,11 +61,12 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     Returns
     -------
     track: pandas.DataFrame or None
-        Return type depends on whether the outfile parameter is set:
+        Return type depends on whether the ``outfile`` parameter is set:
 
-        - pandas.DataFrame table with (x, y, ..., newcolname) if outfile is not
-          set
-        - None if outfile is set (track output will be stored in outfile)
+        - :class:`pandas.DataFrame` table with (x, y, ..., newcolname) if
+          ``outfile`` is not set
+        - None if ``outfile`` is set (track output will be stored in file set
+          by ``outfile``)
     """
 
     with GMTTempFile(suffix=".csv") as tmpfile:
