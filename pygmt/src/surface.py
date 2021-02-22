@@ -26,14 +26,14 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     Surface reads randomly-spaced (x,y,z) triples and produces gridded values
     z(x,y) by solving:
 
-        (1 - T) * L (L (z)) + T * L (z) = 0
+    .. math::    (1 - t)\nabla^2(z)+t\nabla(z) = 0
 
-    where T is a tension factor between 0 and 1, and L indicates the Laplacian
-    operator.
+    where :math:`t` is a tension factor between 0 and 1, and :math:`\nabla`
+    indicates the Laplacian operator.
 
     Takes a matrix, xyz triples, or a file name as input.
 
-    Must provide either *data* or *x*, *y*, and *z*.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`surface.html`
 
@@ -64,10 +64,11 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the outfile (G) parameter is set:
+        Return type depends on whether the ``outfile`` parameter is set:
 
-        - xarray.DataArray if outfile (G) is not set
-        - None if outfile (G) is set (grid output will be stored in outfile)
+        - :class:`xarray.DataArray`: if ``outfile`` is not set
+        - None if ``outfile`` is set (grid output will be stored in file set by
+          ``outfile``)
     """
     kind = data_kind(data, x, y, z)
     if kind == "vectors" and z is None:
