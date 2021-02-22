@@ -82,8 +82,8 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
         try:
             terminator_timestamp = pd.to_datetime(terminator_datetime)
             datetime_string = terminator_timestamp.strftime("%Y-%m-%dT%H:%M:%S")
-        except ValueError:
-            raise GMTInvalidInput("""Unrecognized datetime format.""")
+        except ValueError as verr:
+            raise GMTInvalidInput("Unrecognized datetime format.") from verr
         kwargs["T"] = term_string + "+d" + datetime_string
     with Session() as lib:
         lib.call_module("solar", build_arg_string(kwargs))
