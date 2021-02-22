@@ -1,0 +1,55 @@
+# This workflow checks the links in plaintext and HTML files
+name: Check Links
+
+on:
+  # Uncomment the 'pull_request' line below to trigger the workflow in PR
+  # pull_request:
+  # Schedule runs on 12 noon every Sunday
+  schedule:
+    - cron: '0 12 * * 0'
+
+jobs:
+  check_links:
+    name: Check Links
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2.3.4
+      with:
+        path: repository
+
+    - name: Checkout the documentation
+      uses: actions/checkout@v2.3.4
+      with:
+        ref: gh-pages
+        path: documentation
+
+    - name: Link Checker
+      uses: lycheeverse/lychee-action@v1.0.4
+      with:
+        # 429: Too many requests
+        args: >
+          --accept 429
+          --exclude "^https://zenodo.org/badge/DOI/$"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
+          --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
+          --exclude "^https://www.generic-mapping-tools.org/_static/gmt-logo.png/$"
+          --exclude "^https://www.generic-mapping-tools.org/_static/gmt-logo.png/n/n$"
+          --exclude "^``@ridge.txt$"
+          --exclude "^git"
+          --exclude "^file://"
+          --exclude "^https://docs.generic-mapping-tools.org/latest/%s$"
+          --verbose
+          "repository/**/*.rst"
+          "repository/**/*.md"
+          "repository/**/*.py"
+          "documentation/dev/**/*.html"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Issue From File
+      uses: peter-evans/create-issue-from-file@v2.3.2
+      with:
+        title: Link Checker Report
+        content-filepath: ./lychee/out.md
