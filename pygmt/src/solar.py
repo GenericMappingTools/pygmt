@@ -77,8 +77,8 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
             "a",
         ]:
             raise GMTInvalidInput(
-               f"Unrecognized solar terminator type '{terminator}'. Valid values "
-               "are 'day_night', 'civil', 'nautical', and 'astronomical'."
+                f"Unrecognized solar terminator type '{terminator}'. Valid values "
+                "are 'day_night', 'civil', 'nautical', and 'astronomical'."
             )
         if not terminator_datetime:
             terminator_datetime = datetime.datetime.now()
