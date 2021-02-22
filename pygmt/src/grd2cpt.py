@@ -130,7 +130,7 @@ def grd2cpt(grid, **kwargs):
         the CPT alone. The truncation takes place before any resampling. See
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
-        Optional argument to set the file name with extension .cpt to store
+        Optional parameter to set the file name with extension .cpt to store
         the generated CPT file. If not given or False (default), saves the CPT
         as the session current CPT.
     reverse : str
