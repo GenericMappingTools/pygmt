@@ -32,13 +32,13 @@ def grdcut(grid, **kwargs):
     Extract subregion from a grid.
 
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
-    subregion is specified with *region*; the specified range must not exceed
-    the range of *grid* (but see *extend*). If in doubt, run
+    subregion is specified with ``region``; the specified range must not exceed
+    the range of ``grid`` (but see ``extend``). If in doubt, run
     :meth:`pygmt.grdinfo` to check range. Alternatively, define the subregion
     indirectly via a range check on the node values or via distances from a
-    given point. Finally, you can give *projection* for oblique projections to
-    determine the corresponding rectangular *region* setting that will give a
-    grid that fully covers the oblique domain.
+    given point. Finally, you can give ``projection`` for oblique projections
+    to determine the corresponding rectangular ``region`` that will give a grid
+    that fully covers the oblique domain.
 
     Full option list at :gmt-docs:`grdcut.html`
 
@@ -83,10 +83,11 @@ def grdcut(grid, **kwargs):
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the *outgrid* parameter is set:
+        Return type depends on whether the ``outgrid`` parameter is set:
 
-        - xarray.DataArray if *outgrid* is not set
-        - None if *outgrid* is set (grid output will be stored in *outgrid*)
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
     """
     kind = data_kind(grid)
 

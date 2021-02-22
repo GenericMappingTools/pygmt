@@ -56,10 +56,12 @@ def blockmedian(table, outfile=None, **kwargs):
     Returns
     -------
     output : pandas.DataFrame or None
-        Return type depends on whether the outfile parameter is set:
+        Return type depends on whether the ``outfile`` parameter is set:
 
-        - pandas.DataFrame table with (x, y, z) columns if outfile is not set
-        - None if outfile is set (filtered output will be stored in outfile)
+        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
+          is not set
+        - None if ``outfile`` is set (filtered output will be stored in file
+          set by ``outfile``)
     """
     kind = data_kind(table)
     with GMTTempFile(suffix=".csv") as tmpfile:
