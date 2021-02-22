@@ -61,7 +61,7 @@ def solar(self, terminator="d", terminator_datetime="", **kwargs):
     {V}
     """
 
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if "T" not in kwargs:
         if terminator not in [
             "day_night",
