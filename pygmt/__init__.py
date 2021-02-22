@@ -28,8 +28,9 @@ from pygmt.src import (
     makecpt,
     surface,
     which,
+    x2sys_cross,
+    x2sys_init,
 )
-from pygmt.x2sys import x2sys_cross, x2sys_init
 
 # Get semantic version through setuptools-scm
 __version__ = f'v{get_distribution("pygmt").version}'  # e.g. v0.1.2.dev3+g0ab3cd78
