@@ -3,7 +3,7 @@ Cartesian power
 ===============
 
 **X**\ *width*\ [**p**\ *pvalue*]/[*height*\ [**p**\ *pvalue*]]: Give the
-*width* of the figure and the optional parameter *height*. The axis or axes with a
+*width* of the figure and the optional argument *height*. The axis or axes with a
 logarithmic transformation requires **p** and the power transformation for that axis.
 """
 import numpy as np

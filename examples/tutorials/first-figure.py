@@ -81,7 +81,7 @@ fig.show()
 #    ``ps*`` modules had their ``ps`` prefix removed. The exceptions are:
 #    ``psxy`` which is now ``plot``, ``psxyz`` which is now ``plot3d``, and ``psscale``
 #    which is now ``colorbar``.
-# 2. The parameters don't use the GMT 1-letter syntax (R, J, B, etc). We use longer
+# 2. The parameters don't use the GMT 1-letter syntax (**R**, **J**, **B**, etc). We use longer
 #    aliases for these parameters and have some Python exclusive names. The mapping
 #    between the GMT parameters and their Python counterparts should be straight
 #    forward.

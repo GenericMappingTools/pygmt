@@ -5,8 +5,8 @@ Line colors with a custom CPT
 The color of the lines made by :meth:`pygmt.Figure.plot` can be set according to a
 custom CPT and assigned with the ``pen`` parameter.
 
-The custom CPT can be used by setting the plot command's ``cmap`` parameter to `
-`True``. The ``zvalue`` parameter sets the z-value (color) to be used from the custom
+The custom CPT can be used by setting the plot command's ``cmap`` parameter to
+``True``. The ``zvalue`` parameter sets the z-value (color) to be used from the custom
 CPT, and the line color is set as the z-value by using **+z** when setting the ``pen``
 color.
 

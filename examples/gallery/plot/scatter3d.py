@@ -8,7 +8,7 @@ In the example below, we show how the
 can be visualized using a perspective 3-dimensional plot. The ``region``
 parameter has to include the :math:`x`, :math:`y`, :math:`z` axis limits in the
 form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically
-using :meth:`pygmt.info`. To include the z-axis stick, set ``frame`` as a
+using :meth:`pygmt.info`. To plot the z-axis frame, set ``frame`` as a
 minimum to something like ``frame=["WsNeZ", "zaf"]``. Use ``perspective`` to
 control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
