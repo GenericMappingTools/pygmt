@@ -12,7 +12,14 @@ import pygmt
 # Create a plot with 15x15 cm basemap, Mercator projection (M) over the continental US
 region = [-127, -64, 24, 53]
 fig = pygmt.Figure()
-fig.coast(region=region, projection="M15c", frame="10.0", borders="1", area_thresh="4000", shorelines="0.25p,black")
+fig.coast(
+    region=region,
+    projection="M15c",
+    frame="10.0",
+    borders="1",
+    area_thresh="4000",
+    shorelines="0.25p,black",
+)
 
 
 # plot cartesian vectors with different lengths
