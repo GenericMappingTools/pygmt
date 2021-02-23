@@ -1,26 +1,47 @@
-*.pyc
-*~
+# Byte-compiled / optimized / DLL files
+*.py[cd]
+
+# C extensions
 *.so
-*.pyd
-.*.swp
-*.egg-info
-.coverage
-.cache
-.env
-MANIFEST
-.pytest_cache/
-.ipynb_checkpoints/
-.vscode/
-result_images/
-tmp-test-dir-with-unique-name/
-coverage.xml
-htmlcov
+
+# Distribution / packaging
 build/
 dist/
-doc/_build
-doc/modules
-doc/gallery
-doc/tutorials
-doc/projections
+*.egg
+*.egg-info
+MANIFEST
+
+# Unit test / coverage reports
+.cache
+.coverage
+coverage.xml
+htmlcov
+.pytest_cache/
+results/
+result_images/
+tmp-test-dir-with-unique-name/
+
+# Sphinx documentation
 doc/api/gmt*.rst
 doc/api/generated
+doc/_build
+doc/gallery
+doc/modules
+doc/projections
+doc/tutorials
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Visual Studio Code
+.vscode/
+
+# Environments
+.env
+
+# Backup copies / swap files
+*~
+.*.swp
+
+# macOS
+.DS_Store
