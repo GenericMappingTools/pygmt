@@ -1,9 +1,9 @@
 """
-Vectors
+Cartesian, circular, and geographic vectors
 ------
 
-The :meth:`pygmt.Figure.plot` method can plot cartesian, circular, and geographic vectors.
-The `style` parameter controls vector attributes as in GMT6
+The :meth:`pygmt.Figure.plot` method can plot Cartesian, circular, and geographic vectors.
+The ``style`` parameter controls vector attributes.
 
 """
 import numpy as np
@@ -12,34 +12,34 @@ import pygmt
 # Create a plot with 15x15 cm basemap, Mercator projection (M) over the continental US
 region = [-127, -64, 24, 53]
 fig = pygmt.Figure()
-fig.coast(region=region, projection="M15c", B="10.0", N="1", A="4000", W="0.25p,black")
+fig.coast(region=region, projection="M15c", frame="10.0", borders="1", area_thresh="4000", shorelines="0.25p,black")
+
+
+# plot cartesian vectors with different lengths
+x = np.linspace(-115, -115, 12)  # x vector coordinates
+y = np.linspace(33.5, 42.5, 12)  # y vector coordinates
+xvec = np.linspace(1, 5, 12)  # dx vector data
+yvec = np.zeros(np.shape(y))  # dy vector data
+style = "v0.2+e+a40+gred+h0+p1p,red+z0.35"
+pen = "1.0p,red"
+fig.plot(x=x, y=y, style=style, pen=pen, direction=[xvec, yvec])
+fig.text(text="CARTESIAN", x=-112, y=44.2, font="13p,Helvetica-Bold,red", fill="white")
 
 
 # plot math angle arcs with different radii
-x = -110
+x = -95
 y = 37
-startdir = 90
-stopdir = 180
+startdir = 90  # in degrees
+stopdir = 180  # in degrees
 radius = 1.8
 pen = "1.5p,black"
 arcstyles = np.repeat("m0.5c+ea", 7)
 for arcstyle in arcstyles:
     data = np.array([[x, y, radius, startdir, stopdir]])
     fig.plot(data=data, style=arcstyle, color="red3", pen=pen)
-    stopdir += 40
-    radius -= 0.2
-fig.text(text="CIRCULAR", x=-112, y=44.2, font="13p,Helvetica-Bold,black", fill="white")
-
-
-# plot cartesian vectors with different lengths
-x = np.linspace(-100, -100, 12)  # x vector coordinates
-y = np.linspace(33, 42.5, 12)  # y vector coordinates
-xvec = np.linspace(1, 5, 12)  # dx vector data
-yvec = np.zeros(np.shape(y))  # dy vector data
-style = "v0.2+e+a40+gred+h0+p1p,red+z0.35"
-pen = "1.0p,red"
-fig.plot(x=x, y=y, style=style, pen=pen, direction=[xvec, yvec])
-fig.text(text="CARTESIAN", x=-95, y=44.2, font="13p,Helvetica-Bold,red", fill="white")
+    stopdir += 40  # set the stop direction of the next circular vector
+    radius -= 0.2  # reduce radius of the next circular vector
+fig.text(text="CIRCULAR", x=-95, y=44.2, font="13p,Helvetica-Bold,black", fill="white")
 
 
 # plot geographic vectors using endpoints
