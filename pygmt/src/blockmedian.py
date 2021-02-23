@@ -25,7 +25,7 @@ def blockmedian(table, outfile=None, **kwargs):
     Reads arbitrarily located (x,y,z) triples [or optionally weighted
     quadruples (x,y,z,w)] from a table and writes to the output a median
     position and value for every non-empty block in a grid region defined by
-    the region and spacing arguments.
+    the ``region`` and ``spacing`` parameters.
 
     Full option list at :gmt-docs:`blockmedian.html`
 

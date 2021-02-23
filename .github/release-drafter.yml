@@ -5,26 +5,29 @@ categories:
     label: 'feature'
   - title: 'Enhancements'
     label: 'enhancement'
-  - title: 'Documentation'
-    label: 'documentation'
-  - title: 'Bug Fixes'
-    label: 'bug'
-  - title: 'Maintenance'
-    label: 'maintenance'
   - title: 'Deprecations'
     label: 'deprecation'
+  - title: 'Bug Fixes'
+    label: 'bug'
+  - title: 'Documentation'
+    label: 'documentation'
+  - title: 'Maintenance'
+    label: 'maintenance'
 exclude-labels:
   - 'skip-changelog'
-change-template: '* $TITLE (#$NUMBER)'
+category-template: '### $TITLE'
+change-template: '* $TITLE ([#$NUMBER]($URL))'
 template: |
-  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+  ## Release v$NEXT_PATCH_VERSION (20YY/MM/DD)
 
-  ## Highlights
+  [![Digital Object Identifier for PyGMT v$NEXT_PATCH_VERSION](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+
+  ### Highlights
 
   *
 
   $CHANGES
 
-  ## Contributors
+  ### Contributors
 
   $CONTRIBUTORS
