@@ -25,7 +25,7 @@ def blockmedian(table, outfile=None, **kwargs):
     Reads arbitrarily located (x,y,z) triples [or optionally weighted
     quadruples (x,y,z,w)] from a table and writes to the output a median
     position and value for every non-empty block in a grid region defined by
-    the region and spacing arguments.
+    the ``region`` and ``spacing`` parameters.
 
     Full option list at :gmt-docs:`blockmedian.html`
 
@@ -56,10 +56,12 @@ def blockmedian(table, outfile=None, **kwargs):
     Returns
     -------
     output : pandas.DataFrame or None
-        Return type depends on whether the outfile parameter is set:
+        Return type depends on whether the ``outfile`` parameter is set:
 
-        - pandas.DataFrame table with (x, y, z) columns if outfile is not set
-        - None if outfile is set (filtered output will be stored in outfile)
+        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
+          is not set
+        - None if ``outfile`` is set (filtered output will be stored in file
+          set by ``outfile``)
     """
     kind = data_kind(table)
     with GMTTempFile(suffix=".csv") as tmpfile:

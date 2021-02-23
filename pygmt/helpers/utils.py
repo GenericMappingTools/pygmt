@@ -1,7 +1,6 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
-
 import os
 import shutil
 import subprocess
@@ -197,8 +196,9 @@ def launch_external_viewer(fname):
     """
     Open a file in an external viewer program.
 
-    Uses the ``xdg-open`` command on Linux, the ``open`` command on macOS, and
-    the default web browser on other systems.
+    Uses the ``xdg-open`` command on Linux, the ``open`` command on macOS, the
+    associated application on Windows, and the default web browser on other
+    systems.
 
     Parameters
     ----------
@@ -219,7 +219,7 @@ def launch_external_viewer(fname):
     elif os_name == "win32":
         os.startfile(fname)  # pylint: disable=no-member
     else:
-        webbrowser.open_new_tab("file://{}".format(fname))
+        webbrowser.open_new_tab(f"file://{fname}")
 
 
 def args_in_kwargs(args, kwargs):

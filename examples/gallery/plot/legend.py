@@ -4,7 +4,7 @@ Legend
 
 The :meth:`pygmt.Figure.legend` method can automatically create a legend for
 symbols plotted using :meth:`pygmt.Figure.plot`. Legend entries are only
-created when the ``label`` argument is used.
+created when the ``label`` parameter is used.
 """
 import pygmt
 
