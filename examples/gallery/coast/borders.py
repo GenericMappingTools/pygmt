@@ -2,14 +2,14 @@
 Political Boundaries
 --------------------
 
-The ``borders`` argument of :meth:`pygmt.Figure.coast` specifies levels of political
+The ``borders`` parameter of :meth:`pygmt.Figure.coast` specifies levels of political
 boundaries to plot and the pen used to draw them. Choose from the list of boundaries
 below:
 
-* 1 = National boundaries
-* 2 = State boundaries within the Americas
-* 3 = Marine boundaries
-* a = All boundaries (1-3)
+* **1** = National boundaries
+* **2** = State boundaries within the Americas
+* **3** = Marine boundaries
+* **a** = All boundaries (1-3)
 
 For example, to draw national boundaries with 1p thickness black lines use
 ``borders="1/1p,black"``. You can draw multiple boundaries by passing in a list to

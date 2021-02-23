@@ -187,7 +187,7 @@ class Figure:
         The KML output generates a companion PNG file.
 
         You can pass in any keyword arguments that
-        :meth:`~gmt.Figure.psconvert` accepts.
+        :meth:`pygmt.Figure.psconvert` accepts.
 
         Parameters
         ----------
@@ -334,7 +334,7 @@ class Figure:
         ----------
         fmt : str
             The image format. Can be any extension that
-            :meth:`~gmt.Figure.savefig` recognizes.
+            :meth:`pygmt.Figure.savefig` recognizes.
         dpi : int
             The image resolution (dots per inch).
         as_bytes : bool
