@@ -11,7 +11,7 @@ The following people have contributed code and/or documentation to the project
 * [Dongdong Tian](https://seisman.info/) | [0000-0001-7967-1197](https://orcid.org/0000-0001-7967-1197) | Michigan State University
 * [Leonardo Uieda](http://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | University of Liverpool
 * [Liam Toney](https://liam.earth/) | [0000-0003-0167-9433](https://orcid.org/0000-0003-0167-9433) | University of Alaska Fairbanks
-* [Malte Ziebarth](https://github.com/mjziebarth) | [0000-0002-5190-4478](https://orcid.org/0000-0002-5190-4478) | GFZ
+* [Malte Ziebarth](https://github.com/mjziebarth) | [0000-0002-5190-4478](https://orcid.org/0000-0002-5190-4478) | GFZ German Research Centre for Geosciences
 * [Meghan Jones](https://github.com/meghanrjones) | [0000-0003-0180-8928](https://orcid.org/0000-0003-0180-8928) | University of Hawai'i at Mānoa
 * [Michael Grund](https://github.com/michaelgrund) | [0000-0001-8759-2018](https://orcid.org/0000-0001-8759-2018) | Innoplexia GmbH
 * [Tyler Newton](http://www.tnewton.com/) | [0000-0002-1560-6553](https://orcid.org/0000-0002-1560-6553) | University of Oregon
