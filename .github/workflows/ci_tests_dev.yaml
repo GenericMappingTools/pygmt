@@ -95,7 +95,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.11.0
+        uses: dawidd6/action-download-artifact@v2.11.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
