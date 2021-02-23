@@ -24,7 +24,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     p="perspective",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
-def solar(self, terminator="d", terminator_datetime="", **kwargs):
+def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     r"""
     Plot day-light terminators.
 
