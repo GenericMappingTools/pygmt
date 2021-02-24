@@ -23,7 +23,7 @@ result_images/
 tmp-test-dir-with-unique-name/
 
 # Sphinx documentation
-doc/api/generated
+doc/api/generated/
 doc/_build/
 doc/gallery/
 doc/projections/
