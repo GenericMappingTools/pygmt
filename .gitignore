@@ -8,7 +8,7 @@
 build/
 dist/
 *.egg
-*.egg-info
+*.egg-info/
 .eggs/
 MANIFEST
 
@@ -24,10 +24,10 @@ tmp-test-dir-with-unique-name/
 
 # Sphinx documentation
 doc/api/generated
-doc/_build
-doc/gallery
-doc/projections
-doc/tutorials
+doc/_build/
+doc/gallery/
+doc/projections/
+doc/tutorials/
 
 # Jupyter Notebook
 .ipynb_checkpoints/
