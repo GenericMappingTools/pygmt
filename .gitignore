@@ -9,24 +9,23 @@ build/
 dist/
 *.egg
 *.egg-info
+.eggs/
 MANIFEST
 
 # Unit test / coverage reports
 .cache
 .coverage
 coverage.xml
-htmlcov
+htmlcov/
 .pytest_cache/
 results/
 result_images/
 tmp-test-dir-with-unique-name/
 
 # Sphinx documentation
-doc/api/gmt*.rst
 doc/api/generated
 doc/_build
 doc/gallery
-doc/modules
 doc/projections
 doc/tutorials
 
