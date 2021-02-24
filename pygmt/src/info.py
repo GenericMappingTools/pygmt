@@ -94,6 +94,10 @@ def info(table, **kwargs):
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
                 result = result[2:].replace("/", " ")
-            result = np.loadtxt(result.splitlines())
+            try:
+                result = np.loadtxt(result.splitlines())
+            except ValueError:
+                # Load non-numerical outputs in str type, e.g. for datetime
+                result = np.loadtxt(result.splitlines(), dtype="str")
 
         return result
