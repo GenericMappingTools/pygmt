@@ -8,13 +8,12 @@ Manoa.
 The following people have contributed code and/or documentation to the project
 (alphabetical by name) and are considered to be "PyGMT Developers":
 
-* [Dongdong Tian](https://seisman.info/) | [0000-0001-7967-1197](https://orcid.org/0000-0001-7967-1197) | Department of Earth and Environmental Sciences, Michigan State University, East Lansing, MI, USA
-* [Leonardo Uieda](http://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | Department of Earth, Ocean and Ecological Sciences, University of Liverpool, Liverpool, United Kingdom
-* [Liam Toney](https://liam.earth/) | [0000-0003-0167-9433](https://orcid.org/0000-0003-0167-9433) | Alaska Volcano Observatory and Wilson Alaska Technical Center, Geophysical Institute, University of Alaska Fairbanks, Fairbanks, AK, USA
-* [Malte Ziebarth](https://github.com/mjziebarth) | [0000-0002-5190-4478](https://orcid.org/0000-0002-5190-4478) | GFZ German Research Centre for Geosciences, Potsdam, Germany
-* [Meghan Jones](https://github.com/meghanrjones) | [0000-0003-0180-8928](https://orcid.org/0000-0003-0180-8928) | 
-Department of Earth Sciences, University of Hawai'i at Mānoa, Honolulu, HI, USA
-* [Michael Grund](https://github.com/michaelgrund) | [0000-0001-8759-2018](https://orcid.org/0000-0001-8759-2018) | Innoplexia GmbH, Heidelberg, Germany
-* [Tyler Newton](http://www.tnewton.com/) | [0000-0002-1560-6553](https://orcid.org/0000-0002-1560-6553) | Department of Earth Sciences, University of Oregon, Eugene, OR, USA
-* [Wei Ji Leong](https://github.com/weiji14) | [0000-0003-2354-1988](https://orcid.org/0000-0003-2354-1988) | Antarctic Research Centre, Victoria University of Wellington, Wellington, New Zealand
+* [Dongdong Tian](https://seisman.info/) | [0000-0001-7967-1197](https://orcid.org/0000-0001-7967-1197) | Michigan State University
+* [Leonardo Uieda](http://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | University of Liverpool
+* [Liam Toney](https://liam.earth/) | [0000-0003-0167-9433](https://orcid.org/0000-0003-0167-9433) | University of Alaska Fairbanks
+* [Malte Ziebarth](https://github.com/mjziebarth) | [0000-0002-5190-4478](https://orcid.org/0000-0002-5190-4478) | GFZ German Research Centre for Geosciences
+* [Meghan Jones](https://github.com/meghanrjones) | [0000-0003-0180-8928](https://orcid.org/0000-0003-0180-8928) | University of Hawai'i at Mānoa
+* [Michael Grund](https://github.com/michaelgrund) | [0000-0001-8759-2018](https://orcid.org/0000-0001-8759-2018) | Innoplexia GmbH
+* [Tyler Newton](http://www.tnewton.com/) | [0000-0002-1560-6553](https://orcid.org/0000-0002-1560-6553) | University of Oregon
+* [Wei Ji Leong](https://github.com/weiji14) | [0000-0003-2354-1988](https://orcid.org/0000-0003-2354-1988) | Victoria University of Wellington
 * [William Schlitzer](https://github.com/willschlitzer) | [0000-0002-5843-2282](https://orcid.org/0000-0002-5843-2282) | Unaffiliated
