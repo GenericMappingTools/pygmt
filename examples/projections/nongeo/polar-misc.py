@@ -1,6 +1,6 @@
 """
 Miscellaneous ways to use polar projections
-=====
+===========================================
 """
 
 import pygmt
