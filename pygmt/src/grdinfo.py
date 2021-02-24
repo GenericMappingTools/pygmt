@@ -2,12 +2,9 @@
 grdinfo - Retrieve info about grid file.
 """
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -109,15 +106,9 @@ def grdinfo(grid, **kwargs):
     info : str
         A string with information about the grid.
     """
-    kind = data_kind(grid, None, None)
     with GMTTempFile() as outfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+            file_context = lib.virtualfile_from_data(data=grid, check_kind="raster")
             with file_context as infile:
                 arg_str = " ".join(
                     [infile, build_arg_string(kwargs), "->" + outfile.name]
