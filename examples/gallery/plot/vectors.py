@@ -1,6 +1,6 @@
 """
 Cartesian, circular, and geographic vectors
-------
+-------------------------------------------
 
 The :meth:`pygmt.Figure.plot` method can plot Cartesian, circular, and geographic vectors.
 The ``style`` parameter controls vector attributes.
@@ -9,27 +9,26 @@ The ``style`` parameter controls vector attributes.
 import numpy as np
 import pygmt
 
-# Create a plot with 15x15 cm basemap, Mercator projection (M) over the continental US
-region = [-127, -64, 24, 53]
+# create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
 fig.coast(
-    region=region,
+    region=[-127, -64, 24, 53],
     projection="M15c",
-    frame="10.0",
-    borders="1",
-    area_thresh="4000",
+    frame=True,
+    borders=1,
+    area_thresh=4000,
     shorelines="0.25p,black",
 )
 
 
-# plot cartesian vectors with different lengths
-x = np.linspace(-115, -115, 12)  # x vector coordinates
+# plot Cartesian vectors with different lengths
+x = np.linspace(-116, -116, 12)  # x vector coordinates
 y = np.linspace(33.5, 42.5, 12)  # y vector coordinates
-xvec = np.linspace(1, 5, 12)  # dx vector data
-yvec = np.zeros(np.shape(y))  # dy vector data
-style = "v0.2+e+a40+gred+h0+p1p,red+z0.35"
+direction = np.zeros(np.shape(y))  # direction of vector
+length = np.linspace(0.5, 2.4, 12)  # length vector data
+style = "v0.2+e+a40+gred+h0+p1p,red"
 pen = "1.0p,red"
-fig.plot(x=x, y=y, style=style, pen=pen, direction=[xvec, yvec])
+fig.plot(x=x, y=y, style=style, pen=pen, direction=[direction, length])
 fig.text(text="CARTESIAN", x=-112, y=44.2, font="13p,Helvetica-Bold,red", fill="white")
 
 
