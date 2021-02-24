@@ -1,0 +1,95 @@
+# This workflow deploys documentation to Vercel for previewing PRs
+
+name: Continuous Documentation
+
+on:
+  pull_request:
+    paths:
+    - 'doc/**'
+    - 'examples/**'
+    - 'pygmt/**'
+    - 'README.rst'
+    - '.github/workflows/continuous-documentation.yml'
+  pull_request_target:
+    paths:
+    - 'doc/**'
+    - 'examples/**'
+    - 'pygmt/**'
+    - 'README.rst'
+    - '.github/workflows/continuous-documentation.yml'
+
+jobs:
+  vercel:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          # fecth all history so that setuptools-scm works
+          fetch-depth: 0
+
+      # Setup Miniconda
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2.0.1
+        with:
+          activate-environment: pygmt
+          python-version: 3.9
+          channels: conda-forge
+          miniconda-version: "latest"
+
+      - name: Install dependencies
+        shell: bash -l {0}
+        run: |
+          conda install gmt=6.1.1 numpy pandas xarray netcdf4 packaging \
+                        ipython myst-parser sphinx sphinx-copybutton \
+                        sphinx-gallery sphinx_rtd_theme=0.4.3
+
+      - name: List installed packages
+        shell: bash -l {0}
+        run: conda list
+
+      - name: Download remote data from GitHub
+        uses: dawidd6/action-download-artifact@v2.11.1
+        with:
+          workflow: cache_data.yaml
+          workflow_conclusion: success
+          name: gmt-cache
+          path: .gmt
+
+      - name: Move and list downloaded remote files
+        shell: bash -l {0}
+        run: |
+          mkdir -p ~/.gmt
+          mv .gmt/* ~/.gmt
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          ls -lhR ~/.gmt
+
+      - name: Install the package
+        shell: bash -l {0}
+        run: |
+          python setup.py sdist --formats=zip
+          pip install dist/*
+
+      - name: Build the documentation
+        shell: bash -l {0}
+        run: make -C doc clean all
+
+      - name: Deploy documentation to Vercel
+        uses: amondnet/vercel-action@v20.0.0
+        with:
+          # https://vercel.com/account/tokens
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          # vercel-org-id and vercel-project-id are generated using vercel CLI
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-comment: true
+          working-directory: ./doc/_build/html
