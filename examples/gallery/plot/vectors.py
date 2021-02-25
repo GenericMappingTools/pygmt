@@ -38,13 +38,15 @@ startdir = 90  # in degrees
 stopdir = 180  # in degrees
 radius = 1.8
 arcstyle = "m0.5c+ea"
-data = np.array([]).reshape((0, 5));  # empty array to hold circular vector data
+data = np.array([]).reshape((0, 5))
+# empty array to hold circular vector data
 for i in range(7):
     single_vector = np.array([[x, y, radius, startdir, stopdir]])
-    data = np.vstack((data, single_vector));   # append next vector to circular vector data
+    data = np.vstack((data, single_vector))
+    # append next vector to circular vector data
     stopdir += 40  # set the stop direction of the next circular vector
-    radius -= 0.2  # reduce radius of the next circular vector 
-fig.plot(data=data, style=arcstyle, color="red3", pen="1.5p,black") 
+    radius -= 0.2  # reduce radius of the next circular vector
+fig.plot(data=data, style=arcstyle, color="red3", pen="1.5p,black")
 fig.text(text="CIRCULAR", x=-95, y=44.2, font="13p,Helvetica-Bold,black", fill="white")
 
 
