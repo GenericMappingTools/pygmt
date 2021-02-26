@@ -52,7 +52,9 @@ NYC = [-74.0060, 40.7128]
 CHI = [-87.6298, 41.8781]
 SEA = [-122.3321, 47.6062]
 NO = [-90.0715, 29.9511]
-style = "=0.5+e+a30+gblue+h0.5+p1p,blue+s"  # = for geographic coordinates, +s for coord end points
+# `=` means geographic vectors. 
+# With the modifier '+s', the input data should contain coordinates of start and end points
+style = "=0.5c+s+e+a30+gblue+h0.5+p1p,blue"  
 data = np.array([NYC + CHI, NYC + SEA, NYC + NO])
 fig.plot(data=data, style=style, pen="1.0p,blue")
 fig.text(
