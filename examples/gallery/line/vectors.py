@@ -39,10 +39,10 @@ y = np.full(num, 37)  # y coordinates of the center
 radius = 1.8 - 0.2 * np.arange(0, num)  # radius
 startdir = np.full(num, 90)  # start direction in degrees
 stopdir = 180 + 40 * np.arange(0, num)  # stop direction in degrees
-arcstyle = "m0.5c+ea"  # vector with an arrow at end
-
 # data for circular vectors
 data = np.column_stack([x, y, radius, startdir, stopdir])
+
+arcstyle = "m0.5c+ea"  # Circular vector (m) with an arrow at end
 fig.plot(data=data, style=arcstyle, color="red3", pen="1.5p,black")
 fig.text(text="CIRCULAR", x=-95, y=44.2, font="13p,Helvetica-Bold,black", fill="white")
 
