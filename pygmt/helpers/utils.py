@@ -13,7 +13,7 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data=None, x=None, y=None, z=None):
+def data_kind(data, x=None, y=None, z=None):
     """
     Check what kind of data is provided to a module.
 
