@@ -30,8 +30,8 @@ def info(table, **kwargs):
     and *dy* are needed). If the ``per_column`` parameter is combined with
     ``spacing``, then the numpy.ndarray output will be rounded up/down for as
     many columns as there are increments provided in ``spacing``. A similar
-    parameter ``nearest_multiple`` option will provide a numpy.ndarray in the
-    form of [*zmin*, *zmax*, *dz*]`` for makecpt.
+    parameter ``nearest_multiple`` will provide a numpy.ndarray in the form
+    of [*zmin*, *zmax*, *dz*] for makecpt.
 
     Full option list at :gmt-docs:`gmtinfo.html`
 
@@ -63,7 +63,7 @@ def info(table, **kwargs):
         Return type depends on whether any of the ``per_column``,
         ``spacing``, or ``nearest_multiple`` parameters are set.
 
-        - np.ndarray if either of the above parameters are used.
+        - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
     kind = data_kind(table)

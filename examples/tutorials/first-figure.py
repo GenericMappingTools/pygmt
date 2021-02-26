@@ -9,7 +9,7 @@ and naming conventions.
 
     This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
     To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
 
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
@@ -81,12 +81,13 @@ fig.show()
 #    ``ps*`` modules had their ``ps`` prefix removed. The exceptions are:
 #    ``psxy`` which is now ``plot``, ``psxyz`` which is now ``plot3d``, and ``psscale``
 #    which is now ``colorbar``.
-# 2. The arguments don't use the GMT 1-letter syntax (R, J, B, etc). We use longer
-#    aliases for these arguments and have some Python exclusive names. The mapping
-#    between the GMT arguments and their Python counterparts should be straight forward.
-# 3. Arguments like ``region`` can take lists as well as strings like ``1/2/3/4``.
-# 4. If a GMT argument has no options (like ``-B`` instead of ``-Baf``), use a ``True``
-#    in Python. An empty string would also be acceptable. For repeated arguments, such
+# 2. The parameters don't use the GMT 1-letter syntax (**R**, **J**, **B**, etc). We use longer
+#    aliases for these parameters and have some Python exclusive names. The mapping
+#    between the GMT parameters and their Python counterparts should be straight
+#    forward.
+# 3. Parameters like ``region`` can take lists as well as strings like ``1/2/3/4``.
+# 4. If a GMT parameter has no options (like ``-B`` instead of ``-Baf``), use a ``True``
+#    in Python. An empty string would also be acceptable. For repeated parameters, such
 #    as ``-B+Loleron -Bxaf -By+lm``, provide a list: ``frame=["+Loleron", "xaf", "y+lm"]``.
 # 5. There is no output redirecting to a PostScript file. The figure is generated in the
 #    background and will only be shown or saved when you ask for it.

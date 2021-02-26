@@ -17,6 +17,7 @@ from pygmt.sphinx_gallery import PyGMTScraper
 # isort: on
 
 extensions = [
+    "myst_parser",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
