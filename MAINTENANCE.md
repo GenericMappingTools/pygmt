@@ -95,8 +95,8 @@ We use a cloud platform service called [Vercel](https://vercel.com/) via
 [vercel-action](https://github.com/marketplace/actions/vercel-action) to
 preview changes made to our documentation website every time we make a commit
 in a pull request. The workflow `continuous-documentation.yml` builds and
-deploys the documentation to Vercel and create a comment with the latest URL
-of deployment preview.
+deploys the documentation to Vercel. The vercel bot will automatically make a
+comment with a URL to preview the deployed documentation for that pull request.
 
 ## Making a Release
 
