@@ -1387,18 +1387,6 @@ class Session:
         """
         kind = data_kind(check_kind, data, x, y, z)
 
-        # Decide which virtualfile_from_ function to use
-        _virtualfile_from = {
-            "file": dummy_context,
-            "grid": self.virtualfile_from_grid,
-            # Note: virtualfile_from_matrix is not used because a matrix can be
-            # converted to vectors instead, and using vectors allows for better
-            # handling of string type inputs (e.g. for datetime data types)
-            "matrix": self.virtualfile_from_vectors,
-            "vectors": self.virtualfile_from_vectors,
-        }[kind]
-
-        # Ensure the data is an iterable (Python list or tuple)
         if kind == "matrix":  # turn 2D arrays into list of vectors
             try:
                 # pandas.DataFrame and xarray.Dataset types
@@ -1406,13 +1394,17 @@ class Session:
             except AttributeError:
                 # Python lists, tuples, and numpy ndarray types
                 _data = np.atleast_2d(np.asanyarray(data).T)
-        elif kind == "vectors":
-            _data = (x, y, z)
-        else:
-            _data = (data,)
 
-        # Finally create the virtualfile from the data, to be passed into GMT
-        file_context = _virtualfile_from(*_data)
+        # Based on the data kind, create the virtualfile to be passed into GMT
+        file_context = {
+            "file": dummy_context(data),
+            "grid": self.virtualfile_from_grid(data),
+            # Note: virtualfile_from_matrix is not used because a matrix can be
+            # converted to vectors instead, and using vectors allows for better
+            # handling of string type inputs (e.g. for datetime data types)
+            "matrix": self.virtualfile_from_vectors(*_data),
+            "vectors": self.virtualfile_from_vectors(x, y, z),
+        }[kind]
 
         return file_context
 
