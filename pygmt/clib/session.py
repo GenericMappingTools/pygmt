@@ -1360,7 +1360,7 @@ class Session:
         with self.open_virtual_file(*args) as vfile:
             yield vfile
 
-    def virtualfile_from_data(self, data, x=None, y=None, z=None, check_kind=None):
+    def virtualfile_from_data(self, check_kind=None, data=None, x=None, y=None, z=None):
         """
         Store any data inside a virtual file.
 
@@ -1370,22 +1370,22 @@ class Session:
 
         Parameters
         ----------
-        data : str, xarray.DataArray, 2d array, or None
-            The vectors that will be included in the array. All must be of the
-            same size.
-        x/y/z : 1d arrays or None
-            x, y and z columns as numpy arrays.
         check_kind : str
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector' or None. Default is None (no validation).
+        data : str, xarray.DataArray, 2d array, or None
+            Any raster or vector data format. This could be a file name, a
+            raster grid, a vector matrix/arrays, or other supported data input.
+        x/y/z : 1d arrays or None
+            x, y and z columns as numpy arrays.
 
         Returns
         -------
         file_context : contextlib._GeneratorContextManager
             The virtual file stored inside a context manager. Access the file
-            name of this virtualfile using `with file_context as fname: ...`.
+            name of this virtualfile using ``with file_context as fname: ...``.
         """
-        kind = data_kind(data, x, y, z, check_kind)
+        kind = data_kind(check_kind, data, x, y, z)
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {

@@ -108,7 +108,7 @@ def grdinfo(grid, **kwargs):
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(data=grid, check_kind="raster")
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 arg_str = " ".join(
                     [infile, build_arg_string(kwargs), "->" + outfile.name]
