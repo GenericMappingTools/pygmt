@@ -59,6 +59,7 @@ DTYPES = {
     np.uint64: "GMT_ULONG",
     np.uint32: "GMT_UINT",
     np.datetime64: "GMT_DATETIME",
+    np.str_: "GMT_TEXT",
 }
 
 
@@ -718,9 +719,7 @@ class Session:
         """
         # check the array has the given dimension
         if array.ndim != ndim:
-            raise GMTInvalidInput(
-                "Expected a numpy 1d array, got {}d.".format(array.ndim)
-            )
+            raise GMTInvalidInput(f"Expected a numpy 1d array, got {array.ndim}d.")
 
         # check the array has a valid/known data type
         if array.dtype.type not in DTYPES:
@@ -744,7 +743,7 @@ class Session:
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
-        int32, uint64, and uint32.
+        int32, uint64, uint32, datetime64 and str_.
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
@@ -776,11 +775,14 @@ class Session:
         )
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
-        if gmt_type == self["GMT_DATETIME"]:
+        if gmt_type in (self["GMT_TEXT"], self["GMT_DATETIME"]):
             vector_pointer = (ctp.c_char_p * len(vector))()
-            vector_pointer[:] = np.char.encode(
-                np.datetime_as_string(array_to_datetime(vector))
-            )
+            if gmt_type == self["GMT_DATETIME"]:
+                vector_pointer[:] = np.char.encode(
+                    np.datetime_as_string(array_to_datetime(vector))
+                )
+            else:
+                vector_pointer[:] = np.char.encode(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
@@ -788,11 +790,9 @@ class Session:
         )
         if status != 0:
             raise GMTCLibError(
-                " ".join(
-                    [
-                        "Failed to put vector of type {}".format(vector.dtype),
-                        "in column {} of dataset.".format(column),
-                    ]
+                (
+                    f"Failed to put vector of type {vector.dtype} "
+                    f"in column {column} of dataset."
                 )
             )
 
