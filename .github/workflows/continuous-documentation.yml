@@ -10,13 +10,6 @@ on:
     - 'pygmt/**'
     - 'README.rst'
     - '.github/workflows/continuous-documentation.yml'
-  pull_request_target:
-    paths:
-    - 'doc/**'
-    - 'examples/**'
-    - 'pygmt/**'
-    - 'README.rst'
-    - '.github/workflows/continuous-documentation.yml'
 
 jobs:
   vercel:
