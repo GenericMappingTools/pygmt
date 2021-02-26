@@ -91,8 +91,8 @@ to make it easier to preview documentation changes.
 
 ## Continuous Documentation
 
-We use the [Vercel](https://vercel.com/) service and the
-[vercel-action](https://github.com/marketplace/actions/vercel-action) action to
+We use a cloud platform service called [Vercel](https://vercel.com/) via
+[vercel-action](https://github.com/marketplace/actions/vercel-action) to
 preview changes made to our documentation website every time we make a commit
 in a pull request. The workflow `continuous-documentation.yml` builds and
 deploys the documentation to Vercel and create a comment with the latest URL
