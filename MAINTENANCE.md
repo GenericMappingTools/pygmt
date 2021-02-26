@@ -47,7 +47,7 @@ conda and the `Makefile` to run the tests and checks.
 
 ### GitHub Actions
 
-There are 6 configuration files located in `.github/workflows`:
+There are 5 configuration files located in `.github/workflows`:
 
 1. `style_checks.yaml` (Code lint and style checks)
 
@@ -84,19 +84,16 @@ This workflow is ran to publish wheels to PyPI and TestPyPI (for testing only).
 Archives will be pushed to TestPyPI on every commit to the *master* branch and
 tagged releases, and to PyPI for tagged releases only.
 
-6. `continuous-documentation.yml` (Deploy documentation to Vercel for preview)
-
-This workflow builds and deploys the documentation in Pull Requests to Vercel,
-to make it easier to preview documentation changes.
 
 ## Continuous Documentation
 
-We use a cloud platform service called [Vercel](https://vercel.com/) via
-[vercel-action](https://github.com/marketplace/actions/vercel-action) to
-preview changes made to our documentation website every time we make a commit
-in a pull request. The workflow `continuous-documentation.yml` builds and
-deploys the documentation to Vercel. The vercel bot will automatically make a
-comment with a URL to preview the deployed documentation for that pull request.
+We use the [Vercel for GitHub](https://github.com/apps/vercel) App to preview changes
+made to our documentation website every time we make a commit in a pull request.
+The service has a configuration file `vercel.json`, with a list of options to
+change the default behaviour at https://vercel.com/docs/configuration.
+The actual script `package.json` is used by Vercel to install the necessary packages,
+build the documentation, copy the files to a 'public' folder and deploy that to the web,
+see https://vercel.com/docs/build-step.
 
 ## Making a Release
 
