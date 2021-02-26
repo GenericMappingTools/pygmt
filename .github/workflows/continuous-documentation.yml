@@ -12,8 +12,8 @@ on:
     - '.github/workflows/continuous-documentation.yml'
 
 jobs:
-  vercel:
-    name: Deploy to Vercel
+  docs:
+    name: Build documentation
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -73,20 +73,8 @@ jobs:
       - name: Build the documentation
         run: make -C doc clean all
 
-      - name: Deploy documentation to Vercel
-        uses: amondnet/vercel-action@v20.0.0
+      - name: Upload documentation as artifacts
+        uses: actions/upload-artifact@v2
         with:
-          # Generate a vercel token at https://vercel.com/account/tokens,
-          # and save the value in the secrets setting in the repository.
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          # https://github.com/marketplace/actions/vercel-action#project-linking
-          # Install the Vercel CLI and run `vercel` in the project directory.
-          # After linking the repository with a Vercel project, `vercel` will
-          # create a `.vercel` directory containing both the organization (vercel-org-id)
-          # and project (vercel-project-id) id of the project.
-          # Save the values in the secrets setting in the repository.
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-comment: true
-          working-directory: ./doc/_build/html
+          name: docs
+          path: doc/_build/html

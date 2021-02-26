@@ -1,0 +1,57 @@
+name: Vercel
+
+# read-write repo token
+# access to secrets
+on:
+  workflow_run:
+    workflows: ["Continuous Documentation"]
+    types:
+      - completed
+
+jobs:
+  vercel:
+    name: Deploy documentation to Vercel
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: 'Download artifact'
+        uses: actions/github-script@v3.1.0
+        with:
+          script: |
+            var artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "docs"
+            })[0];
+            var download = await github.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            var fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/docs.zip', Buffer.from(download.data));
+
+      - run: unzip docs.zip
+
+      - name: Deploy documentation to Vercel
+        uses: amondnet/vercel-action@v20.0.0
+        with:
+          # Generate a vercel token at https://vercel.com/account/tokens,
+          # and save the value in the secrets setting in the repository.
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          # https://github.com/marketplace/actions/vercel-action#project-linking
+          # Install the Vercel CLI and run `vercel` in the project directory.
+          # After linking the repository with a Vercel project, `vercel` will
+          # create a `.vercel` directory containing both the organization (vercel-org-id)
+          # and project (vercel-project-id) id of the project.
+          # Save the values in the secrets setting in the repository.
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-comment: true
+          working-directory: ./doc/_build/html
