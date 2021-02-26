@@ -14,6 +14,9 @@ Installing
     <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__.
 
 
+TEST
+
+
 Quickstart
 ----------
 
@@ -147,7 +150,7 @@ Alternatively, you can install the latest development version from
 
     pip install --pre --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pygmt
 
-or from PyGMT's `GitHub repository <https://github.com/GenericMappingTools/pygmt>`__ 
+or from PyGMT's `GitHub repository <https://github.com/GenericMappingTools/pygmt>`__
 (slower as it downloads the whole archive)::
 
     pip install git+https://github.com/GenericMappingTools/pygmt.git#egg=pygmt
