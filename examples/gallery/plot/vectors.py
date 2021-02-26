@@ -32,21 +32,17 @@ fig.plot(x=x, y=y, style=style, pen="1p,red", direction=[direction, length])
 fig.text(text="CARTESIAN", x=-112, y=44.2, font="13p,Helvetica-Bold,red", fill="white")
 
 
-# plot math angle arcs with different radii
-x = -95
-y = 37
-startdir = 90  # in degrees
-stopdir = 180  # in degrees
-radius = 1.8
-arcstyle = "m0.5c+ea"
-data = np.array([]).reshape((0, 5))
-# empty array to hold circular vector data
-for i in range(7):
-    single_vector = np.array([[x, y, radius, startdir, stopdir]])
-    data = np.vstack((data, single_vector))
-    # append next vector to circular vector data
-    stopdir += 40  # set the stop direction of the next circular vector
-    radius -= 0.2  # reduce radius of the next circular vector
+# plot 7 math angle arcs with different radii
+num = 7
+x = np.full(num, -95)  # x coordinates of the center
+y = np.full(num, 37)   # y coordinates of the center
+radius = 1.8 - 0.2 * np.arange(0, num)  # radius 
+startdir = np.full(num, 90)  # start direction in degrees
+stopdir = 180 + 40 * np.arange(0, num)  # stop direction in degrees
+arcstyle = "m0.5c+ea"  # vector with an arrow at end
+
+# data for circular vectors
+data = np.column_stack([x, y, radius, startdir, stopdir])
 fig.plot(data=data, style=arcstyle, color="red3", pen="1.5p,black")
 fig.text(text="CIRCULAR", x=-95, y=44.2, font="13p,Helvetica-Bold,black", fill="white")
 
