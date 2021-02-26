@@ -10,8 +10,8 @@ from pygmt.helpers import kwargs_to_strings
 from pygmt.src import grdcut, which
 
 
-@kwargs_to_strings(region="sequence")
-def load_earth_relief(resolution="01d", region=None, registration=None):
+@kwargs_to_strings(convert_bools=False, region="sequence")
+def load_earth_relief(resolution="01d", use_srtm=False, region=None, registration=None):
     r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -37,6 +37,12 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
         ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
         ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'``, ``'15s'``, ``'03s'``,
         or ``'01s'``.
+
+    use_srtm : bool or str
+        By default, the land-only SRTM tiles from NASA are used to generate the
+        ``'03s'`` and ``'01s'`` grids, along with the missing ocean values
+        filled by up-sampling the relevant SRTM15+V2.1 tiles. If True, will
+        only load the original land-only SRTM tiles.
 
     region : str or list
         The subregion of the grid to load, in the forms of a list
@@ -73,12 +79,21 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
     >>> grid = load_earth_relief(
     ...     "05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
+    >>> # load the original land-only SRTM tiles from NASA
+    >>> grid = load_earth_relief(
+    ...     "03s",
+    ...     use_srtm=True,
+    ...     region=[135, 145, 35, 40],
+    ...     registration="gridline",
+    ... )
     """
 
     # earth relief data stored as single grids for low resolutions
     non_tiled_resolutions = ["01d", "30m", "20m", "15m", "10m", "06m"]
     # earth relief data stored as tiles for high resolutions
     tiled_resolutions = ["05m", "04m", "03m", "02m", "01m", "30s", "15s", "03s", "01s"]
+    # resolutions of original land-only SRTM tiles from NASA
+    land_only_srtm_resolutions = ["03s", "01s"]
 
     if registration in ("pixel", "gridline", None):
         # If None, let GMT decide on Pixel/Gridline type
@@ -103,12 +118,18 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
             f"resolution '{resolution}' is not supported."
         )
 
+    # Choose earth relief data prefix
+    earth_relief_prefix = "earth_relief_"
+    if resolution in land_only_srtm_resolutions:
+        if use_srtm:
+            earth_relief_prefix = "srtm_relief_"
+
     # different ways to load tiled and non-tiled earth relief data
     # Known issue: tiled grids don't support slice operation
     # See https://github.com/GenericMappingTools/pygmt/issues/524
     if region is None:
         if resolution in non_tiled_resolutions:
-            fname = which(f"@earth_relief_{resolution}{reg}", download="a")
+            fname = which(f"@{earth_relief_prefix}{resolution}{reg}", download="a")
             with xr.open_dataarray(fname) as dataarray:
                 grid = dataarray.load()
                 _ = grid.gmt  # load GMTDataArray accessor information
@@ -117,7 +138,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
                 f"'region' is required for Earth relief resolution '{resolution}'."
             )
     else:
-        grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
+        grid = grdcut(f"@{earth_relief_prefix}{resolution}{reg}", region=region)
 
     # Add some metadata to the grid
     grid.name = "elevation"
