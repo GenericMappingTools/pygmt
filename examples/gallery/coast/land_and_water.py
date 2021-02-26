@@ -2,7 +2,7 @@
 Color land and water
 --------------------
 
-The ``land`` and ``water`` arguments of :meth:`pygmt.Figure.coast` specify a color to
+The ``land`` and ``water`` parameters of :meth:`pygmt.Figure.coast` specify a color to
 fill in the land and water masses, respectively. You can use standard GMT color names or
 give a hex value (like ``#333333``).
 """

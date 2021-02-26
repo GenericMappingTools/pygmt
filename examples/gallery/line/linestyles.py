@@ -4,7 +4,7 @@ Line styles
 
 The :meth:`pygmt.Figure.plot` method can plot lines in different styles.
 The default line style is a 0.25-point wide, black, solid line, and can be
-customized via the ``pen`` argument.
+customized with the ``pen`` parameter.
 
 A *pen* in GMT has three attributes: *width*, *color*, and *style*.
 The *style* attribute controls the appearance of the line.
