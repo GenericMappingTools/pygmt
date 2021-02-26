@@ -13,7 +13,7 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(check_kind=None, data=None, x=None, y=None, z=None):
+def data_kind(data=None, x=None, y=None, z=None):
     """
     Check what kind of data is provided to a module.
 
@@ -29,11 +29,8 @@ def data_kind(check_kind=None, data=None, x=None, y=None, z=None):
 
     Parameters
     ----------
-    check_kind : str
-        Used to validate the type of data that can be passed in. Choose from
-        'raster', 'vector' or None. Default is None (no validation).
     data : str, xarray.DataArray, 2d array, or None
-        Data file name, xarray.DataArray or numpy array.
+       Data file name, xarray.DataArray or numpy array.
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None
@@ -74,12 +71,6 @@ def data_kind(check_kind=None, data=None, x=None, y=None, z=None):
         kind = "matrix"
     else:
         kind = "vectors"
-
-    if check_kind == "raster" and kind not in ("file", "grid"):
-        raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
-    if check_kind == "vector" and kind not in ("file", "matrix", "vectors"):
-        raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
-
     return kind
 
 
