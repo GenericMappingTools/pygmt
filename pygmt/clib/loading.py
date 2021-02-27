@@ -116,7 +116,10 @@ def clib_full_names(env=None):
         )
         assert libfullpath.exists()
         yield str(libfullpath)
-    except (FileNotFoundError, AssertionError):  # command not found
+    except (FileNotFoundError, AssertionError, sp.CalledProcessError):
+        # the 'gmt' executable  is not found
+        # the gmt library is not found
+        # the 'gmt' executable is broken
         pass
 
     # 3. Search for DLLs in PATH by calling find_library() (Windows only)
