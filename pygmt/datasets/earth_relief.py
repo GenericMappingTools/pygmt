@@ -83,7 +83,7 @@ def load_earth_relief(resolution="01d", use_srtm=False, region=None, registratio
     >>> grid = load_earth_relief(
     ...     "03s",
     ...     use_srtm=True,
-    ...     region=[135, 145, 35, 40],
+    ...     region=[135, 136, 35, 36],
     ...     registration="gridline",
     ... )
     """
@@ -120,9 +120,8 @@ def load_earth_relief(resolution="01d", use_srtm=False, region=None, registratio
 
     # Choose earth relief data prefix
     earth_relief_prefix = "earth_relief_"
-    if resolution in land_only_srtm_resolutions:
-        if use_srtm:
-            earth_relief_prefix = "srtm_relief_"
+    if resolution in land_only_srtm_resolutions and use_srtm:
+        earth_relief_prefix = "srtm_relief_"
 
     # different ways to load tiled and non-tiled earth relief data
     # Known issue: tiled grids don't support slice operation
