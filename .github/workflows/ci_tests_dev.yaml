@@ -4,8 +4,8 @@
 name: GMT Dev Tests
 
 on:
-  # push:
-  #   branches: [ master ]
+  push:
+    branches: [ gmt-in ]
   pull_request:
     types: [ready_for_review]
     paths-ignore:
