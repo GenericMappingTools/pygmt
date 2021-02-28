@@ -47,7 +47,7 @@ fig.plot(data=data, style=arcstyle, color="red3", pen="1.5p,black")
 fig.text(text="CIRCULAR", x=-95, y=44.2, font="13p,Helvetica-Bold,black", fill="white")
 
 
-# plot geographic vectors using endpoints
+# Right: plot geographic vectors using endpoints
 NYC = [-74.0060, 40.7128]
 CHI = [-87.6298, 41.8781]
 SEA = [-122.3321, 47.6062]
