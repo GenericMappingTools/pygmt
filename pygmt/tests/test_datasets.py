@@ -93,8 +93,14 @@ def test_earth_relief_01d_with_region():
     """
     Test loading low-resolution earth relief with 'region'.
     """
-    with pytest.raises(NotImplementedError):
-        load_earth_relief("01d", region=[0, 180, 0, 90])
+    data = load_earth_relief(
+        resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
+    )
+    assert data.shape == (11, 21)
+    npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
+    npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
+    npt.assert_allclose(data.min(), -5145)
+    npt.assert_allclose(data.max(), 805.5)
 
 
 def test_earth_relief_30m():
@@ -140,3 +146,17 @@ def test_earth_relief_incorrect_registration():
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_relief(registration="improper_type")
+
+
+def test_earth_relief_invalid_resolution_registration_combination():
+    """
+    Test loading earth relief with invalid combination of resolution and
+    registration.
+    """
+    for resolution, registration in [
+        ("15s", "gridline"),
+        ("03s", "pixel"),
+        ("01s", "pixel"),
+    ]:
+        with pytest.raises(GMTInvalidInput):
+            load_earth_relief(resolution=resolution, registration=registration)

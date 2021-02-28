@@ -17,20 +17,21 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose")
 def info(table, **kwargs):
-    """
+    r"""
     Get information about data tables.
 
     Reads from files and finds the extreme values in each of the columns
     reported as min/max pairs. It recognizes NaNs and will print warnings if
     the number of columns vary from record to record. As an option, it will
     find the extent of the first two columns rounded up and down to the nearest
-    multiple of the supplied increments given by *spacing*. Such output will be
-    in a numpy.ndarray form ``[w, e, s, n]``, which can be used directly as the
-    *region* argument for other modules (hence only dx and dy are needed). If
-    the *per_column* option is combined with *spacing*, then the numpy.ndarray
-    output will be rounded up/down for as many columns as there are increments
-    provided in *spacing*. A similar option *nearest_multiple* option will
-    provide a numpy.ndarray in the form of ``[zmin, zmax, dz]`` for makecpt.
+    multiple of the supplied increments given by ``spacing``. Such output will
+    be in a numpy.ndarray form [*w*, *e*, *s*, *n*], which can be used
+    directly as the ``region`` parameter for other modules (hence only *dx*
+    and *dy* are needed). If the ``per_column`` parameter is combined with
+    ``spacing``, then the numpy.ndarray output will be rounded up/down for as
+    many columns as there are increments provided in ``spacing``. A similar
+    parameter ``nearest_multiple`` will provide a numpy.ndarray in the form
+    of [*zmin*, *zmax*, *dz*] for makecpt.
 
     Full option list at :gmt-docs:`gmtinfo.html`
 
@@ -45,12 +46,12 @@ def info(table, **kwargs):
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
-        ``'[b|p|f|s]dx[/dy[/dz...]]'``.
+        [**b**\|\ **p**\|\ **f**\|\ **s**]\ *dx*\[/*dy*\[/*dz*...]].
         Report the min/max of the first n columns to the nearest multiple of
         the provided increments and output results in the form
         ``[w, e, s, n]``.
     nearest_multiple : str
-        ``'dz[+ccol]'``
+        **dz**\[\ **+c**\ *col*].
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
@@ -59,10 +60,10 @@ def info(table, **kwargs):
     Returns
     -------
     output : np.ndarray or str
-        Return type depends on whether any of the 'per_column', 'spacing', or
-        'nearest_multiple' parameters are set.
+        Return type depends on whether any of the ``per_column``,
+        ``spacing``, or ``nearest_multiple`` parameters are set.
 
-        - np.ndarray if either of the above parameters are used.
+        - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
     kind = data_kind(table)

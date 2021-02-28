@@ -28,17 +28,17 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence")
 def grdcut(grid, **kwargs):
-    """
+    r"""
     Extract subregion from a grid.
 
-    Produce a new *outgrid* file which is a subregion of *grid*. The
-    subregion is specified with *region*; the specified range must not exceed
-    the range of *grid* (but see *extend*). If in doubt, run
+    Produce a new ``outgrid`` file which is a subregion of ``grid``. The
+    subregion is specified with ``region``; the specified range must not exceed
+    the range of ``grid`` (but see ``extend``). If in doubt, run
     :meth:`pygmt.grdinfo` to check range. Alternatively, define the subregion
     indirectly via a range check on the node values or via distances from a
-    given point. Finally, you can give *projection* for oblique projections to
-    determine the corresponding rectangular *region* setting that will give a
-    grid that fully covers the oblique domain.
+    given point. Finally, you can give ``projection`` for oblique projections
+    to determine the corresponding rectangular ``region`` that will give a grid
+    that fully covers the oblique domain.
 
     Full option list at :gmt-docs:`grdcut.html`
 
@@ -54,16 +54,16 @@ def grdcut(grid, **kwargs):
     {J}
     {R}
     extend : bool or int or float
-        Allow grid to be extended if new *region* exceeds existing boundaries.
-        Give a value to initialize nodes outside current region.
+        Allow grid to be extended if new ``region`` exceeds existing
+        boundaries. Give a value to initialize nodes outside current region.
     circ_subregion : str
-        ``'lon/lat/radius[unit][+n]'``.
+        *lon/lat/radius*\[\ *unit*\][**+n**].
         Specify an origin (*lon* and *lat*) and *radius*; append a distance
         *unit* and we determine the corresponding rectangular region so that
         all grid nodes on or inside the circle are contained in the subset.
         If **+n** is appended we set all nodes outside the circle to NaN.
     z_subregion : str
-        ``'[min/max][+n|N|r]'``.
+        [*min/max*\][**+n**\|\ **N**\|\ **r**].
         Determine a new rectangular region so that all nodes outside this
         region are also outside the given z-range [-inf/+inf]. To indicate no
         limit on *min* or *max* only, specify a hyphen (-). Normally, any NaNs
@@ -83,10 +83,11 @@ def grdcut(grid, **kwargs):
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the *outgrid* parameter is set:
+        Return type depends on whether the ``outgrid`` parameter is set:
 
-        - xarray.DataArray if *outgrid* is not set
-        - None if *outgrid* is set (grid output will be stored in *outgrid*)
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
     """
     kind = data_kind(grid)
 

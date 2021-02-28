@@ -3,7 +3,7 @@ Multi-parameter symbols
 -------------------------
 
 The :meth:`pygmt.Figure.plot` method can plot individual multi-parameter symbols by passing
-the corresponding shortcuts listed below to the ``style`` argument. Additionally, we must define
+the corresponding shortcuts listed below to the ``style`` parameter. Additionally, we must define
 the required parameters in a 2d list or numpy array (``[[parameters]]`` for a single symbol
 or ``[[parameters_1],[parameters_2],[parameters_i]]`` for several ones) or use an
 appropriately formatted input file and pass it to ``data``.

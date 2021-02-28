@@ -119,13 +119,21 @@ def test_plot_fail_size_color(data):
         )
 
 
-@pytest.mark.mpl_image_compare
+@check_figures_equal()
 def test_plot_projection(data):
     """
     Plot the data in green squares with a projection.
     """
-    fig = Figure()
-    fig.plot(
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.plot(
+        data=POINTS_DATA,
+        R="g",
+        J="R270/4i",
+        S="s0.2c",
+        G="green",
+        B="ag",
+    )
+    fig_test.plot(
         x=data[:, 0],
         y=data[:, 1],
         region="g",
@@ -134,7 +142,7 @@ def test_plot_projection(data):
         color="green",
         frame="ag",
     )
-    return fig
+    return fig_ref, fig_test
 
 
 @check_figures_equal()

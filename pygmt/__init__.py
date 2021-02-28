@@ -28,8 +28,9 @@ from pygmt.src import (
     makecpt,
     surface,
     which,
+    x2sys_cross,
+    x2sys_init,
 )
-from pygmt.x2sys import x2sys_cross, x2sys_init
 
 # Get semantic version through setuptools-scm
 __version__ = f'v{get_distribution("pygmt").version}'  # e.g. v0.1.2.dev3+g0ab3cd78
@@ -95,7 +96,7 @@ def show_versions():
         Get ghostscript version.
         """
         os_name = sys.platform
-        if os_name.startswith("linux") or os_name == "darwin":
+        if os_name.startswith(("linux", "freebsd", "darwin")):
             cmds = ["gs"]
         elif os_name == "win32":
             cmds = ["gswin64c.exe", "gswin32c.exe"]
