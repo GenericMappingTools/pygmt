@@ -82,9 +82,9 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     >>> # load the original 3 arc-second land-only SRTM tiles from NASA
     >>> grid = load_earth_relief(
     ...     "03s",
-    ...     use_srtm=True,
     ...     region=[135, 136, 35, 36],
     ...     registration="gridline",
+    ...     use_srtm=True,
     ... )
     """
 
