@@ -51,12 +51,12 @@ There are 8 configuration files located in `.github/workflows`:
 
 1. `style_checks.yaml` (Code lint and style checks)
 
-   This is ran on every commit to the *master* and Pull Request branches.
+   This is run on every commit to the *master* and Pull Request branches.
    It is also scheduled to run daily on the *master* branch.
 
 2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
 
-   This is ran on every commit to the *master* and Pull Request branches.
+   This is run on every commit to the *master* and Pull Request branches.
    It is also scheduled to run daily on the *master* branch.
    In draft Pull Requests, only one job (Ubuntu + Python latest)
    is triggered to save on Continuous Integration resources.
@@ -66,7 +66,7 @@ There are 8 configuration files located in `.github/workflows`:
 
    * Updating the development documentation by pushing the built HTML pages
      from the *master* branch onto the `dev` folder of the *gh-pages* branch.
-   * Updated the `latest` documentation link to the new release.
+   * Updating the `latest` documentation link to the new release.
 
 3. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
@@ -82,18 +82,18 @@ There are 8 configuration files located in `.github/workflows`:
 
 5. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
 
-   This workflow is ran to publish wheels to PyPI and TestPyPI (for testing only).
+   This workflow is run to publish wheels to PyPI and TestPyPI (for testing only).
    Archives will be pushed to TestPyPI on every commit to the *master* branch
    and tagged releases, and to PyPI for tagged releases only.
 
 6. `release-drafer.yml` (Drafts the next release notes)
 
-    This workflow is ran to update the next releases notes as pull requests are
+    This workflow is run to update the next releases notes as pull requests are
     merged into master.
 
 7. `check-links.yml` (Check links in the repository and website)
 
-   This workflow is ran weekly to check all external links in plaintext and
+   This workflow is run weekly to check all external links in plaintext and
    HTML files. It will create an issue if broken links are found.
 
 8. `format-command.yml` (Format the codes using slash command)
