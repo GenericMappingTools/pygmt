@@ -83,6 +83,24 @@ def test_earth_relief_05m_without_region():
         load_earth_relief("05m")
 
 
+def test_earth_relief_03s_landonly_srtm():
+    """
+    Test loading original 3 arc-second land-only SRTM tiles.
+    """
+    data = load_earth_relief(
+        "03s", region=[135, 136, 35, 36], registration="gridline", use_srtm=True
+    )
+
+    assert data.coords["lat"].data.min() == 35.0
+    assert data.coords["lat"].data.max() == 36.0
+    assert data.coords["lon"].data.min() == 135.0
+    assert data.coords["lon"].data.max() == 136.0
+    assert data.data.min() == -6.0
+    assert data.data.max() == 1191.0
+    assert data.sizes["lat"] == 1201
+    assert data.sizes["lon"] == 1201
+
+
 def test_earth_relief_incorrect_registration():
     """
     Test loading earth relief with incorrect registration type.
