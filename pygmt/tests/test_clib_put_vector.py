@@ -90,6 +90,62 @@ def test_put_vector_mixed_dtypes():
                 npt.assert_allclose(newy, y)
 
 
+def test_put_vector_string_dtype():
+    """
+    Passing string type data to a dataset.
+    """
+    vectors = np.array(
+        [
+            ["10", "20.0", "-30.0", "3.5e1"],  # numbers
+            ["10W", "30.50E", "30:30W", "40:30:30.500E"],  # longitudes
+            ["10N", "30.50S", "30:30N", "40:30:30.500S"],  # latitudes
+            # datetimes
+            ["2021-02-03", "2021-02-03T04", "2021-02-03T04:05:06.700", "T04:50:06.700"],
+        ]
+    )
+
+    expected_vectors = [
+        [10.0, 20.0, -30.0, 35],  # numbers
+        [-10, 30.5, -30.5, 40.508472],  # longitudes
+        [10, -30.50, 30.5, -40.508472],  # latitudes
+        # datetimes
+        ["2021-02-03", "2021-02-03T04", "2021-02-03T04:05:06.700", "T04:50:06.700"],
+    ]
+
+    expected_dtypes = [np.double, np.double, np.double, np.str_]
+
+    for i, j in itertools.combinations_with_replacement(range(3), r=2):
+        # TODO: Change range(3) to range(4)
+        with clib.Session() as lib:
+            dataset = lib.create_data(
+                family="GMT_IS_DATASET|GMT_VIA_VECTOR",
+                geometry="GMT_IS_POINT",
+                mode="GMT_CONTAINER_ONLY",
+                dim=[2, 4, 1, 0],  # columns, rows, layers, dtype
+            )
+            lib.put_vector(dataset, column=lib["GMT_X"], vector=vectors[i])
+            lib.put_vector(dataset, column=lib["GMT_Y"], vector=vectors[j])
+            # Turns out wesn doesn't matter for Datasets
+            wesn = [0] * 6
+            # Save the data to a file to see if it's being accessed correctly
+            with GMTTempFile() as tmp_file:
+                lib.write_data(
+                    "GMT_IS_VECTOR",
+                    "GMT_IS_POINT",
+                    "GMT_WRITE_SET",
+                    wesn,
+                    tmp_file.name,
+                    dataset,
+                )
+                # Load the data and check that it's correct
+                newx, newy = tmp_file.loadtxt(
+                    unpack=True,
+                    dtype=[("x", expected_dtypes[i]), ("y", expected_dtypes[j])],
+                )
+                npt.assert_allclose(newx, expected_vectors[i])
+                npt.assert_allclose(newy, expected_vectors[j])
+
+
 def test_put_vector_invalid_dtype():
     """
     Check that it fails with an exception for invalid data types.
