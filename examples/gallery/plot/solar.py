@@ -18,8 +18,7 @@ terminator_datetime = datetime.datetime(
     year=2000, month=1, day=1, hour=17, minute=0, second=0
 )
 # Set the pen line to be 1p thick
-# Set the fill for the night area to be navy blue at 80% transparency
-
+# Set the fill for the night area to be navy blue at different transparency levels
 fig.solar(
     terminator="day_night",
     terminator_datetime=terminator_datetime,

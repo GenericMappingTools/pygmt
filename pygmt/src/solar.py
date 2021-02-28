@@ -21,7 +21,9 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     V="verbose",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
+    t="transparency",
 )
 @kwargs_to_strings(R="sequence", p="sequence")
 def solar(self, terminator="d", terminator_datetime=None, **kwargs):
@@ -83,8 +85,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         if not terminator_datetime:
             terminator_datetime = datetime.datetime.now()
         try:
-            terminator_timestamp = pd.to_datetime(terminator_datetime)
-            datetime_string = terminator_timestamp.strftime("%Y-%m-%dT%H:%M:%S")
+            datetime_string = pd.to_datetime(terminator_datetime).strftime("%Y-%m-%dT%H:%M:%S")
         except ValueError as verr:
             raise GMTInvalidInput("Unrecognized datetime format.") from verr
         kwargs["T"] = terminator[0] + "+d" + datetime_string
