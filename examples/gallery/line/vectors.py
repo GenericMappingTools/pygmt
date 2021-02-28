@@ -32,7 +32,7 @@ fig.plot(x=x, y=y, style=style, pen="1p,red", direction=[direction, length])
 fig.text(text="CARTESIAN", x=-112, y=44.2, font="13p,Helvetica-Bold,red", fill="white")
 
 
-# plot 7 math angle arcs with different radii
+# Middle: plot 7 math angle arcs with different radii
 num = 7
 x = np.full(num, -95)  # x coordinates of the center
 y = np.full(num, 37)  # y coordinates of the center
