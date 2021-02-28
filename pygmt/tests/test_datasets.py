@@ -146,3 +146,17 @@ def test_earth_relief_incorrect_registration():
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_relief(registration="improper_type")
+
+
+def test_earth_relief_invalid_resolution_registration_combination():
+    """
+    Test loading earth relief with invalid combination of resolution and
+    registration.
+    """
+    for resolution, registration in [
+        ("15s", "gridline"),
+        ("03s", "pixel"),
+        ("01s", "pixel"),
+    ]:
+        with pytest.raises(GMTInvalidInput):
+            load_earth_relief(resolution=resolution, registration=registration)
