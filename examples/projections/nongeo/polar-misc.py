@@ -12,22 +12,23 @@ The region values are theta-min/theta-max/radius-min/radius-max.
 The following options are available:
 
 - **+a**: by default, :math:`\theta` refers to the angle that is equivalent to
-a counterclockwise rotation with respect to the east direction (standard
-definition); **+a** indicates that the input data is rotated clockwise relative
-to the north direction (geographical azimuth angle)
+  a counterclockwise rotation with respect to the east direction (standard
+  definition); **+a** indicates that the input data is rotated clockwise relative
+  to the north direction (geographical azimuth angle)
 
 - **+r**\ *offset*: represents the offset of the r axis. This options allows
-you to put the center of the circle not to r=0
+  you to put the center of the circle not to r=0
 
 - **+t**: sets the angle corresponding to the east direction which is
-equivalent to rotating the entire coordinate axis clockwise; if the **+a** option
-is used, setting the angle corresponding to the north direction is equivalent to
-rotating the entire coordinate axis counterclockwise.
+  equivalent to rotating the entire coordinate axis clockwise; if the **+a** option
+  is used, setting the angle corresponding to the north direction is equivalent to
+  rotating the entire coordinate axis counterclockwise.
 
 - **+f**: sets ...
 - **+z**: use radius instead of depth ?
 
-The lower-case version **j** is similar to **J** but expects ....
+The lower-case version **p** is similar to **P** but expects a scale instead of
+a width.
 
 
 """
