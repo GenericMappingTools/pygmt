@@ -76,7 +76,7 @@ There are 8 configuration files located in `.github/workflows`:
 
 4. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
-   This is scheduled to run every Sunday at 12 noon.
+   This is scheduled to run every Sunday at 12:00 (UTC).
    If new remote files are needed urgently, maintainers can manually uncomment
    the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
