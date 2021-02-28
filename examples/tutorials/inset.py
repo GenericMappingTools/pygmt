@@ -11,7 +11,7 @@ added to the inset figure instead of the larger figure.
 
     This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
     To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
 
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
@@ -41,10 +41,10 @@ fig.show()
 ########################################################################################
 #
 # The :meth:`pygmt.Figure.inset` method uses a context manager, and is called using a
-# ``with`` statement. The ``position`` argument, including the inset width, is required
-# to plot the inset. Using the **j** argument, the location of the inset is
+# ``with`` statement. The ``position`` parameter, including the inset width, is
+# required to plot the inset. Using the **j** argument, the location of the inset is
 # set to one of the 9 anchors (bottom-middle-top and left-center-right). In the
-# example below, ``BL`` sets the inset to the bottom left. The ``box`` argument can
+# example below, ``BL`` sets the inset to the bottom left. The ``box`` parameter can
 # set the fill and border of the inset. In the example below, ``+pblack`` sets the
 # border color to black and ``+gred`` sets the fill to red.
 

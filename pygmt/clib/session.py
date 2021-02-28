@@ -171,7 +171,7 @@ class Session:
         """
         Create a GMT API session and check the libgmt version.
 
-        Calls :meth:`~gmt.clib.Session.create`.
+        Calls :meth:`pygmt.clib.Session.create`.
 
         Raises
         ------
@@ -197,7 +197,7 @@ class Session:
         """
         Destroy the currently open GMT API session.
 
-        Calls :meth:`~gmt.clib.Session.destroy`.
+        Calls :meth:`pygmt.clib.Session.destroy`.
         """
         self.destroy()
 
@@ -296,10 +296,10 @@ class Session:
 
         .. warning::
 
-            Usage of :class:`~gmt.clib.Session` as a context manager in a
+            Usage of :class:`pygmt.clib.Session` as a context manager in a
             ``with`` block is preferred over calling
-            :meth:`~gmt.clib.Session.create` and
-            :meth:`~gmt.clib.Session.destroy` manually.
+            :meth:`pygmt.clib.Session.create` and
+            :meth:`pygmt.clib.Session.destroy` manually.
 
         Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL``
         struct, which is a :class:`ctypes.c_void_p` pointer. Sets the
@@ -387,10 +387,10 @@ class Session:
 
         .. warning::
 
-            Usage of :class:`~gmt.clib.Session` as a context manager in a
+            Usage of :class:`pygmt.clib.Session` as a context manager in a
             ``with`` block is preferred over calling
-            :meth:`~gmt.clib.Session.create` and
-            :meth:`~gmt.clib.Session.destroy` manually.
+            :meth:`pygmt.clib.Session.create` and
+            :meth:`pygmt.clib.Session.destroy` manually.
 
         Calls ``GMT_Destroy_Session`` to terminate and free the memory of a
         registered ``GMTAPI_CTRL`` session (the pointer for this struct is
@@ -631,7 +631,8 @@ class Session:
 
         If valid modifiers are not given, then will assume that modifiers are
         not allowed. In this case, will raise a
-        :class:`~gmt.exceptions.GMTInvalidInput` exception if given a modifier.
+        :class:`pygmt.exceptions.GMTInvalidInput` exception if given a
+        modifier.
 
         Parameters
         ----------
@@ -639,7 +640,7 @@ class Session:
             The name of a valid GMT API constant, with an optional modifier.
         valid : list of str
             A list of valid values for the constant. Will raise a
-            :class:`~gmt.exceptions.GMTInvalidInput` exception if the given
+            :class:`pygmt.exceptions.GMTInvalidInput` exception if the given
             value is not on the list.
         """
         parts = constant.split("|")
@@ -739,7 +740,7 @@ class Session:
         Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Vector``.
 
-        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
@@ -755,7 +756,7 @@ class Session:
         ----------
         dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`~gmt.clib.Session.create_data`.
+            :meth:`pygmt.clib.Session.create_data`.
         column : int
             The column number of this vector in the dataset (starting from 0).
         vector : numpy 1d-array
@@ -802,7 +803,7 @@ class Session:
         Use this function to attach string type numpy array data to a GMT
         dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
 
-        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
         first.
 
         .. warning::
@@ -815,7 +816,7 @@ class Session:
         ----------
         dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`~gmt.clib.Session.create_data`.
+            :meth:`pygmt.clib.Session.create_data`.
         family : str
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
             ``GMT_IS_MATRIX``.
@@ -862,7 +863,7 @@ class Session:
         Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Matrix``.
 
-        The dataset must be created by :meth:`~gmt.clib.Session.create_data`
+        The dataset must be created by :meth:`pygmt.clib.Session.create_data`
         first. Use ``|GMT_VIA_MATRIX'`` in the family.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
@@ -877,7 +878,7 @@ class Session:
         ----------
         dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
-            :meth:`~gmt.clib.Session.create_data`.
+            :meth:`pygmt.clib.Session.create_data`.
         matrix : numpy 2d-array
             The array that will be attached to the dataset. Must be a 2d C
             contiguous array.
@@ -910,7 +911,7 @@ class Session:
         Write a GMT data container to a file.
 
         The data container should be created by
-        :meth:`~gmt.clib.Session.create_data`.
+        :meth:`pygmt.clib.Session.create_data`.
 
         Wraps ``GMT_Write_Data`` but only allows writing to a file. So the
         ``method`` argument is omitted.
@@ -936,7 +937,7 @@ class Session:
             The output file name.
         data : :class:`ctypes.c_void_p`
             Pointer to the data container created by
-            :meth:`~gmt.clib.Session.create_data`.
+            :meth:`pygmt.clib.Session.create_data`.
 
         Raises
         ------
@@ -981,7 +982,7 @@ class Session:
 
         GMT uses a virtual file scheme to pass in data to API modules. Use it
         to pass in your GMT data structure (created using
-        :meth:`~gmt.clib.Session.create_data`) to a module that expects an
+        :meth:`pygmt.clib.Session.create_data`) to a module that expects an
         input or output file.
 
         Use in a ``with`` block. Will automatically close the virtual file when
@@ -1096,9 +1097,9 @@ class Session:
         virtual file upon exit of the ``with`` block.
 
         Use this instead of creating the data container and virtual file by
-        hand with :meth:`~gmt.clib.Session.create_data`,
-        :meth:`~gmt.clib.Session.put_vector`, and
-        :meth:`~gmt.clib.Session.open_virtual_file`.
+        hand with :meth:`pygmt.clib.Session.create_data`,
+        :meth:`pygmt.clib.Session.put_vector`, and
+        :meth:`pygmt.clib.Session.open_virtual_file`.
 
         If the arrays are C contiguous blocks of memory, they will be passed
         without copying to GMT. If they are not (e.g., they are columns of a 2D
@@ -1206,12 +1207,12 @@ class Session:
 
         **Not meant for creating ``GMT_GRID``**. The grid requires more
         metadata than just the data matrix. Use
-        :meth:`~gmt.clib.Session.virtualfile_from_grid` instead.
+        :meth:`pygmt.clib.Session.virtualfile_from_grid` instead.
 
         Use this instead of creating the data container and virtual file by
-        hand with :meth:`~gmt.clib.Session.create_data`,
-        :meth:`~gmt.clib.Session.put_matrix`, and
-        :meth:`~gmt.clib.Session.open_virtual_file`
+        hand with :meth:`pygmt.clib.Session.create_data`,
+        :meth:`pygmt.clib.Session.put_matrix`, and
+        :meth:`pygmt.clib.Session.open_virtual_file`
 
         The matrix must be C contiguous in memory. If it is not (e.g., it is a
         slice of a larger array), the array will be copied to make sure it is.
@@ -1288,9 +1289,9 @@ class Session:
         metadata.
 
         Use this instead of creating a data container and virtual file by hand
-        with :meth:`~gmt.clib.Session.create_data`,
-        :meth:`~gmt.clib.Session.put_matrix`, and
-        :meth:`~gmt.clib.Session.open_virtual_file`
+        with :meth:`pygmt.clib.Session.create_data`,
+        :meth:`pygmt.clib.Session.put_matrix`, and
+        :meth:`pygmt.clib.Session.open_virtual_file`
 
         The grid data matrix must be C contiguous in memory. If it is not
         (e.g., it is a slice of a larger array), the array will be copied to

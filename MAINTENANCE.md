@@ -47,43 +47,58 @@ conda and the `Makefile` to run the tests and checks.
 
 ### GitHub Actions
 
-There are 5 configuration files located in `.github/workflows`:
+There are 8 configuration files located in `.github/workflows`:
 
 1. `style_checks.yaml` (Code lint and style checks)
 
-This is ran on every commit to the *master* and Pull Request branches.
-It is also scheduled to run daily on the *master* branch.
+   This is run on every commit to the *master* and Pull Request branches.
+   It is also scheduled to run daily on the *master* branch.
 
 2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
 
-This is ran on every commit to the *master* and Pull Request branches.
-It is also scheduled to run daily on the *master* branch.
-In draft Pull Requests, only one job (Ubuntu + Python latest)
-is triggered to save on Continuous Integration resources.
+   This is run on every commit to the *master* and Pull Request branches.
+   It is also scheduled to run daily on the *master* branch.
+   In draft Pull Requests, only one job (Ubuntu + Python latest)
+   is triggered to save on Continuous Integration resources.
 
-On the *master* branch, the workflow also handles the documentation deployment:
+   On the *master* branch, the workflow also handles the documentation
+   deployment:
 
-* Updating the development documentation by pushing the built HTML pages from the
-  *master* branch onto the `dev` folder of the *gh-pages* branch.
-* Updated the `latest` documentation link to the new release.
+   * Updating the development documentation by pushing the built HTML pages
+     from the *master* branch onto the `dev` folder of the *gh-pages* branch.
+   * Updating the `latest` documentation link to the new release.
 
 3. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
-This is triggered when a PR is marked as "ready for review", or using the slash
-command `/test-gmt-dev`. It is also scheduled to run daily on the *master* branch.
+   This is triggered when a PR is marked as "ready for review", or using the
+   slash command `/test-gmt-dev`. It is also scheduled to run daily on the
+   *master* branch.
 
 4. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
-This is scheduled to run every Sunday at 12 noon.
-If new remote files are needed urgently, maintainers can manually uncomment
-the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
+   This is scheduled to run every Sunday at 12:00 (UTC).
+   If new remote files are needed urgently, maintainers can manually uncomment
+   the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
 5. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
 
-This workflow is ran to publish wheels to PyPI and TestPyPI (for testing only).
-Archives will be pushed to TestPyPI on every commit to the *master* branch and
-tagged releases, and to PyPI for tagged releases only.
+   This workflow is run to publish wheels to PyPI and TestPyPI (for testing only).
+   Archives will be pushed to TestPyPI on every commit to the *master* branch
+   and tagged releases, and to PyPI for tagged releases only.
 
+6. `release-drafer.yml` (Drafts the next release notes)
+
+    This workflow is run to update the next releases notes as pull requests are
+    merged into master.
+
+7. `check-links.yml` (Check links in the repository and website)
+
+   This workflow is run weekly to check all external links in plaintext and
+   HTML files. It will create an issue if broken links are found.
+
+8. `format-command.yml` (Format the codes using slash command)
+
+   This workflow is triggered in a PR if the slash command `/format` is used.
 
 ## Continuous Documentation
 

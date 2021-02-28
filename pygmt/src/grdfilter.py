@@ -115,9 +115,11 @@ def grdfilter(grid, **kwargs):
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the *outgrid* parameter is set:
-        - xarray.DataArray if *outgrid* is not set
-        - None if *outgrid* is set (grid output will be stored in *outgrid*)
+        Return type depends on whether the ``outgrid`` parameter is set:
+
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
 
     Examples
     --------
