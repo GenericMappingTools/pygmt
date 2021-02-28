@@ -38,12 +38,6 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
         ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'``, ``'15s'``, ``'03s'``,
         or ``'01s'``.
 
-    use_srtm : bool
-        By default, the land-only SRTM tiles from NASA are used to generate the
-        ``'03s'`` and ``'01s'`` grids, along with the missing ocean values
-        filled by up-sampling the relevant SRTM15+V2.1 tiles. If True, will
-        only load the original land-only SRTM tiles.
-
     region : str or list
         The subregion of the grid to load, in the forms of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
@@ -55,6 +49,12 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
         ``gridline`` for gridline registration. Default is ``None``, where
         a pixel-registered grid is returned unless only the
         gridline-registered grid is available.
+
+    use_srtm : bool
+        By default, the land-only SRTM tiles from NASA are used to generate the
+        ``'03s'`` and ``'01s'`` grids, along with the missing ocean values
+        filled by up-sampling the relevant SRTM15+V2.1 tiles. If True, will
+        only load the original land-only SRTM tiles.
 
     Returns
     -------
@@ -120,7 +120,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
 
     # Choose earth relief data prefix
     earth_relief_prefix = "earth_relief_"
-    if resolution in land_only_srtm_resolutions and use_srtm == True:
+    if resolution in land_only_srtm_resolutions and use_srtm is True:
         earth_relief_prefix = "srtm_relief_"
 
     # different ways to load tiled and non-tiled earth relief data
