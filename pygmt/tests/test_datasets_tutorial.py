@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading datasets.
+Test basic functionality for loading datasets for tutorials.
 """
 from pygmt.datasets import (
     load_japan_quakes,

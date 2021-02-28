@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading datasets.
+Test basic functionality for loading Earth relief datasets.
 """
 import numpy as np
 import numpy.testing as npt
