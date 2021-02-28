@@ -11,7 +11,7 @@ from pygmt.src import grdcut, which
 
 
 @kwargs_to_strings(convert_bools=False, region="sequence")
-def load_earth_relief(resolution="01d", use_srtm=False, region=None, registration=None):
+def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm=False):
     r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -38,7 +38,7 @@ def load_earth_relief(resolution="01d", use_srtm=False, region=None, registratio
         ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'``, ``'15s'``, ``'03s'``,
         or ``'01s'``.
 
-    use_srtm : bool or str
+    use_srtm : bool
         By default, the land-only SRTM tiles from NASA are used to generate the
         ``'03s'`` and ``'01s'`` grids, along with the missing ocean values
         filled by up-sampling the relevant SRTM15+V2.1 tiles. If True, will
@@ -79,7 +79,7 @@ def load_earth_relief(resolution="01d", use_srtm=False, region=None, registratio
     >>> grid = load_earth_relief(
     ...     "05m", region=[120, 160, 30, 60], registration="gridline"
     ... )
-    >>> # load the original land-only SRTM tiles from NASA
+    >>> # load the original 3 arc-second land-only SRTM tiles from NASA
     >>> grid = load_earth_relief(
     ...     "03s",
     ...     use_srtm=True,
@@ -120,7 +120,7 @@ def load_earth_relief(resolution="01d", use_srtm=False, region=None, registratio
 
     # Choose earth relief data prefix
     earth_relief_prefix = "earth_relief_"
-    if resolution in land_only_srtm_resolutions and use_srtm:
+    if resolution in land_only_srtm_resolutions and use_srtm == True:
         earth_relief_prefix = "srtm_relief_"
 
     # different ways to load tiled and non-tiled earth relief data
