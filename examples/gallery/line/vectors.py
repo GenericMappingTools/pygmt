@@ -21,7 +21,7 @@ fig.coast(
 )
 
 
-# plot 12 Cartesian vectors with different lengths
+# Left: plot 12 Cartesian vectors with different lengths
 x = np.linspace(-116, -116, 12)  # x vector coordinates
 y = np.linspace(33.5, 42.5, 12)  # y vector coordinates
 direction = np.zeros(x.shape)  # direction of vectors
