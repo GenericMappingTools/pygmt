@@ -86,7 +86,7 @@ There are 8 configuration files located in `.github/workflows`:
    Archives will be pushed to TestPyPI on every commit to the *master* branch
    and tagged releases, and to PyPI for tagged releases only.
 
-6. `release-drafer.yml` (Drafts the next release notes)
+6. `release-drafter.yml` (Drafts the next release notes)
 
     This workflow is run to update the next releases notes as pull requests are
     merged into master.
@@ -150,7 +150,9 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 5. Edit the list of people who contributed to the release, linking to their
    GitHub account. Sort their names by the number of commits made since the
    last release (e.g. use `` git shortlog HEAD...v0.1.2 -sne ``).
-6. Add a link to the new release version documentation in `README.rst`.
+6. Update `README.rst` with new information on the new release version, namely
+   the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
+   Python and GMT versions.
 
 ### Check the README syntax
 
