@@ -1384,6 +1384,29 @@ class Session:
         file_context : contextlib._GeneratorContextManager
             The virtual file stored inside a context manager. Access the file
             name of this virtualfile using ``with file_context as fname: ...``.
+
+        Examples
+        --------
+        >>> from pygmt.helpers import GMTTempFile
+        >>> import xarray as xr
+        >>> data = xr.Dataset(
+        ...     coords={"index": [0, 1, 2]},
+        ...     data_vars={
+        ...         "x": ("index", [9, 8, 7]),
+        ...         "y": ("index", [6, 5, 4]),
+        ...         "z": ("index", [3, 2, 1]),
+        ...     },
+        ... )
+        >>> with Session() as ses:
+        ...     with ses.virtualfile_from_data(
+        ...         check_kind="vector", data=data
+        ...     ) as fin:
+        ...         # Send the output to a file so that we can read it
+        ...         with GMTTempFile() as fout:
+        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             print(fout.read().strip())
+        ...
+        <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
         kind = data_kind(data, x, y, z)
 
