@@ -457,12 +457,15 @@ or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</c
 For example, <code>:doc:\`Install instructions \</install\>\`</code> links 
 to https://www.pygmt.org/latest/install.html.
 
-GMT documentation can be linked with 
-<code>:gmt-docs:\`page_name.html\`</code>. An example would be using
+Linking to the GMT documentation and GMT configuration parameters can be done using:
+
+- <code>:gmt-docs:\`page_name.html\`</code>
+- <code>:gmt-term:\`GMT_PARAMETER\`</code>
+
+An example would be using
 <code>:gmt-docs:\`makecpt.html\`</code> to link to 
 https://docs.generic-mapping-tools.org/latest/makecpt.html.
-GMT default settings can be linked with 
-<code>:gmt-term:\`DEFAULT_NAME\`</code>. An example would be using
+For GMT configuration parameters, an example is
 <code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to 
 https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
 
