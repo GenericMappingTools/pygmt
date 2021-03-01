@@ -23,7 +23,7 @@ dependencies:
     - jupyter
     - make
     - matplotlib
-    - nbsphinx
+    - myst-parser
     - pylint
     - pytest-cov
     - pytest-mpl

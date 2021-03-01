@@ -1,11 +1,14 @@
 """
 Test the functions that load libgmt.
 """
+import shutil
 import subprocess
 import sys
+import types
+from pathlib import PurePath
 
 import pytest
-from pygmt.clib.loading import check_libgmt, clib_names, load_libgmt
+from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_libgmt
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
@@ -73,3 +76,122 @@ def test_clib_names():
         assert clib_names(freebsd) == ["libgmt.so"]
     with pytest.raises(GMTOSError):
         clib_names("meh")
+
+
+###############################################################################
+# Tests for clib_full_names
+@pytest.fixture(scope="module", name="gmt_lib_names")
+def fixture_gmt_lib_names():
+    """
+    Return a list of the library names for the current operating system.
+    """
+    return clib_names(sys.platform)
+
+
+@pytest.fixture(scope="module", name="gmt_bin_dir")
+def fixture_gmt_bin_dir():
+    """
+    Return GMT's bin directory.
+    """
+    return str(PurePath(shutil.which("gmt")).parent)
+
+
+@pytest.fixture(scope="module", name="gmt_lib_realpath")
+def fixture_gmt_lib_realpath():
+    """
+    Return the real path of the GMT library.
+    """
+    lib_realpath = subprocess.check_output(
+        ["gmt", "--show-library"], encoding="utf-8"
+    ).rstrip("\n")
+    # On Windows, clib_full_names() returns paths with separator "\\",
+    # but "gmt --show-library" returns paths with separator "/".
+    # Use `str(PurePath(realpath)` to mimic the behavior of clib_full_names()
+    return str(PurePath(lib_realpath))
+
+
+def test_clib_full_names_gmt_library_path_undefined_path_empty(
+    monkeypatch, gmt_lib_names
+):
+    """
+    Make sure that clib_full_names() returns a generator with expected names
+    when GMT_LIBRARY_PATH is undefined and PATH is empty.
+    """
+    with monkeypatch.context() as mpatch:
+        mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
+        mpatch.setenv("PATH", "")
+        lib_fullpaths = clib_full_names()
+
+        assert isinstance(lib_fullpaths, types.GeneratorType)
+        assert list(lib_fullpaths) == gmt_lib_names
+
+
+def test_clib_full_names_gmt_library_path_defined_path_empty(
+    monkeypatch, gmt_lib_names, gmt_lib_realpath
+):
+    """
+    Make sure that clib_full_names() returns a generator with expected names
+    when GMT_LIBRARY_PATH is defined and PATH is empty.
+    """
+    with monkeypatch.context() as mpatch:
+        mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
+        mpatch.setenv("PATH", "")
+        lib_fullpaths = clib_full_names()
+
+        assert isinstance(lib_fullpaths, types.GeneratorType)
+        assert list(lib_fullpaths) == [gmt_lib_realpath] + gmt_lib_names
+
+
+def test_clib_full_names_gmt_library_path_undefined_path_included(
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
+):
+    """
+    Make sure that clib_full_names() returns a generator with expected names
+    when GMT_LIBRARY_PATH is undefined and PATH includes GMT's bin path.
+    """
+    with monkeypatch.context() as mpatch:
+        mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
+        mpatch.setenv("PATH", gmt_bin_dir)
+        lib_fullpaths = clib_full_names()
+
+        assert isinstance(lib_fullpaths, types.GeneratorType)
+        # Windows: find_library() searches the library in PATH, so one more
+        npath = 2 if sys.platform == "win32" else 1
+        assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
+
+
+def test_clib_full_names_gmt_library_path_defined_path_included(
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
+):
+    """
+    Make sure that clib_full_names() returns a generator with expected names
+    when GMT_LIBRARY_PATH is defined and PATH includes GMT's bin path.
+    """
+    with monkeypatch.context() as mpatch:
+        mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
+        mpatch.setenv("PATH", gmt_bin_dir)
+        lib_fullpaths = clib_full_names()
+
+        assert isinstance(lib_fullpaths, types.GeneratorType)
+        # Windows: find_library() searches the library in PATH, so one more
+        npath = 3 if sys.platform == "win32" else 2
+        assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
+
+
+def test_clib_full_names_gmt_library_path_incorrect_path_included(
+    monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
+):
+    """
+    Make sure that clib_full_names() returns a generator with expected names
+    when GMT_LIBRARY_PATH is defined but incorrect and PATH includes GMT's bin
+    path.
+    """
+    with monkeypatch.context() as mpatch:
+        mpatch.setenv("GMT_LIBRARY_PATH", "/not/a/valid/library/path")
+        mpatch.setenv("PATH", gmt_bin_dir)
+        lib_fullpaths = clib_full_names()
+
+        assert isinstance(lib_fullpaths, types.GeneratorType)
+        # Windows: find_library() searches the library in PATH, so one more
+        npath = 2 if sys.platform == "win32" else 1
+        assert list(lib_fullpaths) == [gmt_lib_realpath] * npath + gmt_lib_names
