@@ -57,10 +57,11 @@ clean:
 	find . -name "*.pyc" -exec rm -v {} +
 	find . -name "*~" -exec rm -v {} +
 	find . -type d -name  "__pycache__" -exec rm -rv {} +
-	rm -rvf build dist MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
+	rm -rvf build dist .eggs MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
 	rm -rvf result_images
+	rm -rvf results
 
 distclean: clean
 	rm -rvf *.egg-info
