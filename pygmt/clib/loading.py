@@ -53,9 +53,7 @@ def load_libgmt(lib_fullnames=None):
             error = False
             break
         except (OSError, GMTCLibError) as err:
-            error_msg.append(
-                f"Error loading the GMT shared library '{libname}'.\n{err}"
-            )
+            error_msg.append(f"Error loading GMT shared library at '{libname}'.\n{err}")
             failing_libs.append(libname)
 
     if error:

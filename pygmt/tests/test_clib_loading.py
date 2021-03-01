@@ -134,9 +134,9 @@ def test_load_libgmt_with_broken_libraries(monkeypatch):
         # The error message should contains information of both libraries
         lib_fullnames = [faked_libgmt1, faked_libgmt2]
         msg_regex = (
-            fr"Error loading the GMT shared library '{faked_libgmt1._name}'.\n"
+            fr"Error loading GMT shared library at '{faked_libgmt1._name}'.\n"
             fr"Error loading '{faked_libgmt1._name}'. Couldn't access.*\n"
-            fr"Error loading the GMT shared library '{faked_libgmt2._name}'.\n"
+            fr"Error loading GMT shared library at '{faked_libgmt2._name}'.\n"
             fr"Error loading '{faked_libgmt2._name}'. Couldn't access.*"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
@@ -145,9 +145,9 @@ def test_load_libgmt_with_broken_libraries(monkeypatch):
         # case 2: broken library + invalid path
         lib_fullnames = [faked_libgmt1, "/invalid/path/to/libgmt.so"]
         msg_regex = (
-            fr"Error loading the GMT shared library '{faked_libgmt1._name}'.\n"
+            fr"Error loading GMT shared library at '{faked_libgmt1._name}'.\n"
             fr"Error loading '{faked_libgmt1._name}'. Couldn't access.*\n"
-            "Error loading the GMT shared library '/invalid/path/to/libgmt.so'.\n"
+            "Error loading GMT shared library at '/invalid/path/to/libgmt.so'.\n"
             "Unable to find '/invalid/path/to/libgmt.so'"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
