@@ -1,7 +1,7 @@
 ---
 name: PyGMT release checklist
 about: Checklist for a new PyGMT release.
-title: Release PyGMT x.x.x
+title: Release PyGMT vX.Y.Z
 labels: maintenance
 assignees: ''
 
@@ -20,6 +20,8 @@ assignees: ''
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
   - [ ] Update citation information https://github.com/GenericMappingTools/pygmt#citing-pygmt
+  - [ ] Add the documentation link https://github.com/GenericMappingTools/pygmt#documentation-for-other-versions
+  - [ ] Add compatibility information https://github.com/GenericMappingTools/pygmt#compatibility-with-python-and-gmt-versions
   - [ ] Copy draft changelog from Release Drafter and edit it to look nice
 
 **Release**:
