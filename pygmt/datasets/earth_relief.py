@@ -53,7 +53,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     use_srtm : bool
         By default, the land-only SRTM tiles from NASA are used to generate the
         ``'03s'`` and ``'01s'`` grids, and the missing ocean values are filled
-        by up-sampling the SRTM15+V2.1 grid which has a resolution of 15
+        by up-sampling the SRTM15+V2.1 tiles which have a resolution of 15
         arc-second (i.e., ``'15s'``). If True, will only load the original
         land-only SRTM tiles.
 
