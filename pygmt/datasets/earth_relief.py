@@ -121,7 +121,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
 
     # Choose earth relief data prefix
     earth_relief_prefix = "earth_relief_"
-    if resolution in land_only_srtm_resolutions and use_srtm is True:
+    if use_srtm and resolution in land_only_srtm_resolutions:
         earth_relief_prefix = "srtm_relief_"
 
     # different ways to load tiled and non-tiled earth relief data
