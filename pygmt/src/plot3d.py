@@ -1,13 +1,11 @@
 """
 plot3d - Plot in three dimensions.
 """
-import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
