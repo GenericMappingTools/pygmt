@@ -187,14 +187,9 @@ def plot3d(
 
     with Session() as lib:
         # Choose how data will be passed in to the module
-        if kind == "file":
-            file_context = dummy_context(data)
-        elif kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(data)
-        elif kind == "vectors":
-            file_context = lib.virtualfile_from_vectors(
-                np.atleast_1d(x), np.atleast_1d(y), np.atleast_1d(z), *extra_arrays
-            )
+        file_context = lib.virtualfile_from_data(
+            check_kind="vector", data=data, x=x, y=y, z=z, extra_arrays=extra_arrays
+        )
 
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
