@@ -92,23 +92,25 @@ def test_put_vector_mixed_dtypes():
 
 def test_put_vector_string_dtype():
     """
-    Passing string type data to a dataset.
+    Passing string type vectors to a dataset.
     """
+    # input string vectors: numbers, longitudes, latitudes, and datetimes
     vectors = np.array(
         [
-            ["10", "20.0", "-30.0", "3.5e1"],  # numbers
-            ["10W", "30.50E", "30:30W", "40:30:30.500E"],  # longitudes
-            ["10N", "30.50S", "30:30N", "40:30:30.500S"],  # latitudes
-            # datetimes
+            ["10", "20.0", "-30.0", "3.5e1"],
+            ["10W", "30.50E", "30:30W", "40:30:30.500E"],
+            ["10N", "30.50S", "30:30N", "40:30:30.500S"],
             ["2021-02-03", "2021-02-03T04", "2021-02-03T04:05:06.700", "T04:50:06.700"],
         ]
     )
-
+    # output vectors in double or string type
+    # Notes:
+    # 1. longitudes and latitudes are stored in double in GMT
+    # 2. The default output format for datetime is YYYY-mm-ddTHH:MM:SS
     expected_vectors = [
-        [10.0, 20.0, -30.0, 35],  # numbers
-        [-10, 30.5, -30.5, 40.508472],  # longitudes
-        [10, -30.50, 30.5, -40.508472],  # latitudes
-        # datetimes
+        [10.0, 20.0, -30.0, 35],
+        [-10, 30.5, -30.5, 40.508472],
+        [10, -30.50, 30.5, -40.508472],
         [
             "2021-02-03T00:00:00",
             "2021-02-03T04:00:00",
@@ -117,6 +119,7 @@ def test_put_vector_string_dtype():
         ],
     ]
 
+    # loop over all possible combinations of input types
     for i, j in itertools.combinations_with_replacement(range(4), r=2):
         with clib.Session() as lib:
             dataset = lib.create_data(
@@ -139,10 +142,13 @@ def test_put_vector_string_dtype():
                     tmp_file.name,
                     dataset,
                 )
-                # Load the data and check that it's correct
+                # Load the data
                 output = np.genfromtxt(
                     tmp_file.name, dtype=None, names=("x", "y"), encoding=None
                 )
+                # check that the output is correct
+                # Use npt.assert_allclose for numeric arrays
+                # and npt.assert_array_equal for string arrays
                 if i != 3:
                     npt.assert_allclose(output["x"], expected_vectors[i])
                 else:
