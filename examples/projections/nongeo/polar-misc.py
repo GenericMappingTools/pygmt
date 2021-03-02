@@ -45,14 +45,19 @@ import pygmt
 
 fig = pygmt.Figure()
 
-pygmt.config(FONT_TITLE="14p,Helvetica,black",
-             FORMAT_GEO_MAP = "+D")
+pygmt.config(FONT_TITLE="14p,Helvetica,black", FORMAT_GEO_MAP="+D")
 
 # ============
 
-fig.basemap(region=[0, 360, 0, 1], # set map limits to theta_min = 0, theta_max = 360, radius_min = 0, radius_max = 1
-            projection="P5c", # set map width to 5 cm
-            frame=["xa45f", "+gbisque"] # set the figures frame and color
+fig.basemap(
+    region=[
+        0,
+        360,
+        0,
+        1,
+    ],  # set map limits to theta_min = 0, theta_max = 360, radius_min = 0, radius_max = 1
+    projection="P5c",  # set map width to 5 cm
+    frame=["xa45f", "+gbisque"],  # set the figures frame and color
 )
 
 fig.text(position="TC", text="projection='P5c'", offset="0/2.0c", no_clip=True)
@@ -63,9 +68,14 @@ fig.shift_origin(xshift="8c")
 
 # ============
 fig.basemap(
-    region=[0, 360, 0, 1], # set map limits to theta_min = 0, theta_max = 360, radius_min = 0, radius_max = 1
-    projection="P5c+a", # set map width to 5 cm and rotate input data clockwise relative to north direction
-    frame=["xa45f", "+gbisque"] # set the figures frame and color
+    region=[
+        0,
+        360,
+        0,
+        1,
+    ],  # set map limits to theta_min = 0, theta_max = 360, radius_min = 0, radius_max = 1
+    projection="P5c+a",  # set map width to 5 cm and rotate input data clockwise relative to north direction
+    frame=["xa45f", "+gbisque"],  # set the figures frame and color
 )
 
 fig.text(position="TC", text="projection='P5c+a'", offset="0/2.0c", no_clip=True)
@@ -76,9 +86,14 @@ fig.shift_origin(xshift="8c")
 
 # ============
 fig.basemap(
-    region=[0, 90, 0, 1], # set map limits to theta_min = 0, theta_max = 90, radius_min = 0, radius_max = 1
-    projection="P5c+a", # set map width to 5 cm and rotate input data clockwise relative to north direction
-    frame=["xa45f", "ya0.2", "WNe+gbisque"] # set the figures frame and color
+    region=[
+        0,
+        90,
+        0,
+        1,
+    ],  # set map limits to theta_min = 0, theta_max = 90, radius_min = 0, radius_max = 1
+    projection="P5c+a",  # set map width to 5 cm and rotate input data clockwise relative to north direction
+    frame=["xa45f", "ya0.2", "WNe+gbisque"],  # set the figures frame and color
 )
 
 fig.text(position="TC", text="projection='P5c+a'", offset="0/2.0c", no_clip=True)
@@ -89,11 +104,16 @@ fig.shift_origin(xshift="-16c", yshift="-7c")
 
 # ============
 fig.basemap(
-    region=[0, 90, 0, 1], # set map limits to theta_min = 0, theta_max = 90, radius_min = 0, radius_max = 1
+    region=[
+        0,
+        90,
+        0,
+        1,
+    ],  # set map limits to theta_min = 0, theta_max = 90, radius_min = 0, radius_max = 1
     # set map width to 5 cm and rotate input data clockwise relative to north direction,
     # rotate coordinate system counterclockwise by 45 degrees
     projection="P5c+a+t45",
-    frame=["xa45f", "ya0.2", "WNe+gbisque"], # set the figures frame and color
+    frame=["xa45f", "ya0.2", "WNe+gbisque"],  # set the figures frame and color
 )
 
 fig.text(position="TC", text="projection='P5c+a\+t45'", offset="0/2.0c", no_clip=True)
@@ -110,12 +130,14 @@ fig.basemap(
     # set map width to 5 cm and rotate input data clockwise relative to north direction,
     # rotate coordinate system counterclockwise by 45 degrees
     projection="P5c+a+t45",
-    frame=["xa45f", "ya", "WNse+gbisque"], # set the figures frame and color
+    frame=["xa45f", "ya", "WNse+gbisque"],  # set the figures frame and color
 )
 
 fig.text(position="TC", text="projection='P5c+a\+t45'", offset="0/2.0c", no_clip=True)
 
-fig.text(position="TC", text="region=[0, 90, 3480, 6371]", offset="0/1.5c", no_clip=True)
+fig.text(
+    position="TC", text="region=[0, 90, 3480, 6371]", offset="0/1.5c", no_clip=True
+)
 
 fig.shift_origin(xshift="8c")
 
@@ -134,6 +156,8 @@ fig.basemap(
 
 fig.text(position="TC", text="projection='P5c+a\+t45+z'", offset="0/2.0c", no_clip=True)
 
-fig.text(position="TC", text="region=[0, 90, 3480, 6371]", offset="0/1.5c", no_clip=True)
+fig.text(
+    position="TC", text="region=[0, 90, 3480, 6371]", offset="0/1.5c", no_clip=True
+)
 
 fig.show()
