@@ -212,6 +212,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.get_default
     clib.Session.create_data
     clib.Session.put_matrix
+    clib.Session.put_strings
     clib.Session.put_vector
     clib.Session.write_data
     clib.Session.open_virtual_file
