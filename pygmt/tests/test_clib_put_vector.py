@@ -109,13 +109,17 @@ def test_put_vector_string_dtype():
         [-10, 30.5, -30.5, 40.508472],  # longitudes
         [10, -30.50, 30.5, -40.508472],  # latitudes
         # datetimes
-        ["2021-02-03", "2021-02-03T04", "2021-02-03T04:05:06.700", "T04:50:06.700"],
+        [
+            "2021-02-03T00:00:00",
+            "2021-02-03T04:00:00",
+            "2021-02-03T04:05:06",
+            "2021-03-02T04:50:06",
+        ],
     ]
 
     expected_dtypes = [np.double, np.double, np.double, np.str_]
 
-    for i, j in itertools.combinations_with_replacement(range(3), r=2):
-        # TODO: Change range(3) to range(4)
+    for i, j in itertools.combinations_with_replacement(range(4), r=2):
         with clib.Session() as lib:
             dataset = lib.create_data(
                 family="GMT_IS_DATASET|GMT_VIA_VECTOR",
@@ -138,12 +142,17 @@ def test_put_vector_string_dtype():
                     dataset,
                 )
                 # Load the data and check that it's correct
-                newx, newy = tmp_file.loadtxt(
-                    unpack=True,
-                    dtype=[("x", expected_dtypes[i]), ("y", expected_dtypes[j])],
+                output = np.genfromtxt(
+                    tmp_file.name, dtype=None, names=("x", "y"), encoding=None
                 )
-                npt.assert_allclose(newx, expected_vectors[i])
-                npt.assert_allclose(newy, expected_vectors[j])
+                if i != 3:
+                    npt.assert_allclose(output["x"], expected_vectors[i])
+                else:
+                    npt.assert_array_equal(output["x"], expected_vectors[i])
+                if j != 3:
+                    npt.assert_allclose(output["y"], expected_vectors[j])
+                else:
+                    npt.assert_array_equal(output["y"], expected_vectors[j])
 
 
 def test_put_vector_invalid_dtype():
