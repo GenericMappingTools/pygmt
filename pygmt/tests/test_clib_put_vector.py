@@ -117,8 +117,6 @@ def test_put_vector_string_dtype():
         ],
     ]
 
-    expected_dtypes = [np.double, np.double, np.double, np.str_]
-
     for i, j in itertools.combinations_with_replacement(range(4), r=2):
         with clib.Session() as lib:
             dataset = lib.create_data(
