@@ -20,7 +20,7 @@
 
     overview.rst
     install.rst
-    tutorials/first-figure.rst
+    tutorials/beginner_tutorial.rst
     gallery/index.rst
 
 .. toctree::
@@ -28,6 +28,7 @@
     :hidden:
     :caption: User Guide
 
+    tutorials/first-figure.rst
     tutorials/frames.rst
     projections/index.rst
     tutorials/coastlines.rst
