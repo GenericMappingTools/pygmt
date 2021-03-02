@@ -95,6 +95,7 @@ def test_earth_relief_03s_landonly_srtm():
     assert data.coords["lat"].data.max() == 36.0
     assert data.coords["lon"].data.min() == 135.0
     assert data.coords["lon"].data.max() == 136.0
+    # data.data.min() == -305.51846 if use_srtm is False.
     assert data.data.min() == -6.0
     assert data.data.max() == 1191.0
     assert data.sizes["lat"] == 1201
