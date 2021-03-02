@@ -12,10 +12,10 @@ PyGMT
     :target: https://pypi.python.org/pypi/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
-    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
+    :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
-    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3A%22GMT+Latest+Tests%22
+    :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/pygmt
@@ -86,8 +86,8 @@ Project goals
 * Build a Pythonic API for GMT.
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
-* Integration with the `PyData <https://pydata.org/>`__ ecosystem: 
-  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables and 
+* Integration with the `PyData <https://pydata.org/>`__ ecosystem:
+  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables and
   ``xarray.DataArray`` for grids.
 
 
