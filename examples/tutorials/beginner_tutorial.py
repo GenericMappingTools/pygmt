@@ -15,4 +15,3 @@ This is a tutorial to teach a new user how to use PyGMT.
 # 2. This tutorial assumes the use of a Python notebook, such as IPython or Jupyter
 # Notebook. To see the figures while using a Python script instead,
 # use ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
