@@ -3,8 +3,8 @@ Cartesian, circular, and geographic vectors
 -------------------------------------------
 
 The :meth:`pygmt.Figure.plot` method can plot Cartesian, circular, and geographic vectors.
-The ``style`` parameter controls vector attributes.
-Vector documentation: https://www.pygmt.org/dev/gallery/line/vector-heads-tails.html
+The ``style`` parameter controls vector attributes. See also
+:doc:`Vector attributes documentation </gallery/line/vector-heads-tails>`.
 
 """
 import numpy as np
