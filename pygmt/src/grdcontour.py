@@ -23,6 +23,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     X="xshift",
     Y="yshift",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
 )
@@ -84,6 +85,7 @@ def grdcontour(self, grid, **kwargs):
     {W}
     {XY}
     {c}
+    {f}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the

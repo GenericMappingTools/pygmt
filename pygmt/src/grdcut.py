@@ -22,6 +22,7 @@ from pygmt.helpers import (
     S="circ_subregion",
     V="verbose",
     Z="z_subregion",
+    f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
 def grdcut(grid, **kwargs):
@@ -76,6 +77,7 @@ def grdcut(grid, **kwargs):
         area.
 
     {V}
+    {f}
 
     Returns
     -------

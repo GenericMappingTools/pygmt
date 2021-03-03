@@ -15,7 +15,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(n="interpolation", V="verbose")
+@use_alias(V="verbose", f="coltypes", n="interpolation")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     """
     Sample grids at specified (x,y) locations.
@@ -55,7 +55,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         file.
 
     {V}
-
+    {f}
     {n}
 
     Returns
