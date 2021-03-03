@@ -45,17 +45,5 @@ api:
 	@echo
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
-
-linkcheck:
-	$(SPHINXBUILD) -b linkcheck -j auto $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
-	@echo
-	@echo "Link check complete; look for any errors in the above output " \
-	      "or in $(BUILDDIR)/linkcheck/output.txt."
-
-doctest:
-	$(SPHINXBUILD) -b doctest -j auto $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
-	@echo "Testing of doctests in the sources finished, look at the " \
-	      "results in $(BUILDDIR)/doctest/output.txt."
-
 serve:
 	cd $(BUILDDIR)/html && python -m http.server 8009
