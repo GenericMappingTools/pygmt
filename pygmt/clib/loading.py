@@ -46,12 +46,11 @@ def load_libgmt(lib_fullnames=None):
     failing_libs = []
     for libname in lib_fullnames:
         try:
-            if libname in failing_libs:  # libname is known to fail, so skip it
-                continue
-            libgmt = ctypes.CDLL(libname)
-            check_libgmt(libgmt)
-            error = False
-            break
+            if libname not in failing_libs:  # skip the lib if it's known to fail
+                libgmt = ctypes.CDLL(libname)
+                check_libgmt(libgmt)
+                error = False
+                break
         except (OSError, GMTCLibError) as err:
             error_msg.append(f"Error loading GMT shared library at '{libname}'.\n{err}")
             failing_libs.append(libname)
