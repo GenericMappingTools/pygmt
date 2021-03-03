@@ -2,8 +2,15 @@ r"""
 Miscellaneous ways to use polar projections
 ===========================================
 
-Polar projections allow to plot polar coordinate data (e.g. angle
-:math:`\theta` and radius *r*). Limits are set via the ``region`` parameter
+Polar projections allow plotting polar coordinate data (e.g. angle
+:math:`\theta` and radius *r*). 
+
+The full syntax for polar projections is:
+
+**P**\ *width*\ [**+a**]\ [**+f**\ [**e**\|\ **p**\|\ *radius*]]
+[**+r**\ *offset*][**+t**\ *origin*][**+z**\ [**p**\|\ *radius*]]
+
+Limits are set via the ``region`` parameter
 ([*theta_min*, *theta_max*, *radius_min*, *radius_max*]). When using
 **P**\ *width* you have to give the *width* of the figure. The lower-case
 version **p** is similar to **P** but expects a *scale* instead of
