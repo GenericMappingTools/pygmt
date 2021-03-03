@@ -7,7 +7,7 @@ and naming conventions.
 
 .. note::
 
-    This tutorial assumes the use of a Python notebook, such as `IPython <https://www.pygmt.org/latest/install.html#using-pip>`__
+    This tutorial assumes the use of a Python notebook, such as `IPython <https://ipython.org/>`__
     or `JupyterLab <https://jupyter.org/>`__.
     To see the figures while using a Python script instead, use
     ``fig.show(method="external")`` to display the figure in the default PDF viewer.
