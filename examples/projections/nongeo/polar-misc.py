@@ -21,7 +21,7 @@ The following customizing modifiers are available:
 
 - **+t**\ *origin*: sets the angle corresponding to the east direction which is
   equivalent to rotating the entire coordinate axis clockwise; if the **+a**
-  option is used, setting the angle corresponding to the north direction is
+  modifier is used, setting the angle corresponding to the north direction is
   equivalent to rotating the entire coordinate axis counterclockwise.
 
 - **+f**: reverses the radial direction.
