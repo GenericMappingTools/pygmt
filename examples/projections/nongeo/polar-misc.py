@@ -24,7 +24,7 @@ The following customizing modifiers are available:
   relative to the north direction (geographical azimuth angle).
 
 - **+r**\ *offset*: represents the offset of the r axis. This modifier allows
-  you to put the center of the circle not to r=0.
+  you to offset the center of the circle from r=0.
 
 - **+t**\ *origin*: sets the angle corresponding to the east direction which is
   equivalent to rotating the entire coordinate axis clockwise; if the **+a**
