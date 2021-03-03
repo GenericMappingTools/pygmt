@@ -7,7 +7,7 @@ Polar projections allow plotting polar coordinate data (e.g. angle
 
 The full syntax for polar projections is:
 
-**P**\ *width*\ [**+a**]\ [**+f**\ [**e**\|\ **p**\|\ *radius*]]
+**P**\ *width*\ [**+a**]\ [**+f**\ [**e**\|\ **p**\|\ *radius*]]\
 [**+r**\ *offset*][**+t**\ *origin*][**+z**\ [**p**\|\ *radius*]]
 
 Limits are set via the ``region`` parameter
