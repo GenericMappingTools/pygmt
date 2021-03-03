@@ -103,7 +103,7 @@ def test_load_libgmt_with_broken_libraries(monkeypatch):
         Parameters
         ----------
         libname : str or FakedLibGMT or ctypes.CDLL
-            Path to the GMT library, a faked GMT library or a working library
+            Path to the GMT library, a faked GMT library, or a working library
             loaded as ctypes.CDLL.
 
         Return
@@ -115,7 +115,7 @@ def test_load_libgmt_with_broken_libraries(monkeypatch):
             # libname is a faked GMT library, return the faked library
             return libname
         if isinstance(libname, str):
-            # libname is an invalid library path in str type,
+            # libname is an invalid library path in string type,
             # raise OSError like the original ctypes.CDLL
             raise OSError(f"Unable to find '{libname}'")
         # libname is a loaded GMT library
@@ -123,7 +123,7 @@ def test_load_libgmt_with_broken_libraries(monkeypatch):
 
     with monkeypatch.context() as mpatch:
         # pylint: disable=protected-access
-        # mock the ctypes.CDLL using mock_ctypes_cdll_return()
+        # mock the ctypes.CDLL function using mock_ctypes_cdll_return()
         mpatch.setattr(ctypes, "CDLL", mock_ctypes_cdll_return)
 
         faked_libgmt1 = FakedLibGMT("/path/to/faked/libgmt1.so")
@@ -131,7 +131,7 @@ def test_load_libgmt_with_broken_libraries(monkeypatch):
 
         # case 1: two broken libraries
         # Raise the GMTCLibNotFoundError exception
-        # The error message should contains information of both libraries
+        # The error message should contain information of both libraries
         lib_fullnames = [faked_libgmt1, faked_libgmt2]
         msg_regex = (
             fr"Error loading GMT shared library at '{faked_libgmt1._name}'.\n"
@@ -165,7 +165,7 @@ def test_load_libgmt_with_broken_libraries(monkeypatch):
         lib_fullnames = [loaded_libgmt, faked_libgmt1, "/invalid/path/to/libgmt.so"]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-        # case 6: repeated broken library + working library
+        # case 6: repeating broken libraries + working library
         lib_fullnames = [faked_libgmt1, faked_libgmt1, loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
