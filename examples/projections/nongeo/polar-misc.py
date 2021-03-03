@@ -74,7 +74,8 @@ fig.shift_origin(xshift="8c")
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 360, radius_min = 0, radius_max = 1
     region=[0, 360, 0, 1],
-    # set map width to 5 cm and rotate input data clockwise relative to north direction
+    # set map width to 5 cm and interpret input data as geographic azimuth instead
+    # of standard angle
     projection="P5c+a",
     # set the frame and color
     frame=["xa45f", "+gbisque"],
@@ -89,7 +90,8 @@ fig.shift_origin(xshift="8c")
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 90, radius_min = 0, radius_max = 1
     region=[0, 90, 0, 1],
-    # set map width to 5 cm and rotate input data clockwise relative to north direction
+    # set map width to 5 cm and interpret input data as geographic azimuth instead
+    # of standard angle
     projection="P5c+a",
     # set the frame and color
     frame=["xa45f", "ya0.2", "WNe+gbisque"],
@@ -104,8 +106,8 @@ fig.shift_origin(xshift="-16c", yshift="-7c")
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 90, radius_min = 0, radius_max = 1
     region=[0, 90, 0, 1],
-    # set map width to 5 cm and rotate input data clockwise relative to north direction,
-    # rotate coordinate system counterclockwise by 45 degrees
+    # set map width to 5 cm and interpret input data as geographic azimuth instead
+    # of standard angle, rotate coordinate system counterclockwise by 45 degrees
     projection="P5c+a+t45",
     # set the frame and color
     frame=["xa30f", "ya0.2", "WNe+gbisque"],
@@ -121,8 +123,8 @@ fig.basemap(
     # set map limits to theta_min = 0, theta_max = 90, radius_min = 3480,
     # radius_max = 6371 (Earth's radius)
     region=[0, 90, 3480, 6371],
-    # set map width to 5 cm and rotate input data clockwise relative to north direction,
-    # rotate coordinate system counterclockwise by 45 degrees
+    # set map width to 5 cm and interpret input data as geographic azimuth instead
+    # of standard angle, rotate coordinate system counterclockwise by 45 degrees
     projection="P5c+a+t45",
     # set the frame and color
     frame=["xa30f", "ya", "WNse+gbisque"],
@@ -140,8 +142,8 @@ fig.basemap(
     # set map limits to theta_min = 0, theta_max = 90, radius_min = 3480,
     # radius_max = 6371 (Earth's radius)
     region=[0, 90, 3480, 6371],
-    # set map width to 5 cm and rotate input data clockwise relative to north direction,
-    # rotate coordinate system counterclockwise by 45 degrees,
+    # set map width to 5 cm and interpret input data as geographic azimuth instead
+    # of standard angle, rotate coordinate system counterclockwise by 45 degrees,
     # r axis is marked as depth
     projection="P5c+a+t45+z",
     # set the frame and color
