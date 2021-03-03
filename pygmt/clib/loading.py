@@ -84,7 +84,7 @@ def clib_names(os_name):
     elif os_name.startswith("freebsd"):  # FreeBSD
         libnames = ["libgmt.so"]
     else:
-        raise GMTOSError(f'Operating system "{os_name}" not supported.')
+        raise GMTOSError(f"Operating system '{os_name}' not supported.")
     return libnames
 
 
