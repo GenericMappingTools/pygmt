@@ -105,7 +105,7 @@ def test_info_2d_array():
     table = np.loadtxt(POINTS_DATA)
     output = info(table=table)
     expected_output = (
-        "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+        "<matrix memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 

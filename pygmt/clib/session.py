@@ -1442,8 +1442,15 @@ class Session:
                 # pandas.DataFrame and xarray.Dataset types
                 _data = [array for _, array in data.items()]
             except AttributeError:
-                # Python lists, tuples, and numpy ndarray types
-                _data = np.atleast_2d(np.asanyarray(data).T)
+                try:
+                    # Just use virtualfile_from_matrix for 2D
+                    # numpy.ndarray which are not datetime (M) types
+                    assert data.ndim == 2 and not data.dtype.kind == "M"
+                    _virtualfile_from = self.virtualfile_from_matrix
+                    _data = (data,)
+                except (AssertionError, AttributeError):
+                    # Python lists, tuples, and numpy ndarray types
+                    _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)
