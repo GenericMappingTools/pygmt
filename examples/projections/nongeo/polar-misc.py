@@ -118,7 +118,7 @@ fig.basemap(
     # rotate coordinate system counterclockwise by 45 degrees
     projection="P5c+a+t45",
     # set the figures frame and color
-    frame=["xa45f", "ya", "WNse+gbisque"],
+    frame=["xa30f", "ya", "WNse+gbisque"],
 )
 
 fig.text(position="TC", text="projection='P5c+a\+t45'", offset="0/2.0c", no_clip=True)
