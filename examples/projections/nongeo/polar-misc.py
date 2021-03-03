@@ -137,7 +137,7 @@ fig.basemap(
     # rotate coordinate system counterclockwise by 45 degrees,
     # r axis is marked as depth
     projection="P5c+a+t45+z",
-    # set the figures frame and color
+    # set the frame and color
     frame=["xa30f", "ya", "WNse+gbisque"],
 )
 
