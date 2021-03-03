@@ -138,7 +138,7 @@ fig.basemap(
     # r axis is marked as depth
     projection="P5c+a+t45+z",
     # set the figures frame and color
-    frame=["xa45f", "ya", "WNse+gbisque"],
+    frame=["xa30f", "ya", "WNse+gbisque"],
 )
 
 fig.text(position="TC", text="projection='P5c+a\+t45+z'", offset="0/2.0c", no_clip=True)
