@@ -71,10 +71,10 @@ sphinx_gallery_conf = {
     "gallery_dirs": ["gallery", "tutorials", "projections"],
     "subsection_order": ExplicitOrder(
         [
+            "../examples/gallery/maps",
             "../examples/gallery/line",
-            "../examples/gallery/coast",
-            "../examples/gallery/plot",
-            "../examples/gallery/grid",
+            "../examples/gallery/symbols",
+            "../examples/gallery/3d-plots",
             "../examples/projections/azim",
             "../examples/projections/conic",
             "../examples/projections/cyl",
