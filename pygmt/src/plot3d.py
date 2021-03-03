@@ -37,6 +37,7 @@ from pygmt.helpers import (
     i="columns",
     l="label",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
 )
@@ -151,6 +152,7 @@ def plot3d(
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
     {c}
+    {f}
     label : str
         Add a legend entry for the symbol or line being plotted.
     {p}

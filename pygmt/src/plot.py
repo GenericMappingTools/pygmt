@@ -37,6 +37,7 @@ from pygmt.helpers import (
     i="columns",
     l="label",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
 )
@@ -181,6 +182,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
     {c}
+    {f}
     columns : str or 1d array
         Choose which columns are x, y, color, and size, respectively if
         input is provided via *data*. E.g. ``columns = [0, 1]`` or

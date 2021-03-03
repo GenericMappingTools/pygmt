@@ -1413,7 +1413,7 @@ class Session:
         kind = data_kind(data, x, y, z)
 
         if check_kind == "raster" and kind not in ("file", "grid"):
-            raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
+            raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
         if check_kind == "vector" and kind not in ("file", "matrix", "vectors"):
             raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
 

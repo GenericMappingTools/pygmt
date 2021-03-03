@@ -72,6 +72,13 @@ COMMON_OPTIONS = {
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
          """,
+    "f": r"""
+        coltypes : str
+            [**i**\|\ **o**]\ *colinfo*.
+            Specify data types of input and/or output columns (time or
+            geographical data). Full documentation is at
+            :gmt-docs:`gmt.html#f-full`.
+         """,
     "j": r"""
         distcalc : str
             **e**\|\ **f**\|\ **g**.
