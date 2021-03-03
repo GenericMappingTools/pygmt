@@ -8,7 +8,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -112,14 +111,8 @@ def grdview(self, grid, **kwargs):
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    kind = data_kind(grid, None, None)
     with Session() as lib:
-        if kind == "file":
-            file_context = dummy_context(grid)
-        elif kind == "grid":
-            file_context = lib.virtualfile_from_grid(grid)
-        else:
-            raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
+        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
         with contextlib.ExitStack() as stack:
             if "G" in kwargs:  # deal with kwargs["G"] if drapegrid is xr.DataArray
