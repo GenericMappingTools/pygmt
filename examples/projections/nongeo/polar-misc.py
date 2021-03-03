@@ -9,7 +9,7 @@ Polar projections allow to plot polar coordinate data (e.g. angle
 version **p** is similar to **P** but expects a *scale* instead of
 a width (**p**\ *scale*).
 
-The following customizing options are available:
+The following customizing modifiers are available:
 
 - **+a**: by default, :math:`\theta` refers to the angle that is equivalent to
   a counterclockwise rotation with respect to the east direction (standard
