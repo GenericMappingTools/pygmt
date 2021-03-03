@@ -4,12 +4,9 @@ grdcut - Extract subregion from a grid.
 
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -89,17 +86,9 @@ def grdcut(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    kind = data_kind(grid)
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
-
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
