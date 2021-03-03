@@ -17,8 +17,6 @@ help:
 	@echo "  html       build the HTML files from the existing rst sources"
 	@echo "  api        generate API documentation rst sources"
 	@echo "  serve      make a HTTP server"
-	@echo "  linkcheck  check all external links for integrity"
-	@echo "  doctest    run all doctests embedded in the documentation (if enabled)"
 	@echo "  clean      clean up build and generated files"
 
 all: html
