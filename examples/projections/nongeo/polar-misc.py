@@ -117,7 +117,7 @@ fig.basemap(
     # set map width to 5 cm and rotate input data clockwise relative to north direction,
     # rotate coordinate system counterclockwise by 45 degrees
     projection="P5c+a+t45",
-    # set the figures frame and color
+    # set the frame and color
     frame=["xa30f", "ya", "WNse+gbisque"],
 )
 
