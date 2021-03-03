@@ -105,7 +105,6 @@ fig.basemap(
 )
 
 fig.text(position="TC", text="projection='P5c+a\+t45'", offset="0/2.0c", no_clip=True)
-
 fig.text(position="TC", text="region=[0, 90, 0, 1]", offset="0/1.5c", no_clip=True)
 
 fig.shift_origin(xshift="8c", yshift="1.3c")
