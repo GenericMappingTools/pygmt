@@ -191,7 +191,8 @@ dependencies as well (be sure to have your conda environment activated)::
 
     conda install pytest pytest-mpl ipython
 
-Test your installation by running the following inside a Python interpreter::
+Test your installation by running the following inside a Python interpreter
+(note that it may take a few minutes)::
 
     import pygmt
     pygmt.show_versions()
