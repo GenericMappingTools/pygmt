@@ -1,7 +1,8 @@
-include README.rst
-include LICENSE.txt
-include CODE_OF_CONDUCT.md
-include CONTRIBUTING.md
-include AUTHORS.md
-recursive-include pygmt/tests/data *
-recursive-include pygmt/tests/baseline *
+exclude AUTHORSHIP.md
+exclude MAINTENANCE.md
+exclude MANIFEST.in
+exclude Makefile
+exclude environment.yml
+exclude package.json
+exclude requirements.txt
+exclude vercel.json
