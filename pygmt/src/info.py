@@ -7,7 +7,7 @@ from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alia
 
 
 @fmt_docstring
-@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose")
+@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose", f="coltypes")
 def info(table, **kwargs):
     r"""
     Get information about data tables.
@@ -48,6 +48,7 @@ def info(table, **kwargs):
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
     {V}
+    {f}
 
     Returns
     -------
