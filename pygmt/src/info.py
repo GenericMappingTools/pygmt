@@ -3,19 +3,11 @@ info - Get information about data tables.
 """
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    use_alias,
-)
+from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose")
+@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose", f="coltypes")
 def info(table, **kwargs):
     r"""
     Get information about data tables.
@@ -56,6 +48,7 @@ def info(table, **kwargs):
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
     {V}
+    {f}
 
     Returns
     -------
@@ -66,21 +59,8 @@ def info(table, **kwargs):
         - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
-    kind = data_kind(table)
     with Session() as lib:
-        if kind == "file":
-            file_context = dummy_context(table)
-        elif kind == "matrix":
-            try:
-                # pandas.DataFrame and xarray.Dataset types
-                arrays = [array for _, array in table.items()]
-            except AttributeError:
-                # Python lists, tuples, and numpy ndarray types
-                arrays = np.atleast_2d(np.asanyarray(table).T)
-            file_context = lib.virtualfile_from_vectors(*arrays)
-        else:
-            raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
-
+        file_context = lib.virtualfile_from_data(data=table)
         with GMTTempFile() as tmpfile:
             with file_context as fname:
                 arg_str = " ".join(

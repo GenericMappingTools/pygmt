@@ -9,6 +9,7 @@ import os
 import subprocess as sp
 import sys
 from ctypes.util import find_library
+from pathlib import Path
 
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
@@ -98,33 +99,37 @@ def clib_full_names(env=None):
 
     libnames = clib_names(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
 
-    # list of libraries paths to search, sort by priority from high to low
-    # Search for libraries in GMT_LIBRARY_PATH if defined.
+    # Search for the library in different ways, sorted by priority.
+    # 1. Search for the library in GMT_LIBRARY_PATH if defined.
     libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
     if libpath:
         for libname in libnames:
-            libfullpath = os.path.join(libpath, libname)
-            if os.path.exists(libfullpath):
-                yield libfullpath
+            libfullpath = Path(libpath) / libname
+            if libfullpath.exists():
+                yield str(libfullpath)
 
-    # Search for the library returned by command "gmt --show-library"
+    # 2. Search for the library returned by command "gmt --show-library"
+    #    Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/"
     try:
-        libfullpath = sp.check_output(
-            ["gmt", "--show-library"], encoding="utf-8"
-        ).rstrip("\n")
-        assert os.path.exists(libfullpath)
-        yield libfullpath
-    except (FileNotFoundError, AssertionError):  # command not found
+        libfullpath = Path(
+            sp.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
+        )
+        assert libfullpath.exists()
+        yield str(libfullpath)
+    except (FileNotFoundError, AssertionError, sp.CalledProcessError):
+        # the 'gmt' executable  is not found
+        # the gmt library is not found
+        # the 'gmt' executable is broken
         pass
 
-    # Search for DLLs in PATH (done by calling "find_library")
+    # 3. Search for DLLs in PATH by calling find_library() (Windows only)
     if sys.platform == "win32":
         for libname in libnames:
             libfullpath = find_library(libname)
             if libfullpath:
                 yield libfullpath
 
-    # Search for library names in the system default path [the lowest priority]
+    # 4. Search for library names in the system default path
     for libname in libnames:
         yield libname
 
