@@ -17,8 +17,6 @@ help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  all        generate the complete webpage"
 	@echo "  html       make only the HTML files from the existing rst sources"
-	@echo "  linkcheck  check all external links for integrity"
-	@echo "  doctest    run all doctests embedded in the documentation (if enabled)"
 
 clean:
 	rm -rf $(BUILDDIR)/html
