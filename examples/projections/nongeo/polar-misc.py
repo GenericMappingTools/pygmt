@@ -16,7 +16,7 @@ The following customizing modifiers are available:
   definition); **+a** indicates that the input data is rotated clockwise
   relative to the north direction (geographical azimuth angle).
 
-- **+r**\ *offset*: represents the offset of the r axis. This options allows
+- **+r**\ *offset*: represents the offset of the r axis. This modifier allows
   you to put the center of the circle not to r=0.
 
 - **+t**\ *origin*: sets the angle corresponding to the east direction which is
