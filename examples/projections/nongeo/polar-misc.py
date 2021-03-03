@@ -36,8 +36,8 @@ The following customizing modifiers are available:
 - **+z**: indicates that the r axis is marked as depth instead of radius (e.g.
   *r = radius - z*).
 
-   - Append **p** to set radius to the current earth radius.
-   - Append *radius* to set the value of the radius.
+  - Append **p** to set radius to the current earth radius.
+  - Append *radius* to set the value of the radius.
 
 """
 
