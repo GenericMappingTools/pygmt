@@ -46,7 +46,9 @@ def test_info_numpy_array_time_column():
     Make sure info works on a numpy.ndarray input with a datetime type.
     """
     table = pd.date_range(start="2020-01-01", periods=5).to_numpy()
-    output = info(table=table, f="0T")
+    # Please remove coltypes="0T" workaround after
+    # https://github.com/GenericMappingTools/gmt/issues/4241 is resolved
+    output = info(table=table, coltypes="0T")
     expected_output = (
         "<vector memory>: N = 5 <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
     )
@@ -132,7 +134,9 @@ def test_info_per_column_with_time_inputs():
     Make sure the per_column option works with time inputs.
     """
     table = pd.date_range(start="2020-01-01", periods=5).to_numpy()
-    output = info(table=table, per_column=True, f="0T")
+    # Please remove coltypes="0T" workaround after
+    # https://github.com/GenericMappingTools/gmt/issues/4241 is resolved
+    output = info(table=table, per_column=True, coltypes="0T")
     npt.assert_equal(
         actual=output, desired=["2020-01-01T00:00:00", "2020-01-05T00:00:00"]
     )
