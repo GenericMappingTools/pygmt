@@ -1,4 +1,5 @@
 exclude AUTHORSHIP.md
+exclude CONTRIBUTING.md
 exclude MAINTENANCE.md
 exclude MANIFEST.in
 exclude Makefile
