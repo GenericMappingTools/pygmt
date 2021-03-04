@@ -6,6 +6,20 @@ making releases, creating packages, etc.
 If you want to make a contribution to the project, see the
 [Contributing Guide](CONTRIBUTING.md) instead.
 
+## Table of Contents
+* [Onboarding Access Checklist](#onboarding-access-checklist)
+* [Branches](#branches)
+* [Reviewing and Merging Pull Requests](#reviewing-and-merging-pull-requests)
+* [Continuous Integration](#continuous-integration)
+    - [Github Actions](#github-actions)
+* [Continuous Documentation](#continuous-documentation)
+* [Making a Release](#making-a-release)
+    - [Updating the Changelog](#updating-the-changelog)
+    - [Check the README Syntax](#check-the-readme-syntax)
+    - [Pushing to PyPI and Updating the Documentation](#pushing-to-pypi-and-updating-the-documentation)
+    - [Archiving on Zenodo](#archiving-on-zenodo)
+    - [Updating the Conda Package](#updating-the-conda-package)
+
 ## Onboarding Access Checklist
 
 - [ ] Added to [python-maintainers](https://github.com/orgs/GenericMappingTools/teams/python-maintainers) team in the [GenericMappingTools](https://github.com/orgs/GenericMappingTools/teams/) organization on GitHub (gives 'maintain' permissions)
