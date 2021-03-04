@@ -41,7 +41,7 @@ Start by looking at the tutorials on our sidebar, good luck!
 
     The sections below provide more detailed, step by step instructions to
     installing and testing PyGMT for those who may have a slightly different
-    setup.
+    setup or want to install the latest development version.
 
 Which Python?
 -------------
@@ -111,7 +111,7 @@ Now we can create a new conda environment with Python and all our dependencies
 installed (we'll call it ``pygmt`` but feel free to change it to whatever you
 want)::
 
-     conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+    conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
 
 Activate the environment by running the following (**do not forget this step!**)::
 
