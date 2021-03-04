@@ -161,7 +161,7 @@ or from PyGMT's `GitHub repository <https://github.com/GenericMappingTools/pygmt
 
     pip install git+https://github.com/GenericMappingTools/pygmt.git#egg=pygmt
 
-Any of the above methods (conda/pip) should allow you to use the PyGMT library
+Any of the above methods (conda/pip) should allow you to use the PyGMT package
 from Python.
 
 
