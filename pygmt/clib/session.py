@@ -1380,6 +1380,9 @@ class Session:
             raster grid, a vector matrix/arrays, or other supported data input.
         x/y/z : 1d arrays or None
             x, y and z columns as numpy arrays.
+        extra_arrays : list
+            Optional. A list of numpy arrays in addition to x, y and z. All
+            of these arrays must be of the same size as the x/y/z arrays.
 
         Returns
         -------
