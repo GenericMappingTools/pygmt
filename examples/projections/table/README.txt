@@ -19,8 +19,8 @@ The below table shows the projection codes for the 31 GMT projections.
    * - PyGMT Projection Argument
      - Projection Name
    * - **A**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
-     - :ref:`Lambert azimuthal equal area
-       <sphx_glr_projections_azim_azim_lambert.py>`
+     - :doc:`Lambert azimuthal equal area
+       </projections/azim/azim_equidistant>`
    * - **B**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
      - :ref:`Albers conic equal area
        <sphx_glr_projections_conic_conic_albers.py>`
