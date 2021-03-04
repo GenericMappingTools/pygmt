@@ -58,7 +58,7 @@ fig.show()
 # without calling :meth:`gmt.Figure.basemap`:
 
 fig = pygmt.Figure()
-fig.coast(shorelines=True, region=[-90, -70, 0, 20], projection="M8i", frame=True)
+fig.coast(shorelines=True, region=[-90, -70, 0, 20], projection="M8c", frame=True)
 fig.show()
 
 ########################################################################################
