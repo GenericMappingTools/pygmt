@@ -23,6 +23,7 @@ from pygmt.helpers import (
     R="region",
     T="toggle",
     V="verbose",
+    f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
 def grdfilter(grid, **kwargs):
@@ -108,6 +109,7 @@ def grdfilter(grid, **kwargs):
         opposite of the input grid. [Default gives the same registration as the
         input grid].
     {V}
+    {f}
 
     Returns
     -------

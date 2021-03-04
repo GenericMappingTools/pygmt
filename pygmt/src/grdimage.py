@@ -25,6 +25,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     Y="yshift",
     n="interpolation",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
     x="cores",
@@ -143,6 +144,7 @@ def grdimage(self, grid, **kwargs):
     {V}
     {XY}
     {c}
+    {f}
     {n}
     {p}
     {t}
