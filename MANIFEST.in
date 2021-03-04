@@ -1,9 +1,13 @@
+prune doc*
+prune examples*
+prune .github*
 exclude AUTHORSHIP.md
 exclude CONTRIBUTING.md
 exclude MAINTENANCE.md
-exclude MANIFEST.in
 exclude Makefile
 exclude environment.yml
 exclude package.json
 exclude requirements.txt
 exclude vercel.json
+exclude .gitignore
+exclude .pylintrc
