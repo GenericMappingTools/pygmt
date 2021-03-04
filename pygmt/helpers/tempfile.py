@@ -3,6 +3,7 @@ Utilities for dealing with temporary file management.
 """
 import os
 import uuid
+from contextlib import contextmanager
 from tempfile import NamedTemporaryFile
 
 import numpy as np
@@ -104,3 +105,28 @@ class GMTTempFile:
             Data read from the text file.
         """
         return np.loadtxt(self.name, **kwargs)
+
+
+@contextmanager
+def tempfile_from_geojson(geojson):
+    """
+    Saves any geo-like Python object which implements ``__geo_interface__``
+    (e.g. a geopandas GeoDataFrame) to a temporary OGR_GMT text file.
+
+    Parameters
+    ----------
+    geojson : geopandas.GeoDataFrame
+        A geopandas GeoDataFrame, or any geo-like Python object which
+        implements __geo_interface__, i.e. a GeoJSON
+
+    Yields
+    ------
+    tmpfilename : str
+        A temporary OGR_GMT format file holding the geographical data.
+        E.g. 'track-1a2b3c4.tsv'.
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        os.remove(tmpfile.name)  # ensure file is deleted first
+        # Using geopandas.to_file to directly export to OGR_GMT format
+        geojson.to_file(filename=tmpfile.name, driver="OGR_GMT", mode="w")
+        yield tmpfile.name

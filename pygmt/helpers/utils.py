@@ -67,6 +67,8 @@ def data_kind(data, x=None, y=None, z=None):
         kind = "file"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
+    elif hasattr(data, "__geo_interface__"):
+        kind = "geojson"
     elif data is not None:
         kind = "matrix"
     else:
