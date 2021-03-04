@@ -128,15 +128,14 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     # Known issue: tiled grids don't support slice operation
     # See https://github.com/GenericMappingTools/pygmt/issues/524
     if region is None:
-        if resolution in non_tiled_resolutions:
-            fname = which(f"@{earth_relief_prefix}{resolution}{reg}", download="a")
-            with xr.open_dataarray(fname) as dataarray:
-                grid = dataarray.load()
-                _ = grid.gmt  # load GMTDataArray accessor information
-        else:
+        if resolution not in non_tiled_resolutions:
             raise GMTInvalidInput(
                 f"'region' is required for Earth relief resolution '{resolution}'."
             )
+        fname = which(f"@earth_relief_{resolution}{reg}", download="a")
+        with xr.open_dataarray(fname) as dataarray:
+            grid = dataarray.load()
+            _ = grid.gmt  # load GMTDataArray accessor information
     else:
         grid = grdcut(f"@{earth_relief_prefix}{resolution}{reg}", region=region)
 
