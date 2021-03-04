@@ -37,7 +37,7 @@ fig = pygmt.Figure()
 ########################################################################################
 # Add elements to the figure using its methods. For example, let's use
 # :meth:`pygmt.Figure.basemap` to start a map for a region indicated by a given
-# longitude and latitude bound, set the projection to Mercator (``M``), the
+# longitude and latitude bound, set the projection to Mercator (**M**), the
 # map width to 8 centimeters, and frame type to be generated automatically:
 
 fig.basemap(region=[-90, -70, 0, 20], projection="M8c", frame=True)
@@ -84,7 +84,7 @@ fig.show()
 #    ``psxy`` which is now ``plot``, ``psxyz`` which is now ``plot3d``, and ``psscale``
 #    which is now ``colorbar``.
 #
-# 2. More details can be found at https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html?highlight=modern#modern-and-classic-mode
+# 2. More details can be found at :gmt-docs:`/cookbook/introduction.html#modern-and-classic-mode`
 #
 # A few are PyGMT exclusive (like the ``savefig`` method).
 #
