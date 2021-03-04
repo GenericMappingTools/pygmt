@@ -82,7 +82,7 @@ fig.show()
 # 1. The name of method is ``coast`` instead of ``pscoast``. As a general rule, all
 #    ``ps*`` modules had their ``ps`` prefix removed. The exceptions are:
 #    ``psxy`` which is now ``plot``, ``psxyz`` which is now ``plot3d``, and ``psscale``
-#    which is now ``colorbar``. Those reflect the new GMT modern execution mode.
+#    which is now ``colorbar``.
 #
 # 2. More details can be found at https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html?highlight=modern#modern-and-classic-mode
 #
