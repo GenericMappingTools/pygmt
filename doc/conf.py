@@ -72,7 +72,7 @@ sphinx_gallery_conf = {
     "subsection_order": ExplicitOrder(
         [
             "../examples/gallery/maps",
-            "../examples/gallery/line",
+            "../examples/gallery/lines",
             "../examples/gallery/symbols",
             "../examples/gallery/3d-plots",
             "../examples/projections/azim",
