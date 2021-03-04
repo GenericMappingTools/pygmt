@@ -22,6 +22,7 @@ from pygmt.helpers import (
     R="region",
     T="nearest_multiple",
     V="verbose",
+    f="coltypes",
 )
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
 def grdinfo(grid, **kwargs):
@@ -100,6 +101,7 @@ def grdinfo(grid, **kwargs):
         We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
         (if *dz* was given) as expected by :meth:`pygmt.makecpt`.
     {V}
+    {f}
 
     Returns
     -------
