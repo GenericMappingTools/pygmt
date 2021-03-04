@@ -86,7 +86,7 @@ fig.show()
 #
 # 2. More details can be found at https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html?highlight=modern#modern-and-classic-mode
 #
-#  A few are PyGMT exclusive (like the ``savefig`` method).
+# A few are PyGMT exclusive (like the ``savefig`` method).
 #
 # 1. The parameters don't use the GMT 1-letter syntax (**R**, **J**, **B**, etc). We use longer
 #    aliases for these parameters and have some Python exclusive names. The mapping
