@@ -7,7 +7,7 @@ from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alia
 
 
 @fmt_docstring
-@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose")
+@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose", f="coltypes")
 def info(table, **kwargs):
     r"""
     Get information about data tables.
@@ -48,6 +48,7 @@ def info(table, **kwargs):
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
     {V}
+    {f}
 
     Returns
     -------
@@ -73,6 +74,10 @@ def info(table, **kwargs):
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
                 result = result[2:].replace("/", " ")
-            result = np.loadtxt(result.splitlines())
+            try:
+                result = np.loadtxt(result.splitlines())
+            except ValueError:
+                # Load non-numerical outputs in str type, e.g. for datetime
+                result = np.loadtxt(result.splitlines(), dtype="str")
 
         return result
