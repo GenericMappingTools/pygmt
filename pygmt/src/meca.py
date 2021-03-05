@@ -16,6 +16,84 @@ from pygmt.helpers import (
 )
 
 
+def data_format_code(convention, component="full"):
+    """
+    Determine the data format code for meca -S option.
+
+    See the meca() method for explanations of the parameters.
+
+    Examples
+    --------
+    >>> data_format_code("aki")
+    'a'
+    >>> data_format_code("gcmt")
+    'c'
+    >>> data_format_code("partial")
+    'p'
+
+    >>> data_format_code("mt", component="full")
+    'm'
+    >>> data_format_code("mt", component="deviatoric")
+    'z'
+    >>> data_format_code("mt", component="dc")
+    'd'
+    >>> data_format_code("principal_axis", component="full")
+    'x'
+    >>> data_format_code("principal_axis", component="deviatoric")
+    't'
+    >>> data_format_code("principal_axis", component="dc")
+    'y'
+
+    >>> for code in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
+    ...     assert data_format_code(code) == code
+    ...
+
+    >>> data_format_code("invalid")
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Invalid convention 'invalid'.
+
+    >>> data_format_code("mt", "invalid")  # doctest: +NORMALIZE_WHITESPACE
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput:
+        Invalid component 'invalid' for convention 'mt'.
+    """
+    # Codes for focal mechanism formats determined by "convention"
+    codes1 = {
+        "aki": "a",
+        "gcmt": "c",
+        "partial": "p",
+    }
+
+    # Codes for focal mechanism formats determined by both "convention" and
+    # "component"
+    codes2 = {
+        "mt": {
+            "deviatoric": "z",
+            "dc": "d",
+            "full": "m",
+        },
+        "principal_axis": {
+            "deviatoric": "t",
+            "dc": "y",
+            "full": "x",
+        },
+    }
+
+    if convention in codes1:
+        return codes1[convention]
+    if convention in codes2:
+        if component not in codes2[convention]:
+            raise GMTInvalidInput(
+                f"Invalid component '{component}' for convention '{convention}'."
+            )
+        return codes2[convention][component]
+    if convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
+        return convention
+    raise GMTInvalidInput(f"Invalid convention '{convention}'.")
+
+
 @fmt_docstring
 @use_alias(
     R="region",
@@ -366,34 +444,8 @@ def meca(
         else:
             raise GMTError("Parameter 'spec' contains values of an unsupported type.")
 
-    # Add condition and scale to kwargs
-    if convention == "aki":
-        data_format = "a"
-    elif convention == "gcmt":
-        data_format = "c"
-    elif convention == "mt":
-        # Check which component of mechanism the user wants plotted
-        if component == "deviatoric":
-            data_format = "z"
-        elif component == "dc":
-            data_format = "d"
-        else:  # component == 'full'
-            data_format = "m"
-    elif convention == "partial":
-        data_format = "p"
-    elif convention == "principal_axis":
-        # Check which component of mechanism the user wants plotted
-        if component == "deviatoric":
-            data_format = "t"
-        elif component == "dc":
-            data_format = "y"
-        else:  # component == 'full'
-            data_format = "x"
-    # Support old-school GMT format options
-    elif convention in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
-        data_format = convention
-    else:
-        raise GMTError("Convention not recognized.")
+    # determine data_foramt from convection and component
+    data_format = data_format_code(convention=convention, component=component)
 
     # Assemble -S flag
     kwargs["S"] = data_format + scale
