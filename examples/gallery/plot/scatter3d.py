@@ -36,10 +36,10 @@ fig.plot3d(
     x=df.petal_width,
     y=df.sepal_length,
     z=df.petal_length,
+    style="uc",  # 3D cUbe, with size in centimeter units
     sizes=0.1 * df.sepal_width,  # Vary each symbol size according to a data column
     color=df.species.cat.codes.astype(int),  # Points colored by categorical number code
     cmap=True,  # Use colormap created by makecpt
-    style="uc",  # 3D cUbe, with size in centimeter units
     region=region,  # (xmin, xmax, ymin, ymax, zmin, zmax)
     frame=[
         "WsNeZ3",  # z axis label positioned on 3rd corner
