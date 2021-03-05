@@ -5,7 +5,7 @@ Inset
 The :meth:`pygmt.Figure.inset` method adds an inset figure inside a larger
 figure. The function is called using a ``with`` statement, and its position,
 box, offset, and margin parameters are set. Within the ``with`` statement,
-PyGMT plotting functions can be called that add to the inset figure.
+PyGMT plotting functions can be called to plot the inset figure.
 """
 import pygmt
 
