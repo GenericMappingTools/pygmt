@@ -49,8 +49,7 @@ fig.colorbar(
     # with a length/width (+w) of 7cm by 0.5cm and a box for NaN values (+n)
     position="JMR+o1c/0c+w7c/0.5c+n+mc",
     # Note that the label 'Elevation' is moved to the opposite side and plotted
-    # vertically as a column of text using '+mc' in the position parameter
-    # above
+    # vertically as a column of text using '+mc' in the position parameter above
     frame=["x+lElevation", "y+lm"],
     scale=10,
 )
