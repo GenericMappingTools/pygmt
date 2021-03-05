@@ -18,7 +18,8 @@ fig = pygmt.Figure()
 fig.basemap(region=[0, 2, 0, 2], projection="X6c", frame=True)
 
 # place and center the GMT logo from the GMT website to the position 1/1
-# on a basemap and draw a rectangular border around the image
+# on a basemap, scaled up to be 3 cm wide and draw a rectangular border
+# around the image
 fig.image(
     imagefile="https://www.generic-mapping-tools.org/_static/gmt-logo.png",
     position="g1/1+w3c+jCM",
