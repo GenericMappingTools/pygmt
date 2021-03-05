@@ -19,7 +19,7 @@ import pygmt
 x = np.arange(start=20, stop=30, step=0.2)
 
 fig = pygmt.Figure()
-fig.basemap(frame=["WSne", "af"], region=[20, 30, -10, 10])
+fig.basemap(region=[20, 30, -10, 10], frame=["WSne", "af"])
 
 # Create a custom CPT with the batlow CPT and 10 discrete z-values (colors)
 pygmt.makecpt(cmap="batlow", series=[0, 10, 1])
