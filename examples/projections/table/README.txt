@@ -19,48 +19,39 @@ The below table shows the projection codes for the 31 GMT projections.
    * - PyGMT Projection Argument
      - Projection Name
    * - **A**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
-     - :doc:`Lambert azimuthal equal area
-       </projections/azim/azim_equidistant>`
+     - :doc:`Lambert azimuthal equal area </projections/azim/azim_lambert>`
    * - **B**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
-     - :ref:`Albers conic equal area
-       <sphx_glr_projections_conic_conic_albers.py>`
+     - :doc:`Albers conic equal area </projections/conic/conic_albers>`
    * - **C**\ |lon0|/|lat0|/\ *width*
-     - :ref:`Cassini cylindrical <sphx_glr_projections_cyl_cyl_cassini.py>`
+     - :doc:`Cassini cylindrical </projections/cyl/cyl_cassini>`
    * - **Cyl_stere/**\ [|lon0|\ [/|lat0|/]]\ *width*
-     - :ref:`Cylindrical stereographic
-       <sphx_glr_projections_cyl_cyl_stereographic.py>`
+     - :doc:`Cylindrical stereographic </projections/cyl/cyl_stereographic>`
    * - **D**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
-     - :ref:`Equidistant conic
-       <sphx_glr_projections_conic_conic_equidistant.py>`
+     - :doc:`Equidistant conic </projections/conic/conic_equidistant>`
    * - **E**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
-     - :ref:`Azimuthal equidistant
-       <sphx_glr_projections_azim_azim_equidistant.py>`
+     - :doc:`Azimuthal equidistant </projections/azim/azim_equidistant>`
    * - **F**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
-     - :ref:`Azimuthal gnomonic <sphx_glr_projections_azim_azim_gnomonic.py>`
+     - :doc:`Azimuthal gnomonic </projections/azim/azim_gnomonic>`
    * - **G**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
-     - :ref:`Azimuthal orthographic
-       <sphx_glr_projections_azim_azim_orthographic.py>`
+     - :doc:`Azimuthal orthographic </projections/azim/azim_orthographic>`
    * - **G**\ |lon0|/|lat0|/\ *alt*/*azim*/*tilt*/*twist*/*W*/*H*/*width*
-     - :ref:`General perspective
-       <sphx_glr_projections_azim_azim_general_perspective.py>`
+     - :doc:`General perspective </projections/azim/azim_general_perspective>`
    * - **H**\ [|lon0|/]\ *width*
-     - :ref:`Hammer equal area <sphx_glr_projections_misc_misc_hammer.py>`
+     - :doc:`Hammer equal area </projections/misc/misc_hammer>`
    * - **I**\ [|lon0|/]\ *width*
-     - :ref:`Sinusoidal equal area
-       <sphx_glr_projections_misc_misc_sinusoidal.py>`
+     - :doc:`Sinusoidal equal area </projections/misc/misc_sinusoidal>`
    * - **J**\ [|lon0|/]\ *width*
-     - :ref:`Miller cylindrical <sphx_glr_projections_cyl_cyl_miller.py>`
+     - :doc:`Miller cylindrical </projections/cyl/cyl_miller>`
    * - **Kf**\ [|lon0|/]\ *width*
-     - :ref:`Eckert IV equal area <sphx_glr_projections_misc_misc_eckertIV.py>`
+     - :doc:`Eckert IV equal area </projections/misc/misc_eckertIV>`
    * - **Ks**\ [|lon0|/]\ *width*
-     - :ref:`Eckert VI equal area <sphx_glr_projections_misc_misc_eckertVI.py>`
+     - :doc:`Eckert VI equal area </projections/misc/misc_eckertVI>`
    * - **L**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
-     - :ref:`Lambert conic conformal
-       <sphx_glr_projections_conic_conic_lambert.py>`
+     - :doc:`Lambert conic conformal </projections/conic/conic_lambert>`
    * - **M**\ [|lon0|\ [/|lat0|]/]\ *width*
-     - :ref:`Mercator cylindrical <sphx_glr_projections_cyl_cyl_mercator.py>`
+     - :doc:`Mercator cylindrical </projections/cyl/cyl_mercator>`
    * - **N**\ [|lon0|/]\ *width*
-     - :ref:`Robinson <sphx_glr_projections_misc_misc_robinson.py>`
+     - :doc:`Robinson </projections/misc/misc_robinson>`
    * - **Oa**\ |lon0|/|lat0|/\ *azim*/*width*\ [**+v**]
      - Oblique Mercator, 1: origin and azim
    * - **Ob**\ |lon0|/|lat0|/|lon1|/|lat1|/\ *width*\ [**+v**]
@@ -69,35 +60,30 @@ The below table shows the projection codes for the 31 GMT projections.
      - Oblique Mercator, 3: origin and pole
    * - **P**\ *width*\ [**+a**]\ [**+f**\ [**e**\|\ **p**\|\ *radius*]]\
        [**+r**\ *offset*][**+t**\ *origin*][**+z**\ [**p**\|\ *radius*]]
-     - :ref:`Polar <sphx_glr_projections_nongeo_polar.py>` [azimuthal]
+     - :doc:`Polar </projections/nongeo/polar>` [azimuthal]
        (:math:`\theta, r`) (or cylindrical)
    * - **Poly**\ [|lon0|\ [/|lat0|]/]\ *width*
-     - :ref:`Polyconic <sphx_glr_projections_conic_polyconic.py>`
+     - :doc:`Polyconic </projections/conic/polyconic>`
    * - **Q**\ [|lon0|\ [/|lat0|/]]\ *width*
-     - :ref:`Equidistant cylindrical
-       <sphx_glr_projections_cyl_cyl_equidistant.py>`
+     - :doc:`Equidistant cylindrical </projections/cyl/cyl_equidistant>`
    * - **R**\ [|lon0|/]\ *width*
-     - :ref:`Winkel Tripel <sphx_glr_projections_misc_misc_winkel_tripel.py>`
+     - :doc:`Winkel Tripel </projections/misc/misc_winkel_tripel>`
    * - **S**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
-     - :ref:`General stereographic
-       <sphx_glr_projections_azim_azim_general_stereographic.py>`
+     - :doc:`General stereographic
+       </projections/azim/azim_general_stereographic>`
    * - **T**\ [|lon0|\ [/|lat0|]/]\ *width*
-     - :ref:`Transverse Mercator
-       <sphx_glr_projections_cyl_cyl_transverse_mercator.py>`
+     - :doc:`Transverse Mercator </projections/cyl/cyl_transverse_mercator>`
    * - **U**\ *zone*/*width*
-     - :ref:`Universal Transverse Mercator (UTM)
-       <sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py>`
+     - :doc:`Universal Transverse Mercator (UTM)
+       </projections/cyl/cyl_universal_transverse_mercator>`
    * - **V**\ [|lon0|/]\ *width*
-     - :ref:`Van der Grinten
-       <sphx_glr_projections_misc_misc_van_der_grinten.py>`
+     - :doc:`Van der Grinten </projections/misc/misc_van_der_grinten>`
    * - **W**\ [|lon0|/]\ *width*
-     - :ref:`Mollweide <sphx_glr_projections_misc_misc_mollweide.py>`
+     - :doc:`Mollweide </projections/misc/misc_mollweide>`
    * - **X**\ *width*\ [**l**\|\ **p**\ *exp*\|\ **T**\|\ **t**][/\ *height*\
        [**l**\|\ **p**\ *exp*\|\ **T**\|\ **t**]][**d**]
-     - :ref:`Linear <sphx_glr_projections_nongeo_cartesian_linear.py>`,
-       :ref:`log <sphx_glr_projections_nongeo_cartesian_logarithmic.py>`\
-       :math:`_{10}`, :ref:`power
-       <sphx_glr_projections_nongeo_cartesian_power.py>`, and time
+     - :doc:`Linear </projections/nongeo/cartesian_linear>`,
+       :doc:`logarithmic </projections/nongeo/cartesian_logarithmic>`,
+       :doc:`power </projections/nongeo/cartesian_power>`, and time
    * - **Y**\ |lon0|/|lat0|/\ *width*
-     - :ref:`Cylindrical equal area
-       <sphx_glr_projections_cyl_cyl_equal_area.py>`
+     - :doc:`Cylindrical equal area </projections/cyl/cyl_equal_area>`
