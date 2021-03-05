@@ -31,7 +31,8 @@ def info(table, **kwargs):
 
     Parameters
     ----------
-    table : str or np.ndarray or pandas.DataFrame or xarray.Dataset
+    table : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset or
+            geopandas.GeoDataFrame
         Pass in either a file name to an ASCII data table, a 1D/2D numpy array,
         a pandas dataframe, or an xarray dataset made up of 1D xarray.DataArray
         data variables.
