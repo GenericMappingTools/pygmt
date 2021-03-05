@@ -105,6 +105,6 @@ fig.basemap(
     projection="X10c/8c",
     # Plot axis, tick marks, and axis labels on the west/left and south/bottom axes
     # Plot axis and tick marks on the north/top and east/right axes
-    frame=["WSne", "x+lx-axis", "y+ly-axis"],
+    frame=["a", "WSne", "x+lx-axis", "y+ly-axis"],
 )
 fig.show()
