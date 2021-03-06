@@ -37,7 +37,7 @@ pygmt.makecpt(cmap="inferno", color_model="+c", series=(0, 3, 1))
 fig.plot(
     # Use one feature as x data input (bill length)
     x=df.bill_length_mm,
-    # Use another feature as y data input (snoot depth)
+    # Use another feature as y data input (bill depth)
     y=df.bill_depth_mm,
     # Vary each symbol size according to another feature (body mass)
     sizes=7.5 * 10 ** -5 * df.body_mass_g,
