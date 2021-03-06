@@ -4,12 +4,9 @@ grdfilter - Filter a grid in the space (or time) domain.
 
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -26,21 +23,22 @@ from pygmt.helpers import (
     R="region",
     T="toggle",
     V="verbose",
+    f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
 def grdfilter(grid, **kwargs):
-    """
+    r"""
     Filter a grid in the space (or time) domain.
 
     Filter a grid file in the time domain using one of the selected convolution
     or non-convolution isotropic or rectangular filters and compute distances
     using Cartesian or Spherical geometries. The output grid file can
-    optionally be generated as a sub-region of the input (via *region*) and/or
-    with new increment (via *spacing*) or registration (via *toggle*). In this
-    way, one may have "extra space" in the input data so that the edges will
-    not be used and the output can be within one half-width of the input edges.
-    If the filter is low-pass, then the output may be less frequently sampled
-    than the input.
+    optionally be generated as a sub-region of the input (via ``region``)
+    and/or with new increment (via ``spacing``) or registration
+    (via ``toggle``). In this way, one may have "extra space" in the input
+    data so that the edges will not be used and the output can be within one
+    half-width of the input edges. If the filter is low-pass, then the output
+    may be less frequently sampled than the input.
 
     Full option list at :gmt-docs:`grdfilter.html`
 
@@ -54,11 +52,23 @@ def grdfilter(grid, **kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     filter : str
-        ``xwidth[/width2][modifiers]``.
-        Name of filter type you which to apply, followed by the width
-        b: Box Car; c: Cosine Arch; g: Gaussian; o: Operator; m: Median;
-        p: Maximum Likelihood probability; h: histogram
-        Example: F='m600' for a median filter with width of 600
+        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *xwidth*\
+        [/*width2*\][*modifiers*].
+        Name of filter type you which to apply, followed by the width:
+
+        b: Box Car
+
+        c: Cosine Arch
+
+        g: Gaussian
+
+        o: Operator
+
+        m: Median
+
+        p: Maximum Likelihood probability
+
+        h: histogram
     distance : str
         Distance *flag* tells how grid (x,y) relates to filter width as
         follows:
@@ -87,10 +97,11 @@ def grdfilter(grid, **kwargs):
         Spherical distance calculation.
 
     spacing : str
-        ``xinc[+e|n][/yinc[+e|n]]``.
-        x_inc [and optionally y_inc] is the grid spacing.
+        *xinc*\[\ *unit*\][**+e**\|\ **n**]
+        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
+        *xinc* [and optionally *yinc*] is the grid spacing.
     nans : str or float
-        ``i|p|r``.
+        **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.
     {R}
     toggle : bool
@@ -98,13 +109,16 @@ def grdfilter(grid, **kwargs):
         opposite of the input grid. [Default gives the same registration as the
         input grid].
     {V}
+    {f}
 
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the *outgrid* parameter is set:
-        - xarray.DataArray if *outgrid* is not set
-        - None if *outgrid* is set (grid output will be stored in *outgrid*)
+        Return type depends on whether the ``outgrid`` parameter is set:
+
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
 
     Examples
     --------
@@ -128,17 +142,9 @@ def grdfilter(grid, **kwargs):
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
     """
-    kind = data_kind(grid)
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
-
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})

@@ -28,12 +28,13 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def basemap(self, **kwargs):
-    """
+    r"""
     Plot base maps and frames for the figure.
 
     Creates a basic or fancy basemap with axes, fill, and titles. Several
@@ -41,8 +42,8 @@ def basemap(self, **kwargs):
     tick-mark intervals for boundary annotation, ticking, and [optionally]
     gridlines. A simple map scale or directional rose may also be plotted.
 
-    At least one of the options *frame*, *map_scale*, *rose* or *compass*
-    must be specified.
+    At least one of the parameters ``frame``, ``map_scale``, ``rose`` or
+    ``compass`` must be specified.
 
     Full option list at :gmt-docs:`basemap.html`
 
@@ -56,7 +57,8 @@ def basemap(self, **kwargs):
     {R}
     {B}
     map_scale : str
-        ``'[g|j|J|n|x]refpoint'``
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
+        **+w**\ *length*.
         Draws a simple map scale centered on the reference point specified.
     rose : str
         Draws a map directional rose on the map at the location defined by
@@ -68,6 +70,7 @@ def basemap(self, **kwargs):
     {V}
     {XY}
     {c}
+    {f}
     {p}
     {t}
     """

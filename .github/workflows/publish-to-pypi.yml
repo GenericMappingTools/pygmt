@@ -19,12 +19,13 @@ jobs:
   publish-pypi:
     name: Publish to PyPI
     runs-on: ubuntu-latest
+    if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2.3.4
       with:
-        # fecth all history so that setuptools-scm works
+        # fetch all history so that setuptools-scm works
         fetch-depth: 0
 
     - name: Set up Python
@@ -35,18 +36,18 @@ jobs:
     - name: Install dependencies
       run: python -m pip install setuptools wheel
 
-    - name: Fix up version string
+    # This step is only necessary for testing purposes and for TestPyPI
+    - name: Fix up version string for TestPyPI
+      if: ${{ !startsWith(github.ref, 'refs/tags') }}
       run: |
         # Change setuptools-scm local_scheme to "no-local-version" so the
         # local part of the version isn't included, making the version string
         # compatible with PyPI.
-        #
-        # The step is only necessary for testing purpose
         sed --in-place "s/node-and-date/no-local-version/g" setup.py
 
     - name: Build source and wheel distributions
       run: |
-        python setup.py sdist bdist_wheel
+        make package
         echo ""
         echo "Generated files:"
         ls -lh dist/
@@ -54,11 +55,11 @@ jobs:
     - name: Publish to Test PyPI
       uses: pypa/gh-action-pypi-publish@v1.4.2
       with:
-        password: ${{ secrets.test_pypi_password }}
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
 
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@v1.4.2
       with:
-        password: ${{ secrets.pypi_password }}
+        password: ${{ secrets.PYPI_API_TOKEN }}

@@ -2,8 +2,8 @@
 Points
 ------
 
-The :meth:`pygmt.Figure.plot` method can plot points. We must specify the plot symbol
-and size through the ``style`` argument.
+The :meth:`pygmt.Figure.plot` method can plot points. The plot symbol and size
+is set with the ``style`` parameter.
 """
 import numpy as np
 import pygmt

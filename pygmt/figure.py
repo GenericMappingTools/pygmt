@@ -115,7 +115,7 @@ class Figure:
     )
     @kwargs_to_strings()
     def psconvert(self, **kwargs):
-        """
+        r"""
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
@@ -149,20 +149,22 @@ class Figure:
         icc_gray : bool
             Enforce gray-shades by using ICC profiles.
         anti_aliasing : str
-            Set the anti-aliasing options for graphics or text. Append the size
-            of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing
-            (same as bits = 1).
+            [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
+            Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
+            Append the size of the subsample box (1, 2, or 4) [4]. [Default is
+            no anti-aliasing (same as bits = 1)].
         fmt : str
-            Sets the output format, where *b* means BMP, *e* means EPS, *E*
-            means EPS with PageSize command, *f* means PDF, *F* means
-            multi-page PDF, *j* means JPEG, *g* means PNG, *G* means
-            transparent PNG (untouched regions are transparent), *m* means PPM,
-            *s* means SVG, and *t* means TIFF [default is JPEG]. To ``'bjgt'``
-            you can append ``'+m'`` in order to get a monochrome (grayscale)
-            image. The EPS format can be combined with any of the other
-            formats. For example, ``'ef'`` creates both an EPS and a PDF file.
-            Using ``'F'`` creates a multi-page PDF file from the list of input
-            PS or PDF files. It requires the *prefix* option.
+            Sets the output format, where **b** means BMP, **e** means EPS,
+            **E** means EPS with PageSize command, **f** means PDF, **F** means
+            multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
+            transparent PNG (untouched regions are transparent), **m** means
+            PPM, **s** means SVG, and **t** means TIFF [default is JPEG]. To
+            **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
+            order to get a monochrome (grayscale) image. The EPS format can be
+            combined with any of the other formats. For example, **ef** creates
+            both an EPS and a PDF file. Using **F** creates a multi-page PDF
+            file from the list of input PS or PDF files. It requires the
+            ``prefix`` parameter.
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
@@ -178,14 +180,14 @@ class Figure:
         Save the figure to a file.
 
         This method implements a matplotlib-like interface for
-        :meth:`~gmt.Figure.psconvert`.
+        :meth:`pygmt.Figure.psconvert`.
 
         Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
         BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
         The KML output generates a companion PNG file.
 
         You can pass in any keyword arguments that
-        :meth:`~gmt.Figure.psconvert` accepts.
+        :meth:`pygmt.Figure.psconvert` accepts.
 
         Parameters
         ----------
@@ -199,9 +201,10 @@ class Figure:
             If True, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIf). More specifically, uses options ``Qt=2, Qg=2`` in
-            :meth:`~gmt.Figure.psconvert`. Ignored if creating vector graphics.
-            Overrides values of ``Qt`` and ``Qg`` passed in through ``kwargs``.
+            JPG, TIFF). More specifically, it passes arguments ``t2``
+            and ``g2`` to the ``anti_aliasing`` parameter of
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
+            graphics.
         show: bool
             If True, will open the figure in an external viewer.
         dpi : int
@@ -331,7 +334,7 @@ class Figure:
         ----------
         fmt : str
             The image format. Can be any extension that
-            :meth:`~gmt.Figure.savefig` recognizes.
+            :meth:`pygmt.Figure.savefig` recognizes.
         dpi : int
             The image resolution (dots per inch).
         as_bytes : bool
@@ -387,5 +390,7 @@ class Figure:
         meca,
         plot,
         plot3d,
+        set_panel,
+        subplot,
         text,
     )

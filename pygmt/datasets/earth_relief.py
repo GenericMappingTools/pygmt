@@ -1,6 +1,6 @@
 """
 Function to download the Earth relief datasets from the GMT data server, and
-load as DataArray.
+load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -12,7 +12,7 @@ from pygmt.src import grdcut, which
 
 @kwargs_to_strings(region="sequence")
 def load_earth_relief(resolution="01d", region=None, registration=None):
-    """
+    r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
     The grids are downloaded to a user data directory
@@ -21,8 +21,13 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    ``'@earth_relief_rru[_reg]'`` to any grid plotting/processing function.
-    Refer to :gmt-docs:`datasets/remote-data.html` for more details.
+    **@earth_relief**\_\ *res*\[_\ *reg*] to any grid plotting/processing
+    function. *res* is the grid resolution (see below), and *reg* is grid
+    registration type (**p** for pixel registration or **g** for gridline
+    registration).
+
+    Refer to :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`
+    for more details.
 
     Parameters
     ----------
@@ -34,8 +39,10 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
         or ``'01s'``.
 
     region : str or list
-        The subregion of the grid to load. Required for Earth relief grids with
-        resolutions <= 05m.
+        The subregion of the grid to load, in the forms of a list
+        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
+        Required for Earth relief grids with resolutions higher than 5
+        arc-minute (i.e., ``05m``).
 
     registration : str
         Grid registration type. Either ``pixel`` for pixel registration or
@@ -45,14 +52,15 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
 
     Returns
     -------
-    grid : xarray.DataArray
+    grid : :class:`xarray.DataArray`
         The Earth relief grid. Coordinates are latitude and longitude in
         degrees. Relief is in meters.
 
     Notes
     -----
-    The DataArray doesn's support slice operation, for Earth relief data with
-    resolutions higher than "05m", which are stored as smaller tiles.
+    The :class:`xarray.DataArray` grid doesn't support slice operation, for
+    Earth relief data with resolutions higher than "05m", which are stored as
+    smaller tiles.
 
     Examples
     --------
@@ -77,32 +85,39 @@ def load_earth_relief(resolution="01d", region=None, registration=None):
         reg = f"_{registration[0]}" if registration else ""
     else:
         raise GMTInvalidInput(
-            f"Invalid grid registration: {registration}, should be either "
+            f"Invalid grid registration: '{registration}', should be either "
             "'pixel', 'gridline' or None. Default is None, where a "
             "pixel-registered grid is returned unless only the "
             "gridline-registered grid is available."
         )
 
+    if resolution not in non_tiled_resolutions + tiled_resolutions:
+        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
+
+    # Check combination of resolution and registeration.
+    if (resolution == "15s" and registration == "gridline") or (
+        resolution in ("03s", "01s") and registration == "pixel"
+    ):
+        raise GMTInvalidInput(
+            f"{registration}-registered Earth relief data for "
+            f"resolution '{resolution}' is not supported."
+        )
+
     # different ways to load tiled and non-tiled earth relief data
-    if resolution in non_tiled_resolutions:
-        if region is not None:
-            raise NotImplementedError(
-                f"'region' is not supported for Earth relief resolution '{resolution}'"
-            )
-        fname = which(f"@earth_relief_{resolution}{reg}", download="a")
-        with xr.open_dataarray(fname) as dataarray:
-            grid = dataarray.load()
-            _ = grid.gmt  # load GMTDataArray accessor information
-    elif resolution in tiled_resolutions:
-        # Titled grid can't be sliced.
-        # See https://github.com/GenericMappingTools/pygmt/issues/524
-        if region is None:
+    # Known issue: tiled grids don't support slice operation
+    # See https://github.com/GenericMappingTools/pygmt/issues/524
+    if region is None:
+        if resolution in non_tiled_resolutions:
+            fname = which(f"@earth_relief_{resolution}{reg}", download="a")
+            with xr.open_dataarray(fname) as dataarray:
+                grid = dataarray.load()
+                _ = grid.gmt  # load GMTDataArray accessor information
+        else:
             raise GMTInvalidInput(
-                f"'region' is required for Earth relief resolution '{resolution}'"
+                f"'region' is required for Earth relief resolution '{resolution}'."
             )
-        grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
     else:
-        raise GMTInvalidInput(f'Invalid Earth relief resolution "{resolution}"')
+        grid = grdcut(f"@earth_relief_{resolution}{reg}", region=region)
 
     # Add some metadata to the grid
     grid.name = "elevation"

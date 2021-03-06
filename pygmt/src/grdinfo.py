@@ -2,12 +2,9 @@
 grdinfo - Retrieve info about grid file.
 """
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -25,6 +22,7 @@ from pygmt.helpers import (
     R="region",
     T="nearest_multiple",
     V="verbose",
+    f="coltypes",
 )
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
 def grdinfo(grid, **kwargs):
@@ -39,7 +37,7 @@ def grdinfo(grid, **kwargs):
     ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
-        This is the only required argument.
+        This is the only required parameter.
     {R}
     per_column : str or bool
         **n**\|\ **t**.
@@ -47,7 +45,7 @@ def grdinfo(grid, **kwargs):
         output is name *w e s n z0 z1 dx dy nx ny* [ *x0 y0 x1 y1* ]
         [ *med scale* ] [ *mean std rms* ] [ *n_nan* ] *registration gtype*.
         The data in brackets are outputted depending on the ``force_scan``
-        and ``minmax_pos`` arguments. Use **t** to place file name at the end
+        and ``minmax_pos`` parameters. Use **t** to place file name at the end
         of the output record or, **n** or ``True`` to only output numerical
         columns. The registration is either 0 (gridline) or 1 (pixel), while
         gtype is either 0 (Cartesian) or 1 (geographic). The default value is
@@ -103,21 +101,16 @@ def grdinfo(grid, **kwargs):
         We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
         (if *dz* was given) as expected by :meth:`pygmt.makecpt`.
     {V}
+    {f}
 
     Returns
     -------
     info : str
         A string with information about the grid.
     """
-    kind = data_kind(grid, None, None)
     with GMTTempFile() as outfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 arg_str = " ".join(
                     [infile, build_arg_string(kwargs), "->" + outfile.name]

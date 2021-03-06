@@ -9,23 +9,23 @@ using :meth:`pygmt.Figure.grdview`.
 
     This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
     To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
 
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
 """
-# sphinx_gallery_thumbnail_number = 7
+# sphinx_gallery_thumbnail_number = 4
 
 import pygmt
 
 # Load sample earth relief data
-grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-108, -103, 35, 40])
+grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35, 40])
 
 ########################################################################################
 # The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
-# The ``perspective`` argument changes the azimuth and elevation of the viewpoint; the
+# The ``perspective`` parameter changes the azimuth and elevation of the viewpoint; the
 # default is [180, 90], which is looking directly down on the figure and north is "up".
-# The ``zsize`` argument sets how tall the three-dimensional portion appears.
+# The ``zsize`` parameter sets how tall the three-dimensional portion appears.
 #
 # The default grid surface type is *mesh plot*.
 
@@ -45,20 +45,6 @@ fig.show()
 
 ########################################################################################
 # The grid surface type can be set with the ``surftype`` parameter.
-
-fig = pygmt.Figure()
-fig.grdview(
-    grid=grid,
-    perspective=[130, 30],
-    frame=["xa", "ya", "WSnE"],
-    projection="M15c",
-    zsize="1.5c",
-    # Set the surftype to "surface"
-    surftype="s",
-)
-fig.show()
-
-########################################################################################
 # The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
 fig = pygmt.Figure()
@@ -68,6 +54,7 @@ fig.grdview(
     frame=["xa", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
+    # Set the surftype to "surface"
     surftype="s",
     # Set the CPT to "geo"
     cmap="geo",
@@ -75,7 +62,7 @@ fig.grdview(
 fig.show()
 
 ########################################################################################
-# The ``plane`` argument sets the elevation and color of a plane that provides a fill
+# The ``plane`` parameter sets the elevation and color of a plane that provides a fill
 # below the surface relief.
 
 fig = pygmt.Figure()
@@ -94,55 +81,23 @@ fig.show()
 
 ########################################################################################
 # The ``perspective`` azimuth can be changed to set the direction that is "up"
-# in the figure.
+# in the figure. The ``contourpen`` parameter sets the pen used to draw contour lines
+# on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a color bar to the
+# figure. The ``cmap`` parameter does not need to be passed again. To keep the color
+# bar's alignment similar to the figure, use ``True`` as the ``perspective`` parameter.
 
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
     # Set the azimuth to -130 (230) degrees and the elevation to 30 degrees
     perspective=[-130, 30],
-    frame=["xa", "yaf", "WSnE"],
-    projection="M15c",
-    zsize="1.5c",
-    surftype="s",
-    cmap="geo",
-    plane="1000+ggrey",
-)
-fig.show()
-
-########################################################################################
-# The ``contourpen`` parameter sets the pen used to draw contour lines on the surface.
-
-fig = pygmt.Figure()
-fig.grdview(
-    grid=grid,
-    perspective=[-130, 30],
     frame=["xaf", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
     surftype="s",
     cmap="geo",
     plane="1000+ggrey",
-    # Set the contour pen thickness to "0.5p"
-    contourpen="0.5p",
-)
-fig.show()
-
-########################################################################################
-# :meth:`pygmt.Figure.colorbar` can be used to add a color bar to the figure. The
-# ``cmap`` argument does not need to be passed again. To keep the color bar's alignment
-# similar to the figure, use ``True`` as the ``perspective`` argument.
-
-fig = pygmt.Figure()
-fig.grdview(
-    grid=grid,
-    perspective=[-130, 30],
-    frame=["xaf", "yaf", "WSnE"],
-    projection="M15c",
-    zsize="1.5c",
-    surftype="s",
-    cmap="geo",
-    plane="1000+ggrey",
+    # Set the contour pen thickness to "0.1p"
     contourpen="0.1p",
 )
 fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])

@@ -1,68 +1,11 @@
 """
-Test basic functionality for loading datasets.
+Test basic functionality for loading Earth relief datasets.
 """
 import numpy as np
 import numpy.testing as npt
 import pytest
-from pygmt.datasets import (
-    load_earth_relief,
-    load_japan_quakes,
-    load_ocean_ridge_points,
-    load_sample_bathymetry,
-    load_usgs_quakes,
-)
+from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
-
-
-def test_japan_quakes():
-    """
-    Check that the dataset loads without errors.
-    """
-    data = load_japan_quakes()
-    assert data.shape == (115, 7)
-    summary = data.describe()
-    assert summary.loc["min", "year"] == 1987
-    assert summary.loc["max", "year"] == 1988
-    assert summary.loc["min", "month"] == 1
-    assert summary.loc["max", "month"] == 12
-    assert summary.loc["min", "day"] == 1
-    assert summary.loc["max", "day"] == 31
-
-
-def test_ocean_ridge_points():
-    """
-    Check that the @ridge.txt dataset loads without errors.
-    """
-    data = load_ocean_ridge_points()
-    assert data.shape == (4146, 2)
-    summary = data.describe()
-    assert summary.loc["min", "longitude"] == -179.9401
-    assert summary.loc["max", "longitude"] == 179.935
-    assert summary.loc["min", "latitude"] == -65.6182
-    assert summary.loc["max", "latitude"] == 86.8
-
-
-def test_sample_bathymetry():
-    """
-    Check that the @tut_ship.xyz dataset loads without errors.
-    """
-    data = load_sample_bathymetry()
-    assert data.shape == (82970, 3)
-    summary = data.describe()
-    assert summary.loc["min", "longitude"] == 245.0
-    assert summary.loc["max", "longitude"] == 254.705
-    assert summary.loc["min", "latitude"] == 20.0
-    assert summary.loc["max", "latitude"] == 29.99131
-    assert summary.loc["min", "bathymetry"] == -7708.0
-    assert summary.loc["max", "bathymetry"] == -9.0
-
-
-def test_usgs_quakes():
-    """
-    Check that the dataset loads without errors.
-    """
-    data = load_usgs_quakes()
-    assert data.shape == (1197, 22)
 
 
 def test_earth_relief_fails():
@@ -93,8 +36,14 @@ def test_earth_relief_01d_with_region():
     """
     Test loading low-resolution earth relief with 'region'.
     """
-    with pytest.raises(NotImplementedError):
-        load_earth_relief("01d", region=[0, 180, 0, 90])
+    data = load_earth_relief(
+        resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
+    )
+    assert data.shape == (11, 21)
+    npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
+    npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
+    npt.assert_allclose(data.min(), -5145)
+    npt.assert_allclose(data.max(), 805.5)
 
 
 def test_earth_relief_30m():
@@ -140,3 +89,17 @@ def test_earth_relief_incorrect_registration():
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_relief(registration="improper_type")
+
+
+def test_earth_relief_invalid_resolution_registration_combination():
+    """
+    Test loading earth relief with invalid combination of resolution and
+    registration.
+    """
+    for resolution, registration in [
+        ("15s", "gridline"),
+        ("03s", "pixel"),
+        ("01s", "pixel"),
+    ]:
+        with pytest.raises(GMTInvalidInput):
+            load_earth_relief(resolution=resolution, registration=registration)

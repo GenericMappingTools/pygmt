@@ -72,6 +72,13 @@ COMMON_OPTIONS = {
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
          """,
+    "f": r"""
+        coltypes : str
+            [**i**\|\ **o**]\ *colinfo*.
+            Specify data types of input and/or output columns (time or
+            geographical data). Full documentation is at
+            :gmt-docs:`gmt.html#f-full`.
+         """,
     "j": r"""
         distcalc : str
             **e**\|\ **f**\|\ **g**.
@@ -98,7 +105,7 @@ COMMON_OPTIONS = {
             - **n** for nearest-neighbor""",
     "p": r"""
         perspective : list or str
-            [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]
+            [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
             [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
             Select perspective view and set the azimuth and elevation angle of
             the viewpoint. Default is [180, 90]. Full documentation is at
