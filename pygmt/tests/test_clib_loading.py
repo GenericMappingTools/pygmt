@@ -89,14 +89,18 @@ def test_load_libgmt_with_a_bad_library_path(monkeypatch):
     assert check_libgmt(load_libgmt()) is None
 
 
-def test_load_libgmt_with_broken_libraries(monkeypatch):
+class TestLibgmtBrokenLibs:
     """
-    Test load_libgmt still works when a broken library is found.
+    Test that load_libgmt still works when a broken library is found.
     """
+
     # load the GMT library before mocking the ctypes.CDLL function
     loaded_libgmt = load_libgmt()
+    invalid_path = "/invalid/path/to/libgmt.so"
+    faked_libgmt1 = FakedLibGMT("/path/to/faked/libgmt1.so")
+    faked_libgmt2 = FakedLibGMT("/path/to/faked/libgmt2.so")
 
-    def mock_ctypes_cdll_return(libname):
+    def _mock_ctypes_cdll_return(self, libname):
         """
         Mock the return value of ctypes.CDLL.
 
@@ -119,54 +123,72 @@ def test_load_libgmt_with_broken_libraries(monkeypatch):
             # raise OSError like the original ctypes.CDLL
             raise OSError(f"Unable to find '{libname}'")
         # libname is a loaded GMT library
-        return loaded_libgmt
+        return self.loaded_libgmt
 
-    with monkeypatch.context() as mpatch:
-        # pylint: disable=protected-access
-        # mock the ctypes.CDLL function using mock_ctypes_cdll_return()
-        mpatch.setattr(ctypes, "CDLL", mock_ctypes_cdll_return)
+    @pytest.fixture
+    def mock_ctypes(self, monkeypatch):
+        monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
 
-        faked_libgmt1 = FakedLibGMT("/path/to/faked/libgmt1.so")
-        faked_libgmt2 = FakedLibGMT("/path/to/faked/libgmt2.so")
+    def test_two_broken_libraries(self, mock_ctypes):
+        """
+        Case 1: two broken libraries.
 
-        # case 1: two broken libraries
-        # Raise the GMTCLibNotFoundError exception
-        # The error message should contain information of both libraries
-        lib_fullnames = [faked_libgmt1, faked_libgmt2]
+        Raise the GMTCLibNotFoundError exception. Error message should contain
+        information of both libraries that failed to load properly.
+        """
+        lib_fullnames = [self.faked_libgmt1, self.faked_libgmt2]
         msg_regex = (
-            fr"Error loading GMT shared library at '{faked_libgmt1._name}'.\n"
-            fr"Error loading '{faked_libgmt1._name}'. Couldn't access.*\n"
-            fr"Error loading GMT shared library at '{faked_libgmt2._name}'.\n"
-            fr"Error loading '{faked_libgmt2._name}'. Couldn't access.*"
+            fr"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
+            fr"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
+            fr"Error loading GMT shared library at '{self.faked_libgmt2._name}'.\n"
+            f"Error loading '{self.faked_libgmt2._name}'. Couldn't access.*"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
 
-        # case 2: broken library + invalid path
-        lib_fullnames = [faked_libgmt1, "/invalid/path/to/libgmt.so"]
+    def test_load_brokenlib_invalidpath(self, mock_ctypes):
+        """
+        Case 2: broken library + invalid path.
+
+        Raise the GMTCLibNotFoundError exception. Error message should contain
+        information of one library that failed to load and one invalid path.
+        """
+        lib_fullnames = [self.faked_libgmt1, self.invalid_path]
         msg_regex = (
-            fr"Error loading GMT shared library at '{faked_libgmt1._name}'.\n"
-            fr"Error loading '{faked_libgmt1._name}'. Couldn't access.*\n"
-            "Error loading GMT shared library at '/invalid/path/to/libgmt.so'.\n"
-            "Unable to find '/invalid/path/to/libgmt.so'"
+            fr"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
+            fr"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
+            fr"Error loading GMT shared library at '{self.invalid_path}'.\n"
+            f"Unable to find '{self.invalid_path}'"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
 
-        # case 3: broken library + invalid path + working library
-        lib_fullnames = [faked_libgmt1, "/invalid/path/to/libgmt.so", loaded_libgmt]
+    def test_brokenlib_invalidpath_workinglib(self, mock_ctypes):
+        """
+        Case 3: broken library + invalid path + working library.
+        """
+        lib_fullnames = [self.faked_libgmt1, self.invalid_path, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-        # case 4: invalid path + broken library + working library
-        lib_fullnames = ["/invalid/path/to/libgmt.so", faked_libgmt1, loaded_libgmt]
+    def test_invalidpath_brokenlib_workinglib(self, mock_ctypes):
+        """
+        Case 4: invalid path + broken library + working library.
+        """
+        lib_fullnames = [self.invalid_path, self.faked_libgmt1, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-        # case 5: working library + broken library + invalid path
-        lib_fullnames = [loaded_libgmt, faked_libgmt1, "/invalid/path/to/libgmt.so"]
+    def test_workinglib_brokenlib_invalidpath(self, mock_ctypes):
+        """
+        Case 5: working library + broken library + invalid path.
+        """
+        lib_fullnames = [self.loaded_libgmt, self.faked_libgmt1, self.invalid_path]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-        # case 6: repeating broken libraries + working library
-        lib_fullnames = [faked_libgmt1, faked_libgmt1, loaded_libgmt]
+    def test_brokenlib_brokenlib_workinglib(self, mock_ctypes):
+        """
+        Case 6: repeating broken libraries + working library.
+        """
+        lib_fullnames = [self.faked_libgmt1, self.faked_libgmt1, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
 
