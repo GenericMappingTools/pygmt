@@ -53,4 +53,7 @@ fig.plot(
     transparency=40,
 )
 
+# A colorbar displaying the individual categories will be added after the
+# upcoming GMT 6.2.0. version was released.
+
 fig.show()
