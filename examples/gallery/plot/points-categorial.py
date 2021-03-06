@@ -35,7 +35,7 @@ fig.basemap(
 pygmt.makecpt(cmap="inferno", color_model="+c", series=(0, 3, 1))
 
 fig.plot(
-    # Use one feature as x data input (snoot length)
+    # Use one feature as x data input (bill length)
     x=df.bill_length_mm,
     # Use another feature as y data input (snoot depth)
     y=df.bill_depth_mm,
