@@ -9,17 +9,23 @@ import os
 import subprocess as sp
 import sys
 from ctypes.util import find_library
+from pathlib import Path
 
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
-def load_libgmt():
+def load_libgmt(lib_fullnames=None):
     """
     Find and load ``libgmt`` as a :py:class:`ctypes.CDLL`.
 
-    By default, will look for the shared library in the directory specified by
-    the environment variable ``GMT_LIBRARY_PATH``. If it's not set, will let
-    ctypes try to find the library.
+    Will look for the GMT shared library in the directories determined by
+    clib_full_names().
+
+    Parameters
+    ----------
+    lib_fullnames : list of str or None
+        List of possible full names of GMT's shared library. If ``None``, will
+        default to ``clib_full_names()``.
 
     Returns
     -------
@@ -32,22 +38,26 @@ def load_libgmt():
         If there was any problem loading the library (couldn't find it or
         couldn't access the functions).
     """
-    lib_fullnames = []
+    if lib_fullnames is None:
+        lib_fullnames = clib_full_names()
+
     error = True
-    for libname in clib_full_names():
-        lib_fullnames.append(libname)
+    error_msg = []
+    failing_libs = []
+    for libname in lib_fullnames:
         try:
-            libgmt = ctypes.CDLL(libname)
-            check_libgmt(libgmt)
-            error = False
-            break
-        except OSError as err:
-            error = err
+            if libname not in failing_libs:  # skip the lib if it's known to fail
+                libgmt = ctypes.CDLL(libname)
+                check_libgmt(libgmt)
+                error = False
+                break
+        except (OSError, GMTCLibError) as err:
+            error_msg.append(f"Error loading GMT shared library at '{libname}'.\n{err}")
+            failing_libs.append(libname)
+
     if error:
-        raise GMTCLibNotFoundError(
-            "Error loading the GMT shared library "
-            f"{', '.join(lib_fullnames)}.\n {error}."
-        )
+        raise GMTCLibNotFoundError("\n".join(error_msg))
+
     return libgmt
 
 
@@ -65,16 +75,14 @@ def clib_names(os_name):
     libnames : list of str
         List of possible names of GMT's shared library.
     """
-    if os_name.startswith("linux"):
+    if os_name.startswith(("linux", "freebsd")):
         libnames = ["libgmt.so"]
     elif os_name == "darwin":  # Darwin is macOS
         libnames = ["libgmt.dylib"]
     elif os_name == "win32":
         libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
-    elif os_name.startswith("freebsd"):  # FreeBSD
-        libnames = ["libgmt.so"]
     else:
-        raise GMTOSError(f'Operating system "{os_name}" not supported.')
+        raise GMTOSError(f"Operating system '{os_name}' not supported.")
     return libnames
 
 
@@ -98,33 +106,37 @@ def clib_full_names(env=None):
 
     libnames = clib_names(os_name=sys.platform)  # e.g. libgmt.so, libgmt.dylib, gmt.dll
 
-    # list of libraries paths to search, sort by priority from high to low
-    # Search for libraries in GMT_LIBRARY_PATH if defined.
+    # Search for the library in different ways, sorted by priority.
+    # 1. Search for the library in GMT_LIBRARY_PATH if defined.
     libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
     if libpath:
         for libname in libnames:
-            libfullpath = os.path.join(libpath, libname)
-            if os.path.exists(libfullpath):
-                yield libfullpath
+            libfullpath = Path(libpath) / libname
+            if libfullpath.exists():
+                yield str(libfullpath)
 
-    # Search for the library returned by command "gmt --show-library"
+    # 2. Search for the library returned by command "gmt --show-library"
+    #    Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/"
     try:
-        libfullpath = sp.check_output(
-            ["gmt", "--show-library"], encoding="utf-8"
-        ).rstrip("\n")
-        assert os.path.exists(libfullpath)
-        yield libfullpath
-    except (FileNotFoundError, AssertionError):  # command not found
+        libfullpath = Path(
+            sp.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
+        )
+        assert libfullpath.exists()
+        yield str(libfullpath)
+    except (FileNotFoundError, AssertionError, sp.CalledProcessError):
+        # the 'gmt' executable  is not found
+        # the gmt library is not found
+        # the 'gmt' executable is broken
         pass
 
-    # Search for DLLs in PATH (done by calling "find_library")
+    # 3. Search for DLLs in PATH by calling find_library() (Windows only)
     if sys.platform == "win32":
         for libname in libnames:
             libfullpath = find_library(libname)
             if libfullpath:
                 yield libfullpath
 
-    # Search for library names in the system default path [the lowest priority]
+    # 4. Search for library names in the system default path
     for libname in libnames:
         yield libname
 

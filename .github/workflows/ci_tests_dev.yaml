@@ -79,7 +79,9 @@ jobs:
 
       # Install build dependencies from conda-forge
       - name: Install build dependencies
-        run: conda install cmake libblas libcblas liblapack fftw gdal ghostscript libnetcdf hdf5 zlib curl pcre ipython pytest pytest-cov pytest-mpl
+        run: |
+          conda install ninja cmake libblas libcblas liblapack fftw gdal ghostscript \
+                        libnetcdf hdf5 zlib curl pcre ipython pytest pytest-cov pytest-mpl
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
