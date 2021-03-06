@@ -25,6 +25,7 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
+from pygmt.helpers import data_kind, dummy_context
 
 FAMILIES = [
     "GMT_IS_DATASET",
@@ -1358,6 +1359,90 @@ class Session:
         args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)
         with self.open_virtual_file(*args) as vfile:
             yield vfile
+
+    def virtualfile_from_data(self, check_kind=None, data=None, x=None, y=None, z=None):
+        """
+        Store any data inside a virtual file.
+
+        This convenience function automatically detects the kind of data passed
+        into it, and produces a virtualfile that can be passed into GMT later
+        on.
+
+        Parameters
+        ----------
+        check_kind : str
+            Used to validate the type of data that can be passed in. Choose
+            from 'raster', 'vector' or None. Default is None (no validation).
+        data : str, xarray.DataArray, 2d array, or None
+            Any raster or vector data format. This could be a file name, a
+            raster grid, a vector matrix/arrays, or other supported data input.
+        x/y/z : 1d arrays or None
+            x, y and z columns as numpy arrays.
+
+        Returns
+        -------
+        file_context : contextlib._GeneratorContextManager
+            The virtual file stored inside a context manager. Access the file
+            name of this virtualfile using ``with file_context as fname: ...``.
+
+        Examples
+        --------
+        >>> from pygmt.helpers import GMTTempFile
+        >>> import xarray as xr
+        >>> data = xr.Dataset(
+        ...     coords={"index": [0, 1, 2]},
+        ...     data_vars={
+        ...         "x": ("index", [9, 8, 7]),
+        ...         "y": ("index", [6, 5, 4]),
+        ...         "z": ("index", [3, 2, 1]),
+        ...     },
+        ... )
+        >>> with Session() as ses:
+        ...     with ses.virtualfile_from_data(
+        ...         check_kind="vector", data=data
+        ...     ) as fin:
+        ...         # Send the output to a file so that we can read it
+        ...         with GMTTempFile() as fout:
+        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             print(fout.read().strip())
+        ...
+        <vector memory>: N = 3 <7/9> <4/6> <1/3>
+        """
+        kind = data_kind(data, x, y, z)
+
+        if check_kind == "raster" and kind not in ("file", "grid"):
+            raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
+        if check_kind == "vector" and kind not in ("file", "matrix", "vectors"):
+            raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
+
+        # Decide which virtualfile_from_ function to use
+        _virtualfile_from = {
+            "file": dummy_context,
+            "grid": self.virtualfile_from_grid,
+            # Note: virtualfile_from_matrix is not used because a matrix can be
+            # converted to vectors instead, and using vectors allows for better
+            # handling of string type inputs (e.g. for datetime data types)
+            "matrix": self.virtualfile_from_vectors,
+            "vectors": self.virtualfile_from_vectors,
+        }[kind]
+
+        # Ensure the data is an iterable (Python list or tuple)
+        if kind in ("file", "grid"):
+            _data = (data,)
+        elif kind == "vectors":
+            _data = (x, y, z)
+        elif kind == "matrix":  # turn 2D arrays into list of vectors
+            try:
+                # pandas.DataFrame and xarray.Dataset types
+                _data = [array for _, array in data.items()]
+            except AttributeError:
+                # Python lists, tuples, and numpy ndarray types
+                _data = np.atleast_2d(np.asanyarray(data).T)
+
+        # Finally create the virtualfile from the data, to be passed into GMT
+        file_context = _virtualfile_from(*_data)
+
+        return file_context
 
     def extract_region(self):
         """
