@@ -147,7 +147,7 @@ fig.show()
 ########################################################################################
 #
 # The area encompassed by the ISO code can be expanded by appending **+r**\ *increment*
-# to the ISO code. The *increment* unit is in degrees, and if only value is added it
+# to the ISO code. The *increment* unit is in degrees, and if only one value is added it
 # expands the range of the region in all directions. Using **+r** rounds to the nearest
 # increment.
 
@@ -226,8 +226,8 @@ fig.show()
 
 ########################################################################################
 #
-# The ``region`` increment can be appended with **+e**, which expand the bounding box
-# by at least 25% beyond the increment.
+# The ``region`` increment can be appended with **+e**, which expands the
+# bounding box by at least 25% beyond the increment.
 
 fig = pygmt.Figure()
 fig.coast(
