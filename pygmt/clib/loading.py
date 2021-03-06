@@ -75,14 +75,12 @@ def clib_names(os_name):
     libnames : list of str
         List of possible names of GMT's shared library.
     """
-    if os_name.startswith("linux"):
+    if os_name.startswith(("linux", "freebsd")):
         libnames = ["libgmt.so"]
     elif os_name == "darwin":  # Darwin is macOS
         libnames = ["libgmt.dylib"]
     elif os_name == "win32":
         libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
-    elif os_name.startswith("freebsd"):  # FreeBSD
-        libnames = ["libgmt.so"]
     else:
         raise GMTOSError(f"Operating system '{os_name}' not supported.")
     return libnames
