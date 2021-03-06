@@ -28,7 +28,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=region,
     projection="X10c/10c",
-    frame=['xafg+l"Snoot length in mm"', 'yafg+l"Snoot depth in mm"', "WSen"],
+    frame=['xafg+l"Bill length in mm"', 'yafg+l"Bill depth in mm"', "WSen"],
 )
 
 # Define colormap to use for three categories
