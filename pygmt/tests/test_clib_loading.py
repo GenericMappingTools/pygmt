@@ -127,6 +127,9 @@ class TestLibgmtBrokenLibs:
 
     @pytest.fixture
     def mock_ctypes(self, monkeypatch):
+        """
+        Patch the ctypes.CDLL function.
+        """
         monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
 
     def test_two_broken_libraries(self, mock_ctypes):
@@ -136,6 +139,7 @@ class TestLibgmtBrokenLibs:
         Raise the GMTCLibNotFoundError exception. Error message should contain
         information of both libraries that failed to load properly.
         """
+        # pylint: disable=protected-access
         lib_fullnames = [self.faked_libgmt1, self.faked_libgmt2]
         msg_regex = (
             fr"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
@@ -153,6 +157,7 @@ class TestLibgmtBrokenLibs:
         Raise the GMTCLibNotFoundError exception. Error message should contain
         information of one library that failed to load and one invalid path.
         """
+        # pylint: disable=protected-access
         lib_fullnames = [self.faked_libgmt1, self.invalid_path]
         msg_regex = (
             fr"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
