@@ -15,7 +15,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(n="interpolation", V="verbose")
+@use_alias(V="verbose", f="coltypes", n="interpolation")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     """
     Sample grids at specified (x,y) locations.
@@ -55,7 +55,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         file.
 
     {V}
-
+    {f}
     {n}
 
     Returns
@@ -84,12 +84,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
                 raise GMTInvalidInput(f"Unrecognized data type {type(points)}")
 
             # Store the xarray.DataArray grid in virtualfile
-            if data_kind(grid) == "grid":
-                grid_context = lib.virtualfile_from_grid(grid)
-            elif data_kind(grid) == "file":
-                grid_context = dummy_context(grid)
-            else:
-                raise GMTInvalidInput(f"Unrecognized data type {type(grid)}")
+            grid_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
             # Run grdtrack on the temporary (csv) points table
             # and (netcdf) grid virtualfile
