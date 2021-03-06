@@ -21,7 +21,7 @@ fig.basemap(
     projection="X10c/10c",
     frame=["xa0.2fg", "ya0.2fg", "WSrt"],
 )
-for color in ["blue", "orange", "green"]:
+for color in ["seagreen2", "chocolate1", "mediumpurple1"]:
     x, y = np.random.rand(2, n)  # random X and Y data in [0,1]
     sizes = np.random.rand(n) * 0.5  # random size [0,0.5], in cm
     # plot data points as circles (style="c"), with different sizes
