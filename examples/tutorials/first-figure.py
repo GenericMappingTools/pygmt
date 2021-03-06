@@ -77,7 +77,7 @@ fig.show()
 #
 # You’ll probably have noticed several things that are different from classic
 # command-line GMT. Many of these changes reflect the new GMT modern execution
-# mode that are part of GMT 6.
+# mode that is part of GMT 6.
 #
 # 1. The name of method is ``coast`` instead of ``pscoast``. As a general rule, all
 #    ``ps*`` modules had their ``ps`` prefix removed. The exceptions are:
