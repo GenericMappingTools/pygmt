@@ -14,7 +14,7 @@ df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/penguins.cs
 df["species"] = df.species.astype(dtype="category")
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
-# The below example will return a numpy array like [2.  4.4 4.3 7.9]
+# The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
 region = pygmt.info(
     table=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
     per_column=True,  # report output as a numpy array
@@ -28,7 +28,9 @@ fig = pygmt.Figure()
 fig.basemap(
     region=region,
     projection="X10c/10c",
-    frame=['xafg+l"Bill length in mm"', 'yafg+l"Bill depth in mm"', "WSen"],
+    frame=['xafg+l"Bill length in mm"',
+           'yafg+l"Bill depth in mm"',
+           'WSen+t"Penguin size at Palmer Station"],
 )
 
 # Define colormap to use for three categories
