@@ -40,7 +40,7 @@ for linestyle in [
     "2p,tomato,--.",  # dash-dash-dotted line
     # A pattern of 4-point-long line segment and 2-point-gap between segment,
     # with pattern offset by 2 points from the origin
-    "2p,tomato,4_2:2p",  
+    "2p,tomato,4_2:2p",
 ]:
     y -= 1  # Move the current line down
     fig.plot(x=x, y=y, pen=linestyle)
