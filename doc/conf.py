@@ -71,6 +71,7 @@ sphinx_gallery_conf = {
     "gallery_dirs": ["gallery", "tutorials", "projections"],
     "subsection_order": ExplicitOrder(
         [
+            "../examples/gallery/images",
             "../examples/gallery/maps",
             "../examples/gallery/lines",
             "../examples/gallery/symbols",
