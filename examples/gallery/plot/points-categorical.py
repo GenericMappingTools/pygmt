@@ -55,7 +55,7 @@ fig.plot(
     transparency=40,
 )
 
-# A colorbar displaying the individual categories will be added after the
-# upcoming GMT 6.2.0. version was released.
+# A colorbar displaying the different penguin species types will be added
+# once GMT 6.2.0 is released.
 
 fig.show()
