@@ -21,19 +21,19 @@ fig.basemap(
     projection="X10c/10c",
     frame=["xa0.2fg", "ya0.2fg", "WSrt"],
 )
-for color in ["seagreen2", "chocolate1", "mediumpurple1"]:
+for color, style in [("gray73", "c"), ("darkorange", "s"), ("slateblue", "t")]:
     x, y = np.random.rand(2, n)  # random X and Y data in [0,1]
     sizes = np.random.rand(n) * 0.5  # random size [0,0.5], in cm
     # plot data points as circles (style="c"), with different sizes
     fig.plot(
         x=x,
         y=y,
-        style="c",
+        style=style,
         sizes=sizes,
         color=color,
         # Set the legend label,
-        # and set the circle size to be 0.25 cm (+S0.25c) in legend
-        label=f"{color}+S0.25c",
+        # and set the style size to be 0.25 cm (+S0.25{style}) in legend
+        label=f"{color}+S0.25{style}",
         transparency=70,  # set transparency level for all symbols
     )
 
