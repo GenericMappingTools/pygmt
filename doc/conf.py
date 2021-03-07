@@ -9,7 +9,6 @@ import datetime
 # isort: off
 from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
     ExplicitOrder,
-    FileNameSortKey,
     ExampleTitleSortKey,
 )
 from pygmt import __commit__, __version__
