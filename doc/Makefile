@@ -7,29 +7,21 @@ SPHINXAUTOGEN = sphinx-autogen
 BUILDDIR      = _build
 
 # Internal variables.
-ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
+ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 
 .PHONY: help clean html linkcheck doctest api
-
-all: html
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  all        generate the complete webpage"
 	@echo "  html       make only the HTML files from the existing rst sources"
+	@echo "  api        make only the API documentation from the source codes"
+	@echo "  serve      make a HTTP server"
 	@echo "  linkcheck  check all external links for integrity"
 	@echo "  doctest    run all doctests embedded in the documentation (if enabled)"
+	@echo "  clean      clean up build and generated files"
 
-clean:
-	rm -rf $(BUILDDIR)/html
-	rm -rf $(BUILDDIR)/doctrees
-	rm -rf $(BUILDDIR)/linkcheck
-	rm -rf modules
-	rm -rf api/generated
-	rm -rf gallery
-	rm -rf tutorials
-	rm -rf projections
-	rm -rf .ipynb_checkpoints
+all: html
 
 html: api
 	@echo
@@ -45,6 +37,8 @@ api:
 	@echo
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
+serve:
+	cd $(BUILDDIR)/html && python -m http.server 8009
 
 linkcheck:
 	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
@@ -54,8 +48,16 @@ linkcheck:
 
 doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
-	@echo "Testing of doctests in the sources finished, look at the " \
+	@echo "Testing of doctests in the sources finished; look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
 
-serve:
-	cd $(BUILDDIR)/html && python -m http.server 8009
+clean:
+	rm -rf $(BUILDDIR)/html
+	rm -rf api/generated
+	rm -rf $(BUILDDIR)/linkcheck
+	rm -rf $(BUILDDIR)/doctrees
+	rm -rf modules
+	rm -rf gallery
+	rm -rf tutorials
+	rm -rf projections
+	rm -rf .ipynb_checkpoints
