@@ -30,7 +30,7 @@ fig.basemap(
     projection="X10c/10c",
     frame=['xafg+l"Bill length in mm"',
            'yafg+l"Bill depth in mm"',
-           'WSen+t"Penguin size at Palmer Station"],
+           'WSen+t"Penguin size at Palmer Station"'],
 )
 
 # Define colormap to use for three categories
