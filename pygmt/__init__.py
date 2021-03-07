@@ -8,8 +8,8 @@
 # Main Features
 # -------------
 # Here are just a few of the things that PyGMT does well:
-#   - Easy handling of all kinds of geospatial data including gridded and raster
-#     data.
+#   - Easy handling of all kinds of geospatial data including gridded and
+#     raster data.
 #   - Allows plotting of a large spectrum of objects on maps including lines,
 #     vectors, polygons, and symbols (pre-defined and customized)
 
