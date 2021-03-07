@@ -165,7 +165,7 @@ Alternatively, you can install the latest development version from PyGMT's `GitH
 
     pip install git+https://github.com/GenericMappingTools/pygmt.git#egg=pygmt
 
-Run the above command again to upgrade the latest development.
+Run the above command again to upgrade to the latest development version.
 
 Any of the above methods (conda/pip) should allow you to use the PyGMT package
 from Python.
