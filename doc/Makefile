@@ -14,8 +14,8 @@ ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  all        generate the complete webpage"
-	@echo "  html       make only the HTML files from the existing rst sources"
-	@echo "  api        make only the API documentation from the source codes"
+	@echo "  html       build the HTML files from the existing rst sources"
+	@echo "  api        generate API documentation rst sources"
 	@echo "  serve      make a HTTP server"
 	@echo "  linkcheck  check all external links for integrity"
 	@echo "  doctest    run all doctests embedded in the documentation (if enabled)"
@@ -52,10 +52,11 @@ doctest:
 	      "results in $(BUILDDIR)/doctest/output.txt."
 
 clean:
-	rm -rf $(BUILDDIR)/html
-	rm -rf api/generated
-	rm -rf $(BUILDDIR)/linkcheck
 	rm -rf $(BUILDDIR)/doctrees
+	rm -rf $(BUILDDIR)/html
+	rm -rf $(BUILDDIR)/linkcheck
+	rm -rf $(BUILDDIR)/doctest
+	rm -rf api/generated
 	rm -rf modules
 	rm -rf gallery
 	rm -rf tutorials
