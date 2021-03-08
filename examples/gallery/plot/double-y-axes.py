@@ -29,11 +29,7 @@ fig.basemap(
     frame=["WS", "xaf+lx", "yaf+ly1"],
 )
 # Plot the line for y1
-fig.plot(
-    x=x,
-    y=y1,
-    pen="1p,blue",
-)
+fig.plot(x=x, y=y1, pen="1p,blue")
 # Plot points for y1
 fig.plot(
     x=x,
