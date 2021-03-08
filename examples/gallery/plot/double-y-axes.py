@@ -2,9 +2,6 @@
 Double Y-axes
 -------------
 
-The frame of a figure can be set axis parameter in any method of the
-Figure class.
-
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
 class can control which axes should be plotted and possibly show annotations
 and tick marks. By default, all the 4 axes are plotted, along with annotations
