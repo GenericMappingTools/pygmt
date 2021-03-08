@@ -1,17 +1,17 @@
-# pylint: disable=missing-docstring
-#
-# PyGMT is a library for processing geospatial and geophysical data and making
-# publication quality maps and figures. It provides a Pythonic interface for
-# the Generic Mapping Tools (GMT), a command-line program widely used in the
-# Earth Sciences.
-#
-# Main Features
-# -------------
-# Here are just a few of the things that PyGMT does well:
-#   - Easy handling of all kinds of geospatial data including gridded and
-#     raster data.
-#   - Allows plotting of a large spectrum of objects on maps including lines,
-#     vectors, polygons, and symbols (pre-defined and customized)
+"""
+PyGMT is a library for processing geospatial and geophysical data and making
+publication quality maps and figures. It provides a Pythonic interface for the
+Generic Mapping Tools (GMT), a command-line program widely used in the Earth
+Sciences.
+
+Main Features
+-------------
+Here are just a few of the things that PyGMT does well:
+  - Easy handling of all kinds of geospatial data including gridded and
+    raster data.
+  - Allows plotting of a large spectrum of objects on maps including lines,
+    vectors, polygons, and symbols (pre-defined and customized)
+"""
 
 import atexit as _atexit
 
