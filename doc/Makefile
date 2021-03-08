@@ -44,8 +44,6 @@ clean:
 	rm -rf $(BUILDDIR)/linkcheck
 	rm -rf $(BUILDDIR)/doctest
 	rm -rf api/generated
-	rm -rf modules
 	rm -rf gallery
 	rm -rf tutorials
 	rm -rf projections
-	rm -rf .ipynb_checkpoints
