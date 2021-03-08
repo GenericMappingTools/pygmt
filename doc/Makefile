@@ -16,8 +16,8 @@ help:
 	@echo "  all        generate the complete webpage"
 	@echo "  html       build the HTML files from the existing rst sources"
 	@echo "  api        generate API documentation rst sources"
-	@echo "  server     make a HTTP server"
-	@echo "  clean      clean up build and generated files"
+	@echo "  server     make a local HTTP server for previewing the built documentation"
+	@echo "  clean      clean up built and generated files"
 
 all: html
 
