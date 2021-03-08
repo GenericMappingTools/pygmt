@@ -1380,7 +1380,7 @@ class Session:
             raster grid, a vector matrix/arrays, or other supported data input.
         x/y/z : 1d arrays or None
             x, y and z columns as numpy arrays.
-        extra_arrays : list
+        extra_arrays : list of 1d arrays
             Optional. A list of numpy arrays in addition to x, y and z. All
             of these arrays must be of the same size as the x/y/z arrays.
 
@@ -1446,9 +1446,10 @@ class Session:
                 _data = [array for _, array in data.items()]
             except AttributeError:
                 try:
-                    # Just use virtualfile_from_matrix for 2D
-                    # numpy.ndarray which are not datetime (M) types
-                    assert data.ndim == 2 and not data.dtype.kind == "M"
+                    # Just use virtualfile_from_matrix for 2D numpy.ndarray
+                    # which are signed integer (i), unsigned integer (u) or
+                    # floating point (f) types
+                    assert data.ndim == 2 and data.dtype.kind in "iuf"
                     _virtualfile_from = self.virtualfile_from_matrix
                     _data = (data,)
                 except (AssertionError, AttributeError):

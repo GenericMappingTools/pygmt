@@ -29,6 +29,15 @@ def test_info():
     assert output == expected_output
 
 
+def test_info_2d_list():
+    """
+    Make sure info works on a 2d list.
+    """
+    output = info(table=[[0, 8], [3, 5], [6, 2]])
+    expected_output = "<vector memory>: N = 3 <0/6> <2/8>\n"
+    assert output == expected_output
+
+
 def test_info_dataframe():
     """
     Make sure info works on pandas.DataFrame inputs.
