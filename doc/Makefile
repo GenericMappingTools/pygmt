@@ -41,8 +41,6 @@ server:
 clean:
 	rm -rf $(BUILDDIR)/doctrees
 	rm -rf $(BUILDDIR)/html
-	rm -rf $(BUILDDIR)/linkcheck
-	rm -rf $(BUILDDIR)/doctest
 	rm -rf api/generated
 	rm -rf gallery
 	rm -rf tutorials
