@@ -18,20 +18,11 @@ region = np.array([139.2, 140.5, 34.8, 36])
 fig = pygmt.Figure()
 
 # Plot the base map of the primary figure
-fig.basemap(
-    region=region,
-    projection="M12c",
-    frame=["WSne", "af"],
-)
+fig.basemap(region=region, projection="M12c", frame=["WSne", "af"])
 
 # Set the land color to "lightbrown", the water to "azure1", the shorelines
 # width to "2p", the smallest area to 1000 km2 for the primary figure
-fig.coast(
-    land="lightbrown",
-    water="azure1",
-    shorelines="2p",
-    area_thresh=1000,
-)
+fig.coast(land="lightbrown", water="azure1", shorelines="2p", area_thresh=1000)
 
 # Create an inset, setting the position to bottom left, the width to
 # 3 centimeters, the height to 3.6 centimeters, and  the x- and y-offsets to
@@ -51,10 +42,6 @@ with fig.inset(position="jBL+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
     with GMTTempFile() as temp_file:
         with open(temp_file.name, "w") as f:
             f.write("{} {} {} {}".format(region[0], region[2], region[1], region[3]))
-        fig.plot(
-            data=temp_file.name,
-            style="r+s",
-            pen="1p,blue",
-        )
+        fig.plot(data=temp_file.name, style="r+s", pen="1p,blue")
 
 fig.show()
