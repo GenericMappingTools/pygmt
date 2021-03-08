@@ -9,7 +9,7 @@ BUILDDIR      = _build
 # Internal variables.
 ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 
-.PHONY: help clean html linkcheck doctest api
+.PHONY: help clean html api
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -36,11 +36,14 @@ api:
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
 server:
+    @echo
+    @echo "Running a server on port 8009."
+    @echo "Open http://localhost:8009 in a web browser to preview the documentation."
+    @echo
 	cd $(BUILDDIR)/html && python -m http.server 8009
 
 clean:
-	rm -rf $(BUILDDIR)/doctrees
-	rm -rf $(BUILDDIR)/html
+	rm -rf $(BUILDDIR)
 	rm -rf api/generated
 	rm -rf gallery
 	rm -rf tutorials
