@@ -21,6 +21,12 @@ help:
 
 all: html
 
+api:
+	@echo
+	@echo "Building API docs."
+	@echo
+	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
+
 html: api
 	@echo
 	@echo "Building HTML files."
@@ -28,12 +34,6 @@ html: api
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
-
-api:
-	@echo
-	@echo "Building API docs."
-	@echo
-	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
 server:
 	@echo
