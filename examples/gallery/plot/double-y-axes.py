@@ -34,7 +34,7 @@ fig.plot(
     y=y1,
     pen="1p,blue",
 )
-# Plot points for y2
+# Plot points for y1
 fig.plot(
     x=x,
     y=y1,
@@ -50,7 +50,7 @@ fig.basemap(
     region=[0, 10, 100, 200],
     frame=["Et", "yaf+ly2"],
 )
-# Plot the line for y1
+# Plot the line for y2
 fig.plot(
     x=x,
     y=y2,
