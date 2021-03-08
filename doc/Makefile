@@ -23,7 +23,7 @@ all: html
 
 api:
 	@echo
-	@echo "Building API docs."
+	@echo "Generating rst source files of API documentation."
 	@echo
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
