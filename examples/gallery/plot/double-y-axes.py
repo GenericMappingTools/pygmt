@@ -4,8 +4,8 @@ Double Y-axes
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
 class can control which axes should be plotted and possibly show annotations
-and tick marks. By default, all the 4 axes are plotted, along with annotations
-and tick marks (denoted **W**, **S**, **E**, **N**). Lower cases (**w**, **s**,
+and tick marks. By default, all 4 axes are plotted, along with annotations
+and tick marks (denoted **W**, **S**, **E**, **N**). Lower case versions (**w**, **s**,
 **e**, **n**) can be used to denote to only plot the axes with tick marks. We
 can also only plot the axes without annotations and tick marks using **l**
 (left axis), **r** (right axis), **t** (top axis), **b** (bottom axis).
@@ -33,7 +33,7 @@ fig.plot(x=x, y=y1, style="c0.2c", color="blue", label="y1")
 
 # Plot y2
 # The right axis (E) is plotted with annotations and tick marks
-# The top axis (t) is plotting without annotations and tick marks
+# The top axis (t) is plotted without annotations and tick marks
 fig.basemap(region=[0, 10, 100, 200], frame=["Et", "yaf+ly2"])
 # Plot the line for y2
 fig.plot(x=x, y=y2, pen="1p,red")
