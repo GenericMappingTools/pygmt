@@ -14,13 +14,18 @@ from pathlib import Path
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
-def load_libgmt():
+def load_libgmt(lib_fullnames=None):
     """
     Find and load ``libgmt`` as a :py:class:`ctypes.CDLL`.
 
-    By default, will look for the shared library in the directory specified by
-    the environment variable ``GMT_LIBRARY_PATH``. If it's not set, will let
-    ctypes try to find the library.
+    Will look for the GMT shared library in the directories determined by
+    clib_full_names().
+
+    Parameters
+    ----------
+    lib_fullnames : list of str or None
+        List of possible full names of GMT's shared library. If ``None``, will
+        default to ``clib_full_names()``.
 
     Returns
     -------
@@ -33,22 +38,26 @@ def load_libgmt():
         If there was any problem loading the library (couldn't find it or
         couldn't access the functions).
     """
-    lib_fullnames = []
+    if lib_fullnames is None:
+        lib_fullnames = clib_full_names()
+
     error = True
-    for libname in clib_full_names():
-        lib_fullnames.append(libname)
+    error_msg = []
+    failing_libs = []
+    for libname in lib_fullnames:
         try:
-            libgmt = ctypes.CDLL(libname)
-            check_libgmt(libgmt)
-            error = False
-            break
-        except OSError as err:
-            error = err
+            if libname not in failing_libs:  # skip the lib if it's known to fail
+                libgmt = ctypes.CDLL(libname)
+                check_libgmt(libgmt)
+                error = False
+                break
+        except (OSError, GMTCLibError) as err:
+            error_msg.append(f"Error loading GMT shared library at '{libname}'.\n{err}")
+            failing_libs.append(libname)
+
     if error:
-        raise GMTCLibNotFoundError(
-            "Error loading the GMT shared library "
-            f"{', '.join(lib_fullnames)}.\n {error}."
-        )
+        raise GMTCLibNotFoundError("\n".join(error_msg))
+
     return libgmt
 
 
@@ -66,16 +75,14 @@ def clib_names(os_name):
     libnames : list of str
         List of possible names of GMT's shared library.
     """
-    if os_name.startswith("linux"):
+    if os_name.startswith(("linux", "freebsd")):
         libnames = ["libgmt.so"]
     elif os_name == "darwin":  # Darwin is macOS
         libnames = ["libgmt.dylib"]
     elif os_name == "win32":
         libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
-    elif os_name.startswith("freebsd"):  # FreeBSD
-        libnames = ["libgmt.so"]
     else:
-        raise GMTOSError(f'Operating system "{os_name}" not supported.')
+        raise GMTOSError(f"Operating system '{os_name}' not supported.")
     return libnames
 
 
