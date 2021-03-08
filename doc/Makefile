@@ -36,10 +36,10 @@ api:
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
 server:
-    @echo
-    @echo "Running a server on port 8009."
-    @echo "Open http://localhost:8009 in a web browser to preview the documentation."
-    @echo
+	@echo
+	@echo "Running a server on port 8009."
+	@echo "Open http://localhost:8009 in a web browser to preview the documentation."
+	@echo
 	cd $(BUILDDIR)/html && python -m http.server 8009
 
 clean:
