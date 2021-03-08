@@ -9,7 +9,7 @@ BUILDDIR      = _build
 # Internal variables.
 ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 
-.PHONY: help api html server clean
+.PHONY: help all api html server clean
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of"
