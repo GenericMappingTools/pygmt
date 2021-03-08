@@ -15,7 +15,7 @@ help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  all        generate the complete webpage"
 	@echo "  html       build the HTML files from the existing rst sources"
-	@echo "  api        generate API documentation rst sources"
+	@echo "  api        generate rst source files of API documentation"
 	@echo "  server     make a local HTTP server for previewing the built documentation"
 	@echo "  clean      clean up built and generated files"
 
