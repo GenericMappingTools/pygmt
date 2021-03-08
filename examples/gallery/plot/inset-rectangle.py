@@ -39,9 +39,7 @@ with fig.inset(position="jBL+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
         area_thresh=10000,
     )
     # Plot a rectangle in the inset map to show the area of the primary figure
-    with GMTTempFile() as temp_file:
-        with open(temp_file.name, "w") as f:
-            f.write("{} {} {} {}".format(region[0], region[2], region[1], region[3]))
-        fig.plot(data=temp_file.name, style="r+s", pen="1p,blue")
+    rectangle = np.array([[region[0], region[2], region[1], region[3]]])
+    fig.plot(data=rectangle, style="r+s", pen="1p,blue")
 
 fig.show()
