@@ -12,7 +12,7 @@ ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 .PHONY: help api html server clean
 
 help:
-	@echo "Please use \`make <target>' where <target> is one of"
+	@echo "Please use 'make <target>' where <target> is one of"
 	@echo "  all        generate the complete webpage"
 	@echo "  api        generate rst source files of API documentation"
 	@echo "  html       build the HTML files from the existing rst sources"
