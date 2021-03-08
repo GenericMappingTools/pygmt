@@ -16,7 +16,7 @@ help:
 	@echo "  all        generate the complete webpage"
 	@echo "  html       build the HTML files from the existing rst sources"
 	@echo "  api        generate API documentation rst sources"
-	@echo "  serve      make a HTTP server"
+	@echo "  server     make a HTTP server"
 	@echo "  clean      clean up build and generated files"
 
 all: html
@@ -35,7 +35,7 @@ api:
 	@echo
 	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
-serve:
+server:
 	cd $(BUILDDIR)/html && python -m http.server 8009
 
 clean:
