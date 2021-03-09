@@ -24,7 +24,7 @@ fig = pygmt.Figure()
 # Plot y1
 # The left (W) and bottom (S) axes are plotted with annotations and tick marks
 fig.basemap(
-    region=[0, 10, 0, 10], projection="X5c/5c", frame=["WS", "xaf+lx", "yaf+ly1"]
+    region=[0, 10, 0, 10], projection="X15c/15c", frame=["WS", "xaf+lx", "yaf+ly1"]
 )
 # Plot the line for y1
 fig.plot(x=x, y=y1, pen="1p,blue")
