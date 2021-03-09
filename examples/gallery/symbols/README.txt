@@ -1,2 +1,2 @@
-Images, symbols, and markers
-----------------------------
+Symbols and markers
+-------------------
