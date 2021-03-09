@@ -36,12 +36,12 @@ fig = pygmt.Figure()
 
 ########################################################################################
 # Add elements to the figure using its methods. For example, let's use
-# :meth:`pygmt.Figure.basemap` to start a map. We'll use the ``region`` parameter
-# provide the longitude and latitude bounds, the ``projection`` parameter to set
-# the projection to Mercator (**M**) and the map width to 8 cm, and the ``frame``
+# :meth:`pygmt.Figure.basemap` to start the creation of a map. We'll use the ``region`` parameter
+# to provide the longitude and latitude bounds, the ``projection`` parameter to set
+# the projection to Mercator (**M**) and the map width to 15 cm, and the ``frame``
 # parameter to generate a frame with automatic tick and annotation spacings.
 
-fig.basemap(region=[-90, -70, 0, 20], projection="M8c", frame=True)
+fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
 
 ########################################################################################
 # Now we can add coastlines using :meth:`pygmt.Figure.coast` to this map using the
@@ -59,7 +59,7 @@ fig.show()
 # without calling :meth:`gmt.Figure.basemap`:
 
 fig = pygmt.Figure()
-fig.coast(shorelines=True, region=[-90, -70, 0, 20], projection="M8c", frame=True)
+fig.coast(shorelines=True, region=[-90, -70, 0, 20], projection="M15c", frame=True)
 fig.show()
 
 ########################################################################################
@@ -97,7 +97,7 @@ fig.show()
 #    between the GMT parameters and their PyGMT aliases should be straightforward.
 #    For some modules, these aliases are still being developed.
 # 2. Parameters like ``region`` can take :class:`lists <list>` as well as strings like ``1/2/3/4``.
-# 3. If a GMT parameter has no options (like ``-B`` instead of ``-Baf``), use a ``True``
+# 3. If a GMT option has no arguments (like ``-B`` instead of ``-Baf``), use a ``True``
 #    in Python. An empty string would also be acceptable. For repeated parameters, such
 #    as ``-B+Loleron -Bxaf -By+lm``, provide a :class:`list`: ``frame=["+Loleron", "xaf", "y+lm"]``.
 # 4. There is no output redirecting to a PostScript file. The figure is generated in the
