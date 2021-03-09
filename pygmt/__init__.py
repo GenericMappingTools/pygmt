@@ -10,7 +10,7 @@ Main Features
 -------------
 Here are just a few of the things that PyGMT does well:
 
-  - Easy handling of individual types of data like cartesian, geographic, or
+  - Easy handling of individual types of data like Cartesian, geographic, or
     time-series data.
   - Processing of (geo)spatial data including gridding, filtering, masking
   - Allows plotting of a large spectrum of objects on figures including
