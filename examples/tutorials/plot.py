@@ -42,7 +42,7 @@ print(data.head())
 
 ########################################################################################
 # We'll use :meth:`pygmt.Figure.plot` method to plot circles on the locations
-# of the earthquakes
+# of the earthquakes.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
