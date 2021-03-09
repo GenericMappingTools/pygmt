@@ -29,6 +29,15 @@ def test_info():
     assert output == expected_output
 
 
+def test_info_2d_list():
+    """
+    Make sure info works on a 2d list.
+    """
+    output = info(table=[[0, 8], [3, 5], [6, 2]])
+    expected_output = "<vector memory>: N = 3 <0/6> <2/8>\n"
+    assert output == expected_output
+
+
 def test_info_dataframe():
     """
     Make sure info works on pandas.DataFrame inputs.
@@ -105,7 +114,7 @@ def test_info_2d_array():
     table = np.loadtxt(POINTS_DATA)
     output = info(table=table)
     expected_output = (
-        "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+        "<matrix memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 
