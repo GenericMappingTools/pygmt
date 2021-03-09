@@ -38,8 +38,8 @@ fig = pygmt.Figure()
 # Add elements to the figure using its methods. For example, let's use
 # :meth:`pygmt.Figure.basemap` to start a map. We'll use the ``region`` parameter
 # provide the longitude and latitude bounds, the ``projection`` parameter to set
-# the projection to Mercator (**M**) and the map width to 8cm, and the ``frame``
-# parameter to generate a frame with automatic tick and annotation spacing.
+# the projection to Mercator (**M**) and the map width to 8 cm, and the ``frame``
+# parameter to generate a frame with automatic tick and annotation spacings.
 
 fig.basemap(region=[-90, -70, 0, 20], projection="M8c", frame=True)
 
