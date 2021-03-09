@@ -9,6 +9,7 @@ display in Jupyter notebooks.
 Main Features
 -------------
 Here are just a few of the things that PyGMT does well:
+
   - Easy handling of individual types of data like cartesian, geographic, or
     time-series data.
   - Processing of (geo)spatial data including gridding, filtering, masking
