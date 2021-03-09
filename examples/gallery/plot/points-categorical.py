@@ -24,7 +24,7 @@ df["species"] = df.species.astype(dtype="category")
 region = pygmt.info(
     table=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
     per_column=True,  # report output as a numpy array
-    spacing="3/2",  # rounds x and y intervals by 3 and 2 respectively
+    spacing=(3, 2),  # rounds x and y intervals by 3 and 2 respectively
 )
 
 # Make our 2D categorical scatter plot, coloring each of the 3 species differently
