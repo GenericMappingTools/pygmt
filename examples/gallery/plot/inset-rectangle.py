@@ -10,10 +10,9 @@ box, offset, and margin parameters are set. Plotting methods called within the
 
 import numpy as np
 import pygmt
-from pygmt.helpers import GMTTempFile
 
 # Set the region to be near Tokyo
-region = np.array([139.2, 140.5, 34.8, 36])
+region = [139.2, 140.5, 34.8, 36]
 
 fig = pygmt.Figure()
 
