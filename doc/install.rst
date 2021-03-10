@@ -160,13 +160,6 @@ To upgrade the installed development version to be the latest one, just add ``--
 
     pip install --upgrade --pre --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pygmt
 
-Alternatively, you can install the latest development version from PyGMT's `GitHub repository <https://github.com/GenericMappingTools/pygmt>`__
-(slower as it downloads the whole archive)::
-
-    pip install git+https://github.com/GenericMappingTools/pygmt.git#egg=pygmt
-
-Run the above command again to upgrade to the latest development version.
-
 Any of the above methods (conda/pip) should allow you to use the PyGMT package
 from Python.
 
