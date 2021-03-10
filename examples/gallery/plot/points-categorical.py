@@ -23,7 +23,7 @@ df["species"] = df.species.astype(dtype="category")
 # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
 region = pygmt.info(
     table=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
-    per_column=True,  # report output as a numpy array
+    per_column=True,  # report the min/max values per column as a numpy array
     spacing=(3, 2),  # rounds x and y intervals by 3 and 2 respectively
 )
 
