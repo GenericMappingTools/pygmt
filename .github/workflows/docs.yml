@@ -63,7 +63,10 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         shell: bash -l {0}
-        run: conda env update --file environment.yml
+        run: |
+          conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
+                        make \
+                        sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme=0.4.3
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
