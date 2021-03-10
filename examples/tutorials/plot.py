@@ -51,7 +51,7 @@ fig.show()
 
 ########################################################################################
 # We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The ``pen``
-# parameter controls the outline of the symbols and the ``color`` controls the fill.
+# parameter controls the outline of the symbols and the ``color`` parameter controls the fill.
 #
 # We can map the size of the circles to the earthquake magnitude by passing an array to
 # the ``sizes`` parameter. Because the magnitude is on a logarithmic scale, it helps to
