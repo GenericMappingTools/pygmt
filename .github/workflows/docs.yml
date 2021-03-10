@@ -1,0 +1,198 @@
+# This workflow installs PyGMT dependencies, build documentation and run tests
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths-ignore:
+      - 'doc/**'
+      - '*.md'
+      - '*.json'
+      - 'README.rst'
+      - 'LICENSE.txt'
+  release:
+    types:
+      - published
+  # Schedule daily tests
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  test:
+    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        # Is it a draft Pull Request (true or false)?
+        isDraft:
+          - ${{ github.event.pull_request.draft }}
+        # Only run one job (Ubuntu + Python 3.9) for draft PRs
+        exclude:
+          - os: macOS-latest
+            isDraft: true
+          - os: windows-latest
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.7
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.8
+            isDraft: true
+
+    # environmental variables used in coverage
+    env:
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python-version }}
+
+    steps:
+      # Cancel previous runs that are not completed
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
+
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          # fecth all history so that setuptools-scm works
+          fetch-depth: 0
+
+      # Setup Miniconda
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2.0.1
+        with:
+          activate-environment: pygmt
+          python-version: ${{ matrix.python-version }}
+          channels: conda-forge
+          miniconda-version: "latest"
+
+      # Install GMT and other required dependencies from conda-forge
+      - name: Install dependencies
+        shell: bash -l {0}
+        run: conda env update --file environment.yml
+
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        shell: bash -l {0}
+        run: conda list
+
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
+        uses: dawidd6/action-download-artifact@v2.12.0
+        with:
+          workflow: cache_data.yaml
+          workflow_conclusion: success
+          name: gmt-cache
+          path: .gmt
+
+      # Move downloaded files to ~/.gmt directory and list them
+      - name: Move and list downloaded remote files
+        shell: bash -l {0}
+        run: |
+          mkdir -p ~/.gmt
+          mv .gmt/* ~/.gmt
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          ls -lhR ~/.gmt
+
+      # Install the package that we want to test
+      - name: Install the package
+        shell: bash -l {0}
+        run: |
+          python setup.py sdist --formats=zip
+          pip install dist/*
+
+      # Run the tests
+      - name: Test with pytest
+        shell: bash -l {0}
+        run: make test PYTEST_EXTRA="-r P"
+
+      # Upload diff images on test failure
+      - name: Upload diff images if any test fails
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: artifact-${{ runner.os }}-${{ matrix.python-version }}
+          path: tmp-test-dir-with-unique-name
+
+      # Build the documentation
+      - name: Build the documentation
+        shell: bash -l {0}
+        run: make -C doc clean all
+
+      # Upload coverage to Codecov
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1.2.1
+        with:
+          file: ./coverage.xml # optional
+          env_vars: OS,PYTHON
+          fail_ci_if_error: false
+
+      - name: Checkout the gh-pages branch
+        uses: actions/checkout@28c7f3d2b5162b5ddd3dfd9a45aa55eaf396478b
+        with:
+          ref: gh-pages
+          # Checkout to this folder instead of the current one
+          path: deploy
+          # Download the entire history
+          fetch-depth: 0
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
+
+      - name: Push the built HTML to gh-pages
+        run: |
+          # Detect if this is a release or from the master branch
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+              # Get the tag name without the "refs/tags/" part
+              version="${GITHUB_REF#refs/*/}"
+          else
+              version=dev
+          fi
+          echo "Deploying version: $version"
+          # Make the new commit message. Needs to happen before cd into deploy
+          # to get the right commit hash.
+          message="Deploy $version from $(git rev-parse --short HEAD)"
+          cd deploy
+          # Need to have this file so that Github doesn't try to run Jekyll
+          touch .nojekyll
+          # Delete all the files and replace with our new  set
+          echo -e "\nRemoving old files from previous builds of ${version}:"
+          rm -rvf ${version}
+          echo -e "\nCopying HTML files to ${version}:"
+          cp -Rvf ../doc/_build/html/ ${version}/
+          # If this is a new release, update the link from /latest to it
+          if [[ "${version}" != "dev" ]]; then
+              echo -e "\nSetup link from ${version} to 'latest'."
+              rm -f latest
+              ln -sf ${version} latest
+          fi
+          # Stage the commit
+          git add -A .
+          echo -e "\nChanges to be applied:"
+          git status
+          # Configure git to be the GitHub Actions account
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          # If this is a dev build and the last commit was from a dev build
+          # (detect if "dev" was in the previous commit message), reuse the
+          # same commit
+          if [[ "${version}" == "dev" && `git log -1 --format='%s'` == *"dev"* ]]; then
+              echo -e "\nAmending last commit:"
+              git commit --amend --reset-author -m "$message"
+          else
+              echo -e "\nMaking a new commit:"
+              git commit -m "$message"
+          fi
+          # Make the push quiet just in case there is anything that could leak
+          # sensitive information.
+          echo -e "\nPushing changes to gh-pages."
+          git push -fq origin gh-pages 2>&1 >/dev/null
+          echo -e "\nFinished uploading generated files."
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest') && (matrix.python-version == '3.9')
