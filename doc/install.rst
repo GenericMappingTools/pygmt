@@ -29,7 +29,7 @@ To activate the virtual environment, you can do::
     conda activate pygmt
 
 After this, check that everything works by running the following in a Python
-interpreter (e.g. in a Jupyter notebook)::
+interpreter (e.g., in a Jupyter notebook)::
 
     import pygmt
     pygmt.show_versions()
@@ -40,8 +40,8 @@ Start by looking at the tutorials on our sidebar, good luck!
 .. note::
 
     The sections below provide more detailed, step by step instructions to
-    installing and testing PyGMT for those who may have a slightly different
-    setup or want to install the latest development version.
+    install and test PyGMT for those who may have a slightly different setup or
+    want to install the latest development version.
 
 Which Python?
 -------------
