@@ -66,7 +66,8 @@ jobs:
         run: |
           conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
                         make \
-                        sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme=0.4.3
+                        sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme=0.4.3 \
+                        myst-parser
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
