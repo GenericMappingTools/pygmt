@@ -24,7 +24,9 @@ df["species"] = df.species.astype(dtype="category")
 region = pygmt.info(
     table=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
     per_column=True,  # report the min/max values per column as a numpy array
-    spacing=(3, 2),  # rounds x and y intervals by 3 and 2 respectively
+    # round the min/max values of the first two columns to the nearest multiple
+    # of 3 and 2, respectively
+    spacing=(3, 2),
 )
 
 # Make a 2D categorical scatter plot, coloring each of the 3 species differently
@@ -35,13 +37,16 @@ fig.basemap(
     region=region,
     projection="X10c/10c",
     frame=[
-        'xafg+l"Bill length in mm"',
+        'xafg+l"Bill length (mm)"',
         'yafg+l"Bill depth (mm)"',
         'WSen+t"Penguin size at Palmer Station"',
     ],
 )
 
-# Define a colormap to be used for three categories
+# Define a colormap to be used for three categories,
+# use color_model="+c" to write the discrete color palette "inferno" in
+# categorical format, define the range of the new CPT using the
+# series parameter (lowest value, highest value, interval)
 pygmt.makecpt(cmap="inferno", color_model="+c", series=(0, 3, 1))
 
 fig.plot(
