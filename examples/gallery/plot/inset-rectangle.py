@@ -32,7 +32,6 @@ with fig.inset(position="jBL+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
     # projection with map width automatically determined based on the width in
     # the position parameter of inset. Highlight the Japan area in "lightbrown"
     # and draw its outline with a pen of "0.2p".
-     draw polygon outlines (default is no outline) and +gfill to fill them
     fig.coast(
         region=[129, 146, 30, 46],
         projection="M?",
