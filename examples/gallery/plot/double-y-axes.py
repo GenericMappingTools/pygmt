@@ -25,7 +25,7 @@ fig = pygmt.Figure()
 # The bottom axis (S) is plotted with annotations and tick marks
 # The top axis (t) is plotted without annotations and tick marks
 fig.basemap(region=[0, 10, 0, 10], projection="X15c/15c", frame=["St", "xaf+lx"])
-# The left axis (W) is plotted with customed annotations, tick marks and labels
+# The left axis (W) is plotted with customized annotations, tick marks and labels
 with pygmt.config(
     MAP_FRAME_PEN="1.5p,blue",
     MAP_TICK_PEN="0.5p,blue",
@@ -40,7 +40,7 @@ fig.plot(x=x, y=y1, pen="1p,blue")
 fig.plot(x=x, y=y1, style="c0.2c", color="blue", label="y1")
 
 # Plot y2
-# The right axis (E) is plotted with customed annotations, tick marks, and labels
+# The right axis (E) is plotted with customized annotations, tick marks, and labels
 with pygmt.config(
     MAP_FRAME_PEN="1.5p,red",
     MAP_TICK_PEN="0.5p,red",
