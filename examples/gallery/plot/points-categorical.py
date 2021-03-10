@@ -36,7 +36,7 @@ fig.basemap(
     projection="X10c/10c",
     frame=[
         'xafg+l"Bill length in mm"',
-        'yafg+l"Bill depth in mm"',
+        'yafg+l"Bill depth (mm)"',
         'WSen+t"Penguin size at Palmer Station"',
     ],
 )
