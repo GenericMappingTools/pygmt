@@ -3,12 +3,15 @@ Double Y-axes
 -------------
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
-class can control which axes should be plotted and possibly show annotations
-and tick marks. By default, all 4 axes are plotted, along with annotations
+class can control which axes should be plotted and optionally show annotations
+tick marks, and grid-lines. By default, all 4 axes are plotted, along with annotations
 and tick marks (denoted **W**, **S**, **E**, **N**). Lower case versions (**w**, **s**,
 **e**, **n**) can be used to denote to only plot the axes with tick marks. We
 can also only plot the axes without annotations and tick marks using **l**
 (left axis), **r** (right axis), **t** (top axis), **b** (bottom axis).
+When ``frame`` is used to change the frame settings, any axes
+that are not defined using one of these three options are not
+drawn.
 """
 
 import numpy as np
@@ -24,8 +27,9 @@ fig = pygmt.Figure()
 # Plot y1
 # The bottom axis (S) is plotted with annotations and tick marks
 # The top axis (t) is plotted without annotations and tick marks
+# The left and right axes are not drawn
 fig.basemap(region=[0, 10, 0, 10], projection="X15c/15c", frame=["St", "xaf+lx"])
-# The left axis (W) is plotted with customized annotations, tick marks and labels
+# The left axis (W) is plotted with custom annotation spacing, tick spacing, and a label
 with pygmt.config(
     MAP_FRAME_PEN="1.5p,blue",
     MAP_TICK_PEN="0.5p,blue",
@@ -40,7 +44,7 @@ fig.plot(x=x, y=y1, pen="1p,blue")
 fig.plot(x=x, y=y1, style="c0.2c", color="blue", label="y1")
 
 # Plot y2
-# The right axis (E) is plotted with customized annotations, tick marks, and labels
+# The right axis (E) is plotted with custom annotation spacing, tick spacing, and a label
 with pygmt.config(
     MAP_FRAME_PEN="1.5p,red",
     MAP_TICK_PEN="0.5p,red",
@@ -53,6 +57,7 @@ fig.plot(x=x, y=y2, pen="1p,red")
 # Plot points for y2
 fig.plot(x=x, y=y2, style="s0.28c", color="red", label="y2")
 
+# Create a legend at the top-left corner of the plot
 fig.legend(position="JTL+jTL+o0.1c", box=True)
 
 fig.show()
