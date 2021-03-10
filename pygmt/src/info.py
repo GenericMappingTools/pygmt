@@ -3,11 +3,18 @@ info - Get information about data tables.
 """
 import numpy as np
 from pygmt.clib import Session
-from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alias
+from pygmt.helpers import (
+    GMTTempFile,
+    build_arg_string,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
 @use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose", f="coltypes")
+@kwargs_to_strings(I="sequence")
 def info(table, **kwargs):
     r"""
     Get information about data tables.
