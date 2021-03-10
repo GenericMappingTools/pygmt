@@ -52,8 +52,8 @@ fig.show()
 # the ``font`` parameter.
 #
 # A list of all recognized fonts can be found at
-# :gmt-docs:`cookbook/postscript-fonts.html`, including details of how to use
-# non-default fonts.
+# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
+# including details of how to use non-default fonts.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
@@ -152,4 +152,4 @@ fig.show()
 #
 # For crafting more advanced styles, be sure to check out the GMT documentation
 # at :gmt-docs:`text.html` and also the cookbook at
-# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`. Good luck!
+# :gmt-docs:`cookbook/features.html#placement-of-text`. Good luck!
