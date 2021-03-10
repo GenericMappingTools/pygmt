@@ -134,7 +134,7 @@ jobs:
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON
-          fail_ci_if_error: true
+          fail_ci_if_error: false
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@28c7f3d2b5162b5ddd3dfd9a45aa55eaf396478b
