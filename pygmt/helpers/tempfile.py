@@ -127,6 +127,32 @@ def tempfile_from_geojson(geojson):
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         os.remove(tmpfile.name)  # ensure file is deleted first
-        # Using geopandas.to_file to directly export to OGR_GMT format
-        geojson.to_file(filename=tmpfile.name, driver="OGR_GMT", mode="w")
+        ogrgmt_kwargs = dict(filename=tmpfile.name, driver="OGR_GMT", mode="w")
+        try:
+            # Using geopandas.to_file to directly export to OGR_GMT format
+            geojson.to_file(**ogrgmt_kwargs)
+        except AttributeError:
+            # pylint: disable=import-outside-toplevel
+            # Other 'geo' formats which implement __geo_interface__
+            import json
+
+            import fiona
+            import geopandas as gpd
+
+            with fiona.Env():
+                jsontext = json.dumps(geojson.__geo_interface__)
+                # Do Input/Output via Fiona virtual memory
+                with fiona.io.MemoryFile(file_or_bytes=jsontext.encode()) as memfile:
+                    geoseries = gpd.GeoSeries.from_file(filename=memfile)
+                    geoseries.to_file(**ogrgmt_kwargs)
+
+                #     with memfile.open(driver="GeoJSON") as collection:
+                #         # Get schema from GeoJSON
+                #         schema = collection.schema
+                # # Write to temporary OGR_GMT format file
+                # with fiona.open(
+                #    fp=tmpfile.name, mode="w", driver="OGR_GMT", schema=schema
+                # ) as ogrgmtfile:
+                #     ogrgmtfile.write(geojson.__geo_interface__)
+
         yield tmpfile.name

@@ -46,3 +46,21 @@ def test_geopandas_info_geodataframe(gdf):
     """
     output = info(table=gdf, per_column=True)
     npt.assert_allclose(actual=output, desired=[0.0, 35.0, 0.0, 20.0])
+
+
+@pytest.mark.parametrize(
+    "geomtype,desired",
+    [
+        ("multipolygon", [0.0, 35.0, 0.0, 20.0]),
+        ("polygon", [20.0, 23.0, 10.0, 14.0]),
+        ("linestring", [20.0, 30.0, 15.0, 15.0]),
+    ],
+)
+def test_geopandas_info_shapely(gdf, geomtype, desired):
+    """
+    Check that info can return the bounding box region from a shapely.geometry
+    object that has a __geo_interface__ property.
+    """
+    geom = gdf.loc[geomtype].geometry
+    output = info(table=geom, per_column=True)
+    npt.assert_allclose(actual=output, desired=desired)
