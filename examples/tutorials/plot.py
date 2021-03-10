@@ -71,12 +71,12 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# Notice that we didn't include the size in the ``style`` argument this time, just the
+# Notice that we didn't include the size in the ``style`` parameter this time, just the
 # symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the sizes
 # will be interpreted as being in centimeters.
 #
 # We can also map the colors of the markers to the depths by passing an array to the
-# ``color`` argument and providing a colormap name (``cmap``). We can even use the new
+# ``color`` parameter and providing a colormap name (``cmap``). We can even use the new
 # matplotlib colormap "viridis". Here, we first create a continuous colormap
 # ranging from the minimum depth to the maximum depth of the earthquakes
 # using :func:`pygmt.makecpt`, then set ``cmap=True`` in :func:`pygmt.Figure.plot`
