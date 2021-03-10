@@ -30,7 +30,7 @@ region = pygmt.info(
 # Make a 2D categorical scatter plot, coloring each of the 3 species differently
 fig = pygmt.Figure()
 
-# Generate basemap of 10cm x 10cm size
+# Generate a basemap of 10 cm x 10 cm size
 fig.basemap(
     region=region,
     projection="X10c/10c",
