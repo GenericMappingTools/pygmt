@@ -41,7 +41,7 @@ fig.basemap(
     ],
 )
 
-# Define colormap to use for three categories
+# Define a colormap to be used for three categories
 pygmt.makecpt(cmap="inferno", color_model="+c", series=(0, 3, 1))
 
 fig.plot(
