@@ -27,7 +27,7 @@ region = pygmt.info(
     spacing=(3, 2),  # rounds x and y intervals by 3 and 2 respectively
 )
 
-# Make our 2D categorical scatter plot, coloring each of the 3 species differently
+# Make a 2D categorical scatter plot, coloring each of the 3 species differently
 fig = pygmt.Figure()
 
 # Generate basemap of 10cm x 10cm size
