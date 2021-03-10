@@ -147,18 +147,13 @@ This installs the latest stable release from
 
     pip install pygmt
 
-This upgrades the installed PyGMT to be the latest stable release::
-
-    pip install --upgrade pygmt
-
-You also can install the latest development version from
+Alternatively, you can install the latest development version from
 `TestPyPI <https://test.pypi.org/project/pygmt>`__::
 
     pip install --pre --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pygmt
 
-To upgrade the installed development version to be the latest one, just add ``--upgrade``::
-
-    pip install --upgrade --pre --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pygmt
+To upgrade the installed stable release or development version to be the latest
+one, just add ``--upgrade`` to the corresponding command above.
 
 Any of the above methods (conda/pip) should allow you to use the PyGMT package
 from Python.
