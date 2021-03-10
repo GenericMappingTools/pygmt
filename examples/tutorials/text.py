@@ -51,7 +51,7 @@ fig.show()
 # The size, family/weight, and color of an annotation can be specified using
 # the ``font`` parameter.
 #
-# A list of all recognised fonts can be found at
+# A list of all recognized fonts can be found at
 # :gmt-docs:`cookbook/postscript-fonts.html`, including details of how to use
 # non-default fonts.
 
@@ -60,7 +60,7 @@ with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Customising the font style
+# Customize the font style
 fig.text(text="BORNEO", x=114.0, y=0.5, font="22p,Helvetica-Bold,white")
 
 fig.show()
@@ -152,4 +152,4 @@ fig.show()
 #
 # For crafting more advanced styles, be sure to check out the GMT documentation
 # at :gmt-docs:`text.html` and also the cookbook at
-# :gmt-docs:`cookbook/features.html#placement-of-text`. Good luck!
+# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`. Good luck!
