@@ -37,7 +37,7 @@ with fig.inset(position="jBL+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
         region=[129, 146, 30, 46],
         projection="M?",
         dcw="JP+glightbrown+p0.2p",
-        area_thresh=1000,
+        area_thresh=10000,
     )
     # Plot a rectangle ("r") in the inset map to show the area of the primary figure.
     # "+s" means that the first two columns are the longitude and latitude of
