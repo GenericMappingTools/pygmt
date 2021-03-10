@@ -1360,7 +1360,9 @@ class Session:
         with self.open_virtual_file(*args) as vfile:
             yield vfile
 
-    def virtualfile_from_data(self, check_kind=None, data=None, x=None, y=None, z=None):
+    def virtualfile_from_data(
+        self, check_kind=None, data=None, x=None, y=None, z=None, extra_arrays=None
+    ):
         """
         Store any data inside a virtual file.
 
@@ -1378,6 +1380,9 @@ class Session:
             raster grid, a vector matrix/arrays, or other supported data input.
         x/y/z : 1d arrays or None
             x, y and z columns as numpy arrays.
+        extra_arrays : list of 1d arrays
+            Optional. A list of numpy arrays in addition to x, y and z. All
+            of these arrays must be of the same size as the x/y/z arrays.
 
         Returns
         -------
@@ -1436,14 +1441,26 @@ class Session:
         if kind in ("file", "geojson", "grid"):
             _data = (data,)
         elif kind == "vectors":
-            _data = (x, y, z)
+            _data = [np.atleast_1d(x), np.atleast_1d(y)]
+            if z is not None:
+                _data.append(np.atleast_1d(z))
+            if extra_arrays:
+                _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2D arrays into list of vectors
             try:
                 # pandas.DataFrame and xarray.Dataset types
                 _data = [array for _, array in data.items()]
             except AttributeError:
-                # Python lists, tuples, and numpy ndarray types
-                _data = np.atleast_2d(np.asanyarray(data).T)
+                try:
+                    # Just use virtualfile_from_matrix for 2D numpy.ndarray
+                    # which are signed integer (i), unsigned integer (u) or
+                    # floating point (f) types
+                    assert data.ndim == 2 and data.dtype.kind in "iuf"
+                    _virtualfile_from = self.virtualfile_from_matrix
+                    _data = (data,)
+                except (AssertionError, AttributeError):
+                    # Python lists, tuples, and numpy ndarray types
+                    _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)
