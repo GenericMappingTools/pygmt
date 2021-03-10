@@ -210,6 +210,7 @@ General guidelines for pull requests (PRs):
 * Larger changes should be broken down into smaller components and integrated
   separately.
 * Bug fixes should be submitted in separate PRs.
+* New files should use a hyphen between words in the file name, not an underscore.
 * Describe what your PR changes and *why* this is a good thing. Be as specific as you
   can. The PR description is how we keep track of the changes made to the project over
   time.
