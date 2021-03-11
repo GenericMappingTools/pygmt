@@ -7,7 +7,7 @@ Using the :meth:`pygmt.Figure.plot` method you can draw a so-called
 or curve. Typical use cases are weather fronts, fault lines,
 subduction zones, and more.
 
-A front can be drawn using ``style = "f[+-]gap[/size]"`` where *gap*
+A front can be drawn by passing **f**\[±]\ *gap*\[/*size*] to the ``style`` parameter where *gap*
 defines the distance gap between the symbols and *size* the symbol size.
 If *gap* is negative, it is interpreted to mean the number of symbols
 along the front instead. If *gap* has a leading + then we use the value
