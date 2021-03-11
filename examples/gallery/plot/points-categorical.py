@@ -16,7 +16,7 @@ import pygmt
 
 # Load sample penguins data and convert 'species' column to categorical dtype
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/penguins.csv")
-df["species"] = df.species.astype(dtype="category")
+df.species = df.species.astype(dtype="category")
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
 # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
