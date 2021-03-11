@@ -11,7 +11,6 @@ the species column directly to the ``color`` parameter via
 method.
 """
 
-import numpy as np
 import pandas as pd
 import pygmt
 
