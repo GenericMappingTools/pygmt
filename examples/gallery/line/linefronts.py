@@ -54,10 +54,10 @@ for frontstyle in [
     "f5c/1c+l+s45+o2.25c",
     # line with "faults" front style, symbols are plotted on the left side of the front
     "f1c/0.4c+l",
-    # line with circle front style, symbols are plotted on the right side of the front
-    "f1c/0.4c+c+r",
     # line with box front style, symbols are plotted on the left side of the front
-    "f1c/0.3c+b+l",
+    "f1c/0.3c+l+b",
+    # line with circle front style, symbols are plotted on the right side of the front
+    "f1c/0.4c+r+c",
     # line with triangle front style, symbols are plotted on the left side of the front
     "f1c/0.3c+l+t",
     # line with triangle front style, symbols are plotted on the right side of the front
