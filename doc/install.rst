@@ -54,7 +54,7 @@ Python distribution to ensure you have all dependencies installed and the
 `conda <https://docs.conda.io/projects/conda/en/latest/>`__
 package manager is available. Installing Anaconda does not require administrative
 rights to your computer and doesn't interfere with any other Python
-installations in your system.
+installations on your system.
 
 
 Which GMT?
