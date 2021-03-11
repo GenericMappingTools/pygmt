@@ -52,7 +52,7 @@ work, but there is no guarantee that PyGMT will behave as expected.
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
 Python distribution to ensure you have all dependencies installed and the
 `conda <https://docs.conda.io/projects/conda/en/latest/>`__
-package manager available. Installing Anaconda does not require administrative
+package manager is available. Installing Anaconda does not require administrative
 rights to your computer and doesn't interfere with any other Python
 installations in your system.
 
