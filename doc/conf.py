@@ -75,7 +75,7 @@ sphinx_gallery_conf = {
             "../examples/gallery/lines",
             "../examples/gallery/symbols",
             "../examples/gallery/images",
-            "../examples/gallery/3d-plots",
+            "../examples/gallery/3d_plots",
             "../examples/gallery/seismology",
             "../examples/gallery/embellishments",
             "../examples/projections/azim",
