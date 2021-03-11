@@ -12,7 +12,7 @@ import numpy as np
 import pygmt
 
 # Set the region of the main figure
-region = [139.2, 140.5, 34.8, 36]
+region = [137.5, 141, 34, 37]
 
 fig = pygmt.Figure()
 
@@ -23,11 +23,11 @@ fig.basemap(region=region, projection="M12c", frame=["WSne", "af"])
 # width to "2p", the area threshold to 1000 km^2 for the main figure
 fig.coast(land="lightbrown", water="azure1", shorelines="2p", area_thresh=1000)
 
-# Create an inset map, setting the position to bottom left, the width to
+# Create an inset map, setting the position to bottom right, the width to
 # 3 centimeters, the height to 3.6 centimeters, and the x- and y-offsets to
 # 0.1 centimeters. Draws a rectangular box around the inset with a fill color
 # of "white" and a pen of "1p".
-with fig.inset(position="jBL+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
+with fig.inset(position="jBR+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
     # Plot the Japan main land in the inset using coast. "M?" means Mercator
     # projection with map width automatically determined from the inset width.
     # Highlight the Japan area in "lightbrown"
@@ -43,6 +43,6 @@ with fig.inset(position="jBL+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
     # the bottom left corner of the rectangle, and the last two columns the
     # longitude and latitude of the uppper right corner.
     rectangle = [[region[0], region[2], region[1], region[3]]]
-    fig.plot(data=rectangle, style="r+s", pen="1p,blue")
+    fig.plot(data=rectangle, style="r+s", pen="2p,blue")
 
 fig.show()
