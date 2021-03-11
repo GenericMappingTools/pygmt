@@ -76,6 +76,8 @@ sphinx_gallery_conf = {
             "../examples/gallery/symbols",
             "../examples/gallery/images",
             "../examples/gallery/3d-plots",
+            "../examples/gallery/seismology",
+            "../examples/gallery/embellishments",
             "../examples/projections/azim",
             "../examples/projections/conic",
             "../examples/projections/cyl",
