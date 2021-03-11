@@ -17,6 +17,7 @@ dependencies:
     - codecov
     - coverage[toml]
     - docformatter
+    - dvc
     - flake8
     - ipython
     - isort>=5
