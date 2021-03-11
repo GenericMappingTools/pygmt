@@ -135,7 +135,7 @@ This installs the latest stable release of PyGMT from
 
     conda install pygmt
 
-This upgrades the installed PyGMT to be the latest stable release::
+This upgrades the installed PyGMT version to be the latest stable release::
 
     conda update pygmt
 
