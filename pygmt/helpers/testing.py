@@ -114,8 +114,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                         % err
                     )
             finally:
-                del fig_ref
-                del fig_test
+                pass
 
         parameters = [
             param

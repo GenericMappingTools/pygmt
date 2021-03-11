@@ -422,7 +422,7 @@ def meca(
 
             # values are ok, so build the 2D array in the correct order
             spec_array = []
-            for index in range(len(spec)):
+            for index in enumerate(spec):
                 # Construct the array one row at a time (note that order
                 # matters here, hence the list comprehension!)
                 row = [longitude[index], latitude[index], depth[index]] + [
