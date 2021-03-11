@@ -90,6 +90,7 @@ PyGMT requires the following libraries:
 The following are optional (but recommended) dependencies:
 
 * `IPython <https://ipython.org/>`__: For embedding the figures in Jupyter
+  notebooks
 
 
 Installing GMT and other dependencies
