@@ -49,7 +49,7 @@ for frontstyle in [
     "f1c/0.25c+c",
     # line with triangle front style
     "f1c/0.3c+t",
-    # line with left-lateral "slip" front style, angle is set to 45 and
+    # line with left-lateral ("+l") slip ("+s") front style, angle is set to 45 and
     # offset to 2.25 cm
     "f5c/1c+l+s45+o2.25c",
     # line with "faults" front style, symbols are plotted on the left side of the front
