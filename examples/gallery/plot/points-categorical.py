@@ -44,7 +44,7 @@ fig.basemap(
 
 # Define a colormap to be used for three categories,
 # define the range of the new discrete CPT using the series parameter
-# (lowest value, highest value, interval), use color_model="+c" to write
+# (lowest_value, highest_value, interval), use color_model="+c" to write
 # the discrete color palette "inferno" in categorical format
 pygmt.makecpt(cmap="inferno", series=(0, 3, 1), color_model="+c")
 
