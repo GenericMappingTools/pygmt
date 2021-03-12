@@ -8,7 +8,6 @@ box, offset, and margin can be customized. Plotting methods called within the
 ``with`` statement plot into the inset figure.
 """
 
-import numpy as np
 import pygmt
 
 # Set the region of the main figure
@@ -20,13 +19,13 @@ fig = pygmt.Figure()
 # is used and the UTM zone is set to be "54S".
 fig.basemap(region=region, projection="U54S/12c", frame=["WSne", "af"])
 
-# Set the land color to "lightbrown", the water color to "azure1", the shorelines
-# width to "2p", the area threshold to 1000 km^2 for the main figure
+# Set the land color to "lightbrown", the water color to "azure1", the shoreline
+# width to "2p", and the area threshold to 1000 km^2 for the main figure
 fig.coast(land="lightbrown", water="azure1", shorelines="2p", area_thresh=1000)
 
 # Create an inset map, setting the position to bottom right, the width to
-# 3 centimeters, the height to 3.6 centimeters, and the x- and y-offsets to
-# 0.1 centimeters. Draws a rectangular box around the inset with a fill color
+# 3 cm, the height to 3.6 cm, and the x- and y-offsets to
+# 0.1 cm, respectively. Draws a rectangular box around the inset with a fill color
 # of "white" and a pen of "1p".
 with fig.inset(position="jBR+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
     # Plot the Japan main land in the inset using coast. "U54S/M?" means UTM
