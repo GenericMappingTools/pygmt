@@ -44,9 +44,9 @@ with pygmt.config(
 ):
     fig.basemap(frame=["W", "yaf+ly1"])
 
-# Plot the line for y1
+# Plot the line for y1 data
 fig.plot(x=x, y=y1, pen="1p,blue")
-# Plot points for y1
+# Plot points for y1 data
 fig.plot(x=x, y=y1, style="c0.2c", color="blue", label="y1")
 
 # Plot the Y axis for y2 data
@@ -58,9 +58,9 @@ with pygmt.config(
     FONT_LABEL="red",
 ):
     fig.basemap(region=[0, 10, 100, 200], frame=["E", "yaf+ly2"])
-# Plot the line for y2
+# Plot the line for y2 data
 fig.plot(x=x, y=y2, pen="1p,red")
-# Plot points for y2
+# Plot points for y2 data
 fig.plot(x=x, y=y2, style="s0.28c", color="red", label="y2")
 
 # Create a legend at the top-left corner of the plot
