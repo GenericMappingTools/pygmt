@@ -38,7 +38,7 @@
     tutorials/contour-map.rst
     tutorials/earth-relief.rst
     tutorials/3d-perspective-image.rst
-    tutorials/inset.rst
+    tutorials/insets.rst
     tutorials/subplots.rst
     tutorials/configuration.rst
 
