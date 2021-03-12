@@ -5,7 +5,7 @@ The :meth:`pygmt.Figure.plot` method can be used to plot symbols which are
 color-coded by categories. In the example below, we show how the
 `palmerpenguins dataset <https://github.com/allisonhorst/palmerpenguins>`__
 can be visualized. Here, we can pass the individual categories included in
-the species column directly to the ``color`` parameter via
+the "species" column directly to the ``color`` parameter via
 ``color=df.species.cat.codes.astype(int)``. Additionally, we have to set
 ``cmap=True``. A desired colormap can be selected via the :meth:`pygmt.makecpt`
 method.
