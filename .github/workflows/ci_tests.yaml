@@ -114,6 +114,7 @@ jobs:
         run: |
           pip install dvc
           dvc pull
+          ls -lhR pygmt/
 
       # Run the tests
       - name: Test with pytest
