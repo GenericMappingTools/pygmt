@@ -13,8 +13,8 @@ When ``frame`` is used to change the frame settings, any axes
 that are not defined using one of these three options are not
 drawn.
 
-To plot a double Y-axes graph using PyGMT, we need to plot two base maps
-separately. The two base maps should share the same projection parameter and
+To plot a double Y-axes graph using PyGMT, we need to plot at least two base maps
+separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.
 """
 
