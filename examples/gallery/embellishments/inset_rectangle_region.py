@@ -1,6 +1,6 @@
 """
-Inset map showing a rectangle region
-------------------------------------
+Inset map showing a rectangular region
+--------------------------------------
 
 The :meth:`pygmt.Figure.inset` method adds an inset figure inside a larger
 figure. The function is called using a ``with`` statement, and its position,
