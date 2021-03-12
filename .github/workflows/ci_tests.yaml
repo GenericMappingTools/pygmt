@@ -103,18 +103,18 @@ jobs:
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
-      # Install the package that we want to test
-      - name: Install the package
-        run: |
-          python setup.py sdist --formats=zip
-          pip install dist/*
-
       # Install data version control (dvc) and pull data from dvc remote
       - name: Install dvc and pull data from dvc remote
         run: |
           pip install dvc
           dvc pull
           ls -lhR pygmt/
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: |
+          python setup.py sdist --formats=zip
+          pip install dist/*
 
       # Run the tests
       - name: Test with pytest
