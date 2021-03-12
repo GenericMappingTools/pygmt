@@ -63,7 +63,7 @@ fig.plot(x=x, y=y2, pen="1p,red")
 # Plot points for y2 data
 fig.plot(x=x, y=y2, style="s0.28c", color="red", label="y2")
 
-# Create a legend at the top-left corner of the plot
+# Create a legend in the top-left corner of the plot
 fig.legend(position="jTL+o0.1c", box=True)
 
 fig.show()
