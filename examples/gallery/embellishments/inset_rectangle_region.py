@@ -16,8 +16,9 @@ region = [137.5, 141, 34, 37]
 
 fig = pygmt.Figure()
 
-# Plot the base map of the main figure
-fig.basemap(region=region, projection="M12c", frame=["WSne", "af"])
+# Plot the base map of the main figure. Universal Transverse Mercator (UTM) projection
+# is used and the UTM zone is set to be "54S".
+fig.basemap(region=region, projection="U54S/12c", frame=["WSne", "af"])
 
 # Set the land color to "lightbrown", the water color to "azure1", the shorelines
 # width to "2p", the area threshold to 1000 km^2 for the main figure
@@ -28,13 +29,13 @@ fig.coast(land="lightbrown", water="azure1", shorelines="2p", area_thresh=1000)
 # 0.1 centimeters. Draws a rectangular box around the inset with a fill color
 # of "white" and a pen of "1p".
 with fig.inset(position="jBR+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
-    # Plot the Japan main land in the inset using coast. "M?" means Mercator
+    # Plot the Japan main land in the inset using coast. "U54S/M?" means UTM
     # projection with map width automatically determined from the inset width.
     # Highlight the Japan area in "lightbrown"
     # and draw its outline with a pen of "0.2p".
     fig.coast(
         region=[129, 146, 30, 46],
-        projection="M?",
+        projection="U54S/?",
         dcw="JP+glightbrown+p0.2p",
         area_thresh=10000,
     )
