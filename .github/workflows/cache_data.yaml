@@ -12,6 +12,9 @@ jobs:
   gmt_cache:
     name: Cache GMT artifacts
     runs-on: macOS-latest
+    defaults:
+      run:
+        shell: bash -l {0}
 
     steps:
       # Setup Miniconda
@@ -23,12 +26,10 @@ jobs:
 
       # Install GMT
       - name: Install GMT
-        shell: bash -l {0}
         run: conda install -c conda-forge gmt=6.1.1
 
       # Download remote files
       - name: Download remote data
-        shell: bash -l {0}
         run: |
           gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g \
                         @earth_relief_30m_p @earth_relief_30m_g \
@@ -36,8 +37,8 @@ jobs:
                         @earth_relief_05m_p @earth_relief_05m_g
           # Download one tile of the 03s srtm data.
           # @N35E135.earth_relief_03s_g.nc is for internal use only.
-          # The naming scheme may change. 
-          # DO NOT USE IT IN SCRIPTS.         
+          # The naming scheme may change.
+          # DO NOT USE IT IN SCRIPTS.
           gmt which -Ga @N35E135.earth_relief_03s_g.nc
           gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc \
                         @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz \
