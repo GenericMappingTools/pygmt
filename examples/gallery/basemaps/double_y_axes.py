@@ -49,7 +49,7 @@ fig.plot(x=x, y=y1, pen="1p,blue")
 # Plot points for y1
 fig.plot(x=x, y=y1, style="c0.2c", color="blue", label="y1")
 
-# Plot y2
+# Plot the Y axis for y2 data
 # The right axis (E) is plotted with red annotations, ticks, and label
 with pygmt.config(
     MAP_FRAME_PEN="red",
