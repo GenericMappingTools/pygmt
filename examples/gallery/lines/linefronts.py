@@ -7,25 +7,25 @@ Using the :meth:`pygmt.Figure.plot` method you can draw a so-called
 or curve. Typical use cases are weather fronts, fault lines,
 subduction zones, and more.
 
-A front can be drawn by passing **f**\[±]\ *gap*\[/*size*] to the ``style`` parameter where *gap*
-defines the distance gap between the symbols and *size* the symbol size.
-If *gap* is negative, it is interpreted to mean the number of symbols
-along the front instead. If *gap* has a leading + then we use the value
-exactly as given [Default will start and end each line with a symbol,
-hence the *gap* is adjusted to fit]. If *size* is missing it is set to 30%
-of the *gap*, except when *gap* is negative and *size* is thus required.
-Append **+l** or **+r** to plot symbols on the left or right side of the
-front [Default is centered]. Append **+**\ *type* to specify which symbol
-to plot: **b**\ ox, **c**\ ircle, **f**\ ault (default), **s**\ lip, or
-**t**\ riangle. Slip means left-lateral or right-lateral strike-slip arrows
-(centered is not an option). The **+s** modifier optionally accepts the
-angle used to draw the vector (default is 20). Alternatively, use **+S**
-which draws arcuate arrow heads. Append **+o**\ *offset* to offset the first
-symbol from the beginning of the front by that amount (default is 0). The
-chosen symbol is drawn with the same pen as set for the line (i.e., via
-the ``pen`` parameter). To use an alternate pen, append **+p**\ *pen*.
-To skip the outline, just use **+p** with no argument. To make the main
-front line invisible, add **+i**.
+A front can be drawn by passing **f**\[±]\ *gap*\[/*size*] to the ``style``
+parameter where *gap* defines the distance gap between the symbols and
+*size* the symbol size. If *gap* is negative, it is interpreted to mean
+the number of symbols along the front instead. If *gap* has a leading +
+then we use the value exactly as given [Default will start and end each
+line with a symbol, hence the *gap* is adjusted to fit]. If *size* is
+missing it is set to 30% of the *gap*, except when *gap* is negative
+and *size* is thus required. Append **+l** or **+r** to plot symbols on
+the left or right side of the front [Default is centered]. Append
+**+**\ *type* to specify which symbol to plot: **b**\ ox, **c**\ ircle,
+**f**\ ault (default), **s**\ lip, or **t**\ riangle. Slip means left-lateral
+or right-lateral strike-slip arrows (centered is not an option). The **+s**
+modifier optionally accepts the angle used to draw the vector (default is
+20). Alternatively, use **+S** which draws arcuate arrow heads. Append
+**+o**\ *offset* to offset the first symbol from the beginning of the front
+by that amount (default is 0). The chosen symbol is drawn with the same pen
+as set for the line (i.e., via the ``pen`` parameter). To use an alternate
+pen, append **+p**\ *pen*. To skip the outline, just use **+p** with no
+argument. To make the main front line invisible, add **+i**.
 
 """
 
