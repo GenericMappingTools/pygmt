@@ -20,7 +20,7 @@
 
     overview.rst
     install.rst
-    tutorials/first-figure.rst
+    tutorials/first_figure.rst
     gallery/index.rst
 
 .. toctree::
@@ -35,9 +35,9 @@
     tutorials/plot.rst
     tutorials/lines.rst
     tutorials/text.rst
-    tutorials/contour-map.rst
-    tutorials/earth-relief.rst
-    tutorials/3d-perspective-image.rst
+    tutorials/contour_map.rst
+    tutorials/earth_relief.rst
+    tutorials/3d_perspective_image.rst
     tutorials/insets.rst
     tutorials/subplots.rst
     tutorials/configuration.rst
