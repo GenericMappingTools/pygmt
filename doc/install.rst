@@ -29,7 +29,7 @@ To activate the virtual environment, you can do::
     conda activate pygmt
 
 After this, check that everything works by running the following in a Python
-interpreter (e.g. in a Jupyter notebook)::
+interpreter (e.g., in a Jupyter notebook)::
 
     import pygmt
     pygmt.show_versions()
@@ -40,8 +40,8 @@ Start by looking at the tutorials on our sidebar, good luck!
 .. note::
 
     The sections below provide more detailed, step by step instructions to
-    installing and testing PyGMT for those who may have a slightly different
-    setup.
+    install and test PyGMT for those who may have a slightly different setup or
+    want to install the latest development version.
 
 Which Python?
 -------------
@@ -51,9 +51,10 @@ work, but there is no guarantee that PyGMT will behave as expected.
 
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
 Python distribution to ensure you have all dependencies installed and the
-``conda`` package manager available.
-Installing Anaconda does not require administrative rights to your computer and
-doesn't interfere with any other Python installations in your system.
+`conda <https://docs.conda.io/projects/conda/en/latest/>`__
+package manager is available. Installing Anaconda does not require administrative
+rights to your computer and doesn't interfere with any other Python
+installations on your system.
 
 
 Which GMT?
@@ -110,14 +111,14 @@ Now we can create a new conda environment with Python and all our dependencies
 installed (we'll call it ``pygmt`` but feel free to change it to whatever you
 want)::
 
-     conda create --name pygmt python=3.9 pip numpy pandas xarray netcdf4 packaging gmt
+    conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
 
 Activate the environment by running the following (**do not forget this step!**)::
 
     conda activate pygmt
 
 From now on, all commands will take place inside the conda virtual environment
-called 'pygmt' and won't affect your default 'base' installation.
+called ``pygmt`` and won't affect your default ``base`` installation.
 
 
 Installing PyGMT
@@ -134,6 +135,10 @@ This installs the latest stable release of PyGMT from
 
     conda install pygmt
 
+This upgrades the installed PyGMT version to be the latest stable release::
+
+    conda update pygmt
+
 Using pip
 ~~~~~~~~~
 
@@ -147,13 +152,11 @@ Alternatively, you can install the latest development version from
 
     pip install --pre --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pygmt
 
-or from PyGMT's `GitHub repository <https://github.com/GenericMappingTools/pygmt>`__ 
-(slower as it downloads the whole archive)::
+To upgrade the installed stable release or development version to be the latest
+one, just add ``--upgrade`` to the corresponding command above.
 
-    pip install git+https://github.com/GenericMappingTools/pygmt.git#egg=pygmt
-
-Any of the above methods (conda/pip) should allow you to use the ``pygmt``
-library from Python.
+Any of the above methods (conda/pip) should allow you to use the PyGMT package
+from Python.
 
 
 Testing your install
@@ -182,7 +185,8 @@ dependencies as well (be sure to have your conda environment activated)::
 
     conda install pytest pytest-mpl ipython
 
-Test your installation by running the following inside a Python interpreter::
+Test your installation by running the following inside a Python interpreter
+(note that it may take a few minutes)::
 
     import pygmt
     pygmt.show_versions()
@@ -193,14 +197,14 @@ Finding the GMT shared library
 ------------------------------
 
 Sometimes, PyGMT will be unable to find the correct version of the GMT shared
-library.
+library (``libgmt``).
 This can happen if you have multiple versions of GMT installed.
 
 You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 ``GMT_LIBRARY_PATH`` environment variable.
 This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or
-``gmt.dll`` can be found for Linux, macOS and Windows respectively.
-e.g. on a command line, run::
+``gmt.dll`` can be found for Linux, macOS and Windows, respectively.
+e.g., on a command line, run::
 
     # Linux/macOS
     export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
