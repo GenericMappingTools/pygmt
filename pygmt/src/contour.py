@@ -64,8 +64,16 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
     {B}
-    levels : str
-        Contour file or level(s)
+    levels : str or int
+        Specify the contour lines to generate.
+
+        - The filename of a `CPT`  file where the color boundaries will
+          be used as contour levels.
+        - The filename of a 2 (or 3) column file containing the contour
+          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
+          angle (col 3)
+        - A fixed contour interval *cont_int* or a single contour with
+          +\ *cont_int*
     D : str
         Dump contour coordinates.
     E : str
