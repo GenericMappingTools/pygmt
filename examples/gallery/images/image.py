@@ -9,6 +9,7 @@ The ``position`` parameter allows us to set a reference point on the map for
 the image.
 """
 import os
+
 import pygmt
 
 fig = pygmt.Figure()
