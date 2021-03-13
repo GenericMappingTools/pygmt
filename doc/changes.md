@@ -1,4 +1,5 @@
 # Changelog
+
 ## Release v0.3.1 (2021/03/14)
 
 [![Digital Object Identifier for PyGMT v0.3.1](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
@@ -15,11 +16,11 @@
 * Let pygmt.info load datetime columns into a str dtype array ([#960](https://github.com/GenericMappingTools/pygmt/pull/960))
 * Check invalid combinations of resolution and registration in load_earth_relief() ([#965](https://github.com/GenericMappingTools/pygmt/pull/965))
 * Open figures using the associated application on Windows ([#952](https://github.com/GenericMappingTools/pygmt/pull/952))
-* Fix bug that stops Figure.coast from plotting with only dcw ([#910](https://github.com/GenericMappingTools/pygmt/pull/910))
+* Fix bug that stops Figure.coast from plotting with only dcw parameter ([#910](https://github.com/GenericMappingTools/pygmt/pull/910))
 
 ### Documentation
 
-* Add a gallery example showing different front styles ([#1022](https://github.com/GenericMappingTools/pygmt/pull/1022))
+* Add a gallery example showing different line front styles ([#1022](https://github.com/GenericMappingTools/pygmt/pull/1022))
 * Add underscore guideline to CONTRIBUTING.md ([#1034](https://github.com/GenericMappingTools/pygmt/pull/1034))
 * Add a gallery example for a double y-axes graph ([#1019](https://github.com/GenericMappingTools/pygmt/pull/1019))
 * Add a gallery example of inset map showing a rectangle region ([#1020](https://github.com/GenericMappingTools/pygmt/pull/1020))
