@@ -163,3 +163,13 @@ a.copybtn {
     font-weight: bold;
     font-style: italic;
 }
+
+/* Style for images and thumbnails of sphinx-gallery */
+.sphx-glr-thumbcontainer {
+    border: solid #d6d6d6 1px!important;
+    text-align: center!important;
+}
+
+.sphx-glr-single-img {
+    max-width: 80%!important;
+}
