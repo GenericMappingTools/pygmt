@@ -27,7 +27,7 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.coast(
-    # Sets the x-range from 10E to 20E and the y-range to 35N to 45N
+    # Set the x-range from 10E to 20E and the y-range to 35N to 45N
     region="10/20/35/45",
     # Set projection to Mercator, and the figure size to 15 centimeters
     projection="M15c",
@@ -46,12 +46,12 @@ fig.show()
 
 ########################################################################################
 #
-# The coordinates can be passed to ``region`` as a list, in the form
-# of [*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
+# The coordinates can be passed to ``region`` as a list, in the form of
+# [*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
 
 fig = pygmt.Figure()
 fig.coast(
-    # Sets the x-range from 10E to 20E and the y-range to 35N to 45N
+    # Set the x-range from 10E to 20E and the y-range to 35N to 45N
     region=[10, 20, 35, 45],
     projection="M12c",
     land="lightgray",
@@ -71,7 +71,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(
-    # Sets the bottom-left corner as 10E, 35N and the top-right corner as 20E, 45N
+    # Set the bottom-left corner as 10E, 35N and the top-right corner as 20E, 45N
     region="10/35/20/45+r",
     projection="M12c",
     land="lightgray",
@@ -133,7 +133,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(
-    # Sets the figure region to encompass Japan with the ISO code "JP"
+    # Set the figure region to encompass Japan with the ISO code "JP"
     region="JP",
     projection="M12c",
     land="lightgray",
@@ -147,14 +147,13 @@ fig.show()
 ########################################################################################
 #
 # The area encompassed by the ISO code can be expanded by appending **+r**\ *increment*
-# to the ISO code. The *increment* unit is in degrees, and if only value is added it
-# expands the range of the region in all directions. Using **+r** rounds to the nearest
-# increment.
+# to the ISO code. The *increment* unit is in degrees, and if only one value is added it
+# expands the range of the region in all directions. Using **+r** expands the
+# final region boundaries to be multiples of *increment* .
 
 fig = pygmt.Figure()
 fig.coast(
-    # Expands the region setting outside the range of Japan by 3 degrees in all
-    # directions
+    # Expand the region boundaries to be multiples of 3 degrees in all directions
     region="JP+r3",
     projection="M12c",
     land="lightgray",
@@ -172,7 +171,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(
-    # Expands the region setting outside the range of Japan by 3 degrees on the x-axis
+    # Expand the region boundaries to be multiples of 3 degrees on the x-axis
     # and 5 degrees on the y-axis.
     region="JP+r3/5",
     projection="M12c",
@@ -193,7 +192,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(
-    # Expands the region setting outside the range of Japan by 3 degrees to the west,
+    # Expand the region boundaries to be multiples of 3 degrees to the west,
     # 5 degrees to the east, 7 degrees to the south, and 9 degrees to the north.
     region="JP+r3/5/7/9",
     projection="M12c",
@@ -212,7 +211,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(
-    # Expands the region setting outside the range of Japan by 3 degrees in all
+    # Expand the region setting outside the range of Japan by 3 degrees in all
     # directions, without rounding to the nearest increment.
     region="JP+R3",
     projection="M12c",
@@ -226,13 +225,13 @@ fig.show()
 
 ########################################################################################
 #
-# The ``region`` increment can be appended with **+e**, which expand the bounding box
-# by at least 25% beyond the increment.
+# The ``region`` increment can be appended with **+e**, which is like **+r** and
+# expands the final region boundaries to be multiples of *increment*. However,
+# it ensures that the bounding box extends by at least 0.25 times the increment.
 
 fig = pygmt.Figure()
 fig.coast(
-    # Expands the region setting outside the range of Japan by 3 degrees in all
-    # directions, without rounding to the nearest increment.
+    # Expand the region boundaries to be multiples of 3 degrees in all directions
     region="JP+e3",
     projection="M12c",
     land="lightgray",
