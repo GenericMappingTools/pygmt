@@ -7,13 +7,13 @@ on:
     branches: [ master ]
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths:
-      - '.github/workflows/**'
-      - 'README.rst'
-      - 'doc/**'
-      - 'examples/**'
-      - 'pygmt/**'
-      - '!pygmt/tests/**'
+    paths-ignore:
+      - 'pygmt/tests/**'
+      - '*.md'
+      - '*.json'
+      - 'LICENSE.txt'
+      - '.gitignore'
+      - '.pylintrc'
   release:
     types:
       - published
