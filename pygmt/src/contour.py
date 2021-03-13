@@ -67,7 +67,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     levels : str or int
         Specify the contour lines to generate.
 
-        - The filename of a `CPT`  file where the color boundaries will
+        - The filename of a CPT file where the color boundaries will
           be used as contour levels.
         - The filename of a 2 (or 3) column file containing the contour
           levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
