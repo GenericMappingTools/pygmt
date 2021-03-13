@@ -23,7 +23,7 @@ import pygmt
 ----------
 
 Create a Cartesian figure using ``projection`` parameter and set the axis scales
-using ``region`` (in this case, each axis is 0-25). Pass a `numpy` array object that contains lists of all the vectors to be plotted.
+using ``region`` (in this case, each axis is 0-25). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
 """
 # vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
 vector_1 = [2, 3, 45, 4]
