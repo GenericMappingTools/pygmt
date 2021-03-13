@@ -34,6 +34,7 @@
     tutorials/regions.rst
     tutorials/plot.rst
     tutorials/lines.rst
+    tutorials/vectors.rst
     tutorials/text.rst
     tutorials/contour_map.rst
     tutorials/earth_relief.rst
