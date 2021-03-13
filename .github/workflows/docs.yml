@@ -36,6 +36,9 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
+    defaults:
+      run:
+        shell: bash -l {0}
 
     steps:
       # Cancel previous runs that are not completed
@@ -62,7 +65,6 @@ jobs:
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
-        shell: bash -l {0}
         run: |
           conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
                         make sphinx sphinx-copybutton sphinx-gallery \
@@ -70,7 +72,6 @@ jobs:
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
-        shell: bash -l {0}
         run: conda list
 
       # Download cached remote files (artifacts) from GitHub
@@ -84,7 +85,6 @@ jobs:
 
       # Move downloaded files to ~/.gmt directory and list them
       - name: Move and list downloaded remote files
-        shell: bash -l {0}
         run: |
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
@@ -94,14 +94,12 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        shell: bash -l {0}
         run: |
           python setup.py sdist --formats=zip
           pip install dist/*
 
       # Build the documentation
       - name: Build the documentation
-        shell: bash -l {0}
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
