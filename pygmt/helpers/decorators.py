@@ -198,7 +198,7 @@ def fmt_docstring(module_func):
     projection : str
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
-        Select map projection.
+        Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
     <BLANKLINE>
