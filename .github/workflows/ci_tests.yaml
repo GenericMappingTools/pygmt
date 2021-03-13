@@ -1,4 +1,4 @@
-# This workflow installs PyGMT and run tests
+# This workflow installs PyGMT and runs tests
 
 name: Tests
 
@@ -80,7 +80,7 @@ jobs:
       - name: Install dependencies
         run: |
           conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
-                        codecov coverage[toml] \
+                        make codecov coverage[toml] \
                         pytest-cov pytest-mpl pytest>=6.0 \
                         ipython
 
