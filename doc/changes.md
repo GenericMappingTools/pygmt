@@ -28,7 +28,7 @@
 * Reorganize gallery examples ([#995](https://github.com/GenericMappingTools/pygmt/pull/995))
 * Add instructions to upgrade installed PyGMT version ([#1029](https://github.com/GenericMappingTools/pygmt/pull/1029))
 * Improve the docstring of the pygmt package ([#1016](https://github.com/GenericMappingTools/pygmt/pull/1016))
-*  Add gallery example showing different polar projection use cases ([#955](https://github.com/GenericMappingTools/pygmt/pull/955))
+* Add gallery example showing different polar projection use cases ([#955](https://github.com/GenericMappingTools/pygmt/pull/955))
 * Add common alias coltypes (-f) for specifying i/o data types ([#994](https://github.com/GenericMappingTools/pygmt/pull/994))
 * Add a gallery example for plotting Cartesian, circular and geographic vectors ([#950](https://github.com/GenericMappingTools/pygmt/pull/950))
 * Expand documentation linking in CONTRIBUTING.md ([#802](https://github.com/GenericMappingTools/pygmt/pull/802))
