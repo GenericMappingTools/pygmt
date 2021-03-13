@@ -154,24 +154,26 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2021_4522136,
+    @software{pygmt_2021_4592991,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
                       Toney, Liam and
                       Schlitzer, William and
                       Grund, Michael and
+                      Yao, Jiayuan and
+                      Jones, Meghan and
+                      Materna, Kathryn and
                       Newton, Tyler and
                       Ziebarth, Malte and
-                      Jones, Meghan and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = feb,
+      month        = mar,
       year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.3.0},
-      doi          = {10.5281/zenodo.4522136},
-      url          = {https://doi.org/10.5281/zenodo.4522136}
+      version      = {v0.3.1},
+      doi          = {10.5281/zenodo.4592991},
+      url          = {https://doi.org/10.5281/zenodo.4592991}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -218,6 +220,7 @@ Documentation for other versions
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.3.1 <https://www.pygmt.org/v0.3.1>`__
 * `v0.3.0 <https://www.pygmt.org/v0.3.0>`__
 * `v0.2.1 <https://www.pygmt.org/v0.2.1>`__
 * `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
@@ -232,6 +235,7 @@ Compatibility with Python and GMT versions
 ======= ========== =========
 PyGMT   GMT        Python
 ======= ========== =========
+0.3.1   >=6.1.1    >=3.7
 0.3.0   >=6.1.1    >=3.7
 0.2.1   >=6.1.1    >=3.6
 0.2.0   >=6.1.1    3.6 - 3.8
