@@ -9,7 +9,7 @@ import datetime
 # isort: off
 from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
     ExplicitOrder,
-    FileNameSortKey,
+    ExampleTitleSortKey,
 )
 from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
@@ -71,10 +71,14 @@ sphinx_gallery_conf = {
     "gallery_dirs": ["gallery", "tutorials", "projections"],
     "subsection_order": ExplicitOrder(
         [
-            "../examples/gallery/line",
-            "../examples/gallery/coast",
-            "../examples/gallery/plot",
-            "../examples/gallery/grid",
+            "../examples/gallery/maps",
+            "../examples/gallery/lines",
+            "../examples/gallery/symbols",
+            "../examples/gallery/images",
+            "../examples/gallery/3d_plots",
+            "../examples/gallery/seismology",
+            "../examples/gallery/basemaps",
+            "../examples/gallery/embellishments",
             "../examples/projections/azim",
             "../examples/projections/conic",
             "../examples/projections/cyl",
@@ -88,7 +92,7 @@ sphinx_gallery_conf = {
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery example by file name instead of number of lines (default)
-    "within_subsection_order": FileNameSortKey,
+    "within_subsection_order": ExampleTitleSortKey,
     # directory where function granular galleries are stored
     "backreferences_dir": "api/generated/backreferences",
     # Modules for which function level galleries are created.  In
