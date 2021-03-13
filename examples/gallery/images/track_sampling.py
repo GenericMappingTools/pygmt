@@ -24,10 +24,10 @@ track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
 fig = pygmt.Figure()
 # Plot the earth relief grid on Cylindrical Stereographic projection, masking land areas
-fig.basemap(region="g", frame=True, projection="Cyl_stere/150/-20/15c")
+fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
 fig.grdimage(grid=grid, cmap="gray")
 fig.coast(land="#666666")
-# Plot using circles (c) of 0.15 cm, the sampled bathymetry points
+# Plot the sampled bathymetry points using circles (c) of 0.15 cm
 # Points are colored using elevation values (normalized for visual purposes)
 fig.plot(
     x=track.longitude,
