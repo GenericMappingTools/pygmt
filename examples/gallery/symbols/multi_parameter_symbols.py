@@ -2,10 +2,11 @@
 Multi-parameter symbols
 -------------------------
 
-The :meth:`pygmt.Figure.plot` method can plot individual multi-parameter symbols by passing
-the corresponding shortcuts listed below to the ``style`` parameter. Additionally, we must define
-the required parameters in a 2d list or numpy array (``[[parameters]]`` for a single symbol
-or ``[[parameters_1],[parameters_2],[parameters_i]]`` for several ones) or use an
+The :meth:`pygmt.Figure.plot` method can plot individual multi-parameter
+symbols by passing the corresponding shortcuts listed below to the ``style``
+parameter. Additionally, we must define the required parameters in a 2d list or
+numpy array (``[[parameters]]`` for a single symbol or
+``[[parameters_1],[parameters_2],[parameters_i]]`` for several ones) or use an
 appropriately formatted input file and pass it to ``data``.
 
 The following symbols are available:
@@ -14,12 +15,11 @@ The following symbols are available:
 - **j**: rotated rectangle, ``[[lon, lat, direction, width, height]]``
 - **r**: rectangle, ``[[lon, lat, width, height]]``
 - **R**: rounded rectangle, ``[[lon, lat, width, height, radius]]``
-- **w**: pie wedge, ``[[lon, lat, radius, startdir, stopdir]]``, the last two arguments are
-  directions given in degrees counter-clockwise from horizontal
+- **w**: pie wedge, ``[[lon, lat, radius, startdir, stopdir]]``, the last two
+  arguments are directions given in degrees counter-clockwise from horizontal
 
-Upper-case versions **E**, **J**, and **W** are similar to **e**, **j** and **w** but expect geographic
-azimuths and distances.
-
+Upper-case versions **E**, **J**, and **W** are similar to **e**, **j** and
+**w** but expect geographic azimuths and distances.
 """
 
 import pygmt
