@@ -7,8 +7,8 @@
 ### Highlights
 
 *🎉 **Multiple bug fixes and a reorganized gallery** 🎉
-*
-*
+* New gallery examples for Cartesian, circular, and geographic vectors
+* This is the last PyGMT version to support GMT 6.1.1; future releases will require the upcoming GMT 6.2
 
 ### Enhancements
 
