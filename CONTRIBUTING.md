@@ -429,6 +429,8 @@ Don't forget to commit the baseline image as well.
 
 ### Documentation
 
+#### Building the documentation
+
 Most documentation sources are in the `doc` folder.
 We use [sphinx](http://www.sphinx-doc.org/) to build the web pages from these sources.
 To build the HTML files:
@@ -440,6 +442,8 @@ make all
 
 This will build the HTML files in `doc/_build/html`.
 Open `doc/_build/html/index.html` in your browser to view the pages.
+
+#### Cross-referencing with Sphinx
 
 The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
