@@ -11,8 +11,9 @@ These are some of the many ways to contribute:
 * :mag: Fixing typos and improving to the documentation
 * :bulb: Writing code for everyone to use
 
-If you get stuck at any point you can create an issue on GitHub (look for the *Issues*
-tab in the repository) or contact us at one of the other channels mentioned below.
+If you get stuck at any point you can create an
+[issue](https://github.com/GenericMappingTools/pygmt/issues) on GitHub or contact
+us at one of the other channels [mentioned below](#how-can-i-talk-to-you).
 
 For more information on contributing to open source projects,
 [GitHub's own guide](https://guides.github.com/activities/contributing-to-open-source/)
@@ -55,7 +56,7 @@ read it carefully.
 * Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
-* Make a tutorial or example of how to do something.
+* Make a tutorial or gallery example of how to do something.
 * Provide feedback about how we can improve the project or about your particular use
   case.
 * Contribute code you already have. It doesn't need to be perfect! We will help you
@@ -115,8 +116,9 @@ example scripts. See [Contributing Code](#contributing-code) for instructions.
 The gallery and tutorials are managed by
 [sphinx-gallery](https://sphinx-gallery.readthedocs.io/).
 The source files for the example gallery are `.py` scripts in `examples/gallery/` that
-generate one or more figures. They are executed automatically by sphinx-gallery when the
-documentation is built. The output is gathered and assembled into the gallery.
+generate one or more figures. They are executed automatically by sphinx-gallery when
+the [documentation is built](#documentation). The output is gathered and assembled
+into the gallery.
 
 You can **add a new** plot by placing a new `.py` file in one of the folders inside the
 `examples/gallery` folder of the repository. See the other examples to get an idea for the
