@@ -56,12 +56,13 @@
 
 * [Dongdong Tian](https://github.com/seisman)
 * [Wei Ji Leong](https://github.com/weiji14)
-* [Jiayuan Yao](https://github.com/core-man) 
+* [Jiayuan Yao](https://github.com/core-man)
+* [Will Schlitzer](https://github.com/willschlitzer)
 * [Meghan Jones](https://github.com/meghanrjones)
 * [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
 * [Liam Toney](https://github.com/liamtoney)
 * [Kathryn Materna](https://github.com/kmaterna)
+* [Alicia Ngoc Diep Ha](https://github.com/aliciaha1997)
 
 ----
 
