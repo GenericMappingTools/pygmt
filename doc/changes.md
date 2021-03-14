@@ -7,7 +7,8 @@
 ### Highlights
 
 * 🎉 **Multiple bug fixes and a reorganized gallery** 🎉
-* New gallery example for Cartesian, circular, and geographic vectors ([#950](https://github.com/GenericMappingTools/pygmt/pull/950))
+* A reorganization of the gallery examples ([#995](https://github.com/GenericMappingTools/pygmt/pull/995))
+* New gallery examples plotting vectors ([#950](https://github.com/GenericMappingTools/pygmt/pull/950) and [#890](https://github.com/GenericMappingTools/pygmt/pull/890))
 * This is the last PyGMT version to support GMT 6.1.1; the next release will require GMT 6.2
 
 ### Enhancements
@@ -29,8 +30,6 @@
 * Add a gallery example of inset map showing a rectangle region ([#1020](https://github.com/GenericMappingTools/pygmt/pull/1020))
 * Add a gallery example to show coloring of points by categories ([#1006](https://github.com/GenericMappingTools/pygmt/pull/1006))
 * Add gallery example showing different polar projection use cases ([#955](https://github.com/GenericMappingTools/pygmt/pull/955))
-* Add a gallery example showing different vector heads and tails ([#890](https://github.com/GenericMappingTools/pygmt/pull/890))
-* Reorganize gallery examples ([#995](https://github.com/GenericMappingTools/pygmt/pull/995))
 * Add underscore guideline to CONTRIBUTING.md ([#1034](https://github.com/GenericMappingTools/pygmt/pull/1034))
 * Add instructions to upgrade installed PyGMT version ([#1029](https://github.com/GenericMappingTools/pygmt/pull/1029))
 * Improve the docstring of the pygmt package ([#1016](https://github.com/GenericMappingTools/pygmt/pull/1016))
