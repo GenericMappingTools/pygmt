@@ -160,8 +160,8 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Leong, Wei Ji and
                       Toney, Liam and
                       Schlitzer, William and
-                      Grund, Michael and
                       Yao, Jiayuan and
+                      Grund, Michael and
                       Jones, Meghan and
                       Materna, Kathryn and
                       Newton, Tyler and
