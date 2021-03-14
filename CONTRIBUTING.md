@@ -94,14 +94,15 @@ download and install anything:
 * On each documentation page, there should be an "Improve This Page" link at the very
   top.
 * Click on that link to open the respective source file (usually an `.rst` file in the
-  `doc` folder) on GitHub for editing online (you'll need a GitHub account).
+  `doc` folder or a `.py` file in the `examples` folder) on GitHub for editing online
+  (you'll need a GitHub account).
 * Make your desired changes.
 * When you're done, scroll to the bottom of the page.
 * Fill out the two fields under "Commit changes": the first is a short title describing
   your fixes; the second is a more detailed description of the changes. Try to be as
   detailed as possible and describe *why* you changed something.
-* Click on the "Commit changes" button to open a
-  [pull request (see below)](#pull-requests).
+* Choose "Create a new branch for this commit and start a pull request." and
+  click on the "Propose changes" button to open a [pull request (see below)](#pull-requests).
 * We'll review your changes and then merge them in if everything is OK.
 * Done :tada::beer:
 
@@ -172,13 +173,11 @@ When editing documentation, use the following standards to demonstrate the examp
 
 1. Python arguments, such as import statements, Boolean expressions, and function
    arguments should be wrapped as ``code`` by using \`\` on both sides of the code.
-   Example: \`\`import pygmt\`\` results in ``import pygmt``
-
-2.  Literal GMT arguments should be **bold** by wrapping the arguments with \*\*
-    (two asterisks) on both sides. The argument description should be in *italicized*
-    with \* (single asterisk) on both sides.
-    Example: `**+l**\ *label*` results in **+l***label*
-
+   Example: \`\`import pygmt\`\` results in ``import pygmt``.
+2. Literal GMT arguments should be **bold** by wrapping the arguments with \*\*
+   (two asterisks) on both sides. The argument description should be in *italicized*
+   with \* (single asterisk) on both sides.
+   Example: `**+l**\ *label*` results in **+l***label*.
 3. Optional arguments are placed wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 
@@ -210,7 +209,7 @@ General guidelines for pull requests (PRs):
 * Larger changes should be broken down into smaller components and integrated
   separately.
 * Bug fixes should be submitted in separate PRs.
-* Use underscores for all Python (*.py) files as per [PEP8](https://www.python.org/dev/peps/pep-0008/), 
+* Use underscores for all Python (*.py) files as per [PEP8](https://www.python.org/dev/peps/pep-0008/),
   not hyphens. Directory names should also use underscores instead of hyphens.
 * Describe what your PR changes and *why* this is a good thing. Be as specific as you
   can. The PR description is how we keep track of the changes made to the project over
@@ -233,8 +232,8 @@ It will make your life a lot easier!
 
 The repository includes a conda environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
-Once you have forked and clone the repository to your local machine, you use this file
-to create an isolated environment on which you can work.
+Once you have forked and cloned the repository to your local machine, you can
+use this file to create an isolated environment on which you can work.
 Run the following on the base of the repository:
 
 ```bash
@@ -443,7 +442,7 @@ The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
 function/class/module listed there.
 
-You can reference functions, classes, methods, and modules from anywhere 
+You can reference functions, classes, methods, and modules from anywhere
 (including docstrings) using:
 
 - <code>:func:\`package.module.function\`</code>
@@ -451,12 +450,12 @@ You can reference functions, classes, methods, and modules from anywhere
 - <code>:meth:\`package.module.method\`</code>
 - <code>:mod:\`package.module\`</code>
 
-An example would be to use 
-<code>:meth:\`pygmt.Figure.grdview\`</code> to link 
-to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html. 
-PyGMT documentation that is not a class, method, 
+An example would be to use
+<code>:meth:\`pygmt.Figure.grdview\`</code> to link
+to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html.
+PyGMT documentation that is not a class, method,
 or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
-For example, <code>:doc:\`Install instructions \</install\>\`</code> links 
+For example, <code>:doc:\`Install instructions \</install\>\`</code> links
 to https://www.pygmt.org/latest/install.html.
 
 Linking to the GMT documentation and GMT configuration parameters can be done using:
@@ -465,10 +464,10 @@ Linking to the GMT documentation and GMT configuration parameters can be done us
 - <code>:gmt-term:\`GMT_PARAMETER\`</code>
 
 An example would be using
-<code>:gmt-docs:\`makecpt.html\`</code> to link to 
+<code>:gmt-docs:\`makecpt.html\`</code> to link to
 https://docs.generic-mapping-tools.org/latest/makecpt.html.
 For GMT configuration parameters, an example is
-<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to 
+<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
 https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
 
 Sphinx will create a link to the automatically generated page for that
