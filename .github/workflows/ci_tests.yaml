@@ -79,7 +79,7 @@ jobs:
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
-        run: conda env update --file environment.yml
+        run: conda install gmt=6.1.1 make poetry
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
@@ -105,9 +105,7 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        run: |
-          python setup.py sdist --formats=zip
-          pip install dist/*
+        run: poetry install --extras docs
 
       # Run the tests
       - name: Test with pytest
