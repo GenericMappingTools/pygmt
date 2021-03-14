@@ -4,7 +4,11 @@
 
 [![Digital Object Identifier for PyGMT v0.3.1](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
 
-*🎉 **Minor changes and bug fixes from v0.3.0** 🎉
+### Highlights
+
+*🎉 **Multiple bug fixes and a reorganized gallery** 🎉
+*
+*
 
 ### Enhancements
 
@@ -21,20 +25,20 @@
 ### Documentation
 
 * Add a gallery example showing different line front styles ([#1022](https://github.com/GenericMappingTools/pygmt/pull/1022))
-* Add underscore guideline to CONTRIBUTING.md ([#1034](https://github.com/GenericMappingTools/pygmt/pull/1034))
 * Add a gallery example for a double y-axes graph ([#1019](https://github.com/GenericMappingTools/pygmt/pull/1019))
 * Add a gallery example of inset map showing a rectangle region ([#1020](https://github.com/GenericMappingTools/pygmt/pull/1020))
 * Add a gallery example to show coloring of points by categories ([#1006](https://github.com/GenericMappingTools/pygmt/pull/1006))
+* Add gallery example showing different polar projection use cases ([#955](https://github.com/GenericMappingTools/pygmt/pull/955))
+* Add a gallery example for plotting Cartesian, circular and geographic vectors ([#950](https://github.com/GenericMappingTools/pygmt/pull/950))
+* Add a gallery example showing different vector heads and tails ([#890](https://github.com/GenericMappingTools/pygmt/pull/890))
 * Reorganize gallery examples ([#995](https://github.com/GenericMappingTools/pygmt/pull/995))
+* Add underscore guideline to CONTRIBUTING.md ([#1034](https://github.com/GenericMappingTools/pygmt/pull/1034))
 * Add instructions to upgrade installed PyGMT version ([#1029](https://github.com/GenericMappingTools/pygmt/pull/1029))
 * Improve the docstring of the pygmt package ([#1016](https://github.com/GenericMappingTools/pygmt/pull/1016))
-* Add gallery example showing different polar projection use cases ([#955](https://github.com/GenericMappingTools/pygmt/pull/955))
 * Add common alias coltypes (-f) for specifying i/o data types ([#994](https://github.com/GenericMappingTools/pygmt/pull/994))
-* Add a gallery example for plotting Cartesian, circular and geographic vectors ([#950](https://github.com/GenericMappingTools/pygmt/pull/950))
 * Expand documentation linking in CONTRIBUTING.md ([#802](https://github.com/GenericMappingTools/pygmt/pull/802))
 * Write changelog in markdown using MyST ([#941](https://github.com/GenericMappingTools/pygmt/pull/941))
 * Update web font to Atkinson Hyperlegible ([#938](https://github.com/GenericMappingTools/pygmt/pull/938))
-* Add a gallery example showing different vector heads and tails ([#890](https://github.com/GenericMappingTools/pygmt/pull/890))
 * Improve the gallery example for datetime inputs ([#919](https://github.com/GenericMappingTools/pygmt/pull/919))
 
 ### Maintenance
