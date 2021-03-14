@@ -94,16 +94,17 @@ download and install anything:
 * On each documentation page, there should be an "Improve This Page" link at the very
   top.
 * Click on that link to open the respective source file (usually an `.rst` file in the
-  `doc` folder or a `.py` file in the `examples` folder) on GitHub for editing online
+  `doc/` folder or a `.py` file in the `examples/` folder) on GitHub for editing online
   (you'll need a GitHub account).
 * Make your desired changes.
 * When you're done, scroll to the bottom of the page.
 * Fill out the two fields under "Commit changes": the first is a short title describing
   your fixes; the second is a more detailed description of the changes. Try to be as
   detailed as possible and describe *why* you changed something.
-* Choose "Create a new branch for this commit and start a pull request." and
+* Choose "Create a new branch for this commit and start a pull request" and
   click on the "Propose changes" button to open a [pull request (see below)](#pull-requests).
-* We'll review your changes and then merge them in if everything is OK.
+* We'll review your pull request, recommend changes if necessary, and then merge
+  them in if everything is OK.
 * Done :tada::beer:
 
 Alternatively, you can make the changes offline to the files in the `doc` folder or the
