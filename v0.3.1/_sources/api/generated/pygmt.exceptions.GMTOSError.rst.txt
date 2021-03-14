@@ -1,0 +1,11 @@
+pygmt.exceptions.GMTOSError
+===========================
+
+.. currentmodule:: pygmt.exceptions
+
+.. autoexception:: GMTOSError
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>
