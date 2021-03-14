@@ -8,7 +8,7 @@
 
 * 🎉 **Multiple bug fixes and a reorganized gallery** 🎉
 * A reorganization of the gallery examples ([#995](https://github.com/GenericMappingTools/pygmt/pull/995))
-* New gallery examples plotting vectors ([#950](https://github.com/GenericMappingTools/pygmt/pull/950) and [#890](https://github.com/GenericMappingTools/pygmt/pull/890))
+* New gallery examples of plotting vectors ([#950](https://github.com/GenericMappingTools/pygmt/pull/950) and [#890](https://github.com/GenericMappingTools/pygmt/pull/890))
 * This is the last PyGMT version to support GMT 6.1.1; the next release will require GMT 6.2
 
 ### Enhancements
