@@ -9,7 +9,7 @@ It is often useful to add annotations to a map plot. This is handled by
 
     This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
     To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
 
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
@@ -28,7 +28,7 @@ import pygmt
 # method of the :class:`pygmt.Figure` class.
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
-# and ``y`` arguments to specify the annotation text and position in the
+# and ``y`` parameters to specify the annotation text and position in the
 # projection frame. ``text`` accepts *str* types, while ``x``, and ``y``
 # accepts either *int* or *float* numbers, or a list/array of numbers.
 
@@ -37,10 +37,10 @@ with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Plotting text annotations using single elements
+# Plot text annotations using a single element
 fig.text(text="SOUTH CHINA SEA", x=112, y=6)
 
-# Plotting text annotations using lists of elements
+# Plot text annotations using lists of elements
 fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
 
 fig.show()
@@ -49,18 +49,18 @@ fig.show()
 # Changing font style
 # -------------------
 # The size, family/weight, and color of an annotation can be specified using
-# the ``font`` argument.
+# the ``font`` parameter.
 #
-# A list of all recognised fonts can be found at
-# :gmt-docs:`cookbook/postscript-fonts.html`, including details of how to use
-# non-default fonts.
+# A list of all recognized fonts can be found at
+# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
+# including details of how to use non-default fonts.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Customising the font style
+# Customize the font style
 fig.text(text="BORNEO", x=114.0, y=0.5, font="22p,Helvetica-Bold,white")
 
 fig.show()
@@ -88,7 +88,7 @@ with open("examples.txt", "w") as f:
 
 # Plot region names / sea names from a text file, where
 # the longitude (x) and latitude (y) coordinates are in the first two columns.
-# Setting angle/font/justify to ``True`` will indicate that those columns are
+# Setting angle/font/justify to True will indicate that those columns are
 # present in the text file too (Note: must be in that order!).
 # Finally, the text to be printed will be in the last column
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
@@ -99,8 +99,8 @@ os.remove("examples.txt")
 fig.show()
 
 ###############################################################################
-# ``justify`` argument
-# --------------------
+# ``justify`` parameter
+# ---------------------
 #
 # ``justify`` is used to define the anchor point for the bounding box for text
 # being added to a plot. The following code segment demonstrates the
@@ -124,9 +124,9 @@ for position in ("TL", "TC", "TR", "ML", "MC", "MR", "BL", "BC", "BR"):
 fig.show()
 
 ###############################################################################
-# ``angle`` argument
-# ------------------
-# ``angle`` is an optional argument used to specify the clockwise rotation of
+# ``angle`` parameter
+# -------------------
+# ``angle`` is an optional parameter used to specify the clockwise rotation of
 # the text from the horizontal.
 
 fig = pygmt.Figure()
@@ -136,8 +136,8 @@ for i in range(0, 360, 30):
 fig.show()
 
 ###############################################################################
-# ``fill`` argument
-# -----------------
+# ``fill`` parameter
+# ------------------
 #
 # ``fill`` is used to set the fill color of the area surrounding the text.
 

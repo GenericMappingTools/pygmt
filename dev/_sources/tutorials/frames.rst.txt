@@ -21,14 +21,14 @@
 Frames, ticks, titles, and labels
 =================================
 
-Setting the style of the map frames, ticks, etc, is handled by the ``frame`` argument
+Setting the style of the map frames, ticks, etc, is handled by the ``frame`` parameter
 that all plotting methods of :class:`pygmt.Figure`.
 
 .. note::
 
     This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
     To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
 
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
@@ -192,7 +192,7 @@ Add automatic grid lines to the plot by adding a ``g`` to ``frame``:
 Title
 -----
 
-The figure title can be set by passing **+t**\ *title* to the ``frame`` argument of
+The figure title can be set by passing **+t**\ *title* to the ``frame`` parameter of
 :meth:`pygmt.Figure.basemap`. Passing multiple arguments to ``frame`` can be done by
 using a list, as show in the example below.
 
@@ -230,7 +230,7 @@ using a list, as show in the example below.
 
 To use a title with multiple words, the title must be placed inside another set of
 quotation marks. To prevent the quotation marks from appearing in the figure title,
-the ``frame`` argument can be passed in single quotation marks and the title can be
+the ``frame`` parameter can be passed in single quotation marks and the title can be
 passed in double quotation marks.
 
 .. GENERATED FROM PYTHON SOURCE LINES 80-87
@@ -269,7 +269,7 @@ Axis labels
 -----------
 
 Axis labels can be set by passing **x+l**\ *label* (or starting with **y** if
-labeling the y-axis) to the ``frame`` argument of :meth:`pygmt.Figure.basemap`.
+labeling the y-axis) to the ``frame`` parameter of :meth:`pygmt.Figure.basemap`.
 By default, all 4 map boundaries (or plot axes) are plotted with both tick marks and
 axis labels. The axes are named as **W** (west/left), **S** (south/bottom),
 **N** (north/top), and **E** (east/right) sides of a figure. If an upper-case axis
@@ -290,7 +290,7 @@ be set for geographic maps.
         projection="X10c/8c",
         # Plot axis, tick marks, and axis labels on the west/left and south/bottom axes
         # Plot axis and tick marks on the north/top and east/right axes
-        frame=["WSne", "x+lx-axis", "y+ly-axis"],
+        frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
     )
     fig.show()
 
@@ -315,7 +315,7 @@ be set for geographic maps.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.729 seconds)
+   **Total running time of the script:** ( 0 minutes  12.459 seconds)
 
 
 .. _sphx_glr_download_tutorials_frames.py:

@@ -31,7 +31,6 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -114,7 +113,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -126,16 +125,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
@@ -237,7 +237,6 @@
                    class="fa fa-github"> Improve this page</a>
             
         
-        
     </li>
 
   </ul>
@@ -248,31 +247,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="section" id="pygmt-datasets-load-earth-relief">
+  <div class="section" id="pygmt-datasets-load-earth-relief">
 <h1>pygmt.datasets.load_earth_relief<a class="headerlink" href="#pygmt-datasets-load-earth-relief" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="pygmt.datasets.load_earth_relief">
@@ -285,9 +260,10 @@ So you’ll need an internet connection the first time around.</p>
 <p>These grids can also be accessed by passing in the file name
 <strong>&#64;earth_relief</strong>_<em>res</em>[_<em>reg</em>] to any grid plotting/processing
 function. <em>res</em> is the grid resolution (see below), and <em>reg</em> is grid
-registration type (<strong>p</strong> for pixel registration or <em>g</em> for gridline
-registration). Refer to <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/datasets/remote-data.html">https://docs.generic-mapping-tools.org/latest/datasets/remote-data.html</a> for more
-details.</p>
+registration type (<strong>p</strong> for pixel registration or <strong>g</strong> for gridline
+registration).</p>
+<p>Refer to <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/datasets/remote-data.html#global-earth-relief-grids">https://docs.generic-mapping-tools.org/latest/datasets/remote-data.html#global-earth-relief-grids</a>
+for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -296,8 +272,10 @@ arc-degree, arc-minute and arc-second. It can be <code class="docutils literal n
 <code class="docutils literal notranslate"><span class="pre">'20m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'15m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'10m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'06m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'05m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'04m'</span></code>,
 <code class="docutils literal notranslate"><span class="pre">'03m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'02m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'01m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'30s'</span></code>, <code class="docutils literal notranslate"><span class="pre">'15s'</span></code>, <code class="docutils literal notranslate"><span class="pre">'03s'</span></code>,
 or <code class="docutils literal notranslate"><span class="pre">'01s'</span></code>.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The subregion of the grid to load. Required for Earth relief grids with
-resolutions higher than 5 arc-minute (i.e., <code class="docutils literal notranslate"><span class="pre">05m</span></code>).</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The subregion of the grid to load, in the forms of a list
+[<em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em>] or a string <em>xmin/xmax/ymin/ymax</em>.
+Required for Earth relief grids with resolutions higher than 5
+arc-minute (i.e., <code class="docutils literal notranslate"><span class="pre">05m</span></code>).</p></li>
 <li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">pixel</span></code> for pixel registration or
 <code class="docutils literal notranslate"><span class="pre">gridline</span></code> for gridline registration. Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, where
 a pixel-registered grid is returned unless only the
@@ -305,12 +283,12 @@ gridline-registered grid is available.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth relief grid. Coordinates are latitude and longitude in
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.17.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth relief grid. Coordinates are latitude and longitude in
 degrees. Relief is in meters.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>The <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.16.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid doesn’t support slice operation, for
+<p>The <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.17.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid doesn’t support slice operation, for
 Earth relief data with resolutions higher than “05m”, which are stored as
 smaller tiles.</p>
 <p class="rubric">Examples</p>
@@ -330,19 +308,19 @@ smaller tiles.</p>
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_earth_relief</span></code><a class="headerlink" href="#examples-using-pygmt-datasets-load-earth-relief" title="Permalink to this headline">¶</a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><div class="figure align-default" id="id1">
 <img alt="Sampling along tracks" src="../../_images/sphx_glr_track_sampling_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/grid/track_sampling.html#sphx-glr-gallery-grid-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><div class="figure align-default" id="id2">
-<img alt="Creating a 3D perspective image" src="../../_images/sphx_glr_3d-perspective-image_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/3d-perspective-image.html#sphx-glr-tutorials-3d-perspective-image-py"><span class="std std-ref">Creating a 3D perspective image</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<img alt="Creating a 3D perspective image" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/3d_perspective_image.html#sphx-glr-tutorials-3d-perspective-image-py"><span class="std std-ref">Creating a 3D perspective image</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><div class="figure align-default" id="id3">
-<img alt="Creating a map with contour lines" src="../../_images/sphx_glr_contour-map_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/contour-map.html#sphx-glr-tutorials-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<img alt="Creating a map with contour lines" src="../../_images/sphx_glr_contour_map_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/contour_map.html#sphx-glr-tutorials-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><div class="figure align-default" id="id4">
-<img alt="Plotting Earth relief" src="../../_images/sphx_glr_earth-relief_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/earth-relief.html#sphx-glr-tutorials-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<img alt="Plotting Earth relief" src="../../_images/sphx_glr_earth_relief_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../tutorials/earth_relief.html#sphx-glr-tutorials-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </div><div style='clear:both'></div></div>
 </div>
@@ -371,7 +349,7 @@ smaller tiles.</p>
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

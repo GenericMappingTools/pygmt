@@ -31,7 +31,6 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -114,7 +113,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -126,16 +125,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#data-processing">Data Processing</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
@@ -236,7 +236,6 @@
                    class="fa fa-github"> Improve this page</a>
             
         
-        
     </li>
 
   </ul>
@@ -247,45 +246,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="section" id="pygmt-x2sys-init">
+  <div class="section" id="pygmt-x2sys-init">
 <h1>pygmt.x2sys_init<a class="headerlink" href="#pygmt-x2sys-init" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="pygmt.x2sys_init">
-<code class="sig-prename descclassname"><span class="pre">pygmt.</span></code><code class="sig-name descname"><span class="pre">x2sys_init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/x2sys.html#x2sys_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.x2sys_init" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">pygmt.</span></code><code class="sig-name descname"><span class="pre">x2sys_init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/x2sys_init.html#x2sys_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.x2sys_init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a new x2sys track database.</p>
-<p>x2sys_init is the starting point for anyone wishing to use x2sys; it
-initializes a set of data bases that are particular to one kind of track
-data. These data, their associated data bases, and key parameters are given
-a short-hand notation called an x2sys TAG. The TAG keeps track of settings
-such as file format, whether the data are geographic or not, and the
-binning resolution for track indices.</p>
-<p>Before you can run x2sys_init you must set the environmental parameter
-X2SYS_HOME to a directory where you have write permission, which is where
-x2sys can keep track of your settings.</p>
+<p>Serves as the starting point for x2sys and initializes a set of data bases
+that are particular to one kind of track data. These data, their associated
+data bases, and key parameters are given a short-hand notation called an
+x2sys TAG. The TAG keeps track of settings such as file format, whether the
+data are geographic or not, and the binning resolution for track indices.</p>
+<p>Before you can run <a class="reference internal" href="#pygmt.x2sys_init" title="pygmt.x2sys_init"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.x2sys_init</span></code></a> you must set the environmental
+parameter X2SYS_HOME to a directory where you have write permission, which
+is where x2sys can keep track of your settings.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/supplements/x2sys/x2sys_init.html">https://docs.generic-mapping-tools.org/latest/supplements/x2sys/x2sys_init.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
@@ -304,48 +278,49 @@ x2sys can keep track of your settings.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The unique name of this data type x2sys TAG.</p></li>
-<li><p><strong>fmtfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Format definition file prefix for this data set [See Format Definition
-Files for more information]. Specify full path if the file is not in
-the current directory.</p>
+<li><p><strong>fmtfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Format definition file prefix for this data set (see
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/supplements/x2sys/x2sys_init.html#format-definition-files">GMT’s Format Definition Files</a>
+for more information). Specify full path if the file is not in the
+current directory.</p>
 <p>Some file formats already have definition files premade. These include:</p>
 <ul>
-<li><p>mgd77 (for plain ASCII MGD77 data files)</p></li>
-<li><p>mgd77+ (for enhanced MGD77+ netCDF files)</p></li>
-<li><p>gmt (for old mgg supplement binary files)</p></li>
-<li><p>xy (for plain ASCII x, y tables)</p></li>
-<li><p>xyz (same, with one z-column)</p></li>
-<li><p>geo (for plain ASCII longitude, latitude files)</p></li>
-<li><p>geoz (same, with one z-column).</p></li>
+<li><p><strong>mgd77</strong> (for plain ASCII MGD77 data files)</p></li>
+<li><p><strong>mgd77+</strong> (for enhanced MGD77+ netCDF files)</p></li>
+<li><p><strong>gmt</strong> (for old mgg supplement binary files)</p></li>
+<li><p><strong>xy</strong> (for plain ASCII x, y tables)</p></li>
+<li><p><strong>xyz</strong> (same, with one z-column)</p></li>
+<li><p><strong>geo</strong> (for plain ASCII longitude, latitude files)</p></li>
+<li><p><strong>geoz</strong> (same, with one z-column).</p></li>
 </ul>
 </p></li>
 <li><p><strong>suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Specifies the file extension (suffix) for these data files. If not
 given we use the format definition file prefix as the suffix (see
-<em>fmtfile</em>).</p></li>
+<code class="docutils literal notranslate"><span class="pre">fmtfile</span></code>).</p></li>
 <li><p><strong>discontinuity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <strong>d</strong>|<strong>g</strong>.
 Selects geographical coordinates. Append <strong>d</strong> for discontinuity at the
-Dateline (makes longitude go from -180 to + 180) or <strong>g</strong> for
+Dateline (makes longitude go from -180 to +180) or <strong>g</strong> for
 discontinuity at Greenwich (makes longitude go from 0 to 360
 [Default]). If not given we assume the data are Cartesian.</p></li>
 <li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>dx</em>[/<em>dy</em>].
-<em>dx</em> [and optionally <em>dy</em>] is the grid spacing. Append <strong>m</strong> to
+<em>dx</em> and optionally <em>dy</em> is the grid spacing. Append <strong>m</strong> to
 indicate minutes or <strong>s</strong> to indicate seconds for geographic data.
 These spacings refer to the binning used in the track bin-index data
 base.</p></li>
-<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <p><strong>d</strong>|<strong>s</strong><strong>c</strong>|<strong>e</strong>|<strong>f</strong>|<strong>k</strong>|<strong>m</strong>|<strong>n</strong>|<strong>u</strong> .
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <p><strong>d</strong>|<strong>s</strong><em>unit</em>.
 Sets the units used for distance and speed when requested by other
 programs. Append <strong>d</strong> for distance or <strong>s</strong> for speed, then give the
-desired unit as:</p>
+desired <em>unit</em> as:</p>
 <ul>
 <li><p><strong>c</strong> - Cartesian userdist or userdist/usertime</p></li>
 <li><p><strong>e</strong> - meters or m/s</p></li>
 <li><p><strong>f</strong> - feet or feet/s</p></li>
-<li><p><strong>k</strong> - km or kms/hr</p></li>
+<li><p><strong>k</strong> - km or km/hr</p></li>
 <li><p><strong>m</strong> - miles or miles/hr</p></li>
 <li><p><strong>n</strong> - nautical miles or knots</p></li>
 <li><p><strong>u</strong> - survey feet or survey feet/s</p></li>
 </ul>
-<p>Default is <code class="docutils literal notranslate"><span class="pre">units=[&quot;dk&quot;,</span> <span class="pre">&quot;se&quot;]</span></code> (km and m/s) if <em>discontinuity</em> is
-set, and <code class="docutils literal notranslate"><span class="pre">units=[&quot;dc&quot;,</span> <span class="pre">&quot;sc&quot;]</span></code> otherwise (Cartesian units).</p>
+<p>[Default is <code class="docutils literal notranslate"><span class="pre">units=[&quot;dk&quot;,</span> <span class="pre">&quot;se&quot;]</span></code> (km and m/s) if <code class="docutils literal notranslate"><span class="pre">discontinuity</span></code> is
+set, and <code class="docutils literal notranslate"><span class="pre">units=[&quot;dc&quot;,</span> <span class="pre">&quot;sc&quot;]</span></code> otherwise (e.g., for Cartesian units)].</p>
 </p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
 <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
@@ -356,7 +331,7 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
 <li><p><strong>e</strong> - Error messages only</p></li>
 <li><p><strong>w</strong> - Warnings [Default]</p></li>
-<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorthms);</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms);</p></li>
 <li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
 <li><p><strong>c</strong> - Compatibility warnings</p></li>
 <li><p><strong>d</strong> - Debugging messages</p></li>
@@ -364,11 +339,11 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 </p></li>
 <li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <strong>t</strong>|<strong>d</strong><em>gap</em>.
 Give <strong>t</strong> or <strong>d</strong> and append the corresponding maximum time gap (in
-user units; this is typically seconds [Infinity]), or distance (for
-units, see <code class="docutils literal notranslate"><span class="pre">units</span></code>) gap [Default is infinity]) allowed between the
-two data points immediately on either side of a crossover. If these
-limits are exceeded then a data gap is assumed and no COE will be
-determined.</p></li>
+user units; this is typically seconds [Default is infinity]), or
+distance (for units, see <code class="docutils literal notranslate"><span class="pre">units</span></code>) gap [Default is infinity]) allowed
+between the two data points immediately on either side of a crossover.
+If these limits are exceeded then a data gap is assumed and no COE will
+be determined.</p></li>
 <li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p><strong>e</strong>|<strong>f</strong>|<strong>g</strong>.
 Determine how spherical distances are calculated.</p>
 <ul>
@@ -413,7 +388,7 @@ controlled by method (<a class="reference external" href="https://docs.generic-m
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

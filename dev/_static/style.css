@@ -3,16 +3,21 @@ html {
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-size: 1.05em;
 }
 
 h1, h2, h3, h4 {
-    font-weight: 300;
-    font-family: "Open Sans",sans-serif;
+    font-weight: normal;
+    font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
 h1 {
     font-size: 200%;
+}
+
+p {
+    font-size: 1.05em;
 }
 
 .gmtplot-output {
@@ -31,10 +36,6 @@ h1 {
 
 .gmtplot-output-figure {
     margin-bottom: 50px;
-}
-
-.rst-content img {
-    max-width: 80%;
 }
 
 .sidebar-title {
@@ -131,3 +132,44 @@ a.copybtn {
     user-select: none;
 }
 
+/* Atkinson Hyperlegible regular */
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("./fonts/Atkinson-Hyperlegible-Regular-102a.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Atkinson Hyperlegible bold */
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("./fonts/Atkinson-Hyperlegible-Bold-102a.woff2") format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Atkinson Hyperlegible italic */
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("./fonts/Atkinson-Hyperlegible-Italic-102a.woff2") format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Atkinson Hyperlegible bold italic */
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("./fonts/Atkinson-Hyperlegible-BoldItalic-102a.woff2") format('woff2');
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Style for images and thumbnails of sphinx-gallery */
+.sphx-glr-thumbcontainer {
+    border: solid #d6d6d6 1px!important;
+    text-align: center!important;
+}
+
+.sphx-glr-single-img {
+    max-width: 80%!important;
+}

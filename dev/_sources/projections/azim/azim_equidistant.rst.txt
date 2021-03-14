@@ -32,7 +32,7 @@ locations relative to the projection center.
 
 The projection type is set with **e** or **E**. *lon0/lat0* specifies the projection
 center, and the optional parameter *horizon* specifies the maximum distance to the
-projection center (i.e. the visibile portion of the rest of the world map) in
+projection center (i.e. the visible portion of the rest of the world map) in
 degrees <= 180° (default 180°). The size of the figure is set by *scale* or *width*.
 
 .. GENERATED FROM PYTHON SOURCE LINES 19-24
@@ -73,7 +73,7 @@ degrees <= 180° (default 180°). The size of the figure is set by *scale* or *w
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.473 seconds)
+   **Total running time of the script:** ( 0 minutes  1.819 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_equidistant.py:

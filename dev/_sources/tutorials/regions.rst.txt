@@ -21,7 +21,7 @@
 Set the region
 ==============
 
-Many of the plotting functions take the ``region`` argument, which sets
+Many of the plotting functions take the ``region`` parameter, which sets
 the area that will be shown in the figure. This tutorial covers the different types of
 inputs that it can accept.
 
@@ -29,7 +29,7 @@ inputs that it can accept.
 
     This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
     To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
 
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
@@ -63,7 +63,7 @@ A string of coordinates can be passed to ``region``, in the form of
 
     fig = pygmt.Figure()
     fig.coast(
-        # Sets the x-range from 10E to 20E and the y-range to 35N to 45N
+        # Set the x-range from 10E to 20E and the y-range to 35N to 45N
         region="10/20/35/45",
         # Set projection to Mercator, and the figure size to 15 centimeters
         projection="M15c",
@@ -101,8 +101,8 @@ A string of coordinates can be passed to ``region``, in the form of
 
 .. GENERATED FROM PYTHON SOURCE LINES 48-50
 
-The coordinates can be passed to ``region`` as a list, in the form
-of [*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
+The coordinates can be passed to ``region`` as a list, in the form of
+[*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
 
 .. GENERATED FROM PYTHON SOURCE LINES 51-65
 
@@ -111,7 +111,7 @@ of [*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
 
     fig = pygmt.Figure()
     fig.coast(
-        # Sets the x-range from 10E to 20E and the y-range to 35N to 45N
+        # Set the x-range from 10E to 20E and the y-range to 35N to 45N
         region=[10, 20, 35, 45],
         projection="M12c",
         land="lightgray",
@@ -155,7 +155,7 @@ at the end of the ``region`` string.
 
     fig = pygmt.Figure()
     fig.coast(
-        # Sets the bottom-left corner as 10E, 35N and the top-right corner as 20E, 45N
+        # Set the bottom-left corner as 10E, 35N and the top-right corner as 20E, 45N
         region="10/35/20/45+r",
         projection="M12c",
         land="lightgray",
@@ -282,7 +282,7 @@ ISO code
 
 The ``region`` can be set to include a specific area specified by the two-character
 ISO 3166-1 alpha-2 convention
-(for futher information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+(for further information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 .. GENERATED FROM PYTHON SOURCE LINES 133-147
 
@@ -291,7 +291,7 @@ ISO 3166-1 alpha-2 convention
 
     fig = pygmt.Figure()
     fig.coast(
-        # Sets the figure region to encompass Japan with the ISO code "JP"
+        # Set the figure region to encompass Japan with the ISO code "JP"
         region="JP",
         projection="M12c",
         land="lightgray",
@@ -324,19 +324,18 @@ ISO 3166-1 alpha-2 convention
 .. GENERATED FROM PYTHON SOURCE LINES 148-152
 
 The area encompassed by the ISO code can be expanded by appending **+r**\ *increment*
-to the ISO code. The *increment* unit is in degrees, and if only value is added it
-expands the range of the region in all directions. Using **+r** rounds to the nearest
-increment.
+to the ISO code. The *increment* unit is in degrees, and if only one value is added it
+expands the range of the region in all directions. Using **+r** expands the
+final region boundaries to be multiples of *increment* .
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-168
+.. GENERATED FROM PYTHON SOURCE LINES 153-167
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Expands the region setting outside the range of Japan by 3 degrees in all
-        # directions
+        # Expand the region boundaries to be multiples of 3 degrees in all directions
         region="JP+r3",
         projection="M12c",
         land="lightgray",
@@ -366,19 +365,19 @@ increment.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-171
+.. GENERATED FROM PYTHON SOURCE LINES 168-170
 
 Instead of expanding the range of the plot uniformly in all directions, two values
 can be passed to expand differently on each axis. The format is *xinc*/*yinc*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 172-187
+.. GENERATED FROM PYTHON SOURCE LINES 171-186
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Expands the region setting outside the range of Japan by 3 degrees on the x-axis
+        # Expand the region boundaries to be multiples of 3 degrees on the x-axis
         # and 5 degrees on the y-axis.
         region="JP+r3/5",
         projection="M12c",
@@ -409,21 +408,21 @@ can be passed to expand differently on each axis. The format is *xinc*/*yinc*.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-192
+.. GENERATED FROM PYTHON SOURCE LINES 187-191
 
 Instead of expanding the range of the plot uniformly in all directions, four values
 can be passed to expand differently in each direction.
 The format is *winc*/*einc*/*sinc*/*ninc*, which expands on the west,
 east, south, and north axes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 193-208
+.. GENERATED FROM PYTHON SOURCE LINES 192-207
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Expands the region setting outside the range of Japan by 3 degrees to the west,
+        # Expand the region boundaries to be multiples of 3 degrees to the west,
         # 5 degrees to the east, 7 degrees to the south, and 9 degrees to the north.
         region="JP+r3/5/7/9",
         projection="M12c",
@@ -454,19 +453,19 @@ east, south, and north axes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-211
+.. GENERATED FROM PYTHON SOURCE LINES 208-210
 
 The ``region`` increment can be appended with **+R**, which adds the increment
 without rounding.
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-227
+.. GENERATED FROM PYTHON SOURCE LINES 211-226
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Expands the region setting outside the range of Japan by 3 degrees in all
+        # Expand the region setting outside the range of Japan by 3 degrees in all
         # directions, without rounding to the nearest increment.
         region="JP+R3",
         projection="M12c",
@@ -497,20 +496,20 @@ without rounding.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 228-230
+.. GENERATED FROM PYTHON SOURCE LINES 227-230
 
-The ``region`` increment can be appended with **+e**, which expand the bounding box
-by at least 25% beyond the increment.
+The ``region`` increment can be appended with **+e**, which is like **+r** and
+expands the final region boundaries to be multiples of *increment*. However,
+it ensures that the bounding box extends by at least 0.25 times the increment.
 
-.. GENERATED FROM PYTHON SOURCE LINES 231-245
+.. GENERATED FROM PYTHON SOURCE LINES 231-244
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Expands the region setting outside the range of Japan by 3 degrees in all
-        # directions, without rounding to the nearest increment.
+        # Expand the region boundaries to be multiples of 3 degrees in all directions
         region="JP+e3",
         projection="M12c",
         land="lightgray",
@@ -542,7 +541,7 @@ by at least 25% beyond the increment.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  16.343 seconds)
+   **Total running time of the script:** ( 0 minutes  18.744 seconds)
 
 
 .. _sphx_glr_download_tutorials_regions.py:

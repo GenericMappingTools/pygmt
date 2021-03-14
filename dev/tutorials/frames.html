@@ -31,7 +31,6 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -49,7 +48,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Projections" href="../projections/index.html" />
-    <link rel="prev" title="Sampling along tracks" href="../gallery/grid/track_sampling.html" />
+    <link rel="prev" title="Logo" href="../gallery/embellishments/logo.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -114,7 +113,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -132,10 +131,10 @@
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
@@ -224,7 +223,6 @@
                    class="fa fa-github"> Improve this page</a>
             
         
-        
     </li>
 
   </ul>
@@ -235,44 +233,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="sphx-glr-download-link-note admonition note">
+  <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-frames-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="frames-ticks-titles-and-labels">
 <span id="sphx-glr-tutorials-frames-py"></span><h1>Frames, ticks, titles, and labels<a class="headerlink" href="#frames-ticks-titles-and-labels" title="Permalink to this headline">¶</a></h1>
-<p>Setting the style of the map frames, ticks, etc, is handled by the <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument
+<p>Setting the style of the map frames, ticks, etc, is handled by the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter
 that all plotting methods of <a class="reference internal" href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.Figure</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
 To see the figures while using a Python script instead, use
-<code class="docutils literal notranslate"><span class="pre">fig.show(method=&quot;external)</span></code> to display the figure in the default PDF viewer.</p>
+<code class="docutils literal notranslate"><span class="pre">fig.show(method=&quot;external&quot;)</span></code> to display the figure in the default PDF viewer.</p>
 <p>To save the figure, use <code class="docutils literal notranslate"><span class="pre">fig.savefig(&quot;figname.pdf&quot;)</span></code> where <code class="docutils literal notranslate"><span class="pre">&quot;figname.pdf&quot;</span></code>
 is the desired name and file extension for the saved figure.</p>
 </div>
@@ -337,7 +311,7 @@ and automatically determines tick labels from the plot region.</p>
 </div>
 <div class="section" id="title">
 <h2>Title<a class="headerlink" href="#title" title="Permalink to this headline">¶</a></h2>
-<p>The figure title can be set by passing <strong>+t</strong><em>title</em> to the <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument of
+<p>The figure title can be set by passing <strong>+t</strong><em>title</em> to the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter of
 <a class="reference internal" href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a>. Passing multiple arguments to <code class="docutils literal notranslate"><span class="pre">frame</span></code> can be done by
 using a list, as show in the example below.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -354,7 +328,7 @@ using a list, as show in the example below.</p>
 </div>
 <p>To use a title with multiple words, the title must be placed inside another set of
 quotation marks. To prevent the quotation marks from appearing in the figure title,
-the <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument can be passed in single quotation marks and the title can be
+the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter can be passed in single quotation marks and the title can be
 passed in double quotation marks.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># region=&quot;TT&quot; specifies Trinidad and Tobago</span>
@@ -372,7 +346,7 @@ passed in double quotation marks.</p>
 <div class="section" id="axis-labels">
 <h2>Axis labels<a class="headerlink" href="#axis-labels" title="Permalink to this headline">¶</a></h2>
 <p>Axis labels can be set by passing <strong>x+l</strong><em>label</em> (or starting with <strong>y</strong> if
-labeling the y-axis) to the <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument of <a class="reference internal" href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a>.
+labeling the y-axis) to the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter of <a class="reference internal" href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a>.
 By default, all 4 map boundaries (or plot axes) are plotted with both tick marks and
 axis labels. The axes are named as <strong>W</strong> (west/left), <strong>S</strong> (south/bottom),
 <strong>N</strong> (north/top), and <strong>E</strong> (east/right) sides of a figure. If an upper-case axis
@@ -386,7 +360,7 @@ be set for geographic maps.</p>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/8c&quot;</span><span class="p">,</span>
     <span class="c1"># Plot axis, tick marks, and axis labels on the west/left and south/bottom axes</span>
     <span class="c1"># Plot axis and tick marks on the north/top and east/right axes</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;x+lx-axis&quot;</span><span class="p">,</span> <span class="s2">&quot;y+ly-axis&quot;</span><span class="p">],</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;xaf+lx-axis&quot;</span><span class="p">,</span> <span class="s2">&quot;yaf+ly-axis&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -396,7 +370,7 @@ be set for geographic maps.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.729 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.459 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-frames-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/58d87c29128f202a59b161adaf8976c4/frames.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">frames.py</span></code></a></p>
@@ -421,7 +395,7 @@ be set for geographic maps.</p>
         <a href="../projections/index.html" class="btn btn-neutral float-right" title="Projections" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../gallery/grid/track_sampling.html" class="btn btn-neutral float-left" title="Sampling along tracks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../gallery/embellishments/logo.html" class="btn btn-neutral float-left" title="Logo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -433,7 +407,7 @@ be set for geographic maps.</p>
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

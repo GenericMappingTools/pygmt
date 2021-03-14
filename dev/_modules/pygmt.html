@@ -31,7 +31,6 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -112,7 +111,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -124,10 +123,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
@@ -208,7 +207,6 @@
     
     <li class="source-link">
         
-        
     </li>
 
   </ul>
@@ -220,14 +218,25 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pygmt</h1><div class="highlight"><pre>
-<span></span><span class="c1"># pylint: disable=missing-docstring</span>
-<span class="c1">#</span>
-<span class="c1"># The main API for PyGMT.</span>
-<span class="c1">#</span>
-<span class="c1"># All of PyGMT is operated on a &quot;modern mode session&quot; (new to GMT6). When you</span>
-<span class="c1"># import the pygmt library, a new session will be started automatically. The</span>
-<span class="c1"># session will be closed when the current Python process terminates. Thus, the</span>
-<span class="c1"># Python API does not expose the `gmt begin` and `gmt end` commands.</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">PyGMT is a library for processing geospatial and geophysical data and making</span>
+<span class="sd">publication quality maps and figures. It provides a Pythonic interface for the</span>
+<span class="sd">Generic Mapping Tools (GMT), a command-line program widely used in the Earth</span>
+<span class="sd">Sciences. Besides making GMT more accessible to new users, PyGMT aims to</span>
+<span class="sd">provide integration with the PyData ecosystem as well as support for rich</span>
+<span class="sd">display in Jupyter notebooks.</span>
+
+<span class="sd">Main Features</span>
+<span class="sd">-------------</span>
+<span class="sd">Here are just a few of the things that PyGMT does well:</span>
+
+<span class="sd">  - Easy handling of individual types of data like Cartesian, geographic, or</span>
+<span class="sd">    time-series data.</span>
+<span class="sd">  - Processing of (geo)spatial data including gridding, filtering, and masking</span>
+<span class="sd">  - Allows plotting of a large spectrum of objects on figures including</span>
+<span class="sd">    lines, vectors, polygons, and symbols (pre-defined and customized)</span>
+<span class="sd">  - Generate publication-quality illustrations and make animations</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">atexit</span> <span class="k">as</span> <span class="nn">_atexit</span>
 
@@ -250,8 +259,9 @@
     <span class="n">makecpt</span><span class="p">,</span>
     <span class="n">surface</span><span class="p">,</span>
     <span class="n">which</span><span class="p">,</span>
+    <span class="n">x2sys_cross</span><span class="p">,</span>
+    <span class="n">x2sys_init</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pygmt.x2sys</span> <span class="kn">import</span> <span class="n">x2sys_cross</span><span class="p">,</span> <span class="n">x2sys_init</span>
 
 <span class="c1"># Get semantic version through setuptools-scm</span>
 <span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;v</span><span class="si">{</span><span class="n">get_distribution</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># e.g. v0.1.2.dev3+g0ab3cd78</span>
@@ -436,7 +446,7 @@
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

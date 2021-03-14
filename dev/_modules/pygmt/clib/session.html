@@ -31,7 +31,6 @@
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -112,7 +111,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -124,10 +123,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
@@ -210,7 +209,6 @@
     
     <li class="source-link">
         
-        
     </li>
 
   </ul>
@@ -249,6 +247,7 @@
     <span class="n">GMTInvalidInput</span><span class="p">,</span>
     <span class="n">GMTVersionError</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">data_kind</span><span class="p">,</span> <span class="n">dummy_context</span>
 
 <span class="n">FAMILIES</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;GMT_IS_DATASET&quot;</span><span class="p">,</span>
@@ -395,7 +394,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a GMT API session and check the libgmt version.</span>
 
-<span class="sd">        Calls :meth:`~gmt.clib.Session.create`.</span>
+<span class="sd">        Calls :meth:`pygmt.clib.Session.create`.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -421,7 +420,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Destroy the currently open GMT API session.</span>
 
-<span class="sd">        Calls :meth:`~gmt.clib.Session.destroy`.</span>
+<span class="sd">        Calls :meth:`pygmt.clib.Session.destroy`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
 
@@ -466,7 +465,7 @@
 
         <span class="k">return</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="Session.get_libgmt_func"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func">[docs]</a>    <span class="k">def</span> <span class="nf">get_libgmt_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">argtypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">restype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_libgmt_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">argtypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">restype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a ctypes function from the libgmt shared library.</span>
 
@@ -509,9 +508,9 @@
             <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="n">argtypes</span>
         <span class="k">if</span> <span class="n">restype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">restype</span>
-        <span class="k">return</span> <span class="n">function</span></div>
+        <span class="k">return</span> <span class="n">function</span>
 
-<div class="viewcode-block" id="Session.create"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.create.html#pygmt.clib.Session.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new GMT C API session.</span>
 
@@ -520,10 +519,10 @@
 
 <span class="sd">        .. warning::</span>
 
-<span class="sd">            Usage of :class:`~gmt.clib.Session` as a context manager in a</span>
+<span class="sd">            Usage of :class:`pygmt.clib.Session` as a context manager in a</span>
 <span class="sd">            ``with`` block is preferred over calling</span>
-<span class="sd">            :meth:`~gmt.clib.Session.create` and</span>
-<span class="sd">            :meth:`~gmt.clib.Session.destroy` manually.</span>
+<span class="sd">            :meth:`pygmt.clib.Session.create` and</span>
+<span class="sd">            :meth:`pygmt.clib.Session.destroy` manually.</span>
 
 <span class="sd">        Calls ``GMT_Create_Session`` and generates a new ``GMTAPI_CTRL``</span>
 <span class="sd">        struct, which is a :class:`ctypes.c_void_p` pointer. Sets the</span>
@@ -591,7 +590,7 @@
                 <span class="s2">&quot;Failed to create a GMT API session:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span> <span class="o">=</span> <span class="n">session</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span> <span class="o">=</span> <span class="n">session</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_error_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -605,16 +604,16 @@
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_log</span> <span class="k">if</span> <span class="s2">&quot;[ERROR]&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">msg</span>
 
-<div class="viewcode-block" id="Session.destroy"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.destroy.html#pygmt.clib.Session.destroy">[docs]</a>    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Destroy the currently open GMT API session.</span>
 
 <span class="sd">        .. warning::</span>
 
-<span class="sd">            Usage of :class:`~gmt.clib.Session` as a context manager in a</span>
+<span class="sd">            Usage of :class:`pygmt.clib.Session` as a context manager in a</span>
 <span class="sd">            ``with`` block is preferred over calling</span>
-<span class="sd">            :meth:`~gmt.clib.Session.create` and</span>
-<span class="sd">            :meth:`~gmt.clib.Session.destroy` manually.</span>
+<span class="sd">            :meth:`pygmt.clib.Session.create` and</span>
+<span class="sd">            :meth:`pygmt.clib.Session.destroy` manually.</span>
 
 <span class="sd">        Calls ``GMT_Destroy_Session`` to terminate and free the memory of a</span>
 <span class="sd">        registered ``GMTAPI_CTRL`` session (the pointer for this struct is</span>
@@ -637,9 +636,9 @@
                 <span class="s2">&quot;Failed to destroy GMT API session:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span> <span class="o">=</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="Session.get_default"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_default.html#pygmt.clib.Session.get_default">[docs]</a>    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the value of a GMT default parameter (library version, paths, etc).</span>
 
@@ -689,9 +688,9 @@
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Session.call_module"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.call_module.html#pygmt.clib.Session.call_module">[docs]</a>    <span class="k">def</span> <span class="nf">call_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">call_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Call a GMT module with the given arguments.</span>
 
@@ -728,9 +727,9 @@
                 <span class="s2">&quot;Module &#39;</span><span class="si">{}</span><span class="s2">&#39; failed with status code </span><span class="si">{}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">module</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span>
                 <span class="p">)</span>
-            <span class="p">)</span></div>
+            <span class="p">)</span>
 
-<div class="viewcode-block" id="Session.create_data"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data">[docs]</a>    <span class="k">def</span> <span class="nf">create_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an empty GMT data container.</span>
 
@@ -823,7 +822,7 @@
         <span class="k">if</span> <span class="n">data_ptr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to create an empty GMT data pointer.&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">data_ptr</span></div>
+        <span class="k">return</span> <span class="n">data_ptr</span>
 
     <span class="k">def</span> <span class="nf">_parse_pad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -855,7 +854,8 @@
 
 <span class="sd">        If valid modifiers are not given, then will assume that modifiers are</span>
 <span class="sd">        not allowed. In this case, will raise a</span>
-<span class="sd">        :class:`~gmt.exceptions.GMTInvalidInput` exception if given a modifier.</span>
+<span class="sd">        :class:`pygmt.exceptions.GMTInvalidInput` exception if given a</span>
+<span class="sd">        modifier.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -863,7 +863,7 @@
 <span class="sd">            The name of a valid GMT API constant, with an optional modifier.</span>
 <span class="sd">        valid : list of str</span>
 <span class="sd">            A list of valid values for the constant. Will raise a</span>
-<span class="sd">            :class:`~gmt.exceptions.GMTInvalidInput` exception if the given</span>
+<span class="sd">            :class:`pygmt.exceptions.GMTInvalidInput` exception if the given</span>
 <span class="sd">            value is not on the list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parts</span> <span class="o">=</span> <span class="n">constant</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
@@ -956,14 +956,14 @@
                 <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">DTYPES</span><span class="p">[</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">]]</span>
 
-<div class="viewcode-block" id="Session.put_vector"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector">[docs]</a>    <span class="k">def</span> <span class="nf">put_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">put_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a numpy 1D array as a column on a GMT dataset.</span>
 
 <span class="sd">        Use this function to attach numpy array data to a GMT dataset and pass</span>
 <span class="sd">        it to GMT modules. Wraps ``GMT_Put_Vector``.</span>
 
-<span class="sd">        The dataset must be created by :meth:`~gmt.clib.Session.create_data`</span>
+<span class="sd">        The dataset must be created by :meth:`pygmt.clib.Session.create_data`</span>
 <span class="sd">        first. Use ``family=&#39;GMT_IS_DATASET|GMT_VIA_VECTOR&#39;``.</span>
 
 <span class="sd">        Not at all numpy dtypes are supported, only: float64, float32, int64,</span>
@@ -979,7 +979,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        dataset : :class:`ctypes.c_void_p`</span>
 <span class="sd">            The ctypes void pointer to a ``GMT_Dataset``. Create it with</span>
-<span class="sd">            :meth:`~gmt.clib.Session.create_data`.</span>
+<span class="sd">            :meth:`pygmt.clib.Session.create_data`.</span>
 <span class="sd">        column : int</span>
 <span class="sd">            The column number of this vector in the dataset (starting from 0).</span>
 <span class="sd">        vector : numpy 1d-array</span>
@@ -1017,7 +1017,7 @@
                         <span class="s2">&quot;in column </span><span class="si">{}</span><span class="s2"> of dataset.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">),</span>
                     <span class="p">]</span>
                 <span class="p">)</span>
-            <span class="p">)</span></div>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">put_strings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">strings</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1026,7 +1026,7 @@
 <span class="sd">        Use this function to attach string type numpy array data to a GMT</span>
 <span class="sd">        dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.</span>
 
-<span class="sd">        The dataset must be created by :meth:`~gmt.clib.Session.create_data`</span>
+<span class="sd">        The dataset must be created by :meth:`pygmt.clib.Session.create_data`</span>
 <span class="sd">        first.</span>
 
 <span class="sd">        .. warning::</span>
@@ -1039,7 +1039,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        dataset : :class:`ctypes.c_void_p`</span>
 <span class="sd">            The ctypes void pointer to a ``GMT_Dataset``. Create it with</span>
-<span class="sd">            :meth:`~gmt.clib.Session.create_data`.</span>
+<span class="sd">            :meth:`pygmt.clib.Session.create_data`.</span>
 <span class="sd">        family : str</span>
 <span class="sd">            The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or</span>
 <span class="sd">            ``GMT_IS_MATRIX``.</span>
@@ -1079,14 +1079,14 @@
                 <span class="sa">f</span><span class="s2">&quot;Failed to put strings of type </span><span class="si">{</span><span class="n">strings</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> into dataset&quot;</span>
             <span class="p">)</span>
 
-<div class="viewcode-block" id="Session.put_matrix"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">put_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">put_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a numpy 2D array to a GMT dataset.</span>
 
 <span class="sd">        Use this function to attach numpy array data to a GMT dataset and pass</span>
 <span class="sd">        it to GMT modules. Wraps ``GMT_Put_Matrix``.</span>
 
-<span class="sd">        The dataset must be created by :meth:`~gmt.clib.Session.create_data`</span>
+<span class="sd">        The dataset must be created by :meth:`pygmt.clib.Session.create_data`</span>
 <span class="sd">        first. Use ``|GMT_VIA_MATRIX&#39;`` in the family.</span>
 
 <span class="sd">        Not at all numpy dtypes are supported, only: float64, float32, int64,</span>
@@ -1101,7 +1101,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        dataset : :class:`ctypes.c_void_p`</span>
 <span class="sd">            The ctypes void pointer to a ``GMT_Dataset``. Create it with</span>
-<span class="sd">            :meth:`~gmt.clib.Session.create_data`.</span>
+<span class="sd">            :meth:`pygmt.clib.Session.create_data`.</span>
 <span class="sd">        matrix : numpy 2d-array</span>
 <span class="sd">            The array that will be attached to the dataset. Must be a 2d C</span>
 <span class="sd">            contiguous array.</span>
@@ -1127,14 +1127,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">gmt_type</span><span class="p">,</span> <span class="n">pad</span><span class="p">,</span> <span class="n">matrix_pointer</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to put matrix of type </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span></div>
+            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to put matrix of type </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Session.write_data"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data">[docs]</a>    <span class="k">def</span> <span class="nf">write_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">wesn</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">write_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">wesn</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write a GMT data container to a file.</span>
 
 <span class="sd">        The data container should be created by</span>
-<span class="sd">        :meth:`~gmt.clib.Session.create_data`.</span>
+<span class="sd">        :meth:`pygmt.clib.Session.create_data`.</span>
 
 <span class="sd">        Wraps ``GMT_Write_Data`` but only allows writing to a file. So the</span>
 <span class="sd">        ``method`` argument is omitted.</span>
@@ -1160,7 +1160,7 @@
 <span class="sd">            The output file name.</span>
 <span class="sd">        data : :class:`ctypes.c_void_p`</span>
 <span class="sd">            Pointer to the data container created by</span>
-<span class="sd">            :meth:`~gmt.clib.Session.create_data`.</span>
+<span class="sd">            :meth:`pygmt.clib.Session.create_data`.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -1196,16 +1196,16 @@
             <span class="n">data</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to write dataset to &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="p">))</span></div>
+            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to write dataset to &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Session.open_virtual_file"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.open_virtual_file.html#pygmt.clib.Session.open_virtual_file">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">open_virtual_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Open a GMT Virtual File to pass data to and from a module.</span>
 
 <span class="sd">        GMT uses a virtual file scheme to pass in data to API modules. Use it</span>
 <span class="sd">        to pass in your GMT data structure (created using</span>
-<span class="sd">        :meth:`~gmt.clib.Session.create_data`) to a module that expects an</span>
+<span class="sd">        :meth:`pygmt.clib.Session.create_data`) to a module that expects an</span>
 <span class="sd">        input or output file.</span>
 
 <span class="sd">        Use in a ``with`` block. Will automatically close the virtual file when</span>
@@ -1305,9 +1305,9 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">status</span> <span class="o">=</span> <span class="n">c_close_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">vfname</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
             <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to close virtual file &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vfname</span><span class="p">))</span></div>
+                <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to close virtual file &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vfname</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Session.virtualfile_from_vectors"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">virtualfile_from_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">vectors</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store 1d arrays as columns of a table inside a virtual file.</span>
@@ -1320,9 +1320,9 @@
 <span class="sd">        virtual file upon exit of the ``with`` block.</span>
 
 <span class="sd">        Use this instead of creating the data container and virtual file by</span>
-<span class="sd">        hand with :meth:`~gmt.clib.Session.create_data`,</span>
-<span class="sd">        :meth:`~gmt.clib.Session.put_vector`, and</span>
-<span class="sd">        :meth:`~gmt.clib.Session.open_virtual_file`.</span>
+<span class="sd">        hand with :meth:`pygmt.clib.Session.create_data`,</span>
+<span class="sd">        :meth:`pygmt.clib.Session.put_vector`, and</span>
+<span class="sd">        :meth:`pygmt.clib.Session.open_virtual_file`.</span>
 
 <span class="sd">        If the arrays are C contiguous blocks of memory, they will be passed</span>
 <span class="sd">        without copying to GMT. If they are not (e.g., they are columns of a 2D</span>
@@ -1411,9 +1411,9 @@
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span>
             <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN|GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="n">dataset</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">vfile</span></div>
+            <span class="k">yield</span> <span class="n">vfile</span>
 
-<div class="viewcode-block" id="Session.virtualfile_from_matrix"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_matrix.html#pygmt.clib.Session.virtualfile_from_matrix">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">virtualfile_from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store a 2d array as a table inside a virtual file.</span>
@@ -1430,12 +1430,12 @@
 
 <span class="sd">        **Not meant for creating ``GMT_GRID``**. The grid requires more</span>
 <span class="sd">        metadata than just the data matrix. Use</span>
-<span class="sd">        :meth:`~gmt.clib.Session.virtualfile_from_grid` instead.</span>
+<span class="sd">        :meth:`pygmt.clib.Session.virtualfile_from_grid` instead.</span>
 
 <span class="sd">        Use this instead of creating the data container and virtual file by</span>
-<span class="sd">        hand with :meth:`~gmt.clib.Session.create_data`,</span>
-<span class="sd">        :meth:`~gmt.clib.Session.put_matrix`, and</span>
-<span class="sd">        :meth:`~gmt.clib.Session.open_virtual_file`</span>
+<span class="sd">        hand with :meth:`pygmt.clib.Session.create_data`,</span>
+<span class="sd">        :meth:`pygmt.clib.Session.put_matrix`, and</span>
+<span class="sd">        :meth:`pygmt.clib.Session.open_virtual_file`</span>
 
 <span class="sd">        The matrix must be C contiguous in memory. If it is not (e.g., it is a</span>
 <span class="sd">        slice of a larger array), the array will be copied to make sure it is.</span>
@@ -1494,9 +1494,9 @@
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span>
             <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN|GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="n">dataset</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">vfile</span></div>
+            <span class="k">yield</span> <span class="n">vfile</span>
 
-<div class="viewcode-block" id="Session.virtualfile_from_grid"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_grid.html#pygmt.clib.Session.virtualfile_from_grid">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">virtualfile_from_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store a grid in a virtual file.</span>
@@ -1512,9 +1512,9 @@
 <span class="sd">        metadata.</span>
 
 <span class="sd">        Use this instead of creating a data container and virtual file by hand</span>
-<span class="sd">        with :meth:`~gmt.clib.Session.create_data`,</span>
-<span class="sd">        :meth:`~gmt.clib.Session.put_matrix`, and</span>
-<span class="sd">        :meth:`~gmt.clib.Session.open_virtual_file`</span>
+<span class="sd">        with :meth:`pygmt.clib.Session.create_data`,</span>
+<span class="sd">        :meth:`pygmt.clib.Session.put_matrix`, and</span>
+<span class="sd">        :meth:`pygmt.clib.Session.open_virtual_file`</span>
 
 <span class="sd">        The grid data matrix must be C contiguous in memory. If it is not</span>
 <span class="sd">        (e.g., it is a slice of a larger array), the array will be copied to</span>
@@ -1580,9 +1580,110 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">put_matrix</span><span class="p">(</span><span class="n">gmt_grid</span><span class="p">,</span> <span class="n">matrix</span><span class="p">)</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="s2">&quot;GMT_IN|GMT_IS_REFERENCE&quot;</span><span class="p">,</span> <span class="n">gmt_grid</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_virtual_file</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">vfile</span></div>
+            <span class="k">yield</span> <span class="n">vfile</span>
 
-<div class="viewcode-block" id="Session.extract_region"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.extract_region.html#pygmt.clib.Session.extract_region">[docs]</a>    <span class="k">def</span> <span class="nf">extract_region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">virtualfile_from_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">check_kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_arrays</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Store any data inside a virtual file.</span>
+
+<span class="sd">        This convenience function automatically detects the kind of data passed</span>
+<span class="sd">        into it, and produces a virtualfile that can be passed into GMT later</span>
+<span class="sd">        on.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        check_kind : str</span>
+<span class="sd">            Used to validate the type of data that can be passed in. Choose</span>
+<span class="sd">            from &#39;raster&#39;, &#39;vector&#39; or None. Default is None (no validation).</span>
+<span class="sd">        data : str, xarray.DataArray, 2d array, or None</span>
+<span class="sd">            Any raster or vector data format. This could be a file name, a</span>
+<span class="sd">            raster grid, a vector matrix/arrays, or other supported data input.</span>
+<span class="sd">        x/y/z : 1d arrays or None</span>
+<span class="sd">            x, y and z columns as numpy arrays.</span>
+<span class="sd">        extra_arrays : list of 1d arrays</span>
+<span class="sd">            Optional. A list of numpy arrays in addition to x, y and z. All</span>
+<span class="sd">            of these arrays must be of the same size as the x/y/z arrays.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        file_context : contextlib._GeneratorContextManager</span>
+<span class="sd">            The virtual file stored inside a context manager. Access the file</span>
+<span class="sd">            name of this virtualfile using ``with file_context as fname: ...``.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; from pygmt.helpers import GMTTempFile</span>
+<span class="sd">        &gt;&gt;&gt; import xarray as xr</span>
+<span class="sd">        &gt;&gt;&gt; data = xr.Dataset(</span>
+<span class="sd">        ...     coords={&quot;index&quot;: [0, 1, 2]},</span>
+<span class="sd">        ...     data_vars={</span>
+<span class="sd">        ...         &quot;x&quot;: (&quot;index&quot;, [9, 8, 7]),</span>
+<span class="sd">        ...         &quot;y&quot;: (&quot;index&quot;, [6, 5, 4]),</span>
+<span class="sd">        ...         &quot;z&quot;: (&quot;index&quot;, [3, 2, 1]),</span>
+<span class="sd">        ...     },</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; with Session() as ses:</span>
+<span class="sd">        ...     with ses.virtualfile_from_data(</span>
+<span class="sd">        ...         check_kind=&quot;vector&quot;, data=data</span>
+<span class="sd">        ...     ) as fin:</span>
+<span class="sd">        ...         # Send the output to a file so that we can read it</span>
+<span class="sd">        ...         with GMTTempFile() as fout:</span>
+<span class="sd">        ...             ses.call_module(&quot;info&quot;, f&quot;{fin} -&gt;{fout.name}&quot;)</span>
+<span class="sd">        ...             print(fout.read().strip())</span>
+<span class="sd">        ...</span>
+<span class="sd">        &lt;vector memory&gt;: N = 3 &lt;7/9&gt; &lt;4/6&gt; &lt;1/3&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;raster&quot;</span> <span class="ow">and</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type for grid: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;vector&quot;</span> <span class="ow">and</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;matrix&quot;</span><span class="p">,</span> <span class="s2">&quot;vectors&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Decide which virtualfile_from_ function to use</span>
+        <span class="n">_virtualfile_from</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">dummy_context</span><span class="p">,</span>
+            <span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_from_grid</span><span class="p">,</span>
+            <span class="c1"># Note: virtualfile_from_matrix is not used because a matrix can be</span>
+            <span class="c1"># converted to vectors instead, and using vectors allows for better</span>
+            <span class="c1"># handling of string type inputs (e.g. for datetime data types)</span>
+            <span class="s2">&quot;matrix&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_from_vectors</span><span class="p">,</span>
+            <span class="s2">&quot;vectors&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_from_vectors</span><span class="p">,</span>
+        <span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
+
+        <span class="c1"># Ensure the data is an iterable (Python list or tuple)</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">):</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,)</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">extra_arrays</span><span class="p">:</span>
+                <span class="n">_data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extra_arrays</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>  <span class="c1"># turn 2D arrays into list of vectors</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># pandas.DataFrame and xarray.Dataset types</span>
+                <span class="n">_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">array</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># Just use virtualfile_from_matrix for 2D numpy.ndarray</span>
+                    <span class="c1"># which are signed integer (i), unsigned integer (u) or</span>
+                    <span class="c1"># floating point (f) types</span>
+                    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="s2">&quot;iuf&quot;</span>
+                    <span class="n">_virtualfile_from</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_from_matrix</span>
+                    <span class="n">_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,)</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">AssertionError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+                    <span class="c1"># Python lists, tuples, and numpy ndarray types</span>
+                    <span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="c1"># Finally create the virtualfile from the data, to be passed into GMT</span>
+        <span class="n">file_context</span> <span class="o">=</span> <span class="n">_virtualfile_from</span><span class="p">(</span><span class="o">*</span><span class="n">_data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">file_context</span>
+
+    <span class="k">def</span> <span class="nf">extract_region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract the WESN bounding box of the currently active figure.</span>
 
@@ -1653,7 +1754,7 @@
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_extract_region</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">wesn_pointer</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to extract region from current figure.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">wesn</span></div></div>
+        <span class="k">return</span> <span class="n">wesn</span></div>
 </pre></div>
 
            </div>
@@ -1670,7 +1771,7 @@
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

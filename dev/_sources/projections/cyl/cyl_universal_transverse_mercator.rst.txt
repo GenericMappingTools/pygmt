@@ -36,7 +36,7 @@ accurate for map areas that extend less than 10 away from the central meridian.
 **u**\ *zone/scale* or **U**\ *zone/width*
 
 the projection is set with **u** or **U**. *zone* sets the zone for the figure, and
-the figure size is set wtih *scale* or *width*.
+the figure size is set with *scale* or *width*.
 
 .. GENERATED FROM PYTHON SOURCE LINES 22-35
 
@@ -81,7 +81,7 @@ the figure size is set wtih *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.155 seconds)
+   **Total running time of the script:** ( 0 minutes  1.394 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_universal_transverse_mercator.py:

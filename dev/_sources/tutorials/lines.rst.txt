@@ -27,7 +27,7 @@ Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
     This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
     To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
 
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
@@ -51,7 +51,7 @@ Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 Plot lines
 ----------
 
-Create a Cartesian figure using ``projection`` argument and set the axis scales
+Create a Cartesian figure using ``projection`` parameter and set the axis scales
 using ``region`` (in this case, each axis is 0-10). Pass a list of ``x`` and ``y``
 values to be plotted as a line.
 
@@ -177,7 +177,7 @@ not need to be repeated in subsequent uses.
 Change line attributes
 ----------------------
 
-The line attributes can be set by the ``pen`` argument. ``pen`` takes a string
+The line attributes can be set by the ``pen`` parameter. ``pen`` takes a string
 argument with the optional values *width*,\ *color*,\ *style*.
 
 In the example below, the pen width is set to ``5p``, and with ``black`` as the
@@ -220,7 +220,7 @@ default color and ``solid`` as the default style.
 
 .. GENERATED FROM PYTHON SOURCE LINES 93-95
 
-The line color can be set and is added after the line width to the ``pen`` argument.
+The line color can be set and is added after the line width to the ``pen`` parameter.
 In the example below, the line color is set to ``red``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 95-107
@@ -261,7 +261,7 @@ In the example below, the line color is set to ``red``.
 .. GENERATED FROM PYTHON SOURCE LINES 108-111
 
 The line style can be set and is added after the line width or color to the
-``pen`` argument.  In the example below, the line style is set to
+``pen`` parameter.  In the example below, the line style is set to
 ``..-`` (*dot dot dash*), and the default color ``black`` is used.
 
 .. GENERATED FROM PYTHON SOURCE LINES 111-123
@@ -301,11 +301,11 @@ The line style can be set and is added after the line width or color to the
 
 .. GENERATED FROM PYTHON SOURCE LINES 124-129
 
-The line width, color, and style can all be set in the same ``pen`` argument. In the
+The line width, color, and style can all be set in the same ``pen`` parameter. In the
 example below, the line width is set to ``7p``, the color is set to ``green``, and the
 line style is ``-.-`` (*dash dot dash*).
 
-For a gallery showing other ``pen`` settings, see :doc:`/gallery/line/linestyles`.
+For a gallery showing other ``pen`` settings, see :doc:`/gallery/lines/linestyles`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 129-140
 
@@ -344,7 +344,7 @@ For a gallery showing other ``pen`` settings, see :doc:`/gallery/line/linestyles
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  9.598 seconds)
+   **Total running time of the script:** ( 0 minutes  11.837 seconds)
 
 
 .. _sphx_glr_download_tutorials_lines.py:

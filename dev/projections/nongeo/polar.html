@@ -31,7 +31,8 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -114,7 +115,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -140,10 +141,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
@@ -234,7 +235,6 @@
                    class="fa fa-github"> Improve this page</a>
             
         
-        
     </li>
 
   </ul>
@@ -245,38 +245,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="sphx-glr-download-link-note admonition note">
+  <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-projections-nongeo-polar-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="polar">
 <span id="sphx-glr-projections-nongeo-polar-py"></span><h1>Polar<a class="headerlink" href="#polar" title="Permalink to this headline">¶</a></h1>
-<p><strong>P</strong><em>width</em>: Give the <em>width</em> of the figure.</p>
+<p>Polar projections allow plotting polar coordinate data (e.g. angle
+<span class="math notranslate nohighlight">\(\theta\)</span> and radius <em>r</em>).</p>
+<p>The full syntax for polar projections is:</p>
+<p><strong>P</strong><em>width</em>[<strong>+a</strong>][<strong>+f</strong>[<strong>e</strong>|<strong>p</strong>|<em>radius</em>]][<strong>+r</strong><em>offset</em>][<strong>+t</strong><em>origin</em>][<strong>+z</strong>[<strong>p</strong>|<em>radius</em>]]</p>
+<p>Limits are set via the <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter
+([<em>theta_min</em>, <em>theta_max</em>, <em>radius_min</em>, <em>radius_max</em>]). When using
+<strong>P</strong><em>width</em> you have to give the <em>width</em> of the figure. The lower-case
+version <strong>p</strong> is similar to <strong>P</strong> but expects a <em>scale</em> instead of
+a width (<strong>p</strong><em>scale</em>).</p>
+<p>The following customizing modifiers are available:</p>
+<ul class="simple">
+<li><p><strong>+a</strong>: by default, <span class="math notranslate nohighlight">\(\theta\)</span> refers to the angle that is equivalent to
+a counterclockwise rotation with respect to the east direction (standard
+definition); <strong>+a</strong> indicates that the input data is rotated clockwise
+relative to the north direction (geographical azimuth angle).</p></li>
+<li><p><strong>+r</strong><em>offset</em>: represents the offset of the r axis. This modifier allows
+you to offset the center of the circle from r=0.</p></li>
+<li><p><strong>+t</strong><em>origin</em>: sets the angle corresponding to the east direction which is
+equivalent to rotating the entire coordinate axis clockwise; if the <strong>+a</strong>
+modifier is used, setting the angle corresponding to the north direction is
+equivalent to rotating the entire coordinate axis counterclockwise.</p></li>
+<li><p><strong>+f</strong>: reverses the radial direction.</p>
+<ul>
+<li><p>Append <strong>e</strong> to indicate that the r-axis is an elevation angle, and the
+range of the r-axis should be between 0 and 90.</p></li>
+<li><p>Appending <strong>p</strong> sets the current earth radius (determined by
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-PROJ_ELLIPSOID">PROJ_ELLIPSOID</a>)
+to the maximum value of the r axis when the r axis is reversed.</p></li>
+<li><p>Append <em>radius</em> to set the maximum value of the r axis.</p></li>
+</ul>
+</li>
+<li><p><strong>+z</strong>: indicates that the r axis is marked as depth instead of radius (e.g.
+<em>r = radius - z</em>).</p>
+<ul>
+<li><p>Append <strong>p</strong> to set radius to the current earth radius.</p></li>
+<li><p>Append <em>radius</em> to set the value of the radius.</p></li>
+</ul>
+</li>
+</ul>
 <img alt="polar" class="sphx-glr-single-img" src="../../_images/sphx_glr_polar_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
@@ -288,21 +302,114 @@ to download the full example code</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
-    <span class="c1"># x inputs are the theta values for a polar plot.</span>
-    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="c1"># y inputs are the radius values for a polar plot.</span>
-    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
-    <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,blue&quot;</span><span class="p">,</span>
-    <span class="c1"># The region values are theta-min/theta-max/radius-min/radius-max.</span>
-    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;P15c&quot;</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;afg&quot;</span><span class="p">],</span>
+
+<a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">FONT_TITLE</span><span class="o">=</span><span class="s2">&quot;14p,Helvetica,black&quot;</span><span class="p">,</span> <span class="n">FORMAT_GEO_MAP</span><span class="o">=</span><span class="s2">&quot;+D&quot;</span><span class="p">)</span>
+
+<span class="c1"># ============</span>
+
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="c1"># set map limits to theta_min = 0, theta_max = 360, radius_min = 0, radius_max = 1</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="c1"># set map width to 5 cm</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;P5c&quot;</span><span class="p">,</span>
+    <span class="c1"># set the frame and color</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa45f&quot;</span><span class="p">,</span> <span class="s2">&quot;+gbisque&quot;</span><span class="p">],</span>
 <span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;projection=&#39;P5c&#39;&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/2.0c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;region=[0, 360, 0, 1]&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/1.5c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;8c&quot;</span><span class="p">)</span>
+
+<span class="c1"># ============</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="c1"># set map limits to theta_min = 0, theta_max = 360, radius_min = 0, radius_max = 1</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="c1"># set map width to 5 cm and interpret input data as geographic azimuth instead</span>
+    <span class="c1"># of standard angle</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;P5c+a&quot;</span><span class="p">,</span>
+    <span class="c1"># set the frame and color</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa45f&quot;</span><span class="p">,</span> <span class="s2">&quot;+gbisque&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;projection=&#39;P5c+a&#39;&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/2.0c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;region=[0, 360, 0, 1]&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/1.5c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;8c&quot;</span><span class="p">)</span>
+
+<span class="c1"># ============</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="c1"># set map limits to theta_min = 0, theta_max = 90, radius_min = 0, radius_max = 1</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="c1"># set map width to 5 cm and interpret input data as geographic azimuth instead</span>
+    <span class="c1"># of standard angle</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;P5c+a&quot;</span><span class="p">,</span>
+    <span class="c1"># set the frame and color</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa45f&quot;</span><span class="p">,</span> <span class="s2">&quot;ya0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;WNe+gbisque&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;projection=&#39;P5c+a&#39;&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/2.0c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;region=[0, 90, 0, 1]&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/1.5c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;-16c&quot;</span><span class="p">,</span> <span class="n">yshift</span><span class="o">=</span><span class="s2">&quot;-7c&quot;</span><span class="p">)</span>
+
+<span class="c1"># ============</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="c1"># set map limits to theta_min = 0, theta_max = 90, radius_min = 0, radius_max = 1</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="c1"># set map width to 5 cm and interpret input data as geographic azimuth instead</span>
+    <span class="c1"># of standard angle, rotate coordinate system counterclockwise by 45 degrees</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;P5c+a+t45&quot;</span><span class="p">,</span>
+    <span class="c1"># set the frame and color</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa30f&quot;</span><span class="p">,</span> <span class="s2">&quot;ya0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;WNe+gbisque&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;projection=&#39;P5c+a\+t45&#39;&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/2.0c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;region=[0, 90, 0, 1]&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/1.5c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;8c&quot;</span><span class="p">,</span> <span class="n">yshift</span><span class="o">=</span><span class="s2">&quot;1.3c&quot;</span><span class="p">)</span>
+
+<span class="c1"># ============</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="c1"># set map limits to theta_min = 0, theta_max = 90, radius_min = 3480,</span>
+    <span class="c1"># radius_max = 6371 (Earth&#39;s radius)</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">3480</span><span class="p">,</span> <span class="mi">6371</span><span class="p">],</span>
+    <span class="c1"># set map width to 5 cm and interpret input data as geographic azimuth instead</span>
+    <span class="c1"># of standard angle, rotate coordinate system counterclockwise by 45 degrees</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;P5c+a+t45&quot;</span><span class="p">,</span>
+    <span class="c1"># set the frame and color</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa30f&quot;</span><span class="p">,</span> <span class="s2">&quot;ya&quot;</span><span class="p">,</span> <span class="s2">&quot;WNse+gbisque&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;projection=&#39;P5c+a\+t45&#39;&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/2.0c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;region=[0, 90, 3480, 6371]&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/1.5c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;8c&quot;</span><span class="p">)</span>
+
+<span class="c1"># ============</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="c1"># set map limits to theta_min = 0, theta_max = 90, radius_min = 3480,</span>
+    <span class="c1"># radius_max = 6371 (Earth&#39;s radius)</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">3480</span><span class="p">,</span> <span class="mi">6371</span><span class="p">],</span>
+    <span class="c1"># set map width to 5 cm and interpret input data as geographic azimuth instead</span>
+    <span class="c1"># of standard angle, rotate coordinate system counterclockwise by 45 degrees,</span>
+    <span class="c1"># r axis is marked as depth</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;P5c+a+t45+z&quot;</span><span class="p">,</span>
+    <span class="c1"># set the frame and color</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa30f&quot;</span><span class="p">,</span> <span class="s2">&quot;ya&quot;</span><span class="p">,</span> <span class="s2">&quot;WNse+gbisque&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;projection=&#39;P5c+a\+t45+z&#39;&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/2.0c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;TC&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;region=[0, 90, 3480, 6371]&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0/1.5c&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.096 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.880 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-nongeo-polar-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/661b511fb0ba938d4b9475b95262183d/polar.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">polar.py</span></code></a></p>
@@ -338,7 +445,7 @@ to download the full example code</p>
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

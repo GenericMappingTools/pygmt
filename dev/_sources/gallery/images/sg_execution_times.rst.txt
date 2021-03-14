@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_images_sg_execution_times:
+
+Computation times
+=================
+**00:04.092** total execution time for **gallery_images** files:
+
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_images_track_sampling.py` (``track_sampling.py``) | 00:02.563 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_images_image.py` (``image.py``)                   | 00:01.529 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+

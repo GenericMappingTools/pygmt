@@ -27,7 +27,7 @@ Default GMT parameters can be set globally or locally using :class:`pygmt.config
 
     This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
     To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
+    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
 
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
@@ -191,7 +191,7 @@ as a context manager is shown below:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.245 seconds)
+   **Total running time of the script:** ( 0 minutes  5.228 seconds)
 
 
 .. _sphx_glr_download_tutorials_configuration.py:

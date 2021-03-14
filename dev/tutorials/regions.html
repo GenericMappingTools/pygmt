@@ -31,7 +31,6 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -114,7 +113,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -131,10 +130,10 @@
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
@@ -223,7 +222,6 @@
                    class="fa fa-github"> Improve this page</a>
             
         
-        
     </li>
 
   </ul>
@@ -234,45 +232,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="sphx-glr-download-link-note admonition note">
+  <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-regions-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="set-the-region">
 <span id="sphx-glr-tutorials-regions-py"></span><h1>Set the region<a class="headerlink" href="#set-the-region" title="Permalink to this headline">¶</a></h1>
-<p>Many of the plotting functions take the <code class="docutils literal notranslate"><span class="pre">region</span></code> argument, which sets
+<p>Many of the plotting functions take the <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter, which sets
 the area that will be shown in the figure. This tutorial covers the different types of
 inputs that it can accept.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
 To see the figures while using a Python script instead, use
-<code class="docutils literal notranslate"><span class="pre">fig.show(method=&quot;external)</span></code> to display the figure in the default PDF viewer.</p>
+<code class="docutils literal notranslate"><span class="pre">fig.show(method=&quot;external&quot;)</span></code> to display the figure in the default PDF viewer.</p>
 <p>To save the figure, use <code class="docutils literal notranslate"><span class="pre">fig.savefig(&quot;figname.pdf&quot;)</span></code> where <code class="docutils literal notranslate"><span class="pre">&quot;figname.pdf&quot;</span></code>
 is the desired name and file extension for the saved figure.</p>
 </div>
@@ -285,7 +259,7 @@ is the desired name and file extension for the saved figure.</p>
 <em>xmin</em>/<em>xmax</em>/<em>ymin</em>/<em>ymax</em>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Sets the x-range from 10E to 20E and the y-range to 35N to 45N</span>
+    <span class="c1"># Set the x-range from 10E to 20E and the y-range to 35N to 45N</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;10/20/35/45&quot;</span><span class="p">,</span>
     <span class="c1"># Set projection to Mercator, and the figure size to 15 centimeters</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
@@ -308,11 +282,11 @@ is the desired name and file extension for the saved figure.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p>The coordinates can be passed to <code class="docutils literal notranslate"><span class="pre">region</span></code> as a list, in the form
-of [<em>xmin</em>,<em>xmax</em>,<em>ymin</em>,<em>ymax</em>].</p>
+<p>The coordinates can be passed to <code class="docutils literal notranslate"><span class="pre">region</span></code> as a list, in the form of
+[<em>xmin</em>,<em>xmax</em>,<em>ymin</em>,<em>ymax</em>].</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Sets the x-range from 10E to 20E and the y-range to 35N to 45N</span>
+    <span class="c1"># Set the x-range from 10E to 20E and the y-range to 35N to 45N</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
@@ -335,7 +309,7 @@ bottom-left and top-right coordinates. To specify corner coordinates, append <st
 at the end of the <code class="docutils literal notranslate"><span class="pre">region</span></code> string.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Sets the bottom-left corner as 10E, 35N and the top-right corner as 20E, 45N</span>
+    <span class="c1"># Set the bottom-left corner as 10E, 35N and the top-right corner as 20E, 45N</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;10/35/20/45+r&quot;</span><span class="p">,</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
@@ -405,10 +379,10 @@ International Date Line.</p>
 <h2>ISO code<a class="headerlink" href="#iso-code" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">region</span></code> can be set to include a specific area specified by the two-character
 ISO 3166-1 alpha-2 convention
-(for futher information: <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2</a>).</p>
+(for further information: <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2</a>).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Sets the figure region to encompass Japan with the ISO code &quot;JP&quot;</span>
+    <span class="c1"># Set the figure region to encompass Japan with the ISO code &quot;JP&quot;</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP&quot;</span><span class="p">,</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
@@ -426,13 +400,12 @@ ISO 3166-1 alpha-2 convention
 </pre></div>
 </div>
 <p>The area encompassed by the ISO code can be expanded by appending <strong>+r</strong><em>increment</em>
-to the ISO code. The <em>increment</em> unit is in degrees, and if only value is added it
-expands the range of the region in all directions. Using <strong>+r</strong> rounds to the nearest
-increment.</p>
+to the ISO code. The <em>increment</em> unit is in degrees, and if only one value is added it
+expands the range of the region in all directions. Using <strong>+r</strong> expands the
+final region boundaries to be multiples of <em>increment</em> .</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Expands the region setting outside the range of Japan by 3 degrees in all</span>
-    <span class="c1"># directions</span>
+    <span class="c1"># Expand the region boundaries to be multiples of 3 degrees in all directions</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+r3&quot;</span><span class="p">,</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
@@ -453,7 +426,7 @@ increment.</p>
 can be passed to expand differently on each axis. The format is <em>xinc</em>/<em>yinc</em>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Expands the region setting outside the range of Japan by 3 degrees on the x-axis</span>
+    <span class="c1"># Expand the region boundaries to be multiples of 3 degrees on the x-axis</span>
     <span class="c1"># and 5 degrees on the y-axis.</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+r3/5&quot;</span><span class="p">,</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
@@ -477,7 +450,7 @@ The format is <em>winc</em>/<em>einc</em>/<em>sinc</em>/<em>ninc</em>, which exp
 east, south, and north axes.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Expands the region setting outside the range of Japan by 3 degrees to the west,</span>
+    <span class="c1"># Expand the region boundaries to be multiples of 3 degrees to the west,</span>
     <span class="c1"># 5 degrees to the east, 7 degrees to the south, and 9 degrees to the north.</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+r3/5/7/9&quot;</span><span class="p">,</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
@@ -499,7 +472,7 @@ east, south, and north axes.</p>
 without rounding.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Expands the region setting outside the range of Japan by 3 degrees in all</span>
+    <span class="c1"># Expand the region setting outside the range of Japan by 3 degrees in all</span>
     <span class="c1"># directions, without rounding to the nearest increment.</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+R3&quot;</span><span class="p">,</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
@@ -517,12 +490,12 @@ without rounding.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">region</span></code> increment can be appended with <strong>+e</strong>, which expand the bounding box
-by at least 25% beyond the increment.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">region</span></code> increment can be appended with <strong>+e</strong>, which is like <strong>+r</strong> and
+expands the final region boundaries to be multiples of <em>increment</em>. However,
+it ensures that the bounding box extends by at least 0.25 times the increment.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Expands the region setting outside the range of Japan by 3 degrees in all</span>
-    <span class="c1"># directions, without rounding to the nearest increment.</span>
+    <span class="c1"># Expand the region boundaries to be multiples of 3 degrees in all directions</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+e3&quot;</span><span class="p">,</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
@@ -539,7 +512,7 @@ by at least 25% beyond the increment.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.343 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  18.744 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-regions-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b9017b4ff27e963a8f6759417e300f3e/regions.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">regions.py</span></code></a></p>
@@ -576,7 +549,7 @@ by at least 25% beyond the increment.</p>
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

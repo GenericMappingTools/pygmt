@@ -31,7 +31,6 @@
         <script src="_static/doctools.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -48,7 +47,7 @@
   <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Making your first figure" href="tutorials/first-figure.html" />
+    <link rel="next" title="Making your first figure" href="tutorials/first_figure.html" />
     <link rel="prev" title="Overview" href="overview.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -132,7 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#finding-the-gmt-shared-library">Finding the GMT shared library</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -144,10 +143,10 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
@@ -231,7 +230,6 @@
                    class="fa fa-github"> Improve this page</a>
             
         
-        
     </li>
 
   </ul>
@@ -242,31 +240,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="section" id="installing">
+  <div class="section" id="installing">
 <span id="install"></span><h1>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -292,7 +266,7 @@ as the installation of GMT and all the dependencies PyGMT depends on:</p>
 </pre></div>
 </div>
 <p>After this, check that everything works by running the following in a Python
-interpreter (e.g. in a Jupyter notebook):</p>
+interpreter (e.g., in a Jupyter notebook):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="n">pygmt</span><span class="o">.</span><span class="n">show_versions</span><span class="p">()</span>
 </pre></div>
@@ -302,8 +276,8 @@ Start by looking at the tutorials on our sidebar, good luck!</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The sections below provide more detailed, step by step instructions to
-installing and testing PyGMT for those who may have a slightly different
-setup.</p>
+install and test PyGMT for those who may have a slightly different setup or
+want to install the latest development version.</p>
 </div>
 </div>
 <div class="section" id="which-python">
@@ -312,9 +286,10 @@ setup.</p>
 work, but there is no guarantee that PyGMT will behave as expected.</p>
 <p>We recommend using the <a class="reference external" href="https://www.anaconda.com/distribution">Anaconda</a>
 Python distribution to ensure you have all dependencies installed and the
-<code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager available.
-Installing Anaconda does not require administrative rights to your computer and
-doesn’t interfere with any other Python installations in your system.</p>
+<a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">conda</a>
+package manager is available. Installing Anaconda does not require administrative
+rights to your computer and doesn’t interfere with any other Python
+installations on your system.</p>
 </div>
 <div class="section" id="which-gmt">
 <h2>Which GMT?<a class="headerlink" href="#which-gmt" title="Permalink to this headline">¶</a></h2>
@@ -363,7 +338,7 @@ to avoid issues with conflicting versions of dependencies.</p>
 <p>Now we can create a new conda environment with Python and all our dependencies
 installed (we’ll call it <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> but feel free to change it to whatever you
 want):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span> <span class="n">pip</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
 </pre></div>
 </div>
 <p>Activate the environment by running the following (<strong>do not forget this step!</strong>):</p>
@@ -371,7 +346,7 @@ want):</p>
 </pre></div>
 </div>
 <p>From now on, all commands will take place inside the conda virtual environment
-called ‘pygmt’ and won’t affect your default ‘base’ installation.</p>
+called <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> and won’t affect your default <code class="docutils literal notranslate"><span class="pre">base</span></code> installation.</p>
 </div>
 <div class="section" id="installing-pygmt">
 <h2>Installing PyGMT<a class="headerlink" href="#installing-pygmt" title="Permalink to this headline">¶</a></h2>
@@ -382,6 +357,10 @@ you can install PyGMT using any of the following methods:</p>
 <p>This installs the latest stable release of PyGMT from
 <a class="reference external" href="https://anaconda.org/conda-forge/pygmt">conda-forge</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pygmt</span>
+</pre></div>
+</div>
+<p>This upgrades the installed PyGMT version to be the latest stable release:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
@@ -397,20 +376,17 @@ you can install PyGMT using any of the following methods:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">pre</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">test</span><span class="o">.</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
-<p>or from PyGMT’s <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">GitHub repository</a>
-(slower as it downloads the whole archive):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">GenericMappingTools</span><span class="o">/</span><span class="n">pygmt</span><span class="o">.</span><span class="n">git</span><span class="c1">#egg=pygmt</span>
-</pre></div>
-</div>
-<p>Any of the above methods (conda/pip) should allow you to use the <code class="docutils literal notranslate"><span class="pre">pygmt</span></code>
-library from Python.</p>
+<p>To upgrade the installed stable release or development version to be the latest
+one, just add <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> to the corresponding command above.</p>
+<p>Any of the above methods (conda/pip) should allow you to use the PyGMT package
+from Python.</p>
 </div>
 </div>
 <div class="section" id="testing-your-install">
 <h2>Testing your install<a class="headerlink" href="#testing-your-install" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="quick-check">
 <h3>Quick check<a class="headerlink" href="#quick-check" title="Permalink to this headline">¶</a></h3>
-<p>To ensure that PyGMT and its depedencies are installed correctly, run the
+<p>To ensure that PyGMT and its dependencies are installed correctly, run the
 following in your Python interpreter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="n">pygmt</span><span class="o">.</span><span class="n">show_versions</span><span class="p">()</span>
@@ -429,7 +405,8 @@ dependencies as well (be sure to have your conda environment activated):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pytest</span> <span class="n">pytest</span><span class="o">-</span><span class="n">mpl</span> <span class="n">ipython</span>
 </pre></div>
 </div>
-<p>Test your installation by running the following inside a Python interpreter:</p>
+<p>Test your installation by running the following inside a Python interpreter
+(note that it may take a few minutes):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="n">pygmt</span><span class="o">.</span><span class="n">show_versions</span><span class="p">()</span>
 <span class="n">pygmt</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
@@ -440,13 +417,13 @@ dependencies as well (be sure to have your conda environment activated):</p>
 <div class="section" id="finding-the-gmt-shared-library">
 <h2>Finding the GMT shared library<a class="headerlink" href="#finding-the-gmt-shared-library" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes, PyGMT will be unable to find the correct version of the GMT shared
-library.
+library (<code class="docutils literal notranslate"><span class="pre">libgmt</span></code>).
 This can happen if you have multiple versions of GMT installed.</p>
 <p>You can tell PyGMT exactly where to look for <code class="docutils literal notranslate"><span class="pre">libgmt</span></code> by setting the
 <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> environment variable.
 This should be set to the directory where <code class="docutils literal notranslate"><span class="pre">libgmt.so</span></code>, <code class="docutils literal notranslate"><span class="pre">libgmt.dylib</span></code> or
-<code class="docutils literal notranslate"><span class="pre">gmt.dll</span></code> can be found for Linux, macOS and Windows respectively.
-e.g. on a command line, run:</p>
+<code class="docutils literal notranslate"><span class="pre">gmt.dll</span></code> can be found for Linux, macOS and Windows, respectively.
+e.g., on a command line, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Linux/macOS
 export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
 # Windows
@@ -465,7 +442,7 @@ set &quot;GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\&q
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorials/first-figure.html" class="btn btn-neutral float-right" title="Making your first figure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorials/first_figure.html" class="btn btn-neutral float-right" title="Making your first figure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -480,7 +457,7 @@ set &quot;GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\&q
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

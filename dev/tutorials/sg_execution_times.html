@@ -31,7 +31,6 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -112,7 +111,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -124,10 +123,10 @@
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
@@ -216,7 +215,6 @@
                    class="fa fa-github"> Improve this page</a>
             
         
-        
     </li>
 
   </ul>
@@ -227,33 +225,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="section" id="computation-times">
+  <div class="section" id="computation-times">
 <span id="sphx-glr-tutorials-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>01:39.584</strong> total execution time for <strong>tutorials</strong> files:</p>
+<p><strong>01:56.298</strong> total execution time for <strong>tutorials</strong> files:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 81%" />
@@ -262,55 +236,55 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="regions.html#sphx-glr-tutorials-regions-py"><span class="std std-ref">Set the region</span></a> (<code class="docutils literal notranslate"><span class="pre">regions.py</span></code>)</p></td>
-<td><p>00:16.343</p></td>
+<td><p>00:18.744</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="text.html#sphx-glr-tutorials-text-py"><span class="std std-ref">Plotting text</span></a> (<code class="docutils literal notranslate"><span class="pre">text.py</span></code>)</p></td>
-<td><p>00:12.507</p></td>
+<td><p>00:13.355</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a> (<code class="docutils literal notranslate"><span class="pre">frames.py</span></code>)</p></td>
-<td><p>00:10.729</p></td>
+<td><p>00:12.459</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="lines.html#sphx-glr-tutorials-lines-py"><span class="std std-ref">Plot lines</span></a> (<code class="docutils literal notranslate"><span class="pre">lines.py</span></code>)</p></td>
-<td><p>00:09.598</p></td>
+<td><p>00:11.837</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a> (<code class="docutils literal notranslate"><span class="pre">coastlines.py</span></code>)</p></td>
+<td><p>00:08.733</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="contour_map.html#sphx-glr-tutorials-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a> (<code class="docutils literal notranslate"><span class="pre">contour_map.py</span></code>)</p></td>
+<td><p>00:08.180</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="subplots.html#sphx-glr-tutorials-subplots-py"><span class="std std-ref">Making subplots</span></a> (<code class="docutils literal notranslate"><span class="pre">subplots.py</span></code>)</p></td>
-<td><p>00:07.383</p></td>
+<td><p>00:07.962</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a> (<code class="docutils literal notranslate"><span class="pre">coastlines.py</span></code>)</p></td>
-<td><p>00:07.179</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="earth_relief.html#sphx-glr-tutorials-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a> (<code class="docutils literal notranslate"><span class="pre">earth_relief.py</span></code>)</p></td>
+<td><p>00:07.888</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="contour-map.html#sphx-glr-tutorials-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a> (<code class="docutils literal notranslate"><span class="pre">contour-map.py</span></code>)</p></td>
-<td><p>00:06.711</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="3d_perspective_image.html#sphx-glr-tutorials-3d-perspective-image-py"><span class="std std-ref">Creating a 3D perspective image</span></a> (<code class="docutils literal notranslate"><span class="pre">3d_perspective_image.py</span></code>)</p></td>
+<td><p>00:06.603</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="earth-relief.html#sphx-glr-tutorials-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a> (<code class="docutils literal notranslate"><span class="pre">earth-relief.py</span></code>)</p></td>
-<td><p>00:06.429</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="insets.html#sphx-glr-tutorials-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a> (<code class="docutils literal notranslate"><span class="pre">insets.py</span></code>)</p></td>
+<td><p>00:06.444</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="3d-perspective-image.html#sphx-glr-tutorials-3d-perspective-image-py"><span class="std std-ref">Creating a 3D perspective image</span></a> (<code class="docutils literal notranslate"><span class="pre">3d-perspective-image.py</span></code>)</p></td>
-<td><p>00:05.345</p></td>
-<td><p>0.0 MB</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a> (<code class="docutils literal notranslate"><span class="pre">plot.py</span></code>)</p></td>
-<td><p>00:05.155</p></td>
-<td><p>0.0 MB</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="inset.html#sphx-glr-tutorials-inset-py"><span class="std std-ref">Adding an inset to the figure</span></a> (<code class="docutils literal notranslate"><span class="pre">inset.py</span></code>)</p></td>
-<td><p>00:05.140</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a> (<code class="docutils literal notranslate"><span class="pre">plot.py</span></code>)</p></td>
+<td><p>00:05.949</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="configuration.html#sphx-glr-tutorials-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a> (<code class="docutils literal notranslate"><span class="pre">configuration.py</span></code>)</p></td>
-<td><p>00:04.245</p></td>
+<td><p>00:05.228</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="first-figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a> (<code class="docutils literal notranslate"><span class="pre">first-figure.py</span></code>)</p></td>
-<td><p>00:02.820</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="first_figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a> (<code class="docutils literal notranslate"><span class="pre">first_figure.py</span></code>)</p></td>
+<td><p>00:02.918</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 </tbody>
@@ -332,7 +306,7 @@
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 

@@ -31,7 +31,6 @@
         <script src="_static/doctools.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -113,7 +112,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
@@ -125,10 +124,10 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plot lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/contour-map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/earth-relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/earth_relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/insets.html">Adding an inset to the figure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
@@ -212,7 +211,6 @@
                    class="fa fa-github"> Improve this page</a>
             
         
-        
     </li>
 
   </ul>
@@ -223,31 +221,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<div class="banner">
+  <div class="banner">
     <h1>PyGMT</h1>
     <h2>
         A Python interface for the
@@ -291,8 +265,9 @@ are not available in the 5.4 version of GMT</strong>.</p>
 <li><p>Build a Pythonic API for GMT.</p></li>
 <li><p>Interface with the GMT C API directly using ctypes (no system calls).</p></li>
 <li><p>Support for rich display in the Jupyter notebook.</p></li>
-<li><p>Integration with the PyData Ecosystem: numpy.ndarray or pandas.DataFrame for data tables
-and xarray.DataArray for grids.</p></li>
+<li><p>Integration with the <a class="reference external" href="https://pydata.org/">PyData</a> ecosystem:
+<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> or <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> for data tables and
+<code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> for grids.</p></li>
 </ul>
 </div>
 <div class="section" id="contacting-us">
@@ -324,7 +299,7 @@ to be an open source contributor; that your skills aren’t nearly good enough t
 contribute. What could you possibly offer?</p>
 <p>We assure you that the little voice in your head is wrong.</p>
 <p><strong>Being a contributor doesn’t just mean writing code</strong>.
-Equality important contributions include: writing or proof-reading documentation,
+Equally important contributions include: writing or proof-reading documentation,
 suggesting or implementing tests, or even giving feedback about the project (including
 giving feedback about the contribution process). If you’re coming to the project with
 fresh eyes, you might see the errors and assumptions that seasoned contributors have
@@ -341,24 +316,26 @@ mistakes. That’s how we all improve and we are happy to help others learn.</p>
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md">AUTHORS.md</a>
 file on GitHub for a list of the people involved and a definition of the term “PyGMT
 Developers”. Feel free to cite our work in your research using the following BibTeX:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">pygmt_2021_4522136</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">pygmt_2021_4592991</span><span class="p">,</span>
   <span class="n">author</span>       <span class="o">=</span> <span class="p">{</span><span class="n">Uieda</span><span class="p">,</span> <span class="n">Leonardo</span> <span class="ow">and</span>
                   <span class="n">Tian</span><span class="p">,</span> <span class="n">Dongdong</span> <span class="ow">and</span>
                   <span class="n">Leong</span><span class="p">,</span> <span class="n">Wei</span> <span class="n">Ji</span> <span class="ow">and</span>
                   <span class="n">Toney</span><span class="p">,</span> <span class="n">Liam</span> <span class="ow">and</span>
                   <span class="n">Schlitzer</span><span class="p">,</span> <span class="n">William</span> <span class="ow">and</span>
+                  <span class="n">Yao</span><span class="p">,</span> <span class="n">Jiayuan</span> <span class="ow">and</span>
                   <span class="n">Grund</span><span class="p">,</span> <span class="n">Michael</span> <span class="ow">and</span>
+                  <span class="n">Jones</span><span class="p">,</span> <span class="n">Meghan</span> <span class="ow">and</span>
+                  <span class="n">Materna</span><span class="p">,</span> <span class="n">Kathryn</span> <span class="ow">and</span>
                   <span class="n">Newton</span><span class="p">,</span> <span class="n">Tyler</span> <span class="ow">and</span>
                   <span class="n">Ziebarth</span><span class="p">,</span> <span class="n">Malte</span> <span class="ow">and</span>
-                  <span class="n">Jones</span><span class="p">,</span> <span class="n">Meghan</span> <span class="ow">and</span>
                   <span class="n">Wessel</span><span class="p">,</span> <span class="n">Paul</span><span class="p">},</span>
   <span class="n">title</span>        <span class="o">=</span> <span class="p">{{</span><span class="n">PyGMT</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">interface</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Generic</span> <span class="n">Mapping</span> <span class="n">Tools</span><span class="p">}},</span>
-  <span class="n">month</span>        <span class="o">=</span> <span class="n">feb</span><span class="p">,</span>
+  <span class="n">month</span>        <span class="o">=</span> <span class="n">mar</span><span class="p">,</span>
   <span class="n">year</span>         <span class="o">=</span> <span class="mi">2021</span><span class="p">,</span>
   <span class="n">publisher</span>    <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
-  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="n">v0</span><span class="o">.</span><span class="mf">3.0</span><span class="p">},</span>
-  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4522136</span><span class="p">},</span>
-  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4522136</span><span class="p">}</span>
+  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="n">v0</span><span class="o">.</span><span class="mf">3.1</span><span class="p">},</span>
+  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4592991</span><span class="p">},</span>
+  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4592991</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -401,6 +378,7 @@ for GMT.</p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/dev">Development</a> (reflects the <em>master</em> branch on
 GitHub)</p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/latest">Latest release</a></p></li>
+<li><p><a class="reference external" href="https://www.pygmt.org/v0.3.1">v0.3.1</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.3.0">v0.3.0</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.2.1">v0.2.1</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.2.0">v0.2.0</a></p></li>
@@ -425,7 +403,7 @@ GitHub)</p></li>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>0.3.0</p></td>
+<tr class="row-even"><td><p>0.3.x</p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.7</p></td>
 </tr>
@@ -473,7 +451,7 @@ GitHub)</p></li>
         &copy; Copyright 2017-2021, The PyGMT Developers.
       
         <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/65b099a">65b099a</a></code>.
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
         </span>
       
 
