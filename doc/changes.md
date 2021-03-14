@@ -1,5 +1,74 @@
 # Changelog
 
+## Release v0.3.1 (2021/03/14)
+
+[![Digital Object Identifier for PyGMT v0.3.1](https://zenodo.org/badge/DOI/10.5281/zenodo.4592991.svg)](https://doi.org/10.5281/zenodo.4592991)
+
+### Highlights
+
+* 🎉 **Multiple bug fixes and an improved gallery** 🎉
+* Reorganized gallery examples into new categories ([#995](https://github.com/GenericMappingTools/pygmt/pull/995))
+* Added gallery examples for plotting vectors ([#950](https://github.com/GenericMappingTools/pygmt/pull/950), [#890](https://github.com/GenericMappingTools/pygmt/pull/890))
+* Last version to support GMT 6.1.1, future PyGMT versions will require GMT 6.2.0 or newer
+
+### Enhancements
+
+* Support passing a sequence to the spacing parameter of pygmt.info() ([#1031](https://github.com/GenericMappingTools/pygmt/pull/1031))
+
+### Bug Fixes
+
+* Fix issues in loading GMT's shared library ([#977](https://github.com/GenericMappingTools/pygmt/pull/977))
+* Let pygmt.info load datetime columns into a str dtype array ([#960](https://github.com/GenericMappingTools/pygmt/pull/960))
+* Check invalid combinations of resolution and registration in load_earth_relief() ([#965](https://github.com/GenericMappingTools/pygmt/pull/965))
+* Open figures using the associated application on Windows ([#952](https://github.com/GenericMappingTools/pygmt/pull/952))
+* Fix bug that stops Figure.coast from plotting with only dcw parameter ([#910](https://github.com/GenericMappingTools/pygmt/pull/910))
+
+### Documentation
+
+* Add a gallery example showing different line front styles ([#1022](https://github.com/GenericMappingTools/pygmt/pull/1022))
+* Add a gallery example for a double y-axes graph ([#1019](https://github.com/GenericMappingTools/pygmt/pull/1019))
+* Add a gallery example of inset map showing a rectangle region ([#1020](https://github.com/GenericMappingTools/pygmt/pull/1020))
+* Add a gallery example to show coloring of points by categories ([#1006](https://github.com/GenericMappingTools/pygmt/pull/1006))
+* Add gallery example showing different polar projection use cases ([#955](https://github.com/GenericMappingTools/pygmt/pull/955))
+* Add underscore guideline to CONTRIBUTING.md ([#1034](https://github.com/GenericMappingTools/pygmt/pull/1034))
+* Add instructions to upgrade installed PyGMT version ([#1029](https://github.com/GenericMappingTools/pygmt/pull/1029))
+* Improve the docstring of the pygmt package ([#1016](https://github.com/GenericMappingTools/pygmt/pull/1016))
+* Add common alias coltypes (-f) for specifying i/o data types ([#994](https://github.com/GenericMappingTools/pygmt/pull/994))
+* Expand documentation linking in CONTRIBUTING.md ([#802](https://github.com/GenericMappingTools/pygmt/pull/802))
+* Write changelog in markdown using MyST ([#941](https://github.com/GenericMappingTools/pygmt/pull/941))
+* Update web font to Atkinson Hyperlegible ([#938](https://github.com/GenericMappingTools/pygmt/pull/938))
+* Improve the gallery example for datetime inputs ([#919](https://github.com/GenericMappingTools/pygmt/pull/919))
+
+### Maintenance
+
+* Refactor plot and plot3d to use virtualfile_from_data ([#990](https://github.com/GenericMappingTools/pygmt/pull/990))
+* Explicitly exclude unnecessary files in source distributions ([#999](https://github.com/GenericMappingTools/pygmt/pull/999))
+* Refactor grd modules to use virtualfile_from_data ([#992](https://github.com/GenericMappingTools/pygmt/pull/992))
+* Refactor info and grdinfo to use virtualfile_from_data ([#961](https://github.com/GenericMappingTools/pygmt/pull/961))
+* Onboarding maintainer checklist ([#773](https://github.com/GenericMappingTools/pygmt/pull/773))
+* Add comprehensive tests for pygmt.clib.loading.clib_full_names ([#872](https://github.com/GenericMappingTools/pygmt/pull/872))
+* Add a workflow checking links in plaintext and HTML files ([#634](https://github.com/GenericMappingTools/pygmt/pull/634))
+* Remove nbsphinx extension ([#931](https://github.com/GenericMappingTools/pygmt/pull/931))
+* Improve the error message for loading an old version of the GMT library ([#925](https://github.com/GenericMappingTools/pygmt/pull/925))
+* Move requirements-dev.txt dependencies to environment.yml ([#812](https://github.com/GenericMappingTools/pygmt/pull/812))
+* Ensure proper non-dev version string when publishing to PyPI ([#900](https://github.com/GenericMappingTools/pygmt/pull/900))
+* Run tests in a single CI job (Ubuntu + Python 3.9) for draft PRs ([#906](https://github.com/GenericMappingTools/pygmt/pull/906))
+
+### Contributors
+
+* [Dongdong Tian](https://github.com/seisman)
+* [Jiayuan Yao](https://github.com/core-man)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Meghan Jones](https://github.com/meghanrjones)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Liam Toney](https://github.com/liamtoney)
+* [Kathryn Materna](https://github.com/kmaterna)
+* [Alicia Ngoc Diep Ha](https://github.com/aliciaha1997)
+* [Tawanda Moyo](https://github.com/tawandamoyo)
+
+----
+
 ## Release v0.3.0 (2021/02/15)
 
 [![Digital Object Identifier for PyGMT v0.3.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4522136.svg)](https://doi.org/10.5281/zenodo.4522136)
