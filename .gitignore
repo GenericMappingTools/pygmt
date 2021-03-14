@@ -11,6 +11,7 @@ dist/
 *.egg-info/
 .eggs/
 MANIFEST
+poetry.lock
 
 # Unit test / coverage reports
 .cache
