@@ -63,6 +63,7 @@
 * [Liam Toney](https://github.com/liamtoney)
 * [Kathryn Materna](https://github.com/kmaterna)
 * [Alicia Ngoc Diep Ha](https://github.com/aliciaha1997)
+* [Tawanda Moyo](https://github.com/tawandamoyo)
 
 ----
 
