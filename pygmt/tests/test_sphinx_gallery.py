@@ -22,7 +22,7 @@ def test_pygmtscraper():
     """
 
     showed = SHOWED_FIGURES.copy()
-    for _ in enumerate(SHOWED_FIGURES):
+    for _ in range(len(SHOWED_FIGURES)):
         SHOWED_FIGURES.pop()
     try:
         fig = Figure()
