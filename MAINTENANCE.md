@@ -11,7 +11,6 @@ If you want to make a contribution to the project, see the
 * [Branches](#branches)
 * [Reviewing and Merging Pull Requests](#reviewing-and-merging-pull-requests)
 * [Continuous Integration](#continuous-integration)
-    - [Github Actions](#github-actions)
 * [Continuous Documentation](#continuous-documentation)
 * [Making a Release](#making-a-release)
     - [Updating the Changelog](#updating-the-changelog)
@@ -66,9 +65,7 @@ build and test the project on Linux, macOS and Windows.
 They rely on the `environment.yml` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
 
-### GitHub Actions
-
-There are 8 configuration files located in `.github/workflows`:
+There are 9 configuration files located in `.github/workflows`:
 
 1. `style_checks.yaml` (Code lint and style checks)
 
@@ -79,8 +76,14 @@ There are 8 configuration files located in `.github/workflows`:
 
    This is run on every commit to the *master* and Pull Request branches.
    It is also scheduled to run daily on the *master* branch.
-   In draft Pull Requests, only one job (Ubuntu + Python latest)
+   In draft Pull Requests, only one job (Linux + Python latest)
    is triggered to save on Continuous Integration resources.
+
+3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
+
+   This is run on every commit to the *master* and Pull Request branches.
+   In draft Pull Requests, only the job on Linux is triggered to save on
+   Continuous Integration resources.
 
    On the *master* branch, the workflow also handles the documentation
    deployment:
@@ -89,35 +92,35 @@ There are 8 configuration files located in `.github/workflows`:
      from the *master* branch onto the `dev` folder of the *gh-pages* branch.
    * Updating the `latest` documentation link to the new release.
 
-3. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
+4. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
    This is triggered when a PR is marked as "ready for review", or using the
    slash command `/test-gmt-dev`. It is also scheduled to run daily on the
    *master* branch.
 
-4. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
+5. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
    This is scheduled to run every Sunday at 12:00 (UTC).
    If new remote files are needed urgently, maintainers can manually uncomment
    the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
-5. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
+6. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
 
    This workflow is run to publish wheels to PyPI and TestPyPI (for testing only).
    Archives will be pushed to TestPyPI on every commit to the *master* branch
    and tagged releases, and to PyPI for tagged releases only.
 
-6. `release-drafter.yml` (Drafts the next release notes)
+7. `release-drafter.yml` (Drafts the next release notes)
 
     This workflow is run to update the next releases notes as pull requests are
     merged into master.
 
-7. `check-links.yml` (Check links in the repository and website)
+8. `check-links.yml` (Check links in the repository and website)
 
    This workflow is run weekly to check all external links in plaintext and
    HTML files. It will create an issue if broken links are found.
 
-8. `format-command.yml` (Format the codes using slash command)
+9. `format-command.yml` (Format the codes using slash command)
 
    This workflow is triggered in a PR if the slash command `/format` is used.
 
@@ -170,7 +173,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    typo fixes, CI configuration, etc).
 5. Edit the list of people who contributed to the release, linking to their
    GitHub account. Sort their names by the number of commits made since the
-   last release (e.g. use `` git shortlog HEAD...v0.1.2 -sne ``).
+   last release (e.g., use `git shortlog HEAD...v0.1.2 -sne`).
 6. Update `README.rst` with new information on the new release version, namely
    the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
    Python and GMT versions.

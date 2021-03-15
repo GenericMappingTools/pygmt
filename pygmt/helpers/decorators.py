@@ -46,7 +46,7 @@ COMMON_OPTIONS = {
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorthms);
+            - **t** - Timings (report runtimes for time-intensive algorithms);
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
