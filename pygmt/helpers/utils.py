@@ -5,6 +5,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 import webbrowser
 from collections.abc import Iterable
 from contextlib import contextmanager
@@ -220,6 +221,9 @@ def launch_external_viewer(fname):
         os.startfile(fname)  # pylint: disable=no-member
     else:
         webbrowser.open_new_tab(f"file://{fname}")
+    # suspend the execution for 0.5 s to avoid the images being deleted
+    # when a Python script exits
+    time.sleep(0.5)
 
 
 def args_in_kwargs(args, kwargs):
