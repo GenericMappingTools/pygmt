@@ -83,9 +83,8 @@ jobs:
       - name: Install dependencies
         run: |
           conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
-                        make codecov coverage[toml] \
-                        pytest-cov pytest-mpl pytest>=6.0 \
-                        ipython
+                        codecov coverage[toml] ipython make \
+                        pytest-cov pytest-mpl pytest>=6.0
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
