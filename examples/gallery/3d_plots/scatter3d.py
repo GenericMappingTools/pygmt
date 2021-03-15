@@ -31,7 +31,7 @@ region = pygmt.info(
     spacing=(1, 2, 0.5),
 )
 
-# Make our 3D scatter plot, coloring each of the 3 species differently
+# Make a 3D scatter plot, coloring each of the 3 species differently
 fig = pygmt.Figure()
 
 # Define a colormap to be used for three categories, define the range of the
