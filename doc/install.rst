@@ -165,7 +165,7 @@ Testing your install
 Quick check
 ~~~~~~~~~~~
 
-To ensure that PyGMT and its depedencies are installed correctly, run the
+To ensure that PyGMT and its dependencies are installed correctly, run the
 following in your Python interpreter::
 
     import pygmt

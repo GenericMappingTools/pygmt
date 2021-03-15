@@ -11,7 +11,6 @@ If you want to make a contribution to the project, see the
 * [Branches](#branches)
 * [Reviewing and Merging Pull Requests](#reviewing-and-merging-pull-requests)
 * [Continuous Integration](#continuous-integration)
-    - [Github Actions](#github-actions)
 * [Continuous Documentation](#continuous-documentation)
 * [Making a Release](#making-a-release)
     - [Updating the Changelog](#updating-the-changelog)
@@ -65,8 +64,6 @@ We use GitHub Actions continuous integration (CI) services to
 build and test the project on Linux, macOS and Windows.
 They rely on the `environment.yml` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
-
-### GitHub Actions
 
 There are 8 configuration files located in `.github/workflows`:
 
@@ -170,7 +167,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    typo fixes, CI configuration, etc).
 5. Edit the list of people who contributed to the release, linking to their
    GitHub account. Sort their names by the number of commits made since the
-   last release (e.g. use `` git shortlog HEAD...v0.1.2 -sne ``).
+   last release (e.g., use `git shortlog HEAD...v0.1.2 -sne`).
 6. Update `README.rst` with new information on the new release version, namely
    the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
    Python and GMT versions.
