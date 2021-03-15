@@ -22,7 +22,7 @@ COMMON_OPTIONS = {
         projection : str
             *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
-            Select map projection.""",
+            Select map :doc:`projection </projections/index>`.""",
     "B": r"""
         frame : bool or str or list
             Set map boundary frame and axes attributes.""",
@@ -46,7 +46,7 @@ COMMON_OPTIONS = {
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorthms);
+            - **t** - Timings (report runtimes for time-intensive algorithms);
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
@@ -198,7 +198,7 @@ def fmt_docstring(module_func):
     projection : str
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
-        Select map projection.
+        Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
     <BLANKLINE>
