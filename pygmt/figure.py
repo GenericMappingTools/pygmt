@@ -262,10 +262,10 @@ class Figure:
         otherwise opens it in the default viewer for your operating system
         (falls back to the default web browser).
 
-        :func:`pygmt.set_display` can select the default display mode (either
+        :func:`pygmt.set_display` can select the default display method (either
         "notebook" or "external").
 
-        The ``mode`` parameter can also override the default display mode
+        The ``method`` parameter can also override the default display method
         for the current figure. Parameters ``dpi`` and ``width`` can be used
         control the figures in the notebook.
 
@@ -286,10 +286,10 @@ class Figure:
             Width of the figure shown in the notebook in pixels. Only works for
             "notebook" mode.
         method : str
-            How the figure will be displayed. Options are
+            How the current figure will be displayed. Options are
 
-            - ``'notebook'``: PNG preview (default)
-            - ``'external'``: PDF preview in an external program.
+            - ``'external'``: PDF preview in an external program [default]
+            - ``'notebook'``: PNG preview [default in Jupyter notebooks]
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
