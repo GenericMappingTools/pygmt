@@ -25,7 +25,8 @@ SHOWED_FIGURES = []
 SHOW_CONFIG = {
     "external": True,  # Open in an external viewer [default behavior]
     "notebook": False,  # Notebook display
-    "dpi": 300,  # default DPI
+    "dpi": 300,  # image dpi in notebook
+    "width": 500, # image dpi in notebook
 }
 
 # Show figures in Jupyter notebooks if available
@@ -254,7 +255,7 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method=None):
+    def show(self, method=None, dpi=None, width=None):
         """
         Display a preview of the figure.
 
@@ -279,17 +280,17 @@ class Figure:
 
         Parameters
         ----------
+        method : str
+            How the current figure will be displayed. Options are
+
+            - ``'external'``: PDF preview in an external program [default]
+            - ``'notebook'``: PNG preview [default in Jupyter notebooks]
         dpi : int
             The image resolution (dots per inch). Only works for "notebook"
             mode.
         width : int
             Width of the figure shown in the notebook in pixels. Only works for
             "notebook" mode.
-        method : str
-            How the current figure will be displayed. Options are
-
-            - ``'external'``: PDF preview in an external program [default]
-            - ``'notebook'``: PNG preview [default in Jupyter notebooks]
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -300,6 +301,11 @@ class Figure:
                 method = "notebook"
             elif SHOW_CONFIG["external"]:
                 method = "external"
+
+        if dpi is None:
+            dpi = SHOW_CONFIG["dpi"]
+        if width is None:
+            width = SHOW_CONFIG["width"]
 
         if method == "notebook" and IPython is not None:
             png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
@@ -420,13 +426,13 @@ class Figure:
     )
 
 
-def set_display(mode, dpi=300):
+def set_display(method=None, dpi=None, width=None):
     """
-    Set the display mode.
+    Set the display method.
 
     Parameters
     ----------
-    mode : str
+    method : str
         Choose from "notebook" (for inline display in Jupyter notebook)
         or "external" (for displaying preview using the external viewer).
 
@@ -434,14 +440,17 @@ def set_display(mode, dpi=300):
         Set the default DPI (dots-per-inch) used for PNG image previews that
         are inserted into the notebook.
     """
-    if mode == "notebook":
+    if method == "notebook":
         SHOW_CONFIG["notebook"] = True
         SHOW_CONFIG["external"] = False
-    elif mode == "external":
+    elif method == "external":
         SHOW_CONFIG["notebook"] = False
         SHOW_CONFIG["external"] = True
-    else:
+    elif method is not None:
         raise GMTInvalidInput(
-            f'Invalid display mode {mode}, should be either "notebook" or "external".'
+            f'Invalid display mode {method}, should be either "notebook" or "external".'
         )
-    SHOW_CONFIG["dpi"] = dpi
+    if dpi is not None:
+        SHOW_CONFIG["dpi"] = dpi
+    if width is not None:
+        SHOW_CONFIG["width"] = width
