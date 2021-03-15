@@ -5,7 +5,7 @@
 The :meth:`pygmt.Figure.plot3d` method can be used to plot symbols in 3D.
 In the example below, we show how the
 `Iris flower dataset <https://en.wikipedia.org/wiki/Iris_flower_data_set>`__
-can be visualized using a perspective 3-dimensional plot. The ``region``
+can be visualized using a perspective 3D plot. The ``region``
 parameter has to include the :math:`x`, :math:`y`, :math:`z` axis limits in the
 form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically
 using :meth:`pygmt.info`. To plot the z-axis frame, set ``frame`` as a
@@ -48,6 +48,8 @@ fig.plot3d(
     z=df.petal_length,
     # Vary each symbol size according to another feature (sepal width, scaled by 0.1)
     sizes=0.1 * df.sepal_width,
+    # Use 3D cubes ("u") as symbols, with size in centimeter units ("c")
+    style="uc",
     # Points colored by categorical number code
     color=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
@@ -61,8 +63,6 @@ fig.plot3d(
         'yafg+l"Sepal Length"',
         'zafg+l"Petal Length"',
     ],
-    # Use 3D cubes ("u") as symbols, with size in centimeter units ("c")
-    style="uc",
     # Set perspective to azimuth NorthWest (315°), at elevation 25°
     perspective=[315, 25],
     # Vertical exaggeration factor
