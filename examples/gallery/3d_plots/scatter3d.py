@@ -41,7 +41,7 @@ fig = pygmt.Figure()
 pygmt.makecpt(cmap="cubhelix", color_model="+c", series=(0, 3, 1))
 
 fig.plot3d(
-    # Use petal width, sepal lenght and petal length as x, y and z data input, 
+    # Use petal width, sepal lenght and petal length as x, y and z data input,
     # respectively
     x=df.petal_width,
     y=df.sepal_length,
