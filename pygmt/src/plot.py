@@ -1,6 +1,7 @@
 """
 plot - Plot in two dimensions.
 """
+import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -217,6 +218,14 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
                 "Can't use arrays for sizes if data is matrix or file."
             )
         extra_arrays.append(sizes)
+
+    if "I" in kwargs and isinstance(kwargs["I"], np.ndarray):
+        print(kwargs["I"])
+        if kind != "vectors":
+            raise GMTInvalidInput(
+                "Can't use arrays for intensity if data is matrix or file."
+            )
+        extra_arrays.append(kwargs["I"])
 
     if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
         extra_arrays.append(kwargs["t"])
