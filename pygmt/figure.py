@@ -7,7 +7,7 @@ import sys
 from tempfile import TemporaryDirectory
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
@@ -307,9 +307,18 @@ class Figure:
         if width is None:
             width = SHOW_CONFIG["width"]
 
-        if method == "notebook" and IPython is not None:
-            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
-            IPython.display.display(IPython.display.Image(data=png, width=width))
+        if method == "notebook":
+            if IPython is not None:
+                png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+                IPython.display.display(IPython.display.Image(data=png, width=width))
+            else:
+                raise GMTError(
+                    (
+                        "Notebook display is selected, but IPython is not available. "
+                        "Make sure you have IPython installed, "
+                        "or run the script in a Jupyter notebook."
+                    )
+                )
         elif method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
@@ -317,7 +326,7 @@ class Figure:
             pass
         else:
             raise GMTInvalidInput(
-                f'Invalid display method {method}, should be either "notebook" or "external".'
+                f"Invalid display method '{method}', should be either 'notebook' or 'external'."
             )
 
     def shift_origin(self, xshift=None, yshift=None):
