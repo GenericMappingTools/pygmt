@@ -110,7 +110,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     if resolution not in non_tiled_resolutions + tiled_resolutions:
         raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
 
-    # Check combination of resolution and registeration.
+    # Check combination of resolution and registration.
     if (resolution == "15s" and registration == "gridline") or (
         resolution in ("03s", "01s") and registration == "pixel"
     ):

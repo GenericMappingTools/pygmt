@@ -41,8 +41,7 @@ print(data.head())
 
 
 ########################################################################################
-# We'll use :meth:`pygmt.Figure.plot` method to plot circles on the locations of the
-# hypocenters of the earthquakes.
+# We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the earthquake epicenters.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
@@ -52,7 +51,7 @@ fig.show()
 
 ########################################################################################
 # We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The ``pen``
-# parameter controls the outline of the symbols and the ``color`` controls the fill.
+# parameter controls the outline of the symbols and the ``color`` parameter controls the fill.
 #
 # We can map the size of the circles to the earthquake magnitude by passing an array to
 # the ``sizes`` parameter. Because the magnitude is on a logarithmic scale, it helps to
@@ -72,12 +71,12 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# Notice that we didn't include the size in the ``style`` argument this time, just the
+# Notice that we didn't include the size in the ``style`` parameter this time, just the
 # symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the sizes
 # will be interpreted as being in centimeters.
 #
 # We can also map the colors of the markers to the depths by passing an array to the
-# ``color`` argument and providing a colormap name (``cmap``). We can even use the new
+# ``color`` parameter and providing a colormap name (``cmap``). We can even use the new
 # matplotlib colormap "viridis". Here, we first create a continuous colormap
 # ranging from the minimum depth to the maximum depth of the earthquakes
 # using :func:`pygmt.makecpt`, then set ``cmap=True`` in :func:`pygmt.Figure.plot`
