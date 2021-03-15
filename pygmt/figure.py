@@ -26,7 +26,7 @@ SHOW_CONFIG = {
     "external": True,  # Open in an external viewer [default behavior]
     "notebook": False,  # Notebook display
     "dpi": 300,  # image dpi in notebook
-    "width": 500, # image dpi in notebook
+    "width": 500,  # image dpi in notebook
 }
 
 # Show figures in Jupyter notebooks if available
