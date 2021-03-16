@@ -92,7 +92,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.12.0
+        uses: dawidd6/action-download-artifact@v2.13.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -135,7 +135,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.2.1
+        uses: codecov/codecov-action@v1.2.2
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON
