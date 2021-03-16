@@ -128,7 +128,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.2.1
+        uses: codecov/codecov-action@v1.2.2
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON
