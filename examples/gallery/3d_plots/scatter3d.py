@@ -36,12 +36,12 @@ fig = pygmt.Figure()
 
 # Define a colormap to be used for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval),
-# use color_model="+c" to write the discrete color palette "cubehelix" in
+# use color_model="+c" to write the discrete color palette "cubhelix" in
 # categorical format
 pygmt.makecpt(cmap="cubhelix", color_model="+c", series=(0, 3, 1))
 
 fig.plot3d(
-    # Use petal width, sepal lenght and petal length as x, y and z data input,
+    # Use petal width, sepal length and petal length as x, y and z data input,
     # respectively
     x=df.petal_width,
     y=df.sepal_length,
