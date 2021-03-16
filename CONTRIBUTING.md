@@ -474,7 +474,7 @@ proceeding with the next steps.
 The entire workflow for generating or modifying baseline test images can be
 summarized as follows:
 
-    # Sync with git and dvc remote
+    # Sync with both git and dvc remotes
     git pull
     dvc pull
 
@@ -487,10 +487,10 @@ summarized as follows:
     git rm -r --cached 'pygmt/tests/baseline/test_logo.png'  # optional
     git add pygmt/tests/baseline/test_logo.png.dvc
 
-    # Commit changes and push to both the dvc and git remote
+    # Commit changes and push to both the git and dvc remotes
     git commit -m "Add test_logo.png into DVC"
-    dvc push --remote upstream
     git push
+    dvc push --remote upstream
 
 ### Documentation
 
