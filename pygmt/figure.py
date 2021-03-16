@@ -37,7 +37,7 @@ try:
         SHOW_CONFIG["notebook"] = True
         SHOW_CONFIG["external"] = False
 except KeyError:
-    IPython = None
+    IPython = None  # pylint: disable=invalid-name
 
 # Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
 # external viewer. Use it for running the tests and building the docs to
