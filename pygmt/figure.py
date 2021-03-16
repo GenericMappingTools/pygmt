@@ -25,8 +25,6 @@ SHOWED_FIGURES = []
 SHOW_CONFIG = {
     "external": True,  # Open in an external viewer [default behavior]
     "notebook": False,  # Notebook display
-    "dpi": 300,  # image dpi in notebook
-    "width": 500,  # image dpi in notebook
 }
 
 # Show figures in Jupyter notebooks if available
@@ -255,7 +253,7 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self, method=None, dpi=None, width=None):
+    def show(self, dpi=300, width=500, method=None):
         """
         Display a preview of the figure.
 
@@ -280,17 +278,17 @@ class Figure:
 
         Parameters
         ----------
-        method : str
-            How the current figure will be displayed. Options are
-
-            - ``'external'``: PDF preview in an external program [default]
-            - ``'notebook'``: PNG preview [default in Jupyter notebooks]
         dpi : int
             The image resolution (dots per inch). Only works for "notebook"
             mode.
         width : int
             Width of the figure shown in the notebook in pixels. Only works for
             "notebook" mode.
+        method : str
+            How the current figure will be displayed. Options are
+
+            - ``'external'``: PDF preview in an external program [default]
+            - ``'notebook'``: PNG preview [default in Jupyter notebooks]
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -301,11 +299,6 @@ class Figure:
                 method = "notebook"
             elif SHOW_CONFIG["external"]:
                 method = "external"
-
-        if dpi is None:
-            dpi = SHOW_CONFIG["dpi"]
-        if width is None:
-            width = SHOW_CONFIG["width"]
 
         if method == "notebook":
             if IPython is not None:
@@ -398,9 +391,7 @@ class Figure:
 
         For the Jupyter notebook or IPython Qt console.
         """
-        png = self._preview(
-            fmt="png", dpi=SHOW_CONFIG["dpi"], anti_alias=True, as_bytes=True
-        )
+        png = self._preview(fmt="png", dpi=70, anti_alias=True, as_bytes=True)
         return png
 
     def _repr_html_(self):
@@ -435,7 +426,7 @@ class Figure:
     )
 
 
-def set_display(method=None, dpi=None, width=None):
+def set_display(method=None):
     """
     Set the display method.
 
@@ -444,10 +435,6 @@ def set_display(method=None, dpi=None, width=None):
     method : str
         Choose from "notebook" (for inline display in Jupyter notebook)
         or "external" (for displaying preview using the external viewer).
-
-    dpi : int
-        Set the default DPI (dots-per-inch) used for PNG image previews that
-        are inserted into the notebook.
     """
     if method == "notebook":
         SHOW_CONFIG["notebook"] = True
@@ -459,7 +446,3 @@ def set_display(method=None, dpi=None, width=None):
         raise GMTInvalidInput(
             f'Invalid display mode {method}, should be either "notebook" or "external".'
         )
-    if dpi is not None:
-        SHOW_CONFIG["dpi"] = dpi
-    if width is not None:
-        SHOW_CONFIG["width"] = width
