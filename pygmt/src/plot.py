@@ -1,7 +1,6 @@
 """
 plot - Plot in two dimensions.
 """
-import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
