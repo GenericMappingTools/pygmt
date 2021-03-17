@@ -219,7 +219,6 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         extra_arrays.append(sizes)
 
     if "I" in kwargs and is_nonstr_iter(kwargs["I"]):
-        print(kwargs["I"])
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for intensity if data is matrix or file."
