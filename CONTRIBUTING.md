@@ -490,7 +490,7 @@ summarized as follows:
     # Commit changes and push to both the git and dvc remotes
     git commit -m "Add test_logo.png into DVC"
     git push
-    dvc push --remote upstream
+    dvc push
 
 ### Documentation
 
