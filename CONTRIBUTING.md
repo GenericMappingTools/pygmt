@@ -104,7 +104,7 @@ download and install anything:
   your fixes; the second is a more detailed description of the changes. Try to be as
   detailed as possible and describe *why* you changed something.
 * Choose "Create a new branch for this commit and start a pull request" and
-  click on the "Propose changes" button to open a [pull request (see below)](#pull-requests).
+  click on the "Propose changes" button to open a pull request.
 * We'll review your pull request, recommend changes if necessary, and then merge
   them in if everything is OK.
 * Done :tada::beer:
