@@ -240,6 +240,4 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
 
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
-            print(build_arg_string(kwargs))
-            print(arg_str)
             lib.call_module("plot", arg_str)
