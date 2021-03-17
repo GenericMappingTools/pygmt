@@ -8,8 +8,9 @@ These are some of the many ways to contribute:
 
 * :bug: Submitting bug reports and feature requests
 * :memo: Writing tutorials or examples
-* :mag: Fixing typos and improving to the documentation
+* :mag: Fixing typos and improving the documentation
 * :bulb: Writing code for everyone to use
+* :people_holding_hands: Community engagement and outreach
 
 If you get stuck at any point you can create an
 [issue](https://github.com/GenericMappingTools/pygmt/issues) on GitHub or contact
