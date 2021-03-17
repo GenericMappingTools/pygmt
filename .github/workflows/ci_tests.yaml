@@ -84,7 +84,8 @@ jobs:
         run: |
           conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
                         codecov coverage[toml] dvc ipython make \
-                        pytest-cov pytest-mpl pytest>=6.0
+                        pytest-cov pytest-mpl pytest>=6.0 \
+                        sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
