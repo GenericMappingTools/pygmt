@@ -18,7 +18,7 @@ from pygmt.helpers import (
     R="region",
 )
 @kwargs_to_strings(R="sequence")
-def histogram(table, **kwargs):
+def histogram(self, table, **kwargs):
     r"""
     Histogram
     """
