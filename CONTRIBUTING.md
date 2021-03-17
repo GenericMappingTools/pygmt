@@ -484,6 +484,7 @@ summarized as follows:
 
     # Generate hash for baseline image and stage the *.dvc file in git
     git rm -r --cached 'pygmt/tests/baseline/test_logo.png'  # only run if migrating existing image from git to dvc
+    dvc status  # check which files need to be added to dvc
     dvc add pygmt/tests/baseline/test_logo.png
     git add pygmt/tests/baseline/test_logo.png.dvc
 
