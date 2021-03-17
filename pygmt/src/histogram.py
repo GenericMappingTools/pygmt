@@ -27,7 +27,7 @@ def histogram(table, **kwargs):
             file_context = lib.virtualfile_from_data(data=table)
             with file_context as infile:
                 arg_str = " ".join(
-                    [infile, build_arg_string(kwargs), "->" + outfile.name]
+                    [infile, build_arg_string(kwargs)]
                 )
                 lib.call_module("histogram", arg_str)
         result = outfile.read()
