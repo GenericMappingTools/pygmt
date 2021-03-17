@@ -77,11 +77,12 @@ jobs:
           channels: conda-forge
           miniconda-version: "latest"
 
-      # Install build dependencies from conda-forge
-      - name: Install build dependencies
+      # Install dependencies from conda-forge
+      - name: Install dependencies
         run: |
-          conda install ninja cmake libblas libcblas liblapack fftw gdal ghostscript \
-                        libnetcdf hdf5 zlib curl pcre ipython pytest pytest-cov pytest-mpl
+          conda install ninja cmake libblas libcblas liblapack fftw gdal \
+                        ghostscript libnetcdf hdf5 zlib curl pcre ipython \
+                        dvc pytest pytest-cov pytest-mpl
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
@@ -112,6 +113,12 @@ jobs:
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
+
+      # Pull baseline image data from dvc remote (DAGsHub)
+      - name: Pull baseline image data from dvc remote
+        run: |
+          dvc pull
+          ls -lhR pygmt/
 
       # Install the package that we want to test
       - name: Install the package
