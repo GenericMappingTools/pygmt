@@ -2,15 +2,7 @@
 grdimage - Plot grids or images.
 """
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -33,6 +25,7 @@ from pygmt.helpers import (
     Y="yshift",
     n="interpolation",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
     x="cores",
@@ -151,20 +144,15 @@ def grdimage(self, grid, **kwargs):
     {V}
     {XY}
     {c}
+    {f}
     {n}
     {p}
     {t}
     {x}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    kind = data_kind(grid, None, None)
     with Session() as lib:
-        if kind == "file":
-            file_context = dummy_context(grid)
-        elif kind == "grid":
-            file_context = lib.virtualfile_from_grid(grid)
-        else:
-            raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
             lib.call_module("grdimage", arg_str)

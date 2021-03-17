@@ -1,68 +1,11 @@
 """
-Test basic functionality for loading datasets.
+Test basic functionality for loading Earth relief datasets.
 """
 import numpy as np
 import numpy.testing as npt
 import pytest
-from pygmt.datasets import (
-    load_earth_relief,
-    load_japan_quakes,
-    load_ocean_ridge_points,
-    load_sample_bathymetry,
-    load_usgs_quakes,
-)
+from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
-
-
-def test_japan_quakes():
-    """
-    Check that the dataset loads without errors.
-    """
-    data = load_japan_quakes()
-    assert data.shape == (115, 7)
-    summary = data.describe()
-    assert summary.loc["min", "year"] == 1987
-    assert summary.loc["max", "year"] == 1988
-    assert summary.loc["min", "month"] == 1
-    assert summary.loc["max", "month"] == 12
-    assert summary.loc["min", "day"] == 1
-    assert summary.loc["max", "day"] == 31
-
-
-def test_ocean_ridge_points():
-    """
-    Check that the @ridge.txt dataset loads without errors.
-    """
-    data = load_ocean_ridge_points()
-    assert data.shape == (4146, 2)
-    summary = data.describe()
-    assert summary.loc["min", "longitude"] == -179.9401
-    assert summary.loc["max", "longitude"] == 179.935
-    assert summary.loc["min", "latitude"] == -65.6182
-    assert summary.loc["max", "latitude"] == 86.8
-
-
-def test_sample_bathymetry():
-    """
-    Check that the @tut_ship.xyz dataset loads without errors.
-    """
-    data = load_sample_bathymetry()
-    assert data.shape == (82970, 3)
-    summary = data.describe()
-    assert summary.loc["min", "longitude"] == 245.0
-    assert summary.loc["max", "longitude"] == 254.705
-    assert summary.loc["min", "latitude"] == 20.0
-    assert summary.loc["max", "latitude"] == 29.99131
-    assert summary.loc["min", "bathymetry"] == -7708.0
-    assert summary.loc["max", "bathymetry"] == -9.0
-
-
-def test_usgs_quakes():
-    """
-    Check that the dataset loads without errors.
-    """
-    data = load_usgs_quakes()
-    assert data.shape == (1197, 22)
 
 
 def test_earth_relief_fails():
@@ -138,6 +81,25 @@ def test_earth_relief_05m_without_region():
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_relief("05m")
+
+
+def test_earth_relief_03s_landonly_srtm():
+    """
+    Test loading original 3 arc-second land-only SRTM tiles.
+    """
+    data = load_earth_relief(
+        "03s", region=[135, 136, 35, 36], registration="gridline", use_srtm=True
+    )
+
+    assert data.coords["lat"].data.min() == 35.0
+    assert data.coords["lat"].data.max() == 36.0
+    assert data.coords["lon"].data.min() == 135.0
+    assert data.coords["lon"].data.max() == 136.0
+    # data.data.min() == -305.51846 if use_srtm is False.
+    assert data.data.min() == -6.0
+    assert data.data.max() == 1191.0
+    assert data.sizes["lat"] == 1201
+    assert data.sizes["lon"] == 1201
 
 
 def test_earth_relief_incorrect_registration():

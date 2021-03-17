@@ -29,6 +29,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
 )
@@ -143,6 +144,7 @@ def text_(
     {V}
     {XY}
     {c}
+    {f}
     {p}
     {t}
     """

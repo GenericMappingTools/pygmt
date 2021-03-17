@@ -22,7 +22,7 @@ COMMON_OPTIONS = {
         projection : str
             *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
-            Select map projection.""",
+            Select map :doc:`projection </projections/index>`.""",
     "B": r"""
         frame : bool or str or list
             Set map boundary frame and axes attributes.""",
@@ -46,7 +46,7 @@ COMMON_OPTIONS = {
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorthms);
+            - **t** - Timings (report runtimes for time-intensive algorithms);
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
@@ -71,6 +71,13 @@ COMMON_OPTIONS = {
             value *index* which depends on the order you set via ``autolabel``
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
+         """,
+    "f": r"""
+        coltypes : str
+            [**i**\|\ **o**]\ *colinfo*.
+            Specify data types of input and/or output columns (time or
+            geographical data). Full documentation is at
+            :gmt-docs:`gmt.html#f-full`.
          """,
     "j": r"""
         distcalc : str
@@ -191,7 +198,7 @@ def fmt_docstring(module_func):
     projection : str
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
-        Select map projection.
+        Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
     <BLANKLINE>

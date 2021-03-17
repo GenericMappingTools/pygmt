@@ -1,11 +1,22 @@
-# pylint: disable=missing-docstring
-#
-# The main API for PyGMT.
-#
-# All of PyGMT is operated on a "modern mode session" (new to GMT6). When you
-# import the pygmt library, a new session will be started automatically. The
-# session will be closed when the current Python process terminates. Thus, the
-# Python API does not expose the `gmt begin` and `gmt end` commands.
+"""
+PyGMT is a library for processing geospatial and geophysical data and making
+publication quality maps and figures. It provides a Pythonic interface for the
+Generic Mapping Tools (GMT), a command-line program widely used in the Earth
+Sciences. Besides making GMT more accessible to new users, PyGMT aims to
+provide integration with the PyData ecosystem as well as support for rich
+display in Jupyter notebooks.
+
+Main Features
+-------------
+Here are just a few of the things that PyGMT does well:
+
+  - Easy handling of individual types of data like Cartesian, geographic, or
+    time-series data.
+  - Processing of (geo)spatial data including gridding, filtering, and masking
+  - Allows plotting of a large spectrum of objects on figures including
+    lines, vectors, polygons, and symbols (pre-defined and customized)
+  - Generate publication-quality illustrations and make animations
+"""
 
 import atexit as _atexit
 

@@ -17,7 +17,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(I="spacing", R="region", G="outfile", V="verbose")
+@use_alias(I="spacing", R="region", G="outfile", V="verbose", f="coltypes")
 @kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
     r"""
@@ -60,6 +60,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
         to store the grid in.
 
     {V}
+    {f}
 
     Returns
     -------

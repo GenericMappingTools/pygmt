@@ -210,6 +210,8 @@ General guidelines for pull requests (PRs):
 * Larger changes should be broken down into smaller components and integrated
   separately.
 * Bug fixes should be submitted in separate PRs.
+* Use underscores for all Python (*.py) files as per [PEP8](https://www.python.org/dev/peps/pep-0008/), 
+  not hyphens. Directory names should also use underscores instead of hyphens.
 * Describe what your PR changes and *why* this is a good thing. Be as specific as you
   can. The PR description is how we keep track of the changes made to the project over
   time.
@@ -441,10 +443,34 @@ The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
 function/class/module listed there.
 
-You can reference classes, functions, and modules from anywhere (including docstrings)
-using <code>:func:\`package.module.function\`</code>,
-<code>:class:\`package.module.class\`</code>, or
-<code>:mod:\`package.module\`</code>.
+You can reference functions, classes, methods, and modules from anywhere 
+(including docstrings) using:
+
+- <code>:func:\`package.module.function\`</code>
+- <code>:class:\`package.module.class\`</code>
+- <code>:meth:\`package.module.method\`</code>
+- <code>:mod:\`package.module\`</code>
+
+An example would be to use 
+<code>:meth:\`pygmt.Figure.grdview\`</code> to link 
+to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html. 
+PyGMT documentation that is not a class, method, 
+or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
+For example, <code>:doc:\`Install instructions \</install\>\`</code> links 
+to https://www.pygmt.org/latest/install.html.
+
+Linking to the GMT documentation and GMT configuration parameters can be done using:
+
+- <code>:gmt-docs:\`page_name.html\`</code>
+- <code>:gmt-term:\`GMT_PARAMETER\`</code>
+
+An example would be using
+<code>:gmt-docs:\`makecpt.html\`</code> to link to 
+https://docs.generic-mapping-tools.org/latest/makecpt.html.
+For GMT configuration parameters, an example is
+<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to 
+https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
+
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
 
