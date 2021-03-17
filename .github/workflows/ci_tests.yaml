@@ -83,7 +83,7 @@ jobs:
       - name: Install dependencies
         run: |
           conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
-                        codecov coverage[toml] ipython make \
+                        codecov coverage[toml] dvc ipython make \
                         pytest-cov pytest-mpl pytest>=6.0
 
       # Show installed pkg information for postmortem diagnostic
@@ -108,10 +108,9 @@ jobs:
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
-      # Install data version control (dvc) and pull data from dvc remote
-      - name: Install dvc and pull data from dvc remote
+      # Pull baseline image data from dvc remote (DAGsHub)
+      - name: Pull baseline image data from dvc remote
         run: |
-          pip install dvc
           dvc pull
           ls -lhR pygmt/
 
