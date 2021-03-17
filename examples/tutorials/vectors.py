@@ -18,6 +18,7 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 
 import numpy as np
 import pygmt
+
 """
 # Plot Vectors
 ----------
@@ -39,7 +40,7 @@ fig.plot(
     data=data,
     style="v0.6c+e",
     pen="2p",
-    color="red3"
+    color="red3",
 )
 fig.show()
 
@@ -57,12 +58,7 @@ reg_y_lowbound = -15
 reg_y_upperbound = 15
 
 fig.basemap(
-    region=[
-        reg_x_lowbound,
-        reg_x_upperbound,
-        reg_y_lowbound,
-        reg_y_upperbound
-    ],
+    region=[reg_x_lowbound, reg_x_upperbound, reg_y_lowbound, reg_y_upperbound],
     projection="X15c/10c",
     frame=True,
 )
@@ -74,12 +70,7 @@ startDeg = 90
 stopDeg = 270
 
 data = np.array([[x, y, diam, startDeg, stopDeg]])
-fig.plot(
-    data=data,
-    style="m0.5c+ea",
-    color="red3",
-    pen="1.5p,black"
-)
+fig.plot(data=data, style="m0.5c+ea", color="red3", pen="1.5p,black")
 fig.show()
 
 ########################################################################################
