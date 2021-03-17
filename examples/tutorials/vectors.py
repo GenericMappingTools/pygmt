@@ -44,6 +44,45 @@ fig.plot(
 fig.show()
 
 ########################################################################################
+# Circular vectors can be plotted using an ``x`` and ``y`` value to specify
+# where the origin of the arc will be located on the plane. The variable
+# ``diam`` is used to specify the diameter of the arc while the ``startDeg`` and
+# ``stopDeg`` specify at what angle the arc will originate and end respectively.
+
+fig = pygmt.Figure()
+
+reg_x_lowbound = 0
+reg_x_upperbound = 8
+reg_y_lowbound = -15
+reg_y_upperbound = 15
+
+fig.basemap(
+    region=[
+        reg_x_lowbound,
+        reg_x_upperbound,
+        reg_y_lowbound,
+        reg_y_upperbound
+    ],
+    projection="X15c/10c",
+    frame=True,
+)
+
+x = 4
+y = 0
+diam = 4
+startDeg = 90
+stopDeg = 270
+
+data = np.array([[x, y, diam, startDeg, stopDeg]])
+fig.plot(
+    data=data,
+    style="m0.5c+ea",
+    color="red3",
+    pen="1.5p,black"
+)
+fig.show()
+
+########################################################################################
 # Additional line segments can be added by including additional values for ``x``
 # and ``y``.
 
