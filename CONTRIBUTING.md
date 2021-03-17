@@ -105,6 +105,10 @@ download and install anything:
   detailed as possible and describe *why* you changed something.
 * Choose "Create a new branch for this commit and start a pull request" and
   click on the "Propose changes" button to open a pull request.
+* The pull request will run the GMT automated tests and make a preview deployment.
+  You can see how your change looks in the PyGMT documentation by clicking the
+  "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
+  after the pull request was created).
 * We'll review your pull request, recommend changes if necessary, and then merge
   them in if everything is OK.
 * Done :tada::beer:
