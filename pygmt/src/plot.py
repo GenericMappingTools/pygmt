@@ -219,13 +219,14 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
             )
         extra_arrays.append(sizes)
 
-    if "I" in kwargs and isinstance(kwargs["I"], np.ndarray):
+    if "I" in kwargs and is_nonstr_iter(kwargs["I"]):
         print(kwargs["I"])
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for intensity if data is matrix or file."
             )
         extra_arrays.append(kwargs["I"])
+        kwargs["I"] = ""
 
     if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
         extra_arrays.append(kwargs["t"])
@@ -239,4 +240,6 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
 
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
+            print(build_arg_string(kwargs))
+            print(arg_str)
             lib.call_module("plot", arg_str)
