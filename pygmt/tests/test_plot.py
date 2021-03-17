@@ -95,7 +95,8 @@ def test_plot_fail_no_data(data):
 
 def test_plot_fail_size_color(data):
     """
-    Should raise an exception if array sizes and color are used with matrix.
+    Should raise an exception if array color, sizes and intensity are used with
+    matrix.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
@@ -116,6 +117,16 @@ def test_plot_fail_size_color(data):
             sizes=data[:, 2],
             color="red",
             frame="afg",
+        )
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(
+            data=data,
+            region=region,
+            projection="X4i",
+            style="c0.2c",
+            color="red",
+            frame="afg",
+            intensity=data[:, 2],
         )
 
 
