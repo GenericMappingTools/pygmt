@@ -64,17 +64,14 @@ def test_basemap_power_axis():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_basemap_polar():
     """
     Create a polar basemap plot.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.basemap(R="0/360/0/1000", J="P6i", B="afg")
-    fig_test.basemap(region=[0, 360, 0, 1000], projection="P6i", frame="afg")
-
-    return fig_ref, fig_test
+    fig = Figure()
+    fig.basemap(region=[0, 360, 0, 1000], projection="P6i", frame="afg")
+    return fig
 
 
 @check_figures_equal()
