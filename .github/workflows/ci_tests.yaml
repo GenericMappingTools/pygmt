@@ -30,9 +30,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        numpy-version: ['1.17', '1.20']
-        python-version: [3.7, 3.9]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        include:
+          # Minimum NEP29 versions
+          - os: ubuntu-latest
+            python-version: '3.7'
+            numpy-version: '1.17'
+          - os: macOS-latest
+            python-version: '3.7'
+            numpy-version: '1.17'
+          - os: windows-latest
+            python-version: '3.7'
+            numpy-version: '1.17'
+          # Maximum NEP29 versions
+          - os: ubuntu-latest
+            python-version: '3.9'
+            numpy-version: '1.20'
+          - os: macOS-latest
+            python-version: '3.9'
+            numpy-version: '1.20'
+          - os: windows-latest
+            python-version: '3.9'
+            numpy-version: '1.20'
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
@@ -42,9 +60,9 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-          - os: ubuntu-latest
-            python-version: 3.7
-            isDraft: true
+          # - os: ubuntu-latest
+          #   python-version: 3.7
+          #   isDraft: true
     defaults:
       run:
         shell: bash -l {0}
