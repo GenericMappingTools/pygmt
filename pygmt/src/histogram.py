@@ -33,7 +33,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     Z="type",
-    p="perspective"
+    p="perspective",
 )
 @kwargs_to_strings(R="sequence", T="sequence")
 def histogram(self, table, **kwargs):
@@ -44,9 +44,7 @@ def histogram(self, table, **kwargs):
         with Session() as lib:
             file_context = lib.virtualfile_from_data(data=table)
             with file_context as infile:
-                arg_str = " ".join(
-                    [infile, build_arg_string(kwargs)]
-                )
+                arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("histogram", arg_str)
         result = outfile.read()
     return result
