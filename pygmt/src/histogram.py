@@ -13,11 +13,29 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
+    A="horizontal",
+    B="frame",
+    C="cmap",
+    D="annotation",
+    F="center",
+    G="fill",
     J="projection",
-    G="color",
+    JZ="zscale",
+    L="extreme_values",
+    N="normal_dist",
+    Qr="cumulative",
     R="region",
+    S="stairs",
+    T="interval",
+    U="logo",
+    V="verbose",
+    W="pen",
+    X="xshift",
+    Y="yshift",
+    Z="type",
+    p="perspective"
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", T="sequence")
 def histogram(self, table, **kwargs):
     r"""
     Histogram
