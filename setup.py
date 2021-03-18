@@ -30,10 +30,11 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
-    "License :: OSI Approved :: {}".format(LICENSE),
+    f"License :: OSI Approved :: {LICENSE}",
 ]
 PLATFORMS = "Any"
-INSTALL_REQUIRES = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+PYTHON_REQUIRES = ">=3.7"
+INSTALL_REQUIRES = ["numpy>=1.17", "pandas", "xarray", "netCDF4", "packaging"]
 # Configuration for setuptools-scm
 SETUP_REQUIRES = ["setuptools_scm"]
 USE_SCM_VERSION = {"local_scheme": "node-and-date", "fallback_version": "unknown"}
@@ -57,6 +58,7 @@ if __name__ == "__main__":
         package_data=PACKAGE_DATA,
         classifiers=CLASSIFIERS,
         keywords=KEYWORDS,
+        python_requires=PYTHON_REQUIRES,
         install_requires=INSTALL_REQUIRES,
         setup_requires=SETUP_REQUIRES,
     )
