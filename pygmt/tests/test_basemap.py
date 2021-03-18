@@ -74,15 +74,14 @@ def test_basemap_polar():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_basemap_winkel_tripel():
     """
     Create a Winkel Tripel basemap plot.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    fig_ref.basemap(R="90/450/-90/90", J="R270/25c", B="afg")
-    fig_test.basemap(region=[90, 450, -90, 90], projection="R270/25c", frame="afg")
-    return fig_ref, fig_test
+    fig = Figure()
+    fig.basemap(region=[90, 450, -90, 90], projection="R270/25c", frame="afg")
+    return fig
 
 
 @check_figures_equal()

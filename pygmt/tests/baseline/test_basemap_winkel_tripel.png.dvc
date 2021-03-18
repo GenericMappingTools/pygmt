@@ -1,0 +1,4 @@
+outs:
+- md5: 8c3cb3ee180415d2f01a214f7f05f916
+  size: 91501
+  path: test_basemap_winkel_tripel.png
