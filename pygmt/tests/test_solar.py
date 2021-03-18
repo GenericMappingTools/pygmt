@@ -35,7 +35,12 @@ def test_solar_default_terminator():
     to confirm the default terminator type.
     """
     fig = Figure()
-    fig.solar(R="d", J="W0/15c", B="a", terminator_datetime="1990-02-17 04:25:00")
+    fig.solar(
+        region="d",
+        projection="W0/15c",
+        frame="a",
+        terminator_datetime="1990-02-17 04:25:00",
+    )
     return fig
 
 
@@ -68,9 +73,9 @@ def test_invalid_terminator_type():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.solar(
-            R="d",
-            J="W0/15c",
-            B="a",
+            region="d",
+            projection="W0/15c",
+            frame="a",
             terminator="invalid",
         )
 
@@ -81,4 +86,9 @@ def test_invalid_datetime():
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
-        fig.solar(R="d", J="W0/15c", B="a", terminator_datetime="199A-02-17 04:25:00")
+        fig.solar(
+            region="d",
+            projection="W0/15c",
+            frame="a",
+            terminator_datetime="199A-02-17 04:25:00",
+        )
