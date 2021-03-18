@@ -30,7 +30,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        numpy-version: ['1.17', '1.20']
+        python-version: [3.7, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
@@ -43,9 +44,6 @@ jobs:
             isDraft: true
           - os: ubuntu-latest
             python-version: 3.7
-            isDraft: true
-          - os: ubuntu-latest
-            python-version: 3.8
             isDraft: true
     defaults:
       run:
@@ -82,7 +80,8 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
+          conda install gmt=6.1.1 numpy=${{ matrix.numpy-version }} pandas \
+                        xarray netCDF4 packaging \
                         codecov coverage[toml] ipython make \
                         pytest-cov pytest-mpl pytest>=6.0 \
                         sphinx-gallery
