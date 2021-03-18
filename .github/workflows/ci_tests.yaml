@@ -113,7 +113,7 @@ jobs:
       - name: Pull baseline image data from dvc remote
         run: |
           dvc pull
-          ls -lhR pygmt/
+          ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package
