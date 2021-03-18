@@ -6,7 +6,6 @@ import datetime
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
