@@ -25,42 +25,25 @@ on:
 
 jobs:
   test:
-    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}/NumPy ${{ matrix.numpy-version }}
+    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}/NumPy ${{ env.NUMPY-VERSION }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        python-version: [3.7, 3.9]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
         # Only run one job (Ubuntu + Python 3.9) for draft PRs
-        include:
-          # Minimum NEP29 versions
-          - os: ubuntu-latest
-            python-version: '3.7'
-            numpy-version: '1.17'
-            isDraft: true
+        exclude:
           - os: macOS-latest
-            python-version: '3.7'
-            numpy-version: '1.17'
-            isDraft: false
-          - os: windows-latest
-            python-version: '3.7'
-            numpy-version: '1.17'
-            isDraft: false
-          # Maximum NEP29 versions
-          - os: ubuntu-latest
-            python-version: '3.9'
-            numpy-version: '1.20'
             isDraft: true
-          - os: macOS-latest
-            python-version: '3.9'
-            numpy-version: '1.20'
-            isDraft: false
           - os: windows-latest
-            python-version: '3.9'
-            numpy-version: '1.20'
-            isDraft: false
+            isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.7
+            isDraft: true
     defaults:
       run:
         shell: bash -l {0}
@@ -69,6 +52,8 @@ jobs:
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
+      # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.20
+      NUMPY-VERSION: ${{ matrix.python-version == '3.7' && '1.17' || '1.20' }}
 
     steps:
       # Cancel previous runs that are not completed
@@ -96,8 +81,8 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install gmt=6.1.1 numpy=${{ matrix.numpy-version }} pandas \
-                        xarray netCDF4 packaging \
+          conda install gmt=6.1.1 numpy=${{ env.NUMPY-VERSION }} \
+                        pandas xarray netCDF4 packaging \
                         codecov coverage[toml] ipython make \
                         pytest-cov pytest-mpl pytest>=6.0 \
                         sphinx-gallery
