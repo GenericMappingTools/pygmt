@@ -25,7 +25,7 @@ on:
 
 jobs:
   test:
-    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}/NumPy ${{ env.NUMPY-VERSION }}
+    name: ${{ matrix.os }} - Python ${{ matrix.python-version }} / NumPy ${{ matrix.numpy-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -41,9 +41,15 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-          - os: ubuntu-latest
-            python-version: 3.7
-            isDraft: true
+          # - os: ubuntu-latest
+          #   python-version: 3.7
+          #   isDraft: true
+        include:
+          # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.20
+          - python-version: 3.7
+            numpy-version: '1.17'
+          - python-version: 3.9
+            numpy-version: '1.20'
     defaults:
       run:
         shell: bash -l {0}
@@ -52,8 +58,6 @@ jobs:
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
-      # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.20
-      NUMPY-VERSION: ${{ matrix.python-version == '3.7' && '1.17' || '1.20' }}
 
     steps:
       # Cancel previous runs that are not completed
@@ -81,7 +85,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install gmt=6.1.1 numpy=${{ env.NUMPY-VERSION }} \
+          conda install gmt=6.1.1 numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
                         codecov coverage[toml] ipython make \
                         pytest-cov pytest-mpl pytest>=6.0 \
