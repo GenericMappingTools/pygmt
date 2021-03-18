@@ -39,6 +39,7 @@ jobs:
           - os: ubuntu-latest
             python-version: '3.7'
             numpy-version: '1.17'
+            isDraft: true
           - os: macOS-latest
             python-version: '3.7'
             numpy-version: '1.17'
@@ -51,6 +52,7 @@ jobs:
           - os: ubuntu-latest
             python-version: '3.9'
             numpy-version: '1.20'
+            isDraft: true
           - os: macOS-latest
             python-version: '3.9'
             numpy-version: '1.20'
