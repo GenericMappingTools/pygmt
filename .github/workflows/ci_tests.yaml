@@ -25,7 +25,7 @@ on:
 
 jobs:
   test:
-    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}/NumPy ${{ matrix.numpy-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
