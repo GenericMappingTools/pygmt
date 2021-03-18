@@ -41,9 +41,9 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-          - os: ubuntu-latest
-            python-version: 3.7
-            isDraft: true
+          # - os: ubuntu-latest
+          #   python-version: 3.7
+          #   isDraft: true
         # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.20
         include:
           - python-version: 3.7
