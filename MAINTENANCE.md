@@ -22,6 +22,7 @@ If you want to make a contribution to the project, see the
 ## Onboarding Access Checklist
 
 - [ ] Added to [python-maintainers](https://github.com/orgs/GenericMappingTools/teams/python-maintainers) team in the [GenericMappingTools](https://github.com/orgs/GenericMappingTools/teams/) organization on GitHub (gives 'maintain' permissions)
+- [ ] Added as collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
 - [ ] Added as moderator on [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
 - [ ] Added as member on the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
 - [ ] Added as maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
