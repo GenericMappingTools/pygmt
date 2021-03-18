@@ -23,8 +23,7 @@ SHOWED_FIGURES = []
 
 # Configurations for figure display
 SHOW_CONFIG = {
-    "external": True,  # Open in an external viewer [default behavior]
-    "notebook": False,  # Notebook display
+    "method": "external",  # Open in an external viewer by default
 }
 
 # Show figures in Jupyter notebooks if available
@@ -32,8 +31,7 @@ try:
     IPython = sys.modules["IPython"]
     get_ipython = IPython.get_ipython()
     if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
-        SHOW_CONFIG["notebook"] = True
-        SHOW_CONFIG["external"] = False
+        SHOW_CONFIG["method"] = "notebook"
 except KeyError:
     IPython = None  # pylint: disable=invalid-name
 
@@ -41,7 +39,7 @@ except KeyError:
 # external viewer. Use it for running the tests and building the docs to
 # avoid pop up windows.
 if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "default").lower() == "false":
-    SHOW_CONFIG["external"] = False
+    SHOW_CONFIG["method"] = "none"
 
 
 class Figure:
@@ -295,10 +293,7 @@ class Figure:
         SHOWED_FIGURES.append(self)
 
         if method is None:
-            if SHOW_CONFIG["notebook"]:
-                method = "notebook"
-            elif SHOW_CONFIG["external"]:
-                method = "external"
+            method = SHOW_CONFIG["method"]
 
         if method == "notebook":
             if IPython is not None:
@@ -315,11 +310,14 @@ class Figure:
         elif method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
-        elif method is None:
+        elif method == "none":
             pass
         else:
             raise GMTInvalidInput(
-                f"Invalid display method '{method}', should be either 'notebook' or 'external'."
+                (
+                    f"Invalid display method '{method}', "
+                    "should be either 'notebook', 'external', or 'none'."
+                )
             )
 
     def shift_origin(self, xshift=None, yshift=None):
@@ -432,17 +430,19 @@ def set_display(method=None):
 
     Parameters
     ----------
-    method : str
-        Choose from "notebook" (for inline display in Jupyter notebook)
-        or "external" (for displaying preview using the external viewer).
+    method : str or None
+        The method to display an image. Choose from:
+
+        - "notebook": insert images in Jupyter notebooks
+        - "external": display images in an external viewer
+        - "none": disable image display
     """
-    if method == "notebook":
-        SHOW_CONFIG["notebook"] = True
-        SHOW_CONFIG["external"] = False
-    elif method == "external":
-        SHOW_CONFIG["notebook"] = False
-        SHOW_CONFIG["external"] = True
+    if method in ["notebook", "external", "none"]:
+        SHOW_CONFIG["method"] = method
     elif method is not None:
         raise GMTInvalidInput(
-            f'Invalid display mode {method}, should be either "notebook" or "external".'
+            (
+                f"Invalid display mode '{method}', "
+                "should be either 'notebook', 'external' or 'none'."
+            )
         )
