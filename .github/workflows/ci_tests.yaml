@@ -41,11 +41,11 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-          # - os: ubuntu-latest
-          #   python-version: 3.7
-          #   isDraft: true
+          - os: ubuntu-latest
+            python-version: 3.7
+            isDraft: true
+        # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.20
         include:
-          # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.20
           - python-version: 3.7
             numpy-version: '1.17'
           - python-version: 3.9
@@ -54,10 +54,11 @@ jobs:
       run:
         shell: bash -l {0}
 
-    # environmental variables used in coverage
+    # Environment variables used by codecov
     env:
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
+      NUMPY: ${{ matrix.numpy-version }}
 
     steps:
       # Cancel previous runs that are not completed
@@ -136,5 +137,5 @@ jobs:
         uses: codecov/codecov-action@v1.2.2
         with:
           file: ./coverage.xml # optional
-          env_vars: OS,PYTHON
+          env_vars: OS,PYTHON,NUMPY
           fail_ci_if_error: false
