@@ -1,6 +1,6 @@
 """
-Solar
------
+Day-night terminator line and twilights
+---------------------------------------
 
 Use :meth:`pygmt.Figure.solar` to plot the day-night terminator line, 
 and civil, nautical, astronomical twilights.

@@ -89,7 +89,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     if terminator_datetime:
         try:
             datetime_string = pd.to_datetime(terminator_datetime).strftime(
-                "%Y-%m-%dT%H:%M:%S"
+                "%Y-%m-%dT%H:%M:%S.%f"
             )
         except ValueError as verr:
             raise GMTInvalidInput("Unrecognized datetime format.") from verr
