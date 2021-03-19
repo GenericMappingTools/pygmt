@@ -20,12 +20,37 @@ import numpy as np
 import pygmt
 
 """
-# Plot Vectors
+## Plot Caretesian Vectors
 ----------
 
-Create a Cartesian figure using ``projection`` parameter and set the axis scales
-using ``region`` (in this case, each axis is 0-25). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
+Create a simple Cartesian figure using ``projection`` parameter and set the axis scales
+using ``region`` (in this case, each axis is 0-10). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
+
+Notice that the ``v`` in the ``style`` parameter stands for vector. It distinguishes it from regular lines. Additionally, the data points are passed using the parameter `data` which is a ``numpy`` array object.
+
+While this looks identical to a line, it has additional attributes that we'll discuss throughout this tutorial.
 """
+
+# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
+vector_1 = [2, 3, 45, 4]
+# Create a list of lists that include each vector information
+data = np.array([vector_1])
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10c/10c",
+    frame="a",
+    data=data,
+    style="v0c",
+)
+fig.show()
+
+"""
+Create a Cartesian figure using ``projection`` parameter and set the axis scales
+using ``region`` (in this case, each axis is 0-10). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
+"""
+
 # vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
 vector_1 = [2, 3, 45, 4]
 vector_2 = [7.5, 8.3, -120.5, 7.2]
@@ -44,12 +69,39 @@ fig.plot(
 )
 fig.show()
 
-########################################################################################
-# Circular vectors can be plotted using an ``x`` and ``y`` value to specify
-# where the origin of the circle will be located on the plane. The variable
-# ``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
-# ``stopDeg`` specify at what angle the arc will begin and end respectively.
 
+"""
+Create a Cartesian figure using ``projection`` parameter and set the axis scales
+using ``region`` (in this case, each axis is 0-10). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
+"""
+
+# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
+vector_1 = [2, 3, 45, 4]
+vector_2 = [7.5, 8.3, -120.5, 7.2]
+# Create a list of lists that include each vector information
+data = np.array([vector_1] + [vector_2])
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10c/10c",
+    frame="a",
+    data=data,
+    style="v0.6c+e",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+'''
+## Plot Circular Vectors
+----------
+
+Circular vectors can be plotted using an ``x`` and ``y`` value to specify
+where the origin of the circle will be located on the plane. The variable
+``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
+``stopDeg`` specify at what angle the arc will begin and end respectively.
+'''
 fig = pygmt.Figure()
 
 reg_x_lowbound = 0
