@@ -123,7 +123,7 @@ jobs:
 
       # Run the tests
       - name: Test with pytest
-        run: make test PYTEST_EXTRA="-r P -n auto"
+        run: make test PYTEST_EXTRA="-r P -n auto --dist=loadfile"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
