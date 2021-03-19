@@ -266,12 +266,12 @@ class Figure:
 
         The ``method`` parameter can also override the default display method
         for the current figure. Parameters ``dpi`` and ``width`` can be used
-        control the figures in the notebook.
+        to control the resolution and dimension of the figure in the notebook.
 
-        The external viewer can be disabled by setting the
+        Note: The external viewer can be disabled by setting the
         ``PYGMT_USE_EXTERNAL_DISPLAY`` environment variable to ``false``.
-        This is mainly used for running the tests and building the
-        documentation.
+        This is useful for when running unit tests and building the
+        documentation in consoles without a Graphical User Interface.
 
         Note that the external viewer does not block the current process,
         so this won't work if multiple figures are shown in one script.
