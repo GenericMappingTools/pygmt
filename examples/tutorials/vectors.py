@@ -1,5 +1,5 @@
 """
-Plot Vectors
+Plot vectors
 ==========
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
@@ -19,17 +19,18 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 import numpy as np
 import pygmt
 
-"""
-# Plot Vectors
-----------
+#######################################################################################
+# Plot vectors
+# ----------
+#
+# Create a Cartesian figure using ``projection`` parameter and set the axis scales
+# using ``region`` (in this case, each axis is 0-25). Pass a ``numpy`` array object
+# that contains lists of all vectors to be plotted.
 
-Create a Cartesian figure using ``projection`` parameter and set the axis scales
-using ``region`` (in this case, each axis is 0-25). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
-"""
-# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
+# Vector specifications are structured as: [x_start, y_start, direction_degrees, magnitude]
 vector_1 = [2, 3, 45, 4]
 vector_2 = [7.5, 8.3, -120.5, 7.2]
-# Create a list of lists that include each vector information
+# Create a list of lists that include each vector information.
 data = np.array([vector_1] + [vector_2])
 
 fig = pygmt.Figure()
@@ -47,8 +48,8 @@ fig.show()
 ########################################################################################
 # Circular vectors can be plotted using an ``x`` and ``y`` value to specify
 # where the origin of the circle will be located on the plane. The variable
-# ``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
-# ``stopDeg`` specify at what angle the arc will begin and end respectively.
+# ``diam`` is used to specify the diameter of the circle while the ``startDeg``
+# and ``stopDeg`` specify at what angle the arc will begin and end respectively.
 
 fig = pygmt.Figure()
 
