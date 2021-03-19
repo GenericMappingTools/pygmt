@@ -242,7 +242,7 @@ def test_plot_colors_sizes_proj(data, region):
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_varying_intensity():
     """
     Plot the data with array-like intensity.
@@ -251,21 +251,8 @@ def test_plot_varying_intensity():
     y = np.arange(1, 10)
     intensity = np.linspace(-1, 1, len(x))
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y, intensity], fmt="%s")
-        fig_ref.plot(
-            data=tmpfile.name,
-            R="0/10/0/10",
-            J="X4i",
-            B="",
-            S="c0.2c",
-            G="blue",
-            I="",
-        )
-
-    fig_test.plot(
+    fig = Figure()
+    fig.plot(
         x=x,
         y=y,
         region=[0, 10, 0, 10],
@@ -275,7 +262,7 @@ def test_plot_varying_intensity():
         color="blue",
         intensity=intensity,
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @check_figures_equal()
