@@ -19,50 +19,82 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 import numpy as np
 import pygmt
 
-"""
+'''
 ## Plot Caretesian Vectors
 ----------
 
-Create a simple Cartesian figure using ``projection`` parameter and set the axis scales
-using ``region`` (in this case, each axis is 0-10). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
+Create a simple Cartesian vector using a starting point through
+``x``, ``y``, and ``direction`` parameters. The direction is specified
+by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``
 
-Notice that the ``v`` in the ``style`` parameter stands for vector. It distinguishes it from regular lines. Additionally, the data points are passed using the parameter `data` which is a ``numpy`` array object.
+On the shown figure, the plot is projected on a _10X10_ region,
+which is specified by the `region` and `projection` parameters.
 
-While this looks identical to a line, it has additional attributes that we'll discuss throughout this tutorial.
-"""
-
-# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
-vector_1 = [2, 3, 45, 4]
-# Create a list of lists that include each vector information
-data = np.array([vector_1])
+Notice that the ``v`` in the ``style`` parameter stands for
+vector; it distinguishes it from regular lines and allows for
+different customization.
+'''
 
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
     frame="a",
-    data=data,
-    style="v0c",
+    x = 2,
+    y = 8,
+    direction = [[-45],[6]],
+    style="v0c"
 )
 fig.show()
 
-"""
-Create a Cartesian figure using ``projection`` parameter and set the axis scales
-using ``region`` (in this case, each axis is 0-10). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
-"""
+'''
+In this example, we apply the same concept shown previously to plot multiple
+vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
+of all x and y coordinates will be passed. Similarly, the length of direction
+list will increase accordingly.
 
-# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
-vector_1 = [2, 3, 45, 4]
-vector_2 = [7.5, 8.3, -120.5, 7.2]
-# Create a list of lists that include each vector information
-data = np.array([vector_1] + [vector_2])
+Additionally, we changed the style of the vector to include a red
+arrowhead and increased the thickness of the line. A list of different
+styling attributes can be found in
+[Vector attributes documentation](https://www.pygmt.org/latest/gallery/lines/vector_heads_tails.html)
+'''
 
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
     frame="a",
-    data=data,
+    x = [2,4],
+    y = [8,1],
+    direction = [[-45,23],[6,3]],
+    style="v0.6c+e",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+'''
+Vectors can also be plotted by including all the information
+about a vector ina single list. However, this requires creating
+a list for all vectors and passing it into a ``numpy`` array object.
+Each vector list contains the information structured as:
+``[x_start, y_start, direction_degrees, magnitude]``
+
+If this approach is chosen, ``data`` parameter must be
+used instead of ``x``, ``y`` and  ``direction``.
+'''
+
+vector_1 = [2, 3, 45, 4]
+# Create a list of lists that include each vector information
+vectors = np.array([vector_1])
+# vectors structure: [[ 2  3 45  4]]
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10c/10c",
+    frame="a",
+    data=vectors,
     style="v0.6c+e",
     pen="2p",
     color="red3",
@@ -70,23 +102,25 @@ fig.plot(
 fig.show()
 
 
-"""
-Create a Cartesian figure using ``projection`` parameter and set the axis scales
-using ``region`` (in this case, each axis is 0-10). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
-"""
+'''
+Using the functionality mentioned in the previous example,
+multiple vectors can be plotted at the same time. Another
+vector could be simply added to the 2d ``numpy`` array object
+and passed using `data` parameter.
+'''
 
 # vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
 vector_1 = [2, 3, 45, 4]
 vector_2 = [7.5, 8.3, -120.5, 7.2]
 # Create a list of lists that include each vector information
-data = np.array([vector_1] + [vector_2])
-
+vectors = np.array([vector_1] + [vector_2])
+# data looks like
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
     frame="a",
-    data=data,
+    data=vectors,
     style="v0.6c+e",
     pen="2p",
     color="red3",
