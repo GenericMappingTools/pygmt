@@ -324,7 +324,6 @@ class Figure:
                 )
             png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
             img = IPython.display.Image(data=png, width=width)
-            # IPython.display.display(img)
             return img
 
         if method == "external":
