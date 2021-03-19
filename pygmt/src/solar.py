@@ -66,6 +66,10 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    if "T" in kwargs:
+        raise GMTInvalidInput(
+            "Use 'terminator' and 'terminator_datetime' instead of 'T',"
+        )
     if terminator not in [
         "day_night",
         "nautical",
