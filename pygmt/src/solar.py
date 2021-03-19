@@ -42,7 +42,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         Set the type of terminator displayed. Valid arguments are
         **day_night**, **civil**, **nautical**, and **astronomical**, which
         can be set with either the full name or the first letter of the name.
-        [Default is ``day_night``]
+        [Default is **day_night**\ ]
     terminator_datetime : str or datetime object
         Set the UTC date and time of the displayed terminator. It can be
         passed as a string, using the format *YYYY-MM-DD HH:MM:SS*
