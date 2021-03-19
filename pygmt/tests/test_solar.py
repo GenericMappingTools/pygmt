@@ -75,6 +75,21 @@ def test_invalid_terminator_type():
         )
 
 
+def test_invalid_T_parameter():
+    """
+    Test if fig.solar fails when it receives a GMT argument for 'T' instead of
+    the PyGMT arguments for 'terminator' and 'terminator_datetime'.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.solar(
+            region="d",
+            projection="W0/15c",
+            frame="a",
+            T="d+d1990-02-17T04:25:00"
+        )
+
+
 def test_invalid_datetime():
     """
     Test if fig.solar fails when it receives an invalid datetime string.
