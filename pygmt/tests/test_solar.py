@@ -83,10 +83,7 @@ def test_invalid_T_parameter():
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.solar(
-            region="d",
-            projection="W0/15c",
-            frame="a",
-            T="d+d1990-02-17T04:25:00"
+            region="d", projection="W0/15c", frame="a", T="d+d1990-02-17T04:25:00"
         )
 
 

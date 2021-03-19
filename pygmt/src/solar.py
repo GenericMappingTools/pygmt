@@ -92,6 +92,6 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
             )
         except ValueError as verr:
             raise GMTInvalidInput("Unrecognized datetime format.") from verr
-        kwargs["T"] += f"+d{datetime_string}" 
+        kwargs["T"] += f"+d{datetime_string}"
     with Session() as lib:
         lib.call_module("solar", build_arg_string(kwargs))
