@@ -66,30 +66,29 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if "T" not in kwargs:
-        if terminator not in [
-            "day_night",
-            "nautical",
-            "civil",
-            "astronomical",
-            "astro",
-            "d",
-            "n",
-            "c",
-            "a",
-        ]:
-            raise GMTInvalidInput(
-                f"Unrecognized solar terminator type '{terminator}'. Valid values "
-                "are 'day_night', 'civil', 'nautical', and 'astronomical'."
-            )
-        if not terminator_datetime:
-            terminator_datetime = datetime.datetime.now()
-        try:
-            datetime_string = pd.to_datetime(terminator_datetime).strftime(
-                "%Y-%m-%dT%H:%M:%S"
-            )
-        except ValueError as verr:
-            raise GMTInvalidInput("Unrecognized datetime format.") from verr
-        kwargs["T"] = terminator[0] + "+d" + datetime_string
+    if terminator not in [
+        "day_night",
+        "nautical",
+        "civil",
+        "astronomical",
+        "astro",
+        "d",
+        "n",
+        "c",
+        "a",
+    ]:
+        raise GMTInvalidInput(
+            f"Unrecognized solar terminator type '{terminator}'. Valid values "
+            "are 'day_night', 'civil', 'nautical', and 'astronomical'."
+        )
+    if not terminator_datetime:
+        terminator_datetime = datetime.datetime.now()
+    try:
+        datetime_string = pd.to_datetime(terminator_datetime).strftime(
+            "%Y-%m-%dT%H:%M:%S"
+        )
+    except ValueError as verr:
+        raise GMTInvalidInput("Unrecognized datetime format.") from verr
+    kwargs["T"] = terminator[0] + "+d" + datetime_string
     with Session() as lib:
         lib.call_module("solar", build_arg_string(kwargs))
