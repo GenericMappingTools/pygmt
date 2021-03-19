@@ -50,27 +50,19 @@ fig.show()
 # ``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
 # ``stopDeg`` specify at what angle the arc will begin and end respectively.
 
+# vector specifications structured as: [x_start, y_start, diameter, degree_start, degree_stop]
+data = np.array([[5, 5, 2.5, 90, 270]])
+
 fig = pygmt.Figure()
-
-reg_x_lowbound = 0
-reg_x_upperbound = 8
-reg_y_lowbound = -15
-reg_y_upperbound = 15
-
-fig.basemap(
-    region=[reg_x_lowbound, reg_x_upperbound, reg_y_lowbound, reg_y_upperbound],
-    projection="X15c/10c",
-    frame=True,
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10c/10c",
+    frame="a",
+    data=data,
+    style="m0.5c+ea",
+    pen="2p",
+    color="red3",
 )
-
-x = 4
-y = 0
-diam = 4
-startDeg = 90
-stopDeg = 270
-
-data = np.array([[x, y, diam, startDeg, stopDeg]])
-fig.plot(data=data, style="m0.5c+ea", color="red3", pen="1.5p,black")
 fig.show()
 
 ########################################################################################
