@@ -85,14 +85,14 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
             f"Unrecognized solar terminator type '{terminator}'. Valid values "
             "are 'day_night', 'civil', 'nautical', and 'astronomical'."
         )
-    if not terminator_datetime:
-        terminator_datetime = datetime.datetime.now()
-    try:
-        datetime_string = pd.to_datetime(terminator_datetime).strftime(
-            "%Y-%m-%dT%H:%M:%S"
-        )
-    except ValueError as verr:
-        raise GMTInvalidInput("Unrecognized datetime format.") from verr
-    kwargs["T"] = terminator[0] + "+d" + datetime_string
+    kwargs["T"] = terminator[0]
+    if terminator_datetime:
+        try:
+            datetime_string = pd.to_datetime(terminator_datetime).strftime(
+                "%Y-%m-%dT%H:%M:%S"
+            )
+        except ValueError as verr:
+            raise GMTInvalidInput("Unrecognized datetime format.") from verr
+        kwargs["T"] += f"+d{datetime_string}" 
     with Session() as lib:
         lib.call_module("solar", build_arg_string(kwargs))
