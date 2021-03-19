@@ -23,24 +23,24 @@ fig.solar(
     terminator="day_night",
     terminator_datetime=terminator_datetime,
     fill="navyblue@95",
-    pen="1p",
+    pen="0.5p",
 )
 fig.solar(
     terminator="civil",
     terminator_datetime=terminator_datetime,
     fill="navyblue@85",
-    pen="1p",
+    pen="0.5p",
 )
 fig.solar(
     terminator="nautical",
     terminator_datetime=terminator_datetime,
     fill="navyblue@80",
-    pen="1p",
+    pen="0.5p",
 )
 fig.solar(
     terminator="astronomical",
     terminator_datetime=terminator_datetime,
     fill="navyblue@80",
-    pen="1p",
+    pen="0.5p",
 )
 fig.show()
