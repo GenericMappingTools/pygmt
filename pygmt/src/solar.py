@@ -64,6 +64,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     {p}
     {t}
     """
+    # TODO: Incorporate "-T+zTZ"
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if "T" in kwargs:
