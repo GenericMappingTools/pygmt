@@ -38,9 +38,9 @@ if IPython:
         SHOW_CONFIG["method"] = "notebook"
 
 # Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
-# external viewer. Use it for running the tests and building the docs to
-# avoid pop up windows.
-if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "default").lower() == "false":
+# external display. Use it when running the tests and building the docs to
+# avoid popping up windows.
+if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
     SHOW_CONFIG["method"] = "none"
 
 
@@ -261,8 +261,8 @@ class Figure:
         otherwise opens it in the default viewer for your operating system
         (falls back to the default web browser).
 
-        :func:`pygmt.set_display` can select the default display method (either
-        "notebook" or "external").
+        :func:`pygmt.set_display` can select the default display method
+        ("notebook", "external", or "none").
 
         The ``method`` parameter can also override the default display method
         for the current figure. Parameters ``dpi`` and ``width`` can be used
@@ -270,8 +270,8 @@ class Figure:
 
         Note: The external viewer can be disabled by setting the
         ``PYGMT_USE_EXTERNAL_DISPLAY`` environment variable to ``false``.
-        This is useful for when running unit tests and building the
-        documentation in consoles without a Graphical User Interface.
+        This is useful when running unit tests and building the documentation
+        in consoles without a Graphical User Interface.
 
         Note that the external viewer does not block the current process,
         so this won't work if multiple figures are shown in one script.
@@ -279,16 +279,15 @@ class Figure:
         Parameters
         ----------
         dpi : int
-            The image resolution (dots per inch). Only works for "notebook"
-            mode.
+            The image resolution (dots per inch) in Jupyter notebooks.
         width : int
-            Width of the figure shown in the notebook in pixels. Only works for
-            "notebook" mode.
+            The image width (in pixels) in Jupyter notebooks.
         method : str
             How the current figure will be displayed. Options are
 
             - ``'external'``: PDF preview in an external program [default]
             - ``'notebook'``: PNG preview [default in Jupyter notebooks]
+            - ``'none'``: Disable image preview
 
         Returns
         -------
@@ -448,9 +447,9 @@ def set_display(method=None):
     method : str or None
         The method to display an image. Choose from:
 
-        - "notebook": insert images in Jupyter notebooks
-        - "external": display images in an external viewer
-        - "none": disable image display
+        - ``'external'``: PDF preview in an external program [default]
+        - ``'notebook'``: PNG preview [default in Jupyter notebooks]
+        - ``'none'``: Disable image preview
     """
     if method in ["notebook", "external", "none"]:
         SHOW_CONFIG["method"] = method
