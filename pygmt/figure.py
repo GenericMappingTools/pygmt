@@ -3,8 +3,13 @@ Define the Figure class that handles all plotting.
 """
 import base64
 import os
-import sys
 from tempfile import TemporaryDirectory
+
+try:
+    import IPython
+except KeyError:
+    IPython = None  # pylint: disable=invalid-name
+
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
@@ -27,13 +32,10 @@ SHOW_CONFIG = {
 }
 
 # Show figures in Jupyter notebooks if available
-try:
-    IPython = sys.modules["IPython"]
-    get_ipython = IPython.get_ipython()
+if IPython:
+    get_ipython = IPython.get_ipython()  # pylint: disable=invalid-name
     if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
         SHOW_CONFIG["method"] = "notebook"
-except KeyError:
-    IPython = None  # pylint: disable=invalid-name
 
 # Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
 # external viewer. Use it for running the tests and building the docs to
@@ -292,14 +294,20 @@ class Figure:
         # called. Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
+        # Set the default display method
         if method is None:
             method = SHOW_CONFIG["method"]
 
-        if method == "notebook":
-            if IPython is not None:
-                png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
-                IPython.display.display(IPython.display.Image(data=png, width=width))
-            else:
+        if method not in ["external", "notebook", "none"]:
+            raise GMTInvalidInput(
+                (
+                    f"Invalid display method '{method}', "
+                    "should be either 'notebook', 'external', or 'none'."
+                )
+            )
+
+        if method in ["notebook", "none"]:
+            if IPython is None:
                 raise GMTError(
                     (
                         "Notebook display is selected, but IPython is not available. "
@@ -307,18 +315,17 @@ class Figure:
                         "or run the script in a Jupyter notebook."
                     )
                 )
-        elif method == "external":
+            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            img = IPython.display.Image(data=png, width=width)
+            # IPython.display.display(img)
+            return img
+
+        if method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
-        elif method == "none":
-            pass
-        else:
-            raise GMTInvalidInput(
-                (
-                    f"Invalid display method '{method}', "
-                    "should be either 'notebook', 'external', or 'none'."
-                )
-            )
+            return None
+
+        return None
 
     def shift_origin(self, xshift=None, yshift=None):
         """
