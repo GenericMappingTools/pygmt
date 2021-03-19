@@ -289,6 +289,14 @@ class Figure:
 
             - ``'external'``: PDF preview in an external program [default]
             - ``'notebook'``: PNG preview [default in Jupyter notebooks]
+
+        Returns
+        -------
+        img : IPython.display.Image or None
+            Return type depends on the ``method`` parameter:
+
+            - IPython.display.Image: if ``method`` is ``'notebook'``
+            - None: if ``method`` is ``'external'`` or ``'none'``
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
