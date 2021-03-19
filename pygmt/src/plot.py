@@ -143,11 +143,13 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
     {G}
-    intensity : float or bool
+    intensity : float or bool or 1d array
         Provide an *intens* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination [None]. If
         using ``intensity=True``, we will instead read *intens* from the
         first data column after the symbol parameters (if given).
+        *intensity* can also be a 1d array to set varying intensity for
+        symbols, but it is only valid if using ``x``/``y``.
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
