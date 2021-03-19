@@ -46,9 +46,9 @@ fig.show()
 
 ########################################################################################
 # Circular vectors can be plotted using an ``x`` and ``y`` value to specify
-# where the origin of the arc will be located on the plane. The variable
-# ``diam`` is used to specify the diameter of the arc while the ``startDeg`` and
-# ``stopDeg`` specify at what angle the arc will originate and end respectively.
+# where the origin of the circle will be located on the plane. The variable
+# ``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
+# ``stopDeg`` specify at what angle the arc will begin and end respectively.
 
 fig = pygmt.Figure()
 
