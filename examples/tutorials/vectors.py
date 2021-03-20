@@ -19,21 +19,20 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 import numpy as np
 import pygmt
 
-'''
-## Plot Caretesian Vectors
-----------
-
-Create a simple Cartesian vector using a starting point through
-``x``, ``y``, and ``direction`` parameters. The direction is specified
-by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``
-
-On the shown figure, the plot is projected on a _10X10_ region,
-which is specified by the `region` and `projection` parameters.
-
-Notice that the ``v`` in the ``style`` parameter stands for
-vector; it distinguishes it from regular lines and allows for
-different customization.
-'''
+########################################################################################
+# Plot Caretesian Vectors
+# ----------
+# 
+# Create a simple Cartesian vector using a starting point through
+# ``x``, ``y``, and ``direction`` parameters. The direction is specified
+# by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``
+# 
+# On the shown figure, the plot is projected on a _10X10_ region,
+# which is specified by the `region` and `projection` parameters.
+# 
+# Notice that the ``v`` in the ``style`` parameter stands for
+# vector; it distinguishes it from regular lines and allows for
+# different customization.
 
 fig = pygmt.Figure()
 fig.plot(
@@ -47,17 +46,17 @@ fig.plot(
 )
 fig.show()
 
-'''
-In this example, we apply the same concept shown previously to plot multiple
-vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
-of all x and y coordinates will be passed. Similarly, the length of direction
-list will increase accordingly.
+########################################################################################
+# In this example, we apply the same concept shown previously to plot multiple
+# vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
+# of all x and y coordinates will be passed. Similarly, the length of direction
+# list will increase accordingly.
+# 
+# Additionally, we changed the style of the vector to include a red
+# arrowhead and increased the thickness of the line. A list of different
+# styling attributes can be found in
+# [Vector attributes documentation](https://www.pygmt.org/latest/gallery/lines/vector_heads_tails.html)
 
-Additionally, we changed the style of the vector to include a red
-arrowhead and increased the thickness of the line. A list of different
-styling attributes can be found in
-[Vector attributes documentation](https://www.pygmt.org/latest/gallery/lines/vector_heads_tails.html)
-'''
 
 fig = pygmt.Figure()
 fig.plot(
@@ -73,16 +72,16 @@ fig.plot(
 )
 fig.show()
 
-'''
-Vectors can also be plotted by including all the information
-about a vector ina single list. However, this requires creating
-a list for all vectors and passing it into a ``numpy`` array object.
-Each vector list contains the information structured as:
-``[x_start, y_start, direction_degrees, magnitude]``
+########################################################################################
+# Vectors can also be plotted by including all the information
+# about a vector ina single list. However, this requires creating
+# a list for all vectors and passing it into a ``numpy`` array object.
+# Each vector list contains the information structured as:
+# ``[x_start, y_start, direction_degrees, magnitude]``
+# 
+# If this approach is chosen, ``data`` parameter must be
+# used instead of ``x``, ``y`` and  ``direction``.
 
-If this approach is chosen, ``data`` parameter must be
-used instead of ``x``, ``y`` and  ``direction``.
-'''
 
 vector_1 = [2, 3, 45, 4]
 # Create a list of lists that include each vector information
@@ -102,12 +101,12 @@ fig.plot(
 fig.show()
 
 
-'''
-Using the functionality mentioned in the previous example,
-multiple vectors can be plotted at the same time. Another
-vector could be simply added to the 2d ``numpy`` array object
-and passed using `data` parameter.
-'''
+########################################################################################
+# Using the functionality mentioned in the previous example,
+# multiple vectors can be plotted at the same time. Another
+# vector could be simply added to the 2d ``numpy`` array object
+# and passed using `data` parameter.
+
 
 # vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
 vector_1 = [2, 3, 45, 4]
@@ -127,15 +126,15 @@ fig.plot(
 )
 fig.show()
 
-'''
+########################################################################################
 ## Plot Circular Vectors
-----------
+# ----------
+# 
+# Circular vectors can be plotted using an ``x`` and ``y`` value to specify
+# where the origin of the circle will be located on the plane. The variable
+# ``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
+# ``stopDeg`` specify at what angle the arc will begin and end respectively.
 
-Circular vectors can be plotted using an ``x`` and ``y`` value to specify
-where the origin of the circle will be located on the plane. The variable
-``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
-``stopDeg`` specify at what angle the arc will begin and end respectively.
-'''
 fig = pygmt.Figure()
 
 reg_x_lowbound = 0
@@ -160,6 +159,7 @@ fig.plot(data=data, style="m0.5c+ea", color="red3", pen="1.5p,black")
 fig.show()
 
 ########################################################################################
+# FIXME: Everything after this is from ``lines.py`` and must be removed
 # Additional line segments can be added by including additional values for ``x``
 # and ``y``.
 
