@@ -1,5 +1,5 @@
 """
-config - set GMT defaults globally or locally
+config - set GMT defaults globally or locally.
 """
 from pygmt.clib import Session
 
