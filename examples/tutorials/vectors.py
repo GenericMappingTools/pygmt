@@ -39,10 +39,10 @@ fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
     frame="a",
-    x = 2,
-    y = 8,
-    direction = [[-45],[6]],
-    style="v0c"
+    x=2,
+    y=8,
+    direction=[[-45], [6]],
+    style="v0c",
 )
 fig.show()
 
@@ -62,9 +62,9 @@ fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
     frame="a",
-    x = [2,4],
-    y = [8,1],
-    direction = [[-45,23],[6,3]],
+    x=[2, 4],
+    y=[8, 1],
+    direction=[[-45, 23], [6, 3]],
     style="v0.6c+e",
     pen="2p",
     color="red3",
@@ -110,7 +110,7 @@ vector_2 = [7.5, 8.3, -120.5, 7.2]
 # Create a list of lists that include each vector information
 vectors = np.array([vector_1] + [vector_2])
 print(vectors)
-# vectors structure: 
+# vectors structure:
 # [[   2.     3.    45.     4. ]
 #  [   7.5    8.3 -120.5    7.2]]
 
