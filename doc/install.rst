@@ -46,15 +46,13 @@ Start by looking at the tutorials on our sidebar, good luck!
 Which Python?
 -------------
 
-PyGMT is tested to run on **Python 3.7 or greater**. Older Python versions may
-work, but there is no guarantee that PyGMT will behave as expected.
+PyGMT is tested to run on **Python 3.7 or greater**.
 
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
 Python distribution to ensure you have all dependencies installed and the
 `conda <https://docs.conda.io/projects/conda/en/latest/>`__
-package manager is available. Installing Anaconda does not require administrative
-rights to your computer and doesn't interfere with any other Python
-installations on your system.
+package manager is available. Installing Anaconda does not require administrative rights
+to your computer and won't interfere with any other Python installations on your system.
 
 
 Which GMT?
@@ -91,6 +89,14 @@ The following are optional (but recommended) dependencies:
 
 * `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks.
 
+Note that PyGMT has adopted
+`NEP29 <https://numpy.org/neps/nep-0029-deprecation_policy.html>`__ alongside the rest
+of the Scientific Python ecosystem, and therefore supports:
+
+* All minor versions of Python released 42 months prior to the project,
+  and at minimum the two latest minor versions.
+* All minor versions of NumPy released in the 24 months prior to the project,
+  and at minimum the last three minor versions.
 
 Installing GMT and other dependencies
 -------------------------------------
