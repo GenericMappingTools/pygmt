@@ -38,7 +38,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="a",
+    frame="ag",
     x=2,
     y=8,
     direction=[[-45], [6]],
@@ -61,7 +61,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="a",
+    frame="ag",
     x=[2, 4],
     y=[8, 1],
     direction=[[-45, 23], [6, 3]],
@@ -90,7 +90,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="a",
+    frame="ag",
     data=vectors,
     style="v0.6c+e",
     pen="2p",
@@ -109,7 +109,6 @@ vector_1 = [2, 3, 45, 4]
 vector_2 = [7.5, 8.3, -120.5, 7.2]
 # Create a list of lists that include each vector information
 vectors = np.array([vector_1] + [vector_2])
-print(vectors)
 # vectors structure:
 # [[   2.     3.    45.     4. ]
 #  [   7.5    8.3 -120.5    7.2]]
@@ -118,12 +117,86 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="a",
+    frame="ag",
     data=vectors,
     style="v0.6c+e",
     pen="2p",
     color="red3",
 )
+fig.show()
+
+########################################################################################
+# More Complicated example with maps TODO: add extensive description
+
+# create a plot with coast, Mercator projection (M) over the continental US
+fig = pygmt.Figure()
+fig.coast(
+    region=[-127, -64, 24, 53],
+    projection="M15c",
+    frame="ag",
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
+    land="grey",
+    water="lightblue",
+)
+
+style = "v0.6c+bc+ea+a30"
+fig.plot(
+    x=-110,
+    y=40,
+    style=style,
+    pen="1p",
+    color="red3",
+    direction=[[-25], [3]]
+)
+
+# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
+vector_2 = [-82, 40.5, 138, 3]
+vector_3 = [-71.2, 45, -115.7, 6]
+# Create a list of lists that include each vector information
+vectors = np.array([vector_2] + [vector_3])
+
+fig.plot(
+    data=vectors,
+    style=style,
+    pen="1p",
+    color="yellow",
+)
+
+fig.show()
+
+########################################################################################
+# More Complicated example with maps TODO: add extensive description
+
+# create a plot with coast, Mercator projection (M) over the continental US
+fig = pygmt.Figure()
+fig.coast(
+    region=[20, 50, 30, 45],
+    projection="T35/12c",
+    frame=True,
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
+    land="lightbrown",
+    water="lightblue",
+)
+
+x = np.linspace(36, 42, 5) # x values = [36.  37.5 39.  40.5 42. ]
+y = np.linspace(39, 39, 5) # y values = [39. 39. 39. 39.]
+direction = np.linspace(-90, -90, 5) # direction values = [-90. -90. -90. -90.]
+length = np.linspace(1.5, 1.5, 5) # length values = [1.5 1.5 1.5 1.5]
+
+fig.plot(
+    x=x,
+    y=y,
+    style="v0.4c+ea",
+    pen="0.6p",
+    color="red3",
+    direction=[direction, length]
+)
+
+
 fig.show()
 
 ########################################################################################
