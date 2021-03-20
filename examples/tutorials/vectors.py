@@ -1,5 +1,5 @@
 """
-Plot Vectors
+Plot vectors
 ==========
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
@@ -73,7 +73,7 @@ fig.show()
 
 ########################################################################################
 # Vectors can also be plotted by including all the information
-# about a vector ina single list. However, this requires creating
+# about a vector in a single list. However, this requires creating
 # a list for all vectors and passing it into a ``numpy`` array object.
 # Each vector list contains the information structured as:
 # ``[x_start, y_start, direction_degrees, magnitude]``
@@ -132,8 +132,8 @@ fig.show()
 #
 # Circular vectors can be plotted using an ``x`` and ``y`` value to specify
 # where the origin of the circle will be located on the plane. The variable
-# ``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
-# ``stopDeg`` specify at what angle the arc will begin and end respectively.
+# ``diam`` is used to specify the diameter of the circle while the ``startDeg``
+# and ``stopDeg`` specify at what angle the arc will begin and end respectively.
 
 fig = pygmt.Figure()
 
