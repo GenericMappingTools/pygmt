@@ -79,18 +79,17 @@ We recommend following the instructions further on to install GMT 6.
 Dependencies
 ------------
 
-PyGMT requires the following libraries:
+PyGMT requires the following libraries to be installed:
 
-* `numpy <http://www.numpy.org/>`__
-* `pandas <https://pandas.pydata.org/>`__
-* `xarray <http://xarray.pydata.org/>`__
-* `netCDF4 <https://github.com/Unidata/netcdf4-python>`__
-* `packaging <https://pypi.org/project/packaging/>`__
+* `numpy <https://numpy.org>`__
+* `pandas <https://pandas.pydata.org>`__
+* `xarray <https://xarray.pydata.org>`__
+* `netCDF4 <https://unidata.github.io/netcdf4-python>`__
+* `packaging <https://packaging.pypa.io>`__
 
 The following are optional (but recommended) dependencies:
 
-* `IPython <https://ipython.org/>`__: For embedding the figures in Jupyter
-  notebooks.
+* `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks.
 
 
 Installing GMT and other dependencies
