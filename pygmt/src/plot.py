@@ -220,17 +220,16 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
             )
         extra_arrays.append(sizes)
 
-    if "I" in kwargs and is_nonstr_iter(kwargs["I"]):
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for intensity if data is matrix or file."
-            )
-        extra_arrays.append(kwargs["I"])
-        kwargs["I"] = ""
-
-    if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
-        extra_arrays.append(kwargs["t"])
-        kwargs["t"] = ""
+    for flag in ["I", "t"]:
+        if flag in kwargs and is_nonstr_iter(kwargs[flag]):
+            if kind != "vectors":
+                raise GMTInvalidInput(
+                    "Can't use arrays for {} if data is matrix or file.".format(
+                        plot.aliases[flag]
+                    )
+                )
+            extra_arrays.append(kwargs[flag])
+            kwargs[flag] = ""
 
     with Session() as lib:
         # Choose how data will be passed in to the module
