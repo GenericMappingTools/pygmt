@@ -1,5 +1,5 @@
 """
-GMT accessor methods
+GMT accessor methods.
 """
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
