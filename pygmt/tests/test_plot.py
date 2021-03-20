@@ -256,9 +256,9 @@ def test_plot_varying_intensity():
         x=x,
         y=y,
         region=[0, 10, 0, 10],
-        projection="X4i",
+        projection="X10c",
         frame=True,
-        style="c0.2c",
+        style="c0.5c",
         color="blue",
         intensity=intensity,
     )
