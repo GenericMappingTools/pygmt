@@ -22,14 +22,14 @@ import pygmt
 ########################################################################################
 # Plot Caretesian Vectors
 # ----------
-# 
+#
 # Create a simple Cartesian vector using a starting point through
 # ``x``, ``y``, and ``direction`` parameters. The direction is specified
 # by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``
-# 
+#
 # On the shown figure, the plot is projected on a _10X10_ region,
 # which is specified by the `region` and `projection` parameters.
-# 
+#
 # Notice that the ``v`` in the ``style`` parameter stands for
 # vector; it distinguishes it from regular lines and allows for
 # different customization.
@@ -51,12 +51,11 @@ fig.show()
 # vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
 # of all x and y coordinates will be passed. Similarly, the length of direction
 # list will increase accordingly.
-# 
+#
 # Additionally, we changed the style of the vector to include a red
 # arrowhead and increased the thickness of the line. A list of different
 # styling attributes can be found in
 # [Vector attributes documentation](https://www.pygmt.org/latest/gallery/lines/vector_heads_tails.html)
-
 
 fig = pygmt.Figure()
 fig.plot(
@@ -78,10 +77,9 @@ fig.show()
 # a list for all vectors and passing it into a ``numpy`` array object.
 # Each vector list contains the information structured as:
 # ``[x_start, y_start, direction_degrees, magnitude]``
-# 
+#
 # If this approach is chosen, ``data`` parameter must be
 # used instead of ``x``, ``y`` and  ``direction``.
-
 
 vector_1 = [2, 3, 45, 4]
 # Create a list of lists that include each vector information
@@ -100,20 +98,22 @@ fig.plot(
 )
 fig.show()
 
-
 ########################################################################################
 # Using the functionality mentioned in the previous example,
 # multiple vectors can be plotted at the same time. Another
 # vector could be simply added to the 2d ``numpy`` array object
 # and passed using `data` parameter.
 
-
 # vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
 vector_1 = [2, 3, 45, 4]
 vector_2 = [7.5, 8.3, -120.5, 7.2]
 # Create a list of lists that include each vector information
 vectors = np.array([vector_1] + [vector_2])
-# data looks like
+print(vectors)
+# vectors structure: 
+# [[   2.     3.    45.     4. ]
+#  [   7.5    8.3 -120.5    7.2]]
+
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
@@ -127,9 +127,9 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-## Plot Circular Vectors
+# # Plot Circular Vectors
 # ----------
-# 
+#
 # Circular vectors can be plotted using an ``x`` and ``y`` value to specify
 # where the origin of the circle will be located on the plane. The variable
 # ``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
