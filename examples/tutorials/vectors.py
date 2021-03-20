@@ -148,7 +148,7 @@ fig.plot(
     style=style,
     pen="1p",
     color="red3",
-    direction=[[-25], [3]]
+    direction=[[-25], [3]],
 )
 
 # vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
@@ -182,10 +182,10 @@ fig.coast(
     water="lightblue",
 )
 
-x = np.linspace(36, 42, 5) # x values = [36.  37.5 39.  40.5 42. ]
-y = np.linspace(39, 39, 5) # y values = [39. 39. 39. 39.]
-direction = np.linspace(-90, -90, 5) # direction values = [-90. -90. -90. -90.]
-length = np.linspace(1.5, 1.5, 5) # length values = [1.5 1.5 1.5 1.5]
+x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
+y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
+direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
+length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 
 fig.plot(
     x=x,
@@ -193,7 +193,7 @@ fig.plot(
     style="v0.4c+ea",
     pen="0.6p",
     color="red3",
-    direction=[direction, length]
+    direction=[direction, length],
 )
 
 
