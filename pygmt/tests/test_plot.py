@@ -93,41 +93,19 @@ def test_plot_fail_no_data(data):
         )
 
 
-def test_plot_fail_size_color(data):
+def test_plot_fail_color_size_intensity(data):
     """
     Should raise an exception if array color, sizes and intensity are used with
     matrix.
     """
     fig = Figure()
+    kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
     with pytest.raises(GMTInvalidInput):
-        fig.plot(
-            data=data,
-            region=region,
-            projection="X4i",
-            style="c0.2c",
-            color=data[:, 2],
-            frame="afg",
-        )
+        fig.plot(style="c0.2c", color=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(
-            data=data,
-            region=region,
-            projection="X4i",
-            style="cc",
-            sizes=data[:, 2],
-            color="red",
-            frame="afg",
-        )
+        fig.plot(style="cc", sizes=data[:, 2], color="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(
-            data=data,
-            region=region,
-            projection="X4i",
-            style="c0.2c",
-            color="red",
-            frame="afg",
-            intensity=data[:, 2],
-        )
+        fig.plot(style="c0.2c", color="red", intensity=data[:, 2], **kwargs)
 
 
 @check_figures_equal()
