@@ -52,10 +52,10 @@ def test_solar_set_terminator_datetime_object():
         year=1990, month=2, day=17, hour=4, minute=25, second=0
     )
     fig.solar(
-        R="d",
-        J="W0/15c",
-        B="a",
-        termiantor="day_night",
+        region="d",
+        projection="W0/15c",
+        frame="a",
+        terminator="day_night",
         terminator_datetime=terminator_datetime,
     )
     return fig
@@ -63,7 +63,7 @@ def test_solar_set_terminator_datetime_object():
 
 def test_invalid_terminator_type():
     """
-    Test if fig.solar fails when it receives an invalid terminator type.
+    Test if solar fails when it receives an invalid terminator type.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
@@ -77,19 +77,19 @@ def test_invalid_terminator_type():
 
 def test_invalid_T_parameter():
     """
-    Test if fig.solar fails when it receives a GMT argument for 'T' instead of
+    Test if solar fails when it receives a GMT argument for 'T' instead of
     the PyGMT arguments for 'terminator' and 'terminator_datetime'.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.solar(
-            region="d", projection="W0/15c", frame="a", T="d+d1990-02-17T04:25:00"
+            region="d", projection="W0/15c", frame="a", terminator="d+d1990-02-17T04:25:00"
         )
 
 
 def test_invalid_datetime():
     """
-    Test if fig.solar fails when it receives an invalid datetime string.
+    Test if solar fails when it receives an invalid datetime string.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
