@@ -76,7 +76,7 @@ fig.show()
 
 ########################################################################################
 # The default unit of vector magnitude/length is centimeters.
-# However, this can be changed to inches or points. Note that, in GMT, 
+# However, this can be changed to inches or points. Note that, in GMT,
 # one point is defined as 1/72 inch.
 #
 # In this example, the graphed region is _10in X 10in_, however,
@@ -100,13 +100,13 @@ fig.plot(
 # Vector 2 after changing default unit to in
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
     fig.plot(
-    x=2,
-    y=7,
-    direction=[[0], [3]],
-    style="v1c+e",
-    pen="2p",
-    color="red3",
-)
+        x=2,
+        y=7,
+        direction=[[0], [3]],
+        style="v1c+e",
+        pen="2p",
+        color="red3",
+    )
 fig.show()
 
 ########################################################################################
@@ -164,7 +164,9 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# More Complicated example with maps TODO: add extensive description
+# In this example, cartesian vectors are plotted over a Mercator
+# projection of the continental US. The x values represent the
+# longitude and y values represent the latitude where the vector starts
 
 # create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
@@ -205,7 +207,9 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# More Complicated example with maps TODO: add extensive description
+# Another example of plotting cartesian vectors over a coast plot. This time
+# a Transverse Mercator projection is used. Additionally, ``numpy.linespace``
+# is used to create 5 vectors with equal stops.
 
 # create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
