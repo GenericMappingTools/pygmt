@@ -64,7 +64,7 @@ COMMON_OPTIONS = {
          """,
     "a": r"""
         aspatial : str
-            [*col*\ =]\ *name*\ [,...]
+            [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.
             Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
          """,
