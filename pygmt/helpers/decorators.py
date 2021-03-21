@@ -111,11 +111,12 @@ COMMON_OPTIONS = {
             the viewpoint. Default is [180, 90]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
-    "registration": r"""
+    "r": r"""
         registration : str
             **g**\|\ **p**.
-            Force output grid to be gridline (g) or pixel (p) node registered.
-            Default is gridline (g).""",
+            Force gridline (**g**) or pixel (**p**) node registration.
+            [Default is **g**\ (ridline)].
+        """,
     "t": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.
