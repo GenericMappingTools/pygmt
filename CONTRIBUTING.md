@@ -344,8 +344,10 @@ If you're not sure how to do this or are having trouble, submit your pull reques
 anyway.
 We will help you create the tests and sort out any kind of problem during code review.
 
-Run the tests and calculate test coverage using:
+Pull the baseline images, run the tests, and calculate test coverage using:
 
+    dvc status  # should report any files 'not_in_cache'
+    dvc pull  # pull down files from DVC remote cache (fetch + checkout)
     make test
 
 The coverage report will let you know which lines of code are touched by the tests.
