@@ -275,7 +275,7 @@ fig.show()
 
 ########################################################################################
 # FIXME: Everything after this is from ``lines.py`` and must be removed
-# 
+#
 # Additional line segments can be added by including additional values for ``x``
 # and ``y``.
 
