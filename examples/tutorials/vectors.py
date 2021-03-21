@@ -30,7 +30,7 @@ import pygmt
 # On the shown figure, the plot is projected on a _10cm X 10cm_ region,
 # which is specified by the `region` and `projection` parameters.
 # The magnitude of the vector also uses centimeters by default but
-# could be changed using [pygmt.config](https://www.pygmt.org/latest/api/generated/pygmt.config.html#pygmt-config)
+# could be changed using :meth:`pygmt.config`
 # (Check the next examples for unit changes)
 #
 # Notice that the ``v`` in the ``style`` parameter stands for
@@ -275,6 +275,7 @@ fig.show()
 
 ########################################################################################
 # FIXME: Everything after this is from ``lines.py`` and must be removed
+# 
 # Additional line segments can be added by including additional values for ``x``
 # and ``y``.
 
