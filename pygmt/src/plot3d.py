@@ -34,6 +34,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     Z="zvalue",
+    a="aspatial",
     i="columns",
     l="label",
     c="panel",
@@ -151,6 +152,7 @@ def plot3d(
         polygon in the input data. To apply it to the fill color, use
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
+    {a}
     {c}
     {f}
     label : str

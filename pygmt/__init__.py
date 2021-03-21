@@ -24,12 +24,13 @@ from pkg_resources import get_distribution
 
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
+from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
-from pygmt.modules import GMTDataArrayAccessor, config
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
     blockmedian,
+    config,
     grd2cpt,
     grdcut,
     grdfilter,
