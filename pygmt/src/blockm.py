@@ -1,5 +1,5 @@
 """
-blockm - Block average (x,y,z) data tables by mean, median, or mode estimation.
+blockm - Block average (x,y,z) data tables by mean or median estimation.
 """
 import pandas as pd
 from pygmt.clib import Session
@@ -135,11 +135,11 @@ def blockmedian(table, outfile=None, **kwargs):
 
 def _blockm(block_method, table, outfile, **kwargs):
     r"""
-    Block average (x,y,z) data tables by median, mean, or mode estimation.
+    Block average (x,y,z) data tables by mean or median estimation.
 
     Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] from a table and writes to the output a median, mode,
-    or mean (depending on ``block_method``) position and value for every
+    quadruples (x,y,z,w)] from a table and writes to the output a mean or
+    median (depending on ``block_method``) position and value for every
     non-empty block in a grid region defined by the ``region`` and ``spacing``
     parameters.
 
