@@ -71,6 +71,28 @@ def blockmedian(table, outfile=None, **kwargs):
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``)
     """
+    return _blockm(method="blockmedian", table=table, outfile=outfile, **kwargs)
+
+def _blockm(method, table, outfile, **kwargs):
+    r"""
+    Block average (x,y,z) data tables by median, mean, or mode estimation.
+
+    Reads arbitrarily located (x,y,z) triples [or optionally weighted
+    quadruples (x,y,z,w)] from a table and writes to the output a median
+    position and value for every non-empty block in a grid region defined by
+    the ``region`` and ``spacing`` parameters.
+
+    Returns
+    -------
+    output : pandas.DataFrame or None
+        Return type depends on whether the ``outfile`` parameter is set:
+
+        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
+          is not set
+        - None if ``outfile`` is set (filtered output will be stored in file
+          set by ``outfile``)
+    """
+
     kind = data_kind(table)
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
@@ -89,7 +111,7 @@ def blockmedian(table, outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module="blockmedian", args=arg_str)
+                lib.call_module(module=method, args=arg_str)
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
