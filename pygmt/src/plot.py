@@ -34,6 +34,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     Z="zvalue",
+    a="aspatial",
     i="columns",
     l="label",
     c="panel",
@@ -181,6 +182,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         polygon in the input data. To apply it to the fill color, use
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
+    {a}
     {c}
     {f}
     columns : str or 1d array
