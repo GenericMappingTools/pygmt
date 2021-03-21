@@ -16,7 +16,13 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(I="spacing", R="region", V="verbose", f="coltypes")
+@use_alias(
+    I="spacing",
+    R="region",
+    V="verbose",
+    f="coltypes",
+    r="registration",
+)
 @kwargs_to_strings(R="sequence")
 def blockmedian(table, outfile=None, **kwargs):
     r"""
@@ -53,6 +59,7 @@ def blockmedian(table, outfile=None, **kwargs):
 
     {V}
     {f}
+    {r}
 
     Returns
     -------
