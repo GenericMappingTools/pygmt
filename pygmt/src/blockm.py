@@ -59,6 +59,7 @@ def blockmean(table, outfile=None, **kwargs):
         file.
 
     {V}
+    {a}
     {f}
     {r}
 
@@ -80,6 +81,7 @@ def blockmean(table, outfile=None, **kwargs):
     I="spacing",
     R="region",
     V="verbose",
+    a="aspatial",
     f="coltypes",
     r="registration",
 )
