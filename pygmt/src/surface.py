@@ -22,6 +22,7 @@ from pygmt.helpers import (
     R="region",
     G="outfile",
     V="verbose",
+    a="aspatial",
     f="coltypes",
     r="registration",
 )
@@ -67,6 +68,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
         to store the grid in.
 
     {V}
+    {a}
     {f}
     {r}
 

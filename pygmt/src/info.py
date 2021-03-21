@@ -18,6 +18,7 @@ from pygmt.helpers import (
     I="spacing",
     T="nearest_multiple",
     V="verbose",
+    a="aspatial",
     f="coltypes",
     r="registration",
 )
@@ -62,6 +63,7 @@ def info(table, **kwargs):
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
     {V}
+    {a}
     {f}
     {r}
 
