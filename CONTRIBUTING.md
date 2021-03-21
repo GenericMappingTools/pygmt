@@ -17,7 +17,7 @@ If you get stuck at any point you can create an
 us at one of the other channels [mentioned below](#how-can-i-talk-to-you).
 
 For more information on contributing to open source projects,
-[GitHub's own guide](https://guides.github.com/activities/contributing-to-open-source/)
+[GitHub's own guide](https://opensource.guide/how-to-contribute)
 is a great starting point if you are new to version control.
 Also, checkout the
 [Zen of Scientific Software Maintenance](https://jrleeman.github.io/ScientificSoftwareMaintenance/)
