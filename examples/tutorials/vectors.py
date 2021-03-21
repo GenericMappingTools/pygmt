@@ -27,8 +27,11 @@ import pygmt
 # ``x``, ``y``, and ``direction`` parameters. The direction is specified
 # by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``
 #
-# On the shown figure, the plot is projected on a _10X10_ region,
+# On the shown figure, the plot is projected on a _10cm X 10cm_ region,
 # which is specified by the `region` and `projection` parameters.
+# The magnitude of the vector also uses centimeters by default but
+# could be changed using [pygmt.config](https://www.pygmt.org/latest/api/generated/pygmt.config.html#pygmt-config)
+# (Check the next examples for unit changes)
 #
 # Notice that the ``v`` in the ``style`` parameter stands for
 # vector; it distinguishes it from regular lines and allows for
@@ -66,6 +69,41 @@ fig.plot(
     y=[8, 1],
     direction=[[-45, 23], [6, 3]],
     style="v0.6c+e",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+########################################################################################
+# The default unit of vector magnitude/length is centimeters.
+# However, this can be changed to inches or points. Note that, in GMT, 
+# one point is defined as 1/72 inch.
+#
+# In this example, the graphed region is _10in X 10in_, however,
+# the magnitude of the first vector is still graphed in centimeters.
+# Using ``pygmt.config(PROJ_LENGTH_UNIT="i")``, the default unit
+# can be changed to inches in the second plotted vector.
+
+fig = pygmt.Figure()
+# Vector 1 with default unit as cm
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10i/10i",
+    frame="ag",
+    x=2,
+    y=8,
+    direction=[[0], [3]],
+    style="v1c+e",
+    pen="2p",
+    color="red3",
+)
+# Vector 2 after changing default unit to in
+with pygmt.config(PROJ_LENGTH_UNIT="i"):
+    fig.plot(
+    x=2,
+    y=7,
+    direction=[[0], [3]],
+    style="v1c+e",
     pen="2p",
     color="red3",
 )
