@@ -2,15 +2,8 @@
 rose - Plot windrose diagrams or polar histograms.
 """
 
-# import numpy as np
 from pygmt.clib import Session
-from pygmt.helpers import (  # data_kind,
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -205,32 +198,15 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    # kind = data_kind(data, length, azimuth)
-
     with Session() as lib:
-        # Choose how data will be passed in to the module
+        # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(data=data, x=length, y=azimuth)
-
-        ## Choose how data will be passed in to the module
-        # if kind == "file":
-        #    file_context = dummy_context(data)
-        # elif kind == "matrix":
-        #    file_context = lib.virtualfile_from_matrix(data)
-        # elif kind == "vectors":
-        #    file_context = lib.virtualfile_from_vectors(
-        #        np.atleast_1d(length), np.atleast_1d(azimuth)
-        #    )
 
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
 
             if "I" not in kwargs:
                 lib.call_module("rose", arg_str)
-                result = None
             # if inquire only, give back statistics about input data
             else:
-                with GMTTempFile() as outfile:
-                    arg_str = " ".join([arg_str, " ->" + outfile.name])
-                    lib.call_module("rose", arg_str)
-                    result = outfile.read().strip()
-    return result
+                raise NotImplementedError
