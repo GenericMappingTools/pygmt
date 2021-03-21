@@ -1,5 +1,5 @@
 """
-blockmedian - Block average (x,y,z) data tables by median estimation.
+blockm - Block average (x,y,z) data tables by mean, median, or mode estimation.
 """
 import pandas as pd
 from pygmt.clib import Session
@@ -13,6 +13,65 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+
+
+@fmt_docstring
+@use_alias(
+    I="spacing",
+    R="region",
+    V="verbose",
+    f="coltypes",
+    r="registration",
+)
+@kwargs_to_strings(R="sequence")
+def blockmean(table, outfile=None, **kwargs):
+    r"""
+    Block average (x,y,z) data tables by mean estimation.
+
+    Reads arbitrarily located (x,y,z) triples [or optionally weighted
+    quadruples (x,y,z,w)] from a table and writes to the output a mean
+    position and value for every non-empty block in a grid region defined by
+    the ``region`` and ``spacing`` parameters.
+
+    Full option list at :gmt-docs:`blockmean.html`
+
+    {aliases}
+
+    Parameters
+    ----------
+    table : pandas.DataFrame or str
+        Either a pandas dataframe with (x, y, z) or (longitude, latitude,
+        elevation) values in the first three columns, or a file name to an
+        ASCII data table.
+
+    spacing : str
+        *xinc*\[\ *unit*\][**+e**\|\ **n**]
+        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
+        *xinc* [and optionally *yinc*] is the grid spacing.
+
+    region : str or list
+        *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
+        Specify the region of interest.
+
+    outfile : str
+        Required if ``table`` is a file. The file name for the output ASCII
+        file.
+
+    {V}
+    {f}
+    {r}
+
+    Returns
+    -------
+    output : pandas.DataFrame or None
+        Return type depends on whether the ``outfile`` parameter is set:
+
+        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
+          is not set
+        - None if ``outfile`` is set (filtered output will be stored in file
+          set by ``outfile``)
+    """
+    return _blockm(block_method="blockmean", table=table, outfile=outfile, **kwargs)
 
 
 @fmt_docstring
@@ -71,16 +130,18 @@ def blockmedian(table, outfile=None, **kwargs):
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``)
     """
-    return _blockm(method="blockmedian", table=table, outfile=outfile, **kwargs)
+    return _blockm(block_method="blockmedian", table=table, outfile=outfile, **kwargs)
 
-def _blockm(method, table, outfile, **kwargs):
+
+def _blockm(block_method, table, outfile, **kwargs):
     r"""
     Block average (x,y,z) data tables by median, mean, or mode estimation.
 
     Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] from a table and writes to the output a median
-    position and value for every non-empty block in a grid region defined by
-    the ``region`` and ``spacing`` parameters.
+    quadruples (x,y,z,w)] from a table and writes to the output a median, mode,
+    or mean (depending on ``block_method``) position and value for every
+    non-empty block in a grid region defined by the ``region`` and ``spacing``
+    parameters.
 
     Returns
     -------
@@ -111,7 +172,7 @@ def _blockm(method, table, outfile, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module=method, args=arg_str)
+                lib.call_module(module=block_method, args=arg_str)
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
