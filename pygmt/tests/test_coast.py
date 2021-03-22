@@ -124,28 +124,20 @@ def test_coast_dcw_multiple():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_coast_dcw_list():
     """
     Test passing a list of country codes and fill options to dcw.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.coast(
-        R="-10/15/25/44",
-        J="M15c",
-        B="a",
-        G="brown",
-        E=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
-    )
-    fig_test.coast(
+    fig = Figure()
+    fig.coast(
         region=[-10, 15, 25, 44],
         frame="a",
         projection="M15c",
         land="brown",
         dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @check_figures_equal()
