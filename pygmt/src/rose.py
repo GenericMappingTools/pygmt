@@ -30,6 +30,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     Y="yshift",
     Z="scale",
     i="columns",
+    c="panel",
     p="perspective",
     t="transparency",
 )
