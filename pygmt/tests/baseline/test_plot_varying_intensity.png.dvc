@@ -1,4 +1,4 @@
 outs:
-- md5: 31830242b87fd43409f4fee86ad78c16
-  size: 20919
+- md5: f4b44bcae2670fac23c6e43324bda8fe
+  size: 16182
   path: test_plot_varying_intensity.png
