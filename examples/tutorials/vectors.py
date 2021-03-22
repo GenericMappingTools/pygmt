@@ -27,8 +27,8 @@ import pygmt
 # ``x``, ``y``, and ``direction`` parameters. The direction is specified
 # by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``
 #
-# On the shown figure, the plot is projected on a _10cm X 10cm_ region,
-# which is specified by the `region` and `projection` parameters.
+# On the shown figure, the plot is projected on a 10cm X 10cm region,
+# which is specified by the ``projection`` parameter.
 # The magnitude of the vector also uses centimeters by default but
 # could be changed using :meth:`pygmt.config`
 # (Check the next examples for unit changes)
@@ -79,7 +79,7 @@ fig.show()
 # However, this can be changed to inches or points. Note that, in GMT,
 # one point is defined as 1/72 inch.
 #
-# In this example, the graphed region is _10in X 10in_, however,
+# In this example, the graphed region is 10in X 10in, however,
 # the magnitude of the first vector is still graphed in centimeters.
 # Using ``pygmt.config(PROJ_LENGTH_UNIT="i")``, the default unit
 # can be changed to inches in the second plotted vector.
@@ -140,7 +140,7 @@ fig.show()
 # Using the functionality mentioned in the previous example,
 # multiple vectors can be plotted at the same time. Another
 # vector could be simply added to the 2d ``numpy`` array object
-# and passed using `data` parameter.
+# and passed using ``data`` parameter.
 
 # vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
 vector_1 = [2, 3, 45, 4]
