@@ -8,4 +8,5 @@ from pygmt.datasets.tutorial import (
     load_ocean_ridge_points,
     load_sample_bathymetry,
     load_usgs_quakes,
+    load_fractures_compilation,
 )
