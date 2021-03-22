@@ -152,29 +152,6 @@ def _blockm(block_method, table, outfile, **kwargs):
     block_method : str
         Name of the GMT module to call. Must be "blockmean" or "blockmedian".
 
-    table : pandas.DataFrame or str
-        Either a pandas dataframe with (x, y, z) or (longitude, latitude,
-        elevation) values in the first three columns, or a file name to an
-        ASCII data table.
-
-    outfile : str
-        Required if ``table`` is a file. The file name for the output ASCII
-        file.
-
-    spacing : str
-        *xinc*\[\ *unit*\][**+e**\|\ **n**]
-        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        *xinc* [and optionally *yinc*] is the grid spacing.
-
-    region : str or list
-        *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
-        Specify the region of interest.
-
-    {V}
-    {a}
-    {f}
-    {r}
-
     Returns
     -------
     output : pandas.DataFrame or None
