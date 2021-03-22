@@ -26,16 +26,6 @@ def test_basemap():
 
 
 @pytest.mark.mpl_image_compare
-def test_basemap_list_region():
-    """
-    Create a simple basemap plot passing the region as a list.
-    """
-    fig = Figure()
-    fig.basemap(region=[-20, 50, 200, 500], projection="X6c/6c", frame="a")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_basemap_loglog():
     """
     Create a loglog basemap plot.
