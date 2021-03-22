@@ -156,21 +156,17 @@ def test_coast_dcw_continent():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_coast_dcw_state():
     """
     Test passing a US state code to dcw.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.coast(
-        R="-75/-69/40/44", J="M15c", B="a", G="brown", E="US.MA+gbisque+pblue"
-    )
-    fig_test.coast(
+    fig = Figure()
+    fig.coast(
         region=[-75, -69, 40, 44],
         frame="a",
         projection="M15c",
         land="brown",
         dcw="US.MA+gbisque+pblue",
     )
-    return fig_ref, fig_test
+    return fig
