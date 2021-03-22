@@ -35,7 +35,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     astronomical twilight.
 
     Full parameter list at :gmt-docs:`solar.html`
-    
+
     {aliases}
 
     Parameters
