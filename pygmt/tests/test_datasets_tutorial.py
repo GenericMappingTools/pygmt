@@ -61,7 +61,7 @@ def test_usgs_quakes():
     assert data.shape == (1197, 22)
 
 
-def fractures_compilation():
+def test_fractures_compilation():
     """
     Check that the dataset loads without errors.
     """
