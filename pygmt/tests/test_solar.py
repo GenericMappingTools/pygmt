@@ -82,8 +82,9 @@ def test_invalid_T_parameter():
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
+        # Use single-letter option 'T' for testing
         fig.solar(
-            region="d", projection="W0/15c", frame="a", terminator="d+d1990-02-17T04:25:00"
+            region="d", projection="W0/15c", frame="a", T="d+d1990-02-17T04:25:00"
         )
 
 
