@@ -145,7 +145,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     {G}
     intensity : float or bool or 1d array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
-        modulate the fill color by simulating illumination [None]. If
+        modulate the fill color by simulating illumination. If
         using ``intensity=True``, we will instead read *intensity* from the
         first data column after the symbol parameters (if given).
         *intensity* can also be a 1d array to set varying intensity for
@@ -224,9 +224,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         if flag in kwargs and is_nonstr_iter(kwargs[flag]):
             if kind != "vectors":
                 raise GMTInvalidInput(
-                    "Can't use arrays for {} if data is matrix or file.".format(
-                        plot.aliases[flag]
-                    )
+                    f"Can't use arrays for {plot.aliases[flag]} if data is matrix or file."
                 )
             extra_arrays.append(kwargs[flag])
             kwargs[flag] = ""
