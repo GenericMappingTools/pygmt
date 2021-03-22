@@ -14,16 +14,16 @@ def test_coast():
     """
     fig = Figure()
     fig.coast(
-        R="-30/30/-40/40",
-        J="m0.1i",
-        B=5,
-        I="1/1p,blue",
-        N="1/0.25p,-",
-        W="0.25p,white",
-        G="green",
-        S="blue",
-        D="c",
-        A=10000,
+        region="-30/30/-40/40",
+        projection="m0.1i",
+        frame=5,
+        rivers="1/1p,blue",
+        borders="1/0.25p,-",
+        shorelines="0.25p,white",
+        land="green",
+        water="blue",
+        resolution="c",
+        area_thresh=10000,
     )
     return fig
 
