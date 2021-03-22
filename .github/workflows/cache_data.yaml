@@ -44,7 +44,7 @@ jobs:
           gmt which -Ga @srtm_tiles.nc
           gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc \
                         @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz \
-                        @usgs_quakes_22.txt
+                        @usgs_quakes_22.txt @fractures_06.txt
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
