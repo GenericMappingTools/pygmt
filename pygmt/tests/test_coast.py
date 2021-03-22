@@ -140,22 +140,20 @@ def test_coast_dcw_list():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_coast_dcw_continent():
     """
     Test passing a continent code to dcw.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="=AF+gbisque+pblue")
-    fig_test.coast(
+    fig = Figure()
+    fig.coast(
         region=[-10, 15, 25, 44],
         frame="a",
         projection="M15c",
         land="brown",
         dcw="=AF+gbisque+pblue",
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @check_figures_equal()
