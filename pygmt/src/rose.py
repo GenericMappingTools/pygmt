@@ -55,7 +55,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     Parameters
     ----------
-
     length/azimuth : float or 1d arrays
         Length and azimuth values, or arrays of length and azimuth
         values
