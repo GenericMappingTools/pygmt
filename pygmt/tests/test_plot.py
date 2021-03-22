@@ -225,17 +225,17 @@ def test_plot_varying_intensity():
     """
     Plot the data with array-like intensity.
     """
-    x = np.arange(1, 10)
-    y = np.arange(1, 10)
-    intensity = np.linspace(-1, 1, len(x))
+    x = np.arange(-1, 1.1, 0.1)
+    y = np.zeros(x.size)
+    intensity = x
 
     fig = Figure()
     fig.plot(
         x=x,
         y=y,
-        region=[0, 10, 0, 10],
-        projection="X10c",
-        frame=True,
+        region=[-1.1, 1.1, -0.5, 0.5],
+        projection="X15c/2c",
+        frame=["S", "xaf+lIntensity"],
         style="c0.5c",
         color="blue",
         intensity=intensity,
