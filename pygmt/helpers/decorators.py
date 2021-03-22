@@ -62,6 +62,12 @@ COMMON_OPTIONS = {
             Shift plot origin in y-direction. Full documentation is at
             :gmt-docs:`gmt.html#xy-full`.
          """,
+    "a": r"""
+        aspatial : str
+            [*col*\ =]\ *name*\ [,...].
+            Control how aspatial data are handled during input and output.
+            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
+         """,
     "c": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
@@ -111,11 +117,12 @@ COMMON_OPTIONS = {
             the viewpoint. Default is [180, 90]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
-    "registration": r"""
+    "r": r"""
         registration : str
             **g**\|\ **p**.
-            Force output grid to be gridline (g) or pixel (p) node registered.
-            Default is gridline (g).""",
+            Force gridline (**g**) or pixel (**p**) node registration.
+            [Default is **g**\ (ridline)].
+        """,
     "t": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.

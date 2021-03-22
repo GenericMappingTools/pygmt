@@ -8,14 +8,16 @@ These are some of the many ways to contribute:
 
 * :bug: Submitting bug reports and feature requests
 * :memo: Writing tutorials or examples
-* :mag: Fixing typos and improving to the documentation
+* :mag: Fixing typos and improving the documentation
 * :bulb: Writing code for everyone to use
+* :people_holding_hands: Community engagement and outreach
 
-If you get stuck at any point you can create an issue on GitHub (look for the *Issues*
-tab in the repository) or contact us at one of the other channels mentioned below.
+If you get stuck at any point you can create an
+[issue](https://github.com/GenericMappingTools/pygmt/issues) on GitHub or contact
+us at one of the other channels [mentioned below](#how-can-i-talk-to-you).
 
 For more information on contributing to open source projects,
-[GitHub's own guide](https://guides.github.com/activities/contributing-to-open-source/)
+[GitHub's own guide](https://opensource.guide/how-to-contribute)
 is a great starting point if you are new to version control.
 Also, checkout the
 [Zen of Scientific Software Maintenance](https://jrleeman.github.io/ScientificSoftwareMaintenance/)
@@ -55,7 +57,7 @@ read it carefully.
 * Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
-* Make a tutorial or example of how to do something.
+* Make a tutorial or gallery example of how to do something.
 * Provide feedback about how we can improve the project or about your particular use
   case.
 * Contribute code you already have. It doesn't need to be perfect! We will help you
@@ -94,15 +96,21 @@ download and install anything:
 * On each documentation page, there should be an "Improve This Page" link at the very
   top.
 * Click on that link to open the respective source file (usually an `.rst` file in the
-  `doc` folder) on GitHub for editing online (you'll need a GitHub account).
+  `doc/` folder or a `.py` file in the `examples/` folder) on GitHub for editing online
+  (you'll need a GitHub account).
 * Make your desired changes.
 * When you're done, scroll to the bottom of the page.
 * Fill out the two fields under "Commit changes": the first is a short title describing
   your fixes; the second is a more detailed description of the changes. Try to be as
   detailed as possible and describe *why* you changed something.
-* Click on the "Commit changes" button to open a
-  [pull request (see below)](#pull-requests).
-* We'll review your changes and then merge them in if everything is OK.
+* Choose "Create a new branch for this commit and start a pull request" and
+  click on the "Propose changes" button to open a pull request.
+* The pull request will run the GMT automated tests and make a preview deployment.
+  You can see how your change looks in the PyGMT documentation by clicking the
+  "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
+  after the pull request was created).
+* We'll review your pull request, recommend changes if necessary, and then merge
+  them in if everything is OK.
 * Done :tada::beer:
 
 Alternatively, you can make the changes offline to the files in the `doc` folder or the
@@ -113,8 +121,9 @@ example scripts. See [Contributing Code](#contributing-code) for instructions.
 The gallery and tutorials are managed by
 [sphinx-gallery](https://sphinx-gallery.readthedocs.io/).
 The source files for the example gallery are `.py` scripts in `examples/gallery/` that
-generate one or more figures. They are executed automatically by sphinx-gallery when the
-documentation is built. The output is gathered and assembled into the gallery.
+generate one or more figures. They are executed automatically by sphinx-gallery when
+the [documentation is built](#documentation). The output is gathered and assembled
+into the gallery.
 
 You can **add a new** plot by placing a new `.py` file in one of the folders inside the
 `examples/gallery` folder of the repository. See the other examples to get an idea for the
@@ -172,13 +181,11 @@ When editing documentation, use the following standards to demonstrate the examp
 
 1. Python arguments, such as import statements, Boolean expressions, and function
    arguments should be wrapped as ``code`` by using \`\` on both sides of the code.
-   Example: \`\`import pygmt\`\` results in ``import pygmt``
-
-2.  Literal GMT arguments should be **bold** by wrapping the arguments with \*\*
-    (two asterisks) on both sides. The argument description should be in *italicized*
-    with \* (single asterisk) on both sides.
-    Example: `**+l**\ *label*` results in **+l***label*
-
+   Example: \`\`import pygmt\`\` results in ``import pygmt``.
+2. Literal GMT arguments should be **bold** by wrapping the arguments with \*\*
+   (two asterisks) on both sides. The argument description should be in *italicized*
+   with \* (single asterisk) on both sides.
+   Example: `**+l**\ *label*` results in **+l***label*.
 3. Optional arguments are placed wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 
@@ -210,7 +217,7 @@ General guidelines for pull requests (PRs):
 * Larger changes should be broken down into smaller components and integrated
   separately.
 * Bug fixes should be submitted in separate PRs.
-* Use underscores for all Python (*.py) files as per [PEP8](https://www.python.org/dev/peps/pep-0008/), 
+* Use underscores for all Python (*.py) files as per [PEP8](https://www.python.org/dev/peps/pep-0008/),
   not hyphens. Directory names should also use underscores instead of hyphens.
 * Describe what your PR changes and *why* this is a good thing. Be as specific as you
   can. The PR description is how we keep track of the changes made to the project over
@@ -233,8 +240,8 @@ It will make your life a lot easier!
 
 The repository includes a conda environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
-Once you have forked and clone the repository to your local machine, you use this file
-to create an isolated environment on which you can work.
+Once you have forked and cloned the repository to your local machine, you can
+use this file to create an isolated environment on which you can work.
 Run the following on the base of the repository:
 
 ```bash
@@ -497,6 +504,8 @@ summarized as follows:
 
 ### Documentation
 
+#### Building the documentation
+
 Most documentation sources are in the `doc` folder.
 We use [sphinx](http://www.sphinx-doc.org/) to build the web pages from these sources.
 To build the HTML files:
@@ -509,11 +518,13 @@ make all
 This will build the HTML files in `doc/_build/html`.
 Open `doc/_build/html/index.html` in your browser to view the pages.
 
+#### Cross-referencing with Sphinx
+
 The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
 function/class/module listed there.
 
-You can reference functions, classes, methods, and modules from anywhere 
+You can reference functions, classes, methods, and modules from anywhere
 (including docstrings) using:
 
 - <code>:func:\`package.module.function\`</code>
@@ -521,12 +532,12 @@ You can reference functions, classes, methods, and modules from anywhere
 - <code>:meth:\`package.module.method\`</code>
 - <code>:mod:\`package.module\`</code>
 
-An example would be to use 
-<code>:meth:\`pygmt.Figure.grdview\`</code> to link 
-to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html. 
-PyGMT documentation that is not a class, method, 
+An example would be to use
+<code>:meth:\`pygmt.Figure.grdview\`</code> to link
+to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html.
+PyGMT documentation that is not a class, method,
 or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
-For example, <code>:doc:\`Install instructions \</install\>\`</code> links 
+For example, <code>:doc:\`Install instructions \</install\>\`</code> links
 to https://www.pygmt.org/latest/install.html.
 
 Linking to the GMT documentation and GMT configuration parameters can be done using:
@@ -535,10 +546,10 @@ Linking to the GMT documentation and GMT configuration parameters can be done us
 - <code>:gmt-term:\`GMT_PARAMETER\`</code>
 
 An example would be using
-<code>:gmt-docs:\`makecpt.html\`</code> to link to 
+<code>:gmt-docs:\`makecpt.html\`</code> to link to
 https://docs.generic-mapping-tools.org/latest/makecpt.html.
 For GMT configuration parameters, an example is
-<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to 
+<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
 https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
 
 Sphinx will create a link to the automatically generated page for that
