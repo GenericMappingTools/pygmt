@@ -28,18 +28,16 @@ def test_coast():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_coast_iceland():
     """
-    Test passing in R as a list.
+    Test passing in region as a list.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.coast(R="-30/-10/60/65", J="m1c", B="", G="p28+r100")
-    fig_test.coast(
+    fig = Figure()
+    fig.coast(
         region=[-30, -10, 60, 65], projection="m1c", frame=True, land="p28+r100"
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @check_figures_equal()
