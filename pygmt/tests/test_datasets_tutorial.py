@@ -2,6 +2,7 @@
 Test basic functionality for loading datasets for tutorials.
 """
 from pygmt.datasets import (
+    load_fractures_compilation,
     load_japan_quakes,
     load_ocean_ridge_points,
     load_sample_bathymetry,
@@ -58,3 +59,11 @@ def test_usgs_quakes():
     """
     data = load_usgs_quakes()
     assert data.shape == (1197, 22)
+
+
+def fractures_compilation():
+    """
+    Check that the dataset loads without errors.
+    """
+    data = load_fractures_compilation()
+    assert data.shape == (360, 2)
