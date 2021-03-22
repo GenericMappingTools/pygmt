@@ -62,6 +62,12 @@ COMMON_OPTIONS = {
             Shift plot origin in y-direction. Full documentation is at
             :gmt-docs:`gmt.html#xy-full`.
          """,
+    "a": r"""
+        aspatial : str
+            [*col*\ =]\ *name*\ [,...].
+            Control how aspatial data are handled during input and output.
+            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
+         """,
     "c": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
