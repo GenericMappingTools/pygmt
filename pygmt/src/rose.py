@@ -201,7 +201,9 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     with Session() as lib:
         # Choose how data will be passed into the module
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data, x=length, y=azimuth)
+        file_context = lib.virtualfile_from_data(
+            check_kind="vector", data=data, x=length, y=azimuth
+        )
 
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
