@@ -192,6 +192,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     {U}
     {V}
     {XY}
+    {c}
     {p}
     {t}
     """
