@@ -79,7 +79,7 @@ fig.show()
 # However, this can be changed to inches or points. Note that, in GMT,
 # one point is defined as 1/72 inch.
 #
-# In this example, the graphed region is 10in X 10in, however,
+# In this example, the graphed region is 10in X 4in, however,
 # the magnitude of the first vector is still graphed in centimeters.
 # Using ``pygmt.config(PROJ_LENGTH_UNIT="i")``, the default unit
 # can be changed to inches in the second plotted vector.
@@ -88,8 +88,8 @@ fig = pygmt.Figure()
 # Vector 1 with default unit as cm
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X10i/10i",
-    frame="ag",
+    projection="X10i/4i",
+    frame="a",
     x=2,
     y=8,
     direction=[[0], [3]],
