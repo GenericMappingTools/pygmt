@@ -1,0 +1,49 @@
+# Checks for image diffs in a Pull Request and adds a GitHub comment showing the diff
+name: DVC image diff
+
+on:
+  pull_request:
+    paths:
+      - 'pygmt/tests/baseline/*.png.dvc'
+
+jobs:
+  dvc-diff:
+    name: DVC image diff
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+
+    - name: Setup data version control (DVC)
+      uses: iterative/setup-dvc@v1
+
+    - name: Setup continuous machine learning (CML)
+      uses: iterative/setup-cml@v1
+
+    # Produce the markdown diff report, which should look like:
+    # | Status   | Path                                |
+    # |----------|-------------------------------------|
+    # | added    | pygmt/tests/baseline/test_image.png |
+    - name: Get list of images that were added or changed
+      run: |
+        dvc diff --show-md master HEAD >> report.md
+        cat report.md
+
+    - name: Pull image data from cloud storage
+      run: dvc pull --remote upstream
+
+    - name: Report image diff in a GitHub comment
+      env:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Get just the filename of the changed image from the report
+        tail --lines=+3 report.md | cut --delimiter='|' --fields=3 > diff_files.txt
+
+        # Append each image to the markdown report
+        while IFS= read -r line; do
+          cml-publish "$line" >> report.md
+        done < diff_files.txt
+
+        # Send diff report as GitHub comment
+        cml-send-comment report.md
