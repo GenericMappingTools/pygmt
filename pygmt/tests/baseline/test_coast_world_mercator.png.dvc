@@ -1,0 +1,4 @@
+outs:
+- md5: 12884b768aa463d575019347dedfa6b0
+  size: 322546
+  path: test_coast_world_mercator.png
