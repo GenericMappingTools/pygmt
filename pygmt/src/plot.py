@@ -112,14 +112,14 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         Draw symmetrical error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
-        [**c**\|\ **n**\|\ **r**]\
+        [**c**\|\ **n**\|\ **p**]\
         [**a**\|\ **f**\|\ **s**\|\ **r**\|\ *refpoint*].
         Alter the way points are connected (by specifying a *scheme*) and
         data are grouped (by specifying a *method*). Append one of three
         line connection schemes:
 
         - **c** : Draw continuous line segments for each group [Default].
-        - **r** : Draw line segments from a reference point reset for each
+        - **p** : Draw line segments from a reference point reset for each
           group.
         - **n** : Draw networks of line segments between all points in
           each group.
@@ -138,7 +138,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
           incoming segment [Default].
         - **r** : Same as **s**, but the group reference point is reset
           after each record to the previous point (this method is only
-          available with the ``connection='r'`` scheme).
+          available with the ``connection='p'`` scheme).
 
         Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append
         the coordinates of a *refpoint* which will serve as a fixed external
