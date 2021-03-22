@@ -101,3 +101,25 @@ def load_usgs_quakes():
     fname = which("@usgs_quakes_22.txt", download="c")
     data = pd.read_csv(fname)
     return data
+
+
+def load_fractures_compilation():
+    """
+    Load a table of fracture lengths and directions as digitized from 
+    geological maps as a pandas.Dataframe.
+
+    This is the ``@fractures_06.txt`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data : pandas.Dataframe
+        The data table. Use ``print(data.describe())`` to see the available
+        columns.
+    """
+    fname = which("@fractures_06.txt", download="c")
+    data = pd.read_csv(fname)
+    return data
