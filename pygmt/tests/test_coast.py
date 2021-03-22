@@ -40,32 +40,13 @@ def test_coast_iceland():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_coast_aliases():
     """
     Test that all aliases work.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    fig_ref.coast(
-        R="-30/30/-40/40",
-        J="M25c",
-        B="afg",
-        I="1/1p,black",
-        N="1/0.5p,-",
-        W="0.25p,white",
-        G="moccasin",
-        S="skyblue",
-        D="i",
-        A=1000,
-        L="jCM+c1+w1000k+f+l",
-        X="a4c",
-        Y="a10c",
-        p="135/25",
-        t=13,
-        E="MA+gred",
-        C="blue",
-    )
-    fig_test.coast(
+    fig = Figure()
+    fig.coast(
         region=[-30, 30, -40, 40],  # R
         projection="M25c",  # J
         frame="afg",  # B
@@ -84,7 +65,7 @@ def test_coast_aliases():
         dcw="MA+gred",  # E
         lakes="blue",  # C
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @pytest.mark.mpl_image_compare
