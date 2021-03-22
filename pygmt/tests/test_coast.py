@@ -34,9 +34,7 @@ def test_coast_iceland():
     Test passing in region as a list.
     """
     fig = Figure()
-    fig.coast(
-        region=[-30, -10, 60, 65], projection="m1c", frame=True, land="p28+r100"
-    )
+    fig.coast(region=[-30, -10, 60, 65], projection="m1c", frame=True, land="p28+r100")
     return fig
 
 
@@ -94,22 +92,20 @@ def test_coast_required_args():
         fig.coast(region="EG")
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_coast_dcw_single():
     """
     Test passing a single country code to dcw.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.coast(R="-10/15/25/44", J="M15c", B="a", G="brown", E="ES+gbisque+pblue")
-    fig_test.coast(
+    fig = Figure()
+    fig.coast(
         region=[-10, 15, 25, 44],
         frame="a",
         projection="M15c",
         land="brown",
         dcw="ES+gbisque+pblue",
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @check_figures_equal()
