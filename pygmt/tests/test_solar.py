@@ -104,8 +104,8 @@ def test_invalid_datetime():
         )
 
 
-@pytest.mark.mpl_image_compare
-def test_solar_default_terminator(filename="test_solar_set_terminator_datetime.png"):
+@pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
+def test_solar_default_terminator():
     """
     Test passing the solar argument with a time string and no terminator type
     to confirm the default terminator type.
