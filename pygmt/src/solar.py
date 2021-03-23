@@ -1,5 +1,5 @@
 """
-solar - Plot day-night terminators.
+solar - Plot day-night terminators and twilight.
 """
 
 import datetime
@@ -28,7 +28,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     r"""
-    Plot day-light terminators.
+    Plot day-light terminators and twilights.
 
     This function plots the day-night terminator. Additionally, it can
     plot the terminators for civil twilight, nautical twilight, and
@@ -45,6 +45,8 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         **day_night**, **civil**, **nautical**, and **astronomical**, which
         can be set with either the full name or the first letter of the name.
         [Default is **day_night**]
+        
+        Refer to https://en.wikipedia.org/wiki/Twilight for definitions of different twilights.
     terminator_datetime : str or datetime object
         Set the UTC date and time of the displayed terminator. It can be
         passed as a string or a datetime object.
