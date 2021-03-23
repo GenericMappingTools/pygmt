@@ -25,11 +25,11 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     r"""
-    Plot day-light terminators and twilights.
+    Plot day-light terminators or twilights.
 
-    This function plots the day-night terminator. Additionally, it can
-    plot the terminators for civil twilight, nautical twilight, and
-    astronomical twilight.
+    This function plots the day-night terminator. Alternatively, it can plot
+    the terminators for civil twilight, nautical twilight, or astronomical
+    twilight.
 
     Full parameter list at :gmt-docs:`solar.html`
 
@@ -43,11 +43,11 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         can be set with either the full name or the first letter of the name.
         [Default is **day_night**]
 
-        Refer to https://en.wikipedia.org/wiki/Twilight for definitions of
-        different twilights.
+        Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of
+        different types of twilight.
     terminator_datetime : str or datetime object
         Set the UTC date and time of the displayed terminator. It can be
-        passed as a string or a datetime object.
+        passed as a string or Python datetime object.
         [Default is the current UTC date and time]
     {R}
     {J}
@@ -72,12 +72,12 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         )
     if terminator not in [
         "day_night",
-        "nautical",
         "civil",
+        "nautical",
         "astronomical",
         "d",
-        "n",
         "c",
+        "n",
         "a",
     ]:
         raise GMTInvalidInput(
