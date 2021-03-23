@@ -52,14 +52,13 @@ def test_coast_aliases():
         shorelines="0.25p,white",  # W
         land="moccasin",  # G
         water="skyblue",  # S
-        resolution="i",  # D
+        resolution="c",  # D
         area_thresh=1000,  # A
         map_scale="jCM+c1+w1000k+f+l",  # L
         xshift="a4c",  # X
         yshift="a10c",  # Y
         perspective=[135, 25],  # p
         transparency=13,  # t
-        resolution="c",
         dcw="MA+gred",  # E
         lakes="blue",  # C
     )
