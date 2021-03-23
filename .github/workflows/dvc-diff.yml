@@ -41,7 +41,7 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Get just the filename of the changed image from the report
-        tail --lines=+3 report.md | cut --delimiter='|' --fields=3 > diff_files.txt
+        tail --lines=+3 report.md | cut --delimiter=' ' --fields=7 > diff_files.txt
 
         # Append each image to the markdown report
         while IFS= read -r line; do
