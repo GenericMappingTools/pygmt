@@ -104,7 +104,7 @@ def test_invalid_terminator_type():
         )
 
 
-def test_invalid_T_parameter():
+def test_invalid_parameter():
     """
     Test if solar fails when it receives a GMT argument for 'T' instead of the
     PyGMT arguments for 'terminator' and 'terminator_datetime'.
