@@ -1,5 +1,5 @@
 """
-Functions to load sample data from the GMT tutorials.
+Functions to load sample data.
 """
 import pandas as pd
 from pygmt.src import which
