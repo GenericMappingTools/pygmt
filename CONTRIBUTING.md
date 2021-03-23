@@ -369,8 +369,8 @@ or run tests which contain names that match a specific keyword expression:
 Writing an image-based test is only slightly more difficult than a simple test.
 The main consideration is that you must specify the "baseline" or reference
 image, and compare it with a "generated" or test image. This is handled using
-the *decorator* functions `@check_figures_equal` and
-`@pytest.mark.mpl_image_compare` whose usage are further described below.
+the *decorator* functions `@pytest.mark.mpl_image_compare` and `@check_figures_equal`
+whose usage are further described below.
 
 #### Using mpl_image_compare
 
