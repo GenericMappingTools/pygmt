@@ -13,8 +13,8 @@ def test_coast():
     """
     fig = Figure()
     fig.coast(
-        region="-30/30/-40/40",
-        projection="m0.1i",
+        region=[-30, 30, -40, 40],
+        projection="m0.25c",
         frame=5,
         rivers="1/1p,blue",
         borders="1/0.25p,-",
