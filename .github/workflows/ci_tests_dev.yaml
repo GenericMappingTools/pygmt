@@ -85,7 +85,7 @@ jobs:
         run: |
           conda install ninja cmake libblas libcblas liblapack fftw gdal \
                         ghostscript libnetcdf hdf5 zlib curl pcre make
-          pip install numpy pandas xarray netCDF4 packaging \
+          pip install --pre numpy pandas xarray netCDF4 packaging \
                       dvc ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery
 
       # Build and install latest GMT from GitHub
