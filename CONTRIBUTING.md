@@ -374,7 +374,7 @@ whose usage are further described below.
 
 #### Using mpl_image_compare
 
-**This is the preferred way to test plots whenever possible.**
+> **This is the preferred way to test plots whenever possible.**
 
 This method uses the [pytest-mpl](https://github.com/matplotlib/pytest-mpl)
 plug-in to test plot generating code.
