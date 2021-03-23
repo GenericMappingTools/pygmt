@@ -44,8 +44,9 @@ jobs:
         tail --lines=+3 report.md | cut --delimiter=' ' --fields=7 > diff_files.txt
 
         # Append each image to the markdown report
+        echo -e "## Image diff(s)\n" >> report.md
         while IFS= read -r line; do
-          cml-publish "$line" >> report.md
+          cml-publish --md "$line" >> report.md
         done < diff_files.txt
 
         # Send diff report as GitHub comment
