@@ -44,7 +44,7 @@ def test_coast_aliases():
     """
     fig = Figure()
     fig.coast(
-        region=[-30, 30, -40, 40],  # R
+        region=[-30, -27, -40, -37],  # R
         projection="M25c",  # J
         frame="afg",  # B
         rivers="1/1p,black",  # I
@@ -59,6 +59,7 @@ def test_coast_aliases():
         yshift="a10c",  # Y
         perspective=[135, 25],  # p
         transparency=13,  # t
+        resolution="c",
         dcw="MA+gred",  # E
         lakes="blue",  # C
     )
