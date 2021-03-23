@@ -122,4 +122,4 @@ def load_fractures_compilation():
     """
     fname = which("@fractures_06.txt", download="c")
     data = pd.read_csv(fname, header=None, sep=r"\s+", names=["direction","length"])
-    return data
+    return data[["length", "direction"]]
