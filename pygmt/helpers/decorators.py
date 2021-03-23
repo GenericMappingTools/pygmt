@@ -63,7 +63,7 @@ COMMON_OPTIONS = {
             :gmt-docs:`gmt.html#xy-full`.
          """,
     "a": r"""
-        aspatial : str
+        aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.
             Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
