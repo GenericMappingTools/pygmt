@@ -7,27 +7,6 @@ from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.mpl_image_compare
-def test_coast():
-    """
-    Simple plot from the GMT docs.
-    """
-    fig = Figure()
-    fig.coast(
-        region=[-30, 30, -40, 40],
-        projection="m0.25c",
-        frame=5,
-        rivers="1/1p,blue",
-        borders="1/0.25p,-",
-        shorelines="0.25p,white",
-        land="green",
-        water="blue",
-        resolution="c",
-        area_thresh=10000,
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_coast_iceland():
     """
     Test passing in region as a list.
