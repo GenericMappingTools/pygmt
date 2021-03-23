@@ -335,7 +335,7 @@ def test_plot3d_varying_intensity():
         y=y,
         z=z,
         region=[-1.1, 1.1, -0.5, 0.5, -0.5, 0.5],
-        projection="x15c",
+        projection="X15c",
         zscale=0.1,
         perspective=[135, 30],
         frame=["Sltr", "xaf+lIntensity"],
