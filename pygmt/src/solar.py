@@ -74,7 +74,6 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         "nautical",
         "civil",
         "astronomical",
-        "astro",
         "d",
         "n",
         "c",
