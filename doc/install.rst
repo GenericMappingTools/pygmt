@@ -80,7 +80,7 @@ Dependencies
 
 PyGMT requires the following libraries to be installed:
 
-* `numpy <https://numpy.org>`__
+* `numpy <https://numpy.org>`__ (>= 1.17)
 * `pandas <https://pandas.pydata.org>`__
 * `xarray <https://xarray.pydata.org>`__
 * `netCDF4 <https://unidata.github.io/netcdf4-python>`__
@@ -89,15 +89,6 @@ PyGMT requires the following libraries to be installed:
 The following are optional (but recommended) dependencies:
 
 * `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks.
-
-Note that PyGMT has adopted
-`NEP29 <https://numpy.org/neps/nep-0029-deprecation_policy.html>`__ alongside the rest
-of the Scientific Python ecosystem, and therefore supports:
-
-* All minor versions of Python released 42 months prior to the project,
-  and at minimum the two latest minor versions.
-* All minor versions of NumPy released in the 24 months prior to the project,
-  and at minimum the last three minor versions.
 
 Installing GMT and other dependencies
 -------------------------------------

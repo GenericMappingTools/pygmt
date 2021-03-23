@@ -12,6 +12,7 @@ If you want to make a contribution to the project, see the
 * [Reviewing and Merging Pull Requests](#reviewing-and-merging-pull-requests)
 * [Continuous Integration](#continuous-integration)
 * [Continuous Documentation](#continuous-documentation)
+* [Dependencies Policy](#dependencies-policy)
 * [Making a Release](#making-a-release)
     - [Updating the Changelog](#updating-the-changelog)
     - [Check the README Syntax](#check-the-readme-syntax)
@@ -135,6 +136,22 @@ change the default behaviour at https://vercel.com/docs/configuration.
 The actual script `package.json` is used by Vercel to install the necessary packages,
 build the documentation, copy the files to a 'public' folder and deploy that to the web,
 see https://vercel.com/docs/build-step.
+
+
+## Dependencies Policy
+
+PyGMT has adopted [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy)
+alongside the rest of the Scientific Python ecosystem, and therefore supports:
+
+* All minor versions of Python released 42 months prior to the project,
+  and at minimum the two latest minor versions.
+* All minor versions of NumPy released in the 24 months prior to the project,
+  and at minimum the last three minor versions.
+
+In `setup.py`, the `python_requires` variable should be set to the minimum
+supported version of Python. Minimum Python and NumPy version support should be
+adjusted upward on every major and minor release, but never on a patch release.
+
 
 ## Making a Release
 
