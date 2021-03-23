@@ -23,6 +23,7 @@ def test_solar_default_terminator():
     )
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_solar_terminators():
     """
@@ -63,6 +64,7 @@ def test_solar_terminators():
         terminator_datetime="1990-02-17 04:25:00",
     )
     return fig
+
 
 @pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
 @pytest.mark.parametrize(
