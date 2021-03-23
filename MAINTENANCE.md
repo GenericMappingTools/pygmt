@@ -77,8 +77,9 @@ There are 9 configuration files located in `.github/workflows`:
 
    This is run on every commit to the *master* and Pull Request branches.
    It is also scheduled to run daily on the *master* branch.
-   In draft Pull Requests, only one job (Linux + Python latest)
-   is triggered to save on Continuous Integration resources.
+   In draft Pull Requests, only two jobs on Linux (Python 3.7 / NumPy 1.17 and
+   Python 3.9/ NumPy 1.20) are triggered to save on Continuous Integration
+   resources.
 
 3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
