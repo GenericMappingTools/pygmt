@@ -45,12 +45,13 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# Circular vectors can be plotted using an ``x`` and ``y`` value to specify
-# where the origin of the circle will be located on the plane. The variable
-# ``diam`` is used to specify the diameter of the circle while the ``startDeg`` and
-# ``stopDeg`` specify at what angle the arc will begin and end respectively.
+# Circular vectors can be plotted using an ``x_start`` and ``y_start`` value to
+# specify where the origin of the circle will be located on the plane. The
+# variable ``radius`` is used to specify the radius of the circle while the
+# ``degree_start`` and ``degree_stop`` parameters specify at what angle the arc
+# will begin and end respectively.
 
-# vector specifications structured as: [x_start, y_start, diameter, degree_start, degree_stop]
+# vector specifications structured as: [x_start, y_start, radius, degree_start, degree_stop]
 data = np.array([[5, 5, 2.5, 90, 270]])
 
 fig = pygmt.Figure()
