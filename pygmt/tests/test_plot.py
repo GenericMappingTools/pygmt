@@ -93,30 +93,19 @@ def test_plot_fail_no_data(data):
         )
 
 
-def test_plot_fail_size_color(data):
+def test_plot_fail_color_size_intensity(data):
     """
-    Should raise an exception if array sizes and color are used with matrix.
+    Should raise an exception if array color, sizes and intensity are used with
+    matrix.
     """
     fig = Figure()
+    kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
     with pytest.raises(GMTInvalidInput):
-        fig.plot(
-            data=data,
-            region=region,
-            projection="X4i",
-            style="c0.2c",
-            color=data[:, 2],
-            frame="afg",
-        )
+        fig.plot(style="c0.2c", color=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(
-            data=data,
-            region=region,
-            projection="X4i",
-            style="cc",
-            sizes=data[:, 2],
-            color="red",
-            frame="afg",
-        )
+        fig.plot(style="cc", sizes=data[:, 2], color="red", **kwargs)
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(style="c0.2c", color="red", intensity=data[:, 2], **kwargs)
 
 
 @check_figures_equal()
@@ -227,6 +216,29 @@ def test_plot_colors_sizes_proj(data, region):
         sizes=0.5 * data[:, 2],
         style="cc",
         cmap="copper",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_varying_intensity():
+    """
+    Plot the data with array-like intensity.
+    """
+    x = np.arange(-1, 1.1, 0.1)
+    y = np.zeros(x.size)
+    intensity = x
+
+    fig = Figure()
+    fig.plot(
+        x=x,
+        y=y,
+        region=[-1.1, 1.1, -0.5, 0.5],
+        projection="X15c/2c",
+        frame=["S", "xaf+lIntensity"],
+        style="c0.5c",
+        color="blue",
+        intensity=intensity,
     )
     return fig
 
