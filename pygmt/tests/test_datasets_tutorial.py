@@ -63,7 +63,7 @@ def test_usgs_quakes():
 
 def test_fractures_compilation():
     """
-    Check that the dataset loads without errors.
+    Check that the @fractures_06.txt dataset loads without errors.
     """
     data = load_fractures_compilation()
     assert data.shape == (360, 2)
