@@ -1,5 +1,5 @@
 """
-Plot Vectors
+Plot vectors
 ==========
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
@@ -19,25 +19,55 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 import numpy as np
 import pygmt
 
-"""
-# Plot Vectors
-----------
-
-Create a Cartesian figure using ``projection`` parameter and set the axis scales
-using ``region`` (in this case, each axis is 0-25). Pass a ``numpy`` array object that contains lists of all the vectors to be plotted.
-"""
-# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
-vector_1 = [2, 3, 45, 4]
-vector_2 = [7.5, 8.3, -120.5, 7.2]
-# Create a list of lists that include each vector information
-data = np.array([vector_1] + [vector_2])
+########################################################################################
+# Plot Caretesian Vectors
+# ----------
+#
+# Create a simple Cartesian vector using a starting point through
+# ``x``, ``y``, and ``direction`` parameters. The direction is specified
+# by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``
+#
+# On the shown figure, the plot is projected on a 10cm X 10cm region,
+# which is specified by the ``projection`` parameter.
+# The magnitude of the vector also uses centimeters by default but
+# could be changed using :meth:`pygmt.config`
+# (Check the next examples for unit changes)
+#
+# Notice that the ``v`` in the ``style`` parameter stands for
+# vector; it distinguishes it from regular lines and allows for
+# different customization.
 
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="a",
-    data=data,
+    frame="ag",
+    x=2,
+    y=8,
+    direction=[[-45], [6]],
+    style="v0c",
+)
+fig.show()
+
+########################################################################################
+# In this example, we apply the same concept shown previously to plot multiple
+# vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
+# of all x and y coordinates will be passed. Similarly, the length of direction
+# list will increase accordingly.
+#
+# Additionally, we changed the style of the vector to include a red
+# arrowhead and increased the thickness of the line. A list of different
+# styling attributes can be found in
+# [Vector attributes documentation](https://www.pygmt.org/latest/gallery/lines/vector_heads_tails.html)
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10c/10c",
+    frame="ag",
+    x=[2, 4],
+    y=[8, 1],
+    direction=[[-45, 23], [6, 3]],
     style="v0.6c+e",
     pen="2p",
     color="red3",
@@ -45,6 +75,176 @@ fig.plot(
 fig.show()
 
 ########################################################################################
+# The default unit of vector magnitude/length is centimeters.
+# However, this can be changed to inches or points. Note that, in GMT,
+# one point is defined as 1/72 inch.
+#
+# In this example, the graphed region is 10in X 4in, however,
+# the magnitude of the first vector is still graphed in centimeters.
+# Using ``pygmt.config(PROJ_LENGTH_UNIT="i")``, the default unit
+# can be changed to inches in the second plotted vector.
+
+fig = pygmt.Figure()
+# Vector 1 with default unit as cm
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10i/4i",
+    frame="a",
+    x=2,
+    y=8,
+    direction=[[0], [3]],
+    style="v1c+e",
+    pen="2p",
+    color="red3",
+)
+# Vector 2 after changing default unit to in
+with pygmt.config(PROJ_LENGTH_UNIT="i"):
+    fig.plot(
+        x=2,
+        y=7,
+        direction=[[0], [3]],
+        style="v1c+e",
+        pen="2p",
+        color="red3",
+    )
+fig.show()
+
+########################################################################################
+# Vectors can also be plotted by including all the information
+# about a vector in a single list. However, this requires creating
+# a list for all vectors and passing it into a ``numpy`` array object.
+# Each vector list contains the information structured as:
+# ``[x_start, y_start, direction_degrees, magnitude]``
+#
+# If this approach is chosen, ``data`` parameter must be
+# used instead of ``x``, ``y`` and  ``direction``.
+
+vector_1 = [2, 3, 45, 4]
+# Create a list of lists that include each vector information
+vectors = np.array([vector_1])
+# vectors structure: [[ 2  3 45  4]]
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10c/10c",
+    frame="ag",
+    data=vectors,
+    style="v0.6c+e",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+########################################################################################
+# Using the functionality mentioned in the previous example,
+# multiple vectors can be plotted at the same time. Another
+# vector could be simply added to the 2d ``numpy`` array object
+# and passed using ``data`` parameter.
+
+# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
+vector_1 = [2, 3, 45, 4]
+vector_2 = [7.5, 8.3, -120.5, 7.2]
+# Create a list of lists that include each vector information
+vectors = np.array([vector_1] + [vector_2])
+# vectors structure:
+# [[   2.     3.    45.     4. ]
+#  [   7.5    8.3 -120.5    7.2]]
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 10, 0, 10],
+    projection="X10c/10c",
+    frame="ag",
+    data=vectors,
+    style="v0.6c+e",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+########################################################################################
+# In this example, cartesian vectors are plotted over a Mercator
+# projection of the continental US. The x values represent the
+# longitude and y values represent the latitude where the vector starts
+
+# create a plot with coast, Mercator projection (M) over the continental US
+fig = pygmt.Figure()
+fig.coast(
+    region=[-127, -64, 24, 53],
+    projection="M15c",
+    frame="ag",
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
+    land="grey",
+    water="lightblue",
+)
+
+style = "v0.6c+bc+ea+a30"
+fig.plot(
+    x=-110,
+    y=40,
+    style=style,
+    pen="1p",
+    color="red3",
+    direction=[[-25], [3]],
+)
+
+# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
+vector_2 = [-82, 40.5, 138, 3]
+vector_3 = [-71.2, 45, -115.7, 6]
+# Create a list of lists that include each vector information
+vectors = np.array([vector_2] + [vector_3])
+
+fig.plot(
+    data=vectors,
+    style=style,
+    pen="1p",
+    color="yellow",
+)
+
+fig.show()
+
+########################################################################################
+# Another example of plotting cartesian vectors over a coast plot. This time
+# a Transverse Mercator projection is used. Additionally, ``numpy.linespace``
+# is used to create 5 vectors with equal stops.
+
+# create a plot with coast, Mercator projection (M) over the continental US
+fig = pygmt.Figure()
+fig.coast(
+    region=[20, 50, 30, 45],
+    projection="T35/12c",
+    frame=True,
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
+    land="lightbrown",
+    water="lightblue",
+)
+
+x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
+y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
+direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
+length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
+
+fig.plot(
+    x=x,
+    y=y,
+    style="v0.4c+ea",
+    pen="0.6p",
+    color="red3",
+    direction=[direction, length],
+)
+
+
+fig.show()
+
+########################################################################################
+# # Plot Circular Vectors
+# ----------
+#
 # Circular vectors can be plotted using an ``x_start`` and ``y_start`` value to
 # specify where the origin of the circle will be located on the plane. The
 # variable ``radius`` is used to specify the radius of the circle while the
@@ -52,11 +252,11 @@ fig.show()
 # will begin and end respectively.
 
 # vector specifications structured as: [x_start, y_start, radius, degree_start, degree_stop]
-data = np.array([[5, 5, 2.5, 90, 270]])
+data = np.array([[4, 4, 2, 90, 270]])
 
 fig = pygmt.Figure()
 fig.plot(
-    region=[0, 10, 0, 10],
+    region=[0, 8, 0, 8],
     projection="X10c/10c",
     frame="a",
     data=data,
@@ -67,6 +267,8 @@ fig.plot(
 fig.show()
 
 ########################################################################################
+# FIXME: Everything after this is from ``lines.py`` and must be removed
+#
 # Additional line segments can be added by including additional values for ``x``
 # and ``y``.
 
