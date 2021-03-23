@@ -67,3 +67,8 @@ def test_fractures_compilation():
     """
     data = load_fractures_compilation()
     assert data.shape == (360, 2)
+    summary = data.describe()
+    assert summary.loc["min", "length"] == 98.6561
+    assert summary.loc["max", "length"] == 984.652
+    assert summary.loc["min", "direction"] == 0.0
+    assert summary.loc["max", "direction"] == 360.0
