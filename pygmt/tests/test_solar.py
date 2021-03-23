@@ -31,36 +31,25 @@ def test_solar_terminators():
     to confirm the default terminator type.
     """
     fig = Figure()
+    fig.basemap(region="d", projection="W0/15c", frame="a")
     fig.solar(
-        region="d",
-        projection="W0/15c",
-        frame="a",
         terminator="d",
-        pen="1/blue",
+        pen="1p,blue",
         terminator_datetime="1990-02-17 04:25:00",
     )
     fig.solar(
-        region="d",
-        projection="W0/15c",
-        frame="a",
         terminator="a",
-        pen="1/red",
+        pen="1p,red",
         terminator_datetime="1990-02-17 04:25:00",
     )
     fig.solar(
-        region="d",
-        projection="W0/15c",
-        frame="a",
         terminator="c",
-        pen="1/green",
+        pen="1p,green",
         terminator_datetime="1990-02-17 04:25:00",
     )
     fig.solar(
-        region="d",
-        projection="W0/15c",
-        frame="a",
         terminator="n",
-        pen="1/yellow",
+        pen="1p,yellow",
         terminator_datetime="1990-02-17 04:25:00",
     )
     return fig
