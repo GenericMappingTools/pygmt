@@ -9,22 +9,6 @@ from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.mpl_image_compare
-def test_solar_default_terminator(filename="test_solar_set_terminator_datetime.png"):
-    """
-    Test passing the solar argument with a time string and no terminator type
-    to confirm the default terminator type.
-    """
-    fig = Figure()
-    fig.solar(
-        region="d",
-        projection="W0/15c",
-        frame="a",
-        terminator_datetime="1990-02-17 04:25:00",
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_solar_terminators():
     """
     Test passing the solar argument with a time string and no terminator type
@@ -118,3 +102,19 @@ def test_invalid_datetime():
             frame="a",
             terminator_datetime="199A-02-17 04:25:00",
         )
+
+
+@pytest.mark.mpl_image_compare
+def test_solar_default_terminator(filename="test_solar_set_terminator_datetime.png"):
+    """
+    Test passing the solar argument with a time string and no terminator type
+    to confirm the default terminator type.
+    """
+    fig = Figure()
+    fig.solar(
+        region="d",
+        projection="W0/15c",
+        frame="a",
+        terminator_datetime="1990-02-17 04:25:00",
+    )
+    return fig
