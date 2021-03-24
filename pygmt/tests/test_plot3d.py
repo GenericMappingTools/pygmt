@@ -323,7 +323,6 @@ def test_plot3d_varying_intensity():
     """
     Plot the data with array-like intensity.
     """
-
     x = np.arange(-1, 1.1, 0.1)
     y = np.zeros(x.size)
     z = y
