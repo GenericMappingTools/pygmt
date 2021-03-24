@@ -116,7 +116,7 @@ def load_fractures_compilation():
 
     Returns
     -------
-    data : pandas.Dataframe
+    data : pandas.DataFrame
         The data table. Use ``print(data.describe())`` to see the available
         columns.
     """
