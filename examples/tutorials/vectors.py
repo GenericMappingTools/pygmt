@@ -272,6 +272,36 @@ fig.plot(
 fig.show()
 
 ########################################################################################
+# When plotting multiple vectors there is a multitude of ``numpy`` functions
+# that can make this process easier. In the following example, three main numpy
+# functions are used. The first of which is ``np.arange`` which iterates from 0
+# to the value of ct. This function is used to generate random data points for
+# ``radius`` and ``stopdir`` since these values are intended to be different in
+# each of the five vectors begin plotted. The second function is ``np.full``
+# which creates a numpy.ndarray. Finally, all of this data is congregated into
+# a final numpy.ndarray called data using ``np.column_stack``. This is then
+# passed to the plot function and the resulting figure is shown below.
+
+ct = 5
+radius = 5 - (0.5 * np.arange(0, ct))
+startdir = np.full(ct, 90)
+stopdir = 180 + (50 * np.arange(0, ct))
+
+data = np.column_stack([np.full(ct, 0), np.full(ct, 0), radius, startdir, stopdir])
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[-10, 10, -10, 10],
+    projection="X20c",
+    frame="ag",
+    data=data,
+    style="m0.5c+ea",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+########################################################################################
 # FIXME: Everything after this is from ``lines.py`` and must be removed
 #
 # Additional line segments can be added by including additional values for ``x``
