@@ -70,5 +70,5 @@ def test_fractures_compilation():
     summary = data.describe()
     assert summary.loc["min", "length"] == 98.6561
     assert summary.loc["max", "length"] == 984.652
-    assert summary.loc["min", "direction"] == 0.0
-    assert summary.loc["max", "direction"] == 360.0
+    assert summary.loc["min", "azimuth"] == 0.0
+    assert summary.loc["max", "azimuth"] == 360.0
