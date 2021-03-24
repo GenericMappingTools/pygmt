@@ -130,30 +130,19 @@ def test_plot3d_fail_no_data(data, region):
         )
 
 
-def test_plot3d_fail_size_color(data, region):
+def test_plot3d_fail_color_size_intensity(data, region):
     """
-    Should raise an exception if array sizes and color are used with matrix.
+    Should raise an exception if array color, sizes and intensity are used with
+    matrix.
     """
     fig = Figure()
+    kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
     with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            data=data,
-            region=region,
-            projection="X4i",
-            style="c0.2c",
-            color=data[:, 2],
-            frame="afg",
-        )
+        fig.plot3d(style="c0.2c", color=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            data=data,
-            region=region,
-            projection="X4i",
-            style="cc",
-            sizes=data[:, 2],
-            color="red",
-            frame="afg",
-        )
+        fig.plot3d(style="cc", sizes=data[:, 2], color="red", **kwargs)
+    with pytest.raises(GMTInvalidInput):
+        fig.plot3d(style="cc", intensity=data[:, 2], color="red", **kwargs)
 
 
 @check_figures_equal()
@@ -327,6 +316,33 @@ def test_plot3d_colors_sizes_proj(data, region):
         cmap="copper",
     )
     return fig_ref, fig_test
+
+
+@pytest.mark.mpl_image_compare
+def test_plot3d_varying_intensity():
+    """
+    Plot the data with array-like intensity.
+    """
+    x = np.arange(-1, 1.1, 0.1)
+    y = np.zeros(x.size)
+    z = y
+    intensity = x
+
+    fig = Figure()
+    fig.plot3d(
+        x=x,
+        y=y,
+        z=z,
+        region=[-1.1, 1.1, -0.5, 0.5, -0.5, 0.5],
+        projection="X15c/5c",
+        zsize="5c",
+        perspective=[135, 30],
+        frame=["Sltr", "xaf+lIntensity"],
+        style="c0.5c",
+        color="blue",
+        intensity=intensity,
+    )
+    return fig
 
 
 @check_figures_equal()
