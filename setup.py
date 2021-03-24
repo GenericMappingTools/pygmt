@@ -36,7 +36,7 @@ PLATFORMS = "Any"
 INSTALL_REQUIRES = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
 # Configuration for setuptools-scm
 SETUP_REQUIRES = ["setuptools_scm"]
-USE_SCM_VERSION = {"local_scheme": "node-and-date"}
+USE_SCM_VERSION = {"local_scheme": "node-and-date", "fallback_version": "unknown"}
 
 if __name__ == "__main__":
     setup(

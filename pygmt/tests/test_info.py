@@ -29,6 +29,15 @@ def test_info():
     assert output == expected_output
 
 
+def test_info_2d_list():
+    """
+    Make sure info works on a 2d list.
+    """
+    output = info(table=[[0, 8], [3, 5], [6, 2]])
+    expected_output = "<vector memory>: N = 3 <0/6> <2/8>\n"
+    assert output == expected_output
+
+
 def test_info_dataframe():
     """
     Make sure info works on pandas.DataFrame inputs.
@@ -37,6 +46,20 @@ def test_info_dataframe():
     output = info(table=table)
     expected_output = (
         "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+    )
+    assert output == expected_output
+
+
+def test_info_numpy_array_time_column():
+    """
+    Make sure info works on a numpy.ndarray input with a datetime type.
+    """
+    table = pd.date_range(start="2020-01-01", periods=5).to_numpy()
+    # Please remove coltypes="0T" workaround after
+    # https://github.com/GenericMappingTools/gmt/issues/4241 is resolved
+    output = info(table=table, coltypes="0T")
+    expected_output = (
+        "<vector memory>: N = 5 <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
     )
     assert output == expected_output
 
@@ -91,7 +114,7 @@ def test_info_2d_array():
     table = np.loadtxt(POINTS_DATA)
     output = info(table=table)
     expected_output = (
-        "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
+        "<matrix memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     )
     assert output == expected_output
 
@@ -112,6 +135,19 @@ def test_info_per_column():
     output = info(table=POINTS_DATA, per_column=True)
     npt.assert_allclose(
         actual=output, desired=[11.5309, 61.7074, -2.9289, 7.8648, 0.1412, 0.9338]
+    )
+
+
+def test_info_per_column_with_time_inputs():
+    """
+    Make sure the per_column option works with time inputs.
+    """
+    table = pd.date_range(start="2020-01-01", periods=5).to_numpy()
+    # Please remove coltypes="0T" workaround after
+    # https://github.com/GenericMappingTools/gmt/issues/4241 is resolved
+    output = info(table=table, per_column=True, coltypes="0T")
+    npt.assert_equal(
+        actual=output, desired=["2020-01-01T00:00:00", "2020-01-05T00:00:00"]
     )
 
 

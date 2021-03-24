@@ -45,7 +45,7 @@ def test_grdfilter_dataarray_in_file_out(grid):
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdfilter(grid, outgrid=tmpfile.name, filter="g600", distance="4")
         assert result is None  # grdfilter returns None if output to a file
-        result = grdinfo(tmpfile.name, C=True)
+        result = grdinfo(tmpfile.name, per_column=True)
         assert (
             result == "-180 180 -90 90 -6147.47265625 5164.11572266 1 1 360 180 1 1\n"
         )
@@ -88,7 +88,7 @@ def test_grdfilter_file_in_file_out():
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
-        result = grdinfo(tmpfile.name, C=True)
+        result = grdinfo(tmpfile.name, per_column=True)
         assert result == "0 180 0 90 -6147.49072266 5164.06005859 1 1 180 90 1 1\n"
 
 
