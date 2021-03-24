@@ -266,6 +266,8 @@ fig.plot(
 )
 fig.show()
 
+
+
 ########################################################################################
 # FIXME: Everything after this is from ``lines.py`` and must be removed
 #
@@ -367,5 +369,109 @@ fig.plot(
     x=[1, 8],
     y=[3, 9],
     pen="7p,green,-.-",
+)
+fig.show()
+
+########################################################################################
+# # Plot Geographic Vectors
+# ----------
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[0, 8, 0, 8],
+    projection="X10c/10c",
+    frame="a",
+    data=data,
+    style="m0.5c+ea",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+########################################################################################
+# Georgraphic Vector using the `fig.coast` of the region of the United States.
+# The plotting of the georgraphic vectors when using latitude and longitude
+# are labeled by having Latitude negative, coming first and longitude come second.
+# Then and array is created to create the vectors to follow the one before. 
+import pygmt
+import numpy as np
+fig = pygmt.Figure()
+fig.coast(
+    region=[-127, -64, 24, 53],
+    projection="M15c",
+    frame=True,
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
+)
+# Plot geographic vectors using latitude and longitude.
+ME = [-69.4455, 45.2538]
+CHI = [-87.6298, 41.8781]
+SEA = [-122.3321, 47.6062]
+NO = [-90.0715, 29.9511]
+KC = [-94.5786, 39.0997]
+CA = [-119.4179, 36.7783]
+# Add array to piece together the vectors.
+data = np.array([ME + CHI, CHI + SEA, SEA + KC, KC + NO, NO + CA])
+fig.plot(
+    data=data,
+    style="=0.5c+ea+s",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+########################################################################################
+# Geographic graph using x and y values to set a start and an ending point.
+# Use `fig.coast` to display the ouput of a coast. `x` and `y` are cordinates
+# on a grid. `x` which is Idaho and `y` is chicago. The geographical vector
+# is going from Idaho to Chicago.
+
+import pygmt
+import numpy as np
+fig = pygmt.Figure()
+fig.coast(
+    region=[-127, -64, 24, 53],
+    projection="M15c",
+    frame=True,
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
+)
+x = [-114.7420, 44.0682]
+y = [-87.6298, 41.8781]
+data = np.array([x + y])
+
+fig.plot(
+    data=data,
+    style="=0.5c+ea+s",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+#################################################################################
+
+import pygmt
+import numpy as np
+
+fig = pygmt.Figure()
+fig.coast(
+    shorelines="1/0.5p",
+    region=[-180, -20, 0, 90],
+    projection="Poly/12c",
+    land="gray",
+    borders="1/thick,black",
+    frame="afg10",
+)
+x = [-99.1332, 19.4326]
+y = [-69.4455, 45.2538]
+z = [-122.5210, 47.6249]
+data = np.array([x + y, y + z])
+
+fig.plot(
+    data=data,
+    style="=0.5c+ea+s",
+    pen="2p",
+    color="red3",
 )
 fig.show()
