@@ -105,7 +105,7 @@ def load_usgs_quakes():
 
 def load_fractures_compilation():
     """
-    Load a table of fracture lengths and directions as hypothetically digitized
+    Load a table of fracture lengths and azimuths as hypothetically digitized
     from geological maps as a pandas.DataFrame.
 
     This is the ``@fractures_06.txt`` dataset used in the GMT tutorials.
@@ -121,5 +121,5 @@ def load_fractures_compilation():
         columns.
     """
     fname = which("@fractures_06.txt", download="c")
-    data = pd.read_csv(fname, header=None, sep=r"\s+", names=["direction", "length"])
-    return data[["length", "direction"]]
+    data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
+    return data[["length", "azimuth"]]
