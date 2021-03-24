@@ -1,0 +1,4 @@
+outs:
+- md5: 62a8c11527abb583a04797ff9407c364
+  size: 23798
+  path: test_plot_symbols.png
