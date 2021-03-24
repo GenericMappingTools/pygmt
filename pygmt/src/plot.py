@@ -43,7 +43,9 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
+def plot(
+    self, x=None, y=None, data=None, sizes=None, direction=None, symbol=None, **kwargs
+):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -86,6 +88,8 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         should be a list of two 1d arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
+    symbol : 1d array
+        The symbols of the data points. Only valid if using ``x``/``y``.
     {J}
     {R}
     straight_line : bool or str
@@ -206,8 +210,10 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     kind = data_kind(data, x, y)
 
     extra_arrays = []
-    if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
-        extra_arrays.extend(direction)
+    if "S" in kwargs and len(kwargs["S"]) > 0:
+        if kwargs["S"][0] in "vV" and direction is not None:
+            extra_arrays.extend(direction)
+
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
             raise GMTInvalidInput(
@@ -215,6 +221,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
             )
         extra_arrays.append(kwargs["G"])
         del kwargs["G"]
+
     if sizes is not None:
         if kind != "vectors":
             raise GMTInvalidInput(
@@ -230,6 +237,13 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
                 )
             extra_arrays.append(kwargs[flag])
             kwargs[flag] = ""
+
+    if symbol is not None:
+        if kind != "vectors":
+            raise GMTInvalidInput(
+                "Can't use arrays for symbol if data is matrix or file."
+            )
+        extra_arrays.append(symbol)
 
     with Session() as lib:
         # Choose how data will be passed in to the module
