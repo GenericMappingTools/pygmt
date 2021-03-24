@@ -170,6 +170,9 @@ class Figure:
         # Default cropping the figure to True
         if "A" not in kwargs:
             kwargs["A"] = ""
+        # allow for spaces in figure name
+        if kwargs.get("F"):
+            kwargs["F"] = f'"{kwargs.get("F")}"'
         with Session() as lib:
             lib.call_module("psconvert", build_arg_string(kwargs))
 

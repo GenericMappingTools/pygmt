@@ -96,6 +96,18 @@ def test_figure_savefig_transparent():
     os.remove(fname)
 
 
+def test_figure_savefig_filename_with_spaces():
+    """
+    Check if savefig (or psconvert) supports filenames with spaces.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
+    fname = "test_figure_savefig filename with spaces.png"
+    fig.savefig(fname)
+    assert os.path.exists(fname)
+    os.remove(fname)
+
+
 def test_figure_savefig():
     """
     Check if the arguments being passed to psconvert are correct.
