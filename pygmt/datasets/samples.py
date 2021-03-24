@@ -106,7 +106,7 @@ def load_usgs_quakes():
 def load_fractures_compilation():
     """
     Load a table of fracture lengths and directions as hypothetically digitized
-    from geological maps as a pandas.Dataframe.
+    from geological maps as a pandas.DataFrame.
 
     This is the ``@fractures_06.txt`` dataset used in the GMT tutorials.
 
