@@ -266,123 +266,33 @@ fig.plot(
 )
 fig.show()
 
-
-
-########################################################################################
-# FIXME: Everything after this is from ``lines.py`` and must be removed
-#
-# Additional line segments can be added by including additional values for ``x``
-# and ``y``.
-
-fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 6, 9],
-    y=[5, 7, 4],
-    pen="1p,black",
-)
-fig.show()
-
-########################################################################################
-# To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
-# additional line. Arguments such as ``region``, ``projection``, and ``frame`` do
-# not need to be repeated in subsequent uses.
-
-fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 6, 9],
-    y=[5, 7, 4],
-    pen="2p,blue",
-)
-fig.plot(x=[2, 4, 10], y=[3, 8, 9], pen="2p,red")
-fig.show()
-
-########################################################################################
-# Change line attributes
-# ----------------------
-#
-# The line attributes can be set by the ``pen`` parameter. ``pen`` takes a string
-# argument with the optional values *width*,\ *color*,\ *style*.
-#
-# In the example below, the pen width is set to ``5p``, and with ``black`` as the
-# default color and ``solid`` as the default style.
-
-fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 8],
-    y=[3, 9],
-    pen="5p",
-)
-fig.show()
-
-########################################################################################
-# The line color can be set and is added after the line width to the ``pen`` parameter.
-# In the example below, the line color is set to ``red``.
-
-fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 8],
-    y=[3, 9],
-    pen="5p,red",
-)
-fig.show()
-
-########################################################################################
-# The line style can be set and is added after the line width or color to the
-# ``pen`` parameter.  In the example below, the line style is set to
-# ``..-`` (*dot dot dash*), and the default color ``black`` is used.
-
-fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 8],
-    y=[3, 9],
-    pen="5p,..-",
-)
-fig.show()
-
-########################################################################################
-# The line width, color, and style can all be set in the same ``pen`` parameter. In the
-# example below, the line width is set to ``7p``, the color is set to ``green``, and the
-# line style is ``-.-`` (*dash dot dash*).
-#
-# For a gallery showing other ``pen`` settings, see :doc:`/gallery/lines/linestyles`.
-
-fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 8],
-    y=[3, 9],
-    pen="7p,green,-.-",
-)
-fig.show()
-
 ########################################################################################
 # # Plot Geographic Vectors
 # ----------
+# Geographic graph using x and y values to set a start and an ending point.
+# Use `fig.coast` to display the ouput of a coast. `x` and `y` are cordinates
+# on a grid. `x` which is Idaho and `y` is chicago. The geographical vector
+# is going from Idaho to Chicago. The style of geographic vectors use `=` at the
+# begining to refer it to geographic.
 
+import pygmt
+import numpy as np
 fig = pygmt.Figure()
+fig.coast(
+    region=[-127, -64, 24, 53],
+    projection="M15c",
+    frame=True,
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
+)
+x = [-114.7420, 44.0682]
+y = [-87.6298, 41.8781]
+data = np.array([x + y])
+
 fig.plot(
-    region=[0, 8, 0, 8],
-    projection="X10c/10c",
-    frame="a",
     data=data,
-    style="m0.5c+ea",
+    style="=0.5c+ea+s",
     pen="2p",
     color="red3",
 )
@@ -392,7 +302,7 @@ fig.show()
 # Georgraphic Vector using the `fig.coast` of the region of the United States.
 # The plotting of the georgraphic vectors when using latitude and longitude
 # are labeled by having Latitude negative, coming first and longitude come second.
-# Then and array is created to create the vectors to follow the one before. 
+# Then and array is created to create the vectors to follow the one before.
 import pygmt
 import numpy as np
 fig = pygmt.Figure()
@@ -413,34 +323,6 @@ KC = [-94.5786, 39.0997]
 CA = [-119.4179, 36.7783]
 # Add array to piece together the vectors.
 data = np.array([ME + CHI, CHI + SEA, SEA + KC, KC + NO, NO + CA])
-fig.plot(
-    data=data,
-    style="=0.5c+ea+s",
-    pen="2p",
-    color="red3",
-)
-fig.show()
-########################################################################################
-# Geographic graph using x and y values to set a start and an ending point.
-# Use `fig.coast` to display the ouput of a coast. `x` and `y` are cordinates
-# on a grid. `x` which is Idaho and `y` is chicago. The geographical vector
-# is going from Idaho to Chicago.
-
-import pygmt
-import numpy as np
-fig = pygmt.Figure()
-fig.coast(
-    region=[-127, -64, 24, 53],
-    projection="M15c",
-    frame=True,
-    borders=1,
-    area_thresh=4000,
-    shorelines="0.25p,black",
-)
-x = [-114.7420, 44.0682]
-y = [-87.6298, 41.8781]
-data = np.array([x + y])
-
 fig.plot(
     data=data,
     style="=0.5c+ea+s",
@@ -475,3 +357,5 @@ fig.plot(
     color="red3",
 )
 fig.show()
+
+################################################################################
