@@ -201,36 +201,40 @@ hesitate to [ask questions](#how-can-i-talk-to-you)):
 
 ### General guidelines
 
-We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow/) to
-make changes to our codebase.
+We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
+to make changes to our codebase.
 Every change made goes through a pull request, even our own, so that our
-[continuous integration](https://en.wikipedia.org/wiki/Continuous_integration) services
-have a change to check that the code is up to standards and passes all our tests.
+[continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
+services have a chance to check that the code is up to standards and passes all
+our tests.
 This way, the *master* branch is always stable.
 
-General guidelines for pull requests (PRs):
+General guidelines for making a Pull Requests (PR):
 
-* **Open an issue first** describing what you want to do. If there is already an issue
-  that matches your PR, leave a comment there instead to let us know what you plan to
-  do.
-* Each pull request should consist of a **small** and logical collection of changes.
+* **Open an issue first** describing what you want to do. If there is already
+  an issue that matches your PR, leave a comment there instead to let us know
+  what you plan to do.
+* Each pull request should consist of a **small** and logical collection of
+  changes.
 * Larger changes should be broken down into smaller components and integrated
   separately.
 * Bug fixes should be submitted in separate PRs.
-* Use underscores for all Python (*.py) files as per [PEP8](https://www.python.org/dev/peps/pep-0008/),
-  not hyphens. Directory names should also use underscores instead of hyphens.
-* Describe what your PR changes and *why* this is a good thing. Be as specific as you
-  can. The PR description is how we keep track of the changes made to the project over
-  time.
-* Do not commit changes to files that are irrelevant to your feature or bugfix (eg:
-  `.gitignore`, IDE project files, etc).
+* Use underscores for all Python (*.py) files as per
+  [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
+  names should also use underscores instead of hyphens.
+* Describe what your PR changes and *why* this is a good thing. Be as specific
+  as you can. The PR description is how we keep track of the changes made to
+  the project over time.
+* Do not commit changes to files that are irrelevant to your feature or bugfix
+  (e.g.: `.gitignore`, IDE project files, etc).
 * Write descriptive commit messages. Chris Beams has written a
   [guide](https://chris.beams.io/posts/git-commit/) on how to write good commit
   messages.
-* Be willing to accept criticism and work on improving your code; we don't want to break
-  other users' code, so care must be taken not to introduce bugs.
-* Be aware that the pull request review process is not immediate, and is generally
-  proportional to the size of the pull request.
+* Be willing to accept criticism and work on improving your code; we don't want
+  to break other users' code, so care must be taken not to introduce bugs.
+* Be aware that the pull request review process is not immediate, and is
+  generally proportional to the size of the pull request.
+
 
 ### Setting up your environment
 
@@ -558,17 +562,17 @@ arguments and return values.
 
 ### Code Review
 
-After you've submitted a pull request, you should expect to hear at least a comment
-within a couple of days.
-We may suggest some changes or improvements or alternatives.
+After you've submitted a pull request, you should expect to hear at least a
+comment within a couple of days. We may suggest some changes, improvements or
+alternative implementation details.
 
-Some things that will increase the chance that your pull request is accepted quickly:
+To increase the chances of getting your pull request accepted quickly, try to:
 
 * Write a good and detailed description of what the PR does.
 * Write tests for the code you wrote/modified.
-* Readable code is better than clever code (even with comments).
-* Write documentation for your code (docstrings) and leave comments explaining the
-  *reason* behind non-obvious things.
+* Use readable code, as it is better than clever code (even with comments).
+* Write documentation for your code (docstrings) and leave comments explaining
+  the *reason* behind non-obvious things.
 * Include an example of new features in the gallery or tutorials.
 * Follow the [PEP8](http://pep8.org) style guide for code and the
   [numpy guide](https://numpydoc.readthedocs.io/en/latest/format.html)
