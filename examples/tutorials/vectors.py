@@ -245,21 +245,26 @@ fig.show()
 # # Plot Circular Vectors
 # ----------
 #
-# Circular vectors can be plotted using an ``x_start`` and ``y_start`` value to
-# specify where the origin of the circle will be located on the plane. The
-# variable ``radius`` is used to specify the radius of the circle while the
-# ``degree_start`` and ``degree_stop`` parameters specify at what angle the arc
-# will begin and end respectively.
+# When plotting circular vectors, there are 5 values that should be included in
+# the list that is passed through np.array() in order to create a valid plot.
+# The first two values in ``circular_vector_1`` represent the origin of the
+# circle that will be plotted. The next value is the radius which is represented
+# on the plot in centimeters. Finally, the last two values represent the degree
+# at which the plot will start and stop. In this example, the result show is the
+# left half of a circle as the plot starts at 90 degrees and goes until 270.
 
 # vector specifications structured as: [x_start, y_start, radius, degree_start, degree_stop]
-data = np.array([[4, 4, 2, 90, 270]])
+circular_vector_1 = [0, 0, 5, 90, 270]
+
+data = np.array([circular_vector_1])
 
 fig = pygmt.Figure()
 fig.plot(
-    region=[0, 8, 0, 8],
-    projection="X10c/10c",
-    frame="a",
+    region=[-10, 10, -10, 10],
+    projection="X20c",
+    frame="ag",
     data=data,
+    # when plotting circular vectors the style variable should begin with m
     style="m0.5c+ea",
     pen="2p",
     color="red3",
