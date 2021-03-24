@@ -58,7 +58,7 @@ fig.show()
 # Additionally, we changed the style of the vector to include a red
 # arrowhead and increased the thickness of the line. A list of different
 # styling attributes can be found in
-# [Vector attributes documentation](https://www.pygmt.org/latest/gallery/lines/vector_heads_tails.html)
+# :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`
 
 fig = pygmt.Figure()
 fig.plot(
