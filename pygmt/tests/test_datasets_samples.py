@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading datasets for tutorials.
+Test basic functionality for loading sample datasets.
 """
 from pygmt.datasets import (
     load_fractures_compilation,
@@ -59,6 +59,7 @@ def test_usgs_quakes():
     """
     data = load_usgs_quakes()
     assert data.shape == (1197, 22)
+    
 
 
 def test_fractures_compilation():
