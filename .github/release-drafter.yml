@@ -23,9 +23,9 @@ exclude-labels:
 category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
 template: |
-  ## Release v$NEXT_PATCH_VERSION (20YY/MM/DD)
+  ## Release v$RESOLVED_VERSION (20YY/MM/DD)
 
-  [![Digital Object Identifier for PyGMT v$NEXT_PATCH_VERSION](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+  [![Digital Object Identifier for PyGMT v$RESOLVED_VERSION](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
 
   ### Highlights
 

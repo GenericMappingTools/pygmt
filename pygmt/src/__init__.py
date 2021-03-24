@@ -3,9 +3,10 @@ Source code for PyGMT modules.
 """
 # pylint: disable=import-outside-toplevel
 from pygmt.src.basemap import basemap
-from pygmt.src.blockmedian import blockmedian
+from pygmt.src.blockm import blockmean, blockmedian
 from pygmt.src.coast import coast
 from pygmt.src.colorbar import colorbar
+from pygmt.src.config import config
 from pygmt.src.contour import contour
 from pygmt.src.grd2cpt import grd2cpt
 from pygmt.src.grdcontour import grdcontour

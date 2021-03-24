@@ -44,3 +44,6 @@ doc/tutorials/
 
 # macOS
 .DS_Store
+
+# Data files (tracked using dvc)
+pygmt/tests/baseline/test_*.png
