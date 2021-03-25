@@ -7,12 +7,15 @@ The :meth:`pygmt.Figure.rose` method can plot windrose diagrams or polar histogr
 
 import pygmt
 
+data = pygmt.datasets.load_fractures_compilation()
+
 fig = pygmt.Figure()
 
 fig.rose(
     # use the remote file fractures_06.txt which contains a compilation
-    # of fracture lengths and directions as digitized from geological maps
-    data="@fractures_06.txt",
+    # of fracture lengths and azimuth as hypothetically digitized from
+    # geological maps
+    data=data,
     # specify the "region" of interest in the (r,azimuth) space [r0, r1, az0, az1],
     # here, r0 is 0 and r1 is 1, for azimuth, az0 is 0 and az1 is 360 which means
     # we plot a full circle between 0 and 360 degrees
