@@ -58,7 +58,7 @@ fig.show()
 # Additionally, we changed the style of the vector to include a red
 # arrowhead and increased the thickness of the line. A list of different
 # styling attributes can be found in
-# [Vector attributes documentation](https://www.pygmt.org/latest/gallery/lines/vector_heads_tails.html)
+# :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`
 
 fig = pygmt.Figure()
 fig.plot(
@@ -245,25 +245,93 @@ fig.show()
 # # Plot Circular Vectors
 # ----------
 #
-# Circular vectors can be plotted using an ``x_start`` and ``y_start`` value to
-# specify where the origin of the circle will be located on the plane. The
-# variable ``radius`` is used to specify the radius of the circle while the
-# ``degree_start`` and ``degree_stop`` parameters specify at what angle the arc
-# will begin and end respectively.
+# When plotting circular vectors, there are 5 values that should be included in
+# the list that is passed through np.array() in order to create a valid plot.
+# The first two values in ``circular_vector_1`` represent the origin of the
+# circle that will be plotted. The next value is the radius which is represented
+# on the plot in centimeters. Finally, the last two values represent the degree
+# at which the plot will start and stop. In this example, the result show is the
+# left half of a circle as the plot starts at 90 degrees and goes until 270.
+# It is important to note that when plotting circular vectors, the style value
+# should begin with an ``m``.
 
 # vector specifications structured as: [x_start, y_start, radius, degree_start, degree_stop]
-data = np.array([[4, 4, 2, 90, 270]])
+circular_vector_1 = [0, 0, 5, 90, 270]
+
+data = np.array([circular_vector_1])
 
 fig = pygmt.Figure()
 fig.plot(
-    region=[0, 8, 0, 8],
-    projection="X10c/10c",
-    frame="a",
+    region=[-10, 10, -10, 10],
+    projection="X20c",
+    frame="ag",
     data=data,
     style="m0.5c+ea",
     pen="2p",
     color="red3",
 )
+fig.show()
+
+########################################################################################
+# When plotting multiple vectors there is a multitude of ``numpy`` functions
+# that can make this process easier. In the following example, three main numpy
+# functions are used. The first of which is ``np.arange`` which iterates from 0
+# to the value of ct. This function is used to generate random data points for
+# ``radius`` and ``stopdir`` since these values are intended to be different in
+# each of the five vectors begin plotted. The second function is ``np.full``
+# which creates a numpy.ndarray. Finally, all of this data is congregated into
+# a final numpy.ndarray called data using ``np.column_stack``. This is then
+# passed to the plot function and the resulting figure is shown below.
+
+ct = 5
+radius = 5 - (0.5 * np.arange(0, ct))
+startdir = np.full(ct, 90)
+stopdir = 180 + (50 * np.arange(0, ct))
+
+data = np.column_stack([np.full(ct, 0), np.full(ct, 0), radius, startdir, stopdir])
+
+fig = pygmt.Figure()
+fig.plot(
+    region=[-10, 10, -10, 10],
+    projection="X20c",
+    frame="ag",
+    data=data,
+    style="m0.5c+ea",
+    pen="2p",
+    color="red3",
+)
+fig.show()
+
+########################################################################################
+# Much like when plotting regular vectors, the default unit used is centimeters.
+# When this is changed to inches, the size of the plot appears larger when the
+# projection units do not change. Below is an example of two circular vectors.
+# One is plotted using the default unit, and the second is plotted using inches.
+# The difference in size of the two vectors provides good insignt into how this
+# functionality works.
+
+circular_vector_1 = [0, 0, 5, 90, 270]
+circular_vector_2 = [0, 0, 5, 90, 270]
+
+data_1 = np.array([circular_vector_1])
+fig.plot(
+    region=[-15, 15, -15, 15],
+    projection="X30c",
+    frame="ag",
+    data=data_1,
+    style="m0.5c+ea",
+    pen="2p",
+    color="red3",
+)
+
+data_2 = np.array([circular_vector_2])
+with pygmt.config(PROJ_LENGTH_UNIT="i"):
+    fig.plot(
+        data=data_2,
+        style="m0.5c+ea",
+        pen="2p",
+        color="red3",
+    )
 fig.show()
 
 ########################################################################################
@@ -286,9 +354,9 @@ fig.coast(
     area_thresh=4000,
     shorelines="0.25p,black",
 )
-x = [-114.7420, 44.0682]
-y = [-87.6298, 41.8781]
-data = np.array([x + y])
+point_1 = [-114.7420, 44.0682]
+point_2 = [-87.6298, 41.8781]
+data = np.array([point_1 + point_2])
 
 fig.plot(
     data=data,
