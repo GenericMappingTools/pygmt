@@ -43,7 +43,7 @@ def test_solar_terminators():
 @pytest.mark.parametrize(
     "terminator_datetime",
     [
-        "1990-02-17 04:25:00",
+        "1990-02-17T04:25:00",
         datetime.datetime(year=1990, month=2, day=17, hour=4, minute=25, second=0),
     ],
 )
