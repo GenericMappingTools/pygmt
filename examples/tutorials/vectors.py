@@ -252,6 +252,8 @@ fig.show()
 # on the plot in centimeters. Finally, the last two values represent the degree
 # at which the plot will start and stop. In this example, the result show is the
 # left half of a circle as the plot starts at 90 degrees and goes until 270.
+# It is important to note that when plotting circular vectors, the style value
+# should begin with an ``m``.
 
 # vector specifications structured as: [x_start, y_start, radius, degree_start, degree_stop]
 circular_vector_1 = [0, 0, 5, 90, 270]
@@ -264,7 +266,6 @@ fig.plot(
     projection="X20c",
     frame="ag",
     data=data,
-    # when plotting circular vectors the style variable should begin with m
     style="m0.5c+ea",
     pen="2p",
     color="red3",
