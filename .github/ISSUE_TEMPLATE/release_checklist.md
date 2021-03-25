@@ -38,7 +38,7 @@ assignees: ''
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/)
   - [ ] [Major/Minor releases only] GMT [website](https://github.com/GenericMappingTools/website) (News)
   - [ ] [ResearchGate](https://www.researchgate.net/project/PyGMT-A-Python-interface-for-the-Generic-Mapping-Tools)
-
+  - [ ] [Twitter](https://twitter.com/gmt_dev)
 ---
 
 - [ ] Party :tada: (don't tick before all other checkboxes are ticked!)
