@@ -69,6 +69,7 @@ Operations on tabular data:
 
     blockmean
     blockmedian
+    project
     surface
 
 Operations on grids:

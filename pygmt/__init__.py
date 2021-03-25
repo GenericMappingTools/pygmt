@@ -39,6 +39,7 @@ from pygmt.src import (
     grdtrack,
     info,
     makecpt,
+    project,
     surface,
     which,
     x2sys_cross,
