@@ -6,10 +6,11 @@ import pytest
 from pygmt import Figure
 from pygmt.datasets import load_fractures_compilation
 
+
 @pytest.mark.mpl_image_compare
 def test_rose_data_file():
     """
-    Test supplying data from sample dataset
+    Test supplying data from sample dataset.
     """
 
     data = load_fractures_compilation()
@@ -29,6 +30,7 @@ def test_rose_data_file():
     )
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_rose_2d_array_single():
     """
@@ -38,7 +40,7 @@ def test_rose_2d_array_single():
 
     data = np.array([[40, 60]])
 
-    fig= Figure()
+    fig = Figure()
     fig.rose(
         data=data,
         region=[0, 1, 0, 360],
@@ -65,7 +67,7 @@ def test_rose_2d_array_multiple():
         [[40, 60], [60, 300], [20, 180], [30, 190], [60, 90], [40, 110], [80, 125]]
     )
 
-    fig= Figure()
+    fig = Figure()
     fig.rose(
         data=data,
         region="0/1/0/360",
@@ -114,9 +116,8 @@ def test_rose_plot_data_using_cpt():
 def test_rose_plot_with_transparency():
     """
     Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths
-    are stored in the second column, azimuths in the first, specify via
-    columns).
+    azimuth as digitized from geological maps to the data argument (lengths are
+    stored in the second column, azimuths in the first, specify via columns).
 
     Use transparency.
     """
@@ -145,9 +146,8 @@ def test_rose_plot_with_transparency():
 def test_rose_no_sectors():
     """
     Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths
-    are stored in the second column, azimuths in the first, specify via
-    columns).
+    azimuth as digitized from geological maps to the data argument (lengths are
+    stored in the second column, azimuths in the first, specify via columns).
 
     Plot data without defining a sector width, add a title and rename labels.
     """
@@ -174,9 +174,8 @@ def test_rose_no_sectors():
 def test_rose_bools():
     """
     Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths
-    are stored in the second column, azimuths in the first, specify via
-    columns).
+    azimuth as digitized from geological maps to the data argument (lengths are
+    stored in the second column, azimuths in the first, specify via columns).
 
     Test bools.
     """
