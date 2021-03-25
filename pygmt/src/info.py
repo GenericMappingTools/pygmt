@@ -13,7 +13,15 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose", f="coltypes")
+@use_alias(
+    C="per_column",
+    I="spacing",
+    T="nearest_multiple",
+    V="verbose",
+    a="aspatial",
+    f="coltypes",
+    r="registration",
+)
 @kwargs_to_strings(I="sequence")
 def info(table, **kwargs):
     r"""
@@ -56,7 +64,9 @@ def info(table, **kwargs):
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
     {V}
+    {a}
     {f}
+    {r}
 
     Returns
     -------

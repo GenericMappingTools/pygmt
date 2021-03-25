@@ -43,6 +43,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: https://img.youtube.com/vi/SSIGJEe0BIk/maxresdefault.jpg
     :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
+    :width: 80%
     :align: center
     :alt: ROSES 2020 youtube video
 
@@ -54,6 +55,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/agu2019-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.11320280
+   :width: 80%
    :align: center
    :alt: AGU 2019 poster on figshare
 
@@ -65,6 +67,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/scipy2018-youtube-thumbnail.png
    :target: https://www.youtube.com/watch?v=6wMtfZXfTRM
+   :width: 80%
    :align: center
    :alt: SciPy youtube video
 
@@ -76,6 +79,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/aogs2018-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.6399944
+   :width: 80%
    :align: center
    :alt: AOGS poster on figshare
 
@@ -87,6 +91,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/scipy2017-youtube-thumbnail.png
    :target: https://www.youtube.com/watch?v=93M4How7R24
+   :width: 80%
    :align: center
    :alt: SciPy youtube video
 
@@ -98,5 +103,6 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/agu2017-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.5662411
+   :width: 80%
    :align: center
    :alt: AGU 2017 poster on figshare
