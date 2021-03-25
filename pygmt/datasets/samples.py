@@ -18,7 +18,7 @@ def load_japan_quakes():
 
     Returns
     -------
-    data :  pandas.DataFrame
+    data : pandas.DataFrame
         The data table. Columns are year, month, day, latitude, longitude,
         depth (in km), and magnitude of the earthquakes.
     """
@@ -49,7 +49,7 @@ def load_ocean_ridge_points():
 
     Returns
     -------
-    data :  pandas.DataFrame
+    data : pandas.DataFrame
         The data table. Columns are longitude and latitude.
     """
     fname = which("@ridge.txt", download="c")
@@ -72,7 +72,7 @@ def load_sample_bathymetry():
 
     Returns
     -------
-    data :  pandas.DataFrame
+    data : pandas.DataFrame
         The data table. Columns are longitude, latitude, and bathymetry.
     """
     fname = which("@tut_ship.xyz", download="c")
