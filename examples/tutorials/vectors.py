@@ -13,8 +13,7 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
 """
-# TODO: change this number to reflect the correct thumbnail
-# sphinx_gallery_thumbnail_number = 3
+# sphinx_gallery_thumbnail_number = 6
 
 import numpy as np
 import pygmt
