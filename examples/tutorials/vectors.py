@@ -435,12 +435,13 @@ fig.show()
 
 
 fig = pygmt.Figure()
-fig.coast(region=[-180, 180, -80, 80],
-          frame="afg",
-          land="lightbrown",
-          water="lightblue",
-          projection="M0/0/12c"
-          )
+fig.coast(
+    region=[-180, 180, -80, 80],
+    frame="afg",
+    land="lightbrown",
+    water="lightblue",
+    projection="M0/0/12c",
+)
 SA = [22.9375, -30.5595]
 EUR = [15.2551, 54.5260]
 ME = [-69.4455, 45.2538]
