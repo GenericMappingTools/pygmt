@@ -171,8 +171,7 @@ class Figure:
         if "A" not in kwargs:
             kwargs["A"] = ""
         # allow for spaces in figure name
-        if kwargs.get("F"):
-            kwargs["F"] = f'"{kwargs.get("F")}"'
+        kwargs["F"] = f'"{kwargs.get("F")}"' if kwargs.get("F") else None
         with Session() as lib:
             lib.call_module("psconvert", build_arg_string(kwargs))
 
