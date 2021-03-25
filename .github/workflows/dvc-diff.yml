@@ -28,7 +28,7 @@ jobs:
     # | Status   | Path                                |
     # |----------|-------------------------------------|
     # | added    | pygmt/tests/baseline/test_image.png |
-    - name: Get list of images that were added or changed
+    - name: Put list of images that were added or changed into report
       run: |
         dvc diff --show-md master HEAD >> report.md
         cat report.md
@@ -36,9 +36,10 @@ jobs:
     - name: Pull image data from cloud storage
       run: dvc pull --remote upstream
 
-    - name: Report image diff in a GitHub comment
+    - name: Put image diff(s) into report
       env:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
+      id: image-diff
       run: |
         # Get just the filename of the changed image from the report
         tail --lines=+3 report.md | cut --delimiter=' ' --fields=7 > diff_files.txt
@@ -50,4 +51,33 @@ jobs:
         done < diff_files.txt
 
         # Send diff report as GitHub comment
-        cml-send-comment report.md
+        # cml-send-comment report.md
+
+        # Format report to escape newlines before publishing as GitHub comment
+        report=$(cat report.md)
+        report="${report//'%'/'%25'}"
+        report="${report//$'\n'/'%0A'}"
+        report="${report//$'\r'/'%0D'}"
+        echo ::set-output name=report::$report
+
+    - name: Find comment with image diff report
+      uses: peter-evans/find-comment@v1.2.0
+      id: fc
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: '## Image diff(s)'
+
+    - name: Create comment with image diff report
+      if: steps.fc.outputs.comment-id == ''
+      uses: peter-evans/create-or-update-comment@v1.4.4
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: ${{ steps.image-diff.outputs.report }}
+
+    - name: Update comment with new image diff report
+      if: steps.fc.outputs.comment-id != ''
+      uses: peter-evans/create-or-update-comment@v1.4.4
+      with:
+        comment-id: ${{ steps.fc.outputs.comment-id }}
+        body: ${{ steps.image-diff.outputs.report }}
