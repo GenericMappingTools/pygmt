@@ -242,7 +242,7 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# # Plot Circular Vectors
+# Plot Circular Vectors
 # ----------
 #
 # When plotting circular vectors, there are 5 values that should be included in
@@ -314,6 +314,8 @@ circular_vector_1 = [0, 0, 5, 90, 270]
 circular_vector_2 = [0, 0, 5, 90, 270]
 
 data_1 = np.array([circular_vector_1])
+
+fig = pygmt.Figure()
 fig.plot(
     region=[-15, 15, -15, 15],
     projection="X30c",
