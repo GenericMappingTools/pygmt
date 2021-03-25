@@ -335,7 +335,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
 fig.show()
 
 ########################################################################################
-# # Plot Geographic Vectors
+# Plot Geographic Vectors
 # ----------
 # Geographic graph using x and y values to set a start and an ending point.
 # Use `fig.coast` to display the output of a coast. `x` and `y` are coordinates
