@@ -303,6 +303,38 @@ fig.plot(
 fig.show()
 
 ########################################################################################
+# Much like when plotting regular vectors, the default unit used is centimeters.
+# When this is changed to inches, the size of the plot appears larger when the
+# projection units do not change. Below is an example of two circular vectors.
+# One is plotted using the default unit, and the second is plotted using inches.
+# The difference in size of the two vectors provides good insignt into how this
+# functionality works.
+
+circular_vector_1 = [0, 0, 5, 90, 270]
+circular_vector_2 = [0, 0, 5, 90, 270]
+
+data_1 = np.array([circular_vector_1])
+fig.plot(
+    region=[-15, 15, -15, 15],
+    projection="X30c",
+    frame="ag",
+    data=data_1,
+    style="m0.5c+ea",
+    pen="2p",
+    color="red3",
+)
+
+data_2 = np.array([circular_vector_2])
+with pygmt.config(PROJ_LENGTH_UNIT="i"):
+    fig.plot(
+        data=data_2,
+        style="m0.5c+ea",
+        pen="2p",
+        color="red3",
+    )
+fig.show()
+
+########################################################################################
 # FIXME: Everything after this is from ``lines.py`` and must be removed
 #
 # Additional line segments can be added by including additional values for ``x``
