@@ -270,15 +270,13 @@ fig.show()
 # # Plot Geographic Vectors
 # ----------
 # Geographic graph using x and y values to set a start and an ending point.
-# Use `fig.coast` to display the output of a coast. `x` and `y` are cordinates
+# Use `fig.coast` to display the output of a coast. `x` and `y` are coordinates
 # on a grid that we are using. `x` is Idaho and `y` is chicago in this example.
 # The geographical vector is going from Idaho to Chicago. To style geographic
 # vectors, use `=` at the begining to refer it to geographic. `Fig.plot` is where
 # you can style your vector. As you can see the vector is red and has the style
 # of a geographic vector.
 
-import pygmt
-import numpy as np
 fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
@@ -301,13 +299,12 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# This Georgraphic Vector is using the `fig.coast` of the region of the United States.
-# The plotting of the georgraphic vectors when using latitude and longitude
+# This Geographic Vector is using the `fig.coast` of the region of the United States.
+# The plotting of the geographic vectors when using latitude and longitude
 # are labeled by having the coordinates displayed.
 # Then an array is created so the vectors follow the one vector before it. You
 # can diplay this array any way you want.
-import pygmt
-import numpy as np
+
 fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
@@ -339,8 +336,6 @@ fig.show()
 # is set to poly. The MC, ME, WA variables are connected to Mexico City (MC)
 # Maine (ME), and Washington (WA). Each variable has a coordinate corrensponding
 # that place.
-import pygmt
-import numpy as np
 
 fig = pygmt.Figure()
 fig.coast(
@@ -354,7 +349,7 @@ fig.coast(
 MC = [-99.1332, 19.4326]
 ME = [-69.4455, 45.2538]
 WA = [-122.5210, 47.6249]
-data = np.array([x + y, y + z])
+data = np.array([MC + ME, ME + WA])
 
 fig.plot(
     data=data,
@@ -365,19 +360,19 @@ fig.plot(
 fig.show()
 
 ################################################################################
-# This geogrpahic vector is using the `Mercator` projection. For this we have
-#`fig.coast` with the region, frame, land and projection type. Then for the vector
+# This geographic vector is using the `Mercator` projection. For this we have
+# `fig.coast` with the region, frame, land and projection type. Then for the vector
 # points we are starting at SA which is South Africa and going to four different
 # places.
 
-import pygmt
 
 fig = pygmt.Figure()
-fig.coast(region=[0, 360, -80, 80],
+fig.coast(region=[-180, 180, -80, 80],
           frame="afg",
-          land="red",
+          land="lightbrown",
+          water="lightblue",
           projection="M0/0/12c"
-)
+          )
 SA = [22.9375, -30.5595]
 EUR = [15.2551, 54.5260]
 ME = [-69.4455, 45.2538]
