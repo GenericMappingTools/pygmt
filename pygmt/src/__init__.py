@@ -3,7 +3,7 @@ Source code for PyGMT modules.
 """
 # pylint: disable=import-outside-toplevel
 from pygmt.src.basemap import basemap
-from pygmt.src.blockmedian import blockmedian
+from pygmt.src.blockm import blockmean, blockmedian
 from pygmt.src.coast import coast
 from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
@@ -25,6 +25,7 @@ from pygmt.src.makecpt import makecpt
 from pygmt.src.meca import meca
 from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
+from pygmt.src.solar import solar
 from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
 from pygmt.src.text import text_ as text  # "text" is an argument within "text_"

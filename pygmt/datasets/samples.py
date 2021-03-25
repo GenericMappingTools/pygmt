@@ -1,5 +1,5 @@
 """
-Functions to load sample data from the GMT tutorials.
+Functions to load sample data.
 """
 import pandas as pd
 from pygmt.src import which
@@ -7,7 +7,7 @@ from pygmt.src import which
 
 def load_japan_quakes():
     """
-    Load a table of earthquakes around Japan as a pandas.Dataframe.
+    Load a table of earthquakes around Japan as a pandas.DataFrame.
 
     Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
     dataset used in the GMT tutorials.
@@ -18,7 +18,7 @@ def load_japan_quakes():
 
     Returns
     -------
-    data :  pandas.Dataframe
+    data : pandas.DataFrame
         The data table. Columns are year, month, day, latitude, longitude,
         depth (in km), and magnitude of the earthquakes.
     """
@@ -49,7 +49,7 @@ def load_ocean_ridge_points():
 
     Returns
     -------
-    data :  pandas.Dataframe
+    data : pandas.DataFrame
         The data table. Columns are longitude and latitude.
     """
     fname = which("@ridge.txt", download="c")
@@ -72,7 +72,7 @@ def load_sample_bathymetry():
 
     Returns
     -------
-    data :  pandas.Dataframe
+    data : pandas.DataFrame
         The data table. Columns are longitude, latitude, and bathymetry.
     """
     fname = which("@tut_ship.xyz", download="c")
@@ -84,7 +84,7 @@ def load_sample_bathymetry():
 
 def load_usgs_quakes():
     """
-    Load a table of global earthquakes form the USGS as a pandas.Dataframe.
+    Load a table of global earthquakes form the USGS as a pandas.DataFrame.
 
     This is the ``@usgs_quakes_22.txt`` dataset used in the GMT tutorials.
 
@@ -94,10 +94,32 @@ def load_usgs_quakes():
 
     Returns
     -------
-    data : pandas.Dataframe
+    data : pandas.DataFrame
         The data table. Use ``print(data.describe())`` to see the available
         columns.
     """
     fname = which("@usgs_quakes_22.txt", download="c")
     data = pd.read_csv(fname)
     return data
+
+
+def load_fractures_compilation():
+    """
+    Load a table of fracture lengths and azimuths as hypothetically digitized
+    from geological maps as a pandas.DataFrame.
+
+    This is the ``@fractures_06.txt`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table. Use ``print(data.describe())`` to see the available
+        columns.
+    """
+    fname = which("@fractures_06.txt", download="c")
+    data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
+    return data[["length", "azimuth"]]
