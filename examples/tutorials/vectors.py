@@ -301,7 +301,7 @@ fig.show()
 ########################################################################################
 # Georgraphic Vector using the `fig.coast` of the region of the United States.
 # The plotting of the georgraphic vectors when using latitude and longitude
-# are labeled by having Latitude negative, coming first and longitude come second.
+# are labeled by having the coordinates displayed.
 # Then and array is created to create the vectors to follow the one before.
 import pygmt
 import numpy as np
@@ -314,7 +314,7 @@ fig.coast(
     area_thresh=4000,
     shorelines="0.25p,black",
 )
-# Plot geographic vectors using latitude and longitude.
+# Plot geographic vectors using coordinates.
 ME = [-69.4455, 45.2538]
 CHI = [-87.6298, 41.8781]
 SEA = [-122.3321, 47.6062]
@@ -332,7 +332,10 @@ fig.plot(
 fig.show()
 
 #################################################################################
-
+# This is a polyconic projection of geographic vectors. This projection
+# is set to poly. The MC, ME, WA variables are connected to Mexico City (MC)
+# Maine (ME), and Washington (WA). Each variable has a coordinate corrensponding
+# that place. 
 import pygmt
 import numpy as np
 
@@ -345,9 +348,9 @@ fig.coast(
     borders="1/thick,black",
     frame="afg10",
 )
-x = [-99.1332, 19.4326]
-y = [-69.4455, 45.2538]
-z = [-122.5210, 47.6249]
+MC = [-99.1332, 19.4326]
+ME = [-69.4455, 45.2538]
+WA = [-122.5210, 47.6249]
 data = np.array([x + y, y + z])
 
 fig.plot(
@@ -359,3 +362,30 @@ fig.plot(
 fig.show()
 
 ################################################################################
+# This geogrpahic vector is using the `Mercator` projection. For this we have
+#`fig.coast` with the region, frame, land and projection type. Then for the vector
+# points we are starting at SA which is South Africa and going to four different
+# places.
+
+import pygmt
+
+fig = pygmt.Figure()
+fig.coast(region=[0, 360, -80, 80],
+          frame="afg",
+          land="red",
+          projection="M0/0/12c"
+)
+SA = [22.9375, -30.5595]
+EUR = [15.2551, 54.5260]
+ME = [-69.4455, 45.2538]
+AS = [100.6197, 34.0479]
+NM = [-105.8701, 34.5199]
+data = np.array([SA + EUR, SA + ME, SA + AS, SA + NM])
+
+fig.plot(
+    data=data,
+    style="=0.5c+ea+s",
+    pen="2p",
+    color="red3",
+)
+fig.show()
