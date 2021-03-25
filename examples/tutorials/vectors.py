@@ -335,105 +335,123 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
 fig.show()
 
 ########################################################################################
-# FIXME: Everything after this is from ``lines.py`` and must be removed
-#
-# Additional line segments can be added by including additional values for ``x``
-# and ``y``.
+# # Plot Geographic Vectors
+# ----------
+# Geographic graph using x and y values to set a start and an ending point.
+# Use `fig.coast` to display the output of a coast. `x` and `y` are coordinates
+# on a grid that we are using. `x` is Idaho and `y` is chicago in this example.
+# The geographical vector is going from Idaho to Chicago. To style geographic
+# vectors, use `=` at the begining to refer it to geographic. `Fig.plot` is where
+# you can style your vector. As you can see the vector is red and has the style
+# of a geographic vector.
 
 fig = pygmt.Figure()
+fig.coast(
+    region=[-127, -64, 24, 53],
+    projection="M15c",
+    frame=True,
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
+)
+point_1 = [-114.7420, 44.0682]
+point_2 = [-87.6298, 41.8781]
+data = np.array([point_1 + point_2])
+
 fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 6, 9],
-    y=[5, 7, 4],
-    pen="1p,black",
+    data=data,
+    style="=0.5c+ea+s",
+    pen="2p",
+    color="red3",
 )
 fig.show()
 
 ########################################################################################
-# To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
-# additional line. Arguments such as ``region``, ``projection``, and ``frame`` do
-# not need to be repeated in subsequent uses.
+# This Geographic Vector is using the `fig.coast` of the region of the United States.
+# The plotting of the geographic vectors when using latitude and longitude
+# are labeled by having the coordinates displayed.
+# Then an array is created so the vectors follow the one vector before it. You
+# can diplay this array any way you want.
 
 fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 6, 9],
-    y=[5, 7, 4],
-    pen="2p,blue",
+fig.coast(
+    region=[-127, -64, 24, 53],
+    projection="M15c",
+    frame=True,
+    borders=1,
+    area_thresh=4000,
+    shorelines="0.25p,black",
 )
-fig.plot(x=[2, 4, 10], y=[3, 8, 9], pen="2p,red")
-fig.show()
-
-########################################################################################
-# Change line attributes
-# ----------------------
-#
-# The line attributes can be set by the ``pen`` parameter. ``pen`` takes a string
-# argument with the optional values *width*,\ *color*,\ *style*.
-#
-# In the example below, the pen width is set to ``5p``, and with ``black`` as the
-# default color and ``solid`` as the default style.
-
-fig = pygmt.Figure()
+# Plot geographic vectors using coordinates.
+ME = [-69.4455, 45.2538]
+CHI = [-87.6298, 41.8781]
+SEA = [-122.3321, 47.6062]
+NO = [-90.0715, 29.9511]
+KC = [-94.5786, 39.0997]
+CA = [-119.4179, 36.7783]
+# Add array to piece together the vectors.
+data = np.array([ME + CHI, CHI + SEA, SEA + KC, KC + NO, NO + CA])
 fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 8],
-    y=[3, 9],
-    pen="5p",
+    data=data,
+    style="=0.5c+ea+s",
+    pen="2p",
+    color="red3",
 )
 fig.show()
 
-########################################################################################
-# The line color can be set and is added after the line width to the ``pen`` parameter.
-# In the example below, the line color is set to ``red``.
+#################################################################################
+# This is a polyconic projection of geographic vectors. This projection
+# is set to poly. The MC, ME, WA variables are connected to Mexico City (MC)
+# Maine (ME), and Washington (WA). Each variable has a coordinate corrensponding
+# that place.
 
 fig = pygmt.Figure()
+fig.coast(
+    shorelines="1/0.5p",
+    region=[-180, -20, 0, 90],
+    projection="Poly/12c",
+    land="gray",
+    borders="1/thick,black",
+    frame="afg10",
+)
+MC = [-99.1332, 19.4326]
+ME = [-69.4455, 45.2538]
+WA = [-122.5210, 47.6249]
+data = np.array([MC + ME, ME + WA])
+
 fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 8],
-    y=[3, 9],
-    pen="5p,red",
+    data=data,
+    style="=0.5c+ea+s",
+    pen="2p",
+    color="red3",
 )
 fig.show()
 
-########################################################################################
-# The line style can be set and is added after the line width or color to the
-# ``pen`` parameter.  In the example below, the line style is set to
-# ``..-`` (*dot dot dash*), and the default color ``black`` is used.
+################################################################################
+# This geographic vector is using the `Mercator` projection. For this we have
+# `fig.coast` with the region, frame, land and projection type. Then for the vector
+# points we are starting at SA which is South Africa and going to four different
+# places.
+
 
 fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 8],
-    y=[3, 9],
-    pen="5p,..-",
-)
-fig.show()
+fig.coast(region=[-180, 180, -80, 80],
+          frame="afg",
+          land="lightbrown",
+          water="lightblue",
+          projection="M0/0/12c"
+          )
+SA = [22.9375, -30.5595]
+EUR = [15.2551, 54.5260]
+ME = [-69.4455, 45.2538]
+AS = [100.6197, 34.0479]
+NM = [-105.8701, 34.5199]
+data = np.array([SA + EUR, SA + ME, SA + AS, SA + NM])
 
-########################################################################################
-# The line width, color, and style can all be set in the same ``pen`` parameter. In the
-# example below, the line width is set to ``7p``, the color is set to ``green``, and the
-# line style is ``-.-`` (*dash dot dash*).
-#
-# For a gallery showing other ``pen`` settings, see :doc:`/gallery/lines/linestyles`.
-
-fig = pygmt.Figure()
 fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X25c/20c",
-    frame="a",
-    x=[1, 8],
-    y=[3, 9],
-    pen="7p,green,-.-",
+    data=data,
+    style="=0.5c+ea+s",
+    pen="2p",
+    color="red3",
 )
 fig.show()
