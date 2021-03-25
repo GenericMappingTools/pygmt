@@ -134,6 +134,14 @@ def test_text_xy_with_position_fails(region):
         fig.text(
             region=region, projection="x1c", x=1.2, y=2.4, position="MC", text="text"
         )
+    with pytest.raises(GMTInvalidInput):
+        fig.text(region=region, projection="x1c", textfiles="file.txt", text="text")
+    with pytest.raises(GMTInvalidInput):
+        fig.text(region=region, projection="x1c", position="MC", text=None)
+    with pytest.raises(GMTInvalidInput):
+        fig.text(
+            region=region, projection="x1c", position="MC", text=["text1", "text2"]
+        )
 
 
 @pytest.mark.mpl_image_compare
