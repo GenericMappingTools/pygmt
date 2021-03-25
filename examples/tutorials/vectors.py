@@ -270,10 +270,12 @@ fig.show()
 # # Plot Geographic Vectors
 # ----------
 # Geographic graph using x and y values to set a start and an ending point.
-# Use `fig.coast` to display the ouput of a coast. `x` and `y` are cordinates
-# on a grid. `x` which is Idaho and `y` is chicago. The geographical vector
-# is going from Idaho to Chicago. The style of geographic vectors use `=` at the
-# begining to refer it to geographic.
+# Use `fig.coast` to display the output of a coast. `x` and `y` are cordinates
+# on a grid that we are using. `x` is Idaho and `y` is chicago in this example.
+# The geographical vector is going from Idaho to Chicago. To style geographic
+# vectors, use `=` at the begining to refer it to geographic. `Fig.plot` is where
+# you can style your vector. As you can see the vector is red and has the style
+# of a geographic vector.
 
 import pygmt
 import numpy as np
@@ -299,10 +301,11 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# Georgraphic Vector using the `fig.coast` of the region of the United States.
+# This Georgraphic Vector is using the `fig.coast` of the region of the United States.
 # The plotting of the georgraphic vectors when using latitude and longitude
 # are labeled by having the coordinates displayed.
-# Then and array is created to create the vectors to follow the one before.
+# Then an array is created so the vectors follow the one vector before it. You
+# can diplay this array any way you want.
 import pygmt
 import numpy as np
 fig = pygmt.Figure()
@@ -335,7 +338,7 @@ fig.show()
 # This is a polyconic projection of geographic vectors. This projection
 # is set to poly. The MC, ME, WA variables are connected to Mexico City (MC)
 # Maine (ME), and Washington (WA). Each variable has a coordinate corrensponding
-# that place. 
+# that place.
 import pygmt
 import numpy as np
 
