@@ -391,6 +391,7 @@ class Figure:
         plot,
         plot3d,
         set_panel,
+        solar,
         subplot,
         text,
     )
