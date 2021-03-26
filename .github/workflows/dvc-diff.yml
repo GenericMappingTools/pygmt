@@ -15,7 +15,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2.3.4
       with:
-        # fetch all history so that git diff works
+        # fetch all history so that dvc diff works
         fetch-depth: 0
 
     - name: Setup data version control (DVC)
@@ -48,7 +48,7 @@ jobs:
       id: image-diff
       run: |
         # Get just the filename of the changed image from the report
-        tail --lines=+7 report.md | cut --delimiter=' ' --fields=7 > diff_files.txt
+        tail --lines=+7 report.md | awk '{print $4}' > diff_files.txt
 
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
