@@ -118,10 +118,8 @@ fig.show()
 # If this approach is chosen, ``data`` parameter must be
 # used instead of ``x``, ``y`` and  ``direction``.
 
-vector_1 = [2, 3, 45, 4]
 # Create a list of lists that include each vector information
-vectors = np.array([vector_1])
-# vectors structure: [[ 2  3 45  4]]
+vectors = np.array([[2, 3, 45, 4]])  # vectors structure: [[ 2  3 45  4]]
 
 fig = pygmt.Figure()
 fig.plot(
