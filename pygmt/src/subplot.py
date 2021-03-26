@@ -149,7 +149,8 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     # allow for spaces in string with needing double quotes
-    kwargs["A"] = f'"{kwargs.get("A")}"' if kwargs.get("A") is not None else None
+    if isinstance(kwargs.get("A"), str):
+        kwargs["A"] = f'"{kwargs.get("A")}"'
     kwargs["T"] = f'"{kwargs.get("T")}"' if kwargs.get("T") else None
 
     if nrows < 1 or ncols < 1:
