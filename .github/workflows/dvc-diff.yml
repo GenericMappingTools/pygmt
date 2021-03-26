@@ -52,13 +52,17 @@ jobs:
 
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
+        echo -e "<details>\n" >> report.md
+
         while IFS= read -r line; do
           echo -e "- $line \n" >> report.md
           cml-publish --title $line --md "$line" >> report.md
         done < diff_files.txt
 
-        # Mention GitHub SHA in the report
-        echo -e "Report last updated at commit $GITHUB_SHA" >> report.md
+        echo -e "</details>\n" >> report.md
+
+        # Mention git commit SHA in the report
+        echo -e "Report last updated at commit ${{ github.event.pull_request.head.sha }}" >> report.md
 
         # Format report to escape newlines before publishing as GitHub comment
         report=$(cat report.md)
