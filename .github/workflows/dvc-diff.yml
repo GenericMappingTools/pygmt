@@ -30,6 +30,8 @@ jobs:
     # | added    | pygmt/tests/baseline/test_image.png |
     - name: Put list of images that were added or changed into report
       run: |
+        echo -e "## Summary of changed images\n" > report.md
+        echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md
         dvc diff --show-md master HEAD >> report.md
         cat report.md
 
@@ -42,7 +44,7 @@ jobs:
       id: image-diff
       run: |
         # Get just the filename of the changed image from the report
-        tail --lines=+3 report.md | cut --delimiter=' ' --fields=7 > diff_files.txt
+        tail --lines=+7 report.md | cut --delimiter=' ' --fields=7 > diff_files.txt
 
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
@@ -66,7 +68,7 @@ jobs:
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
-        body-includes: '## Image diff(s)'
+        body-includes: 'This is an auto-generated report of images that have changed on the DVC remote'
 
     - name: Create comment with image diff report
       if: steps.fc.outputs.comment-id == ''
