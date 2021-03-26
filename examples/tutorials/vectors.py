@@ -28,13 +28,15 @@ import pygmt
 #
 # On the shown figure, the plot is projected on a 10cm X 10cm region,
 # which is specified by the ``projection`` parameter.
-# The magnitude of the vector also uses centimeters by default but
+# The length of the vector also uses centimeters by default but
 # could be changed using :meth:`pygmt.config`
 # (Check the next examples for unit changes)
 #
 # Notice that the ``v`` in the ``style`` parameter stands for
 # vector; it distinguishes it from regular lines and allows for
-# different customization.
+# different customization. ``0c`` is used to specify the size
+# of the arrowhead which explains why there is no arrow on either
+# side of the vector.
 
 fig = pygmt.Figure()
 fig.plot(
@@ -74,12 +76,12 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# The default unit of vector magnitude/length is centimeters.
-# However, this can be changed to inches or points. Note that, in GMT,
+# The default unit of vector length is centimeters,
+# however, this can be changed to inches or points. Note that, in GMT,
 # one point is defined as 1/72 inch.
 #
-# In this example, the graphed region is 10in X 4in, however,
-# the magnitude of the first vector is still graphed in centimeters.
+# In this example, the graphed region is 10in X 4in, but
+# the length of the first vector is still graphed in centimeters.
 # Using ``pygmt.config(PROJ_LENGTH_UNIT="i")``, the default unit
 # can be changed to inches in the second plotted vector.
 
@@ -113,7 +115,7 @@ fig.show()
 # about a vector in a single list. However, this requires creating
 # a list for all vectors and passing it into a ``numpy`` array object.
 # Each vector list contains the information structured as:
-# ``[x_start, y_start, direction_degrees, magnitude]``
+# ``[x_start, y_start, direction_degrees, length]``
 #
 # If this approach is chosen, ``data`` parameter must be
 # used instead of ``x``, ``y`` and  ``direction``.
@@ -139,7 +141,7 @@ fig.show()
 # vector could be simply added to the 2d ``numpy`` array object
 # and passed using ``data`` parameter.
 
-# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
+# vector specifications structured as: [x_start, y_start, direction_degrees, length]
 vector_1 = [2, 3, 45, 4]
 vector_2 = [7.5, 8.3, -120.5, 7.2]
 # Create a list of lists that include each vector information
@@ -188,7 +190,7 @@ fig.plot(
     direction=[[-25], [3]],
 )
 
-# vector specifications structured as: [x_start, y_start, direction_degrees, magnitude]
+# vector specifications structured as: [x_start, y_start, direction_degrees, length]
 vector_2 = [-82, 40.5, 138, 3]
 vector_3 = [-71.2, 45, -115.7, 6]
 # Create a list of lists that include each vector information
@@ -243,7 +245,7 @@ fig.show()
 # ----------
 #
 # When plotting circular vectors, there are 5 values that should be included in
-# the list that is passed through np.array() in order to create a valid plot.
+# the list that is passed through ``np.array()`` in order to create a valid plot.
 # The first two values in ``circular_vector_1`` represent the origin of the
 # circle that will be plotted. The next value is the radius which is represented
 # on the plot in centimeters. Finally, the last two values represent the degree
@@ -276,8 +278,8 @@ fig.show()
 # to the value of ct. This function is used to generate random data points for
 # ``radius`` and ``stopdir`` since these values are intended to be different in
 # each of the five vectors begin plotted. The second function is ``np.full``
-# which creates a numpy.ndarray. Finally, all of this data is congregated into
-# a final numpy.ndarray called data using ``np.column_stack``. This is then
+# which creates a ``numpy.ndarray``. Finally, all of this data is congregated into
+# a final ``numpy.ndarray`` called data using ``np.column_stack``. This is then
 # passed to the plot function and the resulting figure is shown below.
 
 ct = 5
@@ -304,7 +306,7 @@ fig.show()
 # When this is changed to inches, the size of the plot appears larger when the
 # projection units do not change. Below is an example of two circular vectors.
 # One is plotted using the default unit, and the second is plotted using inches.
-# The difference in size of the two vectors provides good insignt into how this
+# The difference in size of the two vectors provides good insight into how this
 # functionality works.
 
 circular_vector_1 = [0, 0, 5, 90, 270]
@@ -337,12 +339,13 @@ fig.show()
 # Plot Geographic Vectors
 # ----------
 # Geographic graph using x and y values to set a start and an ending point.
-# Use `fig.coast` to display the output of a coast. `x` and `y` are coordinates
-# on a grid that we are using. `x` is Idaho and `y` is chicago in this example.
+# Use ``fig.coast`` to plot a coast. ``x`` and ``y`` are coordinates
+# on a grid that we are using. ``x`` is Idaho and ``y`` is Chicago in this example.
 # The geographical vector is going from Idaho to Chicago. To style geographic
-# vectors, use `=` at the begining to refer it to geographic. `Fig.plot` is where
-# you can style your vector. As you can see the vector is red and has the style
-# of a geographic vector.
+# vectors, use ``=`` at the begining of the ``style`` parameter.
+# Other styling features such as arrowhead color and line thickness
+# can be passed into
+# ``pen`` and ``color``parameters
 
 fig = pygmt.Figure()
 fig.coast(
@@ -427,8 +430,8 @@ fig.plot(
 fig.show()
 
 ################################################################################
-# This geographic vector is using the `Mercator` projection. For this we have
-# `fig.coast` with the region, frame, land and projection type. Then for the vector
+# This geographic vector is using the Mercator projection. For this we have
+# ``fig.coast`` with the region, frame, land and projection type. Then for the vector
 # points we are starting at SA which is South Africa and going to four different
 # places.
 
