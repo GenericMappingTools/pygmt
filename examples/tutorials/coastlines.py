@@ -83,6 +83,6 @@ fig.show()
 # CSS):
 
 fig = pygmt.Figure()
-fig.basemap(region="g", projection="W10c", frame=True)
+fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(land="#666666", water="skyblue")
 fig.show()
