@@ -38,6 +38,7 @@ Plotting data and laying out the map:
     Figure.plot3d
     Figure.set_panel
     Figure.shift_origin
+    Figure.solar
     Figure.subplot
     Figure.text
 
