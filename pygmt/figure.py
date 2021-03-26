@@ -394,4 +394,5 @@ class Figure:
         solar,
         subplot,
         text,
+        wiggle,
     )
