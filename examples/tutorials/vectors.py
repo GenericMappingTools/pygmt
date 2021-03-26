@@ -337,7 +337,7 @@ fig.show()
 
 ########################################################################################
 # Plot Geographic Vectors
-# ----------
+# -----------------------
 # Geographic graph using x and y values to set a start and an ending point.
 # Use ``fig.coast`` to plot a coast. ``x`` and ``y`` are coordinates
 # on a grid that we are using. ``x`` is Idaho and ``y`` is Chicago in this example.
