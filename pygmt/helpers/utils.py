@@ -106,7 +106,8 @@ def build_arg_string(kwargs):
     Transform keyword arguments into a GMT argument string.
 
     Make sure all arguments have been previously converted to a string
-    representation using the ``kwargs_to_strings`` decorator.
+    representation using the ``kwargs_to_strings`` decorator. The only
+    exceptions are True, False and None.
 
     Any lists or tuples left will be interpreted as multiple entries for the
     same command line argument. For example, the kwargs entry ``'B': ['xa',
@@ -128,10 +129,20 @@ def build_arg_string(kwargs):
 
     >>> print(
     ...     build_arg_string(
-    ...         dict(R="1/2/3/4", J="X4i", P="", E=200, X=None, Y=None)
+    ...         dict(
+    ...             R="1/2/3/4",
+    ...             J="X4i",
+    ...             P="",
+    ...             E=200,
+    ...             X=None,
+    ...             Y=None,
+    ...             A=True,
+    ...             B=False,
+    ...             Z=0,
+    ...         )
     ...     )
     ... )
-    -E200 -JX4i -P -R1/2/3/4
+    -A -E200 -JX4i -P -R1/2/3/4 -Z0
     >>> print(
     ...     build_arg_string(
     ...         dict(
@@ -144,18 +155,19 @@ def build_arg_string(kwargs):
     ... )
     -Bxaf -Byaf -BWSen -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
     """
+
     sorted_args = []
     for key in sorted(kwargs):
         if is_nonstr_iter(kwargs[key]):
             for value in kwargs[key]:
-                sorted_args.append("-{}{}".format(key, value))
-        elif kwargs[key] is None:  # arguments like -XNone are invalid
+                sorted_args.append(f"-{key}{value}")
+        elif kwargs[key] is None or kwargs[key] is False:  # Skip None and False
             continue
+        elif kwargs[key] is True:
+            sorted_args.append(f"-{key}")
         else:
-            sorted_args.append("-{}{}".format(key, kwargs[key]))
-
-    arg_str = " ".join(sorted_args)
-    return arg_str
+            sorted_args.append(f"-{key}{kwargs[key]}")
+    return " ".join(sorted_args)
 
 
 def is_nonstr_iter(value):
