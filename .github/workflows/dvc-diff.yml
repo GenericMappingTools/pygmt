@@ -57,6 +57,9 @@ jobs:
           cml-publish --title $line --md "$line" >> report.md
         done < diff_files.txt
 
+        # Mention GitHub SHA in the report
+        echo -e "Report last updated at commit $GITHUB_SHA" >> report.md
+
         # Format report to escape newlines before publishing as GitHub comment
         report=$(cat report.md)
         report="${report//'%'/'%25'}"
