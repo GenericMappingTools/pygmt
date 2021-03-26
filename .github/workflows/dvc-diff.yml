@@ -53,7 +53,8 @@ jobs:
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
         while IFS= read -r line; do
-          cml-publish --md "$line" >> report.md
+          echo -e "- $line \n" >> report.md
+          cml-publish --title $line --md "$line" >> report.md
         done < diff_files.txt
 
         # Send diff report as GitHub comment
