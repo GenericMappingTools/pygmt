@@ -242,7 +242,7 @@ fig.show()
 
 ########################################################################################
 # Plot Circular Vectors
-# ----------
+# ---------------------
 #
 # When plotting circular vectors, there are 5 values that should be included in
 # the list that is passed through ``np.array()`` in order to create a valid plot.
