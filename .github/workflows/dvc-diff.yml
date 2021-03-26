@@ -57,9 +57,6 @@ jobs:
           cml-publish --title $line --md "$line" >> report.md
         done < diff_files.txt
 
-        # Send diff report as GitHub comment
-        # cml-send-comment report.md
-
         # Format report to escape newlines before publishing as GitHub comment
         report=$(cat report.md)
         report="${report//'%'/'%25'}"
