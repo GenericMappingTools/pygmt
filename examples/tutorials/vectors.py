@@ -435,7 +435,6 @@ fig.show()
 # points we are starting at SA which is South Africa and going to four different
 # places.
 
-
 fig = pygmt.Figure()
 fig.coast(
     region=[-180, 180, -80, 80],
