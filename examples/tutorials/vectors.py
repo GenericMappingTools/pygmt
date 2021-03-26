@@ -20,7 +20,7 @@ import pygmt
 
 ########################################################################################
 # Plot Caretesian Vectors
-# ----------
+# -----------------------
 #
 # Create a simple Cartesian vector using a starting point through
 # ``x``, ``y``, and ``direction`` parameters. The direction is specified
