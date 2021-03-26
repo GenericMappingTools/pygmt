@@ -1,6 +1,6 @@
 """
 Plot vectors
-==========
+============
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 
