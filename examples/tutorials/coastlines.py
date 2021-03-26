@@ -78,7 +78,7 @@ fig.show()
 # Land and water
 # --------------
 #
-# Use the ``land`` and ``water`` arguments to specify a fill color for land and water
+# Use the ``land`` and ``water`` parameters to specify a fill color for land and water
 # bodies. The colors can be given by name or hex codes (like the ones used in HTML and
 # CSS):
 
