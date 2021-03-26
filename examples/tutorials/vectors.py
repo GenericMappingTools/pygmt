@@ -30,7 +30,7 @@ import pygmt
 # which is specified by the ``projection`` parameter.
 # The length of the vector also uses centimeters by default but
 # could be changed using :meth:`pygmt.config`
-# (Check the next examples for unit changes)
+# (Check the next examples for unit changes).
 #
 # Notice that the ``v`` in the ``style`` parameter stands for
 # vector; it distinguishes it from regular lines and allows for
@@ -59,7 +59,7 @@ fig.show()
 # Additionally, we changed the style of the vector to include a red
 # arrowhead and increased the thickness of the line. A list of different
 # styling attributes can be found in
-# :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`
+# :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
 fig = pygmt.Figure()
 fig.plot(
@@ -77,7 +77,7 @@ fig.show()
 
 ########################################################################################
 # The default unit of vector length is centimeters,
-# however, this can be changed to inches or points. Note that, in GMT,
+# however, this can be changed to inches or points. Note that, in PyGMT,
 # one point is defined as 1/72 inch.
 #
 # In this example, the graphed region is 10in X 4in, but
@@ -117,7 +117,7 @@ fig.show()
 # Each vector list contains the information structured as:
 # ``[x_start, y_start, direction_degrees, length]``
 #
-# If this approach is chosen, ``data`` parameter must be
+# If this approach is chosen, the ``data`` parameter must be
 # used instead of ``x``, ``y`` and  ``direction``.
 
 # Create a list of lists that include each vector information
