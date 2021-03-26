@@ -25,6 +25,10 @@ jobs:
       uses: iterative/setup-cml@v1.0.0
 
     # Produce the markdown diff report, which should look like:
+    # ## Summary of changed images
+    #
+    # This is an auto-generated report of images that have changed on the DVC remote
+    #
     # | Status   | Path                                |
     # |----------|-------------------------------------|
     # | added    | pygmt/tests/baseline/test_image.png |
