@@ -165,7 +165,7 @@ fig.show()
 ########################################################################################
 # In this example, cartesian vectors are plotted over a Mercator
 # projection of the continental US. The x values represent the
-# longitude and y values represent the latitude where the vector starts
+# longitude and y values represent the latitude where the vector starts.
 
 # create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
@@ -249,7 +249,7 @@ fig.show()
 # The first two values in ``circular_vector_1`` represent the origin of the
 # circle that will be plotted. The next value is the radius which is represented
 # on the plot in centimeters. Finally, the last two values represent the degree
-# at which the plot will start and stop. In this example, the result show is the
+# at which the plot will start and stop. In this example, the result shown is the
 # left half of a circle as the plot starts at 90 degrees and goes until 270.
 # It is important to note that when plotting circular vectors, the style value
 # should begin with an ``m``.
