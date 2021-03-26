@@ -130,19 +130,19 @@ def build_arg_string(kwargs):
     >>> print(
     ...     build_arg_string(
     ...         dict(
-    ...             R="1/2/3/4",
-    ...             J="X4i",
-    ...             P="",
-    ...             E=200,
-    ...             X=None,
-    ...             Y=None,
     ...             A=True,
     ...             B=False,
+    ...             E=200,
+    ...             J="X4c",
+    ...             P="",
+    ...             R="1/2/3/4",
+    ...             X=None,
+    ...             Y=None,
     ...             Z=0,
     ...         )
     ...     )
     ... )
-    -A -E200 -JX4i -P -R1/2/3/4 -Z0
+    -A -E200 -JX4c -P -R1/2/3/4 -Z0
     >>> print(
     ...     build_arg_string(
     ...         dict(
