@@ -125,9 +125,9 @@ def test_text_position(region):
     return fig
 
 
-def test_text_xy_with_position_fails(region):
+def test_text_invalid_inputs(region):
     """
-    Run text by providing both x/y pairs and position arguments.
+    Run text by providing invalid combinations of inputs.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
