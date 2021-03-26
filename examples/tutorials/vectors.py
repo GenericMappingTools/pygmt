@@ -1,6 +1,6 @@
 """
 Plot vectors
-==========
+============
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 
@@ -20,7 +20,7 @@ import pygmt
 
 ########################################################################################
 # Plot Caretesian Vectors
-# ----------
+# -----------------------
 #
 # Create a simple Cartesian vector using a starting point through
 # ``x``, ``y``, and ``direction`` parameters. The direction is specified
@@ -56,8 +56,8 @@ fig.show()
 # of all x and y coordinates will be passed. Similarly, the length of direction
 # list will increase accordingly.
 #
-# Additionally, we changed the style of the vector to include a red
-# arrowhead and increased the thickness of the line. A list of different
+# Additionally, we change the style of the vector to include a red
+# arrowhead and increase the thickness of the line. A list of different
 # styling attributes can be found in
 # :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
@@ -242,7 +242,7 @@ fig.show()
 
 ########################################################################################
 # Plot Circular Vectors
-# ----------
+# ---------------------
 #
 # When plotting circular vectors, there are 5 values that should be included in
 # the list that is passed through ``np.array()`` in order to create a valid plot.
@@ -337,7 +337,7 @@ fig.show()
 
 ########################################################################################
 # Plot Geographic Vectors
-# ----------
+# -----------------------
 # Geographic graph using x and y values to set a start and an ending point.
 # Use ``fig.coast`` to plot a coast. ``x`` and ``y`` are coordinates
 # on a grid that we are using. ``x`` is Idaho and ``y`` is Chicago in this example.
@@ -434,7 +434,6 @@ fig.show()
 # ``fig.coast`` with the region, frame, land and projection type. Then for the vector
 # points we are starting at SA which is South Africa and going to four different
 # places.
-
 
 fig = pygmt.Figure()
 fig.coast(
