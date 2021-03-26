@@ -80,7 +80,7 @@ fig.show()
 # however, this can be changed to inches or points. Note that, in PyGMT,
 # one point is defined as 1/72 inch.
 #
-# In this example, the graphed region is 10in X 4in, but
+# In this example, the graphed region is 5in X 5in, but
 # the length of the first vector is still graphed in centimeters.
 # Using ``pygmt.config(PROJ_LENGTH_UNIT="i")``, the default unit
 # can be changed to inches in the second plotted vector.
@@ -89,7 +89,7 @@ fig = pygmt.Figure()
 # Vector 1 with default unit as cm
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X10i/4i",
+    projection="X5i/5i",
     frame="a",
     x=2,
     y=8,
@@ -171,7 +171,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
-    projection="M15c",
+    projection="M10c",
     frame="ag",
     borders=1,
     area_thresh=4000,
@@ -191,8 +191,8 @@ fig.plot(
 )
 
 # vector specifications structured as: [x_start, y_start, direction_degrees, length]
-vector_2 = [-82, 40.5, 138, 3]
-vector_3 = [-71.2, 45, -115.7, 6]
+vector_2 = [-82, 40.5, 138, 2.5]
+vector_3 = [-71.2, 45, -115.7, 4]
 # Create a list of lists that include each vector information
 vectors = np.array([vector_2] + [vector_3])
 
@@ -214,7 +214,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.coast(
     region=[20, 50, 30, 45],
-    projection="T35/12c",
+    projection="T35/10c",
     frame=True,
     borders=1,
     area_thresh=4000,
@@ -255,14 +255,14 @@ fig.show()
 # should begin with an ``m``.
 
 # vector specifications structured as: [x_start, y_start, radius, degree_start, degree_stop]
-circular_vector_1 = [0, 0, 5, 90, 270]
+circular_vector_1 = [0, 0, 2.5, 90, 270]
 
 data = np.array([circular_vector_1])
 
 fig = pygmt.Figure()
 fig.plot(
     region=[-10, 10, -10, 10],
-    projection="X20c",
+    projection="X10c",
     frame="ag",
     data=data,
     style="m0.5c+ea",
@@ -283,7 +283,7 @@ fig.show()
 # passed to the plot function and the resulting figure is shown below.
 
 ct = 5
-radius = 5 - (0.5 * np.arange(0, ct))
+radius = 3 - (0.5 * np.arange(0, ct))
 startdir = np.full(ct, 90)
 stopdir = 180 + (50 * np.arange(0, ct))
 
@@ -292,7 +292,7 @@ data = np.column_stack([np.full(ct, 0), np.full(ct, 0), radius, startdir, stopdi
 fig = pygmt.Figure()
 fig.plot(
     region=[-10, 10, -10, 10],
-    projection="X20c",
+    projection="X10c",
     frame="ag",
     data=data,
     style="m0.5c+ea",
@@ -309,15 +309,15 @@ fig.show()
 # The difference in size of the two vectors provides good insight into how this
 # functionality works.
 
-circular_vector_1 = [0, 0, 5, 90, 270]
-circular_vector_2 = [0, 0, 5, 90, 270]
+circular_vector_1 = [6, 5, 2, 90, 270]
+circular_vector_2 = [6, 5, 1, 90, 270]
 
 data_1 = np.array([circular_vector_1])
 
 fig = pygmt.Figure()
 fig.plot(
-    region=[-15, 15, -15, 15],
-    projection="X30c",
+    region=[0, 10, 0, 10],
+    projection="X10c",
     frame="ag",
     data=data_1,
     style="m0.5c+ea",
@@ -350,7 +350,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
-    projection="M15c",
+    projection="M10c",
     frame=True,
     borders=1,
     area_thresh=4000,
@@ -378,7 +378,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
-    projection="M15c",
+    projection="M10c",
     frame=True,
     borders=1,
     area_thresh=4000,
