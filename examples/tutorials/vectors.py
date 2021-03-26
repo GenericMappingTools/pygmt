@@ -56,8 +56,8 @@ fig.show()
 # of all x and y coordinates will be passed. Similarly, the length of direction
 # list will increase accordingly.
 #
-# Additionally, we changed the style of the vector to include a red
-# arrowhead and increased the thickness of the line. A list of different
+# Additionally, we change the style of the vector to include a red
+# arrowhead and increase the thickness of the line. A list of different
 # styling attributes can be found in
 # :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
