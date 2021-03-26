@@ -21,7 +21,7 @@ import pygmt
 # Shorelines
 # ----------
 #
-# Use the ``shorelines`` argument to plot only the shorelines:
+# Use the ``shorelines`` parameter to plot only the shorelines:
 
 fig = pygmt.Figure()
 fig.basemap(region="g", projection="W15c", frame=True)
