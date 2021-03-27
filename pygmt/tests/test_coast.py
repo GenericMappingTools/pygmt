@@ -73,19 +73,3 @@ def test_coast_dcw_list():
     )
     return fig
 
-
-@pytest.mark.mpl_image_compare
-def test_coast_dcw_continent():
-    """
-    Test passing a continent code to dcw.
-    """
-    fig = Figure()
-    fig.coast(
-        region=[-10, 15, 25, 44],
-        frame="a",
-        projection="M15c",
-        land="brown",
-        dcw="=AF+gbisque+pblue",
-    )
-    return fig
-
