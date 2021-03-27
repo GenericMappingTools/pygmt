@@ -17,34 +17,6 @@ def test_coast_iceland():
 
 
 @pytest.mark.mpl_image_compare
-def test_coast_aliases():
-    """
-    Test that all aliases work.
-    """
-    fig = Figure()
-    fig.coast(
-        region=[-30, -27, -40, -37],  # R
-        projection="M25c",  # J
-        frame="afg",  # B
-        rivers="1/1p,black",  # I
-        borders="1/0.5p,-",  # N
-        shorelines="0.25p,white",  # W
-        land="moccasin",  # G
-        water="skyblue",  # S
-        resolution="c",  # D
-        area_thresh=1000,  # A
-        map_scale="jCM+c1+w1000k+f+l",  # L
-        xshift="a4c",  # X
-        yshift="a10c",  # Y
-        perspective=[135, 25],  # p
-        transparency=13,  # t
-        dcw="MA+gred",  # E
-        lakes="blue",  # C
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_coast_world_mercator():
     """
     Test passing generating a global Mercator map with coastlines.
