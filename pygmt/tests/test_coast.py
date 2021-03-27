@@ -72,4 +72,3 @@ def test_coast_dcw_list():
         dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
     return fig
-
