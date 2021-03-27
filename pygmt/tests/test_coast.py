@@ -89,18 +89,3 @@ def test_coast_dcw_continent():
     )
     return fig
 
-
-@pytest.mark.mpl_image_compare
-def test_coast_dcw_state():
-    """
-    Test passing a US state code to dcw.
-    """
-    fig = Figure()
-    fig.coast(
-        region=[-75, -69, 40, 44],
-        frame="a",
-        projection="M15c",
-        land="brown",
-        dcw="US.MA+gbisque+pblue",
-    )
-    return fig
