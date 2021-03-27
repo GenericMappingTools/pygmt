@@ -7,6 +7,7 @@ etc.
 """
 import functools
 import textwrap
+import warnings
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
@@ -469,3 +470,65 @@ def remove_bools(kwargs):
         else:
             new_kwargs[arg] = value
     return new_kwargs
+
+
+def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
+    """
+    Decorator to deprecate a parameter.
+
+    Parameters
+    ----------
+    oldname : str
+        The old, deprecated parameter name.
+    newname : str
+        The new parameter name.
+    deprecate_version : str
+        The PyGMT version when the old parameter starts to be deprecated.
+    remove_version : str
+        The PyGMT version when the old parameter will be fully removed.
+
+    Examples
+    --------
+
+    >>> @deprecate_parameter("sizes", "size", "v0.0.0", "v9.9.9")
+    ... @deprecate_parameter("colors", "color", "v0.0.0", "v9.9.9")
+    ... def module(size=0, **kwargs):
+    ...     "A module that prints the arguments it received"
+    ...     print(f"size={size}, color={kwargs['color']}")
+    >>> # new names are supported
+    >>> module(size=5.0, color="red")
+    size=5.0, color=red
+    >>> # old names are supported
+    >>> module(sizes=5.0, colors="red")
+    size=5.0, color=red
+    """
+
+    def deprecator(module_func):
+        """
+        The decorator that creates our new function to work with both old and
+        new parameters.
+        """
+
+        @functools.wraps(module_func)
+        def new_module(*args, **kwargs):
+            """
+            New module instance that converts old parameters to new parameters.
+            """
+            if oldname in kwargs:
+                if newname in kwargs:
+                    raise GMTInvalidInput(
+                        f"Can't provide both '{newname}' and '{oldname}'"
+                    )
+                msg = (
+                    f"'{oldname}' is deprecated since {deprecate_version} and will"
+                    f" be removed in {remove_version}; use '{newname}' instead."
+                )
+                warnings.simplefilter("always", DeprecationWarning)  # turn off filter
+                warnings.warn(msg, DeprecationWarning, 2)
+                warnings.simplefilter("default", DeprecationWarning)  # reset filter
+                kwargs[newname] = kwargs.pop(oldname)
+            return module_func(*args, **kwargs)
+
+        return new_module
+
+    return deprecator
