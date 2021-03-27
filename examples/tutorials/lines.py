@@ -1,5 +1,5 @@
 """
-Plot lines
+Plotting. lines
 ==========
 
 Plotting lines is handled by :meth:`pygmt.Figure.plot`.
@@ -18,7 +18,7 @@ Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 import pygmt
 
 ########################################################################################
-# Plot lines
+# Plotting lines
 # ----------
 #
 # Create a Cartesian figure using ``projection`` parameter and set the axis scales

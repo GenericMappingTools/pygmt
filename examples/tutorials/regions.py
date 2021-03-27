@@ -1,5 +1,5 @@
 """
-Set the region
+Setting the region
 ==============
 
 Many of the plotting functions take the ``region`` parameter, which sets
