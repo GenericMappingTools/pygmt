@@ -59,22 +59,6 @@ def test_coast_dcw_single():
 
 
 @pytest.mark.mpl_image_compare
-def test_coast_dcw_multiple():
-    """
-    Test passing multiple country code to dcw.
-    """
-    fig = Figure()
-    fig.coast(
-        region=[-10, 15, 25, 44],
-        frame="a",
-        projection="M15c",
-        land="brown",
-        dcw="ES,IT+gbisque+pblue",
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_coast_dcw_list():
     """
     Test passing a list of country codes and fill options to dcw.
