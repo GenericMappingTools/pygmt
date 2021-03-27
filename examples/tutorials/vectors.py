@@ -1,6 +1,6 @@
 """
-Plot vectors
-============
+Plotting vectors
+================
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 
@@ -59,7 +59,7 @@ fig.show()
 # list will increase accordingly.
 #
 # Additionally, we change the style of the vector to include a red
-# arrow head and increase the thickness of the line. A list of different
+# arrow head at the end (**+e**) of the vector and increase the thickness of the vector stem. A list of different
 # styling attributes can be found in
 # :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
@@ -147,7 +147,7 @@ fig.show()
 vector_1 = [2, 3, 45, 4]
 vector_2 = [7.5, 8.3, -120.5, 7.2]
 # Create a list of lists that include each vector information
-vectors = np.array([vector_1] + [vector_2])
+vectors = np.array([vector_1, vector_2])
 # vectors structure:
 # [[   2.     3.    45.     4. ]
 #  [   7.5    8.3 -120.5    7.2]]
@@ -196,7 +196,7 @@ fig.plot(
 vector_2 = [-82, 40.5, 138, 2.5]
 vector_3 = [-71.2, 45, -115.7, 4]
 # Create a list of lists that include each vector information
-vectors = np.array([vector_2] + [vector_3])
+vectors = np.array([vector_2, vector_3])
 
 fig.plot(
     data=vectors,
