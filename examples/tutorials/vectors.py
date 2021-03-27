@@ -24,7 +24,9 @@ import pygmt
 #
 # Create a simple Cartesian vector using a starting point through
 # ``x``, ``y``, and ``direction`` parameters. The direction is specified
-# by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``
+# by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``.
+# The angle is measured in degrees and moves counter-clockwise from the
+# horizontal.
 #
 # On the shown figure, the plot is projected on a 10cm X 10cm region,
 # which is specified by the ``projection`` parameter.
@@ -35,7 +37,7 @@ import pygmt
 # Notice that the ``v`` in the ``style`` parameter stands for
 # vector; it distinguishes it from regular lines and allows for
 # different customization. ``0c`` is used to specify the size
-# of the arrowhead which explains why there is no arrow on either
+# of the arrow head which explains why there is no arrow on either
 # side of the vector.
 
 fig = pygmt.Figure()
@@ -57,7 +59,7 @@ fig.show()
 # list will increase accordingly.
 #
 # Additionally, we change the style of the vector to include a red
-# arrowhead and increase the thickness of the line. A list of different
+# arrow head and increase the thickness of the line. A list of different
 # styling attributes can be found in
 # :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
@@ -113,7 +115,7 @@ fig.show()
 ########################################################################################
 # Vectors can also be plotted by including all the information
 # about a vector in a single list. However, this requires creating
-# a list for all vectors and passing it into a ``numpy`` array object.
+# a list for all vectors and passing it into a numpy array object.
 # Each vector list contains the information structured as:
 # ``[x_start, y_start, direction_degrees, length]``
 #
@@ -138,7 +140,7 @@ fig.show()
 ########################################################################################
 # Using the functionality mentioned in the previous example,
 # multiple vectors can be plotted at the same time. Another
-# vector could be simply added to the 2d ``numpy`` array object
+# vector could be simply added to the 2d numpy array object
 # and passed using ``data`` parameter.
 
 # vector specifications structured as: [x_start, y_start, direction_degrees, length]
@@ -272,7 +274,7 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# When plotting multiple vectors there is a multitude of ``numpy`` functions
+# When plotting multiple vectors there is a multitude of numpy functions
 # that can make this process easier. In the following example, three main numpy
 # functions are used. The first of which is ``np.arange`` which iterates from 0
 # to the value of ct. This function is used to generate random data points for
@@ -343,7 +345,7 @@ fig.show()
 # on a grid that we are using. ``x`` is Idaho and ``y`` is Chicago in this example.
 # The geographical vector is going from Idaho to Chicago. To style geographic
 # vectors, use ``=`` at the begining of the ``style`` parameter.
-# Other styling features such as arrowhead color and line thickness
+# Other styling features such as arrow head color and line thickness
 # can be passed into
 # ``pen`` and ``color``parameters
 
