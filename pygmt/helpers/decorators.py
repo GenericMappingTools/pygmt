@@ -17,7 +17,8 @@ COMMON_OPTIONS = {
         region : str or list
             *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the region of interest.""",
+            Specify the region of interest.
+            Select map :doc:`region </tutorials/regions>`.""",
     "J": r"""
         projection : str
             *Required if this is the first plot command*.
@@ -25,7 +26,9 @@ COMMON_OPTIONS = {
             Select map :doc:`projection </projections/index>`.""",
     "B": r"""
         frame : bool or str or list
-            Set map boundary frame and axes attributes.""",
+            Set map boundary frame and axes attributes.
+            Select map :doc:`frame </tutorials/frames>`.
+            """,
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
@@ -202,10 +205,14 @@ def fmt_docstring(module_func):
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the region of interest.
+        Select map :doc:`region </tutorials/regions>`.
     projection : str
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
         Select map :doc:`projection </projections/index>`.
+    frame : bool or str or list
+        Set map boundary frame and axes attributes.
+        Select map :doc:`frame </tutorials/frames>`.
     <BLANKLINE>
     **Aliases:**
     <BLANKLINE>
