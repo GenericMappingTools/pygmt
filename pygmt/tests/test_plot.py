@@ -111,11 +111,10 @@ def test_plot_fail_color_size_intensity(data):
 @pytest.mark.mpl_image_compare
 def test_plot_projection(data):
     """
-    WIP
-    Plot the data in green squares with a projection.
+    WIP Plot the data in green squares with a projection.
     """
     fig = Figure()
-    
+
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
