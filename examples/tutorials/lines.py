@@ -1,6 +1,6 @@
 """
-Plot lines
-==========
+Plotting lines
+==============
 
 Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
