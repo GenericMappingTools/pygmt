@@ -1,6 +1,8 @@
+prune .dvc
 prune .github*
 prune doc*
 prune examples*
+exclude .dvcignore
 exclude .gitignore
 exclude .pylintrc
 exclude AUTHORSHIP.md
