@@ -7,12 +7,12 @@ from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.mpl_image_compare
-def test_coast_iceland():
+def test_coast_region():
     """
     Test plotting a regional map with coastlines.
     """
     fig = Figure()
-    fig.coast(region=[-30, -10, 60, 65], projection="m1c", frame=True, land="p28+r100")
+    fig.coast(region="JP", projection="M10c", frame=True, land="gray", shorelines=1)
     return fig
 
 
