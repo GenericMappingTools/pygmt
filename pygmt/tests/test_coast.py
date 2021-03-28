@@ -19,7 +19,7 @@ def test_coast_iceland():
 @pytest.mark.mpl_image_compare
 def test_coast_world_mercator():
     """
-    Test passing generating a global Mercator map with coastlines.
+    Test generating a global Mercator map with coastlines.
     """
     fig = Figure()
     fig.coast(
