@@ -163,22 +163,6 @@ def test_colorbar_shading_float():
     fig_test.colorbar(cmap="geo", shading=0.5)
     return fig_ref, fig_test
 
-
-@check_figures_equal()
-def test_colorbar_shading_string():
-    """
-    Create colorbar and set shading by passing the low/high values as a string.
-    """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.basemap(R="0/10/0/10", J="X15c", B="a")
-    fig_ref.colorbar(C="geo", I="-0.7/0.2")
-
-    fig_test.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
-    fig_test.colorbar(cmap="geo", shading="-0.7/0.2")
-    return fig_ref, fig_test
-
-
 @check_figures_equal()
 def test_colorbar_shading_list():
     """
