@@ -104,6 +104,7 @@ def test_colorbar_box_with_secondary_border():
     fig.colorbar(cmap="rainbow", box="+porange+imagenta", position="x0c/0c+w1c/0.5c")
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_colorbar_box_with_offset_background():
     """
@@ -162,6 +163,7 @@ def test_colorbar_shading_float():
     fig_test.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
     fig_test.colorbar(cmap="geo", shading=0.5)
     return fig_ref, fig_test
+
 
 @check_figures_equal()
 def test_colorbar_shading_list():
