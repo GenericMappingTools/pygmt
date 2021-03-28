@@ -17,17 +17,6 @@ def test_colorbar_using_paper_coordinates():
 
 
 @pytest.mark.mpl_image_compare
-def test_colorbar_using_paper_coordinates_horizontal():
-    """
-    Create colorbar positioned at 0cm,0cm with length 2cm oriented
-    horizontally.
-    """
-    fig = Figure()
-    fig.colorbar(cmap="rainbow", position="x0c/0c+w2c+h")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_colorbar_positioned_using_map_coordinates():
     """
     Create colorbar positioned at longitude,latitude 3,6 with length 2cm.
