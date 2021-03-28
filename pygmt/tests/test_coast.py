@@ -24,10 +24,10 @@ def test_coast_world_mercator():
     fig = Figure()
     fig.coast(
         region=[-180, 180, -80, 80],
-        projection="M10i",
+        projection="M15c",
         frame="af",
         land="#aaaaaa",
-        resolution="l",
+        resolution="c",
         water="white",
     )
     return fig
