@@ -108,21 +108,15 @@ def test_plot_fail_color_size_intensity(data):
         fig.plot(style="c0.2c", color="red", intensity=data[:, 2], **kwargs)
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_projection(data):
     """
+    WIP
     Plot the data in green squares with a projection.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    fig_ref.plot(
-        data=POINTS_DATA,
-        R="g",
-        J="R270/4i",
-        S="s0.2c",
-        G="green",
-        B="ag",
-    )
-    fig_test.plot(
+    fig = Figure()
+    
+    fig.plot(
         x=data[:, 0],
         y=data[:, 1],
         region="g",
@@ -131,7 +125,7 @@ def test_plot_projection(data):
         color="green",
         frame="ag",
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @check_figures_equal()
