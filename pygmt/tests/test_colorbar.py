@@ -104,17 +104,6 @@ def test_colorbar_box_with_secondary_border():
     fig.colorbar(cmap="rainbow", box="+porange+imagenta", position="x0c/0c+w1c/0.5c")
     return fig
 
-
-@pytest.mark.mpl_image_compare
-def test_colorbar_box_with_rounded_corners():
-    """
-    Create colorbar with box that has rounded corners.
-    """
-    fig = Figure()
-    fig.colorbar(cmap="rainbow", box="+porange+r", position="x0c/0c+w1c/0.5c")
-    return fig
-
-
 @pytest.mark.mpl_image_compare
 def test_colorbar_box_with_offset_background():
     """
