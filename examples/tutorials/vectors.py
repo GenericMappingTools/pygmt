@@ -23,13 +23,13 @@ import pygmt
 # -----------------------
 #
 # Create a simple Cartesian vector using a starting point through
-# ``x``, ``y``, and ``direction`` parameters. The direction is specified
+# ``x``, ``y``, and ``direction`` parameters.
+# On the shown figure, the plot is projected on a 10cm X 10cm region,
+# which is specified by the ``projection`` parameter.
+# The direction is specified
 # by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``.
 # The angle is measured in degrees and moves counter-clockwise from the
 # horizontal.
-#
-# On the shown figure, the plot is projected on a 10cm X 10cm region,
-# which is specified by the ``projection`` parameter.
 # The length of the vector also uses centimeters by default but
 # could be changed using :meth:`pygmt.config`
 # (Check the next examples for unit changes).
@@ -233,7 +233,7 @@ length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 fig.plot(
     x=x,
     y=y,
-    style="v0.4c+ea",
+    style="v0.4c+ea+bc",
     direction=[direction, length],
     pen="0.6p",
     color="red3",
