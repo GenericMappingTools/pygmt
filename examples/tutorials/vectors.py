@@ -47,8 +47,8 @@ fig.plot(
     frame="ag",
     x=2,
     y=8,
-    direction=[[-45], [6]],
     style="v0c",
+    direction=[[-45], [6]],
 )
 fig.show()
 
@@ -70,8 +70,8 @@ fig.plot(
     frame="ag",
     x=[2, 4],
     y=[8, 1],
-    direction=[[-45, 23], [6, 3]],
     style="v0.6c+e",
+    direction=[[-45, 23], [6, 3]],
     pen="2p",
     color="red3",
 )
@@ -92,11 +92,11 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X5i/5i",
-    frame="a",
+    frame="ag",
     x=2,
     y=8,
-    direction=[[0], [3]],
     style="v1c+e",
+    direction=[[0], [3]],
     pen="2p",
     color="red3",
 )
@@ -234,9 +234,9 @@ fig.plot(
     x=x,
     y=y,
     style="v0.4c+ea",
+    direction=[direction, length],
     pen="0.6p",
     color="red3",
-    direction=[direction, length],
 )
 
 
