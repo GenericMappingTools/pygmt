@@ -48,7 +48,7 @@ jobs:
       id: image-diff
       run: |
         # Get just the filename of the changed image from the report
-        tail --lines=+7 report.md | awk '{print $4}' > diff_files.txt
+        awk 'NR>=7 {print $4}' report.md > diff_files.txt
 
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
