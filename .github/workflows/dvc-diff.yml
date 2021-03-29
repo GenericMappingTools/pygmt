@@ -48,7 +48,7 @@ jobs:
       id: image-diff
       run: |
         # Get just the filename of the changed image from the report
-        awk 'NR>=7 {print $4}' report.md > diff_files.txt
+        awk 'NF==5 && NR>=7 {print $4}' report.md > diff_files.txt
 
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
@@ -56,7 +56,7 @@ jobs:
 
         while IFS= read -r line; do
           echo -e "- $line \n" >> report.md
-          cml-publish --title $line --md "$line" >> report.md
+          cml-publish --title $line --md "$line" >> report.md < /dev/null
         done < diff_files.txt
 
         echo -e "</details>\n" >> report.md
