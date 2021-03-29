@@ -127,6 +127,12 @@ There are 9 configuration files located in `.github/workflows`:
 
    This workflow is triggered in a PR if the slash command `/format` is used.
 
+10. `dvc-diff.yml` (Report changes to test images on dvc remote)
+
+    This workflow is triggered in a PR when any *.png.dvc files have been added,
+    modified, or deleted. A GitHub comment will be published that contains a summary
+    table of the images that have changed along with a visual report.
+
 ## Continuous Documentation
 
 We use the [Vercel for GitHub](https://github.com/apps/vercel) App to preview changes
