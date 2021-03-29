@@ -109,7 +109,7 @@ def test_plot_fail_color_size_intensity(data):
 @pytest.mark.mpl_image_compare
 def test_plot_projection(data):
     """
-    WIP Plot the data in green squares with a projection.
+    Plot the data in green squares with a projection.
     """
     fig = Figure()
 
@@ -128,7 +128,7 @@ def test_plot_projection(data):
 @pytest.mark.mpl_image_compare
 def test_plot_colors(data, region):
     """
-    WIP Plot the data using z as colors.
+    Plot the data using z as colors.
     """
     fig = Figure()
 
@@ -228,7 +228,7 @@ def test_plot_varying_intensity():
 @pytest.mark.mpl_image_compare
 def test_plot_transparency():
     """
-    WIP Plot the data with a constant transparency.
+    Plot the data with a constant transparency.
     """
     x = np.arange(1, 10)
     y = np.arange(1, 10)
@@ -251,7 +251,7 @@ def test_plot_transparency():
 @pytest.mark.mpl_image_compare
 def test_plot_varying_transparency():
     """
-    WIP Plot the data using z as transparency.
+    Plot the data using z as transparency.
     """
     x = np.arange(1, 10)
     y = np.arange(1, 10)
@@ -275,7 +275,7 @@ def test_plot_varying_transparency():
 @pytest.mark.mpl_image_compare
 def test_plot_sizes_colors_transparencies():
     """
-    WIP Plot the data with varying sizes and colors using z as transparency.
+    Plot the data with varying sizes and colors using z as transparency.
     """
     x = np.arange(1.0, 10.0)
     y = np.arange(1.0, 10.0)
