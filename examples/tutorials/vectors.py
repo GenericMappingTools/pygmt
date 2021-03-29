@@ -176,8 +176,8 @@ fig.coast(
     projection="M10c",
     frame="ag",
     borders=1,
-    area_thresh=4000,
     shorelines="0.25p,black",
+    area_thresh=4000,
     land="grey",
     water="lightblue",
 )
@@ -219,8 +219,8 @@ fig.coast(
     projection="T35/10c",
     frame=True,
     borders=1,
-    area_thresh=4000,
     shorelines="0.25p,black",
+    area_thresh=4000,
     land="lightbrown",
     water="lightblue",
 )
@@ -355,8 +355,8 @@ fig.coast(
     projection="M10c",
     frame=True,
     borders=1,
-    area_thresh=4000,
     shorelines="0.25p,black",
+    area_thresh=4000,
 )
 point_1 = [-114.7420, 44.0682]
 point_2 = [-87.6298, 41.8781]
@@ -383,8 +383,8 @@ fig.coast(
     projection="M10c",
     frame=True,
     borders=1,
-    area_thresh=4000,
     shorelines="0.25p,black",
+    area_thresh=4000,
 )
 # Plot geographic vectors using coordinates.
 ME = [-69.4455, 45.2538]
