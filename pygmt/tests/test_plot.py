@@ -11,8 +11,6 @@ import pytest
 import xarray as xr
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile
-from pygmt.helpers.testing import check_figures_equal
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -127,23 +125,14 @@ def test_plot_projection(data):
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_colors(data, region):
     """
-    Plot the data using z as colors.
+    WIP Plot the data using z as colors.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.plot(
-        data=POINTS_DATA,
-        R="/".join(map(str, region)),
-        J="X3i",
-        S="c0.5c",
-        C="cubhelix",
-        B="af",
-    )
+    fig = Figure()
 
-    fig_test.plot(
+    fig.plot(
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
@@ -153,7 +142,7 @@ def test_plot_colors(data, region):
         cmap="cubhelix",
         frame="af",
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @pytest.mark.mpl_image_compare
@@ -236,23 +225,17 @@ def test_plot_varying_intensity():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_transparency():
     """
-    Plot the data with a constant transparency.
+    WIP Plot the data with a constant transparency.
     """
     x = np.arange(1, 10)
     y = np.arange(1, 10)
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y], fmt="%d")
-        fig_ref.plot(
-            data=tmpfile.name, S="c0.2c", G="blue", t=80.0, R="0/10/0/10", J="X4i", B=""
-        )
+    fig = Figure()
 
-    fig_test.plot(
+    fig.plot(
         x=x,
         y=y,
         region=[0, 10, 0, 10],
@@ -262,33 +245,21 @@ def test_plot_transparency():
         color="blue",
         transparency=80.0,
     )
-    return fig_ref, fig_test
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_varying_transparency():
     """
-    Plot the data using z as transparency.
+    WIP Plot the data using z as transparency.
     """
     x = np.arange(1, 10)
     y = np.arange(1, 10)
     z = np.arange(1, 10) * 10
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y, z], fmt="%d")
-        fig_ref.plot(
-            data=tmpfile.name,
-            R="0/10/0/10",
-            J="X4i",
-            B="",
-            S="c0.2c",
-            G="blue",
-            t="",
-        )
+    fig = Figure()
 
-    fig_test.plot(
+    fig.plot(
         x=x,
         y=y,
         region=[0, 10, 0, 10],
@@ -298,13 +269,13 @@ def test_plot_varying_transparency():
         color="blue",
         transparency=z,
     )
-    return fig_ref, fig_test
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_sizes_colors_transparencies():
     """
-    Plot the data with varying sizes and colors using z as transparency.
+    WIP Plot the data with varying sizes and colors using z as transparency.
     """
     x = np.arange(1.0, 10.0)
     y = np.arange(1.0, 10.0)
@@ -312,20 +283,9 @@ def test_plot_sizes_colors_transparencies():
     size = np.arange(1, 10) * 0.2
     transparency = np.arange(1, 10) * 10
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y, color, size, transparency])
-        fig_ref.plot(
-            data=tmpfile.name,
-            R="0/10/0/10",
-            J="X4i",
-            B="",
-            S="cc",
-            C="gray",
-            t="",
-        )
-    fig_test.plot(
+    fig = Figure()
+
+    fig.plot(
         x=x,
         y=y,
         region=[0, 10, 0, 10],
@@ -337,7 +297,7 @@ def test_plot_sizes_colors_transparencies():
         cmap="gray",
         transparency=transparency,
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @pytest.mark.mpl_image_compare
@@ -424,7 +384,7 @@ def test_plot_lines_with_arrows():
     The test is slightly different from test_plot_vectors().
     Here the vectors are plotted as lines, with arrows at the end.
 
-    The test also check if the API crashes.
+    The test also checks if the API crashes.
     See https://github.com/GenericMappingTools/pygmt/issues/406.
     """
     fig = Figure()

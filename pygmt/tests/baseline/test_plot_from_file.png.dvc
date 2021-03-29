@@ -1,0 +1,4 @@
+outs:
+- md5: 5ed97c91ccc5940f845f8e89c5b15616
+  size: 65118
+  path: test_plot_from_file.png
