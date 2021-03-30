@@ -16,17 +16,6 @@ def test_colorbar_using_paper_coordinates():
 
 
 @pytest.mark.mpl_image_compare
-def test_colorbar_positioned_using_map_coordinates():
-    """
-    Create colorbar positioned at longitude,latitude 3,6 with length 2cm.
-    """
-    fig = Figure()
-    fig.basemap(region=[2, 4, 6, 8], projection="t0/2c", frame=True)
-    fig.colorbar(cmap="rainbow", position="g3/6+w2c")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_colorbar_box():
     """
     Create colorbar with box around it.
