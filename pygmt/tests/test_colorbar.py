@@ -78,18 +78,6 @@ def test_colorbar_box_with_clearance():
     fig.colorbar(cmap="rainbow", box="+c0.8c/0.4c+porange", position="x0c/0c+w1c/0.5c")
     return fig
 
-
-@pytest.mark.mpl_image_compare
-def test_colorbar_box_with_secondary_border():
-    """
-    Create colorbar with box that has a secondary, inner border in addition to
-    the main primary, outer border.
-    """
-    fig = Figure()
-    fig.colorbar(cmap="rainbow", box="+porange+imagenta", position="x0c/0c+w1c/0.5c")
-    return fig
-
-
 @pytest.mark.mpl_image_compare
 def test_colorbar_box_with_offset_background():
     """
