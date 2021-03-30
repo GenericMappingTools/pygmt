@@ -27,21 +27,6 @@ def test_colorbar_positioned_using_map_coordinates():
     return fig
 
 
-@check_figures_equal()
-def test_colorbar_positioned_using_justification_code():
-    """
-    Create colorbar at Top Center inside the map frame with length 2cm.
-    """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.basemap(R="2/4/6/8", J="t0/2c", B="")
-    fig_ref.colorbar(C="rainbow", D="jTC+w2c")
-
-    fig_test.basemap(region=[2, 4, 6, 8], projection="t0/2c", frame=True)
-    fig_test.colorbar(cmap="rainbow", position="jTC+w2c")
-    return fig_ref, fig_test
-
-
 @pytest.mark.mpl_image_compare
 def test_colorbar_positioned_using_normalized_coords():
     """
