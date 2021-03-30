@@ -83,7 +83,7 @@ def test_contour_vec(region):
     y = y.flatten()
     z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y ** 2
     z = np.exp(-z / 10 ** 2 * np.log(2))
-    fig.contour(x=x, y=y, z=z, projection="X10c", region=region, frame="a", pen="")
+    fig.contour(x=x, y=y, z=z, projection="X10c", region=region, frame="a", pen=True)
     return fig
 
 
