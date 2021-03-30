@@ -3,7 +3,6 @@ Tests colorbar.
 """
 import pytest
 from pygmt import Figure
-from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
