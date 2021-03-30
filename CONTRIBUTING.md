@@ -190,7 +190,7 @@ When editing documentation, use the following standards to demonstrate the examp
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 5. Double-quotes are used to indicate a string value. Example: "05m". An argument
    with a string value set should be added \`\` on both sides of the expressions.
-   Example: \`\`style="v"\`\` results in ``style="v"``.
+   Example: \`\`style="v"\`\` results in `style="v"`.
 
 ## Contributing Code
 
