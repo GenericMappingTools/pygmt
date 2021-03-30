@@ -257,13 +257,13 @@ fig.show()
 # should begin with an ``m``.
 
 # vector specifications structured as: [x_start, y_start, radius, degree_start, degree_stop]
-circular_vector_1 = [0, 0, 2.5, 90, 270]
+circular_vector_1 = [0, 0, 2, 90, 270]
 
-data = np.array([circular_vector_1])
+data = [circular_vector_1]
 
 fig = pygmt.Figure()
 fig.plot(
-    region=[-10, 10, -10, 10],
+    region=[-5, 5, -5, 5],
     projection="X10c",
     frame="ag",
     data=data,
@@ -293,7 +293,7 @@ data = np.column_stack([np.full(ct, 0), np.full(ct, 0), radius, startdir, stopdi
 
 fig = pygmt.Figure()
 fig.plot(
-    region=[-10, 10, -10, 10],
+    region=[-5, 5, -5, 5],
     projection="X10c",
     frame="ag",
     data=data,
@@ -314,7 +314,7 @@ fig.show()
 circular_vector_1 = [6, 5, 2, 90, 270]
 circular_vector_2 = [6, 5, 1, 90, 270]
 
-data_1 = np.array([circular_vector_1])
+data_1 = [circular_vector_1]
 
 fig = pygmt.Figure()
 fig.plot(
@@ -327,7 +327,7 @@ fig.plot(
     color="red3",
 )
 
-data_2 = np.array([circular_vector_2])
+data_2 = [circular_vector_2]
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
     fig.plot(
         data=data_2,
