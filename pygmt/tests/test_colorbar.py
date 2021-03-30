@@ -49,16 +49,6 @@ def test_colorbar_box():
 
 
 @pytest.mark.mpl_image_compare
-def test_colorbar_box_with_pen():
-    """
-    Create colorbar with box that has a different colored pen.
-    """
-    fig = Figure()
-    fig.colorbar(cmap="rainbow", box="+porange", position="x0c/0c+w1c/0.5c")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_colorbar_box_with_fill():
     """
     Create colorbar with box that has a different colored fill.
