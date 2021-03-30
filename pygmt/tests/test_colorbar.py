@@ -77,20 +77,15 @@ def test_colorbar_scaled_z_values():
     fig.colorbar(cmap="rainbow", scale=0.1, position="x0c/0c+w2c/0.5c")
     return fig
 
-
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_colorbar_shading_boolean():
     """
     Create colorbar and set shading with a Boolean value.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.basemap(R="0/10/0/10", J="X15c", B="a")
-    fig_ref.colorbar(C="geo", I="")
-
-    fig_test.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
-    fig_test.colorbar(cmap="geo", shading=True)
-    return fig_ref, fig_test
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
+    fig.colorbar(cmap="geo", shading=True)
+    return fig
 
 
 @check_figures_equal()
