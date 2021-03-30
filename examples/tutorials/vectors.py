@@ -115,7 +115,7 @@ fig.show()
 ########################################################################################
 # Vectors can also be plotted by including all the information
 # about a vector in a single list. However, this requires creating
-# a list for all vectors and passing it into a numpy array object.
+# a 2D list or numpy array containing all vectors.
 # Each vector list contains the information structured as:
 # ``[x_start, y_start, direction_degrees, length]``
 #
@@ -123,7 +123,7 @@ fig.show()
 # used instead of ``x``, ``y`` and  ``direction``.
 
 # Create a list of lists that include each vector information
-vectors = np.array([[2, 3, 45, 4]])  # vectors structure: [[ 2  3 45  4]]
+vectors = [[2, 3, 45, 4]]  # vectors structure: [[ 2  3 45  4]]
 
 fig = pygmt.Figure()
 fig.plot(
@@ -140,7 +140,8 @@ fig.show()
 ########################################################################################
 # Using the functionality mentioned in the previous example,
 # multiple vectors can be plotted at the same time. Another
-# vector could be simply added to the 2d numpy array object
+# vector could be simply added to the 2D list or numpy
+# array object
 # and passed using ``data`` parameter.
 
 # vector specifications structured as: [x_start, y_start, direction_degrees, length]
@@ -196,7 +197,7 @@ fig.plot(
 vector_2 = [-82, 40.5, 138, 2.5]
 vector_3 = [-71.2, 45, -115.7, 4]
 # Create a list of lists that include each vector information
-vectors = np.array([vector_2, vector_3])
+vectors = [vector_2, vector_3]
 
 fig.plot(
     data=vectors,
@@ -247,7 +248,8 @@ fig.show()
 # ---------------------
 #
 # When plotting circular vectors, there are 5 values that should be included in
-# the list that is passed through ``np.array()`` in order to create a valid plot.
+# a 2D list or ``np.array()`` object in order to create
+# a valid plot. The vectors must be passed to the ``data`` parameter.
 # The first two values in ``circular_vector_1`` represent the origin of the
 # circle that will be plotted. The next value is the radius which is represented
 # on the plot in centimeters. Finally, the last two values represent the degree
@@ -266,6 +268,18 @@ fig.plot(
     region=[-5, 5, -5, 5],
     projection="X10c",
     frame="ag",
+    data=data,
+    style="m0.5c+ea",
+    pen="2p",
+    color="red3",
+)
+
+# Another example using np.array()
+circular_vector_2 = [0, 0, 4, -90, 90]
+
+data = np.array([circular_vector_2])
+
+fig.plot(
     data=data,
     style="m0.5c+ea",
     pen="2p",
