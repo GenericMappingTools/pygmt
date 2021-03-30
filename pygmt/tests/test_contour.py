@@ -66,7 +66,7 @@ def test_contour_fail_no_data(data):
             style="c0.2c",
             color="red",
             frame="afg",
-            pen="",
+            pen=True,
         )
 
 
