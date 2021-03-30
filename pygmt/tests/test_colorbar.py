@@ -88,31 +88,13 @@ def test_colorbar_shading_boolean():
     return fig
 
 
-@check_figures_equal()
-def test_colorbar_shading_float():
-    """
-    Create colorbar and set shading with a single float variable.
-    """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.basemap(R="0/10/0/10", J="X15c", B="a")
-    fig_ref.colorbar(C="geo", I=0.5)
-
-    fig_test.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
-    fig_test.colorbar(cmap="geo", shading=0.5)
-    return fig_ref, fig_test
-
-
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_colorbar_shading_list():
     """
     Create colorbar and set shading by passing the high/low values as a list.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.basemap(R="0/10/0/10", J="X15c", B="a")
-    fig_ref.colorbar(C="geo", I="-0.7/0.2")
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
+    fig.colorbar(cmap="geo", shading=[-0.7, 0.2])
+    return fig
 
-    fig_test.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
-    fig_test.colorbar(cmap="geo", shading=[-0.7, 0.2])
-    return fig_ref, fig_test
