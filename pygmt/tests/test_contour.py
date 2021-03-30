@@ -62,7 +62,7 @@ def test_contour_fail_no_data(data):
             z=data[:, 2],
             data=data,
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
