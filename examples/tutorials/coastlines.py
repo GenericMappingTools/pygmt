@@ -21,7 +21,7 @@ import pygmt
 # Shorelines
 # ----------
 #
-# Use the ``shorelines`` argument to plot only the shorelines:
+# Use the ``shorelines`` parameter to plot only the shorelines:
 
 fig = pygmt.Figure()
 fig.basemap(region="g", projection="W15c", frame=True)
@@ -78,11 +78,11 @@ fig.show()
 # Land and water
 # --------------
 #
-# Use the ``land`` and ``water`` arguments to specify a fill color for land and water
+# Use the ``land`` and ``water`` parameters to specify a fill color for land and water
 # bodies. The colors can be given by name or hex codes (like the ones used in HTML and
 # CSS):
 
 fig = pygmt.Figure()
-fig.basemap(region="g", projection="W10i", frame=True)
+fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(land="#666666", water="skyblue")
 fig.show()
