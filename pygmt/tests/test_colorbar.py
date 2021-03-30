@@ -57,15 +57,6 @@ def test_colorbar_box_with_fill():
     fig.colorbar(cmap="rainbow", box="+gorange", position="x0c/0c+w1c/0.5c")
     return fig
 
-@pytest.mark.mpl_image_compare
-def test_colorbar_box_with_offset_background():
-    """
-    Create colorbar with box and an offset background shaded region.
-    """
-    fig = Figure()
-    fig.colorbar(cmap="rainbow", box="+s5p/-5p", position="x0c/0c+w1c/0.5c")
-    return fig
-
 
 @pytest.mark.mpl_image_compare
 def test_colorbar_truncated_to_zlow_zhigh():
