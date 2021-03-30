@@ -1,4 +1,0 @@
-outs:
-- md5: 38a8b37862bf8532546c0ba9b49e5f2b
-  size: 1185
-  path: test_colorbar_using_paper_coordinates.png

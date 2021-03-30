@@ -6,16 +6,6 @@ from pygmt import Figure
 
 
 @pytest.mark.mpl_image_compare
-def test_colorbar_using_paper_coordinates():
-    """
-    Create colorbar positioned at 0cm,0cm with length 1cm and width 0.5cm.
-    """
-    fig = Figure()
-    fig.colorbar(cmap="rainbow", position="x0c/0c+w1c/0.5c")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_colorbar_box():
     """
     Create colorbar with box around it.
