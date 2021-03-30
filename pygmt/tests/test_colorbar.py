@@ -67,17 +67,6 @@ def test_colorbar_box_with_fill():
     fig.colorbar(cmap="rainbow", box="+gorange", position="x0c/0c+w1c/0.5c")
     return fig
 
-
-@pytest.mark.mpl_image_compare
-def test_colorbar_box_with_clearance():
-    """
-    Create colorbar with box that has an x-clearance of 0.8cm and y-clearance
-    of 0.4cm.
-    """
-    fig = Figure()
-    fig.colorbar(cmap="rainbow", box="+c0.8c/0.4c+porange", position="x0c/0c+w1c/0.5c")
-    return fig
-
 @pytest.mark.mpl_image_compare
 def test_colorbar_box_with_offset_background():
     """
