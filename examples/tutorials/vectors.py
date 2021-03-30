@@ -169,6 +169,17 @@ fig.show()
 # In this example, cartesian vectors are plotted over a Mercator
 # projection of the continental US. The x values represent the
 # longitude and y values represent the latitude where the vector starts.
+#
+# This example also shows some of the styles a vector supports.
+# ``+ba`` specifies that the begining point of the vector ``+b``
+# should take the shape of a circle ``c``. Similarly, the end
+# point of the vector ``+e`` should have an arrow shape ``a``
+# (to draw a plain arrow, use ``A`` instead). Lastly, the ``+a``
+# specifies the angle of the vector head apex (30 degrees in
+# this example).
+#
+# More styling options can be found here
+# :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
 # create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
@@ -183,7 +194,7 @@ fig.coast(
     water="lightblue",
 )
 
-style = "v0.6c+bc+ea+a30"
+style = "v0.4c+bc+ea+a30"
 fig.plot(
     x=-110,
     y=40,
