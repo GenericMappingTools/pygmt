@@ -42,7 +42,7 @@ def test_plot_red_circles(data, region):
         x=data[:, 0],
         y=data[:, 1],
         region=region,
-        projection="X4i",
+        projection="X10c",
         style="c0.2c",
         color="red",
         frame="afg",
@@ -57,13 +57,13 @@ def test_plot_fail_no_data(data):
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot(
-            region=region, projection="X4i", style="c0.2c", color="red", frame="afg"
+            region=region, projection="X10c", style="c0.2c", color="red", frame="afg"
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
             x=data[:, 0],
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -72,7 +72,7 @@ def test_plot_fail_no_data(data):
         fig.plot(
             y=data[:, 0],
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -84,7 +84,7 @@ def test_plot_fail_no_data(data):
             y=data[:, 1],
             data=data,
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -117,7 +117,7 @@ def test_plot_projection(data):
         x=data[:, 0],
         y=data[:, 1],
         region="g",
-        projection="R270/4i",
+        projection="R270/10c",
         style="s0.2c",
         color="green",
         frame="ag",
@@ -137,7 +137,7 @@ def test_plot_colors(data, region):
         y=data[:, 1],
         color=data[:, 2],
         region=region,
-        projection="X3i",
+        projection="X10c",
         style="c0.5c",
         cmap="cubhelix",
         frame="af",
@@ -156,7 +156,7 @@ def test_plot_sizes(data, region):
         y=data[:, 1],
         sizes=0.5 * data[:, 2],
         region=region,
-        projection="X4i",
+        projection="X10c",
         style="cc",
         color="blue",
         frame="af",
@@ -176,7 +176,7 @@ def test_plot_colors_sizes(data, region):
         color=data[:, 2],
         sizes=0.5 * data[:, 2],
         region=region,
-        projection="X3i",
+        projection="X10c",
         style="cc",
         cmap="copper",
         frame="af",
@@ -190,7 +190,7 @@ def test_plot_colors_sizes_proj(data, region):
     Plot the data using z as sizes and colors with a projection.
     """
     fig = Figure()
-    fig.coast(region=region, projection="M10i", frame="af", water="skyblue")
+    fig.coast(region=region, projection="M15c", frame="af", water="skyblue")
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
@@ -216,9 +216,9 @@ def test_plot_varying_intensity():
         x=x,
         y=y,
         region=[-1.1, 1.1, -0.5, 0.5],
-        projection="X15c/2c",
+        projection="X10c/2c",
         frame=["S", "xaf+lIntensity"],
-        style="c0.5c",
+        style="c0.25c",
         color="blue",
         intensity=intensity,
     )
@@ -239,7 +239,7 @@ def test_plot_transparency():
         x=x,
         y=y,
         region=[0, 10, 0, 10],
-        projection="X4i",
+        projection="X10c",
         frame=True,
         style="c0.2c",
         color="blue",
@@ -263,7 +263,7 @@ def test_plot_varying_transparency():
         x=x,
         y=y,
         region=[0, 10, 0, 10],
-        projection="X4i",
+        projection="X10c",
         frame=True,
         style="c0.2c",
         color="blue",
@@ -289,7 +289,7 @@ def test_plot_sizes_colors_transparencies():
         x=x,
         y=y,
         region=[0, 10, 0, 10],
-        projection="X4i",
+        projection="X10c",
         frame=True,
         style="cc",
         color=color,
@@ -309,7 +309,7 @@ def test_plot_matrix(data):
     fig.plot(
         data=data,
         region=[10, 70, -5, 10],
-        projection="M10i",
+        projection="M15c",
         style="cc",
         color="#aaaaaa",
         B="a",
@@ -327,7 +327,7 @@ def test_plot_matrix_color(data):
     fig.plot(
         data=data,
         region=[10, 70, -5, 10],
-        projection="X5i",
+        projection="X10c",
         style="c0.5c",
         cmap="rainbow",
         B="a",
@@ -344,7 +344,7 @@ def test_plot_from_file(region):
     fig.plot(
         data=POINTS_DATA,
         region=region,
-        projection="X10i",
+        projection="X10c",
         style="d1c",
         color="yellow",
         frame=True,
@@ -368,7 +368,7 @@ def test_plot_vectors():
         y=lat,
         direction=(azimuth, lengths),
         region="-2/2/-2/2",
-        projection="X4i",
+        projection="X10c",
         style="V0.2c+e",
         color="black",
         frame="af",
