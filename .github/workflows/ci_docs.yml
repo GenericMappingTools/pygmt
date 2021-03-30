@@ -56,7 +56,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.0.1
+        uses: conda-incubator/setup-miniconda@v2.1.0
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
