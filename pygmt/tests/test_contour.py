@@ -93,7 +93,7 @@ def test_contour_matrix(data, region):
     Plot data.
     """
     fig = Figure()
-    fig.contour(data=data, projection="X10c", region=region, frame="ag", pen="")
+    fig.contour(data=data, projection="X10c", region=region, frame="ag", pen=True)
     return fig
 
 
