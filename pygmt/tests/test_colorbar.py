@@ -77,6 +77,7 @@ def test_colorbar_scaled_z_values():
     fig.colorbar(cmap="rainbow", scale=0.1, position="x0c/0c+w2c/0.5c")
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_colorbar_shading_boolean():
     """
@@ -97,4 +98,3 @@ def test_colorbar_shading_list():
     fig.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
     fig.colorbar(cmap="geo", shading=[-0.7, 0.2])
     return fig
-
