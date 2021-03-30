@@ -207,8 +207,6 @@ def fmt_docstring(module_func):
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
         Select map :doc:`projection </projections/index>`.
-    frame : bool or str or list
-        Set map boundary :doc:`frame and axes attributes </tutorials/frames>`.
     <BLANKLINE>
     **Aliases:**
     <BLANKLINE>
