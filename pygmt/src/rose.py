@@ -183,7 +183,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         https://doi.org/10.18637/jss.v031.i10.
 
     inquire : bool
-        Inquire. Computes statistics needed to specify a useful
+        Computes statistics needed to specify a useful
         ``frame``. No plot is generated. The following statistics
         are written to stdout: *n*, *mean az*, *mean r*, *mean
         resultant length*, *max bin sum*, *scaled mean*, and
