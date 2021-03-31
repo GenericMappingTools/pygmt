@@ -259,7 +259,7 @@ fig.show()
 # ---------------------
 #
 # When plotting circular vectors, there are 5 values that should be included in
-# a 2D list or ``np.array()`` object in order to create
+# a 2D list or numpy array object in order to create
 # a valid plot. The vectors must be passed to the ``data`` parameter.
 # The first two values in ``circular_vector_1`` represent the origin of the
 # circle that will be plotted. The next value is the radius which is represented
