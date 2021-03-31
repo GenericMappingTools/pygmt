@@ -184,7 +184,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     inquire : bool
         Inquire. Computes statistics needed to specify a useful
-        **frame**. No plot is generated. The following statistics
+        ``frame``. No plot is generated. The following statistics
         are written to stdout: *n*, *mean az*, *mean r*, *mean
         resultant length*, *max bin sum*, *scaled mean*, and
         *linear length sum*.
