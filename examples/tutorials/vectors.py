@@ -312,7 +312,6 @@ ct = 5
 radius = 3 - (0.5 * np.arange(0, ct))
 startdir = np.full(ct, 90)
 stopdir = 180 + (50 * np.arange(0, ct))
-
 data = np.column_stack([np.full(ct, 0), np.full(ct, 0), radius, startdir, stopdir])
 
 fig = pygmt.Figure()
