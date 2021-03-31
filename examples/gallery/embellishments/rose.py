@@ -23,9 +23,9 @@ fig.rose(
     region=[0, 1, 0, 360],
     # set the diameter of the rose diagram to 7.5 cm
     diameter="7.5c",
-    # define the sector width in degrees, we append r here to draw a rose
+    # define the sector width in degrees, we append +r here to draw a rose
     # diagram instead of a sector diagram
-    sector="10r",
+    sector="10+r",
     # normalize bin counts by the largest value so all bin counts range from
     # 0 to 1
     norm=True,

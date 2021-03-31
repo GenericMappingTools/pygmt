@@ -88,8 +88,8 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     sector : str
          Gives the sector width in degrees for sector and rose diagram.
-         Default ``'0'`` means windrose diagram. Append *r* to draw rose
-         diagram instead of sector diagram (e.g. ``'10r'``).
+         Default ``'0'`` means windrose diagram. Append *+r* to draw rose
+         diagram instead of sector diagram (e.g. ``'10+r'``).
 
     norm : bool
          Normalize input radii (or bin counts if **sector_width** is used)
