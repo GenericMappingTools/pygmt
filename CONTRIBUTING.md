@@ -209,7 +209,7 @@ services have a chance to check that the code is up to standards and passes all
 our tests.
 This way, the *master* branch is always stable.
 
-General guidelines for making a Pull Requests (PR):
+General guidelines for making a Pull Request (PR):
 
 * **Open an issue first** describing what you want to do. If there is already
   an issue that matches your PR, leave a comment there instead to let us know
@@ -569,9 +569,9 @@ alternative implementation details.
 To increase the chances of getting your pull request accepted quickly, try to:
 
 * Write a good and detailed description of what the PR does.
-* Write tests for the code you wrote/modified.
+* Write tests for the code you wrote/modified if needed.
 * Use readable code, as it is better than clever code (even with comments).
-* Write documentation for your code (docstrings) and leave comments explaining
+* Write some documentation for your code (docstrings) and leave comments explaining
   the *reason* behind non-obvious things.
 * Include an example of new features in the gallery or tutorials.
 * Follow the [PEP8](http://pep8.org) style guide for code and the
