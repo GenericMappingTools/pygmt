@@ -92,7 +92,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
          diagram instead of sector diagram (e.g. ``'10+r'``).
 
     norm : bool
-         Normalize input radii (or bin counts if **sector_width** is used)
+         Normalize input radii (or bin counts if ``sector_width`` is used)
          by the largest value so all radii (or bin counts) range from 0
          to 1.
 
