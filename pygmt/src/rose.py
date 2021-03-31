@@ -115,8 +115,8 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
          values in the first one. Note: zero-based indexing is used.
 
     color : str
-         Selects shade, color or pattern for filling the sectors. Default
-         is no fill.
+         Selects shade, color or pattern for filling the sectors [Default
+         is no fill].
 
     cmap : str
         Give a CPT. The *r*-value for each sector is used to look-up the
