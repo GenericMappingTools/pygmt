@@ -117,7 +117,7 @@ fig.show()
 # about a vector in a single list. However, this requires creating
 # a 2D list or numpy array containing all vectors.
 # Each vector list contains the information structured as:
-# ``[x_start, y_start, direction_degrees, length]``
+# ``[x_start, y_start, direction_degrees, length]``.
 #
 # If this approach is chosen, the ``data`` parameter must be
 # used instead of ``x``, ``y`` and  ``direction``.
@@ -171,10 +171,10 @@ fig.show()
 # longitude and y values represent the latitude where the vector starts.
 #
 # This example also shows some of the styles a vector supports.
-# ``+ba`` specifies that the begining point of the vector ``+b``
+# The beginning point **+bc** of the vector (**+b**)
 # should take the shape of a circle ``c``. Similarly, the end
-# point of the vector ``+e`` should have an arrow shape ``a``
-# (to draw a plain arrow, use ``A`` instead). Lastly, the ``+a``
+# point of the vector **+e** should have an arrow shape **a**
+# (to draw a plain arrow, use ``A`` instead). Lastly, the **+a**
 # specifies the angle of the vector head apex (30 degrees in
 # this example).
 #
