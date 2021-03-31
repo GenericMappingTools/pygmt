@@ -139,7 +139,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     no_scale : bool
          Do NOT draw the scale length bar (``no_scale = True``).
-         Default plots scale in lower right corner provided **frame**
+         Default plots scale in lower right corner provided ``frame``
          is used.
 
     shift : bool
