@@ -287,7 +287,6 @@ fig.plot(
 
 # Another example using np.array()
 circular_vector_2 = [0, 0, 4, -90, 90]
-
 data = np.array([circular_vector_2])
 
 fig.plot(
