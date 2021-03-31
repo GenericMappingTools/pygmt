@@ -172,9 +172,9 @@ fig.show()
 #
 # This example also shows some of the styles a vector supports.
 # The beginning point **+bc** of the vector (**+b**)
-# should take the shape of a circle ``c``. Similarly, the end
+# should take the shape of a circle **c**. Similarly, the end
 # point of the vector **+e** should have an arrow shape **a**
-# (to draw a plain arrow, use ``A`` instead). Lastly, the **+a**
+# (to draw a plain arrow, use **A** instead). Lastly, the **+a**
 # specifies the angle of the vector head apex (30 degrees in
 # this example).
 #
@@ -221,7 +221,7 @@ fig.show()
 
 ########################################################################################
 # Another example of plotting cartesian vectors over a coast plot. This time
-# a Transverse Mercator projection is used. Additionally, ``numpy.linespace``
+# a Transverse Mercator projection is used. Additionally, :func:'numpy.linespace`
 # is used to create 5 vectors with equal stops.
 
 # create a plot with coast, Mercator projection (M) over the continental US
@@ -362,10 +362,9 @@ fig.show()
 ########################################################################################
 # Plot Geographic Vectors
 # -----------------------
-# Geographic graph using x and y values to set a start and an ending point.
-# Use ``fig.coast`` to plot a coast. ``x`` and ``y`` are coordinates
-# on a grid that we are using. ``x`` is Idaho and ``y`` is Chicago in this example.
-# The geographical vector is going from Idaho to Chicago. To style geographic
+# Geographic graph using `point_1` and `point_2` to set a start and an ending point.
+# This graph uses ``fig.coast`` to plot a coast. ``point_1`` and ``point_2`` are coordinates
+# on a grid that we are using. The geographical vector is going from Idaho to Chicago. To style geographic
 # vectors, use ``=`` at the begining of the ``style`` parameter.
 # Other styling features such as arrow head color and line thickness
 # can be passed into
@@ -393,10 +392,9 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# This Geographic Vector is using the `fig.coast` of the region of the United States.
 # The plotting of the geographic vectors when using latitude and longitude
 # are labeled by having the coordinates displayed.
-# Then an array is created so the vectors follow the one vector before it. You
+# An array is created so the vectors follow the one vector before it. You
 # can diplay this array any way you want.
 
 fig = pygmt.Figure()
