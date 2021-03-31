@@ -43,7 +43,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     and plots windrose diagrams or polar histograms (sector diagram
     or rose diagram).
 
-    Must provide either *data* or *length* and *azimuth*.
+    Must provide either ``data`` or ``length`` and ``azimuth``.
 
     Options include full circle and half circle plots. The outline
     of the windrose is drawn with the same color as
