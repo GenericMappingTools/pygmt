@@ -256,20 +256,20 @@ fig.show()
 
 ########################################################################################
 # Plot Circular Vectors
-# ---------------------
+# ----------
 #
-# When plotting circular vectors, there are 5 values that should be included in
-# a 2D list or numpy array object in order to create
-# a valid plot. The vectors must be passed to the ``data`` parameter.
-# The first two values in ``circular_vector_1`` represent the origin of the
-# circle that will be plotted. The next value is the radius which is represented
-# on the plot in centimeters. Finally, the last two values represent the degree
-# at which the plot will start and stop. In this example, the result shown is the
-# left half of a circle as the plot starts at 90 degrees and goes until 270.
-# It is important to note that when plotting circular vectors, the style value
-# should begin with an ``m``.
+# When plotting circular vectors, all of the information for a single vector is
+# to be stored in a list. Each circular vector list is structured as: [x_start,
+# y_start, radius, degree_start, degree_stop]. The first two values in
+# ``circular_vector_1`` represent the origin of the circle that will be plotted.
+# The next value is the radius which is represented on the plot in centimeters.
+#
+# The last two values in the vector list represent the degree at which the plot
+# will start and stop. These values are measured counter-clockwise from the horizontal
+# axis. In this example, the result show is the left half of a circle as the
+# plot starts at 90 degrees and goes until 270. Notice that the ``m`` in the
+# ``style`` parameter stands for circular vectors.
 
-# vector specifications structured as: [x_start, y_start, radius, degree_start, degree_stop]
 circular_vector_1 = [0, 0, 2, 90, 270]
 
 data = [circular_vector_1]
@@ -298,21 +298,18 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# When plotting multiple vectors there is a multitude of numpy functions
-# that can make this process easier. In the following example, three main numpy
-# functions are used. The first of which is ``np.arange`` which iterates from 0
-# to the value of ct. This function is used to generate random data points for
-# ``radius`` and ``stopdir`` since these values are intended to be different in
-# each of the five vectors begin plotted. The second function is ``np.full``
-# which creates a ``numpy.ndarray``. Finally, all of this data is congregated into
-# a final ``numpy.ndarray`` called data using ``np.column_stack``. This is then
-# passed to the plot function and the resulting figure is shown below.
+# When plotting multiple circular vectors, a two dimensional array or numpy array
+# object should be passed as the data parameter. In this example, the numpy column
+# stack function is used to generate this two dimensional array. Other numpy objects
+# are used to generate random values for the ``degree_stop`` and ``radius`` parameters
+# discussed in the previous example. This is the reason in which each vector has
+# a different appearance on the projection.
 
-ct = 5
-radius = 3 - (0.5 * np.arange(0, ct))
-startdir = np.full(ct, 90)
-stopdir = 180 + (50 * np.arange(0, ct))
-data = np.column_stack([np.full(ct, 0), np.full(ct, 0), radius, startdir, stopdir])
+vector_num = 5
+radius = 3 - (0.5 * np.arange(0, vector_num))
+startdir = np.full(vector_num, 90)
+stopdir = 180 + (50 * np.arange(0, vector_num))
+data = np.column_stack([np.full(vector_num, 0), np.full(vector_num, 0), radius, startdir, stopdir])
 
 fig = pygmt.Figure()
 fig.plot(
