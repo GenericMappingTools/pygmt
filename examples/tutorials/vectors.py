@@ -309,7 +309,9 @@ vector_num = 5
 radius = 3 - (0.5 * np.arange(0, vector_num))
 startdir = np.full(vector_num, 90)
 stopdir = 180 + (50 * np.arange(0, vector_num))
-data = np.column_stack([np.full(vector_num, 0), np.full(vector_num, 0), radius, startdir, stopdir])
+data = np.column_stack(
+    [np.full(vector_num, 0), np.full(vector_num, 0), radius, startdir, stopdir]
+)
 
 fig = pygmt.Figure()
 fig.plot(
