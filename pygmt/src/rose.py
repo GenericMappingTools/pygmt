@@ -182,14 +182,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    inquire : bool
-        Note: Not implemented yet.
-        Computes statistics needed to specify a useful
-        ``frame``. No plot is generated. The following statistics
-        are written to stdout: *n*, *mean az*, *mean r*, *mean
-        resultant length*, *max bin sum*, *scaled mean*, and
-        *linear length sum*.
-
     {U}
     {V}
     {XY}
@@ -209,8 +201,4 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
 
-            if "I" not in kwargs:
-                lib.call_module("rose", arg_str)
-            # if inquire only, give back statistics about input data
-            else:
-                raise NotImplementedError
+            lib.call_module("rose", arg_str)
