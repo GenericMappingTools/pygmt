@@ -125,7 +125,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     pen : str
         Set pen attributes for sector outline or rose plot, e.g.
         ``pen = '0.5p'``. [Default is no outline]. To change pen used to
-        draw vector (requires **vectors**) [Default is same as sector
+        draw vector (requires ``vectors``) [Default is same as sector
         outline] use e.g. ``pen = 'v0.5p'``.
 
     labels : str
