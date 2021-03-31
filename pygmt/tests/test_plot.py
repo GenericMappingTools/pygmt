@@ -112,7 +112,6 @@ def test_plot_projection(data):
     Plot the data in green squares with a projection.
     """
     fig = Figure()
-
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
@@ -131,7 +130,6 @@ def test_plot_colors(data, region):
     Plot the data using z as colors.
     """
     fig = Figure()
-
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
@@ -234,7 +232,6 @@ def test_plot_transparency():
     y = np.arange(1, 10)
 
     fig = Figure()
-
     fig.plot(
         x=x,
         y=y,
@@ -258,7 +255,6 @@ def test_plot_varying_transparency():
     z = np.arange(1, 10) * 10
 
     fig = Figure()
-
     fig.plot(
         x=x,
         y=y,
@@ -284,7 +280,6 @@ def test_plot_sizes_colors_transparencies():
     transparency = np.arange(1, 10) * 10
 
     fig = Figure()
-
     fig.plot(
         x=x,
         y=y,
