@@ -164,7 +164,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         Used with ``vectors`` to modify vector parameters. For
         vector heads, append vector head size [Default is 0, i.e., a
         line]. See :gmt-docs:`rose.html#vector-attributes` for
-        specifying additional attributes. If **vectors** is not
+        specifying additional attributes. If ``vectors`` is not
         given and the current plot mode is to draw a windrose diagram
         then using **vector_params** will add vector heads to all
         individual directions using the supplied attributes.
