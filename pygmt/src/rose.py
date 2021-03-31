@@ -70,9 +70,9 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     orientation : bool
         Specifies that the input data are orientation data (i.e., have a
         180 degree ambiguity) instead of true 0-360 degree directions
-        [Default is 0-360 degrees]. We compensate by counting each record twice: First as
-        azimuth and second as azimuth +180. Ignored if range is given as
-        -90/90 or 0/180.
+        [Default is 0-360 degrees]. We compensate by counting each record
+        twice: First as azimuth and second as azimuth +180. Ignored if
+        range is given as -90/90 or 0/180.
 
     region : str or list
         *Required if this is the first plot command*. ``'r0/r1/az0/az1'``.
