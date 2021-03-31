@@ -166,7 +166,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         line]. See :gmt-docs:`rose.html#vector-attributes` for
         specifying additional attributes. If ``vectors`` is not
         given and the current plot mode is to draw a windrose diagram
-        then using **vector_params** will add vector heads to all
+        then using ``vector_params`` will add vector heads to all
         individual directions using the supplied attributes.
 
     alpha : float or str
