@@ -19,8 +19,8 @@ import numpy as np
 import pygmt
 
 ########################################################################################
-# Plot Caretesian Vectors
-# -----------------------
+# Plot Cartesian Vectors
+# ----------------------
 #
 # Create a simple Cartesian vector using a starting point through
 # ``x``, ``y``, and ``direction`` parameters.
