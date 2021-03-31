@@ -328,7 +328,7 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# Much like when plotting regular vectors, the default unit used is centimeters.
+# Much like when plotting Cartesian vectors, the default unit used is centimeters.
 # When this is changed to inches, the size of the plot appears larger when the
 # projection units do not change. Below is an example of two circular vectors.
 # One is plotted using the default unit, and the second is plotted using inches.
