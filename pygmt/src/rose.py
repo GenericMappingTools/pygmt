@@ -63,7 +63,7 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         Either a data file name or a 2d numpy array with the tabular data.
         Use option ``columns`` (i) to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given,
-        use **columns** to indicate the single column with azimuths; then
+        use ``columns`` to indicate the single column with azimuths; then
         all lengths are set to unity (see ``scale = 'u'`` to set actual
         lengths to unity as well).
 
