@@ -1,0 +1,4 @@
+outs:
+- md5: 5c771f56126a8e0d9edbd50e392bff50
+  size: 23593
+  path: test_plot_scalar_xy.png
