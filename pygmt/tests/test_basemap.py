@@ -71,3 +71,33 @@ def test_basemap_winkel_tripel():
     fig = Figure()
     fig.basemap(region=[90, 450, -90, 90], projection="R270/20c", frame="afg")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_rose():
+    """
+    Create a map with a rose.
+    """
+    fig = Figure()
+    fig.basemap(region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, rose="jMC+w5c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_compass():
+    """
+    Create a map with a compass.
+    """
+    fig = Figure()
+    fig.basemap(region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, compass="jMC+w5c+d11.5")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_map_scale():
+    """
+    Create a map with a map scale.
+    """
+    fig = Figure()
+    fig.basemap(region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, map_scale="jMC+c26.5+w10k+f+l")
+    return fig
