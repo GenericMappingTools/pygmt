@@ -52,7 +52,6 @@ def test_rose_2d_array_single():
         norm=True,
         scale=0.4,
     )
-
     return fig
 
 
@@ -79,7 +78,6 @@ def test_rose_2d_array_multiple():
         norm=True,
         scale=0.4,
     )
-
     return fig
 
 
@@ -108,7 +106,6 @@ def test_rose_plot_data_using_cpt():
         norm=True,
         scale=0.4,
     )
-
     return fig
 
 
@@ -138,7 +135,6 @@ def test_rose_plot_with_transparency():
         scale=0.4,
         transparency=50,
     )
-
     return fig
 
 
@@ -166,7 +162,6 @@ def test_rose_no_sectors():
         transparency=40,
         scale=0.5,
     )
-
     return fig
 
 
@@ -198,5 +193,4 @@ def test_rose_bools():
         no_scale=True,
         shift=False,
     )
-
     return fig
