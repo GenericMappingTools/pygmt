@@ -32,4 +32,4 @@ dependencies:
     - sphinx
     - sphinx-copybutton
     - sphinx-gallery
-    - sphinx_rtd_theme=0.4.3
+    - sphinx_rtd_theme=0.5.1
