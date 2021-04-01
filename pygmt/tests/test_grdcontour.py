@@ -28,96 +28,84 @@ def test_grdcontour(grid):
     Plot a contour image using an xarray grid with fixed contour interval.
     """
     fig = Figure()
-    kwargs = dict(interval="1000", projection="W0/6i")
+    kwargs = dict(interval="1000", projection="W0/15c", frame=True)
     fig.grdcontour(grid, **kwargs)
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_grdcontour_labels(grid):
     """
     Plot a contour image using a xarray grid with contour labels and alternate
     colors.
     """
-    fig_ref, fig_test = Figure(), Figure()
+    fig = Figure()
     kwargs = dict(
         interval="1000",
         annotation="5000",
-        projection="W0/6i",
+        projection="W0/15c",
         pen=["a1p,red", "c0.5p,black"],
-        label_placement="d3i",
+        label_placement="d6c",
+        frame=True
     )
-    fig_ref.grdcontour("@earth_relief_01d_g", **kwargs)
-    fig_test.grdcontour(grid, **kwargs)
-    return fig_ref, fig_test
+
+    fig.grdcontour(grid, **kwargs)
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_grdcontour_slice(grid):
     """
     Plot an contour image using an xarray grid that has been sliced.
     """
-
-    fig_ref, fig_test = Figure(), Figure()
+    fig = Figure()
 
     grid_ = grid.sel(lat=slice(-30, 30))
-    kwargs = dict(interval="1000", projection="M6i")
-    fig_ref.grdcontour(
-        grid="@earth_relief_01d_g", region=[-180, 180, -30, 30], **kwargs
-    )
-    fig_test.grdcontour(grid=grid_, **kwargs)
-    return fig_ref, fig_test
+    kwargs = dict(interval="1000", projection="M15c", frame=True)
+
+    fig.grdcontour(grid=grid_, **kwargs)
+    return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_grdcontour_file():
+def test_grdcontour_file(grid):
     """
     Plot a contour image using grid file input.
     """
     fig = Figure()
     fig.grdcontour(
-        "@earth_relief_01d_g",
+        grid,
         interval="1000",
         limit="0",
         pen="0.5p,black",
         region=[-180, 180, -70, 70],
-        projection="M10i",
+        projection="M15c",
+        frame=True
     )
     return fig
 
 
-@check_figures_equal()
-def test_grdcontour_interval_file_full_opts():
+@pytest.mark.mpl_image_compare
+def test_grdcontour_interval_file_full_opts(grid):
     """
     Plot based on external contour level file.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    comargs_ref = {
-        "grid": "@earth_relief_10m",
-        "R": "-161.5/-154/18.5/23",
-        "C": TEST_CONTOUR_FILE,
-        "S": 100,
-        "J": "M6i",
-        "Q": 10,
-    }
-    fig_ref.grdcontour(**comargs_ref, L="-25000/-1", W=["a1p,blue", "c0.5p,blue"])
-    fig_ref.grdcontour(**comargs_ref, L="0", W=["a1p,black", "c0.5p,black"])
+    fig = Figure()
 
-    comargs_test = {
+    comargs = {
         "region": [-161.5, -154, 18.5, 23],
         "interval": TEST_CONTOUR_FILE,
-        "grid": "@earth_relief_10m",
+        "grid": grid,
         "resample": "100",
-        "projection": "M6i",
+        "projection": "M10c",
         "cut": 10,
     }
-    fig_test.grdcontour(
-        **comargs_test, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"]
+    fig.grdcontour(
+        **comargs, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"]
     )
-    fig_test.grdcontour(**comargs_test, limit=0, pen=["a1p,black", "c0.5p,black"])
+    fig.grdcontour(**comargs, limit=0, pen=["a1p,black", "c0.5p,black"], frame=True)
 
-    return fig_ref, fig_test
+    return fig
 
 
 def test_grdcontour_fails():
