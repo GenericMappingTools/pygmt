@@ -22,16 +22,15 @@ def fixture_grid():
     return load_earth_relief(registration="gridline")
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_grdcontour(grid):
     """
     Plot a contour image using an xarray grid with fixed contour interval.
     """
-    fig_ref, fig_test = Figure(), Figure()
+    fig = Figure()
     kwargs = dict(interval="1000", projection="W0/6i")
-    fig_ref.grdcontour("@earth_relief_01d_g", **kwargs)
-    fig_test.grdcontour(grid, **kwargs)
-    return fig_ref, fig_test
+    fig.grdcontour(grid, **kwargs)
+    return fig
 
 
 @check_figures_equal()
