@@ -62,11 +62,11 @@ def test_contour_fail_no_data(data):
             z=data[:, 2],
             data=data,
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
-            pen="",
+            pen=True,
         )
 
 
@@ -83,7 +83,7 @@ def test_contour_vec(region):
     y = y.flatten()
     z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y ** 2
     z = np.exp(-z / 10 ** 2 * np.log(2))
-    fig.contour(x=x, y=y, z=z, projection="X4i", region=region, frame="a", pen="")
+    fig.contour(x=x, y=y, z=z, projection="X10c", region=region, frame="a", pen=True)
     return fig
 
 
@@ -93,7 +93,7 @@ def test_contour_matrix(data, region):
     Plot data.
     """
     fig = Figure()
-    fig.contour(data=data, projection="X3i", region=region, frame="ag", pen="")
+    fig.contour(data=data, projection="X10c", region=region, frame="ag", pen=True)
     return fig
 
 
@@ -104,6 +104,6 @@ def test_contour_from_file(region):
     """
     fig = Figure()
     fig.contour(
-        data=POINTS_DATA, projection="X4i", region=region, frame="af", pen="#ffcb87"
+        data=POINTS_DATA, projection="X10c", region=region, frame="af", pen="#ffcb87"
     )
     return fig

@@ -1,0 +1,4 @@
+outs:
+- md5: 8bae58cc9d84de9ff9c30f3d45792dc5
+  size: 87570
+  path: test_contour_vec.png
