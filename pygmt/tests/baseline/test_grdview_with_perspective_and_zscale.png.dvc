@@ -1,0 +1,4 @@
+outs:
+- md5: 7551ede00a17a7b9c6aa7475314e9158
+  size: 48126
+  path: test_grdview_with_perspective_and_zscale.png

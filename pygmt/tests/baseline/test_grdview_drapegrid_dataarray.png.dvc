@@ -1,0 +1,4 @@
+outs:
+- md5: 39c4525a8063626b849ca8a563727e83
+  size: 112093
+  path: test_grdview_drapegrid_dataarray.png

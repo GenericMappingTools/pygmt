@@ -1,0 +1,4 @@
+outs:
+- md5: 8b086d1f7975bf77a7315224e09a5f79
+  size: 58457
+  path: test_grdview_on_a_plane.png

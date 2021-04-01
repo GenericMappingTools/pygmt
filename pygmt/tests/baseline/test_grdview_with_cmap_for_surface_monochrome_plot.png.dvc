@@ -1,0 +1,4 @@
+outs:
+- md5: 9dde4851629f9259c95b7b37d3a5ff73
+  size: 153867
+  path: test_grdview_with_cmap_for_surface_monochrome_plot.png

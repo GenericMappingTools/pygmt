@@ -1,0 +1,4 @@
+outs:
+- md5: 96b307bcf6eb3aa724c6d5c3c958fbb1
+  size: 242570
+  path: test_grdview_with_perspective_and_zaxis_frame.png
