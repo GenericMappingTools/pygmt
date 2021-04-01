@@ -70,7 +70,7 @@ def test_rose_2d_array_multiple():
     fig = Figure()
     fig.rose(
         data=data,
-        region="0/1/0/360",
+        region=[0, 1, 0, 360],
         sector=10,
         diameter="5.5c",
         color="blue",
