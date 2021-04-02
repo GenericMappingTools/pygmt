@@ -172,7 +172,7 @@ fig.show()
 # The beginning point of the vector (**+b**)
 # should take the shape of a circle (**c**). Similarly, the end
 # point of the vector (**+e**) should have an arrow shape (**a**)
-# (to draw a plain arrow, use (**A**) instead). Lastly, the (**+a**)
+# (to draw a plain arrow, use **A** instead). Lastly, the **+a**
 # specifies the angle of the vector head apex (30 degrees in
 # this example).
 
@@ -217,7 +217,7 @@ fig.show()
 
 ########################################################################################
 # Another example of plotting cartesian vectors over a coast plot. This time
-# a Transverse Mercator projection is used. Additionally, :func:'numpy.linspace`
+# a Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 # is used to create 5 vectors with equal stops.
 
 x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
@@ -257,7 +257,7 @@ fig.show()
 # When plotting circular vectors, all of the information for a single vector is
 # to be stored in a list. Each circular vector list is structured as:
 # ``[x_start, y_start, radius, degree_start, degree_stop]``. The first two values in
-# ``circular_vector_1`` represent the origin of the circle that will be plotted.
+# the vector list represent the origin of the circle that will be plotted.
 # The next value is the radius which is represented on the plot in centimeters.
 #
 # The last two values in the vector list represent the degree at which the plot
@@ -295,7 +295,7 @@ fig.show()
 
 ########################################################################################
 # When plotting multiple circular vectors, a two dimensional array or numpy array
-# object should be passed as the data parameter. In this example, the numpy column
+# object should be passed as the ``data``` parameter. In this example, the numpy column
 # stack function is used to generate this two dimensional array. Other numpy objects
 # are used to generate random values for the ``degree_stop`` and ``radius`` parameters
 # discussed in the previous example. This is the reason in which each vector has
@@ -364,9 +364,9 @@ fig.show()
 # Chicago. To style geographic
 # vectors, use ``=`` at the begining of the ``style`` parameter.
 # Other styling features such as vector stem thickness and head color
-# can be passed into ``pen`` and ``color``parameters.
+# can be passed into ``pen`` and ``color`` parameters.
 #
-# Note that the (**+s**) is added to use a startpoint and an endpoint
+# Note that the **+s** is added to use a startpoint and an endpoint
 # to represent the vector instead of input angle and length.
 
 point_1 = [-114.7420, 44.0682]
