@@ -8,7 +8,7 @@ Manoa.
 The following people have contributed code and/or documentation to the project
 (alphabetical by name) and are considered to be "PyGMT Developers":
 
-* [Abhishek Anant](https://twitter.com/itsabhianant) | [0000-0002-5751-2010](https://orcid.org/0000-0002-5751-2010) | Unaffiliated
+* [Abhishek Anant Singh](https://twitter.com/itsabhianant) | [0000-0002-5751-2010](https://orcid.org/0000-0002-5751-2010) | Unaffiliated
 * [Dongdong Tian](https://seisman.info/) | [0000-0001-7967-1197](https://orcid.org/0000-0001-7967-1197) | Michigan State University
 * [Jiayuan Yao](https://github.com/core-man) | [0000-0001-7036-4238](https://orcid.org/0000-0001-7036-4238) | Nanyang Technological University
 * [Kathryn Materna](https://github.com/kmaterna) | [0000-0002-6687-980X](https://orcid.org/0000-0002-6687-980X) | US Geological Survey
