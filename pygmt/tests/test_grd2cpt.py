@@ -4,11 +4,10 @@ Tests for grd2cpt.
 import os
 
 import pytest
-from pygmt import Figure
+from pygmt import Figure, grd2cpt
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt import grd2cpt
 
 
 @pytest.fixture(scope="module", name="grid")
