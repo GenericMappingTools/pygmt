@@ -38,7 +38,8 @@ def test_grdcontour_labels(grid):
     colors.
     """
     fig = Figure()
-    kwargs = dict(
+    fig.grdcontour(
+        grid,
         interval="1000",
         annotation="5000",
         projection="W0/15c",
@@ -46,8 +47,6 @@ def test_grdcontour_labels(grid):
         label_placement="d6c",
         frame=True,
     )
-
-    fig.grdcontour(grid, **kwargs)
     return fig
 
 
@@ -56,23 +55,21 @@ def test_grdcontour_slice(grid):
     """
     Plot an contour image using an xarray grid that has been sliced.
     """
-    fig = Figure()
-
     grid_ = grid.sel(lat=slice(-30, 30))
-    kwargs = dict(interval="1000", projection="M15c", frame=True)
 
-    fig.grdcontour(grid=grid_, **kwargs)
+    fig = Figure()
+    fig.grdcontour(grid=grid_, interval="1000", projection="M15c", frame=True)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_grdcontour_file(grid):
+def test_grdcontour_file():
     """
     Plot a contour image using grid file input.
     """
     fig = Figure()
     fig.grdcontour(
-        grid,
+        "@earth_relief_01d_g",
         interval="1000",
         limit="0",
         pen="0.5p,black",
