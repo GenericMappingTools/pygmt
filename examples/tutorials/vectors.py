@@ -364,7 +364,10 @@ fig.show()
 # Chicago. To style geographic
 # vectors, use ``=`` at the begining of the ``style`` parameter.
 # Other styling features such as vector stem thickness and head color
-# can be passed into ``pen`` and ``color``parameters
+# can be passed into ``pen`` and ``color``parameters.
+#
+# Note that the (**+s**) is added to use a startpoint and an endpoint
+# to represent the vector instead of input angle and length.
 
 point_1 = [-114.7420, 44.0682]
 point_2 = [-87.6298, 41.8781]
@@ -389,11 +392,13 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# The plotting of the geographic vectors when using latitude and longitude
-# are labeled by having the coordinates displayed.
-# An array is created so the vectors follow the one vector before it. You
-# can diplay this array any way you want.
-
+# Using the same technique shown in the previous example,
+# multiple vectors can be plotted in a chain where the endpoint
+# of one is the starting point of another. This can be done
+# by adding the coordinate lists together to create this structure:
+# ``[[start_latitude, start_longitude, end_latitude, end_longitude]]``.
+# Each list within the 2D list contains the start and end information
+# for each vector.
 
 # Coordinate pairs for all the locations used.
 ME = [-69.4455, 45.2538]
@@ -402,6 +407,9 @@ SEA = [-122.3321, 47.6062]
 NO = [-90.0715, 29.9511]
 KC = [-94.5786, 39.0997]
 CA = [-119.4179, 36.7783]
+
+# Add array to piece together the vectors.
+data = [ME + CHI, CHI + SEA, SEA + KC, KC + NO, NO + CA]
 
 fig = pygmt.Figure()
 fig.coast(
@@ -413,8 +421,6 @@ fig.coast(
     area_thresh=4000,
 )
 
-# Add array to piece together the vectors.
-data = np.array([ME + CHI, CHI + SEA, SEA + KC, KC + NO, NO + CA])
 fig.plot(
     data=data,
     style="=0.5c+ea+s",
