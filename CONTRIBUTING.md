@@ -185,12 +185,9 @@ When editing documentation, use the following standards to demonstrate the examp
 2. Literal GMT arguments should be **bold** by wrapping the arguments with \*\*
    (two asterisks) on both sides. The argument description should be in *italicized*
    with \* (single asterisk) on both sides.
-   Example: `**+l**\ *label*` results in **+l***label*.
+   Example: `**+l**\ *label*` results in **+l***label*, `**05m**` results in **05m**.
 3. Optional arguments are placed wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
-5. Double-quotes are used to indicate a string value. Example: "05m". An argument
-   with a string value set should be added \`\` on both sides of the expressions.
-   Example: \`\`style="v"\`\` results in `style="v"`.
 
 ## Contributing Code
 
