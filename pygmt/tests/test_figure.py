@@ -142,8 +142,7 @@ def test_figure_show():
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    img = fig.show(width=800)
-    assert img.width == 800
+    fig.show()
 
 
 @pytest.mark.mpl_image_compare

@@ -288,14 +288,6 @@ class Figure:
             - ``'external'``: PDF preview in an external program [default]
             - ``'notebook'``: PNG preview [default in Jupyter notebooks]
             - ``'none'``: Disable image preview
-
-        Returns
-        -------
-        img : IPython.display.Image or None
-            Return type depends on the ``method`` parameter:
-
-            - IPython.display.Image: if ``method`` is ``'notebook'``
-            - None: if ``method`` is ``'external'`` or ``'none'``
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -323,15 +315,11 @@ class Figure:
                     )
                 )
             png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
-            img = IPython.display.Image(data=png, width=width)
-            return img
+            IPython.display.display(IPython.display.Image(data=png, width=width))
 
         if method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
-            return None
-
-        return None
 
     def shift_origin(self, xshift=None, yshift=None):
         """
