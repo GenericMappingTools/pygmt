@@ -16,7 +16,7 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 def test_meca_spec_dictionary():
     """
     Test supplying a dictionary containing a single focal mechanism to the spec
-    argument.
+    parameter.
     """
     fig = Figure()
     # Right lateral strike slip focal mechanism
@@ -37,7 +37,7 @@ def test_meca_spec_dictionary():
 def test_meca_spec_dict_list():
     """
     Test supplying a dictionary containing a list of focal mechanism to the
-    spec argument.
+    spec parameter.
     """
     fig = Figure()
     # supply focal mechanisms as a dict of lists
@@ -60,7 +60,7 @@ def test_meca_spec_dict_list():
 def test_meca_spec_dataframe():
     """
     Test supplying a pandas.DataFrame containing focal mechanisms and locations
-    to the spec argument.
+    to the spec parameter.
     """
 
     fig = Figure()
@@ -84,7 +84,7 @@ def test_meca_spec_dataframe():
 def test_meca_spec_1d_array():
     """
     Test supplying a 1D numpy array containing focal mechanisms and locations
-    to the spec argument.
+    to the spec parameter.
     """
     fig = Figure()
     # supply focal mechanisms to meca as a 1D numpy array, here we are using
@@ -122,7 +122,7 @@ def test_meca_spec_1d_array():
 def test_meca_spec_2d_array():
     """
     Test supplying a 2D numpy array containing focal mechanisms and locations
-    to the spec argument.
+    to the spec parameter.
     """
     fig = Figure()
     # supply focal mechanisms to meca as a 2D numpy array, here we are using
@@ -162,7 +162,7 @@ def test_meca_spec_2d_array():
 def test_meca_spec_file():
     """
     Test supplying a file containing focal mechanisms and locations to the spec
-    argument.
+    parameter.
     """
 
     fig = Figure()
