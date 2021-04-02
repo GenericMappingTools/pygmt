@@ -175,9 +175,6 @@ fig.show()
 # (to draw a plain arrow, use (**A**) instead). Lastly, the (**+a**)
 # specifies the angle of the vector head apex (30 degrees in
 # this example).
-#
-# More styling options can be found here
-# :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
 # Create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
@@ -418,34 +415,6 @@ fig.coast(
 
 # Add array to piece together the vectors.
 data = np.array([ME + CHI, CHI + SEA, SEA + KC, KC + NO, NO + CA])
-fig.plot(
-    data=data,
-    style="=0.5c+ea+s",
-    pen="2p",
-    color="red3",
-)
-fig.show()
-
-#################################################################################
-# This is a polyconic projection of geographic vectors. This projection
-# is set to poly. The MC, ME, WA variables are connected to Mexico City (MC)
-# Maine (ME), and Washington (WA). Each variable has a coordinate corrensponding
-# that place.
-
-fig = pygmt.Figure()
-fig.coast(
-    shorelines="1/0.5p",
-    region=[-180, -20, 0, 90],
-    projection="Poly/12c",
-    land="gray",
-    borders="1/thick,black",
-    frame="afg10",
-)
-MC = [-99.1332, 19.4326]
-ME = [-69.4455, 45.2538]
-WA = [-122.5210, 47.6249]
-data = np.array([MC + ME, ME + WA])
-
 fig.plot(
     data=data,
     style="=0.5c+ea+s",
