@@ -5,20 +5,16 @@ from pygmt import Figure
 from pygmt.helpers.testing import check_figures_equal
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_inset_aliases():
     """
     Test the aliases for the inset function.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    fig_ref.basemap(R="MG+r2", B="afg")
-    with fig_ref.inset(D="jTL+w3.5c+o0.2c", M=0, F="+pgreen"):
-        fig_ref.basemap(R="g", J="G47/-20/4c", B="afg")
-
-    fig_test.basemap(region="MG+r2", frame="afg")
-    with fig_test.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
-        fig_test.basemap(region="g", projection="G47/-20/4c", frame="afg")
-    return fig_ref, fig_test
+    fig = Figure()
+    fig.basemap(region="MG+r2", frame="afg")
+    with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
+        fig.basemap(region="g", projection="G47/-20/4c", frame="afg")
+    return fig
 
 
 @check_figures_equal()
