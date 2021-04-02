@@ -39,7 +39,7 @@ def test_plot3d_red_circles_zscale(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="X4i",
+        projection="X10c",
         style="c0.2c",
         color="red",
         frame=["afg", "zafg"],
@@ -49,16 +49,16 @@ def test_plot3d_red_circles_zscale(data, region):
 
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zsize(data, region):
-    "Plot the 3D data in red circles passing in vectors and setting zsize = 3i"
+    "Plot the 3D data in red circles passing in vectors and setting zsize = 6c"
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
         y=data[:, 1],
         z=data[:, 2],
-        zsize="3i",
+        zsize="6c",
         perspective=[225, 30],
         region=region,
-        projection="X4i",
+        projection="X10c",
         style="c0.2c",
         color="red",
         frame=["afg", "zafg"],
@@ -73,13 +73,13 @@ def test_plot3d_fail_no_data(data, region):
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(
-            region=region, projection="X4i", style="c0.2c", color="red", frame="afg"
+            region=region, projection="X10c", style="c0.2c", color="red", frame="afg"
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(
             x=data[:, 0],
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -88,7 +88,7 @@ def test_plot3d_fail_no_data(data, region):
         fig.plot3d(
             y=data[:, 0],
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -101,7 +101,7 @@ def test_plot3d_fail_no_data(data, region):
             z=data[:, 2],
             data=data,
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -136,7 +136,7 @@ def test_plot3d_projection(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="R270/4i",
+        projection="R270/10c",
         style="s1c",
         color="green",
         frame=["ag", "zag"],
@@ -158,7 +158,7 @@ def test_plot3d_colors(data, region):
         perspective=[225, 30],
         color=data[:, 2],
         region=region,
-        projection="X3i",
+        projection="X6c",
         style="c0.5c",
         cmap="cubhelix",
         frame=["afg", "zafg"],
@@ -180,9 +180,10 @@ def test_plot3d_sizes(data, region):
         perspective=[225, 30],
         sizes=0.5 * data[:, 2],
         region=region,
-        projection="X4i",
+        projection="X10c",
         # Using inches instead of cm because of upstream bug at
-        # https://github.com/GenericMappingTools/gmt/issues/4386
+        # https://github.com/GenericMappingTools/gmt/issues/4386#
+        # TODO check if still valid
         style="ui",
         color="blue",
         frame=["af", "zaf"],
@@ -205,9 +206,10 @@ def test_plot3d_colors_sizes(data, region):
         color=data[:, 2],
         sizes=0.5 * data[:, 2],
         region=region,
-        projection="X3i",
+        projection="X6c",
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
+        # TODO check if still valid
         style="ui",
         cmap="copper",
         frame=["af", "zaf"],
@@ -228,12 +230,13 @@ def test_plot3d_colors_sizes_proj(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="M10i",
+        projection="M20c",
         frame=["af", "zaf"],
         color=data[:, 2],
         sizes=data[:, 2],
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
+        # TODO check if still valid
         style="ui",
         cmap="copper",
     )
@@ -284,7 +287,7 @@ def test_plot3d_transparency():
         style="u0.2c",
         color="blue",
         region=[0, 10, 0, 10, 10, 90],
-        projection="X4i",
+        projection="X10c",
         zscale=0.1,
         frame=True,
         perspective=[135, 30],
@@ -310,7 +313,7 @@ def test_plot3d_varying_transparency():
         style="o0.2c+B5",
         color="blue",
         region=[0, 10, 0, 10, 10, 90],
-        projection="X4i",
+        projection="X10c",
         zscale=0.1,
         frame=True,
         perspective=[135, 30],
@@ -337,7 +340,7 @@ def test_plot3d_sizes_colors_transparencies():
         y=y,
         z=z,
         region=[0, 10, 0, 10, 10, 90],
-        projection="X4i",
+        projection="X10c",
         zscale=0.1,
         perspective=[135, 30],
         frame=True,
@@ -361,7 +364,7 @@ def test_plot3d_matrix(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="M10i",
+        projection="M20c",
         style="c1c",
         color="#aaaaaa",
         frame=["a", "za"],
@@ -381,7 +384,7 @@ def test_plot3d_matrix_color(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="X5i",
+        projection="X10c",
         style="c0.5c",
         cmap="rainbow",
         columns=[0, 1, 2, 2],
@@ -401,7 +404,7 @@ def test_plot3d_from_file(region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="X10i",
+        projection="X20c",
         style="d1c",
         color="yellow",
         frame=["af", "zaf"],
@@ -430,7 +433,7 @@ def test_plot3d_vectors():
         perspective=[225, 30],
         direction=(azimuth, lengths),
         region=[-2, 2, -2, 2, -2, 2],
-        projection="X4i",
+        projection="X10c",
         style="V1c+e",
         color="black",
         frame=["af", "zaf"],
