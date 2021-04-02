@@ -52,7 +52,7 @@ def test_colorbar_shading_boolean():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
-    fig.colorbar(cmap="geo", shading=True)
+    fig.colorbar(cmap="geo", shading=True, frame=True)
     return fig
 
 
@@ -63,5 +63,5 @@ def test_colorbar_shading_list():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
-    fig.colorbar(cmap="geo", shading=[-0.7, 0.2])
+    fig.colorbar(cmap="geo", shading=[-0.7, 0.2], frame=True)
     return fig
