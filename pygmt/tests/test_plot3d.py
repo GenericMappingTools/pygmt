@@ -30,20 +30,11 @@ def fixture_region():
     return [10, 70, -5, 10, 0, 1]
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zscale(data, region):
     "Plot the 3D data in red circles passing in vectors and setting zscale = 5"
-    fig_ref, fig_test = Figure(), Figure()
-    fig_ref.plot3d(
-        data=POINTS_DATA,
-        Jz=5,
-        p="225/30",
-        R="/".join(map(str, region)),
-        J="X4i",
-        S="c0.2c",
-        G="red",
-        B=["afg", "zafg"],
-    )
+    fig = Figure()
+
     fig_test.plot3d(
         x=data[:, 0],
         y=data[:, 1],
@@ -56,7 +47,7 @@ def test_plot3d_red_circles_zscale(data, region):
         color="red",
         frame=["afg", "zafg"],
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @check_figures_equal()
