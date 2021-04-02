@@ -8,7 +8,6 @@ import pytest
 from pygmt import Figure
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers.testing import check_figures_equal
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEST_CONTOUR_FILE = os.path.join(TEST_DATA_DIR, "contours.txt")
@@ -46,7 +45,7 @@ def test_grdcontour_labels(grid):
         projection="W0/15c",
         pen=["a1p,red", "c0.5p,black"],
         label_placement="d6c",
-        frame=True
+        frame=True,
     )
 
     fig.grdcontour(grid, **kwargs)
@@ -80,7 +79,7 @@ def test_grdcontour_file(grid):
         pen="0.5p,black",
         region=[-180, 180, -70, 70],
         projection="M15c",
-        frame=True
+        frame=True,
     )
     return fig
 
@@ -100,9 +99,7 @@ def test_grdcontour_interval_file_full_opts(grid):
         "projection": "M10c",
         "cut": 10,
     }
-    fig.grdcontour(
-        **comargs, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"]
-    )
+    fig.grdcontour(**comargs, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"])
     fig.grdcontour(**comargs, limit=0, pen=["a1p,black", "c0.5p,black"], frame=True)
 
     return fig
