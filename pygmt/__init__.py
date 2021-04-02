@@ -29,6 +29,7 @@ from pygmt.figure import Figure, set_display
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
+    blockmean,
     blockmedian,
     config,
     grd2cpt,

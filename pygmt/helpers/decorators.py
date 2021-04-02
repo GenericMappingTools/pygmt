@@ -17,7 +17,7 @@ COMMON_OPTIONS = {
         region : str or list
             *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the region of interest.""",
+            Specify the :doc:`region </tutorials/regions>` of interest.""",
     "J": r"""
         projection : str
             *Required if this is the first plot command*.
@@ -25,7 +25,8 @@ COMMON_OPTIONS = {
             Select map :doc:`projection </projections/index>`.""",
     "B": r"""
         frame : bool or str or list
-            Set map boundary frame and axes attributes.""",
+            Set map boundary
+            :doc:`frame and axes attributes </tutorials/frames>`. """,
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
@@ -63,7 +64,7 @@ COMMON_OPTIONS = {
             :gmt-docs:`gmt.html#xy-full`.
          """,
     "a": r"""
-        aspatial : str
+        aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.
             Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
@@ -201,7 +202,7 @@ def fmt_docstring(module_func):
     region : str or list
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the region of interest.
+        Specify the :doc:`region </tutorials/regions>` of interest.
     projection : str
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.

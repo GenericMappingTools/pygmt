@@ -431,7 +431,9 @@ class Figure:
         meca,
         plot,
         plot3d,
+        rose,
         set_panel,
+        solar,
         subplot,
         text,
     )
