@@ -144,14 +144,12 @@ fig.show()
 # array object
 # and passed using ``data`` parameter.
 
-# vector specifications structured as: [x_start, y_start, direction_degrees, length]
+# Vector specifications structured as: [x_start, y_start, direction_degrees, length]
 vector_1 = [2, 3, 45, 4]
 vector_2 = [7.5, 8.3, -120.5, 7.2]
 # Create a list of lists that include each vector information
-vectors = np.array([vector_1, vector_2])
-# vectors structure:
-# [[   2.     3.    45.     4. ]
-#  [   7.5    8.3 -120.5    7.2]]
+vectors = [vector_1, vector_2]
+# Vectors structure: [[2, 3, 45, 4], [7.5, 8.3, -120.5, 7.2]]
 
 fig = pygmt.Figure()
 fig.plot(
@@ -171,17 +169,17 @@ fig.show()
 # longitude and y values represent the latitude where the vector starts.
 #
 # This example also shows some of the styles a vector supports.
-# The beginning point **+bc** of the vector (**+b**)
-# should take the shape of a circle **c**. Similarly, the end
-# point of the vector **+e** should have an arrow shape **a**
-# (to draw a plain arrow, use **A** instead). Lastly, the **+a**
+# The beginning point of the vector (**+b**)
+# should take the shape of a circle (**c**). Similarly, the end
+# point of the vector (**+e**) should have an arrow shape (**a**)
+# (to draw a plain arrow, use (**A**) instead). Lastly, the (**+a**)
 # specifies the angle of the vector head apex (30 degrees in
 # this example).
 #
 # More styling options can be found here
 # :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
-# create a plot with coast, Mercator projection (M) over the continental US
+# Create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
@@ -330,13 +328,12 @@ fig.show()
 # When this is changed to inches, the size of the plot appears larger when the
 # projection units do not change. Below is an example of two circular vectors.
 # One is plotted using the default unit, and the second is plotted using inches.
-# The difference in size of the two vectors provides good insight into how this
-# functionality works.
+# Despite using the same list to plot the vectors, a different measurement unit
+# causes one to be larger than the other.
 
-circular_vector_1 = [6, 5, 2, 90, 270]
-circular_vector_2 = [6, 5, 1, 90, 270]
+circular_vector = [6, 5, 1, 90, 270]
 
-data_1 = [circular_vector_1]
+data_1 = [circular_vector]
 
 fig = pygmt.Figure()
 fig.plot(
@@ -349,7 +346,7 @@ fig.plot(
     color="red3",
 )
 
-data_2 = [circular_vector_2]
+data_2 = [circular_vector]
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
     fig.plot(
         data=data_2,
@@ -362,11 +359,13 @@ fig.show()
 ########################################################################################
 # Plot Geographic Vectors
 # -----------------------
-# Geographic graph using `point_1` and `point_2` to set a start and an ending point.
-# This graph uses ``fig.coast`` to plot a coast. ``point_1`` and ``point_2`` are coordinates
-# on a grid that we are using. The geographical vector is going from Idaho to Chicago. To style geographic
+# On this map,
+# ``point_1`` and ``point_2`` are coordinate pairs used to set the
+# start and end points of the geographic vector.
+# The geographical vector is going from Idaho to
+# Chicago. To style geographic
 # vectors, use ``=`` at the begining of the ``style`` parameter.
-# Other styling features such as arrow head color and line thickness
+# Other styling features such as arrow head color and stem thickness
 # can be passed into
 # ``pen`` and ``color``parameters
 
@@ -452,10 +451,9 @@ fig.plot(
 fig.show()
 
 ################################################################################
-# This geographic vector is using the Mercator projection. For this we have
-# ``fig.coast`` with the region, frame, land and projection type. Then for the vector
-# points we are starting at SA which is South Africa and going to four different
-# places.
+# This example plots vectors over a Mercator projection. The starting points are
+# located at SA which is South Africa and going to four different
+# locations.
 
 fig = pygmt.Figure()
 fig.coast(
