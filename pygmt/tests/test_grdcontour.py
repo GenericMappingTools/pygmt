@@ -27,8 +27,7 @@ def test_grdcontour(grid):
     Plot a contour image using an xarray grid with fixed contour interval.
     """
     fig = Figure()
-    kwargs = dict(interval="1000", projection="W0/15c", frame=True)
-    fig.grdcontour(grid, **kwargs)
+    fig.grdcontour(grid, interval="1000", projection="W0/15c", frame=True)
     return fig
 
 
