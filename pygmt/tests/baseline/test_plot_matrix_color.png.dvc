@@ -1,0 +1,4 @@
+outs:
+- md5: eec194756b15654f98cbe2175ad9774b
+  size: 25104
+  path: test_plot_matrix_color.png

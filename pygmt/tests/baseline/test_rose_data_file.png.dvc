@@ -1,0 +1,4 @@
+outs:
+- md5: eba3b08913112996eca8b9d01f5709c3
+  size: 40610
+  path: test_rose_data_file.png
