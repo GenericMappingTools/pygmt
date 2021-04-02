@@ -30,7 +30,7 @@ import pygmt
 # by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``.
 # The angle is measured in degrees and moves counter-clockwise from the
 # horizontal.
-# The length of the vector also uses centimeters by default but
+# The length of the vector uses centimeters by default but
 # could be changed using :meth:`pygmt.config`
 # (Check the next examples for unit changes).
 #
@@ -189,7 +189,7 @@ fig.coast(
     water="lightblue",
 )
 
-# Plot a vector using the x, y, direction parameters.
+# Plot a vector using the x, y, direction parameters
 style = "v0.4c+bc+ea+a30"
 fig.plot(
     x=-110,
@@ -247,7 +247,6 @@ fig.plot(
     color="red3",
 )
 
-
 fig.show()
 
 ########################################################################################
@@ -266,11 +265,10 @@ fig.show()
 # plot starts at 90 degrees and goes until 270. Notice that the ``m`` in the
 # ``style`` parameter stands for circular vectors.
 
-circular_vector_1 = [0, 0, 2, 90, 270]
-
-data = [circular_vector_1]
-
 fig = pygmt.Figure()
+
+circular_vector_1 = [0, 0, 2, 90, 270]
+data = [circular_vector_1]
 fig.plot(
     region=[-5, 5, -5, 5],
     projection="X10c",
@@ -295,10 +293,11 @@ fig.show()
 
 ########################################################################################
 # When plotting multiple circular vectors, a two dimensional array or numpy array
-# object should be passed as the ``data``` parameter. In this example, the numpy column
-# stack function is used to generate this two dimensional array. Other numpy objects
-# are used to generate random values for the ``degree_stop`` and ``radius`` parameters
-# discussed in the previous example. This is the reason in which each vector has
+# object should be passed as the ``data`` parameter. In this example, :func:`numpy.column_stack`
+# is used to generate this two dimensional array. Other numpy objects are used to
+# generate linear values for the ``radius`` parameter and random values for
+# the ``degree_stop`` parameter discussed in the previous example. This is
+# the reason in which each vector has
 # a different appearance on the projection.
 
 vector_num = 5
@@ -331,23 +330,20 @@ fig.show()
 
 circular_vector = [6, 5, 1, 90, 270]
 
-data_1 = [circular_vector]
-
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c",
     frame="ag",
-    data=data_1,
+    data=[circular_vector],
     style="m0.5c+ea",
     pen="2p",
     color="red3",
 )
 
-data_2 = [circular_vector]
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
     fig.plot(
-        data=data_2,
+        data=[circular_vector],
         style="m0.5c+ea",
         pen="2p",
         color="red3",
@@ -364,7 +360,7 @@ fig.show()
 # Chicago. To style geographic
 # vectors, use ``=`` at the begining of the ``style`` parameter.
 # Other styling features such as vector stem thickness and head color
-# can be passed into ``pen`` and ``color`` parameters.
+# can be passed into the ``pen`` and ``color`` parameters.
 #
 # Note that the **+s** is added to use a startpoint and an endpoint
 # to represent the vector instead of input angle and length.
@@ -382,7 +378,6 @@ fig.coast(
     shorelines="0.25p,black",
     area_thresh=4000,
 )
-
 fig.plot(
     data=data,
     style="=0.5c+ea+s",
@@ -400,7 +395,7 @@ fig.show()
 # Each list within the 2D list contains the start and end information
 # for each vector.
 
-# Coordinate pairs for all the locations used.
+# Coordinate pairs for all the locations used
 ME = [-69.4455, 45.2538]
 CHI = [-87.6298, 41.8781]
 SEA = [-122.3321, 47.6062]
@@ -408,7 +403,7 @@ NO = [-90.0715, 29.9511]
 KC = [-94.5786, 39.0997]
 CA = [-119.4179, 36.7783]
 
-# Add array to piece together the vectors.
+# Add array to piece together the vectors
 data = [ME + CHI, CHI + SEA, SEA + KC, KC + NO, NO + CA]
 
 fig = pygmt.Figure()
@@ -420,7 +415,6 @@ fig.coast(
     shorelines="0.25p,black",
     area_thresh=4000,
 )
-
 fig.plot(
     data=data,
     style="=0.5c+ea+s",
@@ -449,7 +443,6 @@ fig.coast(
     land="lightbrown",
     water="lightblue",
 )
-
 fig.plot(
     data=data,
     style="=0.5c+ea+s",
