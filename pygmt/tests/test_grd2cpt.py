@@ -8,7 +8,7 @@ from pygmt import Figure
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt.src.grd2cpt import grd2cpt
+from pygmt import grd2cpt
 
 
 @pytest.fixture(scope="module", name="grid")
