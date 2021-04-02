@@ -101,7 +101,7 @@ fig.plot(
     pen="2p",
     color="red3",
 )
-# Vector 2 after changing default unit to in
+# Vector 2 after changing default unit to inch
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
     fig.plot(
         x=2,
@@ -217,7 +217,7 @@ fig.show()
 
 ########################################################################################
 # Another example of plotting cartesian vectors over a coast plot. This time
-# a Transverse Mercator projection is used. Additionally, :func:'numpy.linespace`
+# a Transverse Mercator projection is used. Additionally, :func:'numpy.linspace`
 # is used to create 5 vectors with equal stops.
 
 x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
@@ -225,7 +225,7 @@ y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
 direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
 length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 
-# create a plot with coast, Mercator projection (M) over the continental US
+# Create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
 fig.coast(
     region=[20, 50, 30, 45],
@@ -255,8 +255,8 @@ fig.show()
 # ----------
 #
 # When plotting circular vectors, all of the information for a single vector is
-# to be stored in a list. Each circular vector list is structured as: [x_start,
-# y_start, radius, degree_start, degree_stop]. The first two values in
+# to be stored in a list. Each circular vector list is structured as:
+# ``[x_start, y_start, radius, degree_start, degree_stop]``. The first two values in
 # ``circular_vector_1`` represent the origin of the circle that will be plotted.
 # The next value is the radius which is represented on the plot in centimeters.
 #
