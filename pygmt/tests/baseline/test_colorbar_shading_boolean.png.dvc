@@ -1,4 +1,4 @@
 outs:
-- md5: f23415daa7ee175063b1b012bd362353
-  size: 66498
+- md5: 056c3872738c08667a816f49c676418f
+  size: 54042
   path: test_colorbar_shading_boolean.png
