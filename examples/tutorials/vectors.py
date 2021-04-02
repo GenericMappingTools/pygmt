@@ -59,7 +59,8 @@ fig.show()
 # list will increase accordingly.
 #
 # Additionally, we change the style of the vector to include a red
-# arrow head at the end (**+e**) of the vector and increase the thickness of the vector stem. A list of different
+# arrow head at the end (**+e**) of the vector and increase the
+# thickness (``pen="2p"``) of the vector stem. A list of different
 # styling attributes can be found in
 # :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
@@ -123,7 +124,7 @@ fig.show()
 # used instead of ``x``, ``y`` and  ``direction``.
 
 # Create a list of lists that include each vector information
-vectors = [[2, 3, 45, 4]]  # vectors structure: [[ 2  3 45  4]]
+vectors = [[2, 3, 45, 4]]
 
 fig = pygmt.Figure()
 fig.plot(
@@ -141,8 +142,7 @@ fig.show()
 # Using the functionality mentioned in the previous example,
 # multiple vectors can be plotted at the same time. Another
 # vector could be simply added to the 2D list or numpy
-# array object
-# and passed using ``data`` parameter.
+# array object and passed using ``data`` parameter.
 
 # Vector specifications structured as: [x_start, y_start, direction_degrees, length]
 vector_1 = [2, 3, 45, 4]
@@ -192,14 +192,15 @@ fig.coast(
     water="lightblue",
 )
 
+# Plot a vector using the x, y, direction parameters.
 style = "v0.4c+bc+ea+a30"
 fig.plot(
     x=-110,
     y=40,
     style=style,
+    direction=[[-25], [3]],
     pen="1p",
     color="red3",
-    direction=[[-25], [3]],
 )
 
 # vector specifications structured as: [x_start, y_start, direction_degrees, length]
@@ -208,19 +209,24 @@ vector_3 = [-71.2, 45, -115.7, 4]
 # Create a list of lists that include each vector information
 vectors = [vector_2, vector_3]
 
+# Plot vectors using the data parameter.
 fig.plot(
     data=vectors,
     style=style,
     pen="1p",
     color="yellow",
 )
-
 fig.show()
 
 ########################################################################################
 # Another example of plotting cartesian vectors over a coast plot. This time
 # a Transverse Mercator projection is used. Additionally, :func:'numpy.linespace`
 # is used to create 5 vectors with equal stops.
+
+x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
+y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
+direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
+length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 
 # create a plot with coast, Mercator projection (M) over the continental US
 fig = pygmt.Figure()
@@ -234,11 +240,6 @@ fig.coast(
     land="lightbrown",
     water="lightblue",
 )
-
-x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
-y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
-direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
-length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 
 fig.plot(
     x=x,
@@ -365,9 +366,12 @@ fig.show()
 # The geographical vector is going from Idaho to
 # Chicago. To style geographic
 # vectors, use ``=`` at the begining of the ``style`` parameter.
-# Other styling features such as arrow head color and stem thickness
-# can be passed into
-# ``pen`` and ``color``parameters
+# Other styling features such as vector stem thickness and head color
+# can be passed into ``pen`` and ``color``parameters
+
+point_1 = [-114.7420, 44.0682]
+point_2 = [-87.6298, 41.8781]
+data = np.array([point_1 + point_2])
 
 fig = pygmt.Figure()
 fig.coast(
@@ -378,9 +382,6 @@ fig.coast(
     shorelines="0.25p,black",
     area_thresh=4000,
 )
-point_1 = [-114.7420, 44.0682]
-point_2 = [-87.6298, 41.8781]
-data = np.array([point_1 + point_2])
 
 fig.plot(
     data=data,
@@ -396,6 +397,15 @@ fig.show()
 # An array is created so the vectors follow the one vector before it. You
 # can diplay this array any way you want.
 
+
+# Coordinate pairs for all the locations used.
+ME = [-69.4455, 45.2538]
+CHI = [-87.6298, 41.8781]
+SEA = [-122.3321, 47.6062]
+NO = [-90.0715, 29.9511]
+KC = [-94.5786, 39.0997]
+CA = [-119.4179, 36.7783]
+
 fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
@@ -405,13 +415,7 @@ fig.coast(
     shorelines="0.25p,black",
     area_thresh=4000,
 )
-# Plot geographic vectors using coordinates.
-ME = [-69.4455, 45.2538]
-CHI = [-87.6298, 41.8781]
-SEA = [-122.3321, 47.6062]
-NO = [-90.0715, 29.9511]
-KC = [-94.5786, 39.0997]
-CA = [-119.4179, 36.7783]
+
 # Add array to piece together the vectors.
 data = np.array([ME + CHI, CHI + SEA, SEA + KC, KC + NO, NO + CA])
 fig.plot(
@@ -455,20 +459,21 @@ fig.show()
 # located at SA which is South Africa and going to four different
 # locations.
 
-fig = pygmt.Figure()
-fig.coast(
-    region=[-180, 180, -80, 80],
-    frame="afg",
-    land="lightbrown",
-    water="lightblue",
-    projection="M0/0/12c",
-)
 SA = [22.9375, -30.5595]
 EUR = [15.2551, 54.5260]
 ME = [-69.4455, 45.2538]
 AS = [100.6197, 34.0479]
 NM = [-105.8701, 34.5199]
 data = np.array([SA + EUR, SA + ME, SA + AS, SA + NM])
+
+fig = pygmt.Figure()
+fig.coast(
+    region=[-180, 180, -80, 80],
+    projection="M0/0/12c",
+    frame="afg",
+    land="lightbrown",
+    water="lightblue",
+)
 
 fig.plot(
     data=data,
