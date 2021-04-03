@@ -150,19 +150,15 @@ def test_makecpt_categorical(region):
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_makecpt_cyclic(region):
     """
     Use static color palette table that is cyclic.
     """
-    fig_ref = Figure()
-    makecpt(C="cork", W="w")
-    fig_ref.colorbar(cmap=True, region=region, frame=True, position="JBC")
-
-    fig_test = Figure()
+    fig = Figure()
     makecpt(cmap="cork", cyclic=True)
-    fig_test.colorbar(cmap=True, region=region, frame=True, position="JBC")
-    return fig_ref, fig_test
+    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    return fig
 
 
 def test_makecpt_categorical_and_cyclic():
