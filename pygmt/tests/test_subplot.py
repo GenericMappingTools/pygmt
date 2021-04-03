@@ -43,12 +43,12 @@ def test_subplot_autolabel_margins_title():
     fig = Figure()
 
     with fig.subplot(
-        autolabel=True,
-        margins=["0.3c", "0.1c"],
-        title="Subplot Title",
         nrows=2,
         ncols=1,
         figsize=("15c", "6c"),
+        autolabel=True,
+        margins=["0.3c", "0.1c"],
+        title="Subplot Title",
     ):
         fig.basemap(region=[0, 1, 2, 3], frame="WSne", panel=[0, 0])
         fig.basemap(region=[4, 5, 6, 7], frame="WSne", panel=[1, 0])
