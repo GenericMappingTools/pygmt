@@ -181,12 +181,12 @@ When editing documentation, use the following standards to demonstrate the examp
 
 1. Python arguments, such as import statements, Boolean expressions, and function
    arguments should be wrapped as ``code`` by using \`\` on both sides of the code.
-   Example: \`\`import pygmt\`\` results in ``import pygmt``, \`\`True\`\` results in `True`,
+   Examples: \`\`import pygmt\`\` results in ``import pygmt``, \`\`True\`\` results in `True`,
     \`\`style="v"\`\` results in `style="v"`.
 2. Literal GMT arguments should be **bold** by wrapping the arguments with \*\*
    (two asterisks) on both sides. The argument description should be in *italicized*
    with \* (single asterisk) on both sides.
-   Example: `**+l**\ *label*` results in **+l***label*, `**05m**` results in **05m**.
+   Examples: `**+l**\ *label*` results in **+l***label*, `**05m**` results in **05m**.
 3. Optional arguments are placed wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 
