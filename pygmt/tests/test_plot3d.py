@@ -182,7 +182,7 @@ def test_plot3d_sizes(data, region):
         region=region,
         projection="X10c",
         # Using inches instead of cm because of upstream bug at
-        # https://github.com/GenericMappingTools/gmt/issues/4386#
+        # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
         color="blue",
         frame=["af", "zaf"],
