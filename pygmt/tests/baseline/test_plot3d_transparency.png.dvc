@@ -1,0 +1,4 @@
+outs:
+- md5: 399f9faeb033bf9e0e921bd2c571cc2d
+  size: 26077
+  path: test_plot3d_transparency.png
