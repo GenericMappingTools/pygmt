@@ -1,0 +1,4 @@
+outs:
+- md5: 909dc312f46eafc5c81708f6ea99ec0e
+  size: 125699
+  path: test_makecpt_to_plot_grid_scaled_with_series.png
