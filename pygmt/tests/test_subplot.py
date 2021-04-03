@@ -7,24 +7,20 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_subplot_basic_frame():
     """
     Create a subplot figure with 1 vertical row and 2 horizontal columns, and
     ensure map frame setting is applied to all subplot figures.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    with fig_ref.subplot(nrows=1, ncols=2, Ff="6c/3c", B="WSne"):
-        with fig_ref.set_panel(panel=0):
-            fig_ref.basemap(region=[0, 3, 0, 3], frame="+tplot0")
-        with fig_ref.set_panel(panel=1):
-            fig_ref.basemap(region=[0, 3, 0, 3], frame="+tplot1")
-    with fig_test.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame="WSne"):
-        with fig_test.set_panel(panel="0,0"):
-            fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot0")
-        with fig_test.set_panel(panel=[0, 1]):
-            fig_test.basemap(region=[0, 3, 0, 3], frame="+tplot1")
-    return fig_ref, fig_test
+    fig = Figure()
+
+    with fig.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame="WSne"):
+        with fig.set_panel(panel="0,0"):
+            fig.basemap(region=[0, 3, 0, 3], frame="+tplot0")
+        with fig.set_panel(panel=[0, 1]):
+            fig.basemap(region=[0, 3, 0, 3], frame="+tplot1")
+    return fig
 
 
 @check_figures_equal()
