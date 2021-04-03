@@ -68,21 +68,16 @@ def test_makecpt_to_plot_grid(grid):
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_makecpt_to_plot_grid_scaled_with_series(grid):
     """
     Use static color palette table scaled to a min/max series to change color
     of grid.
     """
-    # Use single-character arguments for the reference image
-    fig_ref = Figure()
-    makecpt(C="oleron", T="-4500/4500")
-    fig_ref.grdimage(grid, J="W0/6i")
-
-    fig_test = Figure()
+    fig = Figure()
     makecpt(cmap="oleron", series="-4500/4500")
-    fig_test.grdimage(grid, projection="W0/6i")
-    return fig_ref, fig_test
+    fig.grdimage(grid, projection="W0/6i")
+    return fig
 
 
 def test_makecpt_output_to_cpt_file():
