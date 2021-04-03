@@ -139,19 +139,15 @@ def test_makecpt_continuous(grid):
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_makecpt_categorical(region):
     """
     Use static color palette table that is categorical.
     """
-    fig_ref = Figure()
-    makecpt(C="categorical", W="")
-    fig_ref.colorbar(cmap=True, region=region, frame=True, position="JBC")
-
-    fig_test = Figure()
+    fig = Figure()
     makecpt(cmap="categorical", categorical=True)
-    fig_test.colorbar(cmap=True, region=region, frame=True, position="JBC")
-    return fig_ref, fig_test
+    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    return fig
 
 
 @check_figures_equal()
