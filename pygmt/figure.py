@@ -262,14 +262,14 @@ class Figure:
         (falls back to the default web browser).
 
         :func:`pygmt.set_display` can select the default display method
-        ("notebook", "external", or "none").
+        (**notebook**, **external**, or **none**).
 
         The ``method`` parameter can also override the default display method
         for the current figure. Parameters ``dpi`` and ``width`` can be used
         to control the resolution and dimension of the figure in the notebook.
 
         Note: The external viewer can be disabled by setting the
-        ``PYGMT_USE_EXTERNAL_DISPLAY`` environment variable to ``false``.
+        PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.
         This is useful when running unit tests and building the documentation
         in consoles without a Graphical User Interface.
 
@@ -285,9 +285,9 @@ class Figure:
         method : str
             How the current figure will be displayed. Options are
 
-            - ``'external'``: PDF preview in an external program [default]
-            - ``'notebook'``: PNG preview [default in Jupyter notebooks]
-            - ``'none'``: Disable image preview
+            - **external**: PDF preview in an external program [default]
+            - **notebook**: PNG preview [default in Jupyter notebooks]
+            - **none**: Disable image preview
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -436,9 +436,9 @@ def set_display(method=None):
     method : str or None
         The method to display an image. Choose from:
 
-        - ``'external'``: PDF preview in an external program [default]
-        - ``'notebook'``: PNG preview [default in Jupyter notebooks]
-        - ``'none'``: Disable image preview
+        - **external**: PDF preview in an external program [default]
+        - **notebook**: PNG preview [default in Jupyter notebooks]
+        - **none**: Disable image preview
     """
     if method in ["notebook", "external", "none"]:
         SHOW_CONFIG["method"] = method
