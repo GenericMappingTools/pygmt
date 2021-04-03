@@ -1,0 +1,4 @@
+outs:
+- md5: 685f692faac5075282bc79a921a7a2f4
+  size: 30476
+  path: test_plot3d_matrix_color.png

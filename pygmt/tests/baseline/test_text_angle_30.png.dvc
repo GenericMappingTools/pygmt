@@ -1,0 +1,4 @@
+outs:
+- md5: ecd7b400f7421d0f9d65879f798be3aa
+  size: 5485
+  path: test_text_angle_30.png
