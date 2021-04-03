@@ -1,0 +1,4 @@
+outs:
+- md5: 67613d130577c8083e1d505155421205
+  size: 159974
+  path: test_rose_no_sectors.png

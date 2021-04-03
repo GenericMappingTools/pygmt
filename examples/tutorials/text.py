@@ -37,10 +37,10 @@ with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Plotting text annotations using single elements
+# Plot text annotations using a single element
 fig.text(text="SOUTH CHINA SEA", x=112, y=6)
 
-# Plotting text annotations using lists of elements
+# Plot text annotations using lists of elements
 fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
 
 fig.show()
@@ -51,16 +51,16 @@ fig.show()
 # The size, family/weight, and color of an annotation can be specified using
 # the ``font`` parameter.
 #
-# A list of all recognised fonts can be found at
-# :gmt-docs:`cookbook/postscript-fonts.html`, including details of how to use
-# non-default fonts.
+# A list of all recognized fonts can be found at
+# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
+# including details of how to use non-default fonts.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Customising the font style
+# Customize the font style
 fig.text(text="BORNEO", x=114.0, y=0.5, font="22p,Helvetica-Bold,white")
 
 fig.show()
@@ -88,7 +88,7 @@ with open("examples.txt", "w") as f:
 
 # Plot region names / sea names from a text file, where
 # the longitude (x) and latitude (y) coordinates are in the first two columns.
-# Setting angle/font/justify to ``True`` will indicate that those columns are
+# Setting angle/font/justify to True will indicate that those columns are
 # present in the text file too (Note: must be in that order!).
 # Finally, the text to be printed will be in the last column
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)

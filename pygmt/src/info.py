@@ -3,19 +3,26 @@ info - Get information about data tables.
 """
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
+    kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose")
+@use_alias(
+    C="per_column",
+    I="spacing",
+    T="nearest_multiple",
+    V="verbose",
+    a="aspatial",
+    f="coltypes",
+    r="registration",
+)
+@kwargs_to_strings(I="sequence")
 def info(table, **kwargs):
     r"""
     Get information about data tables.
@@ -47,15 +54,20 @@ def info(table, **kwargs):
         Report the min/max values per column in separate columns.
     spacing : str
         [**b**\|\ **p**\|\ **f**\|\ **s**]\ *dx*\[/*dy*\[/*dz*...]].
-        Report the min/max of the first n columns to the nearest multiple of
-        the provided increments and output results in the form
-        ``[w, e, s, n]``.
+        Compute the min/max values of the first n columns to the nearest
+        multiple of the provided increments [default is 2 columns]. By default,
+        output results in the form ``[w, e, s, n]``, unless ``per_column`` is
+        set in which case we output each min and max value in separate output
+        columns.
     nearest_multiple : str
         **dz**\[\ **+c**\ *col*].
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
     {V}
+    {a}
+    {f}
+    {r}
 
     Returns
     -------
@@ -66,21 +78,8 @@ def info(table, **kwargs):
         - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
-    kind = data_kind(table)
     with Session() as lib:
-        if kind == "file":
-            file_context = dummy_context(table)
-        elif kind == "matrix":
-            try:
-                # pandas.DataFrame and xarray.Dataset types
-                arrays = [array for _, array in table.items()]
-            except AttributeError:
-                # Python lists, tuples, and numpy ndarray types
-                arrays = np.atleast_2d(np.asanyarray(table).T)
-            file_context = lib.virtualfile_from_vectors(*arrays)
-        else:
-            raise GMTInvalidInput(f"Unrecognized data type: {type(table)}")
-
+        file_context = lib.virtualfile_from_data(data=table)
         with GMTTempFile() as tmpfile:
             with file_context as fname:
                 arg_str = " ".join(
@@ -94,6 +93,10 @@ def info(table, **kwargs):
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
                 result = result[2:].replace("/", " ")
-            result = np.loadtxt(result.splitlines())
+            try:
+                result = np.loadtxt(result.splitlines())
+            except ValueError:
+                # Load non-numerical outputs in str type, e.g. for datetime
+                result = np.loadtxt(result.splitlines(), dtype="str")
 
         return result

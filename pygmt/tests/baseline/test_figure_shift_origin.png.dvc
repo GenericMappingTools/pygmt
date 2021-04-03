@@ -1,0 +1,4 @@
+outs:
+- md5: 07df92baab0051531f6c8023f4108332
+  size: 9876
+  path: test_figure_shift_origin.png

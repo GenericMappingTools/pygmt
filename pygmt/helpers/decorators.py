@@ -17,15 +17,16 @@ COMMON_OPTIONS = {
         region : str or list
             *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the region of interest.""",
+            Specify the :doc:`region </tutorials/regions>` of interest.""",
     "J": r"""
         projection : str
             *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
-            Select map projection.""",
+            Select map :doc:`projection </projections/index>`.""",
     "B": r"""
         frame : bool or str or list
-            Set map boundary frame and axes attributes.""",
+            Set map boundary
+            :doc:`frame and axes attributes </tutorials/frames>`. """,
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
@@ -46,7 +47,7 @@ COMMON_OPTIONS = {
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorthms);
+            - **t** - Timings (report runtimes for time-intensive algorithms);
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
@@ -62,6 +63,12 @@ COMMON_OPTIONS = {
             Shift plot origin in y-direction. Full documentation is at
             :gmt-docs:`gmt.html#xy-full`.
          """,
+    "a": r"""
+        aspatial : bool or str
+            [*col*\ =]\ *name*\ [,...].
+            Control how aspatial data are handled during input and output.
+            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
+         """,
     "c": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
@@ -71,6 +78,13 @@ COMMON_OPTIONS = {
             value *index* which depends on the order you set via ``autolabel``
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
+         """,
+    "f": r"""
+        coltypes : str
+            [**i**\|\ **o**]\ *colinfo*.
+            Specify data types of input and/or output columns (time or
+            geographical data). Full documentation is at
+            :gmt-docs:`gmt.html#f-full`.
          """,
     "j": r"""
         distcalc : str
@@ -104,11 +118,12 @@ COMMON_OPTIONS = {
             the viewpoint. Default is [180, 90]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
-    "registration": r"""
+    "r": r"""
         registration : str
             **g**\|\ **p**.
-            Force output grid to be gridline (g) or pixel (p) node registered.
-            Default is gridline (g).""",
+            Force gridline (**g**) or pixel (**p**) node registration.
+            [Default is **g**\ (ridline)].
+        """,
     "t": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.
@@ -187,11 +202,11 @@ def fmt_docstring(module_func):
     region : str or list
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the region of interest.
+        Specify the :doc:`region </tutorials/regions>` of interest.
     projection : str
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
-        Select map projection.
+        Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
     <BLANKLINE>

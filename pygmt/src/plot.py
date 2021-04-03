@@ -1,13 +1,11 @@
 """
 plot - Plot in two dimensions.
 """
-import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -36,9 +34,11 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     Z="zvalue",
+    a="aspatial",
     i="columns",
     l="label",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
 )
@@ -144,11 +144,13 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
     {G}
-    intensity : float or bool
-        Provide an *intens* value (nominally in the -1 to +1 range) to
-        modulate the fill color by simulating illumination [None]. If
-        using ``intensity=True``, we will instead read *intens* from the
-        first data column after the symbol parameters (if given).
+    intensity : float or bool or 1d array
+        Provide an *intensity* value (nominally in the -1 to +1 range) to
+        modulate the fill color by simulating illumination. If using
+        ``intensity=True``, we will instead read *intensity* from the first
+        data column after the symbol parameters (if given). *intensity* can
+        also be a 1d array to set varying intensity for symbols, but it is only
+        valid for ``x``/``y`` pairs.
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
@@ -182,7 +184,9 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         polygon in the input data. To apply it to the fill color, use
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
+    {a}
     {c}
+    {f}
     columns : str or 1d array
         Choose which columns are x, y, color, and size, respectively if
         input is provided via *data*. E.g. ``columns = [0, 1]`` or
@@ -218,20 +222,20 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
             )
         extra_arrays.append(sizes)
 
-    if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
-        extra_arrays.append(kwargs["t"])
-        kwargs["t"] = ""
+    for flag in ["I", "t"]:
+        if flag in kwargs and is_nonstr_iter(kwargs[flag]):
+            if kind != "vectors":
+                raise GMTInvalidInput(
+                    f"Can't use arrays for {plot.aliases[flag]} if data is matrix or file."
+                )
+            extra_arrays.append(kwargs[flag])
+            kwargs[flag] = ""
 
     with Session() as lib:
         # Choose how data will be passed in to the module
-        if kind == "file":
-            file_context = dummy_context(data)
-        elif kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(data)
-        elif kind == "vectors":
-            file_context = lib.virtualfile_from_vectors(
-                np.atleast_1d(x), np.atleast_1d(y), *extra_arrays
-            )
+        file_context = lib.virtualfile_from_data(
+            check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
+        )
 
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])

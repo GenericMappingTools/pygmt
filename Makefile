@@ -15,6 +15,7 @@ help:
 	@echo "Commands:"
 	@echo ""
 	@echo "  install   install in editable mode"
+	@echo "  package   build source and wheel distributions"
 	@echo "  test      run the test suite (including doctests) and report coverage"
 	@echo "  format    run black, blackdoc, docformatter and isort to automatically format the code"
 	@echo "  check     run code style and quality checks (black, blackdoc, docformatter, flake8 and isort)"
@@ -25,6 +26,9 @@ help:
 
 install:
 	pip install --no-deps -e .
+
+package:
+	python setup.py sdist bdist_wheel
 
 test:
 	# Run a tmp folder to make sure the tests are run on the installed version
@@ -57,10 +61,11 @@ clean:
 	find . -name "*.pyc" -exec rm -v {} +
 	find . -name "*~" -exec rm -v {} +
 	find . -type d -name  "__pycache__" -exec rm -rv {} +
-	rm -rvf build dist MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
+	rm -rvf build dist .eggs MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
 	rm -rvf result_images
+	rm -rvf results
 
 distclean: clean
 	rm -rvf *.egg-info
