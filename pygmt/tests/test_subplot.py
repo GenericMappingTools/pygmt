@@ -4,7 +4,6 @@ Tests subplot.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.mark.mpl_image_compare
@@ -23,66 +22,63 @@ def test_subplot_basic_frame():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_subplot_direct():
     """
     Plot map elements to subplot directly using the panel parameter.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    with fig_ref.subplot(nrows=2, ncols=1, Fs="3c/3c"):
-        fig_ref.basemap(region=[0, 3, 0, 3], frame="af", panel=0)
-        fig_ref.basemap(region=[0, 3, 0, 3], frame="af", panel=1)
-    with fig_test.subplot(nrows=2, ncols=1, subsize=("3c", "3c")):
-        fig_test.basemap(region=[0, 3, 0, 3], frame="af", panel=[0, 0])
-        fig_test.basemap(region=[0, 3, 0, 3], frame="af", panel=[1, 0])
-    return fig_ref, fig_test
+    fig = Figure()
+
+    with fig.subplot(nrows=2, ncols=1, subsize=("3c", "3c")):
+        fig.basemap(region=[0, 3, 0, 3], frame="af", panel=[0, 0])
+        fig.basemap(region=[0, 3, 0, 3], frame="af", panel=[1, 0])
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_subplot_autolabel_margins_title():
     """
     Make subplot figure with autolabels, setting some margins and a title.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    kwargs = dict(nrows=2, ncols=1, figsize=("15c", "6c"))
+    fig = Figure()
 
-    with fig_ref.subplot(A="a)", M="0.3c/0.1c", T="Subplot Title", **kwargs):
-        fig_ref.basemap(region=[0, 1, 2, 3], frame="WSne", c="0,0")
-        fig_ref.basemap(region=[4, 5, 6, 7], frame="WSne", c="1,0")
-
-    with fig_test.subplot(
-        autolabel=True, margins=["0.3c", "0.1c"], title="Subplot Title", **kwargs
+    with fig.subplot(
+        autolabel=True,
+        margins=["0.3c", "0.1c"],
+        title="Subplot Title",
+        nrows=2,
+        ncols=1,
+        figsize=("15c", "6c"),
     ):
-        fig_test.basemap(region=[0, 1, 2, 3], frame="WSne", panel=[0, 0])
-        fig_test.basemap(region=[4, 5, 6, 7], frame="WSne", panel=[1, 0])
+        fig.basemap(region=[0, 1, 2, 3], frame="WSne", panel=[0, 0])
+        fig.basemap(region=[4, 5, 6, 7], frame="WSne", panel=[1, 0])
 
-    return fig_ref, fig_test
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_subplot_clearance_and_shared_xy_axis_layout():
     """
     Ensure subplot clearance works, and that the layout can be set to use
     shared X and Y axis labels across columns and rows.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    kwargs = dict(nrows=2, ncols=2, frame="WSrt", figsize=("5c", "5c"))
+    fig = Figure()
 
-    with fig_ref.subplot(C="y0.2c", SC="t", SR="", **kwargs):
-        fig_ref.basemap(region=[0, 4, 0, 4], projection="X?", panel=True)
-        fig_ref.basemap(region=[0, 8, 0, 4], projection="X?", panel=True)
-        fig_ref.basemap(region=[0, 4, 0, 8], projection="X?", panel=True)
-        fig_ref.basemap(region=[0, 8, 0, 8], projection="X?", panel=True)
-
-    with fig_test.subplot(
-        clearance=["s0.2c", "n0.2c"], sharex="t", sharey=True, **kwargs
+    with fig.subplot(
+        clearance=["s0.2c", "n0.2c"],
+        sharex="t",
+        sharey=True,
+        nrows=2,
+        ncols=2,
+        frame="WSrt",
+        figsize=("5c", "5c"),
     ):
-        fig_test.basemap(region=[0, 4, 0, 4], projection="X?", panel=True)
-        fig_test.basemap(region=[0, 8, 0, 4], projection="X?", panel=True)
-        fig_test.basemap(region=[0, 4, 0, 8], projection="X?", panel=True)
-        fig_test.basemap(region=[0, 8, 0, 8], projection="X?", panel=True)
+        fig.basemap(region=[0, 4, 0, 4], projection="X?", panel=True)
+        fig.basemap(region=[0, 8, 0, 4], projection="X?", panel=True)
+        fig.basemap(region=[0, 4, 0, 8], projection="X?", panel=True)
+        fig.basemap(region=[0, 8, 0, 8], projection="X?", panel=True)
 
-    return fig_ref, fig_test
+    return fig
 
 
 def test_subplot_figsize_and_subsize_error():
