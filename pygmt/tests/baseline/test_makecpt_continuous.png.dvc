@@ -1,4 +1,4 @@
 outs:
-- md5: 1cb047b4f98d5ab9debd9c3f9efde380
-  size: 82931
+- md5: 9a18c81caa92725aa9de5c2dd7d74e46
+  size: 75856
   path: test_makecpt_continuous.png

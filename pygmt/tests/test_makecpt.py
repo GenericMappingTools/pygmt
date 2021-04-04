@@ -39,7 +39,7 @@ def fixture_grid():
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_to_plot_points(points, region):
+def test_makecpt_plot_points(points, region):
     """
     Use static color palette table to change color of points.
     """
@@ -57,7 +57,7 @@ def test_makecpt_to_plot_points(points, region):
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_to_plot_grid(grid):
+def test_makecpt_plot_grid(grid):
     """
     Use static color palette table to change color of grid.
     """
@@ -68,7 +68,7 @@ def test_makecpt_to_plot_grid(grid):
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_to_plot_grid_scaled_with_series(grid):
+def test_makecpt_plot_grid_scaled_with_series(grid):
     """
     Use static color palette table scaled to a min/max series to change color
     of grid.
@@ -79,7 +79,7 @@ def test_makecpt_to_plot_grid_scaled_with_series(grid):
     return fig
 
 
-def test_makecpt_output_to_cpt_file():
+def test_makecpt_output_cpt_file():
     """
     Save the generated static color palette table to a .cpt file.
     """
@@ -105,7 +105,7 @@ def test_makecpt_invalid_output():
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_truncated_to_zlow_zhigh(grid):
+def test_makecpt_truncated_zlow_zhigh(grid):
     """
     Use static color palette table that is truncated to z-low and z-high.
     """
