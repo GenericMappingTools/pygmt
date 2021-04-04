@@ -125,6 +125,17 @@ def test_makecpt_reverse_color_only(grid):
     fig.grdimage(grid, projection="W0/10c")
     return fig
 
+@pytest.mark.mpl_image_compare
+def test_makecpt_reverse_color_and_zsign(grid):
+    """
+    Use static color palette table with both its colors and z-value sign
+    reversed.
+    """
+    fig = Figure()
+    makecpt(cmap="earth", reverse="cz")
+    fig.grdimage(grid, projection="W0/10c")
+    return fig
+
 
 @pytest.mark.mpl_image_compare
 def test_makecpt_continuous(grid):
