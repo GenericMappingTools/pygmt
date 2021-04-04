@@ -1,0 +1,4 @@
+outs:
+- md5: b95bf07a96f69d1586fd548d2d22fa7c
+  size: 36565
+  path: test_plot3d_sizes.png
