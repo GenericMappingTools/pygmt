@@ -125,6 +125,7 @@ def test_makecpt_reverse_color_only(grid):
     fig.grdimage(grid, projection="W0/10c")
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_makecpt_reverse_color_and_zsign(grid):
     """
