@@ -148,7 +148,7 @@ def test_grdimage_over_dateline(xrgrid):
 @check_figures_equal()
 @pytest.mark.parametrize("lon0", [0, 123, 180])
 @pytest.mark.parametrize("proj_type", ["H", "W"])
-def test_grdimage_central_meridians(grid):
+def test_grdimage_central_meridians(grid, proj_type, lon0):
     """
     Test that plotting a grid with different central meridians (lon0) using
     Hammer (H) and Mollweide (W) projection systems work.
