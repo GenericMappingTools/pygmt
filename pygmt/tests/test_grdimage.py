@@ -146,6 +146,8 @@ def test_grdimage_over_dateline(xrgrid):
 
 
 @check_figures_equal()
+@pytest.mark.parametrize("lon0", [0, 123, 180])
+@pytest.mark.parametrize("proj_type", ["H", "W"])
 def test_grdimage_central_meridians(grid):
     """
     Test that plotting a grid with different central meridians (lon0) using
@@ -153,9 +155,9 @@ def test_grdimage_central_meridians(grid):
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
-        "@earth_relief_01d_g", projection="W123/15c", cmap="geo"
+        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/15c", cmap="geo"
     )
-    fig_test.grdimage(grid, projection="W123/15c", cmap="geo")
+    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/15c", cmap="geo")
     return fig_ref, fig_test
 
 
