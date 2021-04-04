@@ -14,22 +14,22 @@ def test_config():
     # Change global settings of current figure
     config(FONT_ANNOT_PRIMARY="blue")
     fig.basemap(
-        region="0/10/0/10", projection="X10c/10c", frame=["af", '+t"Blue Annotation"']
+        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", '+t"Blue Annotation"']
     )
 
     with config(FONT_LABEL="red", FONT_ANNOT_PRIMARY="red"):
         fig.basemap(
-            region="0/10/0/10",
-            projection="X10c/10c",
+            region=[0, 10, 0, 10],
+            projection="X5c/5c",
             frame=['xaf+l"red label"', "yaf", '+t"red annotation"'],
-            xshift="15c",
+            xshift="7c",
         )
 
     fig.basemap(
-        region="0/10/0/10",
-        projection="X10c/10c",
+        region=[0, 10, 0, 10],
+        projection="X5c/5c",
         frame=["af", '+t"Blue Annotation"'],
-        xshift="15c",
+        xshift="7c",
     )
     # Revert to default settings in current figure
     config(FONT_ANNOT_PRIMARY="black")
