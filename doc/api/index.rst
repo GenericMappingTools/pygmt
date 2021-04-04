@@ -36,8 +36,10 @@ Plotting data and laying out the map:
     Figure.meca
     Figure.plot
     Figure.plot3d
+    Figure.rose
     Figure.set_panel
     Figure.shift_origin
+    Figure.solar
     Figure.subplot
     Figure.text
 
