@@ -63,7 +63,7 @@ def test_makecpt_to_plot_grid(grid):
     """
     fig = Figure()
     makecpt(cmap="relief")
-    fig.grdimage(grid, projection="W0/6i")
+    fig.grdimage(grid, projection="W0/10c")
     return fig
 
 
@@ -75,7 +75,7 @@ def test_makecpt_to_plot_grid_scaled_with_series(grid):
     """
     fig = Figure()
     makecpt(cmap="oleron", series=[-4500, 4500])
-    fig.grdimage(grid, projection="W0/6i")
+    fig.grdimage(grid, projection="W0/10c")
     return fig
 
 
@@ -111,7 +111,7 @@ def test_makecpt_truncated_to_zlow_zhigh(grid):
     """
     fig = Figure()
     makecpt(cmap="rainbow", truncate=[0.15, 0.85], series=[-4500, 4500])
-    fig.grdimage(grid, projection="W0/6i")
+    fig.grdimage(grid, projection="W0/10c")
     return fig
 
 
@@ -122,7 +122,7 @@ def test_makecpt_reverse_color_only(grid):
     """
     fig = Figure()
     makecpt(cmap="earth", reverse=True)
-    fig.grdimage(grid, projection="W0/6i")
+    fig.grdimage(grid, projection="W0/10c")
     return fig
 
 
@@ -133,8 +133,8 @@ def test_makecpt_continuous(grid):
     scaled from -4500 to 4500m.
     """
     fig = Figure()
-    makecpt(cmap="blue,white", continuous=True, series="-4500,4500")
-    fig.grdimage(grid, projection="W0/6i")
+    makecpt(cmap="blue,white", continuous=True, series=[-4500, 4500])
+    fig.grdimage(grid, projection="W0/10c")
     return fig
 
 
