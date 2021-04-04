@@ -44,7 +44,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-@deprecate_parameter("sizes", "size", "v0.4.0", "v0.6.0")
+@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.

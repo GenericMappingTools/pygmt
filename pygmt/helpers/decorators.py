@@ -520,8 +520,8 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
                         f"Can't provide both '{newname}' and '{oldname}'"
                     )
                 msg = (
-                    f"'{oldname}' is deprecated since {deprecate_version} and will"
-                    f" be removed in {remove_version}; use '{newname}' instead."
+                    f"The '{oldname}' parameter is deprecated since {deprecate_version} and will"
+                    f" be removed in {remove_version}; please use '{newname}' instead."
                 )
                 warnings.simplefilter("always", DeprecationWarning)  # turn off filter
                 warnings.warn(msg, DeprecationWarning, 2)
