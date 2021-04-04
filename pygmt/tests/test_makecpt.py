@@ -74,7 +74,7 @@ def test_makecpt_to_plot_grid_scaled_with_series(grid):
     of grid.
     """
     fig = Figure()
-    makecpt(cmap="oleron", series="-4500/4500")
+    makecpt(cmap="oleron", series=[-4500, 4500])
     fig.grdimage(grid, projection="W0/6i")
     return fig
 
