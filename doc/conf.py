@@ -151,7 +151,9 @@ html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
 repository_url = "https://github.com/GenericMappingTools/pygmt"
 if __commit__:
-    commit_link = f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
+    commit_link = (
+        f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
+    )
 else:
     commit_link = ""
 html_context = {
