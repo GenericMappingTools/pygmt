@@ -38,7 +38,11 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", T="sequence")
 def histogram(self, table, **kwargs):
     r"""
-    Histogram
+    Plots a histogram, and can read data from a file or list, array, or dataframe.
+
+    Full option list at :gmt-docs:`histogram.html`
+
+    {aliases}
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
