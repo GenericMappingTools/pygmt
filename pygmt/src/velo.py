@@ -62,7 +62,7 @@ def velo(self, data=None, **kwargs):
         Selects the meaning of the columns in the data file and the figure
         to be plotted. In all cases, the scales are in data units per length
         unit and sizes are in length units (default length unit is controlled
-        by :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i** , or **p** is
+        by :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
         appended).
 
         - **e**\ [*velscale*/]\ *confidence*\ [**+f**\ *font*]
@@ -103,9 +103,9 @@ def velo(self, data=None, **kwargs):
           Velocity ellipses in rotated convention. The *velscale* sets the
           scaling of the velocity arrows. If *velscale* is not given then we
           read it from the data file as an extra column. The *confidence* sets
-          the 2-dimensional confidence limit for the ellipse, e.g., 0.95 for
-          95% confidence ellipse. Use **+f** to set the font and size of the
-          text [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
+          the 2-dimensional confidence limit for the ellipse, e.g. 0.95 for 95%
+          confidence ellipse. Use **+f** to set the font and size of the text
+          [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` option and the arrow-head can be colored via
           ``facecolor``. The ellipse will be filled with the color or shade
@@ -132,9 +132,9 @@ def velo(self, data=None, **kwargs):
           to set the color or shade for the uncertainty. Parameters are
           expected to be in the following columns:
 
-          - **1**,\ **2**: longitude, latitude of station
-          - **3**: rotation in radians
-          - **4**: rotation uncertainty in radians
+            - **1**,\ **2**: longitude, latitude of station
+            - **3**: rotation in radians
+            - **4**: rotation uncertainty in radians
 
         - **x**\ [*cross_scale*]
 
@@ -143,12 +143,13 @@ def velo(self, data=None, **kwargs):
           an extra column. Parameters are expected to be in the following
           columns:
 
-          - **1**,\ **2**: longitude, latitude of station
-          - **3**: eps1, the most extensional eigenvalue of strain tensor, with
-            extension taken positive.
-          - **4**: eps2, the most compressional eigenvalue of strain tensor,
-            with extension taken positive.
-          - **5**: azimuth of eps2 in degrees CW from North.
+            - **1**,\ **2**: longitude, latitude of station
+            - **3**: eps1, the most extensional eigenvalue of strain tensor,
+              with extension taken positive.
+            - **4**: eps2, the most compressional eigenvalue of strain tensor,
+              with extension taken positive.
+            - **5**: azimuth of eps2 in degrees CW from North.
+
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
