@@ -156,18 +156,20 @@ def build_arg_string(kwargs):
     -Bxaf -Byaf -BWSen -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
     """
 
-    sorted_args = []
-    for key in sorted(kwargs):
+    gmt_args = []
+    # Exclude arguments that are None and False
+    filtered_kwargs = {
+        k: v for k, v in kwargs.items() if (v is not None and v is not False)
+    }
+    for key in filtered_kwargs:
         if is_nonstr_iter(kwargs[key]):
             for value in kwargs[key]:
-                sorted_args.append(f"-{key}{value}")
-        elif kwargs[key] is None or kwargs[key] is False:  # Skip None and False
-            continue
+                gmt_args.append(f"-{key}{value}")
         elif kwargs[key] is True:
-            sorted_args.append(f"-{key}")
+            gmt_args.append(f"-{key}")
         else:
-            sorted_args.append(f"-{key}{kwargs[key]}")
-    return " ".join(sorted_args)
+            gmt_args.append(f"-{key}{kwargs[key]}")
+    return " ".join(sorted(gmt_args))
 
 
 def is_nonstr_iter(value):
