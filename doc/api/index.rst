@@ -43,7 +43,7 @@ Plotting data and laying out the map:
     Figure.subplot
     Figure.text
     Figure.velo
-    
+
 Color palette table generation:
 
 .. autosummary::

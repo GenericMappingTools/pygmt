@@ -26,20 +26,20 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     W="pen",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma")
 def velo(self, data=None, vector="+p1p+e", **kwargs):  # pylint: disable=unused-argument
     """
-    Plot velocity vectors, crosses, and wedges.
+    Plot velocity vectors, crosses, anisotropy bars and wedges.
 
     Reads data values from files, numpy array or pandas DataFrame and will
     plot velocity arrows on a map. Most options are the same as for plot,
     except *scaling*.
 
-    Must provide  *data*, *projection*, *region* and *scaling*.
-
+    Must provide *data* and *scaling*.
 
     Full option list at :gmt-docs:`supplements/geodesy/velo.html`
 
@@ -47,14 +47,10 @@ def velo(self, data=None, vector="+p1p+e", **kwargs):  # pylint: disable=unused-
 
     Parameters
     ----------
-    data : str or np.ndarray or pandas.DataFrame
-        Pass in either a file name, a 2D numpy array, or a pandas dataframe
-        table. Note that text columns are only supported with file or
-        pandas dataframe inputs.
-
-    {J}
-
-    {R}
+    data : str or numpy.ndarray or pandas.DataFrame
+        Either a file name, a 2D numpy array, or a pandas DataFrame with the
+        tabular data. Note that text columns are only supported with file or
+        pandas DataFrame inputs.
 
     scaling: str
         Selects the meaning of the columns in the data file and the figure
@@ -160,52 +156,44 @@ def velo(self, data=None, vector="+p1p+e", **kwargs):  # pylint: disable=unused-
                 **5**:
                 azimuth of eps2 in degrees CW from North.
 
-
     Other Parameters
     ----------------
     vector : bool or str
-        Modify vector parameters. By defaul, the vector head outline is
+        Modify vector parameters. By default, the vector head outline is
         drawn (+p) and a vector head is placed at the end of the vector path
         (+e). For specifying additional attributes, see
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes`.
-
     {B}
-
     {CPT}
-
     rescale : str
         can be used to rescale the uncertainties of velocities
         (``scaling='e'`` and ``scaling='r'``) and rotations
         (``scaling='w'``). Can be combined with the confidence variable.
-
     uncertainty_color : str
         Sets the color or shade used for filling uncertainty wedges
         (``scaling='w'``) or velocity error ellipses (``scaling='e'`` or
         ``scaling='r'``). [If *uncertainty_color* is not specified, the
         uncertainty regions will be transparent]. More details on
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
-
     facecolor : str
         Select color or pattern for filling of symbols or polygons
         [Default is no fill]. More details on
         :gmt-docs:cookbook/features.html#gfill-attrib`.
-
+    {J}
     line: str
         Draw lines. Ellipses and fault planes will have their outlines
         drawn using current pen (see *pen*).
-
     no_clip: str
         Do NOT skip symbols that fall outside the frame boundary specified
         by *region*. [Default plots symbols inside frame only].
-
-    pen : str
-        Set pen attributes for velocity arrows, ellipse circumference and
-        fault plane edges. [Defaults: width = default, color = black,
-        style = solid].
-
+    {R}
     {U}
     {V}
+    pen : str
+        Set pen attributes for velocity arrows, ellipse circumference and fault
+        plane edges. [Default: width = default, color = black, style = solid].
     {XY}
+    {c}
     {p}
     {t}
     """
