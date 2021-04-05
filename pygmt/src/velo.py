@@ -81,12 +81,10 @@ def velo(self, data=None, **kwargs):
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
 
-            - **1**,\ **2**: longitude, latitude of station (**-:** option
-              interchanges order)
-            - **3**,\ **4**: eastward, northward velocity (**-:** option
-              interchanges order)
+            - **1**,\ **2**: longitude, latitude of station
+            - **3**,\ **4**: eastward, northward velocity
             - **5**,\ **6**: uncertainty of eastward, northward velocities
-              (1-sigma) (**-:** option interchanges order)
+              (1-sigma)
             - **7**: correlation between eastward and northward components
             - **Trailing text**: name of station (optional)
 
@@ -96,10 +94,9 @@ def velo(self, data=None, **kwargs):
           *barscale* is not given then we read it from the data file as an
           extra column. Parameters are expected to be in the following columns:
 
-            - **1**,\ **2**: longitude, latitude of station (**-:** option
-              interchanges order)
+            - **1**,\ **2**: longitude, latitude of station
             - **3**,\ **4**: eastward, northward components of anisotropy
-              vector (**-:** option interchanges order)
+              vector
 
         - **r**\ [*velscale*/]\ *confidence*\ [**+f**\ *font*]
 
@@ -117,10 +114,8 @@ def velo(self, data=None, **kwargs):
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
 
-            - **1**,\ **2**: longitude, latitude of station (**-:** option
-              interchanges order)
-            - **3**,\ **4**: eastward, northward velocity (**-:** option
-              interchanges order)
+            - **1**,\ **2**: longitude, latitude of station
+            - **3**,\ **4**: eastward, northward velocity
             - **5**,\ **6**: semi-major, semi-minor axes
             - **7**: counter-clockwise angle, in degrees, from horizontal axis
               to major axis of ellipse.
@@ -137,8 +132,7 @@ def velo(self, data=None, **kwargs):
           to set the color or shade for the uncertainty. Parameters are
           expected to be in the following columns:
 
-          - **1**,\ **2**: longitude, latitude of station (**-:** option
-            interchanges order)
+          - **1**,\ **2**: longitude, latitude of station
           - **3**: rotation in radians
           - **4**: rotation uncertainty in radians
 
@@ -149,8 +143,7 @@ def velo(self, data=None, **kwargs):
           an extra column. Parameters are expected to be in the following
           columns:
 
-          - **1**,\ **2**: longitude, latitude of station (**-:** option
-            interchanges order)
+          - **1**,\ **2**: longitude, latitude of station
           - **3**: eps1, the most extensional eigenvalue of strain tensor, with
             extension taken positive.
           - **4**: eps2, the most compressional eigenvalue of strain tensor,
