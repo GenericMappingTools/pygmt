@@ -1,5 +1,0 @@
-[run]
-omit =
-    */tests/*
-    */_version.py
-    *pygmt/__init__.py

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: GMT Community Forum
+    url: https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a
+    about: Please ask questions here or find answers to common problems.

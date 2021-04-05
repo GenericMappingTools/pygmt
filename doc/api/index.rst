@@ -25,25 +25,31 @@ Plotting data and laying out the map:
     Figure.basemap
     Figure.coast
     Figure.colorbar
-    Figure.plot
-    Figure.plot3d
     Figure.contour
     Figure.grdcontour
     Figure.grdimage
     Figure.grdview
+    Figure.image
+    Figure.inset
     Figure.legend
     Figure.logo
-    Figure.image
+    Figure.meca
+    Figure.plot
+    Figure.plot3d
+    Figure.rose
+    Figure.set_panel
     Figure.shift_origin
+    Figure.solar
+    Figure.subplot
     Figure.text
     Figure.velo
-    Figure.meca
     
 Color palette table generation:
 
 .. autosummary::
     :toctree: generated
 
+    grd2cpt
     makecpt
 
 Saving and displaying the figure:
@@ -64,6 +70,7 @@ Operations on tabular data:
 .. autosummary::
     :toctree: generated
 
+    blockmean
     blockmedian
     surface
 
@@ -138,6 +145,7 @@ and store them in the GMT cache folder.
     datasets.load_ocean_ridge_points
     datasets.load_sample_bathymetry
     datasets.load_usgs_quakes
+    datasets.load_fractures_compilation
 
 .. automodule:: pygmt.exceptions
 
@@ -183,14 +191,15 @@ the :meth:`~pygmt.clib.Session.call_module` method:
 
     clib.Session.call_module
 
-Passing memory blocks between Python variables (:class:`numpy.ndarray`,
-:class:`pandas.Series`, and :class:`xarray.DataArray`) and GMT happens through *virtual
-files*. These methods are context managers that automate the conversion of Python
-variables to GMT virtual files:
+Passing memory blocks between Python data objects (e.g. :class:`numpy.ndarray`,
+:class:`pandas.Series`, :class:`xarray.DataArray`, etc) and GMT happens through
+*virtual files*. These methods are context managers that automate the
+conversion of Python variables to GMT virtual files:
 
 .. autosummary::
     :toctree: generated
 
+    clib.Session.virtualfile_from_data
     clib.Session.virtualfile_from_matrix
     clib.Session.virtualfile_from_vectors
     clib.Session.virtualfile_from_grid

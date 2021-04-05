@@ -1,16 +1,16 @@
 """
-Test Figure.grdimage
+Test Figure.grdimage.
 """
 import sys
+
 import numpy as np
 import pytest
 import xarray as xr
 from packaging.version import Version
-
-from .. import Figure, clib
-from ..datasets import load_earth_relief
-from ..exceptions import GMTInvalidInput
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure, clib
+from pygmt.datasets import load_earth_relief
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import check_figures_equal
 
 with clib.Session() as _lib:
     gmt_version = Version(_lib.info["version"])
@@ -18,14 +18,16 @@ with clib.Session() as _lib:
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
-    "Load the grid data from the sample earth_relief file"
+    """
+    Load the grid data from the sample earth_relief file.
+    """
     return load_earth_relief(registration="gridline")
 
 
 @pytest.fixture(scope="module", name="xrgrid")
 def fixture_xrgrid():
     """
-    Create a sample xarray.DataArray grid for testing
+    Create a sample xarray.DataArray grid for testing.
     """
     longitude = np.arange(0, 360, 1)
     latitude = np.arange(-89, 90, 1)
@@ -45,7 +47,9 @@ def fixture_xrgrid():
 
 @pytest.mark.mpl_image_compare
 def test_grdimage(grid):
-    "Plot an image using an xarray grid"
+    """
+    Plot an image using an xarray grid.
+    """
     fig = Figure()
     fig.grdimage(grid, cmap="earth", projection="W0/6i")
     return fig
@@ -53,7 +57,9 @@ def test_grdimage(grid):
 
 @pytest.mark.mpl_image_compare
 def test_grdimage_slice(grid):
-    "Plot an image using an xarray grid that has been sliced"
+    """
+    Plot an image using an xarray grid that has been sliced.
+    """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
     fig.grdimage(grid_, cmap="earth", projection="M6i")
@@ -62,7 +68,9 @@ def test_grdimage_slice(grid):
 
 @pytest.mark.mpl_image_compare
 def test_grdimage_file():
-    "Plot an image using file input"
+    """
+    Plot an image using file input.
+    """
     fig = Figure()
     fig.grdimage(
         "@earth_relief_01d_g",
@@ -112,7 +120,9 @@ def test_grdimage_shading_xarray(grid, shading):
 
 
 def test_grdimage_fails():
-    "Should fail for unrecognized input"
+    """
+    Should fail for unrecognized input.
+    """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.grdimage(np.arange(20).reshape((4, 5)))
@@ -122,6 +132,7 @@ def test_grdimage_fails():
 def test_grdimage_over_dateline(xrgrid):
     """
     Ensure no gaps are plotted over the 180 degree international dateline.
+
     Specifically checking that `xrgrid.gmt.gtype = 1` sets `GMT_GRID_IS_GEO`,
     and that `xrgrid.gmt.registration = 0` sets `GMT_GRID_NODE_REG`. Note that
     there would be a gap over the dateline if a pixel registered grid is used.

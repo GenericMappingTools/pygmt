@@ -10,21 +10,15 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
-.. image:: http://img.shields.io/travis/GenericMappingTools/pygmt/master.svg?style=flat-square&label=Linux
-    :alt: Travis CI build status
-    :target: https://travis-ci.org/GenericMappingTools/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
-    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
-.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Latest%20Tests/badge.svg
-    :alt: GitHub Actions GMT Latest Tests status
-    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3A%22GMT+Latest+Tests%22
+    :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml
+.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
+    :alt: GitHub Actions GMT Dev Tests status
+    :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
 .. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/pygmt
-.. image:: https://img.shields.io/codacy/grade/e73169dcb8454b3bb0f6cc5389b228b4.svg?style=flat-square&label=codacy
-    :alt: Code quality grade on codacy
-    :target: https://www.codacy.com/app/leouieda/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt
@@ -46,7 +40,7 @@ Why PyGMT?
 
 A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
-But if you need some convincing first, watch this **1 hour introduction** to PyGMT!
+But if you need some convincing first, watch this `1 hour introduction <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ to PyGMT!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
 or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
@@ -92,8 +86,9 @@ Project goals
 * Build a Pythonic API for GMT.
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
-* Integration with the PyData Ecosystem: numpy.ndarray or pandas.DataFrame for data tables
-  and xarray.DataArray for grids.
+* Integration with the `PyData <https://pydata.org/>`__ ecosystem:
+  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables and
+  ``xarray.DataArray`` for grids.
 
 
 Contacting Us
@@ -103,8 +98,9 @@ Contacting Us
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
-* We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
-  where you can ask questions and leave comments.
+* We have a `Discourse forum
+  <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__ where you can ask
+  questions and leave comments.
 
 
 Contributing
@@ -136,7 +132,7 @@ contribute. What could you possibly offer?
 We assure you that the little voice in your head is wrong.
 
 **Being a contributor doesn't just mean writing code**.
-Equality important contributions include: writing or proof-reading documentation,
+Equally important contributions include: writing or proof-reading documentation,
 suggesting or implementing tests, or even giving feedback about the project (including
 giving feedback about the contribution process). If you're coming to the project with
 fresh eyes, you might see the errors and assumptions that seasoned contributors have
@@ -158,20 +154,26 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{uieda_leonardo_2020_4025418,
+    @software{pygmt_2021_4592991,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
                       Toney, Liam and
+                      Schlitzer, William and
+                      Yao, Jiayuan and
+                      Grund, Michael and
+                      Jones, Meghan and
+                      Materna, Kathryn and
                       Newton, Tyler and
+                      Ziebarth, Malte and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = sep,
-      year         = 2020,
+      month        = mar,
+      year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.2.0},
-      doi          = {10.5281/zenodo.4025418},
-      url          = {https://doi.org/10.5281/zenodo.4025418}
+      version      = {v0.3.1},
+      doi          = {10.5281/zenodo.4592991},
+      url          = {https://doi.org/10.5281/zenodo.4592991}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -193,8 +195,9 @@ the **BSD 3-clause License**. A copy of this license is provided in
 Support
 -------
 
-The development of PyGMT was funded by
-`NSF grant OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__.
+The development of PyGMT has been supported by NSF grants
+`OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__ and
+`EAR-1948603 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602>`__.
 
 
 Related projects
@@ -213,11 +216,28 @@ Other Python wrappers for GMT:
 
 Documentation for other versions
 --------------------------------
+
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.3.1 <https://www.pygmt.org/v0.3.1>`__
+* `v0.3.0 <https://www.pygmt.org/v0.3.0>`__
+* `v0.2.1 <https://www.pygmt.org/v0.2.1>`__
 * `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
 * `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
 * `v0.1.1 <https://www.pygmt.org/v0.1.1>`__
 * `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
 * `v0.0.1a0 <https://www.pygmt.org/0.0.1a0>`__
+
+Compatibility with GMT and Python/NumPy versions
+------------------------------------------------
+
+======= ========== ========= =========
+PyGMT   GMT        Python    NumPy
+======= ========== ========= =========
+0.4.x   >=6.2.0    >=3.7     >=1.17.0
+0.3.x   >=6.1.1    >=3.7
+0.2.1   >=6.1.1    >=3.6
+0.2.0   >=6.1.1    3.6 - 3.8
+0.1.x   >=6.0.0    3.6 - 3.8
+======= ========== ========= =========

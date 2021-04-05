@@ -1,16 +1,17 @@
 """
-Tests for pygmt.which
+Tests for pygmt.which.
 """
 import os
 
 import pytest
-
-from .. import which
-from ..helpers import unique_name
+from pygmt import which
+from pygmt.helpers import unique_name
 
 
 def test_which():
-    "Make sure which returns file paths for @files correctly without errors"
+    """
+    Make sure which returns file paths for @files correctly without errors.
+    """
     for fname in ["tut_quakes.ngdc", "tut_bathy.nc"]:
         cached_file = which(f"@{fname}", download="c")
         assert os.path.exists(cached_file)
@@ -18,7 +19,9 @@ def test_which():
 
 
 def test_which_fails():
-    "which should fail with a FileNotFoundError"
+    """
+    which should fail with a FileNotFoundError.
+    """
     bogus_file = unique_name()
     with pytest.raises(FileNotFoundError):
         which(bogus_file)

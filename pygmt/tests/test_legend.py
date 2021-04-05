@@ -1,38 +1,31 @@
 """
-Tests for legend
+Tests for legend.
 """
 import pytest
-
-from .. import Figure
-from ..exceptions import GMTInvalidInput
-from ..helpers import GMTTempFile
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.mark.mpl_image_compare
 def test_legend_position():
     """
-    Try positioning with each of the four legend coordinate systems.
+    Test that plots a position with each of the four legend coordinate systems.
     """
 
     fig = Figure()
-
     fig.basemap(region=[-2, 2, -2, 2], frame=True)
-
     positions = ["jTR+jTR", "g0/1", "n0.2/0.2", "x4i/2i/2i"]
-
     for i, position in enumerate(positions):
-
         fig.plot(x=[0], y=[0], style="p10p", label=i)
         fig.legend(position=position, box=True)
-
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_legend_default_position():
     """
-    Try using the default legend position.
+    Test using the default legend position.
     """
 
     fig = Figure()
@@ -45,42 +38,25 @@ def test_legend_default_position():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_legend_entries():
     """
     Test different marker types/shapes.
     """
-    fig_ref, fig_test = Figure(), Figure()
-
-    # Use single-character arguments for the reference image
-    fig_ref = Figure()
-    fig_ref.basemap(J="x1i", R="0/7/3/7", B="")
-    fig_ref.plot(
-        data="@Table_5_11.txt",
-        S="c0.15i",
-        G="lightgreen",
-        W="faint",
-        l="Apples",
-    )
-    fig_ref.plot(data="@Table_5_11.txt", W="1.5p,gray", l='"My lines"')
-    fig_ref.plot(data="@Table_5_11.txt", S="t0.15i", G="orange", l="Oranges")
-    fig_ref.legend(D="JTR+jTR")
-
-    fig_test.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
-    fig_test.plot(
+    fig = Figure()
+    fig.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
+    fig.plot(
         data="@Table_5_11.txt",
         style="c0.15i",
         color="lightgreen",
         pen="faint",
         label="Apples",
     )
-    fig_test.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
-    fig_test.plot(
-        data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges"
-    )
-    fig_test.legend(position="JTR+jTR")
+    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
+    fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
+    fig.legend(position="JTR+jTR")
 
-    return fig_ref, fig_test
+    return fig
 
 
 @pytest.mark.mpl_image_compare
@@ -117,21 +93,17 @@ T so we may have to adjust the box height to get the right size box.
 """
 
     with GMTTempFile() as specfile:
-
         with open(specfile.name, "w") as file:
             file.write(specfile_contents)
-
         fig = Figure()
-
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
         fig.legend(specfile.name, position="JTM+jCM+w5i")
-
     return fig
 
 
 def test_legend_fails():
     """
-    Test legend fails with invalid spec
+    Test legend fails with invalid spec.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):

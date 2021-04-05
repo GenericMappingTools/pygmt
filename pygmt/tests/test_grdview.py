@@ -1,24 +1,25 @@
 """
-Tests grdview
+Tests grdview.
 """
 import pytest
-
-from .. import Figure, grdcut, which
-from ..exceptions import GMTInvalidInput
-from ..helpers import GMTTempFile, data_kind
-from ..helpers.testing import check_figures_equal
+from pygmt import Figure, grdcut, which
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers.testing import check_figures_equal
 
 
 @pytest.fixture(scope="module", name="region")
 def fixture_region():
-    "Test region as lonmin, lonmax, latmin, latmax"
+    """
+    Test region as lonmin, lonmax, latmin, latmax.
+    """
     return (-116, -109, -47, -44)
 
 
 @pytest.fixture(scope="module", name="gridfile")
 def fixture_gridfile(region):
     """
-    Load the NetCDF grid file from the sample earth_relief file
+    Load the NetCDF grid file from the sample earth_relief file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         grdcut(grid="@earth_relief_01d_g", region=region, outgrid=tmpfile.name)
@@ -28,7 +29,7 @@ def fixture_gridfile(region):
 @pytest.fixture(scope="module", name="xrgrid")
 def fixture_xrgrid(region):
     """
-    Load the xarray.DataArray grid from the sample earth_relief file
+    Load the xarray.DataArray grid from the sample earth_relief file.
     """
     return grdcut(grid="@earth_relief_01d_g", region=region)
 
@@ -177,8 +178,8 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(gridfile, xrgrid):
 @check_figures_equal()
 def test_grdview_with_perspective_and_zaxis_frame(gridfile, xrgrid, region):
     """
-    Run grdview by passing in a grid and plotting an annotated vertical
-    z-axis frame on a Transverse Mercator (T) projection.
+    Run grdview by passing in a grid and plotting an annotated vertical z-axis
+    frame on a Transverse Mercator (T) projection.
     """
     fig_ref, fig_test = Figure(), Figure()
     projection = f"T{(region[0]+region[1])/2}/{abs((region[2]+region[3])/2)}"

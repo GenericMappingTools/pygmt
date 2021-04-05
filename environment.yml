@@ -3,26 +3,33 @@ channels:
     - conda-forge
     - defaults
 dependencies:
-    - python=3.7
+    # Required dependencies
     - pip
     - gmt=6.1.1
-    - numpy
+    - numpy>=1.17
     - pandas
     - xarray
     - netCDF4
     - packaging
-    - ipython
-    - matplotlib
-    - jupyter
-    - pytest
-    - pytest-cov
-    - pytest-mpl
-    - coverage
+    # Development dependencies
     - black
     - blackdoc
-    - pylint
+    - codecov
+    - coverage[toml]
+    - docformatter
+    - dvc
     - flake8
-    - sphinx=2.2.1
-    - sphinx_rtd_theme=0.4.3
+    - ipython
+    - isort>=5
+    - jupyter
+    - make
+    - matplotlib
+    - myst-parser
+    - pylint
+    - pytest-cov
+    - pytest-mpl
+    - pytest>=6.0
+    - sphinx
+    - sphinx-copybutton
     - sphinx-gallery
-    - nbsphinx
+    - sphinx_rtd_theme=0.5.1

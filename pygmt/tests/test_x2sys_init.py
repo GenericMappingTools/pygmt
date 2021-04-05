@@ -1,20 +1,19 @@
 # pylint: disable=unused-argument
 """
-Tests for x2sys_init
+Tests for x2sys_init.
 """
 import os
 from tempfile import TemporaryDirectory
 
 import pytest
-
-from .. import x2sys_init
+from pygmt import x2sys_init
 
 
 @pytest.fixture(name="mock_x2sys_home")
 def fixture_mock_x2sys_home(monkeypatch):
     """
     Set the X2SYS_HOME environment variable to the current working directory
-    for the test session
+    for the test session.
     """
     monkeypatch.setenv("X2SYS_HOME", os.getcwd())
 
@@ -22,7 +21,7 @@ def fixture_mock_x2sys_home(monkeypatch):
 def test_x2sys_init_region_spacing(mock_x2sys_home):
     """
     Test that x2sys_init's region (R) and spacing (I) sequence arguments accept
-    a list properly
+    a list properly.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
@@ -39,7 +38,7 @@ def test_x2sys_init_region_spacing(mock_x2sys_home):
 def test_x2sys_init_units_gap(mock_x2sys_home):
     """
     Test that x2sys_init's units (N) and gap (W) arguments accept a list
-    properly
+    properly.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
