@@ -395,4 +395,5 @@ class Figure:
         solar,
         subplot,
         text,
+        velo,
     )

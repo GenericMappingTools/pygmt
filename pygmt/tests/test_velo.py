@@ -3,14 +3,13 @@ Tests velo.
 """
 import pandas as pd
 import pytest
-
 from pygmt import Figure
 
 
 @pytest.mark.mpl_image_compare
 def test_velo_arrow_ellipse_pandas_df():
     """
-    Plot velocity arrow and confidence ellipse from a pandas.DataFrame
+    Plot velocity arrow and confidence ellipse from a pandas.DataFrame.
     """
     fig = Figure()
     dframe = pd.DataFrame(

@@ -1,3 +1,20 @@
+"""
+velo - Plot velocity vectors, crosses, anisotropy bars and wedges.
+"""
+import numpy as np
+import pandas as pd
+from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
+    build_arg_string,
+    data_kind,
+    dummy_context,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
+
+
 @fmt_docstring
 @use_alias(
     A="vector",
@@ -20,9 +37,9 @@
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma")
-def velo(self, data=None, vector="+p1p+e", **kwargs):
+def velo(self, data=None, vector="+p1p+e", **kwargs):  # pylint: disable=unused-argument
     """
-    Plot velocity vectors, crosses, and wedges
+    Plot velocity vectors, crosses, and wedges.
 
     Reads data values from files, numpy array or pandas DataFrame and will
     plot velocity arrows on a map. Most options are the same as for plot,
@@ -199,7 +216,7 @@ def velo(self, data=None, vector="+p1p+e", **kwargs):
     {p}
     {t}
     """
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     kind = data_kind(data)
 
