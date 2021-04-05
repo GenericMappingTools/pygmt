@@ -85,7 +85,7 @@ def coast(self, **kwargs):
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
-        Select filling or clipping of “dry” areas.
+        Select filling or clipping of "dry" areas.
     rivers : int or str or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
@@ -151,7 +151,7 @@ def coast(self, **kwargs):
 
         a = All boundaries (1-3)
     water : str
-        Select filling or clipping of “wet” areas.
+        Select filling or clipping of "wet" areas.
     {U}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
