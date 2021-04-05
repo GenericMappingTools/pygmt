@@ -1,0 +1,4 @@
+outs:
+- md5: ad64e7cba2c3f776a8786fd551063489
+  size: 3558
+  path: test_text_round_clearance.png
