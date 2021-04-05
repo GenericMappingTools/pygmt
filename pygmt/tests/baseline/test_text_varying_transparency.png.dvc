@@ -1,0 +1,4 @@
+outs:
+- md5: 5e867b4473cd9d1063ad5a08253e031c
+  size: 24775
+  path: test_text_varying_transparency.png
