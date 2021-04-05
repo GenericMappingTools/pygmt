@@ -1,5 +1,5 @@
 """
-velo - Plot velocity vectors, crosses, anisotropy bars and wedges.
+velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
 import numpy as np
 import pandas as pd
@@ -36,7 +36,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def velo(self, data=None, **kwargs):
     r"""
-    Plot velocity vectors, crosses, anisotropy bars and wedges.
+    Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
     Reads data values from files, :class:`numpy.ndarray` or
     :class:`pandas.DataFrame` and will plot the selected geodesy symbol on a
