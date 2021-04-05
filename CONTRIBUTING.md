@@ -189,6 +189,9 @@ When editing documentation, use the following standards to demonstrate the examp
    Examples: `**+l**\ *label*` results in **+l***label*, `**05m**` results in **05m**.
 3. Optional arguments are placed wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
+5. Default arguments for parameters and configuration settings are placed wrapped
+   with [ ] (square brackers) with the prefix "Default is". Example: [Default is
+   **p**].
 
 ## Contributing Code
 
