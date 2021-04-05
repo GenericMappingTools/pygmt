@@ -1,4 +1,4 @@
 outs:
-- md5: a68e9de541ec0c777cdbafda48226f9d
-  size: 47163
+- md5: fc51d80c438a1961f700c68e207ecc3b
+  size: 44161
   path: test_velo_pandas_dataframe.png
