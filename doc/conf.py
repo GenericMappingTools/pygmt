@@ -155,7 +155,9 @@ if __commit__:
         f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
     )
 else:
-    commit_link = ""
+    commit_link = (
+        f'<a href="{repository_url}/releases/tag/{ __version__ }">{ __version__ }</a>'
+    )
 html_context = {
     "menu_links": [
         (
