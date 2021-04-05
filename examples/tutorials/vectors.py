@@ -251,7 +251,7 @@ fig.show()
 
 ########################################################################################
 # Plot Circular Vectors
-# ----------
+# ---------------------
 #
 # When plotting circular vectors, all of the information for a single vector is
 # to be stored in a list. Each circular vector list is structured as:
