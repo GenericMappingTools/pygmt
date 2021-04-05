@@ -24,6 +24,7 @@ from pygmt.helpers import (
     T="toggle",
     V="verbose",
     f="coltypes",
+    r="registration",
 )
 @kwargs_to_strings(R="sequence")
 def grdfilter(grid, **kwargs):
@@ -110,6 +111,7 @@ def grdfilter(grid, **kwargs):
         input grid].
     {V}
     {f}
+    {r}
 
     Returns
     -------

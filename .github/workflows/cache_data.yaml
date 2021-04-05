@@ -19,7 +19,7 @@ jobs:
     steps:
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.0.1
+        uses: conda-incubator/setup-miniconda@v2.1.0
         with:
           channels: conda-forge
           miniconda-version: "latest"
@@ -40,9 +40,11 @@ jobs:
           # The naming scheme may change.
           # DO NOT USE IT IN SCRIPTS.
           gmt which -Ga @N35E135.earth_relief_03s_g.nc
+          # @srtm_tiles.nc is needed for 03s and 01s relief data
+          gmt which -Ga @srtm_tiles.nc
           gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc \
                         @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz \
-                        @usgs_quakes_22.txt
+                        @usgs_quakes_22.txt @fractures_06.txt
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub

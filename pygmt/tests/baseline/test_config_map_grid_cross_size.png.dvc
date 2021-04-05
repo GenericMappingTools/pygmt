@@ -1,0 +1,4 @@
+outs:
+- md5: cedcf979e9d25129babae0fbeeeecfbc
+  size: 17539
+  path: test_config_map_grid_cross_size.png
