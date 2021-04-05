@@ -153,7 +153,7 @@ def build_arg_string(kwargs):
     ...         )
     ...     )
     ... )
-    -Bxaf -Byaf -BWSen -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
+    -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
     """
 
     gmt_args = []
