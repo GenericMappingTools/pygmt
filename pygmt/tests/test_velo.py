@@ -4,15 +4,15 @@ Tests velo.
 import pandas as pd
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
-@pytest.mark.mpl_image_compare
-def test_velo_arrow_ellipse_pandas_df():
+@pytest.fixture(scope="module", name="dataframe")
+def fixture_dataframe():
     """
-    Plot velocity arrow and confidence ellipse from a pandas.DataFrame.
+    Sample pandas.DataFrame for plotting velocity vectors.
     """
-    fig = Figure()
-    dframe = pd.DataFrame(
+    return pd.DataFrame(
         data={
             "Long.": [0, -8, 0, -5, 5, 0],
             "Lat.": [-8, 5, 0, -5, 0, -5],
@@ -24,16 +24,60 @@ def test_velo_arrow_ellipse_pandas_df():
             "SITE": ["4x6", "3x3", "NaN", "6x4", "-6x4", "6x-4"],
         }
     )
+
+
+@pytest.mark.mpl_image_compare
+def test_velo_numpy_array_numeric_only(dataframe):
+    """
+    Plot velocity arrow and confidence ellipse from a numpy.ndarray.
+    """
+    fig = Figure()
     fig.velo(
-        data=dframe,
+        data=dataframe.iloc[:, :-1].to_numpy(),
+        scaling="e0.2/0.39/18",
+        vector="0.3c+p1p+e+gred",
+        frame="1g1",
+    )
+    return fig
+
+
+def test_velo_numpy_array_text_column(dataframe):
+    """
+    Check that velo fails when plotting a numpy.ndarray with a text column.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.velo(
+            data=dataframe.to_numpy(),
+            scaling="e0.2/0.39/18",
+            vector="0.3c+p1p+e+gred",
+        )
+
+
+def test_velo_without_scaling(dataframe):
+    """
+    Check that velo fails when the scaling parameter is not given.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.velo(data=dataframe)
+
+
+@pytest.mark.mpl_image_compare
+def test_velo_pandas_dataframe(dataframe):
+    """
+    Plot velocity arrow and confidence ellipse from a pandas.DataFrame.
+    """
+    fig = Figure()
+    fig.velo(
+        data=dataframe,
+        scaling="e0.2/0.39/18",
+        vector="0.3c+p1p+e+gred",
+        frame="1g1",
         region=[-10, 10, -10, 10],
+        projection="x0.4/0.4",
         pen="0.6p,red",
         uncertainty_color="green",
         line=True,
-        scaling="e0.2/0.39/18",
-        frame="1g1",
-        projection="x0.4/0.4",
-        vector="0.3c+p1p+e+gred",
-        verbose=True,
     )
     return fig

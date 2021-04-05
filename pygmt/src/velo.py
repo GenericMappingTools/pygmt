@@ -5,14 +5,7 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -218,30 +211,18 @@ def velo(self, data=None, vector="+p1p+e", **kwargs):  # pylint: disable=unused-
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    kind = data_kind(data)
-
     if "S" not in kwargs or ("S" in kwargs and not isinstance(kwargs["S"], str)):
         raise GMTInvalidInput("Scaling is a required argument and has to be a string.")
 
+    if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
+        raise GMTInvalidInput(
+            "Text columns are not supported with numpy.ndarray type inputs. "
+            "They are only supported with file or pandas.DataFrame inputs."
+        )
+
     with Session() as lib:
         # Choose how data will be passed in to the module
-        if kind == "file":
-            file_context = dummy_context(data)
-        elif kind == "matrix":
-            if pd.api.types.is_numeric_dtype(data):
-                file_context = lib.virtualfile_from_matrix(data)
-            elif isinstance(data, np.ndarray):
-                raise GMTInvalidInput(
-                    "Text columns are not supported with numpy array. "
-                    "They are only supported with file or "
-                    "pandas dataframe inputs."
-                )
-            elif type(data).__name__.lower().find("dataframe") != 1:
-                file_context = lib.virtualfile_from_vectors(
-                    *[data[column] for column in data]
-                )
-            else:
-                raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
+        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
 
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
