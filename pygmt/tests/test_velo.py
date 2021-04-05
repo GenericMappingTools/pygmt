@@ -73,11 +73,11 @@ def test_velo_pandas_dataframe(dataframe):
         data=dataframe,
         scaling="e0.2/0.39/18",
         vector="0.3c+p1p+e+gred",
-        frame="1g1",
-        region=[-10, 10, -10, 10],
-        projection="x0.4/0.4",
+        frame=["WSne", "2g2f"],
+        region=[-10, 8, -10, 6],
+        projection="x0.8c",
         pen="0.6p,red",
-        uncertainty_color="green",
+        uncertainty_color="lightblue1",
         line=True,
     )
     return fig

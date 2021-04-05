@@ -13,8 +13,7 @@ import pandas as pd
 import pygmt
 
 fig = pygmt.Figure()
-
-dframe = pd.DataFrame(
+df = pd.DataFrame(
     data={
         "Long.": [0, -8, 0, -5, 5, 0],
         "Lat.": [-8, 5, 0, -5, 0, -5],
@@ -27,16 +26,15 @@ dframe = pd.DataFrame(
     }
 )
 fig.velo(
-    data=dframe,
-    region=[-10, 10, -10, 10],
+    data=df,
+    region=[-10, 8, -10, 6],
     pen="0.6p,red",
-    uncertainty_color="green",
+    uncertainty_color="lightblue1",
     line=True,
     scaling="e0.2/0.39/18",
-    frame="1g1",
-    projection="x0.4/0.4",
+    frame=["WSne", "2g2f"],
+    projection="x0.8c",
     vector="0.3c+p1p+e+gred",
-    verbose=True,
 )
 
 fig.show()
