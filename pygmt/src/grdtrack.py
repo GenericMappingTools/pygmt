@@ -8,7 +8,6 @@ from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     use_alias,
 )
@@ -51,8 +50,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         sampled values will be placed.
 
     outfile : str
-        Required if ``points`` is a file. The file name for the output ASCII
-        file.
+        The file name for the output ASCII file.
 
     {V}
     {f}
