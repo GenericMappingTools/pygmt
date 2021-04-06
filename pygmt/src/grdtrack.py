@@ -9,23 +9,38 @@ from pygmt.helpers import (
     build_arg_string,
     data_kind,
     dummy_context,
+    kwargs_to_strings,
     fmt_docstring,
     use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(V="verbose", f="coltypes", n="interpolation")
+@use_alias(
+    A="resampling",
+    C="cross_profile",
+    E="profile",
+    R="region",
+    V="verbose",
+    f="coltypes",
+    j="distcalc",
+    n="interpolation",
+)
+@kwargs_to_strings(R="sequence")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     """
     Sample grids at specified (x,y) locations.
 
-    Grdtrack reads one or more grid files and a table with (x,y) [or (lon,lat)]
-    positions in the first two columns (more columns may be present). It
-    interpolates the grid(s) at the positions in the table and writes out the
-    table with the interpolated values added as (one or more) new columns. A
-    bicubic [Default], bilinear, B-spline or nearest-neighbor interpolation is
-    used, requiring boundary conditions at the limits of the region (see
+    Reads one or more grid files and a table (from file or an array input; but
+    see ``profile`` for exception) with (x,y) [or (lon,lat)] positions in the
+    first two columns (more columns may be present). It interpolates the
+    grid(s) at the positions in the table and writes out the table with the
+    interpolated values added as (one or more) new columns. Alternatively
+    (``cross_profile``), the input is considered to be line-segments and we
+    create orthogonal cross-profiles at each data point or with an equidistant
+    separation and sample the grid(s) along these profiles. A bicubic
+    [Default], bilinear, B-spline or nearest-neighbor interpolation is used,
+    requiring boundary conditions at the limits of the region (see
     ``interpolation``; Default uses "natural" conditions (second partial
     derivative normal to edge is zero) unless the grid is automatically
     recognized as periodic.)
@@ -54,8 +69,80 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         Required if ``points`` is a file. The file name for the output ASCII
         file.
 
+    resampling : str
+        **f**\|\ **p**\|\ **m**\|\ **r**\|\ **R**\ [**+l**]
+        For track resampling (if ``cross_profile`` or ``profile`` are set) we
+        can select how this is to be performed. Append **f** to keep original
+        points, but add intermediate points if needed [Default], **m** as
+        **f**, but first follow meridian (along y) then parallel (along x),
+        **p** as **f**, but first follow parallel (along y) then meridian
+        (along x), **r** to resample at equidistant locations; input points are
+        not necessarily included in the output, and **R** as **r**, but adjust
+        given spacing to fit the track length exactly. Finally, append
+        **+l** if geographic distances should be measured along rhumb lines
+        (loxodromes) instead of great circles. Ignored unless ``cross_profile``
+        is used.
+    cross_profile : str
+        *length*/\ *ds*\ [*/spacing*][**+a**\|\ **+v**][**l**\|\ **r**].
+        Use input line segments to create an equidistant and (optionally)
+        equally-spaced set of crossing profiles along which we sample the
+        grid(s) [Default simply samples the grid(s) at the input locations].
+        Specify two length scales that control how the sampling is done:
+        *length* sets the full length of each cross-profile, while *ds* is
+        the sampling spacing along each cross-profile. Optionally, append
+        **/**\ *spacing* for an equidistant spacing between cross-profiles
+        [Default erects cross-profiles at the input coordinates]; see
+        ``resampling`` for how resampling the input track is controlled. By
+        default, all cross-profiles have the same direction (left to right
+        as we look in the direction of the input line segment). Append **+a**
+        to alternate the direction of cross-profiles, or **v** to enforce
+        either a "west-to-east" or "south-to-north" view. By default the entire
+        profiles are output. Choose to only output the left or right halves
+        of the profiles by appending **+l** or **+r**, respectively.  Append
+        suitable units to *length*; it sets the unit used for *ds* [and
+        *spacing*] (See :gmt-docs:`Units <grdtrack.html#units>`). The default
+        unit for geographic grids is meter while Cartesian grids implies the
+        user unit.  The output columns will be *lon*, *lat*, *dist*, *azimuth*,
+        *z1*, *z2*, ..., *zn* (The *zi* are the sampled values for each of the
+        *n* grids).
+    profile : str
+        *line*\ [,\ *line*,...][**+a**\ *az*][**+c**][**+d**][**+g**]\
+        [**+i**\ *inc*][**+l**\ *length*][**+n**\ *np*][**+o**\ *az*]\
+        [**+r**\ *radius*].
+        Instead of reading input track coordinates, specify profiles via
+        coordinates and modifiers. The format of each *line* is
+        *start*/*stop*, where *start* or *stop* are either *lon*/*lat* (*x*/*y*
+        for Cartesian data) or a 2-character XY key that uses the
+        :gmt-docs:`text <text.html>`-style justification format to specify
+        a point on the map as [LCR][BMT]. Each line will be a separate segment
+        unless **+c** is used which will connect segments with shared joints
+        into a single segment. In addition to line coordinates, you can use Z-,
+        Z+ to mean the global minimum and maximum locations in the grid (only
+        available if a single grid is given via **outfile**). You may append
+        **+i**\ *inc* to set the sampling interval; if not given then we
+        default to half the minimum grid interval. For a *line* along parallels
+        or meridians you can add **+g** to report degrees of longitude or
+        latitude instead of great circle distances starting at zero. Instead of
+        two coordinates you can specify an origin and one of **+a**, **+o**, or
+        **+r**. The **+a** sets the azimuth of a profile of given length
+        starting at the given origin, while **+o** centers the profile on the
+        origin; both require **+l**. For circular sampling specify **+r** to
+        define a circle of given radius centered on the origin; this option
+        requires either **+n** or **+i**.  The **+n**\ *np* modifier sets the
+        desired number of points, while **+l**\ *length* gives the total length
+        of the profile. Append **+d** to output the along-track distances after
+        the coordinates. **Note**: No track file will be read. Also note that
+        only one distance unit can be chosen. Giving different units will
+        result in an error. If no units are specified we default to great
+        circle distances in km (if geographic). If working with geographic data
+        you can use ``distcalc`` to control distance calculation mode [Default
+        is Great Circle]. **Note**: If ``cross_profile`` is set and *spacing*
+        is given then that sampling scheme overrules any modifier set in
+        ``profile``.
+    {R}
     {V}
     {f}
+    {j}
     {n}
 
     Returns
