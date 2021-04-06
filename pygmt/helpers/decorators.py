@@ -498,8 +498,15 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     >>> # new names are supported
     >>> module(data="table.txt", size=5.0, color="red")
     data=table.txt, size=5.0, color=red
-    >>> # old names are supported
-    >>> module(infile="table.txt", sizes=5.0, colors="red")
+    >>> # old names are supported, DeprecationWarning warnings are reported
+    >>> with warnings.catch_warnings(record=True) as w:
+    ...     module(infile="table.txt", sizes=5.0, colors="red")
+    ...     # check the number of warnings
+    ...     assert len(w) == 3
+    ...     for i in range(len(w)):
+    ...         assert issubclass(w[i].category, DeprecationWarning)
+    ...         assert "deprecated" in str(w[i].message)
+    ...
     data=table.txt, size=5.0, color=red
     """
 
