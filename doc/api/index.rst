@@ -41,6 +41,7 @@ Plotting data and laying out the map:
     Figure.solar
     Figure.subplot
     Figure.text
+    Figure.wiggle
 
 Color palette table generation:
 
