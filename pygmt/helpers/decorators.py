@@ -445,6 +445,12 @@ def kwargs_to_strings(**conversions):
 def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     """
     Decorator to deprecate a parameter.
+    
+    The old parameter name will be swapped automatically to the new parameter
+    name, and users will receive a FutureWarning to inform them of the pending
+    deprecation.
+    
+    Use this decorator below the ``use_alias`` decorator.
 
     Parameters
     ----------
