@@ -49,4 +49,5 @@
     :caption: Reference documentation
 
     api/index.rst
-    changes.rst
+    changes.md
+    maintenance.md
