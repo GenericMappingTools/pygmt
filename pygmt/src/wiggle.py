@@ -7,18 +7,18 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 
 @fmt_docstring
 @use_alias(
-    J="projection",
-    R="region",
-    Z="scale",
     B="frame",
     D="position",
     G="color",
+    J="projection",
+    R="region",
     T="track",
     U="timestamp",
     V="verbose",
     W="pen",
     X="xshift",
     Y="yshift",
+    Z="scale",
     c="panel",
     i="columns",
     p="perspective",
