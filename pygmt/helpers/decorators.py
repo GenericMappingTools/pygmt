@@ -187,6 +187,7 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
+    ...     data : {table-like}
     ...     {R}
     ...     {J}
     ...
@@ -199,6 +200,7 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
+    data : numpy.ndarray or pandas.DataFrame or xarray.Dataset
     region : str or list
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
@@ -222,6 +224,13 @@ def fmt_docstring(module_func):
             alias = module_func.aliases[arg]
             aliases.append("- {} = {}".format(arg, alias))
         filler_text["aliases"] = "\n".join(aliases)
+
+    filler_text["table-like"] = (
+        "numpy.ndarray or "
+        "pandas.DataFrame or "
+        "xarray.Dataset"
+        # "geopandas.GeoDataFrame"
+    )
 
     for marker, text in COMMON_OPTIONS.items():
         # Remove the indentation and the first line break from the multiline
