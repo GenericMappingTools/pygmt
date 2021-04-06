@@ -68,21 +68,13 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         - None if ``outfile`` is set (track output will be stored in file set
           by ``outfile``)
     """
+    if data_kind(points) == "matrix" and newcolname is None:
+        raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            # Store the pandas.DataFrame points table in virtualfile
-            if data_kind(points) == "matrix":
-                if newcolname is None:
-                    raise GMTInvalidInput("Please pass in a str to 'newcolname'")
-                table_context = lib.virtualfile_from_matrix(points.values)
-            elif data_kind(points) == "file":
-                if outfile is None:
-                    raise GMTInvalidInput("Please pass in a str to 'outfile'")
-                table_context = dummy_context(points)
-            else:
-                raise GMTInvalidInput(f"Unrecognized data type {type(points)}")
-
+            # Choose how data will be passed into the module
+            table_context = lib.virtualfile_from_data(check_kind="vector", data=points)
             # Store the xarray.DataArray grid in virtualfile
             grid_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
@@ -100,8 +92,11 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            column_names = points.columns.to_list() + [newcolname]
-            result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
+            try:
+                column_names = points.columns.to_list() + [newcolname]
+                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
+            except AttributeError:  # 'str' object has no attribute 'columns'
+                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 

@@ -132,11 +132,14 @@ def test_grdtrack_without_newcolname_setting(dataarray):
         grdtrack(points=dataframe, grid=dataarray)
 
 
-def test_grdtrack_without_outfile_setting(dataarray):
+def test_grdtrack_without_outfile_setting():
     """
     Run grdtrack by not passing in outfile parameter setting.
     """
     csvfile = which("@ridge.txt", download="c")
+    ncfile = which("@earth_relief_01d", download="a")
 
-    with pytest.raises(GMTInvalidInput):
-        grdtrack(points=csvfile, grid=dataarray)
+    output = grdtrack(points=csvfile, grid=ncfile)
+    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1939.748245])
+
+    return output
