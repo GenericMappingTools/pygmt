@@ -489,23 +489,23 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
 
     Examples
     --------
-
     >>> @deprecate_parameter("sizes", "size", "v0.0.0", "v9.9.9")
     ... @deprecate_parameter("colors", "color", "v0.0.0", "v9.9.9")
-    ... def module(size=0, **kwargs):
+    ... @deprecate_parameter("infile", "data", "v0.0.0", "v9.9.9")
+    ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
-    ...     print(f"size={size}, color={kwargs['color']}")
+    ...     print(f"data={data}, size={size}, color={kwargs['color']}")
     >>> # new names are supported
-    >>> module(size=5.0, color="red")
-    size=5.0, color=red
+    >>> module(data="table.txt", size=5.0, color="red")
+    data=table.txt, size=5.0, color=red
     >>> # old names are supported
-    >>> module(sizes=5.0, colors="red")
-    size=5.0, color=red
+    >>> module(infile="table.txt", sizes=5.0, colors="red")
+    data=table.txt, size=5.0, color=red
     """
 
     def deprecator(module_func):
         """
-        The decorator that creates our new function to work with both old and
+        The decorator that creates the new function to work with both old and
         new parameters.
         """
 
@@ -517,11 +517,12 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             if oldname in kwargs:
                 if newname in kwargs:
                     raise GMTInvalidInput(
-                        f"Can't provide both '{newname}' and '{oldname}'"
+                        f"Can't provide both '{newname}' and '{oldname}'."
                     )
                 msg = (
-                    f"The '{oldname}' parameter is deprecated since {deprecate_version} and will"
-                    f" be removed in {remove_version}; please use '{newname}' instead."
+                    f"The '{oldname}' parameter is deprecated since {deprecate_version}"
+                    f" and will be removed in {remove_version};"
+                    f" please use '{newname}' instead."
                 )
                 warnings.simplefilter("always", DeprecationWarning)  # turn off filter
                 warnings.warn(msg, DeprecationWarning, 2)
