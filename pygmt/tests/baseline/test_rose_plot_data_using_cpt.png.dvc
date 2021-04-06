@@ -1,0 +1,4 @@
+outs:
+- md5: 1facbc2eb905197cd6aece39c08c8686
+  size: 44793
+  path: test_rose_plot_data_using_cpt.png

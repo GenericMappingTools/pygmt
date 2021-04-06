@@ -1,11 +1,12 @@
+prune .dvc
 prune .github*
 prune doc*
 prune examples*
+exclude .dvcignore
 exclude .gitignore
 exclude .pylintrc
 exclude AUTHORSHIP.md
 exclude CONTRIBUTING.md
-exclude MAINTENANCE.md
 exclude Makefile
 exclude environment.yml
 exclude package.json

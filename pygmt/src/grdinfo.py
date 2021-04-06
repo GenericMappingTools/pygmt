@@ -33,6 +33,8 @@ def grdinfo(grid, **kwargs):
 
     Full option list at :gmt-docs:`grdinfo.html`
 
+    {aliases}
+
     Parameters
     ----------
     grid : str or xarray.DataArray

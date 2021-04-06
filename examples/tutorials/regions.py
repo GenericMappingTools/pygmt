@@ -1,6 +1,6 @@
 """
-Set the region
-==============
+Setting the region
+==================
 
 Many of the plotting functions take the ``region`` parameter, which sets
 the area that will be shown in the figure. This tutorial covers the different types of
@@ -129,7 +129,7 @@ fig.show()
 #
 # The ``region`` can be set to include a specific area specified by the two-character
 # ISO 3166-1 alpha-2 convention
-# (for futher information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+# (for further information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 fig = pygmt.Figure()
 fig.coast(

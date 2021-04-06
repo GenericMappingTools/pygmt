@@ -13,7 +13,15 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(C="per_column", I="spacing", T="nearest_multiple", V="verbose", f="coltypes")
+@use_alias(
+    C="per_column",
+    I="spacing",
+    T="nearest_multiple",
+    V="verbose",
+    a="aspatial",
+    f="coltypes",
+    r="registration",
+)
 @kwargs_to_strings(I="sequence")
 def info(table, **kwargs):
     r"""
@@ -46,16 +54,20 @@ def info(table, **kwargs):
         Report the min/max values per column in separate columns.
     spacing : str
         [**b**\|\ **p**\|\ **f**\|\ **s**]\ *dx*\[/*dy*\[/*dz*...]].
-        Report the min/max of the first n columns to the nearest multiple of
-        the provided increments and output results in the form
-        ``[w, e, s, n]``.
+        Compute the min/max values of the first n columns to the nearest
+        multiple of the provided increments [default is 2 columns]. By default,
+        output results in the form ``[w, e, s, n]``, unless ``per_column`` is
+        set in which case we output each min and max value in separate output
+        columns.
     nearest_multiple : str
         **dz**\[\ **+c**\ *col*].
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
     {V}
+    {a}
     {f}
+    {r}
 
     Returns
     -------
