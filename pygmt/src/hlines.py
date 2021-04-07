@@ -97,7 +97,7 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     # pylint: disable=too-many-locals
     # pylint: disable=too-many-branches
 
-    kwargs = self._preprocess(**kwargs) # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     list_length = len(np.atleast_1d(y))
 
