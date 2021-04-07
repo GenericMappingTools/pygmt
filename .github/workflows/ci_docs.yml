@@ -56,7 +56,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.1.0
+        uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
@@ -68,7 +68,7 @@ jobs:
         run: |
           conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
                         ipython make myst-parser \
-                        sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme=0.5.1
+                        sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
