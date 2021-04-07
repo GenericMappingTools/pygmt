@@ -93,7 +93,7 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
         for lines.
     """
 
-    kwargs = self._preprocess(**kwargs)
+    kwargs = self._preprocess(**kwargs) # pylint: disable=protected-access
 
     list_length = len(np.atleast_1d(y))
 
