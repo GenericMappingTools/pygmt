@@ -93,6 +93,10 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
         for lines.
     """
 
+    # appearing pylint warnings that need to be fixed
+    # pylint: disable=too-many-locals
+    # pylint: disable=too-many-branches
+
     kwargs = self._preprocess(**kwargs) # pylint: disable=protected-access
 
     list_length = len(np.atleast_1d(y))
