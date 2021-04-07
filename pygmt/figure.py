@@ -293,7 +293,7 @@ class Figure:
         # called. Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
-        # Set the default display method
+        # Set the display method
         if method is None:
             method = SHOW_CONFIG["method"]
 
