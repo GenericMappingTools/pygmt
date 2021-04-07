@@ -273,8 +273,7 @@ class Figure:
         This is useful when running unit tests and building the documentation
         in consoles without a Graphical User Interface.
 
-        Note that the external viewer does not block the current process,
-        so this won't work if multiple figures are shown in one script.
+        Note that the external viewer does not block the current process.
 
         Parameters
         ----------
