@@ -19,6 +19,7 @@ from pygmt.helpers import (
     G="fill",
     J="projection",
     R="region",
+    T="interval",
     W="pen",
     p="perspective",
 )
@@ -46,6 +47,9 @@ def histogram(self, table, **kwargs):
     horizontal : bool
         Plot the histogram using horizonal bars instead of the
         default vertical bars.
+    interval : int or str
+        [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ]
+        Set the interval for the width of each bar in the histogram.
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
