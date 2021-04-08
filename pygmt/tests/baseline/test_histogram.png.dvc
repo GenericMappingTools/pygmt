@@ -1,0 +1,4 @@
+outs:
+- md5: d11fec1232c5be477f3e51e4019a2d0e
+  size: 26172
+  path: test_histogram.png
