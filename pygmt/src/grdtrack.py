@@ -21,7 +21,9 @@ from pygmt.helpers import (
     C="crossprofile",
     E="profile",
     R="region",
+    N="no_skip",
     V="verbose",
+    Z="z_only",
     f="coltypes",
     j="distcalc",
     n="interpolation",
@@ -140,7 +142,12 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         given then that sampling scheme overrules any modifier set in
         ``profile``.
     {R}
+    no_skip : bool
+        Do *not* skip points that fall outside the domain of the grid(s)
+        [Default only output points within grid domain].
     {V}
+    z_only : bool
+        Only write out the sampled z-values [Default writes all columns].
     {f}
     {j}
     {n}
