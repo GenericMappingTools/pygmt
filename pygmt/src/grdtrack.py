@@ -18,7 +18,7 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     A="resampling",
-    C="cross_profile",
+    C="crossprofile",
     E="profile",
     R="region",
     V="verbose",
@@ -36,7 +36,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     first two columns (more columns may be present). It interpolates the
     grid(s) at the positions in the table and writes out the table with the
     interpolated values added as (one or more) new columns. Alternatively
-    (``cross_profile``), the input is considered to be line-segments and we
+    (``crossprofile``), the input is considered to be line-segments and we
     create orthogonal cross-profiles at each data point or with an equidistant
     separation and sample the grid(s) along these profiles. A bicubic
     [Default], bilinear, B-spline or nearest-neighbor interpolation is used,
@@ -71,7 +71,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
     resampling : str
         **f**\|\ **p**\|\ **m**\|\ **r**\|\ **R**\ [**+l**]
-        For track resampling (if ``cross_profile`` or ``profile`` are set) we
+        For track resampling (if ``crossprofile`` or ``profile`` are set) we
         can select how this is to be performed. Append **f** to keep original
         points, but add intermediate points if needed [Default], **m** as
         **f**, but first follow meridian (along y) then parallel (along x),
@@ -80,9 +80,9 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         not necessarily included in the output, and **R** as **r**, but adjust
         given spacing to fit the track length exactly. Finally, append
         **+l** if geographic distances should be measured along rhumb lines
-        (loxodromes) instead of great circles. Ignored unless ``cross_profile``
+        (loxodromes) instead of great circles. Ignored unless ``crossprofile``
         is used.
-    cross_profile : str
+    crossprofile : str
         *length*/\ *ds*\ [*/spacing*][**+a**\|\ **+v**][**l**\|\ **r**].
         Use input line segments to create an equidistant and (optionally)
         equally-spaced set of crossing profiles along which we sample the
@@ -136,8 +136,8 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         result in an error. If no units are specified we default to great
         circle distances in km (if geographic). If working with geographic data
         you can use ``distcalc`` to control distance calculation mode [Default
-        is Great Circle]. **Note**: If ``cross_profile`` is set and *spacing*
-        is given then that sampling scheme overrules any modifier set in
+        is Great Circle]. **Note**: If ``crossprofile`` is set and *spacing* is
+        given then that sampling scheme overrules any modifier set in
         ``profile``.
     {R}
     {V}
