@@ -39,6 +39,13 @@ def histogram(self, table, **kwargs):
     {J}
     {R}
     {B}
+    {CPT}
+    {G}
+    {W}
+    {p}
+    horizontal : bool
+        Plot the histogram using horizonal bars instead of the
+        default vertical bars.
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
