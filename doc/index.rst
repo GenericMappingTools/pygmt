@@ -35,6 +35,7 @@
     tutorials/plot.rst
     tutorials/lines.rst
     tutorials/vectors.rst
+    tutorials/date_time_charts.rst
     tutorials/text.rst
     tutorials/contour_map.rst
     tutorials/earth_relief.rst
