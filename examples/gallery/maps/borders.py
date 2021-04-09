@@ -11,8 +11,8 @@ below:
 * **3** = Marine boundaries
 * **a** = All boundaries (1-3)
 
-For example, to draw national boundaries with a line thickness of 1p and black line 
-color use ``borders="1/1p,black"``. You can draw multiple boundaries by passing in 
+For example, to draw national boundaries with a line thickness of 1p and black line
+color use ``borders="1/1p,black"``. You can draw multiple boundaries by passing in
 a list to ``borders``.
 """
 import pygmt

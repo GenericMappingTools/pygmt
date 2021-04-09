@@ -4,30 +4,17 @@ This page contains instructions for project maintainers about how our setup work
 making releases, creating packages, etc.
 
 If you want to make a contribution to the project, see the
-[Contributing Guide](CONTRIBUTING.md) instead.
-
-## Table of Contents
-* [Onboarding Access Checklist](#onboarding-access-checklist)
-* [Branches](#branches)
-* [Reviewing and Merging Pull Requests](#reviewing-and-merging-pull-requests)
-* [Continuous Integration](#continuous-integration)
-* [Continuous Documentation](#continuous-documentation)
-* [Dependencies Policy](#dependencies-policy)
-* [Making a Release](#making-a-release)
-    - [Updating the Changelog](#updating-the-changelog)
-    - [Check the README Syntax](#check-the-readme-syntax)
-    - [Pushing to PyPI and Updating the Documentation](#pushing-to-pypi-and-updating-the-documentation)
-    - [Archiving on Zenodo](#archiving-on-zenodo)
-    - [Updating the Conda Package](#updating-the-conda-package)
+[Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md)
+instead.
 
 ## Onboarding Access Checklist
 
-- [ ] Added to [python-maintainers](https://github.com/orgs/GenericMappingTools/teams/python-maintainers) team in the [GenericMappingTools](https://github.com/orgs/GenericMappingTools/teams/) organization on GitHub (gives 'maintain' permissions)
-- [ ] Added as collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
-- [ ] Added as moderator on [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
-- [ ] Added as member on the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
-- [ ] Added as maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
-- [ ] Added as member on [HackMD](https://hackmd.io/@pygmt) [optional]
+- Added to [python-maintainers](https://github.com/orgs/GenericMappingTools/teams/python-maintainers) team in the [GenericMappingTools](https://github.com/orgs/GenericMappingTools/teams/) organization on GitHub (gives 'maintain' permissions)
+- Added as collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
+- Added as moderator on [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
+- Added as member on the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
+- Added as maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
+- Added as member on [HackMD](https://hackmd.io/@pygmt) [optional]
 
 ## Branches
 
