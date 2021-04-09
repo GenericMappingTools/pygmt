@@ -35,6 +35,7 @@ def histogram(self, table, **kwargs):
 
     Parameters
     ----------
+
     table : str, list, or 1d array
         A data file name, list, or 1d numpy array. This is a required argument.
     {J}
@@ -50,6 +51,7 @@ def histogram(self, table, **kwargs):
     interval : int or str
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ]
         Set the interval for the width of each bar in the histogram.
+
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
