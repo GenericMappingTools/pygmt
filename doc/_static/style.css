@@ -89,6 +89,11 @@ p {
     max-width: 1000px;
 }
 
+/* Format parameters section similar to sphinx_rtd_theme v4.x.x (not grid) */
+html.writer-html5 .rst-content dl.field-list {
+    display: initial;
+}
+
 /* Remove the padding from the Parameters table */
 .rst-content table.field-list .field-name {
     padding-left: 0px;
