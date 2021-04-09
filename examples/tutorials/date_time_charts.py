@@ -1,8 +1,8 @@
 """
-Plotting Date Time Charts
-================
+Plotting Datetime Charts
+========================
 
-Plotting vectors is handled by :meth:`pygmt.Figure.basemap`.
+Plotting datetime charts is handled by :meth:`pygmt.Figure.basemap`.
 
 .. note::
 
@@ -13,41 +13,61 @@ Plotting vectors is handled by :meth:`pygmt.Figure.basemap`.
     To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
     is the desired name and file extension for the saved figure.
 """
-# sphinx_gallery_thumbnail_number = 6
+# sphinx_gallery_thumbnail_number = 0
 
 import numpy as np
 import pygmt
 
-#########################################################################################
-# Plot Cartesian Vectors
+########################################################################################
+# Date - Time Formats into `fig.basemap`
 # ----------------------
 #
-# Create a simple Cartesian vector using a starting point through
-# ``x``, ``y``, and ``direction`` parameters.
-# On the shown figure, the plot is projected on a 10cm X 10cm region,
-# which is specified by the ``projection`` parameter.
-# The direction is specified
-# by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``.
-# The angle is measured in degrees and moves counter-clockwise from the
-# horizontal.
-# The length of the vector uses centimeters by default but
-# could be changed using :meth:`pygmt.config`
-# (Check the next examples for unit changes).
-#
-# Notice that the ``v`` in the ``style`` parameter stands for
-# vector; it distinguishes it from regular lines and allows for
-# different customization. ``0c`` is used to specify the size
-# of the arrow head which explains why there is no arrow on either
-# side of the vector.
+# Explanation of supported formats.
 
-fig = pygmt.Figure()
-fig.plot(
-    region=[0, 10, 0, 10],
-    projection="X10c/10c",
-    frame="ag",
-    x=2,
-    y=8,
-    style="v0c",
-    direction=[[-45], [6]],
-)
-fig.show()
+########################################################################################
+# `numpy.datetime64`
+
+
+# Code
+
+########################################################################################
+# `pandas.DatetimeIndex`
+
+# Code
+
+########################################################################################
+# `xarray.DataArray`
+
+# Code
+
+########################################################################################
+# Raw date-time in ISO format
+
+# Code
+
+########################################################################################
+# Python built-in: `datetime.datetime`
+
+# Code
+
+########################################################################################
+# Python built-in: `datetime.date`
+
+# Code
+
+########################################################################################
+# Using `pygmt.info` to get the min/max time for passing into the `region` parameter,
+# but note potential bug at #597.
+# ----------------------
+#
+# Explanation of supported parameters + bug.
+
+# Code
+
+########################################################################################
+# Setting Primary and Secondary Time Axes
+# ----------------------
+#
+# Explanation.
+
+# Code
