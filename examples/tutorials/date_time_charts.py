@@ -56,11 +56,10 @@ import pygmt
 # Code
 
 ########################################################################################
-# Using `pygmt.info` to get the min/max time for passing into the `region` parameter,
-# but note potential bug at #597.
+# Passing Min/Max Time into `region` parameter using `pygmt.info`
 # ----------------------
 #
-# Explanation of supported parameters + bug.
+# Explanation of supported parameters + bug at #597.
 
 # Code
 
