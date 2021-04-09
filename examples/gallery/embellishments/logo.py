@@ -2,7 +2,7 @@
 Logo
 ----
 
-The :meth:`pygmt.Figure.logo` method allows to place the GMT logo on a map.  
+The :meth:`pygmt.Figure.logo` method allows to place the GMT logo on a map.
 """
 
 import pygmt
