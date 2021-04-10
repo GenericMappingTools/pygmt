@@ -156,6 +156,7 @@ Basic policy for backward compatibility:
 - Any incompatible changes should go through the deprecation process below.
 - Incompatible changes are allowed in major and minor releases, not in patch
   releases.
+- Incompatible changes should be documente in the release notes.
 
 When making incompatible changes, we should follow the process:
 
