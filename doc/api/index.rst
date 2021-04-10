@@ -36,8 +36,10 @@ Plotting data and laying out the map:
     Figure.meca
     Figure.plot
     Figure.plot3d
+    Figure.rose
     Figure.set_panel
     Figure.shift_origin
+    Figure.solar
     Figure.subplot
     Figure.text
 
@@ -58,6 +60,13 @@ Saving and displaying the figure:
     Figure.show
     Figure.psconvert
 
+Configuring the display settings:
+
+.. autosummary::
+    :toctree: generated
+
+    set_display
+
 
 Data Processing
 ---------------
@@ -67,6 +76,7 @@ Operations on tabular data:
 .. autosummary::
     :toctree: generated
 
+    blockmean
     blockmedian
     surface
 
@@ -141,6 +151,7 @@ and store them in the GMT cache folder.
     datasets.load_ocean_ridge_points
     datasets.load_sample_bathymetry
     datasets.load_usgs_quakes
+    datasets.load_fractures_compilation
 
 .. automodule:: pygmt.exceptions
 

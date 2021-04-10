@@ -17,5 +17,5 @@ def test_image():
     Place images on map.
     """
     fig = Figure()
-    fig.image(TEST_IMG, D="x0/0+w1i", F="+pthin,blue")
+    fig.image(TEST_IMG, position="x0/0+w2c", box="+pthin,blue")
     return fig

@@ -1,6 +1,6 @@
 """
-Plot lines
-==========
+Plotting lines
+==============
 
 Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
@@ -28,7 +28,7 @@ import pygmt
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X25c/20c",
+    projection="X15c/10c",
     frame="a",
     x=[1, 8],
     y=[5, 9],
@@ -43,7 +43,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X25c/20c",
+    projection="X15c/10c",
     frame="a",
     x=[1, 6, 9],
     y=[5, 7, 4],
@@ -59,7 +59,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X25c/20c",
+    projection="X15c/10c",
     frame="a",
     x=[1, 6, 9],
     y=[5, 7, 4],
@@ -81,7 +81,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X25c/20c",
+    projection="X15c/10c",
     frame="a",
     x=[1, 8],
     y=[3, 9],
@@ -96,7 +96,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X25c/20c",
+    projection="X15c/10c",
     frame="a",
     x=[1, 8],
     y=[3, 9],
@@ -112,7 +112,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X25c/20c",
+    projection="X15c/10c",
     frame="a",
     x=[1, 8],
     y=[3, 9],
@@ -125,12 +125,12 @@ fig.show()
 # example below, the line width is set to ``7p``, the color is set to ``green``, and the
 # line style is ``-.-`` (*dash dot dash*).
 #
-# For a gallery showing other ``pen`` settings, see :doc:`/gallery/line/linestyles`.
+# For a gallery showing other ``pen`` settings, see :doc:`/gallery/lines/linestyles`.
 
 fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
-    projection="X25c/20c",
+    projection="X15c/10c",
     frame="a",
     x=[1, 8],
     y=[3, 9],
