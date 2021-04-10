@@ -76,7 +76,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.0.1
+        uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
@@ -140,7 +140,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.2.2
+        uses: codecov/codecov-action@v1.3.2
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
