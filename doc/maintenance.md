@@ -151,7 +151,7 @@ adjusted upward on every major and minor release, but never on a patch release.
 PyGMT is still undergoing rapid developement. All the API is subject to change
 until the v1.0.0 release.
 
-Basic policy for backward compatibility:
+Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
 - Incompatible changes are allowed in major and minor releases, not in patch
