@@ -146,6 +146,45 @@ supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.
 
 
+## Backwards compatibility and deprecation policy
+
+PyGMT is still undergoing rapid developement. All the API is subject to change
+until the v1.0.0 release.
+
+Basic policy for backward compatibility:
+
+- Any incompatible changes should go through the deprecation process below.
+- Incompatible changes are allowed in major and minor releases, not in patch
+  releases.
+
+When making incompatible changes, we should follow the process:
+
+- Discuss about if the incompatible changes are necessary.
+- Make the changes in a backwards compatible way, and raise a `FutureWarning`
+  warning for old usage. At least one test using the old usage should be added.
+- The warning message should clearly explain the changes and include the versions
+  the old usage is deprecated and is expected to be removed.
+- The `FutureWarning` warning should appear in 2-4 minor versions, depending on
+  the impact of the changes. It means the deprecation period usually last
+  3-12 months.
+- Remove the old usage and warning when reaching the declared version.
+
+To rename a function parameter, we can simply add the `@deprecated_parameter`
+decorator before the function (after the `@use_alias` decorator if any).
+Here is an example:
+
+```
+@fmt_docstring
+@use_alias(J="projection", R="region", V="verbose")
+@kwargs_to_strings(R="sequence")
+@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
+def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
+    pass
+```
+It means the old parameter name `sizes` is deprecated since v0.4.0, and will be
+fully removed in v0.6.0. The new parameter name is `size`.
+
+
 ## Making a Release
 
 We try to automate the release process as much as possible.
