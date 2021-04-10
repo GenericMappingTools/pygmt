@@ -215,9 +215,8 @@ General guidelines for making a Pull Request (PR):
   an issue that matches your PR, leave a comment there instead to let us know
   what you plan to do.
 * Each pull request should consist of a **small** and logical collection of
-  changes.
-* Larger changes should be broken down into smaller components and integrated
-  separately.
+  changes; larger changes should be broken down into smaller parts and
+  integrated separately.
 * Bug fixes should be submitted in separate PRs.
 * Use underscores for all Python (*.py) files as per
   [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
@@ -575,7 +574,7 @@ To increase the chances of getting your pull request accepted quickly, try to:
   the *reason* behind non-obvious things.
 * Include an example of new features in the gallery or tutorials.
 * Follow the [PEP8](http://pep8.org) style guide for code and the
-  [numpy guide](https://numpydoc.readthedocs.io/en/latest/format.html)
+  [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
   for documentation.
 
 Pull requests will automatically have tests run by GitHub Actions.
