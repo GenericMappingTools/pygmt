@@ -61,6 +61,13 @@ Saving and displaying the figure:
     Figure.show
     Figure.psconvert
 
+Configuring the display settings:
+
+.. autosummary::
+    :toctree: generated
+
+    set_display
+
 
 Data Processing
 ---------------
