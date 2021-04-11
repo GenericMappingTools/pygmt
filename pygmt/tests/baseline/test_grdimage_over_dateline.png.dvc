@@ -1,0 +1,4 @@
+outs:
+- md5: 9fde25c97659e17430eff8f6f66a9412
+  size: 10988
+  path: test_grdimage_over_dateline.png
