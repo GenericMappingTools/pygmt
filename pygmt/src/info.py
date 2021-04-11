@@ -23,7 +23,17 @@ from pygmt.helpers import (
     r="registration",
 )
 @kwargs_to_strings(I="sequence")
-def info(table, **kwargs):
+def info(
+    table,
+    per_column=False,
+    spacing=None,
+    nearest_multiple=None,
+    verbose=None,
+    aspatial=None,
+    coltypes=None,
+    registration=None,
+    **kwargs
+):
     r"""
     Get information about data tables.
 
