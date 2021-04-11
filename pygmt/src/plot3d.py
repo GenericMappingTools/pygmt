@@ -44,7 +44,40 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot3d(
-    self, x=None, y=None, z=None, data=None, sizes=None, direction=None, **kwargs
+    self,
+    x=None,
+    y=None,
+    z=None,
+    data=None,
+    sizes=None,
+    direction=None,
+    straight_line=None,
+    frame=None,
+    cmap=None,
+    offset=None,
+    color=None,
+    intensity=None,
+    projection=None,
+    zscale=None,
+    zsize=None,
+    close=None,
+    no_clip=None,
+    no_sort=None,
+    region=None,
+    style=None,
+    verbose=None,
+    pen=None,
+    xshift=None,
+    yshift=None,
+    zvalue=None,
+    aspatial=None,
+    columns=None,
+    label=None,
+    panel=None,
+    coltypes=None,
+    perspective=None,
+    transparency=None,
+    **kwargs,
 ):
     r"""
     Plot lines, polygons, and symbols in 3-D.

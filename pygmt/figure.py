@@ -132,7 +132,17 @@ class Figure:
         Q="anti_aliasing",
     )
     @kwargs_to_strings()
-    def psconvert(self, **kwargs):
+    def psconvert(
+        self,
+        crop=None,
+        gs_option=None,
+        dpi=None,
+        prefix=None,
+        icc_gray=None,
+        fmt=None,
+        anti_aliasing=None,
+        **kwargs,
+    ):
         r"""
         Convert [E]PS file(s) to other formats.
 

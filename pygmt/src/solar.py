@@ -23,7 +23,24 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def solar(self, terminator="d", terminator_datetime=None, **kwargs):
+def solar(
+    self,
+    terminator="d",
+    terminator_datetime=None,
+    frame=None,
+    fill=None,
+    projection=None,
+    region=None,
+    timestamp=None,
+    verbose=None,
+    pen=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
+    **kwargs,
+):
     r"""
     Plot day-light terminators or twilights.
 

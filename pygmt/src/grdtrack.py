@@ -16,7 +16,16 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(V="verbose", f="coltypes", n="interpolation")
-def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
+def grdtrack(
+    points,
+    grid,
+    newcolname=None,
+    outfile=None,
+    verbose=None,
+    coltypes=None,
+    interpolation=None,
+    **kwargs,
+):
     """
     Sample grids at specified (x,y) locations.
 

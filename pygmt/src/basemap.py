@@ -33,7 +33,26 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, **kwargs):
+def basemap(
+    self,
+    region=None,
+    projection=None,
+    zscale=None,
+    zsize=None,
+    frame=None,
+    map_scale=None,
+    rose=None,
+    compass=None,
+    timestamp=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    coltypes=None,
+    perspective=None,
+    transparency=None,
+    **kwargs
+):
     r"""
     Plot base maps and frames for the figure.
 

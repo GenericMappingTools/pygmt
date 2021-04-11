@@ -30,7 +30,30 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(
     R="sequence", L="sequence", A="sequence_plus", c="sequence_comma", p="sequence"
 )
-def grdcontour(self, grid, **kwargs):
+def grdcontour(
+    self,
+    grid,
+    annotation=None,
+    frame=None,
+    interval=None,
+    label_placement=None,
+    projection=None,
+    limit=None,
+    cut=None,
+    region=None,
+    resample=None,
+    timestamp=None,
+    verbose=None,
+    pen=None,
+    label=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    coltypes=None,
+    perspective=None,
+    transparency=None,
+    **kwargs
+):
     r"""
     Convert grids or images to contours and plot them on maps.
 

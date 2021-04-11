@@ -38,7 +38,31 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdview(self, grid, **kwargs):
+def grdview(
+    self,
+    grid,
+    region=None,
+    projection=None,
+    zscale=None,
+    zsize=None,
+    frame=None,
+    cmap=None,
+    drapegrid=None,
+    plane=None,
+    surftype=None,
+    contourpen=None,
+    meshpen=None,
+    facadepen=None,
+    shading=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    coltypes=None,
+    perspective=None,
+    transparency=None,
+    **kwargs,
+):
     r"""
     Create 3-D perspective image or surface mesh from a grid.
 

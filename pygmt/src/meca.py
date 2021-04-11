@@ -120,6 +120,17 @@ def meca(
     component="full",
     plot_longitude=None,
     plot_latitude=None,
+    region=None,
+    projection=None,
+    frame=None,
+    offset=None,
+    no_clip=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
     **kwargs,
 ):
     """

@@ -31,7 +31,33 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     x="cores",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid, **kwargs):
+def grdimage(
+    self,
+    grid,
+    img_out=None,
+    frame=None,
+    cmap=None,
+    img_in=None,
+    dpi=None,
+    bit_color=None,
+    shading=None,
+    projection=None,
+    monochrome=None,
+    no_clip=None,
+    nan_transparent=None,
+    region=None,
+    timestamp=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    interpolation=None,
+    panel=None,
+    coltypes=None,
+    perspective=None,
+    transparency=None,
+    cores=None,
+    **kwargs
+):
     r"""
     Project and plot grids or images.
 

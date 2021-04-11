@@ -80,7 +80,17 @@ def _blockm(block_method, table, outfile, **kwargs):
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
-def blockmean(table, outfile=None, **kwargs):
+def blockmean(
+    table,
+    outfile=None,
+    spacing=None,
+    region=None,
+    verbose=None,
+    aspatial=None,
+    coltypes=None,
+    registration=None,
+    **kwargs,
+):
     r"""
     Block average (x,y,z) data tables by mean estimation.
 
@@ -141,7 +151,17 @@ def blockmean(table, outfile=None, **kwargs):
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
-def blockmedian(table, outfile=None, **kwargs):
+def blockmedian(
+    table,
+    outfile=None,
+    spacing=None,
+    region=None,
+    verbose=None,
+    aspatial=None,
+    coltypes=None,
+    registration=None,
+    **kwargs,
+):
     r"""
     Block average (x,y,z) data tables by median estimation.
 

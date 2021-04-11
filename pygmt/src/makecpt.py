@@ -25,7 +25,24 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     Z="continuous",
 )
 @kwargs_to_strings(T="sequence", G="sequence")
-def makecpt(**kwargs):
+def makecpt(
+    transparency=None,
+    cmap=None,
+    background=None,
+    color_model=None,
+    truncate=None,
+    output=None,
+    reverse=None,
+    overrule_bg=None,
+    no_bg=None,
+    log=None,
+    series=None,
+    verbose=None,
+    categorical=None,
+    cyclic=None,
+    continuous=None,
+    **kwargs,
+):
     r"""
     Make GMT color palette tables.
 

@@ -43,7 +43,41 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
+def plot(
+    self,
+    x=None,
+    y=None,
+    data=None,
+    sizes=None,
+    direction=None,
+    straight_line=None,
+    frame=None,
+    cmap=None,
+    offset=None,
+    error_bar=None,
+    connection=None,
+    color=None,
+    intensity=None,
+    projection=None,
+    close=None,
+    no_clip=None,
+    region=None,
+    style=None,
+    timestamp=None,
+    verbose=None,
+    pen=None,
+    xshift=None,
+    yshift=None,
+    zvalue=None,
+    aspatial=None,
+    columns=None,
+    label=None,
+    panel=None,
+    coltypes=None,
+    perspective=None,
+    transparency=None,
+    **kwargs,
+):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 

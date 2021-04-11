@@ -27,7 +27,21 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
+def legend(
+    self,
+    spec=None,
+    position="JTR+jTR+o0.2c",
+    box="+gwhite+p1p",
+    region=None,
+    projection=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
+    **kwargs
+):
     r"""
     Plot legends on maps.
 

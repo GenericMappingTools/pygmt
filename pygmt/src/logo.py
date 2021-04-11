@@ -21,7 +21,21 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(self, **kwargs):
+def logo(
+    self,
+    region=None,
+    projection=None,
+    position=None,
+    box=None,
+    style=None,
+    timestamp=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    transparency=None,
+    **kwargs
+):
     r"""
     Plot the GMT logo.
 

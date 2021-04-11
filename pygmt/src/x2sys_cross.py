@@ -69,7 +69,22 @@ def tempfile_from_dftrack(track, suffix):
     Z="trackvalues",
 )
 @kwargs_to_strings(R="sequence")
-def x2sys_cross(tracks=None, outfile=None, **kwargs):
+def x2sys_cross(
+    tracks=None,
+    outfile=None,
+    combitable=None,
+    runtimes=None,
+    override=None,
+    interpolation=None,
+    region=None,
+    speed=None,
+    tag=None,
+    coe=None,
+    verbose=None,
+    numpoints=None,
+    trackvalues=None,
+    **kwargs,
+):
     r"""
     Calculate crossovers between track data files.
 

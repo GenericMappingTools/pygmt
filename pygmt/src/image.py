@@ -20,7 +20,22 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def image(self, imagefile, **kwargs):
+def image(
+    self,
+    imagefile,
+    region=None,
+    projection=None,
+    position=None,
+    box=None,
+    monochrome=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
+    **kwargs
+):
     r"""
     Place images or EPS files on maps.
 

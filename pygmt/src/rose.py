@@ -35,7 +35,38 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def rose(self, length=None, azimuth=None, data=None, **kwargs):
+def rose(
+    self,
+    length=None,
+    azimuth=None,
+    data=None,
+    sector=None,
+    frame=None,
+    cmap=None,
+    shift=None,
+    vectors=None,
+    no_scale=None,
+    color=None,
+    inquire=None,
+    diameter=None,
+    labels=None,
+    vector_params=None,
+    alpha=None,
+    region=None,
+    norm=None,
+    orientation=None,
+    timestamp=None,
+    verbose=None,
+    pen=None,
+    xshift=None,
+    yshift=None,
+    scale=None,
+    columns=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
+    **kwargs
+):
     """
     Plot windrose diagrams or polar histograms.
 

@@ -25,7 +25,20 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(D="sequence", I="sequence", R="sequence")
-def grdinfo(grid, **kwargs):
+def grdinfo(
+    grid,
+    per_column=None,
+    tiles=None,
+    geographic=None,
+    spacing=None,
+    force_scan=None,
+    minmax_pos=None,
+    region=None,
+    nearest_multiple=None,
+    verbose=None,
+    coltypes=None,
+    **kwargs
+):
     r"""
     Get information about a grid.
 

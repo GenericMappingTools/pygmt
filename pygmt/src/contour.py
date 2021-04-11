@@ -36,7 +36,32 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(self, x=None, y=None, z=None, data=None, **kwargs):
+def contour(
+    self,
+    x=None,
+    y=None,
+    z=None,
+    data=None,
+    annotation=None,
+    frame=None,
+    levels=None,
+    label_placement=None,
+    projection=None,
+    triangular_mesh_pen=None,
+    no_clip=None,
+    region=None,
+    skip=None,
+    verbose=None,
+    pen=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    columns=None,
+    label=None,
+    perspective=None,
+    transparency=None,
+    **kwargs
+):
     r"""
     Contour table data by direct triangulation.
 

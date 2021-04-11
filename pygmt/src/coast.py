@@ -37,7 +37,30 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def coast(self, **kwargs):
+def coast(
+    self,
+    region=None,
+    projection=None,
+    area_thresh=None,
+    lakes=None,
+    frame=None,
+    resolution=None,
+    dcw=None,
+    rivers=None,
+    map_scale=None,
+    borders=None,
+    shorelines=None,
+    land=None,
+    water=None,
+    timestamp=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    panel=None,
+    perspective=None,
+    transparency=None,
+    **kwargs
+):
     r"""
     Plot continents, shorelines, rivers, and borders on maps
 

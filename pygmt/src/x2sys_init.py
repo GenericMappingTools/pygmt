@@ -19,7 +19,20 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     j="distcalc",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def x2sys_init(tag, **kwargs):
+def x2sys_init(
+    tag,
+    fmtfile=None,
+    suffix=None,
+    force=None,
+    discontinuity=None,
+    spacing=None,
+    units=None,
+    region=None,
+    verbose=None,
+    gap=None,
+    distcalc=None,
+    **kwargs
+):
     r"""
     Initialize a new x2sys track database.
 

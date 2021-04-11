@@ -25,7 +25,18 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, **kwargs):
+def grdcut(
+    grid,
+    outgrid=None,
+    region=None,
+    projection=None,
+    extend=None,
+    circ_subregion=None,
+    verbose=None,
+    z_subregion=None,
+    coltypes=None,
+    **kwargs
+):
     r"""
     Extract subregion from a grid.
 

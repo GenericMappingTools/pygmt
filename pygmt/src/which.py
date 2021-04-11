@@ -7,7 +7,7 @@ from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alia
 
 @fmt_docstring
 @use_alias(G="download", V="verbose")
-def which(fname, **kwargs):
+def which(fname, download=None, verbose=None, **kwargs):
     """
     Find the full path to specified files.
 

@@ -27,7 +27,20 @@ from pygmt.helpers import (
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
-def surface(x=None, y=None, z=None, data=None, **kwargs):
+def surface(
+    x=None,
+    y=None,
+    z=None,
+    data=None,
+    spacing=None,
+    region=None,
+    outfile=None,
+    verbose=None,
+    aspatial=None,
+    coltypes=None,
+    registration=None,
+    **kwargs
+):
     r"""
     Grids table data using adjustable tension continuous curvature splines.
 

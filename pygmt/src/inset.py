@@ -11,7 +11,9 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @contextlib.contextmanager
 @use_alias(D="position", F="box", M="margin", N="no_clip", V="verbose")
 @kwargs_to_strings(D="sequence", M="sequence")
-def inset(self, **kwargs):
+def inset(
+    self, position=None, box=None, margin=None, no_clip=None, verbose=None, **kwargs
+):
     r"""
     Create an inset figure to be placed within a larger figure.
 

@@ -27,7 +27,20 @@ from pygmt.helpers import (
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
-def grdfilter(grid, **kwargs):
+def grdfilter(
+    grid,
+    distance=None,
+    filter=None,
+    outgrid=None,
+    spacing=None,
+    nans=None,
+    region=None,
+    toggle=None,
+    verbose=None,
+    coltypes=None,
+    registration=None,
+    **kwargs
+):
     r"""
     Filter a grid in the space (or time) domain.
 

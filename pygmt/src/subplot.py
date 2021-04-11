@@ -33,7 +33,26 @@ from pygmt.helpers import (
     Y="yshift",
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
-def subplot(self, nrows=1, ncols=1, **kwargs):
+def subplot(
+    self,
+    nrows=1,
+    ncols=1,
+    figsize=None,
+    subsize=None,
+    autolabel=None,
+    frame=None,
+    clearance=None,
+    projecton=None,
+    margins=None,
+    region=None,
+    sharex=None,
+    sharey=None,
+    title=None,
+    verbose=None,
+    xshift=None,
+    yshift=None,
+    **kwargs,
+):
     r"""
     Create multi-panel subplot figures.
 
@@ -173,7 +192,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
 @fmt_docstring
 @contextlib.contextmanager
 @use_alias(A="fixedlabel", C="clearance", V="verbose")
-def set_panel(self, panel=None, **kwargs):
+def set_panel(
+    self, panel=None, fixedlabel=None, clearance=None, verbose=None, **kwargs
+):
     r"""
     Set the current subplot panel to plot on.
 

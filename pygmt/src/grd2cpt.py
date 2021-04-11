@@ -29,7 +29,28 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     Z="continuous",
 )
 @kwargs_to_strings(G="sequence", L="sequence", R="sequence", T="sequence")
-def grd2cpt(grid, **kwargs):
+def grd2cpt(
+    grid,
+    transparency=None,
+    cmap=None,
+    background=None,
+    color_model=None,
+    nlevels=None,
+    truncate=None,
+    output=None,
+    reverse=None,
+    limit=None,
+    overrule_bg=None,
+    no_bg=None,
+    log=None,
+    region=None,
+    series=None,
+    verbose=None,
+    categorical=None,
+    cyclic=None,
+    continuous=None,
+    **kwargs,
+):
     r"""
     Make GMT color palette tables from a grid file.
 
