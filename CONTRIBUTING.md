@@ -243,6 +243,33 @@ General guidelines for making a Pull Request (PR):
   - Be aware that the pull request review process is not immediate, and is
     generally proportional to the size of the pull request.
 
+#### Code Review
+
+After you've submitted a pull request, you should expect to hear at least a
+comment within a couple of days. We may suggest some changes, improvements or
+alternative implementation details.
+
+To increase the chances of getting your pull request accepted quickly, try to:
+
+* Submit a friendly PR
+  - Write a good and detailed description of what the PR does.
+  - Write some documentation for your code (docstrings) and leave comments explaining
+    the *reason* behind non-obvious things.
+  - Write tests for the code you wrote/modified if needed.
+  - Include an example of new features in the gallery or tutorials.
+* Have a good coding style
+  - Use readable code, as it is better than clever code (even with comments).
+  - Follow the [PEP8](http://pep8.org) style guide for code and the
+    [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
+    for docstrings.
+
+Pull requests will automatically have tests run by GitHub Actions.
+This includes running both the unit tests as well as code linters.
+GitHub will show the status of these checks on the pull request.
+Try to get them all passing (green).
+If you have any trouble, leave a comment in the PR or
+[get in touch](#how-can-i-talk-to-you).
+
 ### Setting up your environment
 
 We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
@@ -566,30 +593,3 @@ function/class/module.
 [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
-
-### Code Review
-
-After you've submitted a pull request, you should expect to hear at least a
-comment within a couple of days. We may suggest some changes, improvements or
-alternative implementation details.
-
-To increase the chances of getting your pull request accepted quickly, try to:
-
-* Submit a friendly PR
-  - Write a good and detailed description of what the PR does.
-  - Write some documentation for your code (docstrings) and leave comments explaining
-    the *reason* behind non-obvious things.
-  - Write tests for the code you wrote/modified if needed.
-  - Include an example of new features in the gallery or tutorials.
-* Have a good coding style
-  - Use readable code, as it is better than clever code (even with comments).
-  - Follow the [PEP8](http://pep8.org) style guide for code and the
-    [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
-    for docstrings.
-
-Pull requests will automatically have tests run by GitHub Actions.
-This includes running both the unit tests as well as code linters.
-GitHub will show the status of these checks on the pull request.
-Try to get them all passing (green).
-If you have any trouble, leave a comment in the PR or
-[get in touch](#how-can-i-talk-to-you).
