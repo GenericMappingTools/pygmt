@@ -588,8 +588,3 @@ https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUN
 
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
-
-**All docstrings** should follow the
-[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
-All functions/classes/methods should have docstrings with a full description of all
-arguments and return values.
