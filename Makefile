@@ -36,7 +36,7 @@ test:
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
-	cd $(TESTDIR); pytest $(PYTEST_COV_ARGS) $(PROJECT)
+	cd $(TESTDIR); PYGMT_USE_EXTERNAL_DISPLAY="false" pytest $(PYTEST_COV_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
 	rm -r $(TESTDIR)
