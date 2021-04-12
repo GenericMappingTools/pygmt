@@ -2,13 +2,7 @@
 Histogram - Create a histogram
 """
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -59,11 +53,8 @@ def histogram(self, table, **kwargs):
 
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    with GMTTempFile() as outfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
-            with file_context as infile:
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("histogram", arg_str)
-        result = outfile.read()
-    return result
+    with Session() as lib:
+        file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
+        with file_context as infile:
+            arg_str = " ".join([infile, build_arg_string(kwargs)])
+            lib.call_module("histogram", arg_str)
