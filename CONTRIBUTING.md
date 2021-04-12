@@ -538,11 +538,15 @@ def test_my_plotting_case():
 
 ### Documentation
 
+Most documentation sources are in the `doc` folder. The documentation are
+written in [reStructureText](https://docutils.sourceforge.io/rst.html) and
+built by [sphinx](http://www.sphinx-doc.org/). Please refer to
+[reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/rst-cheatsheet.html)
+if you are new to reStructureText.
+
 #### Building the documentation
 
-Most documentation sources are in the `doc` folder.
-We use [sphinx](http://www.sphinx-doc.org/) to build the web pages from these sources.
-To build the HTML files:
+To build the HTML files from sources:
 
 ```bash
 cd doc
