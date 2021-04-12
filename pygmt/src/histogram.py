@@ -19,8 +19,10 @@ from pygmt.helpers import (
     G="fill",
     J="projection",
     R="region",
-    T="interval",
+    T="series",
     W="pen",
+    c="panel",
+    l="label",
     p="perspective",
 )
 @kwargs_to_strings(R="sequence", T="sequence")
@@ -44,6 +46,9 @@ def histogram(self, table, **kwargs):
     {CPT}
     {G}
     {W}
+    {c}
+    label : str
+        Add a legend entry for the symbol or line being plotted.
     {p}
     horizontal : bool
         Plot the histogram using horizonal bars instead of the
@@ -53,9 +58,10 @@ def histogram(self, table, **kwargs):
         Set the interval for the width of each bar in the histogram.
 
     """
+    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with GMTTempFile() as outfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(data=table)
+            file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
             with file_context as infile:
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("histogram", arg_str)
