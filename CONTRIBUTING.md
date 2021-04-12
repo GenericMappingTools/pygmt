@@ -215,9 +215,10 @@ This way, the *master* branch is always stable.
 
 General guidelines for making a Pull Request (PR):
 
-* **Open an issue first** describing what you want to do. If there is already
-  an issue that matches your PR, leave a comment there instead to let us know
-  what you plan to do.
+* Have a quick look at the titles of all the existing issues first. If there is
+  already an issue that matches your PR, leave a comment there to let us know
+  what you plan to do. Otherwise, **open an issue** describing what you want to
+  do.
 * Each pull request should consist of a **small** and logical collection of
   changes; larger changes should be broken down into smaller parts and
   integrated separately.
