@@ -148,7 +148,7 @@ adjusted upward on every major and minor release, but never on a patch release.
 
 ## Backwards compatibility and deprecation policy
 
-PyGMT is still undergoing rapid developement. All the API is subject to change
+PyGMT is still undergoing rapid developement. All of the API is subject to change
 until the v1.0.0 release.
 
 Basic policy for backwards compatibility:
@@ -160,13 +160,13 @@ Basic policy for backwards compatibility:
 
 When making incompatible changes, we should follow the process:
 
-- Discuss about if the incompatible changes are necessary.
+- Discuss whether the incompatible changes are necessary on GitHub.
 - Make the changes in a backwards compatible way, and raise a `FutureWarning`
   warning for old usage. At least one test using the old usage should be added.
 - The warning message should clearly explain the changes and include the versions
-  the old usage is deprecated and is expected to be removed.
+  in which the old usage is deprecated and is expected to be removed.
 - The `FutureWarning` warning should appear in 2-4 minor versions, depending on
-  the impact of the changes. It means the deprecation period usually last
+  the impact of the changes. It means the deprecation period usually lasts
   3-12 months.
 - Remove the old usage and warning when reaching the declared version.
 
