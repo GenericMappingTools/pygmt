@@ -215,30 +215,33 @@ This way, the *master* branch is always stable.
 
 General guidelines for making a Pull Request (PR):
 
-* Have a quick look at the titles of all the existing issues first. If there is
-  already an issue that matches your PR, leave a comment there to let us know
-  what you plan to do. Otherwise, **open an issue** describing what you want to
-  do.
-* Each pull request should consist of a **small** and logical collection of
-  changes; larger changes should be broken down into smaller parts and
-  integrated separately.
-* Bug fixes should be submitted in separate PRs.
-* Use underscores for all Python (*.py) files as per
-  [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
-  names should also use underscores instead of hyphens.
-* Describe what your PR changes and *why* this is a good thing. Be as specific
-  as you can. The PR description is how we keep track of the changes made to
-  the project over time.
-* Do not commit changes to files that are irrelevant to your feature or bugfix
-  (e.g.: `.gitignore`, IDE project files, etc).
-* Write descriptive commit messages. Chris Beams has written a
-  [guide](https://chris.beams.io/posts/git-commit/) on how to write good commit
-  messages.
-* Be willing to accept criticism and work on improving your code; we don't want
-  to break other users' code, so care must be taken not to introduce bugs.
-* Be aware that the pull request review process is not immediate, and is
-  generally proportional to the size of the pull request.
-
+* What should be included in a PR
+  - Have a quick look at the titles of all the existing issues first. If there
+    is already an issue that matches your PR, leave a comment there to let us
+    know what you plan to do. Otherwise, **open an issue** describing what you
+    want to do.
+  - Each pull request should consist of a **small** and logical collection of
+    changes; larger changes should be broken down into smaller parts and
+    integrated separately.
+  - Bug fixes should be submitted in separate PRs.
+* How to write and submit a PR
+  - Use underscores for all Python (*.py) files as per
+    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
+    names should also use underscores instead of hyphens.
+  - Describe what your PR changes and *why* this is a good thing. Be as
+    specific as you can. The PR description is how we keep track of the changes
+    made to the project over time.
+  - Do not commit changes to files that are irrelevant to your feature or
+    bugfix (e.g.: `.gitignore`, IDE project files, etc).
+  - Write descriptive commit messages. Chris Beams has written a
+    [guide](https://chris.beams.io/posts/git-commit/) on how to write good
+    commit messages.
+* PR review
+  - Be willing to accept criticism and work on improving your code; we don't
+    want to break other users' code, so care must be taken not to introduce
+    bugs.
+  - Be aware that the pull request review process is not immediate, and is
+    generally proportional to the size of the pull request.
 
 ### Setting up your environment
 
