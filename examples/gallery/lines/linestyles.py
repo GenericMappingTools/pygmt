@@ -38,7 +38,7 @@ for linestyle in [
     "1p,lightblue,-.",  # dash-dotted line
     "2p,blue,..-",  # dot-dot-dashed line
     "2p,tomato,--.",  # dash-dash-dotted line
-    # A pattern of 4-point-long line segments and 2-point-gaps between segments,
+    # A pattern of 4-point-long line segments and 2-point-long gaps between segments,
     # with pattern offset by 2 points from the origin
     "2p,tomato,4_2:2p",
 ]:
