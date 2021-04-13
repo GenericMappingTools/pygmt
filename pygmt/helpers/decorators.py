@@ -17,7 +17,7 @@ COMMON_OPTIONS = {
         region : str or list
             *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the region of interest.""",
+            Specify the :doc:`region </tutorials/regions>` of interest.""",
     "J": r"""
         projection : str
             *Required if this is the first plot command*.
@@ -25,7 +25,8 @@ COMMON_OPTIONS = {
             Select map :doc:`projection </projections/index>`.""",
     "B": r"""
         frame : bool or str or list
-            Set map boundary frame and axes attributes.""",
+            Set map boundary
+            :doc:`frame and axes attributes </tutorials/frames>`. """,
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
@@ -201,7 +202,7 @@ def fmt_docstring(module_func):
     region : str or list
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the region of interest.
+        Specify the :doc:`region </tutorials/regions>` of interest.
     projection : str
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
@@ -301,14 +302,14 @@ def use_alias(**aliases):
     return alias_decorator
 
 
-def kwargs_to_strings(convert_bools=True, **conversions):
+def kwargs_to_strings(**conversions):
     """
     Decorator to convert given keyword arguments to strings.
 
     The strings are what GMT expects from command line arguments.
 
-    Converts all boolean arguments by default. Transforms ``True`` into ``''``
-    (empty string) and removes the argument from ``kwargs`` if ``False``.
+    Boolean arguments and None are not converted and will be processed in the
+    ``build_arg_string`` function.
 
     You can also specify other conversions to specific arguments.
 
@@ -322,9 +323,6 @@ def kwargs_to_strings(convert_bools=True, **conversions):
 
     Parameters
     ----------
-    convert_bools : bool
-        If ``True``, convert all boolean arguments to strings using the rules
-        specified above. If ``False``, leave them as they are.
     conversions : keyword arguments
         Keyword arguments specifying other kinds of conversions that should be
         performed. The keyword is the name of the argument and the value is the
@@ -355,16 +353,18 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     >>> module(R="5/6/7/8")
     {'R': '5/6/7/8'}
     >>> module(P=True)
-    {'P': ''}
+    {'P': True}
     >>> module(P=False)
-    {}
+    {'P': False}
+    >>> module(P=None)
+    {'P': None}
     >>> module(i=[1, 2])
     {'i': '1,2'}
     >>> module(files=["data1.txt", "data2.txt"])
     {'files': 'data1.txt data2.txt'}
     >>> # Other non-boolean arguments are passed along as they are
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
-    {'bla': (1, 2, 3), 'foo': '', 'i': '5,6'}
+    {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
     args: 123
     >>> import datetime
     >>> module(
@@ -415,8 +415,6 @@ def kwargs_to_strings(convert_bools=True, **conversions):
             """
             New module instance that converts the arguments first.
             """
-            if convert_bools:
-                kwargs = remove_bools(kwargs)
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
@@ -441,30 +439,3 @@ def kwargs_to_strings(convert_bools=True, **conversions):
         return new_module
 
     return converter
-
-
-def remove_bools(kwargs):
-    """
-    Remove booleans from arguments.
-
-    If ``True``, replace it with an empty string. If ``False``, completely
-    remove the entry from the argument list.
-
-    Parameters
-    ----------
-    kwargs : dict
-        Dictionary with the keyword arguments.
-
-    Returns
-    -------
-    new_kwargs : dict
-        A copy of `kwargs` with the booleans parsed.
-    """
-    new_kwargs = {}
-    for arg, value in kwargs.items():
-        if isinstance(value, bool):
-            if value:
-                new_kwargs[arg] = ""
-        else:
-            new_kwargs[arg] = value
-    return new_kwargs

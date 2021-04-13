@@ -1,0 +1,4 @@
+outs:
+- md5: 7149569679bfdef854f8683f30fc3cde
+  size: 9251
+  path: test_subplot_basic_frame.png

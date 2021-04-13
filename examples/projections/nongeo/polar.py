@@ -3,7 +3,7 @@ Polar
 =====
 
 Polar projections allow plotting polar coordinate data (e.g. angle
-:math:`\theta` and radius *r*). 
+:math:`\theta` and radius *r*).
 
 The full syntax for polar projections is:
 

@@ -9,7 +9,6 @@ import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt.helpers.testing import check_figures_equal
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -21,7 +20,7 @@ def projection():
     """
     The projection system.
     """
-    return "x4i"
+    return "x10c"
 
 
 @pytest.fixture(scope="module")
@@ -304,7 +303,7 @@ def test_text_angle_font_justify_from_textfile():
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_text_transparency():
     """
     Add texts with a constant transparency.
@@ -313,20 +312,15 @@ def test_text_transparency():
     y = np.arange(11, 20)
     text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y, text], fmt="%s")
-        fig_ref.basemap(R="0/10/10/20", J="X10c", B="")
-        fig_ref.text(textfiles=tmpfile.name, t=50)
+    fig = Figure()
 
-    fig_test.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
-    fig_test.text(x=x, y=y, text=text, transparency=50)
+    fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
+    fig.text(x=x, y=y, text=text, transparency=50)
 
-    return fig_ref, fig_test
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_text_varying_transparency():
     """
     Add texts with varying transparency.
@@ -336,33 +330,21 @@ def test_text_varying_transparency():
     text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
     transparency = np.arange(10, 100, 10)
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y, transparency, text], fmt="%s")
-        fig_ref.basemap(R="0/10/10/20", J="X10c", B="")
-        fig_ref.text(textfiles=tmpfile.name, t="")
+    fig = Figure()
+    fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
+    fig.text(x=x, y=y, text=text, transparency=transparency)
 
-    fig_test.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
-    fig_test.text(x=x, y=y, text=text, transparency=transparency)
-
-    return fig_ref, fig_test
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_text_nonstr_text():
     """
     Input text is in non-string type (e.g., int, float)
     """
-    fig_ref, fig_test = Figure(), Figure()
+    fig = Figure()
 
-    # Use single-character arguments and input files for the reference image
-    with GMTTempFile(suffix=".txt") as tempfile:
-        with open(tempfile.name, "w") as tmpfile:
-            tmpfile.write("1 1 1.0\n2 2 2.0\n3 3 3.0\n4 4 4.0\n")
-        fig_ref.text(R="0/10/0/10", J="X10c", B="", textfiles=tempfile.name)
-
-    fig_test.text(
+    fig.text(
         region=[0, 10, 0, 10],
         projection="X10c",
         frame=True,
@@ -371,4 +353,4 @@ def test_text_nonstr_text():
         text=[1, 2, 3.0, 4.0],
     )
 
-    return fig_ref, fig_test
+    return fig
