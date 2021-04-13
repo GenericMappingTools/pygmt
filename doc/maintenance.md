@@ -179,7 +179,7 @@ Here is an example:
 @use_alias(J="projection", R="region", V="verbose")
 @kwargs_to_strings(R="sequence")
 @deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
-def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
+def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
 It means the old parameter name `sizes` is deprecated since v0.4.0, and will be
