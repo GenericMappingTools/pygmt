@@ -4,12 +4,10 @@ Tests for grd2cpt.
 import os
 
 import pytest
-from pygmt import Figure
+from pygmt import Figure, grd2cpt
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt.helpers.testing import check_figures_equal
-from pygmt.src.grd2cpt import grd2cpt
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -20,21 +18,17 @@ def fixture_grid():
     return load_earth_relief()
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_grd2cpt(grid):
     """
     Test creating a CPT with grd2cpt to create a CPT based off a grid input and
     plot it with a color bar.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.basemap(B="a", J="W0/15c", R="d")
-    grd2cpt(grid="@earth_relief_01d")
-    fig_ref.colorbar(B="a2000")
-    fig_test.basemap(frame="a", projection="W0/15c", region="d")
+    fig = Figure()
+    fig.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid)
-    fig_test.colorbar(frame="a2000")
-    return fig_ref, fig_test
+    fig.colorbar(frame="a2000")
+    return fig
 
 
 def test_grd2cpt_blank_output(grid):

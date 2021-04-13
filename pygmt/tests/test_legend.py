@@ -10,27 +10,22 @@ from pygmt.helpers import GMTTempFile
 @pytest.mark.mpl_image_compare
 def test_legend_position():
     """
-    Try positioning with each of the four legend coordinate systems.
+    Test that plots a position with each of the four legend coordinate systems.
     """
 
     fig = Figure()
-
     fig.basemap(region=[-2, 2, -2, 2], frame=True)
-
     positions = ["jTR+jTR", "g0/1", "n0.2/0.2", "x4i/2i/2i"]
-
     for i, position in enumerate(positions):
-
         fig.plot(x=[0], y=[0], style="p10p", label=i)
         fig.legend(position=position, box=True)
-
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_legend_default_position():
     """
-    Try using the default legend position.
+    Test using the default legend position.
     """
 
     fig = Figure()
@@ -98,15 +93,11 @@ T so we may have to adjust the box height to get the right size box.
 """
 
     with GMTTempFile() as specfile:
-
         with open(specfile.name, "w") as file:
             file.write(specfile_contents)
-
         fig = Figure()
-
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
         fig.legend(specfile.name, position="JTM+jCM+w5i")
-
     return fig
 
 
