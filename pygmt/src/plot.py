@@ -210,7 +210,7 @@ def plot(
     kind = data_kind(data, x, y)
 
     extra_arrays = []
-    if "S" in kwargs and len(kwargs["S"]) > 0:
+    if "S" in kwargs and isinstance(kwargs["S"], str):
         if kwargs["S"][0] in "vV" and direction is not None:
             extra_arrays.extend(direction)
 
@@ -239,6 +239,9 @@ def plot(
             kwargs[flag] = ""
 
     if symbol is not None:
+        if "S" not in kwargs:
+            kwargs["S"] = True
+
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for symbol if data is matrix or file."
