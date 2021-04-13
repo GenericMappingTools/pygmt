@@ -309,9 +309,9 @@ def test_plot_symbols(data, region):
         x=data[:, 0],
         y=data[:, 1],
         region=region,
-        projection="X4i",
-        style="0.5c",
+        projection="X4c",
         color="blue",
+        sizes=np.full(len(data[:, 0]), 0.5),
         symbol=np.full(len(data[:, 0]), "c"),
         frame="af",
     )
