@@ -154,8 +154,8 @@ until the v1.0.0 release.
 Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
-- Incompatible changes are allowed in major and minor releases, not in patch
-  releases.
+- Incompatible changes are only allowed in major and minor releases, not in
+  patch releases.
 - Incompatible changes should be documented in the release notes.
 
 When making incompatible changes, we should follow the process:
@@ -165,13 +165,13 @@ When making incompatible changes, we should follow the process:
   warning for old usage. At least one test using the old usage should be added.
 - The warning message should clearly explain the changes and include the versions
   in which the old usage is deprecated and is expected to be removed.
-- The `FutureWarning` warning should appear in 2-4 minor versions, depending on
+- The `FutureWarning` warning should appear for 2-4 minor versions, depending on
   the impact of the changes. It means the deprecation period usually lasts
   3-12 months.
 - Remove the old usage and warning when reaching the declared version.
 
-To rename a function parameter, we can simply add the `@deprecated_parameter`
-decorator before the function (after the `@use_alias` decorator if any).
+To rename a function parameter, add the `@deprecated_parameter` decorator
+before the function definition (but after the `@use_alias` decorator if it exists).
 Here is an example:
 
 ```
@@ -182,7 +182,8 @@ Here is an example:
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
-It means the old parameter name `sizes` is deprecated since v0.4.0, and will be
+
+In this case, the old parameter name `sizes` is deprecated since v0.4.0, and will be
 fully removed in v0.6.0. The new parameter name is `size`.
 
 
