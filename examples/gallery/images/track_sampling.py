@@ -27,7 +27,7 @@ fig = pygmt.Figure()
 fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
 fig.grdimage(grid=grid, cmap="gray")
 fig.coast(land="#666666")
-# Plot the sampled bathymetry points using circles (c) of 0.15 cm
+# Plot the sampled bathymetry points using circles (c) of 0.15 cm size
 # Points are colored using elevation values (normalized for visual purposes)
 fig.plot(
     x=track.longitude,
