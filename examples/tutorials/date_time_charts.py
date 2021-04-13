@@ -27,11 +27,11 @@ import xarray as xr
 # Datetime Input Types
 # ----------------------
 #
-# PyGmt accepts a variety of datetime objects to plot data and create charts.
+# PyGMT accepts a variety of datetime objects to plot data and create charts.
 # Aside from the built-in Python datetime object, PyGmt supports input using
-# ``pandas``, ``numpy`` and ``xarray``. These data types can be used to plot
-# specific points as well as get passed into the ``region`` parameter to
-# create a range of the data on an axis.
+# ``pandas``, ``numpy``, ``xarray`` as well as properly formatted strings.
+# These data types can be used to plot specific points as well as get
+# passed into the ``region`` parameter to create a range of the data on an axis.
 #
 # The following examples will demonstrate how to create plots
 # using the differnt datetime objects
@@ -63,7 +63,7 @@ fig.plot(projection="X10c/5c",
     y=y,
     style="x0.3c",
     pen="1p",
-    )
+)
 
 fig.show()
 
@@ -95,23 +95,76 @@ fig.plot(projection="X10c/5c",
     color="blue"
  )
 
+fig.show()
+
+########################################################################################
+# Using ISO Format
+# -------------------------
+#
+# Another way of plotting datetime data ADD DESCRIPTION
+
+x = ["2016-02-01", "2016-06-04T14",
+    "2016-10-04T00:00:15", "2016-12-01T05:00:15"]
+y = [1, 3, 5, 2]
+fig = pygmt.Figure()
+fig.plot(projection="X10c/5c",
+    region=["2016-01-01", "2017-01-1", 0, 6],
+    frame=["WSen", "afg"],
+    x=x,
+    y=y,
+    style="a0.45c",
+    pen="1p",
+    color="dodgerblue"
+)
+
+fig.show()
+
+###############################################################################
+# Mixing and matching datetime and ISO
+#
+# ADD DESCRIPTION
+
+x = ["2020-02-01", "2020-06-04",
+    "2020-10-04", datetime.datetime(2021, 1, 15)]
+y = [1.3, 2.2, 4.1, 3]
+fig = pygmt.Figure()
+fig.plot(projection="X10c/5c",
+    region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 3, 1), 0, 6],
+    frame=["WSen", "afg"],
+    x=x,
+    y=y,
+    style="i0.4c",
+    pen="1p",
+    color="yellow"
+)
 
 fig.show()
 
 ########################################################################################
-# `pandas.DatetimeIndex`
+# Using :meth:`pandas.date_range`
+# ------------------------------------------------
+#
+# ADD DESCRIPTION
 
-# pandas.DatetimeIndex
-x = pd.date_range("2013", periods=3, freq="YS")
-y = [4, 5, 6]
-fig.plot(x, y, style="t0.4c", pen="1p", color="gold")
+x = pd.date_range("2013-05-01", periods=6, freq="4D")
+y = [4, 5, 6, 8, 6, 3]
+
+fig = pygmt.Figure()
+fig.plot(projection="X10c/10c",
+    region=[datetime.datetime(2013, 4, 30), datetime.datetime(2013, 5, 30), 0, 10],
+    frame=["WSen", "ag"],
+    x=x,
+    y=y,
+    style="s0.4c",
+    pen="1p",
+    color="pink"
+)
 
 fig.show()
 
-# Code
-
 ########################################################################################
-# `xarray.DataArray`
+# Using ``xarray.DataArray``
+# -------------------------------------
 
 # xarray.DataArray
 x = xr.DataArray(data=pd.date_range(start="2015-03", periods=3, freq="QS"))
@@ -120,17 +173,6 @@ fig.plot(x, y, style="s0.4c", pen="1p")
 
 fig.show()
 
-# Code
-
-########################################################################################
-# Raw date-time in ISO format
-
-# raw datetime strings
-x = ["2016-02-01", "2016-06-04T14", "2016-10-04T00:00:15"]
-y = [7, 8, 9]
-fig.plot(x, y, style="a0.4c", pen="1p", color="dodgerblue")
-
-fig.show()
 # Code
 
 ########################################################################################
