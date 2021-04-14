@@ -1,0 +1,4 @@
+outs:
+- md5: 2b0ba264c2240a6d2da02466d8848d7a
+  size: 73857
+  path: test_rose_bools.png
