@@ -49,7 +49,6 @@ read it carefully.
   - [Testing your code](#testing-your-code)
   - [Testing plots](#testing-plots)
   - [Documentation](#documentation)
-  - [Code Review](#code-review)
 
 
 ## What Can I Do?
