@@ -16,9 +16,7 @@ y = np.zeros(x.size)
 z = 50 * np.exp(-((x / 3) ** 2)) * np.cos(2 * np.pi * x)
 
 fig = pygmt.Figure()
-fig.basemap(
-    region=[-8, 12, -1, 1], projection="X10c", frame=["Snlr", "xa2f1"]
-)
+fig.basemap(region=[-8, 12, -1, 1], projection="X10c", frame=["Snlr", "xa2f1"])
 fig.wiggle(
     x=x,
     y=y,
