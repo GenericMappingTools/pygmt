@@ -92,7 +92,18 @@ fig.show()
 # Using ISO Format
 # -------------------------
 #
-# Another way of plotting datetime data ADD DESCRIPTION
+# In addition to Python's ``datetime`` library, PyGmt also supports passing times
+# in ISO format. Much like in the previous examples, these valued are stored in
+# list ``x`` in string format. Basic ISO strings are formatted as ``YYYY-MM-DD``
+# with each ``-`` delineated section marking the four digit year value, two digit
+# month value, and two digit day value respectively.
+#
+# When including time of day into ISO strings, the ``T`` character is used, as
+# can be seen in the following example. This character is immediately followed
+# by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section marking
+# the two digit hour value, two digit minute value, and two digit second value
+# respectively. The figure in the following example is plotted over a horizontal
+# range of one year from 1/1/2016 to 1/1/2017.
 
 x = ["2016-02-01", "2016-06-04T14",
     "2016-10-04T00:00:15", "2016-12-01T05:00:15"]
