@@ -15,7 +15,7 @@ color.
 import numpy as np
 import pygmt
 
-# Create a list of values between 20 and 30 with at 0.2 intervals
+# Create a list of values between 20 and 30 with 0.2 intervals
 x = np.arange(start=20, stop=30, step=0.2)
 
 fig = pygmt.Figure()

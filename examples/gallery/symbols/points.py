@@ -15,8 +15,8 @@ x = np.random.uniform(region[0], region[1], 100)
 y = np.random.uniform(region[2], region[3], 100)
 
 fig = pygmt.Figure()
-# Create a 15x15 cm basemap with a Cartesian projection (X) using the data region
+# Create a 15 cm x 15 cm basemap with a Cartesian projection (X) using the data region
 fig.basemap(region=region, projection="X15c", frame=True)
-# Plot using triangles (i) of 0.5 cm
+# Plot using inverted triangles (i) of 0.5 cm size
 fig.plot(x, y, style="i0.5c", color="black")
 fig.show()
