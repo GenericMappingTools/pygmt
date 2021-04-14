@@ -11,7 +11,7 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[0, 8, 0, 3], projection="x3c", frame=True)
 
-# define fontstlye for annotations
+# define fontstyle for annotations
 font = "30p,Helvetica-Bold"
 
 # upper row
