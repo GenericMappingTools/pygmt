@@ -255,12 +255,15 @@ To increase the chances of getting your pull request accepted quickly, try to:
   - Write some documentation for your code (docstrings) and leave comments explaining
     the *reason* behind non-obvious things.
   - Write tests for the code you wrote/modified if needed.
+    Please refer to [Testing your code](#testing-your-code) or
+    [Testing plots](#testing-plots).
   - Include an example of new features in the gallery or tutorials.
+    Please refer to [Gallery plots](#gallery-plots) or [Tutorials](#tutorials).
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
   - Follow the [PEP8](http://pep8.org) style guide for code and the
     [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
-    for docstrings.
+    for docstrings. Please refer to [Code style](#code-style).
 
 Pull requests will automatically have tests run by GitHub Actions.
 This includes running both the unit tests as well as code linters.
