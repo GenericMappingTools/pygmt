@@ -8,7 +8,7 @@ from pygmt import Figure
 
 
 @pytest.mark.mpl_image_compare
-def test_plot_wiggle():
+def test_wiggle():
     """
     Plot the z=f(x,y) anomalies along tracks.
     """
