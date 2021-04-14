@@ -9,6 +9,7 @@ Plotting datetime data points is handled by :meth:`pygmt.Figure.basemap`.
 # sphinx_gallery_thumbnail_number = 0
 
 import datetime
+
 import numpy as np
 import pandas as pd
 import pygmt
@@ -42,12 +43,17 @@ import xarray as xr
 # of 0.3 centimeters.
 #
 
-x = [datetime.date(2010, 6, 1), datetime.date(2011, 6, 1),
-    datetime.date(2012, 6, 1), datetime.date(2013, 6, 1)]
+x = [
+    datetime.date(2010, 6, 1),
+    datetime.date(2011, 6, 1),
+    datetime.date(2012, 6, 1),
+    datetime.date(2013, 6, 1),
+]
 y = [1, 2, 3, 5]
 
 fig = pygmt.Figure()
-fig.plot(projection="X10c/5c",
+fig.plot(
+    projection="X10c/5c",
     region=[datetime.date(2010, 1, 1), datetime.date(2014, 12, 1), 0, 6],
     frame=["WSen", "afg"],
     x=x,
@@ -71,20 +77,30 @@ fig.show()
 # - Using circles to plot data points shown through ``c``
 # in ``style`` parameter
 
-x = [datetime.datetime(2021,1,1,3,45,1), datetime.datetime(2021,1,1,6,15,1),
-    datetime.datetime(2021,1,1,13,30,1), datetime.datetime(2021,1,1,20,30,1)]
+x = [
+    datetime.datetime(2021, 1, 1, 3, 45, 1),
+    datetime.datetime(2021, 1, 1, 6, 15, 1),
+    datetime.datetime(2021, 1, 1, 13, 30, 1),
+    datetime.datetime(2021, 1, 1, 20, 30, 1),
+]
 y = [5, 3, 1, 2]
 
 fig = pygmt.Figure()
-fig.plot(projection="X10c/5c",
-    region=[datetime.datetime(2021, 1, 1, 0,0,0), datetime.datetime(2021, 1, 2, 0,0,0), 0, 6],
+fig.plot(
+    projection="X10c/5c",
+    region=[
+        datetime.datetime(2021, 1, 1, 0, 0, 0),
+        datetime.datetime(2021, 1, 2, 0, 0, 0),
+        0,
+        6,
+    ],
     frame=["WS", "af"],
     x=x,
     y=y,
     style="c0.4c",
     pen="1p",
-    color="blue"
- )
+    color="blue",
+)
 
 fig.show()
 
@@ -105,18 +121,18 @@ fig.show()
 # respectively. The figure in the following example is plotted over a horizontal
 # range of one year from 1/1/2016 to 1/1/2017.
 
-x = ["2016-02-01", "2016-06-04T14",
-    "2016-10-04T00:00:15", "2016-12-01T05:00:15"]
+x = ["2016-02-01", "2016-06-04T14", "2016-10-04T00:00:15", "2016-12-01T05:00:15"]
 y = [1, 3, 5, 2]
 fig = pygmt.Figure()
-fig.plot(projection="X10c/5c",
+fig.plot(
+    projection="X10c/5c",
     region=["2016-01-01", "2017-01-1", 0, 6],
     frame=["WSen", "afg"],
     x=x,
     y=y,
     style="a0.45c",
     pen="1p",
-    color="dodgerblue"
+    color="dodgerblue",
 )
 
 fig.show()
@@ -126,18 +142,18 @@ fig.show()
 #
 # ADD DESCRIPTION
 
-x = ["2020-02-01", "2020-06-04",
-    "2020-10-04", datetime.datetime(2021, 1, 15)]
+x = ["2020-02-01", "2020-06-04", "2020-10-04", datetime.datetime(2021, 1, 15)]
 y = [1.3, 2.2, 4.1, 3]
 fig = pygmt.Figure()
-fig.plot(projection="X10c/5c",
+fig.plot(
+    projection="X10c/5c",
     region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 3, 1), 0, 6],
     frame=["WSen", "afg"],
     x=x,
     y=y,
     style="i0.4c",
     pen="1p",
-    color="yellow"
+    color="yellow",
 )
 
 fig.show()
@@ -152,14 +168,15 @@ x = pd.date_range("2013-05-01", periods=6, freq="4D")
 y = [4, 5, 6, 8, 6, 3]
 
 fig = pygmt.Figure()
-fig.plot(projection="X10c/10c",
+fig.plot(
+    projection="X10c/10c",
     region=[datetime.datetime(2013, 4, 30), datetime.datetime(2013, 5, 30), 0, 10],
     frame=["WSen", "ag"],
     x=x,
     y=y,
     style="s0.4c",
     pen="1p",
-    color="pink"
+    color="pink",
 )
 
 fig.show()
