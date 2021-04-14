@@ -21,8 +21,14 @@
     overview.rst
     install.rst
     tutorials/first_figure.rst
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+    :caption: Examples
+
     gallery/index.rst
-    user_contributions.md
+    external_resources.md
 
 .. toctree::
     :maxdepth: 2
