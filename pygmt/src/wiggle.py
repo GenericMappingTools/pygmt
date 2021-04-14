@@ -22,7 +22,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     c="panel",
     i="columns",
     p="perspective",
-    t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
@@ -75,9 +74,6 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
         the *x* values are stored in the first column, *y* values in the second
         one and *z* values in the third one. Note: zero-based indexing is used.
     {p}
-    {t}
-        *transparency* can also be a 1d array to set varying transparency
-        for symbols.
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
