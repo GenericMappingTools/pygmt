@@ -22,6 +22,7 @@
     install.rst
     tutorials/first_figure.rst
     gallery/index.rst
+    user_contributions.md
 
 .. toctree::
     :maxdepth: 2
