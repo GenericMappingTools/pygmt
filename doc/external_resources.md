@@ -3,7 +3,7 @@
 Below is a curated collection of external PyGMT resources.
 
 *To add your contribution to this collection, submit a recommendation via a
-[pull request](https://github.com/GenericMappingTools/pygmt/blob/master/doc/user_contributions.md).*
+[pull request](https://github.com/GenericMappingTools/pygmt/blob/master/doc/external_resources.md).*
 
 ---
 
