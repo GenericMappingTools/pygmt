@@ -208,18 +208,19 @@ fig.show()
 #
 # Explanation.
 
-x = pd.date_range("2013-05-01", periods=20, freq="4D")
-y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2, 7, 4, 4, 2, 5, 8, 9, 6, 3, 1]
+x = pd.date_range("2013-05-02", periods=10, freq="2D")
+y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]
 
 fig = pygmt.Figure()
-fig.plot(projection="X15c/10c",
-    region=[datetime.datetime(2013, 4, 22), datetime.datetime(2013, 7, 30), 0, 10],
-    frame=["WS", "af"],
-    x=x,
-    y=y,
-    style="c0.4c",
-    pen="1p",
-    color="red"
-)
+with pygmt.config(FORMAT_DATE_MAP="o"):    
+    fig.plot(projection="X15c/10c",
+        region=[datetime.datetime(2013, 5, 1), datetime.datetime(2013, 5, 25), 0, 10],
+        frame=["WS", "sxa1Of1D", "pxa5d", "pya1+ucm", "sy+lLength"],
+        x=x,
+        y=y,
+        style="c0.4c",
+        pen="1p",
+        color="green3",
+    )
 
 fig.show()
