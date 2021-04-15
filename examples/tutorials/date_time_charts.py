@@ -206,7 +206,25 @@ fig.show()
 # Setting Primary and Secondary Time Axes
 # ----------------------
 #
-# Explanation.
+# This example focuses on labeling the axes and setting intervals
+# at which the labels are expected to appear. All of these modification
+# are added to the ``frame`` argument and each item in that list modifies
+# a specific section of the plot.
+# 
+# Starting off with ``WS``, adding this string means that only
+# Western/Left **(W)** and Southern/Bottom **(S)** borders of
+# the plot will be shown. For more information on this, please
+# refer to TODO:  Link to documentation page needed
+#
+# The other important item in the ``frame`` list is
+# ``sxa1Of1D``. This string modifies the secondary
+# labeling **(s)** of the x-axis **(x)**. Specifically,
+# it sets the main annotation and major tick spacing interval
+# to one month **(O)** (capital letter o, not zero). Additionally,
+# it sets the minor tick spacing interval to 1 day **(D)**.
+# The labeling of this axis is also modified using
+# ``pygmt.config(FORMAT_DATE_MAP="o")`` to use the month's
+# name instead of its number.
 
 x = pd.date_range("2013-05-02", periods=10, freq="2D")
 y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]
