@@ -3,7 +3,8 @@ Basic geometric symbols
 -----------------------
 
 The :meth:`pygmt.Figure.plot` method can plot individual geometric symbols
-by passing the corresponding shortcuts to the ``style`` parameter. 
+by passing the corresponding shortcuts to the ``style`` parameter. The 14 basic
+geometric symbols are shown underneath their corresponding shortcut codes.
 """
 
 import pygmt
