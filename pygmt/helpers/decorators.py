@@ -446,7 +446,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     """
     Decorator to deprecate a parameter.
 
-    The old parameter name will be swapped automatically to the new parameter
+    The old parameter name will be automatically swapped to the new parameter
     name, and users will receive a FutureWarning to inform them of the pending
     deprecation.
 
@@ -503,9 +503,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
                         f"Can't provide both '{newname}' and '{oldname}'."
                     )
                 msg = (
-                    f"The '{oldname}' parameter is deprecated since {deprecate_version}"
-                    f" and will be removed in {remove_version};"
-                    f" please use '{newname}' instead."
+                    f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
+                    f" and will be removed in {remove_version}."
+                    f" Please use '{newname}' instead."
                 )
                 warnings.warn(msg, category=FutureWarning, stacklevel=2)
                 kwargs[newname] = kwargs.pop(oldname)
