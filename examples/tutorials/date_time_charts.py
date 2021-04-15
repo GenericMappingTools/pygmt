@@ -210,7 +210,7 @@ fig.show()
 # at which the labels are expected to appear. All of these modification
 # are added to the ``frame`` argument and each item in that list modifies
 # a specific section of the plot.
-# 
+#
 # Starting off with ``WS``, adding this string means that only
 # Western/Left **(W)** and Southern/Bottom **(S)** borders of
 # the plot will be shown. For more information on this, please
@@ -239,6 +239,31 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
         style="c0.4c",
         pen="1p",
         color="green3",
+    )
+
+fig.show()
+
+########################################################################################
+# The same concept shown above can be applied to smaller
+# as well as larger intervals. In this example,
+# data is plotted for different times throughout two days.
+# Axes labels are also modified to repeat for specific
+# intervals, and a secondary label is used to show
+# what day of the week it is.
+
+x = pd.date_range("2021-04-15", periods=8, freq="6H")
+y = [2, 5, 3, 1, 5, 7, 9, 6]
+
+fig = pygmt.Figure()
+with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
+    fig.plot(projection="X15c/10c",
+        region=[datetime.datetime(2021, 4, 14, 23, 0, 0), datetime.datetime(2021, 4, 17), 0, 10],
+        frame=["WS", "sxa1K", "pxa6H", "pya1+ukm/h", "sy+lSpeed"],
+        x=x,
+        y=y,
+        style="n0.4c",
+        pen="1p",
+        color="lightseagreen",
     )
 
 fig.show()
