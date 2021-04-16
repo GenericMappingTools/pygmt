@@ -224,7 +224,7 @@ fig.show()
 # Generating Region Using :meth:`pygmt.info`
 # ------------------------------------------
 #
-# 
+#
 
 data = [
     ["20200712", 1000],
