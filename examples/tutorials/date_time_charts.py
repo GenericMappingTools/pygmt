@@ -247,7 +247,9 @@ fig.show()
 # Generating Region Using :meth:`pygmt.info`
 # ------------------------------------------
 #
-#
+# Another way of creating charts involving datetime data can be done
+# by automatically generating the region of the plot. This can be done
+# using
 
 data = [
     ["20200712", 1000],
@@ -265,7 +267,8 @@ fig = pygmt.Figure()
 region = pygmt.info(
     table=df[["Date", "Score"]],
     per_column=True,
-    spacing=(5000, 1200),
+    spacing=(700, 700),
+    coltypes="T"
 )
 
 fig.plot(
@@ -278,6 +281,7 @@ fig.plot(
     pen="1p",
     color="green3",
 )
+
 fig.show()
 
 ########################################################################################
