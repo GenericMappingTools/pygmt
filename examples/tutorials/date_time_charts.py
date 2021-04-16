@@ -17,7 +17,7 @@ import xarray as xr
 
 ########################################################################################
 # Datetime Input Types
-# ----------------------
+# --------------------
 #
 # PyGMT accepts a variety of datetime objects to plot data and create charts.
 # Aside from the built-in Python datetime object, PyGmt supports input using
@@ -30,7 +30,7 @@ import xarray as xr
 
 ###############################################################################
 # Using Python's ``Datetime``
-# ---------------------------------------
+# ---------------------------
 #
 # In this example, Python's built-in ``datetime`` package is used
 # to create data points stored in list ``x``. The format of the
@@ -220,7 +220,7 @@ fig.show()
 
 ###############################################################################
 # Using :meth:`numpy.datetime64`
-# ---------------------------------------
+# ------------------------------
 # In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
 # as an ``np.array`` object. Similar to ``xarray.DataArray`` this wraps the
 # dataset before passing it as a paramater. However, ``np.array`` objects use less
@@ -244,12 +244,16 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# Generating Region Using :meth:`pygmt.info`
-# ------------------------------------------
+# Generating Region
+# -----------------
 #
 # Another way of creating charts involving datetime data can be done
 # by automatically generating the region of the plot. This can be done
-# using
+# by passing the dataframe to :meth:`pygmt.info`, which will find
+# maximum and minimum values for each column and create a list
+# that could be passed as region. Additionally, a spacing argument
+# can be passed to increase the range past the maximum and minimum
+# data points.
 
 data = [
     ["20200712", 1000],
