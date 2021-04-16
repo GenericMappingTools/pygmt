@@ -233,7 +233,7 @@ y = [1, 2, 3]
 fig = pygmt.Figure()
 fig.plot(
     projection="X10c/10c",
-    region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 4, 1), 0, 10],
+    region=[datetime.datetime(2010, 6, 1), datetime.datetime(2012, 1, 1), 0, 10],
     frame=["WSen", "ag"],
     x=x,
     y=y,
