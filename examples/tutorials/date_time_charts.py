@@ -218,6 +218,30 @@ fig.plot(
 )
 fig.show()
 
+###############################################################################
+# Using :meth:`numpy.datetime64`
+# ---------------------------------------
+# In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
+# as an ``np.array`` object. Similar to ``xarray.DataArray`` this wraps the
+# dataset before passing it as a paramater. However, ``np.array`` objects use less
+# memory and allow developers to specify datatypes.
+#
+
+x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
+y = [1, 2, 3]
+
+fig = pygmt.Figure()
+fig.plot(
+    projection="X10c/10c",
+    region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 4, 1), 0, 10],
+    frame=["WSen", "ag"],
+    x=x,
+    y=y,
+    style="i0.5c",
+    pen="1p",
+    color="black",
+)
+fig.show()
 
 ########################################################################################
 # Generating Region Using :meth:`pygmt.info`
