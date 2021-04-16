@@ -265,10 +265,7 @@ df.Date = pd.to_datetime(df["Date"], format="%Y%m%d")
 
 fig = pygmt.Figure()
 region = pygmt.info(
-    table=df[["Date", "Score"]],
-    per_column=True,
-    spacing=(700, 700),
-    coltypes="T"
+    table=df[["Date", "Score"]], per_column=True, spacing=(700, 700), coltypes="T"
 )
 
 fig.plot(
