@@ -191,7 +191,7 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# Using ``xarray.DataArray``
+# Using :meth:`xarray.DataArray`
 # -------------------------------------
 #
 # In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
@@ -220,34 +220,115 @@ fig.show()
 # Code
 
 ########################################################################################
-# Python built-in: `datetime.datetime`
-
-# the Python built-in datetime and date
-x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 6, 1, 20, 5, 45)]
-y = [6.5, 4.5]
-fig.plot(x, y, style="i0.4c", pen="1p", color="seagreen")
-
-fig.show()
-
-# Code
-
-########################################################################################
-# Python built-in: `datetime.date`
-
-# Code
-
-########################################################################################
-# Passing Min/Max Time into `region` parameter using `pygmt.info`
+# Generating Region Using :meth:`pygmt.info`
 # ----------------------
 #
 # Explanation of supported parameters + bug at #597.
 
-# Code
+data = [['20200712',1000],
+       ['20200714',1235],
+       ['20200716',1336],
+       ['20200719',1176],
+       ['20200721',1573],
+       ['20200724',1893],
+       ['20200729',1634]]
+
+df = pd.DataFrame(
+  data,columns = ['Date','Score'])
+
+df['Date'] = pd.to_datetime(
+          df['Date'],
+          format='%Y%m%d')
+
+fig = pygmt.Figure()
+region = pygmt.info(
+    table=df[["Date", "Score"]],
+    per_column=True,
+    spacing=(5000, 1200),
+)
+
+fig.plot(
+    region=region,
+    projection="X15c/10c",
+    frame=['WSen', "afg"],
+    x=df.Date,
+    y=df.Score,
+    style="c0.4c",
+    pen="1p",
+    color="green3",
+)
+fig.show()
 
 ########################################################################################
 # Setting Primary and Secondary Time Axes
 # ----------------------
 #
-# Explanation.
+# This example focuses on labeling the axes and setting intervals
+# at which the labels are expected to appear. All of these modification
+# are added to the ``frame`` argument and each item in that list modifies
+# a specific section of the plot.
+#
+# Starting off with ``WS``, adding this string means that only
+# Western/Left **(W)** and Southern/Bottom **(S)** borders of
+# the plot will be shown. For more information on this, please
+# refer to :docs:`pygmt.Frames`.
+#
+# The other important item in the ``frame`` list is
+# ``sxa1Of1D``. This string modifies the secondary
+# labeling **(s)** of the x-axis **(x)**. Specifically,
+# it sets the main annotation and major tick spacing interval
+# to one month **(O)** (capital letter o, not zero). Additionally,
+# it sets the minor tick spacing interval to 1 day **(D)**.
+# The labeling of this axis is also modified using
+# ``pygmt.config(FORMAT_DATE_MAP="o")`` to use the month's
+# name instead of its number.
 
-# Code
+x = pd.date_range("2013-05-02", periods=10, freq="2D")
+y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]
+
+fig = pygmt.Figure()
+with pygmt.config(FORMAT_DATE_MAP="o"):    
+    fig.plot(projection="X15c/10c",
+        region=[datetime.datetime(2013, 5, 1), datetime.datetime(2013, 5, 25), 0, 10],
+        frame=["WS", "sxa1Of1D", "pxa5d", "pya1+ucm", "sy+lLength"],
+        x=x,
+        y=y,
+        style="c0.4c",
+        pen="1p",
+        color="green3",
+    )
+
+fig.show()
+
+########################################################################################
+# The same concept shown above can be applied to smaller
+# as well as larger intervals. In this example,
+# data is plotted for different times throughout two days.
+# Primary x-axis labels are modified to repeat every 6 hours
+# and secondary x-axis label repeats every day and shows
+# the day of the week.
+#
+# Other notable mentions in this example is
+# ``pygmt.config(FORMAT_CLOCK_MAP="-hhAM")``
+# which specifies the used format for time.
+# In this case, leading zeros are removed
+# using **(-)**, and only hours are displayed.
+# Additionally, an AM/PM system is being used
+# instead of a 24-hour system.
+
+x = pd.date_range("2021-04-15", periods=8, freq="6H")
+y = [2, 5, 3, 1, 5, 7, 9, 6]
+
+fig = pygmt.Figure()
+with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
+    fig.plot(projection="X15c/10c",
+        region=[datetime.datetime(2021, 4, 14, 23, 0, 0), datetime.datetime(2021, 4, 17), 0, 10],
+        frame=["WS", "sxa1K", "pxa6H", "pya1+ukm/h", "sy+lSpeed"],
+        x=x,
+        y=y,
+        style="n0.4c",
+        pen="1p",
+        color="lightseagreen",
+    )
+
+fig.show()
