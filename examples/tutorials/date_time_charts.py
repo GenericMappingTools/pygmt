@@ -178,23 +178,6 @@ fig.show()
 # Code
 
 ########################################################################################
-# Python built-in: `datetime.datetime`
-
-# the Python built-in datetime and date
-x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 6, 1, 20, 5, 45)]
-y = [6.5, 4.5]
-fig.plot(x, y, style="i0.4c", pen="1p", color="seagreen")
-
-fig.show()
-
-# Code
-
-########################################################################################
-# Python built-in: `datetime.date`
-
-# Code
-
-########################################################################################
 # Passing Min/Max Time into `region` parameter using `pygmt.info`
 # ----------------------
 #
@@ -247,9 +230,17 @@ fig.show()
 # The same concept shown above can be applied to smaller
 # as well as larger intervals. In this example,
 # data is plotted for different times throughout two days.
-# Axes labels are also modified to repeat for specific
-# intervals, and a secondary label is used to show
-# what day of the week it is.
+# Primary x-axis labels are modified to repeat every 6 hours
+# and secondary x-axis label repeats every day and shows
+# the day of the week.
+#
+# Other notable mentions in this example is
+# ``pygmt.config(FORMAT_CLOCK_MAP="-hhAM")``
+# which specifies the used format for time.
+# In this case, leading zeros are removed
+# using **(-)**, and only hours are displayed.
+# Additionally, an AM/PM system is being used
+# instead of a 24-hour system.
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
