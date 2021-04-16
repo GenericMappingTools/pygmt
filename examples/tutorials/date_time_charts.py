@@ -204,7 +204,7 @@ fig.plot(
     y=y,
     style="n0.4c",
     pen="1p",
-    color="red"
+    color="red",
 )
 fig.show()
 
