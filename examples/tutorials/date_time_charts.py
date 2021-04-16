@@ -184,12 +184,28 @@ fig.show()
 ########################################################################################
 # Using ``xarray.DataArray``
 # -------------------------------------
+#
+# In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
+# as an ``xarray.DataArray`` object. Such object provide a wrapper around traditional
+# data formats allowing this data to have varrying labeled dimensions and support
+# operations that use various pieces of metadata. The following code uses a
+# ``pandas.date_range`` object to fill the DataArray with data, yet this is not
+# essential for the creation of a valid DataArray.
 
-# xarray.DataArray
-x = xr.DataArray(data=pd.date_range(start="2015-03", periods=3, freq="QS"))
-y = [7.5, 6, 4.5]
-fig.plot(x, y, style="s0.4c", pen="1p")
+x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
+y = [4, 7, 5, 6]
 
+fig = pygmt.Figure()
+fig.plot(
+    projection="X10c/10c",
+    region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 4, 1), 0, 10],
+    frame=["WSen", "ag"],
+    x=x,
+    y=y,
+    style="n0.4c",
+    pen="1p",
+    color="red"
+)
 fig.show()
 
 # Code
