@@ -72,7 +72,8 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
         [Defaults: width = 0.25p, color = black, style = solid].
     {U}
     {V}
-    {W}
+    pen : str
+        Specify outline pen attributes [Default is no outline].
     {XY}
     {c}
     columns : str or 1d array
