@@ -106,7 +106,7 @@ fig.show()
 
 ########################################################################################
 # Using ISO Format
-# -------------------------
+# ----------------
 #
 # In addition to Python's ``datetime`` library, PyGmt also supports passing times
 # in ISO format. Much like in the previous examples, these valued are stored in
@@ -139,6 +139,7 @@ fig.show()
 
 ###############################################################################
 # Mixing and matching datetime and ISO
+# ------------------------------------
 #
 # The following example provides context on how both ``datetime`` and ``ISO``
 # date data can be plotted using PyGMT. This can be helpful when dates and times
@@ -163,7 +164,7 @@ fig.show()
 
 ########################################################################################
 # Using :meth:`pandas.date_range`
-# ------------------------------------------------
+# -------------------------------
 #
 # In the following example, a ``pandas.date_range`` object is used to pass date
 # data to the PyGMT figure. This object is set using the pandas method ``date_range()``.
@@ -192,7 +193,7 @@ fig.show()
 
 ########################################################################################
 # Using :meth:`xarray.DataArray`
-# -------------------------------------
+# ------------------------------
 #
 # In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
 # as an ``xarray.DataArray`` object. Such object provide a wrapper around traditional
@@ -220,9 +221,9 @@ fig.show()
 
 ########################################################################################
 # Generating Region Using :meth:`pygmt.info`
-# ----------------------
+# ------------------------------------------
 #
-# Explanation of supported parameters + bug at #597.
+#
 
 data = [
     ["20200712", 1000],
@@ -233,10 +234,8 @@ data = [
     ["20200724", 1893],
     ["20200729", 1634],
 ]
-
 df = pd.DataFrame(data, columns=["Date", "Score"])
-
-df["Date"] = pd.to_datetime(df["Date"], format="%Y%m%d")
+df.Date = pd.to_datetime(df["Date"], format="%Y%m%d")
 
 fig = pygmt.Figure()
 region = pygmt.info(
@@ -259,7 +258,7 @@ fig.show()
 
 ########################################################################################
 # Setting Primary and Secondary Time Axes
-# ----------------------
+# ---------------------------------------
 #
 # This example focuses on labeling the axes and setting intervals
 # at which the labels are expected to appear. All of these modification
