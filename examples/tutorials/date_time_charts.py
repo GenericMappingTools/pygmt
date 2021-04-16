@@ -140,7 +140,10 @@ fig.show()
 ###############################################################################
 # Mixing and matching datetime and ISO
 #
-# ADD DESCRIPTION
+# The following example provides context on how both ``datetime`` and ``ISO``
+# date data can be plotted using PyGMT. This can be helpful when dates and times
+# are coming from different sources, meaning conversions do not need to take place
+# between ISO and datetime in order to create valid plots.
 
 x = ["2020-02-01", "2020-06-04", "2020-10-04", datetime.datetime(2021, 1, 15)]
 y = [1.3, 2.2, 4.1, 3]
@@ -162,21 +165,27 @@ fig.show()
 # Using :meth:`pandas.date_range`
 # ------------------------------------------------
 #
-# ADD DESCRIPTION
+# In the following example, a ``pandas.date_range`` object is used to pass date
+# data to the PyGMT figure. This object is set using the pandas method ``date_range()``.
+# This particular object contains 7 different ``pandas.Timestamp`` objects, with the
+# number being manipulated by the periods argument. Each period begins at the start
+# of a business quarter as denoted by BQS when passed to the freq argument. The inital
+# date is first argument that is passed to ``date_range()`` and it marks the first
+# data in the object ``x`` that will be plotted.
 
-x = pd.date_range("2013-05-01", periods=6, freq="4D")
-y = [4, 5, 6, 8, 6, 3]
+x = pd.date_range("2018-03-01", periods=7, freq="BQS")
+y = [4, 5, 6, 8, 6, 3, 5]
 
 fig = pygmt.Figure()
 fig.plot(
     projection="X10c/10c",
-    region=[datetime.datetime(2013, 4, 30), datetime.datetime(2013, 5, 30), 0, 10],
+    region=[datetime.datetime(2017, 12, 31), datetime.datetime(2019, 12, 31), 0, 10],
     frame=["WSen", "ag"],
     x=x,
     y=y,
-    style="s0.4c",
+    style="i0.4c",
     pen="1p",
-    color="pink",
+    color="purple",
 )
 
 fig.show()
