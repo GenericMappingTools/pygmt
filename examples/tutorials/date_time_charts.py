@@ -165,7 +165,7 @@ fig.plot(projection="X10c/10c",
 fig.show()
 
 ########################################################################################
-# Using ``xarray.DataArray``
+# Using :meth:`xarray.DataArray`
 # -------------------------------------
 
 # xarray.DataArray
@@ -178,12 +178,44 @@ fig.show()
 # Code
 
 ########################################################################################
-# Passing Min/Max Time into `region` parameter using `pygmt.info`
+# Generating Region Using :meth:`pygmt.info`
 # ----------------------
 #
 # Explanation of supported parameters + bug at #597.
 
-# Code
+data = [['20200712',1000],
+       ['20200714',1235],
+       ['20200716',1336],
+       ['20200719',1176],
+       ['20200721',1573],
+       ['20200724',1893],
+       ['20200729',1634]]
+
+df = pd.DataFrame(
+  data,columns = ['Date','Score'])
+
+df['Date'] = pd.to_datetime(
+          df['Date'],
+          format='%Y%m%d')
+
+fig = pygmt.Figure()
+region = pygmt.info(
+    table=df[["Date", "Score"]],
+    per_column=True,
+    spacing=(5000, 1200),
+)
+
+fig.plot(
+    region=region,
+    projection="X15c/10c",
+    frame=['WSen', "afg"],
+    x=df.Date,
+    y=df.Score,
+    style="c0.4c",
+    pen="1p",
+    color="green3",
+)
+fig.show()
 
 ########################################################################################
 # Setting Primary and Secondary Time Axes
