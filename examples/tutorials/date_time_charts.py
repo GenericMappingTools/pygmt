@@ -217,7 +217,6 @@ fig.plot(
 )
 fig.show()
 
-# Code
 
 ########################################################################################
 # Generating Region Using :meth:`pygmt.info`
@@ -336,5 +335,4 @@ with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
         pen="1p",
         color="lightseagreen",
     )
-
 fig.show()
