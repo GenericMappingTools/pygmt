@@ -225,20 +225,19 @@ fig.show()
 #
 # Explanation of supported parameters + bug at #597.
 
-data = [['20200712',1000],
-       ['20200714',1235],
-       ['20200716',1336],
-       ['20200719',1176],
-       ['20200721',1573],
-       ['20200724',1893],
-       ['20200729',1634]]
+data = [
+    ["20200712", 1000],
+    ["20200714", 1235],
+    ["20200716", 1336],
+    ["20200719", 1176],
+    ["20200721", 1573],
+    ["20200724", 1893],
+    ["20200729", 1634],
+]
 
-df = pd.DataFrame(
-  data,columns = ['Date','Score'])
+df = pd.DataFrame(data, columns=["Date", "Score"])
 
-df['Date'] = pd.to_datetime(
-          df['Date'],
-          format='%Y%m%d')
+df["Date"] = pd.to_datetime(df["Date"], format="%Y%m%d")
 
 fig = pygmt.Figure()
 region = pygmt.info(
@@ -250,7 +249,7 @@ region = pygmt.info(
 fig.plot(
     region=region,
     projection="X15c/10c",
-    frame=['WSen', "afg"],
+    frame=["WSen", "afg"],
     x=df.Date,
     y=df.Score,
     style="c0.4c",
@@ -287,8 +286,9 @@ x = pd.date_range("2013-05-02", periods=10, freq="2D")
 y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]
 
 fig = pygmt.Figure()
-with pygmt.config(FORMAT_DATE_MAP="o"):    
-    fig.plot(projection="X15c/10c",
+with pygmt.config(FORMAT_DATE_MAP="o"):
+    fig.plot(
+        projection="X15c/10c",
         region=[datetime.datetime(2013, 5, 1), datetime.datetime(2013, 5, 25), 0, 10],
         frame=["WS", "sxa1Of1D", "pxa5d", "pya1+ucm", "sy+lLength"],
         x=x,
@@ -321,8 +321,14 @@ y = [2, 5, 3, 1, 5, 7, 9, 6]
 
 fig = pygmt.Figure()
 with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
-    fig.plot(projection="X15c/10c",
-        region=[datetime.datetime(2021, 4, 14, 23, 0, 0), datetime.datetime(2021, 4, 17), 0, 10],
+    fig.plot(
+        projection="X15c/10c",
+        region=[
+            datetime.datetime(2021, 4, 14, 23, 0, 0),
+            datetime.datetime(2021, 4, 17),
+            0,
+            10,
+        ],
         frame=["WS", "sxa1K", "pxa6H", "pya1+ukm/h", "sy+lSpeed"],
         x=x,
         y=y,
