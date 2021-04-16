@@ -237,7 +237,7 @@ fig.plot(
     frame=["WS", "ag"],
     x=x,
     y=y,
-    style="0.5c",
+    style="s0.5c",
     pen="1p",
     color="black",
 )
