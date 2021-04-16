@@ -1,5 +1,5 @@
 """
-Plotting Datetime Charts
+Plotting datetime charts
 ========================
 
 Creating datetime charts is handled by :meth:`pygmt.Figure.basemap`.
