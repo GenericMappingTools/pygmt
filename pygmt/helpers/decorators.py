@@ -488,6 +488,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     >>> import pytest
     >>> with pytest.raises(GMTInvalidInput):
     ...     module(data="table.txt", size=5.0, sizes=4.0)
+    ...
     """
 
     def deprecator(module_func):
