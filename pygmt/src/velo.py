@@ -164,17 +164,17 @@ def velo(self, data=None, **kwargs):
     uncertainty_color : str
         Sets the color or shade used for filling uncertainty wedges
         (``scaling='w'``) or velocity error ellipses (``scaling='e'`` or
-        ``scaling='r'``). [If ``uncertainty_color`` is not specified, the
+        ``scaling='r'``). If ``uncertainty_color`` is not specified, the
         uncertainty regions will be transparent. **Note**: Using ``cmap`` and
         ``zvalue='+e'`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
-        :gmt-docs:cookbook/features.html#gfill-attrib`.
+        :gmt-docs:`cookbook/features.html#gfill-attrib`.
     facecolor : str
         Select color or pattern for filling of symbols [Default is no fill].
         **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the
         symbol fill color based on the selected measure in ``zvalue``
         [magnitude]. More details at
-        :gmt-docs:cookbook/features.html#gfill-attrib`.
+        :gmt-docs:`cookbook/features.html#gfill-attrib`.
     scale : float or bool
         [*scale*].
         Scale symbol sizes and pen widths on a per-record basis using the
