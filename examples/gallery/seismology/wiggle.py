@@ -4,7 +4,7 @@ Wiggle along tracks
 
 The :meth:`pygmt.Figure.wiggle` method can plot z = f(x,y) anomalies along
 tracks. ``x``, ``y``, ``z`` can be specified as 1d arrays or within a specified
-file. The ``scale`` parameter can be used to set anomaly scale in
+file. The ``scale`` parameter can be used to set the anomaly scale in
 data-units/distance-unit. The positive and/or negative areas can be filled with
 color by setting the ``color`` parameter.
 """
@@ -29,10 +29,10 @@ fig.wiggle(
     color=["red+p", "gray+n"],
     # Set the outline width to "1.0p"
     pen="1.0p",
-    # Draw a blue track of width 0.5 points
+    # Draw a blue track with a width of 0.5 points
     track="0.5p,blue",
     # Plot a vertical scale bar at the right middle. The bar length is 100 in
-    # data (z) units. Set the z unit lable to "nT".
+    # data (z) units. Set the z unit label to "nT".
     position="jRM+w100+lnT",
 )
 fig.show()
