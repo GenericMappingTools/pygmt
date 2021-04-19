@@ -15,7 +15,7 @@ to submit a pull request with your recommended addition to the
 - [PyGMT Tutorial in 2021](https://github.com/MIGG-NTU/PyGMT2021) by MIGG-NTU
 - [PyGMT Workshop at FOSS4G Oceania 2019](https://github.com/GenericMappingTools/foss4g2019oceania) by Wei Ji Leong
 
-## Examples
+## Examples from Publications and Posters
 
 - [GMT and PyGMT plotting examples](https://github.com/michaelgrund/GMT-plotting) by Michael Grund
 - [NZ Antarctic Science Conference 2021 poster](https://github.com/weiji14/nzasc2021) by Wei Ji Leong
