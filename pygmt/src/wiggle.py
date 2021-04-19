@@ -39,9 +39,8 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
-    x/y/z : float or 1d arrays
-        The x and y coordinates, or arrays of x and y coordinates of the
-        z data point or an array of z data points.
+    x/y/z : 1d arrays
+        The arrays of x and y coordinates and z data points.
     data : str or 2d array
         Either a data file name or a 2d numpy array with the tabular data.
         Use parameter ``columns`` to choose which columns are x, y, z,
