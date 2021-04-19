@@ -51,12 +51,12 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
         Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (cm, inch, or point); if no unit
         is given we use the default unit that is controlled by
-        :gmt-docs:`PROJ_LENGTH_UNIT <gmt.conf.html#term-PROJ_LENGTH_UNIT>`.
+        :gmt-term:`PROJ_LENGTH_UNIT`.
     {B}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\ |\ **r**]\
-        [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]]
+        [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
     color: str
         Set fill shade, color or pattern for positive and/or negative wiggles
@@ -68,7 +68,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
 
     track : str
         Draw track [Default is no track]. Append pen attributes to use
-        [Defaults: width = 0.25p, color = black, style = solid].
+        [Default is **0.25p,black,solid**\ ].
     {U}
     {V}
     pen : str
