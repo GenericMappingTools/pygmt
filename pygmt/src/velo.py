@@ -150,6 +150,8 @@ def velo(self, data=None, **kwargs):
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
+    {J}
+    {R}
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
@@ -190,7 +192,6 @@ def velo(self, data=None, **kwargs):
         none]. If *intens* is not provided we will instead read the intensity
         from an extra data column after the required input columns determined
         by ``scaling``.
-    {J}
     line: str
         [*pen*\ [**+c**\ [**f**\|\ **l**]]].
         Draw lines. Ellipses and rotational wedges will have their outlines
@@ -203,7 +204,6 @@ def velo(self, data=None, **kwargs):
     no_clip: bool or str
         Do NOT skip symbols that fall outside the frame boundary specified
         by ``region``. [Default plots symbols inside frame only].
-    {R}
     {U}
     {V}
     pen : str
