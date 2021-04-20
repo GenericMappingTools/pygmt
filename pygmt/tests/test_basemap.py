@@ -92,7 +92,7 @@ def test_basemap_compass():
     """
     fig = Figure()
     fig.basemap(
-        region=[127.5, 128.5, 26, 27],
+        region=[120, 128.5, 26, 27],
         projection="H15c",
         frame=True,
         compass="jMC+w5c+d11.5",
@@ -101,15 +101,14 @@ def test_basemap_compass():
 
 
 @pytest.mark.mpl_image_compare
-def test_basemap_map_scale():
+def test_basemap_add():
     """
-    Create a map with a map scale.
+    Create a map.
     """
     fig = Figure()
     fig.basemap(
-        region=[127.5, 128.5, 26, 27],
+        region=[120, 128.5, 26, 27],
         projection="H15c",
         frame=True,
-        map_scale="jMC+c26.5+w10k+f+l",
     )
     return fig

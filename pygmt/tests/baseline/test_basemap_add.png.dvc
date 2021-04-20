@@ -1,0 +1,4 @@
+outs:
+- md5: 40ed35b2a39ff16ad7e3e90946adc7c5
+  size: 5773
+  path: test_basemap_add.png
