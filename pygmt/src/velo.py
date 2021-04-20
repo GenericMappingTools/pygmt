@@ -15,7 +15,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     C="cmap",
     D="rescale",
     E="uncertainty_color",
-    G="facecolor",
+    G="color",
     H="scale",
     I="shading",
     J="projection",
@@ -75,7 +75,7 @@ def velo(self, data=None, **kwargs):
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` option and the arrow-head can be colored via
-          ``facecolor``. The ellipse will be filled with the color or shade
+          ``color``. The ellipse will be filled with the color or shade
           specified by the ``uncertainty_color`` option [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
@@ -108,7 +108,7 @@ def velo(self, data=None, **kwargs):
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` option and the arrow-head can be colored via
-          ``facecolor``. The ellipse will be filled with the color or shade
+          ``color``. The ellipse will be filled with the color or shade
           specified by the ``uncertainty_color`` option [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
@@ -127,10 +127,10 @@ def velo(self, data=None, **kwargs):
           *wedgescale* is not given then we read it from the data file as an
           extra column. Rotation values are multiplied by *wedgemag* before
           plotting. For example, setting *wedgemag* to 1.e7 works well for
-          rotations of the order of 100 nanoradians/yr. Use ``facecolor`` to
-          set the fill color or shade for the wedge, and ``uncertainty_color``
-          to set the color or shade for the uncertainty. Parameters are
-          expected to be in the following columns:
+          rotations of the order of 100 nanoradians/yr. Use ``color`` to set
+          the fill color or shade for the wedge, and ``uncertainty_color`` to
+          set the color or shade for the uncertainty. Parameters are expected
+          to be in the following columns:
 
             - **1**,\ **2**: longitude, latitude of station
             - **3**: rotation in radians
@@ -169,7 +169,7 @@ def velo(self, data=None, **kwargs):
         ``zvalue='+e'`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
-    facecolor : str
+    color : str
         Select color or pattern for filling of symbols [Default is no fill].
         **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the
         symbol fill color based on the selected measure in ``zvalue``
