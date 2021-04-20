@@ -171,7 +171,7 @@ fig.show()
 # This particular object contains 7 different ``pandas.Timestamp`` objects, with the
 # number being manipulated by the periods argument. Each period begins at the start
 # of a business quarter as denoted by BQS when passed to the freq argument. The inital
-# date is first argument that is passed to ``date_range()`` and it marks the first
+# date is the first argument that is passed to ``date_range()`` and it marks the first
 # data in the object ``x`` that will be plotted.
 
 x = pd.date_range("2018-03-01", periods=7, freq="BQS")
@@ -196,8 +196,8 @@ fig.show()
 # ------------------------------
 #
 # In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
-# as an ``xarray.DataArray`` object. Such object provide a wrapper around traditional
-# data formats allowing this data to have varrying labeled dimensions and support
+# as an ``xarray.DataArray`` object. Such object provides a wrapper around traditional
+# data formats allowing this data to have varying labeled dimensions and support
 # operations that use various pieces of metadata. The following code uses a
 # ``pandas.date_range`` object to fill the DataArray with data, yet this is not
 # essential for the creation of a valid DataArray.
@@ -290,7 +290,7 @@ fig.show()
 # ---------------------------------------
 #
 # This example focuses on labeling the axes and setting intervals
-# at which the labels are expected to appear. All of these modification
+# at which the labels are expected to appear. All of these modifications
 # are added to the ``frame`` argument and each item in that list modifies
 # a specific section of the plot.
 #
