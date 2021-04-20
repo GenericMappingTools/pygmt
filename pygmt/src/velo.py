@@ -39,7 +39,7 @@ def velo(self, data=None, **kwargs):
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
     Reads data values from files, :class:`numpy.ndarray` or
-    :class:`pandas.DataFrame` and will plot the selected geodesy symbol on a
+    :class:`pandas.DataFrame` and plots the selected geodesy symbol on a
     map. You may choose from velocity vectors
     and their uncertainties, rotational wedges and their uncertainties,
     anisotropy bars, or strain crosses. Symbol fills or their outlines may be
@@ -138,7 +138,7 @@ def velo(self, data=None, **kwargs):
 
         - **x**\ [*cross_scale*]
 
-          gives Strain crosses. The *cross_scale* sets the size of the cross.
+          Strain crosses. The *cross_scale* sets the size of the cross.
           If *cross_scale* is not given then we read it from the data file as
           an extra column. Parameters are expected to be in the following
           columns:
@@ -187,7 +187,7 @@ def velo(self, data=None, **kwargs):
         *intens*.
         Use the supplied *intens* value (nominally in the -1 to +1 range) to
         modulate the symbol fill color by simulating illumination [Default is
-        none]. If no intensity is provided we will instead read *intens* from
+        none]. If *intens* is not provided we will instead read the intensity from
         an extra data column after the required input columns determined by
         ``scaling``.
     {J}
@@ -210,7 +210,7 @@ def velo(self, data=None, **kwargs):
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
         plane edges. [Defaults: width = default, color = black, style = solid].
-        If the modifier **+cl** is appended then the color of the pen are
+        If the modifier **+cl** is appended then the color of the pen is
         updated from the CPT (see ``cmap``). If instead modifier **+cf** is
         appended then the color from the cpt file is applied to symbol fill
         only [Default].  Use just **+c** to set both pen and fill color.

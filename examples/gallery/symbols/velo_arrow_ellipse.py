@@ -1,12 +1,14 @@
 """
-Velocity arrows and confidence ellipse
---------------------------------------
+Velocity arrows and confidence ellipses
+---------------------------------------
 
 The :meth:`pygmt.Figure.velo` method can be used to plot mean velocity arrow
-and confidence ellipse on a map.
-The example below, should make big red arrows with green ellipses,
-outlined in red. Note that the 39% confidence scaling will give an ellipse
-which fits inside a rectangle of dimension Esig by Nsig.
+and confidence ellipses.
+The example below plots red velocity arrows with light-blue confidence ellipses
+outlined in red with the east_velocity x north_velocity used for the station names.
+Note that the velocity arrows are scaled by 0.2 and the 39% confidence limit
+will give an ellipse
+which fits inside a rectangle of dimension east_sigma by north_sigma.
 """
 
 import pandas as pd
@@ -15,14 +17,14 @@ import pygmt
 fig = pygmt.Figure()
 df = pd.DataFrame(
     data={
-        "Long.": [0, -8, 0, -5, 5, 0],
-        "Lat.": [-8, 5, 0, -5, 0, -5],
-        "Evel": [0, 3, 4, 6, -6, 6],
-        "Nvel": [0, 3, 6, 4, 4, -4],
-        "Esig": [4, 0, 4, 6, 6, 6],
-        "Nsig": [6, 0, 6, 4, 4, 4],
-        "CorEN": [0.5, 0.5, 0.5, 0.5, -0.5, -0.5],
-        "SITE": ["4x6", "3x3", "NaN", "6x4", "-6x4", "6x-4"],
+        "x": [0, -8, 0, -5, 5, 0],
+        "y": [-8, 5, 0, -5, 0, -5],
+        "east_velocity": [0, 3, 4, 6, -6, 6],
+        "north_velocity": [0, 3, 6, 4, 4, -4],
+        "east_sigma": [4, 0, 4, 6, 6, 6],
+        "north_sigma": [6, 0, 6, 4, 4, 4],
+        "correlation_EN": [0.5, 0.5, 0.5, 0.5, -0.5, -0.5],
+        "SITE": ["0x0", "3x3", "4x6", "6x4", "-6x4", "6x-4"],
     }
 )
 fig.velo(
