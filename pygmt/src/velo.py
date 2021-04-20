@@ -17,7 +17,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     E="uncertainty_color",
     G="facecolor",
     H="scale",
-    I="intensity",
+    I="shading",
     J="projection",
     L="line",
     N="no_clip",
@@ -40,10 +40,10 @@ def velo(self, data=None, **kwargs):
 
     Reads data values from files, :class:`numpy.ndarray` or
     :class:`pandas.DataFrame` and plots the selected geodesy symbol on a
-    map. You may choose from velocity vectors
-    and their uncertainties, rotational wedges and their uncertainties,
-    anisotropy bars, or strain crosses. Symbol fills or their outlines may be
-    colored based on constant parameters or via color lookup tables.
+    map. You may choose from velocity vectors and their uncertainties,
+    rotational wedges and their uncertainties, anisotropy bars, or strain
+    crosses. Symbol fills or their outlines may be colored based on constant
+    parameters or via color lookup tables.
 
     Must provide ``data`` and ``scaling``.
 
@@ -183,13 +183,13 @@ def velo(self, data=None, **kwargs):
         size is either provided by ``scaling`` or via the input *size* column.
         Alternatively, append a constant *scale* that should be used instead of
         reading a scale column.
-    intensity : float or bool
+    shading : float or bool
         *intens*.
         Use the supplied *intens* value (nominally in the -1 to +1 range) to
         modulate the symbol fill color by simulating illumination [Default is
-        none]. If *intens* is not provided we will instead read the intensity from
-        an extra data column after the required input columns determined by
-        ``scaling``.
+        none]. If *intens* is not provided we will instead read the intensity
+        from an extra data column after the required input columns determined
+        by ``scaling``.
     {J}
     line: str
         [*pen*\ [**+c**\ [**f**\|\ **l**]]].
