@@ -65,7 +65,7 @@ jobs:
         echo -e "### Modified images\n" >> report.md
         # Upload new images
         while IFS= read -r line; do
-          cml-publish --title $line --md "$line" > modified_images_new.md < /dev/null
+          cml-publish --title $line --md "$line" >> modified_images_new.md < /dev/null
         done < modified_files.txt
 
         # Pull images in the master branch from cloud storage
@@ -73,7 +73,7 @@ jobs:
         dvc pull --remote upstream
         # Upload old images
         while IFS= read -r line; do
-          cml-publish --title $line --md "$line" > modified_images_old.md < /dev/null
+          cml-publish --title $line --md "$line" >> modified_images_old.md < /dev/null
         done < modified_files.txt
 
         # Append image report for modified images
