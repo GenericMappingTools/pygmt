@@ -109,7 +109,7 @@ fig.show()
 # ----------------
 #
 # In addition to Python's ``datetime`` library, PyGmt also supports passing times
-# in ISO format. Much like in the previous examples, these valued are stored in
+# in ISO format. Much like in the previous examples, these values are stored in
 # list ``x`` in string format. Basic ISO strings are formatted as ``YYYY-MM-DD``
 # with each ``-`` delineated section marking the four digit year value, two digit
 # month value, and two digit day value respectively.
