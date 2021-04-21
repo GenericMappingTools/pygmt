@@ -170,7 +170,7 @@ fig.show()
 # data to the PyGMT figure. This object is set using the pandas method ``date_range()``.
 # This particular object contains 7 different ``pandas.Timestamp`` objects, with the
 # number being manipulated by the periods argument. Each period begins at the start
-# of a business quarter as denoted by BQS when passed to the freq argument. The inital
+# of a business quarter as denoted by BQS when passed to the freq parameter. The inital
 # date is the first argument that is passed to ``date_range()`` and it marks the first
 # data in the object ``x`` that will be plotted.
 
