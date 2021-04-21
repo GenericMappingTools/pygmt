@@ -291,7 +291,7 @@ fig.show()
 #
 # This example focuses on labeling the axes and setting intervals
 # at which the labels are expected to appear. All of these modifications
-# are added to the ``frame`` argument and each item in that list modifies
+# are added to the ``frame`` parameter and each item in that list modifies
 # a specific section of the plot.
 #
 # Starting off with ``WS``, adding this string means that only
