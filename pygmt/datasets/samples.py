@@ -15,6 +15,7 @@ def load_japan_quakes():
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
+
     Returns
     -------
     data : pandas.DataFrame
@@ -45,6 +46,7 @@ def load_ocean_ridge_points():
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
+
     Returns
     -------
     data : pandas.DataFrame
@@ -67,6 +69,7 @@ def load_sample_bathymetry():
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
+
     Returns
     -------
     data : pandas.DataFrame
@@ -88,6 +91,7 @@ def load_usgs_quakes():
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
+
     Returns
     -------
     data : pandas.DataFrame
@@ -109,6 +113,7 @@ def load_fractures_compilation():
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
+
     Returns
     -------
     data : pandas.DataFrame
