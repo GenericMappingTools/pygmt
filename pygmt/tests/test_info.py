@@ -64,10 +64,6 @@ def test_info_numpy_array_time_column():
     assert output == expected_output
 
 
-@pytest.mark.xfail(
-    reason="UNIX timestamps returned instead of ISO datetime, should work on GMT 6.2.0 "
-    "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
-)
 def test_info_pandas_dataframe_time_column():
     """
     Make sure info works on pandas.DataFrame inputs with a time column.
@@ -85,10 +81,6 @@ def test_info_pandas_dataframe_time_column():
     assert output == expected_output
 
 
-@pytest.mark.xfail(
-    reason="UNIX timestamp returned instead of ISO datetime, should work on GMT 6.2.0 "
-    "after https://github.com/GenericMappingTools/gmt/issues/4241 is resolved",
-)
 def test_info_xarray_dataset_time_column():
     """
     Make sure info works on xarray.Dataset 1D inputs with a time column.
