@@ -8,8 +8,10 @@ from pygmt.src import which
 def load_japan_quakes():
     """
     Load a table of earthquakes around Japan as a pandas.DataFrame.
+
     Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
     dataset used in the GMT tutorials.
+
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
@@ -37,7 +39,9 @@ def load_ocean_ridge_points():
     """
     Load a table of ocean ridge points for the entire world as a
     pandas.DataFrame.
+
     This is the ``@ridge.txt`` dataset used in the GMT tutorials.
+
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
@@ -57,7 +61,9 @@ def load_sample_bathymetry():
     """
     Load a table of ship observations of bathymetry off Baja California as a
     pandas.DataFrame.
+
     This is the ``@tut_ship.xyz`` dataset used in the GMT tutorials.
+
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
@@ -76,7 +82,9 @@ def load_sample_bathymetry():
 def load_usgs_quakes():
     """
     Load a table of global earthquakes form the USGS as a pandas.DataFrame.
+
     This is the ``@usgs_quakes_22.txt`` dataset used in the GMT tutorials.
+
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
@@ -95,7 +103,9 @@ def load_fractures_compilation():
     """
     Load a table of fracture lengths and azimuths as hypothetically digitized
     from geological maps as a pandas.DataFrame.
+
     This is the ``@fractures_06.txt`` dataset used in the GMT tutorials.
+
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
