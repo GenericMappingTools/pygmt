@@ -7,7 +7,6 @@ exclude .gitignore
 exclude .pylintrc
 exclude AUTHORSHIP.md
 exclude CONTRIBUTING.md
-exclude MAINTENANCE.md
 exclude Makefile
 exclude environment.yml
 exclude package.json

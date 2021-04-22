@@ -177,13 +177,23 @@ def text_(
         )
     ):
         kwargs.update({"F": ""})
-    if angle is not None and isinstance(angle, (int, float, str)):
+
+    if angle is True:
+        kwargs["F"] += "+a"
+    elif isinstance(angle, (int, float, str)):
         kwargs["F"] += f"+a{str(angle)}"
-    if font is not None and isinstance(font, str):
+
+    if font is True:
+        kwargs["F"] += "+f"
+    elif isinstance(font, str):
         kwargs["F"] += f"+f{font}"
-    if justify is not None and isinstance(justify, str):
+
+    if justify is True:
+        kwargs["F"] += "+j"
+    elif isinstance(justify, str):
         kwargs["F"] += f"+j{justify}"
-    if position is not None and isinstance(position, str):
+
+    if isinstance(position, str):
         kwargs["F"] += f'+c{position}+t"{text}"'
 
     extra_arrays = []
