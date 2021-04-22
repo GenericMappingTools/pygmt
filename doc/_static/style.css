@@ -89,6 +89,32 @@ p {
     max-width: 1000px;
 }
 
+/* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
+html.writer-html5 .rst-content dl.field-list {
+    display: initial;
+}
+
+/* Add a grey box around parameters similar to sphinx_rtd_theme v4.x.x) */
+.rst-content dl:not(.docutils) dl dt {
+    margin-bottom: 4px;
+    border: none;
+    border-left: solid 3px #ccc;
+    background: #f0f0f0;
+    color: #555;
+}
+
+.rst-content dl:not(.docutils) dt {
+    display: table;
+    margin: 6px 0;
+    font-size: 90%;
+    line-height: normal;
+    background: #e7f2fa;
+    color: #2980B9;
+    border-top: solid 3px #6ab0de;
+    padding: 6px;
+    position: relative;
+}
+
 /* Remove the padding from the Parameters table */
 .rst-content table.field-list .field-name {
     padding-left: 0px;

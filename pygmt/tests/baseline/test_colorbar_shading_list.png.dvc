@@ -1,0 +1,4 @@
+outs:
+- md5: e888834c32778bbcfeccaa9fd0d04b1f
+  size: 59418
+  path: test_colorbar_shading_list.png

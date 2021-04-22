@@ -21,7 +21,14 @@
     overview.rst
     install.rst
     tutorials/first_figure.rst
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+    :caption: Examples
+
     gallery/index.rst
+    external_resources.md
 
 .. toctree::
     :maxdepth: 2
@@ -34,6 +41,7 @@
     tutorials/regions.rst
     tutorials/plot.rst
     tutorials/lines.rst
+    tutorials/vectors.rst
     tutorials/text.rst
     tutorials/contour_map.rst
     tutorials/earth_relief.rst
@@ -48,4 +56,5 @@
     :caption: Reference documentation
 
     api/index.rst
-    changes.rst
+    changes.md
+    maintenance.md

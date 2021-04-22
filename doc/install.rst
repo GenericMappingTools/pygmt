@@ -46,8 +46,7 @@ Start by looking at the tutorials on our sidebar, good luck!
 Which Python?
 -------------
 
-PyGMT is tested to run on **Python 3.7 or greater**. Older Python versions may
-work, but there is no guarantee that PyGMT will behave as expected.
+PyGMT is tested to run on **Python 3.7 or greater**.
 
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
 Python distribution to ensure you have all dependencies installed and the
@@ -79,19 +78,17 @@ We recommend following the instructions further on to install GMT 6.
 Dependencies
 ------------
 
-PyGMT requires the following libraries:
+PyGMT requires the following libraries to be installed:
 
-* `numpy <http://www.numpy.org/>`__
-* `pandas <https://pandas.pydata.org/>`__
-* `xarray <http://xarray.pydata.org/>`__
-* `netCDF4 <https://github.com/Unidata/netcdf4-python>`__
-* `packaging <https://pypi.org/project/packaging/>`__
+* `numpy <https://numpy.org>`__ (>= 1.17)
+* `pandas <https://pandas.pydata.org>`__
+* `xarray <https://xarray.pydata.org>`__
+* `netCDF4 <https://unidata.github.io/netcdf4-python>`__
+* `packaging <https://packaging.pypa.io>`__
 
 The following are optional (but recommended) dependencies:
 
-* `IPython <https://ipython.org/>`__: For embedding the figures in Jupyter
-  notebooks.
-
+* `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks.
 
 Installing GMT and other dependencies
 -------------------------------------
@@ -162,35 +159,17 @@ from Python.
 Testing your install
 --------------------
 
-Quick check
-~~~~~~~~~~~
-
 To ensure that PyGMT and its dependencies are installed correctly, run the
 following in your Python interpreter::
 
     import pygmt
     pygmt.show_versions()
 
-Or run this in the command line::
+    fig = pygmt.Figure()
+    fig.coast(region="g", frame=True, shorelines=1)
+    fig.show()
 
-    python -c "import pygmt; pygmt.show_versions()"
-
-
-Full test (optional)
-~~~~~~~~~~~~~~~~~~~~
-
-PyGMT ships with a full test suite.
-You can run our tests after you install it but you will need a few extra
-dependencies as well (be sure to have your conda environment activated)::
-
-    conda install pytest pytest-mpl ipython
-
-Test your installation by running the following inside a Python interpreter
-(note that it may take a few minutes)::
-
-    import pygmt
-    pygmt.show_versions()
-    pygmt.test()
+If you see a global map with shorelines, then you're all set.
 
 
 Finding the GMT shared library

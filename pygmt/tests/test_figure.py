@@ -8,7 +8,7 @@ import os
 import numpy as np
 import numpy.testing as npt
 import pytest
-from pygmt import Figure
+from pygmt import Figure, set_display
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -142,26 +142,26 @@ def test_figure_show():
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    img = fig.show(width=800)
-    assert img.width == 800
+    fig.show()
 
 
 @pytest.mark.mpl_image_compare
-def test_shift_origin():
+def test_figure_shift_origin():
     """
     Test if fig.shift_origin works.
     """
+    kwargs = dict(region=[0, 3, 0, 5], projection="X3c/5c", frame=0)
     fig = Figure()
     # First call shift_origin without projection and region.
-    # Test the issue https://github.com/GenericMappingTools/pygmt/issues/514
-    fig.shift_origin(xshift="2i", yshift="3i")
-    fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
-    fig.shift_origin(xshift="4i")
-    fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
-    fig.shift_origin(yshift="6i")
-    fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
-    fig.shift_origin(xshift="-4i", yshift="6i")
-    fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
+    # Test issue https://github.com/GenericMappingTools/pygmt/issues/514
+    fig.shift_origin(xshift="2c", yshift="3c")
+    fig.basemap(**kwargs)
+    fig.shift_origin(xshift="4c")
+    fig.basemap(**kwargs)
+    fig.shift_origin(yshift="6c")
+    fig.basemap(**kwargs)
+    fig.shift_origin(xshift="-4c", yshift="6c")
+    fig.basemap(**kwargs)
     return fig
 
 
@@ -174,3 +174,12 @@ def test_figure_show_invalid_method():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     with pytest.raises(GMTInvalidInput):
         fig.show(method="test")
+
+
+def test_figure_set_display_invalid():
+    """
+    Test to check if an error is raised when an invalid method is passed to
+    set_display.
+    """
+    with pytest.raises(GMTInvalidInput):
+        set_display(method="invalid")

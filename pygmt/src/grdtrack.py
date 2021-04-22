@@ -26,7 +26,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     table with the interpolated values added as (one or more) new columns. A
     bicubic [Default], bilinear, B-spline or nearest-neighbor interpolation is
     used, requiring boundary conditions at the limits of the region (see
-    ``interpolation``; Default uses “natural” conditions (second partial
+    ``interpolation``; Default uses "natural" conditions (second partial
     derivative normal to edge is zero) unless the grid is automatically
     recognized as periodic.)
 
