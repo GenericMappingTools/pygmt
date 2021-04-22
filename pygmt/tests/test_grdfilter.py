@@ -21,7 +21,7 @@ def fixture_grid():
     return load_earth_relief(registration="pixel")
 
 
-def test_grfilter_dataarray_in_dataarray_out(grid):
+def test_grdfilter_dataarray_in_dataarray_out(grid):
     """
     grdfilter an input DataArray, and output as DataArray.
     """
@@ -32,8 +32,8 @@ def test_grfilter_dataarray_in_dataarray_out(grid):
     assert result.coords["lat"].data.max() == 89.5
     assert result.coords["lon"].data.min() == -179.5
     assert result.coords["lon"].data.max() == 179.5
-    npt.assert_almost_equal(result.data.min(), -6147.47265625, decimal=2)
-    npt.assert_almost_equal(result.data.max(), 5164.1157, decimal=2)
+    npt.assert_almost_equal(result.data.min(), -6147.4907, decimal=2)
+    npt.assert_almost_equal(result.data.max(), 5164.06, decimal=2)
     assert result.sizes["lat"] == 180
     assert result.sizes["lon"] == 360
 
@@ -47,11 +47,11 @@ def test_grdfilter_dataarray_in_file_out(grid):
         assert result is None  # grdfilter returns None if output to a file
         result = grdinfo(tmpfile.name, per_column=True)
         assert (
-            result == "-180 180 -90 90 -6147.47265625 5164.11572266 1 1 360 180 1 1\n"
+            result == "-180 180 -90 90 -6147.49072266 5164.06005859 1 1 360 180 1 1\n"
         )
 
 
-def test_grfilter_file_in_dataarray_out():
+def test_grdfilter_file_in_dataarray_out():
     """
     grdfilter an input grid file, and output as DataArray.
     """
