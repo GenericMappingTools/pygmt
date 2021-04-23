@@ -43,7 +43,7 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.8.0
+        uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
 
@@ -66,7 +66,8 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install gmt=6.1.1 numpy pandas xarray netCDF4 packaging \
+          conda install -c conda-forge/label/dev gmt=6.2.0rc1
+          conda install numpy pandas xarray netCDF4 packaging \
                         ipython make myst-parser \
                         sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
 
