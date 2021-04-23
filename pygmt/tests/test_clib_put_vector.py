@@ -2,6 +2,7 @@
 Test the functions that put vector data into GMT.
 """
 import itertools
+from datetime import datetime
 
 import numpy as np
 import numpy.testing as npt
@@ -115,7 +116,7 @@ def test_put_vector_string_dtype():
             "2021-02-03T00:00:00",
             "2021-02-03T04:00:00",
             "2021-02-03T04:05:06",
-            "2021-03-02T04:50:06",
+            f"{datetime.utcnow().strftime('%Y-%m-%d')}T04:50:06",
         ],
     ]
 
