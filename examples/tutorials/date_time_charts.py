@@ -20,13 +20,13 @@ import xarray as xr
 # --------------------
 #
 # PyGMT accepts a variety of datetime objects to plot data and create charts.
-# Aside from the built-in Python datetime object, PyGmt supports input using
+# Aside from the built-in Python datetime object, PyGMT supports input using
 # ``pandas``, ``numpy``, ``xarray`` as well as properly formatted strings.
 # These data types can be used to plot specific points as well as get
 # passed into the ``region`` parameter to create a range of the data on an axis.
 #
 # The following examples will demonstrate how to create plots
-# using the differnt datetime objects
+# using the different datetime objects.
 
 ###############################################################################
 # Using Python's ``Datetime``
@@ -38,7 +38,7 @@ import xarray as xr
 # ``region`` parameter in the format
 # ``(x_start, x_end, y_start, y_end)``,
 # where the date range is plotted on the x-axis.
-# An additonal notable parameter is `style`, where it's specified
+# An additonal notable parameter is ``style``, where it's specified
 # that data points are to be plotted in an **X** shape with a size
 # of 0.3 centimeters.
 #
@@ -67,14 +67,14 @@ fig.show()
 ###############################################################################
 # In addition to specifying the date, ``datetime`` supports
 # the exact time of the data points. Using :meth:`datetime.datetime`
-# the ``region`` paramter as well as data points can be created
+# the ``region`` parameter as well as data points can be created
 # using this format ``(Y, M, D, H, M, S)`` where ``H`` is hours
 # using 24 hour format.
 #
 # Some notable differences to the previous example include
 # - Modifying ``frame`` to only include West(left) and South
 # (bottom) border, and removing grid lines
-# - Using circles to plot data points shown through ``c``
+# - Using circles to plot data points defined through ``c``
 # in ``style`` parameter
 
 x = [
