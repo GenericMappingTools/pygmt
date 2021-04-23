@@ -58,7 +58,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\ |\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
-    color: str
+    color : str
         Set fill shade, color or pattern for positive and/or negative wiggles
         [Default is no fill]. Optionally, append **+p** to fill positive areas
         (this is the default behavior). Append **+n** to fill negative areas.
@@ -68,7 +68,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
 
     track : str
         Draw track [Default is no track]. Append pen attributes to use
-        [Default is **0.25p,black,solid**\ ].
+        [Default is **0.25p,black,solid**].
     {U}
     {V}
     pen : str
