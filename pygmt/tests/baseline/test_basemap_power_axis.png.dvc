@@ -1,4 +1,4 @@
 outs:
-- md5: 6d9dd0086ab8226f180c6aae5ec3e4a6
-  size: 31288
+- md5: d42769c9b2a802788ac3b3fd0c193c26
+  size: 16446
   path: test_basemap_power_axis.png

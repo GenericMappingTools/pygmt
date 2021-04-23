@@ -24,6 +24,9 @@ jobs:
     - name: Setup continuous machine learning (CML)
       uses: iterative/setup-cml@v1.0.0
 
+    - name: Pull image data from cloud storage
+      run: dvc pull --remote upstream
+
     # Produce the markdown diff report, which should look like:
     # ## Summary of changed images
     #
@@ -32,32 +35,52 @@ jobs:
     # | Status   | Path                                |
     # |----------|-------------------------------------|
     # | added    | pygmt/tests/baseline/test_image.png |
-    - name: Put list of images that were added or changed into report
-      run: |
-        echo -e "## Summary of changed images\n" > report.md
-        echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md
-        dvc diff --show-md master HEAD >> report.md
-        cat report.md
-
-    - name: Pull image data from cloud storage
-      run: dvc pull --remote upstream
-
-    - name: Put image diff(s) into report
+    # | deleted  | pygmt/tests/baseline/test_image2.png |
+    # | modified | pygmt/tests/baseline/test_image3.png |
+    - name: Generate the image diff report
       env:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
       id: image-diff
       run: |
-        # Get just the filename of the changed image from the report
-        awk 'NF==5 && NR>=7 {print $4}' report.md > diff_files.txt
+        echo -e "## Summary of changed images\n" > report.md
+        echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md
+        dvc diff --show-md master HEAD >> report.md
+
+        # Get just the filename of the added and modified image from the report
+        awk 'NF==5 && NR>=7 && $2=="added" {print $4}' report.md > added_files.txt
+        awk 'NF==5 && NR>=7 && $2=="modified" {print $4}' report.md > modified_files.txt
 
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
         echo -e "<details>\n" >> report.md
 
+        # Added images
+        echo -e "### Added images\n" >> report.md
         while IFS= read -r line; do
           echo -e "- $line \n" >> report.md
           cml-publish --title $line --md "$line" >> report.md < /dev/null
-        done < diff_files.txt
+        done < added_files.txt
+
+        # Modified images
+        echo -e "### Modified images\n" >> report.md
+        # Upload new images
+        while IFS= read -r line; do
+          cml-publish --title $line --md "$line" >> modified_images_new.md < /dev/null
+        done < modified_files.txt
+
+        # Pull images in the master branch from cloud storage
+        git checkout master
+        dvc pull --remote upstream
+        # Upload old images
+        while IFS= read -r line; do
+          cml-publish --title $line --md "$line" >> modified_images_old.md < /dev/null
+        done < modified_files.txt
+
+        # Append image report for modified images
+        echo -e "| Path | Old | New |" >> report.md
+        echo -e "|---|---|---|" >> report.md
+        paste modified_files.txt modified_images_old.md modified_images_new.md -d"|" |
+          awk -F"|" 'function basename(file) {sub(".*/", "", file); return file} {printf("| %s | %s | %s |\n",  basename($1), $2, $3)}' >> report.md
 
         echo -e "</details>\n" >> report.md
 
