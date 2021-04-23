@@ -24,12 +24,14 @@ from pkg_resources import get_distribution
 
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
-from pygmt.figure import Figure
-from pygmt.modules import GMTDataArrayAccessor, config
+from pygmt.accessors import GMTDataArrayAccessor
+from pygmt.figure import Figure, set_display
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
+    blockmean,
     blockmedian,
+    config,
     grd2cpt,
     grdcut,
     grdfilter,
@@ -45,7 +47,7 @@ from pygmt.src import (
 
 # Get semantic version through setuptools-scm
 __version__ = f'v{get_distribution("pygmt").version}'  # e.g. v0.1.2.dev3+g0ab3cd78
-__commit__ = __version__.split("+g")[-1]  # 0ab3cd78
+__commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 # Start our global modern mode session
 _begin()

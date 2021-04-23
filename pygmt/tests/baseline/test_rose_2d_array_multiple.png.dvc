@@ -1,0 +1,4 @@
+outs:
+- md5: a2c0e7fce6907cea54171b1776b7de86
+  size: 36494
+  path: test_rose_2d_array_multiple.png

@@ -1,12 +1,13 @@
 name: pygmt
 channels:
+    - conda-forge/label/dev
     - conda-forge
     - defaults
 dependencies:
     # Required dependencies
     - pip
-    - gmt=6.1.1
-    - numpy
+    - gmt=6.2.0rc1
+    - numpy>=1.17
     - pandas
     - xarray
     - netCDF4
@@ -17,6 +18,7 @@ dependencies:
     - codecov
     - coverage[toml]
     - docformatter
+    - dvc
     - flake8
     - ipython
     - isort>=5
@@ -31,4 +33,4 @@ dependencies:
     - sphinx
     - sphinx-copybutton
     - sphinx-gallery
-    - sphinx_rtd_theme=0.4.3
+    - sphinx_rtd_theme

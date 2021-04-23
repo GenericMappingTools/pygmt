@@ -1,0 +1,4 @@
+outs:
+- md5: 6ff032c45486e738b8d42c24e6333c64
+  size: 35434
+  path: test_plot3d_colors.png

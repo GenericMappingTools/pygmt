@@ -1,0 +1,4 @@
+outs:
+- md5: 61be9b262729e0a6b739e814d1aa4655
+  size: 32065
+  path: test_logo.png
