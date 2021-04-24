@@ -31,7 +31,6 @@ def histogram(self, table, **kwargs):
 
     Parameters
     ----------
-
     table : str, list, or 1d array
         A data file name, list, or 1d numpy array. This is a required argument.
     {J}
