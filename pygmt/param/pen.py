@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Pen:
-    """
+    r"""
     A GMT pen specified from three attributes: *width*, *color* and *style*.
 
     See also :gmt-docs:`cookbook/features.html#specifying-pen-attributes`
