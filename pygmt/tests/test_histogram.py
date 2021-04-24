@@ -21,6 +21,6 @@ def test_histogram(table):
     """
     fig = Figure()
     fig.histogram(
-        table=table, projection="X10c/25c", interval=1, frame="a", fill="green"
+        table=table, projection="X10c/25c", series=1, frame="a", fill="green"
     )
     return fig
