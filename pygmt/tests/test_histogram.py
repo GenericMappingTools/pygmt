@@ -20,7 +20,5 @@ def test_histogram(table):
     Tests plotting a histogram using a list of integers.
     """
     fig = Figure()
-    fig.histogram(
-        table=table, projection="X10c/25c", series=1, frame="a", fill="green"
-    )
+    fig.histogram(table=table, projection="X10c/25c", series=1, frame="a", fill="green")
     return fig
