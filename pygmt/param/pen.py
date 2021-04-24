@@ -104,6 +104,14 @@ class Pen:
 
     >>> # Very thin, cyan (in c/m/y/k), dot-dot-dashed line
     >>> pen = pygmt.param.Pen(width="faint", color="100/0/0/0", style="..-")
+
+    >>> # Thick, purple, dashed-dot-dashed border line around some text
+    >>> pen = pygmt.param.Pen(width="thick", color="purple", style="-.-")
+    >>> print(pen)
+    thick,purple,-.-
+    >>> fig = pygmt.Figure()
+    >>> fig.text(x=1, y=1, region=[0, 2, 0, 2], pen=pen, text=pen)
+    >>> fig.show()
     """
 
     width: str = None
