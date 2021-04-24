@@ -120,6 +120,16 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
+Parameters
+----------
+
+Complex GMT arguments can be specified using convenience classes under
+the :mod:`pygmt.param` module.
+
+.. autosummary::
+    :toctree: generated
+
+    param.Pen
 
 Miscellaneous
 -------------
