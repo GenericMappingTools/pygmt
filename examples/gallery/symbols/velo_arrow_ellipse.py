@@ -33,7 +33,7 @@ fig.velo(
     pen="0.6p,red",
     uncertainty_color="lightblue1",
     line=True,
-    scaling="e0.2/0.39/18",
+    spec="e0.2/0.39/18",
     frame=["WSne", "2g2f"],
     projection="x0.8c",
     vector="0.3c+p1p+e+gred",

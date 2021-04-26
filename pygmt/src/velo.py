@@ -22,7 +22,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     L="line",
     N="no_clip",
     R="region",
-    S="scaling",
+    S="spec",
     U="timestamp",
     V="verbose",
     W="pen",
@@ -45,7 +45,7 @@ def velo(self, data=None, **kwargs):
     crosses. Symbol fills or their outlines may be colored based on constant
     parameters or via color lookup tables.
 
-    Must provide ``data`` and ``scaling``.
+    Must provide ``data`` and ``spec``.
 
     Full option list at :gmt-docs:`supplements/geodesy/velo.html`
 
@@ -58,7 +58,7 @@ def velo(self, data=None, **kwargs):
         :class:`pandas.DataFrame` with the tabular data. Note that text columns
         are only supported with file or pandas DataFrame inputs.
 
-    scaling: str
+    spec: str
         Selects the meaning of the columns in the data file and the figure
         to be plotted. In all cases, the scales are in data units per length
         unit and sizes are in length units (default length unit is controlled
@@ -160,13 +160,13 @@ def velo(self, data=None, **kwargs):
     {B}
     {CPT}
     rescale : str
-        can be used to rescale the uncertainties of velocities
-        (``scaling='e'`` and ``scaling='r'``) and rotations
-        (``scaling='w'``). Can be combined with the ``confidence`` variable.
+        can be used to rescale the uncertainties of velocities (``spec='e'``
+        and ``spec='r'``) and rotations (``spec='w'``). Can be combined with
+        the ``confidence`` variable.
     uncertainty_color : str
         Sets the color or shade used for filling uncertainty wedges
-        (``scaling='w'``) or velocity error ellipses (``scaling='e'`` or
-        ``scaling='r'``). If ``uncertainty_color`` is not specified, the
+        (``spec='w'``) or velocity error ellipses (``spec='e'`` or
+        ``spec='r'``). If ``uncertainty_color`` is not specified, the
         uncertainty regions will be transparent. **Note**: Using ``cmap`` and
         ``zvalue='+e'`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
@@ -182,7 +182,7 @@ def velo(self, data=None, **kwargs):
         Scale symbol sizes and pen widths on a per-record basis using the
         *scale* read from the data set, given as the first column after the
         (optional) *z* and *size* columns [Default is no scaling]. The symbol
-        size is either provided by ``scaling`` or via the input *size* column.
+        size is either provided by ``spec`` or via the input *size* column.
         Alternatively, append a constant *scale* that should be used instead of
         reading a scale column.
     shading : float or bool
@@ -191,7 +191,7 @@ def velo(self, data=None, **kwargs):
         modulate the symbol fill color by simulating illumination [Default is
         none]. If *intens* is not provided we will instead read the intensity
         from an extra data column after the required input columns determined
-        by ``scaling``.
+        by ``spec``.
     line: str
         [*pen*\ [**+c**\ [**f**\|\ **l**]]].
         Draw lines. Ellipses and rotational wedges will have their outlines
@@ -231,7 +231,7 @@ def velo(self, data=None, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     if "S" not in kwargs or ("S" in kwargs and not isinstance(kwargs["S"], str)):
-        raise GMTInvalidInput("Scaling is a required argument and has to be a string.")
+        raise GMTInvalidInput("Spec is a required argument and has to be a string.")
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
         raise GMTInvalidInput(

@@ -34,7 +34,7 @@ def test_velo_numpy_array_numeric_only(dataframe):
     fig = Figure()
     fig.velo(
         data=dataframe.iloc[:, :-1].to_numpy(),
-        scaling="e0.2/0.39/18",
+        spec="e0.2/0.39/18",
         vector="0.3c+p1p+e+gred",
         frame="1g1",
     )
@@ -49,14 +49,14 @@ def test_velo_numpy_array_text_column(dataframe):
     with pytest.raises(GMTInvalidInput):
         fig.velo(
             data=dataframe.to_numpy(),
-            scaling="e0.2/0.39/18",
+            spec="e0.2/0.39/18",
             vector="0.3c+p1p+e+gred",
         )
 
 
-def test_velo_without_scaling(dataframe):
+def test_velo_without_spec(dataframe):
     """
-    Check that velo fails when the scaling parameter is not given.
+    Check that velo fails when the spec parameter is not given.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
@@ -71,7 +71,7 @@ def test_velo_pandas_dataframe(dataframe):
     fig = Figure()
     fig.velo(
         data=dataframe,
-        scaling="e0.2/0.39/18",
+        spec="e0.2/0.39/18",
         vector="0.3c+p1p+e+gred",
         frame=["WSne", "2g2f"],
         region=[-10, 8, -10, 6],
