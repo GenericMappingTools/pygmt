@@ -29,6 +29,7 @@ Plotting data and laying out the map:
     Figure.grdcontour
     Figure.grdimage
     Figure.grdview
+    Figure.histogram
     Figure.image
     Figure.inset
     Figure.legend
