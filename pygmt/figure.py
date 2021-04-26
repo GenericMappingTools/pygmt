@@ -411,6 +411,7 @@ class Figure:
         grdcontour,
         grdimage,
         grdview,
+        histogram,
         image,
         inset,
         legend,
@@ -424,6 +425,7 @@ class Figure:
         subplot,
         text,
         velo,
+        wiggle,
     )
 
 
