@@ -2,8 +2,6 @@
 Plotting datetime charts
 ========================
 
-Creating datetime charts is handled by :meth:`pygmt.Figure.basemap`.
-
 Plotting datetime data points is handled by :meth:`pygmt.Figure.basemap`.
 """
 # sphinx_gallery_thumbnail_number = 0
