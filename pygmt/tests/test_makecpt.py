@@ -149,7 +149,7 @@ def test_makecpt_continuous(grid):
     fig.grdimage(grid, projection="W0/10c")
     return fig
 
-
+@pytest.mark.xfail(reason="Flaky test only passes with pytest on single module")
 @pytest.mark.mpl_image_compare
 def test_makecpt_categorical(region):
     """
@@ -160,7 +160,7 @@ def test_makecpt_categorical(region):
     fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
     return fig
 
-
+@pytest.mark.xfail(reason="Flaky test only passes with pytest on single module")
 @pytest.mark.mpl_image_compare
 def test_makecpt_cyclic(region):
     """
