@@ -27,10 +27,10 @@ import xarray as xr
 # using the different datetime objects.
 
 ###############################################################################
-# Using Python's ``Datetime``
+# Using Python's ``datetime``
 # ---------------------------
 #
-# In this example, Python's built-in ``datetime`` package is used
+# In this example, Python's built-in ``datetime`` module is used
 # to create data points stored in list ``x``. The format of the
 # data is ``(Y, M, D)``. Additionally, dates are passed into the
 # ``region`` parameter in the format
@@ -157,7 +157,6 @@ fig.plot(
     pen="1p",
     color="yellow",
 )
-
 fig.show()
 
 ########################################################################################
@@ -166,10 +165,10 @@ fig.show()
 #
 # In the following example, a ``pandas.date_range`` object is used to pass date
 # data to the PyGMT figure. This object is set using the pandas method ``date_range()``.
-# This particular object contains 7 different ``pandas.Timestamp`` objects, with the
+# This particular object contains 7 different :class:`pandas.Timestamp` objects, with the
 # number being manipulated by the periods argument. Each period begins at the start
 # of a business quarter as denoted by BQS when passed to the freq parameter. The inital
-# date is the first argument that is passed to ``date_range()`` and it marks the first
+# date is the first argument that is passed to :meth:`pandas.date_range` and it marks the first
 # data in the object ``x`` that will be plotted.
 
 x = pd.date_range("2018-03-01", periods=7, freq="BQS")
@@ -186,18 +185,17 @@ fig.plot(
     pen="1p",
     color="purple",
 )
-
 fig.show()
 
 ########################################################################################
-# Using :meth:`xarray.DataArray`
+# Using :class:`xarray.DataArray`
 # ------------------------------
 #
-# In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
-# as an ``xarray.DataArray`` object. Such object provides a wrapper around traditional
+# In this example, instead of using a :meth:`pandas.date_range` object, ``x`` is initialized
+# as an :class:`xarray.DataArray` object. Such object provides a wrapper around traditional
 # data formats allowing this data to have varying labeled dimensions and support
 # operations that use various pieces of metadata. The following code uses a
-# ``pandas.date_range`` object to fill the DataArray with data, yet this is not
+# :meth:`pandas.date_range` object to fill the DataArray with data, yet this is not
 # essential for the creation of a valid DataArray.
 
 x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
@@ -217,7 +215,7 @@ fig.plot(
 fig.show()
 
 ###############################################################################
-# Using :meth:`numpy.datetime64`
+# Using :class:`numpy.datetime64`
 # ------------------------------
 # In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
 # as an ``np.array`` object. Similar to ``xarray.DataArray`` this wraps the
