@@ -1,0 +1,4 @@
+outs:
+- md5: 5ac12f7e91127dae1fa70cec77b84c0b
+  size: 9144
+  path: test_wiggle.png
