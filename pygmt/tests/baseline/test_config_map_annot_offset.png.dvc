@@ -1,4 +1,4 @@
 outs:
-- md5: 40a89f9014ac054f5f196ace06a00361
-  size: 9389
+- md5: 9d9b668163b3d0118199a5bbca7a92b9
+  size: 6858
   path: test_config_map_annot_offset.png
