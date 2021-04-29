@@ -17,6 +17,7 @@ from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
+from pygmt.src.histogram import histogram
 from pygmt.src.image import image
 from pygmt.src.info import info
 from pygmt.src.inset import inset
@@ -32,5 +33,6 @@ from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
 from pygmt.src.text import text_ as text  # "text" is an argument within "text_"
 from pygmt.src.which import which
+from pygmt.src.wiggle import wiggle
 from pygmt.src.x2sys_cross import x2sys_cross
 from pygmt.src.x2sys_init import x2sys_init
