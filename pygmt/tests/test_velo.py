@@ -26,6 +26,10 @@ def fixture_dataframe():
     )
 
 
+@pytest.mark.xfail(
+    reason="Flaky test only passes with pytest on single module"
+    "See https://github.com/GenericMappingTools/pygmt/issues/1242"
+)
 @pytest.mark.mpl_image_compare
 def test_velo_numpy_array_numeric_only(dataframe):
     """
@@ -63,6 +67,10 @@ def test_velo_without_spec(dataframe):
         fig.velo(data=dataframe)
 
 
+@pytest.mark.xfail(
+    reason="Flaky test only passes with pytest on single module"
+    "See https://github.com/GenericMappingTools/pygmt/issues/1242"
+)
 @pytest.mark.mpl_image_compare
 def test_velo_pandas_dataframe(dataframe):
     """
