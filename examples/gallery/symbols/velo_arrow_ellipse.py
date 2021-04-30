@@ -31,7 +31,7 @@ fig.velo(
     data=df,
     region=[-10, 8, -10, 6],
     pen="0.6p,red",
-    uncertainty_color="lightblue1",
+    uncertaintycolor="lightblue1",
     line=True,
     spec="e0.2/0.39/18",
     frame=["WSne", "2g2f"],

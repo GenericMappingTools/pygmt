@@ -85,7 +85,7 @@ def test_velo_pandas_dataframe(dataframe):
         region=[-10, 8, -10, 6],
         projection="x0.8c",
         pen="0.6p,red",
-        uncertainty_color="lightblue1",
+        uncertaintycolor="lightblue1",
         line=True,
     )
     return fig

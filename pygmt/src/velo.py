@@ -14,7 +14,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     B="frame",
     C="cmap",
     D="rescale",
-    E="uncertainty_color",
+    E="uncertaintycolor",
     G="color",
     H="scale",
     I="shading",
@@ -39,11 +39,11 @@ def velo(self, data=None, **kwargs):
     Plot velocity vectors, crosses, anisotropy bars, and wedges.
 
     Reads data values from files, :class:`numpy.ndarray` or
-    :class:`pandas.DataFrame` and plots the selected geodesy symbol on a
-    map. You may choose from velocity vectors and their uncertainties,
-    rotational wedges and their uncertainties, anisotropy bars, or strain
-    crosses. Symbol fills or their outlines may be colored based on constant
-    parameters or via color lookup tables.
+    :class:`pandas.DataFrame` and plots the selected geodesy symbol on a map.
+    You may choose from velocity vectors and their uncertainties, rotational
+    wedges and their uncertainties, anisotropy bars, or strain crosses. Symbol
+    fills or their outlines may be colored based on constant parameters or via
+    color lookup tables.
 
     Must provide ``data`` and ``spec``.
 
@@ -59,10 +59,10 @@ def velo(self, data=None, **kwargs):
         are only supported with file or pandas DataFrame inputs.
 
     spec: str
-        Selects the meaning of the columns in the data file and the figure
-        to be plotted. In all cases, the scales are in data units per length
-        unit and sizes are in length units (default length unit is controlled
-        by :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
+        Selects the meaning of the columns in the data file and the figure to
+        be plotted. In all cases, the scales are in data units per length unit
+        and sizes are in length units (default length unit is controlled by
+        :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
         appended).
 
         - **e**\ [*velscale*/]\ *confidence*\ [**+f**\ *font*]
@@ -76,7 +76,7 @@ def velo(self, data=None, **kwargs):
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` option and the arrow-head can be colored via
           ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertainty_color`` option [Default is
+          specified by the ``uncertaintycolor`` option [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -109,7 +109,7 @@ def velo(self, data=None, **kwargs):
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` option and the arrow-head can be colored via
           ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertainty_color`` option [Default is
+          specified by the ``uncertaintycolor`` option [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -128,7 +128,7 @@ def velo(self, data=None, **kwargs):
           extra column. Rotation values are multiplied by *wedgemag* before
           plotting. For example, setting *wedgemag* to 1.e7 works well for
           rotations of the order of 100 nanoradians/yr. Use ``color`` to set
-          the fill color or shade for the wedge, and ``uncertainty_color`` to
+          the fill color or shade for the wedge, and ``uncertaintycolor`` to
           set the color or shade for the uncertainty. Parameters are expected
           to be in the following columns:
 
@@ -138,10 +138,9 @@ def velo(self, data=None, **kwargs):
 
         - **x**\ [*cross_scale*]
 
-          Strain crosses. The *cross_scale* sets the size of the cross.
-          If *cross_scale* is not given then we read it from the data file as
-          an extra column. Parameters are expected to be in the following
-          columns:
+          Strain crosses. The *cross_scale* sets the size of the cross. If
+          *cross_scale* is not given then we read it from the data file as an
+          extra column. Parameters are expected to be in the following columns:
 
             - **1**,\ **2**: longitude, latitude of station
             - **3**: eps1, the most extensional eigenvalue of strain tensor,
@@ -163,10 +162,10 @@ def velo(self, data=None, **kwargs):
         can be used to rescale the uncertainties of velocities (``spec='e'``
         and ``spec='r'``) and rotations (``spec='w'``). Can be combined with
         the ``confidence`` variable.
-    uncertainty_color : str
+    uncertaintycolor : str
         Sets the color or shade used for filling uncertainty wedges
         (``spec='w'``) or velocity error ellipses (``spec='e'`` or
-        ``spec='r'``). If ``uncertainty_color`` is not specified, the
+        ``spec='r'``). If ``uncertaintycolor`` is not specified, the
         uncertainty regions will be transparent. **Note**: Using ``cmap`` and
         ``zvalue='+e'`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
