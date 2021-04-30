@@ -426,6 +426,7 @@ class Figure:
         solar,
         subplot,
         text,
+        velo,
         wiggle,
     )
 
