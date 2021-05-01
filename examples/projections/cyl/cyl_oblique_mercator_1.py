@@ -2,7 +2,7 @@
 Oblique Mercator (1)
 ====================
 
-
+**oa**\ |**oA**\ *lon0*\ /*lat0*\ /\ *azim*/*scale*\ [**+v**] or
 **Oa**\ |**OA**\ *lon0*\ /*lat0*\ /\ *azim*/*width*\ [**+v**]
 
 """
