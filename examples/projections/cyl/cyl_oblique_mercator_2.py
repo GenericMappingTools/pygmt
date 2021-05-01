@@ -3,7 +3,7 @@ Oblique Mercator (2)
 ====================
 
 
-**Ob**\ |lon0|/|lat0|/|lon1|/|lat1|/\ *width*\ [**+v**]
+**Ob**\ |**OB**\ *lon0*\ /*lat0*\ /*lon1*\ /*lat1*\ /\ *width*\ [**+v**]
 
 """
 import pygmt
