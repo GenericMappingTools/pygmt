@@ -43,7 +43,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
+def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -78,7 +78,7 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         Either a data file name or a 2d numpy array with the tabular data.
         Use parameter ``columns`` to choose which columns are x, y, color,
         and size, respectively.
-    sizes : 1d array
+    size : 1d array
         The sizes of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
     direction : list of two 1d arrays
@@ -215,12 +215,12 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
             )
         extra_arrays.append(kwargs["G"])
         del kwargs["G"]
-    if sizes is not None:
+    if size is not None:
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for sizes if data is matrix or file."
             )
-        extra_arrays.append(sizes)
+        extra_arrays.append(size)
 
     for flag in ["I", "t"]:
         if flag in kwargs and is_nonstr_iter(kwargs[flag]):
