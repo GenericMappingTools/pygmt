@@ -99,7 +99,7 @@ def data_format_code(convention, component="full"):
     R="region",
     J="projection",
     B="frame",
-    C="offset",
+    A="offset",
     N="no_clip",
     V="verbose",
     X="xshift",
@@ -334,8 +334,8 @@ def meca(
                 if arg is None:
                     spec.append(0)
                 else:
-                    if "C" not in kwargs:
-                        kwargs["C"] = True
+                    if "A" not in kwargs:
+                        kwargs["A"] = True
                     spec.append(arg)
 
         # or assemble the 2D array for the case of lists as values
@@ -389,8 +389,8 @@ def meca(
                     if arg is None:
                         row.append(0)
                     else:
-                        if "C" not in kwargs:
-                            kwargs["C"] = True
+                        if "A" not in kwargs:
+                            kwargs["A"] = True
                         row.append(arg[index])
                 spec_array.append(row)
             spec = spec_array
@@ -435,8 +435,8 @@ def meca(
                     if arg is None:
                         row.append(0)
                     else:
-                        if "C" not in kwargs:
-                            kwargs["C"] = True
+                        if "A" not in kwargs:
+                            kwargs["A"] = True
                         row.append(arg[index])
                 spec_array.append(row)
             spec = spec_array
