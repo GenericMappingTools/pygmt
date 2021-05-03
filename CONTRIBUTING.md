@@ -305,7 +305,7 @@ Pull Request to lint the code automatically.
 
 When wrapping a new alias, use an underscore to separate words bridged by vowels
 (aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
-words bridged by only consonants, such as `distcalc`, and `crossprofile`. This
+words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
