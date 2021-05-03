@@ -93,7 +93,7 @@ def test_plot_fail_no_data(data):
 
 def test_plot_fail_color_size_intensity(data):
     """
-    Should raise an exception if array color, sizes and intensity are used with
+    Should raise an exception if array color, size and intensity are used with
     matrix.
     """
     fig = Figure()
@@ -101,7 +101,7 @@ def test_plot_fail_color_size_intensity(data):
     with pytest.raises(GMTInvalidInput):
         fig.plot(style="c0.2c", color=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(style="cc", sizes=data[:, 2], color="red", **kwargs)
+        fig.plot(style="cc", size=data[:, 2], color="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
         fig.plot(style="c0.2c", color="red", intensity=data[:, 2], **kwargs)
 
@@ -152,7 +152,7 @@ def test_plot_sizes(data, region):
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         region=region,
         projection="X10c",
         style="cc",
@@ -172,7 +172,7 @@ def test_plot_colors_sizes(data, region):
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         region=region,
         projection="X10c",
         style="cc",
@@ -193,7 +193,7 @@ def test_plot_colors_sizes_proj(data, region):
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         style="cc",
         cmap="copper",
     )
@@ -288,7 +288,7 @@ def test_plot_sizes_colors_transparencies():
         frame=True,
         style="cc",
         color=color,
-        sizes=size,
+        size=size,
         cmap="gray",
         transparency=transparency,
     )
