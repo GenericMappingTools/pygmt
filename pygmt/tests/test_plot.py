@@ -4,6 +4,7 @@ Tests plot.
 """
 import datetime
 import os
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -445,4 +446,29 @@ def test_plot_datetime():
     x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
     y = [8.5, 9.5]
     fig.plot(x, y, style="i0.2c", pen="1p")
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_plot_sizes.png")
+def test_plot_deprecate_sizes_to_size(data, region):
+    """
+    Make sure that the old parameter "sizes" is supported and it reports an
+    warning.
+
+    Modified from the test_plot_sizes() test.
+    """
+    fig = Figure()
+    with warnings.catch_warnings(record=True) as w:
+        fig.plot(
+            x=data[:, 0],
+            y=data[:, 1],
+            sizes=0.5 * data[:, 2],
+            region=region,
+            projection="X10c",
+            style="cc",
+            color="blue",
+            frame="af",
+        )
+        assert len(w) == 1
+        assert issubclass(w[0].category, FutureWarning)
     return fig
