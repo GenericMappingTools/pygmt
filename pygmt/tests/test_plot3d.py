@@ -2,6 +2,7 @@
 Tests plot3d.
 """
 import os
+import warnings
 
 import numpy as np
 import pytest
@@ -457,4 +458,32 @@ def test_plot3d_scalar_xyz():
     fig.plot3d(
         x=1.5, y=-1.5, z=1.5, style="s1c", color="blue", zscale=True, perspective=True
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_plot3d_sizes.png")
+def test_plot3d_deprecate_sizes_to_size(data, region):
+    """
+    Make sure that the old parameter "sizes" is supported and it reports an
+    warning.
+
+    Modified from the test_plot3d_sizes() test.
+    """
+    fig = Figure()
+    with warnings.catch_warnings(record=True) as w:
+        fig.plot3d(
+            x=data[:, 0],
+            y=data[:, 1],
+            z=data[:, 2],
+            zscale=5,
+            perspective=[225, 30],
+            sizes=0.5 * data[:, 2],
+            region=region,
+            projection="X10c",
+            style="ui",
+            color="blue",
+            frame=["af", "zaf"],
+        )
+        assert len(w) == 1
+        assert issubclass(w[0].category, FutureWarning)
     return fig
