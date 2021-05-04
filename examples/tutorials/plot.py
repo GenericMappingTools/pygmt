@@ -63,7 +63,7 @@ fig.show()
 
 ########################################################################################
 # Notice that we didn't include the size in the ``style`` parameter this time, just the
-# symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the sizes
+# symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the size
 # will be interpreted as being in centimeters.
 #
 # We can also map the colors of the markers to the depths by passing an array to the

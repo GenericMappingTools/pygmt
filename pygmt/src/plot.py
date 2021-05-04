@@ -81,7 +81,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         Use parameter ``columns`` to choose which columns are x, y, color,
         and size, respectively.
     size : 1d array
-        The sizes of the data points in units specified using ``style``.
+        The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
     direction : list of two 1d arrays
         If plotting vectors (using ``style='V'`` or ``style='v'``), then
@@ -220,7 +220,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     if size is not None:
         if kind != "vectors":
             raise GMTInvalidInput(
-                "Can't use arrays for sizes if data is matrix or file."
+                "Can't use arrays for 'size' if data is a matrix or file."
             )
         extra_arrays.append(size)
 
