@@ -13,8 +13,8 @@ curves. The projection was developed in the early 1900s by several workers.
 The projection is set with **o** or **O**. The pole is set in the 
 northern hemisphere with **a** or the southern hemisphere 
 with **A**. The central meridian is set by *lon0/lat0*. The oblique equator 
-is set by the azimuth. Align the y-axis
-with the optional *+v*. The figure size is set with *scale* or *width*.
+is set by *azimuth*. Align the y-axis
+with the optional **+v**. The figure size is set with *scale* or *width*.
 """
 import pygmt
 
