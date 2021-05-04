@@ -20,12 +20,13 @@ import pygmt
 
 fig = pygmt.Figure()
 # Using the origin and two points
-fig.coast(projection="Ob130/35/25/35/12c",
+fig.coast(
+    projection="Ob130/35/25/35/12c",
     # Set bottom left and top right coordinates of the figure with "+r"
-    region= "130/35/145/40+r",
+    region="130/35/145/40+r",
     frame="afg",
     land="gray",
     shorelines="1/thin",
     water="lightblue",
-    )
+)
 fig.show()
