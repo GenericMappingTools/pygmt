@@ -7,8 +7,8 @@ projection. It is particularly useful when mapping regions of large lateral
 extent in an oblique direction. Both parallels and meridians are complex
 curves. The projection was developed in the early 1900s by several workers.
 
-**oc**\ |**oC**\ *lon0/lat0* */lonp/latp*\ */scale*\ **[+v]** or
-**Oc**\ |**OC**\ *lon0/lat0* */lonp/latp*\ */width*\ **[+v]**
+**oc**\|\ **oC**\ *lon0/lat0/lonp/latp/scale*\ [**+v**] or
+**Oc**\|\ **OC**\ *lon0/lat0/lonp/latp/width*\ [**+v**]
 
 The projection is set with **o** or **O**. The central meridian is set
 by *lon0/lat0*. The projection pole is set by *lonp/latp* in option three.
