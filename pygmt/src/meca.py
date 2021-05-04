@@ -98,8 +98,8 @@ def data_format_code(convention, component="full"):
 @use_alias(
     R="region",
     J="projection",
-    B="frame",
     A="offset",
+    B="frame",
     N="no_clip",
     V="verbose",
     X="xshift",
