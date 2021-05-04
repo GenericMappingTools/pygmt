@@ -45,14 +45,11 @@ jobs:
           #   python-version: 3.7
           #   isDraft: true
         # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.20
-        # Only install optional packages on Python 3.9/NumPy 1.20
         include:
           - python-version: 3.7
             numpy-version: '1.17'
-            optional-packages: ''
           - python-version: 3.9
             numpy-version: '1.20'
-            optional-packages: 'ipython'
     defaults:
       run:
         shell: bash -l {0}
@@ -92,8 +89,7 @@ jobs:
           conda install -c conda-forge/label/dev gmt=6.2.0rc1
           conda install numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
-                        ${{ matrix.optional-packages }} \
-                        codecov coverage[toml] dvc make \
+                        codecov coverage[toml] dvc ipython make \
                         pytest-cov pytest-mpl pytest>=6.0 \
                         sphinx-gallery
 
