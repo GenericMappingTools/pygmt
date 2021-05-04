@@ -110,7 +110,7 @@ def test_plot3d_fail_no_data(data, region):
 
 def test_plot3d_fail_color_size_intensity(data, region):
     """
-    Should raise an exception if array color, sizes and intensity are used with
+    Should raise an exception if array color, size and intensity are used with
     matrix.
     """
     fig = Figure()
@@ -118,7 +118,7 @@ def test_plot3d_fail_color_size_intensity(data, region):
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(style="c0.2c", color=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot3d(style="cc", sizes=data[:, 2], color="red", **kwargs)
+        fig.plot3d(style="cc", size=data[:, 2], color="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(style="cc", intensity=data[:, 2], color="red", **kwargs)
 
@@ -178,7 +178,7 @@ def test_plot3d_sizes(data, region):
         z=data[:, 2],
         zscale=5,
         perspective=[225, 30],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         region=region,
         projection="X10c",
         # Using inches instead of cm because of upstream bug at
@@ -203,7 +203,7 @@ def test_plot3d_colors_sizes(data, region):
         zscale=5,
         perspective=[225, 30],
         color=data[:, 2],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         region=region,
         projection="X6c",
         # Using inches instead of cm because of upstream bug at
@@ -231,7 +231,7 @@ def test_plot3d_colors_sizes_proj(data, region):
         projection="M20c",
         frame=["af", "zaf"],
         color=data[:, 2],
-        sizes=data[:, 2],
+        size=data[:, 2],
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
@@ -343,7 +343,7 @@ def test_plot3d_sizes_colors_transparencies():
         frame=True,
         style="uc",
         color=color,
-        sizes=size,
+        size=size,
         cmap="gray",
         transparency=transparency,
     )
