@@ -12,7 +12,7 @@ curves. The projection was developed in the early 1900s by several workers.
 
 The projection is set with **o** or **O**. The central meridian is set
 by *lon0/lat0*. The projection pole is set by *lonp/latp* in option three.
-Align the y-axis with the optional *+v*. The figure size is set
+Align the y-axis with the optional **+v**. The figure size is set
 with *scale* or *width*.
 """
 import pygmt
