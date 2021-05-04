@@ -6,6 +6,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -43,6 +44,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 def plot3d(
     self, x=None, y=None, z=None, data=None, size=None, direction=None, **kwargs
 ):
