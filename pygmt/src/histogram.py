@@ -50,11 +50,21 @@ def histogram(self, table, **kwargs):
     {W}
     {c}
     annotate : bool or str
+        [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**]
         Annotate each bar with the count it represents.  Append any of the
         following modifiers: Use **+b** to place the labels beneath the bars
         instead of above; use **+f** to change to another font than the default
         annotation font; use **+o** to change the offset between bar and
         label [6p]; use **+r** to rotate the labels from horizontal to vertical.
+    barwidth : int or float or str
+        *width*\ [**+o**\ *offset*]
+        Use an alternative histogram bar width than the default set via **-T**,
+        and optionally shift all bars by an *offset*.  Here *width* is either
+        an alternative width in data units, or the user may append a valid plot
+        dimension unit (**c**\|\ **i**\|\ **p**) for a fixed dimension instead.
+        Optionally, all bins may be shifted along the axis by *offset*. As for
+        *width*, it may be given in data units of plot dimension units by appending
+        the relevant unit.
     label : str
         Add a legend entry for the symbol or line being plotted.
     {p}
