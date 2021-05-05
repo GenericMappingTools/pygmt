@@ -66,6 +66,26 @@ def histogram(self, table, **kwargs):
         Optionally, all bins may be shifted along the axis by *offset*. As for
         *width*, it may be given in data units of plot dimension units by
         appending the relevant unit.
+    center : bool
+        Center bin on each value. [Default is left edge].
+    normal : bool or int or float or str
+        [*mode*][**+p**\ *pen*]
+        Draw the equivalent normal distribution; append desired
+        pen [0.25p,black].
+        The *mode* selects which central location and scale to use:
+
+        * 0 = mean and standard deviation [Default];
+        * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
+        * 2 = LMS (least median of squares) mode and scale.
+
+        The **-N** option may be repeated to draw several of these curves.
+        **Note**: If **-w** is used then only *mode* = 0 is available and we
+        will determine the parameters of the circular von Mises distribution
+        instead.
+    cumulative : bool or str
+        [**r**]
+        raw a cumulative histogram. Append **r** to instead compute the
+        reverse cumulative histogram.
     label : str
         Add a legend entry for the symbol or line being plotted.
     {p}
