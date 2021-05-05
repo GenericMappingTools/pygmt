@@ -15,18 +15,22 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     F="center",
     G="fill",
     J="projection",
+    L="extreme",
     N="normal",
     Q="cumulative",
     R="region",
     S="step",
     T="series",
+    U="timestamp",
     W="pen",
     X="xshift",
     Y="yshift",
+    V="verbos",
     Z="type",
     c="panel",
     l="label",
     p="perspective",
+    t="transparency",
 )
 @kwargs_to_strings(R="sequence", T="sequence")
 def histogram(self, table, **kwargs):
@@ -86,6 +90,14 @@ def histogram(self, table, **kwargs):
         [**r**]
         Draw a cumulative histogram. Append **r** to instead compute the
         reverse cumulative histogram.
+    extreme : str
+        **l**\|\ **h**\|\ **b**
+        The modifiers specify the handling of extreme values that fall outside
+        the range set by **-T**.  By default these values are ignored.
+        Append **b** to let these values be included in the first or last
+        bins. To only include extreme values below first bin into the first
+        bin, use **l**, and to only include extreme values above the last bin
+        into that last bin, use **h**.
     step : bool
         Draws a stairs-step diagram which does not include the internal bars
         of the default histogram.
@@ -112,6 +124,9 @@ def histogram(self, table, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
+    {U}
+    {V}
+    {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
