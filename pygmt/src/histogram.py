@@ -49,6 +49,12 @@ def histogram(self, table, **kwargs):
     {G}
     {W}
     {c}
+    annotate : bool or str
+        Annotate each bar with the count it represents.  Append any of the
+        following modifiers: Use **+b** to place the labels beneath the bars
+        instead of above; use **+f** to change to another font than the default
+        annotation font; use **+o** to change the offset between bar and
+        label [6p]; use **+r** to rotate the labels from horizontal to vertical.
     label : str
         Add a legend entry for the symbol or line being plotted.
     {p}
