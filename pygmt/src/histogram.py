@@ -84,8 +84,11 @@ def histogram(self, table, **kwargs):
         instead.
     cumulative : bool or str
         [**r**]
-        raw a cumulative histogram. Append **r** to instead compute the
+        Draw a cumulative histogram. Append **r** to instead compute the
         reverse cumulative histogram.
+    step : bool
+        Draws a stairs-step diagram which does not include the internal bars
+        of the default histogram.
     label : str
         Add a legend entry for the symbol or line being plotted.
     {p}
@@ -95,7 +98,20 @@ def histogram(self, table, **kwargs):
     series : int or str or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ]
         Set the interval for the width of each bar in the histogram.
+    {XY}
+    type : int or str
+        [*type*][**+w**]
+        Choose between 6 types of histograms:
 
+        * 0 = counts [Default]
+        * 1 = frequency_percent
+        * 2 = log (1.0 + count)
+        * 3 = log (1.0 + frequency_percent)
+        * 4 = log10 (1.0 + count)
+        * 5 = log10 (1.0 + frequency_percent).
+
+        To use weights provided as a second data column instead of pure counts,
+        append **+w**.
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
