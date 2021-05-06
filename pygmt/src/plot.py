@@ -144,6 +144,8 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
     {G}
+        *color* can be a 1d array, but it is only valid if using ``x``/``y``
+        and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
