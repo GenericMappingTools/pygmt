@@ -25,14 +25,14 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     W="pen",
     X="xshift",
     Y="yshift",
-    V="verbos",
+    V="verbose",
     Z="type",
     c="panel",
     l="label",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", T="sequence")
+@kwargs_to_strings(R="sequence", T="sequence", c="sequence_comma", p="sequence")
 def histogram(self, table, **kwargs):
     r"""
     Plots a histogram, and can read data from a file or
