@@ -2,7 +2,6 @@
 Tests plot3d.
 """
 import os
-import warnings
 
 import numpy as np
 import pytest
@@ -470,7 +469,7 @@ def test_plot3d_deprecate_sizes_to_size(data, region):
     Modified from the test_plot3d_sizes() test.
     """
     fig = Figure()
-    with warnings.catch_warnings(record=True) as w:
+    with pytest.warns(expected_warning=FutureWarning) as record:
         fig.plot3d(
             x=data[:, 0],
             y=data[:, 1],
@@ -484,6 +483,5 @@ def test_plot3d_deprecate_sizes_to_size(data, region):
             color="blue",
             frame=["af", "zaf"],
         )
-        assert len(w) == 1
-        assert issubclass(w[0].category, FutureWarning)
+        assert len(record) == 1  # check that only one warning was raised
     return fig
