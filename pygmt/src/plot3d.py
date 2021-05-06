@@ -184,7 +184,7 @@ def plot3d(
     if size is not None:
         if kind != "vectors":
             raise GMTInvalidInput(
-                "Can't use arrays for 'size' if data is a matrix or file."
+                "Can't use arrays for 'size' if data is a matrix or a file."
             )
         extra_arrays.append(size)
 
