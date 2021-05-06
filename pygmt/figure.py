@@ -411,6 +411,7 @@ class Figure:
         colorbar,
         contour,
         grdcontour,
+        grdclip,
         grdimage,
         grdview,
         histogram,
