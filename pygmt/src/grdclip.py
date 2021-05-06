@@ -1,20 +1,32 @@
 """
-Grdclip - Wrap a grid
+Grdclip - Clip a grid.
 """
+
+import xarray as xr
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    GMTTempFile,
+    build_arg_string,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
+
 
 @fmt_docstring
 @use_alias(
     G="outgrid",
     R="region",
-    Z="z_subregion",
-    f="coltypes",
+    Sa="above",
+    Sb="below",
+    Si="interval",
+    Sr="old",
+    V="verbose",
 )
 @kwargs_to_strings(R="sequence")
 def grdclip(grid, **kwargs):
     """
-    Grdclip
+    Grdclip.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
