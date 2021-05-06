@@ -4,7 +4,6 @@ Tests plot.
 """
 import datetime
 import os
-import warnings
 
 import numpy as np
 import pandas as pd
@@ -458,7 +457,7 @@ def test_plot_deprecate_sizes_to_size(data, region):
     Modified from the test_plot_sizes() test.
     """
     fig = Figure()
-    with warnings.catch_warnings(record=True) as w:
+    with pytest.warns(expected_warning=FutureWarning) as record:
         fig.plot(
             x=data[:, 0],
             y=data[:, 1],
@@ -469,6 +468,5 @@ def test_plot_deprecate_sizes_to_size(data, region):
             color="blue",
             frame="af",
         )
-        assert len(w) == 1
-        assert issubclass(w[0].category, FutureWarning)
+        assert len(record) == 1  # check that only one warning was raised
     return fig
