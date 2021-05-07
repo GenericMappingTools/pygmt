@@ -34,17 +34,34 @@ def grdclip(grid, **kwargs):
     for values above or below a set amount, respectively. This allows for
     extreme values in a grid, such as points below a certain depth when
     plotting Earth relief, to all be set to the same value.
-    subregion is specified with ``region``; the specified range must not exceed
-    the range of ``grid`` (but see ``extend``). If in doubt, run
-    :meth:`pygmt.grdinfo` to check range. Alternatively, define the subregion
-    indirectly via a range check on the node values or via distances from a
-    given point. Finally, you can give ``projection`` for oblique projections
-    to determine the corresponding rectangular ``region`` that will give a grid
-    that fully covers the oblique domain.
 
-    Full option list at :gmt-docs:`grdcut.html`
+    Full option list at :gmt-docs:`grdclip.html`
 
     {aliases}
+    Parameters
+    ----------
+    grid : str or xarray.DataArray
+        The file name of the input grid or the grid loaded as a DataArray.
+    outgrid : str or None
+        The name of the output netCDF file with extension .nc to store the grid
+        in.
+    {R}
+    above : str
+        *high/above*.
+        Set all data[i] > *high* to *above*.
+    below : str
+        *low/below*.
+        Set all data[i] < *low* to *below*.
+    interval : str
+        *low/high/between*
+        Set all data[i] >= *low* and <= *high* to *between*.
+        Repeat the option for as many intervals as are needed.
+    old: str
+        *old/new*
+        Set all data[i] == *old* to *new*.  This is mostly useful when
+        your data are known to be integer values.  Repeat the option
+        for as many replacements as are needed.
+    {V}
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
