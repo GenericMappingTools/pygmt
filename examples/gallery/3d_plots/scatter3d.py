@@ -47,7 +47,7 @@ fig.plot3d(
     y=df.sepal_length,
     z=df.petal_length,
     # Vary each symbol size according to another feature (sepal width, scaled by 0.1)
-    sizes=0.1 * df.sepal_width,
+    size=0.1 * df.sepal_width,
     # Use 3D cubes ("u") as symbols, with size in centimeter units ("c")
     style="uc",
     # Points colored by categorical number code
