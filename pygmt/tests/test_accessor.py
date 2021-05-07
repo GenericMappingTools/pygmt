@@ -24,7 +24,7 @@ def test_accessor_pixel_geographic():
     and a gtype value of 0 when using Cartesian coordinates.
     """
     fname = which(fname="@earth_relief_01d_p", download="a")
-    grid = xr.open_dataarray(fname)
+    grid = xr.open_dataarray(fname, engine="netcdf4")
     assert grid.gmt.registration == 1  # pixel registration
     assert grid.gmt.gtype == 1  # geographic coordinate type
 
