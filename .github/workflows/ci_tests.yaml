@@ -66,7 +66,7 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.8.0
+        uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
 
@@ -79,7 +79,7 @@ jobs:
 
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.1.0
+        uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
@@ -89,7 +89,8 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install gmt=6.1.1 numpy=${{ matrix.numpy-version }} \
+          conda install -c conda-forge/label/dev gmt=6.2.0rc1
+          conda install numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging ${{ matrix.geopandas }} \
                         codecov coverage[toml] dvc ipython make \
                         pytest-cov pytest-mpl pytest>=6.0 \
@@ -101,7 +102,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.13.0
+        uses: dawidd6/action-download-artifact@v2.14.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -143,7 +144,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.3.1
+        uses: codecov/codecov-action@v1.5.0
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY

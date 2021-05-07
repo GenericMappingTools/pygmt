@@ -10,7 +10,7 @@ from pygmt.helpers import kwargs_to_strings
 from pygmt.src import grdcut, which
 
 
-@kwargs_to_strings(convert_bools=False, region="sequence")
+@kwargs_to_strings(region="sequence")
 def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm=False):
     r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
@@ -133,7 +133,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
                 f"'region' is required for Earth relief resolution '{resolution}'."
             )
         fname = which(f"@earth_relief_{resolution}{reg}", download="a")
-        with xr.open_dataarray(fname) as dataarray:
+        with xr.open_dataarray(fname, engine="netcdf4") as dataarray:
             grid = dataarray.load()
             _ = grid.gmt  # load GMTDataArray accessor information
     else:

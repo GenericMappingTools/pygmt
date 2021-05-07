@@ -160,35 +160,17 @@ from Python.
 Testing your install
 --------------------
 
-Quick check
-~~~~~~~~~~~
-
 To ensure that PyGMT and its dependencies are installed correctly, run the
 following in your Python interpreter::
 
     import pygmt
     pygmt.show_versions()
 
-Or run this in the command line::
+    fig = pygmt.Figure()
+    fig.coast(region="g", frame=True, shorelines=1)
+    fig.show()
 
-    python -c "import pygmt; pygmt.show_versions()"
-
-
-Full test (optional)
-~~~~~~~~~~~~~~~~~~~~
-
-PyGMT ships with a full test suite.
-You can run our tests after you install it but you will need a few extra
-dependencies as well (be sure to have your conda environment activated)::
-
-    conda install pytest pytest-mpl ipython
-
-Test your installation by running the following inside a Python interpreter
-(note that it may take a few minutes)::
-
-    import pygmt
-    pygmt.show_versions()
-    pygmt.test()
+If you see a global map with shorelines, then you're all set.
 
 
 Finding the GMT shared library

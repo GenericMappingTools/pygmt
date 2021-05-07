@@ -187,8 +187,11 @@ When editing documentation, use the following standards to demonstrate the examp
    (two asterisks) on both sides. The argument description should be in *italicized*
    with \* (single asterisk) on both sides.
    Examples: `**+l**\ *label*` results in **+l***label*, `**05m**` results in **05m**.
-3. Optional arguments are placed wrapped with [ ] (square brackets).
+3. Optional arguments are wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
+5. Default arguments for parameters and configuration settings are wrapped
+   with [ ] (square brackers) with the prefix "Default is". Example: [Default is
+   **p**].
 
 ## Contributing Code
 
@@ -216,7 +219,7 @@ General guidelines for pull requests (PRs):
   do.
 * Each pull request should consist of a **small** and logical collection of changes.
 * Larger changes should be broken down into smaller components and integrated
-  separately.
+  separately. For example, break the wrapping of aliases into multiple pull requests.
 * Bug fixes should be submitted in separate PRs.
 * Use underscores for all Python (*.py) files as per [PEP8](https://www.python.org/dev/peps/pep-0008/),
   not hyphens. Directory names should also use underscores instead of hyphens.
@@ -299,6 +302,12 @@ Don't worry if you forget to do it. Our continuous integration systems will
 warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
 Pull Request to lint the code automatically.
+
+When wrapping a new alias, use an underscore to separate words bridged by vowels
+(aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
+words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
+convention is not applied by the code checking tools, but the PyGMT maintainers
+will comment on any pull requests as needed.
 
 We also use [flake8](http://flake8.pycqa.org/en/latest/) and
 [pylint](https://www.pylint.org/) to check the quality of the code and quickly catch
