@@ -82,10 +82,7 @@ def histogram(self, table, **kwargs):
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
 
-        The **-N** option may be repeated to draw several of these curves.
-        **Note**: If **-w** is used then only *mode* = 0 is available and we
-        will determine the parameters of the circular von Mises distribution
-        instead.
+        The ``normal`` option may be repeated to draw several of these curves.
     cumulative : bool or str
         [**r**].
         Draw a cumulative histogram. Append **r** to instead compute the
