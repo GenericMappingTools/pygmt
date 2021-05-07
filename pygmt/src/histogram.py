@@ -54,7 +54,7 @@ def histogram(self, table, **kwargs):
     {W}
     {c}
     annotate : bool or str
-        [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**]
+        [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents.  Append any of the
         following modifiers: Use **+b** to place the labels beneath the bars
         instead of above; use **+f** to change to another font than the default
@@ -62,7 +62,7 @@ def histogram(self, table, **kwargs):
         label [6p]; use **+r** to rotate the labels from horizontal to
         vertical.
     barwidth : int or float or str
-        *width*\ [**+o**\ *offset*]
+        *width*\ [**+o**\ *offset*].
         Use an alternative histogram bar width than the default set via **-T**,
         and optionally shift all bars by an *offset*.  Here *width* is either
         an alternative width in data units, or the user may append a valid plot
@@ -73,7 +73,7 @@ def histogram(self, table, **kwargs):
     center : bool
         Center bin on each value. [Default is left edge].
     normal : bool or int or float or str
-        [*mode*][**+p**\ *pen*]
+        [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
         pen [0.25p,black].
         The *mode* selects which central location and scale to use:
@@ -87,11 +87,11 @@ def histogram(self, table, **kwargs):
         will determine the parameters of the circular von Mises distribution
         instead.
     cumulative : bool or str
-        [**r**]
+        [**r**].
         Draw a cumulative histogram. Append **r** to instead compute the
         reverse cumulative histogram.
     extreme : str
-        **l**\|\ **h**\|\ **b**
+        **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
         the range set by **-T**.  By default these values are ignored.
         Append **b** to let these values be included in the first or last
@@ -112,7 +112,7 @@ def histogram(self, table, **kwargs):
         Set the interval for the width of each bar in the histogram.
     {XY}
     type : int or str
-        [*type*][**+w**]
+        [*type*][**+w**].
         Choose between 6 types of histograms:
 
         * 0 = counts [Default]
