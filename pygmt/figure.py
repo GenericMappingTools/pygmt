@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 
 try:
     import IPython
-except KeyError:
+except ModuleNotFoundError:
     IPython = None  # pylint: disable=invalid-name
 
 
