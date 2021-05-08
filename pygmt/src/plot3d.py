@@ -113,6 +113,8 @@ def plot3d(
         Offset the plot symbol or line locations by the given amounts
         *dx*/*dy*\ [/*dz*] [Default is no offset].
     {G}
+        *color* can be a 1d array, but it is only valid if using ``x``/``y``
+        and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
