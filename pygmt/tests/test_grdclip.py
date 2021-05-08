@@ -1,5 +1,5 @@
 """
-Tests for grdcut.
+Tests for grdclip.
 """
 import os
 
@@ -22,6 +22,9 @@ def fixture_grid():
 
 
 def test_grdclip_below(grid):
+    """
+    Test the below parameter for grdclip.
+    """
     test_grid = grdclip(grid=grid, below="-1500/-1800")
     result_info = grdinfo(grid=test_grid, force_scan=0, per_column="n").strip().split()
     assert int(result_info[4]) == -1800
