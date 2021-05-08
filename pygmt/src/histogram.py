@@ -81,8 +81,6 @@ def histogram(self, table, **kwargs):
         * 0 = mean and standard deviation [Default];
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
-
-        The ``normal`` option may be repeated to draw several of these curves.
     cumulative : bool or str
         [**r**].
         Draw a cumulative histogram. Append **r** to instead compute the
