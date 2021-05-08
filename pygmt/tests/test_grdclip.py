@@ -1,16 +1,9 @@
 """
 Tests for grdclip.
 """
-import os
-
-import numpy as np
-import pygmt
 import pytest
-import xarray as xr
 from pygmt import grdclip, grdinfo
 from pygmt.datasets import load_earth_relief
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="grid")
