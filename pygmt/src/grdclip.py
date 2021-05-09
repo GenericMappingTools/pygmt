@@ -1,5 +1,5 @@
 """
-Grdclip - Clip a grid.
+grdclip - Clip a grid.
 """
 
 import xarray as xr
