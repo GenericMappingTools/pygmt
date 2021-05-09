@@ -6,6 +6,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -43,8 +44,9 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
+@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 def plot3d(
-    self, x=None, y=None, z=None, data=None, sizes=None, direction=None, **kwargs
+    self, x=None, y=None, z=None, data=None, size=None, direction=None, **kwargs
 ):
     r"""
     Plot lines, polygons, and symbols in 3-D.
@@ -82,8 +84,8 @@ def plot3d(
         :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` data
         variables containing the tabular data. Use parameter ``columns`` to
         choose which columns are x, y, z, color, and size, respectively.
-    sizes : 1d array
-        The sizes of the data points in units specified in ``style``.
+    size : 1d array
+        The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
     direction : list of two 1d arrays
         If plotting vectors (using ``style='V'`` or ``style='v'``), then
@@ -113,6 +115,8 @@ def plot3d(
         Offset the plot symbol or line locations by the given amounts
         *dx*/*dy*\ [/*dz*] [Default is no offset].
     {G}
+        *color* can be a 1d array, but it is only valid if using ``x``/``y``
+        and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
@@ -181,12 +185,12 @@ def plot3d(
             )
         extra_arrays.append(kwargs["G"])
         del kwargs["G"]
-    if sizes is not None:
+    if size is not None:
         if kind != "vectors":
             raise GMTInvalidInput(
-                "Can't use arrays for sizes if data is matrix or file."
+                "Can't use arrays for 'size' if data is a matrix or a file."
             )
-        extra_arrays.append(sizes)
+        extra_arrays.append(size)
 
     for flag in ["I", "t"]:
         if flag in kwargs and is_nonstr_iter(kwargs[flag]):

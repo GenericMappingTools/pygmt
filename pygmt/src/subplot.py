@@ -22,7 +22,7 @@ from pygmt.helpers import (
     A="autolabel",
     B="frame",
     C="clearance",
-    J="projecton",
+    J="projection",
     M="margins",
     R="region",
     SC="sharex",
