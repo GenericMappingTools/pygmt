@@ -63,7 +63,7 @@ def histogram(self, table, **kwargs):
         vertical.
     barwidth : int or float or str
         *width*\ [**+o**\ *offset*].
-        Use an alternative histogram bar width than the default set via **-T**,
+        Use an alternative histogram bar width than the default set via ``series``,
         and optionally shift all bars by an *offset*.  Here *width* is either
         an alternative width in data units, or the user may append a valid plot
         dimension unit (**c**\|\ **i**\|\ **p**) for a fixed dimension instead.
@@ -75,7 +75,7 @@ def histogram(self, table, **kwargs):
     distribution : bool or int or float or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
-        pen [0.25p,black].
+        *pen* [Default is 0.25p,black].
         The *mode* selects which central location and scale to use:
 
         * 0 = mean and standard deviation [Default];
@@ -88,7 +88,7 @@ def histogram(self, table, **kwargs):
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
-        the range set by **-T**.  By default these values are ignored.
+        the range set by ``series``.  By default these values are ignored.
         Append **b** to let these values be included in the first or last
         bins. To only include extreme values below first bin into the first
         bin, use **l**, and to only include extreme values above the last bin
