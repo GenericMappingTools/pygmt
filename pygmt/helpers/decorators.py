@@ -37,7 +37,7 @@ COMMON_OPTIONS = {
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
     "G": """\
-        color : str
+        color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
     "V": """\
