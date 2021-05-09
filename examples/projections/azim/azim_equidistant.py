@@ -13,7 +13,7 @@ locations relative to the projection center.
 
 The projection type is set with **e** or **E**. *lon0/lat0* specifies the projection
 center, and the optional parameter *horizon* specifies the maximum distance to the
-projection center (i.e. the visibile portion of the rest of the world map) in
+projection center (i.e. the visible portion of the rest of the world map) in
 degrees <= 180° (default 180°). The size of the figure is set by *scale* or *width*.
 """
 import pygmt

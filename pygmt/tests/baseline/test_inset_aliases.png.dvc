@@ -1,0 +1,4 @@
+outs:
+- md5: 62d6aec510780889e6f1d25a8c564ff0
+  size: 29626
+  path: test_inset_aliases.png

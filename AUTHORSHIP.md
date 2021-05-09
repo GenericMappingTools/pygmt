@@ -36,9 +36,9 @@ be invited to be an author on the Zenodo archive of new releases.
 To be included as an author, you *must* add the following to the `AUTHORS.md`
 file of the repository:
 
-1. Full name
-2. Affiliation (if omitted, we will use "Unaffiliated")
-3. ORCID (optional)
+1. Full name (and a link to your website or GitHub page)
+2. [ORCID](https://orcid.org) (optional)
+3. Affiliation (if omitted, we will use "Unaffiliated")
 
 The order of authors will be defined by the number of commits to the repository
 (`git shortlog -sne`). The order can also be changed on a case-by-case basis.
@@ -54,18 +54,21 @@ there are a few options:
 ## Scientific publications (papers)
 
 We aim to write academic papers for most of our software packages. Ideally, we
-will publish updated papers for major changes or significant new components of the
-package.
+will publish updated papers for major changes or significant new components of
+the package.
 
 To be included as an author on the paper, you *must* satisfy the following
 criteria:
 
-1. Have made multiple and regular contributions to the repository, or the GMT repository, in numerous facets, such as wrapping functions, testing, and/or writing documentation.
-2. Have made non-coding contributions, including project administration and decision making.
+1. Have made multiple and regular contributions to the repository, or the GMT
+   repository, in numerous facets, such as wrapping functions, testing, and/or
+   writing documentation.
+2. Have made non-coding contributions, including project administration and
+   decision making.
 3. Have participated in the writing and reviewing of the paper.
-2. Add your full name, affiliation, and (optionally) ORCID to the paper. These
+4. Add your full name, affiliation, and (optionally) ORCID to the paper. These
    can be submitted on pull requests to the corresponding paper repository.
-3. Write and/or read and review the manuscript in a timely manner and provide
+5. Write and/or read and review the manuscript in a timely manner and provide
    comments on the paper (even if it's just an "OK", but preferably more).
 
 The order of authors will be defined by the number of commits made since the

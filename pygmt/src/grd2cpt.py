@@ -4,14 +4,7 @@ grd2cpt - Create a CPT from a grid file.
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -130,7 +123,7 @@ def grd2cpt(grid, **kwargs):
         the CPT alone. The truncation takes place before any resampling. See
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
-        Optional argument to set the file name with extension .cpt to store
+        Optional parameter to set the file name with extension .cpt to store
         the generated CPT file. If not given or False (default), saves the CPT
         as the session current CPT.
     reverse : str
@@ -169,14 +162,8 @@ def grd2cpt(grid, **kwargs):
     """
     if "W" in kwargs and "Ww" in kwargs:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
-    kind = data_kind(grid)
     with Session() as lib:
-        if kind == "file":
-            file_context = dummy_context(grid)
-        elif kind == "grid":
-            file_context = lib.virtualfile_from_grid(grid)
-        else:
-            raise GMTInvalidInput(f"Unrecognized data type: {type(grid)}")
+        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as infile:
             if "H" not in kwargs.keys():  # if no output is set
                 arg_str = " ".join([infile, build_arg_string(kwargs)])

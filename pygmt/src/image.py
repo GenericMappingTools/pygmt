@@ -21,7 +21,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def image(self, imagefile, **kwargs):
-    """
+    r"""
     Place images or EPS files on maps.
 
     Reads an Encapsulated PostScript file or a raster image file and plots
@@ -42,13 +42,15 @@ def image(self, imagefile, **kwargs):
     {J}
     {R}
     position : str
-        ``'[g|j|J|n|x]refpoint+rdpi+w[-]width[/height][+jjustify]
-        [+nnx[/ny]][+odx[/dy]]'`` Sets reference point on the map for the
-        image.
+        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
+        **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
+        [**+n**\ *nx*\ [/*ny*] ]\ [**+o**\ *dx*\ [/*dy*]].
+        Sets reference point on the map for the image.
     box : bool or str
-        ``'[+cclearances][+gfill][+i[[gap/]pen]][+p[pen]][+r[radius]]
-        [+s[[dx/dy/][shade]]]'`` Without further options, draws a
-        rectangular border around the image using **MAP_FRAME_PEN**.
+        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
+        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
+        Without further arguments, draws a rectangular border around the image
+        using :gmt-term:`MAP_FRAME_PEN`.
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.

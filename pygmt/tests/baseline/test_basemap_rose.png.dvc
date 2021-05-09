@@ -1,0 +1,4 @@
+outs:
+- md5: 50267f9329529a279a1846185b78f0ef
+  size: 32476
+  path: test_basemap_rose.png

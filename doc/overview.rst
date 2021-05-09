@@ -25,9 +25,9 @@ files and get only the more convenient formats like PDF and PNG.
 The project was started in 2017 by `Leonardo Uieda <http://www.leouieda.com>`__
 and `Paul Wessel <http://www.soest.hawaii.edu/wessel>`__ (the co-creator and main
 developer of GMT) at the University of Hawaii at Manoa.
-The development of PyGMT was funded by
-`NSF grant OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__.
-
+The development of PyGMT has been supported by NSF grants
+`OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__ and
+`EAR-1948603 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602>`__.
 
 Presentations
 -------------
@@ -43,6 +43,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: https://img.youtube.com/vi/SSIGJEe0BIk/maxresdefault.jpg
     :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
+    :width: 80%
     :align: center
     :alt: ROSES 2020 youtube video
 
@@ -54,6 +55,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/agu2019-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.11320280
+   :width: 80%
    :align: center
    :alt: AGU 2019 poster on figshare
 
@@ -65,6 +67,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/scipy2018-youtube-thumbnail.png
    :target: https://www.youtube.com/watch?v=6wMtfZXfTRM
+   :width: 80%
    :align: center
    :alt: SciPy youtube video
 
@@ -76,6 +79,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/aogs2018-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.6399944
+   :width: 80%
    :align: center
    :alt: AOGS poster on figshare
 
@@ -87,6 +91,7 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/scipy2017-youtube-thumbnail.png
    :target: https://www.youtube.com/watch?v=93M4How7R24
+   :width: 80%
    :align: center
    :alt: SciPy youtube video
 
@@ -98,5 +103,6 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/agu2017-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.5662411
+   :width: 80%
    :align: center
    :alt: AGU 2017 poster on figshare
