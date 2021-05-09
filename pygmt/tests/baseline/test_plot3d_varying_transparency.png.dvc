@@ -1,0 +1,4 @@
+outs:
+- md5: 7f3cfa3eed29efaac3221c6695990417
+  size: 22477
+  path: test_plot3d_varying_transparency.png

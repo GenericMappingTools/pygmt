@@ -7,6 +7,7 @@ etc.
 """
 import functools
 import textwrap
+import warnings
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
@@ -36,7 +37,7 @@ COMMON_OPTIONS = {
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
     "G": """\
-        color : str
+        color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
     "V": """\
@@ -302,14 +303,14 @@ def use_alias(**aliases):
     return alias_decorator
 
 
-def kwargs_to_strings(convert_bools=True, **conversions):
+def kwargs_to_strings(**conversions):
     """
     Decorator to convert given keyword arguments to strings.
 
     The strings are what GMT expects from command line arguments.
 
-    Converts all boolean arguments by default. Transforms ``True`` into ``''``
-    (empty string) and removes the argument from ``kwargs`` if ``False``.
+    Boolean arguments and None are not converted and will be processed in the
+    ``build_arg_string`` function.
 
     You can also specify other conversions to specific arguments.
 
@@ -323,9 +324,6 @@ def kwargs_to_strings(convert_bools=True, **conversions):
 
     Parameters
     ----------
-    convert_bools : bool
-        If ``True``, convert all boolean arguments to strings using the rules
-        specified above. If ``False``, leave them as they are.
     conversions : keyword arguments
         Keyword arguments specifying other kinds of conversions that should be
         performed. The keyword is the name of the argument and the value is the
@@ -356,16 +354,18 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     >>> module(R="5/6/7/8")
     {'R': '5/6/7/8'}
     >>> module(P=True)
-    {'P': ''}
+    {'P': True}
     >>> module(P=False)
-    {}
+    {'P': False}
+    >>> module(P=None)
+    {'P': None}
     >>> module(i=[1, 2])
     {'i': '1,2'}
     >>> module(files=["data1.txt", "data2.txt"])
     {'files': 'data1.txt data2.txt'}
     >>> # Other non-boolean arguments are passed along as they are
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
-    {'bla': (1, 2, 3), 'foo': '', 'i': '5,6'}
+    {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
     args: 123
     >>> import datetime
     >>> module(
@@ -416,8 +416,6 @@ def kwargs_to_strings(convert_bools=True, **conversions):
             """
             New module instance that converts the arguments first.
             """
-            if convert_bools:
-                kwargs = remove_bools(kwargs)
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
@@ -444,28 +442,80 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     return converter
 
 
-def remove_bools(kwargs):
+def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     """
-    Remove booleans from arguments.
+    Decorator to deprecate a parameter.
 
-    If ``True``, replace it with an empty string. If ``False``, completely
-    remove the entry from the argument list.
+    The old parameter name will be automatically swapped to the new parameter
+    name, and users will receive a FutureWarning to inform them of the pending
+    deprecation.
+
+    Use this decorator below the ``use_alias`` decorator.
 
     Parameters
     ----------
-    kwargs : dict
-        Dictionary with the keyword arguments.
+    oldname : str
+        The old, deprecated parameter name.
+    newname : str
+        The new parameter name.
+    deprecate_version : str
+        The PyGMT version when the old parameter starts to be deprecated.
+    remove_version : str
+        The PyGMT version when the old parameter will be fully removed.
 
-    Returns
-    -------
-    new_kwargs : dict
-        A copy of `kwargs` with the booleans parsed.
+    Examples
+    --------
+    >>> @deprecate_parameter("sizes", "size", "v0.0.0", "v9.9.9")
+    ... @deprecate_parameter("colors", "color", "v0.0.0", "v9.9.9")
+    ... @deprecate_parameter("infile", "data", "v0.0.0", "v9.9.9")
+    ... def module(data, size=0, **kwargs):
+    ...     "A module that prints the arguments it received"
+    ...     print(f"data={data}, size={size}, color={kwargs['color']}")
+    >>> # new names are supported
+    >>> module(data="table.txt", size=5.0, color="red")
+    data=table.txt, size=5.0, color=red
+    >>> # old names are supported, FutureWarning warnings are reported
+    >>> with warnings.catch_warnings(record=True) as w:
+    ...     module(infile="table.txt", sizes=5.0, colors="red")
+    ...     # check the number of warnings
+    ...     assert len(w) == 3
+    ...     for i in range(len(w)):
+    ...         assert issubclass(w[i].category, FutureWarning)
+    ...         assert "deprecated" in str(w[i].message)
+    ...
+    data=table.txt, size=5.0, color=red
+    >>> # using both old and new names will raise an GMTInvalidInput exception
+    >>> import pytest
+    >>> with pytest.raises(GMTInvalidInput):
+    ...     module(data="table.txt", size=5.0, sizes=4.0)
+    ...
     """
-    new_kwargs = {}
-    for arg, value in kwargs.items():
-        if isinstance(value, bool):
-            if value:
-                new_kwargs[arg] = ""
-        else:
-            new_kwargs[arg] = value
-    return new_kwargs
+
+    def deprecator(module_func):
+        """
+        The decorator that creates the new function to work with both old and
+        new parameters.
+        """
+
+        @functools.wraps(module_func)
+        def new_module(*args, **kwargs):
+            """
+            New module instance that converts old parameters to new parameters.
+            """
+            if oldname in kwargs:
+                if newname in kwargs:
+                    raise GMTInvalidInput(
+                        f"Can't provide both '{newname}' and '{oldname}'."
+                    )
+                msg = (
+                    f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
+                    f" and will be removed in {remove_version}."
+                    f" Please use '{newname}' instead."
+                )
+                warnings.warn(msg, category=FutureWarning, stacklevel=2)
+                kwargs[newname] = kwargs.pop(oldname)
+            return module_func(*args, **kwargs)
+
+        return new_module
+
+    return deprecator

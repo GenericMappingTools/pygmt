@@ -1,0 +1,4 @@
+outs:
+- md5: 4ee03ad49ec7264348e4d9c7d642bc37
+  size: 51318
+  path: test_colorbar_shading_boolean.png

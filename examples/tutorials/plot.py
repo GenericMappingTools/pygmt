@@ -7,15 +7,6 @@ packaged with GMT to try this out. PyGMT provides access to these datasets throu
 :mod:`pygmt.datasets` package. If you don't have the data files already, they are
 automatically downloaded and saved to a cache directory the first time you use them
 (usually ``~/.gmt/cache``).
-
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
 """
 # sphinx_gallery_thumbnail_number = 3
 
@@ -54,7 +45,7 @@ fig.show()
 # parameter controls the outline of the symbols and the ``color`` parameter controls the fill.
 #
 # We can map the size of the circles to the earthquake magnitude by passing an array to
-# the ``sizes`` parameter. Because the magnitude is on a logarithmic scale, it helps to
+# the ``size`` parameter. Because the magnitude is on a logarithmic scale, it helps to
 # show the differences by scaling the values using a power law.
 
 fig = pygmt.Figure()
@@ -63,7 +54,7 @@ fig.coast(land="black", water="skyblue")
 fig.plot(
     x=data.longitude,
     y=data.latitude,
-    sizes=0.02 * (2 ** data.magnitude),
+    size=0.02 * (2 ** data.magnitude),
     style="cc",
     color="white",
     pen="black",
@@ -72,7 +63,7 @@ fig.show()
 
 ########################################################################################
 # Notice that we didn't include the size in the ``style`` parameter this time, just the
-# symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the sizes
+# symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the size
 # will be interpreted as being in centimeters.
 #
 # We can also map the colors of the markers to the depths by passing an array to the
@@ -91,7 +82,7 @@ pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
 fig.plot(
     x=data.longitude,
     y=data.latitude,
-    sizes=0.02 * 2 ** data.magnitude,
+    size=0.02 * 2 ** data.magnitude,
     color=data.depth_km,
     cmap=True,
     style="cc",

@@ -4,9 +4,9 @@ Winkel Tripel
 
 In 1921, the German mathematician Oswald Winkel a projection that was to strike a
 compromise between the properties of three elements (area, angle and distance). The
-German word “tripel” refers to this junction of where each of these elements are least
+German word "tripel" refers to this junction of where each of these elements are least
 distorted when plotting global maps. The projection was popularized when Bartholomew
-and Son started to use it in its world-renowned “The Times Atlas of the World” in the
+and Son started to use it in its world-renowned "The Times Atlas of the World" in the
 mid-20th century. In 1998, the National Geographic Society made the Winkel Tripel as
 its map projection of choice for global maps.
 

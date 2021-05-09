@@ -8,7 +8,7 @@ import os
 import numpy as np
 import numpy.testing as npt
 import pytest
-from pygmt import Figure
+from pygmt import Figure, set_display
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -154,8 +154,7 @@ def test_figure_show():
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    img = fig.show(width=800)
-    assert img.width == 800
+    fig.show()
 
 
 @pytest.mark.mpl_image_compare
@@ -187,3 +186,12 @@ def test_figure_show_invalid_method():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     with pytest.raises(GMTInvalidInput):
         fig.show(method="test")
+
+
+def test_figure_set_display_invalid():
+    """
+    Test to check if an error is raised when an invalid method is passed to
+    set_display.
+    """
+    with pytest.raises(GMTInvalidInput):
+        set_display(method="invalid")

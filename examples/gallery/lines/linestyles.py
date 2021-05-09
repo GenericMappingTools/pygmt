@@ -8,8 +8,8 @@ customized with the ``pen`` parameter.
 
 A *pen* in GMT has three attributes: *width*, *color*, and *style*.
 The *style* attribute controls the appearance of the line.
-Giving “dotted” or “.” yields a dotted line, whereas a dashed pen is requested
-with “dashed” or “-”. Also combinations of dots and dashes, like “.-” for a
+Giving "dotted" or "." yields a dotted line, whereas a dashed pen is requested
+with "dashed" or "-". Also combinations of dots and dashes, like ".-" for a
 dot-dashed line, are allowed.
 
 For more advanced *pen* attributes, see the GMT cookbook
@@ -38,7 +38,7 @@ for linestyle in [
     "1p,lightblue,-.",  # dash-dotted line
     "2p,blue,..-",  # dot-dot-dashed line
     "2p,tomato,--.",  # dash-dash-dotted line
-    # A pattern of 4-point-long line segment and 2-point-gap between segment,
+    # A pattern of 4-point-long line segments and 2-point-long gaps between segments,
     # with pattern offset by 2 points from the origin
     "2p,tomato,4_2:2p",
 ]:

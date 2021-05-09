@@ -36,7 +36,7 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray):
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2797.394987])
+    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2974.656296])
 
     return output
 
@@ -54,7 +54,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray):
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2797.394987])
+        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2974.656296])
     finally:
         os.remove(path=TEMP_TRACK)
 
@@ -132,11 +132,14 @@ def test_grdtrack_without_newcolname_setting(dataarray):
         grdtrack(points=dataframe, grid=dataarray)
 
 
-def test_grdtrack_without_outfile_setting(dataarray):
+def test_grdtrack_without_outfile_setting():
     """
     Run grdtrack by not passing in outfile parameter setting.
     """
     csvfile = which("@ridge.txt", download="c")
+    ncfile = which("@earth_relief_01d", download="a")
 
-    with pytest.raises(GMTInvalidInput):
-        grdtrack(points=csvfile, grid=dataarray)
+    output = grdtrack(points=csvfile, grid=ncfile)
+    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1939.748245])
+
+    return output
