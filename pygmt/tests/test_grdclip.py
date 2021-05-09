@@ -38,7 +38,7 @@ def test_grdclip_no_outgrid(grid):
     """
     Test the below and above parameters for grdclip with no set outgrid.
     """
-    temp_grid = grdclip(grid=grid, below="-1500/-1800", above="30/40")
+    temp_grid = grdclip(grid=grid, below=[-1500, -1800], above=[30, 40])
     result = grdinfo(grid=temp_grid, force_scan=0, per_column="n").strip().split()
     assert int(result[4]) == -1800
     assert int(result[5]) == 40
