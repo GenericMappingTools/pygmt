@@ -16,7 +16,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     G="fill",
     J="projection",
     L="extreme",
-    N="normal",
+    N="distribution",
     Q="cumulative",
     R="region",
     S="step",
@@ -72,7 +72,7 @@ def histogram(self, table, **kwargs):
         appending the relevant unit.
     center : bool
         Center bin on each value. [Default is left edge].
-    normal : bool or int or float or str
+    distribution : bool or int or float or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
         pen [0.25p,black].
