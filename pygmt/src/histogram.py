@@ -105,7 +105,6 @@ def histogram(self, table, **kwargs):
     series : int or str or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ]
         Set the interval for the width of each bar in the histogram.
-    {XY}
     type : int or str
         [*type*][**+w**].
         Choose between 6 types of histograms:
@@ -119,6 +118,7 @@ def histogram(self, table, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
+    {XY}
     {U}
     {V}
     {t}
