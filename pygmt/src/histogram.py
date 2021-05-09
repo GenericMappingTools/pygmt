@@ -19,7 +19,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     N="distribution",
     Q="cumulative",
     R="region",
-    S="step",
+    S="stairs",
     T="series",
     U="timestamp",
     W="pen",
@@ -93,7 +93,7 @@ def histogram(self, table, **kwargs):
         bins. To only include extreme values below first bin into the first
         bin, use **l**, and to only include extreme values above the last bin
         into that last bin, use **h**.
-    step : bool
+    stairs : bool
         Draws a stairs-step diagram which does not include the internal bars
         of the default histogram.
     label : str
