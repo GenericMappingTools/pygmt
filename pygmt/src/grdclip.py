@@ -23,7 +23,13 @@ from pygmt.helpers import (
     Sr="old",
     V="verbose",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(
+    R="sequence",
+    Sa="sequence",
+    Sb="sequence",
+    Si="sequence",
+    Sr="sequence",
+)
 def grdclip(grid, **kwargs):
     r"""
     Sets specific values, or values above/below a set number, to a given value.
@@ -46,17 +52,17 @@ def grdclip(grid, **kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     {R}
-    above : str
+    above : str or list
         *high/above*.
         Set all data[i] > *high* to *above*.
-    below : str
+    below : str or list
         *low/below*.
         Set all data[i] < *low* to *below*.
-    interval : str
+    interval : str or list
         *low/high/between*
         Set all data[i] >= *low* and <= *high* to *between*.
         Repeat the option for as many intervals as are needed.
-    old: str
+    old: str or list
         *old/new*
         Set all data[i] == *old* to *new*.  This is mostly useful when
         your data are known to be integer values.  Repeat the option
