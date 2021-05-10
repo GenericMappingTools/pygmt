@@ -17,8 +17,13 @@ the vertical exaggeration factor.
 import pandas as pd
 import pygmt
 
-# Load sample iris data, and convert 'species' column to categorical dtype
+# Load sample iris data
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
+
+# Extract species names for colorbar legend
+species = ",".join(df.species.unique())
+
+# Convert 'species' column to categorical dtype
 df.species = df.species.astype(dtype="category")
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax, zmin, zmax)
@@ -36,9 +41,9 @@ fig = pygmt.Figure()
 
 # Define a colormap to be used for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval),
-# use color_model="+c" to write the discrete color palette "cubhelix" in
-# categorical format
-pygmt.makecpt(cmap="cubhelix", color_model="+c", series=(0, 3, 1))
+# use color_model="+c" + species to write the discrete color palette "cubhelix" in
+# categorical format and add the species names extracted above as annotations
+pygmt.makecpt(cmap="cubhelix", color_model="+c" + species, series=(0, 2, 1))
 
 fig.plot3d(
     # Use petal width, sepal length and petal length as x, y and z data input,
@@ -68,4 +73,8 @@ fig.plot3d(
     # Vertical exaggeration factor
     zscale=1.5,
 )
+
+# Add colorbar legend
+fig.colorbar()
+
 fig.show()
