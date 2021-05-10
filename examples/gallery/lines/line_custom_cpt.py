@@ -21,8 +21,12 @@ x = np.arange(start=20, stop=30, step=0.2)
 fig = pygmt.Figure()
 fig.basemap(frame=["WSne", "af"], region=[20, 30, -10, 10])
 
-# Create a custom CPT with the batlow CPT and 10 discrete z-values (colors)
-pygmt.makecpt(cmap="batlow", series=[0, 10, 1])
+# Create a custom CPT with the batlow CPT and 10 discrete z-values (colors),
+# use color_model="+c" + ','.join(map(str, range(1,11))) to write the color
+# palette in categorical format and add labels (1) to (10) for the colorbar legend
+pygmt.makecpt(
+    cmap="batlow", series=[0, 9, 1], color_model="+c" + ",".join(map(str, range(1, 11)))
+)
 
 # Plot 10 lines and set a different z-value for each line
 for zvalue in range(0, 10):
