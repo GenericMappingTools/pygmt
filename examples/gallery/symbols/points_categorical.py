@@ -46,7 +46,7 @@ fig.basemap(
 # new discrete CPT using series=(lowest_value, highest_value, interval),
 # use color_model="+c" to write the discrete color palette "inferno" in
 # categorical format
-pygmt.makecpt(cmap="inferno", series=(0, 3, 1), color_model="+c")
+pygmt.makecpt(cmap="inferno", series=(0, 2, 1), color_model="+c")
 
 fig.plot(
     # Use bill length and bill depth as x and y data input, respectively
