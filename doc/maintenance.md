@@ -70,7 +70,7 @@ There are 9 configuration files located in `.github/workflows`:
 
    - Minimum [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy)
      Python/NumPy versions
-   - Latest Python/NumPy versions + GeoPandas
+   - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
 
 3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
