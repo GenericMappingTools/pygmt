@@ -63,13 +63,13 @@ def histogram(self, table, **kwargs):
         vertical.
     barwidth : int or float or str
         *width*\ [**+o**\ *offset*].
-        Use an alternative histogram bar width than the default set via ``series``,
-        and optionally shift all bars by an *offset*.  Here *width* is either
-        an alternative width in data units, or the user may append a valid plot
-        dimension unit (**c**\|\ **i**\|\ **p**) for a fixed dimension instead.
-        Optionally, all bins may be shifted along the axis by *offset*. As for
-        *width*, it may be given in data units of plot dimension units by
-        appending the relevant unit.
+        Use an alternative histogram bar width than the default set via
+        ``series``, and optionally shift all bars by an *offset*.  Here
+        *width* is either an alternative width in data units, or the user may
+        append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
+        fixed dimension instead. Optionally, all bins may be shifted along the
+        axis by *offset*. As for *width*, it may be given in data units of
+        plot dimension units by appending the relevant unit.
     center : bool
         Center bin on each value. [Default is left edge].
     distribution : bool or int or float or str
