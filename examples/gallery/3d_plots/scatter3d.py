@@ -60,7 +60,7 @@ fig.plot3d(
     region=region,
     # Set frame parameters
     frame=[
-        "WsNeZ3",  # z axis label positioned on 3rd corner
+        'WsNeZ3+t"Iris flower data set"',  # z axis label positioned on 3rd corner, add title
         'xafg+l"Petal Width"',
         'yafg+l"Sepal Length"',
         'zafg+l"Petal Length"',
