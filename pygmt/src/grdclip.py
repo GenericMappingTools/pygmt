@@ -1,5 +1,5 @@
 """
-grdclip - Clip a grid.
+grdclip - Clip the range of grid values.
 """
 
 import xarray as xr
@@ -44,6 +44,7 @@ def grdclip(grid, **kwargs):
     Full option list at :gmt-docs:`grdclip.html`
 
     {aliases}
+
     Parameters
     ----------
     grid : str or xarray.DataArray
