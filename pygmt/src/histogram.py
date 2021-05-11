@@ -83,8 +83,8 @@ def histogram(self, table, **kwargs):
         * 2 = LMS (least median of squares) mode and scale.
     cumulative : bool or str
         [**r**].
-        Draw a cumulative histogram. Append **r** to instead compute the
-        reverse cumulative histogram.
+        Draw a cumulative histogram by passing ``True``. Use **r** to display
+        a reverse cumulative histogram.
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
