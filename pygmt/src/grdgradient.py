@@ -55,6 +55,16 @@ def grdgradient(grid, **kwargs):
         is a file it must be a grid of the same domain, spacing and
         registration as *ingrid* that will update the azimuth at each output
         node when computing the directional derivatives.
+    direction : str
+        [**a**][**c**][**o**][**n**].
+        Find the direction of the positive (up-slope) gradient of the data.
+        To instead find the aspect (the down-slope direction), use **a**.
+        By default, directions are measured clockwise from north, as *azim*
+        in ``azimuth``. Append **c** to use conventional Cartesian angles
+        measured counterclockwise from the positive x (east) direction.
+        Append **o** to report orientations (0-180) rather than
+        directions (0-360). Append **n** to add 90 degrees to all angles
+        (e.g., to give local strikes of the surface).
     {R}
     {V}
     """
