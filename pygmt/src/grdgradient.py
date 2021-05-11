@@ -23,7 +23,8 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(
-    A="sequence", R="sequence",
+    A="sequence",
+    R="sequence",
 )
 def grdgradient(grid, **kwargs):
     r"""
