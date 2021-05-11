@@ -96,9 +96,6 @@ def histogram(self, table, **kwargs):
     stairs : bool
         Draws a stairs-step diagram which does not include the internal bars
         of the default histogram.
-    label : str
-        Add a legend entry for the symbol or line being plotted.
-    {p}
     horizontal : bool
         Plot the histogram using horizonal bars instead of the
         default vertical bars.
@@ -121,6 +118,9 @@ def histogram(self, table, **kwargs):
     {XY}
     {U}
     {V}
+    label : str
+        Add a legend entry for the symbol or line being plotted.
+    {p}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
