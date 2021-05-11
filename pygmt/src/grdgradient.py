@@ -15,12 +15,15 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
+    A="azimuth",
+    D="direction",
+    E="radiance",
     G="outgrid",
     R="region",
     V="verbose",
 )
 @kwargs_to_strings(
-    R="sequence",
+    A="sequence", R="sequence",
 )
 def grdgradient(grid, **kwargs):
     r"""
