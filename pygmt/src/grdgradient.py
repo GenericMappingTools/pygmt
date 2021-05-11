@@ -65,6 +65,23 @@ def grdgradient(grid, **kwargs):
         Append **o** to report orientations (0-180) rather than
         directions (0-360). Append **n** to add 90 degrees to all angles
         (e.g., to give local strikes of the surface).
+    radiance : str
+        [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
+        *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
+        Compute Lambertian radiance appropriate to use with ``grdimage``
+        and ``grdview``. The Lambertian Reflection assumes an ideal surface
+        that reflects all the light that strikes it and the surface appears
+        equally bright from all viewing directions. Here, *azim* and *elev* are
+        the azimuth and elevation of the light vector. Optionally, supply
+        *ambient* [0.55], *diffuse* [0.6], *specular* [0.4], or *shine* [10],
+        which are parameters that control the reflectance properties of the
+        surface. Default values are given in the brackets. Use **s** for a
+        simpler Lambertian algorithm. Note that with this form you only have
+        to provide azimuth and elevation. Alternatively, use **p** for
+        the Peucker piecewise linear approximation (simpler but faster
+        algorithm; in this case the *azim* and *elev* are hardwired to 315
+        and 45 degrees. This means that even if you provide other values
+        they will be ignored.)
     {R}
     {V}
     """
