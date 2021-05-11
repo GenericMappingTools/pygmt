@@ -103,7 +103,7 @@ def histogram(self, table, **kwargs):
         Plot the histogram using horizonal bars instead of the
         default vertical bars.
     series : int or str or list
-        [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ]
+        [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
     type : int or str
         [*type*][**+w**].
