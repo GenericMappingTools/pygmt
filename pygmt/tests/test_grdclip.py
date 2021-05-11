@@ -15,7 +15,7 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(resolution="10m", region=[-5, 5, -5, 5])
+    return load_earth_relief(resolution="01d", region=[-5, 5, -5, 5])
 
 
 def test_grdclip_outgrid(grid):
@@ -24,7 +24,7 @@ def test_grdclip_outgrid(grid):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdclip(
-            grid=grid, outgrid=tmpfile.name, below=[-1500, -1800], above=[30, 40]
+            grid=grid, outgrid=tmpfile.name, below=[-1500, -1800], above=[-200, 40]
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
@@ -39,7 +39,7 @@ def test_grdclip_no_outgrid(grid):
     """
     Test the below and above parameters for grdclip with no set outgrid.
     """
-    temp_grid = grdclip(grid=grid, below=[-1500, -1800], above=[30, 40])
+    temp_grid = grdclip(grid=grid, below=[-1500, -1800], above=[-200, 40])
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 1  # Pixel registration
