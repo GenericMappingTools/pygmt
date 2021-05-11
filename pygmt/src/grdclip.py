@@ -59,13 +59,13 @@ def grdclip(grid, **kwargs):
         *low/below*.
         Set all data[i] < *low* to *below*.
     interval : str or list
-        *low/high/between*
+        *low/high/between*.
         Set all data[i] >= *low* and <= *high* to *between*.
         Repeat the option for as many intervals as are needed.
     old: str or list
-        *old/new*
-        Set all data[i] == *old* to *new*.  This is mostly useful when
-        your data are known to be integer values.  Repeat the option
+        *old/new*.
+        Set all data[i] == *old* to *new*. This is mostly useful when
+        your data are known to be integer values. Repeat the option
         for as many replacements as are needed.
     {V}
     """
