@@ -19,7 +19,7 @@ fig.histogram(
     # define the frame, add title and set background color to
     # lightgray, add annotations for x and y axis
     frame=[
-        'WSne+t"Histograms"+glightgray',
+        'WSne+t"Histogram"+glightgray',
         'x+l"Topography (m)"',
         'y+l"Frequency"+u" %"',
     ],
