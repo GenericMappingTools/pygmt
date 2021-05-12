@@ -1,5 +1,5 @@
 """
-grdclip - Clip the range of grid values.
+grdclip - Change the range and extremes of grid values.
 """
 
 import xarray as xr
@@ -32,9 +32,10 @@ from pygmt.helpers import (
 )
 def grdclip(grid, **kwargs):
     r"""
-    Sets specific values, or values above/below a set number, to a given value.
+    Sets values in a grid that meet certain criteria to a new value.
 
-    Produce a new ``outgrid`` file clipped version of``grid``.
+    Produce a clipped ``outgrid`` or xarray.Data Array version of the
+    input ``grid`` file.
 
     The parameters ``above`` and ``below`` allow for a given value to be set
     for values above or below a set amount, respectively. This allows for
