@@ -4,8 +4,10 @@ grdgradient - Create a gradient from a grid.
 
 import xarray as xr
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
+    args_in_kwargs,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
@@ -87,6 +89,11 @@ def grdgradient(grid, **kwargs):
     {V}
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
+        if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
+            raise GMTInvalidInput(
+                """At least one of the following parameters must be specified:
+                azimuth, direction, or radiance"""
+            )
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
