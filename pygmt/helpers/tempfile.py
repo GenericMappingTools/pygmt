@@ -111,19 +111,20 @@ class GMTTempFile:
 def tempfile_from_geojson(geojson):
     """
     Saves any geo-like Python object which implements ``__geo_interface__``
-    (e.g. a geopandas GeoDataFrame) to a temporary OGR_GMT text file.
+    (e.g. a geopandas.GeoDataFrame or shapely.geometry) to a temporary OGR_GMT
+    text file.
 
     Parameters
     ----------
     geojson : geopandas.GeoDataFrame
         A geopandas GeoDataFrame, or any geo-like Python object which
-        implements __geo_interface__, i.e. a GeoJSON
+        implements __geo_interface__, i.e. a GeoJSON.
 
     Yields
     ------
     tmpfilename : str
         A temporary OGR_GMT format file holding the geographical data.
-        E.g. 'track-1a2b3c4.tsv'.
+        E.g. '1a2b3c4d5e6.gmt'.
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         os.remove(tmpfile.name)  # ensure file is deleted first
@@ -145,14 +146,5 @@ def tempfile_from_geojson(geojson):
                 with fiona.io.MemoryFile(file_or_bytes=jsontext.encode()) as memfile:
                     geoseries = gpd.GeoSeries.from_file(filename=memfile)
                     geoseries.to_file(**ogrgmt_kwargs)
-
-                #     with memfile.open(driver="GeoJSON") as collection:
-                #         # Get schema from GeoJSON
-                #         schema = collection.schema
-                # # Write to temporary OGR_GMT format file
-                # with fiona.open(
-                #    fp=tmpfile.name, mode="w", driver="OGR_GMT", schema=schema
-                # ) as ogrgmtfile:
-                #     ogrgmtfile.write(geojson.__geo_interface__)
 
         yield tmpfile.name
