@@ -37,7 +37,8 @@ fig = pygmt.Figure()
 # Define a colormap to be used for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval),
 # use color_model="+csetosa,versicolor,virginica" to write the discrete color palette
-# "cubhelix" in categorical format and add the species names as annotations
+# "cubhelix" in categorical format and add the species names as annotations for the
+# colorbar
 pygmt.makecpt(
     cmap="cubhelix", color_model="+csetosa,versicolor,virginica", series=(0, 2, 1)
 )

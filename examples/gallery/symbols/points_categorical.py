@@ -14,13 +14,8 @@ method.
 import pandas as pd
 import pygmt
 
-# Load sample penguins data
+# Load sample penguins data and convert 'species' column to categorical dtype
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/penguins.csv")
-
-# Extract species names for colorbar legend
-species = ",".join(df.species.unique())
-
-# Convert 'species' column to categorical dtype
 df.species = df.species.astype(dtype="category")
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
@@ -49,9 +44,10 @@ fig.basemap(
 
 # Define a colormap to be used for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval),
-# use color_model="+c" + species to write the discrete color palette "inferno" in
-# categorical format and add the species names extracted above as annotations
-pygmt.makecpt(cmap="inferno", series=(0, 2, 1), color_model="+c" + species)
+# use color_model="+cAdelie,Chinstrap,Gentoo" to write the discrete color palette
+# "inferno" in categorical format and add the species names as annotations for the
+# colorbar
+pygmt.makecpt(cmap="inferno", series=(0, 2, 1), color_model="+cAdelie,Chinstrap,Gentoo")
 
 fig.plot(
     # Use bill length and bill depth as x and y data input, respectively
