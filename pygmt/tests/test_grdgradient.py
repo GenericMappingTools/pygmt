@@ -1,16 +1,11 @@
 """
 Tests for grdgradient.
 """
-import os
-
-import numpy as np
 import numpy.testing as npt
 import pytest
-import xarray as xr
-from pygmt import grdgradient, grdinfo
+from pygmt import grdgradient
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="grid")
