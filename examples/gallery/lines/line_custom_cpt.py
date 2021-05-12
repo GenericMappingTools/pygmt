@@ -25,7 +25,7 @@ fig.basemap(frame=["WSne", "af"], region=[20, 30, -10, 10])
 # use color_model="+c" + ','.join(map(str, range(1,11))) to write the color
 # palette in categorical format and add labels (1) to (10) for the colorbar legend
 pygmt.makecpt(
-    cmap="batlow", series=[0, 9, 1], color_model="+c" + ",".join(map(str, range(1, 11)))
+    cmap="batlow", series=[0, 9, 1], color_model="+c0-9")
 )
 
 # Plot 10 lines and set a different z-value for each line
