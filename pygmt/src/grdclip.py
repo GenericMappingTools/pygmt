@@ -55,7 +55,7 @@ def grdclip(grid, **kwargs):
         in.
     {R}
     above : str or list or tuple
-        *high/above*.
+        [*high*, *above*].
         Set all data[i] > *high* to *above*.
     below : str or list or tuple
         *low/below*.
