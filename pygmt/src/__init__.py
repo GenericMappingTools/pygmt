@@ -15,6 +15,7 @@ from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfilter import grdfilter
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
+from pygmt.src.grdlandmask import grlandmask
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
 from pygmt.src.histogram import histogram
