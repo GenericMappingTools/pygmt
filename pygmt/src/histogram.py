@@ -46,9 +46,8 @@ def histogram(self, table, **kwargs):
     ----------
     table : str or list or {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2D
-        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` data
-        variables containing the tabular data. This is a required argument.
+        {table-classes}.
+        This is a required argument.
     {J}
     {R}
     {B}

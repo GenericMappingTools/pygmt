@@ -78,10 +78,9 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         data points
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
-        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` data
-        variables containing the tabular data. Use parameter ``columns`` to
-        choose which columns are x, y, color, and size, respectively.
+        {table-classes}.
+        Use parameter ``columns`` to choose which columns are x, y, color, and
+        size, respectively.
     size : 1d array
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.

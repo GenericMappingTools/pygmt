@@ -43,10 +43,9 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
         The arrays of x and y coordinates and z data points.
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
-        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` data
-        variables containing the tabular data. Use parameter ``columns`` to
-        choose which columns are x, y, z, respectively.
+        {table-classes}.
+        Use parameter ``columns`` to choose which columns are x, y, z,
+        respectively.
     {J}
     {R}
     scale : str or float

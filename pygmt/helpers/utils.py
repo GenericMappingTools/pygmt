@@ -32,9 +32,8 @@ def data_kind(data, x=None, y=None, z=None):
     ----------
     data : str or xarray.DataArray or {table-like} or None
         Pass in either a file name to an ASCII data table, an
-        :class:`xarray.DataArray`, a 1D/2D :class:`numpy.ndarray`, a
-        :class:`pandas.DataFrame`, or an :class:`xarray.Dataset` made up of 1D
-        :class:`xarray.DataArray` data variables.
+        :class:`xarray.DataArray`, a 1D/2D
+        {table-classes}.
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None

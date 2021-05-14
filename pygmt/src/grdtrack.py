@@ -37,9 +37,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     ----------
     points : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
-        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` data
-        variables containing the tabular data.
+        {table-classes}.
 
     grid : xarray.DataArray or str
         Gridded array from which to sample values from, or a filename (netcdf

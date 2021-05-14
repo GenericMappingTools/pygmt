@@ -232,6 +232,11 @@ def fmt_docstring(module_func):
         "xarray.Dataset"
         # "geopandas.GeoDataFrame"
     )
+    filler_text["table-classes"] = (
+        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an \n"
+        "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` \n"
+        "    data variables containing the tabular data."
+    )
 
     for marker, text in COMMON_OPTIONS.items():
         # Remove the indentation and the first line break from the multiline

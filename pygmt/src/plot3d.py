@@ -80,10 +80,9 @@ def plot3d(
         the data points
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
-        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` data
-        variables containing the tabular data. Use parameter ``columns`` to
-        choose which columns are x, y, z, color, and size, respectively.
+        {table-classes}.
+        Use parameter ``columns`` to choose which columns are x, y, z, color,
+        and size, respectively.
     size : 1d array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.

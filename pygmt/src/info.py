@@ -48,9 +48,7 @@ def info(table, **kwargs):
     ----------
     table : str or {table-like}
         Pass in either a file name to an ASCII data table, a 1D/2D
-        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` data
-        variables containing the tabular data.
+        {table-classes}.
     per_column : bool
         Report the min/max values per column in separate columns.
     spacing : str
