@@ -30,8 +30,10 @@ from pygmt.helpers import (
 )
 def grdgradient(grid, **kwargs):
     r"""
-    Compute the directional derivative in a given ``azimuth`` or
-    ``direction`` of the vector gradient of the data.
+    Compute the directional derivative of the vector gradient of the data.
+
+    Can accept ``azimuth``, ``direction``, and ``radiance`` input to create
+    the resulting gradient.
 
     Full option list at :gmt-docs:`grdgradient.html`
 
