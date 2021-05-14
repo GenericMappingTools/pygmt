@@ -61,7 +61,7 @@ def grdgradient(grid, **kwargs):
         with two directions of lineated structures, e.g., *0*/*270*
         illuminates from the north (top) and west (left).  Finally, if *azim*
         is a file it must be a grid of the same domain, spacing and
-        registration as *ingrid* that will update the azimuth at each output
+        registration as *grid* that will update the azimuth at each output
         node when computing the directional derivatives.
     direction : str
         [**a**][**c**][**o**][**n**].
