@@ -19,8 +19,8 @@ from pygmt.helpers import (
     R="region",
     Sa="above",
     Sb="below",
-    Si="interval",
-    Sr="old",
+    Si="between",
+    Sr="new",
     V="verbose",
 )
 @kwargs_to_strings(
