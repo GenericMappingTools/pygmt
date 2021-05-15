@@ -23,11 +23,9 @@ from pygmt.helpers import (
     G="outgrid",
     R="region",
     V="verbose",
+    n="interpolation",
 )
-@kwargs_to_strings(
-    A="sequence",
-    R="sequence",
-)
+@kwargs_to_strings(A="sequence", E="sequence", R="sequence")
 def grdgradient(grid, **kwargs):
     r"""
     Compute the directional derivative of the vector gradient of the data.
@@ -38,6 +36,7 @@ def grdgradient(grid, **kwargs):
     Full option list at :gmt-docs:`grdgradient.html`
 
     {aliases}
+
     Parameters
     ----------
     grid : str or xarray.DataArray
@@ -45,7 +44,7 @@ def grdgradient(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    azimuth : str or list or xarray.DataArray
+    azimuth : int or float or str or list or xarray.DataArray
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
@@ -73,7 +72,7 @@ def grdgradient(grid, **kwargs):
         Append **o** to report orientations (0-180) rather than
         directions (0-360). Append **n** to add 90 degrees to all angles
         (e.g., to give local strikes of the surface).
-    radiance : str
+    radiance : str or list
         [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
         *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
         Compute Lambertian radiance appropriate to use with ``grdimage``
@@ -92,6 +91,7 @@ def grdgradient(grid, **kwargs):
         they will be ignored.)
     {R}
     {V}
+    {n}
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):

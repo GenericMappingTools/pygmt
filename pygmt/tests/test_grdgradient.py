@@ -18,7 +18,7 @@ def fixture_grid():
 
 def test_grdgradient_no_outgrid(grid):
     """
-    Test the below and above parameters for grdgradient with no set outgrid.
+    Test the azimuth and direction parameters for grdgradient with no set outgrid.
     """
     temp_grid = grdgradient(grid=grid, azimuth=10, direction="c")
     assert temp_grid.dims == ("lat", "lon")
