@@ -28,7 +28,7 @@ fig.histogram(
     # use a pen size of 1p to draw the outlines
     pen="1p",
     # choose histogram type 0 = counts [default]
-    type=0,
+    histtype=0,
 )
 
 fig.show()
