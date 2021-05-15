@@ -9,10 +9,10 @@ import pygmt
 
 np.random.seed(100)
 
-# generate example topography data
-mu = 100  # mean of distribution
-sigma = 25  # standard deviation of distribution
-data = mu + sigma * np.random.randn(521)
+# generate random elevation data from a normal distribution
+mean = 100  # mean of distribution
+stddev = 25  # standard deviation of distribution
+data = mean + stddev * np.random.randn(521)
 
 fig = pygmt.Figure()
 
@@ -24,7 +24,7 @@ fig.histogram(
     fill="red3",
     # define the frame, add title and set background color to
     # lightgray, add annotations for x and y axis
-    frame=['WSne+t"Histogram"+glightgray', 'x+l"Topography (m)"', 'y+l"Counts"'],
+    frame=['WSne+t"Histogram"+glightgray', 'x+l"Elevation (m)"', 'y+l"Counts"'],
     # use a pen size of 1p to draw the outlines
     pen="1p",
     # choose histogram type 0 = counts [default]
