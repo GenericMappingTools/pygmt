@@ -16,6 +16,22 @@ def fixture_grid():
     return load_earth_relief(resolution="01d", region=[-5, 5, -5, 5])
 
 
+def test_grdgradient_outgrid(grid):
+    """
+    Test the azimuth and direction parameters for grdgradient with a set
+    outgrid.
+    """
+    with GMTTempFile(suffix=".nc") as tmpfile:
+        result = grdgradient(grid=grid, outgrid=tmpfile.name, azimuth=10, direction="c")
+        assert result is None  # return value is None
+        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        result = (
+            grdinfo(grid=tmpfile.name, force_scan=0, per_column="n").strip().split()
+        )
+    npt.assert_allclose(float(result[4]), -0.0045060496)
+    npt.assert_allclose(float(result[5]), 0.0575332976)
+
+
 def test_grdgradient_no_outgrid(grid):
     """
     Test the azimuth and direction parameters for grdgradient with no set
