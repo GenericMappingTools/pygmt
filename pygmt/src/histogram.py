@@ -26,7 +26,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     W="pen",
     X="xshift",
     Y="yshift",
-    Z="type",
+    Z="histtype",
     c="panel",
     l="label",
     p="perspective",
@@ -102,7 +102,7 @@ def histogram(self, table, **kwargs):
     series : int or str or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
-    type : int or str
+    histtype : int or str
         [*type*][**+w**].
         Choose between 6 types of histograms:
 
