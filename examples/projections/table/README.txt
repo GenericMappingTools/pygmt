@@ -53,11 +53,11 @@ The below table shows the projection codes for the 31 GMT projections.
    * - **N**\ [|lon0|/]\ *width*
      - :doc:`Robinson </projections/misc/misc_robinson>`
    * - **Oa**\ |lon0|/|lat0|/\ *azim*/*width*\ [**+v**]
-     - Oblique Mercator, 1: origin and azim
+     - :doc:`Oblique Mercator, 1: origin and azim </projections/cyl/cyl_oblique_mercator_1>`
    * - **Ob**\ |lon0|/|lat0|/|lon1|/|lat1|/\ *width*\ [**+v**]
-     - Oblique Mercator, 2: two points
+     - :doc:`Oblique Mercator, 2: two points </projections/cyl/cyl_oblique_mercator_2>`
    * - **Oc**\ |lon0|/|lat0|/|lonp|/|latp|/\ *width*\ [**+v**]
-     - Oblique Mercator, 3: origin and pole
+     - :doc:`Oblique Mercator, 3: origin and pole </projections/cyl/cyl_oblique_mercator_3>`
    * - **P**\ *width*\ [**+a**]\ [**+f**\ [**e**\|\ **p**\|\ *radius*]]\
        [**+r**\ *offset*][**+t**\ *origin*][**+z**\ [**p**\|\ *radius*]]
      - :doc:`Polar </projections/nongeo/polar>` [azimuthal]
