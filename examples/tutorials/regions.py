@@ -1,19 +1,10 @@
 """
-Set the region
-==============
+Setting the region
+==================
 
 Many of the plotting functions take the ``region`` parameter, which sets
 the area that will be shown in the figure. This tutorial covers the different types of
 inputs that it can accept.
-
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
 """
 
 import pygmt
@@ -129,7 +120,7 @@ fig.show()
 #
 # The ``region`` can be set to include a specific area specified by the two-character
 # ISO 3166-1 alpha-2 convention
-# (for futher information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+# (for further information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 fig = pygmt.Figure()
 fig.coast(
