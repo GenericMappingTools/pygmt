@@ -63,12 +63,10 @@ def grdclip(grid, **kwargs):
     between : str or list or tuple
         [*low*, *high*, *between*].
         Set all data[i] >= *low* and <= *high* to *between*.
-        Repeat the option for as many intervals as are needed.
     new : str or list or tuple
         [*old*, *new*].
         Set all data[i] == *old* to *new*. This is mostly useful when
-        your data are known to be integer values. Repeat the option
-        for as many replacements as are needed.
+        your data are known to be integer values.
     {V}
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
