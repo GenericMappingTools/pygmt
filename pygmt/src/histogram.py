@@ -44,8 +44,9 @@ def histogram(self, table, **kwargs):
 
     Parameters
     ----------
-    table : str, list, or 1d array
-        A data file name, list, or 1d numpy array. This is a required argument.
+    table : str or list or {table-like}
+        Pass in either a file name to an ASCII data table, a Python list, a 2D
+        {table-classes}.
     {J}
     {R}
     {B}
