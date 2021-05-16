@@ -1375,7 +1375,7 @@ class Session:
         check_kind : str
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector' or None. Default is None (no validation).
-        data : str or xarray.DataArray or {table-like} or None
+        data : None or str or xarray.DataArray or {table-like}
             Any raster or vector data format. This could be a file name, a
             raster grid, a vector matrix/arrays, or other supported data input.
         x/y/z : 1d arrays or None
