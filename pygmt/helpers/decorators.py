@@ -188,7 +188,9 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
-    ...     data : {table-like}
+    ...     data : str or {table-like}
+    ...         Pass in either a file name to an ASCII data table, a 2D
+    ...         {table-classes}.
     ...     {R}
     ...     {J}
     ...
@@ -201,7 +203,11 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    data : numpy.ndarray or pandas.DataFrame or xarray.Dataset
+    data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset
+        Pass in either a file name to an ASCII data table, a 2D
+        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
+        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`
+        data variables containing the tabular data.
     region : str or list
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
@@ -235,8 +241,8 @@ def fmt_docstring(module_func):
         ]
     )
     filler_text["table-classes"] = (
-        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an \n"
-        "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray` \n"
+        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an\n"
+        "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`\n"
         "    data variables containing the tabular data"
     )
 
