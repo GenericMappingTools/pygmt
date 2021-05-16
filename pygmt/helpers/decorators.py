@@ -203,11 +203,12 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset
+    data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset or geo...
         Pass in either a file name to an ASCII data table, a 2D
-        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
+        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
         :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`
-        data variables containing the tabular data.
+        data variables, or a :class:`geopandas.GeoDataFrame` containing the
+        tabular data.
     region : str or list
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
@@ -241,9 +242,10 @@ def fmt_docstring(module_func):
         ]
     )
     filler_text["table-classes"] = (
-        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an\n"
+        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`\n"
-        "    data variables containing the tabular data"
+        "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
+        "    tabular data"
     )
 
     for marker, text in COMMON_OPTIONS.items():
