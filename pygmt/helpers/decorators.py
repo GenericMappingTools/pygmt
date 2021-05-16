@@ -226,11 +226,13 @@ def fmt_docstring(module_func):
             aliases.append("- {} = {}".format(arg, alias))
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-like"] = (
-        "numpy.ndarray or "
-        "pandas.DataFrame or "
-        "xarray.Dataset"
-        # "geopandas.GeoDataFrame"
+    filler_text["table-like"] = " or ".join(
+        [
+            "numpy.ndarray",
+            "pandas.DataFrame",
+            "xarray.Dataset",
+            # "geopandas.GeoDataFrame",
+        ]
     )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an \n"
