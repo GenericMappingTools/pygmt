@@ -22,7 +22,12 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence")
 def grdfill(grid, **kwargs):
     r"""
-    Fill blank areas from a grid.
+    Fill blank areas from a grid file.
+
+    Read a grid that presumably has unfilled holes that the user
+    wants to fill in some fashion.  Holes are identified by NaN values but
+    this criteria can be changed.  There are several different algorithms that
+    can be used to replace the hole values.
 
     Full option list at :gmt-docs:`grdfill.html`
 
@@ -35,6 +40,12 @@ def grdfill(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
+    mode : str
+        Specify the hole-filling algorithm to use.  Choose from **c** for
+        constant fill and append the constant value, **n** for nearest
+        neighbor (and optionally append a search radius in
+        pixels [default radius is :math:`r^2 = \sqrt{X^2 + Y^2}`,
+        where (*X,Y*) are the node dimensions of the grid]).
     {R}
 
     Returns
