@@ -24,6 +24,7 @@ from pygmt.helpers import (
     R="region",
     N="no_skip",
     S="stack",
+    T="radius",
     V="verbose",
     Z="z_only",
     f="coltypes",
@@ -216,6 +217,18 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
            by deviations (**+d**) and finally residuals (**+r**). When more
            than one grid is sampled this sequence of 1-3 columns is repeated
            for each grid.
+    radius : bool or int or float or str
+        [*radius*][**+e**\|\ **p**].
+        To be used with normal grid sampling, and limited to a single, non-IMG
+        grid. If the nearest node to the input point is NaN, search outwards
+        until we find the nearest non-NaN node and report that value instead.
+        Optionally specify a search radius which limits the consideration to
+        points within this distance from the input point. To report the
+        location of the nearest node and its distance from the input point,
+        append **+e**. The default unit for geographic grid distances is
+        spherical degrees. Use *radius* to change the unit and give *radius* =
+        0 if you do not want to limit the radius search. To instead replace the
+        input point with the coordinates of the nearest node, append **+p**.
     {V}
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
