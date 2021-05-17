@@ -8,8 +8,8 @@ from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     data_kind,
-    kwargs_to_strings,
     fmt_docstring,
+    kwargs_to_strings,
     use_alias,
 )
 
@@ -20,6 +20,7 @@ from pygmt.helpers import (
     C="crossprofile",
     D="dfile",
     E="profile",
+    F="critical",
     R="region",
     N="no_skip",
     V="verbose",
@@ -30,7 +31,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
-    """
+    r"""
     Sample grids at specified (x,y) locations.
 
     Reads one or more grid files and a table (from file or an array input; but
@@ -144,6 +145,30 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         is Great Circle]. **Note**: If ``crossprofile`` is set and *spacing* is
         given then that sampling scheme overrules any modifier set in
         ``profile``.
+    critical : str
+        [**+b**][**+n**][**+r**][**+z**\ *z0*].
+        Find critical points along each cross-profile as a function of
+        along-track distance. Requires ``crossprofile`` and a single input grid
+        (*z*). We examine each cross-profile generated and report (*dist*,
+        *lonc*, *latc*, *distc*, *azimuthc*, *zc*) at the center peak of
+        maximum *z* value, (*lonl*, *latl*, *distl*) and (*lonr*, *latr*,
+        *distr*) at the first and last non-NaN point whose *z*-value exceeds
+        *z0*, respectively, and the *width* based on the two extreme points
+        found. Here, *dist* is the distance along the original input
+        ``points`` and the other 12 output columns are a function of that
+        distance.  When searching for the center peak and the extreme first and
+        last values that exceed the threshold we assume the profile is positive
+        up. If we instead are looking for a trough then you must use **+n** to
+        temporarily flip the profile to positive. The threshold *z0* value is
+        always given as >= 0; use **+z** to change it [Default is 0].
+        Alternatively, use **+b** to determine the balance point and standard
+        deviation of the profile; this is the weighted mean and weighted
+        standard deviation of the distances, with *z* acting as the weight.
+        Finally, use **+r** to obtain the weighted rms about the cross-track
+        center (*distc* == 0). **Note**: We round the exact results to the
+        nearest distance nodes along the cross-profiles. We write 13 output
+        columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
+        distl, lonr, latr, distr, width*.
     {R}
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
