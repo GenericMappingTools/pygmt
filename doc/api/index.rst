@@ -89,6 +89,7 @@ Operations on grids:
     :toctree: generated
 
     grdcut
+    grdfill
     grdfilter
     grdtrack
 

@@ -34,6 +34,7 @@ from pygmt.src import (
     config,
     grd2cpt,
     grdcut,
+    grdfill,
     grdfilter,
     grdinfo,
     grdtrack,
