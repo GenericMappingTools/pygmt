@@ -18,6 +18,7 @@ from pygmt.helpers import (
 @use_alias(
     A="resampling",
     C="crossprofile",
+    D="dfile",
     E="profile",
     R="region",
     N="no_skip",
@@ -104,6 +105,11 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         user unit.  The output columns will be *lon*, *lat*, *dist*, *azimuth*,
         *z1*, *z2*, ..., *zn* (The *zi* are the sampled values for each of the
         *n* grids).
+    dfile : str
+        In concert with ``crossprofile`` we can save the (possibly resampled)
+        original lines to *dfile* [Default only saves the cross-profiles]. The
+        columns will be *lon*, *lat*, *dist*, *azimuth*, *z1*, *z2*, ...
+        (sampled value for each grid).
     profile : str
         *line*\ [,\ *line*,...][**+a**\ *az*][**+c**][**+d**][**+g**]\
         [**+i**\ *inc*][**+l**\ *length*][**+n**\ *np*][**+o**\ *az*]\
