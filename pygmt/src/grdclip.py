@@ -34,7 +34,7 @@ def grdclip(grid, **kwargs):
     r"""
     Sets values in a grid that meet certain criteria to a new value.
 
-    Produce a clipped ``outgrid`` or xarray.Data Array version of the
+    Produce a clipped ``outgrid`` or :class:`xarray.DataArray` version of the
     input ``grid`` file.
 
     The parameters ``above`` and ``below`` allow for a given value to be set
