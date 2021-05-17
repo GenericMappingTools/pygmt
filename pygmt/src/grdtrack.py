@@ -23,13 +23,14 @@ from pygmt.helpers import (
     F="critical",
     R="region",
     N="no_skip",
+    S="stack",
     V="verbose",
     Z="z_only",
     f="coltypes",
     j="distcalc",
     n="interpolation",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", S="sequence")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
@@ -173,6 +174,48 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
         [Default only output points within grid domain].
+    stack : str or list
+        *method*/*modifiers*.
+        In conjunction with ``crossprofile``, compute a single stacked profile
+        from all profiles across each segment. Choose how stacking should be
+        computed [Default method is **a**]:
+
+        - **a** = mean (average)
+        - **m** = median
+        - **p** = mode (maximum likelihood)
+        - **l** = lower
+        - **L** = lower but only consider positive values
+        - **u** = upper
+        - **U** = upper but only consider negative values.
+
+        The *modifiers* control the output; choose one or more among these
+        choices:
+
+        - **+a** : Append stacked values to all cross-profiles.
+        - **+d** : Append stack deviations to all cross-profiles.
+        - **+r** : Append data residuals (data - stack) to all cross-profiles.
+        - **+s**\ [*file*] : Save stacked profile to *file* [Default filename
+          is grdtrack_stacked_profile.txt].
+        - **+c**\ *fact* : Compute envelope on stacked profile as
+          ±\ *fact* \*\ *deviation* [Default fact value is 2].
+
+        Notes:
+
+        1. Deviations depend on *method* and are st.dev (**a**), L1 scale,
+           i.e., 1.4826 \* median absolute deviation (MAD) (for **m** and
+           **p**), or half-range (upper-lower)/2.
+        2. The stacked profile file contains a leading column plus groups of
+           4-6 columns, with one group for each sampled grid. The leading
+           column holds cross distance, while the first four columns in a group
+           hold stacked value, deviation, min value, and max value,
+           respectively. If *method* is one of **a**\|\ **m**\|\ **p** then we
+           also write the lower and upper confidence bounds (see **+c**). When
+           one or more of **+a**, **+d**, and **+r** are used then we also
+           append the stacking results to the end of each row, for all
+           cross-profiles. The order is always stacked value (**+a**), followed
+           by deviations (**+d**) and finally residuals (**+r**). When more
+           than one grid is sampled this sequence of 1-3 columns is repeated
+           for each grid.
     {V}
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
