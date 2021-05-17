@@ -78,10 +78,11 @@ def plot3d(
     x/y/z : float or 1d arrays
         The x, y, and z coordinates, or arrays of x, y and z coordinates of
         the data points
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
-        Use parameter ``columns`` to choose which columns are x, y, z,
-        color, and size, respectively.
+    data : str or {table-like}
+        Pass in either a file name to an ASCII data table, a 2D
+        {table-classes}.
+        Use parameter ``columns`` to choose which columns are x, y, z, color,
+        and size, respectively.
     size : 1d array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
