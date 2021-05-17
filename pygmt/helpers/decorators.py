@@ -7,6 +7,7 @@ etc.
 """
 import functools
 import textwrap
+import warnings
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
@@ -36,7 +37,7 @@ COMMON_OPTIONS = {
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
     "G": """\
-        color : str
+        color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
     "V": """\
@@ -187,6 +188,9 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
+    ...     data : str or {table-like}
+    ...         Pass in either a file name to an ASCII data table, a 2D
+    ...         {table-classes}.
     ...     {R}
     ...     {J}
     ...
@@ -199,6 +203,11 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
+    data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset
+        Pass in either a file name to an ASCII data table, a 2D
+        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an
+        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`
+        data variables containing the tabular data.
     region : str or list
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
@@ -222,6 +231,20 @@ def fmt_docstring(module_func):
             alias = module_func.aliases[arg]
             aliases.append("- {} = {}".format(arg, alias))
         filler_text["aliases"] = "\n".join(aliases)
+
+    filler_text["table-like"] = " or ".join(
+        [
+            "numpy.ndarray",
+            "pandas.DataFrame",
+            "xarray.Dataset",
+            # "geopandas.GeoDataFrame",
+        ]
+    )
+    filler_text["table-classes"] = (
+        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, or an\n"
+        "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`\n"
+        "    data variables containing the tabular data"
+    )
 
     for marker, text in COMMON_OPTIONS.items():
         # Remove the indentation and the first line break from the multiline
@@ -439,3 +462,82 @@ def kwargs_to_strings(**conversions):
         return new_module
 
     return converter
+
+
+def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
+    """
+    Decorator to deprecate a parameter.
+
+    The old parameter name will be automatically swapped to the new parameter
+    name, and users will receive a FutureWarning to inform them of the pending
+    deprecation.
+
+    Use this decorator below the ``use_alias`` decorator.
+
+    Parameters
+    ----------
+    oldname : str
+        The old, deprecated parameter name.
+    newname : str
+        The new parameter name.
+    deprecate_version : str
+        The PyGMT version when the old parameter starts to be deprecated.
+    remove_version : str
+        The PyGMT version when the old parameter will be fully removed.
+
+    Examples
+    --------
+    >>> @deprecate_parameter("sizes", "size", "v0.0.0", "v9.9.9")
+    ... @deprecate_parameter("colors", "color", "v0.0.0", "v9.9.9")
+    ... @deprecate_parameter("infile", "data", "v0.0.0", "v9.9.9")
+    ... def module(data, size=0, **kwargs):
+    ...     "A module that prints the arguments it received"
+    ...     print(f"data={data}, size={size}, color={kwargs['color']}")
+    >>> # new names are supported
+    >>> module(data="table.txt", size=5.0, color="red")
+    data=table.txt, size=5.0, color=red
+    >>> # old names are supported, FutureWarning warnings are reported
+    >>> with warnings.catch_warnings(record=True) as w:
+    ...     module(infile="table.txt", sizes=5.0, colors="red")
+    ...     # check the number of warnings
+    ...     assert len(w) == 3
+    ...     for i in range(len(w)):
+    ...         assert issubclass(w[i].category, FutureWarning)
+    ...         assert "deprecated" in str(w[i].message)
+    ...
+    data=table.txt, size=5.0, color=red
+    >>> # using both old and new names will raise an GMTInvalidInput exception
+    >>> import pytest
+    >>> with pytest.raises(GMTInvalidInput):
+    ...     module(data="table.txt", size=5.0, sizes=4.0)
+    ...
+    """
+
+    def deprecator(module_func):
+        """
+        The decorator that creates the new function to work with both old and
+        new parameters.
+        """
+
+        @functools.wraps(module_func)
+        def new_module(*args, **kwargs):
+            """
+            New module instance that converts old parameters to new parameters.
+            """
+            if oldname in kwargs:
+                if newname in kwargs:
+                    raise GMTInvalidInput(
+                        f"Can't provide both '{newname}' and '{oldname}'."
+                    )
+                msg = (
+                    f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
+                    f" and will be removed in {remove_version}."
+                    f" Please use '{newname}' instead."
+                )
+                warnings.warn(msg, category=FutureWarning, stacklevel=2)
+                kwargs[newname] = kwargs.pop(oldname)
+            return module_func(*args, **kwargs)
+
+        return new_module
+
+    return deprecator

@@ -44,16 +44,17 @@ fig.basemap(
 
 # Define a colormap to be used for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval),
-# use color_model="+c" to write the discrete color palette "inferno" in
-# categorical format
-pygmt.makecpt(cmap="inferno", series=(0, 3, 1), color_model="+c")
+# use color_model="+cAdelie,Chinstrap,Gentoo" to write the discrete color palette
+# "inferno" in categorical format and add the species names as annotations for the
+# colorbar
+pygmt.makecpt(cmap="inferno", series=(0, 2, 1), color_model="+cAdelie,Chinstrap,Gentoo")
 
 fig.plot(
     # Use bill length and bill depth as x and y data input, respectively
     x=df.bill_length_mm,
     y=df.bill_depth_mm,
     # Vary each symbol size according to another feature (body mass, scaled by 7.5*10e-5)
-    sizes=df.body_mass_g * 7.5e-5,
+    size=df.body_mass_g * 7.5e-5,
     # Points colored by categorical number code
     color=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
@@ -66,7 +67,7 @@ fig.plot(
     transparency=40,
 )
 
-# A colorbar displaying the different penguin species types will be added
-# once GMT 6.2.0 is released.
+# Add colorbar legend
+fig.colorbar()
 
 fig.show()
