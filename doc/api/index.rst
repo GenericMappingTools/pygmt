@@ -88,6 +88,7 @@ Operations on grids:
 .. autosummary::
     :toctree: generated
 
+    grdclip
     grdcut
     grdfilter
     grdlandmask
