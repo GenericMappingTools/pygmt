@@ -44,14 +44,14 @@ def grdlandmask(**kwargs):
     increment : str
         *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]].
         *x_inc* [and optionally *y_inc*] is the grid spacing. **Geographical
-        (degrees) coordinates**: Optionally, append a increment unit. Choose among
-        **m** to indicate arc minutes or **s** to indicate arc seconds. If one
-        of the units **e**, **f**, **k**, **M**, **n** or **u** is appended
-        instead, the increment is assumed to be given in meter, foot, km, Mile,
-        nautical mile or US survey foot, respectively, and will be converted to
-        the equivalent degrees longitude at the middle latitude of the region.
-        If *y_inc* is given but set to 0 it will be reset equal to *x_inc*;
-        otherwise it will be converted to degrees latitude. **All
+        (degrees) coordinates**: Optionally, append a increment unit. Choose
+        among **m** to indicate arc minutes or **s** to indicate arc seconds.
+        If one of the units **e**, **f**, **k**, **M**, **n** or **u** is
+        appended instead, the increment is assumed to be given in meter, foot,
+        km, mile, nautical mile or US survey foot, respectively, and will be
+        converted to the equivalent degrees longitude at the middle latitude
+        of the region. If *y_inc* is given but set to 0 it will be reset equal
+        to *x_inc*; otherwise it will be converted to degrees latitude. **All
         coordinates**: If **+e** is appended then the corresponding max
         *x* (*east*) or *y* (*north*) may be slightly adjusted to fit exactly
         the given increment [by default the increment may be adjusted slightly
