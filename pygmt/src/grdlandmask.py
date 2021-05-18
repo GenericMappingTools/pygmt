@@ -4,6 +4,7 @@ grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 
 import xarray as xr
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -72,6 +73,8 @@ def grdlandmask(**kwargs):
           ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
+        if "I" not in kwargs.keys() and "R" not in kwargs.keys():
+            raise GMTInvalidInput("""Region and increment must be specified.""")
         with Session() as lib:
             if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                 kwargs.update({"G": tmpfile.name})

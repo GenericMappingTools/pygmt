@@ -3,7 +3,9 @@ Tests for grdlandmask.
 """
 import os
 
+import pytest
 from pygmt import grdinfo, grdlandmask
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -31,3 +33,11 @@ def test_grdlandmask_no_outgrid():
     assert temp_grid.gmt.registration == 0
     assert temp_grid.min() == 0
     assert temp_grid.max() == 1
+
+
+def test_grdlandmask_fails():
+    """
+    Check that grdlandmask fails correctly.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdlandmask()
