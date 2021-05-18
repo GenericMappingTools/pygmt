@@ -22,6 +22,8 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence")
 def grdlandmask(**kwargs):
     r"""
+    Create a grid file with set values for land and water.
+
     Read the selected shoreline database and create a grid to specify which
     nodes in the specified grid are over land or over water. The nodes defined
     by the selected region and lattice spacing
