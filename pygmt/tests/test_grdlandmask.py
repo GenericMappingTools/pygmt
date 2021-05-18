@@ -3,7 +3,6 @@ Tests for grdlandmask.
 """
 import os
 
-import pytest
 from pygmt import grdinfo, grdlandmask
 from pygmt.helpers import GMTTempFile
 
