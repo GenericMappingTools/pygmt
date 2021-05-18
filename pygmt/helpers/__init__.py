@@ -7,7 +7,7 @@ from pygmt.helpers.decorators import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.helpers.tempfile import GMTTempFile, unique_name
+from pygmt.helpers.tempfile import GMTTempFile, tempfile_from_geojson, unique_name
 from pygmt.helpers.utils import (
     args_in_kwargs,
     build_arg_string,
