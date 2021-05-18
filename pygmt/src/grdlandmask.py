@@ -20,7 +20,7 @@ from pygmt.helpers import (
     I="increment",
 )
 @kwargs_to_strings(R="sequence")
-def grlandmask(**kwargs):
+def grdlandmask(**kwargs):
     r"""
     Read the selected shoreline database and create a grid to specify which
     nodes in the specified grid are over land or over water. The nodes defined
