@@ -1,4 +1,4 @@
 outs:
-- md5: e0011db4e7e58fb22a85ea6b1c5fa4eb
-  size: 18254
+- md5: ed371743977c33b2036f1e88337f7861
+  size: 12780
   path: test_plot_datetime.png
