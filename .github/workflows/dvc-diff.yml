@@ -19,7 +19,7 @@ jobs:
         fetch-depth: 0
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@v1.0.2
+      uses: iterative/setup-dvc@v1.0.3
 
     - name: Setup continuous machine learning (CML)
       uses: iterative/setup-cml@v1.0.0

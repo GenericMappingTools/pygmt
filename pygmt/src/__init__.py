@@ -10,6 +10,7 @@ from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
 from pygmt.src.contour import contour
 from pygmt.src.grd2cpt import grd2cpt
+from pygmt.src.grdclip import grdclip
 from pygmt.src.grdcontour import grdcontour
 from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfill import grdfill
