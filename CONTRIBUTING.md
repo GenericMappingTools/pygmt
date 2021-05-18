@@ -252,8 +252,8 @@ To increase the chances of getting your pull request accepted quickly, try to:
 
 * Submit a friendly PR
   - Write a good and detailed description of what the PR does.
-  - Write some documentation for your code (docstrings) and leave comments explaining
-    the *reason* behind non-obvious things.
+  - Write some documentation for your code (docstrings) and leave comments
+    explaining the *reason* behind non-obvious things.
   - Write tests for the code you wrote/modified if needed.
     Please refer to [Testing your code](#testing-your-code) or
     [Testing plots](#testing-plots).
@@ -547,10 +547,10 @@ def test_my_plotting_case():
 ### Documentation
 
 Most documentation sources are in the `doc` folder. The documentation are
-written in [reStructureText](https://docutils.sourceforge.io/rst.html) and
+written in [reStructuredText](https://docutils.sourceforge.io/rst.html) and
 built by [sphinx](http://www.sphinx-doc.org/). Please refer to
 [reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/rst-cheatsheet.html)
-if you are new to reStructureText.
+if you are new to reStructuredText.
 
 #### Building the documentation
 
