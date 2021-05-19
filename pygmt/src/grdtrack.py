@@ -35,10 +35,9 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    points : pandas.DataFrame or str
-        Either a table with (x, y) or (lon, lat) values in the first two
-        columns, or a filename (e.g. csv, txt format). More columns may be
-        present.
+    points : str or {table-like}
+        Pass in either a file name to an ASCII data table, a 2D
+        {table-classes}.
 
     grid : xarray.DataArray or str
         Gridded array from which to sample values from, or a filename (netcdf
