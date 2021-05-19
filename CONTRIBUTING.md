@@ -550,7 +550,7 @@ Most documentation sources are in Python `*.py` files under the `examples/`
 folder, and the code docstrings can be found e.g. under the `pygmt/src/` and
 `pygmt/datasets/` folders. The documentation are written in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and
-built by [sphinx](http://www.sphinx-doc.org/). Please refer to
+built by [Sphinx](http://www.sphinx-doc.org/). Please refer to
 [reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/rst-cheatsheet.html)
 if you are new to reStructuredText.
 
