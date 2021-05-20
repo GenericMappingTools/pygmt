@@ -168,7 +168,7 @@ def plot3d(
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
-        for symbols, but this option is only valid if using x/y.
+        for symbols, but this option is only valid if using x/y/z.
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
