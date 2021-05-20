@@ -261,6 +261,33 @@ def fmt_docstring(module_func):
     return module_func
 
 
+def use_common(**common):
+    """
+    Decorator to add aliases for keyword arguments that correspond to aliases
+    included in ``COMMON_OPTIONS`` above.
+
+    Use this decorator above the agument parsing decorators, usually only below
+    ``fmt_docstring`` and above ``use_alias``.
+    """
+
+    def common_decorator(module_func):
+        """
+        Decorator that adds common options to the module aliases and docstring.
+        """
+        for option in common["options"]:
+            module_func.aliases[option] = COMMON_OPTIONS[option].split()[0]
+
+        # Dedent the docstring to make it all match the option text.
+        docstring = textwrap.dedent(module_func.__doc__)
+        # Format the docstring with the common options added to parameters
+        common_docstring = "{" + "}\n{".join(common["options"]) + "}"
+        module_func.__doc__ = docstring.replace("{common}", common_docstring)
+
+        return module_func
+
+    return common_decorator
+
+
 def use_alias(**aliases):
     """
     Decorator to add aliases to keyword arguments of a function.

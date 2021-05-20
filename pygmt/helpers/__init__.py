@@ -6,6 +6,7 @@ from pygmt.helpers.decorators import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    use_common,
 )
 from pygmt.helpers.tempfile import GMTTempFile, tempfile_from_geojson, unique_name
 from pygmt.helpers.utils import (
