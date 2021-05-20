@@ -32,10 +32,13 @@ def test_blockmedian_wrong_kind_of_input_table_matrix():
     a matrix.
     """
     dataframe = load_sample_bathymetry()
-    invalid_table = dataframe.values
-    assert data_kind(invalid_table) == "matrix"
-    with pytest.raises(GMTInvalidInput):
-        blockmedian(table=invalid_table, spacing="5m", region=[245, 255, 20, 30])
+    table = dataframe.values
+    output = blockmedian(table=table, spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
+    
+    return output
 
 
 def test_blockmedian_wrong_kind_of_input_table_grid():
@@ -74,5 +77,9 @@ def test_blockmedian_without_outfile_setting():
     """
     Run blockmedian by not passing in outfile parameter setting.
     """
-    with pytest.raises(GMTInvalidInput):
-        blockmedian(table="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30])
+    output = blockmedian(table="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
+
+    return output

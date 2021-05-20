@@ -26,16 +26,19 @@ def test_blockmean_input_dataframe():
     return output
 
 
-def test_blockmean_wrong_kind_of_input_table_matrix():
+def test_blockmean_input_table_matrix():
     """
     Run blockmean using table input that is not a pandas.DataFrame but still a
     matrix.
     """
     dataframe = load_sample_bathymetry()
-    invalid_table = dataframe.values
-    assert data_kind(invalid_table) == "matrix"
-    with pytest.raises(GMTInvalidInput):
-        blockmean(table=invalid_table, spacing="5m", region=[245, 255, 20, 30])
+    table = dataframe.values
+    output = blockmean(table=table, spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
+
+    return output
 
 
 def test_blockmean_wrong_kind_of_input_table_grid():
@@ -74,5 +77,9 @@ def test_blockmean_without_outfile_setting():
     """
     Run blockmean by not passing in outfile parameter setting.
     """
-    with pytest.raises(GMTInvalidInput):
-        blockmean(table="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30])
+    output = blockmean(table="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
+
+    return output
