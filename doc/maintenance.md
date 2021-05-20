@@ -65,9 +65,12 @@ There are 9 configuration files located in `.github/workflows`:
 
    This is run on every commit to the *master* and Pull Request branches.
    It is also scheduled to run daily on the *master* branch.
-   In draft Pull Requests, only two jobs on Linux (minimum NEP29 Python/NumPy versions
-   and latest Python/NumPy versions) are triggered to save on Continuous Integration
-   resources.
+   In draft Pull Requests, only two jobs on Linux are triggered to save on
+   Continuous Integration resources:
+
+   - Minimum [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy)
+     Python/NumPy versions
+   - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
 
 3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
