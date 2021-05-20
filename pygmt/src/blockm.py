@@ -12,6 +12,7 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    use_common,
 )
 
 
@@ -71,13 +72,10 @@ def _blockm(block_method, table, outfile, **kwargs):
 
 
 @fmt_docstring
+@use_common(options=["V", "a", "f", "r"])
 @use_alias(
     I="spacing",
     R="region",
-    V="verbose",
-    a="aspatial",
-    f="coltypes",
-    r="registration",
 )
 @kwargs_to_strings(R="sequence")
 def blockmean(table, outfile=None, **kwargs):
@@ -113,10 +111,7 @@ def blockmean(table, outfile=None, **kwargs):
         Required if ``table`` is a file. The file name for the output ASCII
         file.
 
-    {V}
-    {a}
-    {f}
-    {r}
+    {common}
 
     Returns
     -------
@@ -132,13 +127,10 @@ def blockmean(table, outfile=None, **kwargs):
 
 
 @fmt_docstring
+@use_common(options=["V", "a", "f", "r"])
 @use_alias(
     I="spacing",
     R="region",
-    V="verbose",
-    a="aspatial",
-    f="coltypes",
-    r="registration",
 )
 @kwargs_to_strings(R="sequence")
 def blockmedian(table, outfile=None, **kwargs):
@@ -174,10 +166,7 @@ def blockmedian(table, outfile=None, **kwargs):
         Required if ``table`` is a file. The file name for the output ASCII
         file.
 
-    {V}
-    {a}
-    {f}
-    {r}
+    {common}
 
     Returns
     -------
