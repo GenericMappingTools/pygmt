@@ -17,8 +17,9 @@ def fixture_grid():
     Load the grid data from the sample earth_relief file and set value(s) to
     NaN.
     """
-    grid = load_earth_relief(registration="pixel")
-    grid[10, 10] = np.nan
+    grid = load_earth_relief(registration="pixel", region=[-5, 5, -5, 5])
+    grid[3:5, 3:5] = np.nan
+    grid[5:7, 5:7] = np.inf
     return grid
 
 
@@ -29,7 +30,11 @@ def test_grdfill_dataarray_out(grid):
     result = grdfill(grid=grid, mode="c20")
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result[10, 10] == 20
+    assert result[4, 4] == 20
+    assert result[5, 5] == np.inf
+    assert not result.isnull().all()  # check that no NaN values exists
+    assert result.gmt.gtype == 1  # Geographic grid
+    assert result.gmt.registration == 1  # Pixel registration
 
 
 def test_grdfill_file_out(grid):
@@ -41,4 +46,4 @@ def test_grdfill_file_out(grid):
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = grdinfo(tmpfile.name, per_column=True).strip()
-        assert result == "-180 180 -90 90 -8182 5651.5 1 1 360 180 1 1"
+        assert result == "-5 5 -5 5 -5130.5 inf 1 1 10 10 1 1"

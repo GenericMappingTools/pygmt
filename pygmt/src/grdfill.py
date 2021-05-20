@@ -25,8 +25,8 @@ def grdfill(grid, **kwargs):
     Fill blank areas from a grid file.
 
     Read a grid that presumably has unfilled holes that the user
-    wants to fill in some fashion.  Holes are identified by NaN values but
-    this criteria can be changed.  There are several different algorithms that
+    wants to fill in some fashion. Holes are identified by NaN values but
+    this criteria can be changed. There are several different algorithms that
     can be used to replace the hole values.
 
     Full option list at :gmt-docs:`grdfill.html`
