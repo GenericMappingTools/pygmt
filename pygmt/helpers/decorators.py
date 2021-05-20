@@ -263,11 +263,11 @@ def fmt_docstring(module_func):
 
 def use_common(**common):
     """
-    Decorator to add aliases for keyword arguments that correspond to aliases
-    included in ``COMMON_OPTIONS`` above.
+    Decorator to add aliases for keyword arguments are included in
+    ``COMMON_OPTIONS`` above.
 
-    Use this decorator above the agument parsing decorators, usually only below
-    ``fmt_docstring`` and above ``use_alias``.
+    Use this decorator above the argument parsing decorators, usually only
+    below ``fmt_docstring`` and above ``use_alias``.
     """
 
     def common_decorator(module_func):
