@@ -148,7 +148,7 @@ def text_(
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
-        for symbols, but this option is only valid if using x/y.
+        for texts, but this option is only valid if using x/y.
     """
 
     # pylint: disable=too-many-locals
