@@ -10,6 +10,7 @@ import textwrap
 import warnings
 
 import numpy as np
+from inspect import signature, Parameter
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
@@ -325,6 +326,29 @@ def use_alias(**aliases):
         return new_module
 
     return alias_decorator
+
+
+
+def tab_complete_alias(module_func):
+    """
+    Decorator injecting aliases of a method as attributes
+    """
+    @functools.wraps(module_func)
+    def wrapper(*args, **kwargs):
+        """
+        New module instance that includes aliases in the signature.
+        """
+        sig = signature(module_func)
+        param = Parameter("verbose",kind=Parameter.POSITIONAL_OR_KEYWORD,default=None)
+        wrapped_params = [param for param in sig.parameters.values()]
+        kwargs_param = wrapped_params.pop(-1)
+        all_params = wrapped_params + [param] + [kwargs_param]
+        sig = sig.replace(parameters=all_params)
+        wrapper.__signature__ = sig
+
+        return module_func(*args,**kwargs)
+
+    return wrapper
 
 
 def kwargs_to_strings(**conversions):

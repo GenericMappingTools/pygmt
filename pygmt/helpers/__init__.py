@@ -5,6 +5,7 @@ from pygmt.helpers.decorators import (
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
+    tab_complete_alias,
     use_alias,
 )
 from pygmt.helpers.tempfile import GMTTempFile, tempfile_from_geojson, unique_name

@@ -11,8 +11,10 @@ from pygmt.helpers import (
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
+    tab_complete_alias,
     use_alias,
 )
+from pygmt.helpers.decorators import tab_complete_alias
 
 
 def _blockm(block_method, table, outfile, **kwargs):
@@ -71,6 +73,7 @@ def _blockm(block_method, table, outfile, **kwargs):
 
 
 @fmt_docstring
+@tab_complete_alias
 @use_alias(
     I="spacing",
     R="region",
@@ -132,6 +135,7 @@ def blockmean(table, outfile=None, **kwargs):
 
 
 @fmt_docstring
+@tab_complete_alias
 @use_alias(
     I="spacing",
     R="region",
