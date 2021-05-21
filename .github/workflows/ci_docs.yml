@@ -66,8 +66,8 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install -c conda-forge/label/dev gmt=6.2.0rc1
-          conda install numpy pandas xarray netCDF4 packaging \
+          conda install conda-forge/label/dev::gmt=6.2.0rc1 \
+                        numpy pandas xarray netCDF4 packaging \
                         ipython make myst-parser \
                         sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
 
@@ -77,7 +77,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.13.0
+        uses: dawidd6/action-download-artifact@v2.14.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

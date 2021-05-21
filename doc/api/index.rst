@@ -29,6 +29,7 @@ Plotting data and laying out the map:
     Figure.grdcontour
     Figure.grdimage
     Figure.grdview
+    Figure.histogram
     Figure.image
     Figure.inset
     Figure.legend
@@ -42,6 +43,8 @@ Plotting data and laying out the map:
     Figure.solar
     Figure.subplot
     Figure.text
+    Figure.velo
+    Figure.wiggle
 
 Color palette table generation:
 
@@ -85,6 +88,7 @@ Operations on grids:
 .. autosummary::
     :toctree: generated
 
+    grdclip
     grdcut
     grdfilter
     grdtrack
@@ -224,6 +228,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.get_default
     clib.Session.create_data
     clib.Session.put_matrix
+    clib.Session.put_strings
     clib.Session.put_vector
     clib.Session.write_data
     clib.Session.open_virtual_file
