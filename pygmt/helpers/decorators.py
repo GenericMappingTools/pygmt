@@ -8,9 +8,9 @@ etc.
 import functools
 import textwrap
 import warnings
+from inspect import Parameter, signature
 
 import numpy as np
-from inspect import signature, Parameter
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
@@ -328,17 +328,24 @@ def use_alias(**aliases):
     return alias_decorator
 
 
-
 def tab_complete_alias(module_func):
     """
-    Decorator injecting aliases of a method as attributes
+    Decorator injecting aliases into the signature of a method.
     """
 
+    # Get current signature and parameters
     sig = signature(module_func)
-    param = Parameter("verbose",kind=Parameter.POSITIONAL_OR_KEYWORD,default=None)
     wrapped_params = [param for param in sig.parameters.values()]
     kwargs_param = wrapped_params.pop(-1)
-    all_params = wrapped_params + [param] + [kwargs_param]
+    # Add new parameters from aliases
+    for alias in module_func.aliases.values():
+        if alias not in sig.parameters.keys():
+            new_param = Parameter(
+                alias, kind=Parameter.POSITIONAL_OR_KEYWORD, default=None
+            )
+            wrapped_params = wrapped_params + [new_param]
+    all_params = wrapped_params + [kwargs_param]
+    # Update method signature
     sig_new = sig.replace(parameters=all_params)
     module_func.__signature__ = sig_new
 
