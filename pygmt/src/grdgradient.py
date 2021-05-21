@@ -1,5 +1,5 @@
 """
-grdgradient - Create a gradient from a grid.
+grdgradient - Compute directional gradients from a grid.
 """
 
 import xarray as xr

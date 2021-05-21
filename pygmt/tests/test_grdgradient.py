@@ -29,10 +29,13 @@ def test_grdgradient_outgrid(grid):
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = (
-            grdinfo(grid=tmpfile.name, force_scan=0, per_column="n").strip().split()
+            grdinfo(grid=tmpfile.name, force_scan="a", per_column="n").strip().split()
         )
-    npt.assert_allclose(float(result[4]), -0.0045060496)
-    npt.assert_allclose(float(result[5]), 0.0575332976)
+    npt.assert_allclose(float(result[4]), -0.0045060496)  # min
+    npt.assert_allclose(float(result[5]), 0.0575332976)  # max
+    # Check spherically weighted statistics below
+    npt.assert_allclose(float(result[10]), 0.000384754501283)  # median
+    npt.assert_allclose(float(result[12]), 0.00285958005568)  # mean
 
 
 def test_grdgradient_no_outgrid(grid):
@@ -46,11 +49,14 @@ def test_grdgradient_no_outgrid(grid):
     assert temp_grid.gmt.registration == 1  # Pixel registration
     npt.assert_allclose(temp_grid.min(), -0.0045060496)
     npt.assert_allclose(temp_grid.max(), 0.0575332976)
+    npt.assert_allclose(temp_grid.median(), 0.0004889865522272885)
+    npt.assert_allclose(temp_grid.mean(), 0.0028633063193410635)
 
 
 def test_grdgradient_fails(grid):
     """
-    Check that grdgradient fails correctly.
+    Check that grdgradient fails correctly when neither of azimuth, direction
+    or radiance is given.
     """
     with pytest.raises(GMTInvalidInput):
         grdgradient(grid=grid)
