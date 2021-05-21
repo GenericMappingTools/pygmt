@@ -335,7 +335,7 @@ def tab_complete_alias(module_func):
 
     # Get current signature and parameters
     sig = signature(module_func)
-    wrapped_params = [param for param in sig.parameters.values()]
+    wrapped_params = list(sig.parameters.values())
     kwargs_param = wrapped_params.pop(-1)
     # Add new parameters from aliases
     for alias in module_func.aliases.values():

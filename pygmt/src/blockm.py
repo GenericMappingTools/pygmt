@@ -14,7 +14,6 @@ from pygmt.helpers import (
     tab_complete_alias,
     use_alias,
 )
-from pygmt.helpers.decorators import tab_complete_alias
 
 
 def _blockm(block_method, table, outfile, **kwargs):
