@@ -328,9 +328,9 @@ def use_alias(**aliases):
     return alias_decorator
 
 
-def tab_complete_alias(module_func):
+def insert_alias(module_func):
     """
-    Decorator injecting aliases into the signature of a method.
+    Decorator insertings aliases into the signature of a method.
     """
 
     # Get current signature and parameters

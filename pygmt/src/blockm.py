@@ -10,8 +10,8 @@ from pygmt.helpers import (
     data_kind,
     dummy_context,
     fmt_docstring,
+    insert_alias,
     kwargs_to_strings,
-    tab_complete_alias,
     use_alias,
 )
 
@@ -72,7 +72,7 @@ def _blockm(block_method, table, outfile, **kwargs):
 
 
 @fmt_docstring
-@tab_complete_alias
+@insert_alias
 @use_alias(
     I="spacing",
     R="region",
@@ -134,7 +134,7 @@ def blockmean(table, outfile=None, **kwargs):
 
 
 @fmt_docstring
-@tab_complete_alias
+@insert_alias
 @use_alias(
     I="spacing",
     R="region",
