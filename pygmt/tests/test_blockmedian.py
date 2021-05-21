@@ -23,8 +23,6 @@ def test_blockmedian_input_dataframe():
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
-    return output
-
 
 def test_blockmedian_wrong_kind_of_input_table_matrix():
     """
@@ -37,8 +35,6 @@ def test_blockmedian_wrong_kind_of_input_table_matrix():
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
-
-    return output
 
 
 def test_blockmedian_wrong_kind_of_input_table_grid():
@@ -70,8 +66,6 @@ def test_blockmedian_input_filename():
         assert output.shape == (5849, 3)
         npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
-    return output
-
 
 def test_blockmedian_without_outfile_setting():
     """
@@ -81,5 +75,3 @@ def test_blockmedian_without_outfile_setting():
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
-
-    return output
