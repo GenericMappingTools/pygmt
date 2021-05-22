@@ -19,10 +19,10 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence")
 def grd2xyz(grid, **kwargs):
     r"""
-    Create xyz table from grid files.
+    Create xyz tables from grid files.
 
-    Read one or more binary 2-D grid files and write out
-    xyz-triplets in ASCII [or binary] format to standard output.
+    Read a binary 2-D grid files and write out
+    xyz-triplets in ASCII [or binary] format to a standard output.
 
     Full option list at :gmt-docs:`grd2xyz.html`
 
