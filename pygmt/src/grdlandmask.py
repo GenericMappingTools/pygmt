@@ -73,7 +73,7 @@ def grdlandmask(**kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    if "I" not in kwargs.keys() and "R" not in kwargs.keys():
+    if "I" not in kwargs.keys() or "R" not in kwargs.keys():
         raise GMTInvalidInput("Region and increment must be specified.")
 
     with GMTTempFile(suffix=".nc") as tmpfile:
