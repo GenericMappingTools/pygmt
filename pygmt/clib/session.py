@@ -734,7 +734,7 @@ class Session:
         return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
-        """
+        r"""
         Attach a numpy 1D array as a column on a GMT dataset.
 
         Use this function to attach numpy array data to a GMT dataset and pass
