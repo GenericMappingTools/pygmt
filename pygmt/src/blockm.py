@@ -87,10 +87,10 @@ def blockmean(table, outfile=None, **kwargs):
 
     Parameters
     ----------
-    table : pandas.DataFrame or str
-        Either a pandas dataframe with (x, y, z) or (longitude, latitude,
-        elevation) values in the first three columns, or a file name to an
-        ASCII data table.
+    table : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
 
     spacing : str
         *xinc*\[\ *unit*\][**+e**\|\ **n**]
@@ -147,10 +147,10 @@ def blockmedian(table, outfile=None, **kwargs):
 
     Parameters
     ----------
-    table : pandas.DataFrame or str
-        Either a pandas dataframe with (x, y, z) or (longitude, latitude,
-        elevation) values in the first three columns, or a file name to an
-        ASCII data table.
+    table : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
 
     spacing : str
         *xinc*\[\ *unit*\][**+e**\|\ **n**]
