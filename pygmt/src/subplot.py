@@ -8,6 +8,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
+    insert_alias,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
@@ -16,6 +17,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @contextlib.contextmanager
+@insert_alias
 @use_alias(
     Ff="figsize",
     Fs="subsize",
@@ -172,6 +174,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
 
 @fmt_docstring
 @contextlib.contextmanager
+@insert_alias
 @use_alias(A="fixedlabel", C="clearance", V="verbose")
 def set_panel(self, panel=None, **kwargs):
     r"""

@@ -9,12 +9,14 @@ from pygmt.helpers import (
     data_kind,
     dummy_context,
     fmt_docstring,
+    insert_alias,
     kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
+@insert_alias
 @use_alias(
     A="annotation",
     B="frame",

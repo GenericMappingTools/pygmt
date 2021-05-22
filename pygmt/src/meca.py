@@ -11,6 +11,7 @@ from pygmt.helpers import (
     data_kind,
     dummy_context,
     fmt_docstring,
+    insert_alias,
     kwargs_to_strings,
     use_alias,
 )
@@ -95,6 +96,7 @@ def data_format_code(convention, component="full"):
 
 
 @fmt_docstring
+@insert_alias
 @use_alias(
     R="region",
     J="projection",

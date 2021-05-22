@@ -2,10 +2,17 @@
 which - Find the full path to specified files.
 """
 from pygmt.clib import Session
-from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alias
+from pygmt.helpers import (
+    GMTTempFile,
+    build_arg_string,
+    fmt_docstring,
+    insert_alias,
+    use_alias,
+)
 
 
 @fmt_docstring
+@insert_alias
 @use_alias(G="download", V="verbose")
 def which(fname, **kwargs):
     """

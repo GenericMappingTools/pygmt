@@ -9,11 +9,13 @@ from pygmt.helpers import (
     build_arg_string,
     data_kind,
     fmt_docstring,
+    insert_alias,
     use_alias,
 )
 
 
 @fmt_docstring
+@insert_alias
 @use_alias(V="verbose", f="coltypes", n="interpolation")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     """

@@ -4,11 +4,18 @@ inset - Create inset figures.
 import contextlib
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    fmt_docstring,
+    insert_alias,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
 @contextlib.contextmanager
+@insert_alias
 @use_alias(D="position", F="box", M="margin", N="no_clip", V="verbose")
 @kwargs_to_strings(D="sequence", M="sequence")
 def inset(self, **kwargs):

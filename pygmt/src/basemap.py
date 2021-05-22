@@ -8,12 +8,14 @@ from pygmt.helpers import (
     args_in_kwargs,
     build_arg_string,
     fmt_docstring,
+    insert_alias,
     kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
+@insert_alias
 @use_alias(
     R="region",
     J="projection",
