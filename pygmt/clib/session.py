@@ -744,7 +744,7 @@ class Session:
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
-        int32, uint64, uint32, datetime64 and str_.
+        int32, uint64, uint32, datetime64 and str.
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
