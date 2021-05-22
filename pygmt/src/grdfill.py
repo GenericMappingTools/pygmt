@@ -17,7 +17,9 @@ from pygmt.helpers import (
 @use_alias(
     A="mode",
     G="outgrid",
+    N="node",
     R="region",
+    V="verbosity",
 )
 @kwargs_to_strings(R="sequence")
 def grdfill(grid, **kwargs):
@@ -46,7 +48,11 @@ def grdfill(grid, **kwargs):
         neighbor (and optionally append a search radius in
         pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
         where (*X,Y*) are the node dimensions of the grid]).
+    node : str or int or float
+        Sets the node value that identifies a point as a member of a
+        hole [Default is NaN].
     {R}
+    {V}
 
     Returns
     -------
