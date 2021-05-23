@@ -63,6 +63,7 @@ def grdlandmask(**kwargs):
         increment value depends on whether you have selected a
         gridline-registered or pixel-registered grid.
     {R}
+    {r}
 
     Returns
     -------
