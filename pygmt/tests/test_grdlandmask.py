@@ -11,7 +11,7 @@ from pygmt.helpers import GMTTempFile
 
 def test_grdlandmask_outgrid():
     """
-    Creates a grid land mask with an outgride argument.
+    Creates a grid land mask with an outgrid argument.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdlandmask(outgrid=tmpfile.name, increment=1, region=[-5, 5, -5, 5])
