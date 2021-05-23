@@ -14,7 +14,6 @@ from pygmt.helpers import (
     data_kind,
     dummy_context,
     fmt_docstring,
-    insert_alias,
     kwargs_to_strings,
     unique_name,
     use_alias,
@@ -56,7 +55,6 @@ def tempfile_from_dftrack(track, suffix):
 
 
 @fmt_docstring
-@insert_alias
 @use_alias(
     A="combitable",
     C="runtimes",

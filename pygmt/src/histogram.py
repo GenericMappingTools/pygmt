@@ -2,17 +2,10 @@
 Histogram - Create a histogram
 """
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    fmt_docstring,
-    insert_alias,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@insert_alias
 @use_alias(
     A="horizontal",
     B="frame",

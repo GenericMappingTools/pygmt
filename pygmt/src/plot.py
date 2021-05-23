@@ -8,7 +8,6 @@ from pygmt.helpers import (
     data_kind,
     deprecate_parameter,
     fmt_docstring,
-    insert_alias,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
@@ -16,7 +15,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@insert_alias
 @use_alias(
     A="straight_line",
     B="frame",

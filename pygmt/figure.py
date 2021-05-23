@@ -16,7 +16,6 @@ from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
-    insert_alias,
     kwargs_to_strings,
     launch_external_viewer,
     unique_name,
@@ -125,7 +124,6 @@ class Figure:
         return wesn
 
     @fmt_docstring
-    @insert_alias
     @use_alias(
         A="crop",
         C="gs_option",
