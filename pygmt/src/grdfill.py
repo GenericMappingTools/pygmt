@@ -19,7 +19,7 @@ from pygmt.helpers import (
     G="outgrid",
     N="node",
     R="region",
-    V="verbosity",
+    V="verbose",
 )
 @kwargs_to_strings(R="sequence")
 def grdfill(grid, **kwargs):
