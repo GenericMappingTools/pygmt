@@ -262,6 +262,30 @@ def fmt_docstring(module_func):
     return module_func
 
 
+def insert_alias(module_func):
+    """
+    Decorator insertings aliases into the signature of a method.
+    """
+
+    # Get current signature and parameters
+    sig = signature(module_func)
+    wrapped_params = list(sig.parameters.values())
+    kwargs_param = wrapped_params.pop(-1)
+    # Add new parameters from aliases
+    for alias in module_func.aliases.values():
+        if alias not in sig.parameters.keys():
+            new_param = Parameter(
+                alias, kind=Parameter.POSITIONAL_OR_KEYWORD, default=None
+            )
+            wrapped_params = wrapped_params + [new_param]
+    all_params = wrapped_params + [kwargs_param]
+    # Update method signature
+    sig_new = sig.replace(parameters=all_params)
+    module_func.__signature__ = sig_new
+
+    return module_func
+
+
 def use_alias(**aliases):
     """
     Decorator to add aliases to keyword arguments of a function.
@@ -323,33 +347,11 @@ def use_alias(**aliases):
 
         new_module.aliases = aliases
 
+        new_module = insert_alias(new_module)
+
         return new_module
 
     return alias_decorator
-
-
-def insert_alias(module_func):
-    """
-    Decorator insertings aliases into the signature of a method.
-    """
-
-    # Get current signature and parameters
-    sig = signature(module_func)
-    wrapped_params = list(sig.parameters.values())
-    kwargs_param = wrapped_params.pop(-1)
-    # Add new parameters from aliases
-    for alias in module_func.aliases.values():
-        if alias not in sig.parameters.keys():
-            new_param = Parameter(
-                alias, kind=Parameter.POSITIONAL_OR_KEYWORD, default=None
-            )
-            wrapped_params = wrapped_params + [new_param]
-    all_params = wrapped_params + [kwargs_param]
-    # Update method signature
-    sig_new = sig.replace(parameters=all_params)
-    module_func.__signature__ = sig_new
-
-    return module_func
 
 
 def kwargs_to_strings(**conversions):
