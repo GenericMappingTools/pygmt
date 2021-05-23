@@ -262,7 +262,7 @@ def fmt_docstring(module_func):
     return module_func
 
 
-def insert_alias(module_func):
+def insert_alias(module_func, default_value=None):
     """
     Decorator insertings aliases into the signature of a method.
     """
@@ -275,7 +275,7 @@ def insert_alias(module_func):
     for alias in module_func.aliases.values():
         if alias not in sig.parameters.keys():
             new_param = Parameter(
-                alias, kind=Parameter.POSITIONAL_OR_KEYWORD, default=None
+                alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
             wrapped_params = wrapped_params + [new_param]
     all_params = wrapped_params + [kwargs_param]
