@@ -7,6 +7,8 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
+    data_kind,
+    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -68,13 +70,19 @@ def xyz2grd(table, **kwargs):
     """
     if "I" not in kwargs.keys() or "R" not in kwargs.keys():
         raise GMTInvalidInput("Region and increment must be specified.")
+    kind = data_kind(table)
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(data=table)
-            if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
-                kwargs.update({"G": tmpfile.name})
-            outgrid = kwargs["G"]
+            if kind == "file":
+                file_context = dummy_context(table)
+            elif kind == "matrix":
+                file_context = lib.virtualfile_from_matrix(matrix=table)
+            else:
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(table)))
             with file_context as infile:
+                if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
+                    kwargs.update({"G": tmpfile.name})
+                outgrid = kwargs["G"]
                 arg_str = build_arg_string(kwargs)
                 arg_str = " ".join([infile, arg_str])
                 lib.call_module("xyz2grd", arg_str)
