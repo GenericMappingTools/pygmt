@@ -21,6 +21,10 @@ with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+p1.5p,gold"):
     # orthogonal projection centered at 47E, 20S. The land color is set to "gray" and
     # Madagascar is highlighted in "red3".
     fig.coast(
-        region="g", projection="G47/-20/3.5c", land="gray", water="white", dcw="MG+gred3"
+        region="g",
+        projection="G47/-20/3.5c",
+        land="gray",
+        water="white",
+        dcw="MG+gred3",
     )
 fig.show()
