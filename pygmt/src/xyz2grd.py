@@ -70,12 +70,14 @@ def xyz2grd(table, **kwargs):
         raise GMTInvalidInput("Region and increment must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
+            file_context = lib.virtualfile_from_data(data=table)
             if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                 kwargs.update({"G": tmpfile.name})
             outgrid = kwargs["G"]
-            arg_str = build_arg_string(kwargs)
-            arg_str = " ".join([table, arg_str])
-            lib.call_module("xyz2grd", arg_str)
+            with file_context as infile:
+                arg_str = build_arg_string(kwargs)
+                arg_str = " ".join([infile, arg_str])
+                lib.call_module("xyz2grd", arg_str)
 
         if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
             with xr.open_dataarray(outgrid) as dataarray:
