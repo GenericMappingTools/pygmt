@@ -93,6 +93,7 @@ Operations on grids:
     grdfill
     grdfilter
     grdtrack
+    xyz2grd
 
 Crossover analysis with x2sys:
 
