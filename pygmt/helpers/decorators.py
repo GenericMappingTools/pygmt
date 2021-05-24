@@ -40,7 +40,7 @@ COMMON_OPTIONS = {
         color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
-    "I": """\
+    "I": r"""\
         spacing : str
             *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
