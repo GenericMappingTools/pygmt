@@ -18,7 +18,7 @@ from pygmt.helpers import (
 @use_alias(
     G="outgrid",
     R="region",
-    I="increment",
+    I="spacing",
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
@@ -42,7 +42,7 @@ def grdlandmask(**kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    increment : str
+    spacing : str
         *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]].
         *x_inc* [and optionally *y_inc*] is the grid spacing. **Geographical
         (degrees) coordinates**: Optionally, append a increment unit. Choose
@@ -75,7 +75,7 @@ def grdlandmask(**kwargs):
           ``outgrid``)
     """
     if "I" not in kwargs.keys() or "R" not in kwargs.keys():
-        raise GMTInvalidInput("Region and increment must be specified.")
+        raise GMTInvalidInput("Region and spacing must be specified.")
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:

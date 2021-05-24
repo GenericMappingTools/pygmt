@@ -14,7 +14,7 @@ def test_grdlandmask_outgrid():
     Creates a grid land mask with an outgrid argument.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdlandmask(outgrid=tmpfile.name, increment=1, region=[-5, 5, -5, 5])
+        result = grdlandmask(outgrid=tmpfile.name, spacing=1, region=[-5, 5, -5, 5])
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = (
@@ -27,7 +27,7 @@ def test_grdlandmask_no_outgrid():
     """
     Test grdlandmask with no set outgrid.
     """
-    temp_grid = grdlandmask(increment=1, region=[-5, 5, -5, 5])
+    temp_grid = grdlandmask(spacing=1, region=[-5, 5, -5, 5])
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 0
