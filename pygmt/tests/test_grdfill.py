@@ -1,5 +1,5 @@
 """
-Tests for grdclip.
+Tests for grdfill.
 """
 import os
 
