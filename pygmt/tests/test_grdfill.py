@@ -47,3 +47,12 @@ def test_grdfill_file_out(grid):
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = grdinfo(tmpfile.name, per_column=True).strip()
         assert result == "-5 5 -5 5 -5130.5 inf 1 1 10 10 1 1"
+
+
+def test_grdfill_no_mode(grid):
+    """
+    Test that grdfill works with only a grid argument.
+    """
+    result = grdfill(grid=grid)
+    # check information of the output grid
+    assert isinstance(result, xr.DataArray)
