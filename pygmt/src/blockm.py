@@ -92,10 +92,7 @@ def blockmean(table, outfile=None, **kwargs):
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
 
-    spacing : str
-        *xinc*\[\ *unit*\][**+e**\|\ **n**]
-        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        *xinc* [and optionally *yinc*] is the grid spacing.
+    {I}
 
     region : str or list
         *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
@@ -152,10 +149,7 @@ def blockmedian(table, outfile=None, **kwargs):
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
 
-    spacing : str
-        *xinc*\[\ *unit*\][**+e**\|\ **n**]
-        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        *xinc* [and optionally *yinc*] is the grid spacing.
+    {I}
 
     region : str or list
         *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
