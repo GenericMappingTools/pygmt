@@ -1,7 +1,10 @@
 """
 grd2xyz - Convert grid to data table
 """
+import numpy as np
+import pandas as pd
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -17,7 +20,7 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grd2xyz(grid, **kwargs):
+def grd2xyz(grid, format="a", **kwargs):
     r"""
     Create xyz tables from grid files.
 
@@ -33,6 +36,12 @@ def grd2xyz(grid, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
         This is the only required parameter.
+    format : str
+        Determine the format the xyz data will be returned in:
+            **a**: numpy array [Default option]
+            **d**: pandas DataFrame
+            **s**: string
+
     {R}
     {V}
 
@@ -50,4 +59,20 @@ def grd2xyz(grid, **kwargs):
                 )
                 lib.call_module("grd2xyz", arg_str)
         result = outfile.read()
+    if format == "s":
+        return result
+    data_list = []
+    for string_entry in result.strip().split("\n"):
+        float_entry = []
+        string_list = string_entry.strip().split()
+        for i in string_list:
+            float_entry.append(float(i))
+        data_list.append(float_entry)
+    data_array = np.array(data_list)
+    if format == "a":
+        result = data_array
+    elif format == "d":
+        result = pd.DataFrame(data_array)
+    else:
+        raise GMTInvalidInput("""Must specify format as either a, d, or s.""")
     return result
