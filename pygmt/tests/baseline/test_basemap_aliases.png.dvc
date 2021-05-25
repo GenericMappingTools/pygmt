@@ -1,0 +1,4 @@
+outs:
+- md5: 9841c138346e468380aaef4b927d1fc3
+  size: 25016
+  path: test_basemap_aliases.png
