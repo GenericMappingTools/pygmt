@@ -66,7 +66,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install conda-forge/label/dev::gmt=6.2.0rc1 \
+          conda install conda-forge/label/dev::gmt=6.2.0rc2 \
                         numpy pandas xarray netCDF4 packaging \
                         ipython make myst-parser \
                         sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
