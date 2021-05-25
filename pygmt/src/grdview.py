@@ -58,6 +58,7 @@ def grdview(self, grid, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input relief grid or the grid loaded as a
         DataArray.
+    {R}
     {J}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
