@@ -54,10 +54,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     data : str or 2d array
         Either a data file name or a 2d numpy array with the tabular data.
 
-    spacing : str
-        *xinc*\[\ *unit*\][**+e**\|\ **n**]\
-        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        *xinc* [and optionally *yinc*] is the grid spacing.
+    {I}
 
     region : str or list
         *xmin/xmax/ymin/ymax*\[**+r**][**+u**\ *unit*].
