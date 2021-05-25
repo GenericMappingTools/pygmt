@@ -21,7 +21,7 @@ def test_grd2xyz(grid):
     """
     Make sure grd2xyz works as expected.
     """
-    xyz_data = grd2xyz(grid=grid, format="s")
+    xyz_data = grd2xyz(grid=grid, xyz_format="s")
     assert xyz_data.strip().split("\n") == [
         "-0.5 0.5 -4967",
         "0.5 0.5 -4852",
@@ -36,9 +36,9 @@ def test_grd2xyz_format(grid):
     """
     xyz_array = grd2xyz(grid=grid)
     assert isinstance(xyz_array, np.ndarray)
-    xyz_df = grd2xyz(grid=grid, format="d")
+    xyz_df = grd2xyz(grid=grid, xyz_format="d")
     assert isinstance(xyz_df, pd.DataFrame)
-    xyz_string = grd2xyz(grid=grid, format="s")
+    xyz_string = grd2xyz(grid=grid, xyz_format="s")
     assert isinstance(xyz_string, str)
 
 
@@ -47,4 +47,4 @@ def test_grd2xyz_invalid_format(grid):
     Test that grd2xyz fails with incorrect format.
     """
     with pytest.raises(GMTInvalidInput):
-        grd2xyz(grid=grid, format=1)
+        grd2xyz(grid=grid, xyz_format=1)
