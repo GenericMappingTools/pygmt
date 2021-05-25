@@ -92,6 +92,7 @@ Operations on grids:
     grdcut
     grdfill
     grdfilter
+    grdgradient
     grdtrack
 
 Crossover analysis with x2sys:
