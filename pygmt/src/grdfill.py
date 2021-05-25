@@ -4,8 +4,10 @@ grdfill - Fill blank areas from a grid.
 
 import xarray as xr
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
+    args_in_kwargs,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
@@ -59,6 +61,8 @@ def grdfill(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
+    if "A" not in kwargs.keys() and "L" not in kwargs.keys():
+        raise GMTInvalidInput("""An argument for mode is required.""")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)

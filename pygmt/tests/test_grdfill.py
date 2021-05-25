@@ -8,6 +8,7 @@ import pytest
 import xarray as xr
 from pygmt import grdfill, grdinfo
 from pygmt.datasets import load_earth_relief
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -49,10 +50,9 @@ def test_grdfill_file_out(grid):
         assert result == "-5 5 -5 5 -5130.5 inf 1 1 10 10 1 1"
 
 
-def test_grdfill_no_mode(grid):
+def test_grdfill_required_args(grid):
     """
-    Test that grdfill works with only a grid argument.
+    Test that grdfill fails with only a grid argument.
     """
-    result = grdfill(grid=grid)
-    # check information of the output grid
-    assert isinstance(result, xr.DataArray)
+    with pytest.raises(GMTInvalidInput):
+        grdfill(grid=grid)
