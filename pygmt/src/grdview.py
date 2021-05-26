@@ -58,7 +58,12 @@ def grdview(self, grid, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input relief grid or the grid loaded as a
         DataArray.
-    {R}
+    region : str or list
+        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+        Specify the :doc:`region </tutorials/regions>` of interest. When used
+        with ``perspective``, optionally append */zmin/zmax* to indicate the
+        range to use for the 3-D axes [Default is the region in the input
+        grid].
     {J}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
