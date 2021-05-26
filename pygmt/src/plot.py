@@ -36,7 +36,7 @@ from pygmt.helpers import (
     Y="yshift",
     Z="zvalue",
     a="aspatial",
-    i="columns",
+    i="incols",
     l="label",
     c="panel",
     f="coltypes",
@@ -45,6 +45,7 @@ from pygmt.helpers import (
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 @deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
@@ -192,10 +193,10 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     {a}
     {c}
     {f}
-    columns : str or 1d array
+    incols : str or 1d array
         Choose which columns are x, y, color, and size, respectively if
-        input is provided via *data*. E.g. ``columns = [0, 1]`` or
-        ``columns = '0,1'`` if the *x* values are stored in the first
+        input is provided via *data*. E.g. ``incols = [0, 1]`` or
+        ``incols = '0,1'`` if the *x* values are stored in the first
         column and *y* values in the second one. Note: zero-based
         indexing is used.
     label : str
