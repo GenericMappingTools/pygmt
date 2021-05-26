@@ -75,7 +75,7 @@ def test_grdview_with_perspective(gridfile):
     z-plane.
     """
     fig = Figure()
-    fig.grdview(grid=gridfile, perspective=[135, 15], frame=True)
+    fig.grdview(grid=gridfile, projection="Q15c+", perspective=[135, 15], frame=True)
     return fig
 
 
