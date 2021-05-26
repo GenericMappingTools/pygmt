@@ -112,10 +112,6 @@ def test_invalid_datetime():
         )
 
 
-@pytest.mark.xfail(
-    reason="Flaky test only passes with pytest on single module"
-    "See https://github.com/GenericMappingTools/pygmt/issues/1242"
-)
 @pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
 def test_solar_default_terminator():
     """
