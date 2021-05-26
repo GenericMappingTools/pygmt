@@ -505,7 +505,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     name, and users will receive a FutureWarning to inform them of the pending
     deprecation.
 
-    Use this decorator below the ``use_alias`` decorator.
+    Use this decorator above the ``use_alias`` decorator.
 
     Parameters
     ----------
