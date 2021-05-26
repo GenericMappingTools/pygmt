@@ -13,9 +13,11 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    C="above",
-    Cr="below",
+    C="plane",
+    Cr="outside_volume",
+    D="slice",
     R="region",
+    S="unit",
     V="verbose",
 )
 @kwargs_to_strings(C="sequence", R="sequence")
@@ -40,7 +42,9 @@ def grdvolume(grid, **kwargs):
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
+                arg_str = " ".join(
+                    [infile, build_arg_string(kwargs), "->" + outfile.name]
+                )
                 lib.call_module("grdvolume", arg_str)
         result = outfile.read()
     return result
