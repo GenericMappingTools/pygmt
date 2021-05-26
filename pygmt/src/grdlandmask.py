@@ -17,8 +17,8 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     G="outgrid",
-    R="region",
     I="spacing",
+    R="region",
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
@@ -56,7 +56,7 @@ def grdlandmask(**kwargs):
           ``outgrid``)
     """
     if "I" not in kwargs.keys() or "R" not in kwargs.keys():
-        raise GMTInvalidInput("Region and spacing must be specified.")
+        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:

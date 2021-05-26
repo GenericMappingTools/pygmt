@@ -30,14 +30,15 @@ def test_grdlandmask_no_outgrid():
     temp_grid = grdlandmask(spacing=1, region=[-5, 5, -5, 5])
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == 1  # Geographic grid
-    assert temp_grid.gmt.registration == 0
+    assert temp_grid.gmt.registration == 0  # Pixel registration
     assert temp_grid.min() == 0
     assert temp_grid.max() == 1
 
 
 def test_grdlandmask_fails():
     """
-    Check that grdlandmask fails correctly.
+    Check that grdlandmask fails correctly when region and spacing are not
+    given.
     """
     with pytest.raises(GMTInvalidInput):
         grdlandmask()
