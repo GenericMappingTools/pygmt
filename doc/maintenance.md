@@ -28,8 +28,8 @@ instead.
 
 A few guidelines for managing GitHub issues:
 
-* Assign [labels](https://github.com/GenericMappingTools/pygmt/labels) and expected
-  [milestones](https://github.com/GenericMappingTools/pygmt/milestones) to issues as
+* Assign [labels](https://github.com/GenericMappingTools/pygmt/labels) and the expected
+  [milestone](https://github.com/GenericMappingTools/pygmt/milestones) to issues as
   appropriate.
 * When people request to work on an open issue, either assign the issue to that person
   and post a comment about the
