@@ -32,9 +32,8 @@ A few guidelines for managing GitHub issues:
   [milestone](https://github.com/GenericMappingTools/pygmt/milestones) to issues as
   appropriate.
 * When people request to work on an open issue, either assign the issue to that person
-  and post a comment about the
-  assignment or explain why you are not assigning the issue to them and, if possible,
-  recommend other issues for them to work on.
+  and post a comment about the assignment or explain why you are not assigning the 
+  issue to them and, if possible, recommend other issues for them to work on.
 * People with write access should self-assign issues and/or comment on the issues that
   they will address.
 * For upstream bugs, close the issue after an upstream release fixes the bug. If
