@@ -92,6 +92,7 @@ Operations on grids:
     grdcut
     grdfill
     grdfilter
+    grdlandmask
     grdgradient
     grdtrack
 
