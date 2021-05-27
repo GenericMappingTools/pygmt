@@ -6,6 +6,7 @@ import os
 from itertools import product
 
 import numpy as np
+import pandas as pd
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
@@ -121,17 +122,19 @@ def test_contour_deprecate_columns_to_incols(region):
     x, y = np.meshgrid(
         np.linspace(region[0], region[1]), np.linspace(region[2], region[3])
     )
-    y = (
-        x.flatten()
-    )  # switch x and y from here onwards to simulate different column order
-    x = y.flatten()
-    z = (y - 0.5 * (region[0] + region[1])) ** 2 + 4 * x ** 2
+    x = x.flatten()
+    y = y.flatten()
+    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y ** 2
     z = np.exp(-z / 10 ** 2 * np.log(2))
+
+    # generate dataframe
+    # switch x and y from here onwards to simulate different column order
+    data = np.array([[y], [x], [z]])
+    df = pd.DataFrame(data=data)
+
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.contour(
-            x=x,
-            y=y,
-            z=z,
+            data=df,
             projection="X10c",
             region=region,
             frame="a",
