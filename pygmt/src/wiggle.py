@@ -56,7 +56,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     {B}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\ |\ **r**]\
+        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
     color : str

@@ -25,7 +25,7 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, dummy_context, fmt_docstring
+from pygmt.helpers import data_kind, dummy_context, fmt_docstring, tempfile_from_geojson
 
 FAMILIES = [
     "GMT_IS_DATASET",
@@ -734,7 +734,7 @@ class Session:
         return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
-        """
+        r"""
         Attach a numpy 1D array as a column on a GMT dataset.
 
         Use this function to attach numpy array data to a GMT dataset and pass
@@ -744,7 +744,7 @@ class Session:
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
-        int32, uint64, uint32, datetime64 and str_.
+        int32, uint64, uint32, datetime64 and str\_.
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
@@ -1418,12 +1418,18 @@ class Session:
 
         if check_kind == "raster" and kind not in ("file", "grid"):
             raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
-        if check_kind == "vector" and kind not in ("file", "matrix", "vectors"):
-            raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
+        if check_kind == "vector" and kind not in (
+            "file",
+            "matrix",
+            "vectors",
+            "geojson",
+        ):
+            raise GMTInvalidInput(f"Unrecognized data type for vector: {type(data)}")
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
             "file": dummy_context,
+            "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
@@ -1433,7 +1439,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("file", "grid"):
+        if kind in ("file", "geojson", "grid"):
             _data = (data,)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
