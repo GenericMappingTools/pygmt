@@ -173,21 +173,21 @@ When making incompatible changes, we should follow the process:
   3-12 months.
 - Remove the old usage and warning when reaching the declared version.
 
-To rename a function parameter, add the `@deprecated_parameter` decorator
-before the function definition (but after the `@use_alias` decorator if it exists).
-Here is an example:
+To rename a function parameter, add the `@deprecate_parameter` decorator near
+the top after the `@fmt_docstring` decorator but before the `@use_alias`
+decorator (if those two exists). Here is an example:
 
 ```
 @fmt_docstring
-@use_alias(J="projection", R="region", V="verbose")
-@kwargs_to_strings(R="sequence")
-@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@use_alias(J="projection", R="region", V="verbose", i="incols")
+@kwargs_to_strings(R="sequence", i='sequence_comma')
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
 
-In this case, the old parameter name `sizes` is deprecated since v0.4.0, and will be
-fully removed in v0.6.0. The new parameter name is `size`.
+In this case, the old parameter name `columns` is deprecated since v0.4.0, and
+will be fully removed in v0.6.0. The new parameter name is `incols`.
 
 
 ## Making a Release
