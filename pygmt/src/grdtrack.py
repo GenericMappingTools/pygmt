@@ -28,6 +28,7 @@ from pygmt.helpers import (
     V="verbose",
     Z="z_only",
     f="coltypes",
+    i="incols",
     j="distcalc",
     n="interpolation",
 )
@@ -233,6 +234,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
     {f}
+    {i}
     {j}
     {n}
 
