@@ -22,7 +22,7 @@ with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+p1.5p,gold"):
     # Madagascar is highlighted in "red3".
     fig.coast(
         region="g",
-        projection="G47/-20/3.5c",
+        projection="G47/-20/?",
         land="gray",
         water="white",
         dcw="MG+gred3",
