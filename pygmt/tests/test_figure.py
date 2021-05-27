@@ -74,7 +74,18 @@ def test_figure_savefig_unknown_extension():
     prefix = "test_figure_savefig_unknown_extension"
     fmt = "test"
     fname = ".".join([prefix, fmt])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTInvalidInput, match="Unknown extension '.test'."):
+        fig.savefig(fname)
+
+
+def test_figure_savefig_ps_extension():
+    """
+    Check that an error is raised when .ps is specified.
+    """
+    fig = Figure()
+    fig.basemap(region="10/70/-300/800", projection="X3c/5c", frame="af")
+    fname = "test_figure_savefig_ps_extension.ps"
+    with pytest.raises(GMTInvalidInput, match="Extension '.ps' is not supported."):
         fig.savefig(fname)
 
 
