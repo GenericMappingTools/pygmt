@@ -61,7 +61,7 @@ def grdfill(grid, **kwargs):
           ``outgrid``)
     """
     if "A" not in kwargs.keys() and "L" not in kwargs.keys():
-        raise GMTInvalidInput("""An argument for mode is required.""")
+        raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
