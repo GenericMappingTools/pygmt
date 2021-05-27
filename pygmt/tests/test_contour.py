@@ -6,7 +6,6 @@ import os
 from itertools import product
 
 import numpy as np
-import pandas as pd
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
@@ -130,7 +129,6 @@ def test_contour_deprecate_columns_to_incols(region):
     # generate dataframe
     # switch x and y from here onwards to simulate different column order
     data = np.array([y, x, z]).T
-    data = pd.DataFrame(data=data)
 
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.contour(
