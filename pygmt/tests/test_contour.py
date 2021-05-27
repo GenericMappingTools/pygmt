@@ -129,7 +129,7 @@ def test_contour_deprecate_columns_to_incols(region):
 
     # generate dataframe
     # switch x and y from here onwards to simulate different column order
-    data = np.array([[y], [x], [z]])
+    data = np.array([y, x, z])
     data = pd.DataFrame(data=data)
 
     with pytest.warns(expected_warning=FutureWarning) as record:
