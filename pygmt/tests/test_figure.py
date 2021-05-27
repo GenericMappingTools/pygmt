@@ -80,7 +80,7 @@ def test_figure_savefig_unknown_extension():
 
 def test_figure_savefig_ps_extension():
     """
-    Check that an error is raised when .ps is specified.
+    Check that an error is raised when .ps extension is specified.
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3c/5c", frame="af")

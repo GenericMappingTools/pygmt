@@ -236,11 +236,12 @@ class Figure:
 
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
-        if ext == "ps":
-            raise GMTInvalidInput(
-                "Extension '.ps' is not supported. Please use '.eps' or '.pdf' instead."
-            )
         if ext not in fmts:
+            if ext == "ps":
+                raise GMTInvalidInput(
+                    "Extension '.ps' is not supported. "
+                    "Please use '.eps' or '.pdf' instead."
+                )
             raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
