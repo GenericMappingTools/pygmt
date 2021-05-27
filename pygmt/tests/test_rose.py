@@ -193,7 +193,7 @@ def test_rose_bools(data_fractures_compilation):
 @pytest.mark.mpl_image_compare(filename="test_rose_bools.png")
 def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
     """
-    Make sure that the old parameter "columns" is supported and it reports an
+    Make sure that the old parameter "columns" is supported and it reports a
     warning.
 
     Modified from the test_rose_bools() test.
