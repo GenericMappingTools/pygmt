@@ -69,6 +69,7 @@ def _blockm(block_method, table, outfile, **kwargs):
     V="verbose",
     a="aspatial",
     f="coltypes",
+    i="incols",
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
@@ -103,6 +104,7 @@ def blockmean(table, outfile=None, **kwargs):
 
     {V}
     {a}
+    {i}
     {f}
     {r}
 
@@ -126,6 +128,7 @@ def blockmean(table, outfile=None, **kwargs):
     V="verbose",
     a="aspatial",
     f="coltypes",
+    i="incols",
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
@@ -161,6 +164,7 @@ def blockmedian(table, outfile=None, **kwargs):
     {V}
     {a}
     {f}
+    {i}
     {r}
 
     Returns
