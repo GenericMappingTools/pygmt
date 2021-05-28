@@ -86,9 +86,10 @@ PyGMT requires the following libraries to be installed:
 * `netCDF4 <https://unidata.github.io/netcdf4-python>`__
 * `packaging <https://packaging.pypa.io>`__
 
-The following are optional (but recommended) dependencies:
+The following are optional dependencies:
 
-* `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks.
+* `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks (recommended).
+* `GeoPandas <https://geopandas.org>`__: For using and plotting GeoDataFrame objects.
 
 Installing GMT and other dependencies
 -------------------------------------

@@ -65,9 +65,12 @@ There are 9 configuration files located in `.github/workflows`:
 
    This is run on every commit to the *master* and Pull Request branches.
    It is also scheduled to run daily on the *master* branch.
-   In draft Pull Requests, only two jobs on Linux (minimum NEP29 Python/NumPy versions
-   and latest Python/NumPy versions) are triggered to save on Continuous Integration
-   resources.
+   In draft Pull Requests, only two jobs on Linux are triggered to save on
+   Continuous Integration resources:
+
+   - Minimum [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy)
+     Python/NumPy versions
+   - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
 
 3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
@@ -170,21 +173,21 @@ When making incompatible changes, we should follow the process:
   3-12 months.
 - Remove the old usage and warning when reaching the declared version.
 
-To rename a function parameter, add the `@deprecated_parameter` decorator
-before the function definition (but after the `@use_alias` decorator if it exists).
-Here is an example:
+To rename a function parameter, add the `@deprecate_parameter` decorator near
+the top after the `@fmt_docstring` decorator but before the `@use_alias`
+decorator (if those two exists). Here is an example:
 
 ```
 @fmt_docstring
-@use_alias(J="projection", R="region", V="verbose")
-@kwargs_to_strings(R="sequence")
-@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@use_alias(J="projection", R="region", V="verbose", i="incols")
+@kwargs_to_strings(R="sequence", i='sequence_comma')
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
 
-In this case, the old parameter name `sizes` is deprecated since v0.4.0, and will be
-fully removed in v0.6.0. The new parameter name is `size`.
+In this case, the old parameter name `columns` is deprecated since v0.4.0, and
+will be fully removed in v0.6.0. The new parameter name is `incols`.
 
 
 ## Making a Release

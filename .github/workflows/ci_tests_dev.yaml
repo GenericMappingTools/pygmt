@@ -83,7 +83,7 @@ jobs:
       # Install dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install ninja cmake libblas libcblas liblapack fftw gdal \
+          conda install ninja cmake libblas libcblas liblapack fftw gdal=3.2 geopandas \
                         ghostscript libnetcdf hdf5 zlib curl pcre make dvc
           pip install --pre numpy pandas xarray netCDF4 packaging \
                             ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery
