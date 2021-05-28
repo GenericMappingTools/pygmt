@@ -24,6 +24,21 @@ instead.
   branch are in the `dev` folder. Pages for each release are in their own folders.
   **Automatically updated by GitHub Actions** so you shouldn't have to make commits here.
 
+## Managing GitHub issues
+
+A few guidelines for managing GitHub issues:
+
+* Assign [labels](https://github.com/GenericMappingTools/pygmt/labels) and the expected
+  [milestone](https://github.com/GenericMappingTools/pygmt/milestones) to issues as
+  appropriate.
+* When people request to work on an open issue, either assign the issue to that person
+  and post a comment about the assignment or explain why you are not assigning the 
+  issue to them and, if possible, recommend other issues for them to work on.
+* People with write access should self-assign issues and/or comment on the issues that
+  they will address.
+* For upstream bugs, close the issue after an upstream release fixes the bug. If
+  possible, post a comment when an upstream PR is merged that fixes the problem, and
+  consider adding a regression test for serious bugs.
 
 ## Reviewing and merging pull requests
 

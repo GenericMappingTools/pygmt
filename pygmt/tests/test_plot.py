@@ -309,8 +309,8 @@ def test_plot_matrix(data):
         projection="M15c",
         style="cc",
         color="#aaaaaa",
-        B="a",
-        columns="0,1,2+s0.005",
+        frame="a",
+        incols="0,1,2+s0.005",
     )
     return fig
 
@@ -327,7 +327,7 @@ def test_plot_matrix_color(data):
         projection="X10c",
         style="c0.5c",
         cmap="rainbow",
-        B="a",
+        frame="a",
     )
     return fig
 
@@ -345,7 +345,7 @@ def test_plot_from_file(region):
         style="d1c",
         color="yellow",
         frame=True,
-        columns=[0, 1],
+        incols=[0, 1],
     )
     return fig
 
@@ -453,7 +453,7 @@ def test_plot_datetime():
 @pytest.mark.mpl_image_compare(filename="test_plot_sizes.png")
 def test_plot_deprecate_sizes_to_size(data, region):
     """
-    Make sure that the old parameter "sizes" is supported and it reports an
+    Make sure that the old parameter "sizes" is supported and it reports a
     warning.
 
     Modified from the test_plot_sizes() test.
@@ -469,6 +469,29 @@ def test_plot_deprecate_sizes_to_size(data, region):
             style="cc",
             color="blue",
             frame="af",
+        )
+        assert len(record) == 1  # check that only one warning was raised
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_plot_from_file.png")
+def test_plot_deprecate_columns_to_incols(region):
+    """
+    Make sure that the old parameter "columns" is supported and it reports a
+    warning.
+
+    Modified from the test_plot_from_file() test.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        fig.plot(
+            data=POINTS_DATA,
+            region=region,
+            projection="X10c",
+            style="d1c",
+            color="yellow",
+            frame=True,
+            columns=[0, 1],
         )
         assert len(record) == 1  # check that only one warning was raised
     return fig
