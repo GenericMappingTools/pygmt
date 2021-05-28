@@ -199,3 +199,38 @@ a.copybtn {
 .sphx-glr-single-img {
     max-width: 80%!important;
 }
+
+.team-column {
+    float: left;
+    width: 20%;
+  }
+
+/* Clear floats after the columns */
+.team-row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+.team-card {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.5rem;
+  }
+
+.team-img {
+    border-radius: 0.5rem;
+}
+.team-card-body {
+    padding: 1.25rem;
+    height: 100px;
+}
+
+.team-card-text {
+    display: block;
+    margin-block-start: 0em;
+    margin-block-end: 0.5em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}

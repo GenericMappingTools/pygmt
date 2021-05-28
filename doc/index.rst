@@ -57,4 +57,11 @@
 
     api/index.rst
     changes.md
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+    :caption: Development
+
+    team.rst
     maintenance.md
