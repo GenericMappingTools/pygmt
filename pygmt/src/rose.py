@@ -36,7 +36,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     Z="scale",
-    i="columns",
+    i="incols",
     c="panel",
     p="perspective",
     t="transparency",
