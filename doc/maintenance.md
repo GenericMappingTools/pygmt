@@ -37,7 +37,8 @@ A few guidelines for managing GitHub issues:
 * People with write access should self-assign issues and/or comment on the issues that
   they will address.
 * For upstream bugs, close the issue after an upstream release fixes the bug. If
-  possible, also post a comment when an upstream PR is merged that fixes the problem.
+  possible, post a comment when an upstream PR is merged that fixes the problem, and
+  consider adding a regression test for serious bugs.
 
 ## Reviewing and merging pull requests
 
