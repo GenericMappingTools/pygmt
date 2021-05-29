@@ -53,15 +53,13 @@ fig.plot(
     style="x0.3c",
     pen="1p",
 )
-
 fig.show()
 
 ###############################################################################
 # In addition to specifying the date, ``datetime`` supports
-# the exact time of the data points. Using :meth:`datetime.datetime`
+# the exact time at which the data points were recorded. Using :meth:`datetime.datetime`
 # the ``region`` parameter as well as data points can be created
-# using this format ``(Y, M, D, H, M, S)`` where ``H`` is hours
-# using 24 hour format.
+# with both date and time information.
 #
 # Some notable differences to the previous example include
 # - Modifying ``frame`` to only include West(left) and South
@@ -93,7 +91,6 @@ fig.plot(
     pen="1p",
     color="blue",
 )
-
 fig.show()
 
 ########################################################################################
@@ -101,8 +98,7 @@ fig.show()
 # ----------------
 #
 # In addition to Python's ``datetime`` library, PyGMT also supports passing times
-# in ISO format. Much like in the previous examples, these values are stored in
-# list ``x`` in string format. Basic ISO strings are formatted as ``YYYY-MM-DD``
+# in ISO format. Basic ISO strings are formatted as ``YYYY-MM-DD``
 # with each ``-`` delineated section marking the four digit year value, two digit
 # month value, and two digit day value respectively.
 #
@@ -126,7 +122,6 @@ fig.plot(
     pen="1p",
     color="dodgerblue",
 )
-
 fig.show()
 
 ###############################################################################
@@ -325,7 +320,7 @@ fig.show()
 # and secondary x-axis label repeats every day and shows
 # the day of the week.
 #
-# Other notable mentions in this example is
+# Another notable mention in this example is
 # ``pygmt.config(FORMAT_CLOCK_MAP="-hhAM")``
 # which specifies the used format for time.
 # In this case, leading zeros are removed
