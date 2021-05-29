@@ -61,6 +61,7 @@ fig.show()
 # with both date and time information.
 #
 # Some notable differences to the previous example include
+#
 # - Modifying ``frame`` to only include West(left) and South
 # (bottom) border, and removing grid lines
 # - Using circles to plot data points defined through ``c``
@@ -155,7 +156,7 @@ fig.show()
 # data to the PyGMT figure. This object is set using the pandas method ``date_range()``.
 # This particular object contains 7 different :class:`pandas.DatetimeIndex` objects, with the
 # number being manipulated by the periods argument. Each period begins at the start
-# of a business quarter as denoted by BQS when passed to the freq parameter. The inital
+# of a business quarter as denoted by BQS when passed to the ``periods`` parameter. The inital
 # date is the first argument that is passed to :meth:`pandas.date_range` and it marks the first
 # data in the object ``x`` that will be plotted.
 
