@@ -7,6 +7,7 @@ import string
 
 from matplotlib.testing.compare import compare_images
 from pygmt.exceptions import GMTImageComparisonFailure
+from pygmt.src import which
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -139,3 +140,38 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
         return wrapper
 
     return decorator
+
+
+def download_test_data():
+    # List of earth_relief suffix to download
+    earth_relief_suffix = [
+        "01d_p",
+        "01d_g",
+        "30m_p",
+        "30m_g",
+        "10m_p",
+        "10m_g",
+        "05m_p",
+        "05m_g",
+    ]
+    # List of tiles of 03s/01s srtm data.
+    # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
+    # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
+    earth_relief_tiles = ["@N35E135.earth_relief_03s_g.nc"]
+    # List of cache files
+    cache_files = [
+        "@fractures_06.txt",
+        "@ridge.txt",
+        "@srtm_tiles.nc",  # needed for 03s and 01s relief data
+        "@Table_5_11.txt",
+        "@test.dat.nc",
+        "@tut_bathy.nc",
+        "@tut_quakes.ngdc",
+        "@tut_ship.xyz",
+        "@usgs_quakes_22.txt",
+    ]
+
+    dataset = [f"@earth_relief_{suffix}" for suffix in earth_relief_suffix]
+    dataset.extend(earth_relief_tiles + cache_files)
+    for data in dataset:
+        which(data, download="a")
