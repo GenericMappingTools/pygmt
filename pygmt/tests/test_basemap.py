@@ -2,8 +2,12 @@
 Tests Figure.basemap.
 """
 import pytest
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.exceptions import GMTInvalidInput
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 def test_basemap_required_args():

@@ -25,7 +25,7 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, dummy_context
+from pygmt.helpers import data_kind, dummy_context, fmt_docstring, tempfile_from_geojson
 
 FAMILIES = [
     "GMT_IS_DATASET",
@@ -60,6 +60,7 @@ DTYPES = {
     np.uint64: "GMT_ULONG",
     np.uint32: "GMT_UINT",
     np.datetime64: "GMT_DATETIME",
+    np.str_: "GMT_TEXT",
 }
 
 
@@ -719,9 +720,7 @@ class Session:
         """
         # check the array has the given dimension
         if array.ndim != ndim:
-            raise GMTInvalidInput(
-                "Expected a numpy 1d array, got {}d.".format(array.ndim)
-            )
+            raise GMTInvalidInput(f"Expected a numpy 1d array, got {array.ndim}d.")
 
         # check the array has a valid/known data type
         if array.dtype.type not in DTYPES:
@@ -735,7 +734,7 @@ class Session:
         return self[DTYPES[array.dtype.type]]
 
     def put_vector(self, dataset, column, vector):
-        """
+        r"""
         Attach a numpy 1D array as a column on a GMT dataset.
 
         Use this function to attach numpy array data to a GMT dataset and pass
@@ -745,7 +744,7 @@ class Session:
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not at all numpy dtypes are supported, only: float64, float32, int64,
-        int32, uint64, and uint32.
+        int32, uint64, uint32, datetime64 and str\_.
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
@@ -777,11 +776,14 @@ class Session:
         )
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
-        if gmt_type == self["GMT_DATETIME"]:
+        if gmt_type in (self["GMT_TEXT"], self["GMT_DATETIME"]):
             vector_pointer = (ctp.c_char_p * len(vector))()
-            vector_pointer[:] = np.char.encode(
-                np.datetime_as_string(array_to_datetime(vector))
-            )
+            if gmt_type == self["GMT_DATETIME"]:
+                vector_pointer[:] = np.char.encode(
+                    np.datetime_as_string(array_to_datetime(vector))
+                )
+            else:
+                vector_pointer[:] = np.char.encode(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
@@ -789,11 +791,9 @@ class Session:
         )
         if status != 0:
             raise GMTCLibError(
-                " ".join(
-                    [
-                        "Failed to put vector of type {}".format(vector.dtype),
-                        "in column {} of dataset.".format(column),
-                    ]
+                (
+                    f"Failed to put vector of type {vector.dtype} "
+                    f"in column {column} of dataset."
                 )
             )
 
@@ -1360,6 +1360,7 @@ class Session:
         with self.open_virtual_file(*args) as vfile:
             yield vfile
 
+    @fmt_docstring
     def virtualfile_from_data(
         self, check_kind=None, data=None, x=None, y=None, z=None, extra_arrays=None
     ):
@@ -1375,7 +1376,7 @@ class Session:
         check_kind : str
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector' or None. Default is None (no validation).
-        data : str, xarray.DataArray, 2d array, or None
+        data : str or xarray.DataArray or {table-like} or None
             Any raster or vector data format. This could be a file name, a
             raster grid, a vector matrix/arrays, or other supported data input.
         x/y/z : 1d arrays or None
@@ -1395,12 +1396,12 @@ class Session:
         >>> from pygmt.helpers import GMTTempFile
         >>> import xarray as xr
         >>> data = xr.Dataset(
-        ...     coords={"index": [0, 1, 2]},
-        ...     data_vars={
-        ...         "x": ("index", [9, 8, 7]),
-        ...         "y": ("index", [6, 5, 4]),
-        ...         "z": ("index", [3, 2, 1]),
-        ...     },
+        ...     coords=dict(index=[0, 1, 2]),
+        ...     data_vars=dict(
+        ...         x=("index", [9, 8, 7]),
+        ...         y=("index", [6, 5, 4]),
+        ...         z=("index", [3, 2, 1]),
+        ...     ),
         ... )
         >>> with Session() as ses:
         ...     with ses.virtualfile_from_data(
@@ -1408,7 +1409,7 @@ class Session:
         ...     ) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module("info", f"{fin} ->{fout.name}")
+        ...             ses.call_module("info", fin + " ->" + fout.name)
         ...             print(fout.read().strip())
         ...
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
@@ -1417,12 +1418,18 @@ class Session:
 
         if check_kind == "raster" and kind not in ("file", "grid"):
             raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
-        if check_kind == "vector" and kind not in ("file", "matrix", "vectors"):
-            raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
+        if check_kind == "vector" and kind not in (
+            "file",
+            "matrix",
+            "vectors",
+            "geojson",
+        ):
+            raise GMTInvalidInput(f"Unrecognized data type for vector: {type(data)}")
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
             "file": dummy_context,
+            "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
@@ -1432,7 +1439,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("file", "grid"):
+        if kind in ("file", "geojson", "grid"):
             _data = (data,)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]

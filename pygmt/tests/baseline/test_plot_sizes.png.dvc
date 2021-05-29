@@ -1,4 +1,4 @@
 outs:
-- md5: 8d867d0365a4df9e00fbe0a1d0e59be1
-  size: 20748
+- md5: 7d0ca166d73c1461326ea55a2dc7010c
+  size: 17042
   path: test_plot_sizes.png

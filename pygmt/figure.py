@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 
 try:
     import IPython
-except KeyError:
+except ModuleNotFoundError:
     IPython = None  # pylint: disable=invalid-name
 
 
@@ -79,7 +79,9 @@ class Figure:
 
     def __init__(self):
         self._name = unique_name()
-        self._preview_dir = TemporaryDirectory(prefix=self._name + "-preview-")
+        self._preview_dir = TemporaryDirectory(  # pylint: disable=consider-using-with
+            prefix=f"{self._name}-preview-"
+        )
         self._activate_figure()
 
     def __del__(self):
@@ -235,12 +237,17 @@ class Figure:
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
         if ext not in fmts:
-            raise GMTInvalidInput("Unknown extension '.{}'".format(ext))
+            if ext == "ps":
+                raise GMTInvalidInput(
+                    "Extension '.ps' is not supported. "
+                    "Please use '.eps' or '.pdf' instead."
+                )
+            raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
             if fmt != "g":
                 raise GMTInvalidInput(
-                    "Transparency unavailable for '{}', only for png.".format(ext)
+                    f"Transparency unavailable for '{ext}', only for png."
                 )
             fmt = fmt.upper()
         if anti_alias:
@@ -375,7 +382,7 @@ class Figure:
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
         """
-        fname = os.path.join(self._preview_dir.name, "{}.{}".format(self._name, fmt))
+        fname = os.path.join(self._preview_dir.name, f"{self._name}.{fmt}")
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
             with open(fname, "rb") as image:
@@ -411,6 +418,7 @@ class Figure:
         grdcontour,
         grdimage,
         grdview,
+        histogram,
         image,
         inset,
         legend,
@@ -423,6 +431,8 @@ class Figure:
         solar,
         subplot,
         text,
+        velo,
+        wiggle,
     )
 
 
