@@ -2,7 +2,14 @@
 Plotting datetime charts
 ========================
 
-Plotting datetime data points is handled by :meth:`pygmt.Figure.basemap`.
+PyGMT accepts a variety of datetime objects to plot data and create charts.
+Aside from the built-in Python datetime object, PyGMT supports input using
+properly formatted strings, ``pandas``, ``xarray``, as well as ``numpy``.
+These data types can be used to plot specific points as well as get
+passed into the ``region`` parameter to create a range of the data on an axis.
+
+The following examples will demonstrate how to create plots
+using the different datetime objects.
 """
 # sphinx_gallery_thumbnail_number = 0
 
@@ -13,27 +20,14 @@ import pandas as pd
 import pygmt
 import xarray as xr
 
-########################################################################################
-# Datetime Input Types
-# --------------------
-#
-# PyGMT accepts a variety of datetime objects to plot data and create charts.
-# Aside from the built-in Python datetime object, PyGMT supports input using
-# ``pandas``, ``numpy``, ``xarray`` as well as properly formatted strings.
-# These data types can be used to plot specific points as well as get
-# passed into the ``region`` parameter to create a range of the data on an axis.
-#
-# The following examples will demonstrate how to create plots
-# using the different datetime objects.
 
 ###############################################################################
 # Using Python's ``datetime``
 # ---------------------------
 #
 # In this example, Python's built-in ``datetime`` module is used
-# to create data points stored in list ``x``. The format of the
-# data is ``(Y, M, D)``. Additionally, dates are passed into the
-# ``region`` parameter in the format
+# to create data points stored in list ``x``. Additionally,
+# dates are passed into the ``region`` parameter in the format
 # ``(x_start, x_end, y_start, y_end)``,
 # where the date range is plotted on the x-axis.
 # An additonal notable parameter is ``style``, where it's specified
@@ -165,7 +159,7 @@ fig.show()
 #
 # In the following example, a ``pandas.date_range`` object is used to pass date
 # data to the PyGMT figure. This object is set using the pandas method ``date_range()``.
-# This particular object contains 7 different :class:`pandas.Timestamp` objects, with the
+# This particular object contains 7 different :class:`pandas.DatetimeIndex` objects, with the
 # number being manipulated by the periods argument. Each period begins at the start
 # of a business quarter as denoted by BQS when passed to the freq parameter. The inital
 # date is the first argument that is passed to :meth:`pandas.date_range` and it marks the first
