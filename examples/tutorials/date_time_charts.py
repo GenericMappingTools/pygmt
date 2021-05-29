@@ -30,7 +30,7 @@ import xarray as xr
 # dates are passed into the ``region`` parameter in the format
 # ``(x_start, x_end, y_start, y_end)``,
 # where the date range is plotted on the x-axis.
-# An additonal notable parameter is ``style``, where it's specified
+# An additional notable parameter is ``style``, where it's specified
 # that data points are to be plotted in an **X** shape with a size
 # of 0.3 centimeters.
 #
