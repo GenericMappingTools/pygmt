@@ -143,6 +143,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
 
 def download_test_data():
+    """
+    Convenient function to download data files used in tests.
+    """
     # List of earth_relief suffix to download
     earth_relief_suffix = [
         "01d_p",
