@@ -16,7 +16,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    A="resampling",
+    A="resample",
     C="crossprofile",
     D="dfile",
     E="profile",
@@ -73,7 +73,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     outfile : str
         The file name for the output ASCII file.
 
-    resampling : str
+    resample : str
         **f**\|\ **p**\|\ **m**\|\ **r**\|\ **R**\ [**+l**]
         For track resampling (if ``crossprofile`` or ``profile`` are set) we
         can select how this is to be performed. Append **f** to keep original
@@ -96,7 +96,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         the sampling spacing along each cross-profile. Optionally, append
         **/**\ *spacing* for an equidistant spacing between cross-profiles
         [Default erects cross-profiles at the input coordinates]; see
-        ``resampling`` for how resampling the input track is controlled. By
+        ``resample`` for how resampling the input track is controlled. By
         default, all cross-profiles have the same direction (left to right
         as we look in the direction of the input line segment). Append **+a**
         to alternate the direction of cross-profiles, or **v** to enforce
