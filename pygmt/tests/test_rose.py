@@ -38,7 +38,7 @@ def test_rose_data_file(data_fractures_compilation):
         diameter="5.5c",
         color="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
-        columns=[1, 0],
+        incols=[1, 0],
         pen="1p",
         norm="",
         scale=0.4,
@@ -129,7 +129,7 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
         diameter="5.5c",
         color="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
-        columns=[1, 0],
+        incols=[1, 0],
         pen="1p",
         norm=True,
         scale=0.4,
@@ -151,7 +151,7 @@ def test_rose_no_sectors(data_fractures_compilation):
     fig.rose(
         data=data_fractures_compilation,
         region=[0, 500, 0, 360],
-        columns="1,0",
+        incols="1,0",
         diameter="10c",
         labels="180/0/90/270",
         frame=["xg100", "yg45", "+t'Windrose diagram'"],
@@ -176,7 +176,7 @@ def test_rose_bools(data_fractures_compilation):
         data=data_fractures_compilation,
         region=[0, 1, 0, 360],
         sector=10,
-        columns=[1, 0],
+        incols=[1, 0],
         diameter="10c",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
         color="red3",
@@ -187,4 +187,33 @@ def test_rose_bools(data_fractures_compilation):
         no_scale=True,
         shift=False,
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_rose_bools.png")
+def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
+    """
+    Make sure that the old parameter "columns" is supported and it reports a
+    warning.
+
+    Modified from the test_rose_bools() test.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        fig.rose(
+            data=data_fractures_compilation,
+            region=[0, 1, 0, 360],
+            sector=10,
+            columns=[1, 0],
+            diameter="10c",
+            frame=["x0.2g0.2", "y30g30", "+glightgray"],
+            color="red3",
+            pen="1p",
+            orientation=False,
+            norm=True,
+            vectors=True,
+            no_scale=True,
+            shift=False,
+        )
+        assert len(record) == 1  # check that only one warning was raised
     return fig
