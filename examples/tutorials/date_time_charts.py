@@ -3,7 +3,7 @@ Plotting datetime charts
 ========================
 
 PyGMT accepts a variety of datetime objects to plot data and create charts.
-Aside from the built-in Python datetime object, PyGMT supports input using
+Aside from the built-in Python ``datetime`` object, PyGMT supports input using
 properly formatted strings, ``pandas``, ``xarray``, as well as ``numpy``.
 These data types can be used to plot specific points as well as get
 passed into the ``region`` parameter to create a range of the data on an axis.
@@ -125,8 +125,8 @@ fig.plot(
 fig.show()
 
 ###############################################################################
-# Mixing and matching datetime and ISO
-# ------------------------------------
+# Mixing and matching ``datetime`` and ISO
+# ----------------------------------------
 #
 # The following example provides context on how both ``datetime`` and ``ISO``
 # date data can be plotted using PyGMT. This can be helpful when dates and times
@@ -155,7 +155,7 @@ fig.show()
 # In the following example, a ``pandas.date_range`` object is used to pass date
 # data to the PyGMT figure. This object is set using the pandas method ``date_range()``.
 # This particular object contains 7 different :class:`pandas.DatetimeIndex` objects, with the
-# number being manipulated by the periods argument. Each period begins at the start
+# number being manipulated by the ``periods`` parameter. Each period begins at the start
 # of a business quarter as denoted by BQS when passed to the ``periods`` parameter. The inital
 # date is the first argument that is passed to :meth:`pandas.date_range` and it marks the first
 # data in the object ``x`` that will be plotted.
@@ -207,7 +207,7 @@ fig.show()
 # Using :class:`numpy.datetime64`
 # ------------------------------
 # In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
-# as an ``np.array`` object. Similar to ``xarray.DataArray`` this wraps the
+# as an ``np.array`` object. Similar to :class:`xarray.DataArray` this wraps the
 # dataset before passing it as a paramater. However, ``np.array`` objects use less
 # memory and allow developers to specify datatypes, and even pass multiple.
 #
@@ -280,16 +280,16 @@ fig.show()
 # a specific section of the plot.
 #
 # Starting off with ``WS``, adding this string means that only
-# Western/Left **(W)** and Southern/Bottom **(S)** borders of
+# Western/Left (**W**) and Southern/Bottom (**S**) borders of
 # the plot will be shown. For more information on this, please
 # refer to :doc:`frame instructions </tutorials/frames>`.
 #
 # The other important item in the ``frame`` list is
-# ``sxa1Of1D``. This string modifies the secondary
-# labeling **(s)** of the x-axis **(x)**. Specifically,
+# ``"sxa1Of1D"``. This string modifies the secondary
+# labeling (**s**) of the x-axis (**x**). Specifically,
 # it sets the main annotation and major tick spacing interval
-# to one month **(O)** (capital letter o, not zero). Additionally,
-# it sets the minor tick spacing interval to 1 day **(D)**.
+# to one month (**a1O**) (capital letter o, not zero). Additionally,
+# it sets the minor tick spacing interval to 1 day (**f1D**).
 # The labeling of this axis is also modified using
 # ``pygmt.config(FORMAT_DATE_MAP="o")`` to use the month's
 # name instead of its number.
@@ -302,7 +302,7 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
     fig.plot(
         projection="X15c/10c",
         region=[datetime.datetime(2013, 5, 1), datetime.datetime(2013, 5, 25), 0, 10],
-        frame=["WS", "sxa1Of1D", "pxa5d", "pya1+ucm", "sy+lLength"],
+        frame=["WS", "sxa1Of1D", "pxa5d", "sy+lLength", "pya1+ucm"],
         x=x,
         y=y,
         style="c0.4c",
@@ -341,7 +341,7 @@ with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
             0,
             10,
         ],
-        frame=["WS", "sxa1K", "pxa6H", "pya1+ukm/h", "sy+lSpeed"],
+        frame=["WS", "sxa1K", "pxa6H", "sy+lSpeed", "pya1+ukm/h"],
         x=x,
         y=y,
         style="n0.4c",
