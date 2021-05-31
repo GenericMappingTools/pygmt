@@ -4,7 +4,7 @@ Plotting datetime charts
 
 PyGMT accepts a variety of datetime objects to plot data and create charts.
 Aside from the built-in Python ``datetime`` object, PyGMT supports input using
-properly formatted strings, ``pandas``, ``xarray``, as well as ``numpy``.
+ISO formatted strings, ``pandas``, ``xarray``, as well as ``numpy``.
 These data types can be used to plot specific points as well as get
 passed into the ``region`` parameter to create a range of the data on an axis.
 
@@ -62,10 +62,8 @@ fig.show()
 #
 # Some notable differences to the previous example include
 #
-# - Modifying ``frame`` to only include West(left) and South
-# (bottom) border, and removing grid lines
-# - Using circles to plot data points defined through ``c``
-# in ``style`` parameter
+# - Modifying ``frame`` to only include West(left) and South (bottom) border, and removing grid lines
+# - Using circles to plot data points defined through ``c`` in ``style`` parameter
 
 x = [
     datetime.datetime(2021, 1, 1, 3, 45, 1),
@@ -128,7 +126,7 @@ fig.show()
 # Mixing and matching ``datetime`` and ISO
 # ----------------------------------------
 #
-# The following example provides context on how both ``datetime`` and ``ISO``
+# The following example provides context on how both ``datetime`` and ISO
 # date data can be plotted using PyGMT. This can be helpful when dates and times
 # are coming from different sources, meaning conversions do not need to take place
 # between ISO and datetime in order to create valid plots.
@@ -224,7 +222,7 @@ fig.plot(
     y=y,
     style="s0.5c",
     pen="1p",
-    color="black",
+    color="blue",
 )
 fig.show()
 
