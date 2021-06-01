@@ -10,7 +10,7 @@ from pygmt.helpers import unique_name
 
 def test_which():
     """
-    Make sure which returns file paths for @files correctly without errors.
+    Make sure `which` returns file paths for @files correctly without errors.
     """
     for fname in ["tut_quakes.ngdc", "tut_bathy.nc"]:
         cached_file = which(f"@{fname}", download="c")
@@ -20,7 +20,7 @@ def test_which():
 
 def test_which_multiple():
     """
-    Make sure which returns file paths for multiple @files correctly.
+    Make sure `which` returns file paths for multiple @files correctly.
     """
     filenames = ["ridge.txt", "tut_ship.xyz"]
     cached_files = which(fname=[f"@{fname}" for fname in filenames], download="c")
@@ -31,7 +31,7 @@ def test_which_multiple():
 
 def test_which_fails():
     """
-    which should fail with a FileNotFoundError.
+    Make sure `which` will fail with a FileNotFoundError.
     """
     bogus_file = unique_name()
     with pytest.raises(FileNotFoundError):
