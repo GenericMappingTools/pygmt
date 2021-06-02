@@ -62,7 +62,7 @@ fig.show()
 #
 # Some notable differences to the previous example include
 #
-# - Modifying ``frame`` to only include West(left) and South (bottom) border, and removing grid lines
+# - Modifying ``frame`` to only include West (left) and South (bottom) borders, and removing grid lines
 # - Using circles to plot data points defined through ``c`` in ``style`` parameter
 
 x = [
@@ -123,8 +123,8 @@ fig.plot(
 fig.show()
 
 ###############################################################################
-# Mixing and matching ``datetime`` and ISO
-# ----------------------------------------
+# Mixing and matching Python ``datetime`` and ISO dates
+# -----------------------------------------------------
 #
 # The following example provides context on how both ``datetime`` and ISO
 # date data can be plotted using PyGMT. This can be helpful when dates and times
@@ -204,11 +204,10 @@ fig.show()
 ###############################################################################
 # Using :class:`numpy.datetime64`
 # ------------------------------
-# In this example, instead of using a ``pd.date_range`` object, ``x`` is initialized
+# In this example, instead of using a :func:`pd.date_range`, ``x`` is initialized
 # as an ``np.array`` object. Similar to :class:`xarray.DataArray` this wraps the
 # dataset before passing it as a paramater. However, ``np.array`` objects use less
-# memory and allow developers to specify datatypes, and even pass multiple.
-#
+# memory and allow developers to specify datatypes.
 
 x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
 y = [2, 7, 5]
@@ -227,14 +226,14 @@ fig.plot(
 fig.show()
 
 ########################################################################################
-# Generating Region
-# -----------------
+# Generating an automatic region
+# ------------------------------
 #
 # Another way of creating charts involving datetime data can be done
 # by automatically generating the region of the plot. This can be done
 # by passing the dataframe to :meth:`pygmt.info`, which will find
 # maximum and minimum values for each column and create a list
-# that could be passed as region. Additionally, a spacing argument
+# that could be passed as region. Additionally, the ``spacing`` argument
 # can be passed to increase the range past the maximum and minimum
 # data points.
 
