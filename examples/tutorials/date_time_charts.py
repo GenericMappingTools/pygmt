@@ -150,13 +150,14 @@ fig.show()
 # Using :meth:`pandas.date_range`
 # -------------------------------
 #
-# In the following example, a ``pandas.date_range`` object is used to pass date
-# data to the PyGMT figure. This object is set using the pandas method ``date_range()``.
-# This particular object contains 7 different :class:`pandas.DatetimeIndex` objects, with the
+# In the following example, :func:`pandas.date_range` produces a list of
+# :class:`pandas.DatetimeIndex` objects, which gets is used to pass date
+# data to the PyGMT figure.
+# Specifically ``x`` contains 7 different :class:`pandas.DatetimeIndex` objects, with the
 # number being manipulated by the ``periods`` parameter. Each period begins at the start
 # of a business quarter as denoted by BQS when passed to the ``periods`` parameter. The inital
-# date is the first argument that is passed to :meth:`pandas.date_range` and it marks the first
-# data in the object ``x`` that will be plotted.
+# date is the first argument that is passed to :func:`pandas.date_range` and it marks the first
+# data point in the list ``x`` that will be plotted.
 
 x = pd.date_range("2018-03-01", periods=7, freq="BQS")
 y = [4, 5, 6, 8, 6, 3, 5]
@@ -178,12 +179,12 @@ fig.show()
 # Using :class:`xarray.DataArray`
 # ------------------------------
 #
-# In this example, instead of using a :meth:`pandas.date_range` object, ``x`` is initialized
-# as an :class:`xarray.DataArray` object. Such object provides a wrapper around traditional
-# data formats allowing this data to have varying labeled dimensions and support
-# operations that use various pieces of metadata. The following code uses a
-# :meth:`pandas.date_range` object to fill the DataArray with data, yet this is not
-# essential for the creation of a valid DataArray.
+# In this example, instead of using a :func:`pandas.date_range`, ``x`` is initialized
+# as a list of :class:`xarray.DataArray` objects. This object provides a wrapper around
+# regular PyData formats. It also allows the data to have labeled dimensions
+# while supporting operations that use various pieces of metadata.The following
+# code uses :func:`pandas.date_range` object to fill the DataArray with data,
+# but this is not essential for the creation of a valid DataArray.
 
 x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
 y = [4, 7, 5, 6]
