@@ -172,4 +172,4 @@ def download_test_data():
         "@tut_ship.xyz",
         "@usgs_quakes_22.txt",
     ]
-    which(fname=datasets, download="a")
+    return which(fname=datasets, download="a")
