@@ -144,25 +144,24 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
 def download_test_data():
     """
-    Convenient function to download data files used in tests.
+    Convenience function to download remote data files used in PyGMT tests.
     """
-    # List of earth_relief suffix to download
-    earth_relief_suffix = [
-        "01d_p",
-        "01d_g",
-        "30m_p",
-        "30m_g",
-        "10m_p",
-        "10m_g",
-        "05m_p",
-        "05m_g",
-    ]
-    # List of tiles of 03s/01s srtm data.
-    # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
-    # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
-    earth_relief_tiles = ["@N35E135.earth_relief_03s_g.nc"]
-    # List of cache files
-    cache_files = [
+    # List of datasets to download
+    datasets = [
+        # Earth relief grids
+        "@earth_relief_01d_p",
+        "@earth_relief_01d_g",
+        "@earth_relief_30m_p",
+        "@earth_relief_30m_g",
+        "@earth_relief_10m_p",
+        "@earth_relief_10m_g",
+        "@earth_relief_05m_p",
+        "@earth_relief_05m_g",
+        # List of tiles of 03s/01s srtm data.
+        # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
+        # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
+        "@N35E135.earth_relief_03s_g.nc",
+        # Other cache files
         "@fractures_06.txt",
         "@ridge.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
@@ -173,7 +172,4 @@ def download_test_data():
         "@tut_ship.xyz",
         "@usgs_quakes_22.txt",
     ]
-
-    dataset = [f"@earth_relief_{suffix}" for suffix in earth_relief_suffix]
-    dataset.extend(earth_relief_tiles + cache_files)
-    which(fname=dataset, download="a")
+    which(fname=datasets, download="a")
