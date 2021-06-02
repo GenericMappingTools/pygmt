@@ -176,5 +176,4 @@ def download_test_data():
 
     dataset = [f"@earth_relief_{suffix}" for suffix in earth_relief_suffix]
     dataset.extend(earth_relief_tiles + cache_files)
-    for data in dataset:
-        which(data, download="a")
+    which(fname=dataset, download="a")
