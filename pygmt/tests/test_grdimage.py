@@ -154,7 +154,7 @@ def test_grdimage_global_subset(grid_360):
     GMT_GRID_IS_CARTESIAN). This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/732.
     """
-    # Get a slice of South America and Africa only (lat=-90:31, lon -180:41)
+    # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
     sliced_grid = grid_360[0:121, 0:221]
     assert sliced_grid.gmt.registration == 0  # gridline registration
     assert sliced_grid.gmt.gtype == 0  # Cartesian coordinate system
