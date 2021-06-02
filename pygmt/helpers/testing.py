@@ -144,7 +144,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
 def download_test_data():
     """
-    Convenience function to download remote data files used in PyGMT tests and docs.
+    Convenience function to download remote data files used in PyGMT tests and
+    docs.
     """
     # List of datasets to download
     datasets = [
