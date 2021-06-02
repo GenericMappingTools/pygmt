@@ -15,8 +15,10 @@ from pygmt.src.grdcontour import grdcontour
 from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfill import grdfill
 from pygmt.src.grdfilter import grdfilter
+from pygmt.src.grdgradient import grdgradient
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
+from pygmt.src.grdlandmask import grdlandmask
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
 from pygmt.src.histogram import histogram

@@ -41,6 +41,37 @@ COMMON_OPTIONS = {
         color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
+    "I": r"""
+        spacing : str
+            *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]].
+            *x_inc* [and optionally *y_inc*] is the grid spacing.
+
+            - **Geographical (degrees) coordinates**: Optionally, append an
+              increment unit. Choose among **m** to indicate arc minutes or
+              **s** to indicate arc seconds. If one of the units **e**, **f**,
+              **k**, **M**, **n** or **u** is appended instead, the increment
+              is assumed to be given in meter, foot, km, mile, nautical mile or
+              US survey foot, respectively, and will be converted to the
+              equivalent degrees longitude at the middle latitude of the region
+              (the conversion depends on :gmt-term:`PROJ_ELLIPSOID`). If
+              *y_inc* is given but set to 0 it will be reset equal to *x_inc*;
+              otherwise it will be converted to degrees latitude.
+
+            - **All coordinates**: If **+e** is appended then the corresponding
+              max *x* (*east*) or *y* (*north*) may be slightly adjusted to fit
+              exactly the given increment [by default the increment may be
+              adjusted slightly to fit the given domain]. Finally, instead of
+              giving an increment you may specify the *number of nodes* desired
+              by appending **+n** to the supplied integer argument; the
+              increment is then recalculated from the number of nodes, the
+              *registration*, and the domain. The resulting increment value
+              depends on whether you have selected a gridline-registered or
+              pixel-registered grid; see :gmt-docs:`GMT File Formats
+              <cookbook/file-formats.html#gmt-file-formats>` for details.
+
+            **Note**: If ``region=grdfile`` is used then the grid spacing and
+            the registration have already been initialized; use ``spacing`` and
+            ``registration`` to override these values.""",
     "V": """\
         verbose : bool or str
             Select verbosity level [Default is **w**], which modulates the messages
@@ -88,6 +119,36 @@ COMMON_OPTIONS = {
             geographical data). Full documentation is at
             :gmt-docs:`gmt.html#f-full`.
          """,
+    "i": r"""
+        incols : str or 1d array
+            Specify data columns for primary input in arbitrary order. Columns
+            can be repeated and columns not listed will be skipped [Default
+            reads all columns in order, starting with the first (i.e., column
+            0)].
+
+            - For *1d array*: specify individual columns in input order (e.g.,
+              ``incols=[1,0]`` for the 2nd column followed by the 1st column).
+            - For :py:class:`str`: specify individual columns or column
+              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
+              defaults to 1 if not specified, with columns and/or column ranges
+              separated by commas (e.g., ``incols='0:2,4+l'`` to input the
+              first three columns followed by the log-transformed 5th column).
+              To read from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To read trailing
+              text, add the column **t**. Append the word number to **t** to
+              ingest only a single word from the trailing text. Instead of
+              specifying columns, use ``incols='n'`` to simply read numerical
+              input and skip trailing text. Optionally, append one of the
+              following modifiers to any column or column range to transform
+              the input columns:
+
+                - **+l** to take the *log10* of the input values.
+                - **+d** to divide the input values by the factor *divisor*
+                  [default is 1].
+                - **+s** to multiple the input values by the factor *scale*
+                  [default is 1].
+                - **+o** to add the given *offset* to the input values [default
+                  is 0].""",
     "j": r"""
         distcalc : str
             **e**\|\ **f**\|\ **g**.
@@ -501,7 +562,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     name, and users will receive a FutureWarning to inform them of the pending
     deprecation.
 
-    Use this decorator below the ``use_alias`` decorator.
+    Use this decorator above the ``use_alias`` decorator.
 
     Parameters
     ----------

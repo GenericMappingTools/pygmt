@@ -69,6 +69,7 @@ def _blockm(block_method, table, outfile, **kwargs):
     V="verbose",
     a="aspatial",
     f="coltypes",
+    i="incols",
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
@@ -92,10 +93,7 @@ def blockmean(table, outfile=None, **kwargs):
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
 
-    spacing : str
-        *xinc*\[\ *unit*\][**+e**\|\ **n**]
-        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        *xinc* [and optionally *yinc*] is the grid spacing.
+    {I}
 
     region : str or list
         *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
@@ -106,6 +104,7 @@ def blockmean(table, outfile=None, **kwargs):
 
     {V}
     {a}
+    {i}
     {f}
     {r}
 
@@ -129,6 +128,7 @@ def blockmean(table, outfile=None, **kwargs):
     V="verbose",
     a="aspatial",
     f="coltypes",
+    i="incols",
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
@@ -152,10 +152,7 @@ def blockmedian(table, outfile=None, **kwargs):
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
 
-    spacing : str
-        *xinc*\[\ *unit*\][**+e**\|\ **n**]
-        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        *xinc* [and optionally *yinc*] is the grid spacing.
+    {I}
 
     region : str or list
         *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
@@ -167,6 +164,7 @@ def blockmedian(table, outfile=None, **kwargs):
     {V}
     {a}
     {f}
+    {i}
     {r}
 
     Returns
