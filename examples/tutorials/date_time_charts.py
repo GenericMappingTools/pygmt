@@ -290,7 +290,9 @@ fig.show()
 # it sets the minor tick spacing interval to 1 day (**f1D**).
 # The labeling of this axis can be modified by setting
 # :gmt-term:`FORMAT_DATE_MAP` to 'o' to use the month's
-# name instead of its number.
+# name instead of its number. More information about configuring
+# date formats can be found on the
+# [official GMT documentation page](https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-FORMAT_DATE_MAP)
 
 x = pd.date_range("2013-05-02", periods=10, freq="2D")
 y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]
@@ -324,7 +326,10 @@ fig.show()
 # In this case, leading zeros are removed
 # using **(-)**, and only hours are displayed.
 # Additionally, an AM/PM system is being used
-# instead of a 24-hour system.
+# instead of a 24-hour system. More information about configuring
+# time formats can be found on the
+# [official GMT documentation page](https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-FORMAT_CLOCK_MAP)
+
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
