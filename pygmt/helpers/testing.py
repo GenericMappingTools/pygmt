@@ -144,7 +144,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
 def download_test_data():
     """
-    Convenience function to download remote data files used in PyGMT tests.
+    Convenience function to download remote data files used in PyGMT tests and docs.
     """
     # List of datasets to download
     datasets = [
@@ -154,10 +154,9 @@ def download_test_data():
         "@earth_relief_30m_p",
         "@earth_relief_30m_g",
         "@earth_relief_10m_p",
-        "@earth_relief_10m_g",
         "@earth_relief_05m_p",
         "@earth_relief_05m_g",
-        # List of tiles of 03s/01s srtm data.
+        # List of tiles of 03s srtm data.
         # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
         # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
         "@N35E135.earth_relief_03s_g.nc",
@@ -172,4 +171,4 @@ def download_test_data():
         "@tut_ship.xyz",
         "@usgs_quakes_22.txt",
     ]
-    return which(fname=datasets, download="a")
+    which(fname=datasets, download="a")
