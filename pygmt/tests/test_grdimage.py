@@ -1,19 +1,13 @@
 """
 Test Figure.grdimage.
 """
-import sys
-
 import numpy as np
 import pytest
 import xarray as xr
-from packaging.version import Version
-from pygmt import Figure, clib
+from pygmt import Figure
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -22,6 +16,18 @@ def fixture_grid():
     Load the grid data from the sample earth_relief file.
     """
     return load_earth_relief(registration="gridline")
+
+
+@pytest.fixture(scope="module", name="grid_360")
+def fixture_grid_360(grid):
+    """
+    Earth relief grid with longitude range from 0 to 360 (instead of -180 to
+    180).
+    """
+    _grid = grid.copy()  # get a copy of original earth_relief grid
+    _grid.encoding.pop("source")  # unlink earth_relief NetCDF source
+    _grid["lon"] = np.arange(0, 361, 1)  # convert longitude from -180:180 to 0:360
+    return _grid
 
 
 @pytest.fixture(scope="module", name="xrgrid")
@@ -82,14 +88,6 @@ def test_grdimage_file():
     return fig
 
 
-@pytest.mark.skipif(
-    gmt_version <= Version("6.1.1") and sys.platform == "darwin",
-    reason="Upstream bug in GMT 6.1.1 that causes segfault on macOS",
-)
-@pytest.mark.xfail(
-    condition=gmt_version <= Version("6.1.1") and sys.platform != "darwin",
-    reason="Upstream bug in GMT 6.1.1 that causes this test to fail on Linux/Windows",
-)
 @check_figures_equal()
 @pytest.mark.parametrize(
     "shading",
@@ -156,6 +154,29 @@ def test_grdimage_over_dateline(xrgrid):
     assert xrgrid.gmt.registration == 0  # gridline registration
     xrgrid.gmt.gtype = 1  # geographic coordinate system
     fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c", V="i")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdimage_global_subset(grid_360):
+    """
+    Ensure subsets of grids are plotted correctly on a global map.
+
+    Specifically checking that xarray.DataArray grids can wrap around the left
+    and right sides on a Mollweide projection (W) plot correctly. Note that a
+    Cartesian grid is used here instead of a Geographic grid (i.e.
+    GMT_GRID_IS_CARTESIAN). This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/732.
+    """
+    # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
+    sliced_grid = grid_360[0:121, 0:221]
+    assert sliced_grid.gmt.registration == 0  # gridline registration
+    assert sliced_grid.gmt.gtype == 0  # Cartesian coordinate system
+
+    fig = Figure()
+    fig.grdimage(
+        grid=sliced_grid, cmap="vik", region="g", projection="W0/3.5c", frame=True
+    )
     return fig
 
 

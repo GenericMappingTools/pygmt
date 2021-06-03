@@ -12,38 +12,42 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 
 
-def test_blockmedian_input_dataframe():
+@pytest.fixture(scope="module", name="dataframe")
+def fixture_dataframe():
+    """
+    Load the grid data from the sample earth_relief file.
+    """
+    return load_sample_bathymetry()
+
+
+def test_blockmedian_input_dataframe(dataframe):
     """
     Run blockmedian by passing in a pandas.DataFrame as input.
     """
-    dataframe = load_sample_bathymetry()
     output = blockmedian(table=dataframe, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, pd.DataFrame)
     assert all(dataframe.columns == output.columns)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
-    return output
 
-
-def test_blockmedian_wrong_kind_of_input_table_matrix():
+def test_blockmedian_wrong_kind_of_input_table_matrix(dataframe):
     """
     Run blockmedian using table input that is not a pandas.DataFrame but still
     a matrix.
     """
-    dataframe = load_sample_bathymetry()
-    invalid_table = dataframe.values
-    assert data_kind(invalid_table) == "matrix"
-    with pytest.raises(GMTInvalidInput):
-        blockmedian(table=invalid_table, spacing="5m", region=[245, 255, 20, 30])
+    table = dataframe.values
+    output = blockmedian(table=table, spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
 
-def test_blockmedian_wrong_kind_of_input_table_grid():
+def test_blockmedian_wrong_kind_of_input_table_grid(dataframe):
     """
     Run blockmedian using table input that is not a pandas.DataFrame or file
     but a grid.
     """
-    dataframe = load_sample_bathymetry()
     invalid_table = dataframe.bathymetry.to_xarray()
     assert data_kind(invalid_table) == "grid"
     with pytest.raises(GMTInvalidInput):
@@ -67,12 +71,12 @@ def test_blockmedian_input_filename():
         assert output.shape == (5849, 3)
         npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
-    return output
-
 
 def test_blockmedian_without_outfile_setting():
     """
     Run blockmedian by not passing in outfile parameter setting.
     """
-    with pytest.raises(GMTInvalidInput):
-        blockmedian(table="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30])
+    output = blockmedian(table="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])

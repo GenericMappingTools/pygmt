@@ -108,10 +108,10 @@ def test_plot3d_fail_no_data(data, region):
         )
 
 
-def test_plot3d_fail_color_size_intensity(data, region):
+def test_plot3d_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array color, size and intensity are used with
-    matrix.
+    Should raise an exception if array color, size, intensity and transparency
+    are used with matrix.
     """
     fig = Figure()
     kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
@@ -121,6 +121,8 @@ def test_plot3d_fail_color_size_intensity(data, region):
         fig.plot3d(style="cc", size=data[:, 2], color="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(style="cc", intensity=data[:, 2], color="red", **kwargs)
+    with pytest.raises(GMTInvalidInput):
+        fig.plot3d(style="cc", color="red", transparency=data[:, 2] * 100, **kwargs)
 
 
 @pytest.mark.mpl_image_compare

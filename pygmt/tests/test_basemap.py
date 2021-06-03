@@ -57,10 +57,6 @@ def test_basemap_power_axis():
     return fig
 
 
-@pytest.mark.xfail(
-    condition=gmt_version == Version("6.2.0rc1"),
-    reason="Upstream bug #5167 in GMT 6.2.0rc1",
-)
 @pytest.mark.mpl_image_compare
 def test_basemap_polar():
     """
