@@ -125,9 +125,11 @@ def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
-        grid="@earth_relief_01d_g", region="GL", cmap="geo", shading=xrgrid
+        grid="@earth_relief_01d_g", region="GL", cmap="geo", shading=xrgrid, verbose="i"
     )
-    fig_test.grdimage(grid=grid, region="GL", cmap="geo", shading=xrgrid)
+    fig_ref.colorbar()
+    fig_test.grdimage(grid=grid, region="GL", cmap="geo", shading=xrgrid, verbose="i")
+    fig_test.colorbar()
     return fig_ref, fig_test
 
 
