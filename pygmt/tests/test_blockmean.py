@@ -42,6 +42,7 @@ def test_blockmean_input_table_matrix(dataframe):
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
+
 def test_blockmean_input_xyz(dataframe):
     """
     Run blockmean by passing in x/y/z as input.
@@ -56,6 +57,7 @@ def test_blockmean_input_xyz(dataframe):
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
+
 
 def test_blockmean_wrong_kind_of_input_table_grid(dataframe):
     """

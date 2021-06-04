@@ -42,6 +42,7 @@ def test_blockmedian_input_table_matrix(dataframe):
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
+
 def test_blockmedian_input_xyz(dataframe):
     """
     Run blockmedian by passing in x/y/z as input.
