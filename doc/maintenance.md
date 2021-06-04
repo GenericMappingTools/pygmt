@@ -32,7 +32,7 @@ A few guidelines for managing GitHub issues:
   [milestone](https://github.com/GenericMappingTools/pygmt/milestones) to issues as
   appropriate.
 * When people request to work on an open issue, either assign the issue to that person
-  and post a comment about the assignment or explain why you are not assigning the 
+  and post a comment about the assignment or explain why you are not assigning the
   issue to them and, if possible, recommend other issues for them to work on.
 * People with write access should self-assign issues and/or comment on the issues that
   they will address.
@@ -69,7 +69,7 @@ build and test the project on Linux, macOS and Windows.
 They rely on the `environment.yml` file to install required dependencies using
 conda and the `Makefile` to run the tests and checks.
 
-There are 9 configuration files located in `.github/workflows`:
+There are 11 configuration files located in `.github/workflows`:
 
 1. `style_checks.yaml` (Code lint and style checks)
 
@@ -137,6 +137,11 @@ There are 9 configuration files located in `.github/workflows`:
     This workflow is triggered in a PR when any *.png.dvc files have been added,
     modified, or deleted. A GitHub comment will be published that contains a summary
     table of the images that have changed along with a visual report.
+
+11. `release-baseline-images.yml` (Upload the archive of baseline images as a release asset)
+
+	This workflow is run to upload the ZIP archive of baseline images as a release
+	asset when a release is published.
 
 ## Continuous Documentation
 
