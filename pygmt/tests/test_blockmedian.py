@@ -31,13 +31,28 @@ def test_blockmedian_input_dataframe(dataframe):
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
 
-def test_blockmedian_wrong_kind_of_input_table_matrix(dataframe):
+def test_blockmedian_input_table_matrix(dataframe):
     """
     Run blockmedian using table input that is not a pandas.DataFrame but still
     a matrix.
     """
     table = dataframe.values
     output = blockmedian(table=table, spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
+
+def test_blockmedian_input_xyz(dataframe):
+    """
+    Run blockmedian by passing in x/y/z as input.
+    """
+    output = blockmedian(
+        x=dataframe.longitude,
+        y=dataframe.latitude,
+        z=dataframe.bathymetry,
+        spacing="5m",
+        region=[245, 255, 20, 30],
+    )
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])

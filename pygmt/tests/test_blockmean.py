@@ -42,6 +42,20 @@ def test_blockmean_input_table_matrix(dataframe):
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
+def test_blockmean_input_xyz(dataframe):
+    """
+    Run blockmean by passing in x/y/z as input.
+    """
+    output = blockmean(
+        x=dataframe.longitude,
+        y=dataframe.latitude,
+        z=dataframe.bathymetry,
+        spacing="5m",
+        region=[245, 255, 20, 30],
+    )
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
 def test_blockmean_wrong_kind_of_input_table_grid(dataframe):
     """
