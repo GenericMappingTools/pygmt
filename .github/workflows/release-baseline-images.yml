@@ -1,4 +1,4 @@
-# Upload the archive of baseline images as release asset
+# Upload the ZIP archive of baseline images as a release asset
 
 name: Upload baseline images
 
@@ -12,7 +12,7 @@ jobs:
   upload-baseline:
     name: Upload baseline images
     runs-on: ubuntu-latest
-    if: github.repository == 'seisman/pygmt'
+    if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
     - name: Checkout
@@ -37,6 +37,3 @@ jobs:
       with:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: baseline-images.zip
-
-
-

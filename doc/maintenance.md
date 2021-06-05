@@ -138,7 +138,7 @@ There are 11 configuration files located in `.github/workflows`:
     modified, or deleted. A GitHub comment will be published that contains a summary
     table of the images that have changed along with a visual report.
 
-11. `release-baseline-images.yml` (Upload the archive of baseline images as a release asset)
+11. `release-baseline-images.yml` (Upload the ZIP archive of baseline images as a release asset)
 
 	This workflow is run to upload the ZIP archive of baseline images as a release
 	asset when a release is published.
