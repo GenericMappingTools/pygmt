@@ -34,7 +34,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install conda-forge/label/dev::gmt=6.2.0rc2 \
+          conda install -c conda-forge gmt=6.2.0 \
                         numpy pandas xarray netCDF4 packaging matplotlib
 
       # Install the package that we want to test
