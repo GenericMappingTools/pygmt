@@ -7,6 +7,7 @@ import string
 
 from matplotlib.testing.compare import compare_images
 from pygmt.exceptions import GMTImageComparisonFailure
+from pygmt.src import which
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -139,3 +140,36 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
         return wrapper
 
     return decorator
+
+
+def download_test_data():
+    """
+    Convenience function to download remote data files used in PyGMT tests and
+    docs.
+    """
+    # List of datasets to download
+    datasets = [
+        # Earth relief grids
+        "@earth_relief_01d_p",
+        "@earth_relief_01d_g",
+        "@earth_relief_30m_p",
+        "@earth_relief_30m_g",
+        "@earth_relief_10m_p",
+        "@earth_relief_05m_p",
+        "@earth_relief_05m_g",
+        # List of tiles of 03s srtm data.
+        # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
+        # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
+        "@N35E135.earth_relief_03s_g.nc",
+        # Other cache files
+        "@fractures_06.txt",
+        "@ridge.txt",
+        "@srtm_tiles.nc",  # needed for 03s and 01s relief data
+        "@Table_5_11.txt",
+        "@test.dat.nc",
+        "@tut_bathy.nc",
+        "@tut_quakes.ngdc",
+        "@tut_ship.xyz",
+        "@usgs_quakes_22.txt",
+    ]
+    which(fname=datasets, download="a")
