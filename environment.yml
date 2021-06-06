@@ -1,12 +1,11 @@
 name: pygmt
 channels:
-    - conda-forge/label/dev
     - conda-forge
     - defaults
 dependencies:
     # Required dependencies
     - pip
-    - gmt=6.2.0rc2
+    - gmt=6.2.0
     - numpy>=1.17
     - pandas
     - xarray
