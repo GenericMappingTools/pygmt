@@ -21,6 +21,8 @@ def fixture_data():
 def fixture_data_fractures_compilation():
     """
     Load the sample fractures compilation dataset.
+
+    Lengths are stored in the first column, azimuths in the second.
     """
     return load_fractures_compilation()
 
@@ -115,8 +117,7 @@ def test_rose_plot_data_using_cpt(data):
 def test_rose_plot_with_transparency(data_fractures_compilation):
     """
     Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths are
-    stored in the second column, azimuths in the first, specify via columns).
+    azimuths as digitized from geological maps to the data argument.
 
     Use transparency.
     """
@@ -140,8 +141,7 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
 def test_rose_no_sectors(data_fractures_compilation):
     """
     Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths are
-    stored in the second column, azimuths in the first, specify via columns).
+    azimuth as digitized from geological maps to the data argument.
 
     Plot data without defining a sector width, add a title and rename labels.
     """
@@ -163,8 +163,7 @@ def test_rose_no_sectors(data_fractures_compilation):
 def test_rose_bools(data_fractures_compilation):
     """
     Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument (lengths are
-    stored in the second column, azimuths in the first, specify via columns).
+    azimuth as digitized from geological maps to the data argument.
 
     Test bools.
     """
@@ -196,7 +195,8 @@ def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
     """
 
     data = data_fractures_compilation
-    # swap data columns
+    # swap data columns, below the use of the columns parameter
+    # reverses this action
     data = data[["azimuth", "length"]]
 
     fig = Figure()
