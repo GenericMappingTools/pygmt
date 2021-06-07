@@ -25,7 +25,7 @@ Upper-case versions **E**, **J**, and **W** are similar to **e**, **j** and
 import pygmt
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 6, 0, 2], projection="x3c", frame=True)
+fig.basemap(region=[0, 6.5, 0, 2], projection="x3c", frame=True)
 
 # ELLIPSE
 data = [[0.5, 1, 45, 3, 1]]
@@ -36,15 +36,25 @@ data = [[1.5, 1, 120, 5, 0.5]]
 fig.plot(data=data, style="j", color="red3", pen="2p,black")
 
 # RECTANGLE
-data = [[3, 1, 4, 1.5]]
+data = [[3, 0.5, 4, 1.5]]
 fig.plot(data=data, style="r", color="dodgerblue", pen="2p,black")
+
+# RECTANGLE
+# width/height are given via the style parameter
+data = [[3, 1.5]]
+fig.plot(data=data, style="r4/1.5", color="dodgerblue", pen="2p,black")
 
 # ROUNDED RECTANGLE
 data = [[4.5, 1, 1.25, 4, 0.5]]
 fig.plot(data=data, style="R", color="seagreen", pen="2p,black")
 
+# ROUNDED RECTANGLE
+# width/height/radius are given via the style parameter
+data = [[5.0, 1]]
+fig.plot(data=data, style="R1.25/4/0.5", color="seagreen", pen="2p,black")
+
 # PIE WEDGE
-data = [[5.5, 1, 2.5, 45, 330]]
+data = [[6.0, 1, 2.5, 45, 330]]
 fig.plot(data=data, style="w", color="lightgray", pen="2p,black")
 
 fig.show()
