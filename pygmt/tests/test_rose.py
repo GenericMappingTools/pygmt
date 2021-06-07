@@ -194,12 +194,18 @@ def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
 
     Modified from the test_rose_bools() test.
     """
+
+    data = data_fractures_compilation
+    # swap data columns
+    data[:, [0, 1]] = data[:, [1, 0]]
+
     fig = Figure()
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.rose(
-            data=data_fractures_compilation,
+            data=data,
             region=[0, 1, 0, 360],
             sector=10,
+            columns=[1, 0],
             diameter="10c",
             frame=["x0.2g0.2", "y30g30", "+glightgray"],
             color="red3",
