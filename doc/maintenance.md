@@ -140,8 +140,8 @@ There are 11 configuration files located in `.github/workflows`:
 
 11. `release-baseline-images.yml` (Upload the ZIP archive of baseline images as a release asset)
 
-	This workflow is run to upload the ZIP archive of baseline images as a release
-	asset when a release is published.
+    This workflow is run to upload the ZIP archive of baseline images as a release
+    asset when a release is published.
 
 ## Continuous Documentation
 
@@ -281,8 +281,8 @@ this new folder.
 
 ### Archiving on Zenodo
 
-Grab a zip file from the GitHub release and upload to Zenodo using the previously
-reserved DOI.
+Grab both the source code and baseline images zip files from the GitHub release page
+and upload them to Zenodo using the previously reserved DOI.
 
 ### Updating the conda package
 
