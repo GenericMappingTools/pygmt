@@ -194,10 +194,9 @@ def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
     Modified from the test_rose_bools() test.
     """
 
-    data = data_fractures_compilation
     # swap data columns, below the use of the columns parameter
     # reverses this action
-    data = data[["azimuth", "length"]]
+    data = data_fractures_compilation[["azimuth", "length"]]
 
     fig = Figure()
     with pytest.warns(expected_warning=FutureWarning) as record:
