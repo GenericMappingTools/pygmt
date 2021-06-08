@@ -41,8 +41,7 @@ fig.plot(data=data, style="r", color="dodgerblue", pen="2p,black")
 
 # RECTANGLE
 # width/height are given via the style parameter
-data = [[3, 1.5]]
-fig.plot(data=data, style="r4/1.5", color="dodgerblue", pen="2p,black")
+fig.plot(x=3, y=1.5, style="r4/1.5", color="dodgerblue", pen="2p,black")
 
 # ROUNDED RECTANGLE
 data = [[4.5, 1, 1.25, 4, 0.5]]
@@ -50,8 +49,7 @@ fig.plot(data=data, style="R", color="seagreen", pen="2p,black")
 
 # ROUNDED RECTANGLE
 # width/height/radius are given via the style parameter
-data = [[5.0, 1]]
-fig.plot(data=data, style="R1.25/4/0.5", color="seagreen", pen="2p,black")
+fig.plot(x=5.0, y=1.0, style="R1.25/4/0.5", color="seagreen", pen="2p,black")
 
 # PIE WEDGE
 data = [[6.0, 1, 2.5, 45, 330]]
