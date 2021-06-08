@@ -20,7 +20,8 @@ def fixture_data():
 @pytest.fixture(scope="module", name="data_fractures_compilation")
 def fixture_data_fractures_compilation():
     """
-    Load the sample fractures compilation dataset.
+    Load the sample fractures compilation dataset which contains fracture
+    lengths and azimuths as hypothetically digitized from geological maps.
 
     Lengths are stored in the first column, azimuths in the second.
     """
@@ -116,8 +117,8 @@ def test_rose_plot_data_using_cpt(data):
 @pytest.mark.mpl_image_compare
 def test_rose_plot_with_transparency(data_fractures_compilation):
     """
-    Test supplying a data file containing a list of fracture lengths and
-    azimuths as digitized from geological maps to the data argument.
+    Test supplying the sample fractures compilation dataset to the data
+    argument.
 
     Use transparency.
     """
@@ -140,8 +141,8 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
 @pytest.mark.mpl_image_compare
 def test_rose_no_sectors(data_fractures_compilation):
     """
-    Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument.
+    Test supplying the sample fractures compilation dataset to the data
+    argument.
 
     Plot data without defining a sector width, add a title and rename labels.
     """
@@ -162,8 +163,8 @@ def test_rose_no_sectors(data_fractures_compilation):
 @pytest.mark.mpl_image_compare
 def test_rose_bools(data_fractures_compilation):
     """
-    Test supplying a data file containing a list of fracture lengths and
-    azimuth as digitized from geological maps to the data argument.
+    Test supplying the sample fractures compilation dataset to the data
+    argument.
 
     Test bools.
     """
@@ -194,8 +195,8 @@ def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
     Modified from the test_rose_bools() test.
     """
 
-    # swap data columns, below the use of the columns parameter
-    # reverses this action
+    # swap data columns of the sample fractures compilation dataset, below the
+    # use of the columns parameter reverses this action
     data = data_fractures_compilation[["azimuth", "length"]]
 
     fig = Figure()
