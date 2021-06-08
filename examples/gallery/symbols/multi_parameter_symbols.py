@@ -35,19 +35,19 @@ fig.plot(data=data, style="e", color="orange", pen="2p,black")
 data = [[1.5, 1, 120, 5, 0.5]]
 fig.plot(data=data, style="j", color="red3", pen="2p,black")
 
-# RECTANGLE
+# RECTANGLE 1
 data = [[3, 0.5, 4, 1.5]]
 fig.plot(data=data, style="r", color="dodgerblue", pen="2p,black")
 
-# RECTANGLE
+# RECTANGLE 2
 # width/height are given via the style parameter
 fig.plot(x=3, y=1.5, style="r4/1.5", color="dodgerblue", pen="2p,black")
 
-# ROUNDED RECTANGLE
+# ROUNDED RECTANGLE 1
 data = [[4.5, 1, 1.25, 4, 0.5]]
 fig.plot(data=data, style="R", color="seagreen", pen="2p,black")
 
-# ROUNDED RECTANGLE
+# ROUNDED RECTANGLE 2
 # width/height/radius are given via the style parameter
 fig.plot(x=5.0, y=1.0, style="R1.25/4/0.5", color="seagreen", pen="2p,black")
 
