@@ -118,7 +118,7 @@ def test_rose_plot_data_using_cpt(data):
 def test_rose_plot_with_transparency(data_fractures_compilation):
     """
     Test supplying the sample fractures compilation dataset to the data
-    argument.
+    parameter.
 
     Use transparency.
     """
@@ -142,7 +142,7 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
 def test_rose_no_sectors(data_fractures_compilation):
     """
     Test supplying the sample fractures compilation dataset to the data
-    argument.
+    parameter.
 
     Plot data without defining a sector width, add a title and rename labels.
     """
@@ -164,7 +164,7 @@ def test_rose_no_sectors(data_fractures_compilation):
 def test_rose_bools(data_fractures_compilation):
     """
     Test supplying the sample fractures compilation dataset to the data
-    argument.
+    parameter.
 
     Test bools.
     """
@@ -195,8 +195,8 @@ def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
     Modified from the test_rose_bools() test.
     """
 
-    # swap data columns of the sample fractures compilation dataset, below the
-    # use of the columns parameter reverses this action
+    # swap data column order of the sample fractures compilation dataset,
+    # as the use of the 'columns' parameter will reverse this action
     data = data_fractures_compilation[["azimuth", "length"]]
 
     fig = Figure()
