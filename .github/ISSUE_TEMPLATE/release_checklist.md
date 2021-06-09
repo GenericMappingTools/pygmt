@@ -29,7 +29,7 @@ assignees: ''
   - [ ] Edit the draft release notes with the finalized changelog
   - [ ] Set the tag version and release title to vX.Y.Z
   - [ ] Make a release by clicking the 'Publish Release' button, this will automatically create a tag too
-- [ ] Manually upload the pygmt-vX.Y.Z.zip file to https://zenodo.org/deposit, ensure that it is filed under the correct reserved DOI
+- [ ] Manually upload the pygmt-vX.Y.Z.zip and baseline-images.zip files to https://zenodo.org/deposit, ensure that it is filed under the correct reserved DOI
 
 **After release**:
 - [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) [Usually done automatically by conda-forge's bot]
