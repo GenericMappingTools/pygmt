@@ -127,7 +127,7 @@ def grdimage(self, grid, **kwargs):
         background pixels (1) or **+f** for the foreground pixels
         [Default is **+f**].
     shading : str or xarray.DataArray
-        ``[intensfile|intensity|modifiers]``.
+        [*intensfile*\|\ *intensity*\|\ *modifiers*].
         Give the name of a grid file or a DataArray with intensities in the
         (-1,+1) range, or a constant intensity to apply everywhere (affects the
         ambient light). Alternatively, derive an intensity grid from the input
@@ -135,7 +135,7 @@ def grdimage(self, grid, **kwargs):
         **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
         azimuth, intensity, and ambient arguments for that module, or just give
         **+d** to select the default arguments (``+a-45+nt1+m0``). If you want
-        a more specific intensity scenario then run  :meth:`pygmt.grdgradient`
+        a more specific intensity scenario then run :meth:`pygmt.grdgradient`
         separately first. If we should derive intensities from another file
         than grid, specify the file with suitable modifiers [Default is no
         illumination]. Note: If the input data is an *image* then an
