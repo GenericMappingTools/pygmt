@@ -88,8 +88,12 @@ Operations on grids:
 .. autosummary::
     :toctree: generated
 
+    grdclip
     grdcut
+    grdfill
     grdfilter
+    grdlandmask
+    grdgradient
     grdtrack
 
 Crossover analysis with x2sys:

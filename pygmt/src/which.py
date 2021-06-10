@@ -2,11 +2,18 @@
 which - Find the full path to specified files.
 """
 from pygmt.clib import Session
-from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alias
+from pygmt.helpers import (
+    GMTTempFile,
+    build_arg_string,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
 @use_alias(G="download", V="verbose")
+@kwargs_to_strings(fname="sequence_space")
 def which(fname, **kwargs):
     """
     Find the full path to specified files.
@@ -27,8 +34,8 @@ def which(fname, **kwargs):
 
     Parameters
     ----------
-    fname : str
-        The file name that you want to check.
+    fname : str or list
+        One or more file names of any data type (grids, tables, etc.).
     download : bool or str
         If the file is downloadable and not found, we will try to download the
         it. Use True or 'l' (default) to download to the current directory. Use
@@ -38,8 +45,8 @@ def which(fname, **kwargs):
 
     Returns
     -------
-    path : str
-        The path of the file, depending on the options used.
+    path : str or list
+        The path(s) to the file(s), depending on the options used.
 
     Raises
     ------
@@ -52,5 +59,6 @@ def which(fname, **kwargs):
             lib.call_module("which", arg_str)
         path = tmpfile.read().strip()
     if not path:
-        raise FileNotFoundError("File '{}' not found.".format(fname))
-    return path
+        _fname = fname.replace(" ", "', '")
+        raise FileNotFoundError(f"File(s) '{_fname}' not found.")
+    return path.split("\n") if "\n" in path else path

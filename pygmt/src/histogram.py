@@ -26,7 +26,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     W="pen",
     X="xshift",
     Y="yshift",
-    Z="type",
+    Z="histtype",
     c="panel",
     l="label",
     p="perspective",
@@ -44,8 +44,9 @@ def histogram(self, table, **kwargs):
 
     Parameters
     ----------
-    table : str, list, or 1d array
-        A data file name, list, or 1d numpy array. This is a required argument.
+    table : str or list or {table-like}
+        Pass in either a file name to an ASCII data table, a Python list, a 2D
+        {table-classes}.
     {J}
     {R}
     {B}
@@ -102,7 +103,7 @@ def histogram(self, table, **kwargs):
     series : int or str or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
-    type : int or str
+    histtype : int or str
         [*type*][**+w**].
         Choose between 6 types of histograms:
 

@@ -7,6 +7,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
+    deprecate_parameter,
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
@@ -15,6 +16,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(
     A="annotation",
     B="frame",
@@ -30,7 +32,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     c="panel",
-    i="columns",
+    i="incols",
     l="label",
     p="perspective",
     t="transparency",
@@ -104,6 +106,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     {V}
     {XY}
     {c}
+    {i}
     {p}
     {t}
     """
