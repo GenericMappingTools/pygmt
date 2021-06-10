@@ -384,7 +384,7 @@ def use_alias(**aliases):
                         f"Short-form parameter ({arg}) is not recommended. "
                         f"Use long-form parameter '{alias}' instead."
                     )
-                    warnings.warn(msg, category=FutureWarning, stacklevel=2)
+                    warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
