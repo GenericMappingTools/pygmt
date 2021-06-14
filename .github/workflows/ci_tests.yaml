@@ -52,7 +52,7 @@ jobs:
             optional-packages: ''
           - python-version: 3.9
             numpy-version: '1.20'
-            optional-packages: ''  # 'geopandas'
+            optional-packages: 'geopandas'
     defaults:
       run:
         shell: bash -l {0}
