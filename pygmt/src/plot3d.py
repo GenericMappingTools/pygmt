@@ -36,7 +36,7 @@ from pygmt.helpers import (
     Y="yshift",
     Z="zvalue",
     a="aspatial",
-    i="columns",
+    i="incols",
     l="label",
     c="panel",
     f="coltypes",
@@ -80,7 +80,7 @@ def plot3d(
         the data points
     data : str or 2d array
         Either a data file name or a 2d numpy array with the tabular data.
-        Use parameter ``columns`` to choose which columns are x, y, z,
+        Use parameter ``incols`` to choose which columns are x, y, z,
         color, and size, respectively.
     size : 1d array
         The size of the data points in units specified in ``style``.
@@ -162,10 +162,10 @@ def plot3d(
     {a}
     {c}
     {f}
-    columns : str or 1d array
+    incols : str or 1d array
         Choose which columns are x, y, color, and size, respectively if
-        input is provided via ``data``. E.g. ``columns=[0, 1]`` or
-        ``columns='0,1'`` if the x values are stored in the first
+        input is provided via ``data``. E.g. ``incols=[0, 1]`` or
+        ``incols='0,1'`` if the x values are stored in the first
         column and y values in the second one. Note: zero-based
         indexing is used.
     label : str
