@@ -49,7 +49,7 @@ def grdfill(grid, **kwargs):
         pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
         where (*X,Y*) are the node dimensions of the grid]), or
         **s** for bicubic spline (optionally append a *tension*
-        parameter [no tension]).
+        parameter [Default is no tension]).
 
     {R}
     {V}
