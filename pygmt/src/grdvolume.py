@@ -41,12 +41,17 @@ def grdvolume(grid, data_format="a", **kwargs):
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
         This is the only required parameter.
+    data_format : str
+        Determine the format the data will be returned in:
+            **a**: numpy array [Default option]
+            **d**: pandas DataFrame
+            **s**: string
     {R}
     {V}
 
     Returns
     -------
-    volume : str
+    volume : str or numpy.array or pandas.DataFrame
         A string with the volume between the surface and specified plane.
     """
     with GMTTempFile() as outfile:
