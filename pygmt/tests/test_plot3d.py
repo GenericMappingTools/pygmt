@@ -353,7 +353,7 @@ def test_plot3d_sizes_colors_transparencies():
 @pytest.mark.mpl_image_compare
 def test_plot3d_matrix(data, region):
     """
-    Plot the data passing in a matrix and specifying columns.
+    Plot the data passing in a matrix and specifying incols.
     """
     fig = Figure()
     fig.plot3d(
@@ -365,7 +365,7 @@ def test_plot3d_matrix(data, region):
         style="c1c",
         color="#aaaaaa",
         frame=["a", "za"],
-        columns="0,1,2",
+        incols="0,1,2",
     )
     return fig
 
@@ -384,7 +384,7 @@ def test_plot3d_matrix_color(data, region):
         projection="X10c",
         style="c0.5c",
         cmap="rainbow",
-        columns=[0, 1, 2, 2],
+        incols=[0, 1, 2, 2],
         frame=["a", "za"],
     )
     return fig
@@ -405,7 +405,7 @@ def test_plot3d_from_file(region):
         style="d1c",
         color="yellow",
         frame=["af", "zaf"],
-        columns=[0, 1, 2],
+        incols=[0, 1, 2],
     )
     return fig
 
