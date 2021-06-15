@@ -47,7 +47,10 @@ def grdfill(grid, **kwargs):
         constant fill and append the constant value, **n** for nearest
         neighbor (and optionally append a search radius in
         pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
-        where (*X,Y*) are the node dimensions of the grid]).
+        where (*X,Y*) are the node dimensions of the grid]), or
+        **s** for bicubic spline (optionally append a *tension*
+        parameter [no tension]).
+
     {R}
     {V}
 
