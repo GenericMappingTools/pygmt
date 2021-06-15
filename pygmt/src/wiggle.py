@@ -41,8 +41,9 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     ----------
     x/y/z : 1d arrays
         The arrays of x and y coordinates and z data points.
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
+    data : str or {table-like}
+        Pass in either a file name to an ASCII data table, a 2D
+        {table-classes}.
         Use parameter ``columns`` to choose which columns are x, y, z,
         respectively.
     {J}
@@ -55,7 +56,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     {B}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\ |\ **r**]\
+        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
     color : str

@@ -15,6 +15,8 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -36,7 +38,7 @@ from pygmt.helpers import (
     Y="yshift",
     Z="zvalue",
     a="aspatial",
-    i="columns",
+    i="incols",
     l="label",
     c="panel",
     f="coltypes",
@@ -44,7 +46,6 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
@@ -76,10 +77,11 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     x/y : float or 1d arrays
         The x and y coordinates, or arrays of x and y coordinates of the
         data points
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
-        Use parameter ``columns`` to choose which columns are x, y, color,
-        and size, respectively.
+    data : str or {table-like}
+        Pass in either a file name to an ASCII data table, a 2D
+        {table-classes}.
+        Use parameter ``columns`` to choose which columns are x, y, color, and
+        size, respectively.
     size : 1d array
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
@@ -191,19 +193,14 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     {a}
     {c}
     {f}
-    columns : str or 1d array
-        Choose which columns are x, y, color, and size, respectively if
-        input is provided via *data*. E.g. ``columns = [0, 1]`` or
-        ``columns = '0,1'`` if the *x* values are stored in the first
-        column and *y* values in the second one. Note: zero-based
-        indexing is used.
+    {i}
     label : str
         Add a legend entry for the symbol or line being plotted.
 
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
-        for symbols.
+        for symbols, but this option is only valid if using x/y.
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

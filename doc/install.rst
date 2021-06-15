@@ -62,7 +62,7 @@ Which GMT?
 PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the
 latest released version that can be found at
 the `GMT official site <https://www.generic-mapping-tools.org>`__.
-We need the latest GMT (>=6.1.1) since there are many changes being made to GMT
+We need the latest GMT (>=6.2.0) since there are many changes being made to GMT
 itself in response to the development of PyGMT, mainly the new
 `modern execution mode <https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode>`__.
 
@@ -86,9 +86,10 @@ PyGMT requires the following libraries to be installed:
 * `netCDF4 <https://unidata.github.io/netcdf4-python>`__
 * `packaging <https://packaging.pypa.io>`__
 
-The following are optional (but recommended) dependencies:
+The following are optional dependencies:
 
-* `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks.
+* `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks (recommended).
+* `GeoPandas <https://geopandas.org>`__: For using and plotting GeoDataFrame objects.
 
 Installing GMT and other dependencies
 -------------------------------------
