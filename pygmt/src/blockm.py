@@ -86,7 +86,7 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Takes a matrix, xyz triplets, or a file name as input.
 
-    Must provide either ``data`` or ``x``, ``y``, and ``z``.
+    Must provide either ``table`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`blockmean.html`
 
@@ -103,9 +103,7 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     {I}
 
-    region : str or list
-        *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
-        Specify the region of interest.
+    {R}
 
     outfile : str
         The file name for the output ASCII file.
@@ -122,9 +120,9 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
         Return type depends on whether the ``outfile`` parameter is set:
 
         - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
-          is not set
+          is not set.
         - None if ``outfile`` is set (filtered output will be stored in file
-          set by ``outfile``)
+          set by ``outfile``).
     """
     return _blockm(
         block_method="blockmean", table=table, outfile=outfile, x=x, y=y, z=z, **kwargs
@@ -153,7 +151,7 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Takes a matrix, xyz triplets, or a file name as input.
 
-    Must provide either ``data`` or ``x``, ``y``, and ``z``.
+    Must provide either ``table`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`blockmedian.html`
 
@@ -170,9 +168,7 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     {I}
 
-    region : str or list
-        *xmin/xmax/ymin/ymax*\[\ **+r**\][**+u**\ *unit*].
-        Specify the region of interest.
+    {R}
 
     outfile : str
         The file name for the output ASCII file.
@@ -189,9 +185,9 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
         Return type depends on whether the ``outfile`` parameter is set:
 
         - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``
-          is not set
+          is not set.
         - None if ``outfile`` is set (filtered output will be stored in file
-          set by ``outfile``)
+          set by ``outfile``).
     """
     return _blockm(
         block_method="blockmedian",
