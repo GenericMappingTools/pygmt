@@ -40,3 +40,11 @@ def test_grdvolume_format(grid):
     assert isinstance(grdvolume_df, pd.DataFrame)
     grdvolume_string = grdvolume(grid=grid, data_format="s")
     assert isinstance(grdvolume_string, str)
+
+
+def test_grdvolume_invalid_format(grid):
+    """
+    Test that grdvolume fails with incorrect data_format argument.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdvolume(grid=grid, data_format=1)
