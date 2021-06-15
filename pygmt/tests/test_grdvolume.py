@@ -28,3 +28,15 @@ def test_grdvolume(grid):
         "-2.40882119642e+14",
         "-4870.87205839",
     ]
+
+
+def test_grdvolume_format(grid):
+    """
+    Test that correct formats are returned.
+    """
+    grdvolume_array = grdvolume(grid=grid)
+    assert isinstance(grdvolume_array, np.ndarray)
+    grdvolume_df = grdvolume(grid=grid, data_format="d")
+    assert isinstance(grdvolume_df, pd.DataFrame)
+    grdvolume_string = grdvolume(grid=grid, data_format="s")
+    assert isinstance(grdvolume_string, str)
