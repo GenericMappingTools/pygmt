@@ -52,7 +52,7 @@ def test_grdfill_file_out(grid):
 
 def test_grdfill_required_args(grid):
     """
-    Test that grdfill fails with only a grid argument.
+    Test that grdfill fails without arguments for `mode` and `L`.
     """
     with pytest.raises(GMTInvalidInput):
         grdfill(grid=grid)
