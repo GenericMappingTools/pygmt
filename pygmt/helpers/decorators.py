@@ -323,9 +323,9 @@ def fmt_docstring(module_func):
     return module_func
 
 
-def insert_alias(module_func, default_value=None):
+def _insert_alias(module_func, default_value=None):
     """
-    Decorator insertings aliases into the signature of a method.
+    Function to insert PyGMT long aliases into the signature of a method.
     """
 
     # Get current signature and parameters
@@ -408,7 +408,7 @@ def use_alias(**aliases):
 
         new_module.aliases = aliases
 
-        new_module = insert_alias(new_module)
+        new_module = _insert_alias(new_module)
 
         return new_module
 

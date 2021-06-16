@@ -4,7 +4,6 @@ Functions, classes, decorators, and context managers to help wrap GMT modules.
 from pygmt.helpers.decorators import (
     deprecate_parameter,
     fmt_docstring,
-    insert_alias,
     kwargs_to_strings,
     use_alias,
 )
