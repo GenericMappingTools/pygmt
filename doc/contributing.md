@@ -24,7 +24,7 @@ and we encourage all to read it carefully.
 
 ## Getting Help
 
-Discussion often happens in the issues and pull requests.
+Discussion often happens on GitHub issues and pull requests.
 In addition, there is a
 [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
 the project where you can ask questions.
