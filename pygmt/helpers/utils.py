@@ -11,6 +11,8 @@ from collections.abc import Iterable
 from contextlib import contextmanager
 
 import xarray as xr
+import numpy as np
+import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
 
 
