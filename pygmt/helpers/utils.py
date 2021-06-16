@@ -267,3 +267,48 @@ def args_in_kwargs(args, kwargs):
         If one of the required arguments is in ``kwargs``.
     """
     return any(arg in kwargs for arg in args)
+
+
+def return_table(result, data_format, format_parameter, df_columns):
+    r"""
+    Take the table output from the GMT API and return it as either a string,
+    array, or DataFrame.
+
+    Parameters
+    ----------
+    result : str
+        The table returned from the GMT API as a string.
+    data_format : str
+        A single-letter string that specifies requested data format of the
+        table.
+        **a** : numpy array
+        **d** : pandas DataFrame
+        **s** : string
+    format_parameter : str
+        The name of the parameter used to specify the data format in the
+        pygmt function. This name is used when raising the GMTInvalidInput
+        error to ensure module-specific parameters are consistent with the
+        error raised.
+    df_columns : list
+        The column names of the returned pandas DataFrame.
+    """
+
+    if data_format == "s":
+        return result
+    data_list = []
+    for string_entry in result.strip().split("\n"):
+        float_entry = []
+        string_list = string_entry.strip().split()
+        for i in string_list:
+            float_entry.append(float(i))
+        data_list.append(float_entry)
+    data_array = np.array(data_list)
+    if data_format == "a":
+        result = data_array
+    elif data_format == "d":
+        result = pd.DataFrame(data_array, columns=df_columns)
+    else:
+        raise GMTInvalidInput(
+            f"""Must specify {format_parameter} as either a, d, or s."""
+        )
+    return result
