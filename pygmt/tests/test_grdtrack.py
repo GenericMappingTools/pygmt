@@ -25,7 +25,6 @@ def fixture_dataarray():
     )
 
 
-@pytest.mark.xfail(reason="The reason why it fails is unclear now")
 def test_grdtrack_input_dataframe_and_dataarray(dataarray):
     """
     Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
@@ -36,12 +35,11 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray):
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2974.656296])
+    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2790.488422])
 
     return output
 
 
-@pytest.mark.xfail(reason="The reason why it fails is unclear now")
 def test_grdtrack_input_csvfile_and_dataarray(dataarray):
     """
     Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
@@ -54,7 +52,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray):
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2974.656296])
+        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2790.488422])
     finally:
         os.remove(path=TEMP_TRACK)
 
