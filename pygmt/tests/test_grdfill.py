@@ -1,5 +1,5 @@
 """
-Tests for grdclip.
+Tests for grdfill.
 """
 import os
 
@@ -8,6 +8,7 @@ import pytest
 import xarray as xr
 from pygmt import grdfill, grdinfo
 from pygmt.datasets import load_earth_relief
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -47,3 +48,11 @@ def test_grdfill_file_out(grid):
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = grdinfo(tmpfile.name, per_column=True).strip()
         assert result == "-5 5 -5 5 -5130.5 inf 1 1 10 10 1 1"
+
+
+def test_grdfill_required_args(grid):
+    """
+    Test that grdfill fails without arguments for `mode` and `L`.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdfill(grid=grid)

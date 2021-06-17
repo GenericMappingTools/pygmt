@@ -58,4 +58,5 @@
 
     api/index.rst
     changes.md
+    contributing.md
     maintenance.md

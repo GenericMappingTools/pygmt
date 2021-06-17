@@ -4,6 +4,7 @@ grdfill - Fill blank areas from a grid.
 
 import xarray as xr
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -18,6 +19,7 @@ from pygmt.helpers import (
     A="mode",
     G="outgrid",
     R="region",
+    V="verbose",
 )
 @kwargs_to_strings(R="sequence")
 def grdfill(grid, **kwargs):
@@ -45,8 +47,12 @@ def grdfill(grid, **kwargs):
         constant fill and append the constant value, **n** for nearest
         neighbor (and optionally append a search radius in
         pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
-        where (*X,Y*) are the node dimensions of the grid]).
+        where (*X,Y*) are the node dimensions of the grid]), or
+        **s** for bicubic spline (optionally append a *tension*
+        parameter [Default is no tension]).
+
     {R}
+    {V}
 
     Returns
     -------
@@ -57,6 +63,8 @@ def grdfill(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
+    if "A" not in kwargs.keys() and "L" not in kwargs.keys():
+        raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
