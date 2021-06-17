@@ -15,6 +15,8 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -36,7 +38,7 @@ from pygmt.helpers import (
     Y="yshift",
     Z="zvalue",
     a="aspatial",
-    i="columns",
+    i="incols",
     l="label",
     c="panel",
     f="coltypes",
@@ -44,7 +46,6 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 def plot3d(
     self, x=None, y=None, z=None, data=None, size=None, direction=None, **kwargs
 ):
@@ -79,10 +80,9 @@ def plot3d(
         The x, y, and z coordinates, or arrays of x, y and z coordinates of
         the data points
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
-        {table-classes}.
-        Use parameter ``columns`` to choose which columns are x, y, z, color,
-        and size, respectively.
+        Either a data file name, a 2d {table-classes}.
+        Optionally, use parameter ``incols`` to specify which columns are x, y,
+        z, color, and size, respectively.
     size : 1d array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
@@ -163,6 +163,7 @@ def plot3d(
     {a}
     {c}
     {f}
+    {i}
     label : str
         Add a legend entry for the symbol or line being plotted.
     {p}
