@@ -384,7 +384,7 @@ def use_alias(**aliases):
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput:
-        Arguments in short-form (J) and long-form (projection) can't coexist
+        Parameters in short-form (J) and long-form (projection) can't coexist.
     """
 
     def alias_decorator(module_func):
@@ -397,13 +397,20 @@ def use_alias(**aliases):
             """
             New module that parses and replaces the registered aliases.
             """
-            for arg, alias in aliases.items():
-                if alias in kwargs and arg in kwargs:
+            for short_param, long_alias in aliases.items():
+                if long_alias in kwargs and short_param in kwargs:
                     raise GMTInvalidInput(
-                        f"Arguments in short-form ({arg}) and long-form ({alias}) can't coexist"
+                        f"Parameters in short-form ({short_param}) and "
+                        f"long-form ({long_alias}) can't coexist."
                     )
-                if alias in kwargs:
-                    kwargs[arg] = kwargs.pop(alias)
+                if long_alias in kwargs:
+                    kwargs[short_param] = kwargs.pop(long_alias)
+                elif short_param in kwargs:
+                    msg = (
+                        f"Short-form parameter ({short_param}) is not recommended. "
+                        f"Use long-form parameter '{long_alias}' instead."
+                    )
+                    warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
