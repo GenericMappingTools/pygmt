@@ -80,9 +80,9 @@ def plot3d(
         The x, y, and z coordinates, or arrays of x, y and z coordinates of
         the data points
     data : str or {table-like}
-        Either a data file name or a 2d numpy array with the tabular data.
-        Use parameter ``incols`` to choose which columns are x, y, z,
-        color, and size, respectively.
+        Either a data file name, a 2d {table-classes}.
+        Optionally, use parameter ``incols`` to specify which columns are x, y,
+        z, color, and size, respectively.
     size : 1d array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
