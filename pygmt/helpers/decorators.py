@@ -8,6 +8,7 @@ etc.
 import functools
 import textwrap
 import warnings
+from inspect import Parameter, signature
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
@@ -322,6 +323,30 @@ def fmt_docstring(module_func):
     return module_func
 
 
+def _insert_alias(module_func, default_value=None):
+    """
+    Function to insert PyGMT long aliases into the signature of a method.
+    """
+
+    # Get current signature and parameters
+    sig = signature(module_func)
+    wrapped_params = list(sig.parameters.values())
+    kwargs_param = wrapped_params.pop(-1)
+    # Add new parameters from aliases
+    for alias in module_func.aliases.values():
+        if alias not in sig.parameters.keys():
+            new_param = Parameter(
+                alias, kind=Parameter.KEYWORD_ONLY, default=default_value
+            )
+            wrapped_params = wrapped_params + [new_param]
+    all_params = wrapped_params + [kwargs_param]
+    # Update method signature
+    sig_new = sig.replace(parameters=all_params)
+    module_func.__signature__ = sig_new
+
+    return module_func
+
+
 def use_alias(**aliases):
     """
     Decorator to add aliases to keyword arguments of a function.
@@ -389,6 +414,8 @@ def use_alias(**aliases):
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
+
+        new_module = _insert_alias(new_module)
 
         return new_module
 
