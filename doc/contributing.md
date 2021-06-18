@@ -30,25 +30,44 @@ and we encourage all to read it carefully.
   announced on the [Forum governance page](https://forum.generic-mapping-tools.org/c/governance/9).
 * Spread the word about PyGMT or star the project!
 
+## Providing Feedback
+
+### Reporting a Bug
+
+* Find the [*Issues*]((https://github.com/GenericMappingTools/pygmt/issues)) tab on the
+top of the GitHub repository and click *New Issue*.
+* Click on *Get started* next to *Bug report*.
+* **Please try to fill out the template with as much detail as you can**.
+* After submitting your bug report, try to answer any follow up questions about the bug
+  as best as you can.
+
+### Submitting a Feature Request
+
+* Find the [*Issues*]((https://github.com/GenericMappingTools/pygmt/issues)) tab on the
+  top of the GitHub repository and click *New Issue*.
+* Click on *Get started* next to *Feature request*.
+* **Please try to fill out the template with as much detail as you can**.
+* After submitting your feature request, try to answer any follow up questions as best
+  as you can.
+
+### Submitting General Comments/Questions
+
+There are several pages on the [Community Forum](https://forum.generic-mapping-tools.org/)
+where you can submit general comments and/or questions:
+
+* For questions about using PyGMT, select *New Topic* from the
+  [PyGMT Q&A Page](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
+* For general comments, select *New Topic* from the
+  [Lounge Page](https://forum.generic-mapping-tools.org/c/lounge/6).
+* To share your work, select *New Topic* from the
+  [Showcase Page](https://forum.generic-mapping-tools.org/c/Sow-your-nice-example-script/10).
+
 ## Getting Help
 
 Discussion often happens on GitHub issues and pull requests.
 In addition, there is a
 [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
 the project where you can ask questions.
-
-
-## Reporting a Bug
-
-Find the *Issues* tab on the top of the GitHub repository and click *New Issue*.
-You'll be prompted to choose between different types of issue, like bug reports and
-feature requests.
-Choose the one that best matches your need.
-The Issue will be populated with one of our templates.
-**Please try to fillout the template with as much detail as you can**.
-Remember: the more information we have, the easier it will be for us to solve your
-problem.
-
 
 ## Editing the Documentation
 
