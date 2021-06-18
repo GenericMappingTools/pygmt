@@ -20,7 +20,8 @@ Core Team
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/3974108?v=4" alt="Card image">
         <div class="team-card-body">
             <h6 class="team-card-text">Dongdong Tian</h6>
-            <p class="team-card-text"><a href="https://github.com/seisman" >@seisman</a></p>
+            <h7 class="team-card-text">Active</h7>
+            <h7 class="team-card-text"><a href="https://github.com/seisman" >@seisman</a></h7>
         </div>
     </div>
     </div>
@@ -29,7 +30,7 @@ Core Team
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/290082?v=4" alt="Card image">
         <div class="team-card-body">
             <h6 class="team-card-text">Leonardo Uieda</h6>
-            <p class="team-card-text"><a href="https://github.com/leouieda" >@leouieda</a></p>
+            <h7 class="team-card-text"><a href="https://github.com/leouieda" >@leouieda</a></h7>
         </div>
     </div>
     </div>
@@ -38,7 +39,7 @@ Core Team
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/38269494?v=4" alt="Card image">
         <div class="team-card-body">
             <h6 class="team-card-text">Liam Toney</h6>
-            <p class="team-card-text"><a href="https://github.com/liamtoney" >@liamtoney</a></p>
+            <h7 class="team-card-text"><a href="https://github.com/liamtoney" >@liamtoney</a></h7>
         </div>
     </div>
     </div>
@@ -47,7 +48,8 @@ Core Team
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/14077947?v=4" alt="Card image">
         <div class="team-card-body">
             <h6 class="team-card-text">Meghan Jones</h6>
-            <p class="team-card-text"><a href="https://github.com/meghanrjones" >@meghanrjones</a></p>
+            <h7 class="team-card-text">Active</h7>
+            <h7class="team-card-text"><a href="https://github.com/meghanrjones" >@meghanrjones</a></h7>
         </div>
     </div>
     </div>
@@ -56,7 +58,8 @@ Core Team
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/23025878?v=4" alt="Card image">
         <div class="team-card-body">
             <h6 class="team-card-text">Michael Grund</h6>
-            <p class="team-card-text"><a href="https://github.com/michaelgrund" >@michaelgrund</a></p>
+            <h7 class="team-card-text">Active</h7>
+            <h7class="team-card-text"><a href="https://github.com/michaelgrund" >@michaelgrund</a></h7>
         </div>
     </div>
     </div>
@@ -67,7 +70,8 @@ Core Team
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/23487320?v=4" alt="Card image">
         <div class="team-card-body">
             <h6 class="team-card-text">Wei Ji Leong</h6>
-            <p class="team-card-text"><a href="https://github.com/weiji14" >@weiji14</a></p>
+            <h7 class="team-card-text">Active</h7>
+            <h7class="team-card-text"><a href="https://github.com/weiji14" >@weiji14</a></h7>
         </div>
     </div>
     </div>
@@ -76,9 +80,10 @@ Core Team
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/29518865?v=4" alt="Card image">
         <div class="team-card-body">
             <h6 class="team-card-text";>Will Schlitzer</h6>
-            <p class="team-card-text"><a href="https://github.com/willschlitzer" >@willschlitzer</a></p>
+            <h7 class="team-card-text">Active</h7>
+            <p class="team-card-text"><a href="https://github.com/willschlitzer" >@willschlitzer</a></h7>
         </div>
     </div>
     </div>
     </div>
-    <p></p>
+    <p></h7>
