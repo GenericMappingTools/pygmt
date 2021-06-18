@@ -21,8 +21,8 @@ and we encourage all to read it carefully.
   case. Open an [issue](https://github.com/GenericMappingTools/pygmt/issues) with
   feature requests or bug fixes, or post general comments/questions on the
   [Forum](https://forum.generic-mapping-tools.org).
-* Contribute code you already have. It doesn't need to be perfect! We will help you
-  clean things up, test it, etc.
+* Contribute code! This can be code that you already have and it doesn't need to be
+  perfect! We will help you clean things up, test it, etc.
 * Help triage issues, or give a "thumbs up" on issues that others reported which are
   relevant to you.
 * Participate and answer questions on the [PyGMT Forum Q&A](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
@@ -34,7 +34,7 @@ and we encourage all to read it carefully.
 
 ### Reporting a Bug
 
-* Find the [*Issues*]((https://github.com/GenericMappingTools/pygmt/issues)) tab on the
+* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
 top of the GitHub repository and click *New Issue*.
 * Click on *Get started* next to *Bug report*.
 * **Please try to fill out the template with as much detail as you can**.
@@ -43,7 +43,7 @@ top of the GitHub repository and click *New Issue*.
 
 ### Submitting a Feature Request
 
-* Find the [*Issues*]((https://github.com/GenericMappingTools/pygmt/issues)) tab on the
+* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
   top of the GitHub repository and click *New Issue*.
 * Click on *Get started* next to *Feature request*.
 * **Please try to fill out the template with as much detail as you can**.
@@ -62,12 +62,133 @@ where you can submit general comments and/or questions:
 * To share your work, select *New Topic* from the
   [Showcase Page](https://forum.generic-mapping-tools.org/c/Sow-your-nice-example-script/10).
 
-## Getting Help
+## General Guidelines
 
-Discussion often happens on GitHub issues and pull requests.
-In addition, there is a
+### Resources for New Contributors
+
+Please take a look at these resources to learn about Git and pull requests (don't
+hesitate to [ask questions](#getting-help)):
+
+* [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
+* Aaron Meurer's [tutorial on the git workflow](http://www.asmeurer.com/git-workflow/)
+* [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
+
+### Getting Help
+
+Discussion often happens on GitHub issues and pull requests. In addition, there is a
 [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
 the project where you can ask questions.
+
+### Setting up your environment
+
+We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
+package manager to install and manage your Python packages.
+It will make your life a lot easier!
+
+The repository includes a conda environment file `environment.yml` with the
+specification for all development requirements to build and test the project.
+Once you have forked and cloned the repository to your local machine, you can
+use this file to create an isolated environment on which you can work.
+Run the following on the base of the repository:
+
+```bash
+conda env create
+```
+
+Before building and testing the project, you have to activate the environment:
+
+```bash
+conda activate pygmt
+```
+
+You'll need to do this every time you start a new terminal.
+
+See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/master/environment.yml)
+file for the list of dependencies and the environment name.
+
+We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
+that provides commands for installing, running the tests and coverage analysis,
+running linters, etc. If you don't want to use `make`, open the `Makefile` and
+copy the commands you want to run.
+
+To install the current source code into your testing environment, run:
+
+```bash
+make install
+```
+
+This installs your project in *editable* mode, meaning that changes made to the source
+code will be available when you import the package (even if you're on a different
+directory).
+
+### Pull Request Workflow
+
+We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
+to make changes to our codebase. Every change made goes through a pull request, even
+our own, so that our
+[continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
+services have a chance to check that the code is up to standards and passes all
+our tests. This way, the *master* branch is always stable.
+
+#### General guidelines for making a Pull Request (PR):
+
+* What should be included in a PR
+  - Have a quick look at the titles of all the existing issues first. If there
+    is already an issue that matches your PR, leave a comment there to let us
+    know what you plan to do. Otherwise, **open an issue** describing what you
+    want to do.
+  - Each pull request should consist of a **small** and logical collection of
+    changes; larger changes should be broken down into smaller parts and
+    integrated separately.
+  - Bug fixes should be submitted in separate PRs.
+* How to write and submit a PR
+  - Use underscores for all Python (*.py) files as per
+    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
+    names should also use underscores instead of hyphens.
+  - Describe what your PR changes and *why* this is a good thing. Be as
+    specific as you can. The PR description is how we keep track of the changes
+    made to the project over time.
+  - Do not commit changes to files that are irrelevant to your feature or
+    bugfix (e.g.: `.gitignore`, IDE project files, etc).
+  - Write descriptive commit messages. Chris Beams has written a
+    [guide](https://chris.beams.io/posts/git-commit/) on how to write good
+    commit messages.
+* PR review
+  - Be willing to accept criticism and work on improving your code; we don't
+    want to break other users' code, so care must be taken not to introduce
+    bugs.
+  - Be aware that the pull request review process is not immediate, and is
+    generally proportional to the size of the pull request.
+
+#### Pull request review process
+
+After you've submitted a pull request, you should expect to hear at least a
+comment within a couple of days. We may suggest some changes, improvements or
+alternative implementation details.
+
+To increase the chances of getting your pull request accepted quickly, try to:
+
+* Submit a friendly PR
+  - Write a good and detailed description of what the PR does.
+  - Write some documentation for your code (docstrings) and leave comments
+    explaining the *reason* behind non-obvious things.
+  - Write tests for the code you wrote/modified if needed.
+    Please refer to [Testing your code](#testing-your-code) or
+    [Testing plots](#testing-plots).
+  - Include an example of new features in the gallery or tutorials.
+    Please refer to [Gallery plots](#gallery-plots) or [Tutorials](#tutorials).
+* Have a good coding style
+  - Use readable code, as it is better than clever code (even with comments).
+  - Follow the [PEP8](http://pep8.org) style guide for code and the
+    [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
+    for docstrings. Please refer to [Code style](#code-style).
+
+Pull requests will automatically have tests run by GitHub Actions.
+This includes running both the unit tests as well as code linters.
+GitHub will show the status of these checks on the pull request.
+Try to get them all passing (green).
+If you have any trouble, leave a comment in the PR or
+[get in touch](#how-can-i-talk-to-you).
 
 ## Editing the Documentation
 
@@ -179,126 +300,6 @@ When editing documentation, use the following standards to demonstrate the examp
    **p**].
 
 ## Contributing Code
-
-**Is this your first contribution?**
-Please take a look at these resources to learn about git and pull requests (don't
-hesitate to [ask questions](#how-can-i-talk-to-you)):
-
-* [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
-* Aaron Meurer's [tutorial on the git workflow](http://www.asmeurer.com/git-workflow/)
-* [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
-
-### General guidelines
-
-We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
-to make changes to our codebase.
-Every change made goes through a pull request, even our own, so that our
-[continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
-services have a chance to check that the code is up to standards and passes all
-our tests.
-This way, the *master* branch is always stable.
-
-General guidelines for making a Pull Request (PR):
-
-* What should be included in a PR
-  - Have a quick look at the titles of all the existing issues first. If there
-    is already an issue that matches your PR, leave a comment there to let us
-    know what you plan to do. Otherwise, **open an issue** describing what you
-    want to do.
-  - Each pull request should consist of a **small** and logical collection of
-    changes; larger changes should be broken down into smaller parts and
-    integrated separately.
-  - Bug fixes should be submitted in separate PRs.
-* How to write and submit a PR
-  - Use underscores for all Python (*.py) files as per
-    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
-    names should also use underscores instead of hyphens.
-  - Describe what your PR changes and *why* this is a good thing. Be as
-    specific as you can. The PR description is how we keep track of the changes
-    made to the project over time.
-  - Do not commit changes to files that are irrelevant to your feature or
-    bugfix (e.g.: `.gitignore`, IDE project files, etc).
-  - Write descriptive commit messages. Chris Beams has written a
-    [guide](https://chris.beams.io/posts/git-commit/) on how to write good
-    commit messages.
-* PR review
-  - Be willing to accept criticism and work on improving your code; we don't
-    want to break other users' code, so care must be taken not to introduce
-    bugs.
-  - Be aware that the pull request review process is not immediate, and is
-    generally proportional to the size of the pull request.
-
-#### Code Review
-
-After you've submitted a pull request, you should expect to hear at least a
-comment within a couple of days. We may suggest some changes, improvements or
-alternative implementation details.
-
-To increase the chances of getting your pull request accepted quickly, try to:
-
-* Submit a friendly PR
-  - Write a good and detailed description of what the PR does.
-  - Write some documentation for your code (docstrings) and leave comments
-    explaining the *reason* behind non-obvious things.
-  - Write tests for the code you wrote/modified if needed.
-    Please refer to [Testing your code](#testing-your-code) or
-    [Testing plots](#testing-plots).
-  - Include an example of new features in the gallery or tutorials.
-    Please refer to [Gallery plots](#gallery-plots) or [Tutorials](#tutorials).
-* Have a good coding style
-  - Use readable code, as it is better than clever code (even with comments).
-  - Follow the [PEP8](http://pep8.org) style guide for code and the
-    [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
-    for docstrings. Please refer to [Code style](#code-style).
-
-Pull requests will automatically have tests run by GitHub Actions.
-This includes running both the unit tests as well as code linters.
-GitHub will show the status of these checks on the pull request.
-Try to get them all passing (green).
-If you have any trouble, leave a comment in the PR or
-[get in touch](#how-can-i-talk-to-you).
-
-### Setting up your environment
-
-We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
-package manager to install and manage your Python packages.
-It will make your life a lot easier!
-
-The repository includes a conda environment file `environment.yml` with the
-specification for all development requirements to build and test the project.
-Once you have forked and cloned the repository to your local machine, you can
-use this file to create an isolated environment on which you can work.
-Run the following on the base of the repository:
-
-```bash
-conda env create
-```
-
-Before building and testing the project, you have to activate the environment:
-
-```bash
-conda activate pygmt
-```
-
-You'll need to do this every time you start a new terminal.
-
-See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/master/environment.yml)
-file for the list of dependencies and the environment name.
-
-We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
-that provides commands for installing, running the tests and coverage analysis,
-running linters, etc. If you don't want to use `make`, open the `Makefile` and
-copy the commands you want to run.
-
-To install the current source code into your testing environment, run:
-
-```bash
-make install
-```
-
-This installs your project in *editable* mode, meaning that changes made to the source
-code will be available when you import the package (even if you're on a different
-directory).
 
 ### Code style
 
