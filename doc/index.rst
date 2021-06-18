@@ -65,4 +65,5 @@
     :caption: Development
 
     team.rst
+    contributing.md
     maintenance.md

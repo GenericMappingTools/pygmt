@@ -80,7 +80,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
-        Use parameter ``columns`` to choose which columns are x, y, color, and
+        Use parameter ``incols`` to choose which columns are x, y, color, and
         size, respectively.
     size : 1d array
         The size of the data points in units specified using ``style``.

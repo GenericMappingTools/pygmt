@@ -163,10 +163,6 @@ else:
 html_context = {
     "menu_links": [
         (
-            '<i class="fa fa-users fa-fw"></i> Contributing',
-            f"{repository_url}/blob/master/CONTRIBUTING.md",
-        ),
-        (
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
             f"{repository_url}/blob/master/CODE_OF_CONDUCT.md",
         ),
