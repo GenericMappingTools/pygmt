@@ -9,6 +9,9 @@ new and experienced users by creating user-friendly interfaces with the GMT
 C API, supporting rich display in Jupyter notebooks, and integrating with
 the PyData ecosystem.
 
+All our welcome to become involved with the PyGMT project! For more information
+about how to get involved, see the :doc:`contributing`.
+
 Core Team
 -----------
 
