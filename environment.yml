@@ -11,6 +11,8 @@ dependencies:
     - xarray
     - netCDF4
     - packaging
+    # Optional dependencies
+    - geopandas
     # Development dependencies
     - black
     - blackdoc
