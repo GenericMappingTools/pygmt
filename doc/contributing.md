@@ -16,11 +16,19 @@ and we encourage all to read it carefully.
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
 * Make a tutorial or gallery example of how to do something.
+* Improve the API documentation.
 * Provide feedback about how we can improve the project or about your particular use
-  case.
+  case. Open an [issue](https://github.com/GenericMappingTools/pygmt/issues) with
+  feature requests or bug fixes, or post general comments/questions on the
+  [Forum](https://forum.generic-mapping-tools.org).
 * Contribute code you already have. It doesn't need to be perfect! We will help you
   clean things up, test it, etc.
-
+* Help triage issues, or give a "thumbs up" on issues that others reported which are
+  relevant to you.
+* Participate and answer questions on the [PyGMT Forum Q&A](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
+* Participate in discussions at the quarterly PyGMT Community Meetings, which are
+  announced on the [Forum governance page](https://forum.generic-mapping-tools.org/c/governance/9).
+* Spread the word about PyGMT or star the project!
 
 ## Getting Help
 
