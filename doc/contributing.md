@@ -20,14 +20,14 @@ and we encourage all to read it carefully.
 * Provide feedback about how we can improve the project or about your particular use
   case. Open an [issue](https://github.com/GenericMappingTools/pygmt/issues) with
   feature requests or bug fixes, or post general comments/questions on the
-  [Forum](https://forum.generic-mapping-tools.org).
+  [forum](https://forum.generic-mapping-tools.org).
 * Contribute code! This can be code that you already have and it doesn't need to be
   perfect! We will help you clean things up, test it, etc.
 * Help triage issues, or give a "thumbs up" on issues that others reported which are
   relevant to you.
-* Participate and answer questions on the [PyGMT Forum Q&A](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
+* Participate and answer questions on the [PyGMT forum Q&A](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
 * Participate in discussions at the quarterly PyGMT Community Meetings, which are
-  announced on the [Forum governance page](https://forum.generic-mapping-tools.org/c/governance/9).
+  announced on the [forum governance page](https://forum.generic-mapping-tools.org/c/governance/9).
 * Spread the word about PyGMT or star the project!
 
 ## Providing Feedback
@@ -70,8 +70,8 @@ Please take a look at these resources to learn about Git and pull requests (don'
 hesitate to [ask questions](#getting-help)):
 
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
-* Aaron Meurer's [tutorial on the git workflow](http://www.asmeurer.com/git-workflow/)
-* [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
+* Aaron Meurer's [tutorial on the git workflow](http://www.asmeurer.com/git-workflow/).
+* [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github).
 
 ### Getting Help
 
@@ -190,11 +190,34 @@ Try to get them all passing (green).
 If you have any trouble, leave a comment in the PR or
 [get in touch](#how-can-i-talk-to-you).
 
-## Editing the Documentation
+## Contributing Documentation
+
+### PyGMT Documentation Overview
+
+There are four main components to PyGMT's documentation:
+
+* Gallery examples, with source code in Python `*.py` files under the
+  `examples/gallery/` folder.
+* Tutorial examples, with source code in Python `*.py` files under the
+  `examples/tutorials/` folder.
+* API documentation, with source code in the docstrings in Python `*.py`
+  files under the `pygmt/src/` and `/pygmt/datasets/` folders.
+* Getting started/developer documentation, with source text in ReST `*.rst`
+  and markdown `*.md` files under the `doc/` folder.
+
+The documentation are written primarily in
+[reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
+[Sphinx](http://www.sphinx-doc.org/). Please refer to
+[reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/rst-cheatsheet.html)
+if you are new to reStructuredText. When contributing documentation, be sure to
+follow the general guidelines in the [pull request workflow](#pull-request-workflow)
+section.
+
+### Editing the Documentation on GitHub
 
 If you're browsing the documentation and notice a typo or something that could be
 improved, please consider letting us know by [creating an issue](#reporting-a-bug) or
-submitting a fix.
+(even better) submitting a fix.
 
 You can submit fixes to the documentation pages completely online without having to
 download and install anything:
@@ -220,16 +243,32 @@ download and install anything:
 * Done!
 
 Alternatively, you can make the changes offline to the files in the `doc` folder or the
-example scripts. See [Contributing Code](#contributing-code) for instructions.
+example scripts. See [building the documentation](#building-the-documentation) for
+instructions.
 
-### Gallery plots
+### Building the Documentation
+
+For more extensive changes, you may prefer to edit the documentation in your cloned
+repository and build the documentation to preview changes before submitting a pull
+request. First, follow the [setting up your environment](#setting-up-your-environment)
+instructions. Then, to build the HTML files from sources:
+
+```bash
+cd doc
+make all
+```
+
+This will build the HTML files in `doc/_build/html`.
+Open `doc/_build/html/index.html` in your browser to view the pages.
+
+### Contributing Gallery Plots
 
 The gallery and tutorials are managed by
 [sphinx-gallery](https://sphinx-gallery.readthedocs.io/).
 The source files for the example gallery are `.py` scripts in `examples/gallery/` that
 generate one or more figures. They are executed automatically by sphinx-gallery when
-the [documentation is built](#documentation). The output is gathered and assembled
-into the gallery.
+the [documentation is built](#building-the-documentation). The output is gathered and
+assembled into the gallery.
 
 You can **add a new** plot by placing a new `.py` file in one of the folders inside the
 `examples/gallery` folder of the repository. See the other examples to get an idea for the
@@ -253,7 +292,7 @@ General guidelines for making a good gallery plot:
   documentation.
 * SI units should be used in the example code for gallery plots.
 
-### Tutorials
+### Contributing Tutorials
 
 The tutorials (the User Guide in the docs) are also built by sphinx-gallery from the
 `.py` files in the `examples/tutorials` folder of the repository. To add a new tutorial:
@@ -281,7 +320,19 @@ Guidelines for a good tutorial:
 Note that the `Figure.show()` function needs to be called for a plot to be inserted into
 the documentation.
 
-### Example code standards
+### Editing the API Documentation
+
+The API documentation is built from the docstrings in the Python `*.py` files under
+the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
+[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
+All functions/classes/methods should have docstrings with a full description of all
+arguments and return values.
+
+While the maximum line length for code is automatically set by *Black*, docstrings
+must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
+limited to 79 characters** per line.
+
+### Standards for Example Code
 
 When editing documentation, use the following standards to demonstrate the example code:
 
@@ -299,20 +350,62 @@ When editing documentation, use the following standards to demonstrate the examp
    with [ ] (square brackers) with the prefix "Default is". Example: [Default is
    **p**].
 
+### Cross-referencing with Sphinx
+
+The API reference is manually assembled in `doc/api/index.rst`.
+The *autodoc* sphinx extension will automatically create pages for each
+function/class/module listed there.
+
+You can reference functions, classes, methods, and modules from anywhere
+(including docstrings) using:
+
+- <code>:func:\`package.module.function\`</code>
+- <code>:class:\`package.module.class\`</code>
+- <code>:meth:\`package.module.method\`</code>
+- <code>:mod:\`package.module\`</code>
+
+An example would be to use
+<code>:meth:\`pygmt.Figure.grdview\`</code> to link
+to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html.
+PyGMT documentation that is not a class, method,
+or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
+For example, <code>:doc:\`Install instructions \</install\>\`</code> links
+to https://www.pygmt.org/latest/install.html.
+
+Linking to the GMT documentation and GMT configuration parameters can be done using:
+
+- <code>:gmt-docs:\`page_name.html\`</code>
+- <code>:gmt-term:\`GMT_PARAMETER\`</code>
+
+An example would be using
+<code>:gmt-docs:\`makecpt.html\`</code> to link to
+https://docs.generic-mapping-tools.org/latest/makecpt.html.
+For GMT configuration parameters, an example is
+<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
+https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
+
+Sphinx will create a link to the automatically generated page for that
+function/class/module.
+
 ## Contributing Code
+
+### PyGMT Code Overview
+
+The source code for PyGMT is located in the `pygmt/` directory. When contributing
+code, be sure to follow the general guidelines in the
+[pull request workflow](#pull-request-workflow) section.
 
 ### Code style
 
-We use some tools:
+We use some tools to to format the code so we don't have to think about it:
 
 - [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
 - [docformatter](https://github.com/myint/docformatter)
 - [isort](https://pycqa.github.io/isort/)
 
-to format the code so we don't have to think about it.
-Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
-Regardless, you won't have to worry about formatting the code yourself.
+Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
+differences. Regardless, you won't have to worry about formatting the code yourself.
 Before committing, run it to automatically format your code:
 
 ```bash
@@ -342,17 +435,6 @@ contains rules for running both checks:
 make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
-
-#### Docstrings
-
-**All docstrings** should follow the
-[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
-All functions/classes/methods should have docstrings with a full description of all
-arguments and return values.
-
-While the maximum line length for code is automatically set by *Black*, docstrings
-must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
-limited to 79 characters** per line.
 
 ### Testing your code
 
@@ -532,61 +614,3 @@ def test_my_plotting_case():
   return fig_ref, fig_test
 ```
 
-### Documentation
-
-Most documentation sources are in Python `*.py` files under the `examples/`
-folder, and the code docstrings can be found e.g. under the `pygmt/src/` and
-`pygmt/datasets/` folders. The documentation are written in
-[reStructuredText](https://docutils.sourceforge.io/rst.html) and
-built by [Sphinx](http://www.sphinx-doc.org/). Please refer to
-[reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/rst-cheatsheet.html)
-if you are new to reStructuredText.
-
-#### Building the documentation
-
-To build the HTML files from sources:
-
-```bash
-cd doc
-make all
-```
-
-This will build the HTML files in `doc/_build/html`.
-Open `doc/_build/html/index.html` in your browser to view the pages.
-
-#### Cross-referencing with Sphinx
-
-The API reference is manually assembled in `doc/api/index.rst`.
-The *autodoc* sphinx extension will automatically create pages for each
-function/class/module listed there.
-
-You can reference functions, classes, methods, and modules from anywhere
-(including docstrings) using:
-
-- <code>:func:\`package.module.function\`</code>
-- <code>:class:\`package.module.class\`</code>
-- <code>:meth:\`package.module.method\`</code>
-- <code>:mod:\`package.module\`</code>
-
-An example would be to use
-<code>:meth:\`pygmt.Figure.grdview\`</code> to link
-to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html.
-PyGMT documentation that is not a class, method,
-or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
-For example, <code>:doc:\`Install instructions \</install\>\`</code> links
-to https://www.pygmt.org/latest/install.html.
-
-Linking to the GMT documentation and GMT configuration parameters can be done using:
-
-- <code>:gmt-docs:\`page_name.html\`</code>
-- <code>:gmt-term:\`GMT_PARAMETER\`</code>
-
-An example would be using
-<code>:gmt-docs:\`makecpt.html\`</code> to link to
-https://docs.generic-mapping-tools.org/latest/makecpt.html.
-For GMT configuration parameters, an example is
-<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
-https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
-
-Sphinx will create a link to the automatically generated page for that
-function/class/module.
