@@ -79,7 +79,7 @@ Discussion often happens on GitHub issues and pull requests. In addition, there 
 [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
 the project where you can ask questions.
 
-### Setting up your environment
+### Setting up your Environment
 
 We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
 package manager to install and manage your Python packages.
@@ -130,7 +130,7 @@ our own, so that our
 services have a chance to check that the code is up to standards and passes all
 our tests. This way, the *master* branch is always stable.
 
-#### General guidelines for making a Pull Request (PR):
+#### General Guidelines for Making a Pull Request (PR):
 
 * What should be included in a PR
   - Have a quick look at the titles of all the existing issues first. If there
@@ -160,7 +160,7 @@ our tests. This way, the *master* branch is always stable.
   - Be aware that the pull request review process is not immediate, and is
     generally proportional to the size of the pull request.
 
-#### Pull request review process
+#### Pull Request Review Process
 
 After you've submitted a pull request, you should expect to hear at least a
 comment within a couple of days. We may suggest some changes, improvements or
@@ -395,7 +395,7 @@ The source code for PyGMT is located in the `pygmt/` directory. When contributin
 code, be sure to follow the general guidelines in the
 [pull request workflow](#pull-request-workflow) section.
 
-### Code style
+### Code Style
 
 We use some tools to to format the code so we don't have to think about it:
 
@@ -436,7 +436,7 @@ make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mo
 make lint    # Runs pylint, which is a bit slower
 ```
 
-### Testing your code
+### Testing your Code
 
 Automated testing helps ensure that our code is as free of bugs as it can be.
 It also lets us know immediately if a change we make breaks any other part of the code.
@@ -480,7 +480,7 @@ or run tests which contain names that match a specific keyword expression:
 
     pytest -k KEYWORD pygmt/tests
 
-### Testing plots
+### Testing Plots
 
 Writing an image-based test is only slightly more difficult than a simple test.
 The main consideration is that you must specify the "baseline" or reference
@@ -530,7 +530,7 @@ Don't forget to commit the baseline image as well!
 The images should be pushed up into a remote repository using `dvc` (instead of
 `git`) as will be explained in the next section.
 
-#### Using data version control ([dvc](https://dvc.org)) to manage test images
+#### Using Data Version Control ([dvc](https://dvc.org)) to Manage Test Images
 
 As the baseline images are quite large blob files that can change often (e.g.
 with new GMT versions), it is not ideal to store them in `git` (which is meant
