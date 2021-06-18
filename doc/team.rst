@@ -19,12 +19,12 @@ PyGMT Distinguished Contributors are recognized for their substantial
 contributions to PyGMT, which may include code, documentation, pull request
 review, triaging, forum responses, community building and engagement,
 outreach, and inclusion and diversity. New Distinguished Contributors are
-selected bi-annually by existing Distinguished Contributors.
+selected bi-annually by those listed below.
 
 Distinguished Contributors is not meant as a means of conveying
 responsibilities. Distinguished Contributors who are also active maintainers of
 the PyGMT project and have responsibilities detailed in the
-:doc:`maintenance`, have 'Maintainer' listed below their names.
+:doc:`maintenance` have 'Maintainer' listed below their names.
 
 .. raw:: html
 
