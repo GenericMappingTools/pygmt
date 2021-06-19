@@ -52,7 +52,7 @@ jobs:
             optional-packages: ''
           - python-version: 3.9
             numpy-version: '1.20'
-            optional-packages: ''  # 'geopandas'
+            optional-packages: 'geopandas'
     defaults:
       run:
         shell: bash -l {0}
@@ -144,7 +144,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.5.0
+        uses: codecov/codecov-action@v1.5.2
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
