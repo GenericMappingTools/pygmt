@@ -70,7 +70,7 @@ Please take a look at these resources to learn about Git and pull requests (don'
 hesitate to [ask questions](#getting-help)):
 
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
-* Aaron Meurer's [tutorial on the git workflow](http://www.asmeurer.com/git-workflow/).
+* [Git workflow tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
 * [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github).
 
 ### Getting Help
@@ -613,4 +613,3 @@ def test_my_plotting_case():
   fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
   return fig_ref, fig_test
 ```
-
