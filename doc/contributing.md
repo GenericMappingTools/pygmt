@@ -70,7 +70,7 @@ Please take a look at these resources to learn about Git and pull requests (don'
 hesitate to [ask questions](#getting-help)):
 
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
-* [Git workflow tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
+* [Git Workflow Tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
 * [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github).
 
 ### Getting Help
@@ -214,6 +214,14 @@ if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the [pull request workflow](#pull-request-workflow)
 section.
 
+There are two primary ways to edit the PyGMT documentation. For simple documentation
+changes, you can easily
+[edit the documentation on GitHub](#editing-the-documentation-on-github). This
+only requires you to have a GitHub account. For more complicated changes, you
+can [edit the documentation locally](#editing-the-documentation-locally). In
+order to build the documentation locally, you first need to
+[set up your environment](#setting-up-your-environment).
+
 ### Editing the Documentation on GitHub
 
 If you're browsing the documentation and notice a typo or something that could be
@@ -244,15 +252,15 @@ download and install anything:
 * Done!
 
 Alternatively, you can make the changes offline to the files in the `doc` folder or the
-example scripts. See [building the documentation](#building-the-documentation) for
-instructions.
+example scripts. See [editing the documentation locally](#editing-the-documentation-locally)
+for instructions.
 
-### Building the Documentation
+### Editing the Documentation Locally
 
-For more extensive changes, you may prefer to edit the documentation in your cloned
-repository and build the documentation to preview changes before submitting a pull
-request. First, follow the [setting up your environment](#setting-up-your-environment)
-instructions. Then, to build the HTML files from sources:
+For more extensive changes, you can edit the documentation in your cloned repository
+and build the documentation to preview changes before submitting a pull request. First,
+follow the [setting up your environment](#setting-up-your-environment) instructions.
+After making your changes, you can build the HTML files from sources using:
 
 ```bash
 cd doc
@@ -260,7 +268,8 @@ make all
 ```
 
 This will build the HTML files in `doc/_build/html`.
-Open `doc/_build/html/index.html` in your browser to view the pages.
+Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
+[pull request workflow](#pull-request-workflow) to submit your changes for review.
 
 ### Contributing Gallery Plots
 
