@@ -21,10 +21,10 @@ import pygmt
 ########################################################################################
 # We can plot multi-parameter symbols using the same symbol style. We need to
 # define locations (lon, lat) via the ``x`` and ``y`` parameters (scalar for
-# a single symbol or 1d list for servel ones) and two or three symbol
+# a single symbol or 1d list for several ones) and two or three symbol
 # parameters after those shortcuts via the ``style`` parameter.
 #
-# The symbol parameters in the ``style`` parameter are defined as:
+# The multi-parameter symbols in the ``style`` parameter are defined as:
 #
 # - **e**: ellipse, ``direction/major_axis/minor_axis``
 # - **j**: rotated rectangle, ``direction/width/height``
