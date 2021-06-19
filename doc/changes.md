@@ -82,7 +82,6 @@
 * Remove the "full test" section from installation guide ([#1206](https://github.com/GenericMappingTools/pygmt/pull/1206))
 * Apply NIST SI unit convention to some gallery examples ([#1194](https://github.com/GenericMappingTools/pygmt/pull/1194))
 * Use colorblind-friendly colors in the scatter plots gallery example ([#1013](https://github.com/GenericMappingTools/pygmt/pull/1013))
-* [Fix]:  warning in building the documentation ([#1178](https://github.com/GenericMappingTools/pygmt/pull/1178))
 * Add a tutorial for plotting vectors ([#1070](https://github.com/GenericMappingTools/pygmt/pull/1070))
 * Clarify interplay of spacing and per_column in info ([#1127](https://github.com/GenericMappingTools/pygmt/pull/1127))
 * Update the check_figures_equal testing section in CONTRIBUTING.md  ([#1108](https://github.com/GenericMappingTools/pygmt/pull/1108))
