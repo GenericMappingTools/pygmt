@@ -220,6 +220,7 @@ Documentation for other versions
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.4.0 <https://www.pygmt.org/v0.4.0>`__
 * `v0.3.1 <https://www.pygmt.org/v0.3.1>`__
 * `v0.3.0 <https://www.pygmt.org/v0.3.0>`__
 * `v0.2.1 <https://www.pygmt.org/v0.2.1>`__
