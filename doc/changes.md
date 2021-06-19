@@ -110,7 +110,23 @@
 
 ### Contributors
 
-@Lawqup, @MichaeINeumann, @alperen-kilic, @core-man, @dependabot, @dependabot[bot], @eemcmullan, @itsabhianant, @lhoupert, @mdtanker, @meghanrjones, @michaelgrund, @noorbuchi, @seisman, @shahid-0, @vitorgt, @weiji14, @willschlitzer and @xdshivani
+* [Dongdong Tian](https://github.com/seisman)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Meghan Jones](https://github.com/meghanrjones)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Jiayuan Yao](https://github.com/core-man)
+* [Abhishek Anant](https://github.com/itsabhianant)
+* [Michael Neumann](https://github.com/MichaeINeumann)
+* [Noor Buchi](https://github.com/noorbuchi)
+* [Shivani chauhan](https://github.com/xdshivani)
+* [@alperen-kilic](https://github.com/alperen-kilic)
+* [Loïc Houpert](https://github.com/lhoupert)
+* @teriyakiSauce23
+* [Emily McMullan](https://github.com/eemcmullan)
+* [@mdtanker](https://github.com/mdtanker)
+* [@shahid-0](https://github.com/shahid-0)
+* [Vitor Gratiere Torres](https://github.com/vitorgt)
 
 ----
 
