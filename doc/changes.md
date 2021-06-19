@@ -91,7 +91,6 @@
 
 ### Maintenance
 
-* Reinstall optional geopandas dependency on CI tests ([#1331](https://github.com/GenericMappingTools/pygmt/pull/1331))
 * Fix rose tests for GMT 6.2.0 ([#1324](https://github.com/GenericMappingTools/pygmt/pull/1324))
 * Add a workflow to upload baseline images as a release asset ([#1317](https://github.com/GenericMappingTools/pygmt/pull/1317))
 * Bump the minimum required GMT version to 6.2.0 ([#1321](https://github.com/GenericMappingTools/pygmt/pull/1321))
