@@ -60,6 +60,7 @@
 
 ### Documentation
 
+* Specify rectangle's width and height via style parameter in multi-parameter symbols example ([#1325](https://github.com/GenericMappingTools/pygmt/pull/1325))
 * Move contributing guide details to website and rename two sections ([#1335](https://github.com/GenericMappingTools/pygmt/pull/1335))
 * Add a tutorial for datetime data ([#1193](https://github.com/GenericMappingTools/pygmt/pull/1193))
 * Complete documentation for grdtrack ([#1190](https://github.com/GenericMappingTools/pygmt/pull/1190))
