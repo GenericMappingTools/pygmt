@@ -10,6 +10,7 @@ import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 
 def test_figure_region():
@@ -105,6 +106,17 @@ def test_figure_savefig_transparent():
     fig.savefig(fname, transparent=True)
     assert os.path.exists(fname)
     os.remove(fname)
+
+
+def test_figure_savefig_filename_with_spaces():
+    """
+    Check if savefig (or psconvert) supports filenames with spaces.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
+    with GMTTempFile(prefix="pygmt-filename with spaces", suffix=".png") as imgfile:
+        fig.savefig(imgfile.name)
+        assert os.path.exists(imgfile.name)
 
 
 def test_figure_savefig():

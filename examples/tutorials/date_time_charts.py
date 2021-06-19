@@ -177,7 +177,7 @@ fig.show()
 
 ########################################################################################
 # Using :class:`xarray.DataArray`
-# ------------------------------
+# -------------------------------
 #
 # In this example, instead of using a :func:`pandas.date_range`, ``x`` is initialized
 # as a list of :class:`xarray.DataArray` objects. This object provides a wrapper around
@@ -204,7 +204,7 @@ fig.show()
 
 ###############################################################################
 # Using :class:`numpy.datetime64`
-# ------------------------------
+# -------------------------------
 # In this example, instead of using a :func:`pd.date_range`, ``x`` is initialized
 # as an ``np.array`` object. Similar to :class:`xarray.DataArray` this wraps the
 # dataset before passing it as a paramater. However, ``np.array`` objects use less
