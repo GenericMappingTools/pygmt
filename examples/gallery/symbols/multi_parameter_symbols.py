@@ -25,6 +25,8 @@ Upper-case versions **E**, **J**, and **W** are similar to **e**, **j** and
 **w** but expect geographic azimuths and distances.
 """
 
+# sphinx_gallery_thumbnail_number = 2
+
 import pygmt
 
 # The 1st simple way: plot multi-parameter symbols using the same symbol style
