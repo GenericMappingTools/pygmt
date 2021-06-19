@@ -89,7 +89,8 @@ The repository includes a conda environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
 Once you have forked and cloned the repository to your local machine, you can
 use this file to create an isolated environment on which you can work.
-Run the following on the base of the repository:
+Run the following on the base of the repository to create a new conda
+environment from the `environment.yml` file:
 
 ```bash
 conda env create
