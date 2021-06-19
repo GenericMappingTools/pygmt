@@ -3,13 +3,14 @@ Multi-parameter symbols
 -------------------------
 
 The :meth:`pygmt.Figure.plot` method can plot individual multi-parameter
-symbols by passing the corresponding shortcuts listed below to the ``style``
-parameter. Additionally, we can define the required parameters in a 2d list or
-numpy array (``[[parameters]]`` for a single symbol or
+symbols by passing the corresponding shortcuts (**e**, **j**, **r**, **R**,
+**w**) to the ``style`` parameter. Additionally, We need to define locations
+(lon, lat) via the ``x`` and ``y`` parameters (scalar for a single symbol or 1d
+list for servel ones) and two or three symbol parameters after those shortcuts
+via the ``style`` parameter. Alternately, those values can also be defined in a
+2d list or numpy array (``[[parameters]]`` for a single symbol or
 ``[[parameters_1],[parameters_2],[parameters_i]]`` for several ones) or use an
 appropriately formatted input file and pass it to ``data``.
-Alternatively, the required parameters can also be set after those shortcuts
-via the ``style`` parameter.
 
 The following symbols are available:
 
@@ -27,7 +28,7 @@ Upper-case versions **E**, **J**, and **W** are similar to **e**, **j** and
 import pygmt
 
 # The 1st simple way: plot multi-parameter symbols using the same symbol style
-# x and y can be scalar (this example) or 1D lists
+# x and y can be scalar (this example) or 1d lists
 fig = pygmt.Figure()
 fig.basemap(region=[0, 6, 0, 2], projection="x3c", frame=True)
 
@@ -45,7 +46,7 @@ fig.plot(x=5.5, y=1, style="w2.5/45/330", color="lightgray", pen="2p,black")
 fig.show()
 
 # The 2nd way: plot multi-parameter symbols using varying symbol styles
-# The data parameter can be 2D array
+# The data parameter can be 2d array
 fig = pygmt.Figure()
 fig.basemap(region=[0, 6, 0, 4], projection="x3c", frame=["xa1f0.2", "ya0.5f0.1"])
 
