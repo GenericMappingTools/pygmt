@@ -58,6 +58,7 @@
 
 ### Bug Fixes
 
+* Allow pandas.Series inputs to fig.histogram and pygmt.info ([#1329](https://github.com/GenericMappingTools/pygmt/pull/1329))
 * Let Figure.savefig support filenames with spaces ([#1116](https://github.com/GenericMappingTools/pygmt/pull/1116))
 * Let Figure.show(method='external') work well in Python scripts ([#1062](https://github.com/GenericMappingTools/pygmt/pull/1062))
 * Explicitly use netcdf4 engine in xarray.open_dataarray to read grd files ([#1264](https://github.com/GenericMappingTools/pygmt/pull/1264))
