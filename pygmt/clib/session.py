@@ -1449,9 +1449,11 @@ class Session:
                 _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2D arrays into list of vectors
             try:
+                # pandas.Series will be handled below like a 1d numpy ndarray
+                assert not hasattr(data, "to_frame")
                 # pandas.DataFrame and xarray.Dataset types
                 _data = [array for _, array in data.items()]
-            except AttributeError:
+            except (AttributeError, AssertionError):
                 try:
                     # Just use virtualfile_from_matrix for 2D numpy.ndarray
                     # which are signed integer (i), unsigned integer (u) or
@@ -1460,7 +1462,7 @@ class Session:
                     _virtualfile_from = self.virtualfile_from_matrix
                     _data = (data,)
                 except (AssertionError, AttributeError):
-                    # Python lists, tuples, and numpy ndarray types
+                    # Python list, tuple, numpy ndarray and pandas.Series types
                     _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
