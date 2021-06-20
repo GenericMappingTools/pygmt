@@ -2,12 +2,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     
         <title>PyGMT</title>
@@ -15,17 +14,35 @@
 
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -35,16 +52,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
-  <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Overview" href="overview.html" />
@@ -100,6 +107,7 @@
 
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
     
@@ -113,16 +121,22 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Setting the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plotting lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/vectors.html">Plotting vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/earth_relief.html">Plotting Earth relief</a></li>
@@ -135,6 +149,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
 </ul>
 
             
@@ -145,8 +161,6 @@
             <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
@@ -160,6 +174,7 @@
     
 
         </div>
+        
       </div>
     </nav>
 
@@ -195,11 +210,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
       <li>Home</li>
     
@@ -316,26 +333,27 @@ mistakes. That’s how we all improve and we are happy to help others learn.</p>
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md">AUTHORS.md</a>
 file on GitHub for a list of the people involved and a definition of the term “PyGMT
 Developers”. Feel free to cite our work in your research using the following BibTeX:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">pygmt_2021_4592991</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">pygmt_2021_4978645</span><span class="p">,</span>
   <span class="n">author</span>       <span class="o">=</span> <span class="p">{</span><span class="n">Uieda</span><span class="p">,</span> <span class="n">Leonardo</span> <span class="ow">and</span>
                   <span class="n">Tian</span><span class="p">,</span> <span class="n">Dongdong</span> <span class="ow">and</span>
                   <span class="n">Leong</span><span class="p">,</span> <span class="n">Wei</span> <span class="n">Ji</span> <span class="ow">and</span>
-                  <span class="n">Toney</span><span class="p">,</span> <span class="n">Liam</span> <span class="ow">and</span>
                   <span class="n">Schlitzer</span><span class="p">,</span> <span class="n">William</span> <span class="ow">and</span>
-                  <span class="n">Yao</span><span class="p">,</span> <span class="n">Jiayuan</span> <span class="ow">and</span>
+                  <span class="n">Toney</span><span class="p">,</span> <span class="n">Liam</span> <span class="ow">and</span>
                   <span class="n">Grund</span><span class="p">,</span> <span class="n">Michael</span> <span class="ow">and</span>
                   <span class="n">Jones</span><span class="p">,</span> <span class="n">Meghan</span> <span class="ow">and</span>
+                  <span class="n">Yao</span><span class="p">,</span> <span class="n">Jiayuan</span> <span class="ow">and</span>
                   <span class="n">Materna</span><span class="p">,</span> <span class="n">Kathryn</span> <span class="ow">and</span>
                   <span class="n">Newton</span><span class="p">,</span> <span class="n">Tyler</span> <span class="ow">and</span>
+                  <span class="n">Anant</span><span class="p">,</span> <span class="n">Abhishek</span> <span class="ow">and</span>
                   <span class="n">Ziebarth</span><span class="p">,</span> <span class="n">Malte</span> <span class="ow">and</span>
                   <span class="n">Wessel</span><span class="p">,</span> <span class="n">Paul</span><span class="p">},</span>
   <span class="n">title</span>        <span class="o">=</span> <span class="p">{{</span><span class="n">PyGMT</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">interface</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Generic</span> <span class="n">Mapping</span> <span class="n">Tools</span><span class="p">}},</span>
-  <span class="n">month</span>        <span class="o">=</span> <span class="n">mar</span><span class="p">,</span>
+  <span class="n">month</span>        <span class="o">=</span> <span class="n">jun</span><span class="p">,</span>
   <span class="n">year</span>         <span class="o">=</span> <span class="mi">2021</span><span class="p">,</span>
   <span class="n">publisher</span>    <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
-  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="n">v0</span><span class="o">.</span><span class="mf">3.1</span><span class="p">},</span>
-  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4592991</span><span class="p">},</span>
-  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="o">.</span><span class="mi">4592991</span><span class="p">}</span>
+  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="n">v0</span><span class="mf">.4.0</span><span class="p">},</span>
+  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.4978645</span><span class="p">},</span>
+  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.4978645</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -378,6 +396,7 @@ for GMT.</p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/dev">Development</a> (reflects the <em>master</em> branch on
 GitHub)</p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/latest">Latest release</a></p></li>
+<li><p><a class="reference external" href="https://www.pygmt.org/v0.4.0">v0.4.0</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.3.1">v0.3.1</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.3.0">v0.3.0</a></p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/v0.2.1">v0.2.1</a></p></li>
@@ -388,39 +407,52 @@ GitHub)</p></li>
 <li><p><a class="reference external" href="https://www.pygmt.org/0.0.1a0">v0.0.1a0</a></p></li>
 </ul>
 </div>
-<div class="section" id="compatibility-with-python-and-gmt-versions">
-<h1>Compatibility with Python and GMT versions<a class="headerlink" href="#compatibility-with-python-and-gmt-versions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="compatibility-with-gmt-and-python-numpy-versions">
+<h1>Compatibility with GMT and Python/NumPy versions<a class="headerlink" href="#compatibility-with-gmt-and-python-numpy-versions" title="Permalink to this headline">¶</a></h1>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 38%" />
-<col style="width: 35%" />
+<col style="width: 20%" />
+<col style="width: 29%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>PyGMT</p></th>
 <th class="head"><p>GMT</p></th>
 <th class="head"><p>Python</p></th>
+<th class="head"><p>NumPy</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>0.3.x</p></td>
+<tr class="row-even"><td><p>0.4.x</p></td>
+<td><p>&gt;=6.2.0</p></td>
+<td><p>&gt;=3.7</p></td>
+<td><p>&gt;=1.17.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.3.x</p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.7</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><p>0.2.1</p></td>
+<tr class="row-even"><td><p>0.2.1</p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.6</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><p>0.2.0</p></td>
+<tr class="row-odd"><td><p>0.2.0</p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>3.6 - 3.8</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><p>0.1.x</p></td>
+<tr class="row-even"><td><p>0.1.x</p></td>
 <td><p>&gt;=6.0.0</p></td>
 <td><p>3.6 - 3.8</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -435,25 +467,22 @@ GitHub)</p></li>
           </div>
           
 <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2021, The PyGMT Developers.
-      
-        <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
-        </span>
-      
+        &#169; Copyright 2017-2021, The PyGMT Developers.
+      <span class="commit">
+        
+        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b2808cf">b2808cf</a></code>.
+      </span>
+      <span class="lastupdated">
+        Last updated on Jun 20, 2021.
+      </span>
 
     </p>
   </div>
@@ -471,7 +500,6 @@ software usage.
 
 
 </footer>
-
         </div>
       </div>
 
@@ -479,7 +507,6 @@ software usage.
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

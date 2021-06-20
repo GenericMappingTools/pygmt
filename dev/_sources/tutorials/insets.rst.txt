@@ -26,16 +26,7 @@ To plot an inset figure inside another larger figure, we can use the
 call ``inset`` using a ``with`` statement, and new plot elements will be
 added to the inset figure instead of the larger figure.
 
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
-
-.. GENERATED FROM PYTHON SOURCE LINES 19-22
+.. GENERATED FROM PYTHON SOURCE LINES 10-13
 
 .. code-block:: default
 
@@ -49,13 +40,13 @@ added to the inset figure instead of the larger figure.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-27
+.. GENERATED FROM PYTHON SOURCE LINES 15-18
 
 Prior to creating an inset figure, a larger figure must first be plotted. In the
 example below, :meth:`pygmt.Figure.coast` is used to create a map of the US state of
 Massachusetts.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-41
+.. GENERATED FROM PYTHON SOURCE LINES 19-32
 
 .. code-block:: default
 
@@ -86,12 +77,12 @@ Massachusetts.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-49
+
+.. GENERATED FROM PYTHON SOURCE LINES 33-40
 
 The :meth:`pygmt.Figure.inset` method uses a context manager, and is called using a
 ``with`` statement. The ``position`` parameter, including the inset width, is
@@ -101,7 +92,7 @@ example below, ``BL`` sets the inset to the bottom left. The ``box`` parameter c
 set the fill and border of the inset. In the example below, ``+pblack`` sets the
 border color to black and ``+gred`` sets the fill to red.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-66
+.. GENERATED FROM PYTHON SOURCE LINES 41-57
 
 .. code-block:: default
 
@@ -135,12 +126,12 @@ border color to black and ``+gred`` sets the fill to red.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-73
+
+.. GENERATED FROM PYTHON SOURCE LINES 58-64
 
 When using **j** to set the anchor of the inset, the default location is in
 contact with the nearby axis or axes. The offset of the inset can be set with **+o**,
@@ -149,7 +140,7 @@ passed, it is applied to both axes. Each offset can have its own unit. In
 the example below, the inset is shifted 0.5 centimeters on the x-axis and
 0.2 centimeters on the y-axis.
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-89
+.. GENERATED FROM PYTHON SOURCE LINES 65-80
 
 .. code-block:: default
 
@@ -182,19 +173,19 @@ the example below, the inset is shifted 0.5 centimeters on the x-axis and
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-94
+
+.. GENERATED FROM PYTHON SOURCE LINES 81-85
 
 Standard plotting functions can be called from within the ``inset`` context manager.
 The example below uses :meth:`pygmt.Figure.coast` to plot a zoomed out map that
 selectively paints the state of Massachusetts to shows its location relative to
 other states.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-120
+.. GENERATED FROM PYTHON SOURCE LINES 86-111
 
 .. code-block:: default
 
@@ -237,15 +228,15 @@ other states.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.444 seconds)
+   **Total running time of the script:** ( 0 minutes  6.050 seconds)
 
 
 .. _sphx_glr_download_tutorials_insets.py:

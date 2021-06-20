@@ -47,8 +47,8 @@ needs to be passed to the ``outfile`` parameter.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -72,7 +72,7 @@ needs to be passed to the ``outfile`` parameter.
     fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
     fig.grdimage(grid=grid, cmap="gray")
     fig.coast(land="#666666")
-    # Plot the sampled bathymetry points using circles (c) of 0.15 cm
+    # Plot the sampled bathymetry points using circles (c) of 0.15 cm size
     # Points are colored using elevation values (normalized for visual purposes)
     fig.plot(
         x=track.longitude,
@@ -86,7 +86,7 @@ needs to be passed to the ``outfile`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.563 seconds)
+   **Total running time of the script:** ( 0 minutes  2.454 seconds)
 
 
 .. _sphx_glr_download_gallery_images_track_sampling.py:

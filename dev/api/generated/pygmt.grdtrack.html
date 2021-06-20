@@ -2,12 +2,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     
         <title>pygmt.grdtrack &mdash; PyGMT</title>
@@ -15,17 +14,35 @@
 
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -35,20 +52,10 @@
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.x2sys_init" href="pygmt.x2sys_init.html" />
-    <link rel="prev" title="pygmt.grdfilter" href="pygmt.grdfilter.html" />
+    <link rel="prev" title="pygmt.grdgradient" href="pygmt.grdgradient.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -101,6 +108,7 @@
 
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
     
@@ -114,16 +122,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
@@ -138,10 +152,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#data-processing">Data Processing</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pygmt.blockmean.html">pygmt.blockmean</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdclip.html">pygmt.grdclip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdfill.html">pygmt.grdfill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdfilter.html">pygmt.grdfilter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdlandmask.html">pygmt.grdlandmask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdgradient.html">pygmt.grdgradient</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.grdtrack</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-grdtrack">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.grdtrack</span></code></a></li>
 </ul>
@@ -159,6 +178,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
 </ul>
 
             
@@ -169,8 +190,6 @@
             <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
@@ -184,6 +203,7 @@
     
 
         </div>
+        
       </div>
     </nav>
 
@@ -219,11 +239,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">API Reference</a> &raquo;</li>
         
@@ -252,38 +274,206 @@
   <div class="section" id="pygmt-grdtrack">
 <h1>pygmt.grdtrack<a class="headerlink" href="#pygmt-grdtrack" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="pygmt.grdtrack">
-<code class="sig-prename descclassname"><span class="pre">pygmt.</span></code><code class="sig-name descname"><span class="pre">grdtrack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newcolname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grdtrack.html#grdtrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdtrack" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pygmt.grdtrack">
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grdtrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newcolname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crossprofile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distcalc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grdtrack.html#grdtrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdtrack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sample grids at specified (x,y) locations.</p>
-<p>Grdtrack reads one or more grid files and a table with (x,y) [or (lon,lat)]
-positions in the first two columns (more columns may be present). It
-interpolates the grid(s) at the positions in the table and writes out the
-table with the interpolated values added as (one or more) new columns. A
-bicubic [Default], bilinear, B-spline or nearest-neighbor interpolation is
-used, requiring boundary conditions at the limits of the region (see
+<p>Reads one or more grid files and a table (from file or an array input; but
+see <code class="docutils literal notranslate"><span class="pre">profile</span></code> for exception) with (x,y) [or (lon,lat)] positions in the
+first two columns (more columns may be present). It interpolates the
+grid(s) at the positions in the table and writes out the table with the
+interpolated values added as (one or more) new columns. Alternatively
+(<code class="docutils literal notranslate"><span class="pre">crossprofile</span></code>), the input is considered to be line-segments and we
+create orthogonal cross-profiles at each data point or with an equidistant
+separation and sample the grid(s) along these profiles. A bicubic
+[Default], bilinear, B-spline or nearest-neighbor interpolation is used,
+requiring boundary conditions at the limits of the region (see
 <code class="docutils literal notranslate"><span class="pre">interpolation</span></code>; Default uses “natural” conditions (second partial
 derivative normal to edge is zero) unless the grid is automatically
 recognized as periodic.)</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/grdtrack.html">https://docs.generic-mapping-tools.org/latest/grdtrack.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
+<li><p>A = resample</p></li>
+<li><p>C = crossprofile</p></li>
+<li><p>D = dfile</p></li>
+<li><p>E = profile</p></li>
+<li><p>F = critical</p></li>
+<li><p>N = no_skip</p></li>
+<li><p>R = region</p></li>
+<li><p>S = stack</p></li>
+<li><p>T = radius</p></li>
 <li><p>V = verbose</p></li>
+<li><p>Z = z_only</p></li>
 <li><p>f = coltypes</p></li>
+<li><p>i = incols</p></li>
+<li><p>j = distcalc</p></li>
 <li><p>n = interpolation</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>points</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Either a table with (x, y) or (lon, lat) values in the first two
-columns, or a filename (e.g. csv, txt format). More columns may be
-present.</p></li>
-<li><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.17.1.dev0)"><em>xarray.DataArray</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Gridded array from which to sample values from, or a filename (netcdf
+<li><p><strong>points</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.20)"><em>numpy.ndarray</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.18.3.dev0)"><em>xarray.Dataset</em></a><em> or </em><a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.9.0)"><em>geopandas.GeoDataFrame</em></a>) – Pass in either a file name to an ASCII data table, a 2D
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.20)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
+<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.18.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1D <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.18.3.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+data variables, or a <a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
+tabular data.</p></li>
+<li><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.18.3.dev0)"><em>xarray.DataArray</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Gridded array from which to sample values from, or a filename (netcdf
 format).</p></li>
-<li><p><strong>newcolname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Required if <code class="docutils literal notranslate"><span class="pre">points</span></code> is a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>. The name for the
-new column in the track <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table where the
+<li><p><strong>newcolname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Required if <code class="docutils literal notranslate"><span class="pre">points</span></code> is a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>. The name for the
+new column in the track <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table where the
 sampled values will be placed.</p></li>
-<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Required if <code class="docutils literal notranslate"><span class="pre">points</span></code> is a file. The file name for the output ASCII
-file.</p></li>
+<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The file name for the output ASCII file.</p></li>
+<li><p><strong>resample</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <strong>f</strong>|<strong>p</strong>|<strong>m</strong>|<strong>r</strong>|<strong>R</strong>[<strong>+l</strong>]
+For track resampling (if <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> or <code class="docutils literal notranslate"><span class="pre">profile</span></code> are set) we
+can select how this is to be performed. Append <strong>f</strong> to keep original
+points, but add intermediate points if needed [Default], <strong>m</strong> as
+<strong>f</strong>, but first follow meridian (along y) then parallel (along x),
+<strong>p</strong> as <strong>f</strong>, but first follow parallel (along y) then meridian
+(along x), <strong>r</strong> to resample at equidistant locations; input points are
+not necessarily included in the output, and <strong>R</strong> as <strong>r</strong>, but adjust
+given spacing to fit the track length exactly. Finally, append
+<strong>+l</strong> if geographic distances should be measured along rhumb lines
+(loxodromes) instead of great circles. Ignored unless <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code>
+is used.</p></li>
+<li><p><strong>crossprofile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>length</em>/<em>ds</em>[<em>/spacing</em>][<strong>+a</strong>|<strong>+v</strong>][<strong>l</strong>|<strong>r</strong>].
+Use input line segments to create an equidistant and (optionally)
+equally-spaced set of crossing profiles along which we sample the
+grid(s) [Default simply samples the grid(s) at the input locations].
+Specify two length scales that control how the sampling is done:
+<em>length</em> sets the full length of each cross-profile, while <em>ds</em> is
+the sampling spacing along each cross-profile. Optionally, append
+<strong>/</strong><em>spacing</em> for an equidistant spacing between cross-profiles
+[Default erects cross-profiles at the input coordinates]; see
+<code class="docutils literal notranslate"><span class="pre">resample</span></code> for how resampling the input track is controlled. By
+default, all cross-profiles have the same direction (left to right
+as we look in the direction of the input line segment). Append <strong>+a</strong>
+to alternate the direction of cross-profiles, or <strong>v</strong> to enforce
+either a “west-to-east” or “south-to-north” view. By default the entire
+profiles are output. Choose to only output the left or right halves
+of the profiles by appending <strong>+l</strong> or <strong>+r</strong>, respectively.  Append
+suitable units to <em>length</em>; it sets the unit used for <em>ds</em> [and
+<em>spacing</em>] (See <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/grdtrack.html#units">Units</a>). The default
+unit for geographic grids is meter while Cartesian grids implies the
+user unit.  The output columns will be <em>lon</em>, <em>lat</em>, <em>dist</em>, <em>azimuth</em>,
+<em>z1</em>, <em>z2</em>, …, <em>zn</em> (The <em>zi</em> are the sampled values for each of the
+<em>n</em> grids).</p></li>
+<li><p><strong>dfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – In concert with <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> we can save the (possibly resampled)
+original lines to <em>dfile</em> [Default only saves the cross-profiles]. The
+columns will be <em>lon</em>, <em>lat</em>, <em>dist</em>, <em>azimuth</em>, <em>z1</em>, <em>z2</em>, …
+(sampled value for each grid).</p></li>
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>line</em>[,<em>line</em>,…][<strong>+a</strong><em>az</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+g</strong>][<strong>+i</strong><em>inc</em>][<strong>+l</strong><em>length</em>][<strong>+n</strong><em>np</em>][<strong>+o</strong><em>az</em>][<strong>+r</strong><em>radius</em>].
+Instead of reading input track coordinates, specify profiles via
+coordinates and modifiers. The format of each <em>line</em> is
+<em>start</em>/<em>stop</em>, where <em>start</em> or <em>stop</em> are either <em>lon</em>/<em>lat</em> (<em>x</em>/<em>y</em>
+for Cartesian data) or a 2-character XY key that uses the
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/text.html">text</a>-style justification format to specify
+a point on the map as [LCR][BMT]. Each line will be a separate segment
+unless <strong>+c</strong> is used which will connect segments with shared joints
+into a single segment. In addition to line coordinates, you can use Z-,
+Z+ to mean the global minimum and maximum locations in the grid (only
+available if a single grid is given via <strong>outfile</strong>). You may append
+<strong>+i</strong><em>inc</em> to set the sampling interval; if not given then we
+default to half the minimum grid interval. For a <em>line</em> along parallels
+or meridians you can add <strong>+g</strong> to report degrees of longitude or
+latitude instead of great circle distances starting at zero. Instead of
+two coordinates you can specify an origin and one of <strong>+a</strong>, <strong>+o</strong>, or
+<strong>+r</strong>. The <strong>+a</strong> sets the azimuth of a profile of given length
+starting at the given origin, while <strong>+o</strong> centers the profile on the
+origin; both require <strong>+l</strong>. For circular sampling specify <strong>+r</strong> to
+define a circle of given radius centered on the origin; this option
+requires either <strong>+n</strong> or <strong>+i</strong>.  The <strong>+n</strong><em>np</em> modifier sets the
+desired number of points, while <strong>+l</strong><em>length</em> gives the total length
+of the profile. Append <strong>+d</strong> to output the along-track distances after
+the coordinates. <strong>Note</strong>: No track file will be read. Also note that
+only one distance unit can be chosen. Giving different units will
+result in an error. If no units are specified we default to great
+circle distances in km (if geographic). If working with geographic data
+you can use <code class="docutils literal notranslate"><span class="pre">distcalc</span></code> to control distance calculation mode [Default
+is Great Circle]. <strong>Note</strong>: If <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> is set and <em>spacing</em> is
+given then that sampling scheme overrules any modifier set in
+<code class="docutils literal notranslate"><span class="pre">profile</span></code>.</p></li>
+<li><p><strong>critical</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>+b</strong>][<strong>+n</strong>][<strong>+r</strong>][<strong>+z</strong><em>z0</em>].
+Find critical points along each cross-profile as a function of
+along-track distance. Requires <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> and a single input grid
+(<em>z</em>). We examine each cross-profile generated and report (<em>dist</em>,
+<em>lonc</em>, <em>latc</em>, <em>distc</em>, <em>azimuthc</em>, <em>zc</em>) at the center peak of
+maximum <em>z</em> value, (<em>lonl</em>, <em>latl</em>, <em>distl</em>) and (<em>lonr</em>, <em>latr</em>,
+<em>distr</em>) at the first and last non-NaN point whose <em>z</em>-value exceeds
+<em>z0</em>, respectively, and the <em>width</em> based on the two extreme points
+found. Here, <em>dist</em> is the distance along the original input
+<code class="docutils literal notranslate"><span class="pre">points</span></code> and the other 12 output columns are a function of that
+distance.  When searching for the center peak and the extreme first and
+last values that exceed the threshold we assume the profile is positive
+up. If we instead are looking for a trough then you must use <strong>+n</strong> to
+temporarily flip the profile to positive. The threshold <em>z0</em> value is
+always given as &gt;= 0; use <strong>+z</strong> to change it [Default is 0].
+Alternatively, use <strong>+b</strong> to determine the balance point and standard
+deviation of the profile; this is the weighted mean and weighted
+standard deviation of the distances, with <em>z</em> acting as the weight.
+Finally, use <strong>+r</strong> to obtain the weighted rms about the cross-track
+center (<em>distc</em> == 0). <strong>Note</strong>: We round the exact results to the
+nearest distance nodes along the cross-profiles. We write 13 output
+columns per track: <em>dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
+distl, lonr, latr, distr, width</em>.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
+<em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the <a class="reference internal" href="../../tutorials/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+<li><p><strong>no_skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Do <em>not</em> skip points that fall outside the domain of the grid(s)
+[Default only output points within grid domain].</p></li>
+<li><p><strong>stack</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <p><em>method</em>/<em>modifiers</em>.
+In conjunction with <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code>, compute a single stacked profile
+from all profiles across each segment. Choose how stacking should be
+computed [Default method is <strong>a</strong>]:</p>
+<ul>
+<li><p><strong>a</strong> = mean (average)</p></li>
+<li><p><strong>m</strong> = median</p></li>
+<li><p><strong>p</strong> = mode (maximum likelihood)</p></li>
+<li><p><strong>l</strong> = lower</p></li>
+<li><p><strong>L</strong> = lower but only consider positive values</p></li>
+<li><p><strong>u</strong> = upper</p></li>
+<li><p><strong>U</strong> = upper but only consider negative values.</p></li>
+</ul>
+<p>The <em>modifiers</em> control the output; choose one or more among these
+choices:</p>
+<ul>
+<li><p><strong>+a</strong> : Append stacked values to all cross-profiles.</p></li>
+<li><p><strong>+d</strong> : Append stack deviations to all cross-profiles.</p></li>
+<li><p><strong>+r</strong> : Append data residuals (data - stack) to all cross-profiles.</p></li>
+<li><p><strong>+s</strong>[<em>file</em>] : Save stacked profile to <em>file</em> [Default filename
+is grdtrack_stacked_profile.txt].</p></li>
+<li><p><strong>+c</strong><em>fact</em> : Compute envelope on stacked profile as
+±<em>fact</em> *<em>deviation</em> [Default fact value is 2].</p></li>
+</ul>
+<p>Notes:</p>
+<ol class="arabic simple">
+<li><p>Deviations depend on <em>method</em> and are st.dev (<strong>a</strong>), L1 scale,
+i.e., 1.4826 * median absolute deviation (MAD) (for <strong>m</strong> and
+<strong>p</strong>), or half-range (upper-lower)/2.</p></li>
+<li><p>The stacked profile file contains a leading column plus groups of
+4-6 columns, with one group for each sampled grid. The leading
+column holds cross distance, while the first four columns in a group
+hold stacked value, deviation, min value, and max value,
+respectively. If <em>method</em> is one of <strong>a</strong>|<strong>m</strong>|<strong>p</strong> then we
+also write the lower and upper confidence bounds (see <strong>+c</strong>). When
+one or more of <strong>+a</strong>, <strong>+d</strong>, and <strong>+r</strong> are used then we also
+append the stacking results to the end of each row, for all
+cross-profiles. The order is always stacked value (<strong>+a</strong>), followed
+by deviations (<strong>+d</strong>) and finally residuals (<strong>+r</strong>). When more
+than one grid is sampled this sequence of 1-3 columns is repeated
+for each grid.</p></li>
+</ol>
+</p></li>
+<li><p><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<em>radius</em>][<strong>+e</strong>|<strong>p</strong>].
+To be used with normal grid sampling, and limited to a single, non-IMG
+grid. If the nearest node to the input point is NaN, search outwards
+until we find the nearest non-NaN node and report that value instead.
+Optionally specify a search radius which limits the consideration to
+points within this distance from the input point. To report the
+location of the nearest node and its distance from the input point,
+append <strong>+e</strong>. The default unit for geographic grid distances is
+spherical degrees. Use <em>radius</em> to change the unit and give <em>radius</em> =
+0 if you do not want to limit the radius search. To instead replace the
+input point with the coordinates of the nearest node, append <strong>+p</strong>.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
@@ -296,10 +486,58 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
 </p></li>
+<li><p><strong>z_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Only write out the sampled z-values [Default writes all columns].</p></li>
 <li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
 Specify data types of input and/or output columns (time or
 geographical data). Full documentation is at
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#f-full">https://docs.generic-mapping-tools.org/latest/gmt.html#f-full</a>.</p></li>
+<li><p><strong>incols</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>1d array</em>) – <p>Specify data columns for primary input in arbitrary order. Columns
+can be repeated and columns not listed will be skipped [Default
+reads all columns in order, starting with the first (i.e., column
+0)].</p>
+<ul>
+<li><p>For <em>1d array</em>: specify individual columns in input order (e.g.,
+<code class="docutils literal notranslate"><span class="pre">incols=[1,0]</span></code> for the 2nd column followed by the 1st column).</p></li>
+<li><p>For <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>: specify individual columns or column
+ranges in the format <em>start</em>[:<em>inc</em>]:<em>stop</em>, where <em>inc</em>
+defaults to 1 if not specified, with columns and/or column ranges
+separated by commas (e.g., <code class="docutils literal notranslate"><span class="pre">incols='0:2,4+l'</span></code> to input the
+first three columns followed by the log-transformed 5th column).
+To read from a given column until the end of the record, leave
+off <em>stop</em> when specifying the column range. To read trailing
+text, add the column <strong>t</strong>. Append the word number to <strong>t</strong> to
+ingest only a single word from the trailing text. Instead of
+specifying columns, use <code class="docutils literal notranslate"><span class="pre">incols='n'</span></code> to simply read numerical
+input and skip trailing text. Optionally, append one of the
+following modifiers to any column or column range to transform
+the input columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+l</strong> to take the <em>log10</em> of the input values.</p></li>
+<li><p><strong>+d</strong> to divide the input values by the factor <em>divisor</em>
+[default is 1].</p></li>
+<li><p><strong>+s</strong> to multiple the input values by the factor <em>scale</em>
+[default is 1].</p></li>
+<li><p><strong>+o</strong> to add the given <em>offset</em> to the input values [default
+is 0].</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</p></li>
+<li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p><strong>e</strong>|<strong>f</strong>|<strong>g</strong>.
+Determine how spherical distances are calculated.</p>
+<ul>
+<li><p><strong>e</strong> - Ellipsoidal (or geodesic) mode</p></li>
+<li><p><strong>f</strong> - Flat Earth mode</p></li>
+<li><p><strong>g</strong> - Great circle distance [Default]</p></li>
+</ul>
+<p>All spherical distance calculations depend on the current ellipsoid
+(<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-PROJ_ELLIPSOID">PROJ_ELLIPSOID</a>), the definition of the mean radius
+(<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-PROJ_MEAN_RADIUS">PROJ_MEAN_RADIUS</a>), and the specification of latitude type
+(<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-PROJ_AUX_LATITUDE">PROJ_AUX_LATITUDE</a>). Geodesic distance calculations is also
+controlled by method (<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-PROJ_GEODESIC">PROJ_GEODESIC</a>).</p>
+</p></li>
 <li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>[<strong>b</strong>|<strong>c</strong>|<strong>l</strong>|<strong>n</strong>][<strong>+a</strong>][<strong>+b</strong><em>BC</em>][<strong>+c</strong>][<strong>+t</strong><em>threshold</em>].
 Select interpolation mode for grids. You can select the type of
 spline used:</p>
@@ -315,7 +553,7 @@ spline used:</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p><strong>track</strong> (<em>pandas.DataFrame or None</em>) – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outfile</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table with (x, y, …, newcolname) if
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table with (x, y, …, newcolname) if
 <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is not set</p></li>
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is set (track output will be stored in file set
 by <code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
@@ -340,27 +578,23 @@ by <code class="docutils literal notranslate"><span class="pre">outfile</span></
           </div>
           
 <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="pygmt.x2sys_init.html" class="btn btn-neutral float-right" title="pygmt.x2sys_init" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="pygmt.grdfilter.html" class="btn btn-neutral float-left" title="pygmt.grdfilter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="pygmt.x2sys_init.html" class="btn btn-neutral float-right" title="pygmt.x2sys_init" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.grdgradient.html" class="btn btn-neutral float-left" title="pygmt.grdgradient" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2021, The PyGMT Developers.
-      
-        <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
-        </span>
-      
+        &#169; Copyright 2017-2021, The PyGMT Developers.
+      <span class="commit">
+        
+        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b2808cf">b2808cf</a></code>.
+      </span>
+      <span class="lastupdated">
+        Last updated on Jun 20, 2021.
+      </span>
 
     </p>
   </div>
@@ -378,7 +612,6 @@ software usage.
 
 
 </footer>
-
         </div>
       </div>
 
@@ -386,7 +619,6 @@ software usage.
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

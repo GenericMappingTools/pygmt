@@ -27,16 +27,7 @@ packaged with GMT to try this out. PyGMT provides access to these datasets throu
 automatically downloaded and saved to a cache directory the first time you use them
 (usually ``~/.gmt/cache``).
 
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
-
-.. GENERATED FROM PYTHON SOURCE LINES 20-23
+.. GENERATED FROM PYTHON SOURCE LINES 11-14
 
 .. code-block:: default
 
@@ -50,13 +41,13 @@ automatically downloaded and saved to a cache directory the first time you use t
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-28
+.. GENERATED FROM PYTHON SOURCE LINES 16-19
 
 For example, let's load the sample dataset of tsunami generating earthquakes around
 Japan (:func:`pygmt.datasets.load_japan_quakes`). The data is loaded as a
 :class:`pandas.DataFrame`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-43
+.. GENERATED FROM PYTHON SOURCE LINES 19-34
 
 .. code-block:: default
 
@@ -96,11 +87,11 @@ Japan (:func:`pygmt.datasets.load_japan_quakes`). The data is loaded as a
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-45
+.. GENERATED FROM PYTHON SOURCE LINES 35-36
 
 We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the earthquake epicenters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-52
+.. GENERATED FROM PYTHON SOURCE LINES 36-43
 
 .. code-block:: default
 
@@ -125,21 +116,21 @@ We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the earthquake
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-59
+
+.. GENERATED FROM PYTHON SOURCE LINES 44-50
 
 We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The ``pen``
 parameter controls the outline of the symbols and the ``color`` parameter controls the fill.
 
 We can map the size of the circles to the earthquake magnitude by passing an array to
-the ``sizes`` parameter. Because the magnitude is on a logarithmic scale, it helps to
+the ``size`` parameter. Because the magnitude is on a logarithmic scale, it helps to
 show the differences by scaling the values using a power law.
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-73
+.. GENERATED FROM PYTHON SOURCE LINES 50-64
 
 .. code-block:: default
 
@@ -150,7 +141,7 @@ show the differences by scaling the values using a power law.
     fig.plot(
         x=data.longitude,
         y=data.latitude,
-        sizes=0.02 * (2 ** data.magnitude),
+        size=0.02 * (2 ** data.magnitude),
         style="cc",
         color="white",
         pen="black",
@@ -171,15 +162,15 @@ show the differences by scaling the values using a power law.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-86
+
+.. GENERATED FROM PYTHON SOURCE LINES 65-77
 
 Notice that we didn't include the size in the ``style`` parameter this time, just the
-symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the sizes
+symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the size
 will be interpreted as being in centimeters.
 
 We can also map the colors of the markers to the depths by passing an array to the
@@ -191,7 +182,7 @@ to use the colormap. At the end of the plot, we also plot a colorbar showing
 the colormap used in the plot.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-102
+.. GENERATED FROM PYTHON SOURCE LINES 77-93
 
 .. code-block:: default
 
@@ -203,7 +194,7 @@ the colormap used in the plot.
     fig.plot(
         x=data.longitude,
         y=data.latitude,
-        sizes=0.02 * 2 ** data.magnitude,
+        size=0.02 * 2 ** data.magnitude,
         color=data.depth_km,
         cmap=True,
         style="cc",
@@ -225,15 +216,15 @@ the colormap used in the plot.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.949 seconds)
+   **Total running time of the script:** ( 0 minutes  5.426 seconds)
 
 
 .. _sphx_glr_download_tutorials_plot.py:

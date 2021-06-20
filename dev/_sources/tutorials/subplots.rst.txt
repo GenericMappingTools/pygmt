@@ -124,8 +124,8 @@ look like the following:
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -201,8 +201,8 @@ figure. We'll also pick up on some new parameters to configure our subplot.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -298,8 +298,8 @@ common X and/or Y axis between subplots.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -364,8 +364,8 @@ the first subplot occupying the first row.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -391,7 +391,7 @@ adding a more descriptive subtitle to individual subplots.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.962 seconds)
+   **Total running time of the script:** ( 0 minutes  8.447 seconds)
 
 
 .. _sphx_glr_download_tutorials_subplots.py:

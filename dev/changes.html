@@ -2,12 +2,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     
         <title>Changelog &mdash; PyGMT</title>
@@ -15,17 +14,35 @@
 
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -35,18 +52,9 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
-  <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributors Guide" href="contributing.html" />
     <link rel="prev" title="pygmt.clib.Session.get_libgmt_func" href="api/generated/pygmt.clib.Session.get_libgmt_func.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -100,6 +108,7 @@
 
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
     
@@ -113,16 +122,22 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Setting the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plotting lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/vectors.html">Plotting vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/earth_relief.html">Plotting Earth relief</a></li>
@@ -135,47 +150,48 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#release-v0-3-1-2021-03-14">Release v0.3.1 (2021/03/14)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-4-0-2021-06-20">Release v0.4.0 (2021/06/20)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecations">Deprecations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug Fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maintenance">Maintenance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#contributors">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#release-v0-3-0-2021-02-15">Release v0.3.0 (2021/02/15)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-3-1-2021-03-14">Release v0.3.1 (2021/03/14)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Highlights</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">Maintenance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#release-v0-2-1-2020-11-14">Release v0.2.1 (2020/11/14)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-3-0-2021-02-15">Release v0.3.0 (2021/02/15)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id7">Highlights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id9">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tutorials-gallery">Tutorials &amp; Gallery</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#documentation-improvements">Documentation Improvements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Bug Fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Maintenance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Maintenance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#release-v0-2-0-2020-09-12">Release v0.2.0 (2020/09/12)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id13">Highlights</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id15">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-2-1-2020-11-14">Release v0.2.1 (2020/11/14)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tutorials-gallery">Tutorials &amp; Gallery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation-improvements">Documentation Improvements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id17">Bug Fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id18">Maintenance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id19">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#release-v0-1-2-2020-07-07">Release v0.1.2 (2020/07/07)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-2-0-2020-09-12">Release v0.2.0 (2020/09/12)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id20">Highlights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id21">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id22">Enhancements</a></li>
@@ -185,28 +201,40 @@
 <li class="toctree-l3"><a class="reference internal" href="#id26">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#release-v0-1-1-2020-05-22">Release v0.1.1 (2020/05/22)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-1-2-2020-07-07">Release v0.1.2 (2020/07/07)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id27">Highlights</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id28">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id29">Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id30">Bug Fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id31">Maintenance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id32">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id28">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Maintenance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#release-v0-1-0-2020-05-03">Release v0.1.0 (2020/05/03)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id33">Highlights</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id34">New Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-1-1-2020-05-22">Release v0.1.1 (2020/05/22)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id34">Highlights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id35">Enhancements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id36">Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id37">Bug Fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id38">Maintenance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#deprecations">Deprecations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id39">Contributors</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#release-v0-1-0-2020-05-03">Release v0.1.0 (2020/05/03)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id41">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id42">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id43">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id44">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id45">Maintenance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id46">Deprecations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id47">Contributors</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
 </ul>
 
             
@@ -217,8 +245,6 @@
             <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
@@ -232,6 +258,7 @@
     
 
         </div>
+        
       </div>
     </nav>
 
@@ -267,11 +294,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Changelog</li>
     
@@ -293,13 +322,155 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="changelog">
+  <div class="tex2jax_ignore mathjax_ignore section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="release-v0-4-0-2021-06-20">
+<h2>Release v0.4.0 (2021/06/20)<a class="headerlink" href="#release-v0-4-0-2021-06-20" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://doi.org/10.5281/zenodo.4978645"><img alt="Digital Object Identifier for PyGMT v0.4.0" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4978645.svg" /></a></p>
+<div class="section" id="highlights">
+<h3>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>🎉 <strong>Fourth minor release of PyGMT</strong> 🎉</p></li>
+<li><p>Add tutorials for datetime data (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1193">#1193</a>) and plotting vectors (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1070">#1070</a>)</p></li>
+<li><p>Support tab auto-completion in Jupyter (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1282">#1282</a>)</p></li>
+<li><p>Minimum required GMT version is now 6.2.0 or newer (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1321">#1321</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="new-features">
+<h3>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Wrap blockmean (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1092">#1092</a>)</p></li>
+<li><p>Wrap grdclip (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1261">#1261</a>)</p></li>
+<li><p>Wrap grdfill (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1276">#1276</a>)</p></li>
+<li><p>Wrap grdgradient (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1269">#1269</a>)</p></li>
+<li><p>Wrap grdlandmask (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1273">#1273</a>)</p></li>
+<li><p>Wrap histogram (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1072">#1072</a>)</p></li>
+<li><p>Wrap rose (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/794">#794</a>)</p></li>
+<li><p>Wrap solar (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/804">#804</a>)</p></li>
+<li><p>Wrap velo (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/525">#525</a>)</p></li>
+<li><p>Wrap wiggle (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1145">#1145</a>)</p></li>
+<li><p>Add new function to load fractures sample data (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1101">#1101</a>)</p></li>
+<li><p>Allow load_earth_relief() to load the original land-only 01s or 03s SRTM tiles (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/976">#976</a>)</p></li>
+<li><p>Handle geopandas and shapely geometries via geo_interface link (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1000">#1000</a>)</p></li>
+<li><p>Support passing string type numbers, geographic coordinates and datetimes (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/975">#975</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="enhancements">
+<h3>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Allow passing an array as intensity for plot3d (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1109">#1109</a>)</p></li>
+<li><p>Allow passing an array as intensity for plot (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1065">#1065</a>)</p></li>
+<li><p>Allow passing xr.DataArray as shading to grdimage (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/750">#750</a>)</p></li>
+<li><p>Allow x/y/z input for blockmedian and blockmean (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1319">#1319</a>)</p></li>
+<li><p>Allow pygmt.which to accept a list of filenames as input (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1312">#1312</a>)</p></li>
+<li><p>Refactor blockm* to use virtualfile_from_data and improve i/o (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1280">#1280</a>)</p></li>
+<li><p>Refactor grdtrack to use virtualfile_from_data and improve i/o to pandas.DataFrame (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1189">#1189</a>)</p></li>
+<li><p>Add parameters to histogram (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1249">#1249</a>)</p></li>
+<li><p>Add alias ‘aspatial’ to methods blockmedian, info, plot, plot3d, surface (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1090">#1090</a>)</p></li>
+<li><p>Add alias ‘registration’ to methods blockmean, info, grdfilter, surface (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1089">#1089</a>)</p></li>
+<li><p>Add incols to COMMON_OPTIONS, blockmean, and blockmedian (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1300">#1300</a>)</p></li>
+<li><p>Improve Figure.show for displaying previews in Jupyter notebooks and external viewers (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/529">#529</a>)</p></li>
+<li><p>Let Figure.savefig recommend .eps or .pdf when .ps extension is used (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1307">#1307</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="deprecations">
+<h3>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Figure.contour: Deprecate parameter “columns” to “incols” (remove in v0.6.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1303">#1303</a>)</p></li>
+<li><p>Figure.plot: Deprecate parameter “sizes” to “size” (remove in v0.6.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1254">#1254</a>)</p></li>
+<li><p>Figure.plot: Deprecate parameter “columns” to “incols” (remove in v0.6.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1298">#1298</a>)</p></li>
+<li><p>Figure.plot3d: Deprecate parameter “sizes” to “size” (remove in v0.6.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1258">#1258</a>)</p></li>
+<li><p>Figure.plot3d: Deprecate parameter “columns” to “incols” (remove in v0.6.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1040">#1040</a>)</p></li>
+<li><p>Figure.rose: Deprecate parameter “columns” to “incols” (remove in v0.6.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1306">#1306</a>)</p></li>
+<li><p>NEP29: Set minimum required versions to NumPy 1.17+ and Python 3.7+ (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1074">#1074</a>)</p></li>
+<li><p>Raise a warning for the use of short-form parameters when long-forms are available (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1316">#1316</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h3>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Allow pandas.Series inputs to fig.histogram and pygmt.info (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1329">#1329</a>)</p></li>
+<li><p>Explicitly use netcdf4 engine in xarray.open_dataarray to read grd files (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1264">#1264</a>)</p></li>
+<li><p>Let Figure.savefig support filenames with spaces (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1116">#1116</a>)</p></li>
+<li><p>Let Figure.show(method=’external’) work well in Python scripts (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1062">#1062</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Add histogram gallery example (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1272">#1272</a>)</p></li>
+<li><p>Add a gallery example showing individual basic geometric symbols (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1211">#1211</a>)</p></li>
+<li><p>Specify rectangle’s width and height via style parameter in multi-parameter symbols example (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1325">#1325</a>)</p></li>
+<li><p>Update the inset gallery example (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1287">#1287</a>)</p></li>
+<li><p>Add categorical colorbars for plot, plot3d and line colors gallery examples (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1267">#1267</a>)</p></li>
+<li><p>Apply NIST SI unit convention to some gallery examples (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1194">#1194</a>)</p></li>
+<li><p>Use colorblind-friendly colors in the scatter plots gallery example (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1013">#1013</a>)</p></li>
+<li><p>Added documentation for three oblique mercator projections (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1251">#1251</a>)</p></li>
+<li><p>Add a list of external PyGMT resources (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1210">#1210</a>)</p></li>
+<li><p>Complete documentation for grdtrack (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1190">#1190</a>)</p></li>
+<li><p>Add projection and region to grdview docstring (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1295">#1295</a>)</p></li>
+<li><p>Add common alias spacing (-I) for specifying grid increments (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1288">#1288</a>)</p></li>
+<li><p>Standardize docstrings for table-like inputs (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1186">#1186</a>)</p></li>
+<li><p>Clarify that the “transparency” parameter in plot/plot3d/text can be 1d array  (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1265">#1265</a>)</p></li>
+<li><p>Clarify that the “color” parameter in plot/plot3d can be 1d array (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1260">#1260</a>)</p></li>
+<li><p>Clarify interplay of spacing and per_column in info (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1127">#1127</a>)</p></li>
+<li><p>Remove the “full test” section from installation guide (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1206">#1206</a>)</p></li>
+<li><p>Clarify position of deprecate_parameter decorator to be above use_alias (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1302">#1302</a>)</p></li>
+<li><p>Add guidelines for managing issues to maintenance.md (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1301">#1301</a>)</p></li>
+<li><p>Add alias name convention to CONTRIBUTING.md (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1256">#1256</a>)</p></li>
+<li><p>Move contributing guide details to website and rename two sections (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1335">#1335</a>)</p></li>
+<li><p>Update the check_figures_equal testing section in CONTRIBUTING.md  (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1108">#1108</a>)</p></li>
+<li><p>Revise Pull Request review process in CONTRIBUTING.md (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1119">#1119</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="maintenance">
+<h3>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Add a workflow to upload baseline images as a release asset (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1317">#1317</a>)</p></li>
+<li><p>Add regression test for grdimage plotting an xarray.DataArray grid subset (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1314">#1314</a>)</p></li>
+<li><p>Add download_test_data to download data files used in tests (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1310">#1310</a>)</p></li>
+<li><p>Remove xfails and workarounds for datetime inputs into pygmt.info (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1236">#1236</a>)</p></li>
+<li><p>Improve the DVC image diff workflow to support side-by-side comparison of modified images (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1219">#1219</a>)</p></li>
+<li><p>Document the deprecation policy and add the deprecate_parameter decorator to deprecate parameters (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1160">#1160</a>)</p></li>
+<li><p>Convert booleans arguments in build_arg_string, not in kwargs_to_strings (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1125">#1125</a>)</p></li>
+<li><p>Create Github Action workflow for reporting DVC image diffs (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1104">#1104</a>)</p></li>
+<li><p>Update “GMT Dev Tests” workflow to test macOS-11.0 and pre-release Python packages (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1105">#1105</a>)</p></li>
+<li><p>Initialize data version control for managing test images (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1036">#1036</a>)</p></li>
+<li><p>Separate workflows for running tests and building documentation (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1033">#1033</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h3>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
+<li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
+<li><p><a class="reference external" href="https://github.com/michaelgrund">Michael Grund</a></p></li>
+<li><p><a class="reference external" href="https://github.com/meghanrjones">Meghan Jones</a></p></li>
+<li><p><a class="reference external" href="https://github.com/willschlitzer">Will Schlitzer</a></p></li>
+<li><p><a class="reference external" href="https://github.com/core-man">Jiayuan Yao</a></p></li>
+<li><p><a class="reference external" href="https://github.com/itsabhianant">Abhishek Anant</a></p></li>
+<li><p><a class="reference external" href="https://github.com/cklima616">Claire Klima</a></p></li>
+<li><p><a class="reference external" href="https://github.com/munzekm">Megan Munzek</a></p></li>
+<li><p><a class="reference external" href="https://github.com/MichaeINeumann">Michael Neumann</a></p></li>
+<li><p><a class="reference external" href="https://github.com/Nathandloria">Nathan Loria</a></p></li>
+<li><p><a class="reference external" href="https://github.com/noorbuchi">Noor Buchi</a></p></li>
+<li><p><a class="reference external" href="https://github.com/xdshivani">Shivani chauhan</a></p></li>
+<li><p><a class="reference external" href="https://github.com/alperen-kilic">&#64;alperen-kilic</a></p></li>
+<li><p><a class="reference external" href="https://github.com/lhoupert">Loïc Houpert</a></p></li>
+<li><p><a class="reference external" href="https://github.com/eemcmullan">Emily McMullan</a></p></li>
+<li><p><a class="reference external" href="https://github.com/Lawqup">Lawrence Qupty</a></p></li>
+<li><p><a class="reference external" href="https://github.com/mdtanker">Matthew Tankersley</a></p></li>
+<li><p><a class="reference external" href="https://github.com/shahid-0">&#64;shahid-0</a></p></li>
+<li><p><a class="reference external" href="https://github.com/vitorgt">Vitor Gratiere Torres</a></p></li>
+</ul>
+</div>
+</div>
+<hr class="docutils" />
 <div class="section" id="release-v0-3-1-2021-03-14">
 <h2>Release v0.3.1 (2021/03/14)<a class="headerlink" href="#release-v0-3-1-2021-03-14" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.4592991"><img alt="Digital Object Identifier for PyGMT v0.3.1" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4592991.svg" /></a></p>
-<div class="section" id="highlights">
-<h3>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>Highlights<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>🎉 <strong>Multiple bug fixes and an improved gallery</strong> 🎉</p></li>
 <li><p>Reorganized gallery examples into new categories (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/995">#995</a>)</p></li>
@@ -307,14 +478,14 @@
 <li><p>Last version to support GMT 6.1.1, future PyGMT versions will require GMT 6.2.0 or newer</p></li>
 </ul>
 </div>
-<div class="section" id="enhancements">
-<h3>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>Enhancements<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Support passing a sequence to the spacing parameter of pygmt.info() (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1031">#1031</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="bug-fixes">
-<h3>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Bug Fixes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Fix issues in loading GMT’s shared library (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/977">#977</a>)</p></li>
 <li><p>Let pygmt.info load datetime columns into a str dtype array (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/960">#960</a>)</p></li>
@@ -323,8 +494,8 @@
 <li><p>Fix bug that stops Figure.coast from plotting with only dcw parameter (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/910">#910</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="documentation">
-<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Documentation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add a gallery example showing different line front styles (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1022">#1022</a>)</p></li>
 <li><p>Add a gallery example for a double y-axes graph (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1019">#1019</a>)</p></li>
@@ -341,8 +512,8 @@
 <li><p>Improve the gallery example for datetime inputs (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/919">#919</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="maintenance">
-<h3>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Maintenance<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Refactor plot and plot3d to use virtualfile_from_data (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/990">#990</a>)</p></li>
 <li><p>Explicitly exclude unnecessary files in source distributions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/999">#999</a>)</p></li>
@@ -358,8 +529,8 @@
 <li><p>Run tests in a single CI job (Ubuntu + Python 3.9) for draft PRs (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/906">#906</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="contributors">
-<h3>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Contributors<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
 <li><p><a class="reference external" href="https://github.com/core-man">Jiayuan Yao</a></p></li>
@@ -378,8 +549,8 @@
 <div class="section" id="release-v0-3-0-2021-02-15">
 <h2>Release v0.3.0 (2021/02/15)<a class="headerlink" href="#release-v0-3-0-2021-02-15" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.4522136"><img alt="Digital Object Identifier for PyGMT v0.3.0" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4522136.svg" /></a></p>
-<div class="section" id="id1">
-<h3>Highlights<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Highlights<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>🎉 <strong>Third minor release of PyGMT</strong> 🎉</p></li>
 <li><p>Wrap inset (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/788">#788</a>) for making overview maps and subplot (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/822">#822</a>) for multi-panel figures</p></li>
@@ -387,16 +558,16 @@
 <li><p>Drop Python 3.6 support (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/699">#699</a>) so PyGMT now requires Python 3.7 or newer</p></li>
 </ul>
 </div>
-<div class="section" id="new-features">
-<h3>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>New Features<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Wrap grd2cpt (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/803">#803</a>)</p></li>
 <li><p>Let Figure.text support record-by-record transparency (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/716">#716</a>)</p></li>
 <li><p>Provide basic support for FreeBSD (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/700">#700</a>, <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/878">#878</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h3>Enhancements<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>Enhancements<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Let load_earth_relief support the ‘region’ parameter for all resolutions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/873">#873</a>)</p></li>
 <li><p>Improve how PyGMT finds the GMT library (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/702">#702</a>)</p></li>
@@ -411,8 +582,8 @@
 <li><p>Add GMTInvalidInput error to Figure.coast (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/787">#787</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h3>Documentation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>Documentation<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add authorship policy (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/726">#726</a>)</p></li>
 <li><p>Update PyGMT development installation instructions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/865">#865</a>)</p></li>
@@ -444,15 +615,15 @@
 <li><p>Change text when GMTInvalidInput error is raised for basemap (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/729">#729</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h3>Bug Fixes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>Bug Fixes<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Fix a bug of Figure.text when “text” is a non-string array (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/724">#724</a>)</p></li>
 <li><p>Fix the error message when IPython is not available (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/701">#701</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h3>Maintenance<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3>Maintenance<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add dependabot to keep GitHub Actions up to date (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/861">#861</a>)</p></li>
 <li><p>Skip workflows in PRs if only non-source-code files are changed (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/839">#839</a>)</p></li>
@@ -479,8 +650,8 @@
 <li><p>Use args_in_kwargs for Figure.basemap error raising (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/797">#797</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>Contributors<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3>Contributors<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/willschlitzer">Will Schlitzer</a></p></li>
 <li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
@@ -495,23 +666,23 @@
 <div class="section" id="release-v0-2-1-2020-11-14">
 <h2>Release v0.2.1 (2020/11/14)<a class="headerlink" href="#release-v0-2-1-2020-11-14" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.4253459"><img alt="Digital Object Identifier for PyGMT v0.2.1" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4253459.svg" /></a></p>
-<div class="section" id="id7">
-<h3>Highlights<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3>Highlights<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>🎉 <strong>Patch release with more tutorials and gallery examples!</strong> 🎉</p></li>
 <li><p>🐍 Support Python 3.9 (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/689">#689</a>)</p></li>
 <li><p>📹 Add <a class="reference external" href="https://github.com/liamtoney">Liam</a>’s <a class="reference external" href="https://www.youtube.com/watch?v=SSIGJEe0BIk">ROSES 2020 PyGMT talk</a> (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/643">#643</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id8">
-<h3>New Features<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3>New Features<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Wrap plot3d (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/471">#471</a>)</p></li>
 <li><p>Wrap grdfilter (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/616">#616</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id9">
-<h3>Enhancements<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3>Enhancements<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Allow np.object dtypes into virtualfile_from_vectors (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/684">#684</a>)</p></li>
 <li><p>Let plot() accept record-by-record transparency (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/626">#626</a>)</p></li>
@@ -549,14 +720,14 @@
 <li><p>Add common alias transparency (-t) to all plotting functions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/614">#614</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id10">
-<h3>Bug Fixes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3>Bug Fixes<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Disallow passing arguments like -XNone to GMT (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/639">#639</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id11">
-<h3>Maintenance<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id18">
+<h3>Maintenance<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Migrate PyPI release to GitHub Actions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/679">#679</a>)</p></li>
 <li><p>Upload artifacts showing diff images on test failure (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/675">#675</a>)</p></li>
@@ -570,8 +741,8 @@
 <li><p>Update release process and checklist template (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/602">#602</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id12">
-<h3>Contributors<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id19">
+<h3>Contributors<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
 <li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
@@ -584,8 +755,8 @@
 <div class="section" id="release-v0-2-0-2020-09-12">
 <h2>Release v0.2.0 (2020/09/12)<a class="headerlink" href="#release-v0-2-0-2020-09-12" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.4025418"><img alt="Digital Object Identifier for PyGMT v0.2.0" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4025418.svg" /></a></p>
-<div class="section" id="id13">
-<h3>Highlights<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id20">
+<h3>Highlights<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>🎉 <strong>Second minor release of PyGMT</strong> 🎉</p></li>
 <li><p>Minimum required GMT version is now 6.1.1 or newer (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/577">#577</a>)</p></li>
@@ -593,8 +764,8 @@
 <li><p>Easier time-series plots with support for datetime-like inputs to plot (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/464">#464</a>) and the region argument (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/562">#562</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id14">
-<h3>New Features<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id21">
+<h3>New Features<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Wrap GMT_Put_Strings to pass str columns into GMT C API directly (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/520">#520</a>)</p></li>
 <li><p>Wrap meca (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/516">#516</a>)</p></li>
@@ -603,8 +774,8 @@
 <li><p>Initialize a GMTDataArrayAccessor (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/500">#500</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id15">
-<h3>Enhancements<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id22">
+<h3>Enhancements<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Allow passing in pandas dataframes to x2sys_cross (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/591">#591</a>)</p></li>
 <li><p>Sensible array outputs for pygmt info (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/575">#575</a>)</p></li>
@@ -615,8 +786,8 @@
 <li><p>Allow load_earth_relief() to load pixel or gridline registered data (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/509">#509</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id16">
-<h3>Documentation<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id23">
+<h3>Documentation<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Link to try-gmt binder repository (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/598">#598</a>)</p></li>
 <li><p>Improve docstring of data_kind() to include xarray grid (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/588">#588</a>)</p></li>
@@ -624,8 +795,8 @@
 <li><p>Add shading to grdview gallery example (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/506">#506</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id17">
-<h3>Bug Fixes<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id24">
+<h3>Bug Fixes<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Ensure surface and grdcut loads GMTDataArray accessor info into xarray (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/539">#539</a>)</p></li>
 <li><p>Raise an error if short- and long-form arguments coexist (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/537">#537</a>)</p></li>
@@ -633,8 +804,8 @@
 <li><p>Properly allow for either pixel or gridline registered grids (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/476">#476</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id18">
-<h3>Maintenance<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id25">
+<h3>Maintenance<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add a test for xarray shading (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/581">#581</a>)</p></li>
 <li><p>Remove expected failures on grdview tests (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/589">#589</a>)</p></li>
@@ -652,8 +823,8 @@
 <li><p>Run Continuous Integration tests on GitHub Actions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/475">#475</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id19">
-<h3>Contributors<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id26">
+<h3>Contributors<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
 <li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
@@ -666,29 +837,29 @@
 <div class="section" id="release-v0-1-2-2020-07-07">
 <h2>Release v0.1.2 (2020/07/07)<a class="headerlink" href="#release-v0-1-2-2020-07-07" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.3930577"><img alt="Digital Object Identifier for PyGMT v0.1.2" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3930577.svg" /></a></p>
-<div class="section" id="id20">
-<h3>Highlights<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id27">
+<h3>Highlights<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Patch release in preparation for the SciPy 2020 sprint session</p></li>
 <li><p>Last version to support GMT 6.0, future PyGMT versions will require GMT 6.1 or newer</p></li>
 </ul>
 </div>
-<div class="section" id="id21">
-<h3>New Features<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id28">
+<h3>New Features<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Wrap grdcut (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/492">#492</a>)</p></li>
 <li><p>Add show_versions() function for printing debugging information used in issue reports (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/466">#466</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id22">
-<h3>Enhancements<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id29">
+<h3>Enhancements<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Change load_earth_relief()’s default resolution to 01d (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/488">#488</a>)</p></li>
 <li><p>Enhance text with extra functionality and aliases (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/481">#481</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id23">
-<h3>Documentation<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id30">
+<h3>Documentation<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add gallery example for grdview (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/502">#502</a>)</p></li>
 <li><p>Turn all short aliases into long form (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/474">#474</a>)</p></li>
@@ -697,14 +868,14 @@
 <li><p>Update the instructions for testing pygmt install (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/459">#459</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id24">
-<h3>Bug Fixes<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id31">
+<h3>Bug Fixes<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Fix a bug when passing data to GMT in Session.open_virtual_file() (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/490">#490</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id25">
-<h3>Maintenance<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id32">
+<h3>Maintenance<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Temporarily expect failures for some grdcontour and grdview tests (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/503">#503</a>)</p></li>
 <li><p>Fix several failures due to updates of earth relief data (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/498">#498</a>)</p></li>
@@ -715,8 +886,8 @@
 <li><p>Simplify PyGMT Release process (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/446">#446</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id26">
-<h3>Contributors<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id33">
+<h3>Contributors<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
 <li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
@@ -728,43 +899,43 @@
 <div class="section" id="release-v0-1-1-2020-05-22">
 <h2>Release v0.1.1 (2020/05/22)<a class="headerlink" href="#release-v0-1-1-2020-05-22" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.3837197"><img alt="Digital Object Identifier for PyGMT v0.1.1" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3837197.svg" /></a></p>
-<div class="section" id="id27">
-<h3>Highlights<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id34">
+<h3>Highlights<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>🏁Windows users rejoice, this bugfix release is for you!🏁</p></li>
 <li><p>Let PyGMT work with the conda GMT package on Windows (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/434">#434</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id28">
-<h3>Enhancements<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id35">
+<h3>Enhancements<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Handle setting special parameters without default settings for config (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/411">#411</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id29">
-<h3>Documentation<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id36">
+<h3>Documentation<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Update install instructions (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/430">#430</a>)</p></li>
 <li><p>Add PyGMT AGU 2019 poster to website (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/425">#425</a>)</p></li>
 <li><p>Redirect www.pygmt.org to latest, instead of dev (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/423">#423</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id30">
-<h3>Bug Fixes<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id37">
+<h3>Bug Fixes<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Set GMT_COMPATIBILITY to 6 when pygmt session starts (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/432">#432</a>)</p></li>
 <li><p>Improve how PyGMT finds the GMT library (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/440">#440</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id31">
-<h3>Maintenance<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id38">
+<h3>Maintenance<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Finalize fixes on Windows test suite for v0.1.1 (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/441">#441</a>)</p></li>
 <li><p>Cache test data on Azure Pipelines (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/438">#438</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id32">
-<h3>Contributors<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id39">
+<h3>Contributors<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
 <li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
@@ -776,8 +947,8 @@
 <div class="section" id="release-v0-1-0-2020-05-03">
 <h2>Release v0.1.0 (2020/05/03)<a class="headerlink" href="#release-v0-1-0-2020-05-03" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.3782862"><img alt="Digital Object Identifier for PyGMT v0.1.0" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3782862.svg" /></a></p>
-<div class="section" id="id33">
-<h3>Highlights<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id40">
+<h3>Highlights<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>🎉 <strong>First official release of PyGMT</strong> 🎉</p></li>
 <li><p>Python 3.8 is now supported (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/398">#398</a>)</p></li>
@@ -785,8 +956,8 @@
 <li><p>Use sphinx-gallery to manage examples and tutorials (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/268">#268</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id34">
-<h3>New Features<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id41">
+<h3>New Features<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Wrap blockmedian (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/349">#349</a>)</p></li>
 <li><p>Add pygmt.config() to change gmt defaults locally and globally (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/293">#293</a>)</p></li>
@@ -799,8 +970,8 @@
 <li><p>Add a new method to shift plot origins (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/289">#289</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id35">
-<h3>Enhancements<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id42">
+<h3>Enhancements<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Allow text accepting “frame” as an argument (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/385">#385</a>)</p></li>
 <li><p>Allow for grids with negative lat/lon increments (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/369">#369</a>)</p></li>
@@ -810,8 +981,8 @@
 <li><p>Add sequence_space converter in kwargs_to_string (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/325">#325</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id36">
-<h3>Documentation<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id43">
+<h3>Documentation<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Update PyPI install instructions and API disclaimer message (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/421">#421</a>)</p></li>
 <li><p>Fix the link to GMT documentation (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/419">#419</a>)</p></li>
@@ -827,8 +998,8 @@
 <li><p>Add an overview page listing presentations (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/286">#286</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id37">
-<h3>Bug Fixes<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id44">
+<h3>Bug Fixes<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Let surface return xr.DataArray instead of xr.Dataset (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/408">#408</a>)</p></li>
 <li><p>Update GMT constant GMT_STR16 to GMT_VF_LEN for GMT API change in 6.1.0 (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/397">#397</a>)</p></li>
@@ -836,8 +1007,8 @@
 <li><p>Use uuid.uuid4 to generate unique names (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/274">#274</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id38">
-<h3>Maintenance<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id45">
+<h3>Maintenance<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Quickfix Zeit Now miniconda installer link to anaconda.com (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/413">#413</a>)</p></li>
 <li><p>Fix GitHub Pages deployment from Travis (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/410">#410</a>)</p></li>
@@ -856,8 +1027,8 @@
 <li><p>Assign authorship to “The PyGMT Developers” (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/284">#284</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="deprecations">
-<h3>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id46">
+<h3>Deprecations<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Remove mention of gitter.im (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/405">#405</a>)</p></li>
 <li><p>Remove portrait (-P) from common options (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/339">#339</a>)</p></li>
@@ -865,8 +1036,8 @@
 <li><p>Remove Web WorldWind support (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/275">#275</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id39">
-<h3>Contributors<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id47">
+<h3>Contributors<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/seisman">Dongdong Tian</a></p></li>
 <li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
@@ -889,25 +1060,23 @@
           </div>
           
 <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="api/generated/pygmt.clib.Session.get_libgmt_func.html" class="btn btn-neutral float-left" title="pygmt.clib.Session.get_libgmt_func" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributors Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api/generated/pygmt.clib.Session.get_libgmt_func.html" class="btn btn-neutral float-left" title="pygmt.clib.Session.get_libgmt_func" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2021, The PyGMT Developers.
-      
-        <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
-        </span>
-      
+        &#169; Copyright 2017-2021, The PyGMT Developers.
+      <span class="commit">
+        
+        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b2808cf">b2808cf</a></code>.
+      </span>
+      <span class="lastupdated">
+        Last updated on Jun 20, 2021.
+      </span>
 
     </p>
   </div>
@@ -925,7 +1094,6 @@ software usage.
 
 
 </footer>
-
         </div>
       </div>
 
@@ -933,7 +1101,6 @@ software usage.
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

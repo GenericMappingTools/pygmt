@@ -22,7 +22,7 @@ Polar
 =====
 
 Polar projections allow plotting polar coordinate data (e.g. angle
-:math:`\theta` and radius *r*). 
+:math:`\theta` and radius *r*).
 
 The full syntax for polar projections is:
 
@@ -80,8 +80,17 @@ The following customizing modifiers are available:
 
  .. code-block:: none
 
-
+    basemap [WARNING]: 2 annotations along the right border were skipped due to crowding.
+    basemap [WARNING]: Crowding decisions is controlled by MAP_ANNOT_MIN_SPACING, currently set to 23.0363p.
+    basemap [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fewer annotations, with 0 showing all annotations.
+    basemap [WARNING]: 1 annotations along the right border were skipped due to crowding.
+    basemap [WARNING]: Crowding decisions is controlled by MAP_ANNOT_MIN_SPACING, currently set to 22.6964p.
+    basemap [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fewer annotations, with 0 showing all annotations.
+    basemap [WARNING]: 1 annotations along the right border were skipped due to crowding.
+    basemap [WARNING]: Crowding decisions is controlled by MAP_ANNOT_MIN_SPACING, currently set to 22.6964p.
+    basemap [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fewer annotations, with 0 showing all annotations.
     <IPython.core.display.Image object>
+
 
 
 
@@ -204,7 +213,7 @@ The following customizing modifiers are available:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.880 seconds)
+   **Total running time of the script:** ( 0 minutes  5.239 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_polar.py:

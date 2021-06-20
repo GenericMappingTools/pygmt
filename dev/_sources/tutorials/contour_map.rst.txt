@@ -23,16 +23,7 @@ Creating a map with contour lines
 
 Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
 
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
-
-.. GENERATED FROM PYTHON SOURCE LINES 16-22
+.. GENERATED FROM PYTHON SOURCE LINES 7-13
 
 .. code-block:: default
 
@@ -49,7 +40,7 @@ Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-34
+.. GENERATED FROM PYTHON SOURCE LINES 15-25
 
 Create contour plot
 -------------------
@@ -62,7 +53,7 @@ with an annotated contour line every 1000 meters.
 By default, it plots the map with the
 equidistant cylindrical projection and with no frame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-39
+.. GENERATED FROM PYTHON SOURCE LINES 25-30
 
 .. code-block:: default
 
@@ -85,12 +76,12 @@ equidistant cylindrical projection and with no frame.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-46
+
+.. GENERATED FROM PYTHON SOURCE LINES 31-37
 
 Contour line settings
 ---------------------
@@ -99,7 +90,7 @@ Use the ``annotation`` and ``interval`` arguments to adjust contour line interva
 In the example below, there are contour intervals every 250 meters and
 annotated contour lines every 1,000 meters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-55
+.. GENERATED FROM PYTHON SOURCE LINES 37-46
 
 .. code-block:: default
 
@@ -126,12 +117,12 @@ annotated contour lines every 1,000 meters.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-62
+
+.. GENERATED FROM PYTHON SOURCE LINES 47-53
 
 Contour limits
 --------------
@@ -140,7 +131,7 @@ The ``limit`` argument sets the minimum and maximum values for the contour lines
 The argument takes the low and high values,
 and is either a list (as below) or a string ``limit="-4000/-2000"``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-72
+.. GENERATED FROM PYTHON SOURCE LINES 53-63
 
 .. code-block:: default
 
@@ -168,12 +159,12 @@ and is either a list (as below) or a string ``limit="-4000/-2000"``.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-78
+
+.. GENERATED FROM PYTHON SOURCE LINES 64-69
 
 Map settings
 ------------
@@ -181,7 +172,7 @@ Map settings
 The :meth:`pygmt.Figure.grdcontour` method accepts additional arguments,
 including setting the projection and frame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-90
+.. GENERATED FROM PYTHON SOURCE LINES 69-81
 
 .. code-block:: default
 
@@ -211,12 +202,12 @@ including setting the projection and frame.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-99
+
+.. GENERATED FROM PYTHON SOURCE LINES 82-90
 
 Adding a colormap
 -----------------
@@ -227,7 +218,7 @@ colormap to the contour map. It must be called prior to
 If the ``projection`` argument is specified in the :meth:`pygmt.Figure.grdimage`
 method, it does not need to be repeated in the :meth:`pygmt.Figure.grdcontour` method.
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-114
+.. GENERATED FROM PYTHON SOURCE LINES 90-105
 
 .. code-block:: default
 
@@ -260,15 +251,15 @@ method, it does not need to be repeated in the :meth:`pygmt.Figure.grdcontour` m
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.180 seconds)
+   **Total running time of the script:** ( 0 minutes  7.702 seconds)
 
 
 .. _sphx_glr_download_tutorials_contour_map.py:

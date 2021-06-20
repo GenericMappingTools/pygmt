@@ -40,6 +40,10 @@ pygmt.Figure
     
     
     
+    Figure.histogram
+    
+    
+    
     Figure.image
     
     
@@ -72,6 +76,10 @@ pygmt.Figure
     
     
     
+    Figure.rose
+    
+    
+    
     Figure.savefig
     
     
@@ -88,11 +96,23 @@ pygmt.Figure
     
     
     
+    Figure.solar
+    
+    
+    
     Figure.subplot
     
     
     
     Figure.text
+    
+    
+    
+    Figure.velo
+    
+    
+    
+    Figure.wiggle
     
     
 

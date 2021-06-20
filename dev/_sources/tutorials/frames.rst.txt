@@ -24,16 +24,7 @@ Frames, ticks, titles, and labels
 Setting the style of the map frames, ticks, etc, is handled by the ``frame`` parameter
 that all plotting methods of :class:`pygmt.Figure`.
 
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
-
-.. GENERATED FROM PYTHON SOURCE LINES 17-20
+.. GENERATED FROM PYTHON SOURCE LINES 8-11
 
 .. code-block:: default
 
@@ -47,7 +38,7 @@ that all plotting methods of :class:`pygmt.Figure`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-27
+.. GENERATED FROM PYTHON SOURCE LINES 13-18
 
 Plot frame
 ----------
@@ -55,7 +46,7 @@ Plot frame
 By default, PyGMT does not add a frame to your plot. For example, we can plot the
 coastlines of the world with a Mercator projection:
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-32
+.. GENERATED FROM PYTHON SOURCE LINES 18-23
 
 .. code-block:: default
 
@@ -78,17 +69,17 @@ coastlines of the world with a Mercator projection:
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-35
+
+.. GENERATED FROM PYTHON SOURCE LINES 24-26
 
 To add the default GMT frame to the plot, use ``frame="f"`` in
 :meth:`pygmt.Figure.basemap` or any other plotting module:
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-41
+.. GENERATED FROM PYTHON SOURCE LINES 26-32
 
 .. code-block:: default
 
@@ -112,12 +103,12 @@ To add the default GMT frame to the plot, use ``frame="f"`` in
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-47
+
+.. GENERATED FROM PYTHON SOURCE LINES 33-38
 
 Ticks and grid lines
 --------------------
@@ -125,7 +116,7 @@ Ticks and grid lines
 The automatic frame (``frame=True`` or ``frame="a"``) sets the default GMT style frame
 and automatically determines tick labels from the plot region.
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-53
+.. GENERATED FROM PYTHON SOURCE LINES 38-44
 
 .. code-block:: default
 
@@ -149,16 +140,16 @@ and automatically determines tick labels from the plot region.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-55
+
+.. GENERATED FROM PYTHON SOURCE LINES 45-46
 
 Add automatic grid lines to the plot by adding a ``g`` to ``frame``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-61
+.. GENERATED FROM PYTHON SOURCE LINES 46-52
 
 .. code-block:: default
 
@@ -182,12 +173,12 @@ Add automatic grid lines to the plot by adding a ``g`` to ``frame``:
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-68
+
+.. GENERATED FROM PYTHON SOURCE LINES 53-59
 
 Title
 -----
@@ -196,7 +187,7 @@ The figure title can be set by passing **+t**\ *title* to the ``frame`` paramete
 :meth:`pygmt.Figure.basemap`. Passing multiple arguments to ``frame`` can be done by
 using a list, as show in the example below.
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-75
+.. GENERATED FROM PYTHON SOURCE LINES 59-66
 
 .. code-block:: default
 
@@ -221,19 +212,19 @@ using a list, as show in the example below.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-80
+
+.. GENERATED FROM PYTHON SOURCE LINES 67-71
 
 To use a title with multiple words, the title must be placed inside another set of
 quotation marks. To prevent the quotation marks from appearing in the figure title,
 the ``frame`` parameter can be passed in single quotation marks and the title can be
 passed in double quotation marks.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-87
+.. GENERATED FROM PYTHON SOURCE LINES 71-78
 
 .. code-block:: default
 
@@ -258,12 +249,12 @@ passed in double quotation marks.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-101
+
+.. GENERATED FROM PYTHON SOURCE LINES 79-92
 
 Axis labels
 -----------
@@ -279,7 +270,7 @@ axis name plots only the axis and tick marks.
 The example below uses a Cartesian projection, as GMT does not allow axis labels to
 be set for geographic maps.
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-111
+.. GENERATED FROM PYTHON SOURCE LINES 92-102
 
 .. code-block:: default
 
@@ -307,15 +298,15 @@ be set for geographic maps.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  12.459 seconds)
+   **Total running time of the script:** ( 0 minutes  11.903 seconds)
 
 
 .. _sphx_glr_download_tutorials_frames.py:

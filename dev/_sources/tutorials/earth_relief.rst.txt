@@ -25,16 +25,7 @@ Plotting a map of Earth relief can use the data accessed by the
 :meth:`pygmt.datasets.load_earth_relief` method. The data can then be plotted using the
 :meth:`pygmt.Figure.grdimage` method.
 
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
-
-.. GENERATED FROM PYTHON SOURCE LINES 18-21
+.. GENERATED FROM PYTHON SOURCE LINES 9-12
 
 .. code-block:: default
 
@@ -48,13 +39,13 @@ Plotting a map of Earth relief can use the data accessed by the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-26
+.. GENERATED FROM PYTHON SOURCE LINES 14-17
 
 Load sample Earth relief data for the entire globe at a resolution of 1 arc degree.
 The other available resolutions are show
 at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-28
+.. GENERATED FROM PYTHON SOURCE LINES 17-19
 
 .. code-block:: default
 
@@ -67,7 +58,7 @@ at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-36
+.. GENERATED FROM PYTHON SOURCE LINES 20-27
 
 Create a plot
 -------------
@@ -77,7 +68,7 @@ create a figure. It creates and applies a color palette to the figure based upon
 z-values of the data. By default, it plots the map with the *turbo* CPT, an
 equidistant cylindrical projection, and with no frame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-41
+.. GENERATED FROM PYTHON SOURCE LINES 27-32
 
 .. code-block:: default
 
@@ -100,19 +91,19 @@ equidistant cylindrical projection, and with no frame.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-46
+
+.. GENERATED FROM PYTHON SOURCE LINES 33-37
 
 :meth:`pygmt.Figure.grdimage` can take the optional argument ``projection`` for the
 map. In the example below, the ``projection`` is set as ``R12c`` for 12 centimeter
 figure with a Winkel Tripel projection. For a list of available projections,
 see :gmt-docs:`cookbook/map-projections.html`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-52
+.. GENERATED FROM PYTHON SOURCE LINES 38-43
 
 .. code-block:: default
 
@@ -135,12 +126,12 @@ see :gmt-docs:`cookbook/map-projections.html`.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-59
+
+.. GENERATED FROM PYTHON SOURCE LINES 44-50
 
 Set a color map
 ---------------
@@ -149,11 +140,11 @@ Set a color map
 figure. Examples of common CPTs for Earth relief are shown below.
 A full list of CPTs can be found at :gmt-docs:`cookbook/cpts.html`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-62
+.. GENERATED FROM PYTHON SOURCE LINES 52-53
 
 Using the *geo* CPT:
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-68
+.. GENERATED FROM PYTHON SOURCE LINES 54-59
 
 .. code-block:: default
 
@@ -176,16 +167,16 @@ Using the *geo* CPT:
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-70
+
+.. GENERATED FROM PYTHON SOURCE LINES 60-61
 
 Using the *relief* CPT:
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-76
+.. GENERATED FROM PYTHON SOURCE LINES 62-67
 
 .. code-block:: default
 
@@ -208,12 +199,12 @@ Using the *relief* CPT:
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-87
+
+.. GENERATED FROM PYTHON SOURCE LINES 68-78
 
 Add a color bar
 ---------------
@@ -226,7 +217,7 @@ list is used to pass multiple arguments to ``frame``. In the example below,
 ``a2500`` sets the axis interval to 2,500, ``x+lElevation`` sets the x-axis
 label, and ``y+lm`` sets the y-axis label.
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-93
+.. GENERATED FROM PYTHON SOURCE LINES 78-84
 
 .. code-block:: default
 
@@ -250,12 +241,12 @@ label, and ``y+lm`` sets the y-axis label.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-106
+
+.. GENERATED FROM PYTHON SOURCE LINES 85-97
 
 Create a region map
 -------------------
@@ -270,7 +261,7 @@ The example below uses data with a 10 arc minute resolution, and plots it on a
 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
 ``frame="a"`` is used to add a frame to the figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-112
+.. GENERATED FROM PYTHON SOURCE LINES 97-103
 
 .. code-block:: default
 
@@ -294,15 +285,15 @@ The example below uses data with a 10 arc minute resolution, and plots it on a
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.888 seconds)
+   **Total running time of the script:** ( 0 minutes  7.693 seconds)
 
 
 .. _sphx_glr_download_tutorials_earth_relief.py:

@@ -391,6 +391,69 @@ Cylindric Projections
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_2_thumb.png
+     :alt: Oblique Mercator
+
+     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_oblique_mercator_2
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_1_thumb.png
+     :alt: Oblique Mercator
+
+     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_oblique_mercator_1
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_3_thumb.png
+     :alt: Oblique Mercator
+
+     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_3.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_oblique_mercator_3
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the...">
 
 .. only:: html
@@ -688,7 +751,7 @@ Non-geographic Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Polar projections allow plotting polar coordinate data (e.g. angle \theta and radius *r*). ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Polar projections allow plotting polar coordinate data (e.g. angle \theta and radius *r*).">
 
 .. only:: html
 
@@ -769,11 +832,11 @@ The below table shows the projection codes for the 31 GMT projections.
    * - **N**\ [|lon0|/]\ *width*
      - :doc:`Robinson </projections/misc/misc_robinson>`
    * - **Oa**\ |lon0|/|lat0|/\ *azim*/*width*\ [**+v**]
-     - Oblique Mercator, 1: origin and azim
+     - :doc:`Oblique Mercator, 1: origin and azim </projections/cyl/cyl_oblique_mercator_1>`
    * - **Ob**\ |lon0|/|lat0|/|lon1|/|lat1|/\ *width*\ [**+v**]
-     - Oblique Mercator, 2: two points
+     - :doc:`Oblique Mercator, 2: two points </projections/cyl/cyl_oblique_mercator_2>`
    * - **Oc**\ |lon0|/|lat0|/|lonp|/|latp|/\ *width*\ [**+v**]
-     - Oblique Mercator, 3: origin and pole
+     - :doc:`Oblique Mercator, 3: origin and pole </projections/cyl/cyl_oblique_mercator_3>`
    * - **P**\ *width*\ [**+a**]\ [**+f**\ [**e**\|\ **p**\|\ *radius*]]\
        [**+r**\ *offset*][**+t**\ *origin*][**+z**\ [**p**\|\ *radius*]]
      - :doc:`Polar </projections/nongeo/polar>` [azimuthal]

@@ -42,8 +42,8 @@ https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -66,20 +66,20 @@ https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html
         projection="X10c/10c",
         frame=["xa0.2fg", "ya0.2fg", "WSrt"],
     )
-    for color in ["blue", "orange", "green"]:
+    for color in ["gray73", "darkorange", "slateblue"]:
         x, y = np.random.rand(2, n)  # random X and Y data in [0,1]
-        sizes = np.random.rand(n) * 0.5  # random size [0,0.5], in cm
+        size = np.random.rand(n) * 0.5  # random size [0,0.5], in cm
         # plot data points as circles (style="c"), with different sizes
         fig.plot(
             x=x,
             y=y,
             style="c",
-            sizes=sizes,
+            size=size,
             color=color,
             # Set the legend label,
-            # and set the circle size to be 0.25 cm (+S0.25c) in legend
+            # and set the symbol size to be 0.25 cm (+S0.25c) in legend
             label=f"{color}+S0.25c",
-            transparency=70,  # set transparency level for all symbols
+            transparency=50,  # set transparency level for all symbols
         )
 
     fig.legend(transparency=30)  # set transparency level for legends
@@ -88,7 +88,7 @@ https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.147 seconds)
+   **Total running time of the script:** ( 0 minutes  2.036 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_scatter.py:

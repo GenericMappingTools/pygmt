@@ -40,8 +40,8 @@ the optional *height*. The axis or axes with a logarithmic transformation requir
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -84,7 +84,7 @@ the optional *height*. The axis or axes with a logarithmic transformation requir
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.329 seconds)
+   **Total running time of the script:** ( 0 minutes  1.270 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_cartesian_logarithmic.py:

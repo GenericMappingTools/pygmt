@@ -2,12 +2,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     
         <title>pygmt.src.grdtrack &mdash; PyGMT</title>
@@ -15,17 +14,35 @@
 
 
   
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
@@ -35,16 +52,6 @@
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <!-- Google Analytics tracking code -->
@@ -99,6 +106,7 @@
 
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
     
@@ -112,16 +120,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first_figure.html">Making your first figure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/regions.html">Setting the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/lines.html">Plotting lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/vectors.html">Plotting vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/text.html">Plotting text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
@@ -134,6 +148,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
 </ul>
 
             
@@ -144,8 +160,6 @@
             <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
@@ -159,6 +173,7 @@
     
 
         </div>
+        
       </div>
     </nav>
 
@@ -194,11 +209,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -230,25 +247,46 @@
     <span class="n">GMTTempFile</span><span class="p">,</span>
     <span class="n">build_arg_string</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
-    <span class="n">dummy_context</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <div class="viewcode-block" id="grdtrack"><a class="viewcode-back" href="../../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack">[docs]</a><span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;resample&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;crossprofile&quot;</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;dfile&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;profile&quot;</span><span class="p">,</span>
+    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;critical&quot;</span><span class="p">,</span>
+    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_skip&quot;</span><span class="p">,</span>
+    <span class="n">S</span><span class="o">=</span><span class="s2">&quot;stack&quot;</span><span class="p">,</span>
+    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span>
+    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;z_only&quot;</span><span class="p">,</span>
+    <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
+    <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
+    <span class="n">j</span><span class="o">=</span><span class="s2">&quot;distcalc&quot;</span><span class="p">,</span>
+    <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdtrack</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">newcolname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sample grids at specified (x,y) locations.</span>
 
-<span class="sd">    Grdtrack reads one or more grid files and a table with (x,y) [or (lon,lat)]</span>
-<span class="sd">    positions in the first two columns (more columns may be present). It</span>
-<span class="sd">    interpolates the grid(s) at the positions in the table and writes out the</span>
-<span class="sd">    table with the interpolated values added as (one or more) new columns. A</span>
-<span class="sd">    bicubic [Default], bilinear, B-spline or nearest-neighbor interpolation is</span>
-<span class="sd">    used, requiring boundary conditions at the limits of the region (see</span>
-<span class="sd">    ``interpolation``; Default uses “natural” conditions (second partial</span>
+<span class="sd">    Reads one or more grid files and a table (from file or an array input; but</span>
+<span class="sd">    see ``profile`` for exception) with (x,y) [or (lon,lat)] positions in the</span>
+<span class="sd">    first two columns (more columns may be present). It interpolates the</span>
+<span class="sd">    grid(s) at the positions in the table and writes out the table with the</span>
+<span class="sd">    interpolated values added as (one or more) new columns. Alternatively</span>
+<span class="sd">    (``crossprofile``), the input is considered to be line-segments and we</span>
+<span class="sd">    create orthogonal cross-profiles at each data point or with an equidistant</span>
+<span class="sd">    separation and sample the grid(s) along these profiles. A bicubic</span>
+<span class="sd">    [Default], bilinear, B-spline or nearest-neighbor interpolation is used,</span>
+<span class="sd">    requiring boundary conditions at the limits of the region (see</span>
+<span class="sd">    ``interpolation``; Default uses &quot;natural&quot; conditions (second partial</span>
 <span class="sd">    derivative normal to edge is zero) unless the grid is automatically</span>
 <span class="sd">    recognized as periodic.)</span>
 
@@ -258,10 +296,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    points : pandas.DataFrame or str</span>
-<span class="sd">        Either a table with (x, y) or (lon, lat) values in the first two</span>
-<span class="sd">        columns, or a filename (e.g. csv, txt format). More columns may be</span>
-<span class="sd">        present.</span>
+<span class="sd">    points : str or {table-like}</span>
+<span class="sd">        Pass in either a file name to an ASCII data table, a 2D</span>
+<span class="sd">        {table-classes}.</span>
 
 <span class="sd">    grid : xarray.DataArray or str</span>
 <span class="sd">        Gridded array from which to sample values from, or a filename (netcdf</span>
@@ -273,11 +310,171 @@
 <span class="sd">        sampled values will be placed.</span>
 
 <span class="sd">    outfile : str</span>
-<span class="sd">        Required if ``points`` is a file. The file name for the output ASCII</span>
-<span class="sd">        file.</span>
+<span class="sd">        The file name for the output ASCII file.</span>
 
+<span class="sd">    resample : str</span>
+<span class="sd">        **f**\|\ **p**\|\ **m**\|\ **r**\|\ **R**\ [**+l**]</span>
+<span class="sd">        For track resampling (if ``crossprofile`` or ``profile`` are set) we</span>
+<span class="sd">        can select how this is to be performed. Append **f** to keep original</span>
+<span class="sd">        points, but add intermediate points if needed [Default], **m** as</span>
+<span class="sd">        **f**, but first follow meridian (along y) then parallel (along x),</span>
+<span class="sd">        **p** as **f**, but first follow parallel (along y) then meridian</span>
+<span class="sd">        (along x), **r** to resample at equidistant locations; input points are</span>
+<span class="sd">        not necessarily included in the output, and **R** as **r**, but adjust</span>
+<span class="sd">        given spacing to fit the track length exactly. Finally, append</span>
+<span class="sd">        **+l** if geographic distances should be measured along rhumb lines</span>
+<span class="sd">        (loxodromes) instead of great circles. Ignored unless ``crossprofile``</span>
+<span class="sd">        is used.</span>
+<span class="sd">    crossprofile : str</span>
+<span class="sd">        *length*/\ *ds*\ [*/spacing*][**+a**\|\ **+v**][**l**\|\ **r**].</span>
+<span class="sd">        Use input line segments to create an equidistant and (optionally)</span>
+<span class="sd">        equally-spaced set of crossing profiles along which we sample the</span>
+<span class="sd">        grid(s) [Default simply samples the grid(s) at the input locations].</span>
+<span class="sd">        Specify two length scales that control how the sampling is done:</span>
+<span class="sd">        *length* sets the full length of each cross-profile, while *ds* is</span>
+<span class="sd">        the sampling spacing along each cross-profile. Optionally, append</span>
+<span class="sd">        **/**\ *spacing* for an equidistant spacing between cross-profiles</span>
+<span class="sd">        [Default erects cross-profiles at the input coordinates]; see</span>
+<span class="sd">        ``resample`` for how resampling the input track is controlled. By</span>
+<span class="sd">        default, all cross-profiles have the same direction (left to right</span>
+<span class="sd">        as we look in the direction of the input line segment). Append **+a**</span>
+<span class="sd">        to alternate the direction of cross-profiles, or **v** to enforce</span>
+<span class="sd">        either a &quot;west-to-east&quot; or &quot;south-to-north&quot; view. By default the entire</span>
+<span class="sd">        profiles are output. Choose to only output the left or right halves</span>
+<span class="sd">        of the profiles by appending **+l** or **+r**, respectively.  Append</span>
+<span class="sd">        suitable units to *length*; it sets the unit used for *ds* [and</span>
+<span class="sd">        *spacing*] (See :gmt-docs:`Units &lt;grdtrack.html#units&gt;`). The default</span>
+<span class="sd">        unit for geographic grids is meter while Cartesian grids implies the</span>
+<span class="sd">        user unit.  The output columns will be *lon*, *lat*, *dist*, *azimuth*,</span>
+<span class="sd">        *z1*, *z2*, ..., *zn* (The *zi* are the sampled values for each of the</span>
+<span class="sd">        *n* grids).</span>
+<span class="sd">    dfile : str</span>
+<span class="sd">        In concert with ``crossprofile`` we can save the (possibly resampled)</span>
+<span class="sd">        original lines to *dfile* [Default only saves the cross-profiles]. The</span>
+<span class="sd">        columns will be *lon*, *lat*, *dist*, *azimuth*, *z1*, *z2*, ...</span>
+<span class="sd">        (sampled value for each grid).</span>
+<span class="sd">    profile : str</span>
+<span class="sd">        *line*\ [,\ *line*,...][**+a**\ *az*][**+c**][**+d**][**+g**]\</span>
+<span class="sd">        [**+i**\ *inc*][**+l**\ *length*][**+n**\ *np*][**+o**\ *az*]\</span>
+<span class="sd">        [**+r**\ *radius*].</span>
+<span class="sd">        Instead of reading input track coordinates, specify profiles via</span>
+<span class="sd">        coordinates and modifiers. The format of each *line* is</span>
+<span class="sd">        *start*/*stop*, where *start* or *stop* are either *lon*/*lat* (*x*/*y*</span>
+<span class="sd">        for Cartesian data) or a 2-character XY key that uses the</span>
+<span class="sd">        :gmt-docs:`text &lt;text.html&gt;`-style justification format to specify</span>
+<span class="sd">        a point on the map as [LCR][BMT]. Each line will be a separate segment</span>
+<span class="sd">        unless **+c** is used which will connect segments with shared joints</span>
+<span class="sd">        into a single segment. In addition to line coordinates, you can use Z-,</span>
+<span class="sd">        Z+ to mean the global minimum and maximum locations in the grid (only</span>
+<span class="sd">        available if a single grid is given via **outfile**). You may append</span>
+<span class="sd">        **+i**\ *inc* to set the sampling interval; if not given then we</span>
+<span class="sd">        default to half the minimum grid interval. For a *line* along parallels</span>
+<span class="sd">        or meridians you can add **+g** to report degrees of longitude or</span>
+<span class="sd">        latitude instead of great circle distances starting at zero. Instead of</span>
+<span class="sd">        two coordinates you can specify an origin and one of **+a**, **+o**, or</span>
+<span class="sd">        **+r**. The **+a** sets the azimuth of a profile of given length</span>
+<span class="sd">        starting at the given origin, while **+o** centers the profile on the</span>
+<span class="sd">        origin; both require **+l**. For circular sampling specify **+r** to</span>
+<span class="sd">        define a circle of given radius centered on the origin; this option</span>
+<span class="sd">        requires either **+n** or **+i**.  The **+n**\ *np* modifier sets the</span>
+<span class="sd">        desired number of points, while **+l**\ *length* gives the total length</span>
+<span class="sd">        of the profile. Append **+d** to output the along-track distances after</span>
+<span class="sd">        the coordinates. **Note**: No track file will be read. Also note that</span>
+<span class="sd">        only one distance unit can be chosen. Giving different units will</span>
+<span class="sd">        result in an error. If no units are specified we default to great</span>
+<span class="sd">        circle distances in km (if geographic). If working with geographic data</span>
+<span class="sd">        you can use ``distcalc`` to control distance calculation mode [Default</span>
+<span class="sd">        is Great Circle]. **Note**: If ``crossprofile`` is set and *spacing* is</span>
+<span class="sd">        given then that sampling scheme overrules any modifier set in</span>
+<span class="sd">        ``profile``.</span>
+<span class="sd">    critical : str</span>
+<span class="sd">        [**+b**][**+n**][**+r**][**+z**\ *z0*].</span>
+<span class="sd">        Find critical points along each cross-profile as a function of</span>
+<span class="sd">        along-track distance. Requires ``crossprofile`` and a single input grid</span>
+<span class="sd">        (*z*). We examine each cross-profile generated and report (*dist*,</span>
+<span class="sd">        *lonc*, *latc*, *distc*, *azimuthc*, *zc*) at the center peak of</span>
+<span class="sd">        maximum *z* value, (*lonl*, *latl*, *distl*) and (*lonr*, *latr*,</span>
+<span class="sd">        *distr*) at the first and last non-NaN point whose *z*-value exceeds</span>
+<span class="sd">        *z0*, respectively, and the *width* based on the two extreme points</span>
+<span class="sd">        found. Here, *dist* is the distance along the original input</span>
+<span class="sd">        ``points`` and the other 12 output columns are a function of that</span>
+<span class="sd">        distance.  When searching for the center peak and the extreme first and</span>
+<span class="sd">        last values that exceed the threshold we assume the profile is positive</span>
+<span class="sd">        up. If we instead are looking for a trough then you must use **+n** to</span>
+<span class="sd">        temporarily flip the profile to positive. The threshold *z0* value is</span>
+<span class="sd">        always given as &gt;= 0; use **+z** to change it [Default is 0].</span>
+<span class="sd">        Alternatively, use **+b** to determine the balance point and standard</span>
+<span class="sd">        deviation of the profile; this is the weighted mean and weighted</span>
+<span class="sd">        standard deviation of the distances, with *z* acting as the weight.</span>
+<span class="sd">        Finally, use **+r** to obtain the weighted rms about the cross-track</span>
+<span class="sd">        center (*distc* == 0). **Note**: We round the exact results to the</span>
+<span class="sd">        nearest distance nodes along the cross-profiles. We write 13 output</span>
+<span class="sd">        columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,</span>
+<span class="sd">        distl, lonr, latr, distr, width*.</span>
+<span class="sd">    {R}</span>
+<span class="sd">    no_skip : bool</span>
+<span class="sd">        Do *not* skip points that fall outside the domain of the grid(s)</span>
+<span class="sd">        [Default only output points within grid domain].</span>
+<span class="sd">    stack : str or list</span>
+<span class="sd">        *method*/*modifiers*.</span>
+<span class="sd">        In conjunction with ``crossprofile``, compute a single stacked profile</span>
+<span class="sd">        from all profiles across each segment. Choose how stacking should be</span>
+<span class="sd">        computed [Default method is **a**]:</span>
+
+<span class="sd">        - **a** = mean (average)</span>
+<span class="sd">        - **m** = median</span>
+<span class="sd">        - **p** = mode (maximum likelihood)</span>
+<span class="sd">        - **l** = lower</span>
+<span class="sd">        - **L** = lower but only consider positive values</span>
+<span class="sd">        - **u** = upper</span>
+<span class="sd">        - **U** = upper but only consider negative values.</span>
+
+<span class="sd">        The *modifiers* control the output; choose one or more among these</span>
+<span class="sd">        choices:</span>
+
+<span class="sd">        - **+a** : Append stacked values to all cross-profiles.</span>
+<span class="sd">        - **+d** : Append stack deviations to all cross-profiles.</span>
+<span class="sd">        - **+r** : Append data residuals (data - stack) to all cross-profiles.</span>
+<span class="sd">        - **+s**\ [*file*] : Save stacked profile to *file* [Default filename</span>
+<span class="sd">          is grdtrack_stacked_profile.txt].</span>
+<span class="sd">        - **+c**\ *fact* : Compute envelope on stacked profile as</span>
+<span class="sd">          ±\ *fact* \*\ *deviation* [Default fact value is 2].</span>
+
+<span class="sd">        Notes:</span>
+
+<span class="sd">        1. Deviations depend on *method* and are st.dev (**a**), L1 scale,</span>
+<span class="sd">           i.e., 1.4826 \* median absolute deviation (MAD) (for **m** and</span>
+<span class="sd">           **p**), or half-range (upper-lower)/2.</span>
+<span class="sd">        2. The stacked profile file contains a leading column plus groups of</span>
+<span class="sd">           4-6 columns, with one group for each sampled grid. The leading</span>
+<span class="sd">           column holds cross distance, while the first four columns in a group</span>
+<span class="sd">           hold stacked value, deviation, min value, and max value,</span>
+<span class="sd">           respectively. If *method* is one of **a**\|\ **m**\|\ **p** then we</span>
+<span class="sd">           also write the lower and upper confidence bounds (see **+c**). When</span>
+<span class="sd">           one or more of **+a**, **+d**, and **+r** are used then we also</span>
+<span class="sd">           append the stacking results to the end of each row, for all</span>
+<span class="sd">           cross-profiles. The order is always stacked value (**+a**), followed</span>
+<span class="sd">           by deviations (**+d**) and finally residuals (**+r**). When more</span>
+<span class="sd">           than one grid is sampled this sequence of 1-3 columns is repeated</span>
+<span class="sd">           for each grid.</span>
+<span class="sd">    radius : bool or int or float or str</span>
+<span class="sd">        [*radius*][**+e**\|\ **p**].</span>
+<span class="sd">        To be used with normal grid sampling, and limited to a single, non-IMG</span>
+<span class="sd">        grid. If the nearest node to the input point is NaN, search outwards</span>
+<span class="sd">        until we find the nearest non-NaN node and report that value instead.</span>
+<span class="sd">        Optionally specify a search radius which limits the consideration to</span>
+<span class="sd">        points within this distance from the input point. To report the</span>
+<span class="sd">        location of the nearest node and its distance from the input point,</span>
+<span class="sd">        append **+e**. The default unit for geographic grid distances is</span>
+<span class="sd">        spherical degrees. Use *radius* to change the unit and give *radius* =</span>
+<span class="sd">        0 if you do not want to limit the radius search. To instead replace the</span>
+<span class="sd">        input point with the coordinates of the nearest node, append **+p**.</span>
 <span class="sd">    {V}</span>
+<span class="sd">    z_only : bool</span>
+<span class="sd">        Only write out the sampled z-values [Default writes all columns].</span>
 <span class="sd">    {f}</span>
+<span class="sd">    {i}</span>
+<span class="sd">    {j}</span>
 <span class="sd">    {n}</span>
 
 <span class="sd">    Returns</span>
@@ -290,21 +487,13 @@
 <span class="sd">        - None if ``outfile`` is set (track output will be stored in file set</span>
 <span class="sd">          by ``outfile``)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span> <span class="ow">and</span> <span class="n">newcolname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Please pass in a str to &#39;newcolname&#39;&quot;</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.csv&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="c1"># Store the pandas.DataFrame points table in virtualfile</span>
-            <span class="k">if</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">newcolname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Please pass in a str to &#39;newcolname&#39;&quot;</span><span class="p">)</span>
-                <span class="n">table_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_matrix</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Please pass in a str to &#39;outfile&#39;&quot;</span><span class="p">)</span>
-                <span class="n">table_context</span> <span class="o">=</span> <span class="n">dummy_context</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
+            <span class="c1"># Choose how data will be passed into the module</span>
+            <span class="n">table_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">points</span><span class="p">)</span>
             <span class="c1"># Store the xarray.DataArray grid in virtualfile</span>
             <span class="n">grid_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
 
@@ -322,8 +511,11 @@
 
         <span class="c1"># Read temporary csv output to a pandas table</span>
         <span class="k">if</span> <span class="n">outfile</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if user did not set outfile, return pd.DataFrame</span>
-            <span class="n">column_names</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">newcolname</span><span class="p">]</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">column_names</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">newcolname</span><span class="p">]</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># &#39;str&#39; object has no attribute &#39;columns&#39;</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">outfile</span> <span class="o">!=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># return None if outfile set, output in outfile</span>
             <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -335,18 +527,19 @@
           </div>
           
 <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2021, The PyGMT Developers.
-      
-        <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
-        </span>
-      
+        &#169; Copyright 2017-2021, The PyGMT Developers.
+      <span class="commit">
+        
+        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b2808cf">b2808cf</a></code>.
+      </span>
+      <span class="lastupdated">
+        Last updated on Jun 20, 2021.
+      </span>
 
     </p>
   </div>
@@ -364,7 +557,6 @@ software usage.
 
 
 </footer>
-
         </div>
       </div>
 
@@ -372,7 +564,6 @@ software usage.
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

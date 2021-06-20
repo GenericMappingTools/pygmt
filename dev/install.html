@@ -2,12 +2,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     
         <title>Installing &mdash; PyGMT</title>
@@ -15,17 +14,35 @@
 
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -35,16 +52,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
-  <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Making your first figure" href="tutorials/first_figure.html" />
@@ -101,6 +108,7 @@
 
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
     
@@ -123,25 +131,27 @@
 <li class="toctree-l3"><a class="reference internal" href="#using-pip">Using pip</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#testing-your-install">Testing your install</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#quick-check">Quick check</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#full-test-optional">Full test (optional)</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-your-install">Testing your install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#finding-the-gmt-shared-library">Finding the GMT shared library</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Setting the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plotting lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/vectors.html">Plotting vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/earth_relief.html">Plotting Earth relief</a></li>
@@ -154,6 +164,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
 </ul>
 
             
@@ -164,8 +176,6 @@
             <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
@@ -179,6 +189,7 @@
     
 
         </div>
+        
       </div>
     </nav>
 
@@ -214,11 +225,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Installing</li>
     
@@ -282,8 +295,7 @@ want to install the latest development version.</p>
 </div>
 <div class="section" id="which-python">
 <h2>Which Python?<a class="headerlink" href="#which-python" title="Permalink to this headline">¶</a></h2>
-<p>PyGMT is tested to run on <strong>Python 3.7 or greater</strong>. Older Python versions may
-work, but there is no guarantee that PyGMT will behave as expected.</p>
+<p>PyGMT is tested to run on <strong>Python 3.7 or greater</strong>.</p>
 <p>We recommend using the <a class="reference external" href="https://www.anaconda.com/distribution">Anaconda</a>
 Python distribution to ensure you have all dependencies installed and the
 <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">conda</a>
@@ -296,7 +308,7 @@ installations on your system.</p>
 <p>PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the
 latest released version that can be found at
 the <a class="reference external" href="https://www.generic-mapping-tools.org">GMT official site</a>.
-We need the latest GMT (&gt;=6.1.1) since there are many changes being made to GMT
+We need the latest GMT (&gt;=6.2.0) since there are many changes being made to GMT
 itself in response to the development of PyGMT, mainly the new
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode">modern execution mode</a>.</p>
 <p>Compiled conda packages of GMT for Linux, macOS and Windows are provided
@@ -309,18 +321,18 @@ anyone who tries.</p>
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>PyGMT requires the following libraries:</p>
+<p>PyGMT requires the following libraries to be installed:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="http://www.numpy.org/">numpy</a></p></li>
-<li><p><a class="reference external" href="https://pandas.pydata.org/">pandas</a></p></li>
-<li><p><a class="reference external" href="http://xarray.pydata.org/">xarray</a></p></li>
-<li><p><a class="reference external" href="https://github.com/Unidata/netcdf4-python">netCDF4</a></p></li>
-<li><p><a class="reference external" href="https://pypi.org/project/packaging/">packaging</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org">numpy</a> (&gt;= 1.17)</p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org">pandas</a></p></li>
+<li><p><a class="reference external" href="https://xarray.pydata.org">xarray</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/netcdf4-python">netCDF4</a></p></li>
+<li><p><a class="reference external" href="https://packaging.pypa.io">packaging</a></p></li>
 </ul>
-<p>The following are optional (but recommended) dependencies:</p>
+<p>The following are optional dependencies:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://ipython.org/">IPython</a>: For embedding the figures in Jupyter
-notebooks.</p></li>
+<li><p><a class="reference external" href="https://ipython.org">IPython</a>: For embedding the figures in Jupyter notebooks (recommended).</p></li>
+<li><p><a class="reference external" href="https://geopandas.org">GeoPandas</a>: For using and plotting GeoDataFrame objects.</p></li>
 </ul>
 </div>
 <div class="section" id="installing-gmt-and-other-dependencies">
@@ -384,35 +396,17 @@ from Python.</p>
 </div>
 <div class="section" id="testing-your-install">
 <h2>Testing your install<a class="headerlink" href="#testing-your-install" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="quick-check">
-<h3>Quick check<a class="headerlink" href="#quick-check" title="Permalink to this headline">¶</a></h3>
 <p>To ensure that PyGMT and its dependencies are installed correctly, run the
 following in your Python interpreter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="n">pygmt</span><span class="o">.</span><span class="n">show_versions</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shorelines</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Or run this in the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import pygmt; pygmt.show_versions()&quot;</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="full-test-optional">
-<h3>Full test (optional)<a class="headerlink" href="#full-test-optional" title="Permalink to this headline">¶</a></h3>
-<p>PyGMT ships with a full test suite.
-You can run our tests after you install it but you will need a few extra
-dependencies as well (be sure to have your conda environment activated):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pytest</span> <span class="n">pytest</span><span class="o">-</span><span class="n">mpl</span> <span class="n">ipython</span>
-</pre></div>
-</div>
-<p>Test your installation by running the following inside a Python interpreter
-(note that it may take a few minutes):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
-<span class="n">pygmt</span><span class="o">.</span><span class="n">show_versions</span><span class="p">()</span>
-<span class="n">pygmt</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
+<p>If you see a global map with shorelines, then you’re all set.</p>
 </div>
 <div class="section" id="finding-the-gmt-shared-library">
 <h2>Finding the GMT shared library<a class="headerlink" href="#finding-the-gmt-shared-library" title="Permalink to this headline">¶</a></h2>
@@ -439,27 +433,23 @@ set &quot;GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\&q
           </div>
           
 <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="tutorials/first_figure.html" class="btn btn-neutral float-right" title="Making your first figure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="tutorials/first_figure.html" class="btn btn-neutral float-right" title="Making your first figure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2021, The PyGMT Developers.
-      
-        <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
-        </span>
-      
+        &#169; Copyright 2017-2021, The PyGMT Developers.
+      <span class="commit">
+        
+        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b2808cf">b2808cf</a></code>.
+      </span>
+      <span class="lastupdated">
+        Last updated on Jun 20, 2021.
+      </span>
 
     </p>
   </div>
@@ -477,7 +467,6 @@ software usage.
 
 
 </footer>
-
         </div>
       </div>
 
@@ -485,7 +474,6 @@ software usage.
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

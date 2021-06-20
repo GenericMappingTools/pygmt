@@ -24,16 +24,7 @@ Creating a 3D perspective image
 Create 3-D perspective image or surface mesh from a grid
 using :meth:`pygmt.Figure.grdview`.
 
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
-
-.. GENERATED FROM PYTHON SOURCE LINES 17-23
+.. GENERATED FROM PYTHON SOURCE LINES 8-14
 
 .. code-block:: default
 
@@ -50,7 +41,7 @@ using :meth:`pygmt.Figure.grdview`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-31
+.. GENERATED FROM PYTHON SOURCE LINES 16-22
 
 The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
 The ``perspective`` parameter changes the azimuth and elevation of the viewpoint; the
@@ -59,7 +50,7 @@ The ``zsize`` parameter sets how tall the three-dimensional portion appears.
 
 The default grid surface type is *mesh plot*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-46
+.. GENERATED FROM PYTHON SOURCE LINES 22-37
 
 .. code-block:: default
 
@@ -92,17 +83,17 @@ The default grid surface type is *mesh plot*.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-49
+
+.. GENERATED FROM PYTHON SOURCE LINES 38-40
 
 The grid surface type can be set with the ``surftype`` parameter.
 The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-64
+.. GENERATED FROM PYTHON SOURCE LINES 40-55
 
 .. code-block:: default
 
@@ -135,17 +126,17 @@ The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-67
+
+.. GENERATED FROM PYTHON SOURCE LINES 56-58
 
 The ``plane`` parameter sets the elevation and color of a plane that provides a fill
 below the surface relief.
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-82
+.. GENERATED FROM PYTHON SOURCE LINES 58-73
 
 .. code-block:: default
 
@@ -178,12 +169,12 @@ below the surface relief.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-88
+
+.. GENERATED FROM PYTHON SOURCE LINES 74-79
 
 The ``perspective`` azimuth can be changed to set the direction that is "up"
 in the figure. The ``contourpen`` parameter sets the pen used to draw contour lines
@@ -191,7 +182,7 @@ on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a color bar to 
 figure. The ``cmap`` parameter does not need to be passed again. To keep the color
 bar's alignment similar to the figure, use ``True`` as the ``perspective`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-105
+.. GENERATED FROM PYTHON SOURCE LINES 79-96
 
 .. code-block:: default
 
@@ -226,15 +217,15 @@ bar's alignment similar to the figure, use ``True`` as the ``perspective`` param
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.603 seconds)
+   **Total running time of the script:** ( 0 minutes  6.061 seconds)
 
 
 .. _sphx_glr_download_tutorials_3d_perspective_image.py:

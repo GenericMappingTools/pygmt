@@ -18,21 +18,12 @@
 .. _sphx_glr_tutorials_lines.py:
 
 
-Plot lines
-==========
+Plotting lines
+==============
 
 Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
-
-.. GENERATED FROM PYTHON SOURCE LINES 16-19
+.. GENERATED FROM PYTHON SOURCE LINES 7-10
 
 .. code-block:: default
 
@@ -46,7 +37,7 @@ Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-27
+.. GENERATED FROM PYTHON SOURCE LINES 12-18
 
 Plot lines
 ----------
@@ -55,7 +46,7 @@ Create a Cartesian figure using ``projection`` parameter and set the axis scales
 using ``region`` (in this case, each axis is 0-10). Pass a list of ``x`` and ``y``
 values to be plotted as a line.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-39
+.. GENERATED FROM PYTHON SOURCE LINES 18-30
 
 .. code-block:: default
 
@@ -63,7 +54,7 @@ values to be plotted as a line.
     fig = pygmt.Figure()
     fig.plot(
         region=[0, 10, 0, 10],
-        projection="X25c/20c",
+        projection="X15c/10c",
         frame="a",
         x=[1, 8],
         y=[5, 9],
@@ -85,17 +76,17 @@ values to be plotted as a line.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-42
+
+.. GENERATED FROM PYTHON SOURCE LINES 31-33
 
 Additional line segments can be added by including additional values for ``x``
 and ``y``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-54
+.. GENERATED FROM PYTHON SOURCE LINES 33-45
 
 .. code-block:: default
 
@@ -103,7 +94,7 @@ and ``y``.
     fig = pygmt.Figure()
     fig.plot(
         region=[0, 10, 0, 10],
-        projection="X25c/20c",
+        projection="X15c/10c",
         frame="a",
         x=[1, 6, 9],
         y=[5, 7, 4],
@@ -125,18 +116,18 @@ and ``y``.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-58
+
+.. GENERATED FROM PYTHON SOURCE LINES 46-49
 
 To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
 additional line. Arguments such as ``region``, ``projection``, and ``frame`` do
 not need to be repeated in subsequent uses.
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-71
+.. GENERATED FROM PYTHON SOURCE LINES 49-62
 
 .. code-block:: default
 
@@ -144,7 +135,7 @@ not need to be repeated in subsequent uses.
     fig = pygmt.Figure()
     fig.plot(
         region=[0, 10, 0, 10],
-        projection="X25c/20c",
+        projection="X15c/10c",
         frame="a",
         x=[1, 6, 9],
         y=[5, 7, 4],
@@ -167,12 +158,12 @@ not need to be repeated in subsequent uses.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-80
+
+.. GENERATED FROM PYTHON SOURCE LINES 63-71
 
 Change line attributes
 ----------------------
@@ -183,7 +174,7 @@ argument with the optional values *width*,\ *color*,\ *style*.
 In the example below, the pen width is set to ``5p``, and with ``black`` as the
 default color and ``solid`` as the default style.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-92
+.. GENERATED FROM PYTHON SOURCE LINES 71-83
 
 .. code-block:: default
 
@@ -191,7 +182,7 @@ default color and ``solid`` as the default style.
     fig = pygmt.Figure()
     fig.plot(
         region=[0, 10, 0, 10],
-        projection="X25c/20c",
+        projection="X15c/10c",
         frame="a",
         x=[1, 8],
         y=[3, 9],
@@ -213,17 +204,17 @@ default color and ``solid`` as the default style.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-95
+
+.. GENERATED FROM PYTHON SOURCE LINES 84-86
 
 The line color can be set and is added after the line width to the ``pen`` parameter.
 In the example below, the line color is set to ``red``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-107
+.. GENERATED FROM PYTHON SOURCE LINES 86-98
 
 .. code-block:: default
 
@@ -231,7 +222,7 @@ In the example below, the line color is set to ``red``.
     fig = pygmt.Figure()
     fig.plot(
         region=[0, 10, 0, 10],
-        projection="X25c/20c",
+        projection="X15c/10c",
         frame="a",
         x=[1, 8],
         y=[3, 9],
@@ -253,18 +244,18 @@ In the example below, the line color is set to ``red``.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 108-111
+
+.. GENERATED FROM PYTHON SOURCE LINES 99-102
 
 The line style can be set and is added after the line width or color to the
 ``pen`` parameter.  In the example below, the line style is set to
 ``..-`` (*dot dot dash*), and the default color ``black`` is used.
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-123
+.. GENERATED FROM PYTHON SOURCE LINES 102-114
 
 .. code-block:: default
 
@@ -272,7 +263,7 @@ The line style can be set and is added after the line width or color to the
     fig = pygmt.Figure()
     fig.plot(
         region=[0, 10, 0, 10],
-        projection="X25c/20c",
+        projection="X15c/10c",
         frame="a",
         x=[1, 8],
         y=[3, 9],
@@ -294,12 +285,12 @@ The line style can be set and is added after the line width or color to the
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-129
+
+.. GENERATED FROM PYTHON SOURCE LINES 115-120
 
 The line width, color, and style can all be set in the same ``pen`` parameter. In the
 example below, the line width is set to ``7p``, the color is set to ``green``, and the
@@ -307,7 +298,7 @@ line style is ``-.-`` (*dash dot dash*).
 
 For a gallery showing other ``pen`` settings, see :doc:`/gallery/lines/linestyles`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-140
+.. GENERATED FROM PYTHON SOURCE LINES 120-131
 
 .. code-block:: default
 
@@ -315,7 +306,7 @@ For a gallery showing other ``pen`` settings, see :doc:`/gallery/lines/linestyle
     fig = pygmt.Figure()
     fig.plot(
         region=[0, 10, 0, 10],
-        projection="X25c/20c",
+        projection="X15c/10c",
         frame="a",
         x=[1, 8],
         y=[3, 9],
@@ -336,15 +327,15 @@ For a gallery showing other ``pen`` settings, see :doc:`/gallery/lines/linestyle
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.837 seconds)
+   **Total running time of the script:** ( 0 minutes  7.355 seconds)
 
 
 .. _sphx_glr_download_tutorials_lines.py:

@@ -5,16 +5,18 @@
 
 Computation times
 =================
-**00:18.619** total execution time for **gallery_lines** files:
+**00:20.853** total execution time for **gallery_lines** files:
 
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``) | 00:04.858 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``) | 00:05.277 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)                 | 00:04.556 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)                 | 00:04.904 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)                 | 00:03.703 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)                 | 00:04.059 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)       | 00:03.195 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)       | 00:03.238 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_vectors.py` (``vectors.py``)                       | 00:02.308 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)           | 00:02.223 | 0.0 MB |
++---------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_lines_wiggle.py` (``wiggle.py``)                         | 00:01.152 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+

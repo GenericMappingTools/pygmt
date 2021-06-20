@@ -2,12 +2,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     
         <title>pygmt.datasets.earth_relief &mdash; PyGMT</title>
@@ -15,17 +14,35 @@
 
 
   
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
@@ -35,16 +52,6 @@
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <!-- Google Analytics tracking code -->
@@ -99,6 +106,7 @@
 
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
     
@@ -112,16 +120,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first_figure.html">Making your first figure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/regions.html">Setting the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/lines.html">Plotting lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/vectors.html">Plotting vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/text.html">Plotting text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
@@ -134,6 +148,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
 </ul>
 
             
@@ -144,8 +160,6 @@
             <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
@@ -159,6 +173,7 @@
     
 
         </div>
+        
       </div>
     </nav>
 
@@ -194,11 +209,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -233,7 +250,7 @@
 
 
 <div class="viewcode-block" id="load_earth_relief"><a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief">[docs]</a><span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_srtm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load Earth relief grids (topography and bathymetry) in various resolutions.</span>
 
@@ -272,6 +289,13 @@
 <span class="sd">        a pixel-registered grid is returned unless only the</span>
 <span class="sd">        gridline-registered grid is available.</span>
 
+<span class="sd">    use_srtm : bool</span>
+<span class="sd">        By default, the land-only SRTM tiles from NASA are used to generate the</span>
+<span class="sd">        ``&#39;03s&#39;`` and ``&#39;01s&#39;`` grids, and the missing ocean values are filled</span>
+<span class="sd">        by up-sampling the SRTM15+V2.1 tiles which have a resolution of 15</span>
+<span class="sd">        arc-second (i.e., ``&#39;15s&#39;``). If True, will only load the original</span>
+<span class="sd">        land-only SRTM tiles.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    grid : :class:`xarray.DataArray`</span>
@@ -295,12 +319,21 @@
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(</span>
 <span class="sd">    ...     &quot;05m&quot;, region=[120, 160, 30, 60], registration=&quot;gridline&quot;</span>
 <span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; # load the original 3 arc-second land-only SRTM tiles from NASA</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(</span>
+<span class="sd">    ...     &quot;03s&quot;,</span>
+<span class="sd">    ...     region=[135, 136, 35, 36],</span>
+<span class="sd">    ...     registration=&quot;gridline&quot;,</span>
+<span class="sd">    ...     use_srtm=True,</span>
+<span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># earth relief data stored as single grids for low resolutions</span>
     <span class="n">non_tiled_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="s2">&quot;30m&quot;</span><span class="p">,</span> <span class="s2">&quot;20m&quot;</span><span class="p">,</span> <span class="s2">&quot;15m&quot;</span><span class="p">,</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span> <span class="s2">&quot;06m&quot;</span><span class="p">]</span>
     <span class="c1"># earth relief data stored as tiles for high resolutions</span>
     <span class="n">tiled_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;05m&quot;</span><span class="p">,</span> <span class="s2">&quot;04m&quot;</span><span class="p">,</span> <span class="s2">&quot;03m&quot;</span><span class="p">,</span> <span class="s2">&quot;02m&quot;</span><span class="p">,</span> <span class="s2">&quot;01m&quot;</span><span class="p">,</span> <span class="s2">&quot;30s&quot;</span><span class="p">,</span> <span class="s2">&quot;15s&quot;</span><span class="p">,</span> <span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">]</span>
+    <span class="c1"># resolutions of original land-only SRTM tiles from NASA</span>
+    <span class="n">land_only_srtm_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">registration</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;pixel&quot;</span><span class="p">,</span> <span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
         <span class="c1"># If None, let GMT decide on Pixel/Gridline type</span>
@@ -325,21 +358,25 @@
             <span class="sa">f</span><span class="s2">&quot;resolution &#39;</span><span class="si">{</span><span class="n">resolution</span><span class="si">}</span><span class="s2">&#39; is not supported.&quot;</span>
         <span class="p">)</span>
 
+    <span class="c1"># Choose earth relief data prefix</span>
+    <span class="n">earth_relief_prefix</span> <span class="o">=</span> <span class="s2">&quot;earth_relief_&quot;</span>
+    <span class="k">if</span> <span class="n">use_srtm</span> <span class="ow">and</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">land_only_srtm_resolutions</span><span class="p">:</span>
+        <span class="n">earth_relief_prefix</span> <span class="o">=</span> <span class="s2">&quot;srtm_relief_&quot;</span>
+
     <span class="c1"># different ways to load tiled and non-tiled earth relief data</span>
     <span class="c1"># Known issue: tiled grids don&#39;t support slice operation</span>
     <span class="c1"># See https://github.com/GenericMappingTools/pygmt/issues/524</span>
     <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">non_tiled_resolutions</span><span class="p">:</span>
-            <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;@earth_relief_</span><span class="si">{</span><span class="n">resolution</span><span class="si">}{</span><span class="n">reg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
-            <span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataarray</span><span class="p">:</span>
-                <span class="n">grid</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-                <span class="n">_</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">gmt</span>  <span class="c1"># load GMTDataArray accessor information</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">resolution</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_tiled_resolutions</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;&#39;region&#39; is required for Earth relief resolution &#39;</span><span class="si">{</span><span class="n">resolution</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
             <span class="p">)</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;@earth_relief_</span><span class="si">{</span><span class="n">resolution</span><span class="si">}{</span><span class="n">reg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;netcdf4&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataarray</span><span class="p">:</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">gmt</span>  <span class="c1"># load GMTDataArray accessor information</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">grid</span> <span class="o">=</span> <span class="n">grdcut</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;@earth_relief_</span><span class="si">{</span><span class="n">resolution</span><span class="si">}{</span><span class="n">reg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">grdcut</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;@</span><span class="si">{</span><span class="n">earth_relief_prefix</span><span class="si">}{</span><span class="n">resolution</span><span class="si">}{</span><span class="n">reg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
 
     <span class="c1"># Add some metadata to the grid</span>
     <span class="n">grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;elevation&quot;</span>
@@ -361,18 +398,19 @@
           </div>
           
 <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2021, The PyGMT Developers.
-      
-        <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
-        </span>
-      
+        &#169; Copyright 2017-2021, The PyGMT Developers.
+      <span class="commit">
+        
+        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b2808cf">b2808cf</a></code>.
+      </span>
+      <span class="lastupdated">
+        Last updated on Jun 20, 2021.
+      </span>
 
     </p>
   </div>
@@ -390,7 +428,6 @@ software usage.
 
 
 </footer>
-
         </div>
       </div>
 
@@ -398,7 +435,6 @@ software usage.
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

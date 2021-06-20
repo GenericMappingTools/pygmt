@@ -28,7 +28,7 @@ Maps and map elements
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify  a color to fill in the land and wa...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and wat...">
 
 .. only:: html
 
@@ -107,10 +107,10 @@ Lines and vectors
 
 .. only:: html
 
- .. figure:: /gallery/lines/images/thumb/sphx_glr_vectors_thumb.png
+ .. figure:: /gallery/lines/images/thumb/sphx_glr_vector_styles_thumb.png
      :alt: Cartesian, circular, and geographic vectors
 
-     :ref:`sphx_glr_gallery_lines_vectors.py`
+     :ref:`sphx_glr_gallery_lines_vector_styles.py`
 
 .. raw:: html
 
@@ -120,7 +120,7 @@ Lines and vectors
 .. toctree::
    :hidden:
 
-   /gallery/lines/vectors
+   /gallery/lines/vector_styles
 
 .. raw:: html
 
@@ -205,6 +205,27 @@ Lines and vectors
    :hidden:
 
    /gallery/lines/vector_heads_tails
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.wiggle method can plot z = f(x,y) anomalies along tracks. x, y, z can be speci...">
+
+.. only:: html
+
+ .. figure:: /gallery/lines/images/thumb/sphx_glr_wiggle_thumb.png
+     :alt: Wiggle along tracks
+
+     :ref:`sphx_glr_gallery_lines_wiggle.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/lines/wiggle
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
@@ -217,6 +238,27 @@ Symbols and markers
 -------------------
 
 
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding...">
+
+.. only:: html
+
+ .. figure:: /gallery/symbols/images/thumb/sphx_glr_basic_symbols_thumb.png
+     :alt: Basic geometric symbols
+
+     :ref:`sphx_glr_gallery_symbols_basic_symbols.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/symbols/basic_symbols
 
 .. raw:: html
 
@@ -484,6 +526,27 @@ Seismology and geodesy
    :hidden:
 
    /gallery/seismology/meca
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.velo method can be used to plot mean velocity arrows and confidence ellipses. ...">
+
+.. only:: html
+
+ .. figure:: /gallery/seismology/images/thumb/sphx_glr_velo_arrow_ellipse_thumb.png
+     :alt: Velocity arrows and confidence ellipses
+
+     :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/seismology/velo_arrow_ellipse
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
@@ -523,6 +586,60 @@ Base maps
 
 
 
+.. _sphx_glr_gallery_histograms:
+
+Histograms
+----------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Histogram">
+
+.. only:: html
+
+ .. figure:: /gallery/histograms/images/thumb/sphx_glr_histogram_thumb.png
+     :alt: Histogram
+
+     :ref:`sphx_glr_gallery_histograms_histogram.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/histograms/histogram
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms.">
+
+.. only:: html
+
+ .. figure:: /gallery/histograms/images/thumb/sphx_glr_rose_thumb.png
+     :alt: Rose diagram
+
+     :ref:`sphx_glr_gallery_histograms_rose.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/histograms/rose
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
 .. _sphx_glr_gallery_embellishments:
 
 Plot embellishments
@@ -550,6 +667,27 @@ Plot embellishments
    :hidden:
 
    /gallery/embellishments/colorbar
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nightime. Th...">
+
+.. only:: html
+
+ .. figure:: /gallery/embellishments/images/thumb/sphx_glr_solar_thumb.png
+     :alt: Day-night terminator line and twilights
+
+     :ref:`sphx_glr_gallery_embellishments_solar.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/embellishments/solar
 
 .. raw:: html
 
@@ -616,7 +754,7 @@ Plot embellishments
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map.  ">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map.">
 
 .. only:: html
 

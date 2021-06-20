@@ -52,8 +52,8 @@ with *scale* or *width*.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -75,7 +75,7 @@ with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.529 seconds)
+   **Total running time of the script:** ( 0 minutes  1.545 seconds)
 
 
 .. _sphx_glr_download_projections_conic_conic_albers.py:

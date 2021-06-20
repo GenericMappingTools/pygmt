@@ -179,27 +179,6 @@ Tutorials
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by pygmt.Figure.plot.">
-
-.. only:: html
-
- .. figure:: /tutorials/images/thumb/sphx_glr_lines_thumb.png
-     :alt: Plot lines
-
-     :ref:`sphx_glr_tutorials_lines.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /tutorials/lines
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie...">
 
 .. only:: html
@@ -242,6 +221,48 @@ Tutorials
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the buil...">
+
+.. only:: html
+
+ .. figure:: /tutorials/images/thumb/sphx_glr_date_time_charts_thumb.png
+     :alt: Plotting datetime charts
+
+     :ref:`sphx_glr_tutorials_date_time_charts.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /tutorials/date_time_charts
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by pygmt.Figure.plot.">
+
+.. only:: html
+
+ .. figure:: /tutorials/images/thumb/sphx_glr_lines_thumb.png
+     :alt: Plotting lines
+
+     :ref:`sphx_glr_tutorials_lines.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /tutorials/lines
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a map plot. This is handled by pygmt.Figure.text.">
 
 .. only:: html
@@ -263,12 +284,33 @@ Tutorials
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot.">
+
+.. only:: html
+
+ .. figure:: /tutorials/images/thumb/sphx_glr_vectors_thumb.png
+     :alt: Plotting vectors
+
+     :ref:`sphx_glr_tutorials_vectors.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /tutorials/vectors
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting functions take the region parameter, which sets the area that will be show...">
 
 .. only:: html
 
  .. figure:: /tutorials/images/thumb/sphx_glr_regions_thumb.png
-     :alt: Set the region
+     :alt: Setting the region
 
      :ref:`sphx_glr_tutorials_regions.py`
 

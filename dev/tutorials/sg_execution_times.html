@@ -2,12 +2,11 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     
         <title>Computation times &mdash; PyGMT</title>
@@ -15,17 +14,35 @@
 
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="../_static/favicon.png"/>
   
+
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -35,16 +52,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <!-- Google Analytics tracking code -->
@@ -99,6 +106,7 @@
 
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
     
@@ -112,16 +120,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="first_figure.html">Making your first figure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Setting the region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lines.html">Plotting lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vectors.html">Plotting vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Plotting text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
@@ -134,6 +148,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance.html">Maintainers Guide</a></li>
 </ul>
 
             
@@ -144,8 +160,6 @@
             <span class="caption-text">Getting help and contributing</span>
         </p>
         <ul>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
@@ -159,6 +173,7 @@
     
 
         </div>
+        
       </div>
     </nav>
 
@@ -194,11 +209,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Computation times</li>
     
@@ -227,7 +244,7 @@
             
   <div class="section" id="computation-times">
 <span id="sphx-glr-tutorials-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>01:56.298</strong> total execution time for <strong>tutorials</strong> files:</p>
+<p><strong>02:13.287</strong> total execution time for <strong>tutorials</strong> files:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 81%" />
@@ -235,56 +252,64 @@
 <col style="width: 8%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="regions.html#sphx-glr-tutorials-regions-py"><span class="std std-ref">Set the region</span></a> (<code class="docutils literal notranslate"><span class="pre">regions.py</span></code>)</p></td>
-<td><p>00:18.744</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="regions.html#sphx-glr-tutorials-regions-py"><span class="std std-ref">Setting the region</span></a> (<code class="docutils literal notranslate"><span class="pre">regions.py</span></code>)</p></td>
+<td><p>00:17.080</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="text.html#sphx-glr-tutorials-text-py"><span class="std std-ref">Plotting text</span></a> (<code class="docutils literal notranslate"><span class="pre">text.py</span></code>)</p></td>
-<td><p>00:13.355</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="vectors.html#sphx-glr-tutorials-vectors-py"><span class="std std-ref">Plotting vectors</span></a> (<code class="docutils literal notranslate"><span class="pre">vectors.py</span></code>)</p></td>
+<td><p>00:15.542</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a> (<code class="docutils literal notranslate"><span class="pre">frames.py</span></code>)</p></td>
-<td><p>00:12.459</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="text.html#sphx-glr-tutorials-text-py"><span class="std std-ref">Plotting text</span></a> (<code class="docutils literal notranslate"><span class="pre">text.py</span></code>)</p></td>
+<td><p>00:13.486</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="lines.html#sphx-glr-tutorials-lines-py"><span class="std std-ref">Plot lines</span></a> (<code class="docutils literal notranslate"><span class="pre">lines.py</span></code>)</p></td>
-<td><p>00:11.837</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="frames.html#sphx-glr-tutorials-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a> (<code class="docutils literal notranslate"><span class="pre">frames.py</span></code>)</p></td>
+<td><p>00:11.903</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="date_time_charts.html#sphx-glr-tutorials-date-time-charts-py"><span class="std std-ref">Plotting datetime charts</span></a> (<code class="docutils literal notranslate"><span class="pre">date_time_charts.py</span></code>)</p></td>
+<td><p>00:10.695</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="subplots.html#sphx-glr-tutorials-subplots-py"><span class="std std-ref">Making subplots</span></a> (<code class="docutils literal notranslate"><span class="pre">subplots.py</span></code>)</p></td>
+<td><p>00:08.447</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="coastlines.html#sphx-glr-tutorials-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a> (<code class="docutils literal notranslate"><span class="pre">coastlines.py</span></code>)</p></td>
-<td><p>00:08.733</p></td>
+<td><p>00:08.256</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="contour_map.html#sphx-glr-tutorials-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a> (<code class="docutils literal notranslate"><span class="pre">contour_map.py</span></code>)</p></td>
-<td><p>00:08.180</p></td>
+<td><p>00:07.702</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="subplots.html#sphx-glr-tutorials-subplots-py"><span class="std std-ref">Making subplots</span></a> (<code class="docutils literal notranslate"><span class="pre">subplots.py</span></code>)</p></td>
-<td><p>00:07.962</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="earth_relief.html#sphx-glr-tutorials-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a> (<code class="docutils literal notranslate"><span class="pre">earth_relief.py</span></code>)</p></td>
+<td><p>00:07.693</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="earth_relief.html#sphx-glr-tutorials-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a> (<code class="docutils literal notranslate"><span class="pre">earth_relief.py</span></code>)</p></td>
-<td><p>00:07.888</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="lines.html#sphx-glr-tutorials-lines-py"><span class="std std-ref">Plotting lines</span></a> (<code class="docutils literal notranslate"><span class="pre">lines.py</span></code>)</p></td>
+<td><p>00:07.355</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="3d_perspective_image.html#sphx-glr-tutorials-3d-perspective-image-py"><span class="std std-ref">Creating a 3D perspective image</span></a> (<code class="docutils literal notranslate"><span class="pre">3d_perspective_image.py</span></code>)</p></td>
-<td><p>00:06.603</p></td>
+<td><p>00:06.061</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="insets.html#sphx-glr-tutorials-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a> (<code class="docutils literal notranslate"><span class="pre">insets.py</span></code>)</p></td>
-<td><p>00:06.444</p></td>
+<td><p>00:06.050</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="plot.html#sphx-glr-tutorials-plot-py"><span class="std std-ref">Plotting data points</span></a> (<code class="docutils literal notranslate"><span class="pre">plot.py</span></code>)</p></td>
-<td><p>00:05.949</p></td>
+<td><p>00:05.426</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="configuration.html#sphx-glr-tutorials-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a> (<code class="docutils literal notranslate"><span class="pre">configuration.py</span></code>)</p></td>
-<td><p>00:05.228</p></td>
+<td><p>00:04.932</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="first_figure.html#sphx-glr-tutorials-first-figure-py"><span class="std std-ref">Making your first figure</span></a> (<code class="docutils literal notranslate"><span class="pre">first_figure.py</span></code>)</p></td>
-<td><p>00:02.918</p></td>
+<td><p>00:02.658</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 </tbody>
@@ -297,18 +322,19 @@
           </div>
           
 <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2021, The PyGMT Developers.
-      
-        <span class="commit">
-          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8e2b2e6">8e2b2e6</a></code>.
-        </span>
-      
+        &#169; Copyright 2017-2021, The PyGMT Developers.
+      <span class="commit">
+        
+        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b2808cf">b2808cf</a></code>.
+      </span>
+      <span class="lastupdated">
+        Last updated on Jun 20, 2021.
+      </span>
 
     </p>
   </div>
@@ -326,7 +352,6 @@ software usage.
 
 
 </footer>
-
         </div>
       </div>
 
@@ -334,7 +359,6 @@ software usage.
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

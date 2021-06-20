@@ -24,17 +24,7 @@ Making your first figure
 Welcome to PyGMT! Here we'll cover some of basic concepts, like creating simple figures
 and naming conventions.
 
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as `IPython <https://ipython.org/>`__
-    or `JupyterLab <https://jupyter.org/>`__.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
-
-.. GENERATED FROM PYTHON SOURCE LINES 20-25
+.. GENERATED FROM PYTHON SOURCE LINES 10-15
 
 Loading the library
 -------------------
@@ -42,7 +32,7 @@ Loading the library
 All modules and figure generation is accessible from the :mod:`pygmt` top level
 package:
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-28
+.. GENERATED FROM PYTHON SOURCE LINES 15-18
 
 .. code-block:: default
 
@@ -56,7 +46,7 @@ package:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-34
+.. GENERATED FROM PYTHON SOURCE LINES 19-24
 
 Creating figures
 ----------------
@@ -64,7 +54,7 @@ Creating figures
 All figure generation in PyGMT is handled by the :class:`pygmt.Figure` class.
 Start a new figure by creating an instance of this class:
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-37
+.. GENERATED FROM PYTHON SOURCE LINES 24-27
 
 .. code-block:: default
 
@@ -78,7 +68,7 @@ Start a new figure by creating an instance of this class:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-43
+.. GENERATED FROM PYTHON SOURCE LINES 28-33
 
 Add elements to the figure using its methods. For example, let's use
 :meth:`pygmt.Figure.basemap` to start the creation of a map. We'll use the ``region`` parameter
@@ -86,7 +76,7 @@ to provide the longitude and latitude bounds, the ``projection`` parameter to se
 the projection to Mercator (**M**) and the map width to 15 cm, and the ``frame``
 parameter to generate a frame with automatic tick and annotation spacings.
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-46
+.. GENERATED FROM PYTHON SOURCE LINES 33-36
 
 .. code-block:: default
 
@@ -100,12 +90,12 @@ parameter to generate a frame with automatic tick and annotation spacings.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-49
+.. GENERATED FROM PYTHON SOURCE LINES 37-39
 
 Now we can add coastlines using :meth:`pygmt.Figure.coast` to this map using the
 default resolution, line width, and color:
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-52
+.. GENERATED FROM PYTHON SOURCE LINES 39-42
 
 .. code-block:: default
 
@@ -119,11 +109,11 @@ default resolution, line width, and color:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-54
+.. GENERATED FROM PYTHON SOURCE LINES 43-44
 
 To see the figure, call :meth:`pygmt.Figure.show`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-57
+.. GENERATED FROM PYTHON SOURCE LINES 44-47
 
 .. code-block:: default
 
@@ -144,17 +134,17 @@ To see the figure, call :meth:`pygmt.Figure.show`:
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-60
+
+.. GENERATED FROM PYTHON SOURCE LINES 48-50
 
 You can also set the map region, projection, and frame type directly in other methods
 without calling :meth:`gmt.Figure.basemap`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-65
+.. GENERATED FROM PYTHON SOURCE LINES 50-55
 
 .. code-block:: default
 
@@ -177,12 +167,12 @@ without calling :meth:`gmt.Figure.basemap`:
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-105
+
+.. GENERATED FROM PYTHON SOURCE LINES 56-95
 
 Saving figures
 --------------
@@ -227,7 +217,7 @@ A few are PyGMT exclusive (like the ``savefig`` method).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.918 seconds)
+   **Total running time of the script:** ( 0 minutes  2.658 seconds)
 
 
 .. _sphx_glr_download_tutorials_first_figure.py:

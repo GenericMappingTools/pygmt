@@ -45,7 +45,7 @@ corresponding module.
 In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors
 with individual heads and tails. We must specify the modifiers (together with
 the vector type, here ``v``, see also
-:doc:`Vector types documentation </gallery/lines/vectors>`)
+:doc:`Vector types documentation </gallery/lines/vector_styles>`)
 by passing the corresponding shortcuts to the ``style`` parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 33-83
@@ -63,8 +63,8 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
  .. code-block:: none
 
-
     <IPython.core.display.Image object>
+
 
 
 
@@ -128,7 +128,7 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.858 seconds)
+   **Total running time of the script:** ( 0 minutes  5.277 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_vector_heads_tails.py:
