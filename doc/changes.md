@@ -8,6 +8,7 @@
 * 🎉 **Fourth minor release of PyGMT** 🎉
 * 10 new PyGMT functions and methods
 * New and improved gallery examples and tutorials
+* Support tab auto-completion in Jupyter
 * Drop GMT 6.1.1 support
 
 ### New Features
