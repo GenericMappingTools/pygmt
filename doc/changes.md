@@ -7,8 +7,8 @@
 ### Highlights
 
 * 🎉 **Fourth minor release of PyGMT** 🎉
-* 10 new PyGMT functions and methods
-* New and improved gallery examples and tutorials
+* Add a tutorial for datetime data ([#1193](https://github.com/GenericMappingTools/pygmt/pull/1193))
+* Add a tutorial for plotting vectors ([#1070](https://github.com/GenericMappingTools/pygmt/pull/1070))
 * Support tab auto-completion in Jupyter ([#1282](https://github.com/GenericMappingTools/pygmt/pull/1282))
 * Minimum required GMT version is now 6.2.0 or newer ([#1321](https://github.com/GenericMappingTools/pygmt/pull/1321))
 
@@ -72,8 +72,6 @@
 * Apply NIST SI unit convention to some gallery examples ([#1194](https://github.com/GenericMappingTools/pygmt/pull/1194))
 * Use colorblind-friendly colors in the scatter plots gallery example ([#1013](https://github.com/GenericMappingTools/pygmt/pull/1013))
 * Added documentation for three oblique mercator projections ([#1251](https://github.com/GenericMappingTools/pygmt/pull/1251))
-* Add a tutorial for datetime data ([#1193](https://github.com/GenericMappingTools/pygmt/pull/1193))
-* Add a tutorial for plotting vectors ([#1070](https://github.com/GenericMappingTools/pygmt/pull/1070))
 * Add a list of external PyGMT resources ([#1210](https://github.com/GenericMappingTools/pygmt/pull/1210))
 * Complete documentation for grdtrack ([#1190](https://github.com/GenericMappingTools/pygmt/pull/1190))
 * Add projection and region to grdview docstring ([#1295](https://github.com/GenericMappingTools/pygmt/pull/1295))
