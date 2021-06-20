@@ -7,8 +7,7 @@
 ### Highlights
 
 * 🎉 **Fourth minor release of PyGMT** 🎉
-* Add a tutorial for datetime data ([#1193](https://github.com/GenericMappingTools/pygmt/pull/1193))
-* Add a tutorial for plotting vectors ([#1070](https://github.com/GenericMappingTools/pygmt/pull/1070))
+* Add tutorials for datetime data ([#1193](https://github.com/GenericMappingTools/pygmt/pull/1193)) and plotting vectors ([#1070](https://github.com/GenericMappingTools/pygmt/pull/1070))
 * Support tab auto-completion in Jupyter ([#1282](https://github.com/GenericMappingTools/pygmt/pull/1282))
 * Minimum required GMT version is now 6.2.0 or newer ([#1321](https://github.com/GenericMappingTools/pygmt/pull/1321))
 
