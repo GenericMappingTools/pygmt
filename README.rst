@@ -158,13 +158,14 @@ Developers". Feel free to cite our work in your research using the following Bib
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
-                      Toney, Liam and
                       Schlitzer, William and
-                      Yao, Jiayuan and
+                      Toney, Liam and
                       Grund, Michael and
                       Jones, Meghan and
+                      Yao, Jiayuan and
                       Materna, Kathryn and
                       Newton, Tyler and
+                      Anant, Abhishek and
                       Ziebarth, Malte and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
