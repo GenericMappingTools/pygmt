@@ -154,26 +154,27 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2021_4592991,
+    @software{pygmt_2021_4978645,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
-                      Toney, Liam and
                       Schlitzer, William and
-                      Yao, Jiayuan and
+                      Toney, Liam and
                       Grund, Michael and
                       Jones, Meghan and
+                      Yao, Jiayuan and
                       Materna, Kathryn and
                       Newton, Tyler and
+                      Anant, Abhishek and
                       Ziebarth, Malte and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = mar,
+      month        = jun,
       year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.3.1},
-      doi          = {10.5281/zenodo.4592991},
-      url          = {https://doi.org/10.5281/zenodo.4592991}
+      version      = {v0.4.0},
+      doi          = {10.5281/zenodo.4978645},
+      url          = {https://doi.org/10.5281/zenodo.4978645}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -220,6 +221,7 @@ Documentation for other versions
 * `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
   GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
+* `v0.4.0 <https://www.pygmt.org/v0.4.0>`__
 * `v0.3.1 <https://www.pygmt.org/v0.3.1>`__
 * `v0.3.0 <https://www.pygmt.org/v0.3.0>`__
 * `v0.2.1 <https://www.pygmt.org/v0.2.1>`__
