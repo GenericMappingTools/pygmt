@@ -1,7 +1,7 @@
 # Changelog
 ## Release v0.4.0 (2021/06/20)
 
-[![Digital Object Identifier for PyGMT v0.4.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.4978645)
+[![Digital Object Identifier for PyGMT v0.4.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4978645.svg)](https://doi.org/10.5281/zenodo.4978645)
 
 ### Highlights
 
@@ -58,7 +58,6 @@
 
 * Let Figure.savefig support filenames with spaces ([#1116](https://github.com/GenericMappingTools/pygmt/pull/1116))
 * Explicitly use netcdf4 engine in xarray.open_dataarray to read grd files ([#1264](https://github.com/GenericMappingTools/pygmt/pull/1264))
-* Fixed typo of "projecton" to "projection" in subplot module. ([#1214](https://github.com/GenericMappingTools/pygmt/pull/1214))
 * Let Figure.show(method='external') work well in Python scripts ([#1062](https://github.com/GenericMappingTools/pygmt/pull/1062))
 
 ### Documentation
@@ -116,14 +115,17 @@
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Abhishek Anant](https://github.com/itsabhianant)
+* [Claire Klima](https://github.com/cklima616)
+* [Megan Munzek](https://github.com/munzekm)
 * [Michael Neumann](https://github.com/MichaeINeumann)
+* [Nathan Loria](https://github.com/Nathandloria)
 * [Noor Buchi](https://github.com/noorbuchi)
 * [Shivani chauhan](https://github.com/xdshivani)
 * [@alperen-kilic](https://github.com/alperen-kilic)
 * [Loïc Houpert](https://github.com/lhoupert)
-* @teriyakiSauce23
 * [Emily McMullan](https://github.com/eemcmullan)
-* [@mdtanker](https://github.com/mdtanker)
+* [Lawrence Qupty](https://github.com/Lawqup)
+* [Matthew Tankersley](https://github.com/mdtanker)
 * [@shahid-0](https://github.com/shahid-0)
 * [Vitor Gratiere Torres](https://github.com/vitorgt)
 
