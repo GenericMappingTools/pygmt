@@ -1,4 +1,5 @@
 # Changelog
+
 ## Release v0.4.0 (2021/06/20)
 
 [![Digital Object Identifier for PyGMT v0.4.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4978645.svg)](https://doi.org/10.5281/zenodo.4978645)
@@ -8,8 +9,8 @@
 * 🎉 **Fourth minor release of PyGMT** 🎉
 * 10 new PyGMT functions and methods
 * New and improved gallery examples and tutorials
-* Support tab auto-completion in Jupyter
-* Drop GMT 6.1.1 support
+* Support tab auto-completion in Jupyter ([#1282](https://github.com/GenericMappingTools/pygmt/pull/1282))
+* Minimum required GMT version is now 6.2.0 or newer ([#1321](https://github.com/GenericMappingTools/pygmt/pull/1321))
 
 ### New Features
 
@@ -27,7 +28,6 @@
 * Handle geopandas and shapely geometries via geo_interface link ([#1000](https://github.com/GenericMappingTools/pygmt/pull/1000))
 * Support passing string type numbers, geographic coordinates and datetimes ([#975](https://github.com/GenericMappingTools/pygmt/pull/975))
 
-
 ### Enhancements
 
 * Allow passing an array as intensity for plot3d ([#1109](https://github.com/GenericMappingTools/pygmt/pull/1109))
@@ -37,7 +37,6 @@
 * Allow pygmt.which to accept a list of filenames as input ([#1312](https://github.com/GenericMappingTools/pygmt/pull/1312))
 * Refactor blockm* to use virtualfile_from_data and improve i/o ([#1280](https://github.com/GenericMappingTools/pygmt/pull/1280))
 * Refactor grdtrack to use virtualfile_from_data and improve i/o to pandas.DataFrame ([#1189](https://github.com/GenericMappingTools/pygmt/pull/1189))
-* Support tab completion in Jupyter by inserting aliases into the method signature ([#1282](https://github.com/GenericMappingTools/pygmt/pull/1282))
 * Let Figure.savefig recommend .eps or .pdf when .ps extension is used ([#1307](https://github.com/GenericMappingTools/pygmt/pull/1307))
 * Improve Figure.show for displaying previews in Jupyter notebooks and external viewers ([#529](https://github.com/GenericMappingTools/pygmt/pull/529))
 * Add parameters to histogram ([#1249](https://github.com/GenericMappingTools/pygmt/pull/1249))
@@ -94,7 +93,6 @@
 ### Maintenance
 
 * Add a workflow to upload baseline images as a release asset ([#1317](https://github.com/GenericMappingTools/pygmt/pull/1317))
-* Bump the minimum required GMT version to 6.2.0 ([#1321](https://github.com/GenericMappingTools/pygmt/pull/1321))
 * Add regression test for grdimage plotting an xarray.DataArray grid subset ([#1314](https://github.com/GenericMappingTools/pygmt/pull/1314))
 * Add download_test_data to download data files used in tests ([#1310](https://github.com/GenericMappingTools/pygmt/pull/1310))
 * Remove xfails and workarounds for datetime inputs into pygmt.info ([#1236](https://github.com/GenericMappingTools/pygmt/pull/1236))
