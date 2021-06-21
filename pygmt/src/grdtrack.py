@@ -37,10 +37,10 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
 
-    Reads one or more grid files and a table (from file or an array input; but
+    Reads a grid file and a table (from file or an array input; but
     see ``profile`` for exception) with (x,y) [or (lon,lat)] positions in the
     first two columns (more columns may be present). It interpolates the
-    grid(s) at the positions in the table and writes out the table with the
+    grid at the positions in the table and writes out the table with the
     interpolated values added as (one or more) new columns. Alternatively
     (``crossprofile``), the input is considered to be line-segments and we
     create orthogonal cross-profiles at each data point or with an equidistant
