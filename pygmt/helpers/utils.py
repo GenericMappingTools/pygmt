@@ -302,8 +302,12 @@ def return_table(result, data_format, format_parameter, df_columns):
         float_entry = []
         string_list = string_entry.strip().split()
         for i in string_list:
-            float_entry.append(float(i))
-        data_list.append(float_entry)
+            try:
+                float_entry.append(float(i))
+            except ValueError:
+                continue
+        if float_entry != []:
+            data_list.append(float_entry)
     data_array = np.array(data_list)
     if data_format == "a":
         result = data_array
