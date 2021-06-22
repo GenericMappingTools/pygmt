@@ -42,7 +42,7 @@ file of the repository:
 
 The order of authors will be defined by the number of commits to the repository
 (`git shortlog -sne`). The order can also be changed on a case-by-case basis.
-The most common reason for case-by-case changes are contributions to the PyGMT
+The most common reasons for case-by-case changes are contributions to the PyGMT
 project that due not relate to commit numbers, including developing PyGMT
 lessons such as the [ROSES unit](https://www.youtube.com/watch?v=SSIGJEe0BIk),
 organizing workshops/sprints such as the
