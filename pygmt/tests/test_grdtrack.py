@@ -32,7 +32,12 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray):
     """
     dataframe = load_ocean_ridge_points()
 
-    output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
+    output = grdtrack(
+        points=dataframe,
+        grid=dataarray,
+        data_format="d",
+        df_columns=["longitude", "latitude", "bathymetry"],
+    )
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
     npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2790.488422])
@@ -66,7 +71,12 @@ def test_grdtrack_input_dataframe_and_ncfile():
     dataframe = load_ocean_ridge_points()
     ncfile = which("@earth_relief_01d", download="a")
 
-    output = grdtrack(points=dataframe, grid=ncfile, newcolname="bathymetry")
+    output = grdtrack(
+        points=dataframe,
+        grid=ncfile,
+        data_format="d",
+        df_columns=["longitude", "latitude", "bathymetry"],
+    )
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
     npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1939.748245])
@@ -104,7 +114,7 @@ def test_grdtrack_wrong_kind_of_points_input(dataarray):
 
     assert data_kind(invalid_points) == "grid"
     with pytest.raises(GMTInvalidInput):
-        grdtrack(points=invalid_points, grid=dataarray, newcolname="bathymetry")
+        grdtrack(points=invalid_points, grid=dataarray)
 
 
 def test_grdtrack_wrong_kind_of_grid_input(dataarray):
@@ -117,17 +127,7 @@ def test_grdtrack_wrong_kind_of_grid_input(dataarray):
 
     assert data_kind(invalid_grid) == "matrix"
     with pytest.raises(GMTInvalidInput):
-        grdtrack(points=dataframe, grid=invalid_grid, newcolname="bathymetry")
-
-
-def test_grdtrack_without_newcolname_setting(dataarray):
-    """
-    Run grdtrack by not passing in newcolname parameter setting.
-    """
-    dataframe = load_ocean_ridge_points()
-
-    with pytest.raises(GMTInvalidInput):
-        grdtrack(points=dataframe, grid=dataarray)
+        grdtrack(points=dataframe, grid=invalid_grid)
 
 
 def test_grdtrack_without_outfile_setting():
@@ -137,7 +137,7 @@ def test_grdtrack_without_outfile_setting():
     csvfile = which("@ridge.txt", download="c")
     ncfile = which("@earth_relief_01d", download="a")
 
-    output = grdtrack(points=csvfile, grid=ncfile)
-    npt.assert_allclose(output.iloc[0], [-32.2971, 37.4118, -1939.748245])
+    output = grdtrack(points=csvfile, grid=ncfile, data_format="a")
+    npt.assert_allclose(output[0], [-32.2971, 37.4118, -1939.748245])
 
     return output

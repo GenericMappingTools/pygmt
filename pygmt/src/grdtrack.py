@@ -10,6 +10,7 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     kwargs_to_strings,
+    return_table,
     use_alias,
 )
 
@@ -33,7 +34,14 @@ from pygmt.helpers import (
     n="interpolation",
 )
 @kwargs_to_strings(R="sequence", S="sequence")
-def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
+def grdtrack(
+    points,
+    grid,
+    data_format="d",
+    df_columns=["longitude", "latitude", "z-value"],
+    outfile=None,
+    **kwargs
+):
     r"""
     Sample grids at specified (x,y) locations.
 
@@ -248,9 +256,6 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         - None if ``outfile`` is set (track output will be stored in file set
           by ``outfile``)
     """
-    if data_kind(points) == "matrix" and newcolname is None:
-        raise GMTInvalidInput("Please pass in a str to 'newcolname'")
-
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
             # Choose how data will be passed into the module
@@ -272,11 +277,13 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            try:
-                column_names = points.columns.to_list() + [newcolname]
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            except AttributeError:  # 'str' object has no attribute 'columns'
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
+            result_data = tmpfile.read()
+            result = return_table(
+                result=result_data,
+                data_format=data_format,
+                format_parameter="data_format",
+                df_columns=df_columns,
+            )
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 
