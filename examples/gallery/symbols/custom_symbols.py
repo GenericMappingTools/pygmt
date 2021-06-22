@@ -1,3 +1,15 @@
+"""
+Custom symbols
+-----------------------
+
+The :meth:`pygmt.Figure.plot` method can plot individual custom symbols
+by passing the corresponding symbol name together with the **k** shortcut to
+the ``style`` parameter. In total 41 custom symbols are already included of
+which the following plot shows five examplary ones. The symbols are shown
+underneath their corresponding names. For the remaining symbols see
+:gmt-docs:`cookbook/custom-symbols.html`
+"""
+
 import pygmt
 
 fig = pygmt.Figure()
