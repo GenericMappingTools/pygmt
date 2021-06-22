@@ -9,10 +9,10 @@ font = "15p,Helvetica-Bold"
 
 y = 1.25
 
-fig.plot(x=1, y=y, style="kvolcano/60p", pen=pen, color ="seagreen")
+fig.plot(x=1, y=y, style="kvolcano/60p", pen=pen, color="seagreen")
 fig.text(x=1, y=y + 1.25, text="volcano", font=font)
 
-fig.plot(x=2.5, y=y, style="kastroid/60p", pen=pen, color = "red3")
+fig.plot(x=2.5, y=y, style="kastroid/60p", pen=pen, color="red3")
 fig.text(x=2.5, y=y + 1.25, text="astroid", font=font)
 
 fig.plot(x=4, y=y, style="kflash/60p", pen=pen, color="darkorange")
