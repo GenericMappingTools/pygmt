@@ -3,6 +3,7 @@ Tests for grdtrack.
 """
 import os
 
+import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
@@ -141,3 +142,28 @@ def test_grdtrack_without_outfile_setting():
     npt.assert_allclose(output[0], [-32.2971, 37.4118, -1939.748245])
 
     return output
+
+
+def test_grdtrack_output_types(dataarray):
+    """
+    Tests output formats for grdtrack.
+    """
+    dataframe = load_ocean_ridge_points()
+    result_string = grdtrack(
+        points=dataframe,
+        grid=dataarray,
+        data_format="s",
+    )
+    assert type(result_string) == str
+    result_array = grdtrack(
+        points=dataframe,
+        grid=dataarray,
+        data_format="a",
+    )
+    assert type(result_array) == np.ndarray
+    result_df = grdtrack(
+        points=dataframe,
+        grid=dataarray,
+        data_format="d",
+    )
+    assert type(result_df) == pd.DataFrame
