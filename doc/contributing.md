@@ -87,6 +87,8 @@ It will make your life a lot easier!
 
 The repository includes a conda environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
+See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/master/environment.yml)
+file for the list of dependencies and the environment name (`pygmt`).
 Once you have forked and cloned the repository to your local machine, you can
 use this file to create an isolated environment on which you can work.
 Run the following on the base of the repository to create a new conda
@@ -96,16 +98,11 @@ environment from the `environment.yml` file:
 conda env create
 ```
 
-Before building and testing the project, you have to activate the environment:
+Before building and testing the project, you have to activate the environment
+(you'll need to do this every time you start a new terminal):
 
 ```bash
 conda activate pygmt
-```
-
-You'll need to do this every time you start a new terminal.
-
-See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/master/environment.yml)
-file for the list of dependencies and the environment name.
 
 We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
 that provides commands for installing, running the tests and coverage analysis,
@@ -161,7 +158,7 @@ our tests. This way, the *master* branch is always stable.
   - Be aware that the pull request review process is not immediate, and is
     generally proportional to the size of the pull request.
 
-#### Pull Request Review Process
+#### General Process for Pull Request Review:
 
 After you've submitted a pull request, you should expect to hear at least a
 comment within a couple of days. We may suggest some changes, improvements or
@@ -214,13 +211,14 @@ if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the [pull request workflow](#pull-request-workflow)
 section.
 
-There are two primary ways to edit the PyGMT documentation. For simple documentation
-changes, you can easily
-[edit the documentation on GitHub](#editing-the-documentation-on-github). This
-only requires you to have a GitHub account. For more complicated changes, you
-can [edit the documentation locally](#editing-the-documentation-locally). In
-order to build the documentation locally, you first need to
-[set up your environment](#setting-up-your-environment).
+There are two primary ways to edit the PyGMT documentation:
+- For simple documentation changes, you can easily
+  [edit the documentation on GitHub](#editing-the-documentation-on-github).
+  This only requires you to have a GitHub account.
+- For more complicated changes, you can
+  [edit the documentation locally](#editing-the-documentation-locally).
+  In order to build the documentation locally, you first need to
+  [set up your environment](#setting-up-your-environment).
 
 ### Editing the Documentation on GitHub
 
