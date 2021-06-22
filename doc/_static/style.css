@@ -222,6 +222,8 @@ a.copybtn {
 
 .team-img {
     border-radius: 0.5rem;
+    width: 460px;
+    height: 460px;
 }
 .team-card-body {
     padding: 1.25rem;

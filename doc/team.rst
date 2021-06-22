@@ -53,6 +53,7 @@ the PyGMT project and have responsibilities detailed in the
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/290082?v=4" alt="Card image">
         <div class="team-card-body">
             <h6 class="team-card-text">Leonardo Uieda</h6>
+            <h7 class="team-card-text">Founder</h7>
             <h7 class="team-card-text"><a href="https://github.com/leouieda" >@leouieda</a></h7>
         </div>
     </div>
@@ -85,6 +86,17 @@ the PyGMT project and have responsibilities detailed in the
             <h6 class="team-card-text">Michael Grund</h6>
             <h7 class="team-card-text">Maintainer</h7>
             <h7class="team-card-text"><a href="https://github.com/michaelgrund" >@michaelgrund</a></h7>
+        </div>
+    </div>
+    </div>
+    <div class="team-row">
+    <div class="team-column">
+    <div class="team-card">
+        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/26473567?v=4" alt="Card image">
+        <div class="team-card-body">
+            <h6 class="team-card-text">Paul Wessel</h6>
+            <h7 class="team-card-text">Founder</h7>
+            <h7class="team-card-text"><a href="https://github.com/PaulWessel" >@PaulWessel</a></h7>
         </div>
     </div>
     </div>
