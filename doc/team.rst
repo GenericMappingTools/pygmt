@@ -38,8 +38,6 @@ the PyGMT project and have responsibilities detailed in the
             <h7 class="team-card-text"><a href="https://github.com/seisman" >@seisman</a></h7>
         </div>
     </div>
-    </div>
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/50591376?v=4" alt="Card image">
         <div class="team-card-body">
@@ -47,8 +45,6 @@ the PyGMT project and have responsibilities detailed in the
             <h7 class="team-card-text"><a href="https://github.com/core-man" >@core-man</a></h7>
         </div>
     </div>
-    </div>
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/290082?v=4" alt="Card image">
         <div class="team-card-body">
@@ -57,8 +53,6 @@ the PyGMT project and have responsibilities detailed in the
             <h7 class="team-card-text"><a href="https://github.com/leouieda" >@leouieda</a></h7>
         </div>
     </div>
-    </div>
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/38269494?v=4" alt="Card image">
         <div class="team-card-body">
@@ -66,8 +60,6 @@ the PyGMT project and have responsibilities detailed in the
             <h7 class="team-card-text"><a href="https://github.com/liamtoney" >@liamtoney</a></h7>
         </div>
     </div>
-    </div>
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/14077947?v=4" alt="Card image">
         <div class="team-card-body">
@@ -76,10 +68,6 @@ the PyGMT project and have responsibilities detailed in the
             <h7class="team-card-text"><a href="https://github.com/meghanrjones" >@meghanrjones</a></h7>
         </div>
     </div>
-    </div>
-    </div>
-    <div class="team-row">
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/23025878?v=4" alt="Card image">
         <div class="team-card-body">
@@ -88,9 +76,6 @@ the PyGMT project and have responsibilities detailed in the
             <h7class="team-card-text"><a href="https://github.com/michaelgrund" >@michaelgrund</a></h7>
         </div>
     </div>
-    </div>
-    <div class="team-row">
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/26473567?v=4" alt="Card image">
         <div class="team-card-body">
@@ -99,8 +84,6 @@ the PyGMT project and have responsibilities detailed in the
             <h7class="team-card-text"><a href="https://github.com/PaulWessel" >@PaulWessel</a></h7>
         </div>
     </div>
-    </div>
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/23487320?v=4" alt="Card image">
         <div class="team-card-body">
@@ -109,8 +92,6 @@ the PyGMT project and have responsibilities detailed in the
             <h7class="team-card-text"><a href="https://github.com/weiji14" >@weiji14</a></h7>
         </div>
     </div>
-    </div>
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/29518865?v=4" alt="Card image">
         <div class="team-card-body">
@@ -121,4 +102,3 @@ the PyGMT project and have responsibilities detailed in the
     </div>
     </div>
     </div>
-    <p></h7>

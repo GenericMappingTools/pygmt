@@ -200,31 +200,32 @@ a.copybtn {
     max-width: 80%!important;
 }
 
+.team-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .team-column {
     float: left;
-    width: 19%;
-    margin: 0.25em;
-  }
-
-/* Clear floats after the columns */
-.team-row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+    display: flex;
+    flex-flow: row wrap;
+}
 
 .team-card {
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.5rem;
-  }
+    margin: 0.25em;
+}
 
 .team-img {
     border-radius: 0.5rem;
-    width: 460px;
-    height: 460px;
+    width: 100%;
+    height: 15vh!important;
+    object-fit: cover;
 }
+
 .team-card-body {
     padding: 1.25rem;
     height: 100px;
