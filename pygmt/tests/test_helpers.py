@@ -129,7 +129,7 @@ def test_tempfile_from_geojson():
         geometry=[polygon, linestring],
     )
     with tempfile_from_geojson(gdf) as geojson_string:
-        assert type(geojson_string) == str
+        assert isinstance(geojson_string, str)
         with open(geojson_string) as tmpfile:
             assert os.path.basename(tmpfile.name).startswith("pygmt-")
             assert os.path.basename(tmpfile.name).endswith(".gmt")
@@ -142,7 +142,7 @@ def test_tempfile_from_geojson_no_geodataframe():
     """
     linestring = shapely.geometry.LineString([(20, 15), (30, 15)])
     with tempfile_from_geojson(linestring) as geojson_string:
-        assert type(geojson_string) == str
+        assert isinstance(geojson_string, str)
         with open(geojson_string) as tmpfile:
             assert os.path.basename(tmpfile.name).startswith("pygmt-")
             assert os.path.basename(tmpfile.name).endswith(".gmt")
