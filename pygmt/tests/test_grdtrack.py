@@ -24,14 +24,18 @@ def fixture_dataarray():
         lat=slice(-49, -42), lon=slice(-118, -107)
     )
 
+@pytest.fixture(scope="module", name="dataframe")
+def fixture_dataframe():
+    """
+    Load the ocean ridge file.
+    """
+    return load_ocean_ridge_points()
 
-def test_grdtrack_input_dataframe_and_dataarray(dataarray):
+def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
     """
     Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
     inputs.
     """
-    dataframe = load_ocean_ridge_points()
-
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
@@ -59,11 +63,10 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray):
     return output
 
 
-def test_grdtrack_input_dataframe_and_ncfile():
+def test_grdtrack_input_dataframe_and_ncfile(dataframe):
     """
     Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs.
     """
-    dataframe = load_ocean_ridge_points()
     ncfile = which("@earth_relief_01d", download="a")
 
     output = grdtrack(points=dataframe, grid=ncfile, newcolname="bathymetry")
@@ -94,12 +97,11 @@ def test_grdtrack_input_csvfile_and_ncfile():
     return output
 
 
-def test_grdtrack_wrong_kind_of_points_input(dataarray):
+def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     """
     Run grdtrack using points input that is not a pandas.DataFrame (matrix) or
     file.
     """
-    dataframe = load_ocean_ridge_points()
     invalid_points = dataframe.longitude.to_xarray()
 
     assert data_kind(invalid_points) == "grid"
@@ -107,12 +109,11 @@ def test_grdtrack_wrong_kind_of_points_input(dataarray):
         grdtrack(points=invalid_points, grid=dataarray, newcolname="bathymetry")
 
 
-def test_grdtrack_wrong_kind_of_grid_input(dataarray):
+def test_grdtrack_wrong_kind_of_grid_input(dataarray, dataframe):
     """
     Run grdtrack using grid input that is not as xarray.DataArray (grid) or
     file.
     """
-    dataframe = load_ocean_ridge_points()
     invalid_grid = dataarray.to_dataset()
 
     assert data_kind(invalid_grid) == "matrix"
@@ -120,12 +121,10 @@ def test_grdtrack_wrong_kind_of_grid_input(dataarray):
         grdtrack(points=dataframe, grid=invalid_grid, newcolname="bathymetry")
 
 
-def test_grdtrack_without_newcolname_setting(dataarray):
+def test_grdtrack_without_newcolname_setting(dataarray, dataframe):
     """
     Run grdtrack by not passing in newcolname parameter setting.
     """
-    dataframe = load_ocean_ridge_points()
-
     with pytest.raises(GMTInvalidInput):
         grdtrack(points=dataframe, grid=dataarray)
 
