@@ -232,7 +232,7 @@ a.copybtn {
 }
 
 .team-card-text {
-    display: block;
+    display: flex;
     margin-block-start: 0em;
     margin-block-end: 0.2em;
     margin-inline-start: 0px;
