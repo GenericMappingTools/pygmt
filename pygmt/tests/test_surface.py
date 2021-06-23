@@ -34,11 +34,10 @@ def test_surface_input_file():
     return output
 
 
-def test_surface_input_data_array():
+def test_surface_input_data_array(ship_data):
     """
     Run surface by passing in a numpy array into data.
     """
-    ship_data = load_sample_bathymetry()
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     output = surface(data=data, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)
