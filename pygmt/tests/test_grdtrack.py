@@ -24,12 +24,14 @@ def fixture_dataarray():
         lat=slice(-49, -42), lon=slice(-118, -107)
     )
 
+
 @pytest.fixture(scope="module", name="dataframe")
 def fixture_dataframe():
     """
     Load the ocean ridge file.
     """
     return load_ocean_ridge_points()
+
 
 def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
     """
