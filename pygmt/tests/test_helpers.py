@@ -6,13 +6,16 @@ import os
 import numpy as np
 import pytest
 from pygmt.exceptions import GMTInvalidInput
+import shapely.geometry
 from pygmt.helpers import (
     GMTTempFile,
     args_in_kwargs,
     data_kind,
     kwargs_to_strings,
     unique_name,
+    tempfile_from_geojson
 )
+import geopandas as gpd
 
 
 @pytest.mark.parametrize(
@@ -113,3 +116,30 @@ def test_args_in_kwargs():
     # Failing list of arguments
     failing_args = ["D", "E", "F"]
     assert not args_in_kwargs(args=failing_args, kwargs=kwargs)
+
+def test_tempfile_from_geojson():
+    """
+    Test tempfile_from_geojson works when passed a geopandas GeoDataFrame.
+    """
+    linestring = shapely.geometry.LineString([(20, 15), (30, 15)])
+    polygon = shapely.geometry.Polygon([(20, 10), (23, 10), (23, 14), (20, 14)])
+    gdf = gpd.GeoDataFrame(
+        index=["polygon", "linestring"],
+        geometry=[polygon, linestring],
+    )
+    with tempfile_from_geojson(gdf) as geojson_string:
+        assert type(geojson_string) == str
+        with open(geojson_string) as tmpfile:
+            assert os.path.basename(tmpfile.name).startswith("pygmt-")
+            assert os.path.basename(tmpfile.name).endswith(".gmt")
+
+def test_tempfile_from_geojson_no_geodataframe():
+    """
+    Test tempfile_from_geojson when passed data not in a geopandas GeoDataFrame format.
+    """
+    linestring = shapely.geometry.LineString([(20, 15), (30, 15)])
+    with tempfile_from_geojson(linestring) as geojson_string:
+        assert type(geojson_string) == str
+        with open(geojson_string) as tmpfile:
+            assert os.path.basename(tmpfile.name).startswith("pygmt-")
+            assert os.path.basename(tmpfile.name).endswith(".gmt")
