@@ -35,7 +35,7 @@ assignees: ''
 - [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) [Usually done automatically by conda-forge's bot]
 - [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
-  - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this first! requires moderator status)
+  - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! draft on https://hackmd.io/@pygmt. requires moderator status)
   - [ ] [Major/Minor releases only] GMT [website](https://github.com/GenericMappingTools/website) (News)
   - [ ] [ResearchGate](https://www.researchgate.net/project/PyGMT-A-Python-interface-for-the-Generic-Mapping-Tools) (after forum announcement)
   - [ ] [Twitter](https://twitter.com/gmt_dev) (after forum announcement)
