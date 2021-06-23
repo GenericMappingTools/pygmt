@@ -3,19 +3,19 @@ Tests the helper functions/classes/etc used in wrapping GMT.
 """
 import os
 
+import geopandas as gpd
 import numpy as np
 import pytest
-from pygmt.exceptions import GMTInvalidInput
 import shapely.geometry
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     args_in_kwargs,
     data_kind,
     kwargs_to_strings,
+    tempfile_from_geojson,
     unique_name,
-    tempfile_from_geojson
 )
-import geopandas as gpd
 
 
 @pytest.mark.parametrize(
@@ -117,6 +117,7 @@ def test_args_in_kwargs():
     failing_args = ["D", "E", "F"]
     assert not args_in_kwargs(args=failing_args, kwargs=kwargs)
 
+
 def test_tempfile_from_geojson():
     """
     Test tempfile_from_geojson works when passed a geopandas GeoDataFrame.
@@ -133,9 +134,11 @@ def test_tempfile_from_geojson():
             assert os.path.basename(tmpfile.name).startswith("pygmt-")
             assert os.path.basename(tmpfile.name).endswith(".gmt")
 
+
 def test_tempfile_from_geojson_no_geodataframe():
     """
-    Test tempfile_from_geojson when passed data not in a geopandas GeoDataFrame format.
+    Test tempfile_from_geojson when passed data not in a geopandas GeoDataFrame
+    format.
     """
     linestring = shapely.geometry.LineString([(20, 15), (30, 15)])
     with tempfile_from_geojson(linestring) as geojson_string:
