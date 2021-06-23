@@ -252,10 +252,10 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    modules, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the highlights section.
-5. Edit the list of people who contributed to the release, linking to their
+7. Edit the list of people who contributed to the release, linking to their
    GitHub account. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
-6. Update `README.rst` with new information on the new release version, namely
+8. Update `README.rst` with new information on the new release version, namely
    the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
    Python and GMT versions. Follow
    [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
