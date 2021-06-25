@@ -286,7 +286,9 @@ def return_table(result, data_format, format_parameter, df_columns):
         table.
         **a** : numpy array
         **d** : pandas DataFrame
+        **g** : geopandas GeoDataFrame
         **s** : string
+        **x** : xarray DataArray
     format_parameter : str
         The name of the parameter used to specify the data format in the
         pygmt function. This name is used when raising the GMTInvalidInput
