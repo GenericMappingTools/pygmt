@@ -57,7 +57,7 @@ This means that all commits will be collapsed into one.
 The main advantages of this are:
 
 * Eliminates experimental commits or commits to undo previous changes.
-* Makes sure every commit on main passes the tests and has a defined purpose.
+* Makes sure every commit on the main branch passes the tests and has a defined purpose.
 * The maintainer writes the final commit message, so we can make sure it's good and
   descriptive.
 
@@ -121,7 +121,7 @@ There are 11 configuration files located in `.github/workflows`:
 7. `release-drafter.yml` (Drafts the next release notes)
 
     This workflow is run to update the next releases notes as pull requests are
-    merged into main.
+    merged into the main branch.
 
 8. `check-links.yml` (Check links in the repository and website)
 

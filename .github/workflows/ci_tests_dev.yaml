@@ -31,7 +31,7 @@ jobs:
       matrix:
         python-version: [3.9]
         os: [ubuntu-latest, macOS-11.0, windows-latest]
-        gmt_git_ref: [main]
+        gmt_git_ref: [master]
     defaults:
       run:
         shell: bash -l {0}
@@ -90,7 +90,7 @@ jobs:
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
-        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/main/ci/build-gmt.sh | bash
+        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
         env:
           GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
           GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
