@@ -1,7 +1,7 @@
 .. title:: Team
 
-PyGMT Team Gallery
-==================
+Team Gallery
+============
 
 We are an international team dedicated to building a Pythonic API for the
 Generic Mapping Tools (GMT). Our goal is to improve GMT's accessibility for
