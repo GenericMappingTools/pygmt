@@ -4,7 +4,7 @@ This page contains instructions for project maintainers about how our setup work
 making releases, creating packages, etc.
 
 If you want to make a contribution to the project, see the
-[Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md)
+[Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
 instead.
 
 ## Onboarding Access Checklist
@@ -18,9 +18,9 @@ instead.
 
 ## Branches
 
-* *master*: Always tested and ready to become a new version. Don't push directly to this
+* *main*: Always tested and ready to become a new version. Don't push directly to this
   branch. Make a new branch and submit a pull request instead.
-* *gh-pages*: Holds the HTML documentation and is served by GitHub. Pages for the master
+* *gh-pages*: Holds the HTML documentation and is served by GitHub. Pages for the main
   branch are in the `dev` folder. Pages for each release are in their own folders.
   **Automatically updated by GitHub Actions** so you shouldn't have to make commits here.
 
@@ -57,7 +57,7 @@ This means that all commits will be collapsed into one.
 The main advantages of this are:
 
 * Eliminates experimental commits or commits to undo previous changes.
-* Makes sure every commit on master passes the tests and has a defined purpose.
+* Makes sure every commit on main passes the tests and has a defined purpose.
 * The maintainer writes the final commit message, so we can make sure it's good and
   descriptive.
 
@@ -73,13 +73,13 @@ There are 11 configuration files located in `.github/workflows`:
 
 1. `style_checks.yaml` (Code lint and style checks)
 
-   This is run on every commit to the *master* and Pull Request branches.
-   It is also scheduled to run daily on the *master* branch.
+   This is run on every commit to the *main* and Pull Request branches.
+   It is also scheduled to run daily on the *main* branch.
 
 2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
 
-   This is run on every commit to the *master* and Pull Request branches.
-   It is also scheduled to run daily on the *master* branch.
+   This is run on every commit to the *main* and Pull Request branches.
+   It is also scheduled to run daily on the *main* branch.
    In draft Pull Requests, only two jobs on Linux are triggered to save on
    Continuous Integration resources:
 
@@ -89,22 +89,22 @@ There are 11 configuration files located in `.github/workflows`:
 
 3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
-   This is run on every commit to the *master* and Pull Request branches.
+   This is run on every commit to the *main* and Pull Request branches.
    In draft Pull Requests, only the job on Linux is triggered to save on
    Continuous Integration resources.
 
-   On the *master* branch, the workflow also handles the documentation
+   On the *main* branch, the workflow also handles the documentation
    deployment:
 
    * Updating the development documentation by pushing the built HTML pages
-     from the *master* branch onto the `dev` folder of the *gh-pages* branch.
+     from the *main* branch onto the `dev` folder of the *gh-pages* branch.
    * Updating the `latest` documentation link to the new release.
 
 4. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
    This is triggered when a PR is marked as "ready for review", or using the
    slash command `/test-gmt-dev`. It is also scheduled to run daily on the
-   *master* branch.
+   *main* branch.
 
 5. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
@@ -115,13 +115,13 @@ There are 11 configuration files located in `.github/workflows`:
 6. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
 
    This workflow is run to publish wheels to PyPI and TestPyPI (for testing only).
-   Archives will be pushed to TestPyPI on every commit to the *master* branch
+   Archives will be pushed to TestPyPI on every commit to the *main* branch
    and tagged releases, and to PyPI for tagged releases only.
 
 7. `release-drafter.yml` (Drafts the next release notes)
 
     This workflow is run to update the next releases notes as pull requests are
-    merged into master.
+    merged into main.
 
 8. `check-links.yml` (Check links in the repository and website)
 
@@ -222,7 +222,7 @@ There are a few steps that still must be done manually, though.
 
 The Release Drafter GitHub Action will automatically keep a draft changelog at
 https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
-every time a Pull Request (with a proper label) is merged into the master branch.
+every time a Pull Request (with a proper label) is merged into the main branch.
 This release drafter tool has two configuration files, one for the GitHub Action
 at .github/workflows/release-drafter.yml, and one for the changelog template
 at .github/release-drafter.yml. Configuration settings can be found at
@@ -305,5 +305,5 @@ If changes need to be done manually, you can:
    from the PyPI "Download files" section.
 3. Add or remove any new dependencies (most are probably only `run` dependencies).
 4. Make a new branch, commit, and push the changes **to your personal fork**.
-5. Create a PR against the original feedstock master.
+5. Create a PR against the original feedstock main.
 6. Once the CI tests pass, merge the PR or ask a maintainer to do so.
