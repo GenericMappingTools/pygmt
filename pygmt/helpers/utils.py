@@ -10,6 +10,7 @@ import webbrowser
 from collections.abc import Iterable
 from contextlib import contextmanager
 
+import geopandas as gpd
 import numpy as np
 import pandas as pd
 import xarray as xr
@@ -311,10 +312,14 @@ def return_table(result, data_format, format_parameter, df_columns):
     data_array = np.array(data_list)
     if data_format == "a":
         result = data_array
+    elif data_format == "x":
+        result = xr.DataArray(data_array)
     elif data_format == "d":
         result = pd.DataFrame(data_array, columns=df_columns)
+    elif data_format == "g":
+        result = gpd.GeoDataFrame(data_array, columns=df_columns)
     else:
         raise GMTInvalidInput(
-            f"""Must specify {format_parameter} as either a, d, or s."""
+            f"""Must specify {format_parameter} as either a, d, g, s, or x."""
         )
     return result
