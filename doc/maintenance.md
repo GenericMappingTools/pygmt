@@ -246,13 +246,21 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    the updated release notes, so that other people can help to review and
    collaborate on the changelog curation process described next.
 4. Edit the change list to remove any trivial changes (updates to the README,
-   typo fixes, CI configuration, etc).
-5. Edit the list of people who contributed to the release, linking to their
+   typo fixes, CI configuration, test updates due to GMT releases, etc).
+5. Sort the items within each section (i.e., New Features, Enhancements, etc.)
+   such that similar items are located near each other (e.g., new wrapped
+   modules, gallery examples, API docs changes) and entries within each group
+   are alphabetical.
+6. Move a few important items from the main sections to the highlights section.
+7. Edit the list of people who contributed to the release, linking to their
    GitHub account. Sort their names by the number of commits made since the
-   last release (e.g., use `git shortlog HEAD...v0.1.2 -sne`).
-6. Update `README.rst` with new information on the new release version, namely
+   last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
+8. Update `README.rst` with new information on the new release version, namely
    the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
-   Python and GMT versions.
+   Python and GMT versions. Follow
+   [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
+   for compatibility updates. Follow `AUTHORSHIP.md` guidelines for updating
+   the author list in the BibTeX citation.
 
 ### Check the README syntax
 
