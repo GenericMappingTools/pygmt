@@ -12,22 +12,31 @@ and we encourage all to read it carefully.
 
 ## Ways to Contribute
 
+### Ways to Contribute Documentation and/or Code
+
 * Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
 * Make a tutorial or gallery example of how to do something.
 * Improve the API documentation.
+* Contribute code! This can be code that you already have and it doesn't need to be
+  perfect! We will help you clean things up, test it, etc.
+
+### Ways to Contribute Feedback
+
 * Provide feedback about how we can improve the project or about your particular use
   case. Open an [issue](https://github.com/GenericMappingTools/pygmt/issues) with
   feature requests or bug fixes, or post general comments/questions on the
   [forum](https://forum.generic-mapping-tools.org).
-* Contribute code! This can be code that you already have and it doesn't need to be
-  perfect! We will help you clean things up, test it, etc.
 * Help triage issues, or give a "thumbs up" on issues that others reported which are
   relevant to you.
+
+### Ways to Contribute to Community Building
+
 * Participate and answer questions on the [PyGMT forum Q&A](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
 * Participate in discussions at the quarterly PyGMT Community Meetings, which are
   announced on the [forum governance page](https://forum.generic-mapping-tools.org/c/governance/9).
+* Cite PyGMT when using the project.
 * Spread the word about PyGMT or star the project!
 
 ## Providing Feedback
