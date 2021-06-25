@@ -156,28 +156,28 @@ def test_grdtrack_output_types(dataarray):
         grid=dataarray,
         data_format="s",
     )
-    assert type(result_string) == str
+    assert isinstance(result_string, str)
     result_array = grdtrack(
         points=dataframe,
         grid=dataarray,
         data_format="a",
     )
-    assert type(result_array) == np.ndarray
+    assert isinstance(result_array, np.ndarray)
     result_df = grdtrack(
         points=dataframe,
         grid=dataarray,
         data_format="d",
     )
-    assert type(result_df) == pd.DataFrame
+    assert isinstance(result_df, pd.DataFrame)
     result_gpd_df = grdtrack(
         points=dataframe,
         grid=dataarray,
         data_format="g",
     )
-    assert type(result_gpd_df) == gpd.geodataframe.GeoDataFrame
+    assert isinstance(result_gpd_df, gpd.geodataframe.GeoDataFrame)
     result_xarray = grdtrack(
         points=dataframe,
         grid=dataarray,
         data_format="x",
     )
-    assert type(result_xarray) == xr.core.dataarray.DataArray
+    assert isinstance(result_xarray, xr.core.dataarray.DataArray)
