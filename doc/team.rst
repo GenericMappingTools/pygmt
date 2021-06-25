@@ -29,7 +29,6 @@ the PyGMT project and have responsibilities detailed in the
 .. raw:: html
 
     <div class="team-row">
-    <div class="team-column">
     <div class="team-card">
         <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/3974108?v=4" alt="Card image">
         <div class="team-card-body">
@@ -99,6 +98,5 @@ the PyGMT project and have responsibilities detailed in the
             <h7 class="team-card-text">Maintainer</h7>
             <p class="team-card-text"><a href="https://github.com/willschlitzer" >@willschlitzer</a></h7>
         </div>
-    </div>
     </div>
     </div>

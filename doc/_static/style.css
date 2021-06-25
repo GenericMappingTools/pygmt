@@ -205,18 +205,13 @@ a.copybtn {
     flex-wrap: wrap;
 }
 
-.team-column {
-    float: left;
-    display: flex;
-    flex-flow: row wrap;
-}
-
 .team-card {
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.5rem;
     margin: 0.25em;
+    flex: 0 1 175px;
 }
 
 .team-img {
