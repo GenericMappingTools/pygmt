@@ -235,25 +235,25 @@ improved, please consider letting us know by [creating an issue](#reporting-a-bu
 You can submit fixes to the documentation pages completely online without having to
 download and install anything:
 
-* On each documentation page, there should be an "Improve This Page" link at the very
+1. On each documentation page, there should be an "Improve This Page" link at the very
   top.
-* Click on that link to open the respective source file (usually an `.rst` file in the
+2. Click on that link to open the respective source file (usually an `.rst` file in the
   `doc/` folder or a `.py` file in the `examples/` folder) on GitHub for editing online
   (you'll need a GitHub account).
-* Make your desired changes.
-* When you're done, scroll to the bottom of the page.
-* Fill out the two fields under "Commit changes": the first is a short title describing
+3. Make your desired changes.
+4. When you're done, scroll to the bottom of the page.
+5. Fill out the two fields under "Commit changes": the first is a short title describing
   your fixes; the second is a more detailed description of the changes. Try to be as
   detailed as possible and describe *why* you changed something.
-* Choose "Create a new branch for this commit and start a pull request" and
+6. Choose "Create a new branch for this commit and start a pull request" and
   click on the "Propose changes" button to open a pull request.
-* The pull request will run the GMT automated tests and make a preview deployment.
+7. The pull request will run the GMT automated tests and make a preview deployment.
   You can see how your change looks in the PyGMT documentation by clicking the
   "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
   after the pull request was created).
-* We'll review your pull request, recommend changes if necessary, and then merge
+8. We'll review your pull request, recommend changes if necessary, and then merge
   them in if everything is OK.
-* Done!
+9. Done!
 
 Alternatively, you can make the changes offline to the files in the `doc` folder or the
 example scripts. See [editing the documentation locally](#editing-the-documentation-locally)
