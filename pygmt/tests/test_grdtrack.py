@@ -3,10 +3,12 @@ Tests for grdtrack.
 """
 import os
 
+import geopandas as gpd
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
+import xarray as xr
 from pygmt import grdtrack, which
 from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
 from pygmt.exceptions import GMTInvalidInput
@@ -167,3 +169,15 @@ def test_grdtrack_output_types(dataarray):
         data_format="d",
     )
     assert type(result_df) == pd.DataFrame
+    result_gpd_df = grdtrack(
+        points=dataframe,
+        grid=dataarray,
+        data_format="g",
+    )
+    assert type(result_gpd_df) == gpd.geodataframe.GeoDataFrame
+    result_xarray = grdtrack(
+        points=dataframe,
+        grid=dataarray,
+        data_format="x",
+    )
+    assert type(result_xarray) == xr.core.dataarray.DataArray
