@@ -4,7 +4,7 @@ name: Docs
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
     paths-ignore:
@@ -114,7 +114,7 @@ jobs:
 
       - name: Push the built HTML to gh-pages
         run: |
-          # Detect if this is a release or from the master branch
+          # Detect if this is a release or from the main branch
           if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
               # Get the tag name without the "refs/tags/" part
               version="${GITHUB_REF#refs/*/}"

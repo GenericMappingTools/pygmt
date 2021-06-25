@@ -4,7 +4,7 @@ name: GMT Dev Tests
 
 on:
   # push:
-  #   branches: [ master ]
+  #   branches: [ main ]
   pull_request:
     types: [ready_for_review]
     paths-ignore:
@@ -23,7 +23,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  test_gmt_master:
+  test_gmt_main:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -31,7 +31,7 @@ jobs:
       matrix:
         python-version: [3.9]
         os: [ubuntu-latest, macOS-11.0, windows-latest]
-        gmt_git_ref: [master]
+        gmt_git_ref: [main]
     defaults:
       run:
         shell: bash -l {0}
@@ -90,7 +90,7 @@ jobs:
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
-        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
+        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/main/ci/build-gmt.sh | bash
         env:
           GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
           GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
