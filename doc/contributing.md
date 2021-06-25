@@ -79,46 +79,6 @@ Discussion often happens on GitHub issues and pull requests. In addition, there 
 [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
 the project where you can ask questions.
 
-### Setting up your Environment
-
-We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
-package manager to install and manage your Python packages.
-It will make your life a lot easier!
-
-The repository includes a conda environment file `environment.yml` with the
-specification for all development requirements to build and test the project.
-See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/master/environment.yml)
-file for the list of dependencies and the environment name (`pygmt`).
-Once you have forked and cloned the repository to your local machine, you can
-use this file to create an isolated environment on which you can work.
-Run the following on the base of the repository to create a new conda
-environment from the `environment.yml` file:
-
-```bash
-conda env create
-```
-
-Before building and testing the project, you have to activate the environment
-(you'll need to do this every time you start a new terminal):
-
-```bash
-conda activate pygmt
-
-We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
-that provides commands for installing, running the tests and coverage analysis,
-running linters, etc. If you don't want to use `make`, open the `Makefile` and
-copy the commands you want to run.
-
-To install the current source code into your testing environment, run:
-
-```bash
-make install
-```
-
-This installs your project in *editable* mode, meaning that changes made to the source
-code will be available when you import the package (even if you're on a different
-directory).
-
 ### Pull Request Workflow
 
 We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
@@ -187,6 +147,52 @@ GitHub will show the status of these checks on the pull request.
 Try to get them all passing (green).
 If you have any trouble, leave a comment in the PR or
 [get in touch](#how-can-i-talk-to-you).
+
+## Setting up your Environment
+
+These steps for setting up your environment are necessary for
+[editing the documentation locally](#editing-the-documentation-locally) and
+[contributing code](#contributing-code). A local PyGMT development environment
+is not needed for [editing the documentation on GitHub](#editing-the-documentation-on-github).
+
+We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
+package manager to install and manage your Python packages.
+It will make your life a lot easier!
+
+The repository includes a conda environment file `environment.yml` with the
+specification for all development requirements to build and test the project.
+See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/master/environment.yml)
+file for the list of dependencies and the environment name (`pygmt`).
+Once you have forked and cloned the repository to your local machine, you can
+use this file to create an isolated environment on which you can work.
+Run the following on the base of the repository to create a new conda
+environment from the `environment.yml` file:
+
+```bash
+conda env create
+```
+
+Before building and testing the project, you have to activate the environment
+(you'll need to do this every time you start a new terminal):
+
+```bash
+conda activate pygmt
+```
+
+We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
+that provides commands for installing, running the tests and coverage analysis,
+running linters, etc. If you don't want to use `make`, open the `Makefile` and
+copy the commands you want to run.
+
+To install the current source code into your testing environment, run:
+
+```bash
+make install
+```
+
+This installs your project in *editable* mode, meaning that changes made to the source
+code will be available when you import the package (even if you're on a different
+directory).
 
 ## Contributing Documentation
 
