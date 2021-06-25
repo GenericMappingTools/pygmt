@@ -21,8 +21,8 @@ assignees: ''
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
   - [ ] Update citation information https://github.com/GenericMappingTools/pygmt#citing-pygmt
   - [ ] Add the documentation link https://github.com/GenericMappingTools/pygmt#documentation-for-other-versions
-  - [ ] Add compatibility information https://github.com/GenericMappingTools/pygmt#compatibility-with-python-and-gmt-versions
-  - [ ] Copy draft changelog from Release Drafter and edit it to look nice
+  - [ ] Add compatibility information https://github.com/GenericMappingTools/pygmt#compatibility-with-gmt-and-pythonnumpy-versions
+  - [ ] Copy draft changelog from Release Drafter and edit it to look nice ([see maintainers guide for details](https://www.pygmt.org/dev/maintenance.html#updating-the-changelog))
 
 **Release**:
 - [ ] At the [PyGMT release page on GitHub](https://github.com/GenericMappingTools/pygmt/releases):
@@ -33,12 +33,12 @@ assignees: ''
 
 **After release**:
 - [ ] Update conda-forge [pygmt-feedstock](https://github.com/conda-forge/pygmt-feedstock) [Usually done automatically by conda-forge's bot]
-- [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt
+- [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
-  - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/)
+  - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! draft on https://hackmd.io/@pygmt. requires moderator status)
   - [ ] [Major/Minor releases only] GMT [website](https://github.com/GenericMappingTools/website) (News)
-  - [ ] [ResearchGate](https://www.researchgate.net/project/PyGMT-A-Python-interface-for-the-Generic-Mapping-Tools)
-  - [ ] [Twitter](https://twitter.com/gmt_dev)
+  - [ ] [ResearchGate](https://www.researchgate.net/project/PyGMT-A-Python-interface-for-the-Generic-Mapping-Tools) (after forum announcement)
+  - [ ] [Twitter](https://twitter.com/gmt_dev) (after forum announcement)
 ---
 
 - [ ] Party :tada: (don't tick before all other checkboxes are ticked!)

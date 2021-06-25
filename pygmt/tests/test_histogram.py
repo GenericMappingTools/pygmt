@@ -2,22 +2,24 @@
 """
 Tests histogram.
 """
+import pandas as pd
 import pytest
 from pygmt import Figure
 
 
-@pytest.fixture(scope="module")
-def table():
+@pytest.fixture(scope="module", name="table", params=[list, pd.Series])
+def fixture_table(request):
     """
     Returns a list of integers to be used in the histogram.
     """
-    return [1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8]
+    data = [1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8]
+    return request.param(data)
 
 
-@pytest.mark.mpl_image_compare
+@pytest.mark.mpl_image_compare(filename="test_histogram.png")
 def test_histogram(table):
     """
-    Tests plotting a histogram using a list of integers.
+    Tests plotting a histogram using a sequence of integers from a table.
     """
     fig = Figure()
     fig.histogram(
