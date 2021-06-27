@@ -171,7 +171,7 @@ adjusted upward on every major and minor release, but never on a patch release.
 
 ## Backwards compatibility and deprecation policy
 
-PyGMT is still undergoing rapid developement. All of the API is subject to change
+PyGMT is still undergoing rapid development. All of the API is subject to change
 until the v1.0.0 release.
 
 Basic policy for backwards compatibility:
