@@ -98,7 +98,7 @@ def histogram(self, table, **kwargs):
         Draws a stairs-step diagram which does not include the internal bars
         of the default histogram.
     horizontal : bool
-        Plot the histogram using horizonal bars instead of the
+        Plot the histogram using horizontal bars instead of the
         default vertical bars.
     series : int or str or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
