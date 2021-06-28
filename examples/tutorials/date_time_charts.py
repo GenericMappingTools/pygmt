@@ -155,7 +155,7 @@ fig.show()
 # data to the PyGMT figure.
 # Specifically ``x`` contains 7 different :class:`pandas.DatetimeIndex` objects, with the
 # number being manipulated by the ``periods`` parameter. Each period begins at the start
-# of a business quarter as denoted by BQS when passed to the ``periods`` parameter. The inital
+# of a business quarter as denoted by BQS when passed to the ``periods`` parameter. The initial
 # date is the first argument that is passed to :func:`pandas.date_range` and it marks the first
 # data point in the list ``x`` that will be plotted.
 
@@ -207,7 +207,7 @@ fig.show()
 # -------------------------------
 # In this example, instead of using a :func:`pd.date_range`, ``x`` is initialized
 # as an ``np.array`` object. Similar to :class:`xarray.DataArray` this wraps the
-# dataset before passing it as a paramater. However, ``np.array`` objects use less
+# dataset before passing it as a parameter. However, ``np.array`` objects use less
 # memory and allow developers to specify datatypes.
 
 x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
