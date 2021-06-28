@@ -164,11 +164,11 @@ html_context = {
     "menu_links": [
         (
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            f"{repository_url}/blob/master/CODE_OF_CONDUCT.md",
+            f"{repository_url}/blob/main/CODE_OF_CONDUCT.md",
         ),
         (
             '<i class="fa fa-book fa-fw"></i> License',
-            f"{repository_url}/blob/master/LICENSE.txt",
+            f"{repository_url}/blob/main/LICENSE.txt",
         ),
         (
             '<i class="fa fa-comment fa-fw"></i> Contact',
@@ -187,6 +187,6 @@ html_context = {
         zip(sphinx_gallery_conf["gallery_dirs"], sphinx_gallery_conf["examples_dirs"])
     ),
     "github_repo": repository,
-    "github_version": "master",
+    "github_version": "main",
     "commit": commit_link,
 }
