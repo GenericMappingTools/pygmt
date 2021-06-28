@@ -7,7 +7,7 @@ The project is hosted at the
 
 The goal is to maintain a diverse community that's pleasant for everyone.
 **Please be considerate and respectful of others**. Everyone must abide by our
-[Code of Conduct](https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md)
 and we encourage all to read it carefully.
 
 ## Ways to Contribute
@@ -169,7 +169,7 @@ Every change made goes through a pull request, even our own, so that our
 [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
 services have a chance to check that the code is up to standards and passes all
 our tests.
-This way, the *master* branch is always stable.
+This way, the *main* branch is always stable.
 
 General guidelines for making a Pull Request (PR):
 
@@ -255,10 +255,10 @@ conda activate pygmt
 
 You'll need to do this every time you start a new terminal.
 
-See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/master/environment.yml)
+See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/main/environment.yml)
 file for the list of dependencies and the environment name.
 
-We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
+We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 that provides commands for installing, running the tests and coverage analysis,
 running linters, etc. If you don't want to use `make`, open the `Makefile` and
 copy the commands you want to run.
@@ -307,7 +307,7 @@ will comment on any pull requests as needed.
 We also use [flake8](http://flake8.pycqa.org/en/latest/) and
 [pylint](https://www.pylint.org/) to check the quality of the code and quickly catch
 common errors.
-The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
+The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
 
 ```bash
