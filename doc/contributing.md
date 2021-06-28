@@ -302,9 +302,9 @@ General guidelines for making a good gallery plot:
 * Examples should highlight a single feature/command. Good: *how to add a label to
   a colorbar*. Bad: *how to add a label to the colorbar and use two different CPTs and
   use subplots*.
-* Try to make the example as simple as possible. Good: use only commands that are
-  required to show the feature you want to highlight. Bad: use advanced/complex Python
-  features to make the code smaller.
+* Try to make the example as simple as possible. Good: *use only commands that are
+  required to show the feature you want to highlight*. Bad: *use advanced/complex Python
+  features to make the code smaller*.
 * Use a sample dataset from `pygmt.datasets` if you need to plot data. If a suitable
   dataset isn't available, open an issue requesting one and we'll work together to add
   it.
