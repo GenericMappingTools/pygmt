@@ -351,7 +351,7 @@ the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follo
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
-While the maximum line length for code is automatically set by *Black*, docstrings
+While the maximum line length for code is automatically set by Black, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
 limited to 79 characters** per line.
 
