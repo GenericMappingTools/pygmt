@@ -44,15 +44,15 @@ jobs:
           # - os: ubuntu-latest
           #   python-version: 3.7
           #   isDraft: true
-        # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.20
-        # Only install optional packages on Python 3.9/NumPy 1.20
+        # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.21
+        # Only install optional packages on Python 3.9/NumPy 1.21
         include:
           - python-version: 3.7
             numpy-version: '1.17'
             optional-packages: ''
           - python-version: 3.9
-            numpy-version: '1.20'
-            optional-packages: ''  # 'geopandas'
+            numpy-version: '1.21'
+            optional-packages: 'geopandas'
     defaults:
       run:
         shell: bash -l {0}

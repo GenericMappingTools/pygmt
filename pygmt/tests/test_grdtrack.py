@@ -29,13 +29,35 @@ def fixture_dataarray():
     )
 
 
-def test_grdtrack_input_dataframe_and_dataarray(dataarray):
+@pytest.fixture(scope="module", name="dataframe")
+def fixture_dataframe():
+    """
+    Load the ocean ridge file.
+    """
+    return load_ocean_ridge_points()
+
+
+@pytest.fixture(scope="module", name="csvfile")
+def fixture_csvfile():
+    """
+    Load the csvfile.
+    """
+    return which("@ridge.txt", download="c")
+
+
+@pytest.fixture(scope="module", name="ncfile")
+def fixture_ncfile():
+    """
+    Load the ncfile.
+    """
+    return which("@earth_relief_01d", download="a")
+
+
+def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
     """
     Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
     inputs.
     """
-    dataframe = load_ocean_ridge_points()
-
     output = grdtrack(
         points=dataframe,
         grid=dataarray,
@@ -49,12 +71,10 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray):
     return output
 
 
-def test_grdtrack_input_csvfile_and_dataarray(dataarray):
+def test_grdtrack_input_csvfile_and_dataarray(dataarray, csvfile):
     """
     Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
     """
-    csvfile = which("@ridge.txt", download="c")
-
     try:
         output = grdtrack(points=csvfile, grid=dataarray, outfile=TEMP_TRACK)
         assert output is None  # check that output is None since outfile is set
@@ -68,12 +88,10 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray):
     return output
 
 
-def test_grdtrack_input_dataframe_and_ncfile():
+def test_grdtrack_input_dataframe_and_ncfile(dataframe, ncfile):
     """
     Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs.
     """
-    dataframe = load_ocean_ridge_points()
-    ncfile = which("@earth_relief_01d", download="a")
 
     output = grdtrack(
         points=dataframe,
@@ -88,13 +106,10 @@ def test_grdtrack_input_dataframe_and_ncfile():
     return output
 
 
-def test_grdtrack_input_csvfile_and_ncfile():
+def test_grdtrack_input_csvfile_and_ncfile(csvfile, ncfile):
     """
     Run grdtrack by passing in a csvfile and netcdf file as inputs.
     """
-    csvfile = which("@ridge.txt", download="c")
-    ncfile = which("@earth_relief_01d", download="a")
-
     try:
         output = grdtrack(points=csvfile, grid=ncfile, outfile=TEMP_TRACK)
         assert output is None  # check that output is None since outfile is set
@@ -108,12 +123,11 @@ def test_grdtrack_input_csvfile_and_ncfile():
     return output
 
 
-def test_grdtrack_wrong_kind_of_points_input(dataarray):
+def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     """
     Run grdtrack using points input that is not a pandas.DataFrame (matrix) or
     file.
     """
-    dataframe = load_ocean_ridge_points()
     invalid_points = dataframe.longitude.to_xarray()
 
     assert data_kind(invalid_points) == "grid"
@@ -121,29 +135,25 @@ def test_grdtrack_wrong_kind_of_points_input(dataarray):
         grdtrack(points=invalid_points, grid=dataarray)
 
 
-def test_grdtrack_wrong_kind_of_grid_input(dataarray):
+def test_grdtrack_wrong_kind_of_grid_input(dataarray, dataframe):
     """
     Run grdtrack using grid input that is not as xarray.DataArray (grid) or
     file.
     """
-    dataframe = load_ocean_ridge_points()
     invalid_grid = dataarray.to_dataset()
 
     assert data_kind(invalid_grid) == "matrix"
     with pytest.raises(GMTInvalidInput):
+
         grdtrack(points=dataframe, grid=invalid_grid)
 
 
-def test_grdtrack_without_outfile_setting():
+def test_grdtrack_without_outfile_setting(csvfile, ncfile):
     """
     Run grdtrack by not passing in outfile parameter setting.
     """
-    csvfile = which("@ridge.txt", download="c")
-    ncfile = which("@earth_relief_01d", download="a")
-
     output = grdtrack(points=csvfile, grid=ncfile, data_format="a")
     npt.assert_allclose(output[0], [-32.2971, 37.4118, -1939.748245])
-
     return output
 
 
