@@ -4,12 +4,9 @@ grdfilter - Filter a grid in the space (or time) domain.
 
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -26,6 +23,8 @@ from pygmt.helpers import (
     R="region",
     T="toggle",
     V="verbose",
+    f="coltypes",
+    r="registration",
 )
 @kwargs_to_strings(R="sequence")
 def grdfilter(grid, **kwargs):
@@ -98,10 +97,7 @@ def grdfilter(grid, **kwargs):
         5: grid (x,y) in Mercator ``projection='m1'`` img units, *width* in km,
         Spherical distance calculation.
 
-    spacing : str
-        *xinc*\[\ *unit*\][**+e**\|\ **n**]
-        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        *xinc* [and optionally *yinc*] is the grid spacing.
+    {I}
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.
@@ -111,13 +107,17 @@ def grdfilter(grid, **kwargs):
         opposite of the input grid. [Default gives the same registration as the
         input grid].
     {V}
+    {f}
+    {r}
 
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the *outgrid* parameter is set:
-        - xarray.DataArray if *outgrid* is not set
-        - None if *outgrid* is set (grid output will be stored in *outgrid*)
+        Return type depends on whether the ``outgrid`` parameter is set:
+
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
 
     Examples
     --------
@@ -141,17 +141,9 @@ def grdfilter(grid, **kwargs):
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
     """
-    kind = data_kind(grid)
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
-
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})

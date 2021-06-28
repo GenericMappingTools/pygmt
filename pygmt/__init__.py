@@ -1,11 +1,22 @@
-# pylint: disable=missing-docstring
-#
-# The main API for PyGMT.
-#
-# All of PyGMT is operated on a "modern mode session" (new to GMT6). When you
-# import the pygmt library, a new session will be started automatically. The
-# session will be closed when the current Python process terminates. Thus, the
-# Python API does not expose the `gmt begin` and `gmt end` commands.
+"""
+PyGMT is a library for processing geospatial and geophysical data and making
+publication quality maps and figures. It provides a Pythonic interface for the
+Generic Mapping Tools (GMT), a command-line program widely used in the Earth
+Sciences. Besides making GMT more accessible to new users, PyGMT aims to
+provide integration with the PyData ecosystem as well as support for rich
+display in Jupyter notebooks.
+
+Main Features
+-------------
+Here are just a few of the things that PyGMT does well:
+
+  - Easy handling of individual types of data like Cartesian, geographic, or
+    time-series data.
+  - Processing of (geo)spatial data including gridding, filtering, and masking
+  - Allows plotting of a large spectrum of objects on figures including
+    lines, vectors, polygons, and symbols (pre-defined and customized)
+  - Generate publication-quality illustrations and make animations
+"""
 
 import atexit as _atexit
 
@@ -13,28 +24,35 @@ from pkg_resources import get_distribution
 
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
-from pygmt.figure import Figure
-from pygmt.modules import GMTDataArrayAccessor, config
+from pygmt.accessors import GMTDataArrayAccessor
+from pygmt.figure import Figure, set_display
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
+    blockmean,
     blockmedian,
+    config,
     grd2cpt,
+    grdclip,
     grdcut,
+    grdfill,
     grdfilter,
+    grdgradient,
     grdinfo,
+    grdlandmask,
     grdtrack,
     info,
     makecpt,
     surface,
     which,
+    x2sys_cross,
+    x2sys_init,
     xyz2grd,
 )
-from pygmt.x2sys import x2sys_cross, x2sys_init
 
 # Get semantic version through setuptools-scm
 __version__ = f'v{get_distribution("pygmt").version}'  # e.g. v0.1.2.dev3+g0ab3cd78
-__commit__ = __version__.split("+g")[-1]  # 0ab3cd78
+__commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 # Start our global modern mode session
 _begin()

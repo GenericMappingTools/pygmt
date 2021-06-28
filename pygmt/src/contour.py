@@ -7,6 +7,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
+    deprecate_parameter,
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
@@ -15,6 +16,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(
     A="annotation",
     B="frame",
@@ -30,7 +32,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     c="panel",
-    i="columns",
+    i="incols",
     l="label",
     p="perspective",
     t="transparency",
@@ -64,8 +66,16 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
     {B}
-    levels : str
-        Contour file or level(s)
+    levels : str or int
+        Specify the contour lines to generate.
+
+        - The filename of a CPT file where the color boundaries will
+          be used as contour levels.
+        - The filename of a 2 (or 3) column file containing the contour
+          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
+          angle (col 3)
+        - A fixed contour interval *cont_int* or a single contour with
+          +\ *cont_int*
     D : str
         Dump contour coordinates.
     E : str
@@ -96,6 +106,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     {V}
     {XY}
     {c}
+    {i}
     {p}
     {t}
     """

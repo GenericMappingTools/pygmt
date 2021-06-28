@@ -76,7 +76,7 @@ def coast(self, **kwargs):
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
         default is the fill chosen for wet areas set by the ``water``
-        argument. Optionally, specify separate fills by appending
+        parameter. Optionally, specify separate fills by appending
         **+l** for lakes or **+r** for river-lakes, and passing multiple
         strings in a list.
     resolution : str
@@ -85,7 +85,7 @@ def coast(self, **kwargs):
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
-        Select filling or clipping of “dry” areas.
+        Select filling or clipping of "dry" areas.
     rivers : int or str or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
@@ -151,7 +151,7 @@ def coast(self, **kwargs):
 
         a = All boundaries (1-3)
     water : str
-        Select filling or clipping of “wet” areas.
+        Select filling or clipping of "wet" areas.
     {U}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
@@ -189,7 +189,7 @@ def coast(self, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
-            """At least one of the following arguments must be specified:
+            """At least one of the following parameters must be specified:
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
     with Session() as lib:

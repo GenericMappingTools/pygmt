@@ -1,0 +1,4 @@
+outs:
+- md5: 616ef96dbb160d3173710ef2fb77eb6f
+  size: 46624
+  path: test_plot3d_red_circles_zscale.png

@@ -29,6 +29,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
 )
@@ -143,8 +144,11 @@ def text_(
     {V}
     {XY}
     {c}
+    {f}
     {p}
     {t}
+        *transparency* can also be a 1d array to set varying transparency
+        for texts, but this option is only valid if using x/y/text.
     """
 
     # pylint: disable=too-many-locals
@@ -165,7 +169,7 @@ def text_(
     if kind == "vectors" and text is None:
         raise GMTInvalidInput("Must provide text with x/y pairs or position")
 
-    # Build the `-F` argument in gmt text.
+    # Build the -F option in gmt text.
     if "F" not in kwargs.keys() and (
         (
             position is not None
@@ -175,13 +179,23 @@ def text_(
         )
     ):
         kwargs.update({"F": ""})
-    if angle is not None and isinstance(angle, (int, float, str)):
+
+    if angle is True:
+        kwargs["F"] += "+a"
+    elif isinstance(angle, (int, float, str)):
         kwargs["F"] += f"+a{str(angle)}"
-    if font is not None and isinstance(font, str):
+
+    if font is True:
+        kwargs["F"] += "+f"
+    elif isinstance(font, str):
         kwargs["F"] += f"+f{font}"
-    if justify is not None and isinstance(justify, str):
+
+    if justify is True:
+        kwargs["F"] += "+j"
+    elif isinstance(justify, str):
         kwargs["F"] += f"+j{justify}"
-    if position is not None and isinstance(position, str):
+
+    if isinstance(position, str):
         kwargs["F"] += f'+c{position}+t"{text}"'
 
     extra_arrays = []

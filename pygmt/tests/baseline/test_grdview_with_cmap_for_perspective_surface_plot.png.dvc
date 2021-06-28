@@ -1,0 +1,4 @@
+outs:
+- md5: 122aa9d570ec1261265faed6b9c3c285
+  size: 83556
+  path: test_grdview_with_cmap_for_perspective_surface_plot.png

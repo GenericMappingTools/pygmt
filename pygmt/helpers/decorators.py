@@ -7,6 +7,8 @@ etc.
 """
 import functools
 import textwrap
+import warnings
+from inspect import Parameter, signature
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
@@ -17,15 +19,16 @@ COMMON_OPTIONS = {
         region : str or list
             *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the region of interest.""",
+            Specify the :doc:`region </tutorials/regions>` of interest.""",
     "J": r"""
         projection : str
             *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
-            Select map projection.""",
+            Select map :doc:`projection </projections/index>`.""",
     "B": r"""
         frame : bool or str or list
-            Set map boundary frame and axes attributes.""",
+            Set map boundary
+            :doc:`frame and axes attributes </tutorials/frames>`. """,
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
@@ -35,9 +38,40 @@ COMMON_OPTIONS = {
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
     "G": """\
-        color : str
+        color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
+    "I": r"""
+        spacing : str
+            *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]].
+            *x_inc* [and optionally *y_inc*] is the grid spacing.
+
+            - **Geographical (degrees) coordinates**: Optionally, append an
+              increment unit. Choose among **m** to indicate arc minutes or
+              **s** to indicate arc seconds. If one of the units **e**, **f**,
+              **k**, **M**, **n** or **u** is appended instead, the increment
+              is assumed to be given in meter, foot, km, mile, nautical mile or
+              US survey foot, respectively, and will be converted to the
+              equivalent degrees longitude at the middle latitude of the region
+              (the conversion depends on :gmt-term:`PROJ_ELLIPSOID`). If
+              *y_inc* is given but set to 0 it will be reset equal to *x_inc*;
+              otherwise it will be converted to degrees latitude.
+
+            - **All coordinates**: If **+e** is appended then the corresponding
+              max *x* (*east*) or *y* (*north*) may be slightly adjusted to fit
+              exactly the given increment [by default the increment may be
+              adjusted slightly to fit the given domain]. Finally, instead of
+              giving an increment you may specify the *number of nodes* desired
+              by appending **+n** to the supplied integer argument; the
+              increment is then recalculated from the number of nodes, the
+              *registration*, and the domain. The resulting increment value
+              depends on whether you have selected a gridline-registered or
+              pixel-registered grid; see :gmt-docs:`GMT File Formats
+              <cookbook/file-formats.html#gmt-file-formats>` for details.
+
+            **Note**: If ``region=grdfile`` is used then the grid spacing and
+            the registration have already been initialized; use ``spacing`` and
+            ``registration`` to override these values.""",
     "V": """\
         verbose : bool or str
             Select verbosity level [Default is **w**], which modulates the messages
@@ -46,7 +80,7 @@ COMMON_OPTIONS = {
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorthms);
+            - **t** - Timings (report runtimes for time-intensive algorithms);
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
@@ -62,6 +96,12 @@ COMMON_OPTIONS = {
             Shift plot origin in y-direction. Full documentation is at
             :gmt-docs:`gmt.html#xy-full`.
          """,
+    "a": r"""
+        aspatial : bool or str
+            [*col*\ =]\ *name*\ [,...].
+            Control how aspatial data are handled during input and output.
+            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
+         """,
     "c": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
@@ -72,6 +112,43 @@ COMMON_OPTIONS = {
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
          """,
+    "f": r"""
+        coltypes : str
+            [**i**\|\ **o**]\ *colinfo*.
+            Specify data types of input and/or output columns (time or
+            geographical data). Full documentation is at
+            :gmt-docs:`gmt.html#f-full`.
+         """,
+    "i": r"""
+        incols : str or 1d array
+            Specify data columns for primary input in arbitrary order. Columns
+            can be repeated and columns not listed will be skipped [Default
+            reads all columns in order, starting with the first (i.e., column
+            0)].
+
+            - For *1d array*: specify individual columns in input order (e.g.,
+              ``incols=[1,0]`` for the 2nd column followed by the 1st column).
+            - For :py:class:`str`: specify individual columns or column
+              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
+              defaults to 1 if not specified, with columns and/or column ranges
+              separated by commas (e.g., ``incols='0:2,4+l'`` to input the
+              first three columns followed by the log-transformed 5th column).
+              To read from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To read trailing
+              text, add the column **t**. Append the word number to **t** to
+              ingest only a single word from the trailing text. Instead of
+              specifying columns, use ``incols='n'`` to simply read numerical
+              input and skip trailing text. Optionally, append one of the
+              following modifiers to any column or column range to transform
+              the input columns:
+
+                - **+l** to take the *log10* of the input values.
+                - **+d** to divide the input values by the factor *divisor*
+                  [default is 1].
+                - **+s** to multiple the input values by the factor *scale*
+                  [default is 1].
+                - **+o** to add the given *offset* to the input values [default
+                  is 0].""",
     "j": r"""
         distcalc : str
             **e**\|\ **f**\|\ **g**.
@@ -104,11 +181,12 @@ COMMON_OPTIONS = {
             the viewpoint. Default is [180, 90]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
-    "registration": r"""
+    "r": r"""
         registration : str
             **g**\|\ **p**.
-            Force output grid to be gridline (g) or pixel (p) node registered.
-            Default is gridline (g).""",
+            Force gridline (**g**) or pixel (**p**) node registration.
+            [Default is **g**\ (ridline)].
+        """,
     "t": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.
@@ -172,6 +250,9 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
+    ...     data : str or {table-like}
+    ...         Pass in either a file name to an ASCII data table, a 2D
+    ...         {table-classes}.
     ...     {R}
     ...     {J}
     ...
@@ -184,14 +265,20 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
+    data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset or geo...
+        Pass in either a file name to an ASCII data table, a 2D
+        :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
+        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`
+        data variables, or a :class:`geopandas.GeoDataFrame` containing the
+        tabular data.
     region : str or list
         *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the region of interest.
+        Specify the :doc:`region </tutorials/regions>` of interest.
     projection : str
         *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
-        Select map projection.
+        Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
     <BLANKLINE>
@@ -208,6 +295,21 @@ def fmt_docstring(module_func):
             aliases.append("- {} = {}".format(arg, alias))
         filler_text["aliases"] = "\n".join(aliases)
 
+    filler_text["table-like"] = " or ".join(
+        [
+            "numpy.ndarray",
+            "pandas.DataFrame",
+            "xarray.Dataset",
+            "geopandas.GeoDataFrame",
+        ]
+    )
+    filler_text["table-classes"] = (
+        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
+        "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`\n"
+        "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
+        "    tabular data"
+    )
+
     for marker, text in COMMON_OPTIONS.items():
         # Remove the indentation and the first line break from the multiline
         # strings so that it doesn't mess up the original docstring
@@ -217,6 +319,30 @@ def fmt_docstring(module_func):
     docstring = textwrap.dedent(module_func.__doc__)
 
     module_func.__doc__ = docstring.format(**filler_text)
+
+    return module_func
+
+
+def _insert_alias(module_func, default_value=None):
+    """
+    Function to insert PyGMT long aliases into the signature of a method.
+    """
+
+    # Get current signature and parameters
+    sig = signature(module_func)
+    wrapped_params = list(sig.parameters.values())
+    kwargs_param = wrapped_params.pop(-1)
+    # Add new parameters from aliases
+    for alias in module_func.aliases.values():
+        if alias not in sig.parameters.keys():
+            new_param = Parameter(
+                alias, kind=Parameter.KEYWORD_ONLY, default=default_value
+            )
+            wrapped_params = wrapped_params + [new_param]
+    all_params = wrapped_params + [kwargs_param]
+    # Update method signature
+    sig_new = sig.replace(parameters=all_params)
+    module_func.__signature__ = sig_new
 
     return module_func
 
@@ -258,7 +384,7 @@ def use_alias(**aliases):
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput:
-        Arguments in short-form (J) and long-form (projection) can't coexist
+        Parameters in short-form (J) and long-form (projection) can't coexist.
     """
 
     def alias_decorator(module_func):
@@ -271,30 +397,39 @@ def use_alias(**aliases):
             """
             New module that parses and replaces the registered aliases.
             """
-            for arg, alias in aliases.items():
-                if alias in kwargs and arg in kwargs:
+            for short_param, long_alias in aliases.items():
+                if long_alias in kwargs and short_param in kwargs:
                     raise GMTInvalidInput(
-                        f"Arguments in short-form ({arg}) and long-form ({alias}) can't coexist"
+                        f"Parameters in short-form ({short_param}) and "
+                        f"long-form ({long_alias}) can't coexist."
                     )
-                if alias in kwargs:
-                    kwargs[arg] = kwargs.pop(alias)
+                if long_alias in kwargs:
+                    kwargs[short_param] = kwargs.pop(long_alias)
+                elif short_param in kwargs:
+                    msg = (
+                        f"Short-form parameter ({short_param}) is not recommended. "
+                        f"Use long-form parameter '{long_alias}' instead."
+                    )
+                    warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
+
+        new_module = _insert_alias(new_module)
 
         return new_module
 
     return alias_decorator
 
 
-def kwargs_to_strings(convert_bools=True, **conversions):
+def kwargs_to_strings(**conversions):
     """
     Decorator to convert given keyword arguments to strings.
 
     The strings are what GMT expects from command line arguments.
 
-    Converts all boolean arguments by default. Transforms ``True`` into ``''``
-    (empty string) and removes the argument from ``kwargs`` if ``False``.
+    Boolean arguments and None are not converted and will be processed in the
+    ``build_arg_string`` function.
 
     You can also specify other conversions to specific arguments.
 
@@ -308,9 +443,6 @@ def kwargs_to_strings(convert_bools=True, **conversions):
 
     Parameters
     ----------
-    convert_bools : bool
-        If ``True``, convert all boolean arguments to strings using the rules
-        specified above. If ``False``, leave them as they are.
     conversions : keyword arguments
         Keyword arguments specifying other kinds of conversions that should be
         performed. The keyword is the name of the argument and the value is the
@@ -341,16 +473,18 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     >>> module(R="5/6/7/8")
     {'R': '5/6/7/8'}
     >>> module(P=True)
-    {'P': ''}
+    {'P': True}
     >>> module(P=False)
-    {}
+    {'P': False}
+    >>> module(P=None)
+    {'P': None}
     >>> module(i=[1, 2])
     {'i': '1,2'}
     >>> module(files=["data1.txt", "data2.txt"])
     {'files': 'data1.txt data2.txt'}
     >>> # Other non-boolean arguments are passed along as they are
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
-    {'bla': (1, 2, 3), 'foo': '', 'i': '5,6'}
+    {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
     args: 123
     >>> import datetime
     >>> module(
@@ -401,8 +535,6 @@ def kwargs_to_strings(convert_bools=True, **conversions):
             """
             New module instance that converts the arguments first.
             """
-            if convert_bools:
-                kwargs = remove_bools(kwargs)
             for arg, fmt in conversions.items():
                 if arg in kwargs:
                     value = kwargs[arg]
@@ -429,28 +561,80 @@ def kwargs_to_strings(convert_bools=True, **conversions):
     return converter
 
 
-def remove_bools(kwargs):
+def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     """
-    Remove booleans from arguments.
+    Decorator to deprecate a parameter.
 
-    If ``True``, replace it with an empty string. If ``False``, completely
-    remove the entry from the argument list.
+    The old parameter name will be automatically swapped to the new parameter
+    name, and users will receive a FutureWarning to inform them of the pending
+    deprecation.
+
+    Use this decorator above the ``use_alias`` decorator.
 
     Parameters
     ----------
-    kwargs : dict
-        Dictionary with the keyword arguments.
+    oldname : str
+        The old, deprecated parameter name.
+    newname : str
+        The new parameter name.
+    deprecate_version : str
+        The PyGMT version when the old parameter starts to be deprecated.
+    remove_version : str
+        The PyGMT version when the old parameter will be fully removed.
 
-    Returns
-    -------
-    new_kwargs : dict
-        A copy of `kwargs` with the booleans parsed.
+    Examples
+    --------
+    >>> @deprecate_parameter("sizes", "size", "v0.0.0", "v9.9.9")
+    ... @deprecate_parameter("colors", "color", "v0.0.0", "v9.9.9")
+    ... @deprecate_parameter("infile", "data", "v0.0.0", "v9.9.9")
+    ... def module(data, size=0, **kwargs):
+    ...     "A module that prints the arguments it received"
+    ...     print(f"data={data}, size={size}, color={kwargs['color']}")
+    >>> # new names are supported
+    >>> module(data="table.txt", size=5.0, color="red")
+    data=table.txt, size=5.0, color=red
+    >>> # old names are supported, FutureWarning warnings are reported
+    >>> with warnings.catch_warnings(record=True) as w:
+    ...     module(infile="table.txt", sizes=5.0, colors="red")
+    ...     # check the number of warnings
+    ...     assert len(w) == 3
+    ...     for i in range(len(w)):
+    ...         assert issubclass(w[i].category, FutureWarning)
+    ...         assert "deprecated" in str(w[i].message)
+    ...
+    data=table.txt, size=5.0, color=red
+    >>> # using both old and new names will raise an GMTInvalidInput exception
+    >>> import pytest
+    >>> with pytest.raises(GMTInvalidInput):
+    ...     module(data="table.txt", size=5.0, sizes=4.0)
+    ...
     """
-    new_kwargs = {}
-    for arg, value in kwargs.items():
-        if isinstance(value, bool):
-            if value:
-                new_kwargs[arg] = ""
-        else:
-            new_kwargs[arg] = value
-    return new_kwargs
+
+    def deprecator(module_func):
+        """
+        The decorator that creates the new function to work with both old and
+        new parameters.
+        """
+
+        @functools.wraps(module_func)
+        def new_module(*args, **kwargs):
+            """
+            New module instance that converts old parameters to new parameters.
+            """
+            if oldname in kwargs:
+                if newname in kwargs:
+                    raise GMTInvalidInput(
+                        f"Can't provide both '{newname}' and '{oldname}'."
+                    )
+                msg = (
+                    f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
+                    f" and will be removed in {remove_version}."
+                    f" Please use '{newname}' instead."
+                )
+                warnings.warn(msg, category=FutureWarning, stacklevel=2)
+                kwargs[newname] = kwargs.pop(oldname)
+            return module_func(*args, **kwargs)
+
+        return new_module
+
+    return deprecator

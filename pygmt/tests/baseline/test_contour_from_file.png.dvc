@@ -1,0 +1,4 @@
+outs:
+- md5: f8bd9e2347bf29bd2d47745d347dc643
+  size: 60272
+  path: test_contour_from_file.png

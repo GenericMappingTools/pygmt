@@ -9,7 +9,7 @@ import datetime
 # isort: off
 from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
     ExplicitOrder,
-    FileNameSortKey,
+    ExampleTitleSortKey,
 )
 from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
@@ -17,6 +17,7 @@ from pygmt.sphinx_gallery import PyGMTScraper
 # isort: on
 
 extensions = [
+    "myst_parser",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
@@ -26,7 +27,6 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
-    "nbsphinx",
     "sphinx_gallery.gen_gallery",
     "sphinx_copybutton",
 ]
@@ -48,6 +48,7 @@ extlinks = {
 # intersphinx configuration
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
+    "geopandas": ("https://geopandas.org/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "xarray": ("https://xarray.pydata.org/en/stable/", None),
@@ -71,10 +72,15 @@ sphinx_gallery_conf = {
     "gallery_dirs": ["gallery", "tutorials", "projections"],
     "subsection_order": ExplicitOrder(
         [
-            "../examples/gallery/line",
-            "../examples/gallery/coast",
-            "../examples/gallery/plot",
-            "../examples/gallery/grid",
+            "../examples/gallery/maps",
+            "../examples/gallery/lines",
+            "../examples/gallery/symbols",
+            "../examples/gallery/images",
+            "../examples/gallery/3d_plots",
+            "../examples/gallery/seismology",
+            "../examples/gallery/basemaps",
+            "../examples/gallery/histograms",
+            "../examples/gallery/embellishments",
             "../examples/projections/azim",
             "../examples/projections/conic",
             "../examples/projections/cyl",
@@ -88,7 +94,7 @@ sphinx_gallery_conf = {
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery example by file name instead of number of lines (default)
-    "within_subsection_order": FileNameSortKey,
+    "within_subsection_order": ExampleTitleSortKey,
     # directory where function granular galleries are stored
     "backreferences_dir": "api/generated/backreferences",
     # Modules for which function level galleries are created.  In
@@ -113,7 +119,7 @@ master_doc = "index"
 # General information about the project
 year = datetime.date.today().year
 project = "PyGMT"
-copyright = f"2017-{year}, The PyGMT Developers."  # pylint: disable=redefined-builtin
+copyright = f"2017-{year}, The PyGMT Developers"  # pylint: disable=redefined-builtin
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
 else:
@@ -146,13 +152,16 @@ html_theme = "sphinx_rtd_theme"
 html_theme_options = {}
 repository = "GenericMappingTools/pygmt"
 repository_url = "https://github.com/GenericMappingTools/pygmt"
-commit_link = f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
+if __commit__:
+    commit_link = (
+        f'<a href="{repository_url}/commit/{ __commit__ }">{ __commit__[:8] }</a>'
+    )
+else:
+    commit_link = (
+        f'<a href="{repository_url}/releases/tag/{ __version__ }">{ __version__ }</a>'
+    )
 html_context = {
     "menu_links": [
-        (
-            '<i class="fa fa-users fa-fw"></i> Contributing',
-            f"{repository_url}/blob/master/CONTRIBUTING.md",
-        ),
         (
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
             f"{repository_url}/blob/master/CODE_OF_CONDUCT.md",

@@ -17,7 +17,7 @@ accurate for map areas that extend less than 10 away from the central meridian.
 **u**\ *zone/scale* or **U**\ *zone/width*
 
 the projection is set with **u** or **U**. *zone* sets the zone for the figure, and
-the figure size is set wtih *scale* or *width*.
+the figure size is set with *scale* or *width*.
 """
 import pygmt
 

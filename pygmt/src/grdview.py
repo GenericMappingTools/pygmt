@@ -8,7 +8,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -34,6 +33,7 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     c="panel",
+    f="coltypes",
     p="perspective",
     t="transparency",
 )
@@ -58,6 +58,13 @@ def grdview(self, grid, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input relief grid or the grid loaded as a
         DataArray.
+    region : str or list
+        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+        Specify the :doc:`region </tutorials/regions>` of interest. When used
+        with ``perspective``, optionally append */zmin/zmax* to indicate the
+        range to use for the 3-D axes [Default is the region in the input
+        grid].
+    {J}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
     {B}
@@ -108,18 +115,13 @@ def grdview(self, grid, **kwargs):
     {V}
     {XY}
     {c}
+    {f}
     {p}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    kind = data_kind(grid, None, None)
     with Session() as lib:
-        if kind == "file":
-            file_context = dummy_context(grid)
-        elif kind == "grid":
-            file_context = lib.virtualfile_from_grid(grid)
-        else:
-            raise GMTInvalidInput(f"Unrecognized data type for grid: {type(grid)}")
+        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
         with contextlib.ExitStack() as stack:
             if "G" in kwargs:  # deal with kwargs["G"] if drapegrid is xr.DataArray

@@ -10,7 +10,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 def test_grdinfo():
     """
-    Make sure grd info works as expected.
+    Make sure grdinfo works as expected.
     """
     grid = load_earth_relief(registration="gridline")
     result = grdinfo(grid=grid, force_scan=0, per_column="n")

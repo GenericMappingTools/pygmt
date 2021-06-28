@@ -1,0 +1,4 @@
+outs:
+- md5: 10aca164308b4653643ac4511f8d9e02
+  size: 26937
+  path: test_text_input_single_filename.png
