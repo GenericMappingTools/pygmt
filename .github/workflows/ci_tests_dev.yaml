@@ -23,7 +23,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  test_gmt_main:
+  test_gmt_dev:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}
     runs-on: ${{ matrix.os }}
     strategy:
