@@ -183,3 +183,15 @@ def test_grdtrack_output_types(dataarray):
         data_format="x",
     )
     assert isinstance(result_xarray, xr.core.dataarray.DataArray)
+
+def test_grdtrack_output_type_fail(dataarray):
+    """
+    Tests that grdtrack fails with an invalid output type specified.
+    """
+    dataframe = load_ocean_ridge_points()
+    with pytest.raises(GMTInvalidInput):
+        result_string = grdtrack(
+            points=dataframe,
+            grid=dataarray,
+            data_format="w",
+        )
