@@ -13,8 +13,6 @@ from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 
-gpd = pytest.importorskip("geopandas")
-
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
 
@@ -144,7 +142,6 @@ def test_grdtrack_wrong_kind_of_grid_input(dataarray, dataframe):
 
     assert data_kind(invalid_grid) == "matrix"
     with pytest.raises(GMTInvalidInput):
-
         grdtrack(points=dataframe, grid=invalid_grid)
 
 
@@ -180,12 +177,6 @@ def test_grdtrack_output_types(dataarray):
         data_format="d",
     )
     assert isinstance(result_df, pd.DataFrame)
-    result_gpd_df = grdtrack(
-        points=dataframe,
-        grid=dataarray,
-        data_format="g",
-    )
-    assert isinstance(result_gpd_df, gpd.geodataframe.GeoDataFrame)
     result_xarray = grdtrack(
         points=dataframe,
         grid=dataarray,

@@ -286,7 +286,6 @@ def return_table(result, data_format, format_parameter, df_columns):
         table.
         **a** : numpy array
         **d** : pandas DataFrame
-        **g** : geopandas GeoDataFrame
         **s** : string
         **x** : xarray DataArray
     format_parameter : str
@@ -318,10 +317,8 @@ def return_table(result, data_format, format_parameter, df_columns):
         result = xr.DataArray(data_array)
     elif data_format == "d":
         result = pd.DataFrame(data_array, columns=df_columns)
-    elif data_format == "g":
-        result = gpd.GeoDataFrame(data_array, columns=df_columns)
     else:
         raise GMTInvalidInput(
-            f"""Must specify {format_parameter} as either a, d, g, s, or x."""
+            f"""Must specify {format_parameter} as either a, d,  s, or x."""
         )
     return result
