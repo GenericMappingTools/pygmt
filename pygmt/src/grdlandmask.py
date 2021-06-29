@@ -19,6 +19,7 @@ from pygmt.helpers import (
     G="outgrid",
     I="spacing",
     R="region",
+    V="verbose",
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
@@ -44,6 +45,7 @@ def grdlandmask(**kwargs):
         in.
     {I}
     {R}
+    {V}
     {r}
 
     Returns
