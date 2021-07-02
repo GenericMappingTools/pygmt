@@ -1,7 +1,4 @@
-.. title:: Team
-
-Team Gallery
-============
+# Team Gallery
 
 We are an international team dedicated to building a Pythonic API for the
 Generic Mapping Tools (GMT). Our goal is to improve GMT's accessibility for
@@ -10,10 +7,9 @@ C API, supporting rich display in Jupyter notebooks, and integrating with
 the PyData ecosystem.
 
 All are welcome to become involved with the PyGMT project! For more information
-about how to get involved, see the :doc:`contributing`.
+about how to get involved, see the {doc}`contributing`.
 
-Distinguished Contributors
---------------------------
+## Distinguished Contributors
 
 PyGMT Distinguished Contributors are recognized for their substantial
 contributions to PyGMT, which may include code, documentation, pull request
@@ -24,9 +20,9 @@ selected twice per year by those listed below.
 Distinguished Contributors is not meant as a means of conveying
 responsibilities. Distinguished Contributors who are also active maintainers of
 the PyGMT project and have responsibilities detailed in the
-:doc:`maintenance` have 'Maintainer' listed below their names.
+{doc}`maintenance` have 'Maintainer' listed below their names.
 
-.. raw:: html
+```{raw} html
 
     <div class="team-row">
     <div class="team-card">
@@ -100,3 +96,4 @@ the PyGMT project and have responsibilities detailed in the
         </div>
     </div>
     </div>
+```
