@@ -64,6 +64,6 @@
     :hidden:
     :caption: Development
 
-    team.rst
+    team.md
     contributing.md
     maintenance.md
