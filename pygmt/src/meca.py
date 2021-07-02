@@ -213,6 +213,7 @@ def meca(
     # pylint: disable=too-many-nested-blocks
     # pylint: disable=too-many-branches
     # pylint: disable=too-many-statements
+    # pylint: disable=consider-using-dict-items
 
     def set_pointer(data_pointers, spec):
         """
