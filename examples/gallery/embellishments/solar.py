@@ -3,7 +3,7 @@ Day-night terminator line and twilights
 ---------------------------------------
 
 Use :meth:`pygmt.Figure.solar` to show the different transition stages between daytime
-and nightime. The parameter ``terminator`` is used to set the twilight stage, and can be
+and nighttime. The parameter ``terminator`` is used to set the twilight stage, and can be
 either 'day-night' (brightest), 'civil', 'nautical', or 'astronomical' (darkest). Refer
 to https://en.wikipedia.org/wiki/Twilight for more information.
 """
