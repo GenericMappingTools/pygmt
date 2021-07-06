@@ -36,7 +36,7 @@ def grd2xyz(grid, xyz_format="a", **kwargs):
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
         This is the only required parameter.
-    xyz_format : str
+    output_type : str
         Determine the format the xyz data will be returned in:
             **a**: numpy array [Default option]
             **d**: pandas DataFrame
