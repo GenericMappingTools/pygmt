@@ -38,8 +38,8 @@ def grd2xyz(grid, output_type="d", **kwargs):
         This is the only required parameter.
     output_type : str
         Determine the format the xyz data will be returned in:
-            **a**: numpy array [Default option]
-            **d**: pandas DataFrame
+            **a**: numpy array
+            **d**: pandas DataFrame [Default option]
             **s**: string
 
     {R}
@@ -47,8 +47,8 @@ def grd2xyz(grid, output_type="d", **kwargs):
 
     Returns
     -------
-    info : str
-        A string with information about the grid.
+    info : pandas.DataFrame or numpy.array or str
+        The xyz triplet data in a pandas DataFrame, numpy array, or string.
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
