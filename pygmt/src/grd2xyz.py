@@ -20,7 +20,7 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grd2xyz(grid, xyz_format="a", **kwargs):
+def grd2xyz(grid, output_type="a", **kwargs):
     r"""
     Create xyz tables from grid files.
 
@@ -59,7 +59,7 @@ def grd2xyz(grid, xyz_format="a", **kwargs):
                 )
                 lib.call_module("grd2xyz", arg_str)
         result = outfile.read()
-    if xyz_format == "s":
+    if output_type == "s":
         return result
     data_list = []
     for string_entry in result.strip().split("\n"):
@@ -69,9 +69,9 @@ def grd2xyz(grid, xyz_format="a", **kwargs):
             float_entry.append(float(i))
         data_list.append(float_entry)
     data_array = np.array(data_list)
-    if xyz_format == "a":
+    if output_type == "a":
         result = data_array
-    elif xyz_format == "d":
+    elif output_type == "d":
         result = pd.DataFrame(data_array)
     else:
         raise GMTInvalidInput("""Must specify format as either a, d, or s.""")
