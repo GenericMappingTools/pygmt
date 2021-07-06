@@ -34,7 +34,9 @@ def test_grd2xyz_format(grid):
     """
     Test that correct formats are returned.
     """
-    xyz_array = grd2xyz(grid=grid)
+    xyz_default = grd2xyz(grid=grid)
+    assert isinstance(xyz_default, pd.DataFrame)
+    xyz_array = grd2xyz(grid=grid, output_type="a")
     assert isinstance(xyz_array, np.ndarray)
     xyz_df = grd2xyz(grid=grid, output_type="d")
     assert isinstance(xyz_df, pd.DataFrame)
