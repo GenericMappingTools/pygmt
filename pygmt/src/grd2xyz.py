@@ -20,7 +20,7 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grd2xyz(grid, output_type="a", **kwargs):
+def grd2xyz(grid, output_type="d", **kwargs):
     r"""
     Create xyz tables from grid files.
 
