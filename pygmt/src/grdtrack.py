@@ -247,7 +247,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         - None if ``outfile`` is set (track output will be stored in file set
           by ``outfile``)
     """
-    if isinstance(points, pd.DataFrame) and newcolname is None:
+    if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
     with GMTTempFile(suffix=".csv") as tmpfile:
