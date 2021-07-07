@@ -19,6 +19,7 @@ from pygmt.src.grdgradient import grdgradient
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdlandmask import grdlandmask
+from pygmt.src.grdproject import grdproject
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
 from pygmt.src.histogram import histogram

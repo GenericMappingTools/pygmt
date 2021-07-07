@@ -94,6 +94,7 @@ Operations on grids:
     grdfilter
     grdlandmask
     grdgradient
+    grdproject
     grdtrack
 
 Crossover analysis with x2sys:
