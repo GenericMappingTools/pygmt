@@ -294,16 +294,14 @@ def meca(
                 spec_conv = spec
 
         # set convention and focal parameters based on spec convention
-        convention_assigned = False
-        for conv in param_conventions:
+        for conv in list(param_conventions):
             if set(spec_conv.keys()) == set(param_conventions[conv]):
                 convention = conv.lower()
                 foc_params = param_conventions[conv]
-                convention_assigned = True
                 break
-        if not convention_assigned:
+        else:  # if there is no convention assigned
             raise GMTError(
-                "Parameters in spec dictionary do not match known " "conventions."
+                "Parameters in spec dictionary do not match known conventions."
             )
 
         # create a dict type pointer for easier to read code
