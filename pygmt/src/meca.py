@@ -299,7 +299,7 @@ def meca(
                 convention = conv.lower()
                 foc_params = param_conventions[conv]
                 break
-        else: # if there is no convention assigned
+        else:  # if there is no convention assigned
             raise GMTError(
                 "Parameters in spec dictionary do not match known conventions."
             )
