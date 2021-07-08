@@ -25,6 +25,18 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence")
 def grdproject(grid, **kwargs):
     r"""
+    This module will project a geographical gridded data set onto a
+    rectangular grid. If ``inverse`` is ``True``, it will project a
+    rectangular coordinate system to a geographic system. To obtain the value
+    at each new node, its location is inversely projected back onto the input
+    grid after which a value is interpolated between the surrounding input
+    grid values. By default bi-cubic interpolation is used. Aliasing is
+    avoided by also forward projecting the input grid nodes. If two or more
+    nodes are projected onto the same new node, their average will dominate in
+    the calculation of the new node value. The ``region`` parameter can be
+    used to select a map region larger or smaller than that implied by the
+    extent of the grid file.
+
     {aliases}
 
     Parameters
