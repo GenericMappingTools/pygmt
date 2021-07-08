@@ -213,7 +213,6 @@ def meca(
     # pylint: disable=too-many-nested-blocks
     # pylint: disable=too-many-branches
     # pylint: disable=too-many-statements
-    # pylint: disable=consider-using-dict-items
 
     def set_pointer(data_pointers, spec):
         """
@@ -295,14 +294,12 @@ def meca(
                 spec_conv = spec
 
         # set convention and focal parameters based on spec convention
-        convention_assigned = False
-        for conv in param_conventions:
+        for conv in list(param_conventions):
             if set(spec_conv.keys()) == set(param_conventions[conv]):
                 convention = conv.lower()
                 foc_params = param_conventions[conv]
-                convention_assigned = True
                 break
-        if not convention_assigned:
+        else:
             raise GMTError(
                 "Parameters in spec dictionary do not match known " "conventions."
             )
