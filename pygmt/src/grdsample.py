@@ -22,10 +22,25 @@ from pygmt.helpers import (
     R="region",
     T="translate",
     V="verbose",
+    n="interpolation",
+    r="registration",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def grdsample(grid, **kwargs):
     r"""
+    This reads a grid file and interpolates it to create a new grid
+    file. It can change the registration with ``translate`` or
+    ``registration``, change the grid-spacing or number of nodes with
+    ``increment``, and set a new sub-region using ``region``. A bicubic
+    [Default], bilinear, B-spline or nearest-neighbor interpolation is set
+    with ``interpolation``.
+
+    When ``region`` is omitted, the output grid will cover the same region as
+    the input grid. When ``increment`` is omitted, the grid spacing of the
+    output grid will be the same as the input grid. Either ``registration`` or
+    ``translate`` can be used to change the grid registration. When omitted,
+    the output grid will have the same registration as the input grid.
+
     {aliases}
 
     Parameters
