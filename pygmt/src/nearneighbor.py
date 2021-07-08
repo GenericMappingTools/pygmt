@@ -39,7 +39,7 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
     average value to each node that has one or more data points within a search
     radius centered on the node with adequate coverage across a subset of the
     chosen sectors. The node value is computed as a weighted mean of the
-    nearest point from each sector inside the search radius. 
+    nearest point from each sector inside the search radius.
 
     Takes a matrix, xyz triples, or a file name as input.
 
@@ -63,7 +63,8 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
         Specify the region of interest.
 
     search_radius : str
-        Sets the search radius that determines which data points are considered close to a node.
+        Sets the search radius that determines which data points are considered
+        close to a node.
 
     outfile : str
         Optional. The file name for the output netcdf file with extension .nc

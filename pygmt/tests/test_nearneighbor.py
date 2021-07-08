@@ -27,7 +27,9 @@ def test_nearneighbor_input_file():
     Run nearneighbor by passing in a filename.
     """
     fname = which("@tut_ship.xyz", download="c")
-    output = nearneighbor(data=fname, spacing="5m", region=[245, 255, 20, 30], search_radius="10m")
+    output = nearneighbor(
+        data=fname, spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
+    )
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
     assert output.gmt.gtype == 0  # Cartesian type
@@ -39,7 +41,9 @@ def test_nearneighbor_input_data_array(ship_data):
     Run nearneighbor by passing in a numpy array into data.
     """
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
-    output = nearneighbor(data=data, spacing="5m", region=[245, 255, 20, 30], search_radius="10m")
+    output = nearneighbor(
+        data=data, spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
+    )
     assert isinstance(output, xr.DataArray)
     return output
 
@@ -81,7 +85,9 @@ def test_nearneighbor_wrong_kind_of_input(ship_data):
     data = ship_data.bathymetry.to_xarray()  # convert pandas.Series to xarray.DataArray
     assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
-        nearneighbor(data=data, spacing="5m", region=[245, 255, 20, 30], search_radius="10m")
+        nearneighbor(
+            data=data, spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
+        )
 
 
 def test_nearneighbor_with_outfile_param(ship_data):
@@ -91,7 +97,11 @@ def test_nearneighbor_with_outfile_param(ship_data):
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     try:
         output = nearneighbor(
-            data=data, spacing="5m", region=[245, 255, 20, 30], outfile=TEMP_GRID, search_radius="10m"
+            data=data,
+            spacing="5m",
+            region=[245, 255, 20, 30],
+            outfile=TEMP_GRID,
+            search_radius="10m",
         )
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
@@ -109,7 +119,9 @@ def test_nearneighbor_short_aliases(ship_data):
     """
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     try:
-        output = nearneighbor(data=data, I="5m", R=[245, 255, 20, 30], G=TEMP_GRID, S="10m")
+        output = nearneighbor(
+            data=data, I="5m", R=[245, 255, 20, 30], G=TEMP_GRID, S="10m"
+        )
         assert output is None  # check that output is None since outfile is set
         assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
         with xr.open_dataarray(TEMP_GRID) as grid:
