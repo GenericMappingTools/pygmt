@@ -23,7 +23,7 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grdproject(grid, **kwargs):
+def grdproject(grid=None, **kwargs):
     r"""
     {aliases}
 
@@ -47,6 +47,8 @@ def grdproject(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
+    if grid == None or "J" not in kwargs.keys():
+        raise GMTInvalidInput("The input grid and projection must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
