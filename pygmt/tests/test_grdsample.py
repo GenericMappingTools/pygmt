@@ -3,7 +3,6 @@ Tests for grdsample.
 """
 import os
 
-import numpy.testing as npt
 import pytest
 from pygmt import grdinfo, grdsample
 from pygmt.datasets import load_earth_relief

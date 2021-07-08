@@ -4,7 +4,6 @@ grdsample - Resample a grid onto a new lattice
 
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
