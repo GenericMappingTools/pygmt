@@ -20,10 +20,10 @@ from pygmt.helpers import (
     J="projection",
     I="increment",
     R="region",
-    T="translate,"
+    T="translate",
     V="verbose",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence")
 def grdsample(grid, **kwargs):
     r"""
     {aliases}
