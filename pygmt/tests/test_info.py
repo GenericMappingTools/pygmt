@@ -2,6 +2,7 @@
 Tests for gmtinfo.
 """
 import os
+import pathlib
 
 import numpy as np
 import numpy.testing as npt
@@ -20,6 +21,20 @@ def test_info():
     Make sure info works on file name inputs.
     """
     output = info(table=POINTS_DATA)
+    expected_output = (
+        f"{POINTS_DATA}: N = 20 "
+        "<11.5309/61.7074> "
+        "<-2.9289/7.8648> "
+        "<0.1412/0.9338>\n"
+    )
+    assert output == expected_output
+
+
+def test_info_path():
+    """
+    Make sure info works on a pathlib.Path input.
+    """
+    output = info(table=pathlib.Path(POINTS_DATA))
     expected_output = (
         f"{POINTS_DATA}: N = 20 "
         "<11.5309/61.7074> "
