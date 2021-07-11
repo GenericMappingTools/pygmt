@@ -42,6 +42,8 @@ def sphdistance(table, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
+    if "I" not in kwargs.keys() or "R" not in kwargs.keys():
+        raise GMTInvalidInput("Both 'region' and 'increment' must be specified.")
     kind = data_kind(table)
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
