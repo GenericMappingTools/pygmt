@@ -22,7 +22,7 @@ from pygmt.helpers import (
     R="region",
     I="increment",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(table, **kwargs):
     r"""
     {aliases}
