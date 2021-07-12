@@ -19,13 +19,21 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     G="outgrid",
-    R="region",
     I="increment",
+    R="region",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(table, **kwargs):
     r"""
+    Create Voroni polygons from lat/long coordinates.
+
+    Reads one or more ASCII [or binary] files (or standard
+    input) containing lon, lat and performs the construction of Voronoi
+    polygons. These polygons are then processed to calculate the nearest
+    distance to each node of the lattice and written to the specified grid.
+
     {aliases}
+
     Parameters
     ----------
     outgrid : str or None
