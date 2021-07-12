@@ -27,6 +27,8 @@ from pygmt.helpers import (
 @kwargs_to_strings(I="sequence", R="sequence")
 def grdsample(grid, **kwargs):
     r"""
+    Change the registration, spacing, or nodes in a grid file.
+
     This reads a grid file and interpolates it to create a new grid
     file. It can change the registration with ``translate`` or
     ``registration``, change the grid-spacing or number of nodes with
