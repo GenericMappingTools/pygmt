@@ -7,7 +7,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -248,7 +247,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         - None if ``outfile`` is set (track output will be stored in file set
           by ``outfile``)
     """
-    if data_kind(points) == "matrix" and newcolname is None:
+    if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
     with GMTTempFile(suffix=".csv") as tmpfile:
