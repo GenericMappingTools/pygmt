@@ -389,11 +389,11 @@ You can reference functions, classes, methods, and modules from anywhere
 
 An example would be to use
 <code>:meth:\`pygmt.Figure.grdview\`</code> to link
-to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html.
+to [https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html](https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html).
 PyGMT documentation that is not a class, method,
 or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
 For example, <code>:doc:\`Install instructions \</install\>\`</code> links
-to https://www.pygmt.org/latest/install.html.
+to [https://www.pygmt.org/latest/install.html](https://www.pygmt.org/latest/install.html).
 
 Linking to the GMT documentation and GMT configuration parameters can be done using:
 
@@ -402,10 +402,10 @@ Linking to the GMT documentation and GMT configuration parameters can be done us
 
 An example would be using
 <code>:gmt-docs:\`makecpt.html\`</code> to link to
-https://docs.generic-mapping-tools.org/latest/makecpt.html.
+[https://docs.generic-mapping-tools.org/latest/makecpt.html](https://docs.generic-mapping-tools.org/latest/makecpt.html).
 For GMT configuration parameters, an example is
 <code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
-https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
+[https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND](https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND).
 
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
@@ -563,7 +563,7 @@ of a file. For example, given an image file like `test_logo.png`, `dvc` will
 generate a `test_logo.png.dvc` plain text file containing the hash of the
 image. This `test_logo.png.dvc` file can be stored as usual on GitHub, while
 the `test_logo.png` file can be stored separately on our `dvc` remote at
-https://dagshub.com/GenericMappingTools/pygmt.
+[https://dagshub.com/GenericMappingTools/pygmt](https://dagshub.com/GenericMappingTools/pygmt).
 
 To **pull** or sync files from the `dvc` remote to your local repository, use
 the commands below. Note how `dvc` commands are very similar to `git`.
@@ -591,11 +591,12 @@ test image to the PyGMT project.
 
 The configuration will be stored inside your `.dvc/config.local` file. Note
 that the $DAGSHUB_PASS token can be generated at
-https://dagshub.com/user/settings/tokens after creating a DAGsHub account
-(can be linked to your GitHub account). Once you have an account set up, please
-ask one of the PyGMT maintainers to add you as a collaborator at
-https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration before
-proceeding with the next steps.
+[https://dagshub.com/user/settings/tokens](https://dagshub.com/user/settings/tokens)
+after creating a DAGsHub account (can be linked to your GitHub account). Once
+you have an account set up, please ask one of the PyGMT maintainers to add you
+as a collaborator at
+[https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
+before proceeding with the next steps.
 
 The entire workflow for generating or modifying baseline test images can be
 summarized as follows:
