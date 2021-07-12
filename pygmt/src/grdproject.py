@@ -25,6 +25,8 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence")
 def grdproject(grid, **kwargs):
     r"""
+    Change projection of gridded data between geographical and rectangular.
+
     This module will project a geographical gridded data set onto a
     rectangular grid. If ``inverse`` is ``True``, it will project a
     rectangular coordinate system to a geographic system. To obtain the value
