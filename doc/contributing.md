@@ -1,4 +1,4 @@
-# Contributors Guide
+# **Contributors Guide**
 
 This is a community driven project and everyone is welcome to contribute.
 
@@ -10,9 +10,9 @@ The goal is to maintain a diverse community that's pleasant for everyone.
 [Code of Conduct](https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md)
 and we encourage all to read it carefully.
 
-## Ways to Contribute
+## **Ways to Contribute**
 
-### Ways to Contribute Documentation and/or Code
+### **Ways to Contribute Documentation and/or Code**
 
 * Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
@@ -22,7 +22,7 @@ and we encourage all to read it carefully.
 * Contribute code! This can be code that you already have and it doesn't need to be
   perfect! We will help you clean things up, test it, etc.
 
-### Ways to Contribute Feedback
+### **Ways to Contribute Feedback**
 
 * Provide feedback about how we can improve the project or about your particular use
   case. Open an [issue](https://github.com/GenericMappingTools/pygmt/issues) with
@@ -31,7 +31,7 @@ and we encourage all to read it carefully.
 * Help triage issues, or give a "thumbs up" on issues that others reported which are
   relevant to you.
 
-### Ways to Contribute to Community Building
+### **Ways to Contribute to Community Building**
 
 * Participate and answer questions on the [PyGMT forum Q&A](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
 * Participate in discussions at the quarterly PyGMT Community Meetings, which are
@@ -39,9 +39,9 @@ and we encourage all to read it carefully.
 * Cite PyGMT when using the project.
 * Spread the word about PyGMT or star the project!
 
-## Providing Feedback
+## **Providing Feedback**
 
-### Reporting a Bug
+### **Reporting a Bug**
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
 top of the GitHub repository and click *New Issue*.
@@ -50,7 +50,7 @@ top of the GitHub repository and click *New Issue*.
 * After submitting your bug report, try to answer any follow up questions about the bug
   as best as you can.
 
-### Submitting a Feature Request
+### **Submitting a Feature Request**
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
   top of the GitHub repository and click *New Issue*.
@@ -59,7 +59,7 @@ top of the GitHub repository and click *New Issue*.
 * After submitting your feature request, try to answer any follow up questions as best
   as you can.
 
-### Submitting General Comments/Questions
+### **Submitting General Comments/Questions**
 
 There are several pages on the [Community Forum](https://forum.generic-mapping-tools.org/)
 where you can submit general comments and/or questions:
@@ -71,9 +71,9 @@ where you can submit general comments and/or questions:
 * To share your work, select *New Topic* from the
   [Showcase Page](https://forum.generic-mapping-tools.org/c/Sow-your-nice-example-script/10).
 
-## General Guidelines
+## **General Guidelines**
 
-### Resources for New Contributors
+### **Resources for New Contributors**
 
 Please take a look at these resources to learn about Git and pull requests (don't
 hesitate to [ask questions](#getting-help)):
@@ -82,13 +82,13 @@ hesitate to [ask questions](#getting-help)):
 * [Git Workflow Tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
 * [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github).
 
-### Getting Help
+### **Getting Help**
 
 Discussion often happens on GitHub issues and pull requests. In addition, there is a
 [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
 the project where you can ask questions.
 
-### Pull Request Workflow
+### **Pull Request Workflow**
 
 We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
 to make changes to our codebase. Every change made goes through a pull request, even
@@ -97,7 +97,7 @@ our own, so that our
 services have a chance to check that the code is up to standards and passes all
 our tests. This way, the *master* branch is always stable.
 
-#### General Guidelines for Making a Pull Request (PR):
+#### **General Guidelines for Making a Pull Request (PR):**
 
 * What should be included in a PR
   - Have a quick look at the titles of all the existing issues first. If there
@@ -127,7 +127,7 @@ our tests. This way, the *master* branch is always stable.
   - Be aware that the pull request review process is not immediate, and is
     generally proportional to the size of the pull request.
 
-#### General Process for Pull Request Review:
+#### **General Process for Pull Request Review:**
 
 After you've submitted a pull request, you should expect to hear at least a
 comment within a couple of days. We may suggest some changes, improvements or
@@ -157,7 +157,7 @@ Try to get them all passing (green).
 If you have any trouble, leave a comment in the PR or
 [get in touch](#how-can-i-talk-to-you).
 
-## Setting up your Environment
+## **Setting up your Environment**
 
 These steps for setting up your environment are necessary for
 [editing the documentation locally](#editing-the-documentation-locally) and
@@ -203,9 +203,9 @@ This installs your project in *editable* mode, meaning that changes made to the 
 code will be available when you import the package (even if you're on a different
 directory).
 
-## Contributing Documentation
+## **Contributing Documentation**
 
-### PyGMT Documentation Overview
+### **PyGMT Documentation Overview**
 
 There are four main components to PyGMT's documentation:
 
@@ -235,7 +235,7 @@ There are two primary ways to edit the PyGMT documentation:
   In order to build the documentation locally, you first need to
   [set up your environment](#setting-up-your-environment).
 
-### Editing the Documentation on GitHub
+### **Editing the Documentation on GitHub**
 
 If you're browsing the documentation and notice a typo or something that could be
 improved, please consider letting us know by [creating an issue](#reporting-a-bug) or
@@ -268,7 +268,7 @@ Alternatively, you can make the changes offline to the files in the `doc` folder
 example scripts. See [editing the documentation locally](#editing-the-documentation-locally)
 for instructions.
 
-### Editing the Documentation Locally
+### **Editing the Documentation Locally**
 
 For more extensive changes, you can edit the documentation in your cloned repository
 and build the documentation to preview changes before submitting a pull request. First,
@@ -284,7 +284,7 @@ This will build the HTML files in `doc/_build/html`.
 Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
 [pull request workflow](#pull-request-workflow) to submit your changes for review.
 
-### Contributing Gallery Plots
+### **Contributing Gallery Plots**
 
 The gallery and tutorials are managed by
 [sphinx-gallery](https://sphinx-gallery.readthedocs.io/).
@@ -315,7 +315,7 @@ General guidelines for making a good gallery plot:
   documentation.
 * SI units should be used in the example code for gallery plots.
 
-### Contributing Tutorials
+### **Contributing Tutorials**
 
 The tutorials (the User Guide in the docs) are also built by sphinx-gallery from the
 `.py` files in the `examples/tutorials` folder of the repository. To add a new tutorial:
@@ -343,7 +343,7 @@ Guidelines for a good tutorial:
 Note that the `Figure.show()` function needs to be called for a plot to be inserted into
 the documentation.
 
-### Editing the API Documentation
+### **Editing the API Documentation**
 
 The API documentation is built from the docstrings in the Python `*.py` files under
 the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
@@ -355,7 +355,7 @@ While the maximum line length for code is automatically set by Black, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
 limited to 79 characters** per line.
 
-### Standards for Example Code
+### **Standards for Example Code**
 
 When editing documentation, use the following standards to demonstrate the example code:
 
@@ -373,7 +373,7 @@ When editing documentation, use the following standards to demonstrate the examp
    with [ ] (square brackers) with the prefix "Default is". Example: [Default is
    **p**].
 
-### Cross-referencing with Sphinx
+### **Cross-referencing with Sphinx**
 
 The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
@@ -410,15 +410,15 @@ For GMT configuration parameters, an example is
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
 
-## Contributing Code
+## **Contributing Code**
 
-### PyGMT Code Overview
+### **PyGMT Code Overview**
 
 The source code for PyGMT is located in the `pygmt/` directory. When contributing
 code, be sure to follow the general guidelines in the
 [pull request workflow](#pull-request-workflow) section.
 
-### Code Style
+### **Code Style**
 
 We use some tools to to format the code so we don't have to think about it:
 
@@ -459,7 +459,7 @@ make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mo
 make lint    # Runs pylint, which is a bit slower
 ```
 
-### Testing your Code
+### **Testing your Code**
 
 Automated testing helps ensure that our code is as free of bugs as it can be.
 It also lets us know immediately if a change we make breaks any other part of the code.
@@ -503,7 +503,7 @@ or run tests which contain names that match a specific keyword expression:
 
     pytest -k KEYWORD pygmt/tests
 
-### Testing Plots
+### **Testing Plots**
 
 Writing an image-based test is only slightly more difficult than a simple test.
 The main consideration is that you must specify the "baseline" or reference
@@ -511,7 +511,7 @@ image, and compare it with a "generated" or test image. This is handled using
 the *decorator* functions `@pytest.mark.mpl_image_compare` and `@check_figures_equal`
 whose usage are further described below.
 
-#### Using mpl_image_compare
+#### **Using mpl_image_compare**
 
 > **This is the preferred way to test plots whenever possible.**
 
@@ -553,7 +553,7 @@ Don't forget to commit the baseline image as well!
 The images should be pushed up into a remote repository using `dvc` (instead of
 `git`) as will be explained in the next section.
 
-#### Using Data Version Control ([dvc](https://dvc.org)) to Manage Test Images
+#### **Using Data Version Control ([dvc](https://dvc.org)) to Manage Test Images**
 
 As the baseline images are quite large blob files that can change often (e.g.
 with new GMT versions), it is not ideal to store them in `git` (which is meant
@@ -620,7 +620,7 @@ summarized as follows:
     git push
     dvc push
 
-#### Using check_figures_equal
+#### **Using check_figures_equal**
 
 This approach draws the same figure using two different methods (the reference
 method and the tested method), and checks that both of them are the same.
