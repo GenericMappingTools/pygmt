@@ -3,15 +3,13 @@ Tests for nearneighbor.
 """
 import os
 
+import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt import nearneighbor, which
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import data_kind
-
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-TEMP_GRID = os.path.join(TEST_DATA_DIR, "tmp_grid.nc")
+from pygmt.helpers import GMTTempFile, data_kind
 
 
 @pytest.fixture(scope="module", name="ship_data")
@@ -33,6 +31,8 @@ def test_nearneighbor_input_file():
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
     assert output.gmt.gtype == 0  # Cartesian type
+    assert output.shape == (121, 121)
+    npt.assert_allclose(output.mean(), -2378.2385)
     return output
 
 
@@ -45,6 +45,8 @@ def test_nearneighbor_input_data_array(ship_data):
         data=data, spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
     )
     assert isinstance(output, xr.DataArray)
+    assert output.shape == (121, 121)
+    npt.assert_allclose(output.mean(), -2378.2385)
     return output
 
 
@@ -61,6 +63,8 @@ def test_nearneighbor_input_xyz(ship_data):
         search_radius="10m",
     )
     assert isinstance(output, xr.DataArray)
+    assert output.shape == (121, 121)
+    npt.assert_allclose(output.mean(), -2378.2385)
     return output
 
 
@@ -95,37 +99,18 @@ def test_nearneighbor_with_outfile_param(ship_data):
     Run nearneighbor with the -Goutputfile.nc parameter.
     """
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
-    try:
+    with GMTTempFile() as tmpfile:
         output = nearneighbor(
             data=data,
             spacing="5m",
             region=[245, 255, 20, 30],
-            outfile=TEMP_GRID,
+            outfile=tmpfile.name,
             search_radius="10m",
         )
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
-        with xr.open_dataarray(TEMP_GRID) as grid:
+        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        with xr.open_dataarray(tmpfile.name) as grid:
             assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
-    finally:
-        os.remove(path=TEMP_GRID)
-    return output
-
-
-def test_nearneighbor_short_aliases(ship_data):
-    """
-    Run nearneighbor using short aliases -I for spacing, -R for region, -G for
-    outfile, -S for search radius.
-    """
-    data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
-    try:
-        output = nearneighbor(
-            data=data, I="5m", R=[245, 255, 20, 30], G=TEMP_GRID, S="10m"
-        )
-        assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=TEMP_GRID)  # check that outfile exists at path
-        with xr.open_dataarray(TEMP_GRID) as grid:
-            assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
-    finally:
-        os.remove(path=TEMP_GRID)
+            assert grid.shape == (121, 121)
+            npt.assert_allclose(grid.mean(), -2378.2385)
     return output

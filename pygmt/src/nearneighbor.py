@@ -18,16 +18,16 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    I="spacing",
-    R="region",
-    V="verbose",
+    E="empty",
     G="outfile",
+    I="spacing",
+    N="sectors",
+    R="region",
+    S="search_radius",
+    V="verbose",
     a="aspatial",
     f="coltypes",
     r="registration",
-    S="search_radius",
-    E="empty",
-    N="sectors",
 )
 @kwargs_to_strings(R="sequence")
 def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
@@ -39,7 +39,17 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
     average value to each node that has one or more data points within a search
     radius centered on the node with adequate coverage across a subset of the
     chosen sectors. The node value is computed as a weighted mean of the
-    nearest point from each sector inside the search radius.
+    nearest point from each sector inside the search radius. The weighting
+    function and the averaging used is given by:
+
+    .. math::
+        w(r_i) = \frac{{w_i}}{{1 + d(r_i) ^ 2}},
+        \quad d(r) = \frac {{3r}}{{R}},
+        \quad \bar{{z}} = \frac{{\sum_i^n w(r_i) z_i}}{{\sum_i^n w(r_i)}}
+
+    where :math:`n` is the number of data points that satisfy the selection
+    criteria and :math:`r_i` is the distance from the node to the *i*'th data
+    point. If no data weights are supplied then :math:`w_i = 1`.
 
     Takes a matrix, xyz triples, or a file name as input.
 
@@ -70,11 +80,6 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
 
-    {V}
-    {a}
-    {f}
-    {r}
-
     empty : str
         Optional. Set the value assigned to empty nodes. Defaults to NaN.
 
@@ -90,6 +95,11 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
         only the nearest value per sector enters into the averaging; the more
         distant points are ignored. Alternatively, use -Nn to call GDALʻs
         nearest neighbor algorithm instead.
+
+    {V}
+    {a}
+    {f}
+    {r}
 
     Returns
     -------
@@ -107,15 +117,11 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(data)
-            elif kind == "matrix":
-                file_context = lib.virtualfile_from_matrix(data)
-            elif kind == "vectors":
-                file_context = lib.virtualfile_from_vectors(x, y, z)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
-            with file_context as infile:
+            # Choose how data will be passed into the module
+            table_context = lib.virtualfile_from_data(
+                check_kind="vector", data=data, x=x, y=y, z=z
+            )
+            with table_context as infile:
                 if "G" not in kwargs.keys():  # if outfile is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})
                 outfile = kwargs["G"]
