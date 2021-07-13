@@ -1,4 +1,4 @@
-# **Contributors Guide**
+# Contributors Guide
 
 This is a community driven project and everyone is welcome to contribute.
 
