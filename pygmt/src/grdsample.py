@@ -21,8 +21,10 @@ from pygmt.helpers import (
     R="region",
     T="translate",
     V="verbose",
-    n="interpolation",
+    f="coltypes",
     r="registration",
+    n="interpolation",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def grdsample(grid, **kwargs):
@@ -84,9 +86,11 @@ def grdsample(grid, **kwargs):
         go about 90% of the way [default is 0.5].
     registration : str
         [**g**\ |\ **p**\ ].
-        Set registrationg to **g**\ ridline or **p**\ ixel.
+        Set registration to **g**\ ridline or **p**\ ixel.
 
     {V}
+    {f}
+    {x}
 
     Returns
     -------
