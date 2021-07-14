@@ -214,7 +214,7 @@ There are four main components to PyGMT's documentation:
 * Tutorial examples, with source code in Python `*.py` files under the
   `examples/tutorials/` folder.
 * API documentation, with source code in the docstrings in Python `*.py`
-  files under the `pygmt/src/` and `/pygmt/datasets/` folders.
+  files under the `pygmt/src/` and `pygmt/datasets/` folders.
 * Getting started/developer documentation, with source text in ReST `*.rst`
   and markdown `*.md` files under the `doc/` folder.
 
