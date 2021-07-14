@@ -84,7 +84,7 @@ def grdsample(grid, **kwargs):
         (4 or 16) nodes involved in interpolation to be non-NaN. For example,
         0.5 will interpolate about half way from a non-NaN value and 0.1 will
         go about 90% of the way [default is 0.5].
-    registration : str
+    registration : str or bool
         [**g**\ |\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
 
