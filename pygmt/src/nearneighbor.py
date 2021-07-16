@@ -9,7 +9,6 @@ from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
