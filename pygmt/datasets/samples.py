@@ -127,6 +127,14 @@ def load_fractures_compilation():
 
 def load_hotspots():
     """
+    Load a table with the locations, names, and suggested icon sizes of
+    hotspots.
+
+    This is the ``@hotspots.txt`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
 
     Returns
     -------
