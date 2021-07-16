@@ -47,7 +47,7 @@ def grd2xyz(grid, output_type="d", **kwargs):
 
     Returns
     -------
-    info : pandas.DataFrame or numpy.array or str
+    data : pandas.DataFrame or numpy.array or str
         The xyz triplet data in a pandas DataFrame, numpy array, or string.
     """
     with GMTTempFile() as outfile:
