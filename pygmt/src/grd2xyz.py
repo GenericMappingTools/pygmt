@@ -20,12 +20,12 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grd2xyz(grid, output_type="d", **kwargs):
+def grd2xyz(grid, output_type="d", outfile=None, **kwargs):
     r"""
-    Create xyz tables from grid files.
+    Convert grid to data table.
 
-    Read a binary 2-D grid files and write out
-    xyz-triplets in ASCII [or binary] format to a standard output.
+    Read a grid and output xyz-triplets as a numpy array,
+    pandas DataFrame, string, or ASCII [or binary] file.
 
     Full option list at :gmt-docs:`grd2xyz.html`
 
@@ -41,7 +41,8 @@ def grd2xyz(grid, output_type="d", **kwargs):
             **a**: numpy array
             **d**: pandas DataFrame [Default option]
             **s**: string
-
+    outfile : str
+        The file name for the output ASCII file.
     {R}
     {V}
 
@@ -50,29 +51,26 @@ def grd2xyz(grid, output_type="d", **kwargs):
     data : pandas.DataFrame or numpy.array or str
         The xyz triplet data in a pandas DataFrame, numpy array, or string.
     """
-    with GMTTempFile() as outfile:
+    if output_type not in ["a", "d", "s"]:
+        raise GMTInvalidInput("""Must specify format as either a, d, or s.""")
+    if output_type == "s" and outfile is None:
+        raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
+
+    with GMTTempFile() as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                arg_str = " ".join(
-                    [infile, build_arg_string(kwargs), "->" + outfile.name]
-                )
+                if outfile is None:
+                    outfile = tmpfile.name
+                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
                 lib.call_module("grd2xyz", arg_str)
-        result = outfile.read()
-    if output_type == "s":
-        return result
-    data_list = []
-    for string_entry in result.strip().split("\n"):
-        float_entry = []
-        string_list = string_entry.strip().split()
-        for i in string_list:
-            float_entry.append(float(i))
-        data_list.append(float_entry)
-    data_array = np.array(data_list)
-    if output_type == "a":
-        result = data_array
-    elif output_type == "d":
-        result = pd.DataFrame(data_array)
-    else:
-        raise GMTInvalidInput("""Must specify format as either a, d, or s.""")
+
+        # Read temporary csv output to a pandas table
+        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
+            result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
+        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
+            result = None
+
+        if output_type == "a":
+            result = result.to_numpy()
     return result
