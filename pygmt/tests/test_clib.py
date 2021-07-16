@@ -784,8 +784,8 @@ def test_info_dict():
     with mock(ses, "GMT_Get_Default", mock_func=mock_defaults):
         # Check for an empty dictionary
         assert ses.info
-        for key in ses.info:
-            assert ses.info[key] == "bla"
+        for value in ses.info.values():
+            assert value == "bla"
     ses.destroy()
 
 
