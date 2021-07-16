@@ -1,7 +1,6 @@
 """
 grd2xyz - Convert grid to data table
 """
-import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
