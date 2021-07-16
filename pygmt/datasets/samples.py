@@ -152,7 +152,7 @@ def load_hotspots():
             line_split = line.strip().split("\t")
             # Add coordinates and icon_size of hotspot
             hotspot = [float(item.strip()) for item in line_split[0].split()]
-            hotspot.append(line_split[1].title()) # Add name of hotspot
+            hotspot.append(line_split[1].title())  # Add name of hotspot
             hotspots.append(hotspot)
     data = pd.DataFrame(
         hotspots, columns=["longitude", "latitude", "icon_size", "name"]
