@@ -1,6 +1,8 @@
 """
 Test basic functionality for loading sample datasets.
 """
+import pandas as pd
+
 from pygmt.datasets import (
     load_fractures_compilation,
     load_hotspots,
@@ -81,3 +83,10 @@ def test_hotspots():
     """
     data = load_hotspots()
     assert data.shape == (55, 4)
+    assert data.columns.values.tolist() == [
+        "longitude",
+        "latitude",
+        "icon_size",
+        "name",
+    ]
+    assert isinstance(data, pd.DataFrame)
