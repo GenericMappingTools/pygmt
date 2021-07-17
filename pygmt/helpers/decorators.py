@@ -164,32 +164,32 @@ COMMON_OPTIONS = {
             (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
             controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
     "n": r"""
-    interpolation : str
-        [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**]
-        [**+t**\ *threshold*].
-        Select interpolation mode for grids.
+        interpolation : str
+            [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**]\
+            [**+t**\ *threshold*].
+            Select interpolation mode for grids.
 
-        - **b** to use B-spline smoothing.
-        - **c** to use bicubic interpolation.
-        - **l** to use bilinear interpolation.
-        - **n** to use nearest-neighbor value (for example to plot
-        categorical data).
+            - **b** to use B-spline smoothing.
+            - **c** to use bicubic interpolation.
+            - **l** to use bilinear interpolation.
+            - **n** to use nearest-neighbor value (for example to plot
+            categorical data).
 
-        The following modifiers are supported:
+            The following modifiers are supported:
 
-        - **+a** to switch off antialiasing (where supported) [default uses
-        antialiasing].
-        - **+b** to override boundary conditions used, by appending *g* for
-        geographic, *p* for periodic, or *n* for natural boundary conditions.
-        For the latter two you may append **x** or **y** to specify just one
-        direction, otherwise   both are assumed.
-        - **+c** to clip the interpolated grid to input z-min/z-max
-        [default may exceed limits].
-        - **+t** to control how close to nodes with NaNs the interpolation
-        will go based on *threshold*. A *threshold* of 1.0 requires all
-        (4 or 16) nodes involved in interpolation to be non-NaN. For example,
-        0.5 will interpolate about half way from a non-NaN value and 0.1 will
-        go about 90% of the way [default is 0.5].""",
+            - **+a** to switch off antialiasing (where supported) [default uses
+              antialiasing].
+            - **+b** to override boundary conditions used, by appending *g* for
+              geographic, *p* for periodic, or *n* for natural boundary
+              conditions. For the latter two you may append **x** or **y** to
+              specify just one direction, otherwise both are assumed.
+            - **+c** to clip the interpolated grid to input z-min/z-max
+              [default may exceed limits].
+            - **+t** to control how close to nodes with NaNs the interpolation
+              will go based on *threshold*. A *threshold* of 1.0 requires all
+              (4 or 16) nodes involved in interpolation to be non-NaN. For
+              example, 0.5 will interpolate about half way from a non-NaN value
+              and 0.1 will go about 90% of the way [default is 0.5].""",
     "p": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
