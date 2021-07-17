@@ -2,7 +2,6 @@
 Test basic functionality for loading sample datasets.
 """
 import pandas as pd
-
 from pygmt.datasets import (
     load_fractures_compilation,
     load_hotspots,
