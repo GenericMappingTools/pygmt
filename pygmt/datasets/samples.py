@@ -143,12 +143,12 @@ def load_hotspots():
         columns.
     """
     fname = which("@hotspots.txt", download="c")
-    with open(fname) as f:
-        f.readline()
-        f.readline()
-        f.readline()
+    with open(fname) as hotspot_text:
+        hotspot_text.readline()
+        hotspot_text.readline()
+        hotspot_text.readline()
         hotspots = []
-        for line in f:
+        for line in hotspot_text:
             line_split = line.strip().split("\t")
             # Add coordinates and icon_size of hotspot
             hotspot = [float(item.strip()) for item in line_split[0].split()]
