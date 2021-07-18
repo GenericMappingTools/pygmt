@@ -3,11 +3,14 @@ Contours
 --------
 The :meth:`pygmt.Figure.contour` method can plot contour lines from a table of points by direct triangulation.
 The data to the triangulation can by provided in one of three options:
-    1: ``x``, ``y``, ``z`` 1d data columns\n
-    2: ``data`` 2d data matrix with 3 columns corresponding to ``x``, ``y``, ``z``\n
+    1: ``x``, ``y``, ``z`` 1d :class:`numpy.ndarray` data columns\n
+    2: ``data`` 2d :class:`numpy.ndarray` data matrix with 3 columns corresponding to ``x``, ``y``, ``z``\n
     3: ``data`` path string to a file containing the ``x``, ``y``, ``z`` in a tabular format\n
 The parameters ``levels`` and ``annotation`` are deciding on the contours intervals and intervals of the
-annotation on the contours respectively
+annotation on the contours respectively.\n
+In this example we supply the data as  1d :class:`numpy.ndarray` with the ``x``, ``y``,
+and ``z`` parameters and draw the contours using a 0.5p pen with contours every 5 ``z`` values and
+annotations every 20 ``z`` values.
 """
 
 
@@ -16,7 +19,7 @@ import pygmt
 
 # building the contours underling data with the function z = x^2 + y^2
 X, Y = np.meshgrid(np.linspace(-10, 10, 50), np.linspace(-10, 10, 50))
-Z = X**2 + Y**2
+Z = X ** 2 + Y ** 2
 x, y, z = X.flatten(), Y.flatten(), Z.flatten()
 
 
@@ -25,7 +28,7 @@ fig.contour(
     region=[-10, 10, -10, 10],
     projection="X10c/10c",
     frame="ag",
-    pen=1,
+    pen='0.5p',
     # passing the data as 3 1d data columns
     x=x,
     y=y,
