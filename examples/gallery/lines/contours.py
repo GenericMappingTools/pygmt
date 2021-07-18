@@ -3,11 +3,11 @@ Contours
 --------
 The :meth:`pygmt.Figure.contour` method can plot contour lines from a table of points by direct triangulation.
 The data to the triangulation can by provided in one of three options:
-    1: ``x``, ``y``, ``z`` 1d data columns
-    2: ``data`` 2d data matrix with 3 columns corresponding to ``x``, ``y``, ``z``
-    3: ''data'' path string to a file containing the ``x``, ``y``, ``z`` in a tabular format
+    1: ``x``, ``y``, ``z`` 1d data columns\n
+    2: ``data`` 2d data matrix with 3 columns corresponding to ``x``, ``y``, ``z``\n
+    3: ``data`` path string to a file containing the ``x``, ``y``, ``z`` in a tabular format\n
 The parameters ``levels`` and ``annotation`` are deciding on the contours intervals and intervals of the
-annotation on the contours
+annotation on the contours respectively
 """
 
 
