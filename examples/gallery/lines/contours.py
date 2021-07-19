@@ -10,7 +10,7 @@ The data to the triangulation can be provided in one of three options:
 #. ``data`` path string to a file containing the ``x``, ``y``, ``z`` in a
    tabular format.
 
-The parameters ``levels`` and ``annotation`` are deciding on the contours intervals and intervals of the
+The parameters ``levels`` and ``annotation`` set the intervals of the contours and the
 annotation on the contours respectively.
 
 In this example we supply the data as  1d :class:`numpy.ndarray` with the ``x``, ``y``,
