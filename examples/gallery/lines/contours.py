@@ -38,7 +38,7 @@ fig.contour(
     x=x,
     y=y,
     z=z,
-    # set the contours z values intervals to 5
+    # set the contours z values intervals to 10
     levels=10,
     # set the contours annotation intervals to 20
     annotation=20,
