@@ -34,7 +34,7 @@ fig.contour(
     projection="X10c/10c",
     frame="ag",
     pen="0.5p",
-    # passing the data as 3 1d data columns
+    # pass the data as 3 1d data columns
     x=x,
     y=y,
     z=z,
