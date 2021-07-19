@@ -5,6 +5,7 @@ access to the API functions.
 Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
+import pathlib
 import sys
 from contextlib import contextmanager
 
@@ -1439,8 +1440,11 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("file", "geojson", "grid"):
+        if kind in ("geojson", "grid"):
             _data = (data,)
+        elif kind == "file":
+            # Useful to handle `pathlib.Path` and string file path alike
+            _data = (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:
