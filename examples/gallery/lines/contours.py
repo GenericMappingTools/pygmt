@@ -22,7 +22,7 @@ annotations every 20 ``z`` values.
 import numpy as np
 import pygmt
 
-# building the contours underling data with the function z = x^2 + y^2
+# build the contours underlying data with the function z = x^2 + y^2
 X, Y = np.meshgrid(np.linspace(-10, 10, 50), np.linspace(-10, 10, 50))
 Z = X ** 2 + Y ** 2
 x, y, z = X.flatten(), Y.flatten(), Z.flatten()
