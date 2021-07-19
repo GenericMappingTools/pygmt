@@ -5,7 +5,6 @@ access to the API functions.
 Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
-import pathlib
 import sys
 from contextlib import contextmanager
 
