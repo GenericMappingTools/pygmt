@@ -14,7 +14,7 @@ The parameters ``levels`` and ``annotation`` are deciding on the contours interv
 annotation on the contours respectively.
 
 In this example we supply the data as  1d :class:`numpy.ndarray` with the ``x``, ``y``,
-and ``z`` parameters and draw the contours using a 0.5p pen with contours every 5 ``z`` values and
+and ``z`` parameters and draw the contours using a 0.5p pen with contours every 10 ``z`` values and
 annotations every 20 ``z`` values.
 """
 
