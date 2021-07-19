@@ -28,7 +28,7 @@ fig.contour(
     region=[-10, 10, -10, 10],
     projection="X10c/10c",
     frame="ag",
-    pen='0.5p',
+    pen="0.5p",
     # passing the data as 3 1d data columns
     x=x,
     y=y,
@@ -36,6 +36,6 @@ fig.contour(
     # set the contours z values intervals to 5
     levels=5,
     # set the contours annotation intervals to 20
-    annotation=20
+    annotation=20,
 )
 fig.show()
