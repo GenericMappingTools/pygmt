@@ -2,7 +2,7 @@
 Contours
 --------
 The :meth:`pygmt.Figure.contour` method can plot contour lines from a table of points by direct triangulation.
-The data to the triangulation can be provided in one of three options:
+The data for the triangulation can be provided using one of three methods:
 
 #. ``x``, ``y``, ``z`` 1d :class:`numpy.ndarray` data columns.
 #. ``data`` 2d :class:`numpy.ndarray` data matrix with 3 columns corresponding
