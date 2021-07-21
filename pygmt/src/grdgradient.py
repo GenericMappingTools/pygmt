@@ -92,6 +92,15 @@ def grdgradient(grid, **kwargs):
     {R}
     {V}
     {n}
+    
+    Returns
+    -------
+    ret: xarray.DataArray or None
+        Return type depends on whether the ``outgrid`` parameter is set:
+        
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
