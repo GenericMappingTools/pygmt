@@ -32,13 +32,16 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence")
 def xyz2grd(grid, **kwargs):
     """
-    xyz2grd reads one or more z or xyz tables and creates a binary grid file. xyz2grd will
-    report if some of the nodes are not filled in with data. Such unconstrained nodes are set
-    to a value specified by the user [Default is NaN]. Nodes with more than one value will be
-    set to the mean value. As an option (using -Z), a 1-column z-table may be read assuming all
-    nodes are present (z-tables can be in organized in a number of formats, see -Z below.)
+    xyz2grd reads one or more z or xyz tables and creates a binary grid file.
+    xyz2grd will report if some of the nodes are not filled in with data. Such
+    unconstrained nodes are set to a value specified by the user [Default is
+    NaN]. Nodes with more than one value will be set to the mean value. As an
+    option (using -Z), a 1-column z-table may be read assuming all nodes are
+    present (z-tables can be in organized in a number of formats, see -Z
+    below.)
 
-    http://gmt.soest.hawaii.edu/doc/5.3.2/xyz2grd.html
+    Full option list at :gmt-docs:`xyz2grd.html`
+
 
     Parameters
     ----------
@@ -47,7 +50,8 @@ def xyz2grd(grid, **kwargs):
 
     {G}: str or None
     The name of the output netCDF file with extension .nc to store the grid
-    in. If non is given, it will be the same name of the input file, just with different extensions.
+    in. If non is given, it will be the same name of the input file, just with
+    different extensions.
 
     I : str
     xinc[unit][=|+][/yinc[unit][=|+]]
@@ -182,7 +186,6 @@ def xyz2grd(grid, **kwargs):
     Usage
     -------
     pygmt.xyz2grd('file.xyz',G='file.nc',I='res',R='g')
-
     """
     kind = data_kind(grid)
 
