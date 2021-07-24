@@ -22,12 +22,12 @@ from pygmt.helpers import (
     R="region",
     S="zfile",
     V="level",
-    Z="flags",
+    Z="single_column",
     bi="binary",
     di="nodata",
     f="flags",
     h="headers",
-    i="flags",
+    i="select_column",
 )
 @kwargs_to_strings(R="sequence")
 def xyz2grd(grid, **kwargs):
