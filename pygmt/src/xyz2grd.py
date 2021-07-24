@@ -30,7 +30,7 @@ from pygmt.helpers import (
     i="select_column",
 )
 @kwargs_to_strings(R="sequence")
-def xyz2grd(grid, **kwargs):
+def xyz2grd(table, **kwargs):
     """
     xyz2grd reads one or more z or xyz tables and creates a binary grid file.
     xyz2grd will report if some of the nodes are not filled in with data. Such
@@ -45,7 +45,7 @@ def xyz2grd(grid, **kwargs):
 
     Parameters
     ----------
-    grid : ascii file (xyz tables)
+    table : ascii file (xyz tables)
     The file name of the input xyz file, with the extension: file.xyz
 
     {G}: str or None
@@ -187,22 +187,23 @@ def xyz2grd(grid, **kwargs):
     -------
     pygmt.xyz2grd('file.xyz',G='file.nc',I='res',R='g')
     """
-    kind = data_kind(grid)
+    kind = data_kind(table)
 
     with GMTTempFile(suffix=".xyz") as tmpfile:
         with Session() as lib:
             if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
+                file_context = dummy_context(table)
+            elif kind == "matrix":
+                file_context = lib.virtualfile_from_matrix(matrix=table)
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
+                raise GMTInvalidInput("Unrecognized data type: {}".format(type(table)))
 
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
+                arg_str = build_arg_string(kwargs)
+                arg_str = " ".join([infile, arg_str])
                 lib.call_module("xyz2grd", arg_str)
 
         if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
