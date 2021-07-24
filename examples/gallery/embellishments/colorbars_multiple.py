@@ -1,7 +1,7 @@
 """
 Multiple colormaps
 ------------------
-This gallery shows how to create multiple colormaps for different subplots. To
+This gallery example shows how to create multiple colormaps for different subplots. To
 better understand how GMT modern mode maintain several levels of colormaps,
 please refer to :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`
 for details.
@@ -21,7 +21,7 @@ grid_subset = pygmt.datasets.load_earth_relief(resolution="10m", region=subset_r
 with fig.subplot(
     nrows=1, ncols=2, figsize=("15c", "8c"), autolabel=True, margins="0.5c"
 ):
-    # Activate the first panel so that the corlomap created by the makecpt
+    # Activate the first panel so that the colormap created by the makecpt
     # method is a panel-level CPT
     with fig.set_panel(panel=0):
         pygmt.makecpt(cmap="geo", series=[-8000, 8000])
@@ -29,7 +29,7 @@ with fig.subplot(
         # determined from the subplot width.
         fig.grdimage(grid=grid_globe, projection="R?", region="g", frame=True)
         fig.colorbar(frame=["a4000f2000", "x+lElevation", "y+lm"])
-    # Activate the second panel so that the corlomap created by the makecpt
+    # Activate the second panel so that the colormap created by the makecpt
     # method is a panel-level CPT
     with fig.set_panel(panel=1):
         pygmt.makecpt(cmap="globe", series=[-6000, 3000])
