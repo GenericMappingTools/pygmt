@@ -54,15 +54,6 @@ def xyz2grd(table, **kwargs):
         in.
     {I}
     {R}
-
-    Optional Arguments
-    ------------------
-
-    table
-    One or more ASCII [or binary, see -bi] files holding z or (x,y,z) values.
-    The xyz triplets do not have to be sorted.
-    One-column z tables must be sorted and the -Z must be set.
-
     -A[f|l|m|n|r|s|u|z]
     By default we will calculate mean values if multiple entries fall on the same node.
     Use -A to change this behavior, except it is ignored if -Z is given. Append f or s
