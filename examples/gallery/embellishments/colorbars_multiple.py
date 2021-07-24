@@ -1,7 +1,7 @@
 """
 Multiple colormaps
 ------------------
-This gallery shows how to use multiple colormaps for different subplots. To
+This gallery shows how to create multiple colormaps for different subplots. To
 better understand how GMT modern mode maintain several levels of colormaps,
 please refer to :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`
 for details.
