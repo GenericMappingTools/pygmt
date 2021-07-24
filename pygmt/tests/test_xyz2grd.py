@@ -3,8 +3,9 @@ Tests for xyz2grd.
 """
 import pytest
 import xarray as xr
-from pygmt.datasets import load_sample_bathymetry
 from pygmt import xyz2grd
+from pygmt.datasets import load_sample_bathymetry
+
 
 @pytest.fixture(scope="module", name="ship_data")
 def fixture_ship_data():
@@ -12,6 +13,7 @@ def fixture_ship_data():
     Load the data from the sample bathymetry dataset.
     """
     return load_sample_bathymetry()
+
 
 def test_xyz2grd_input_file():
     """
