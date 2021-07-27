@@ -95,7 +95,6 @@ Operations on grids:
     grdlandmask
     grdgradient
     grdtrack
-    sphdistance
 
 Crossover analysis with x2sys:
 
