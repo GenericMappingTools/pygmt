@@ -143,18 +143,18 @@ def load_hotspots():
         columns.
     """
     fname = which("@hotspots.txt", download="c")
-    with open(fname) as hotspot_text:
-        hotspot_text.readline()
-        hotspot_text.readline()
-        hotspot_text.readline()
-        hotspots = []
-        for line in hotspot_text:
-            line_split = line.strip().split("\t")
-            # Add coordinates and icon_size of hotspot
-            hotspot = [float(item.strip()) for item in line_split[0].split()]
-            hotspot.append(line_split[1].title())  # Add name of hotspot
-            hotspots.append(hotspot)
-    data = pd.DataFrame(
-        hotspots, columns=["longitude", "latitude", "icon_size", "name"]
+
+    # Read first 3 columns (space-separated): longitude, latitude and icon_size
+    lon_lat_size = pd.read_table(
+        fname,
+        sep="\s+",
+        comment="#",
+        usecols=[0, 1, 2],
+        names=["longitude", "latitude", "icon_size"],
     )
+    # Read last column (tab-separated): placename
+    placename = pd.read_table(fname, comment="#", usecols=[1], names=["placename"])
+    # Concat first 3 columns with last column to get a 4-column dataframe
+    data = pd.concat(objs=[lon_lat_size, placename], axis="columns")
+
     return data
