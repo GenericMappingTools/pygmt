@@ -1,3 +1,9 @@
+"""
+Grdclip
+-------
+The :meth:`pygmt.grdclip` method allows to clip defined ranges of grid values.
+"""
+
 import pygmt
 
 fig = pygmt.Figure()
@@ -13,7 +19,7 @@ fig.grdimage(grid=grid, cmap="oleron")
 
 fig.shift_origin(yshift="-9c")
 
-# Set all grid points < 0 to a value of -2000.
+# Set all grid points < 0 m to a value of -2000 m.
 grid = pygmt.grdclip(grid, below=[0, -2000])
 
 # Plot clipped grid
