@@ -86,6 +86,6 @@ def test_hotspots():
         "longitude",
         "latitude",
         "icon_size",
-        "name",
+        "placename",
     ]
     assert isinstance(data, pd.DataFrame)
