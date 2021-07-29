@@ -38,6 +38,7 @@ from pygmt.src import (
     grdfill,
     grdfilter,
     grdgradient,
+    grdhisteq,
     grdinfo,
     grdlandmask,
     grdtrack,
