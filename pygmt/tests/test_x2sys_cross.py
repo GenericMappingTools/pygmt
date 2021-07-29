@@ -75,7 +75,7 @@ def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
 
 def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
     """
-    Run x2sys_cross by passing in one dataframe, and output external crossovers
+    Run x2sys_cross by passing in one dataframe, and output internal crossovers
     to a pandas.DataFrame.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
@@ -127,6 +127,29 @@ def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
         assert output.dtypes["t_1"].type == np.datetime64
         assert output.dtypes["t_2"].type == np.datetime64
+
+
+def test_x2sys_cross_input_dataframe_with_nan(mock_x2sys_home, tracks):
+    """
+    Run x2sys_cross by passing in one dataframe with NaN values, and output
+    internal crossovers to a pandas.DataFrame.
+    """
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
+        tag = os.path.basename(tmpdir)
+        x2sys_init(
+            tag=tag, fmtfile="xyz", suffix="xyzt", units=["de", "se"], force=True
+        )
+
+        tracks[0].loc[tracks[0]["z"] < -15, "z"] = np.nan  # set some values to NaN
+        output = x2sys_cross(tracks=tracks, tag=tag, coe="i")
+
+        assert isinstance(output, pd.DataFrame)
+        assert output.shape == (3, 12)
+        columns = list(output.columns)
+        assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
+        assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
+        assert output.dtypes["i_1"].type == np.object_
+        assert output.dtypes["i_2"].type == np.object_
 
 
 def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
