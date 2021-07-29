@@ -12,6 +12,7 @@ from pygmt.src.contour import contour
 from pygmt.src.grd2cpt import grd2cpt
 from pygmt.src.grdclip import grdclip
 from pygmt.src.grdcontour import grdcontour
+from pygmt.src.grdconvert import grdconvert
 from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfill import grdfill
 from pygmt.src.grdfilter import grdfilter
