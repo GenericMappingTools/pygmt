@@ -87,7 +87,7 @@ jobs:
                         ghostscript libnetcdf hdf5 zlib curl pcre make dvc
           pip install --verbose --pre numpy pandas xarray netCDF4 packaging \
                             ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery \
-                            toml
+                            tomli
           conda list
           pip list
 
