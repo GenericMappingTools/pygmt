@@ -87,6 +87,8 @@ jobs:
                         ghostscript libnetcdf hdf5 zlib curl pcre make dvc
           pip install --verbose --pre numpy pandas xarray netCDF4 packaging \
                             ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery
+          conda list
+          pip list
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
