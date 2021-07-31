@@ -11,18 +11,18 @@ import pygmt
 
 fig = pygmt.Figure()
 
-# Define region of interest around the Hawaiian Islands
-region = [-162, -153, 18, 23]
+# Define region of interest around Iceland
+region = [-28, -10, 62, 68]
 
-# Load sample grid (1 arc minute global relief) in target area
-grid = pygmt.datasets.load_earth_relief(resolution="01m", region=region)
+# Load sample grid (3 arc minute global relief) in target area
+grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 
 # Plot original grid
 fig.basemap(region=region, projection="M12c", frame=["f", '+t"original grid"'])
 fig.grdimage(grid=grid, cmap="oleron")
 
-# Shift plot origin for second map -9 cm in y direction
-fig.shift_origin(yshift="-9c")
+# Shift plot origin for second map 12.5 cm in x direction
+fig.shift_origin(xshift="12.5c")
 
 # Set all grid points < 0 m to a value of -2000 m.
 grid = pygmt.grdclip(grid, below=[0, -2000])
@@ -30,6 +30,6 @@ grid = pygmt.grdclip(grid, below=[0, -2000])
 # Plot clipped grid
 fig.basemap(region=region, projection="M12c", frame=["f", '+t"clipped grid"'])
 fig.grdimage(grid=grid)
-fig.colorbar(frame=["x+lElevation", "y+lm"])
+fig.colorbar(frame=["x+lElevation", "y+lm"], position="JMR+o0.5c/0c+w8c")
 
 fig.show()
