@@ -163,6 +163,7 @@ def download_test_data():
         "@N35E135.earth_relief_03s_g.nc",
         # Other cache files
         "@fractures_06.txt",
+        "@hotspots.txt",
         "@ridge.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
         "@Table_5_11.txt",
