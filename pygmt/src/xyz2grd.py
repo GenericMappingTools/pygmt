@@ -166,7 +166,7 @@ def xyz2grd(table, **kwargs):
     """
     kind = data_kind(table)
 
-    with GMTTempFile(suffix=".xyz") as tmpfile:
+    with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             if kind == "file":
                 file_context = dummy_context(table)
