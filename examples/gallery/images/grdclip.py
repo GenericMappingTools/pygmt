@@ -21,8 +21,8 @@ grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 fig.basemap(region=region, projection="M12c", frame=["f", '+t"original grid"'])
 fig.grdimage(grid=grid, cmap="oleron")
 
-# Shift plot origin for second map 12.5 cm in x direction
-fig.shift_origin(xshift="12.5c")
+# Shift plot origin of the second map by "width of the first map + 0.5 cm"
+fig.shift_origin(xshift="w+0.5c")
 
 # Set all grid points < 0 m to a value of -2000 m.
 grid = pygmt.grdclip(grid, below=[0, -2000])
