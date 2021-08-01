@@ -189,7 +189,7 @@ conda activate pygmt
 ```
 
 
-We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
+We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 that provides commands for installing, running the tests and coverage analysis,
 running linters, etc. If you don't want to use `make`, open the `Makefile` and
 copy the commands you want to run.
