@@ -23,6 +23,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     c="panel",
     d="nodata",
     e="find",
+    g="gap",
     i="columns",
     p="perspective",
 )
@@ -82,6 +83,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     {c}
     {d}
     {e}
+    {g}
     columns : str or 1d array
         Choose which columns are x, y, and z, respectively if input is provided
         via *data*. E.g. ``columns = [0, 1, 2]`` or ``columns = "0,1,2"`` if

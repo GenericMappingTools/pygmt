@@ -166,6 +166,50 @@ COMMON_OPTIONS = {
             geographical data). Full documentation is at
             :gmt-docs:`gmt.html#f-full`.
          """,
+    "g": r"""
+        gap : str or list
+            [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
+            **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**]
+            Examine the spacing between consecutive data points in order to
+            impose breaks in the line. To specify multiple critera, provide
+            a list with each item containing a string describing one set of
+            critera. Prepend **a** to specify that all the criteria must be
+            met [Default is to impose breaks if any criteria are met]. The
+            following modifiers are supported:
+
+                - **x**\|\ **X** - define a gap when there is a large enough
+                  change in the x coordinates (upper case to use projected
+                  coordinates).
+                - **y**\|\ **Y** - define a gap when there is a large enough
+                  change in the y coordinates (upper case to use projected
+                  coordinates).
+                - **d**\|\ **D** - define a gap when there is a large enough
+                  distance between coordinates (upper case to use projected
+                  coordinates).
+                - [*col*]\ **z** - define a gap when there is a large enough
+                  change in the data in column *col* [default *col* is 2 (i.e.,
+                  3rd column)].
+
+            A unit **u** may be appended to the specified *gap*:
+
+                - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
+                  be arc **d**\ (egree), **m**\ (inute), and **s**\ (econd), or
+                  (m)\ **e**\ (ter), **f**\ (eet), **k**\ (ilometer),
+                  **M**\ (iles), or **n**\ (autical miles) [Default is
+                  (m)\ **e**\ (ter)].
+                - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
+                  **i**\ (nch), **c**\ (entimeter), or **p**\ (oint) [Default
+                  unit is set by :term:`PROJ_LENGTH_UNIT`].
+
+            One of the following modifiers can be appended to *gap* [default
+            imposes breaks based on the absolute value of the difference
+            between the current and previous value]:
+
+                - **+n** - specify that the previous value minus the current
+                  column value must exceed *gap* for a break to be imposed.
+                - **+p** - specify that the current value minus the previous
+                  value must exceed *gap* for a break to be imposed.
+    """,
     "i": r"""
         incols : str or 1d array
             Specify data columns for primary input in arbitrary order. Columns
