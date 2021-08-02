@@ -221,15 +221,15 @@ COMMON_OPTIONS = {
             - **+d** to remove existing header records.
             - **+c** to add a header comment with column names to the output
               [Default is no column names].
-            - **+m** to add a segment header *segheader* to the output after 
+            - **+m** to add a segment header *segheader* to the output after
               the header block [Default is no segment header].
             - **+r** to add a *remark* comment to the output [Default is no
               comment]. The *remark* string may contain \\n to indicate
               line-breaks.
             - **+t** to add a *title* comment to the output [Default is no
               title]. The *title* string may contain \\n to indicate line-breaks.
-        
-        **Note**: Blank lines and lines starting with \# are always skipped.
+
+        Blank lines and lines starting with \# are always skipped.
     """,
     "i": r"""
         incols : str or 1d array
@@ -285,6 +285,30 @@ COMMON_OPTIONS = {
             - **c** for bicubic [Default]
             - **l** for bilinear
             - **n** for nearest-neighbor""",
+    "o": r"""
+        outcols : str or 1d array
+            *cols*\ [,...][,\ **t**\ [*word*]]
+            Specify data columns for primary output in arbitrary order. Columns
+            can be repeated and columns not listed will be skipped [Default
+            writes all columns in order, starting with the first (i.e., column
+            0)].
+
+            - For *1d array*: specify individual columns in output order (e.g.,
+              ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
+            - For :py:class:`str`: specify individual columns or column
+              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
+              defaults to 1 if not specified, with columns and/or column ranges
+              separated by commas (e.g., ``outcols='0:2,4'`` to output the
+              first three columns followed by the 5th column).
+              To write from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To write trailing
+              text, add the column **t**. Append the word number to **t** to
+              write only a single word from the trailing text. Instead of
+              specifying columns, use ``outcols='n'`` to simply read numerical
+              input and skip trailing text. Note: if ``incols`` is also used
+              then the columns given to ``outcols`` correspond to the order
+              after the ``incols`` selection has taken place.
+    """,
     "p": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
