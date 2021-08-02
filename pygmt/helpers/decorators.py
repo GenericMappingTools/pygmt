@@ -347,6 +347,25 @@ COMMON_OPTIONS = {
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
+    "w": r"""
+        wrap : str
+            **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
+            **c**\ *period*\ [/*phase*][**+c**\ *col*]
+            Convert the input *x*-coordinate to a cyclical coordinate, or a
+            different column if selected via **+c**\ *col*. The following
+            cyclical coordinate transformations are supported:
+
+                - **y** - yearly cycle (normalized)
+                - **a** - annual cycle (monthly)
+                - **w** - weekly cycle (day)
+                - **d** - daily cycle (hour)
+                - **h** - hourly cycle (minute)
+                - **m** - minute cycle (second)
+                - **s** - second cycle (second)
+                - **c** - custom cycle (normalized)
+            
+            Full documentation is at :gmt-docs:`gmt.html#w-full`.
+        """,
     "x": r"""
         cores : bool or int
             [[**-**]\ *n*].
