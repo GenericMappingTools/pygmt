@@ -102,6 +102,35 @@ COMMON_OPTIONS = {
             Control how aspatial data are handled during input and output.
             Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
          """,
+    "b": r"""
+        binary : bool or str
+            **-bi**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**]
+            Select native binary input (using ``binary="i"``) or output
+            (using ``binary="o"``), where *ncols* is the number of data columns
+            of *type*, which must be one of:
+
+                - **c** - int8_t (1-byte signed char)
+                - **u** - uint8_t (1-byte unsigned char)
+                - **h** - int16_t (2-byte signed int)
+                - **H** - uint16_t (2-byte unsigned int)
+                - **i** - int32_t (4-byte signed int)
+                - **I** - uint32_t (4-byte unsigned int)
+                - **l** - int64_t (8-byte signed int)
+                - **L** - uint64_t (8-byte unsigned int)
+                - **f** - 4-byte single-precision float
+                - **d** - 8-byte double-precision float
+                - **x** - use to skip *ncols* anywhere in the record
+
+            For records with mixed types, append additional comma-separated
+            combinations of *ncols* *type* (no space). The following modifiers
+            are supported:
+
+                - **w** after any item to force byte-swapping.
+                - **+l**\|\ **b** to indicate that the entire data file should
+                  be read as little- or big-endian, respectively.
+
+            Full documentation is at :gmt-docs:`gmt.html#bi-full`.
+    """,
     "c": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].

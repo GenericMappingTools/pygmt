@@ -19,6 +19,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     X="xshift",
     Y="yshift",
     Z="scale",
+    b="binary",
     c="panel",
     i="columns",
     p="perspective",
@@ -75,6 +76,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     pen : str
         Specify outline pen attributes [Default is no outline].
     {XY}
+    {b}
     {c}
     columns : str or 1d array
         Choose which columns are x, y, and z, respectively if input is provided
