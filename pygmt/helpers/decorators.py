@@ -143,13 +143,22 @@ COMMON_OPTIONS = {
     "c": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
-            Selects a specific subplot panel. Only allowed when in subplot
+            Select a specific subplot panel. Only allowed when in subplot
             mode. Use ``panel=True`` to advance to the next panel in the
             selected order. Instead of *row,col* you may also give a scalar
             value *index* which depends on the order you set via ``autolabel``
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
          """,
+    "e": r"""
+        find : str
+            [**~**]\ *"pattern"* \| [**~**]/\ *regexp*/[**i**]
+            Only pass records that match the given *pattern* or regular
+            expressions [Default processes all records]. Prepend **~** to
+            the *pattern* or *regexp* to instead only pass data expressions
+            that do not match the pattern. Append **i** for case insensitive
+            matching. This does not apply to headers or segment headers.
+    """,
     "f": r"""
         coltypes : str
             [**i**\|\ **o**]\ *colinfo*.
