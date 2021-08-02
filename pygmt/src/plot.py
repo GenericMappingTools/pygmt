@@ -211,7 +211,6 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         extra_arrays.extend(direction)
     elif (
         "S" not in kwargs
-        and data is not None
         and kind == "geojson"
         and (data.geom_type == "Point").all()
     ):
