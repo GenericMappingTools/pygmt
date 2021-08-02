@@ -212,6 +212,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     elif (
         "S" not in kwargs
         and data is not None
+        and data is object
         and "_geometry_column_name" in data.__dict__
         and (data.geom_type == "Point").all()
     ):
