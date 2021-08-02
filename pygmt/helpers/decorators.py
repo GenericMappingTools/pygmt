@@ -104,7 +104,7 @@ COMMON_OPTIONS = {
          """,
     "b": r"""
         binary : bool or str
-            **-bi**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**]
+            **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**]
             Select native binary input (using ``binary="i"``) or output
             (using ``binary="o"``), where *ncols* is the number of data columns
             of *type*, which must be one of:
@@ -130,6 +130,15 @@ COMMON_OPTIONS = {
                   be read as little- or big-endian, respectively.
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.
+    """,
+    "d": r"""
+        nodata : str
+            **i**\|\ **o**\ *nodata*
+            Substitute specific values with NaN (for tabular data). For
+            example, ``d="-9999"`` will replace all values equal to -9999 with
+            NaN during input and all NaN values with -9999 during output.
+            Prepend **i** to the *nodata* value for input columns only. Prepend
+            **o** to the *nodata* value for output columns only.
     """,
     "c": r"""
         panel : bool or int or list
