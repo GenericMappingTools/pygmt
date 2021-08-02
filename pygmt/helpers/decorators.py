@@ -201,7 +201,7 @@ COMMON_OPTIONS = {
                   **i**\ (nch), **c**\ (entimeter), or **p**\ (oint) [Default
                   unit is set by :term:`PROJ_LENGTH_UNIT`].
 
-            One of the following modifiers can be appended to *gap* [default
+            One of the following modifiers can be appended to *gap* [Default
             imposes breaks based on the absolute value of the difference
             between the current and previous value]:
 
@@ -209,6 +209,27 @@ COMMON_OPTIONS = {
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.
+    """,
+    "h": r"""
+    header : str
+        [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
+        *remark*][**+t**\ *title*]
+        Specify that input and/or output file(s) have *n* header records
+        [Default is 0]. Prepend **i** if only the primary input should have
+        header records. Prepend **o** to control the writing of header records,
+        with the following modifiers supported:
+            - **+d** to remove existing header records.
+            - **+c** to add a header comment with column names to the output
+              [Default is no column names].
+            - **+m** to add a segment header *segheader* to the output after 
+              the header block [Default is no segment header].
+            - **+r** to add a *remark* comment to the output [Default is no
+              comment]. The *remark* string may contain \\n to indicate
+              line-breaks.
+            - **+t** to add a *title* comment to the output [Default is no
+              title]. The *title* string may contain \\n to indicate line-breaks.
+        
+        **Note**: Blank lines and lines starting with \# are always skipped.
     """,
     "i": r"""
         incols : str or 1d array
@@ -235,10 +256,10 @@ COMMON_OPTIONS = {
 
                 - **+l** to take the *log10* of the input values.
                 - **+d** to divide the input values by the factor *divisor*
-                  [default is 1].
+                  [Default is 1].
                 - **+s** to multiple the input values by the factor *scale*
-                  [default is 1].
-                - **+o** to add the given *offset* to the input values [default
+                  [Default is 1].
+                - **+o** to add the given *offset* to the input values [Default
                   is 0].""",
     "j": r"""
         distcalc : str
