@@ -198,8 +198,7 @@ COMMON_OPTIONS = {
                   **M**\ (iles), or **n**\ (autical miles) [Default is
                   (m)\ **e**\ (ter)].
                 - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-                  **i**\ (nch), **c**\ (entimeter), or **p**\ (oint) [Default
-                  unit is set by :term:`PROJ_LENGTH_UNIT`].
+                  **i**\ (nch), **c**\ (entimeter), or **p**\ (oint).
 
             One of the following modifiers can be appended to *gap* [Default
             imposes breaks based on the absolute value of the difference
@@ -218,6 +217,7 @@ COMMON_OPTIONS = {
         [Default is 0]. Prepend **i** if only the primary input should have
         header records. Prepend **o** to control the writing of header records,
         with the following modifiers supported:
+
             - **+d** to remove existing header records.
             - **+c** to add a header comment with column names to the output
               [Default is no column names].
@@ -243,13 +243,13 @@ COMMON_OPTIONS = {
             - For :py:class:`str`: specify individual columns or column
               ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
               defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``incols='0:2,4+l'`` to input the
+              separated by commas (e.g., ``incols="0:2,4+l"`` to input the
               first three columns followed by the log-transformed 5th column).
               To read from a given column until the end of the record, leave
               off *stop* when specifying the column range. To read trailing
               text, add the column **t**. Append the word number to **t** to
               ingest only a single word from the trailing text. Instead of
-              specifying columns, use ``incols='n'`` to simply read numerical
+              specifying columns, use ``incols="n"`` to simply read numerical
               input and skip trailing text. Optionally, append one of the
               following modifiers to any column or column range to transform
               the input columns:
@@ -298,13 +298,13 @@ COMMON_OPTIONS = {
             - For :py:class:`str`: specify individual columns or column
               ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
               defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``outcols='0:2,4'`` to output the
+              separated by commas (e.g., ``outcols="0:2,4"`` to output the
               first three columns followed by the 5th column).
               To write from a given column until the end of the record, leave
               off *stop* when specifying the column range. To write trailing
               text, add the column **t**. Append the word number to **t** to
               write only a single word from the trailing text. Instead of
-              specifying columns, use ``outcols='n'`` to simply read numerical
+              specifying columns, use ``outcols="n"`` to simply read numerical
               input and skip trailing text. Note: if ``incols`` is also used
               then the columns given to ``outcols`` correspond to the order
               after the ``incols`` selection has taken place.
@@ -323,6 +323,23 @@ COMMON_OPTIONS = {
             Force gridline (**g**) or pixel (**p**) node registration.
             [Default is **g**\ (ridline)].
         """,
+    "s": r"""
+        skiprows : bool or str
+            [*cols*][**+a**][**+r**]
+            Suppress output for records whose *z*-value equals NaN [Default
+            outputs all records]. Optionally, supply a comma-separated list of
+            all columns or column ranges to consider for this NaN test [Default
+            only considers the third data column (i.e., *cols = 2*)]. Column
+            ranges must be given in the format *start*\ [:*inc*]:*stop*, where
+            *inc* defaults to 1 if not specified. The following modifiers are
+            supported:
+
+                - **+r** to reverse the suppression, i.e., only output the
+                  records whose *z*-value equals NaN.
+                - **+a** to suppress the output of the record if just one or
+                  more of the columns equal NaN [Default skips record only
+                  if values in all specified *cols* equal NaN].
+    """,
     "t": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.
