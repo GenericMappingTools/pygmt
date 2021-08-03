@@ -129,8 +129,7 @@ COMMON_OPTIONS = {
                 - **+l**\|\ **b** to indicate that the entire data file should
                   be read as little- or big-endian, respectively.
 
-            Full documentation is at :gmt-docs:`gmt.html#bi-full`.
-    """,
+            Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
     "d": r"""
         nodata : str
             **i**\|\ **o**\ *nodata*
@@ -138,8 +137,7 @@ COMMON_OPTIONS = {
             example, ``d="-9999"`` will replace all values equal to -9999 with
             NaN during input and all NaN values with -9999 during output.
             Prepend **i** to the *nodata* value for input columns only. Prepend
-            **o** to the *nodata* value for output columns only.
-    """,
+            **o** to the *nodata* value for output columns only.""",
     "c": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
@@ -157,15 +155,13 @@ COMMON_OPTIONS = {
             expressions [Default processes all records]. Prepend **~** to
             the *pattern* or *regexp* to instead only pass data expressions
             that do not match the pattern. Append **i** for case insensitive
-            matching. This does not apply to headers or segment headers.
-    """,
+            matching. This does not apply to headers or segment headers.""",
     "f": r"""
         coltypes : str
             [**i**\|\ **o**]\ *colinfo*.
             Specify data types of input and/or output columns (time or
             geographical data). Full documentation is at
-            :gmt-docs:`gmt.html#f-full`.
-         """,
+            :gmt-docs:`gmt.html#f-full`.""",
     "g": r"""
         gap : str or list
             [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
@@ -207,8 +203,7 @@ COMMON_OPTIONS = {
                 - **+n** - specify that the previous value minus the current
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
-                  value must exceed *gap* for a break to be imposed.
-    """,
+                  value must exceed *gap* for a break to be imposed.""",
     "h": r"""
     header : str
         [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
@@ -229,8 +224,7 @@ COMMON_OPTIONS = {
             - **+t** to add a *title* comment to the output [Default is no
               title]. The *title* string may contain \\n to indicate line-breaks.
 
-        Blank lines and lines starting with \# are always skipped.
-    """,
+        Blank lines and lines starting with \# are always skipped.""",
     "i": r"""
         incols : str or 1d array
             Specify data columns for primary input in arbitrary order. Columns
@@ -307,8 +301,7 @@ COMMON_OPTIONS = {
               specifying columns, use ``outcols="n"`` to simply read numerical
               input and skip trailing text. Note: if ``incols`` is also used
               then the columns given to ``outcols`` correspond to the order
-              after the ``incols`` selection has taken place.
-    """,
+              after the ``incols`` selection has taken place.""",
     "p": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
@@ -338,8 +331,7 @@ COMMON_OPTIONS = {
                   records whose *z*-value equals NaN.
                 - **+a** to suppress the output of the record if just one or
                   more of the columns equal NaN [Default skips record only
-                  if values in all specified *cols* equal NaN].
-    """,
+                  if values in all specified *cols* equal NaN].""",
     "t": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.
@@ -363,9 +355,8 @@ COMMON_OPTIONS = {
                 - **m** - minute cycle (second)
                 - **s** - second cycle (second)
                 - **c** - custom cycle (normalized)
-            
-            Full documentation is at :gmt-docs:`gmt.html#w-full`.
-        """,
+
+            Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
     "x": r"""
         cores : bool or int
             [[**-**]\ *n*].
