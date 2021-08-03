@@ -165,7 +165,7 @@ COMMON_OPTIONS = {
             controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
     "l": r"""
         label : str
-        Add a legend entry for the symbol or line being plotted.""",
+            Add a legend entry for the symbol or line being plotted.""",
     "n": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
