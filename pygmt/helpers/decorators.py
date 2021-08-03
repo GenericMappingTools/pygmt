@@ -104,7 +104,7 @@ COMMON_OPTIONS = {
          """,
     "b": r"""
         binary : bool or str
-            **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**]
+            **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**].
             Select native binary input (using ``binary="i"``) or output
             (using ``binary="o"``), where *ncols* is the number of data columns
             of *type*, which must be one of:
@@ -132,7 +132,7 @@ COMMON_OPTIONS = {
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
     "d": r"""
         nodata : str
-            **i**\|\ **o**\ *nodata*
+            **i**\|\ **o**\ *nodata*.
             Substitute specific values with NaN (for tabular data). For
             example, ``d="-9999"`` will replace all values equal to -9999 with
             NaN during input and all NaN values with -9999 during output.
@@ -150,7 +150,7 @@ COMMON_OPTIONS = {
          """,
     "e": r"""
         find : str
-            [**~**]\ *"pattern"* \| [**~**]/\ *regexp*/[**i**]
+            [**~**]\ *"pattern"* \| [**~**]/\ *regexp*/[**i**].
             Only pass records that match the given *pattern* or regular
             expressions [Default processes all records]. Prepend **~** to
             the *pattern* or *regexp* to instead only pass data expressions
@@ -165,7 +165,7 @@ COMMON_OPTIONS = {
     "g": r"""
         gap : str or list
             [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
-            **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**]
+            **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**].
             Examine the spacing between consecutive data points in order to
             impose breaks in the line. To specify multiple critera, provide
             a list with each item containing a string describing one set of
@@ -205,26 +205,27 @@ COMMON_OPTIONS = {
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
     "h": r"""
-    header : str
-        [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
-        *remark*][**+t**\ *title*]
-        Specify that input and/or output file(s) have *n* header records
-        [Default is 0]. Prepend **i** if only the primary input should have
-        header records. Prepend **o** to control the writing of header records,
-        with the following modifiers supported:
+        header : str
+            [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
+            *remark*][**+t**\ *title*].
+            Specify that input and/or output file(s) have *n* header records
+            [Default is 0]. Prepend **i** if only the primary input should have
+            header records. Prepend **o** to control the writing of header
+            records, with the following modifiers supported:
 
-            - **+d** to remove existing header records.
-            - **+c** to add a header comment with column names to the output
-              [Default is no column names].
-            - **+m** to add a segment header *segheader* to the output after
-              the header block [Default is no segment header].
-            - **+r** to add a *remark* comment to the output [Default is no
-              comment]. The *remark* string may contain \\n to indicate
-              line-breaks.
-            - **+t** to add a *title* comment to the output [Default is no
-              title]. The *title* string may contain \\n to indicate line-breaks.
+                - **+d** to remove existing header records.
+                - **+c** to add a header comment with column names to the
+                  output [Default is no column names].
+                - **+m** to add a segment header *segheader* to the output
+                  after the header block [Default is no segment header].
+                - **+r** to add a *remark* comment to the output [Default is no
+                  comment]. The *remark* string may contain \\n to indicate
+                  line-breaks.
+                - **+t** to add a *title* comment to the output [Default is no
+                  title]. The *title* string may contain \\n to indicate
+                  line-breaks.
 
-        Blank lines and lines starting with \# are always skipped.""",
+            Blank lines and lines starting with \# are always skipped.""",
     "i": r"""
         incols : str or 1d array
             Specify data columns for primary input in arbitrary order. Columns
@@ -281,7 +282,7 @@ COMMON_OPTIONS = {
             - **n** for nearest-neighbor""",
     "o": r"""
         outcols : str or 1d array
-            *cols*\ [,...][,\ **t**\ [*word*]]
+            *cols*\ [,...][,\ **t**\ [*word*]].
             Specify data columns for primary output in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
             writes all columns in order, starting with the first (i.e., column
@@ -318,7 +319,7 @@ COMMON_OPTIONS = {
         """,
     "s": r"""
         skiprows : bool or str
-            [*cols*][**+a**][**+r**]
+            [*cols*][**+a**][**+r**].
             Suppress output for records whose *z*-value equals NaN [Default
             outputs all records]. Optionally, supply a comma-separated list of
             all columns or column ranges to consider for this NaN test [Default
@@ -342,7 +343,7 @@ COMMON_OPTIONS = {
     "w": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
-            **c**\ *period*\ [/*phase*][**+c**\ *col*]
+            **c**\ *period*\ [/*phase*][**+c**\ *col*].
             Convert the input *x*-coordinate to a cyclical coordinate, or a
             different column if selected via **+c**\ *col*. The following
             cyclical coordinate transformations are supported:
