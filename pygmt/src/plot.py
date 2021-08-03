@@ -214,7 +214,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         and kind == "geojson"
         and data.geom_type.isin(["Point", "MultiPoint"]).all()
     ):
-        kwargs["S"] = "p"
+        kwargs["S"] = "s0.2c"
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
             raise GMTInvalidInput(

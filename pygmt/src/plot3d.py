@@ -183,7 +183,7 @@ def plot3d(
         and kind == "geojson"
         and data.geom_type.isin(["Point", "MultiPoint"]).all()
     ):
-        kwargs["S"] = "p"
+        kwargs["S"] = "u0.2c"
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
             raise GMTInvalidInput(
