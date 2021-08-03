@@ -178,6 +178,12 @@ def plot3d(
     extra_arrays = []
     if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
+    elif (
+        "S" not in kwargs
+        and kind == "geojson"
+        and data.geom_type.isin(["Point", "MultiPoint"]).all()
+    ):
+        kwargs["S"] = "p"
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
             raise GMTInvalidInput(
