@@ -50,6 +50,15 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
     criteria and :math:`r_i` is the distance from the node to the *i*'th data
     point. If no data weights are supplied then :math:`w_i = 1`.
 
+    .. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_nearneighbor.png
+       :width: 300 px
+       :align: center
+
+       Search geometry includes the search radius (R) which limits the points
+       considered and the number of sectors (here 4), which restricts how points inside
+       the search radius contribute to the value at the node.  Only the closest point
+       in each sector (red circles) contribute to the weighted estimate.
+
     Takes a matrix, xyz triples, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
