@@ -181,19 +181,19 @@ COMMON_OPTIONS = {
 
             The following modifiers are supported:
 
-            - **+a** to switch off antialiasing (where supported) [default uses
+            - **+a** to switch off antialiasing (where supported) [Default uses
               antialiasing].
             - **+b** to override boundary conditions used, by appending *g* for
               geographic, *p* for periodic, or *n* for natural boundary
               conditions. For the latter two you may append **x** or **y** to
               specify just one direction, otherwise both are assumed.
             - **+c** to clip the interpolated grid to input z-min/z-max
-              [default may exceed limits].
+              [Default may exceed limits].
             - **+t** to control how close to nodes with NaNs the interpolation
               will go based on *threshold*. A *threshold* of 1.0 requires all
               (4 or 16) nodes involved in interpolation to be non-NaN. For
               example, 0.5 will interpolate about half way from a non-NaN value
-              and 0.1 will go about 90% of the way [default is 0.5].""",
+              and 0.1 will go about 90% of the way [Default is 0.5].""",
     "p": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
