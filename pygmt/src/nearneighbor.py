@@ -83,17 +83,17 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
         Optional. Set the value assigned to empty nodes. Defaults to NaN.
 
     sectors : str
-        Optional. **\ *sectors*\ [**+m**\ *min_sectors*]\|\ **n**
-        The circular search area centered on each node is divided into sectors
-        sectors. Average values will only be computed if there is at least one
-        value inside each of at least min_sectors of the sectors for a given
-        node. Nodes that fail this test are assigned the value NaN (but see
-        -E). If +m is omitted then min_sectors is set to be at least 50% of
-        sectors (i.e., rounded up to next integer) [Default is a quadrant
-        search with 100% coverage, i.e., sectors = min_sectors = 4]. Note that
-        only the nearest value per sector enters into the averaging; the more
-        distant points are ignored. Alternatively, use -Nn to call GDALʻs
-        nearest neighbor algorithm instead.
+        *sectors*\ [**+m**\ *min_sectors*]\|\ **n**.
+        Optional. The circular search area centered on each node is divided
+        into *sectors* sectors. Average values will only be computed if there
+        is *at least* one value inside each of at least *min_sectors* of the
+        sectors for a given node. Nodes that fail this test are assigned the
+        value NaN (but see ``empty``). If +m is omitted then *min_sectors* is
+        set to be at least 50% of *sectors* (i.e., rounded up to next integer)
+        [Default is a quadrant search with 100% coverage, i.e., *sectors* =
+        *min_sectors* = 4]. Note that only the nearest value per sector enters
+        into the averaging; the more distant points are ignored. Alternatively,
+        use ``sectors="n"`` to call GDALʻs nearest neighbor algorithm instead.
 
     {V}
     {a}
