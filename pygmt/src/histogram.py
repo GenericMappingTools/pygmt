@@ -119,8 +119,7 @@ def histogram(self, table, **kwargs):
     {XY}
     {U}
     {V}
-    label : str
-        Add a legend entry for the symbol or line being plotted.
+    {l}
     {p}
     {t}
     """
