@@ -3,7 +3,7 @@ Tests on integration with geopandas.
 """
 import numpy.testing as npt
 import pytest
-from pygmt import info, Figure
+from pygmt import Figure, info
 
 gpd = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
@@ -68,12 +68,11 @@ def test_geopandas_info_shapely(gdf, geomtype, desired):
 
 @pytest.mark.mpl_image_compare
 def test_geopandas_plot_default_square():
-    """
-    """
+    """ """
     point = shapely.geometry.Point(5, 5)
     gdf = gpd.GeoDataFrame(dict(geometry=[point]))
     fig = Figure()
-    fig.plot(data=gdf, region=[0, 10, 0, 10], projection='X10', frame=True)
+    fig.plot(data=gdf, region=[0, 10, 0, 10], projection="X10", frame=True)
     return fig
 
 
@@ -87,12 +86,11 @@ def test_geopandas_plot3d_default_cube():
         perspective=[315, 25],
         region=[0, 10, 0, 10, 0, 10],
         frame=[
-            'wsnez3',
-            'xafg',
-            'yafg',
-            'zafg',
+            "wsnez3",
+            "xafg",
+            "yafg",
+            "zafg",
         ],
         zscale=1.5,
     )
     return fig
-
