@@ -114,7 +114,7 @@ source_suffix = ".rst"
 needs_sphinx = "1.8"
 # The encoding of source files.
 source_encoding = "utf-8-sig"
-main_doc = "index"
+root_doc = "index"
 
 # General information about the project
 year = datetime.date.today().year
