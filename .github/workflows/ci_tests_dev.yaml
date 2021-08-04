@@ -4,7 +4,7 @@ name: GMT Dev Tests
 
 on:
   # push:
-  #   branches: [ master ]
+  #   branches: [ main ]
   pull_request:
     types: [ready_for_review]
     paths-ignore:
@@ -23,7 +23,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  test_gmt_master:
+  test_gmt_dev:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}
     runs-on: ${{ matrix.os }}
     strategy:
