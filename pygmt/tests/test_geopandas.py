@@ -3,7 +3,8 @@ Tests on integration with geopandas.
 """
 import numpy.testing as npt
 import pytest
-from pygmt import Figure, info
+from pygmt import Figure
+from pygmt import info
 
 gpd = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
