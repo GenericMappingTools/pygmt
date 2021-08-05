@@ -218,59 +218,50 @@ Other Python wrappers for GMT:
 Compatibility with GMT/Python/NumPy versions
 --------------------------------------------
 .. list-table::
-    :widths: 15 25 30 15 20 15
+    :widths: 25 30 15 20 15
     :header-rows: 1
 
-    * - PyGMT
-      - GitHub Release
+    * - PyGMT Version
       - Documentation
       - GMT
       - Python
       - Numpy
-    * - v0.4.0
-      - `v0.4.0 Release <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
+    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
       - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
       - >=6.2.0
       - >=3.7
       - >=1.17.0
-    * - v0.3.1
-      - `v0.3.1 Release <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1>`_
+    * - `v0.3.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1>`_
       - `v0.3.1 Documentation <https://www.pygmt.org/v0.3.1>`_
       - >=6.1.1
       - >=3.7
       -
-    * - v0.3.0
-      - `v0.3.0 Release <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0>`_
+    * - `v0.3.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0>`_
       - `v0.3.0 Documentation <https://www.pygmt.org/v0.3.0>`_
       - >=6.1.1
       - >=3.7
       -
-    * - v0.2.1
-      - `v0.2.1 Release <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1>`_
+    * - `v0.2.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1>`_
       - `v0.2.1 Documentation <https://www.pygmt.org/v0.2.1>`_
       - >=6.1.1
       - >=3.6
       -
-    * - v0.2.0
-      - `v0.2.0 Release <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0>`_
+    * - `v0.2.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0>`_
       - `v0.2.0 Documentation <https://www.pygmt.org/v0.2.0>`_
       - >=6.1.1
       - 3.6 - 3.8
       -
-    * - v0.1.2
-      - `v0.1.2 Release <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2>`_
+    * - `v0.1.2 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2>`_
       - `v0.1.2 Documentation <https://www.pygmt.org/v0.1.2>`_
       - >=6.0.0
       - 3.6 - 3.8
       -
-    * - v0.1.1
-      - `v0.1.1 Release <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1>`_
+    * - `v0.1.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1>`_
       - `v0.1.1 Documentation <https://www.pygmt.org/v0.1.1>`_
       - >=6.0.0
       - 3.6 - 3.8
       -
-    * - v0.1.0
-      - `v0.1.0 Release <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0>`_
+    * - `v0.1.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0>`_
       - `v0.1.0 Documentation <https://www.pygmt.org/v0.1.0>`_
       - >=6.0.0
       - 3.6 - 3.8
