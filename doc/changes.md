@@ -7,6 +7,7 @@
 ### Highlights
 
 * 🎉 **Patch release with multiple gallery examples** 🎉
+* Add development toctree and [PyGMT team page](https://www.pygmt.org/latest/team.html) ([#1308](https://github.com/GenericMappingTools/pygmt/pull/1308))
 
 ### Enhancements
 
@@ -25,7 +26,6 @@
 * A gallery example for the contour method ([#1387](https://github.com/GenericMappingTools/pygmt/pull/1387))
 * Add common option aliases to COMMON_OPTIONS in decorators.py ([#1407](https://github.com/GenericMappingTools/pygmt/pull/1407))
 * Add return statement to grdclip and grdgradient docstring ([#1390](https://github.com/GenericMappingTools/pygmt/pull/1390))
-* Add development toctree and PyGMT team page ([#1308](https://github.com/GenericMappingTools/pygmt/pull/1308))
 * Restructure contributing.md to separate docs/general info from contributing code section ([#1339](https://github.com/GenericMappingTools/pygmt/pull/1339))
 
 ### Maintenance
