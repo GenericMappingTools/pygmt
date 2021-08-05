@@ -215,31 +215,17 @@ Other Python wrappers for GMT:
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
 
 
-Documentation for other versions
---------------------------------
+Compatibility with GMT/Python/NumPy versions
+--------------------------------------------
+.. table::
+    :widths: 30 30 30 30
 
-* `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
-  GitHub)
-* `Latest release <https://www.pygmt.org/latest>`__
-* `v0.4.0 <https://www.pygmt.org/v0.4.0>`__
-* `v0.3.1 <https://www.pygmt.org/v0.3.1>`__
-* `v0.3.0 <https://www.pygmt.org/v0.3.0>`__
-* `v0.2.1 <https://www.pygmt.org/v0.2.1>`__
-* `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
-* `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
-* `v0.1.1 <https://www.pygmt.org/v0.1.1>`__
-* `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
-* `v0.0.1a0 <https://www.pygmt.org/0.0.1a0>`__
-
-Compatibility with GMT and Python/NumPy versions
-------------------------------------------------
-
-======= ========== ========= =========
-PyGMT   GMT        Python    NumPy
-======= ========== ========= =========
-0.4.x   >=6.2.0    >=3.7     >=1.17.0
-0.3.x   >=6.1.1    >=3.7
-0.2.1   >=6.1.1    >=3.6
-0.2.0   >=6.1.1    3.6 - 3.8
-0.1.x   >=6.0.0    3.6 - 3.8
-======= ========== ========= =========
+    ========================================== ========== ========= =========
+    PyGMT                                      GMT        Python    NumPy
+    ========================================== ========== ========= =========
+    `v0.4.x <https://www.pygmt.org/v0.4.0>`_   >=6.2.0    >=3.7     >=1.17.0
+    `v0.3.x <https://www.pygmt.org/v0.3.1>`_   >=6.1.1    >=3.7
+    `v0.2.1 <https://www.pygmt.org/v0.2.1>`_   >=6.1.1    >=3.6
+    `v0.2.0 <https://www.pygmt.org/v0.2.0>`_   >=6.1.1    3.6 - 3.8
+    `v0.1.x <https://www.pygmt.org/v0.1.2>`_   >=6.0.0    3.6 - 3.8
+    ========================================== ========== ========= =========
