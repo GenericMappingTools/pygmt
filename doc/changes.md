@@ -7,6 +7,7 @@
 ### Highlights
 
 * 🎉 **Patch release with multiple gallery examples** 🎉
+* Change references from "master" branch to "main" branch ([#1360](https://github.com/GenericMappingTools/pygmt/pull/1360))
 * Add development toctree and [PyGMT team page](https://www.pygmt.org/latest/team.html) ([#1308](https://github.com/GenericMappingTools/pygmt/pull/1308))
 
 ### Enhancements
@@ -31,7 +32,6 @@
 ### Maintenance
 
 * Add tomli as a dependency in GMT Dev Tests ([#1401](https://github.com/GenericMappingTools/pygmt/pull/1401))
-* Change references from "master" branch to "main" branch ([#1360](https://github.com/GenericMappingTools/pygmt/pull/1360))
 * NEP29: Test PyGMT on NumPy 1.21 ([#1355](https://github.com/GenericMappingTools/pygmt/pull/1355))
 
 ### Contributors
