@@ -16,7 +16,7 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
-.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
+.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/main.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
@@ -110,14 +110,14 @@ Code of conduct
 +++++++++++++++
 
 Please note that this project is released with a `Contributor Code of Conduct
-<https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
+<https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md>`__.
 By participating in this project you agree to abide by its terms.
 
 Contributing Guidelines
 +++++++++++++++++++++++
 
 Please read our `Contributing Guide
-<https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md>`__ to
+<https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md>`__ to
 see how you can help and give feedback.
 
 Imposter syndrome disclaimer
@@ -148,7 +148,7 @@ Citing PyGMT
 ------------
 
 PyGMT is a community developed project. See the
-`AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
+`AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md>`__
 file on GitHub for a list of the people involved and a definition of the term "PyGMT
 Developers". Feel free to cite our work in your research using the following BibTeX:
 
@@ -190,7 +190,7 @@ License
 
 PyGMT is free software: you can redistribute it and/or modify it under the terms of
 the **BSD 3-clause License**. A copy of this license is provided in
-`LICENSE.txt <https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt>`__.
+`LICENSE.txt <https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt>`__.
 
 
 Support
