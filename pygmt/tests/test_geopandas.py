@@ -3,8 +3,7 @@ Tests on integration with geopandas.
 """
 import numpy.testing as npt
 import pytest
-from pygmt import Figure
-from pygmt import info
+from pygmt import Figure, info
 
 gpd = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
@@ -70,7 +69,8 @@ def test_geopandas_info_shapely(gdf, geomtype, desired):
 @pytest.mark.mpl_image_compare
 def test_geopandas_plot_default_square():
     """
-    Check the default behavior of plotting geopandas DataFrame with Point geometry in 2d
+    Check the default behavior of plotting geopandas DataFrame with Point
+    geometry in 2d.
     """
     point = shapely.geometry.Point(5, 5)
     gdf = gpd.GeoDataFrame(dict(geometry=[point]))
@@ -82,7 +82,8 @@ def test_geopandas_plot_default_square():
 @pytest.mark.mpl_image_compare
 def test_geopandas_plot3d_default_cube():
     """
-    Check the default behavior of plotting geopandas DataFrame with MultiPoint geometry in 3d
+    Check the default behavior of plotting geopandas DataFrame with MultiPoint
+    geometry in 3d.
     """
     mp = shapely.geometry.MultiPoint([(5, 5, 5), (2, 2, 2)])
     gdf = gpd.GeoDataFrame(dict(geometry=[mp]))
