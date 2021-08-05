@@ -49,7 +49,7 @@ def xyz2grd(table, **kwargs):
         in.
     {I}
     {R}
-    {v}
+    {V}
     Returns
     -------
     ret: xarray.DataArray or None
