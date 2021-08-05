@@ -266,3 +266,6 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.0.0
       - 3.6 - 3.8
       -
+
+The unstable development documentation, which reflects the `main branch <https://github.com/GenericMappingTools/pygmt>`_
+on GitHub, can be found at https://www.pygmt.org/dev/.
