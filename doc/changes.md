@@ -1,5 +1,54 @@
 # Changelog
 
+## Release v0.4.1 (2021/08/07)
+
+[![Digital Object Identifier for PyGMT v0.4.1](https://zenodo.org/badge/DOI/10.5281/zenodo.5162003.svg)](https://doi.org/10.5281/zenodo.5162003)
+
+### Highlights
+
+* 🎉 **Patch release with multiple gallery examples** 🎉
+
+### Enhancements
+
+* Add common alias "verbose" (V) to grdlandmask and savefig ([#1343](https://github.com/GenericMappingTools/pygmt/pull/1343))
+
+### Bug Fixes
+
+* Change invalid input conditions in grdtrack ([#1376](https://github.com/GenericMappingTools/pygmt/pull/1376))
+* Fix bug so that x2sys_cross accepts dataframes with NaN values ([#1369](https://github.com/GenericMappingTools/pygmt/pull/1369))
+
+### Documentation
+
+* Add gallery example for grdclip ([#1396](https://github.com/GenericMappingTools/pygmt/pull/1396))
+* Add a gallery example for different colormaps in subplots ([#1394](https://github.com/GenericMappingTools/pygmt/pull/1394))
+* Add a gallery example showing individual custom symbols ([#1348](https://github.com/GenericMappingTools/pygmt/pull/1348))
+* A gallery example for the contour method ([#1387](https://github.com/GenericMappingTools/pygmt/pull/1387))
+* Add common option aliases to COMMON_OPTIONS in decorators.py ([#1407](https://github.com/GenericMappingTools/pygmt/pull/1407))
+* Add return statement to grdclip and grdgradient docstring ([#1390](https://github.com/GenericMappingTools/pygmt/pull/1390))
+* Add development toctree and PyGMT team page ([#1308](https://github.com/GenericMappingTools/pygmt/pull/1308))
+* Restructure contributing.md to separate docs/general info from contributing code section ([#1339](https://github.com/GenericMappingTools/pygmt/pull/1339))
+
+### Maintenance
+
+* Add tomli as a dependency in GMT Dev Tests ([#1401](https://github.com/GenericMappingTools/pygmt/pull/1401))
+* Change references from "master" branch to "main" branch ([#1360](https://github.com/GenericMappingTools/pygmt/pull/1360))
+* NEP29: Test PyGMT on NumPy 1.21 ([#1355](https://github.com/GenericMappingTools/pygmt/pull/1355))
+
+### Contributors
+
+* [Meghan Jones](https://github.com/meghanrjones)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Dongdong Tian](https://github.com/seisman)
+* [Kadatatlu Kishore](https://github.com/kadatatlukishore)
+* [Michael Grund](https://github.com/michaelgrund)
+* [@sean0921](https://github.com/sean0921)
+* [Soham Banerjee](https://github.com/soham4abc)
+* [Jiayuan Yao](https://github.com/core-man)
+* [@yohaimagen](https://github.com/yohaimagen)
+
+----
+
 ## Release v0.4.0 (2021/06/20)
 
 [![Digital Object Identifier for PyGMT v0.4.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4978645.svg)](https://doi.org/10.5281/zenodo.4978645)
