@@ -6,7 +6,7 @@ on:
   # push:
   #   branches: [ main ]
   pull_request:
-    types: [synchronize, ready_for_review]
+    types: [ready_for_review]
     paths-ignore:
       - 'doc/**'
       - 'examples/**'
@@ -85,11 +85,9 @@ jobs:
         run: |
           conda install ninja cmake libblas libcblas liblapack fftw gdal geopandas \
                         ghostscript libnetcdf hdf5 zlib curl pcre make dvc
-          pip install --verbose --pre numpy pandas xarray netCDF4 packaging \
+          pip install --pre numpy pandas xarray netCDF4 packaging \
                             ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery \
                             tomli
-          conda list
-          pip list
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
