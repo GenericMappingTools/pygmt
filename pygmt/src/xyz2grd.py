@@ -164,8 +164,6 @@ def xyz2grd(table, **kwargs):
     - xarray.DataArray if *outgrid* is not set
     - None if *outgrid* is set (grid output will be stored in *outgrid*)
     """
-    kind = data_kind(table)
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
