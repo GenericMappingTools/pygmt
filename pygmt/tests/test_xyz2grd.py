@@ -3,7 +3,7 @@ Tests for xyz2grd.
 """
 import pytest
 import xarray as xr
-from pygmt import xyz2grd
+from pygmt import xyz2grd, grdinfo
 from pygmt.datasets import load_sample_bathymetry
 import numpy as np
 
