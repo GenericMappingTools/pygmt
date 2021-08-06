@@ -45,7 +45,7 @@
 * [Michael Grund](https://github.com/michaelgrund)
 * [@sean0921](https://github.com/sean0921)
 * [Soham Banerjee](https://github.com/soham4abc)
-* [@yohaimagen](https://github.com/yohaimagen)
+* [Yohai Magen](https://github.com/yohaimagen)
 
 ----
 
