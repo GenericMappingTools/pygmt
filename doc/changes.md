@@ -8,7 +8,7 @@
 
 * 🎉 **Patch release with multiple gallery examples** 🎉
 * Change the default branch name from "master" to "main" to increase inclusivity ([#1360](https://github.com/GenericMappingTools/pygmt/pull/1360))
-* Add a ["PyGMT Team"](https://www.pygmt.org/latest/team.html) page ([#1308](https://github.com/GenericMappingTools/pygmt/pull/1308))
+* Add a "[PyGMT Team](https://www.pygmt.org/latest/team.html)" page ([#1308](https://github.com/GenericMappingTools/pygmt/pull/1308))
 
 ### Enhancements
 
