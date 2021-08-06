@@ -72,10 +72,10 @@ def test_geopandas_plot_default_square():
     Check the default behavior of plotting geopandas DataFrame with Point
     geometry in 2d.
     """
-    point = shapely.geometry.Point(5, 5)
-    gdf = gpd.GeoDataFrame(dict(geometry=[point]))
+    point = shapely.geometry.Point(1, 2)
+    gdf = gpd.GeoDataFrame(geometry=[point])
     fig = Figure()
-    fig.plot(data=gdf, region=[0, 10, 0, 10], projection="X10", frame=True)
+    fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True)
     return fig
 
 
