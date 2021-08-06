@@ -85,19 +85,15 @@ def test_geopandas_plot3d_default_cube():
     Check the default behavior of plotting geopandas DataFrame with MultiPoint
     geometry in 3d.
     """
-    mp = shapely.geometry.MultiPoint([(5, 5, 5), (2, 2, 2)])
-    gdf = gpd.GeoDataFrame(dict(geometry=[mp]))
+    multipoint = shapely.geometry.MultiPoint([(0.5, 0.5, 0.5), (1.5, 1.5, 1.5)])
+    gdf = gpd.GeoDataFrame(geometry=[multipoint])
     fig = Figure()
     fig.plot3d(
         data=gdf,
         perspective=[315, 25],
-        region=[0, 10, 0, 10, 0, 10],
-        frame=[
-            "wsnez3",
-            "xafg",
-            "yafg",
-            "zafg",
-        ],
+        region=[0, 2, 0, 2, 0, 2],
+        projection="X2c",
+        frame=["WsNeZ1", "xag", "yag", "zag"],
         zscale=1.5,
     )
     return fig
