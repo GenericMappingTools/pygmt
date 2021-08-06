@@ -218,7 +218,7 @@ Other Python wrappers for GMT:
 Documentation for other versions
 --------------------------------
 
-* `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
+* `Development <https://www.pygmt.org/dev>`__ (reflects the *main* branch on
   GitHub)
 * `Latest release <https://www.pygmt.org/latest>`__
 * `v0.4.1 <https://www.pygmt.org/v0.4.1>`__
