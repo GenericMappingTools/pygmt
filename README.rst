@@ -217,6 +217,7 @@ Other Python wrappers for GMT:
 
 Compatibility with GMT/Python/NumPy versions
 --------------------------------------------
+
 .. list-table::
     :widths: 25 30 15 20 15
     :header-rows: 1
@@ -226,7 +227,7 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - Numpy
-    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
+    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_ (latest release)
       - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
       - >=6.2.0
       - >=3.7
