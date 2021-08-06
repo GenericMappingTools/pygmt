@@ -7,8 +7,8 @@
 ### Highlights
 
 * 🎉 **Patch release with multiple gallery examples** 🎉
-* Change references from "master" branch to "main" branch ([#1360](https://github.com/GenericMappingTools/pygmt/pull/1360))
-* Add development toctree and [PyGMT team page](https://www.pygmt.org/latest/team.html) ([#1308](https://github.com/GenericMappingTools/pygmt/pull/1308))
+* Change the default branch name from "master" to "main" to increase inclusivity ([#1360](https://github.com/GenericMappingTools/pygmt/pull/1360))
+* Add a ["PyGMT Team"](https://www.pygmt.org/latest/team.html) page ([#1308](https://github.com/GenericMappingTools/pygmt/pull/1308))
 
 ### Enhancements
 
