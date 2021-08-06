@@ -23,8 +23,8 @@
 
 * Add a gallery example for grdclip ([#1396](https://github.com/GenericMappingTools/pygmt/pull/1396))
 * Add a gallery example for different colormaps in subplots ([#1394](https://github.com/GenericMappingTools/pygmt/pull/1394))
-* Add a gallery example showing individual custom symbols ([#1348](https://github.com/GenericMappingTools/pygmt/pull/1348))
 * Add a gallery example for the contour method ([#1387](https://github.com/GenericMappingTools/pygmt/pull/1387))
+* Add a gallery example showing individual custom symbols ([#1348](https://github.com/GenericMappingTools/pygmt/pull/1348))
 * Add common option aliases to COMMON_OPTIONS in decorators.py ([#1407](https://github.com/GenericMappingTools/pygmt/pull/1407))
 * Add return statement to grdclip and grdgradient docstring ([#1390](https://github.com/GenericMappingTools/pygmt/pull/1390))
 * Restructure contributing.md to separate docs/general info from contributing code section ([#1339](https://github.com/GenericMappingTools/pygmt/pull/1339))
