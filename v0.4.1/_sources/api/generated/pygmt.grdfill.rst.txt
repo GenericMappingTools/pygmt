@@ -1,0 +1,12 @@
+pygmt.grdfill
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdfill
+
+.. include:: backreferences/pygmt.grdfill.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

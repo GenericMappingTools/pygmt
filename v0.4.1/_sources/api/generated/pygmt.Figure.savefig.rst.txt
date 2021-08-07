@@ -1,0 +1,12 @@
+pygmt.Figure.savefig
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.savefig
+
+.. include:: backreferences/pygmt.Figure.savefig.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>
