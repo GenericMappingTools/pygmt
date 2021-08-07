@@ -5,36 +5,36 @@
 
 Computation times
 =================
-**02:13.287** total execution time for **tutorials** files:
+**01:44.229** total execution time for **tutorials** files:
 
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_regions.py` (``regions.py``)                           | 00:17.080 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_regions.py` (``regions.py``)                           | 00:13.475 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_vectors.py` (``vectors.py``)                           | 00:15.542 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_vectors.py` (``vectors.py``)                           | 00:12.176 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_text.py` (``text.py``)                                 | 00:13.486 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_text.py` (``text.py``)                                 | 00:10.554 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_frames.py` (``frames.py``)                             | 00:11.903 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_frames.py` (``frames.py``)                             | 00:09.169 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_date_time_charts.py` (``date_time_charts.py``)         | 00:10.695 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_date_time_charts.py` (``date_time_charts.py``)         | 00:08.336 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_subplots.py` (``subplots.py``)                         | 00:08.447 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_subplots.py` (``subplots.py``)                         | 00:06.462 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_coastlines.py` (``coastlines.py``)                     | 00:08.256 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_coastlines.py` (``coastlines.py``)                     | 00:06.444 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_contour_map.py` (``contour_map.py``)                   | 00:07.702 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_earth_relief.py` (``earth_relief.py``)                 | 00:06.055 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_earth_relief.py` (``earth_relief.py``)                 | 00:07.693 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_contour_map.py` (``contour_map.py``)                   | 00:06.020 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_lines.py` (``lines.py``)                               | 00:07.355 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_lines.py` (``lines.py``)                               | 00:05.839 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_3d_perspective_image.py` (``3d_perspective_image.py``) | 00:06.061 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_insets.py` (``insets.py``)                             | 00:04.730 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_insets.py` (``insets.py``)                             | 00:06.050 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_3d_perspective_image.py` (``3d_perspective_image.py``) | 00:04.689 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_plot.py` (``plot.py``)                                 | 00:05.426 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_plot.py` (``plot.py``)                                 | 00:04.344 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_configuration.py` (``configuration.py``)               | 00:04.932 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_configuration.py` (``configuration.py``)               | 00:03.840 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_first_figure.py` (``first_figure.py``)                 | 00:02.658 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_first_figure.py` (``first_figure.py``)                 | 00:02.095 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+

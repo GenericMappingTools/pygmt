@@ -5,10 +5,14 @@
 
 Computation times
 =================
-**00:03.771** total execution time for **gallery_images** files:
+**00:05.946** total execution time for **gallery_images** files:
 
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_track_sampling.py` (``track_sampling.py``) | 00:02.454 | 0.0 MB |
+| :ref:`sphx_glr_gallery_images_grdclip.py` (``grdclip.py``)               | 00:02.000 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_image.py` (``image.py``)                   | 00:01.317 | 0.0 MB |
+| :ref:`sphx_glr_gallery_images_track_sampling.py` (``track_sampling.py``) | 00:01.922 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_images_image.py` (``image.py``)                   | 00:01.102 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_images_contours.py` (``contours.py``)             | 00:00.920 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+

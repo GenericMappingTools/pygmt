@@ -91,7 +91,7 @@ The :meth:`pygmt.Figure.rose` method can plot windrose diagrams or polar histogr
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.056 seconds)
+   **Total running time of the script:** ( 0 minutes  0.843 seconds)
 
 
 .. _sphx_glr_download_gallery_histograms_rose.py:

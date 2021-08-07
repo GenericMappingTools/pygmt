@@ -116,18 +116,18 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Examples</span></p>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
@@ -145,10 +145,14 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials/subplots.html">Making subplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Reference documentation</span></p>
-<ul class="current">
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="team.html">Team Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Maintainers Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#onboarding-access-checklist">Onboarding Access Checklist</a></li>
@@ -180,9 +184,9 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
                 <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
             
@@ -242,7 +246,7 @@
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/master/doc/maintenance.md"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/maintenance.md"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -261,7 +265,7 @@
 <p>This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.</p>
 <p>If you want to make a contribution to the project, see the
-<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md">Contributing Guide</a>
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md">Contributing Guide</a>
 instead.</p>
 <div class="section" id="onboarding-access-checklist">
 <h2>Onboarding Access Checklist<a class="headerlink" href="#onboarding-access-checklist" title="Permalink to this headline">¶</a></h2>
@@ -277,9 +281,9 @@ instead.</p>
 <div class="section" id="branches">
 <h2>Branches<a class="headerlink" href="#branches" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><em>master</em>: Always tested and ready to become a new version. Don’t push directly to this
+<li><p><em>main</em>: Always tested and ready to become a new version. Don’t push directly to this
 branch. Make a new branch and submit a pull request instead.</p></li>
-<li><p><em>gh-pages</em>: Holds the HTML documentation and is served by GitHub. Pages for the master
+<li><p><em>gh-pages</em>: Holds the HTML documentation and is served by GitHub. Pages for the main
 branch are in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> folder. Pages for each release are in their own folders.
 <strong>Automatically updated by GitHub Actions</strong> so you shouldn’t have to make commits here.</p></li>
 </ul>
@@ -318,7 +322,7 @@ This means that all commits will be collapsed into one.
 The main advantages of this are:</p>
 <ul class="simple">
 <li><p>Eliminates experimental commits or commits to undo previous changes.</p></li>
-<li><p>Makes sure every commit on master passes the tests and has a defined purpose.</p></li>
+<li><p>Makes sure every commit on the main branch passes the tests and has a defined purpose.</p></li>
 <li><p>The maintainer writes the final commit message, so we can make sure it’s good and
 descriptive.</p></li>
 </ul>
@@ -332,12 +336,12 @@ conda and the <code class="docutils literal notranslate"><span class="pre">Makef
 <p>There are 11 configuration files located in <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code>:</p>
 <ol>
 <li><p><code class="docutils literal notranslate"><span class="pre">style_checks.yaml</span></code> (Code lint and style checks)</p>
-<p>This is run on every commit to the <em>master</em> and Pull Request branches.
-It is also scheduled to run daily on the <em>master</em> branch.</p>
+<p>This is run on every commit to the <em>main</em> and Pull Request branches.
+It is also scheduled to run daily on the <em>main</em> branch.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_tests.yaml</span></code> (Tests on Linux/macOS/Windows)</p>
-<p>This is run on every commit to the <em>master</em> and Pull Request branches.
-It is also scheduled to run daily on the <em>master</em> branch.
+<p>This is run on every commit to the <em>main</em> and Pull Request branches.
+It is also scheduled to run daily on the <em>main</em> branch.
 In draft Pull Requests, only two jobs on Linux are triggered to save on
 Continuous Integration resources:</p>
 <ul class="simple">
@@ -347,21 +351,21 @@ Python/NumPy versions</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_docs.yml</span></code> (Build documentation on Linux/macOS/Windows)</p>
-<p>This is run on every commit to the <em>master</em> and Pull Request branches.
+<p>This is run on every commit to the <em>main</em> and Pull Request branches.
 In draft Pull Requests, only the job on Linux is triggered to save on
 Continuous Integration resources.</p>
-<p>On the <em>master</em> branch, the workflow also handles the documentation
+<p>On the <em>main</em> branch, the workflow also handles the documentation
 deployment:</p>
 <ul class="simple">
 <li><p>Updating the development documentation by pushing the built HTML pages
-from the <em>master</em> branch onto the <code class="docutils literal notranslate"><span class="pre">dev</span></code> folder of the <em>gh-pages</em> branch.</p></li>
+from the <em>main</em> branch onto the <code class="docutils literal notranslate"><span class="pre">dev</span></code> folder of the <em>gh-pages</em> branch.</p></li>
 <li><p>Updating the <code class="docutils literal notranslate"><span class="pre">latest</span></code> documentation link to the new release.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_dev.yaml</span></code> (GMT Dev Tests on Linux/macOS/Windows).</p>
 <p>This is triggered when a PR is marked as “ready for review”, or using the
 slash command <code class="docutils literal notranslate"><span class="pre">/test-gmt-dev</span></code>. It is also scheduled to run daily on the
-<em>master</em> branch.</p>
+<em>main</em> branch.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code> (Caches GMT remote data files needed for GitHub Actions CI)</p>
 <p>This is scheduled to run every Sunday at 12:00 (UTC).
@@ -370,12 +374,12 @@ the ‘pull_request:’ line in that <code class="docutils literal notranslate">
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">publish-to-pypi.yml</span></code> (Publish wheels to PyPI and TestPyPI)</p>
 <p>This workflow is run to publish wheels to PyPI and TestPyPI (for testing only).
-Archives will be pushed to TestPyPI on every commit to the <em>master</em> branch
+Archives will be pushed to TestPyPI on every commit to the <em>main</em> branch
 and tagged releases, and to PyPI for tagged releases only.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">release-drafter.yml</span></code> (Drafts the next release notes)</p>
 <p>This workflow is run to update the next releases notes as pull requests are
-merged into master.</p>
+merged into the main branch.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">check-links.yml</span></code> (Check links in the repository and website)</p>
 <p>This workflow is run weekly to check all external links in plaintext and
@@ -421,7 +425,7 @@ adjusted upward on every major and minor release, but never on a patch release.<
 </div>
 <div class="section" id="backwards-compatibility-and-deprecation-policy">
 <h2>Backwards compatibility and deprecation policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Permalink to this headline">¶</a></h2>
-<p>PyGMT is still undergoing rapid developement. All of the API is subject to change
+<p>PyGMT is still undergoing rapid development. All of the API is subject to change
 until the v1.0.0 release.</p>
 <p>Basic policy for backwards compatibility:</p>
 <ul class="simple">
@@ -467,7 +471,7 @@ There are a few steps that still must be done manually, though.</p>
 <h3>Updating the changelog<a class="headerlink" href="#updating-the-changelog" title="Permalink to this headline">¶</a></h3>
 <p>The Release Drafter GitHub Action will automatically keep a draft changelog at
 https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
-every time a Pull Request (with a proper label) is merged into the master branch.
+every time a Pull Request (with a proper label) is merged into the main branch.
 This release drafter tool has two configuration files, one for the GitHub Action
 at .github/workflows/release-drafter.yml, and one for the changelog template
 at .github/release-drafter.yml. Configuration settings can be found at
@@ -490,13 +494,21 @@ inside the badge url.</p>
 the updated release notes, so that other people can help to review and
 collaborate on the changelog curation process described next.</p></li>
 <li><p>Edit the change list to remove any trivial changes (updates to the README,
-typo fixes, CI configuration, etc).</p></li>
+typo fixes, CI configuration, test updates due to GMT releases, etc).</p></li>
+<li><p>Sort the items within each section (i.e., New Features, Enhancements, etc.)
+such that similar items are located near each other (e.g., new wrapped
+modules, gallery examples, API docs changes) and entries within each group
+are alphabetical.</p></li>
+<li><p>Move a few important items from the main sections to the highlights section.</p></li>
 <li><p>Edit the list of people who contributed to the release, linking to their
 GitHub account. Sort their names by the number of commits made since the
-last release (e.g., use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">HEAD...v0.1.2</span> <span class="pre">-sne</span></code>).</p></li>
+last release (e.g., use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">HEAD...v0.4.0</span> <span class="pre">-sne</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> with new information on the new release version, namely
 the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
-Python and GMT versions.</p></li>
+Python and GMT versions. Follow
+<a class="reference external" href="https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description">NEP 29</a>
+for compatibility updates. Follow <code class="docutils literal notranslate"><span class="pre">AUTHORSHIP.md</span></code> guidelines for updating
+the author list in the BibTeX citation.</p></li>
 </ol>
 </div>
 <div class="section" id="check-the-readme-syntax">
@@ -538,7 +550,7 @@ you haven’t already. If you have a fork, update it.</p></li>
 from the PyPI “Download files” section.</p></li>
 <li><p>Add or remove any new dependencies (most are probably only <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies).</p></li>
 <li><p>Make a new branch, commit, and push the changes <strong>to your personal fork</strong>.</p></li>
-<li><p>Create a PR against the original feedstock master.</p></li>
+<li><p>Create a PR against the original feedstock main.</p></li>
 <li><p>Once the CI tests pass, merge the PR or ask a maintainer to do so.</p></li>
 </ol>
 </div>
@@ -562,10 +574,10 @@ from the PyPI “Download files” section.</p></li>
         &#169; Copyright 2017-2021, The PyGMT Developers.
       <span class="commit">
         
-        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b2808cf">b2808cf</a></code>.
+        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/31980e8">31980e8</a></code>.
       </span>
       <span class="lastupdated">
-        Last updated on Jun 20, 2021.
+        Last updated on Aug 07, 2021.
       </span>
 
     </p>

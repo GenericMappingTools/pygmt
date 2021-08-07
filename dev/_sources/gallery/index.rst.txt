@@ -283,6 +283,27 @@ Symbols and markers
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual custom symbols by passing the corresponding sy...">
+
+.. only:: html
+
+ .. figure:: /gallery/symbols/images/thumb/sphx_glr_custom_symbols_thumb.png
+     :alt: Custom symbols
+
+     :ref:`sphx_glr_gallery_symbols_custom_symbols.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/symbols/custom_symbols
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Datetime inputs of the following types are supported in PyGMT:">
 
 .. only:: html
@@ -397,6 +418,48 @@ Images, contours, and fields
 ----------------------------
 
 
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values">
+
+.. only:: html
+
+ .. figure:: /gallery/images/images/thumb/sphx_glr_grdclip_thumb.png
+     :alt: Clipping grid values
+
+     :ref:`sphx_glr_gallery_images_grdclip.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/images/grdclip
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="#. x, y, z 1d numpy.ndarray data columns. #. data 2d numpy.ndarray data matrix with 3 columns c...">
+
+.. only:: html
+
+ .. figure:: /gallery/images/images/thumb/sphx_glr_contours_thumb.png
+     :alt: Contours
+
+     :ref:`sphx_glr_gallery_images_contours.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/images/contours
 
 .. raw:: html
 
@@ -670,7 +733,7 @@ Plot embellishments
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nightime. Th...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. T...">
 
 .. only:: html
 
@@ -772,6 +835,27 @@ Plot embellishments
    :hidden:
 
    /gallery/embellishments/logo
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps">
+
+.. only:: html
+
+ .. figure:: /gallery/embellishments/images/thumb/sphx_glr_colorbars_multiple_thumb.png
+     :alt: Multiple colormaps
+
+     :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/embellishments/colorbars_multiple
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
