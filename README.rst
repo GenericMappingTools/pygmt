@@ -154,7 +154,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2021_4978645,
+    @software{pygmt_2021_5162003,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
@@ -167,14 +167,15 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
+                      Magen, Yohai and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = jun,
+      month        = aug,
       year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.4.0},
-      doi          = {10.5281/zenodo.4978645},
-      url          = {https://doi.org/10.5281/zenodo.4978645}
+      version      = {v0.4.1},
+      doi          = {10.5281/zenodo.5162003},
+      url          = {https://doi.org/10.5281/zenodo.5162003}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -227,7 +228,12 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - Numpy
-    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_ (latest release)
+    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_ (latest release)
+      - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
+      - >=6.2.0
+      - >=3.7
+      - >=1.17.0
+    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
       - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
       - >=6.2.0
       - >=3.7
