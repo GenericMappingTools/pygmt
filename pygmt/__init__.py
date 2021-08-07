@@ -43,6 +43,7 @@ from pygmt.src import (
     grdtrack,
     info,
     makecpt,
+    sphinterpolate,
     surface,
     which,
     x2sys_cross,
