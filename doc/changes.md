@@ -38,14 +38,14 @@
 
 * [Meghan Jones](https://github.com/meghanrjones)
 * [Will Schlitzer](https://github.com/willschlitzer)
+* [Michael Grund](https://github.com/michaelgrund)
 * [Wei Ji Leong](https://github.com/weiji14)
+* [Yohai Magen](https://github.com/yohaimagen)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Dongdong Tian](https://github.com/seisman)
 * [Kadatatlu Kishore](https://github.com/kadatatlukishore)
-* [Michael Grund](https://github.com/michaelgrund)
 * [@sean0921](https://github.com/sean0921)
 * [Soham Banerjee](https://github.com/soham4abc)
-* [Yohai Magen](https://github.com/yohaimagen)
 
 ----
 
