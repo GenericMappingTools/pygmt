@@ -21,7 +21,7 @@
 
 ### Documentation
 
-* Combine documentation and compatibility sections in README.rst (([#1415](https://github.com/GenericMappingTools/pygmt/pull/1415))
+* Combine documentation and compatibility sections in README.rst ([#1415](https://github.com/GenericMappingTools/pygmt/pull/1415))
 * Add a gallery example for grdclip ([#1396](https://github.com/GenericMappingTools/pygmt/pull/1396))
 * Add a gallery example for different colormaps in subplots ([#1394](https://github.com/GenericMappingTools/pygmt/pull/1394))
 * Add a gallery example for the contour method ([#1387](https://github.com/GenericMappingTools/pygmt/pull/1387))
