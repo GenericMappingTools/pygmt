@@ -66,5 +66,4 @@ def test_xyz2grd_input_array_file_out(ship_data):
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)
         result = grdinfo(tmpfile.name, per_column=True).strip()
-        print(result)
         assert result == "245 255 20 30 -3651.06079102 -352.379486084 5 5 3 3 0 0"
