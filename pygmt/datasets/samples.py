@@ -123,3 +123,22 @@ def load_fractures_compilation():
     fname = which("@fractures_06.txt", download="c")
     data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
     return data[["length", "azimuth"]]
+
+
+def load_mars_relief():
+    """
+    This is the ``@mars370d.txt`` dataset used in the GMT tutorials.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table. Use ``print(data.describe())`` to see the available
+        columns.
+    """
+    fname = which("@mars370d.txt", download="c")
+    data = pd.read_csv(fname, sep=r"\t", header=None, names=["x", "y", "z"])
+    return data
