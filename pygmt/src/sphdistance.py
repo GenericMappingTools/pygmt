@@ -21,6 +21,7 @@ from pygmt.helpers import (
     G="outgrid",
     I="increment",
     R="region",
+    V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(table, **kwargs):
@@ -41,6 +42,7 @@ def sphdistance(table, **kwargs):
         in.
     {I}
     {R}
+    {V}
 
     Returns
     -------
