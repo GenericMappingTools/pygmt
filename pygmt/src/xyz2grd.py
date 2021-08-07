@@ -27,10 +27,7 @@ def xyz2grd(table, **kwargs):
     xyz2grd reads one or more z or xyz tables and creates a binary grid file.
     xyz2grd will report if some of the nodes are not filled in with data. Such
     unconstrained nodes are set to a value specified by the user [Default is
-    NaN]. Nodes with more than one value will be set to the mean value. As an
-    option (using -Z), a 1-column z-table may be read assuming all nodes are
-    present (z-tables can be in organized in a number of formats, see -Z
-    below.)
+    NaN]. Nodes with more than one value will be set to the mean value.
 
     Full option list at :gmt-docs:`xyz2grd.html`
 
