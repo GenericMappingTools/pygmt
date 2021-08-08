@@ -3,7 +3,6 @@ Tests for sphinterpolate.
 """
 import os
 
-import numpy as np
 import numpy.testing as npt
 from pygmt import grdinfo, sphinterpolate
 from pygmt.helpers import GMTTempFile
