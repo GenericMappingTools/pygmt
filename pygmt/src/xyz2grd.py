@@ -47,11 +47,11 @@ def xyz2grd(table, **kwargs):
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the ``outfile`` parameter is set:
+        Return type depends on whether the ``outgrid`` parameter is set:
 
-        - :class:`xarray.DataArray`: if ``outfile`` is not set
-        - None if ``outfile`` is set (grid output will be stored in file set by
-          ``outfile``)```
+        - :class:`xarray.DataArray`: if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)```
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
