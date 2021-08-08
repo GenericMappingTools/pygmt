@@ -164,8 +164,7 @@ def plot3d(
     {c}
     {f}
     {i}
-    label : str
-        Add a legend entry for the symbol or line being plotted.
+    {l}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
