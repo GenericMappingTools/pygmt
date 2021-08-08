@@ -74,6 +74,7 @@ def test_fractures_compilation():
     assert summary.loc["min", "azimuth"] == 0.0
     assert summary.loc["max", "azimuth"] == 360.0
 
+
 def test_mars_shape():
     """
     Check that the @mars370d.txt dataset loads without errors.
