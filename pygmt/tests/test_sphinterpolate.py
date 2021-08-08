@@ -4,6 +4,7 @@ Tests for sphinterpolate.
 import os
 
 import numpy as np
+import numpy.testing as npt
 import pytest
 from pygmt import grdinfo, sphinterpolate
 from pygmt.exceptions import GMTInvalidInput
@@ -31,3 +32,9 @@ def test_sphinterpolate_no_outgrid():
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 0  # Gridline registration
     result = grdinfo(grid=temp_grid, force_scan="a", per_column="n").strip().split()
+    assert int(result[0]) == 0  # x minimum
+    assert int(result[1]) == 360  # x maximum
+    assert int(result[2]) == -90  # y minimum
+    assert int(result[3]) == 90  # y maximum
+    npt.assert_approx_equal(float(result[4]), -6908.19873047)  # v minimum
+    npt.assert_approx_equal(float(result[5]), 14628.1435547)  # v maximum
