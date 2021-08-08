@@ -125,7 +125,7 @@ def load_fractures_compilation():
     return data[["length", "azimuth"]]
 
 
-def load_mars_relief():
+def load_mars_shape():
     """
     Load a table of data for the shape of Mars.
 
