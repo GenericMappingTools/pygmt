@@ -22,8 +22,8 @@ from pygmt.helpers import (
     T="translate",
     V="verbose",
     f="coltypes",
-    r="registration",
     n="interpolation",
+    r="registration",
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
