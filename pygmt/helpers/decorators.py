@@ -25,6 +25,13 @@ COMMON_OPTIONS = {
             *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
+    "A": r"""
+        area_thresh : int, float, or str
+        *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
+        [**s**\|\ **S**][**+l**\|\ **r**][**+p**\ *percent*].
+        Features with an area smaller than *min_area* in km\ :sup:`2` or of
+        hierarchical level that is lower than *min_level* or higher than
+        *max_level* will not be plotted.""",
     "B": r"""
         frame : bool or str or list
             Set map boundary
