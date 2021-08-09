@@ -19,8 +19,10 @@ from pygmt.helpers import (
     G="outgrid",
     I="spacing",
     R="region",
-    N="mask_geog",
+    A="area_thresh",
     D="resolution",
+    E="bordervalues",
+    N="mask_geog",
     V="verbose",
     r="registration",
 )
@@ -47,6 +49,10 @@ def grdlandmask(**kwargs):
         in.
     {I}
     {R}
+    area_thresh: todo
+    resolution : todo
+    bordervalues : todo
+    mask_geog : todo
     {V}
     {r}
 
