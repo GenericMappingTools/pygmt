@@ -139,8 +139,8 @@ def load_hotspots():
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Use ``print(data.describe())`` to see the available
-        columns.
+        The data table with columns "longitude", "latitude", "icon_size", and
+        "placename".
     """
     fname = which("@hotspots.txt", download="c")
 
