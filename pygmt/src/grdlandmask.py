@@ -19,6 +19,8 @@ from pygmt.helpers import (
     G="outgrid",
     I="spacing",
     R="region",
+    N="mask_geog",
+    D="resolution"
     V="verbose",
     r="registration",
 )
