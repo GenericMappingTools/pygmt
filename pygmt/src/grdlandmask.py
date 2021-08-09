@@ -20,7 +20,7 @@ from pygmt.helpers import (
     I="spacing",
     R="region",
     N="mask_geog",
-    D="resolution"
+    D="resolution",
     V="verbose",
     r="registration",
 )
