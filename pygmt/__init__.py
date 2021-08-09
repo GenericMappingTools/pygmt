@@ -48,6 +48,7 @@ from pygmt.src import (
     which,
     x2sys_cross,
     x2sys_init,
+    xyz2grd,
 )
 
 # Get semantic version through setuptools-scm

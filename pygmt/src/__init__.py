@@ -42,3 +42,4 @@ from pygmt.src.which import which
 from pygmt.src.wiggle import wiggle
 from pygmt.src.x2sys_cross import x2sys_cross
 from pygmt.src.x2sys_init import x2sys_init
+from pygmt.src.xyz2grd import xyz2grd

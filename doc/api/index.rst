@@ -96,6 +96,7 @@ Operations on grids:
     grdgradient
     grdsample
     grdtrack
+    xyz2grd
 
 Crossover analysis with x2sys:
 
