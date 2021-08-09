@@ -17,7 +17,7 @@ from pygmt.helpers import (
 @use_alias(
     G="outgrid",
     J="projection",
-    I="increment",
+    I="spacing",
     R="region",
     T="translate",
     V="verbose",
@@ -34,12 +34,12 @@ def grdsample(grid, **kwargs):
     This reads a grid file and interpolates it to create a new grid
     file. It can change the registration with ``translate`` or
     ``registration``, change the grid-spacing or number of nodes with
-    ``increment``, and set a new sub-region using ``region``. A bicubic
+    ``spacing``, and set a new sub-region using ``region``. A bicubic
     [Default], bilinear, B-spline or nearest-neighbor interpolation is set
     with ``interpolation``.
 
     When ``region`` is omitted, the output grid will cover the same region as
-    the input grid. When ``increment`` is omitted, the grid spacing of the
+    the input grid. When ``spacing`` is omitted, the grid spacing of the
     output grid will be the same as the input grid. Either ``registration`` or
     ``translate`` can be used to change the grid registration. When omitted,
     the output grid will have the same registration as the input grid.

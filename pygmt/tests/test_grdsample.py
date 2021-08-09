@@ -21,10 +21,10 @@ def fixture_grid():
 
 def test_grdsample_file_out(grid):
     """
-    grdsample with an outgrid set and the increment is changed.
+    grdsample with an outgrid set and the spacing is changed.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdsample(grid=grid, outgrid=tmpfile.name, increment=[1, 0.5])
+        result = grdsample(grid=grid, outgrid=tmpfile.name, spacing=[1, 0.5])
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = grdinfo(tmpfile.name, per_column=True).strip().split()
