@@ -1,16 +1,17 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
-import sys
+import os
 import shutil
 import subprocess
+import sys
+import time
 import webbrowser
 from collections.abc import Iterable
 from contextlib import contextmanager
 
 import xarray as xr
-
-from ..exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput
 
 
 def data_kind(data, x=None, y=None, z=None):
@@ -29,8 +30,10 @@ def data_kind(data, x=None, y=None, z=None):
 
     Parameters
     ----------
-    data : str, xarray.DataArray, 2d array, or None
-       Data file name, xarray.DataArray or numpy array.
+    data : str or xarray.DataArray or {table-like} or None
+        Pass in either a file name to an ASCII data table, an
+        :class:`xarray.DataArray`, a 1D/2D
+        {table-classes}.
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None
@@ -55,7 +58,6 @@ def data_kind(data, x=None, y=None, z=None):
     'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
-
     """
     if data is None and x is None and y is None:
         raise GMTInvalidInput("No input data provided.")
@@ -68,6 +70,8 @@ def data_kind(data, x=None, y=None, z=None):
         kind = "file"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
+    elif hasattr(data, "__geo_interface__"):
+        kind = "geojson"
     elif data is not None:
         kind = "matrix"
     else:
@@ -98,7 +102,6 @@ def dummy_context(arg):
     ...     print(temp)
     ...
     some argument
-
     """
     yield arg
 
@@ -108,7 +111,8 @@ def build_arg_string(kwargs):
     Transform keyword arguments into a GMT argument string.
 
     Make sure all arguments have been previously converted to a string
-    representation using the ``kwargs_to_strings`` decorator.
+    representation using the ``kwargs_to_strings`` decorator. The only
+    exceptions are True, False and None.
 
     Any lists or tuples left will be interpreted as multiple entries for the
     same command line argument. For example, the kwargs entry ``'B': ['xa',
@@ -130,10 +134,20 @@ def build_arg_string(kwargs):
 
     >>> print(
     ...     build_arg_string(
-    ...         dict(R="1/2/3/4", J="X4i", P="", E=200, X=None, Y=None)
+    ...         dict(
+    ...             A=True,
+    ...             B=False,
+    ...             E=200,
+    ...             J="X4c",
+    ...             P="",
+    ...             R="1/2/3/4",
+    ...             X=None,
+    ...             Y=None,
+    ...             Z=0,
+    ...         )
     ...     )
     ... )
-    -E200 -JX4i -P -R1/2/3/4
+    -A -E200 -JX4c -P -R1/2/3/4 -Z0
     >>> print(
     ...     build_arg_string(
     ...         dict(
@@ -144,21 +158,22 @@ def build_arg_string(kwargs):
     ...         )
     ...     )
     ... )
-    -Bxaf -Byaf -BWSen -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
-
+    -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
     """
-    sorted_args = []
-    for key in sorted(kwargs):
+    gmt_args = []
+    # Exclude arguments that are None and False
+    filtered_kwargs = {
+        k: v for k, v in kwargs.items() if (v is not None and v is not False)
+    }
+    for key in filtered_kwargs:
         if is_nonstr_iter(kwargs[key]):
             for value in kwargs[key]:
-                sorted_args.append("-{}{}".format(key, value))
-        elif kwargs[key] is None:  # arguments like -XNone are invalid
-            continue
+                gmt_args.append(f"-{key}{value}")
+        elif kwargs[key] is True:
+            gmt_args.append(f"-{key}")
         else:
-            sorted_args.append("-{}{}".format(key, kwargs[key]))
-
-    arg_str = " ".join(sorted_args)
-    return arg_str
+            gmt_args.append(f"-{key}{kwargs[key]}")
+    return " ".join(sorted(gmt_args))
 
 
 def is_nonstr_iter(value):
@@ -191,7 +206,6 @@ def is_nonstr_iter(value):
     True
     >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
     True
-
     """
     return isinstance(value, Iterable) and not isinstance(value, str)
 
@@ -200,14 +214,14 @@ def launch_external_viewer(fname):
     """
     Open a file in an external viewer program.
 
-    Uses the ``xdg-open`` command on Linux, the ``open`` command on macOS, and
-    the default web browser on other systems.
+    Uses the ``xdg-open`` command on Linux, the ``open`` command on macOS, the
+    associated application on Windows, and the default web browser on other
+    systems.
 
     Parameters
     ----------
     fname : str
         The file name of the file (preferably a full path).
-
     """
     # Redirect stdout and stderr to devnull so that the terminal isn't filled
     # with noise
@@ -215,9 +229,41 @@ def launch_external_viewer(fname):
 
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
-    if sys.platform.startswith("linux") and shutil.which("xdg-open"):
+    os_name = sys.platform
+    if os_name.startswith(("linux", "freebsd")) and shutil.which("xdg-open"):
         subprocess.run(["xdg-open", fname], check=False, **run_args)
-    elif sys.platform == "darwin":  # Darwin is macOS
+    elif os_name == "darwin":  # Darwin is macOS
         subprocess.run(["open", fname], check=False, **run_args)
+    elif os_name == "win32":
+        os.startfile(fname)  # pylint: disable=no-member
     else:
-        webbrowser.open_new_tab("file://{}".format(fname))
+        webbrowser.open_new_tab(f"file://{fname}")
+    # suspend the execution for 0.5 s to avoid the images being deleted
+    # when a Python script exits
+    time.sleep(0.5)
+
+
+def args_in_kwargs(args, kwargs):
+    """
+    Take a list and a dictionary, and determine if any entries in the list are
+    keys in the dictionary.
+
+    This function is used to determine if at least one of the required
+    arguments is passed to raise a GMTInvalidInput Error.
+
+    Parameters
+    ----------
+    args : list
+        List of required arguments, using the GMT short-form aliases.
+
+    kwargs : dict
+        The dictionary of kwargs is the format returned by the _preprocess
+        function of the BasePlotting class. The keys are the GMT
+        short-form aliases of the parameters.
+
+    Returns
+    --------
+    bool
+        If one of the required arguments is in ``kwargs``.
+    """
+    return any(arg in kwargs for arg in args)

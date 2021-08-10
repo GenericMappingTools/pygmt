@@ -16,6 +16,10 @@ Fixes #
 - [ ] Write detailed docstrings for all functions/methods.
 - [ ] If adding new functionality, add an example to docstrings or tutorials.
 
-**Notes**
+**Slash Commands**
 
-- You can write `/format` in the first line of a comment to lint the code automatically
+You can write slash commands (`/command`) in the first line of a comment to perform
+specific operations. Supported slash commands are:
+
+- `/format`: automatically format and lint the code
+- `/test-gmt-dev`: run full tests on the latest GMT development version

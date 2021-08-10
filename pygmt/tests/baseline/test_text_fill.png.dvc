@@ -1,0 +1,4 @@
+outs:
+- md5: a58064918d13b2cb5a24c25e8302f6b5
+  size: 2001
+  path: test_text_fill.png

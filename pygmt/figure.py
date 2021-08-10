@@ -1,34 +1,50 @@
 """
 Define the Figure class that handles all plotting.
 """
+import base64
 import os
 from tempfile import TemporaryDirectory
-import base64
 
 try:
-    from IPython.display import Image
-except ImportError:
-    Image = None
+    import IPython
+except ModuleNotFoundError:
+    IPython = None  # pylint: disable=invalid-name
 
-from .clib import Session
-from .base_plotting import BasePlotting
-from .exceptions import GMTError, GMTInvalidInput
-from .helpers import (
+
+from pygmt.clib import Session
+from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
-    use_alias,
     kwargs_to_strings,
     launch_external_viewer,
     unique_name,
+    use_alias,
 )
-
 
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
 
+# Configurations for figure display
+SHOW_CONFIG = {
+    "method": "external",  # Open in an external viewer by default
+}
 
-class Figure(BasePlotting):
+# Show figures in Jupyter notebooks if available
+if IPython:
+    get_ipython = IPython.get_ipython()  # pylint: disable=invalid-name
+    if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
+        SHOW_CONFIG["method"] = "notebook"
+
+# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
+# external display. Use it when running the tests and building the docs to
+# avoid popping up windows.
+if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
+    SHOW_CONFIG["method"] = "none"
+
+
+class Figure:
     """
     A GMT figure to handle all plotting.
 
@@ -59,12 +75,13 @@ class Figure(BasePlotting):
     >>> # The fig.region attribute shows the WESN bounding box for the figure
     >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
     122.94, 145.82, 20.53, 45.52
-
     """
 
     def __init__(self):
         self._name = unique_name()
-        self._preview_dir = TemporaryDirectory(prefix=self._name + "-preview-")
+        self._preview_dir = TemporaryDirectory(  # pylint: disable=consider-using-with
+            prefix=f"{self._name}-preview-"
+        )
         self._activate_figure()
 
     def __del__(self):
@@ -98,7 +115,9 @@ class Figure(BasePlotting):
 
     @property
     def region(self):
-        "The geographic WESN bounding box for the current figure."
+        """
+        The geographic WESN bounding box for the current figure.
+        """
         self._activate_figure()
         with Session() as lib:
             wesn = lib.extract_region()
@@ -113,10 +132,11 @@ class Figure(BasePlotting):
         I="icc_gray",
         T="fmt",
         Q="anti_aliasing",
+        V="verbose",
     )
     @kwargs_to_strings()
     def psconvert(self, **kwargs):
-        """
+        r"""
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
@@ -150,26 +170,30 @@ class Figure(BasePlotting):
         icc_gray : bool
             Enforce gray-shades by using ICC profiles.
         anti_aliasing : str
-            Set the anti-aliasing options for graphics or text. Append the size
-            of the subsample box (1, 2, or 4) [4]. Default is no anti-aliasing
-            (same as bits = 1).
+            [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
+            Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
+            Append the size of the subsample box (1, 2, or 4) [4]. [Default is
+            no anti-aliasing (same as bits = 1)].
         fmt : str
-            Sets the output format, where *b* means BMP, *e* means EPS, *E*
-            means EPS with PageSize command, *f* means PDF, *F* means
-            multi-page PDF, *j* means JPEG, *g* means PNG, *G* means
-            transparent PNG (untouched regions are transparent), *m* means PPM,
-            *s* means SVG, and *t* means TIFF [default is JPEG]. To ``'bjgt'``
-            you can append ``'+m'`` in order to get a monochrome (grayscale)
-            image. The EPS format can be combined with any of the other
-            formats. For example, ``'ef'`` creates both an EPS and a PDF file.
-            Using ``'F'`` creates a multi-page PDF file from the list of input
-            PS or PDF files. It requires the *prefix* option.
-
+            Sets the output format, where **b** means BMP, **e** means EPS,
+            **E** means EPS with PageSize command, **f** means PDF, **F** means
+            multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
+            transparent PNG (untouched regions are transparent), **m** means
+            PPM, **s** means SVG, and **t** means TIFF [default is JPEG]. To
+            **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
+            order to get a monochrome (grayscale) image. The EPS format can be
+            combined with any of the other formats. For example, **ef** creates
+            both an EPS and a PDF file. Using **F** creates a multi-page PDF
+            file from the list of input PS or PDF files. It requires the
+            ``prefix`` parameter.
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
         if "A" not in kwargs:
             kwargs["A"] = ""
+        # allow for spaces in figure name
+        kwargs["F"] = f'"{kwargs.get("F")}"' if kwargs.get("F") else None
         with Session() as lib:
             lib.call_module("psconvert", build_arg_string(kwargs))
 
@@ -180,14 +204,14 @@ class Figure(BasePlotting):
         Save the figure to a file.
 
         This method implements a matplotlib-like interface for
-        :meth:`~gmt.Figure.psconvert`.
+        :meth:`pygmt.Figure.psconvert`.
 
         Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
         BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
         The KML output generates a companion PNG file.
 
         You can pass in any keyword arguments that
-        :meth:`~gmt.Figure.psconvert` accepts.
+        :meth:`pygmt.Figure.psconvert` accepts.
 
         Parameters
         ----------
@@ -201,15 +225,15 @@ class Figure(BasePlotting):
             If True, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIf). More specifically, uses options ``Qt=2, Qg=2`` in
-            :meth:`~gmt.Figure.psconvert`. Ignored if creating vector graphics.
-            Overrides values of ``Qt`` and ``Qg`` passed in through ``kwargs``.
+            JPG, TIFF). More specifically, it passes arguments ``t2``
+            and ``g2`` to the ``anti_aliasing`` parameter of
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
+            graphics.
         show: bool
             If True, will open the figure in an external viewer.
         dpi : int
             Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
-
         """
         # All supported formats
         fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
@@ -217,12 +241,17 @@ class Figure(BasePlotting):
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
         if ext not in fmts:
-            raise GMTInvalidInput("Unknown extension '.{}'".format(ext))
+            if ext == "ps":
+                raise GMTInvalidInput(
+                    "Extension '.ps' is not supported. "
+                    "Please use '.eps' or '.pdf' instead."
+                )
+            raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
             if fmt != "g":
                 raise GMTInvalidInput(
-                    "Transparency unavailable for '{}', only for png.".format(ext)
+                    f"Transparency unavailable for '{ext}', only for png."
                 )
             fmt = fmt.upper()
         if anti_alias:
@@ -235,63 +264,72 @@ class Figure(BasePlotting):
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method="static"):
+    def show(self, dpi=300, width=500, method=None):
         """
         Display a preview of the figure.
 
-        Inserts the preview in the Jupyter notebook output. You will need to
-        have IPython installed for this to work. You should have it if you are
-        using the notebook.
+        Inserts the preview in the Jupyter notebook output if available,
+        otherwise opens it in the default viewer for your operating system
+        (falls back to the default web browser).
 
-        If ``method='external'``, makes PDF preview instead and opens it in the
-        default viewer for your operating system (falls back to the default web
-        browser). Note that the external viewer does not block the current
-        process, so this won't work in a script.
+        :func:`pygmt.set_display` can select the default display method
+        (**notebook**, **external**, or **none**).
+
+        The ``method`` parameter can also override the default display method
+        for the current figure. Parameters ``dpi`` and ``width`` can be used
+        to control the resolution and dimension of the figure in the notebook.
+
+        Note: The external viewer can be disabled by setting the
+        PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.
+        This is useful when running unit tests and building the documentation
+        in consoles without a Graphical User Interface.
+
+        Note that the external viewer does not block the current process.
 
         Parameters
         ----------
         dpi : int
-            The image resolution (dots per inch).
+            The image resolution (dots per inch) in Jupyter notebooks.
         width : int
-            Width of the figure shown in the notebook in pixels. Ignored if
-            ``method='external'``.
+            The image width (in pixels) in Jupyter notebooks.
         method : str
-            How the figure will be displayed. Options are (1) ``'static'``: PNG
-            preview (default); (2) ``'external'``: PDF preview in an external
-            program.
+            How the current figure will be displayed. Options are
 
-        Returns
-        -------
-        img : IPython.display.Image
-            Only if ``method != 'external'``.
-
+            - **external**: PDF preview in an external program [default]
+            - **notebook**: PNG preview [default in Jupyter notebooks]
+            - **none**: Disable image preview
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
-        if method not in ["static", "external"]:
-            raise GMTInvalidInput("Invalid show method '{}'.".format(method))
+        # Set the display method
+        if method is None:
+            method = SHOW_CONFIG["method"]
+
+        if method not in ["external", "notebook", "none"]:
+            raise GMTInvalidInput(
+                (
+                    f"Invalid display method '{method}', "
+                    "should be either 'notebook', 'external', or 'none'."
+                )
+            )
+
+        if method in ["notebook", "none"]:
+            if IPython is None:
+                raise GMTError(
+                    (
+                        "Notebook display is selected, but IPython is not available. "
+                        "Make sure you have IPython installed, "
+                        "or run the script in a Jupyter notebook."
+                    )
+                )
+            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            IPython.display.display(IPython.display.Image(data=png, width=width))
+
         if method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
-            img = None
-        elif method == "static":
-            png = self._preview(
-                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, transparent=True
-            )
-            if Image is None:
-                raise GMTError(
-                    " ".join(
-                        [
-                            "Cannot find IPython.",
-                            "Make sure you have it installed",
-                            "or use 'method=\"external\"' to open in an external viewer.",
-                        ]
-                    )
-                )
-            img = Image(data=png, width=width)
-        return img
 
     def shift_origin(self, xshift=None, yshift=None):
         """
@@ -335,7 +373,7 @@ class Figure(BasePlotting):
         ----------
         fmt : str
             The image format. Can be any extension that
-            :meth:`~gmt.Figure.savefig` recognizes.
+            :meth:`pygmt.Figure.savefig` recognizes.
         dpi : int
             The image resolution (dots per inch).
         as_bytes : bool
@@ -347,9 +385,8 @@ class Figure(BasePlotting):
         preview : str or bytes
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
-
         """
-        fname = os.path.join(self._preview_dir.name, "{}.{}".format(self._name, fmt))
+        fname = os.path.join(self._preview_dir.name, f"{self._name}.{fmt}")
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
             with open(fname, "rb") as image:
@@ -360,6 +397,7 @@ class Figure(BasePlotting):
     def _repr_png_(self):
         """
         Show a PNG preview if the object is returned in an interactive shell.
+
         For the Jupyter notebook or IPython Qt console.
         """
         png = self._preview(fmt="png", dpi=70, anti_alias=True, as_bytes=True)
@@ -368,9 +406,59 @@ class Figure(BasePlotting):
     def _repr_html_(self):
         """
         Show the PNG image embedded in HTML with a controlled width.
+
         Looks better than the raw PNG.
         """
         raw_png = self._preview(fmt="png", dpi=300, anti_alias=True, as_bytes=True)
         base64_png = base64.encodebytes(raw_png)
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
+
+    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+        basemap,
+        coast,
+        colorbar,
+        contour,
+        grdcontour,
+        grdimage,
+        grdview,
+        histogram,
+        image,
+        inset,
+        legend,
+        logo,
+        meca,
+        plot,
+        plot3d,
+        rose,
+        set_panel,
+        solar,
+        subplot,
+        text,
+        velo,
+        wiggle,
+    )
+
+
+def set_display(method=None):
+    """
+    Set the display method.
+
+    Parameters
+    ----------
+    method : str or None
+        The method to display an image. Choose from:
+
+        - **external**: PDF preview in an external program [default]
+        - **notebook**: PNG preview [default in Jupyter notebooks]
+        - **none**: Disable image preview
+    """
+    if method in ["notebook", "external", "none"]:
+        SHOW_CONFIG["method"] = method
+    elif method is not None:
+        raise GMTInvalidInput(
+            (
+                f"Invalid display mode '{method}', "
+                "should be either 'notebook', 'external' or 'none'."
+            )
+        )

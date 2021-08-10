@@ -1,16 +1,15 @@
 """
-Tests for triangulate
+Tests for triangulate.
 """
 import os
 
 import pandas as pd
 import pytest
 import xarray as xr
-
-from .. import triangulate, which
-from ..datasets import load_sample_bathymetry
-from ..exceptions import GMTInvalidInput
-from ..helpers import data_kind
+from pygmt import triangulate, which
+from pygmt.datasets import load_sample_bathymetry
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import data_kind
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_GRID = os.path.join(TEST_DATA_DIR, "tmp_grid.nc")
@@ -19,7 +18,7 @@ TEMP_GRID = os.path.join(TEST_DATA_DIR, "tmp_grid.nc")
 @pytest.fixture(scope="module", name="ship_data")
 def fixture_ship_data():
     """
-    Load the grid data from the sample bathymetry file
+    Load the grid data from the sample bathymetry file.
     """
     ship_data = load_sample_bathymetry()
     return ship_data
@@ -27,7 +26,7 @@ def fixture_ship_data():
 
 def test_triangulate_input_file():
     """
-    Run triangulate by passing in a filename
+    Run triangulate by passing in a filename.
     """
     fname = which("@tut_ship.xyz", download="c")
     output = triangulate(data=fname)
@@ -38,7 +37,7 @@ def test_triangulate_input_file():
 
 def test_triangulate_input_data_array(ship_data):
     """
-    Run triangulate by passing in a numpy array into data
+    Run triangulate by passing in a numpy array into data.
     """
     data = ship_data.to_numpy()
     output = triangulate(data=data)
@@ -49,7 +48,7 @@ def test_triangulate_input_data_array(ship_data):
 
 def test_triangulate_input_xyz(ship_data):
     """
-    Run triangulate by passing in x, y, z numpy.ndarrays individually
+    Run triangulate by passing in x, y, z numpy.ndarrays individually.
     """
     output = triangulate(
         x=ship_data.longitude,
@@ -63,7 +62,7 @@ def test_triangulate_input_xyz(ship_data):
 
 def test_triangulate_input_xy_no_z(ship_data):
     """
-    Run triangulate by passing in x and y, but no z
+    Run triangulate by passing in x and y, but no z.
     """
     with pytest.raises(GMTInvalidInput):
         triangulate(x=ship_data.longitude, y=ship_data.latitude)
@@ -71,7 +70,7 @@ def test_triangulate_input_xy_no_z(ship_data):
 
 def test_triangulate_wrong_kind_of_input(ship_data):
     """
-    Run triangulate using grid input that is not file/matrix/vectors
+    Run triangulate using grid input that is not file/matrix/vectors.
     """
     data = ship_data.bathymetry.to_xarray()  # convert pandas.Series to xarray.DataArray
     assert data_kind(data) == "grid"
@@ -81,7 +80,7 @@ def test_triangulate_wrong_kind_of_input(ship_data):
 
 def test_triangulate_with_outgrid_true(ship_data):
     """
-    Run triangulate with outgrid=True and see it load into an xarray.DataArray
+    Run triangulate with outgrid=True and see it load into an xarray.DataArray.
     """
     data = ship_data.to_numpy()
     output = triangulate(
@@ -94,7 +93,7 @@ def test_triangulate_with_outgrid_true(ship_data):
 
 def test_triangulate_with_outgrid_param(ship_data):
     """
-    Run triangulate with the -Goutputfile.nc parameter
+    Run triangulate with the -Goutputfile.nc parameter.
     """
     data = ship_data.to_numpy()
     try:
@@ -114,7 +113,7 @@ def test_triangulate_with_outgrid_param(ship_data):
 def test_triangulate_short_aliases(ship_data):
     """
     Run triangulate using short aliases -I for spacing, -R for region, -G for
-    outgrid
+    outgrid.
     """
     data = ship_data.to_numpy()
     try:

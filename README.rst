@@ -12,11 +12,11 @@ PyGMT
     :target: https://pypi.python.org/pypi/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
-    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3ATests
-.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Latest%20Tests/badge.svg
-    :alt: GitHub Actions GMT Latest Tests status
-    :target: https://github.com/GenericMappingTools/pygmt/actions?query=workflow%3A%22GMT+Latest+Tests%22
-.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/master.svg?style=flat-square
+    :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml
+.. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
+    :alt: GitHub Actions GMT Dev Tests status
+    :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
+.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/main.svg?style=flat-square
     :alt: Test coverage status
     :target: https://codecov.io/gh/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
@@ -40,7 +40,7 @@ Why PyGMT?
 
 A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
-But if you need some convincing first, watch this **1 hour introduction** to PyGMT!
+But if you need some convincing first, watch this `1 hour introduction <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ to PyGMT!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
 or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
@@ -86,8 +86,9 @@ Project goals
 * Build a Pythonic API for GMT.
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
-* Integration with the PyData Ecosystem: numpy.ndarray or pandas.DataFrame for data tables
-  and xarray.DataArray for grids.
+* Integration with the `PyData <https://pydata.org/>`__ ecosystem:
+  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables and
+  ``xarray.DataArray`` for grids.
 
 
 Contacting Us
@@ -97,8 +98,9 @@ Contacting Us
   <https://github.com/GenericMappingTools/pygmt>`__. Feel free to `open an issue
   <https://github.com/GenericMappingTools/pygmt/issues/new>`__ or comment on any
   open issue or pull request.
-* We have a `Discourse forum <https://forum.generic-mapping-tools.org>`__
-  where you can ask questions and leave comments.
+* We have a `Discourse forum
+  <https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__ where you can ask
+  questions and leave comments.
 
 
 Contributing
@@ -108,14 +110,14 @@ Code of conduct
 +++++++++++++++
 
 Please note that this project is released with a `Contributor Code of Conduct
-<https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md>`__.
+<https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md>`__.
 By participating in this project you agree to abide by its terms.
 
 Contributing Guidelines
 +++++++++++++++++++++++
 
 Please read our `Contributing Guide
-<https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md>`__ to
+<https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md>`__ to
 see how you can help and give feedback.
 
 Imposter syndrome disclaimer
@@ -130,7 +132,7 @@ contribute. What could you possibly offer?
 We assure you that the little voice in your head is wrong.
 
 **Being a contributor doesn't just mean writing code**.
-Equality important contributions include: writing or proof-reading documentation,
+Equally important contributions include: writing or proof-reading documentation,
 suggesting or implementing tests, or even giving feedback about the project (including
 giving feedback about the contribution process). If you're coming to the project with
 fresh eyes, you might see the errors and assumptions that seasoned contributors have
@@ -146,26 +148,34 @@ Citing PyGMT
 ------------
 
 PyGMT is a community developed project. See the
-`AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/master/AUTHORS.md>`__
+`AUTHORS.md <https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md>`__
 file on GitHub for a list of the people involved and a definition of the term "PyGMT
 Developers". Feel free to cite our work in your research using the following BibTeX:
 
 .. code-block::
 
-    @software{uieda_leonardo_2020_4025418,
+    @software{pygmt_2021_5162003,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
+                      Schlitzer, William and
                       Toney, Liam and
+                      Grund, Michael and
+                      Jones, Meghan and
+                      Yao, Jiayuan and
+                      Materna, Kathryn and
                       Newton, Tyler and
+                      Anant, Abhishek and
+                      Ziebarth, Malte and
+                      Magen, Yohai and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = nov,
-      year         = 2020,
+      month        = aug,
+      year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.2.1},
-      doi          = {10.5281/zenodo.4253459},
-      url          = {https://doi.org/10.5281/zenodo.4253459}
+      version      = {v0.4.1},
+      doi          = {10.5281/zenodo.5162003},
+      url          = {https://doi.org/10.5281/zenodo.5162003}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -181,14 +191,15 @@ License
 
 PyGMT is free software: you can redistribute it and/or modify it under the terms of
 the **BSD 3-clause License**. A copy of this license is provided in
-`LICENSE.txt <https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt>`__.
+`LICENSE.txt <https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt>`__.
 
 
 Support
 -------
 
-The development of PyGMT was funded by
-`NSF grant OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__.
+The development of PyGMT has been supported by NSF grants
+`OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__ and
+`EAR-1948603 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602>`__.
 
 
 Related projects
@@ -205,14 +216,63 @@ Other Python wrappers for GMT:
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
 
 
-Documentation for other versions
---------------------------------
-* `Development <https://www.pygmt.org/dev>`__ (reflects the *master* branch on
-  GitHub)
-* `Latest release <https://www.pygmt.org/latest>`__
-* `v0.2.1 <https://www.pygmt.org/v0.2.1>`__
-* `v0.2.0 <https://www.pygmt.org/v0.2.0>`__
-* `v0.1.2 <https://www.pygmt.org/v0.1.2>`__
-* `v0.1.1 <https://www.pygmt.org/v0.1.1>`__
-* `v0.1.0 <https://www.pygmt.org/v0.1.0>`__
-* `v0.0.1a0 <https://www.pygmt.org/0.0.1a0>`__
+Compatibility with GMT/Python/NumPy versions
+--------------------------------------------
+
+.. list-table::
+    :widths: 25 30 15 20 15
+    :header-rows: 1
+
+    * - PyGMT Version
+      - Documentation
+      - GMT
+      - Python
+      - Numpy
+    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_ (latest release)
+      - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
+      - >=6.2.0
+      - >=3.7
+      - >=1.17.0
+    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
+      - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
+      - >=6.2.0
+      - >=3.7
+      - >=1.17.0
+    * - `v0.3.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1>`_
+      - `v0.3.1 Documentation <https://www.pygmt.org/v0.3.1>`_
+      - >=6.1.1
+      - >=3.7
+      -
+    * - `v0.3.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0>`_
+      - `v0.3.0 Documentation <https://www.pygmt.org/v0.3.0>`_
+      - >=6.1.1
+      - >=3.7
+      -
+    * - `v0.2.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1>`_
+      - `v0.2.1 Documentation <https://www.pygmt.org/v0.2.1>`_
+      - >=6.1.1
+      - >=3.6
+      -
+    * - `v0.2.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0>`_
+      - `v0.2.0 Documentation <https://www.pygmt.org/v0.2.0>`_
+      - >=6.1.1
+      - 3.6 - 3.8
+      -
+    * - `v0.1.2 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2>`_
+      - `v0.1.2 Documentation <https://www.pygmt.org/v0.1.2>`_
+      - >=6.0.0
+      - 3.6 - 3.8
+      -
+    * - `v0.1.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1>`_
+      - `v0.1.1 Documentation <https://www.pygmt.org/v0.1.1>`_
+      - >=6.0.0
+      - 3.6 - 3.8
+      -
+    * - `v0.1.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0>`_
+      - `v0.1.0 Documentation <https://www.pygmt.org/v0.1.0>`_
+      - >=6.0.0
+      - 3.6 - 3.8
+      -
+
+The unstable development documentation, which reflects the `main branch <https://github.com/GenericMappingTools/pygmt>`_
+on GitHub, can be found at https://www.pygmt.org/dev/.

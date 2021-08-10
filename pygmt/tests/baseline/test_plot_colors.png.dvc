@@ -1,0 +1,4 @@
+outs:
+- md5: 669c9cc878f831a3c25b0ecf84077de0
+  size: 22867
+  path: test_plot_colors.png

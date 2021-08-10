@@ -1,14 +1,13 @@
 """
-Tests for meca
+Tests for meca.
 """
 import os
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 import pytest
+from pygmt import Figure
 from pygmt.helpers import GMTTempFile
-
-from .. import Figure
-
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
@@ -16,12 +15,10 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 @pytest.mark.mpl_image_compare
 def test_meca_spec_dictionary():
     """
-    Test supplying a dictionary containing a single focal mechanism to the
-    `spec` argument.
+    Test supplying a dictionary containing a single focal mechanism to the spec
+    parameter.
     """
-
     fig = Figure()
-
     # Right lateral strike slip focal mechanism
     fig.meca(
         dict(strike=0, dip=90, rake=0, magnitude=5),
@@ -33,7 +30,6 @@ def test_meca_spec_dictionary():
         projection="M14c",
         frame=2,
     )
-
     return fig
 
 
@@ -41,16 +37,13 @@ def test_meca_spec_dictionary():
 def test_meca_spec_dict_list():
     """
     Test supplying a dictionary containing a list of focal mechanism to the
-    `spec` argument.
+    spec parameter.
     """
-
     fig = Figure()
-
     # supply focal mechanisms as a dict of lists
     focal_mechanisms = dict(
         strike=[330, 350], dip=[30, 50], rake=[90, 90], magnitude=[3, 2]
     )
-
     fig.meca(
         focal_mechanisms,
         longitude=[-124.3, -124.4],
@@ -60,15 +53,14 @@ def test_meca_spec_dict_list():
         scale="2c",
         projection="M14c",
     )
-
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_meca_spec_dataframe():
     """
-    Test supplying a pandas DataFrame containing focal mechanisms and
-    locations to the `spec` argument.
+    Test supplying a pandas.DataFrame containing focal mechanisms and locations
+    to the spec parameter.
     """
 
     fig = Figure()
@@ -84,21 +76,17 @@ def test_meca_spec_dataframe():
         depth=[12, 11.0],
     )
     spec_dataframe = pd.DataFrame(data=focal_mechanisms)
-
     fig.meca(spec_dataframe, region=[-125, -122, 47, 49], scale="2c", projection="M14c")
-
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_meca_spec_1d_array():
     """
-    Test supplying a 1D numpy array containing focal mechanisms and
-    locations to the `spec` argument.
+    Test supplying a 1D numpy array containing focal mechanisms and locations
+    to the spec parameter.
     """
-
     fig = Figure()
-
     # supply focal mechanisms to meca as a 1D numpy array, here we are using
     # the Harvard CMT zero trace convention but the focal mechanism
     # parameters may be specified any of the available conventions. Since we
@@ -119,7 +107,6 @@ def test_meca_spec_1d_array():
         0,  # plot_lat, 0 to plot at event location
     ]
     focal_mech_array = np.asarray(focal_mechanism)
-
     fig.meca(
         focal_mech_array,
         convention="mt",
@@ -128,19 +115,16 @@ def test_meca_spec_1d_array():
         scale="2c",
         projection="M14c",
     )
-
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_meca_spec_2d_array():
     """
-    Test supplying a 2D numpy array containing focal mechanisms and
-    locations to the `spec` argument.
+    Test supplying a 2D numpy array containing focal mechanisms and locations
+    to the spec parameter.
     """
-
     fig = Figure()
-
     # supply focal mechanisms to meca as a 2D numpy array, here we are using
     # the GCMT convention but the focal mechanism parameters may be
     # specified any of the available conventions. Since we are not using a
@@ -164,7 +148,6 @@ def test_meca_spec_2d_array():
         [-127.50, 40.88, 12.0, 168, 40, -115, 20, 54, -70, 4.0, 23, 0, 0],
     ]
     focal_mechs_array = np.asarray(focal_mechanisms)
-
     fig.meca(
         focal_mechs_array,
         convention="gcmt",
@@ -172,21 +155,18 @@ def test_meca_spec_2d_array():
         scale="2c",
         projection="M14c",
     )
-
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_meca_spec_file():
     """
-    Test supplying a file containing focal mechanisms and locations to the
-    `spec` argument.
+    Test supplying a file containing focal mechanisms and locations to the spec
+    parameter.
     """
 
     fig = Figure()
-
     focal_mechanism = [-127.43, 40.81, 12, -3.19, 1.16, 3.93, -1.02, -3.93, -1.02, 23]
-
     # writes temp file to pass to gmt
     with GMTTempFile() as temp:
         with open(temp.name, mode="w") as temp_file:
@@ -200,7 +180,6 @@ def test_meca_spec_file():
             scale="2c",
             projection="M14c",
         )
-
     return fig
 
 
@@ -210,22 +189,17 @@ def test_meca_loc_array():
     Test supplying lists and np.ndarrays as the event location (longitude,
     latitude, and depth).
     """
-
     fig = Figure()
-
     # specify focal mechanisms
     focal_mechanisms = dict(
         strike=[327, 350], dip=[41, 50], rake=[68, 90], magnitude=[3, 2]
     )
-
     # longitude, latitude, and depth may be specified as an int, float,
     # list, or 1d numpy array
     longitude = np.array([-123.3, -124.4])
     latitude = np.array([48.4, 48.2])
     depth = [12.0, 11.0]  # to test mixed data types as inputs
-
     scale = "2c"
-
     fig.meca(
         focal_mechanisms,
         scale,
@@ -235,5 +209,4 @@ def test_meca_loc_array():
         region=[-125, -122, 47, 49],
         projection="M14c",
     )
-
     return fig

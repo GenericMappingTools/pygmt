@@ -1,30 +1,26 @@
 """
-Tests for fig.logo
+Tests for fig.logo.
 """
-from .. import Figure
-from ..helpers.testing import check_figures_equal
+import pytest
+from pygmt import Figure
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_logo():
-    "Plot a GMT logo of a 2 inch width as a stand-alone plot"
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.logo(D="x0/0+w2i")
-    fig_test.logo(position="x0/0+w2i")
-    return fig_ref, fig_test
+    """
+    Plot the GMT logo as a stand-alone plot.
+    """
+    fig = Figure()
+    fig.logo()
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_logo_on_a_map():
-    "Plot a GMT logo in the upper right corner of a map"
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.coast(R="-90/-70/0/20", J="M6i", G="chocolate", B="")
-    fig_ref.logo(D="jTR+o0.1i/0.1i+w3i", F="")
-
-    fig_test.coast(
-        region=[-90, -70, 0, 20], projection="M6i", land="chocolate", frame=True
-    )
-    fig_test.logo(position="jTR+o0.1i/0.1i+w3i", box=True)
-    return fig_ref, fig_test
+    """
+    Plot the GMT logo at the upper right corner of a map.
+    """
+    fig = Figure()
+    fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
+    fig.logo(position="jTR+o0.25c/0.25c+w7.5c", box=True)
+    return fig

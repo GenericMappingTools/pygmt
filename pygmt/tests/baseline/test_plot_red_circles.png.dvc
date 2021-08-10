@@ -1,0 +1,4 @@
+outs:
+- md5: a547afc02dbb426270e2329624b55835
+  size: 15307
+  path: test_plot_red_circles.png

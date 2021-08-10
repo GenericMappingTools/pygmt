@@ -5,8 +5,10 @@ Plotting text
 It is often useful to add annotations to a map plot. This is handled by
 :meth:`pygmt.Figure.text`.
 """
+# sphinx_gallery_thumbnail_number = 3
 
 import os
+
 import pygmt
 
 ###############################################################################
@@ -17,19 +19,19 @@ import pygmt
 # method of the :class:`pygmt.Figure` class.
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
-# and ``y`` arguments to specify the annotation text and position in the
-# projection frame. ``text`` accepts 'str' types, while ``x``, and ``y``
-# accepts either 'int'/'float' numbers, or a list/array of numbers.
+# and ``y`` parameters to specify the annotation text and position in the
+# projection frame. ``text`` accepts *str* types, while ``x``, and ``y``
+# accepts either *int* or *float* numbers, or a list/array of numbers.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Plotting text annotations using single elements
+# Plot text annotations using a single element
 fig.text(text="SOUTH CHINA SEA", x=112, y=6)
 
-# Plotting text annotations using lists of elements
+# Plot text annotations using lists of elements
 fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
 
 fig.show()
@@ -38,18 +40,18 @@ fig.show()
 # Changing font style
 # -------------------
 # The size, family/weight, and color of an annotation can be specified using
-# the ``font`` argument.
+# the ``font`` parameter.
 #
-# A list of all recognised fonts can be found at
-# :gmt-docs:`cookbook/postscript-fonts.html`, including details of how to use
-# non-default fonts.
+# A list of all recognized fonts can be found at
+# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
+# including details of how to use non-default fonts.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Customising the font style
+# Customize the font style
 fig.text(text="BORNEO", x=114.0, y=0.5, font="22p,Helvetica-Bold,white")
 
 fig.show()
@@ -58,8 +60,8 @@ fig.show()
 # Plotting from a text file
 # -------------------------
 #
-# It is also possible to add annotations from a file containing `x`, `y`, and
-# `text` fields. Here we give a complete example.
+# It is also possible to add annotations from a file containing ``x``, ``y``, and
+# ``text`` fields. Here we give a complete example.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
@@ -77,7 +79,7 @@ with open("examples.txt", "w") as f:
 
 # Plot region names / sea names from a text file, where
 # the longitude (x) and latitude (y) coordinates are in the first two columns.
-# Setting angle/font/justiry to True will indicate that those columns are
+# Setting angle/font/justify to True will indicate that those columns are
 # present in the text file too (Note: must be in that order!).
 # Finally, the text to be printed will be in the last column
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
@@ -88,8 +90,8 @@ os.remove("examples.txt")
 fig.show()
 
 ###############################################################################
-# ``justify`` argument
-# --------------------
+# ``justify`` parameter
+# ---------------------
 #
 # ``justify`` is used to define the anchor point for the bounding box for text
 # being added to a plot. The following code segment demonstrates the
@@ -97,8 +99,9 @@ fig.show()
 #
 # The anchor is specified with a two letter (order independent) code, chosen
 # from:
-# * Vertical anchor: T(op), M(iddle), B(ottom)
-# * Horizontal anchor: L(eft), C(entre), R(ight)
+#
+# * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
+# * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 3, 0, 3], projection="X10c", frame=["WSne", "af0.5g"])
@@ -112,9 +115,9 @@ for position in ("TL", "TC", "TR", "ML", "MC", "MR", "BL", "BC", "BR"):
 fig.show()
 
 ###############################################################################
-# ``angle`` argument
-# ------------------
-# ``angle`` is an optional argument used to specify the clockwise rotation of
+# ``angle`` parameter
+# -------------------
+# ``angle`` is an optional parameter used to specify the clockwise rotation of
 # the text from the horizontal.
 
 fig = pygmt.Figure()
@@ -124,8 +127,8 @@ for i in range(0, 360, 30):
 fig.show()
 
 ###############################################################################
-# ``fill`` argument
-# -----------------
+# ``fill`` parameter
+# ------------------
 #
 # ``fill`` is used to set the fill color of the area surrounding the text.
 
