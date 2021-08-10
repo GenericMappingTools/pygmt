@@ -3,8 +3,8 @@ Tests for grdproject.
 """
 import os
 
-import pytest
 import numpy.testing as npt
+import pytest
 from pygmt import grdinfo, grdproject
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
