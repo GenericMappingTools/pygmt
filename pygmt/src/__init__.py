@@ -36,6 +36,7 @@ from pygmt.src.rose import rose
 from pygmt.src.solar import solar
 from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
+from pygmt.src.ternary import ternary
 from pygmt.src.text import text_ as text  # "text" is an argument within "text_"
 from pygmt.src.velo import velo
 from pygmt.src.which import which
