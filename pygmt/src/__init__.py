@@ -33,6 +33,7 @@ from pygmt.src.meca import meca
 from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
 from pygmt.src.rose import rose
+from pygmt.src.sph2grd import sph2grd
 from pygmt.src.solar import solar
 from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
