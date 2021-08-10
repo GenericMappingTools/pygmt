@@ -56,12 +56,7 @@ def sphinterpolate(table, **kwargs):
     kind = data_kind(table)
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(table)
-            elif kind == "matrix":
-                file_context = lib.virtualfile_from_matrix(matrix=table)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(table)))
+            file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
