@@ -42,6 +42,7 @@
     tutorials/plot.rst
     tutorials/lines.rst
     tutorials/vectors.rst
+    tutorials/date_time_charts.rst
     tutorials/text.rst
     tutorials/contour_map.rst
     tutorials/earth_relief.rst
@@ -57,4 +58,12 @@
 
     api/index.rst
     changes.md
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+    :caption: Development
+
+    team.md
+    contributing.md
     maintenance.md

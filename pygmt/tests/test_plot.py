@@ -91,19 +91,21 @@ def test_plot_fail_no_data(data):
         )
 
 
-def test_plot_fail_color_size_intensity(data):
+def test_plot_fail_1d_array_with_data(data):
     """
-    Should raise an exception if array color, sizes and intensity are used with
-    matrix.
+    Should raise an exception if array color, size, intensity and transparency
+    are used with matrix.
     """
     fig = Figure()
     kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
     with pytest.raises(GMTInvalidInput):
         fig.plot(style="c0.2c", color=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(style="cc", sizes=data[:, 2], color="red", **kwargs)
+        fig.plot(style="cc", size=data[:, 2], color="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
         fig.plot(style="c0.2c", color="red", intensity=data[:, 2], **kwargs)
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(style="c0.2c", color="red", transparency=data[:, 2] * 100, **kwargs)
 
 
 @pytest.mark.mpl_image_compare
@@ -152,7 +154,7 @@ def test_plot_sizes(data, region):
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         region=region,
         projection="X10c",
         style="cc",
@@ -172,7 +174,7 @@ def test_plot_colors_sizes(data, region):
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         region=region,
         projection="X10c",
         style="cc",
@@ -193,7 +195,7 @@ def test_plot_colors_sizes_proj(data, region):
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         style="cc",
         cmap="copper",
     )
@@ -288,7 +290,7 @@ def test_plot_sizes_colors_transparencies():
         frame=True,
         style="cc",
         color=color,
-        sizes=size,
+        size=size,
         cmap="gray",
         transparency=transparency,
     )
@@ -307,8 +309,8 @@ def test_plot_matrix(data):
         projection="M15c",
         style="cc",
         color="#aaaaaa",
-        B="a",
-        columns="0,1,2+s0.005",
+        frame="a",
+        incols="0,1,2+s0.005",
     )
     return fig
 
@@ -325,7 +327,7 @@ def test_plot_matrix_color(data):
         projection="X10c",
         style="c0.5c",
         cmap="rainbow",
-        B="a",
+        frame="a",
     )
     return fig
 
@@ -343,7 +345,7 @@ def test_plot_from_file(region):
         style="d1c",
         color="yellow",
         frame=True,
-        columns=[0, 1],
+        incols=[0, 1],
     )
     return fig
 
@@ -445,4 +447,51 @@ def test_plot_datetime():
     x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
     y = [8.5, 9.5]
     fig.plot(x, y, style="i0.2c", pen="1p")
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_plot_sizes.png")
+def test_plot_deprecate_sizes_to_size(data, region):
+    """
+    Make sure that the old parameter "sizes" is supported and it reports a
+    warning.
+
+    Modified from the test_plot_sizes() test.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        fig.plot(
+            x=data[:, 0],
+            y=data[:, 1],
+            sizes=0.5 * data[:, 2],
+            region=region,
+            projection="X10c",
+            style="cc",
+            color="blue",
+            frame="af",
+        )
+        assert len(record) == 1  # check that only one warning was raised
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_plot_from_file.png")
+def test_plot_deprecate_columns_to_incols(region):
+    """
+    Make sure that the old parameter "columns" is supported and it reports a
+    warning.
+
+    Modified from the test_plot_from_file() test.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        fig.plot(
+            data=POINTS_DATA,
+            region=region,
+            projection="X10c",
+            style="d1c",
+            color="yellow",
+            frame=True,
+            columns=[0, 1],
+        )
+        assert len(record) == 1  # check that only one warning was raised
     return fig

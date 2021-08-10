@@ -1,0 +1,4 @@
+outs:
+- md5: 64e45d586112fc131090cfac2c104b63
+  size: 45483
+  path: test_velo_numpy_array_numeric_only.png
