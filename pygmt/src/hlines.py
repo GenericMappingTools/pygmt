@@ -12,6 +12,7 @@ from pygmt.helpers import (
     use_alias,
 )
 
+
 @fmt_docstring
 @use_alias(
     N="no_clip",
@@ -20,7 +21,7 @@ from pygmt.helpers import (
     l="label",
     p="perspective",
     t="transparency",
-    )
+)
 @kwargs_to_strings(p="sequence")
 def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     """
@@ -124,9 +125,13 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     for index in range(list_length):
 
         with Session() as lib:
-            if data_kind(None, [x[0][index], x[1][index]], [y[index], y[index]]) == "vectors":
+            if (
+                data_kind(None, [x[0][index], x[1][index]], [y[index], y[index]])
+                == "vectors"
+            ):
                 file_context = lib.virtualfile_from_vectors(
-                    np.atleast_1d([x[0][index], x[1][index]]), [y[index], y[index]])
+                    np.atleast_1d([x[0][index], x[1][index]]), [y[index], y[index]]
+                )
             else:
                 raise GMTInvalidInput("Unrecognized data type.")
 
