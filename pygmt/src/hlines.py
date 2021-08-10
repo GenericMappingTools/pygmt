@@ -12,35 +12,22 @@ from pygmt.helpers import (
     use_alias,
 )
 
-
 @fmt_docstring
 @use_alias(
-    B="frame",
-    C="cmap",
-    D="offset",
-    J="projection",
     N="no_clip",
-    R="region",
-    U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
-    Z="zvalue",
     l="label",
     p="perspective",
     t="transparency",
-)
-@kwargs_to_strings(R="sequence", p="sequence")
+    )
+@kwargs_to_strings(p="sequence")
 def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     """
     Plot one or a collection of horizontal lines.
-
     Takes a single y value or a list of individual y values and optionally
     lower and upper x value limits as input.
-
     Must provide *y*.
-
     If y values are given without x limits then the current map boundaries are
     used as lower and upper limits. If only a single set of x limits is given
     then all lines will have the same length, otherwise give x limits for each
@@ -48,21 +35,11 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
     under this label in the legend (if shown). If each line should appear as a
     single entry in the legend, give corresponding labels for all lines
     (same for **pen**).
-
     Parameters
     ----------
     y : float or 1d array
         The y coordinates or an array of y coordinates of the
         horizontal lines to plot.
-    {J}
-    {R}
-    {B}
-    {CPT}
-    offset : str
-        ``dx/dy``.
-        Offset the line locations by the given amounts
-        *dx/dy* [Default is no offset]. If *dy* is not given it is set
-        equal to *dx*.
     no_clip : bool or str
         ``'[c|r]'``.
         Do NOT clip lines that fall outside map border [Default plots
@@ -76,87 +53,80 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
         ``no_clip="c"`` to retain clipping but turn off plotting of
         repeating lines.
     {W}
-    {U}
     {V}
-    {XY}
-    zvalue : str or float
-        ``value``.
-        Instead of specifying a line color via **pen**, give it a *value*
-        via **zvalue** and a color lookup table via **cmap**. Requires
-        appending **+z** to **pen** (e.g. ``pen = "5p,+z"``,
-        ``zvalue = 0.8``, ``cmap = "viridis"``).
     label : str
         Add a legend entry for the line being plotted.
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
         for lines.
-    """
 
-    # appearing pylint warnings that need to be fixed
-    # pylint: disable=too-many-locals
-    # pylint: disable=too-many-branches
+    """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    list_length = len(np.atleast_1d(y))
+    y = np.atleast_1d(y)
+    list_length = len(y)
 
-    # prepare x vals
-    if xmin is None and xmax is None:
-        # get limits from current map boundings if not given via xmin, xmax
-        with Session() as lib:
-            mapbnds = lib.extract_region()
-            x = np.array([[mapbnds[0]], [mapbnds[1]]])
-            x = np.repeat(x, list_length, axis=1)
-    elif xmin is None or xmax is None:
-        raise GMTInvalidInput(
-            "Must provide both, xmin and xmax if limits are not set automatically."
-        )
+    # prepare x values
+    def prep_data(xmin, xmax, list_length):
 
-    else:
-        # if only a single xmin and xmax without [], repeat to fit size of y
-        if isinstance(xmin, (int, float)):
-            x = np.array([[xmin], [xmax]])
-            x = np.repeat(x, list_length, axis=1)
+        if xmin is None and xmax is None:
+            with Session() as lib:
+                # get limits from current map boundings if not given via xmin, xmax
+                x = np.array([[lib.extract_region()[0]], [lib.extract_region()[1]]])
+                x = np.repeat(x, list_length, axis=1)
+        elif xmin is None or xmax is None:
+            raise GMTInvalidInput(
+                "Must provide both, xmin and xmax if limits are not set automatically."
+            )
+
         else:
-            if len(xmin) != len(xmax):
-                GMTInvalidInput("Must provide same length for xmin and xmax.")
+            # if only a single xmin and xmax without [], repeat to fit size of y
+            if isinstance(xmin, (int, float)):
+                x = np.array([[xmin], [xmax]])
+                x = np.repeat(x, list_length, axis=1)
             else:
-                x = np.array([xmin, xmax])
+                if len(xmin) != len(xmax):
+                    GMTInvalidInput("Must provide same length for xmin and xmax.")
+                else:
+                    x = np.array([xmin, xmax])
 
-    # prepare labels
-    if "l" in kwargs:
-        # if several lines belong to the same label, first take the label,
-        # then set all to None and reset the first entry to the given label
-        if not isinstance(kwargs["l"], list):
-            label2use = kwargs["l"]
+        return np.atleast_1d(x)
+
+    def prep_style(kwargs, list_length):
+
+        # prepare labels
+        if "l" in kwargs:
+            # if several lines belong to the same label, first set all to the
+            # label given via "l", then reset all entries except the first
+            if not isinstance(kwargs["l"], list):
+                kwargs["l"] = np.repeat(kwargs["l"], list_length)
+                kwargs["l"][1:list_length] = None
+        else:
             kwargs["l"] = np.repeat(None, list_length)
-            kwargs["l"][0] = label2use
-    else:
-        kwargs["l"] = np.repeat(None, list_length)
 
-    # prepare pens
-    if "W" in kwargs:
-        # select pen, no series
-        if not isinstance(kwargs["W"], list):
-            pen2use = kwargs["W"]
-            kwargs["W"] = np.repeat(pen2use, list_length)
-    else:  # use as default if no pen is given (neither single nor series)
-        kwargs["W"] = np.repeat("1p,black", list_length)
+        # prepare pens
+        if "W" in kwargs:
+            # select pen, no series
+            if not isinstance(kwargs["W"], list):
+                kwargs["W"] = np.repeat(kwargs["W"], list_length)
+        else:  # use as default if no pen is given (neither single nor series)
+            kwargs["W"] = np.repeat("1p,black", list_length)
+
+        return kwargs
 
     # loop over entries
+    x = prep_data(xmin, xmax, list_length)
+    kwargs = prep_style(kwargs, list_length)
     kwargs_copy = kwargs.copy()
 
     for index in range(list_length):
-        y2plt = [np.atleast_1d(y)[index], np.atleast_1d(y)[index]]
-        x2plt = [np.atleast_1d(x)[0][index], np.atleast_1d(x)[1][index]]
-        kind = data_kind(None, x2plt, y2plt)
 
         with Session() as lib:
-            if kind == "vectors":
+            if data_kind(None, [x[0][index], x[1][index]], [y[index], y[index]]) == "vectors":
                 file_context = lib.virtualfile_from_vectors(
-                    np.atleast_1d(x2plt), np.atleast_1d(y2plt)
-                )
+                    np.atleast_1d([x[0][index], x[1][index]]), [y[index], y[index]])
             else:
                 raise GMTInvalidInput("Unrecognized data type.")
 
@@ -164,5 +134,4 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
             kwargs["W"] = kwargs_copy["W"][index]
 
             with file_context as fname:
-                arg_str = " ".join([fname, build_arg_string(kwargs)])
-                lib.call_module("plot", arg_str)
+                lib.call_module("plot", " ".join([fname, build_arg_string(kwargs)]))
