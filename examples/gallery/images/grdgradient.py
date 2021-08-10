@@ -24,16 +24,16 @@ dgrid = pygmt.grdgradient(grid=grid, radiance=[270, 30])
 
 fig = pygmt.Figure()
 # define figure configuration
-pygmt.config(FORMAT_GEO_MAP='ddd.x', MAP_FRAME_TYPE='plain')
+pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 
 # --------------- plotting the hillshade map -----------
-pygmt.makecpt(cmap='gray', series=[-1.5, 0.3, 0.01])
+pygmt.makecpt(cmap="gray", series=[-1.5, 0.3, 0.01])
 fig.grdimage(
     grid=dgrid,
     projection="M12c",
-    frame=['WSrt+t"Hillshaded Map"', 'xa0.1', 'ya0.1'],
+    frame=['WSrt+t"Hillshaded Map"', "xa0.1", "ya0.1"],
     cmap=True,
-    region=region
+    region=region,
 )
 
 # Shift plot origin of the second map by "width of the first map + 0.5 cm"
@@ -42,16 +42,13 @@ fig.shift_origin(xshift="w+0.5c")
 
 # --------------- plotting the original Data Elevation Model -----------
 
-pygmt.makecpt(cmap='gray', series=[200, 4000, 10])
+pygmt.makecpt(cmap="gray", series=[200, 4000, 10])
 fig.grdimage(
     grid=grid,
     projection="M12c",
-    frame=['lSrt+t"Original Data Elevation Model"', 'xa0.1', 'ya0.1'],
+    frame=['lSrt+t"Original Data Elevation Model"', "xa0.1", "ya0.1"],
     cmap=True,
-    region=region
+    region=region,
 )
-fig.colorbar(
-    position="JMR+o0.4c/0c+w7c/0.5c+mc",
-    frame=["xa1000f500", "y+lm"]
-)
+fig.colorbar(position="JMR+o0.4c/0c+w7c/0.5c+mc", frame=["xa1000f500", "y+lm"])
 fig.show()
