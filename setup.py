@@ -34,7 +34,7 @@ CLASSIFIERS = [
 ]
 PLATFORMS = "Any"
 PYTHON_REQUIRES = ">=3.7"
-INSTALL_REQUIRES = ["numpy>=1.17", "pandas", "xarray", "netCDF4", "packaging"]
+INSTALL_REQUIRES = ["numpy>=1.18", "pandas", "xarray", "netCDF4", "packaging"]
 # Configuration for setuptools-scm
 SETUP_REQUIRES = ["setuptools_scm"]
 USE_SCM_VERSION = {"local_scheme": "node-and-date", "fallback_version": "unknown"}
