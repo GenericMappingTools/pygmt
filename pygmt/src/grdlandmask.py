@@ -61,7 +61,19 @@ def grdlandmask(**kwargs):
         the coastlines differ in details a node in a mask file using one
         resolution is not guaranteed to remain inside [or outside] when a
         different resolution is selected.
-    bordervalues : todo
+    bordervalues : str or list
+        [values]. Nodes that fall exactly on a polygon boundary should be
+        considered to be outside the polygon [Default considers them to be
+        inside]. Alternatively, append either the four values *cborder*/
+        *lborder*/*iborder*/*pborder* or just the single value *bordervalue*
+        (for the case when they should all be the same value). This turns on
+        the line-tracking mode. Now, after setting the mask values specified
+        via ``mask_geog``` we trace the lines and change the node values for
+        all cells traversed by a line to the corresponding border value. Here,
+        *cborder* is used for cells traversed by the coastline, *lborder* for
+        cells traversed by a lake outline, *iborder* for islands-in-lakes
+        outlines, and *pborder* for ponds-in-islands-in-lakes outlines
+        [Default is no line tracing].
     mask_geog : todo
     {V}
     {r}
