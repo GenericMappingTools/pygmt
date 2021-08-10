@@ -1,5 +1,5 @@
 """
-grdclip - Change the range and extremes of grid values.
+grdsample - Resample a grid onto a new lattice
 """
 
 import xarray as xr
@@ -16,33 +16,33 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     G="outgrid",
+    J="projection",
+    I="spacing",
     R="region",
-    Sa="above",
-    Sb="below",
-    Si="between",
-    Sr="new",
+    T="translate",
     V="verbose",
+    f="coltypes",
+    n="interpolation",
+    r="registration",
+    x="cores",
 )
-@kwargs_to_strings(
-    R="sequence",
-    Sa="sequence",
-    Sb="sequence",
-    Si="sequence",
-    Sr="sequence",
-)
-def grdclip(grid, **kwargs):
+@kwargs_to_strings(I="sequence", R="sequence")
+def grdsample(grid, **kwargs):
     r"""
-    Sets values in a grid that meet certain criteria to a new value.
+    Change the registration, spacing, or nodes in a grid file.
 
-    Produce a clipped ``outgrid`` or :class:`xarray.DataArray` version of the
-    input ``grid`` file.
+    This reads a grid file and interpolates it to create a new grid
+    file. It can change the registration with ``translate`` or
+    ``registration``, change the grid-spacing or number of nodes with
+    ``spacing``, and set a new sub-region using ``region``. A bicubic
+    [Default], bilinear, B-spline or nearest-neighbor interpolation is set
+    with ``interpolation``.
 
-    The parameters ``above`` and ``below`` allow for a given value to be set
-    for values above or below a set amount, respectively. This allows for
-    extreme values in a grid, such as points below a certain depth when
-    plotting Earth relief, to all be set to the same value.
-
-    Full option list at :gmt-docs:`grdclip.html`
+    When ``region`` is omitted, the output grid will cover the same region as
+    the input grid. When ``spacing`` is omitted, the grid spacing of the
+    output grid will be the same as the input grid. Either ``registration`` or
+    ``translate`` can be used to change the grid registration. When omitted,
+    the output grid will have the same registration as the input grid.
 
     {aliases}
 
@@ -53,21 +53,18 @@ def grdclip(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
+    {I}
     {R}
-    above : str or list or tuple
-        [*high*, *above*].
-        Set all data[i] > *high* to *above*.
-    below : str or list or tuple
-        [*low*, *below*].
-        Set all data[i] < *low* to *below*.
-    between : str or list or tuple
-        [*low*, *high*, *between*].
-        Set all data[i] >= *low* and <= *high* to *between*.
-    new : str or list or tuple
-        [*old*, *new*].
-        Set all data[i] == *old* to *new*. This is mostly useful when
-        your data are known to be integer values.
+    translate : bool
+        Translate between grid and pixel registration; if the input is
+        grid-registered, the output will be pixel-registered and vice-versa.
+    registration : str or bool
+        [**g**\ |\ **p**\ ].
+        Set registration to **g**\ ridline or **p**\ ixel.
     {V}
+    {f}
+    {n}
+    {x}
 
     Returns
     -------
@@ -86,7 +83,7 @@ def grdclip(grid, **kwargs):
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdclip", arg_str)
+                lib.call_module("grdsample", arg_str)
 
         if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
             with xr.open_dataarray(outgrid) as dataarray:
