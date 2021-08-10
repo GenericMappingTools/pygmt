@@ -81,6 +81,7 @@ Operations on tabular data:
 
     blockmean
     blockmedian
+    select
     surface
 
 Operations on grids:
