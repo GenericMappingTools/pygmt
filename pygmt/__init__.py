@@ -33,9 +33,14 @@ from pygmt.src import (
     blockmedian,
     config,
     grd2cpt,
+    grdclip,
     grdcut,
+    grdfill,
     grdfilter,
+    grdgradient,
     grdinfo,
+    grdlandmask,
+    grdsample,
     grdtrack,
     info,
     makecpt,
@@ -43,6 +48,7 @@ from pygmt.src import (
     which,
     x2sys_cross,
     x2sys_init,
+    xyz2grd,
 )
 
 # Get semantic version through setuptools-scm

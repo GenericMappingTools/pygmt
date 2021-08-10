@@ -349,7 +349,7 @@ fig.show()
 # start and end points of the geographic vector.
 # The geographical vector is going from Idaho to
 # Chicago. To style geographic
-# vectors, use ``=`` at the begining of the ``style`` parameter.
+# vectors, use ``=`` at the beginning of the ``style`` parameter.
 # Other styling features such as vector stem thickness and head color
 # can be passed into the ``pen`` and ``color`` parameters.
 #
