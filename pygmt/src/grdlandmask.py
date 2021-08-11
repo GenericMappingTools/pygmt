@@ -16,13 +16,13 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
-    I="spacing",
-    R="region",
     A="area_thresh",
     D="resolution",
     E="bordervalues",
+    G="outgrid",
+    I="spacing",
     N="maskvalues",
+    R="region",
     V="verbose",
     r="registration",
 )
@@ -51,7 +51,7 @@ def grdlandmask(**kwargs):
     {R}
     {A}
     resolution : str
-        *res*\[\ **+f**\]. Selects the resolution of the data set to use      **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**
+        *res*\[\ **+f**\]. Selects the resolution of the data set to use
         ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or
         (**c**)rude). The resolution drops off by ~80% between data sets.
         [Default is **l**]. Append **+f** to automatically select a lower
