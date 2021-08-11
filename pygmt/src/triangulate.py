@@ -5,12 +5,9 @@ Cartesian data.
 import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -22,7 +19,7 @@ from pygmt.helpers import (
     G="outgrid", I="spacing", J="projection", R="region", V="verbose", r="registration"
 )
 @kwargs_to_strings(R="sequence")
-def triangulate(x=None, y=None, z=None, data=None, **kwargs):
+def triangulate(table=None, x=None, y=None, z=None, **kwargs):
     """
     Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
     data.
@@ -33,7 +30,7 @@ def triangulate(x=None, y=None, z=None, data=None, **kwargs):
     and *projection*) is chosen then it is applied before the triangulation
     is calculated.
 
-    Must provide either *data* or *x*, *y*, and *z*.
+    Must provide either *table* or *x*, *y*, and *z*.
 
     Full option list at :gmt-docs:`triangulate.html`
 
@@ -43,8 +40,10 @@ def triangulate(x=None, y=None, z=None, data=None, **kwargs):
     ----------
     x/y/z : np.ndarray
         Arrays of x and y coordinates and values z of the data points.
-    data : str or np.ndarray
-        Either a data file name or a 2d numpy array with the tabular data.
+    table : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
     projection : str
         Select map projection.
     region
@@ -74,26 +73,19 @@ def triangulate(x=None, y=None, z=None, data=None, **kwargs):
         - xarray.DataArray if outgrid is True
         - None if outgrid is a str (grid output will be stored in outgrid)
     """
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provide z with x and y.")
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(data)
-            elif kind == "matrix":
-                file_context = lib.virtualfile_from_matrix(data)
-            elif kind == "vectors":
-                file_context = lib.virtualfile_from_vectors(x, y, z)
-            else:
-                raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
-
-            with file_context as infile:
+            # Choose how data will be passed into the module
+            table_context = lib.virtualfile_from_data(
+                check_kind="vector", data=table, x=x, y=y, z=z
+            )
+            with table_context as infile:
                 if "G" not in kwargs:  # table output if outgrid is unset
                     kwargs.update({">": tmpfile.name})
                 else:  # NetCDF or xarray.DataArray output if outgrid is set
-                    if kwargs["G"] == "":  # xarray.DataArray output if outgrid=True
+                    if (
+                        kwargs["G"] is True
+                    ):  # xarray.DataArray output if outgrid is True
                         kwargs.update({"G": tmpfile.name})
                     outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
