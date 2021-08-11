@@ -51,7 +51,7 @@ def grdlandmask(**kwargs):
     {R}
     {A}
     resolution : str
-        *res*[**+f**]. Selects the resolution of the data set to use
+        *res*\[\ **+f**\]. Selects the resolution of the data set to use      **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**
         ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or
         (**c**)rude). The resolution drops off by ~80% between data sets.
         [Default is **l**]. Append **+f** to automatically select a lower
@@ -68,7 +68,7 @@ def grdlandmask(**kwargs):
         *lborder*/*iborder*/*pborder* or just the single value *bordervalue*
         (for the case when they should all be the same value). This turns on
         the line-tracking mode. Now, after setting the mask values specified
-        via ``mask_geog``` we trace the lines and change the node values for
+        via ``maskvalues`` we trace the lines and change the node values for
         all cells traversed by a line to the corresponding border value. Here,
         *cborder* is used for cells traversed by the coastline, *lborder* for
         cells traversed by a lake outline, *iborder* for islands-in-lakes
@@ -77,16 +77,13 @@ def grdlandmask(**kwargs):
     maskvalues : str or list
         *values*. Sets the values that will be assigned to nodes. Values can
         be any number, including the textstring NaN. Also select
-        ``bordervalues``` to let nodes exactly on feature boundaries be
+        ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside]. Specify this information
         using 1 of 2 formats:
 
-        -``maskvalues``*wet*/*dry*.
-
-        -``maskvalues``*ocean*/*land*/*lake*/*island*/*pond*.
-
+        - \``maskvalues``\ *wet*/*dry*.
+        - \``maskvalues``\ *ocean*/*land*/*lake*/*island*/*pond*.
         [Default is 0/1/0/1/0 (i.e., 0/1)].
-
     {V}
     {r}
 
