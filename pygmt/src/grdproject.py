@@ -21,6 +21,8 @@ from pygmt.helpers import (
     I="inverse",
     R="region",
     V="verbose",
+    n="interpolation",
+    r="registration",
 )
 @kwargs_to_strings(R="sequence")
 def grdproject(grid, **kwargs):
@@ -54,6 +56,8 @@ def grdproject(grid, **kwargs):
     {J}
     {R}
     {V}
+    {n}
+    {r}
 
     Returns
     -------
