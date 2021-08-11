@@ -208,8 +208,8 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
     if "S" not in kwargs and kind == "file":
-        with open(data, "r") as f:
-            line = f.readline()
+        with open(data, "r") as file:
+            line = file.readline()
         if "@GMULTIPOINT" in line or "@GPOINT" in line:
             kwargs["S"] = "s0.2c"
     if "G" in kwargs and not isinstance(kwargs["G"], str):
