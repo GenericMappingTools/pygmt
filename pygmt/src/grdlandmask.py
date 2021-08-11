@@ -81,8 +81,8 @@ def grdlandmask(**kwargs):
         considered outside [Default is inside]. Specify this information
         using 1 of 2 formats:
 
-        - \``maskvalues``\ *wet*/*dry*.
-        - \``maskvalues``\ *ocean*/*land*/*lake*/*island*/*pond*.
+        - ``maskvalues`` \*wet*/*dry*.
+        - ``maskvalues`` \*ocean*/*land*/*lake*/*island*/*pond*.
         [Default is 0/1/0/1/0 (i.e., 0/1)].
     {V}
     {r}
