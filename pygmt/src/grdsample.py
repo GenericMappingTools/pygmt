@@ -2,7 +2,6 @@
 grdsample - Resample a grid onto a new lattice
 """
 
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -11,6 +10,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import process_output_grid
 
 
 @fmt_docstring
@@ -85,11 +85,4 @@ def grdsample(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdsample", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+        return process_output_grid(outgrid, tmpfile.name)

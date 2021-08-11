@@ -2,7 +2,6 @@
 surface - Grids table data using adjustable tension continuous curvature
 splines.
 """
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -14,6 +13,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import process_output_grid
 
 
 @fmt_docstring
@@ -99,11 +99,4 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="surface", args=arg_str)
 
-        if outfile == tmpfile.name:  # if user did not set outfile, return DataArray
-            with xr.open_dataarray(outfile) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        elif outfile != tmpfile.name:  # if user sets an outfile, return None
-            result = None
-
-    return result
+        return process_output_grid(outfile, tmpfile.name)

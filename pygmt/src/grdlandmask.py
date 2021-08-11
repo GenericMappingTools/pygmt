@@ -2,7 +2,6 @@
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
 
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -12,6 +11,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import process_output_grid
 
 
 @fmt_docstring
@@ -68,11 +68,4 @@ def grdlandmask(**kwargs):
             arg_str = build_arg_string(kwargs)
             lib.call_module("grdlandmask", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+        return process_output_grid(outgrid, tmpfile.name)
