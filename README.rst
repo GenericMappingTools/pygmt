@@ -228,16 +228,21 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - Numpy
+    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/milestone/8>`_ (upcoming release)
+      - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
+      - >=6.2.0
+      - >=3.7
+      - >=1.18
     * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_ (latest release)
       - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
       - >=6.2.0
       - >=3.7
-      - >=1.17.0
+      - >=1.17
     * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
       - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
       - >=6.2.0
       - >=3.7
-      - >=1.17.0
+      - >=1.17
     * - `v0.3.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1>`_
       - `v0.3.1 Documentation <https://www.pygmt.org/v0.3.1>`_
       - >=6.1.1
@@ -273,6 +278,3 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.0.0
       - 3.6 - 3.8
       -
-
-The unstable development documentation, which reflects the `main branch <https://github.com/GenericMappingTools/pygmt>`_
-on GitHub, can be found at https://www.pygmt.org/dev/.
