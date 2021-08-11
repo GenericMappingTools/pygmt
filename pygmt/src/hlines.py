@@ -74,8 +74,7 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
 
         if xmin is None and xmax is None:
             with Session() as lib:
-                # get limits from current map boundings if not given
-                # via xmin, xmax
+                # get limits from current map boundings if not given via xmin, xmax
                 x = np.array([[lib.extract_region()[0]], [lib.extract_region()[1]]])
                 x = np.repeat(x, list_length, axis=1)
         elif xmin is None or xmax is None:
@@ -84,8 +83,7 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
             )
 
         else:
-            # if only a single xmin and xmax without [], repeat to fit size
-            # of y
+            # if only a single xmin and xmax without [], repeat to fit size of y
             if isinstance(xmin, (int, float)):
                 x = np.array([[xmin], [xmax]])
                 x = np.repeat(x, list_length, axis=1)
@@ -101,11 +99,13 @@ def hlines(self, y=None, xmin=None, xmax=None, **kwargs):
 
         # prepare labels
         if "l" in kwargs:
-            # if several lines belong to the same label, first set all to the
-            # label given via "l", then reset all entries except the first
+            # if several lines belong to the same label, first set all to None
+            # then replace first entry by the label given via "l"
             if not isinstance(kwargs["l"], list):
-                kwargs["l"] = np.repeat(kwargs["l"], list_length)
-                kwargs["l"][1:list_length] = None
+                label2use = kwargs["l"]
+                kwargs["l"] = np.repeat(None, list_length)
+                kwargs["l"][0] = label2use
+
         else:
             kwargs["l"] = np.repeat(None, list_length)
 
