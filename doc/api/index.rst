@@ -94,6 +94,7 @@ Operations on grids:
     grdfilter
     grdlandmask
     grdgradient
+    grdmix
     grdsample
     grdtrack
     xyz2grd
