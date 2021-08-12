@@ -14,6 +14,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
+    A="area_thresh",
     I="reverse",
     J="projection",
     R="region",
@@ -63,6 +64,7 @@ def select(table=None, outfile=None, **kwargs):
         {table-classes}.
     outfile : str
         The file name for the output ASCII file.
+    {A}
     reverse : str
         [**cflrsz**].
         Reverses the sense of the test for each of the criteria specified:
@@ -77,6 +79,9 @@ def select(table=None, outfile=None, **kwargs):
           (and **-A**, **-D**).
         - **z** select records NOT within the range specified by
           **z_subregion**.
+    {J}
+    {R}
+    {V}
     z_subregion : str
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
@@ -96,9 +101,6 @@ def select(table=None, outfile=None, **kwargs):
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new **z_subregion** option, starting with 2.
-    {J}
-    {R}
-    {V}
     {b}
     {d}
     {e}
