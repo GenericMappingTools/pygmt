@@ -98,6 +98,7 @@ def test_geopandas_plot3d_default_cube():
     )
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_geopandas_plot_non_default_circle():
     """
@@ -107,7 +108,7 @@ def test_geopandas_plot_non_default_circle():
     point = shapely.geometry.Point(1, 2)
     gdf = gpd.GeoDataFrame(geometry=[point])
     fig = Figure()
-    fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True, style='c0.2c')
+    fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True, style="c0.2c")
     return fig
 
 
@@ -127,6 +128,6 @@ def test_geopandas_plot3d_non_default_circle():
         projection="X2c",
         frame=["WsNeZ1", "xag", "yag", "zag"],
         zscale=1.5,
-        style='c0.2c'
+        style="c0.2c",
     )
     return fig

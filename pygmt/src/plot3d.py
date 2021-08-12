@@ -181,7 +181,7 @@ def plot3d(
         "S" not in kwargs
         and kind == "geojson"
         and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):# chacking if the geometry of a geoDataFrame is Point or MultiPoint
+    ):  # chacking if the geometry of a geoDataFrame is Point or MultiPoint
         kwargs["S"] = "u0.2c"
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
