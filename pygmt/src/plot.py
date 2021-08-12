@@ -211,7 +211,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         "S" not in kwargs
         and kind == "geojson"
         and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):
+    ):# chacking if the geometry of a geoDataFrame is Point or MultiPoint
         kwargs["S"] = "s0.2c"
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
