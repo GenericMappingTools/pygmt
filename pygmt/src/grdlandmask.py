@@ -61,10 +61,10 @@ def grdlandmask(**kwargs):
         the coastlines differ in details a node in a mask file using one
         resolution is not guaranteed to remain inside [or outside] when a
         different resolution is selected.
-    bordervalues : str or list
-        [*values*]. Nodes that fall exactly on a polygon boundary should be
+    bordervalues : bool or str or list
+        Nodes that fall exactly on a polygon boundary should be
         considered to be outside the polygon [Default considers them to be
-        inside]. Alternatively, append either the four values *cborder*/
+        inside]. Alternatively, append either the four values *cborder*/\
         *lborder*/*iborder*/*pborder* or just the single value *bordervalue*
         (for the case when they should all be the same value). This turns on
         the line-tracking mode. Now, after setting the mask values specified
@@ -79,10 +79,7 @@ def grdlandmask(**kwargs):
         be any number, including the textstring NaN. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside]. Specify this information
-        using 1 of 2 formats:
-
-        - ``maskvalues`` \*wet*/*dry*.
-        - ``maskvalues`` \*ocean*/*land*/*lake*/*island*/*pond*.
+        using either *wet*/*dry* or *ocean*/*land*/*lake*/*island*/*pond*.
         [Default is 0/1/0/1/0 (i.e., 0/1)].
     {V}
     {r}
