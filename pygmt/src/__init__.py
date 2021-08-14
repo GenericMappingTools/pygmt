@@ -19,6 +19,7 @@ from pygmt.src.grdgradient import grdgradient
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdlandmask import grdlandmask
+from pygmt.src.grdsample import grdsample
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
 from pygmt.src.histogram import histogram
@@ -41,3 +42,4 @@ from pygmt.src.which import which
 from pygmt.src.wiggle import wiggle
 from pygmt.src.x2sys_cross import x2sys_cross
 from pygmt.src.x2sys_init import x2sys_init
+from pygmt.src.xyz2grd import xyz2grd
