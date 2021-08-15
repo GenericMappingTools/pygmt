@@ -26,7 +26,7 @@ from pygmt.helpers import (
     V="verbose",
     r="registration",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
     r"""
     Create a grid file with set values for land and water.
