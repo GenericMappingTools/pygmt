@@ -82,8 +82,8 @@ def test_geopandas_plot_default_square():
 @pytest.mark.mpl_image_compare
 def test_geopandas_plot3d_default_cube():
     """
-    Check the default behavior of plotting a geopandas DataFrame with MultiPoint
-    geometry in 3d.
+    Check the default behavior of plotting a geopandas DataFrame with
+    MultiPoint geometry in 3d.
     """
     multipoint = shapely.geometry.MultiPoint([(0.5, 0.5, 0.5), (1.5, 1.5, 1.5)])
     gdf = gpd.GeoDataFrame(geometry=[multipoint])
