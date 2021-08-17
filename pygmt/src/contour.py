@@ -31,7 +31,7 @@ from pygmt.helpers import (
     W="pen",
     X="xshift",
     Y="yshift",
-    b="binary,
+    b="binary",
     c="panel",
     d="nodata",
     e="find",
@@ -41,7 +41,7 @@ from pygmt.helpers import (
     l="label",
     p="perspective",
     t="transparency",
-    U="timestamp"
+    U="timestamp",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def contour(self, x=None, y=None, z=None, data=None, **kwargs):
