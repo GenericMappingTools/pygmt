@@ -31,11 +31,17 @@ from pygmt.helpers import (
     W="pen",
     X="xshift",
     Y="yshift",
+    b="binary,
     c="panel",
+    d="nodata",
+    e="find",
+    f="coltypes",
     i="incols",
+    h="header",
     l="label",
     p="perspective",
     t="transparency",
+    U="timestamp"
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def contour(self, x=None, y=None, z=None, data=None, **kwargs):
@@ -112,6 +118,12 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     {i}
     {p}
     {t}
+    {b}
+    {d}
+    {e}
+    {f}
+    {h}
+    {U}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
