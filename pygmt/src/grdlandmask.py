@@ -65,15 +65,15 @@ def grdlandmask(**kwargs):
         Nodes that fall exactly on a polygon boundary should be
         considered to be outside the polygon [Default considers them to be
         inside]. Alternatively, append either a list of four values
-        [*cborder*, *lborder*, *iborder*, *pborder*] or just the single value *bordervalue*
-        (for the case when they should all be the same value). This turns on
-        the line-tracking mode. Now, after setting the mask values specified
-        via ``maskvalues`` we trace the lines and change the node values for
-        all cells traversed by a line to the corresponding border value. Here,
-        *cborder* is used for cells traversed by the coastline, *lborder* for
-        cells traversed by a lake outline, *iborder* for islands-in-lakes
-        outlines, and *pborder* for ponds-in-islands-in-lakes outlines
-        [Default is no line tracing].
+        [*cborder*, *lborder*, *iborder*, *pborder*] or just the single value
+        *bordervalue* (for the case when they should all be the same value).
+        This turns on the line-tracking mode. Now, after setting the mask
+        values specified via ``maskvalues`` we trace the lines and change the
+        node values for all cells traversed by a line to the corresponding
+        border value. Here, *cborder* is used for cells traversed by the
+        coastline, *lborder* for cells traversed by a lake outline, *iborder*
+        for islands-in-lakes outlines, and *pborder* for
+        ponds-in-islands-in-lakes outlines [Default is no line tracing].
     maskvalues : str or list
         [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].
         Sets the values that will be assigned to nodes. Values can
