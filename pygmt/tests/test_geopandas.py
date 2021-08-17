@@ -69,7 +69,7 @@ def test_geopandas_info_shapely(gdf, geomtype, desired):
 @pytest.mark.mpl_image_compare
 def test_geopandas_plot_default_square():
     """
-    Check the default behavior of plotting geopandas DataFrame with Point
+    Check the default behavior of plotting a geopandas DataFrame with Point
     geometry in 2d.
     """
     point = shapely.geometry.Point(1, 2)
