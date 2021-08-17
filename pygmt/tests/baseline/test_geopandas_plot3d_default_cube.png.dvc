@@ -1,0 +1,4 @@
+outs:
+- md5: 48e8bd30372aa5ab9004c1fd53db7ab6
+  size: 12132
+  path: test_geopandas_plot3d_default_cube.png
