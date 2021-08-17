@@ -1,6 +1,8 @@
 """
 plot - Plot in two dimensions.
 """
+import os
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -207,7 +209,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     extra_arrays = []
     if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
-    if "S" not in kwargs and kind == "file":
+    if "S" not in kwargs and kind == "file" and os.path.exists(data):
         with open(data, "r") as file:
             line = file.readline()
         if "@GMULTIPOINT" in line or "@GPOINT" in line:
