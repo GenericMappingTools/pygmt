@@ -78,7 +78,7 @@ def grdlandmask(**kwargs):
         [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].
         Sets the values that will be assigned to nodes. Values can
         be any number, including the textstring NaN
-        [Default is 0/1/0/1/0 (i.e., 0/1)]. Also select
+        [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside].
     {V}
