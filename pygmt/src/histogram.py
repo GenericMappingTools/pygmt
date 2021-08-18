@@ -27,10 +27,16 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     X="xshift",
     Y="yshift",
     Z="histtype",
+    b="binary",
     c="panel",
+    d="nodata",
+    e="find",
+    g="gap",
+    h="header",
     l="label",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", T="sequence", c="sequence_comma", p="sequence")
 def histogram(self, table, **kwargs):
@@ -119,9 +125,15 @@ def histogram(self, table, **kwargs):
     {XY}
     {U}
     {V}
+    {b}
+    {d}
+    {e}
+    {g}
+    {h}
     {l}
     {p}
     {t}
+    {w}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
