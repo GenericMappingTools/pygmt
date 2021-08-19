@@ -279,11 +279,5 @@ def blockmode(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
           set by ``outfile``).
     """
     return _blockm(
-        block_method="blockmode",
-        table=table,
-        outfile=outfile,
-        x=x,
-        y=y,
-        z=z,
-        **kwargs
+        block_method="blockmode", table=table, outfile=outfile, x=x, y=y, z=z, **kwargs
     )
