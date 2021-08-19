@@ -179,7 +179,7 @@ def plot3d(
         extra_arrays.extend(direction)
     if (
         "S" not in kwargs and kind == "file"
-    ):  # chacking that the data is a file path to set defualt style
+    ):  # checking that the data is a file path to set default style
         try:
             with open(pygmt.which(data), "r") as file:
                 line = file.readline()
