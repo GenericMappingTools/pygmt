@@ -8,9 +8,12 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
 from pygmt.src import grdcut, which
+import  rioaxarray
 
 def load_earth_night():
-    pass
+    fname = which("@earth_night_01d") 
+    dataarray=xr.open_dataarray(fname, engine="rasterio")
+    return dataarray
 
 
 @kwargs_to_strings(region="sequence")
