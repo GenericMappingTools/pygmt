@@ -195,7 +195,7 @@ def plot3d(
             ):  # if the file is gmt style and geometry is set to Point
                 kwargs["S"] = "u0.2c"
         except FileNotFoundError:
-            pas
+            pass
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
             raise GMTInvalidInput(
