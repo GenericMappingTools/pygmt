@@ -499,7 +499,7 @@ def test_plot_deprecate_columns_to_incols(region):
 
 
 @pytest.mark.mpl_image_compare
-def test_plot_gmt_shapfile_point_defaudlt_style():
+def test_plot_gmt_shapfile_point_default_style():
     """
     Make sure that gmt shaphfile with MultiPint geometry are ploted as squers
     and not as linne(defualt GMT style)
