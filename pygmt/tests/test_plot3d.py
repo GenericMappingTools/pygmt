@@ -528,7 +528,7 @@ def test_plot3d_gmt_shapfile_MultiPoint_default_style():
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GMULTIPOINT
-# @R1/1.5/1/1.5                                                           
+# @R1/1.5/1/1.5
 # FEATURE_DATA
 >
 1 1 2
@@ -554,7 +554,7 @@ def test_plot3d_gmt_shapfile_MultiPoint_non_default_style():
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GMULTIPOINT
-# @R1/1.5/1/1.5                                                           
+# @R1/1.5/1/1.5
 # FEATURE_DATA
 >
 1 1 2

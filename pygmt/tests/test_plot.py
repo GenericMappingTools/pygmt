@@ -506,7 +506,7 @@ def test_plot_gmt_shapfile_point_default_style():
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GPOINT
-# @R1/1/1/1UB                                                             
+# @R1/1/1/1UB
 # FEATURE_DATA
 1 2
         """
@@ -524,7 +524,7 @@ def test_plot_gmt_shapfile_point_non_default_style():
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GPOINT
-# @R1/1/1/1UB                                                             
+# @R1/1/1/1UB
 # FEATURE_DATA
 1 2
         """
