@@ -212,7 +212,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         "S" not in kwargs and kind == "file"
     ):  # chacking that the data is a file path to set defualt style
         try:
-            with open(pygmt.which(data), "r") as file:
+            with open(which(data), "r") as file:
                 line = file.readline()
             if (
                 "@GMULTIPOINT" in line or "@GPOINT" in line
