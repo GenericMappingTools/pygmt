@@ -66,7 +66,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     Notes
     -----
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
-    Earth relief data with resolutions higher than "05m", which are stored as
+    Earth relief data with resolutions with resolutions of 5 arc-minutes or higher, which are stored as
     smaller tiles.
 
     Examples
