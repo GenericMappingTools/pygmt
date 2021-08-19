@@ -11,6 +11,7 @@ import pytest
 import xarray as xr
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -495,3 +496,45 @@ def test_plot_deprecate_columns_to_incols(region):
         )
         assert len(record) == 1  # check that only one warning was raised
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_gmt_shapfile_point_defaudlt_style():
+    """
+    Make sure that gmt shaphfile with MultiPint geometry are ploted as squers
+    and not as linne(defualt GMT style)
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        gmt_file = """# @VGMT1.0 @GPOINT
+# @R1/1/1/1UB                                                             
+# FEATURE_DATA
+1 2
+        """
+        with open(tmpfile.name, "w") as file:
+            file.write(gmt_file)
+        fig = Figure()
+        fig.plot(data=tmpfile.name, region=[0, 2, 1, 3], projection="X2c", frame=True)
+        return fig
+
+@pytest.mark.mpl_image_compare
+def test_plot_gmt_shapfile_point_non_default_style():
+    """
+    make sure that non defuslt style can be set.
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        gmt_file = """# @VGMT1.0 @GPOINT
+# @R1/1/1/1UB                                                             
+# FEATURE_DATA
+1 2
+        """
+        with open(tmpfile.name, "w") as file:
+            file.write(gmt_file)
+        fig = Figure()
+        fig.plot(
+            data=tmpfile.name,
+            region=[0, 2, 1, 3],
+            projection="X2c",
+            frame=True,
+            style="c0.2c",
+        )
+        return fig
