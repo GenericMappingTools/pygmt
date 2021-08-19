@@ -9,6 +9,9 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
 from pygmt.src import grdcut, which
 
+def load_earth_night():
+    pass
+
 
 @kwargs_to_strings(region="sequence")
 def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm=False):
