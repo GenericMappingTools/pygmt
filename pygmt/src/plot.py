@@ -1,7 +1,6 @@
 """
 plot - Plot in two dimensions.
 """
-from pygmt.src.which import which
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -13,6 +12,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src.which import which
 
 
 @fmt_docstring
@@ -209,9 +209,9 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
     elif (
-            "S" not in kwargs
-            and kind == "geojson"
-            and data.geom_type.isin(["Point", "MultiPoint"]).all()
+        "S" not in kwargs
+        and kind == "geojson"
+        and data.geom_type.isin(["Point", "MultiPoint"]).all()
     ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
         kwargs["S"] = "s0.2c"
     elif (
