@@ -181,7 +181,7 @@ def plot3d(
         "S" not in kwargs and kind == "file"
     ):  # checking that the data is a file path to set default style
         try:
-            with open(pygmt.which(data), "r") as file:
+            with open(which(data), "r") as file:
                 line = file.readline()
             if (
                 "@GMULTIPOINT" in line or "@GPOINT" in line
