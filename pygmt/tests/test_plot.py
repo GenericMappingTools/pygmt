@@ -516,6 +516,7 @@ def test_plot_gmt_shapfile_point_default_style():
         fig.plot(data=tmpfile.name, region=[0, 2, 1, 3], projection="X2c", frame=True)
         return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_plot_gmt_shapfile_point_non_default_style():
     """
