@@ -8,6 +8,7 @@ import numpy as np
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -517,3 +518,57 @@ def test_plot3d_deprecate_columns_to_incols(data, region):
         )
         assert len(record) == 1  # check that only one warning was raised
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot3d_gmt_shapfile_MultiPoint_default_style():
+    """
+    Make sure that gmt shaphfile with MultiPint geometry are ploted as cubs and
+    not as linne(defualt GMT style)
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        gmt_file = """# @VGMT1.0 @GMULTIPOINT
+# @R1/1.5/1/1.5                                                           
+# FEATURE_DATA
+>
+1 1 2
+1.5 1.5 1"""
+        with open(tmpfile.name, "w") as file:
+            file.write(gmt_file)
+        fig = Figure()
+        fig.plot3d(
+            data=tmpfile.name,
+            perspective=[315, 25],
+            region=[0, 2, 0, 2, 0, 2],
+            projection="X2c",
+            frame=["WsNeZ1", "xag", "yag", "zag"],
+            zscale=1.5,
+        )
+        return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot3d_gmt_shapfile_MultiPoint_non_default_style():
+    """
+    make sure that non defuslt style can be set.
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        gmt_file = """# @VGMT1.0 @GMULTIPOINT
+# @R1/1.5/1/1.5                                                           
+# FEATURE_DATA
+>
+1 1 2
+1.5 1.5 1"""
+        with open(tmpfile.name, "w") as file:
+            file.write(gmt_file)
+        fig = Figure()
+        fig.plot3d(
+            data=tmpfile.name,
+            perspective=[315, 25],
+            region=[0, 2, 0, 2, 0, 2],
+            projection="X2c",
+            frame=["WsNeZ1", "xag", "yag", "zag"],
+            zscale=1.5,
+            style="c0.2c",
+        )
+        return fig
