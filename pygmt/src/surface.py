@@ -84,14 +84,10 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(data)
-            elif kind == "matrix":
-                file_context = lib.virtualfile_from_matrix(data)
-            elif kind == "vectors":
-                file_context = lib.virtualfile_from_vectors(x, y, z)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
+            # Choose how data will be passed into the module
+            file_context = lib.virtualfile_from_data(
+                    kind = "vector", data=data, x=x, y=y, z=z
+            )
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outfile is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})
