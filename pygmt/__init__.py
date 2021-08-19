@@ -31,6 +31,7 @@ from pygmt.session_management import end as _end
 from pygmt.src import (
     blockmean,
     blockmedian,
+    blockmode,
     config,
     grd2cpt,
     grdclip,
