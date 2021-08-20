@@ -27,11 +27,17 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="skip",
+    U="timestamp",
     V="verbose",
     W="pen",
     X="xshift",
     Y="yshift",
+    b="binary",
     c="panel",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    h="header",
     i="incols",
     l="label",
     p="perspective",
@@ -106,9 +112,15 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
+    {U}
     {V}
     {XY}
+    {b}
     {c}
+    {d}
+    {e}
+    {f}
+    {h}
     {i}
     {p}
     {t}
