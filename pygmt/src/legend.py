@@ -19,6 +19,7 @@ from pygmt.helpers import (
     J="projection",
     D="position",
     F="box",
+    U="timestamp",
     V="verbose",
     X="xshift",
     Y="yshift",
@@ -64,6 +65,7 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         using :gmt-term:`MAP_FRAME_PEN`. By default, uses
         **+g**\ white\ **+p**\ 1p which draws a box around the legend using a
         1p black pen and adds a white background.
+    {U}
     {V}
     {XY}
     {c}
