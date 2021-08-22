@@ -143,18 +143,6 @@ def load_hotspots():
         "placename".
     """
     fname = which("@hotspots.txt", download="c")
-
-    # Read first 3 columns (space-separated): longitude, latitude and icon_size
-    lon_lat_size = pd.read_table(
-        fname,
-        sep="\s+",
-        comment="#",
-        usecols=[0, 1, 2],
-        names=["longitude", "latitude", "icon_size"],
-    )
-    # Read last column (tab-separated): placename
-    placename = pd.read_table(fname, comment="#", usecols=[1], names=["placename"])
-    # Concat first 3 columns with last column to get a 4-column dataframe
-    data = pd.concat(objs=[lon_lat_size, placename], axis="columns")
-
+    columns = ["longitude", "latitude", "icon_size", "placename"]
+    data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
     return data
