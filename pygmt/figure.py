@@ -132,6 +132,7 @@ class Figure:
         I="icc_gray",
         T="fmt",
         Q="anti_aliasing",
+        V="verbose",
     )
     @kwargs_to_strings()
     def psconvert(self, **kwargs):
@@ -185,11 +186,14 @@ class Figure:
             both an EPS and a PDF file. Using **F** creates a multi-page PDF
             file from the list of input PS or PDF files. It requires the
             ``prefix`` parameter.
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
         if "A" not in kwargs:
             kwargs["A"] = ""
+        # allow for spaces in figure name
+        kwargs["F"] = f'"{kwargs.get("F")}"' if kwargs.get("F") else None
         with Session() as lib:
             lib.call_module("psconvert", build_arg_string(kwargs))
 
@@ -237,12 +241,17 @@ class Figure:
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
         if ext not in fmts:
-            raise GMTInvalidInput("Unknown extension '.{}'".format(ext))
+            if ext == "ps":
+                raise GMTInvalidInput(
+                    "Extension '.ps' is not supported. "
+                    "Please use '.eps' or '.pdf' instead."
+                )
+            raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
             if fmt != "g":
                 raise GMTInvalidInput(
-                    "Transparency unavailable for '{}', only for png.".format(ext)
+                    f"Transparency unavailable for '{ext}', only for png."
                 )
             fmt = fmt.upper()
         if anti_alias:

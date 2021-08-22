@@ -8,6 +8,7 @@ etc.
 import functools
 import textwrap
 import warnings
+from inspect import Parameter, signature
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
@@ -24,6 +25,14 @@ COMMON_OPTIONS = {
             *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
+    "A": r"""
+        area_thresh : int or float or str
+            *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
+            [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
+            Features with an area smaller than *min_area* in km\ :sup:`2` or of
+            hierarchical level that is lower than *min_level* or higher than
+            *max_level* will not be plotted [Default is 0/0/4 (all
+            features)].""",
     "B": r"""
         frame : bool or str or list
             Set map boundary
@@ -101,23 +110,160 @@ COMMON_OPTIONS = {
             Control how aspatial data are handled during input and output.
             Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
          """,
+    "b": r"""
+        binary : bool or str
+            **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**].
+            Select native binary input (using ``binary="i"``) or output
+            (using ``binary="o"``), where *ncols* is the number of data columns
+            of *type*, which must be one of:
+
+                - **c** - int8_t (1-byte signed char)
+                - **u** - uint8_t (1-byte unsigned char)
+                - **h** - int16_t (2-byte signed int)
+                - **H** - uint16_t (2-byte unsigned int)
+                - **i** - int32_t (4-byte signed int)
+                - **I** - uint32_t (4-byte unsigned int)
+                - **l** - int64_t (8-byte signed int)
+                - **L** - uint64_t (8-byte unsigned int)
+                - **f** - 4-byte single-precision float
+                - **d** - 8-byte double-precision float
+                - **x** - use to skip *ncols* anywhere in the record
+
+            For records with mixed types, append additional comma-separated
+            combinations of *ncols* *type* (no space). The following modifiers
+            are supported:
+
+                - **w** after any item to force byte-swapping.
+                - **+l**\|\ **b** to indicate that the entire data file should
+                  be read as little- or big-endian, respectively.
+
+            Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
+    "d": r"""
+        nodata : str
+            **i**\|\ **o**\ *nodata*.
+            Substitute specific values with NaN (for tabular data). For
+            example, ``d="-9999"`` will replace all values equal to -9999 with
+            NaN during input and all NaN values with -9999 during output.
+            Prepend **i** to the *nodata* value for input columns only. Prepend
+            **o** to the *nodata* value for output columns only.""",
     "c": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
-            Selects a specific subplot panel. Only allowed when in subplot
+            Select a specific subplot panel. Only allowed when in subplot
             mode. Use ``panel=True`` to advance to the next panel in the
             selected order. Instead of *row,col* you may also give a scalar
             value *index* which depends on the order you set via ``autolabel``
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
          """,
+    "e": r"""
+        find : str
+            [**~**]\ *"pattern"* \| [**~**]/\ *regexp*/[**i**].
+            Only pass records that match the given *pattern* or regular
+            expressions [Default processes all records]. Prepend **~** to
+            the *pattern* or *regexp* to instead only pass data expressions
+            that do not match the pattern. Append **i** for case insensitive
+            matching. This does not apply to headers or segment headers.""",
     "f": r"""
         coltypes : str
             [**i**\|\ **o**]\ *colinfo*.
             Specify data types of input and/or output columns (time or
             geographical data). Full documentation is at
-            :gmt-docs:`gmt.html#f-full`.
-         """,
+            :gmt-docs:`gmt.html#f-full`.""",
+    "g": r"""
+        gap : str or list
+            [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
+            **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**].
+            Examine the spacing between consecutive data points in order to
+            impose breaks in the line. To specify multiple critera, provide
+            a list with each item containing a string describing one set of
+            critera. Prepend **a** to specify that all the criteria must be
+            met [Default is to impose breaks if any criteria are met]. The
+            following modifiers are supported:
+
+                - **x**\|\ **X** - define a gap when there is a large enough
+                  change in the x coordinates (upper case to use projected
+                  coordinates).
+                - **y**\|\ **Y** - define a gap when there is a large enough
+                  change in the y coordinates (upper case to use projected
+                  coordinates).
+                - **d**\|\ **D** - define a gap when there is a large enough
+                  distance between coordinates (upper case to use projected
+                  coordinates).
+                - [*col*]\ **z** - define a gap when there is a large enough
+                  change in the data in column *col* [default *col* is 2 (i.e.,
+                  3rd column)].
+
+            A unit **u** may be appended to the specified *gap*:
+
+                - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
+                  be arc **d**\ (egree), **m**\ (inute), and **s**\ (econd), or
+                  (m)\ **e**\ (ter), **f**\ (eet), **k**\ (ilometer),
+                  **M**\ (iles), or **n**\ (autical miles) [Default is
+                  (m)\ **e**\ (ter)].
+                - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
+                  **i**\ (nch), **c**\ (entimeter), or **p**\ (oint).
+
+            One of the following modifiers can be appended to *gap* [Default
+            imposes breaks based on the absolute value of the difference
+            between the current and previous value]:
+
+                - **+n** - specify that the previous value minus the current
+                  column value must exceed *gap* for a break to be imposed.
+                - **+p** - specify that the current value minus the previous
+                  value must exceed *gap* for a break to be imposed.""",
+    "h": r"""
+        header : str
+            [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
+            *remark*][**+t**\ *title*].
+            Specify that input and/or output file(s) have *n* header records
+            [Default is 0]. Prepend **i** if only the primary input should have
+            header records. Prepend **o** to control the writing of header
+            records, with the following modifiers supported:
+
+                - **+d** to remove existing header records.
+                - **+c** to add a header comment with column names to the
+                  output [Default is no column names].
+                - **+m** to add a segment header *segheader* to the output
+                  after the header block [Default is no segment header].
+                - **+r** to add a *remark* comment to the output [Default is no
+                  comment]. The *remark* string may contain \\n to indicate
+                  line-breaks.
+                - **+t** to add a *title* comment to the output [Default is no
+                  title]. The *title* string may contain \\n to indicate
+                  line-breaks.
+
+            Blank lines and lines starting with \# are always skipped.""",
+    "i": r"""
+        incols : str or 1d array
+            Specify data columns for primary input in arbitrary order. Columns
+            can be repeated and columns not listed will be skipped [Default
+            reads all columns in order, starting with the first (i.e., column
+            0)].
+
+            - For *1d array*: specify individual columns in input order (e.g.,
+              ``incols=[1,0]`` for the 2nd column followed by the 1st column).
+            - For :py:class:`str`: specify individual columns or column
+              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
+              defaults to 1 if not specified, with columns and/or column ranges
+              separated by commas (e.g., ``incols="0:2,4+l"`` to input the
+              first three columns followed by the log-transformed 5th column).
+              To read from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To read trailing
+              text, add the column **t**. Append the word number to **t** to
+              ingest only a single word from the trailing text. Instead of
+              specifying columns, use ``incols="n"`` to simply read numerical
+              input and skip trailing text. Optionally, append one of the
+              following modifiers to any column or column range to transform
+              the input columns:
+
+                - **+l** to take the *log10* of the input values.
+                - **+d** to divide the input values by the factor *divisor*
+                  [Default is 1].
+                - **+s** to multiple the input values by the factor *scale*
+                  [Default is 1].
+                - **+o** to add the given *offset* to the input values [Default
+                  is 0].""",
     "j": r"""
         distcalc : str
             **e**\|\ **f**\|\ **g**.
@@ -132,6 +278,10 @@ COMMON_OPTIONS = {
             (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
             (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
             controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
+    "l": r"""
+        label : str
+            Add a legend entry for the symbol or line being plotted. Full
+            documentation is at :gmt-docs:`gmt.html#l-full`.""",
     "n": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
@@ -142,6 +292,29 @@ COMMON_OPTIONS = {
             - **c** for bicubic [Default]
             - **l** for bilinear
             - **n** for nearest-neighbor""",
+    "o": r"""
+        outcols : str or 1d array
+            *cols*\ [,...][,\ **t**\ [*word*]].
+            Specify data columns for primary output in arbitrary order. Columns
+            can be repeated and columns not listed will be skipped [Default
+            writes all columns in order, starting with the first (i.e., column
+            0)].
+
+            - For *1d array*: specify individual columns in output order (e.g.,
+              ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
+            - For :py:class:`str`: specify individual columns or column
+              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
+              defaults to 1 if not specified, with columns and/or column ranges
+              separated by commas (e.g., ``outcols="0:2,4"`` to output the
+              first three columns followed by the 5th column).
+              To write from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To write trailing
+              text, add the column **t**. Append the word number to **t** to
+              write only a single word from the trailing text. Instead of
+              specifying columns, use ``outcols="n"`` to simply read numerical
+              input and skip trailing text. Note: if ``incols`` is also used
+              then the columns given to ``outcols`` correspond to the order
+              after the ``incols`` selection has taken place.""",
     "p": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
@@ -156,6 +329,22 @@ COMMON_OPTIONS = {
             Force gridline (**g**) or pixel (**p**) node registration.
             [Default is **g**\ (ridline)].
         """,
+    "s": r"""
+        skiprows : bool or str
+            [*cols*][**+a**][**+r**].
+            Suppress output for records whose *z*-value equals NaN [Default
+            outputs all records]. Optionally, supply a comma-separated list of
+            all columns or column ranges to consider for this NaN test [Default
+            only considers the third data column (i.e., *cols = 2*)]. Column
+            ranges must be given in the format *start*\ [:*inc*]:*stop*, where
+            *inc* defaults to 1 if not specified. The following modifiers are
+            supported:
+
+                - **+r** to reverse the suppression, i.e., only output the
+                  records whose *z*-value equals NaN.
+                - **+a** to suppress the output of the record if just one or
+                  more of the columns equal NaN [Default skips record only
+                  if values in all specified *cols* equal NaN].""",
     "t": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.
@@ -163,6 +352,24 @@ COMMON_OPTIONS = {
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
+    "w": r"""
+        wrap : str
+            **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
+            **c**\ *period*\ [/*phase*][**+c**\ *col*].
+            Convert the input *x*-coordinate to a cyclical coordinate, or a
+            different column if selected via **+c**\ *col*. The following
+            cyclical coordinate transformations are supported:
+
+                - **y** - yearly cycle (normalized)
+                - **a** - annual cycle (monthly)
+                - **w** - weekly cycle (day)
+                - **d** - daily cycle (hour)
+                - **h** - hourly cycle (minute)
+                - **m** - minute cycle (second)
+                - **s** - second cycle (second)
+                - **c** - custom cycle (normalized)
+
+            Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
     "x": r"""
         cores : bool or int
             [[**-**]\ *n*].
@@ -292,6 +499,30 @@ def fmt_docstring(module_func):
     return module_func
 
 
+def _insert_alias(module_func, default_value=None):
+    """
+    Function to insert PyGMT long aliases into the signature of a method.
+    """
+
+    # Get current signature and parameters
+    sig = signature(module_func)
+    wrapped_params = list(sig.parameters.values())
+    kwargs_param = wrapped_params.pop(-1)
+    # Add new parameters from aliases
+    for alias in module_func.aliases.values():
+        if alias not in sig.parameters.keys():
+            new_param = Parameter(
+                alias, kind=Parameter.KEYWORD_ONLY, default=default_value
+            )
+            wrapped_params = wrapped_params + [new_param]
+    all_params = wrapped_params + [kwargs_param]
+    # Update method signature
+    sig_new = sig.replace(parameters=all_params)
+    module_func.__signature__ = sig_new
+
+    return module_func
+
+
 def use_alias(**aliases):
     """
     Decorator to add aliases to keyword arguments of a function.
@@ -329,7 +560,7 @@ def use_alias(**aliases):
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput:
-        Arguments in short-form (J) and long-form (projection) can't coexist
+        Parameters in short-form (J) and long-form (projection) can't coexist.
     """
 
     def alias_decorator(module_func):
@@ -342,16 +573,25 @@ def use_alias(**aliases):
             """
             New module that parses and replaces the registered aliases.
             """
-            for arg, alias in aliases.items():
-                if alias in kwargs and arg in kwargs:
+            for short_param, long_alias in aliases.items():
+                if long_alias in kwargs and short_param in kwargs:
                     raise GMTInvalidInput(
-                        f"Arguments in short-form ({arg}) and long-form ({alias}) can't coexist"
+                        f"Parameters in short-form ({short_param}) and "
+                        f"long-form ({long_alias}) can't coexist."
                     )
-                if alias in kwargs:
-                    kwargs[arg] = kwargs.pop(alias)
+                if long_alias in kwargs:
+                    kwargs[short_param] = kwargs.pop(long_alias)
+                elif short_param in kwargs:
+                    msg = (
+                        f"Short-form parameter ({short_param}) is not recommended. "
+                        f"Use long-form parameter '{long_alias}' instead."
+                    )
+                    warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
+
+        new_module = _insert_alias(new_module)
 
         return new_module
 
@@ -505,7 +745,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     name, and users will receive a FutureWarning to inform them of the pending
     deprecation.
 
-    Use this decorator below the ``use_alias`` decorator.
+    Use this decorator above the ``use_alias`` decorator.
 
     Parameters
     ----------

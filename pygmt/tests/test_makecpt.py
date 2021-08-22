@@ -150,10 +150,6 @@ def test_makecpt_continuous(grid):
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Flaky test only passes with pytest on single module"
-    "See https://github.com/GenericMappingTools/pygmt/issues/1242"
-)
 @pytest.mark.mpl_image_compare
 def test_makecpt_categorical(region):
     """
@@ -165,10 +161,6 @@ def test_makecpt_categorical(region):
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Flaky test only passes with pytest on single module"
-    "See https://github.com/GenericMappingTools/pygmt/issues/1242"
-)
 @pytest.mark.mpl_image_compare
 def test_makecpt_cyclic(region):
     """

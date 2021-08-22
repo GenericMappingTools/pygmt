@@ -3,10 +3,17 @@ rose - Plot windrose diagrams or polar histograms.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -29,10 +36,16 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     X="xshift",
     Y="yshift",
     Z="scale",
-    i="columns",
+    b="binary",
+    d="nodata",
+    e="find",
+    g="gap",
+    h="header",
+    i="incols",
     c="panel",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def rose(self, length=None, azimuth=None, data=None, **kwargs):
@@ -108,12 +121,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
          consideration, set them all to unity with ``scale = 'u'``
          [Default is no scaling].
 
-    columns : str or 1d array
-         Select input columns and transformations. E.g. choose
-         ``columns = [1, 0]`` or ``columns = '1,0'`` if the length values
-         are stored in the second column and the direction (azimuth)
-         values in the first one. Note: zero-based indexing is used.
-
     color : str
          Selects shade, color or pattern for filling the sectors [Default
          is no fill].
@@ -185,9 +192,16 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     {U}
     {V}
     {XY}
+    {b}
     {c}
+    {d}
+    {e}
+    {g}
+    {h}
+    {i}
     {p}
     {t}
+    {w}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

@@ -15,6 +15,8 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -36,7 +38,7 @@ from pygmt.helpers import (
     Y="yshift",
     Z="zvalue",
     a="aspatial",
-    i="columns",
+    i="incols",
     l="label",
     c="panel",
     f="coltypes",
@@ -44,7 +46,6 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
@@ -79,7 +80,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
-        Use parameter ``columns`` to choose which columns are x, y, color, and
+        Use parameter ``incols`` to choose which columns are x, y, color, and
         size, respectively.
     size : 1d array
         The size of the data points in units specified using ``style``.
@@ -192,15 +193,8 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     {a}
     {c}
     {f}
-    columns : str or 1d array
-        Choose which columns are x, y, color, and size, respectively if
-        input is provided via *data*. E.g. ``columns = [0, 1]`` or
-        ``columns = '0,1'`` if the *x* values are stored in the first
-        column and *y* values in the second one. Note: zero-based
-        indexing is used.
-    label : str
-        Add a legend entry for the symbol or line being plotted.
-
+    {i}
+    {l}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
@@ -213,6 +207,12 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     extra_arrays = []
     if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
+    elif (
+        "S" not in kwargs
+        and kind == "geojson"
+        and data.geom_type.isin(["Point", "MultiPoint"]).all()
+    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
+        kwargs["S"] = "s0.2c"
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
             raise GMTInvalidInput(

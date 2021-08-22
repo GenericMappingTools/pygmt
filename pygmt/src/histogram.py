@@ -27,10 +27,16 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     X="xshift",
     Y="yshift",
     Z="histtype",
+    b="binary",
     c="panel",
+    d="nodata",
+    e="find",
+    g="gap",
+    h="header",
     l="label",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", T="sequence", c="sequence_comma", p="sequence")
 def histogram(self, table, **kwargs):
@@ -98,7 +104,7 @@ def histogram(self, table, **kwargs):
         Draws a stairs-step diagram which does not include the internal bars
         of the default histogram.
     horizontal : bool
-        Plot the histogram using horizonal bars instead of the
+        Plot the histogram using horizontal bars instead of the
         default vertical bars.
     series : int or str or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
@@ -119,10 +125,15 @@ def histogram(self, table, **kwargs):
     {XY}
     {U}
     {V}
-    label : str
-        Add a legend entry for the symbol or line being plotted.
+    {b}
+    {d}
+    {e}
+    {g}
+    {h}
+    {l}
     {p}
     {t}
+    {w}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
