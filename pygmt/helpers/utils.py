@@ -71,7 +71,7 @@ def data_kind(data, x=None, y=None, z=None):
     if data is None and (x is None or y is None):
         raise GMTInvalidInput("Must provided both x and y.")
 
-    if isinstance(data, (str, pathlib.Path)):
+    if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
