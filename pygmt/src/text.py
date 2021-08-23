@@ -37,6 +37,7 @@ from pygmt.helpers import (
     i="incols",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(
     R="sequence",
