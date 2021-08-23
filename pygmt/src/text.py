@@ -155,6 +155,7 @@ def text_(
     {e}
     {f}
     {h}
+    {i}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
