@@ -521,7 +521,7 @@ def test_plot3d_deprecate_columns_to_incols(data, region):
 
 
 @pytest.mark.mpl_image_compare
-def test_plot3d_gmt_shapfile_MultiPoint_default_style():
+def test_plot3d_ogrgmt_file_multipoint_default_style():
     """
     Make sure that gmt shaphfile with MultiPint geometry are ploted as cubs and
     not as linne(defualt GMT style)
@@ -548,7 +548,7 @@ def test_plot3d_gmt_shapfile_MultiPoint_default_style():
 
 
 @pytest.mark.mpl_image_compare
-def test_plot3d_gmt_shapfile_MultiPoint_non_default_style():
+def test_plot3d_ogrgmt_file_multipoint_non_default_style():
     """
     make sure that non defuslt style can be set.
     """
