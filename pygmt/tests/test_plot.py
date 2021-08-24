@@ -501,11 +501,11 @@ def test_plot_deprecate_columns_to_incols(region):
 @pytest.mark.mpl_image_compare
 def test_plot_ogrgmt_file_multipoint_default_style():
     """
-    Make sure that gmt shaphfile with MultiPint geometry are ploted as squers
-    and not as linne(defualt GMT style)
+    Make sure that OGR/GMT file with MultiPoint geometry are plotted as squares
+    and not as line (default GMT style).
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
-        gmt_file = """# @VGMT1.0 @GPOINT
+        gmt_file = """# @VGMT1.0 @GMULTIPOINT
 # @R1/1/1/1UB
 # FEATURE_DATA
 1 2
