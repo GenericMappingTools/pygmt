@@ -127,7 +127,7 @@ def load_fractures_compilation():
 
 def load_hotspots():
     """
-    Load a table with the locations, names, and suggested icon sizes of
+    Load a table with the locations, names, and suggested symbol sizes of
     hotspots.
 
     This is the ``@hotspots.txt`` dataset used in the GMT tutorials.
@@ -139,10 +139,10 @@ def load_hotspots():
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "longitude", "latitude", "icon_size", and
+        The data table with columns "longitude", "latitude", "symbol_size", and
         "placename".
     """
     fname = which("@hotspots.txt", download="c")
-    columns = ["longitude", "latitude", "icon_size", "placename"]
+    columns = ["longitude", "latitude", "symbol_size", "placename"]
     data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
     return data
