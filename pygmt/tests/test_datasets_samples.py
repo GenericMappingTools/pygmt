@@ -85,7 +85,7 @@ def test_hotspots():
     assert data.columns.values.tolist() == [
         "longitude",
         "latitude",
-        "icon_size",
+        "symbol_size",
         "placename",
     ]
     assert isinstance(data, pd.DataFrame)
