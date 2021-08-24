@@ -143,6 +143,6 @@ def load_hotspots():
         "placename".
     """
     fname = which("@hotspots.txt", download="c")
-    columns = ["longitude", "latitude", "symbol_size", "placename"]
+    columns = ["longitude", "latitude", "symbol_size", "place_name"]
     data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
     return data
