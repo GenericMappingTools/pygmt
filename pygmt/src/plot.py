@@ -216,7 +216,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         kwargs["S"] = "s0.2c"
     elif (
         "S" not in kwargs and kind == "file"
-    ):  # chacking that the data is a file path to set defualt style
+    ):  # checking that the data is a file path to set default style
         try:
             with open(which(data), "r") as file:
                 line = file.readline()
