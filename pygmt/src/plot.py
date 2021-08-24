@@ -201,6 +201,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         *transparency* can also be a 1d array to set varying transparency
         for symbols, but this option is only valid if using x/y.
     """
+    # pylint: disable=too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     kind = data_kind(data, x, y)
