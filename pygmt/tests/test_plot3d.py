@@ -550,7 +550,7 @@ def test_plot3d_ogrgmt_file_multipoint_default_style():
 @pytest.mark.mpl_image_compare
 def test_plot3d_ogrgmt_file_multipoint_non_default_style():
     """
-    make sure that non defuslt style can be set.
+    Make sure that non default style can be set for plotting OGR/GMT file.
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GMULTIPOINT
