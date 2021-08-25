@@ -26,43 +26,43 @@ from pygmt.helpers import (
 @kwargs_to_strings(C="sequence", R="sequence")
 def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     r"""
-    Determine the volume between the surface of a grid and a plane.
+     Determine the volume between the surface of a grid and a plane.
 
-    Read a 2-D grid file and calculate the volume contained below the surface
-    and above the plane specified by the given contour (or zero if not given)
-    and return the contour, area, volume, and maximum mean height
-    (volume/area). Alternatively, a range of contours can be specified to
-    return the volume and area inside the contour for all contour values.
-    Using **-T**, the contour that produced the maximum mean height
-    (or maximum curvature of heights vs contour value) is returned as well.
+     Read a 2-D grid file and calculate the volume contained below the surface
+     and above the plane specified by the given contour (or zero if not given)
+     and return the contour, area, volume, and maximum mean height
+     (volume/area). Alternatively, a range of contours can be specified to
+     return the volume and area inside the contour for all contour values.
+     Using **-T**, the contour that produced the maximum mean height
+     (or maximum curvature of heights vs contour value) is returned as well.
 
-    {aliases}
+     {aliases}
 
-    Parameters
-    ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-        This is the only required parameter.
-    output_type : str
-        Determine the format the xyz data will be returned in [Default is
-        ``pandas``]:
-            - ``numpy`` - :class:`numpy.ndarray`
-            - ``pandas``-  :class:`pandas.DataFrame`
-            - ``file`` - ASCII file (requires ``outfile``)
-    outfile : str
-        The file name for the output ASCII file.
-    {R}
-    {V}
+     Parameters
+     ----------
+     grid : str or xarray.DataArray
+         The file name of the input grid or the grid loaded as a DataArray.
+         This is the only required parameter.
+     output_type : str
+         Determine the format the xyz data will be returned in [Default is
+         ``pandas``]:
+             - ``numpy`` - :class:`numpy.ndarray`
+             - ``pandas``-  :class:`pandas.DataFrame`
+             - ``file`` - ASCII file (requires ``outfile``)
+     outfile : str
+         The file name for the output ASCII file.
+     {R}
+     {V}
 
-    Returns
-    -------
-   ret : pandas.DataFrame or numpy.ndarray or None
-        Return type depends on ``outfile`` and ``output_type``:
-        - None if ``outfile`` is set (output will be stored in file set by
-          ``outfile``)
-        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
-          not set (depends on ``output_type`` [Default is
-          :class:`pandas.DataFrame`])
+     Returns
+     -------
+    ret : pandas.DataFrame or numpy.ndarray or None
+         Return type depends on ``outfile`` and ``output_type``:
+         - None if ``outfile`` is set (output will be stored in file set by
+           ``outfile``)
+         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile``
+            is not set (depends on ``output_type`` [Default is
+           :class:`pandas.DataFrame`])
 
     """
     if output_type not in ["numpy", "pandas", "file"]:

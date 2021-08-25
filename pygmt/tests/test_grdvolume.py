@@ -16,6 +16,7 @@ def fixture_grid():
     """
     return load_earth_relief(resolution="01d", region=[-1, 1, -1, 1])
 
+
 def test_grdvolume_format(grid):
     """
     Test that correct formats are returned.
