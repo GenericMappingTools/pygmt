@@ -523,7 +523,7 @@ def test_plot3d_deprecate_columns_to_incols(data, region):
 @pytest.mark.mpl_image_compare
 def test_plot3d_ogrgmt_file_multipoint_default_style():
     """
-    Make sure that OGR/GMT file with MultiPoint geometry are plotted as cubes
+    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes
     and not as line (default GMT style).
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
