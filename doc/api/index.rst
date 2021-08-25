@@ -92,9 +92,11 @@ Operations on grids:
     grdcut
     grdfill
     grdfilter
-    grdlandmask
     grdgradient
+    grdlandmask
+    grdsample
     grdtrack
+    xyz2grd
 
 Crossover analysis with x2sys:
 
