@@ -21,7 +21,7 @@ def test_grd2xyz(grid):
     """
     Make sure grd2xyz works as expected.
     """
-    xyz_data = grd2xyz(grid=grid, output_type="a")
+    xyz_data = grd2xyz(grid=grid, output_type="numpy")
     assert xyz_data.shape == (4, 3)
 
 
@@ -31,9 +31,9 @@ def test_grd2xyz_format(grid):
     """
     xyz_default = grd2xyz(grid=grid)
     assert isinstance(xyz_default, pd.DataFrame)
-    xyz_array = grd2xyz(grid=grid, output_type="a")
+    xyz_array = grd2xyz(grid=grid, output_type="numpy")
     assert isinstance(xyz_array, np.ndarray)
-    xyz_df = grd2xyz(grid=grid, output_type="d")
+    xyz_df = grd2xyz(grid=grid, output_type="pandas")
     assert isinstance(xyz_df, pd.DataFrame)
 
 
@@ -50,4 +50,4 @@ def test_grd2xyz_no_outfile(grid):
     Test that grd2xyz fails when a string output is set with no outfile.
     """
     with pytest.raises(GMTInvalidInput):
-        grd2xyz(grid=grid, output_type="s")
+        grd2xyz(grid=grid, output_type="file")

@@ -19,12 +19,12 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def grd2xyz(grid, output_type="d", outfile=None, **kwargs):
+def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     r"""
     Convert grid to data table.
 
-    Read a grid and output xyz-triplets as a numpy array,
-    pandas DataFrame, string, or ASCII [or binary] file.
+    Read a grid and output xyz-triplets as a :class:`numpy.ndarray`,
+    :class:`pandas.DataFrame`, or ASCII file.
 
     Full option list at :gmt-docs:`grd2xyz.html`
 
@@ -33,13 +33,15 @@ def grd2xyz(grid, output_type="d", outfile=None, **kwargs):
     Parameters
     ----------
     grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-        This is the only required parameter.
+        The file name of the input grid or the grid loaded as a
+        :class:`xarray.DataArray`. This is the only required parameter.
     output_type : str
-        Determine the format the xyz data will be returned in:
-            **a**: numpy array
-            **d**: pandas DataFrame [Default option]
-            **s**: string
+        Determine the format the xyz data will be returned in [Default is
+        ``pandas``]:
+
+            - ``numpy`` - :class:`numpy.ndarray`
+            - ``pandas``-  :class:`pandas.DataFrame`
+            - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
     {R}
@@ -47,12 +49,21 @@ def grd2xyz(grid, output_type="d", outfile=None, **kwargs):
 
     Returns
     -------
-    data : pandas.DataFrame or numpy.array or str
-        The xyz triplet data in a pandas DataFrame, numpy array, or string.
+    ret : pandas.DataFrame or numpy.ndarray or None
+        Return type depends on ``outfile`` and ``output_type``:
+
+        - None if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
+          not set (depends on ``output_type`` [Default is
+          :class:`pandas.DataFrame`])
+
     """
-    if output_type not in ["a", "d", "s"]:
-        raise GMTInvalidInput("""Must specify format as either a, d, or s.""")
-    if output_type == "s" and outfile is None:
+    if output_type not in ["numpy", "pandas", "file"]:
+        raise GMTInvalidInput(
+            """Must specify format as either numpy, pandas, or file."""
+        )
+    if output_type == "file" and outfile is None:
         raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
 
     with GMTTempFile() as tmpfile:
@@ -70,6 +81,6 @@ def grd2xyz(grid, output_type="d", outfile=None, **kwargs):
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 
-        if output_type == "a":
+        if output_type == "numpy":
             result = result.to_numpy()
     return result
