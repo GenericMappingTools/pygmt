@@ -28,12 +28,12 @@ def test_grdproject_file_out(grid):
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         result = grdinfo(tmpfile.name, per_column=True).strip().split()
-        npt.assert_approx_equal(float(result[0]), 0)  # x min
-        npt.assert_approx_equal(float(result[1]), 10)  # x max
-        npt.assert_approx_equal(float(result[2]), -5.55111512313e-17)  # y min
-        npt.assert_approx_equal(float(result[3]), 9.94585661273)  # y max
-        npt.assert_approx_equal(float(result[4]), -5130.48193359)  # min
-        npt.assert_approx_equal(float(result[5]), -152.585281372)  # max
+        npt.assert_allclose(float(result[0]), 0)  # x min
+        npt.assert_allclose(float(result[1]), 10)  # x max
+        npt.assert_allclose(float(result[2]), 0, atol=10**-10)  # y min
+        npt.assert_allclose(float(result[3]), 9.94585661273)  # y max
+        npt.assert_allclose(float(result[4]), -5130.48193359)  # min
+        npt.assert_allclose(float(result[5]), -152.585281372)  # max
 
 
 def test_grdproject_no_outgrid(grid):
