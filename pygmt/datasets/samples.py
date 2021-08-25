@@ -130,7 +130,10 @@ def load_hotspots():
     Load a table with the locations, names, and suggested symbol sizes of
     hotspots.
 
-    This is the ``@hotspots.txt`` dataset used in the GMT tutorials.
+    This is the ``@hotspots.txt`` dataset used in the GMT tutorials, with data
+    from Mueller, Royer, and Lawver, 1993, Geology, vol. 21, pp. 275-278. The
+    main 5 hotspots used by Doubrovine et al. [2012] have symbol sizes twice
+    the size of all other hotspots.
 
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
