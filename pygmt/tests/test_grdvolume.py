@@ -16,35 +16,21 @@ def fixture_grid():
     """
     return load_earth_relief(resolution="01d", region=[-1, 1, -1, 1])
 
-
-def test_grdvolume(grid):
-    """
-    Make sure grdvolume works as expected.
-    """
-    volume_data = grdvolume(grid=grid, data_format="s")
-    assert volume_data.strip().split() == [
-        "0",
-        "49453592037.5",
-        "-2.40882119642e+14",
-        "-4870.87205839",
-    ]
-
-
 def test_grdvolume_format(grid):
     """
     Test that correct formats are returned.
     """
-    grdvolume_array = grdvolume(grid=grid)
+    grdvolume_default = grdvolume(grid=grid)
+    assert isinstance(grdvolume_default, pd.DataFrame)
+    grdvolume_array = grdvolume(grid=grid, output_type="numpy")
     assert isinstance(grdvolume_array, np.ndarray)
-    grdvolume_df = grdvolume(grid=grid, data_format="d")
+    grdvolume_df = grdvolume(grid=grid, output_type="pandas")
     assert isinstance(grdvolume_df, pd.DataFrame)
-    grdvolume_string = grdvolume(grid=grid, data_format="s")
-    assert isinstance(grdvolume_string, str)
 
 
 def test_grdvolume_invalid_format(grid):
     """
-    Test that grdvolume fails with incorrect data_format argument.
+    Test that grdvolume fails with incorrect output_type argument.
     """
     with pytest.raises(GMTInvalidInput):
-        grdvolume(grid=grid, data_format=1)
+        grdvolume(grid=grid, output_type=1)

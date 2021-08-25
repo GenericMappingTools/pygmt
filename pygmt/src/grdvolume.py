@@ -24,7 +24,7 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(C="sequence", R="sequence")
-def grdvolume(grid, data_format="a", **kwargs):
+def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     r"""
     Determine the volume between the surface of a grid and a plane.
 
@@ -43,42 +43,50 @@ def grdvolume(grid, data_format="a", **kwargs):
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
         This is the only required parameter.
-    data_format : str
-        Determine the format the data will be returned in:
-            **a**: numpy array [Default option]
-            **d**: pandas DataFrame
-            **s**: string
+    output_type : str
+        Determine the format the xyz data will be returned in [Default is
+        ``pandas``]:
+            - ``numpy`` - :class:`numpy.ndarray`
+            - ``pandas``-  :class:`pandas.DataFrame`
+            - ``file`` - ASCII file (requires ``outfile``)
+    outfile : str
+        The file name for the output ASCII file.
     {R}
     {V}
 
     Returns
     -------
-    volume : str or numpy.array or pandas.DataFrame
-        A string with the volume between the surface and specified plane.
+   ret : pandas.DataFrame or numpy.ndarray or None
+        Return type depends on ``outfile`` and ``output_type``:
+        - None if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
+          not set (depends on ``output_type`` [Default is
+          :class:`pandas.DataFrame`])
+
     """
-    with GMTTempFile() as outfile:
+    if output_type not in ["numpy", "pandas", "file"]:
+        raise GMTInvalidInput(
+            """Must specify format as either numpy, pandas, or file."""
+        )
+    if output_type == "file" and outfile is None:
+        raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
+
+    with GMTTempFile() as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                arg_str = " ".join(
-                    [infile, build_arg_string(kwargs), "->" + outfile.name]
-                )
+                if outfile is None:
+                    outfile = tmpfile.name
+                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
                 lib.call_module("grdvolume", arg_str)
-        result = outfile.read()
-    if data_format == "s":
-        return result
-    data_list = []
-    for string_entry in result.strip().split("\n"):
-        float_entry = []
-        string_list = string_entry.strip().split()
-        for i in string_list:
-            float_entry.append(float(i))
-        data_list.append(float_entry)
-    data_array = np.array(data_list)
-    if data_format == "a":
-        result = data_array
-    elif data_format == "d":
-        result = pd.DataFrame(data_array)
-    else:
-        raise GMTInvalidInput("""Must specify format as either a, d, or s.""")
+
+        # Read temporary csv output to a pandas table
+        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
+            result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
+        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
+            result = None
+
+        if output_type == "numpy":
+            result = result.to_numpy()
     return result
