@@ -11,12 +11,12 @@ import pygmt
 fig = pygmt.Figure()
 
 # Assign a value of 0 for all water masses and a value of 1 for all land masses
-grid = pygmt.grdlandmask(region=[-65, -40, -40, -20], spacing = "5m", maskvalues = "0/1", resolution = "l")
+grid = pygmt.grdlandmask(
+    region=[-65, -40, -40, -20], spacing="5m", maskvalues="0/1", resolution="l"
+)
 
 # Plot clipped grid
-fig.basemap(
-    region=region, projection="M12c", frame=True
-)
+fig.basemap(region=region, projection="M12c", frame=True)
 
 fig.grdimage(grid=grid, cmap="lajolla")
 fig.colorbar(position="JMR+o0.5c/0c+w8c")
