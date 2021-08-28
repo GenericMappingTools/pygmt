@@ -30,7 +30,7 @@ def test_grdproject_file_out(grid):
         result = grdinfo(tmpfile.name, per_column=True).strip().split()
         npt.assert_allclose(float(result[0]), 0)  # x min
         npt.assert_allclose(float(result[1]), 10)  # x max
-        npt.assert_allclose(float(result[2]), 0, atol=10 ** -10)  # y min
+        npt.assert_allclose(float(result[2]), 0, atol=1.0e-10)  # y min
         npt.assert_allclose(float(result[3]), 9.94585661273)  # y max
         npt.assert_allclose(float(result[4]), -5130.48193359)  # min
         npt.assert_allclose(float(result[5]), -152.585281372)  # max
