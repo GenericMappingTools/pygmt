@@ -1,6 +1,8 @@
 """
 grd2xyz - Convert grid to data table
 """
+import warnings
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -40,7 +42,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         ``pandas``]:
 
             - ``numpy`` - :class:`numpy.ndarray`
-            - ``pandas``-  :class:`pandas.DataFrame`
+            - ``pandas``- :class:`pandas.DataFrame`
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
@@ -63,6 +65,13 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         raise GMTInvalidInput(
             """Must specify format as either numpy, pandas, or file."""
         )
+    if outfile is not None and output_type != "file":
+        msg = (
+            f"Changing `output_type` of grd2xyz from '{output_type}' to 'file' "
+            "since `outfile` parameter is set. Please use `output_type='file'` "
+            "to silence this warning."
+        )
+        warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
     if output_type == "file" and outfile is None:
         raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
 
