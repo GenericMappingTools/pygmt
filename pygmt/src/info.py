@@ -20,9 +20,10 @@ from pygmt.helpers import (
     V="verbose",
     a="aspatial",
     f="coltypes",
+    i="incols",
     r="registration",
 )
-@kwargs_to_strings(I="sequence")
+@kwargs_to_strings(I="sequence", i="sequence_comma")
 def info(table, **kwargs):
     r"""
     Get information about data tables.
