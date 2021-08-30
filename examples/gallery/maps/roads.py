@@ -16,11 +16,11 @@ gdf = gpd.read_file(
 # the dataset contains different road types listed in the RTTYP column,
 # here we select the following ones to plot:
 # Common name roads
-roads_common = gdf[df.RTTYP == "M"]
+roads_common = gdf[gdf.RTTYP == "M"]
 # State recognized roads
-roads_state = gdf[df.RTTYP == "S"]
+roads_state = gdf[gdf.RTTYP == "S"]
 # Interstates
-roads_interstate = gdf[df.RTTYP == "I"]
+roads_interstate = gdf[gdf.RTTYP == "I"]
 
 fig = pygmt.Figure()
 
