@@ -72,7 +72,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
             "to silence this warning."
         )
         warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
-    if output_type == "file" and outfile is None:
+        output_type = "file"
+    elif output_type == "file" and outfile is None:
         raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
 
     with GMTTempFile() as tmpfile:
