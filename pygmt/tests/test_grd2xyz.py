@@ -1,12 +1,15 @@
 """
 Tests for grd2xyz.
 """
+import os
+
 import numpy as np
 import pandas as pd
 import pytest
 from pygmt import grd2xyz
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -35,6 +38,16 @@ def test_grd2xyz_format(grid):
     assert isinstance(xyz_array, np.ndarray)
     xyz_df = grd2xyz(grid=grid, output_type="pandas")
     assert isinstance(xyz_df, pd.DataFrame)
+
+
+def test_grd2xyz_file_output(grid):
+    """
+    Test that grd2xyz returns a file output when it is specified.
+    """
+    with GMTTempFile(suffix=".xyz") as tmpfile:
+        result = grd2xyz(grid=grid, outfile=tmpfile.name, output_type="file")
+        assert result is None  # return value is None
+        assert os.path.exists(path=tmpfile.name)  # check that outfile exists
 
 
 def test_grd2xyz_invalid_format(grid):
