@@ -6,7 +6,7 @@ dependencies:
     # Required dependencies
     - pip
     - gmt=6.2.0
-    - numpy>=1.17
+    - numpy>=1.18
     - pandas
     - xarray
     - netCDF4

@@ -24,7 +24,7 @@ class PyGMTScraper:  # pylint: disable=too-few-public-methods
         Called by sphinx-gallery to save the figures generated after running
         code.
         """
-        image_names = list()
+        image_names = []
         image_path_iterator = block_vars["image_path_iterator"]
         figures = SHOWED_FIGURES
         while figures:
