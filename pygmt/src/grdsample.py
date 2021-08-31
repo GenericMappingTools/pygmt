@@ -10,7 +10,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import process_output_grid
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -85,4 +85,4 @@ def grdsample(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdsample", arg_str)
 
-        return process_output_grid(outgrid, tmpfile.name)
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None

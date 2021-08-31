@@ -9,7 +9,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import process_output_grid
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -64,4 +64,4 @@ def xyz2grd(table, **kwargs):
                 arg_str = " ".join([infile, arg_str])
                 lib.call_module("xyz2grd", arg_str)
 
-        return process_output_grid(outgrid, tmpfile.name)
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -13,7 +13,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import process_output_grid
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -99,4 +99,4 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="surface", args=arg_str)
 
-        return process_output_grid(outfile, tmpfile.name)
+        return load_dataarray(outfile) if outfile == tmpfile.name else None
