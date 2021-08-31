@@ -65,7 +65,7 @@ for frontstyle in [
     # the front
     "f1c/0.3c+l+t",
     # line with triangle front style, symbols are plotted on the right side of
-    # the front use other pen for the outline of the symbol
+    # the front, use other pen for the outline of the symbol
     "f1c/0.4c+r+t+p1.5p,dodgerblue",
     # line with triangle front style, symbols are plotted on the right side of
     # the front and offset is set to 0.3 cm, skip the outline
