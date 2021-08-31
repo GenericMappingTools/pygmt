@@ -37,7 +37,7 @@ def load_datagrid(filename_or_obj, **kwargs):
     if "cache" in kwargs:
         raise TypeError("cache has no effect in this context")
 
-    with xr.open_dataarray(grid_name, **kwargs) as dataarray:
+    with xr.open_dataarray(filename_or_obj, **kwargs) as dataarray:
         result = dataarray.load()
         _ = result.gmt  # load GMTDataArray accessor information
 
