@@ -10,11 +10,13 @@ def load_dataarray(filename_or_obj, **kwargs):
     object containing a single data variable.
 
     This is a thin wrapper around :py:meth:`xarray.open_dataarray`. It differs
-    from `open_dataarray` in that it loads the DataArray into memory, gets GMT
-    specific metadata about the grid via :meth:`GMTDataArrayAccessor`, closes
-    the file, and returns the DataArray. In contrast, `open_dataarray` keeps
-    the file handle open and lazy loads its contents. All parameters are passed
-    directly to `open_dataarray`. See that documentation for further details.
+    from :py:meth:`xarray.open_dataarray` in that it loads the DataArray into
+    memory, gets GMT specific metadata about the grid via
+    :py:meth:`GMTDataArrayAccessor`, closes the file, and returns the
+    DataArray. In contrast, :py:meth:`xarray.open_dataarray` keeps the file
+    handle open and lazy loads its contents. All parameters are passed directly
+    to :py:meth:`xarray.open_dataarray`. See that documentation for further
+    details.
 
     Parameters
     ----------
