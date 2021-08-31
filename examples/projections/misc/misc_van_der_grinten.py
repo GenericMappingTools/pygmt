@@ -2,10 +2,11 @@
 Van der Grinten
 ===============
 
-The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is
-neither equal-area nor conformal. Central meridian and Equator are straight lines;
-other meridians are arcs of circles. The scale is true along the Equator only. Its
-main use is to show the entire world enclosed in a circle.
+The Van der Grinten projection, presented by Alphons J. van der Grinten in
+1904, is neither equal-area nor conformal. Central meridian and Equator are
+straight lines; other meridians are arcs of circles. The scale is true along
+the Equator only. Its main use is to show the entire world enclosed in a
+circle.
 
 **v**\ [*lon0/*]\ *scale* or **V**\ [*lon0/*]\ *width*
 

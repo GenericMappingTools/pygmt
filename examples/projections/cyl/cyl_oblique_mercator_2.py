@@ -10,9 +10,9 @@ curves. The projection was developed in the early 1900s by several workers.
 **ob**\|\ **oB**\ *lon0/lat0/lon1/lat1/scale*\ [**+v**] or
 **Ob**\|\ **OB**\ *lon0/lat0/lon1/lat1/width*\ [**+v**]
 
-The projection is set with **o** or **O**. The pole is set in the 
-northern hemisphere with **b** or the southern hemisphere 
-with **B**. The central meridian is set by *lon0/lat0*. The oblique 
+The projection is set with **o** or **O**. The pole is set in the
+northern hemisphere with **b** or the southern hemisphere
+with **B**. The central meridian is set by *lon0/lat0*. The oblique
 equator is set by *lon1/lat1*. Align the y-axis
 with the optional **+v**. The figure size is set with *scale* or *width*.
 """

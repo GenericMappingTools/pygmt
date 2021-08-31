@@ -2,7 +2,8 @@
 Cartesian linear
 ================
 
-**X**\ *width*/[*height*]: Give the *width* of the figure and the optional *height*.
+**X**\ *width*/[*height*]: Give the *width* of the figure and the optional
+*height*.
 """
 import pygmt
 
@@ -15,7 +16,8 @@ fig.plot(
     # ``region`` sets the x and y ranges or the Cartesian figure.
     region=[0, 10, 0, 50],
     projection="X15c/10c",
-    # ``WSne`` is passed to ``frame`` to put axis labels only on the left and bottom axes.
+    # ``WSne`` is passed to ``frame`` to put axis labels only on the left and
+    # bottom axes.
     frame=["af", "WSne"],
 )
 fig.show()
