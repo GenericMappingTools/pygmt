@@ -46,11 +46,13 @@ length = 7
 for vecstyle in [
     # vector without head and tail (line)
     "v0c",
-    # plain open arrow at beginning and end, angle of the vector head apex is set to 50
+    # plain open arrow at beginning and end, angle of the vector head apex is
+    # set to 50
     "v0.6c+bA+eA+a50",
     # plain open tail at beginning and end
     "v0.4c+bI+eI",
-    # terminal line at beginning and end, angle of vector head apex is set to 80
+    # terminal line at beginning and end, angle of vector head apex is set
+    # to 80
     "v0.3c+bt+et+a80",
     # arrow head at end
     "v0.6c+e",

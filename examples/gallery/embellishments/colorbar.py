@@ -8,18 +8,18 @@ placement via the ``position`` parameter. The full list of color palette tables
 can be found at :gmt-docs:`cookbook/cpts.html`. You can set the ``position`` of
 the colorbar using the following options:
 
-- **j/J**: justified inside/outside the map frame using any 2 character combination
-  of vertical (**T**\ op, **M**\ iddle, **B**\ ottom) and horizontal (**L**\ eft,
-  **C**\ enter, **R**\ ight) alignment codes, e.g. ``position="jTR"`` for top
-  right.
-- **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude 170E,
-  latitude 45S.
-- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm,7 cm from anchor
-  point.
+- **j/J**: justified inside/outside the map frame using any 2 character
+  combination of vertical (**T**\ op, **M**\ iddle, **B**\ ottom) and
+  horizontal (**L**\ eft, **C**\ enter, **R**\ ight) alignment codes, e.g.
+  ``position="jTR"`` for top right.
+- **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
+  170E, latitude 45S.
+- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm,7 cm from
+  anchor point.
 - **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
 
-Note that the anchor point defaults to the bottom left (**BL**). Append ``+h`` to
-``position`` to get a horizontal colorbar instead of a vertical one.
+Note that the anchor point defaults to the bottom left (**BL**). Append ``+h``
+to ``position`` to get a horizontal colorbar instead of a vertical one.
 """
 import pygmt
 
