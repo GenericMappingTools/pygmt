@@ -66,6 +66,7 @@ def info(table, **kwargs):
 
     {V}
     {a}
+    {i}
     {f}
     {r}
 
