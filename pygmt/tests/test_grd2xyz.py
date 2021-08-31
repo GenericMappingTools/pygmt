@@ -6,6 +6,7 @@ import os
 import numpy as np
 import pandas as pd
 import pytest
+import xarray as xr
 from pygmt import grd2xyz
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
@@ -34,10 +35,13 @@ def test_grd2xyz_format(grid):
     """
     xyz_default = grd2xyz(grid=grid)
     assert isinstance(xyz_default, pd.DataFrame)
+    print(type(list(xyz_default.columns)))
+    assert list(xyz_default.columns) == ["x", "y", "z"]
     xyz_array = grd2xyz(grid=grid, output_type="numpy")
     assert isinstance(xyz_array, np.ndarray)
     xyz_df = grd2xyz(grid=grid, output_type="pandas")
     assert isinstance(xyz_df, pd.DataFrame)
+    assert list(xyz_df.columns) == ["x", "y", "z"]
 
 
 def test_grd2xyz_file_output(grid):

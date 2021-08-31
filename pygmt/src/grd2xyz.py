@@ -4,6 +4,7 @@ grd2xyz - Convert grid to data table
 import warnings
 
 import pandas as pd
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -75,6 +76,10 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         output_type = "file"
     elif output_type == "file" and outfile is None:
         raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
+    dataframe_header = ["x", "y", "z"]
+    if type(grid) == xr.DataArray and output_type == "pandas":
+        if len(grid.dims) == 3:
+            dataframe_header = grid.dims
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
@@ -87,7 +92,9 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
+            result = pd.read_csv(
+                tmpfile.name, sep="\t", names=dataframe_header, comment=">"
+            )
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 
