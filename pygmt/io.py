@@ -4,33 +4,41 @@ PyGMT input/output (I/O) utilities.
 import xarray as xr
 
 
-def process_output_grid(grid_name, tmpfile_name):
+def load_datagrid(filename_or_obj, **kwargs):
     """
-    Processes the output from the GMT API to return an xarray.DataArray if
-    ``grid_name`` matches ``tmpfile_name`` and return None if it does not.
+    Open, load into memory, and close a DataArray from a file or file-like
+    object containing a single data variable.
+
+    This is a thin wrapper around :py:meth:`xarray.open_dataarray`. It differs
+    from `open_dataarray` in that it loads the DataArray into memory, gets GMT
+    specific metadata about the grid via :meth:`GMTDataArrayAccessor`, closes
+    the file, and returns the DataArray. In contrast, `open_dataarray` keeps
+    the file handle open and lazy loads its contents. All parameters are passed
+    directly to `open_dataarray`. See that documentation for further details.
 
     Parameters
     ----------
-    grid_name : str
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
-    tmpfile_name : str
-        The name attribute from a GMTTempFile instance.
+    filename_or_obj : str or Path or file-like or DataStore
+        Strings and Path objects are interpreted as a path to a netCDF file
+        or an OpenDAP URL and opened with python-netCDF4, unless the filename
+        ends with .gz, in which case the file is gunzipped and opened with
+        scipy.io.netcdf (only netCDF3 supported). Byte-strings or file-like
+        objects are opened by scipy.io.netcdf (netCDF3) or h5py (netCDF4/HDF).
 
     Returns
     -------
-    ret: xarray.DataArray or None
-        Return type depends on whether the ``outgrid`` parameter is set:
+    datarray : xarray.DataArray
+        The newly created DataArray.
 
-        - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
-          ``outgrid``)
+    See Also
+    --------
+    xarray.open_dataarray
     """
-    if grid_name == tmpfile_name:  # Implies user did not set outgrid, return DataArray
-        with xr.open_dataarray(grid_name) as dataarray:
-            result = dataarray.load()
-            _ = result.gmt  # load GMTDataArray accessor information
-    else:
-        result = None  # Implies user set an outgrid, return None
+    if "cache" in kwargs:
+        raise TypeError("cache has no effect in this context")
+
+    with xr.open_dataarray(grid_name, **kwargs) as dataarray:
+        result = dataarray.load()
+        _ = result.gmt  # load GMTDataArray accessor information
 
     return result
