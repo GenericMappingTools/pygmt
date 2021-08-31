@@ -4,7 +4,7 @@ PyGMT input/output (I/O) utilities.
 import xarray as xr
 
 
-def load_datagrid(filename_or_obj, **kwargs):
+def load_dataarray(filename_or_obj, **kwargs):
     """
     Open, load into memory, and close a DataArray from a file or file-like
     object containing a single data variable.

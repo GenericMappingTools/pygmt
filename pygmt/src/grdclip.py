@@ -10,7 +10,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import load_datagrid
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -88,4 +88,4 @@ def grdclip(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdclip", arg_str)
 
-        return load_datagrid(outgrid) if outgrid == tmpfile.name else None
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
