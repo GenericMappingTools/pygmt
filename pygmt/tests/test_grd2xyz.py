@@ -6,7 +6,6 @@ import os
 import numpy as np
 import pandas as pd
 import pytest
-import xarray as xr
 from pygmt import grd2xyz
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
