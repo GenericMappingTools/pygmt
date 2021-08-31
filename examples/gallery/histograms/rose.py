@@ -2,7 +2,8 @@
 Rose diagram
 ------------
 
-The :meth:`pygmt.Figure.rose` method can plot windrose diagrams or polar histograms.
+The :meth:`pygmt.Figure.rose` method can plot windrose diagrams or polar
+histograms.
 """
 
 import pygmt
@@ -18,9 +19,9 @@ fig.rose(
     # parameters
     length=data.length,
     azimuth=data.azimuth,
-    # specify the "region" of interest in the (r,azimuth) space [r0, r1, az0, az1],
-    # here, r0 is 0 and r1 is 1, for azimuth, az0 is 0 and az1 is 360 which means
-    # we plot a full circle between 0 and 360 degrees
+    # specify the "region" of interest in the (r,azimuth) space
+    # [r0, r1, az0, az1], here, r0 is 0 and r1 is 1, for azimuth, az0 is 0 and
+    # az1 is 360 which means we plot a full circle between 0 and 360 degrees
     region=[0, 1, 0, 360],
     # set the diameter of the rose diagram to 7.5 cm
     diameter="7.5c",
