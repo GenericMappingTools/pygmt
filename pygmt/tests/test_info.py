@@ -249,3 +249,21 @@ def test_info_fails():
     """
     with pytest.raises(GMTInvalidInput):
         info(data=xr.DataArray(21))
+
+
+def test_incols_for_vector_input():
+    """
+    Make sure that incols (-i) works for vector input.
+    """
+    x = np.arange(0, 10, 1)
+    y = np.arange(10, 20, 1)
+    data = np.array([x, y]).T
+
+    output = info(data=data, per_column=True)
+    npt.assert_allclose(actual=output, desired=[0.0, 9.0, 10.0, 19.0])
+
+    output = info(data=data, per_column=True, incols=[1, 0])
+    npt.assert_allclose(actual=output, desired=[10.0, 19.0, 0.0, 9.0])
+
+    output = info(data=data, per_column=True, incols=["1+s2.0", "0+s5.0+o15"])
+    npt.assert_allclose(actual=output, desired=[20.0, 38.0, 15.0, 60.0])
