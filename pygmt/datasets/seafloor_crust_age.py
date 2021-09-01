@@ -11,7 +11,7 @@ from pygmt.src import grdcut, which
 
 
 @kwargs_to_strings(region="sequence")
-def load_seafloor_crustal_age(resolution="01d", region=None, registration=None):
+def load_seafloor_crust_age(resolution="01d", region=None, registration=None):
     r"""
     Load Earth seafloor crustal ages in various resolutions.
 
