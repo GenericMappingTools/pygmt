@@ -1,5 +1,5 @@
 """
-Tests for blockmean.
+Tests for blockmedian, blockmean, and blockmode.
 """
 import os
 
@@ -19,6 +19,15 @@ def fixture_dataframe():
     """
     return load_sample_bathymetry()
 
+def test_blockmedian_input_dataframe(dataframe):
+    """
+    Run blockmedian by passing in a pandas.DataFrame as input.
+    """
+    output = blockmedian(table=dataframe, spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert all(dataframe.columns == output.columns)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
 def test_blockmean_input_dataframe(dataframe):
     """
