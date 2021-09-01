@@ -226,7 +226,7 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma")
 def blockmode(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by mode estimation.
