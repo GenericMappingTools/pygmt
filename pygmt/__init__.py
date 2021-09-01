@@ -41,6 +41,7 @@ from pygmt.src import (
     grdgradient,
     grdinfo,
     grdlandmask,
+    grdproject,
     grdsample,
     grdtrack,
     info,

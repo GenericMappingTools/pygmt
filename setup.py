@@ -13,7 +13,7 @@ LICENSE = "BSD License"
 URL = "https://github.com/GenericMappingTools/pygmt"
 DESCRIPTION = "A Python interface for the Generic Mapping Tools"
 KEYWORDS = ""
-with open("README.rst") as f:
+with open("README.rst", "r", encoding="utf8") as f:
     LONG_DESCRIPTION = "".join(f.readlines())
 
 PACKAGES = find_packages(exclude=["doc"])
