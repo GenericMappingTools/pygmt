@@ -13,14 +13,14 @@ def load_dataarray(filename_or_obj, **kwargs):
     from :py:meth:`xarray.open_dataarray` in that it loads the DataArray into
     memory, gets GMT specific metadata about the grid via
     :py:meth:`GMTDataArrayAccessor`, closes the file, and returns the
-    DataArray. In contrast, :py:meth:`xarray.open_dataarray` keeps the file
+    DataArray. In contrast, :py:func:`xarray.open_dataarray` keeps the file
     handle open and lazy loads its contents. All parameters are passed directly
-    to :py:meth:`xarray.open_dataarray`. See that documentation for further
+    to :py:func:`xarray.open_dataarray`. See that documentation for further
     details.
 
     Parameters
     ----------
-    filename_or_obj : str or Path or file-like or DataStore
+    filename_or_obj : str or pathlib.Path or file-like or DataStore
         Strings and Path objects are interpreted as a path to a netCDF file
         or an OpenDAP URL and opened with python-netCDF4, unless the filename
         ends with .gz, in which case the file is gunzipped and opened with
