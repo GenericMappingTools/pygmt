@@ -18,9 +18,9 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
 
     Reads arbitrarily located (x,y,z) triples [or optionally weighted
     quadruples (x,y,z,w)] from a table and writes to the output a mean,
-    median, or mode (depending on ``block_method``) position and value for every
-    non-empty block in a grid region defined by the ``region`` and ``spacing``
-    parameters.
+    median, or mode (depending on ``block_method``) position and value for
+    every non-empty block in a grid region defined by the ``region`` and
+    ``spacing`` parameters.
 
     Parameters
     ----------
