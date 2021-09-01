@@ -25,7 +25,7 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
     Parameters
     ----------
     block_method : str
-        Name of the GMT module to call. Must be "blockmean" "blockmedian" or
+        Name of the GMT module to call. Must be "blockmean", "blockmedian" or
         "blockmode".
 
     Returns
