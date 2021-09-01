@@ -14,7 +14,7 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None):
+def data_kind(data, x=None, y=None, z=None, required_z=False):
     """
     Check what kind of data is provided to a module.
 
@@ -65,6 +65,8 @@ def data_kind(data, x=None, y=None, z=None):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
         raise GMTInvalidInput("Must provided both x and y.")
+    if data is None and required_z and (x is None or y is None or z is None):
+        raise GMTInvalidInput("Must provided both x, y, and z.")
 
     if isinstance(data, str):
         kind = "file"
