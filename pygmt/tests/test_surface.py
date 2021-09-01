@@ -118,7 +118,7 @@ def test_surface_deprecate_outfile_to_outgrid(ship_data):
                 assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
         finally:
             os.remove(path=TEMP_GRID)
-        assert len(record) == 1 # check that only one warning was raised
+        assert len(record) == 1  # check that only one warning was raised
 
 
 def test_surface_short_aliases(ship_data):
