@@ -8,7 +8,7 @@ Datetime inputs of the following types are supported in PyGMT:
 - :class:`pandas.DatetimeIndex`
 - :class:`xarray.DataArray`: datetimes included in a *xarray.DataArray*
 - raw datetime strings in
-  `ISO format <https://en.wikipedia.org/wiki/ISO_8601>`__ (e.g.
+  `ISO 8601 format <https://en.wikipedia.org/wiki/ISO_8601>`__ (e.g.
   ``"YYYY-MM-DD"``, ``"YYYY-MM-DDTHH"``, and ``"YYYY-MM-DDTHH:MM:SS"``)
 - Python built-in :class:`datetime.datetime` and :class:`datetime.date`
 
