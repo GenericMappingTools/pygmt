@@ -6,7 +6,7 @@ import os
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt import blockmean
+from pygmt import blockmean, blockmedian
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
@@ -19,6 +19,7 @@ def fixture_dataframe():
     """
     return load_sample_bathymetry()
 
+
 def test_blockmedian_input_dataframe(dataframe):
     """
     Run blockmedian by passing in a pandas.DataFrame as input.
@@ -28,6 +29,7 @@ def test_blockmedian_input_dataframe(dataframe):
     assert all(dataframe.columns == output.columns)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
+
 
 def test_blockmean_input_dataframe(dataframe):
     """
