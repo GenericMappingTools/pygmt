@@ -410,6 +410,19 @@ def test_virtual_file_bad_direction():
                 print("This should have failed")
 
 
+def test_virtualfile_from_data_required_z():
+    """
+    Test that function fails when needs and do not provide z columns.
+    """
+    x = np.arange(5)
+    y = np.arange(5)
+    z = None
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):
+            with lib.virtualfile_from_data(x=x, y=y, z=z, required_z=True):
+                print("This should have failed")
+
+
 def test_virtualfile_from_vectors():
     """
     Test the automation for transforming vectors to virtual file dataset.
