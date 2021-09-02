@@ -59,7 +59,7 @@ def grdsample(grid, **kwargs):
         Translate between grid and pixel registration; if the input is
         grid-registered, the output will be pixel-registered and vice-versa.
     registration : str or bool
-        [**g**\ |\ **p**\ ].
+        [**g**\|\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
     {V}
     {f}
