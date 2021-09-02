@@ -46,6 +46,7 @@ from pygmt.helpers import (
     font="sequence_comma",
     justify="sequence_comma",
     c="sequence_comma",
+    i="sequence_comma",
     p="sequence",
 )
 def text_(

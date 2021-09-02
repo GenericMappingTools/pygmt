@@ -31,7 +31,7 @@ from pygmt.helpers import (
     j="distcalc",
     n="interpolation",
 )
-@kwargs_to_strings(R="sequence", S="sequence")
+@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
