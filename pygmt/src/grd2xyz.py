@@ -79,9 +79,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     # Set the default column names for the pandas dataframe header
     dataframe_header = ["x", "y", "z"]
     # Set the column names to match an input DataArray as the grid
-    if isinstance(grid, xr.DataArray) == xr.DataArray and output_type == "pandas":
-        if len(grid.dims) == 3:
-            dataframe_header = grid.dims
+    if isinstance(grid, xr.DataArray) and output_type == "pandas":
+        dataframe_header = grid.dims + (grid.name,)
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:

@@ -34,8 +34,7 @@ def test_grd2xyz_format(grid):
     """
     xyz_default = grd2xyz(grid=grid)
     assert isinstance(xyz_default, pd.DataFrame)
-    print(type(list(xyz_default.columns)))
-    assert list(xyz_default.columns) == ["x", "y", "z"]
+    assert list(xyz_default.columns) == ["lon", "lat", "elevation"]
     xyz_array = grd2xyz(grid=grid, output_type="numpy")
     assert isinstance(xyz_array, np.ndarray)
     xyz_df = grd2xyz(grid=grid, output_type="pandas")
@@ -76,4 +75,6 @@ def test_grd2xyz_outfile_incorrect_output_type(grid):
     """
     with pytest.warns(RuntimeWarning):
         with GMTTempFile(suffix=".xyz") as tmpfile:
-            grd2xyz(grid=grid, outfile=tmpfile.name, output_type="numpy")
+            result = grd2xyz(grid=grid, outfile=tmpfile.name, output_type="numpy")
+            assert result is None  # return value is None
+            assert os.path.exists(path=tmpfile.name)  # check that outfile exists
