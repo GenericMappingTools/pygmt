@@ -26,6 +26,7 @@ from pkg_resources import get_distribution
 from pygmt import datasets
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
+from pygmt.io import load_dataarray
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
@@ -41,6 +42,7 @@ from pygmt.src import (
     grdinfo,
     grdlandmask,
     grdmix,
+    grdproject,
     grdsample,
     grdtrack,
     info,
