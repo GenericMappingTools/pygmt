@@ -3,7 +3,6 @@ triangulate - Delaunay triangulation or Voronoi partitioning and gridding of
 Cartesian data.
 """
 import pandas as pd
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -12,6 +11,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -92,12 +92,7 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
                 lib.call_module(module="triangulate", args=arg_str)
 
         try:
-            if outgrid == tmpfile.name:  # if user did not set outfile, return DataArray
-                with xr.open_dataarray(outgrid) as dataarray:
-                    result = dataarray.load()
-                    _ = result.gmt  # load GMTDataArray accessor information
-            elif outgrid != tmpfile.name:  # if user sets an outgrid, return None
-                result = None
+            result = load_dataarray(outgrid) if outgrid == tmpfile.name else None
         except UnboundLocalError:  # if outgrid unset, return pd.DataFrame
             result = pd.read_csv(tmpfile.name, sep="\t", header=None)
 
