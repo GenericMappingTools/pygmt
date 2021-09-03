@@ -410,7 +410,7 @@ def test_virtual_file_bad_direction():
                 print("This should have failed")
 
 
-def test_virtualfile_from_data_required_z():
+def test_virtualfile_from_data_required_z_vectors():
     """
     Test that function fails when needs and do not provide z columns.
     """
@@ -420,6 +420,17 @@ def test_virtualfile_from_data_required_z():
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
             with lib.virtualfile_from_data(x=x, y=y, z=z, required_z=True):
+                print("This should have failed")
+
+def test_virtualfile_from_data_required_z_matrix():
+    """
+    Test that function fails when needs and do not provide third z columns in a matrix.
+    """
+
+    data = np.ones((5, 2))
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):
+            with lib.virtualfile_from_data(data=data, required_z=True):
                 print("This should have failed")
 
 

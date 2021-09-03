@@ -75,6 +75,8 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
+        if required_z and data.shape[1] < 3:
+            raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:
         kind = "vectors"
