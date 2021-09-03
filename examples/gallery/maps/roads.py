@@ -1,33 +1,31 @@
 """
-Roads 
---------------------
+Roads
+-----
 The :meth:`pygmt.Figure.plot` method allows to plot geographical data which is
-stored in a geopandas.GeoDataFrame object.
+stored in a :class:`geopandas.GeoDataFrame` object.
 """
 
 import geopandas as gpd
 import pygmt
 
-# read shapefile data using geopandas
+# Read shapefile data using geopandas
 gdf = gpd.read_file(
     "http://www2.census.gov/geo/tiger/TIGER2015/PRISECROADS/tl_2015_15_prisecroads.zip"
 )
-
-# the dataset contains different road types listed in the RTTYP column,
+# The dataset contains different road types listed in the RTTYP column,
 # here we select the following ones to plot:
-# Common name roads
-roads_common = gdf[gdf.RTTYP == "M"]
-# State recognized roads
-roads_state = gdf[gdf.RTTYP == "S"]
-# Interstates
-roads_interstate = gdf[gdf.RTTYP == "I"]
+roads_common = gdf[gdf.RTTYP == "M"]  # Common name roads
+roads_state = gdf[gdf.RTTYP == "S"]  # State recognized roads
+roads_interstate = gdf[gdf.RTTYP == "I"]  # Interstate roads
 
 fig = pygmt.Figure()
 
 # Define target region around O'ahu (Hawai'i)
-region = [-158.3, -157.6, 21.2, 21.75]
+region = [-158.3, -157.6, 21.2, 21.75]  # minx, maxx, miny, maxy
 
-fig.basemap(region=region, projection="M12c", frame=True)
+fig.basemap(
+    region=region, projection="M12c", frame=["af", 'WSne+t"Main roads of Hawaii"']
+)
 fig.coast(land="gray", water="dodgerblue4", shorelines="1p,black")
 
 # Plot the individual road types with different pen settings and assgin labels which are
