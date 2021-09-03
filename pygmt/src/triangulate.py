@@ -16,7 +16,18 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @use_alias(
-    G="outgrid", I="spacing", J="projection", R="region", V="verbose", r="registration"
+    G="outgrid",
+    I="spacing",
+    J="projection",
+    R="region",
+    V="verbose",
+    b="binary",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    h="header",
+    i="incols",
+    r="registration",
 )
 @kwargs_to_strings(R="sequence")
 def triangulate(table=None, x=None, y=None, z=None, **kwargs):
@@ -61,6 +72,12 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
         *triangulate* (this is true of all gridding routines) or instead
         select *sphtriangulate*.
     {V}
+    {b}
+    {d}
+    {e}
+    {f}
+    {h}
+    {i}
     {r}
         Only valid with *outgrid*.
 
