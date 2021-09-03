@@ -66,7 +66,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     if data is None and (x is None or y is None):
         raise GMTInvalidInput("Must provided both x and y.")
     if data is None and required_z and (x is None or y is None or z is None):
-        raise GMTInvalidInput("Must provided both x, y, and z.")
+        raise GMTInvalidInput("Must provide x, y, and z.")
 
     if isinstance(data, str):
         kind = "file"
