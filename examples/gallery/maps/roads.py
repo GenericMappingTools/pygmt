@@ -24,12 +24,14 @@ fig = pygmt.Figure()
 region = [-158.3, -157.6, 21.2, 21.75]  # minx, maxx, miny, maxy
 
 fig.basemap(
-    region=region, projection="M12c", frame=["af", 'WSne+t"Main roads of Hawaii"']
+    region=region,
+    projection="M12c",
+    frame=["af", 'WSne+t"Main roads of Oahu (Hawaii)"'],
 )
 fig.coast(land="gray", water="dodgerblue4", shorelines="1p,black")
 
-# Plot the individual road types with different pen settings and assgin labels which are
-# displayed in the legend
+# Plot the individual road types with different pen settings and assgin labels
+# which are displayed in the legend
 fig.plot(data=roads_common, pen="5p,dodgerblue", label="CommonName")
 fig.plot(data=roads_state, pen="2p,gold", label="StateRecognized")
 fig.plot(data=roads_interstate, pen="2p,red", label="Interstate")
