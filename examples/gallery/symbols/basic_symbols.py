@@ -7,8 +7,8 @@ by passing the corresponding shortcuts to the ``style`` parameter. The 14 basic
 geometric symbols are shown underneath their corresponding shortcut codes.
 Four symbols (**-**, **+**, **x** and **y**) are line-symbols only for which we
 can adjust the linewidth via the ``pen`` parameter. The point symbol (**p**)
-only takes a color fill which we can define via the ``color`` parameter. For the
-remaining symbols we may define a linewidth as well as a color fill.
+only takes a color fill which we can define via the ``color`` parameter. For
+the remaining symbols we may define a linewidth as well as a color fill.
 
 """
 

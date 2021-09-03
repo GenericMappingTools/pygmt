@@ -24,14 +24,20 @@ from pygmt.helpers import (
     D="offset",
     G="fill",
     N="no_clip",
+    U="timestamp",
     V="verbose",
     W="pen",
     X="xshift",
     Y="yshift",
+    a="aspatial",
     c="panel",
+    e="find",
     f="coltypes",
+    h="header",
+    i="incols",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(
     R="sequence",
@@ -40,6 +46,7 @@ from pygmt.helpers import (
     font="sequence_comma",
     justify="sequence_comma",
     c="sequence_comma",
+    i="sequence_comma",
     p="sequence",
 )
 def text_(
@@ -141,14 +148,20 @@ def text_(
         style = solid].
     no_clip : bool
         Do NOT clip text at map boundaries [Default is will clip].
+    {U}
     {V}
     {XY}
+    {a}
     {c}
+    {e}
     {f}
+    {h}
+    {i}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
         for texts, but this option is only valid if using x/y/text.
+    {w}
     """
 
     # pylint: disable=too-many-locals
