@@ -65,7 +65,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
         raise GMTInvalidInput("Must provide both x and y.")
-    if data is None and required_z and (x is None or y is None or z is None):
+    if data is None and required_z and z is None:
         raise GMTInvalidInput("Must provide x, y, and z.")
 
     if isinstance(data, str):
