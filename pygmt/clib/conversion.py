@@ -100,6 +100,12 @@ def dataarray_to_matrix(grid):
                     dim
                 )
             )
+        elif coord_inc <= 0:
+            raise GMTInvalidInput(
+                "Grid needs to be monotonically increasing in the '{}' dimension.".format(
+                    dim
+                )
+            )
         region.extend(
             [
                 coord.min() - coord_inc / 2 * grid.gmt.registration,
