@@ -2,7 +2,7 @@
 Calculating the gradient of a grid file
 --------------------
 The :meth:`pygmt.grdgradient` method allows to calculate the gradient of a grid file.
-In the example shown below we will see how to calculate an hillshade map based on
+In the example shown below we will see how to calculate a hillshade map based on
 a Data Elevation Model(DEM). :meth:`pygmt.grdgradient` get as input :class:`xarray.DataArray` object
 or a path string to a grid file. We will use the ``radiance`` parameter in order to set the illumination
 source direction and altitude
