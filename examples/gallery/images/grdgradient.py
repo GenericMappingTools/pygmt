@@ -50,5 +50,5 @@ fig.grdimage(
     cmap=True,
     region=region,
 )
-fig.colorbar(position="JMR+o0.4c/0c+w7c/0.5c+mc", frame=["xa1000f500", "y+lm"])
+fig.colorbar(position="JMR+o0.4c/0c+w7c/0.5c+mc", frame=["xa1000f500+lElevation", "y+lm"])
 fig.show()
