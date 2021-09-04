@@ -18,7 +18,7 @@ region = [-119.825, -119.4, 37.6, 37.825]
 # Load sample grid (3 arc second global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="03s", region=region)
 
-# calculate the reflection of a light source projecting from west to east(azimuth 270)
+# calculate the reflection of a light source projecting from west to east (azimuth 270 degrees)
 # and at a latitude of 30 degrees from the horizon
 dgrid = pygmt.grdgradient(grid=grid, radiance=[270, 30])
 
