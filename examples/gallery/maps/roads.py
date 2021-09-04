@@ -26,7 +26,7 @@ region = [-158.3, -157.6, 21.2, 21.75]  # minx, maxx, miny, maxy
 fig.basemap(
     region=region,
     projection="M12c",
-    frame=["af", 'WSne+t"Main roads of Oahu (Hawaii)"'],
+    frame=["af", 'WSne+t"Main roads of O`ahu (Hawai`i)"'],
 )
 fig.coast(land="gray", water="dodgerblue4", shorelines="1p,black")
 
