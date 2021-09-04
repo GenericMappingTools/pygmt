@@ -2,25 +2,27 @@
 surface - Grids table data using adjustable tension continuous curvature
 splines.
 """
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     data_kind,
+    deprecate_parameter,
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
+@deprecate_parameter("outfile", "outgrid", "v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
-    G="outfile",
+    G="outgrid",
     V="verbose",
     a="aspatial",
     f="coltypes",
@@ -60,7 +62,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
         *xmin/xmax/ymin/ymax*\[**+r**][**+u**\ *unit*].
         Specify the region of interest.
 
-    outfile : str
+    outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
 
@@ -72,11 +74,11 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the ``outfile`` parameter is set:
+        Return type depends on whether the ``outgrid`` parameter is set:
 
-        - :class:`xarray.DataArray`: if ``outfile`` is not set
-        - None if ``outfile`` is set (grid output will be stored in file set by
-          ``outfile``)
+        - :class:`xarray.DataArray`: if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
     """
     kind = data_kind(data, x, y, z, required_z=True)
 
@@ -91,17 +93,10 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
             else:
                 raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
             with file_context as infile:
-                if "G" not in kwargs.keys():  # if outfile is unset, output to tmpfile
+                if "G" not in kwargs.keys():  # if outgrid is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})
-                outfile = kwargs["G"]
+                outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="surface", args=arg_str)
 
-        if outfile == tmpfile.name:  # if user did not set outfile, return DataArray
-            with xr.open_dataarray(outfile) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        elif outfile != tmpfile.name:  # if user sets an outfile, return None
-            result = None
-
-    return result
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
