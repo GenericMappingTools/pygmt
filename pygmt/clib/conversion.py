@@ -100,7 +100,7 @@ def dataarray_to_matrix(grid):
                     dim
                 )
             )
-        elif coord_inc <= 0:
+        if coord_inc <= 0:
             raise GMTInvalidInput(
                 "Grid needs to be monotonically increasing in the '{}' dimension.".format(
                     dim
