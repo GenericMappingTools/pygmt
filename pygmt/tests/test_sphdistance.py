@@ -4,6 +4,7 @@ Tests for sphdistance.
 import os
 
 import numpy as np
+import numpy.testing as npt
 import pytest
 from pygmt import grdinfo, sphdistance
 from pygmt.exceptions import GMTInvalidInput
@@ -39,13 +40,10 @@ def test_sphdistance_no_outgrid(array):
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 0  # Gridline registration
-    result = grdinfo(grid=temp_grid, force_scan="a", per_column="n").strip().split()
-    assert int(result[0]) == 82  # x minimum
-    assert int(result[1]) == 87  # x maximum
-    assert int(result[2]) == 22  # y minimum
-    assert int(result[3]) == 24  # y maximum
-    assert int(result[6]) == 1  # x increment
-    assert int(result[7]) == 2  # y increment
+    npt.assert_allclose(temp_grid.max(), 232977.546875)
+    npt.assert_allclose(temp_grid.min(), 0)
+    npt.assert_allclose(temp_grid.median(), 0)
+    npt.assert_allclose(temp_grid.mean(), 62469.17)
 
 
 def test_sphdistance_fails(array):
