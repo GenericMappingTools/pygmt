@@ -3,7 +3,7 @@ Tests on integration with geopandas.
 """
 import numpy.testing as npt
 import pytest
-from pygmt import info
+from pygmt import Figure, info
 
 gpd = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
@@ -64,3 +64,70 @@ def test_geopandas_info_shapely(gdf, geomtype, desired):
     geom = gdf.loc[geomtype].geometry
     output = info(table=geom, per_column=True)
     npt.assert_allclose(actual=output, desired=desired)
+
+
+@pytest.mark.mpl_image_compare
+def test_geopandas_plot_default_square():
+    """
+    Check the default behavior of plotting a geopandas DataFrame with Point
+    geometry in 2d.
+    """
+    point = shapely.geometry.Point(1, 2)
+    gdf = gpd.GeoDataFrame(geometry=[point])
+    fig = Figure()
+    fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_geopandas_plot3d_default_cube():
+    """
+    Check the default behavior of plotting a geopandas DataFrame with
+    MultiPoint geometry in 3d.
+    """
+    multipoint = shapely.geometry.MultiPoint([(0.5, 0.5, 0.5), (1.5, 1.5, 1.5)])
+    gdf = gpd.GeoDataFrame(geometry=[multipoint])
+    fig = Figure()
+    fig.plot3d(
+        data=gdf,
+        perspective=[315, 25],
+        region=[0, 2, 0, 2, 0, 2],
+        projection="X2c",
+        frame=["WsNeZ1", "xag", "yag", "zag"],
+        zscale=1.5,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_geopandas_plot_non_default_circle():
+    """
+    Check the default behavior of plotting geopandas DataFrame with Point
+    geometry in 2d.
+    """
+    point = shapely.geometry.Point(1, 2)
+    gdf = gpd.GeoDataFrame(geometry=[point])
+    fig = Figure()
+    fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True, style="c0.2c")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_geopandas_plot3d_non_default_circle():
+    """
+    Check the default behavior of plotting geopandas DataFrame with MultiPoint
+    geometry in 3d.
+    """
+    multipoint = shapely.geometry.MultiPoint([(0.5, 0.5, 0.5), (1.5, 1.5, 1.5)])
+    gdf = gpd.GeoDataFrame(geometry=[multipoint])
+    fig = Figure()
+    fig.plot3d(
+        data=gdf,
+        perspective=[315, 25],
+        region=[0, 2, 0, 2, 0, 2],
+        projection="X2c",
+        frame=["WsNeZ1", "xag", "yag", "zag"],
+        zscale=1.5,
+        style="c0.2c",
+    )
+    return fig
