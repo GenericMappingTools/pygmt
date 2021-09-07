@@ -209,7 +209,7 @@ def text_(
         kwargs["F"] += f"+j{justify}"
 
     if isinstance(position, str):
-        kwargs["F"] += f'+c{position}+t"{text}"'
+        kwargs["F"] += f"+c{position}+t{text}"
 
     extra_arrays = []
     # If an array of transparency is given, GMT will read it from
