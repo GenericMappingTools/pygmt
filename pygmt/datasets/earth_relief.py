@@ -4,9 +4,9 @@ load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
-import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
+from pygmt.io import load_dataarray
 from pygmt.src import grdcut, which
 
 
@@ -66,8 +66,8 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     Notes
     -----
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
-    Earth relief data with resolutions higher than "05m", which are stored as
-    smaller tiles.
+    Earth relief data with resolutions of 5 arc-minutes or higher, which are
+    stored as smaller tiles.
 
     Examples
     --------
@@ -133,9 +133,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
                 f"'region' is required for Earth relief resolution '{resolution}'."
             )
         fname = which(f"@earth_relief_{resolution}{reg}", download="a")
-        with xr.open_dataarray(fname, engine="netcdf4") as dataarray:
-            grid = dataarray.load()
-            _ = grid.gmt  # load GMTDataArray accessor information
+        grid = load_dataarray(fname, engine="netcdf4")
     else:
         grid = grdcut(f"@{earth_relief_prefix}{resolution}{reg}", region=region)
 

@@ -4,7 +4,7 @@ name: Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
     paths-ignore:
@@ -44,11 +44,11 @@ jobs:
           # - os: ubuntu-latest
           #   python-version: 3.7
           #   isDraft: true
-        # Pair Python 3.7 with NumPy 1.17 and Python 3.9 with NumPy 1.21
+        # Pair Python 3.7 with NumPy 1.18 and Python 3.9 with NumPy 1.21
         # Only install optional packages on Python 3.9/NumPy 1.21
         include:
           - python-version: 3.7
-            numpy-version: '1.17'
+            numpy-version: '1.18'
             optional-packages: ''
           - python-version: 3.9
             numpy-version: '1.21'
@@ -66,7 +66,7 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.0
+        uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
 
@@ -102,7 +102,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.14.0
+        uses: dawidd6/action-download-artifact@v2.14.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -144,7 +144,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.5.2
+        uses: codecov/codecov-action@v2.0.3
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY

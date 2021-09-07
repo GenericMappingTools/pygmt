@@ -72,9 +72,12 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
     a="aspatial",
     f="coltypes",
     i="incols",
+    o="outcols",
     r="registration",
+    s="skiprows",
+    w="wrap",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma")
 def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by mean estimation.
@@ -112,7 +115,10 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     {a}
     {i}
     {f}
+    {o}
     {r}
+    {s}
+    {w}
 
     Returns
     -------
@@ -137,9 +143,12 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     a="aspatial",
     f="coltypes",
     i="incols",
+    o="outcols",
     r="registration",
+    s="skiprows",
+    w="wrap",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma")
 def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by median estimation.
@@ -177,7 +186,10 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     {a}
     {f}
     {i}
+    {o}
     {r}
+    {s}
+    {w}
 
     Returns
     -------

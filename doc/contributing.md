@@ -7,171 +7,97 @@ The project is hosted at the
 
 The goal is to maintain a diverse community that's pleasant for everyone.
 **Please be considerate and respectful of others**. Everyone must abide by our
-[Code of Conduct](https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md)
 and we encourage all to read it carefully.
 
 ## Ways to Contribute
+
+### Ways to Contribute Documentation and/or Code
 
 * Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
 * Make a tutorial or gallery example of how to do something.
+* Improve the API documentation.
+* Contribute code! This can be code that you already have and it doesn't need to be
+  perfect! We will help you clean things up, test it, etc.
+
+### Ways to Contribute Feedback
+
 * Provide feedback about how we can improve the project or about your particular use
-  case.
-* Contribute code you already have. It doesn't need to be perfect! We will help you
-  clean things up, test it, etc.
+  case. Open an [issue](https://github.com/GenericMappingTools/pygmt/issues) with
+  feature requests or bug fixes, or post general comments/questions on the
+  [forum](https://forum.generic-mapping-tools.org).
+* Help triage issues, or give a "thumbs up" on issues that others reported which are
+  relevant to you.
 
+### Ways to Contribute to Community Building
 
-## Getting Help
+* Participate and answer questions on the [PyGMT forum Q&A](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
+* Participate in discussions at the quarterly PyGMT Community Meetings, which are
+  announced on the [forum governance page](https://forum.generic-mapping-tools.org/c/governance/9).
+* Cite PyGMT when using the project.
+* Spread the word about PyGMT or star the project!
 
-Discussion often happens on GitHub issues and pull requests.
-In addition, there is a
+## Providing Feedback
+
+### Reporting a Bug
+
+* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
+top of the GitHub repository and click *New Issue*.
+* Click on *Get started* next to *Bug report*.
+* **Please try to fill out the template with as much detail as you can**.
+* After submitting your bug report, try to answer any follow up questions about the bug
+  as best as you can.
+
+### Submitting a Feature Request
+
+* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
+  top of the GitHub repository and click *New Issue*.
+* Click on *Get started* next to *Feature request*.
+* **Please try to fill out the template with as much detail as you can**.
+* After submitting your feature request, try to answer any follow up questions as best
+  as you can.
+
+### Submitting General Comments/Questions
+
+There are several pages on the [Community Forum](https://forum.generic-mapping-tools.org/)
+where you can submit general comments and/or questions:
+
+* For questions about using PyGMT, select *New Topic* from the
+  [PyGMT Q&A Page](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11).
+* For general comments, select *New Topic* from the
+  [Lounge Page](https://forum.generic-mapping-tools.org/c/lounge/6).
+* To share your work, select *New Topic* from the
+  [Showcase Page](https://forum.generic-mapping-tools.org/c/Sow-your-nice-example-script/10).
+
+## General Guidelines
+
+### Resources for New Contributors
+
+Please take a look at these resources to learn about Git and pull requests (don't
+hesitate to [ask questions](#getting-help)):
+
+* [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
+* [Git Workflow Tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
+* [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github).
+
+### Getting Help
+
+Discussion often happens on GitHub issues and pull requests. In addition, there is a
 [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) for
 the project where you can ask questions.
 
-
-## Reporting a Bug
-
-Find the *Issues* tab on the top of the GitHub repository and click *New Issue*.
-You'll be prompted to choose between different types of issue, like bug reports and
-feature requests.
-Choose the one that best matches your need.
-The Issue will be populated with one of our templates.
-**Please try to fillout the template with as much detail as you can**.
-Remember: the more information we have, the easier it will be for us to solve your
-problem.
-
-
-## Editing the Documentation
-
-If you're browsing the documentation and notice a typo or something that could be
-improved, please consider letting us know by [creating an issue](#reporting-a-bug) or
-submitting a fix.
-
-You can submit fixes to the documentation pages completely online without having to
-download and install anything:
-
-* On each documentation page, there should be an "Improve This Page" link at the very
-  top.
-* Click on that link to open the respective source file (usually an `.rst` file in the
-  `doc/` folder or a `.py` file in the `examples/` folder) on GitHub for editing online
-  (you'll need a GitHub account).
-* Make your desired changes.
-* When you're done, scroll to the bottom of the page.
-* Fill out the two fields under "Commit changes": the first is a short title describing
-  your fixes; the second is a more detailed description of the changes. Try to be as
-  detailed as possible and describe *why* you changed something.
-* Choose "Create a new branch for this commit and start a pull request" and
-  click on the "Propose changes" button to open a pull request.
-* The pull request will run the GMT automated tests and make a preview deployment.
-  You can see how your change looks in the PyGMT documentation by clicking the
-  "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
-  after the pull request was created).
-* We'll review your pull request, recommend changes if necessary, and then merge
-  them in if everything is OK.
-* Done!
-
-Alternatively, you can make the changes offline to the files in the `doc` folder or the
-example scripts. See [Contributing Code](#contributing-code) for instructions.
-
-### Gallery plots
-
-The gallery and tutorials are managed by
-[sphinx-gallery](https://sphinx-gallery.readthedocs.io/).
-The source files for the example gallery are `.py` scripts in `examples/gallery/` that
-generate one or more figures. They are executed automatically by sphinx-gallery when
-the [documentation is built](#documentation). The output is gathered and assembled
-into the gallery.
-
-You can **add a new** plot by placing a new `.py` file in one of the folders inside the
-`examples/gallery` folder of the repository. See the other examples to get an idea for the
-format.
-
-General guidelines for making a good gallery plot:
-
-* Examples should highlight a single feature/command. Good: *how to add a label to
-  a colorbar*. Bad: *how to add a label to the colorbar and use two different CPTs and
-  use subplots*.
-* Try to make the example as simple as possible. Good: use only commands that are
-  required to show the feature you want to highlight. Bad: use advanced/complex Python
-  features to make the code smaller.
-* Use a sample dataset from `pygmt.datasets` if you need to plot data. If a suitable
-  dataset isn't available, open an issue requesting one and we'll work together to add
-  it.
-* Add comments to explain things are aren't obvious from reading the code. Good: *Use a
-  Mercator projection and make the plot 15 centimeters wide*. Bad: *Draw coastlines and
-  plot the data*.
-* Describe the feature that you're showcasing and link to other relevant parts of the
-  documentation.
-* SI units should be used in the example code for gallery plots.
-
-### Tutorials
-
-The tutorials (the User Guide in the docs) are also built by sphinx-gallery from the
-`.py` files in the `examples/tutorials` folder of the repository. To add a new tutorial:
-
-* Include a `.py` file in the `examples/tutorials` folder on the base of the repository.
-* Write the tutorial in "notebook" style with code mixed with paragraphs explaining what
-  is being done. See the other tutorials for the format.
-* Include the tutorial in the table of contents of the documentation (side bar). Do this
-  by adding a line to the User Guide `toc` directive in `doc/index.rst`. Notice that the
-  file included is the `.rst` generated by sphinx-gallery.
-* Choose the most representative figure as the thumbnail figure by adding a comment line
-  `# sphinx_gallery_thumbnail_number = <fig_number>` to any place (usually at the top)
-  in the tutorial. The *fig_number* starts from 1.
-
-Guidelines for a good tutorial:
-
-* Each tutorial should focus on a particular set of tasks that a user might want to
-  accomplish: plotting grids, interpolation, configuring the frame, projections, etc.
-* The tutorial code should be as simple as possible. Avoid using advanced/complex Python
-  features or abbreviations.
-* Explain the options and features in as much detail as possible. The gallery has
-  concise examples while the tutorials are detailed and full of text.
-* SI units should be used in the example code for tutorial plots.
-
-Note that the `Figure.show()` function needs to be called for a plot to be inserted into
-the documentation.
-
-### Example code standards
-
-When editing documentation, use the following standards to demonstrate the example code:
-
-1. Python arguments, such as import statements, Boolean expressions, and function
-   arguments should be wrapped as ``code`` by using \`\` on both sides of the code.
-   Examples: \`\`import pygmt\`\` results in ``import pygmt``, \`\`True\`\` results in `True`,
-    \`\`style="v"\`\` results in `style="v"`.
-2. Literal GMT arguments should be **bold** by wrapping the arguments with \*\*
-   (two asterisks) on both sides. The argument description should be in *italicized*
-   with \* (single asterisk) on both sides.
-   Examples: `**+l**\ *label*` results in **+l***label*, `**05m**` results in **05m**.
-3. Optional arguments are wrapped with [ ] (square brackets).
-4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
-5. Default arguments for parameters and configuration settings are wrapped
-   with [ ] (square brackers) with the prefix "Default is". Example: [Default is
-   **p**].
-
-## Contributing Code
-
-**Is this your first contribution?**
-Please take a look at these resources to learn about git and pull requests (don't
-hesitate to [ask questions](#how-can-i-talk-to-you)):
-
-* [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
-* Aaron Meurer's [tutorial on the git workflow](http://www.asmeurer.com/git-workflow/)
-* [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
-
-### General guidelines
+### Pull Request Workflow
 
 We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
-to make changes to our codebase.
-Every change made goes through a pull request, even our own, so that our
+to make changes to our codebase. Every change made goes through a pull request, even
+our own, so that our
 [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
 services have a chance to check that the code is up to standards and passes all
-our tests.
-This way, the *master* branch is always stable.
+our tests. This way, the *main* branch is always stable.
 
-General guidelines for making a Pull Request (PR):
+#### General Guidelines for Making a Pull Request (PR):
 
 * What should be included in a PR
   - Have a quick look at the titles of all the existing issues first. If there
@@ -201,7 +127,7 @@ General guidelines for making a Pull Request (PR):
   - Be aware that the pull request review process is not immediate, and is
     generally proportional to the size of the pull request.
 
-#### Code Review
+#### General Process for Pull Request Review:
 
 After you've submitted a pull request, you should expect to hear at least a
 comment within a couple of days. We may suggest some changes, improvements or
@@ -231,7 +157,12 @@ Try to get them all passing (green).
 If you have any trouble, leave a comment in the PR or
 [get in touch](#how-can-i-talk-to-you).
 
-### Setting up your environment
+## Setting up your Environment
+
+These steps for setting up your environment are necessary for
+[editing the documentation locally](#editing-the-documentation-locally) and
+[contributing code](#contributing-code). A local PyGMT development environment
+is not needed for [editing the documentation on GitHub](#editing-the-documentation-on-github).
 
 We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
 package manager to install and manage your Python packages.
@@ -239,26 +170,26 @@ It will make your life a lot easier!
 
 The repository includes a conda environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
+See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/main/environment.yml)
+file for the list of dependencies and the environment name (`pygmt`).
 Once you have forked and cloned the repository to your local machine, you can
 use this file to create an isolated environment on which you can work.
-Run the following on the base of the repository:
+Run the following on the base of the repository to create a new conda
+environment from the `environment.yml` file:
 
 ```bash
 conda env create
 ```
 
-Before building and testing the project, you have to activate the environment:
+Before building and testing the project, you have to activate the environment
+(you'll need to do this every time you start a new terminal):
 
 ```bash
 conda activate pygmt
 ```
 
-You'll need to do this every time you start a new terminal.
 
-See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/master/environment.yml)
-file for the list of dependencies and the environment name.
-
-We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
+We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 that provides commands for installing, running the tests and coverage analysis,
 running linters, etc. If you don't want to use `make`, open the `Makefile` and
 copy the commands you want to run.
@@ -273,18 +204,232 @@ This installs your project in *editable* mode, meaning that changes made to the 
 code will be available when you import the package (even if you're on a different
 directory).
 
-### Code style
+## Contributing Documentation
 
-We use some tools:
+### PyGMT Documentation Overview
+
+There are four main components to PyGMT's documentation:
+
+* Gallery examples, with source code in Python `*.py` files under the
+  `examples/gallery/` folder.
+* Tutorial examples, with source code in Python `*.py` files under the
+  `examples/tutorials/` folder.
+* API documentation, with source code in the docstrings in Python `*.py`
+  files under the `pygmt/src/` and `pygmt/datasets/` folders.
+* Getting started/developer documentation, with source text in ReST `*.rst`
+  and markdown `*.md` files under the `doc/` folder.
+
+The documentation are written primarily in
+[reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
+[Sphinx](http://www.sphinx-doc.org/). Please refer to
+[reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/rst-cheatsheet.html)
+if you are new to reStructuredText. When contributing documentation, be sure to
+follow the general guidelines in the [pull request workflow](#pull-request-workflow)
+section.
+
+There are two primary ways to edit the PyGMT documentation:
+- For simple documentation changes, you can easily
+  [edit the documentation on GitHub](#editing-the-documentation-on-github).
+  This only requires you to have a GitHub account.
+- For more complicated changes, you can
+  [edit the documentation locally](#editing-the-documentation-locally).
+  In order to build the documentation locally, you first need to
+  [set up your environment](#setting-up-your-environment).
+
+### Editing the Documentation on GitHub
+
+If you're browsing the documentation and notice a typo or something that could be
+improved, please consider letting us know by [creating an issue](#reporting-a-bug) or
+(even better) submitting a fix.
+
+You can submit fixes to the documentation pages completely online without having to
+download and install anything:
+
+1. On each documentation page, there should be an "Improve This Page" link at the very
+  top.
+2. Click on that link to open the respective source file (usually an `.rst` file in the
+  `doc/` folder or a `.py` file in the `examples/` folder) on GitHub for editing online
+  (you'll need a GitHub account).
+3. Make your desired changes.
+4. When you're done, scroll to the bottom of the page.
+5. Fill out the two fields under "Commit changes": the first is a short title describing
+  your fixes; the second is a more detailed description of the changes. Try to be as
+  detailed as possible and describe *why* you changed something.
+6. Choose "Create a new branch for this commit and start a pull request" and
+  click on the "Propose changes" button to open a pull request.
+7. The pull request will run the GMT automated tests and make a preview deployment.
+  You can see how your change looks in the PyGMT documentation by clicking the
+  "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
+  after the pull request was created).
+8. We'll review your pull request, recommend changes if necessary, and then merge
+  them in if everything is OK.
+9. Done!
+
+Alternatively, you can make the changes offline to the files in the `doc` folder or the
+example scripts. See [editing the documentation locally](#editing-the-documentation-locally)
+for instructions.
+
+### Editing the Documentation Locally
+
+For more extensive changes, you can edit the documentation in your cloned repository
+and build the documentation to preview changes before submitting a pull request. First,
+follow the [setting up your environment](#setting-up-your-environment) instructions.
+After making your changes, you can build the HTML files from sources using:
+
+```bash
+cd doc
+make all
+```
+
+This will build the HTML files in `doc/_build/html`.
+Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
+[pull request workflow](#pull-request-workflow) to submit your changes for review.
+
+### Contributing Gallery Plots
+
+The gallery and tutorials are managed by
+[sphinx-gallery](https://sphinx-gallery.readthedocs.io/).
+The source files for the example gallery are `.py` scripts in `examples/gallery/` that
+generate one or more figures. They are executed automatically by sphinx-gallery when
+the [documentation is built](#building-the-documentation). The output is gathered and
+assembled into the gallery.
+
+You can **add a new** plot by placing a new `.py` file in one of the folders inside the
+`examples/gallery` folder of the repository. See the other examples to get an idea for the
+format.
+
+General guidelines for making a good gallery plot:
+
+* Examples should highlight a single feature/command. Good: *how to add a label to
+  a colorbar*. Bad: *how to add a label to the colorbar and use two different CPTs and
+  use subplots*.
+* Try to make the example as simple as possible. Good: *use only commands that are
+  required to show the feature you want to highlight*. Bad: *use advanced/complex Python
+  features to make the code smaller*.
+* Use a sample dataset from `pygmt.datasets` if you need to plot data. If a suitable
+  dataset isn't available, open an issue requesting one and we'll work together to add
+  it.
+* Add comments to explain things are aren't obvious from reading the code. Good: *Use a
+  Mercator projection and make the plot 15 centimeters wide*. Bad: *Draw coastlines and
+  plot the data*.
+* Describe the feature that you're showcasing and link to other relevant parts of the
+  documentation.
+* SI units should be used in the example code for gallery plots.
+
+### Contributing Tutorials
+
+The tutorials (the User Guide in the docs) are also built by sphinx-gallery from the
+`.py` files in the `examples/tutorials` folder of the repository. To add a new tutorial:
+
+* Include a `.py` file in the `examples/tutorials` folder on the base of the repository.
+* Write the tutorial in "notebook" style with code mixed with paragraphs explaining what
+  is being done. See the other tutorials for the format.
+* Include the tutorial in the table of contents of the documentation (side bar). Do this
+  by adding a line to the User Guide `toc` directive in `doc/index.rst`. Notice that the
+  file included is the `.rst` generated by sphinx-gallery.
+* Choose the most representative figure as the thumbnail figure by adding a comment line
+  `# sphinx_gallery_thumbnail_number = <fig_number>` to any place (usually at the top)
+  in the tutorial. The *fig_number* starts from 1.
+
+Guidelines for a good tutorial:
+
+* Each tutorial should focus on a particular set of tasks that a user might want to
+  accomplish: plotting grids, interpolation, configuring the frame, projections, etc.
+* The tutorial code should be as simple as possible. Avoid using advanced/complex Python
+  features or abbreviations.
+* Explain the options and features in as much detail as possible. The gallery has
+  concise examples while the tutorials are detailed and full of text.
+* SI units should be used in the example code for tutorial plots.
+
+Note that the `Figure.show()` function needs to be called for a plot to be inserted into
+the documentation.
+
+### Editing the API Documentation
+
+The API documentation is built from the docstrings in the Python `*.py` files under
+the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
+[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
+All functions/classes/methods should have docstrings with a full description of all
+arguments and return values.
+
+While the maximum line length for code is automatically set by Black, docstrings
+must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
+limited to 79 characters** per line.
+
+### Standards for Example Code
+
+When editing documentation, use the following standards to demonstrate the example code:
+
+1. Python arguments, such as import statements, Boolean expressions, and function
+   arguments should be wrapped as ``code`` by using \`\` on both sides of the code.
+   Examples: \`\`import pygmt\`\` results in ``import pygmt``, \`\`True\`\` results in `True`,
+    \`\`style="v"\`\` results in `style="v"`.
+2. Literal GMT arguments should be **bold** by wrapping the arguments with \*\*
+   (two asterisks) on both sides. The argument description should be in *italicized*
+   with \* (single asterisk) on both sides.
+   Examples: `**+l**\ *label*` results in **+l***label*, `**05m**` results in **05m**.
+3. Optional arguments are wrapped with [ ] (square brackets).
+4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
+5. Default arguments for parameters and configuration settings are wrapped
+   with [ ] (square brackers) with the prefix "Default is". Example: [Default is
+   **p**].
+
+### Cross-referencing with Sphinx
+
+The API reference is manually assembled in `doc/api/index.rst`.
+The *autodoc* sphinx extension will automatically create pages for each
+function/class/module listed there.
+
+You can reference functions, classes, methods, and modules from anywhere
+(including docstrings) using:
+
+- <code>:func:\`package.module.function\`</code>
+- <code>:class:\`package.module.class\`</code>
+- <code>:meth:\`package.module.method\`</code>
+- <code>:mod:\`package.module\`</code>
+
+An example would be to use
+<code>:meth:\`pygmt.Figure.grdview\`</code> to link
+to [https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html](https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html).
+PyGMT documentation that is not a class, method,
+or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
+For example, <code>:doc:\`Install instructions \</install\>\`</code> links
+to [https://www.pygmt.org/latest/install.html](https://www.pygmt.org/latest/install.html).
+
+Linking to the GMT documentation and GMT configuration parameters can be done using:
+
+- <code>:gmt-docs:\`page_name.html\`</code>
+- <code>:gmt-term:\`GMT_PARAMETER\`</code>
+
+An example would be using
+<code>:gmt-docs:\`makecpt.html\`</code> to link to
+[https://docs.generic-mapping-tools.org/latest/makecpt.html](https://docs.generic-mapping-tools.org/latest/makecpt.html).
+For GMT configuration parameters, an example is
+<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
+[https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND](https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND).
+
+Sphinx will create a link to the automatically generated page for that
+function/class/module.
+
+## Contributing Code
+
+### PyGMT Code Overview
+
+The source code for PyGMT is located in the `pygmt/` directory. When contributing
+code, be sure to follow the general guidelines in the
+[pull request workflow](#pull-request-workflow) section.
+
+### Code Style
+
+We use some tools to to format the code so we don't have to think about it:
 
 - [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
 - [docformatter](https://github.com/myint/docformatter)
 - [isort](https://pycqa.github.io/isort/)
 
-to format the code so we don't have to think about it.
-Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few differences.
-Regardless, you won't have to worry about formatting the code yourself.
+Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
+differences. Regardless, you won't have to worry about formatting the code yourself.
 Before committing, run it to automatically format your code:
 
 ```bash
@@ -307,7 +452,7 @@ will comment on any pull requests as needed.
 We also use [flake8](http://flake8.pycqa.org/en/latest/) and
 [pylint](https://www.pylint.org/) to check the quality of the code and quickly catch
 common errors.
-The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/master/Makefile)
+The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
 
 ```bash
@@ -315,18 +460,7 @@ make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mo
 make lint    # Runs pylint, which is a bit slower
 ```
 
-#### Docstrings
-
-**All docstrings** should follow the
-[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
-All functions/classes/methods should have docstrings with a full description of all
-arguments and return values.
-
-While the maximum line length for code is automatically set by *Black*, docstrings
-must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
-limited to 79 characters** per line.
-
-### Testing your code
+### Testing your Code
 
 Automated testing helps ensure that our code is as free of bugs as it can be.
 It also lets us know immediately if a change we make breaks any other part of the code.
@@ -370,7 +504,7 @@ or run tests which contain names that match a specific keyword expression:
 
     pytest -k KEYWORD pygmt/tests
 
-### Testing plots
+### Testing Plots
 
 Writing an image-based test is only slightly more difficult than a simple test.
 The main consideration is that you must specify the "baseline" or reference
@@ -420,7 +554,7 @@ Don't forget to commit the baseline image as well!
 The images should be pushed up into a remote repository using `dvc` (instead of
 `git`) as will be explained in the next section.
 
-#### Using data version control ([dvc](https://dvc.org)) to manage test images
+#### Using Data Version Control ([dvc](https://dvc.org)) to Manage Test Images
 
 As the baseline images are quite large blob files that can change often (e.g.
 with new GMT versions), it is not ideal to store them in `git` (which is meant
@@ -430,7 +564,7 @@ of a file. For example, given an image file like `test_logo.png`, `dvc` will
 generate a `test_logo.png.dvc` plain text file containing the hash of the
 image. This `test_logo.png.dvc` file can be stored as usual on GitHub, while
 the `test_logo.png` file can be stored separately on our `dvc` remote at
-https://dagshub.com/GenericMappingTools/pygmt.
+[https://dagshub.com/GenericMappingTools/pygmt](https://dagshub.com/GenericMappingTools/pygmt).
 
 To **pull** or sync files from the `dvc` remote to your local repository, use
 the commands below. Note how `dvc` commands are very similar to `git`.
@@ -458,11 +592,12 @@ test image to the PyGMT project.
 
 The configuration will be stored inside your `.dvc/config.local` file. Note
 that the $DAGSHUB_PASS token can be generated at
-https://dagshub.com/user/settings/tokens after creating a DAGsHub account
-(can be linked to your GitHub account). Once you have an account set up, please
-ask one of the PyGMT maintainers to add you as a collaborator at
-https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration before
-proceeding with the next steps.
+[https://dagshub.com/user/settings/tokens](https://dagshub.com/user/settings/tokens)
+after creating a DAGsHub account (can be linked to your GitHub account). Once
+you have an account set up, please ask one of the PyGMT maintainers to add you
+as a collaborator at
+[https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
+before proceeding with the next steps.
 
 The entire workflow for generating or modifying baseline test images can be
 summarized as follows:
@@ -503,62 +638,3 @@ def test_my_plotting_case():
   fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
   return fig_ref, fig_test
 ```
-
-### Documentation
-
-Most documentation sources are in Python `*.py` files under the `examples/`
-folder, and the code docstrings can be found e.g. under the `pygmt/src/` and
-`pygmt/datasets/` folders. The documentation are written in
-[reStructuredText](https://docutils.sourceforge.io/rst.html) and
-built by [Sphinx](http://www.sphinx-doc.org/). Please refer to
-[reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/rst-cheatsheet.html)
-if you are new to reStructuredText.
-
-#### Building the documentation
-
-To build the HTML files from sources:
-
-```bash
-cd doc
-make all
-```
-
-This will build the HTML files in `doc/_build/html`.
-Open `doc/_build/html/index.html` in your browser to view the pages.
-
-#### Cross-referencing with Sphinx
-
-The API reference is manually assembled in `doc/api/index.rst`.
-The *autodoc* sphinx extension will automatically create pages for each
-function/class/module listed there.
-
-You can reference functions, classes, methods, and modules from anywhere
-(including docstrings) using:
-
-- <code>:func:\`package.module.function\`</code>
-- <code>:class:\`package.module.class\`</code>
-- <code>:meth:\`package.module.method\`</code>
-- <code>:mod:\`package.module\`</code>
-
-An example would be to use
-<code>:meth:\`pygmt.Figure.grdview\`</code> to link
-to https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html.
-PyGMT documentation that is not a class, method,
-or module can be linked with <code>:doc:\`Any Link Text </path/to/the/file>\`</code>.
-For example, <code>:doc:\`Install instructions \</install\>\`</code> links
-to https://www.pygmt.org/latest/install.html.
-
-Linking to the GMT documentation and GMT configuration parameters can be done using:
-
-- <code>:gmt-docs:\`page_name.html\`</code>
-- <code>:gmt-term:\`GMT_PARAMETER\`</code>
-
-An example would be using
-<code>:gmt-docs:\`makecpt.html\`</code> to link to
-https://docs.generic-mapping-tools.org/latest/makecpt.html.
-For GMT configuration parameters, an example is
-<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
-https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND.
-
-Sphinx will create a link to the automatically generated page for that
-function/class/module.

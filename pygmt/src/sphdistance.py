@@ -2,7 +2,6 @@
 sphdistance - Create Voronoi distance, node,
 or natural nearest-neighbor grid on a sphere
 """
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -12,6 +11,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -24,7 +24,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(table, **kwargs):
     r"""
-    Create Voroni polygons from lat/long coordinates.
+    Create Voroni polygons from lat/lon coordinates.
 
     Reads one or more ASCII [or binary] files (or standard
     input) containing lon, lat and performs the construction of Voronoi
@@ -63,11 +63,4 @@ def sphdistance(table, **kwargs):
                 arg_str = " ".join([infile, arg_str])
                 lib.call_module("sphdistance", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
