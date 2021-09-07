@@ -152,7 +152,7 @@ def test_rose_no_sectors(data_fractures_compilation):
         region=[0, 500, 0, 360],
         diameter="10c",
         labels="180/0/90/270",
-        frame=["xg100", "yg45", "+t'Windrose diagram'"],
+        frame=["xg100", "yg45", "+tWindrose diagram"],
         pen="1.5p,red3",
         transparency=40,
         scale=0.5,
