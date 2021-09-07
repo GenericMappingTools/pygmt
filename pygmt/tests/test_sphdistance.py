@@ -6,7 +6,7 @@ import os
 import numpy as np
 import numpy.testing as npt
 import pytest
-from pygmt import grdinfo, sphdistance
+from pygmt import sphdistance
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
