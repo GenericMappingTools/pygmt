@@ -164,7 +164,8 @@ def build_arg_string(kwargs):
     ...         dict(
     ...             B=["af", "WSne+tBlank Space"],
     ...             F='+t"Empty  Spaces"',
-    ...             l="'Void Space'"),
+    ...             l="'Void Space'",
+    ...         ),
     ...     )
     ... )
     -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'

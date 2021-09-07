@@ -116,7 +116,7 @@ def test_figure_savefig_filename_with_spaces():
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     with GMTTempFile(prefix="pygmt-filename with spaces", suffix=".png") as imgfile:
         fig.savefig(imgfile.name)
-        assert not r"\040" in os.path.abspath(imgfile.name)
+        assert r"\040" not in os.path.abspath(imgfile.name)
         assert os.path.exists(imgfile.name)
 
 
