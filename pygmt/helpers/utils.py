@@ -107,7 +107,7 @@ def dummy_context(arg):
 
 
 def build_arg_string(kwargs):
-    """
+    r"""
     Transform keyword arguments into a GMT argument string.
 
     Make sure all arguments have been previously converted to a string
@@ -159,6 +159,15 @@ def build_arg_string(kwargs):
     ...     )
     ... )
     -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
+    >>> print(
+    ...     build_arg_string(
+    ...         dict(
+    ...             B=["af", "WSne+tBlank Space"],
+    ...             F='+t"Empty  Spaces"',
+    ...             l="'Void Space'"),
+    ...     )
+    ... )
+    -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
     """
     gmt_args = []
     # Exclude arguments that are None and False
@@ -168,11 +177,13 @@ def build_arg_string(kwargs):
     for key in filtered_kwargs:
         if is_nonstr_iter(kwargs[key]):
             for value in kwargs[key]:
-                gmt_args.append(f"-{key}{value}")
+                _value = str(value).replace(" ", r"\040")
+                gmt_args.append(rf"-{key}{_value}")
         elif kwargs[key] is True:
             gmt_args.append(f"-{key}")
         else:
-            gmt_args.append(f"-{key}{kwargs[key]}")
+            _value = str(kwargs[key]).replace(" ", r"\040")
+            gmt_args.append(rf"-{key}{_value}")
     return " ".join(sorted(gmt_args))
 
 
