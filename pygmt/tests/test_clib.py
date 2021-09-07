@@ -742,6 +742,7 @@ def test_dataarray_to_matrix_inc_fails():
     with pytest.raises(GMTInvalidInput):
         dataarray_to_matrix(grid)
 
+
 def test_dataarray_to_matrix_zero_inc_fails():
     """
     Check that dataarray_to_matrix fails for zero increments grid.
