@@ -6,7 +6,7 @@ import os
 import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import nearneighbor, which
+from pygmt import nearneighbor
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
