@@ -24,9 +24,8 @@ def test_nearneighbor_input_file():
     """
     Run nearneighbor by passing in a filename.
     """
-    fname = which("@tut_ship.xyz", download="c")
     output = nearneighbor(
-        data=fname, spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
+        data="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
     )
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
