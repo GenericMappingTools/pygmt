@@ -113,8 +113,15 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
 
     {V}
     {a}
+    {b}
+    {d}
+    {e}
     {f}
+    {g}
+    {h}
+    {i}
     {r}
+    {w}
 
     Returns
     -------
