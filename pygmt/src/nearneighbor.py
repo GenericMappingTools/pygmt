@@ -25,8 +25,15 @@ from pygmt.helpers import (
     S="search_radius",
     V="verbose",
     a="aspatial",
+    b="binary",
+    d="nodata",
+    e="find",
     f="coltypes",
+    g="gap",
+    h="header",
+    i="incols",
     r="registration",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence")
 def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
