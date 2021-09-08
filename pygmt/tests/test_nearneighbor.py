@@ -35,7 +35,7 @@ def test_nearneighbor_input_file():
     return output
 
 
-def test_nearneighbor_input_data_array(ship_data):
+def test_nearneighbor_input_numpy_array(ship_data):
     """
     Run nearneighbor by passing in a numpy array into data.
     """
