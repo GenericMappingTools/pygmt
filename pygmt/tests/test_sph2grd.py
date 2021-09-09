@@ -28,7 +28,7 @@ def test_sph2grd_no_outgrid():
     assert temp_grid.dims == ("y", "x")
     assert temp_grid.gmt.gtype == 0  # Cartesian grid
     assert temp_grid.gmt.registration == 0  # Gridline registration
-    npt.assert_allclose(temp_grid.max(), 0.00021961)
-    npt.assert_allclose(temp_grid.min(), -0.0004326)
-    npt.assert_allclose(temp_grid.median(), -0.00010894)
-    npt.assert_allclose(temp_grid.mean(), -0.00010968)
+    npt.assert_allclose(temp_grid.max(), 0.00021961, rtol=1e-4)
+    npt.assert_allclose(temp_grid.min(), -0.0004326, rtol=1e-4)
+    npt.assert_allclose(temp_grid.median(), -0.00010894, rtol=1e-4)
+    npt.assert_allclose(temp_grid.mean(), -0.00010968, rtol=1e-4)
