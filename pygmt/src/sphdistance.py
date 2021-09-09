@@ -51,7 +51,7 @@ def sphdistance(table, **kwargs):
           ``outgrid``)
     """
     if "I" not in kwargs.keys() or "R" not in kwargs.keys():
-        raise GMTInvalidInput("Both 'region' and 'increment' must be specified.")
+        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="vector", data=table)

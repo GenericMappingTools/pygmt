@@ -26,7 +26,7 @@ def test_sphdistance_outgrid(array):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = sphdistance(
-            table=array, outgrid=tmpfile.name, increment=1, region=[82, 87, 22, 24]
+            table=array, outgrid=tmpfile.name, spacing=1, region=[82, 87, 22, 24]
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
@@ -36,7 +36,7 @@ def test_sphdistance_no_outgrid(array):
     """
     Test sphdistance with no set outgrid.
     """
-    temp_grid = sphdistance(table=array, increment=[1, 2], region=[82, 87, 22, 24])
+    temp_grid = sphdistance(table=array, spacing=[1, 2], region=[82, 87, 22, 24])
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 0  # Gridline registration
