@@ -18,13 +18,6 @@ def test_sph2grd_outgrid():
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
-        result = grdinfo(tmpfile.name, per_column=True).strip().split()
-        assert int(result[0]) == 0  # x minimum
-        assert int(result[1]) == 360  # x maximum
-        assert int(result[2]) == -90  # y minimum
-        assert int(result[3]) == 90  # y maximum
-        npt.assert_approx_equal(float(result[4]), -0.00043260390521)  # v minimum
-        npt.assert_approx_equal(float(result[5]), 0.000219614637899)  # v maximum
 
 
 def test_sph2grd_no_outgrid():
@@ -35,3 +28,7 @@ def test_sph2grd_no_outgrid():
     assert temp_grid.dims == ("y", "x")
     assert temp_grid.gmt.gtype == 0  # Cartesian grid
     assert temp_grid.gmt.registration == 0  # Gridline registration
+    npt.assert_allclose(temp_grid.max(), 0.00021961)
+    npt.assert_allclose(temp_grid.min(), -0.0004326)
+    npt.assert_allclose(temp_grid.median(), -0.00010894)
+    npt.assert_allclose(temp_grid.mean(), -0.00010968)
