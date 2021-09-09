@@ -17,7 +17,7 @@ from pygmt.io import load_dataarray
 @fmt_docstring
 @use_alias(
     G="outgrid",
-    I="increment",
+    I="spacing",
     R="region",
     V="verbose",
 )
