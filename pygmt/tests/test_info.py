@@ -3,6 +3,7 @@ Tests for gmtinfo.
 """
 import os
 import pathlib
+import sys
 
 import numpy as np
 import numpy.testing as npt
@@ -30,39 +31,31 @@ def test_info():
     assert output == expected_output
 
 
-def test_info_path():
+@pytest.mark.parametrize(
+    "table",
+    [
+        pathlib.Path(POINTS_DATA),
+        pytest.param(
+            pathlib.PureWindowsPath(POINTS_DATA),
+            marks=pytest.mark.skipif(
+                sys.platform != "win32",
+                reason="PureWindowsPath is only available on Windows",
+            ),
+        ),
+        pytest.param(
+            pathlib.PurePosixPath(POINTS_DATA),
+            marks=pytest.mark.skipif(
+                sys.platform == "win32",
+                reason="PurePosixPath is not available on Windows",
+            ),
+        ),
+    ],
+)
+def test_info_path(table):
     """
     Make sure info works on a pathlib.Path input.
     """
-    output = info(table=pathlib.Path(POINTS_DATA))
-    expected_output = (
-        f"{POINTS_DATA}: N = 20 "
-        "<11.5309/61.7074> "
-        "<-2.9289/7.8648> "
-        "<0.1412/0.9338>\n"
-    )
-    assert output == expected_output
-
-
-def test_info_pure_windows_path():
-    """
-    Make sure info works on a pathlib.Path input.
-    """
-    output = info(table=pathlib.PureWindowsPath(POINTS_DATA))
-    expected_output = (
-        f"{POINTS_DATA}: N = 20 "
-        "<11.5309/61.7074> "
-        "<-2.9289/7.8648> "
-        "<0.1412/0.9338>\n"
-    )
-    assert output == expected_output
-
-
-def test_info_pure_posix_path():
-    """
-    Make sure info works on a pathlib.Path input.
-    """
-    output = info(table=pathlib.PurePosixPath(POINTS_DATA))
+    output = info(table=table)
     expected_output = (
         f"{POINTS_DATA}: N = 20 "
         "<11.5309/61.7074> "
