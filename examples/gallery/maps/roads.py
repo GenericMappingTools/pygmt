@@ -25,13 +25,13 @@ roads_interstate = gdf[gdf.RTTYP == "I"]  # Interstate roads
 fig = pygmt.Figure()
 
 # Define target region around O'ahu (Hawai'i)
-region = [-158.3, -157.6, 21.2, 21.75]  # minx, maxx, miny, maxy
+region = [-158.3, -157.6, 21.2, 21.75]  # xmin, xmax, ymin, ymax
 
 title = r"Main roads of O\047ahu (Hawai\047i)"  # \047 is octal code for '
 fig.basemap(region=region, projection="M12c", frame=["af", f'WSne+t"{title}"'])
 fig.coast(land="gray", water="dodgerblue4", shorelines="1p,black")
 
-# Plot the individual road types with different pen settings and assgin labels
+# Plot the individual road types with different pen settings and assign labels
 # which are displayed in the legend
 fig.plot(data=roads_common, pen="5p,dodgerblue", label="CommonName")
 fig.plot(data=roads_state, pen="2p,gold", label="StateRecognized")
