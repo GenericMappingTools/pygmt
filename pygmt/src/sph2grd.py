@@ -3,7 +3,6 @@ sph2grd - Compute grid from spherical harmonic coefficients
 """
 import xarray as xr
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
