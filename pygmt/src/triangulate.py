@@ -36,12 +36,12 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
     data.
 
     Triangulate reads in x,y[,z] data and performs Delaunay triangulation,
-    i.e., it find how the points should be connected to give the most
+    i.e., it finds how the points should be connected to give the most
     equilateral triangulation possible. If a map projection (give *region*
     and *projection*) is chosen then it is applied before the triangulation
     is calculated.
 
-    Must provide either *table* or *x*, *y*, and *z*.
+    Must provide either ``table`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`triangulate.html`
 
@@ -55,17 +55,12 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
-    projection : str
-        Select map projection.
-    region
-        ``'xmin/xmax/ymin/ymax[+r][+uunit]'``.
-        Specify the region of interest.
-    spacing : str
-        ``'xinc[unit][+e|n][/yinc[unit][+e|n]]'``.
-        x_inc [and optionally y_inc] is the grid spacing.
+    {J}
+    {R}
+    {I}
     outgrid : bool or str
         Use triangulation to grid the data onto an even grid (specified with
-        *region* and *spacing*). Set to True, or pass in the name of the output
+        ``region`` and ``spacing``). Set to ``True``, or pass in the name of the output
         grid file. The interpolation is performed in the original coordinates,
         so if your triangles are close to the poles you are better off
         projecting all data to a local coordinate system before using
@@ -79,16 +74,16 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
     {h}
     {i}
     {r}
-        Only valid with *outgrid*.
+        Only valid with ``outgrid``.
 
     Returns
     -------
-    ret: xarray.DataArray or None
-        Return type depends on whether the outgrid parameter is set:
+    ret: pandas.DataFrame or xarray.DataArray or None
+        Return type depends on whether the ``outgrid`` parameter is set:
 
-        - pandas.DataFrame if outgrid is None (default)
-        - xarray.DataArray if outgrid is True
-        - None if outgrid is a str (grid output will be stored in outgrid)
+        - pandas.DataFrame if ``outgrid`` is None (default)
+        - xarray.DataArray if ``outgrid`` is True
+        - None if ``outgrid`` is a str (grid output will be stored in ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
