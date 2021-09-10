@@ -98,6 +98,7 @@ Operations on grids:
     grdproject
     grdsample
     grdtrack
+    sphdistance
     xyz2grd
 
 Crossover analysis with x2sys:
