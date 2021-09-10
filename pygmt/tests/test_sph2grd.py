@@ -4,7 +4,7 @@ Tests for sph2grd.
 import os
 
 import numpy.testing as npt
-from pygmt import grdinfo, sph2grd
+from pygmt import sph2grd
 from pygmt.helpers import GMTTempFile
 
 
