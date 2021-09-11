@@ -62,11 +62,4 @@ def sph2grd(table, **kwargs):
                 arg_str = " ".join([infile, arg_str])
                 lib.call_module("sph2grd", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+      return load_dataarray(outgrid) if outgrid == tmpfile.name else None
