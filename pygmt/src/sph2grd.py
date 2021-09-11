@@ -32,6 +32,10 @@ def sph2grd(table, **kwargs):
 
     Parameters
     ----------
+    table : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
