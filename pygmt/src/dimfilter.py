@@ -3,6 +3,7 @@ dimfilter - Filter a grid file by dividing the filter circle.
 """
 
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -146,6 +147,11 @@ def dimfilter(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
+    if ("D" not in kwargs) or ("F" not in kwargs) or ("N" not in kwargs):
+        raise GMTInvalidInput(
+            """The following parameters are required: distance, filters, sectors"""
+            )
+
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
