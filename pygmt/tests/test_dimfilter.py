@@ -24,7 +24,9 @@ def test_dimfilter_outgrid(grid):
     Test the required parameters for dimfilter with a set outgrid.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = dimfilter(grid=grid, outgrid=tmpfile.name, filter="m600", distance=4, sectors="l6")
+        result = dimfilter(
+            grid=grid, outgrid=tmpfile.name, filter="m600", distance=4, sectors="l6"
+        )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
 
@@ -42,10 +44,11 @@ def test_grdgradient_no_outgrid(grid):
     npt.assert_allclose(temp_grid.median(), -4826.5)
     npt.assert_allclose(temp_grid.mean(), -4789.791)
 
+
 def test_dimfilter_fails(grid):
     """
-    Check that dimfilter fails correctly when sector, 
-    filters, and distance are not specified..
+    Check that dimfilter fails correctly when sector, filters, and distance are
+    not specified..
     """
     with pytest.raises(GMTInvalidInput):
         dimfilter(grid=grid)

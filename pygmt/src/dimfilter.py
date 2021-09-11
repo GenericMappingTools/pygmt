@@ -150,7 +150,7 @@ def dimfilter(grid, **kwargs):
     if ("D" not in kwargs) or ("F" not in kwargs) or ("N" not in kwargs):
         raise GMTInvalidInput(
             """The following parameters are required: distance, filters, sectors"""
-            )
+        )
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
