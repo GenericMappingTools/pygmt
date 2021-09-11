@@ -81,6 +81,7 @@ Operations on tabular data:
 
     blockmean
     blockmedian
+    sph2grd
     surface
 
 Operations on grids:
@@ -96,7 +97,6 @@ Operations on grids:
     grdgradient
     grdsample
     grdtrack
-    sph2grd
     xyz2grd
 
 Crossover analysis with x2sys:
