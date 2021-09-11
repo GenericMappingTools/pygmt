@@ -81,6 +81,7 @@ Operations on tabular data:
 
     blockmean
     blockmedian
+    sphinterpolate
     surface
 
 Operations on grids:
@@ -97,7 +98,6 @@ Operations on grids:
     grdproject
     grdsample
     grdtrack
-    sphinterpolate
     xyz2grd
 
 Crossover analysis with x2sys:
