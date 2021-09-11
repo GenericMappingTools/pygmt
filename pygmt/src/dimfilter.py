@@ -58,13 +58,13 @@ def dimfilter(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-        Distance *flag* determines how grid (x,y) relates to filter *width*, as follows:
     distance : int or str
         Distance flag tells how grid (x,y) relates to filter width, as follows:
 
         **0**\ : grid (x,y) in same units as *width*, Cartesian distances.
 
-        **1**\ : grid (x,y) in degrees, *width* in kilometers, Cartesian distances.
+        **1**\ : grid (x,y) in degrees, *width* in kilometers, Cartesian
+        distances.
 
         **2**\ : grid (x,y) in degrees, *width* in km, dx scaled by
         cos(middle y), Cartesian distances.
@@ -81,8 +81,8 @@ def dimfilter(grid, **kwargs):
     filter : str
         **x**\ *width*\ [**+l**\|\ **u**]
         Sets the primary filter type. Choose among convolution and
-        non-convolution filters. Append the filter code **x** followed by the full
-        diameter *width*. Available convolution filters are:
+        non-convolution filters. Append the filter code **x** followed by
+        the full diameter *width*. Available convolution filters are:
 
         (**b**) Boxcar: All weights are equal.
 
@@ -96,27 +96,10 @@ def dimfilter(grid, **kwargs):
 
         (**p**) Maximum likelihood probability (a mode estimator): Return
         modal value. If more than one mode is found we return their average
-        value. Append **+l** or **+h** to the filter width if you rather want to
-        return the smallest or largest of each sector's modal values.**x**\ *sectors*\ [**+l**\|\ **u**]
+        value. Append **+l** or **+h** to the filter width if you want
+        to return the smallest or largest of each sector's modal values.
     sectors : str
         **x**\ *sectors*\ [**+l**\|\ **u**]
-        Sets the secondary filter type **x** and the number of bow-tie sectors.
-        *sectors* must be integer and larger than 0. When *sectors* is
-        set to 1, the secondary filter is not effective. Available secondary
-        filters **x** are:
-
-        (**l**) Lower: Return the minimum of all filtered values.
-
-        (**u**) Upper: Return the maximum of all filtered values.
-
-        (**a**) Average: Return the mean of all filtered values.
-
-        (**m**) Median: Return the median of all filtered values.
-
-        (**p**) Mode: Return the mode of all filtered values:
-        If more than one mode is found we return their average
-        value. Append **+l** or **+h** to the sectors if you rather want to
-        return the smallest or largest of the modal values.**x**\ *sectors*\ [**+l**\|\ **u**]
         Sets the secondary filter type **x** and the number of bow-tie sectors.
         *sectors* must be integer and larger than 0. When *sectors* is
         set to 1, the secondary filter is not effective. Available secondary
