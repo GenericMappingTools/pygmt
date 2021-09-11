@@ -77,7 +77,7 @@ def dimfilter(grid, **kwargs):
 
         **4**\ : grid (x,y) in degrees, *width* in km, Spherical distance
         calculation.
-    filter : str    
+    filter : str
         **x**\ *width*\ [**+l**\|\ **u**]
         Sets the primary filter type. Choose among convolution and
         non-convolution filters. Append the filter code **x** followed by the full
