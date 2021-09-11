@@ -60,10 +60,10 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
     {I}
     outgrid : bool or str
         Use triangulation to grid the data onto an even grid (specified with
-        ``region`` and ``spacing``). Set to ``True``, or pass in the name of the output
-        grid file. The interpolation is performed in the original coordinates,
-        so if your triangles are close to the poles you are better off
-        projecting all data to a local coordinate system before using
+        ``region`` and ``spacing``). Set to ``True``, or pass in the name of
+        the output grid file. The interpolation is performed in the original
+        coordinates, so if your triangles are close to the poles you are better
+        off projecting all data to a local coordinate system before using
         *triangulate* (this is true of all gridding routines) or instead
         select *sphtriangulate*.
     {V}
@@ -83,7 +83,7 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
 
         - pandas.DataFrame if ``outgrid`` is None (default)
         - xarray.DataArray if ``outgrid`` is True
-        - None if ``outgrid`` is a str (grid output will be stored in ``outgrid``)
+        - None if ``outgrid`` is a str (grid output is stored in ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
