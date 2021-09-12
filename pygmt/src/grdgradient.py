@@ -89,7 +89,7 @@ def grdgradient(grid, **kwargs):
         algorithm; in this case the *azim* and *elev* are hardwired to 315
         and 45 degrees. This means that even if you provide other values
         they will be ignored.)
-    {R}
+    {R-noplot}
     {V}
     {n}
 
