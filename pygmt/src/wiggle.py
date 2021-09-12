@@ -87,6 +87,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     {c}
     {d}
     {e}
+    {f}
     {g}
     {h}
     columns : str or 1d array
@@ -95,7 +96,6 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
         the *x* values are stored in the first column, *y* values in the second
         one and *z* values in the third one. Note: zero-based indexing is used.
     {p}  
-    {f} 
     {t} 
     {w} 
     """
