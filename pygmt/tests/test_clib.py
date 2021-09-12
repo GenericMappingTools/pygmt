@@ -743,6 +743,24 @@ def test_dataarray_to_matrix_inc_fails():
         dataarray_to_matrix(grid)
 
 
+def test_dataarray_to_matrix_zero_inc_fails():
+    """
+    Check that dataarray_to_matrix fails for zero increments grid.
+    """
+    data = np.ones((5, 5), dtype="float32")
+    x = np.linspace(0, 1, 5)
+    y = np.zeros_like(x)
+    grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
+    with pytest.raises(GMTInvalidInput):
+        dataarray_to_matrix(grid)
+
+    y = np.linspace(0, 1, 5)
+    x = np.zeros_like(x)
+    grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
+    with pytest.raises(GMTInvalidInput):
+        dataarray_to_matrix(grid)
+
+
 def test_get_default():
     """
     Make sure get_default works without crashing and gives reasonable results.
