@@ -102,7 +102,7 @@ def dataarray_to_matrix(grid):
             )
         if coord_inc == 0:
             raise GMTInvalidInput(
-                "Grid has zero increment in the '{}' dimension.".format(dim)
+                f"Grid has a zero increment in the '{dim}' dimension."
             )
         region.extend(
             [
