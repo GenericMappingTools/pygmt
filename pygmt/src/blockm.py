@@ -70,12 +70,15 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
     R="region",
     V="verbose",
     a="aspatial",
+    d="data",
+    e="find",
     f="coltypes",
+    h="header",
     i="incols",
     o="outcols",
     r="registration",
     s="skiprows",
-    w="wrap",
+    w="wrap",    
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma")
 def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
@@ -113,8 +116,11 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     {V}
     {a}
+    {d}
+    {e}
     {i}
     {f}
+    {h}
     {o}
     {r}
     {s}
@@ -141,12 +147,15 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     R="region",
     V="verbose",
     a="aspatial",
+    d="nodata",
+    e="find",
     f="coltypes",
+    h="header",
     i="incols",
     o="outcols",
     r="registration",
     s="skiprows",
-    w="wrap",
+    w="wrap",    
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma")
 def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
@@ -184,7 +193,10 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     {V}
     {a}
+    {d}
+    {e}
     {f}
+    {h}
     {i}
     {o}
     {r}
