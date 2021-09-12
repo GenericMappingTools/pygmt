@@ -43,8 +43,6 @@ fig.colorbar(position="JML+o1.4c/0c+w7c/0.5c", frame=["xa1000f500+lElevation", "
 # --------------- plotting the hillshade map -----------
 
 fig.shift_origin(xshift="12.5c")
-# Shift plot origin of the second map by "width of the first map + 0.5 cm"
-# in x direction
 
 pygmt.makecpt(cmap="gray", series=[-1.5, 0.3, 0.01])
 fig.grdimage(
