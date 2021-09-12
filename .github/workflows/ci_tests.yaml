@@ -52,7 +52,7 @@ jobs:
             optional-packages: ''
           - python-version: 3.9
             numpy-version: '1.21'
-            optional-packages: 'geopandas'
+            optional-packages: 'geopandas ipython'
     defaults:
       run:
         shell: bash -l {0}
@@ -92,7 +92,7 @@ jobs:
           conda install gmt=6.2.0 numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
-                        codecov coverage[toml] dvc ipython make \
+                        codecov coverage[toml] dvc make \
                         pytest-cov pytest-mpl pytest>=6.0 \
                         sphinx-gallery
 
