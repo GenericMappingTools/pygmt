@@ -98,7 +98,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     with Session() as lib:
         # Choose how data will be passed in to the module
         file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=data, x=x, y=y, z=z
+            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
         )
 
         with file_context as fname:
