@@ -4,7 +4,7 @@ name: Docs
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
     paths-ignore:
@@ -43,7 +43,7 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.0
+        uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
 
@@ -67,7 +67,7 @@ jobs:
       - name: Install dependencies
         run: |
           conda install gmt=6.2.0 numpy pandas xarray netCDF4 packaging \
-                        ipython make myst-parser \
+                        ipython make myst-parser geopandas \
                         sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
@@ -76,7 +76,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.14.0
+        uses: dawidd6/action-download-artifact@v2.14.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -114,7 +114,7 @@ jobs:
 
       - name: Push the built HTML to gh-pages
         run: |
-          # Detect if this is a release or from the master branch
+          # Detect if this is a release or from the main branch
           if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
               # Get the tag name without the "refs/tags/" part
               version="${GITHUB_REF#refs/*/}"
