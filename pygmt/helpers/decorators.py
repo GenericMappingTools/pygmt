@@ -20,6 +20,10 @@ COMMON_OPTIONS = {
             *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/regions>` of interest.""",
+    "R-noplot": r"""
+        region : str or list
+            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+            Specify the :doc:`region </tutorials/regions>` of interest.""",
     "J": r"""
         projection : str
             *Required if this is the first plot command*.
