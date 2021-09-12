@@ -6,7 +6,7 @@ In the example shown below we will see how to calculate a hillshade map based
 on a Data Elevation Model(DEM).As input :meth:`pygmt.grdgradient` gets a
 :class:`xarray.DataArray` object or a path string to a grid file. We will use
 the ``radiance`` parameter in order to set the illumination source direction
-and altitude
+and altitude.
 """
 
 import pygmt
