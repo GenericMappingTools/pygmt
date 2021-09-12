@@ -50,7 +50,7 @@ from pygmt.src.which import which
     l="label",
     p="perspective",
     t="transparency",
-    w="wrap", 
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot3d(
