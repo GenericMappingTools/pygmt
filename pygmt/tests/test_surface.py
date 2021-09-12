@@ -59,18 +59,6 @@ def test_surface_input_xyz(ship_data):
     return output
 
 
-def test_surface_input_xy_no_z(ship_data):
-    """
-    Run surface by passing in x and y, but no z.
-    """
-    with pytest.raises(GMTInvalidInput):
-        surface(
-            x=ship_data.longitude,
-            y=ship_data.latitude,
-            spacing="5m",
-            region=[245, 255, 20, 30],
-        )
-
 
 def test_surface_wrong_kind_of_input(ship_data):
     """
