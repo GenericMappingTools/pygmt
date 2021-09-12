@@ -50,7 +50,7 @@ from pygmt.src.which import which
     l="label",
     p="perspective",
     t="transparency",
-    w="wrap",   
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
@@ -211,7 +211,7 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     {t}
         *transparency* can also be a 1d array to set varying transparency
         for symbols, but this option is only valid if using x/y.
-    {w}   
+    {w}
     """
     # pylint: disable=too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
