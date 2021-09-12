@@ -95,9 +95,9 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
         via *data*. E.g. ``columns = [0, 1, 2]`` or ``columns = "0,1,2"`` if
         the *x* values are stored in the first column, *y* values in the second
         one and *z* values in the third one. Note: zero-based indexing is used.
-    {p}  
-    {t} 
-    {w} 
+    {p}
+    {t}
+    {w}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
