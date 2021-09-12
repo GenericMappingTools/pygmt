@@ -2,8 +2,8 @@
 Calculating the gradient of a grid file
 --------------------
 The :meth:`pygmt.grgradient` calculate the gradient of a grid file.
-In the example shown below we will see how to calculate an hillshade map based
-on a Data Elevation Model(DEM). :meth:`pygmt.grdgradient` get as input
+In the example shown below we will see how to calculate a hillshade map based
+on a Data Elevation Model(DEM).As input :meth:`pygmt.grdgradient` gets a
 :class:`xarray.DataArray` object or a path string to a grid file. We will use
 the ``radiance`` parameter in order to set the illumination source direction
 and altitude
@@ -20,7 +20,7 @@ region = [-119.825, -119.4, 37.6, 37.825]
 grid = pygmt.datasets.load_earth_relief(resolution="03s", region=region)
 
 # calculate the reflection of a light source projecting from west to
-# east(azimuth 270) and at a latitude of 30 degrees from the horizon
+# east (azimuth 270 degrees) and at a latitude of 30 degrees from the horizon
 dgrid = pygmt.grdgradient(grid=grid, radiance=[270, 30])
 
 fig = pygmt.Figure()
