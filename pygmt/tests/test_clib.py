@@ -747,7 +747,7 @@ def test_dataarray_to_matrix_zero_inc_fails():
     """
     Check that dataarray_to_matrix fails for zero increments grid.
     """
-    data = np.ones((5, 5), dtype="float64")
+    data = np.ones((5, 5), dtype="float32")
     x = np.linspace(0, 1, 5)
     y = np.zeros_like(x)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
