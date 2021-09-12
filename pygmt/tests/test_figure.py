@@ -163,6 +163,7 @@ def test_figure_show():
     """
     Test that show creates the correct file name and deletes the temp dir.
     """
+    pytest.importorskip("IPython")
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     fig.show()
