@@ -29,7 +29,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     i="columns",
     p="perspective",
     t="transparency",
-    w="wrap",    
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
