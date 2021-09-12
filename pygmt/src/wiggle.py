@@ -23,10 +23,13 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     c="panel",
     d="nodata",
     e="find",
+    f="coltypes",
     g="gap",
     h="header",
     i="columns",
     p="perspective",
+    t="transparency",
+    w="wrap",    
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
@@ -91,7 +94,10 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
         via *data*. E.g. ``columns = [0, 1, 2]`` or ``columns = "0,1,2"`` if
         the *x* values are stored in the first column, *y* values in the second
         one and *z* values in the third one. Note: zero-based indexing is used.
-    {p}
+    {p}  
+    {f} 
+    {t} 
+    {w} 
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
