@@ -21,7 +21,10 @@ from pygmt.io import load_dataarray
     D="direction",
     E="radiance",
     G="outgrid",
+    N="normalize",
+    Q="norm_control",
     R="region",
+    S="slopefile",
     V="verbose",
     n="interpolation",
 )
@@ -89,6 +92,39 @@ def grdgradient(grid, **kwargs):
         algorithm; in this case the *azim* and *elev* are hardwired to 315
         and 45 degrees. This means that even if you provide other values
         they will be ignored.)
+    normalize : str or bool
+        [**e**\|\ **t**][*amp*][**+a**\ *ambient*][**+s**\ *sigma*]
+        [**+o**\ *offset*].
+        The actual gradients *g* are offset and scaled to produce normalized 
+        gradients *gn* with a
+        maximum output magnitude of *amp*. If *amp* is not given, default
+        *amp* = 1. If *offset* is not given, it is set to the average of
+        *g*. **True** yields *gn* = *amp* \* (*g* - *offset*)/max(abs(\ *g* -
+        *offset*)). **-Ne** normalizes using a cumulative Laplace
+        distribution yielding *gn* = *amp* \* (1.0 -
+        exp(sqrt(2) \* (*g* - *offset*)/ *sigma*)), where
+        *sigma* is estimated using the L1 norm of (*g* - *offset*) if it is
+        not given. **-Nt** normalizes using a cumulative Cauchy distribution
+        yielding *gn* = (2 \* *amp* / PI) \* atan( (*g* - *offset*)/
+        *sigma*) where *sigma* is estimated using the L2 norm of (*g* -
+        *offset*) if it is not given. To use *offset* and/or *sigma* from a
+        previous calculation, leave out the argument to the modifier(s) and
+        see **-Q** for usage.  As a final option, you may add **+a**\ *ambient*
+        to add *ambient* to all nodes after gradient calculations are completed.
+    norm_control : str
+        **c**\|\ **r**\|\ **R**
+        Controls how normalization via **-N** is carried out.  When multiple grids
+        should be normalized the same way (i.e., with the same *offset* and/or *sigma*),
+        we must pass these values via **-N**.  However, this is inconvenient if we
+        compute these values from a grid.  Use **-Qc** to save the results of
+        *offset* and *sigma* to a statistics file; if grid output is not needed
+        for this run then do not specify **-G**. For subsequent runs, just use
+        **-Qr** to read these values.  Using **-QR** will read then delete the
+        statistics file. See TILES for more information.
+    slopefile : str
+        Name of output grid file with scalar magnitudes of gradient vectors.
+        Requires **-D** but makes **-G** optional.
+
     {R}
     {V}
     {n}
