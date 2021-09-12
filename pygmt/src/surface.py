@@ -32,7 +32,7 @@ from pygmt.io import load_dataarray
     h="header",
     i="incols",
     r="registration",
-    s="skiprows",   
+    s="skiprows",
 )
 @kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
@@ -82,7 +82,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     {i}
     {r}
     {s}
-    
+
     Returns
     -------
     ret: xarray.DataArray or None
