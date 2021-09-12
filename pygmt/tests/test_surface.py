@@ -59,7 +59,6 @@ def test_surface_input_xyz(ship_data):
     return output
 
 
-
 def test_surface_wrong_kind_of_input(ship_data):
     """
     Run surface using grid input that is not file/matrix/vectors.
