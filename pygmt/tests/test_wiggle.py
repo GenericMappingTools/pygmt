@@ -45,7 +45,7 @@ def test_wiggle_deprecate_columns_to_incols():
     x = np.arange(-2, 2, 0.02)
     y = np.zeros(x.size)
     z = np.cos(2 * np.pi * x)
-    data = np.array([y, x, z])
+    data = np.array([y, x, z]).T
 
     fig = Figure()
     with pytest.warns(expected_warning=FutureWarning) as record:
