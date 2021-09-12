@@ -39,12 +39,18 @@ from pygmt.src.which import which
     Y="yshift",
     Z="zvalue",
     a="aspatial",
+    b="binary",
+    c="panel",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    g="gap",
+    h="header",
     i="incols",
     l="label",
-    c="panel",
-    f="coltypes",
     p="perspective",
     t="transparency",
+    w="wrap", 
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot3d(
@@ -162,14 +168,20 @@ def plot3d(
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
     {a}
+    {b}
     {c}
+    {d}
+    {e}
     {f}
+    {g}
+    {h}
     {i}
     {l}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
         for symbols, but this option is only valid if using x/y/z.
+    {w}
     """
     # pylint: disable=too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
