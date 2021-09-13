@@ -8,7 +8,7 @@ BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
 BLACKDOC_OPTIONS=--line-length 79
 DOCFORMATTER_FILES=$(PROJECT) setup.py doc/conf.py examples
 DOCFORMATTER_OPTIONS=--recursive --pre-summary-newline --make-summary-multi-line --wrap-summaries 79 --wrap-descriptions 79
-FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py
+FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py examples
 LINT_FILES=$(PROJECT) setup.py doc/conf.py
 
 help:

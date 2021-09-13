@@ -22,12 +22,12 @@ df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
 df.species = df.species.astype(dtype="category")
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax, zmin, zmax)
-# The below example will return a numpy array like [0.0, 3.0, 4.0, 8.0, 1.0, 7.0]
+# The below example will return a numpy array [0.0, 3.0, 4.0, 8.0, 1.0, 7.0]
 region = pygmt.info(
     table=df[["petal_width", "sepal_length", "petal_length"]],  # x, y, z columns
     per_column=True,  # report the min/max values per column as a numpy array
-    # round the min/max values of the first three columns to the nearest multiple
-    # of 1, 2 and 0.5, respectively
+    # round the min/max values of the first three columns to the nearest
+    # multiple of 1, 2 and 0.5, respectively
     spacing=(1, 2, 0.5),
 )
 
@@ -35,10 +35,10 @@ region = pygmt.info(
 fig = pygmt.Figure()
 
 # Define a colormap to be used for three categories, define the range of the
-# new discrete CPT using series=(lowest_value, highest_value, interval),
-# use color_model="+cSetosa,Versicolor,Virginica" to write the discrete color palette
-# "cubhelix" in categorical format and add the species names as annotations for the
-# colorbar
+# new discrete CPT using series=(lowest_value, highest_value, interval), use
+# color_model="+cSetosa,Versicolor,Virginica" to write the discrete color
+# palette "cubhelix" in categorical format and add the species names as
+# annotations for the colorbar
 pygmt.makecpt(
     cmap="cubhelix", color_model="+cSetosa,Versicolor,Virginica", series=(0, 2, 1)
 )
@@ -49,7 +49,8 @@ fig.plot3d(
     x=df.petal_width,
     y=df.sepal_length,
     z=df.petal_length,
-    # Vary each symbol size according to another feature (sepal width, scaled by 0.1)
+    # Vary each symbol size according to another feature (sepal width, scaled
+    # by 0.1)
     size=0.1 * df.sepal_width,
     # Use 3D cubes ("u") as symbols, with size in centimeter units ("c")
     style="uc",

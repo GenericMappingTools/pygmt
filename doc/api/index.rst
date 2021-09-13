@@ -98,6 +98,7 @@ Operations on grids:
     grdproject
     grdsample
     grdtrack
+    sphdistance
     xyz2grd
 
 Crossover analysis with x2sys:
@@ -107,6 +108,14 @@ Crossover analysis with x2sys:
 
     x2sys_init
     x2sys_cross
+
+Input/output
+------------
+
+.. autosummary::
+    :toctree: generated
+
+    load_dataarray
 
 GMT Defaults
 ------------
