@@ -33,6 +33,7 @@ from pygmt.src import (
     blockmean,
     blockmedian,
     config,
+    filter1d,
     grd2cpt,
     grdclip,
     grdcut,

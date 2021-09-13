@@ -9,6 +9,7 @@ from pygmt.src.coast import coast
 from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
 from pygmt.src.contour import contour
+from pygmt.src.filter1d import filter1d
 from pygmt.src.grd2cpt import grd2cpt
 from pygmt.src.grdclip import grdclip
 from pygmt.src.grdcontour import grdcontour
