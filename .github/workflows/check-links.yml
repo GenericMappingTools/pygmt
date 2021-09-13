@@ -3,7 +3,7 @@ name: Check Links
 
 on:
   # Uncomment the 'pull_request' line below to trigger the workflow in PR
-  # pull_request:
+  pull_request:
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
@@ -31,14 +31,12 @@ jobs:
         # 429: Too many requests
         args: >
           --accept 429
+          --exclude-mail
           --exclude "^https://doi.org/10.5281/zenodo$"
           --exclude "^https://zenodo.org/badge/DOI/$"
           --exclude "^https://zenodo.org/badge/DOI/10.5281/zenodo$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
-          --exclude "^https://www.generic-mapping-tools.org/_static/gmt-logo.png/$"
-          --exclude "^https://www.generic-mapping-tools.org/_static/gmt-logo.png/n/n$"
-          --exclude "^``@ridge.txt$"
           --exclude "^git"
           --exclude "^file://"
           --exclude "^https://docs.generic-mapping-tools.org/latest/%s$"
@@ -51,8 +49,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Create Issue From File
-      uses: peter-evans/create-issue-from-file@v3
-      with:
-        title: Link Checker Report
-        content-filepath: ./lychee/out.md
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+    #- name: Create Issue From File
+    #  uses: peter-evans/create-issue-from-file@v3
+    #  with:
+    #    title: Link Checker Report on ${{ steps.date.outputs.date }}
+    #    content-filepath: ./lychee/out.md
