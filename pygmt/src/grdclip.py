@@ -53,7 +53,7 @@ def grdclip(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {R}
+    {R-noplot}
     above : str or list or tuple
         [*high*, *above*].
         Set all data[i] > *high* to *above*.

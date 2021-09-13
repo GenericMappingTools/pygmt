@@ -57,7 +57,7 @@ def grdproject(grid, **kwargs):
         When set to ``True`` transforms grid from rectangular to
         geographical [Default is False].
     {J}
-    {R}
+    {R-noplot}
     {V}
     {n}
     {r}

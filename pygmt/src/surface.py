@@ -58,9 +58,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     {I}
 
-    region : str or list
-        *xmin/xmax/ymin/ymax*\[**+r**][**+u**\ *unit*].
-        Specify the region of interest.
+    {R-noplot}
 
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc

@@ -48,7 +48,7 @@ def grdlandmask(**kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     {I}
-    {R}
+    {R-noplot}
     {A}
     resolution : str
         *res*\[\ **+f**\]. Selects the resolution of the data set to use

@@ -171,7 +171,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         nearest distance nodes along the cross-profiles. We write 13 output
         columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
         distl, lonr, latr, distr, width*.
-    {R}
+    {R-noplot}
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
         [Default only output points within grid domain].

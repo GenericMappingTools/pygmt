@@ -40,7 +40,7 @@ def grdinfo(grid, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
         This is the only required parameter.
-    {R}
+    {R-noplot}
     per_column : str or bool
         **n**\|\ **t**.
         Formats the report using tab-separated fields on a single line. The
