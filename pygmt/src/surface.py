@@ -33,6 +33,7 @@ from pygmt.io import load_dataarray
     i="incols",
     r="registration",
     s="skiprows",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
@@ -82,6 +83,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     {i}
     {r}
     {s}
+    {w}
 
     Returns
     -------
