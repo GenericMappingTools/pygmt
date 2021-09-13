@@ -70,6 +70,7 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
     R="region",
     V="verbose",
     a="aspatial",
+    b="binary",
     d="data",
     e="find",
     f="coltypes",
@@ -116,6 +117,7 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     {V}
     {a}
+    {b}
     {d}
     {e}
     {i}
@@ -147,6 +149,7 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     R="region",
     V="verbose",
     a="aspatial",
+    b="binary",
     d="nodata",
     e="find",
     f="coltypes",
@@ -193,6 +196,7 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     {V}
     {a}
+    {b}
     {d}
     {e}
     {f}
