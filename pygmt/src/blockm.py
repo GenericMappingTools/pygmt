@@ -266,7 +266,11 @@ def blockmode(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     {V}
     {a}
+    {b}
+    {d}
+    {e}
     {f}
+    {h}
     {i}
     {o}
     {r}
