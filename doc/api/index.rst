@@ -81,6 +81,7 @@ Operations on tabular data:
 
     blockmean
     blockmedian
+    blockmode
     surface
 
 Operations on grids:
@@ -92,8 +93,9 @@ Operations on grids:
     grdcut
     grdfill
     grdfilter
-    grdlandmask
     grdgradient
+    grdlandmask
+    grdproject
     grdsample
     grdtrack
     xyz2grd
@@ -161,6 +163,7 @@ and store them in the GMT cache folder.
     datasets.load_sample_bathymetry
     datasets.load_usgs_quakes
     datasets.load_fractures_compilation
+    datasets.load_hotspots
 
 .. automodule:: pygmt.exceptions
 
