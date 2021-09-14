@@ -423,8 +423,8 @@ def test_virtual_file_bad_direction():
 
 def test_virtualfile_from_data_required_z_matrix():
     """
-    Test that function fails when needs and do not provide third z columns in a
-    matrix.
+    Test that function fails when third z column in a matrix is needed but not
+    provided.
     """
 
     data = np.ones((5, 2))
@@ -436,7 +436,7 @@ def test_virtualfile_from_data_required_z_matrix():
 
 def test_virtualfile_from_data_fail_non_valid_data(data):
     """
-    Should raise an exception if to less or to match data is given.
+    Should raise an exception if too few or too much data is given.
     """
     # Test all combinations where at least one data variable
     # is not given in the x, y case:
