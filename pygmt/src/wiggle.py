@@ -30,10 +30,13 @@ from pygmt.helpers import (
     c="panel",
     d="nodata",
     e="find",
+    f="coltypes",
     g="gap",
     h="header",
     i="incols",
     p="perspective",
+    t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
@@ -91,10 +94,13 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     {c}
     {d}
     {e}
+    {f}
     {g}
     {h}
     {i}
     {p}
+    {t}
+    {w}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
