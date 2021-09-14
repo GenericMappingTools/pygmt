@@ -426,12 +426,11 @@ def test_virtualfile_from_data_required_z_matrix():
     Test that function fails when third z column in a matrix is needed but not
     provided.
     """
-
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
             with lib.virtualfile_from_data(data=data, required_z=True):
-                print("This should have failed")
+                pass
 
 
 def test_virtualfile_from_data_fail_non_valid_data(data):
