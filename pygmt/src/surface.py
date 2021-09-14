@@ -25,8 +25,15 @@ from pygmt.io import load_dataarray
     G="outgrid",
     V="verbose",
     a="aspatial",
+    b="binary",
+    d="nodata",
+    e="find",
     f="coltypes",
+    h="header",
+    i="incols",
     r="registration",
+    s="skiprows",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
@@ -68,8 +75,15 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     {V}
     {a}
+    {b}
+    {d}
+    {e}
     {f}
+    {h}
+    {i}
     {r}
+    {s}
+    {w}
 
     Returns
     -------

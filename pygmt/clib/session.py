@@ -1383,9 +1383,10 @@ class Session:
         check_kind : str
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector' or None. Default is None (no validation).
-        data : str or xarray.DataArray or {table-like} or None
-            Any raster or vector data format. This could be a file name, a
-            raster grid, a vector matrix/arrays, or other supported data input.
+        data : str or pathlib.Path or xarray.DataArray or {table-like} or None
+            Any raster or vector data format. This could be a file name or
+            path, a raster grid, a vector matrix/arrays, or other supported
+            data input.
         x/y/z : 1d arrays or None
             x, y and z columns as numpy arrays.
         extra_arrays : list of 1d arrays
@@ -1446,8 +1447,11 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("file", "geojson", "grid"):
+        if kind in ("geojson", "grid"):
             _data = (data,)
+        elif kind == "file":
+            # Useful to handle `pathlib.Path` and string file path alike
+            _data = (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:

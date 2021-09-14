@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 import os
+import pathlib
 import shutil
 import subprocess
 import sys
@@ -21,6 +22,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     Possible types:
 
     * a file name provided as 'data'
+    * a pathlib.Path provided as 'data'
     * an xarray.DataArray provided as 'data'
     * a matrix provided as 'data'
     * 1D arrays x and y (and z, optionally)
@@ -30,9 +32,9 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
 
     Parameters
     ----------
-    data : str or xarray.DataArray or {table-like} or None
-        Pass in either a file name to an ASCII data table, an
-        :class:`xarray.DataArray`, a 1D/2D
+    data : str or pathlib.Path or xarray.DataArray or {table-like} or None
+        Pass in either a file name or :class:`pathlib.Path` to an ASCII data
+        table, an :class:`xarray.DataArray`, a 1D/2D
         {table-classes}.
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
@@ -50,11 +52,14 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
 
     >>> import numpy as np
     >>> import xarray as xr
+    >>> import pathlib
     >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
     'vectors'
     >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
     'matrix'
     >>> data_kind(data="my-data-file.txt", x=None, y=None)
+    'file'
+    >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
     'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
@@ -68,7 +73,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     if data is None and required_z and z is None:
         raise GMTInvalidInput("Must provide x, y, and z.")
 
-    if isinstance(data, str):
+    if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
