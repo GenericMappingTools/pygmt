@@ -17,7 +17,7 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(resolution="01d", region=[-1, 1, -1, 1])
+    return load_earth_relief(resolution="01d", region=[-1, 1, 3, 5])
 
 
 def test_grd2xyz(grid):
@@ -32,9 +32,17 @@ def test_grd2xyz_format(grid):
     """
     Test that correct formats are returned.
     """
+    lon = -0.5
+    lat = 3.5
+    orig_val = grid.sel(lon=lon, lat=lat).to_numpy()
     xyz_default = grd2xyz(grid=grid)
+    xyz_val = xyz_default[(xyz_default["lon"] == lon) & (xyz_default["lat"] == lat)][
+        "elevation"
+    ].to_numpy()
     assert isinstance(xyz_default, pd.DataFrame)
-    assert list(xyz_default.columns) == ["lon", "lat", "elevation"]
+    assert orig_val.size == 1
+    assert xyz_val.size == 1
+    np.testing.assert_allclose(orig_val, xyz_val)
     xyz_array = grd2xyz(grid=grid, output_type="numpy")
     assert isinstance(xyz_array, np.ndarray)
     xyz_df = grd2xyz(grid=grid, output_type="pandas")
