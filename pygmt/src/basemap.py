@@ -52,9 +52,11 @@ def basemap(self, **kwargs):
     Parameters
     ----------
     {J}
+        *Required if this is the first plot command.*
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
     {R}
+        *Required if this is the first plot command.*
     {B}
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\

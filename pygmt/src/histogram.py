@@ -54,7 +54,9 @@ def histogram(self, table, **kwargs):
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
     {J}
+        *Required if this is the first plot command.*
     {R}
+        *Required if this is the first plot command.*
     {B}
     {CPT}
     {G}

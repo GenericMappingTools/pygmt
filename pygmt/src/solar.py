@@ -50,7 +50,9 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         passed as a string or Python datetime object.
         [Default is the current UTC date and time]
     {R}
+        *Required if this is the first plot command.*
     {J}
+        *Required if this is the first plot command.*
     {B}
     fill : str
         Color or pattern for filling of terminators.
