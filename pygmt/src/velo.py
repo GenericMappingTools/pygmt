@@ -30,6 +30,10 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     Y="yshift",
     Z="zvalue",
     c="panel",
+    d="nodata",
+    e="find",
+    h="header",
+    i="incols",
     p="perspective",
     t="transparency",
 )
@@ -225,6 +229,10 @@ def velo(self, data=None, **kwargs):
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
     {c}
+    {d}
+    {e}
+    {h}
+    {i}
     {p}
     {t}
     """
