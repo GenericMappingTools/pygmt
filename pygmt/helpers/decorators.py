@@ -17,12 +17,10 @@ from pygmt.helpers.utils import is_nonstr_iter
 COMMON_OPTIONS = {
     "R": r"""
         region : str or list
-            *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/regions>` of interest.""",
     "J": r"""
         projection : str
-            *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
     "A": r"""
