@@ -76,11 +76,13 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         output_type = "file"
     elif output_type == "file" and outfile is None:
         raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
-    # Set the default column names for the pandas dataframe header
-    dataframe_header = ["x", "y", "z"]
-    # Set the column names to match an input DataArray as the grid
-    if isinstance(grid, xr.DataArray) and output_type == "pandas":
-        dataframe_header = grid.dims + (grid.name,)
+    if "o" not in kwargs.keys(): # Only set column names for standard output
+        # Set the default column names for the pandas dataframe header
+        dataframe_header = ["x", "y", "z"]
+        # Set the column names to match an input DataArray as the grid
+        if isinstance(grid, xr.DataArray) and output_type == "pandas":
+            # Reverse the dims because it is rows, columns ordered.
+            dataframe_header = (grid.dims[1],) + (grid.dims[0],) + (grid.name,)
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
