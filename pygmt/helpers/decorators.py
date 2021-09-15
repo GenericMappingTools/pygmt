@@ -446,11 +446,9 @@ def fmt_docstring(module_func):
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
     region : str or list
-        *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/regions>` of interest.
     projection : str
-        *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
