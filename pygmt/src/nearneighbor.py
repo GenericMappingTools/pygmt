@@ -57,14 +57,15 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     criteria and :math:`r_i` is the distance from the node to the *i*'th data
     point. If no data weights are supplied then :math:`w_i = 1`.
 
-    .. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_nearneighbor.png
+    .. figure:: :gmt-docs:`_images/GMT_nearneighbor.png`
        :width: 300 px
        :align: center
 
        Search geometry includes the search radius (R) which limits the points
-       considered and the number of sectors (here 4), which restricts how points inside
-       the search radius contribute to the value at the node.  Only the closest point
-       in each sector (red circles) contribute to the weighted estimate.
+       considered and the number of sectors (here 4), which restricts how
+       points inside the search radius contribute to the value at the node.
+       Only the closest point in each sector (red circles) contribute to the
+       weighted estimate.
 
     Takes a matrix, xyz triples, or a file name as input.
 
@@ -144,9 +145,9 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y, z=z
             )
             with table_context as infile:
-                if "G" not in kwargs.keys():  # if outfile is unset, output to tmpfile
+                if "G" not in kwargs.keys():  # if outgrid is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})
-                outfile = kwargs["G"]
+                outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="nearneighbor", args=arg_str)
 
