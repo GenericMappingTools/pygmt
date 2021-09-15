@@ -26,11 +26,13 @@ from pkg_resources import get_distribution
 from pygmt import datasets
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
+from pygmt.io import load_dataarray
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
     blockmean,
     blockmedian,
+    blockmode,
     config,
     grd2cpt,
     grdclip,
@@ -40,14 +42,18 @@ from pygmt.src import (
     grdgradient,
     grdinfo,
     grdlandmask,
+    grdproject,
+    grdsample,
     grdtrack,
     info,
     makecpt,
     nearneighbor,
+    sphdistance,
     surface,
     which,
     x2sys_cross,
     x2sys_init,
+    xyz2grd,
 )
 
 # Get semantic version through setuptools-scm

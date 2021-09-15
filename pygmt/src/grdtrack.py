@@ -7,7 +7,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -27,12 +26,20 @@ from pygmt.helpers import (
     T="radius",
     V="verbose",
     Z="z_only",
+    b="binary",
+    d="nodata",
+    e="find",
     f="coltypes",
+    g="gap",
+    h="header",
     i="incols",
     j="distcalc",
     n="interpolation",
+    o="outcols",
+    s="skiprows",
+    w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence")
+@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
@@ -233,10 +240,18 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {V}
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
+    {b}
+    {d}
+    {e}
     {f}
+    {g}
+    {h}
     {i}
     {j}
     {n}
+    {o}
+    {s}
+    {w}
 
     Returns
     -------
@@ -248,7 +263,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         - None if ``outfile`` is set (track output will be stored in file set
           by ``outfile``)
     """
-    if data_kind(points) == "matrix" and newcolname is None:
+    if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
     with GMTTempFile(suffix=".csv") as tmpfile:

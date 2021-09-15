@@ -12,20 +12,23 @@ import pygmt
 # Load sample earth relief data
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35, 40])
 
-########################################################################################
+###############################################################################
 # The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
-# The ``perspective`` parameter changes the azimuth and elevation of the viewpoint; the
-# default is [180, 90], which is looking directly down on the figure and north is "up".
-# The ``zsize`` parameter sets how tall the three-dimensional portion appears.
+# The ``perspective`` parameter changes the azimuth and elevation of the
+# viewpoint; the default is [180, 90], which is looking directly down on the
+# figure and north is "up". The ``zsize`` parameter sets how tall the
+# three-dimensional portion appears.
 #
 # The default grid surface type is *mesh plot*.
 
 fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
-    # Sets the view azimuth as 130 degrees, and the view elevation as 30 degrees
+    # Sets the view azimuth as 130 degrees, and the view elevation as 30
+    # degrees
     perspective=[130, 30],
-    # Sets the x- and y-axis labels, and annotates the west, south, and east axes
+    # Sets the x- and y-axis labels, and annotates the west, south, and east
+    # axes
     frame=["xa", "ya", "WSnE"],
     # Sets a Mercator projection on a 15-centimeter figure
     projection="M15c",
@@ -34,7 +37,7 @@ fig.grdview(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # The grid surface type can be set with the ``surftype`` parameter.
 # The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
@@ -52,9 +55,9 @@ fig.grdview(
 )
 fig.show()
 
-########################################################################################
-# The ``plane`` parameter sets the elevation and color of a plane that provides a fill
-# below the surface relief.
+###############################################################################
+# The ``plane`` parameter sets the elevation and color of a plane that provides
+# a fill below the surface relief.
 
 fig = pygmt.Figure()
 fig.grdview(
@@ -70,12 +73,13 @@ fig.grdview(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # The ``perspective`` azimuth can be changed to set the direction that is "up"
-# in the figure. The ``contourpen`` parameter sets the pen used to draw contour lines
-# on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a color bar to the
-# figure. The ``cmap`` parameter does not need to be passed again. To keep the color
-# bar's alignment similar to the figure, use ``True`` as the ``perspective`` parameter.
+# in the figure. The ``contourpen`` parameter sets the pen used to draw contour
+# lines on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a
+# color bar to the figure. The ``cmap`` parameter does not need to be passed
+# again. To keep the color bar's alignment similar to the figure, use ``True``
+# as the ``perspective`` parameter.
 
 fig = pygmt.Figure()
 fig.grdview(
