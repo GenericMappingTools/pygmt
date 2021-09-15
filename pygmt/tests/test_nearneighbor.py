@@ -25,7 +25,10 @@ def test_nearneighbor_input_file():
     Run nearneighbor by passing in a filename.
     """
     output = nearneighbor(
-        data="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
+        data="@tut_ship.xyz",
+        spacing="5m",
+        region=[245, 255, 20, 30],
+        search_radius="10m",
     )
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
@@ -93,7 +96,7 @@ def test_nearneighbor_wrong_kind_of_input(ship_data):
         )
 
 
-def test_nearneighbor_with_outfile_param(ship_data):
+def test_nearneighbor_with_outgrid_param(ship_data):
     """
     Run nearneighbor with the -Goutputfile.nc parameter.
     """
@@ -103,11 +106,11 @@ def test_nearneighbor_with_outfile_param(ship_data):
             data=data,
             spacing="5m",
             region=[245, 255, 20, 30],
-            outfile=tmpfile.name,
+            outgrid=tmpfile.name,
             search_radius="10m",
         )
-        assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        assert output is None  # check that output is None since outgrid is set
+        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists at path
         with xr.open_dataarray(tmpfile.name) as grid:
             assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
             assert grid.shape == (121, 121)

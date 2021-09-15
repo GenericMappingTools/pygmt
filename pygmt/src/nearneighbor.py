@@ -2,7 +2,6 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm
 """
 
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -13,12 +12,13 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
 @use_alias(
     E="empty",
-    G="outfile",
+    G="outgrid",
     I="spacing",
     N="sectors",
     R="region",
@@ -36,7 +36,7 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence")
-def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
+def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Grid table data using a "Nearest neighbor" algorithm
 
@@ -76,22 +76,22 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
+    data : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
 
     {I}
 
-    region : str or list
-        *xmin/xmax/ymin/ymax*\[**+r**][**+u**\ *unit*].
-        Specify the region of interest.
+    {R}
 
     search_radius : str
         Sets the search radius that determines which data points are considered
         close to a node.
 
-    outfile : str
+    outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
 
@@ -126,11 +126,11 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the ``outfile`` parameter is set:
+        Return type depends on whether the ``outgrid`` parameter is set:
 
-        - :class:`xarray.DataArray`: if ``outfile`` is not set
-        - None if ``outfile`` is set (grid output will be stored in file set by
-          ``outfile``)
+        - :class:`xarray.DataArray`: if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
     """
 
     kind = data_kind(data, x, y, z)
@@ -150,11 +150,4 @@ def nearneighbor(x=None, y=None, z=None, data=None, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="nearneighbor", args=arg_str)
 
-        if outfile == tmpfile.name:  # if user did not set outfile, return DataArray
-            with xr.open_dataarray(outfile) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        elif outfile != tmpfile.name:  # if user sets an outfile, return None
-            result = None
-
-    return result
+    return load_dataarray(outgrid) if outgrid == tmpfile.name else None
