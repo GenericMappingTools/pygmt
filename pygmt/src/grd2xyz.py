@@ -48,8 +48,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     outfile : str
         The file name for the output ASCII file.
     {R}
-        Adding `region` will select a subsection of the grid. If this 
-        subsection exceeds the boundaries of the grid, only the common region 
+        Adding `region` will select a subsection of the grid. If this
+        subsection exceeds the boundaries of the grid, only the common region
         will be output.
     {V}
 
@@ -66,9 +66,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     """
     if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            "Must specify format as either numpy, pandas, or file."
-        )
+        raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
     if outfile is not None and output_type != "file":
         msg = (
             f"Changing `output_type` of grd2xyz from '{output_type}' to 'file' "
@@ -98,9 +96,12 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(
-                tmpfile.name, sep="\t", names=dataframe_header, comment=">"
-            )
+            if "o" not in kwargs.keys():
+                result = pd.read_csv(
+                    tmpfile.name, sep="\t", names=dataframe_header, comment=">"
+                )
+            else:
+                result = pd.read_csv(tmpfile.name, sep="\t", comment=">")
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 
