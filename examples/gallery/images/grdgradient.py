@@ -5,14 +5,12 @@ The :meth:`pygmt.grdgradient` method calculates the gradient of a grid file.
 In the example shown below we will see how to calculate a hillshade map based
 on a Data Elevation Model (DEM). As input :meth:`pygmt.grdgradient` gets
 a :class:`xarray.DataArray` object or a path string to a grid file calculate
-the respective gradient and return it sa an :class:`xarray.DataArray` object.
+the respective gradient and return it as an :class:`xarray.DataArray` object.
 We will use the ``radiance`` parameter in order to set the illumination source
 direction and altitude.
 """
 
 import pygmt
-
-fig = pygmt.Figure()
 
 # Define region of interest around Yosemite valley
 region = [-119.825, -119.4, 37.6, 37.825]
@@ -36,14 +34,13 @@ fig.grdimage(
     projection="M12c",
     frame=['WSrt+t"Original Data Elevation Model"', "xa0.1", "ya0.1"],
     cmap=True,
-    region=region,
 )
 
 fig.colorbar(position="JML+o1.4c/0c+w7c/0.5c", frame=["xa1000f500+lElevation", "y+lm"])
 
 # --------------- plotting the hillshade map -----------
 
-# Shift plot origin of the second map by "width of the first map + 0.5 cm"
+# Shift plot origin of the second map by 12.5 cm in x direction
 # in x direction
 fig.shift_origin(xshift="12.5c")
 
@@ -53,8 +50,6 @@ fig.grdimage(
     projection="M12c",
     frame=['lSEt+t"Hillshade Map"', "xa0.1", "ya0.1"],
     cmap=True,
-    region=region,
 )
-
 
 fig.show()
