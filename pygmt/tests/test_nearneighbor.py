@@ -70,20 +70,6 @@ def test_nearneighbor_input_xyz(ship_data):
     return output
 
 
-def test_nearneighbor_input_xy_no_z(ship_data):
-    """
-    Run nearneighbor by passing in x and y, but no z.
-    """
-    with pytest.raises(GMTInvalidInput):
-        nearneighbor(
-            x=ship_data.longitude,
-            y=ship_data.latitude,
-            spacing="5m",
-            region=[245, 255, 20, 30],
-            search_radius="10m",
-        )
-
-
 def test_nearneighbor_wrong_kind_of_input(ship_data):
     """
     Run nearneighbor using grid input that is not file/matrix/vectors.
