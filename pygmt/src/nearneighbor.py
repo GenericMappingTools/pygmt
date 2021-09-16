@@ -35,7 +35,7 @@ from pygmt.io import load_dataarray
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma")
 def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Grid table data using a "Nearest neighbor" algorithm
