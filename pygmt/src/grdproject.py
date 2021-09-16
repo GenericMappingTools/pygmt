@@ -16,6 +16,7 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @use_alias(
+    C="center",
     E="dpi",
     F="scaling",
     G="outgrid",
@@ -27,7 +28,7 @@ from pygmt.io import load_dataarray
     n="interpolation",
     r="registration",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(C="sequence", R="sequence")
 def grdproject(grid, **kwargs):
     r"""
     Change projection of gridded data between geographical and rectangular.
@@ -61,6 +62,13 @@ def grdproject(grid, **kwargs):
         geographical [Default is False].
     {J}
     {R}
+    center : str or list
+        [*dx/dy*]
+        Let projected coordinates be relative to projection center [Default
+        is relative to lower left corner]. Optionally, add offsets in the
+        projected units to be added (or subtracted when `inverse` is set) to
+        (from) the projected coordinates, such as false eastings and
+        northings for particular projection zones [0/0].
     dpi : int
         Set the resolution for the new grid in dots per inch.
     scaling : str
