@@ -3,7 +3,6 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
@@ -127,9 +126,7 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provided both x, y, and z.")
+    kind = data_kind(data, x, y, z, required_z=True)
 
     with Session() as lib:
         # Choose how data will be passed in to the module

@@ -1362,7 +1362,14 @@ class Session:
 
     @fmt_docstring
     def virtualfile_from_data(
-        self, check_kind=None, data=None, x=None, y=None, z=None, extra_arrays=None
+        self,
+        check_kind=None,
+        data=None,
+        x=None,
+        y=None,
+        z=None,
+        extra_arrays=None,
+        required_z=False,
     ):
         """
         Store any data inside a virtual file.
@@ -1415,7 +1422,7 @@ class Session:
         ...
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, x, y, z)
+        kind = data_kind(data, x, y, z, required_z=required_z)
 
         if check_kind == "raster" and kind not in ("file", "grid"):
             raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
