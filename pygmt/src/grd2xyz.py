@@ -48,6 +48,9 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     outfile : str
         The file name for the output ASCII file.
     {R}
+        Adding `region` will select a subsection of the grid. If this 
+        subsection exceeds the boundaries of the grid, only the common region 
+        will be output.
     {V}
 
     Returns
