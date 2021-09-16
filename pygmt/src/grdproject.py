@@ -17,9 +17,11 @@ from pygmt.io import load_dataarray
 @fmt_docstring
 @use_alias(
     E="dpi",
+    F="scaling",
     G="outgrid",
     J="projection",
     I="inverse",
+    M="unit",
     R="region",
     V="verbose",
     n="interpolation",
@@ -61,6 +63,17 @@ def grdproject(grid, **kwargs):
     {R}
     dpi : int
         Set the resolution for the new grid in dots per inch.
+    scaling : str
+        [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\ 
+        **k**\|\ **M**\|\ **n**\|\ **u**].
+        Force 1:1 scaling, i.e., output or output data are in
+        actual projected meters [**e**]. To specify other units, append
+        **f** (foot), **k** (km), **M** (statute mile), **n** (nautical
+        mile), **u** (US survey foot), **i** (inch), **c** (cm), or **p**
+        (point).
+    unit : str
+            Append **c**, **i**, or **p** to indicate that cm, inch, or point
+            should be the projected measure unit. Cannot be used with `scaling`.
     {V}
     {n}
     {r}
