@@ -76,7 +76,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         output_type = "file"
     elif output_type == "file" and outfile is None:
         raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
-    if "o" not in kwargs.keys(): # Only set column names for standard output
+    if "o" not in kwargs.keys():  # Only set column names for standard output
         # Set the default column names for the pandas dataframe header
         dataframe_header = ["x", "y", "z"]
         # Set the column names to match an input DataArray as the grid
