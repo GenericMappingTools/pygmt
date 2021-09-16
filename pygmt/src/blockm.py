@@ -43,7 +43,7 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
         with Session() as lib:
             # Choose how data will be passed into the module
             table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=table, x=x, y=y, z=z
+                check_kind="vector", data=table, x=x, y=y, z=z, required_z=True
             )
             # Run blockm* on data table
             with table_context as infile:

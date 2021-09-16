@@ -1,9 +1,11 @@
 # pylint: disable=protected-access
+# pylint: disable=redefined-outer-name
 """
 Test the wrappers for the C API.
 """
 import os
 from contextlib import contextmanager
+from itertools import product
 
 import numpy as np
 import numpy.testing as npt
@@ -23,9 +25,18 @@ from pygmt.exceptions import (
 from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 with clib.Session() as _lib:
     gmt_version = Version(_lib.info["version"])
+
+
+@pytest.fixture(scope="module")
+def data():
+    """
+    Load the point data from the test file.
+    """
+    return np.loadtxt(POINTS_DATA)
 
 
 @contextmanager
@@ -408,6 +419,58 @@ def test_virtual_file_bad_direction():
         with pytest.raises(GMTInvalidInput):
             with lib.open_virtual_file(*vfargs):
                 print("This should have failed")
+
+
+def test_virtualfile_from_data_required_z_matrix():
+    """
+    Test that function fails when third z column in a matrix is needed but not
+    provided.
+    """
+    data = np.ones((5, 2))
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):
+            with lib.virtualfile_from_data(data=data, required_z=True):
+                pass
+
+
+def test_virtualfile_from_data_fail_non_valid_data(data):
+    """
+    Should raise an exception if too few or too much data is given.
+    """
+    # Test all combinations where at least one data variable
+    # is not given in the x, y case:
+    for variable in product([None, data[:, 0]], repeat=2):
+        # Filter one valid configuration:
+        if not any(item is None for item in variable):
+            continue
+        with clib.Session() as lib:
+            with pytest.raises(GMTInvalidInput):
+                lib.virtualfile_from_data(
+                    x=variable[0],
+                    y=variable[1],
+                )
+
+    # Test all combinations where at least one data variable
+    # is not given in the x, y, z case:
+    for variable in product([None, data[:, 0]], repeat=3):
+        # Filter one valid configuration:
+        if not any(item is None for item in variable):
+            continue
+        with clib.Session() as lib:
+            with pytest.raises(GMTInvalidInput):
+                lib.virtualfile_from_data(
+                    x=variable[0], y=variable[1], z=variable[2], required_z=True
+                )
+
+    # Should also fail if given too much data
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):
+            lib.virtualfile_from_data(
+                x=data[:, 0],
+                y=data[:, 1],
+                z=data[:, 2],
+                data=data,
+            )
 
 
 def test_virtualfile_from_vectors():
