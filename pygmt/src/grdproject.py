@@ -16,6 +16,7 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @use_alias(
+    E="dpi",
     G="outgrid",
     J="projection",
     I="inverse",
@@ -58,6 +59,8 @@ def grdproject(grid, **kwargs):
         geographical [Default is False].
     {J}
     {R}
+    dpi : int
+        Set the resolution for the new grid in dots per inch.
     {V}
     {n}
     {r}
