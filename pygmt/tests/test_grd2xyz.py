@@ -47,7 +47,7 @@ def test_grd2xyz_format(grid):
     assert isinstance(xyz_array, np.ndarray)
     xyz_df = grd2xyz(grid=grid, output_type="pandas")
     assert isinstance(xyz_df, pd.DataFrame)
-    assert list(xyz_df.columns) == ["x", "y", "z"]
+    assert list(xyz_df.columns) == ["lon", "lat", "elevation"]
 
 
 def test_grd2xyz_file_output(grid):
