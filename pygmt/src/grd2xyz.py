@@ -64,7 +64,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
-            """Must specify format as either numpy, pandas, or file."""
+            "Must specify format as either numpy, pandas, or file."
         )
     if outfile is not None and output_type != "file":
         msg = (
@@ -82,7 +82,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         # Set the column names to match an input DataArray as the grid
         if isinstance(grid, xr.DataArray) and output_type == "pandas":
             # Reverse the dims because it is rows, columns ordered.
-            dataframe_header = (grid.dims[1],) + (grid.dims[0],) + (grid.name,)
+            dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
