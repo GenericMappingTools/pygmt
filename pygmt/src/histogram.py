@@ -31,7 +31,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     c="panel",
     d="nodata",
     e="find",
-    g="gap",
     h="header",
     l="label",
     p="perspective",
@@ -128,7 +127,6 @@ def histogram(self, table, **kwargs):
     {b}
     {d}
     {e}
-    {g}
     {h}
     {l}
     {p}
