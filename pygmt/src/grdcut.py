@@ -2,18 +2,15 @@
 grdcut - Extract subregion from a grid.
 """
 
-import xarray as xr
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -25,6 +22,7 @@ from pygmt.helpers import (
     S="circ_subregion",
     V="verbose",
     Z="z_subregion",
+    f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
 def grdcut(grid, **kwargs):
@@ -32,13 +30,13 @@ def grdcut(grid, **kwargs):
     Extract subregion from a grid.
 
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
-    subregion is specified with *region*; the specified range must not exceed
-    the range of *grid* (but see *extend*). If in doubt, run
+    subregion is specified with ``region``; the specified range must not exceed
+    the range of ``grid`` (but see ``extend``). If in doubt, run
     :meth:`pygmt.grdinfo` to check range. Alternatively, define the subregion
     indirectly via a range check on the node values or via distances from a
-    given point. Finally, you can give *projection* for oblique projections to
-    determine the corresponding rectangular *region* setting that will give a
-    grid that fully covers the oblique domain.
+    given point. Finally, you can give ``projection`` for oblique projections
+    to determine the corresponding rectangular ``region`` that will give a grid
+    that fully covers the oblique domain.
 
     Full option list at :gmt-docs:`grdcut.html`
 
@@ -79,26 +77,20 @@ def grdcut(grid, **kwargs):
         area.
 
     {V}
+    {f}
 
     Returns
     -------
     ret: xarray.DataArray or None
-        Return type depends on whether the *outgrid* parameter is set:
+        Return type depends on whether the ``outgrid`` parameter is set:
 
-        - xarray.DataArray if *outgrid* is not set
-        - None if *outgrid* is set (grid output will be stored in *outgrid*)
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
     """
-    kind = data_kind(grid)
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(grid)
-            elif kind == "grid":
-                file_context = lib.virtualfile_from_grid(grid)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(grid)))
-
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
@@ -106,11 +98,4 @@ def grdcut(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdcut", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -3,32 +3,23 @@ Coastlines and borders
 ======================
 
 Plotting coastlines and borders is handled by :meth:`pygmt.Figure.coast`.
-
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external)`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
 """
 # sphinx_gallery_thumbnail_number = 5
 
 import pygmt
 
-########################################################################################
+###############################################################################
 # Shorelines
 # ----------
 #
-# Use the ``shorelines`` argument to plot only the shorelines:
+# Use the ``shorelines`` parameter to plot only the shorelines:
 
 fig = pygmt.Figure()
 fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines=True)
 fig.show()
 
-########################################################################################
+###############################################################################
 # The shorelines are divided in 4 levels:
 #
 # 1. coastline
@@ -36,16 +27,16 @@ fig.show()
 # 3. island-in-lake shore
 # 4. lake-in-island-in-lake shore
 #
-# You can specify which level you want to plot by passing the level number and a GMT pen
-# configuration. For example, to plot just the coastlines with 0.5 thickness and black
-# lines:
+# You can specify which level you want to plot by passing the level number and
+# a GMT pen configuration. For example, to plot just the coastlines with 0.5
+# thickness and black lines:
 
 fig = pygmt.Figure()
 fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines="1/0.5p,black")
 fig.show()
 
-########################################################################################
+###############################################################################
 # You can specify multiple levels (with their own pens) by passing a list to
 # ``shorelines``:
 
@@ -54,12 +45,12 @@ fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines=["1/1p,black", "2/0.5p,red"])
 fig.show()
 
-########################################################################################
+###############################################################################
 # Resolutions
 # -----------
 #
-# The coastline database comes with 5 resolutions. The resolution drops by 80% between
-# levels:
+# The coastline database comes with 5 resolutions. The resolution drops by 80%
+# between levels:
 #
 # 1. ``"c"``: crude
 # 2. ``"l"``: low (default)
@@ -74,15 +65,15 @@ for res in ["c", "l", "i", "h", "f"]:
     fig.shift_origin(xshift="5c")
 fig.show()
 
-########################################################################################
+###############################################################################
 # Land and water
 # --------------
 #
-# Use the ``land`` and ``water`` arguments to specify a fill color for land and water
-# bodies. The colors can be given by name or hex codes (like the ones used in HTML and
-# CSS):
+# Use the ``land`` and ``water`` parameters to specify a fill color for land
+# and water bodies. The colors can be given by name or hex codes (like the ones
+# used in HTML and CSS):
 
 fig = pygmt.Figure()
-fig.basemap(region="g", projection="W10i", frame=True)
+fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(land="#666666", water="skyblue")
 fig.show()

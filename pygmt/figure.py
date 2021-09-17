@@ -6,9 +6,10 @@ import os
 from tempfile import TemporaryDirectory
 
 try:
-    from IPython.display import Image
-except ImportError:
-    Image = None
+    import IPython
+except ModuleNotFoundError:
+    IPython = None  # pylint: disable=invalid-name
+
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
@@ -24,6 +25,23 @@ from pygmt.helpers import (
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
 SHOWED_FIGURES = []
+
+# Configurations for figure display
+SHOW_CONFIG = {
+    "method": "external",  # Open in an external viewer by default
+}
+
+# Show figures in Jupyter notebooks if available
+if IPython:
+    get_ipython = IPython.get_ipython()  # pylint: disable=invalid-name
+    if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
+        SHOW_CONFIG["method"] = "notebook"
+
+# Set environment variable PYGMT_USE_EXTERNAL_DISPLAY to 'false' to disable
+# external display. Use it when running the tests and building the docs to
+# avoid popping up windows.
+if os.environ.get("PYGMT_USE_EXTERNAL_DISPLAY", "true").lower() == "false":
+    SHOW_CONFIG["method"] = "none"
 
 
 class Figure:
@@ -55,13 +73,15 @@ class Figure:
     >>> fig = Figure()
     >>> fig.basemap(region="JP", projection="M3i", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
-    >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
+    >>> print(", ".join(f"{i:.2f}" for i in fig.region))
     122.94, 145.82, 20.53, 45.52
     """
 
     def __init__(self):
         self._name = unique_name()
-        self._preview_dir = TemporaryDirectory(prefix=self._name + "-preview-")
+        self._preview_dir = TemporaryDirectory(  # pylint: disable=consider-using-with
+            prefix=f"{self._name}-preview-"
+        )
         self._activate_figure()
 
     def __del__(self):
@@ -83,7 +103,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module("figure", "{} {}".format(self._name, fmt))
+            lib.call_module("figure", f"{self._name} {fmt}")
 
     def _preprocess(self, **kwargs):
         """
@@ -112,6 +132,7 @@ class Figure:
         I="icc_gray",
         T="fmt",
         Q="anti_aliasing",
+        V="verbose",
     )
     @kwargs_to_strings()
     def psconvert(self, **kwargs):
@@ -165,11 +186,14 @@ class Figure:
             both an EPS and a PDF file. Using **F** creates a multi-page PDF
             file from the list of input PS or PDF files. It requires the
             ``prefix`` parameter.
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
         if "A" not in kwargs:
             kwargs["A"] = ""
+        # allow for spaces in figure name
+        kwargs["F"] = f'"{kwargs.get("F")}"' if kwargs.get("F") else None
         with Session() as lib:
             lib.call_module("psconvert", build_arg_string(kwargs))
 
@@ -187,7 +211,7 @@ class Figure:
         The KML output generates a companion PNG file.
 
         You can pass in any keyword arguments that
-        :meth:`~gmt.Figure.psconvert` accepts.
+        :meth:`pygmt.Figure.psconvert` accepts.
 
         Parameters
         ----------
@@ -217,12 +241,17 @@ class Figure:
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
         if ext not in fmts:
-            raise GMTInvalidInput("Unknown extension '.{}'".format(ext))
+            if ext == "ps":
+                raise GMTInvalidInput(
+                    "Extension '.ps' is not supported. "
+                    "Please use '.eps' or '.pdf' instead."
+                )
+            raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
             if fmt != "g":
                 raise GMTInvalidInput(
-                    "Transparency unavailable for '{}', only for png.".format(ext)
+                    f"Transparency unavailable for '{ext}', only for png."
                 )
             fmt = fmt.upper()
         if anti_alias:
@@ -235,62 +264,72 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method="static"):
+    def show(self, dpi=300, width=500, method=None):
         """
         Display a preview of the figure.
 
-        Inserts the preview in the Jupyter notebook output. You will need to
-        have IPython installed for this to work. You should have it if you are
-        using the notebook.
+        Inserts the preview in the Jupyter notebook output if available,
+        otherwise opens it in the default viewer for your operating system
+        (falls back to the default web browser).
 
-        If ``method='external'``, makes PDF preview instead and opens it in the
-        default viewer for your operating system (falls back to the default web
-        browser). Note that the external viewer does not block the current
-        process, so this won't work in a script.
+        :func:`pygmt.set_display` can select the default display method
+        (**notebook**, **external**, or **none**).
+
+        The ``method`` parameter can also override the default display method
+        for the current figure. Parameters ``dpi`` and ``width`` can be used
+        to control the resolution and dimension of the figure in the notebook.
+
+        Note: The external viewer can be disabled by setting the
+        PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.
+        This is useful when running unit tests and building the documentation
+        in consoles without a Graphical User Interface.
+
+        Note that the external viewer does not block the current process.
 
         Parameters
         ----------
         dpi : int
-            The image resolution (dots per inch).
+            The image resolution (dots per inch) in Jupyter notebooks.
         width : int
-            Width of the figure shown in the notebook in pixels. Ignored if
-            ``method='external'``.
+            The image width (in pixels) in Jupyter notebooks.
         method : str
-            How the figure will be displayed. Options are (1) ``'static'``: PNG
-            preview (default); (2) ``'external'``: PDF preview in an external
-            program.
+            How the current figure will be displayed. Options are
 
-        Returns
-        -------
-        img : IPython.display.Image
-            Only if ``method != 'external'``.
+            - **external**: PDF preview in an external program [default]
+            - **notebook**: PNG preview [default in Jupyter notebooks]
+            - **none**: Disable image preview
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
         SHOWED_FIGURES.append(self)
 
-        if method not in ["static", "external"]:
-            raise GMTInvalidInput("Invalid show method '{}'.".format(method))
+        # Set the display method
+        if method is None:
+            method = SHOW_CONFIG["method"]
+
+        if method not in ["external", "notebook", "none"]:
+            raise GMTInvalidInput(
+                (
+                    f"Invalid display method '{method}', "
+                    "should be either 'notebook', 'external', or 'none'."
+                )
+            )
+
+        if method in ["notebook", "none"]:
+            if IPython is None:
+                raise GMTError(
+                    (
+                        "Notebook display is selected, but IPython is not available. "
+                        "Make sure you have IPython installed, "
+                        "or run the script in a Jupyter notebook."
+                    )
+                )
+            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            IPython.display.display(IPython.display.Image(data=png, width=width))
+
         if method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
             launch_external_viewer(pdf)
-            img = None
-        elif method == "static":
-            png = self._preview(
-                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, transparent=True
-            )
-            if Image is None:
-                raise GMTError(
-                    " ".join(
-                        [
-                            "Cannot find IPython.",
-                            "Make sure you have it installed",
-                            "or use 'method=\"external\"' to open in an external viewer.",
-                        ]
-                    )
-                )
-            img = Image(data=png, width=width)
-        return img
 
     def shift_origin(self, xshift=None, yshift=None):
         """
@@ -319,9 +358,9 @@ class Figure:
         self._preprocess()
         args = ["-T"]
         if xshift:
-            args.append("-X{}".format(xshift))
+            args.append(f"-X{xshift}")
         if yshift:
-            args.append("-Y{}".format(yshift))
+            args.append(f"-Y{yshift}")
 
         with Session() as lib:
             lib.call_module("plot", " ".join(args))
@@ -334,7 +373,7 @@ class Figure:
         ----------
         fmt : str
             The image format. Can be any extension that
-            :meth:`~gmt.Figure.savefig` recognizes.
+            :meth:`pygmt.Figure.savefig` recognizes.
         dpi : int
             The image resolution (dots per inch).
         as_bytes : bool
@@ -347,7 +386,7 @@ class Figure:
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
         """
-        fname = os.path.join(self._preview_dir.name, "{}.{}".format(self._name, fmt))
+        fname = os.path.join(self._preview_dir.name, f"{self._name}.{fmt}")
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
             with open(fname, "rb") as image:
@@ -383,6 +422,7 @@ class Figure:
         grdcontour,
         grdimage,
         grdview,
+        histogram,
         image,
         inset,
         legend,
@@ -390,7 +430,35 @@ class Figure:
         meca,
         plot,
         plot3d,
+        rose,
         set_panel,
+        solar,
         subplot,
         text,
+        velo,
+        wiggle,
     )
+
+
+def set_display(method=None):
+    """
+    Set the display method.
+
+    Parameters
+    ----------
+    method : str or None
+        The method to display an image. Choose from:
+
+        - **external**: PDF preview in an external program [default]
+        - **notebook**: PNG preview [default in Jupyter notebooks]
+        - **none**: Disable image preview
+    """
+    if method in ["notebook", "external", "none"]:
+        SHOW_CONFIG["method"] = method
+    elif method is not None:
+        raise GMTInvalidInput(
+            (
+                f"Invalid display mode '{method}', "
+                "should be either 'notebook', 'external' or 'none'."
+            )
+        )

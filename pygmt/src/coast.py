@@ -65,18 +65,13 @@ def coast(self, **kwargs):
     ----------
     {J}
     {R}
-    area_thresh : int, float, or str
-        *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
-        [**s**\|\ **S**][**+l**\|\ **r**][**+p**\ *percent*].
-        Features with an area smaller than *min_area* in km\ :sup:`2` or of
-        hierarchical level that is lower than *min_level* or higher than
-        *max_level* will not be plotted.
+    {A}
     {B}
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
         default is the fill chosen for wet areas set by the ``water``
-        argument. Optionally, specify separate fills by appending
+        parameter. Optionally, specify separate fills by appending
         **+l** for lakes or **+r** for river-lakes, and passing multiple
         strings in a list.
     resolution : str
@@ -85,7 +80,7 @@ def coast(self, **kwargs):
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
-        Select filling or clipping of “dry” areas.
+        Select filling or clipping of "dry" areas.
     rivers : int or str or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
@@ -151,7 +146,7 @@ def coast(self, **kwargs):
 
         a = All boundaries (1-3)
     water : str
-        Select filling or clipping of “wet” areas.
+        Select filling or clipping of "wet" areas.
     {U}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
@@ -189,7 +184,7 @@ def coast(self, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
-            """At least one of the following arguments must be specified:
+            """At least one of the following parameters must be specified:
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
     with Session() as lib:

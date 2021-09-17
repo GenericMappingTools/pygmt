@@ -1,0 +1,4 @@
+outs:
+- md5: f9133bc3452f2c51d1ba595589a874e6
+  size: 28788
+  path: test_text_input_multiple_filenames.png

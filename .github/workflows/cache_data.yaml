@@ -12,31 +12,41 @@ jobs:
   gmt_cache:
     name: Cache GMT artifacts
     runs-on: macOS-latest
+    defaults:
+      run:
+        shell: bash -l {0}
 
     steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          # fecth all history so that setuptools-scm works
+          fetch-depth: 0
+
       # Setup Miniconda
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.0.1
+        uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           channels: conda-forge
           miniconda-version: "latest"
 
-      # Install GMT
-      - name: Install GMT
-        shell: bash -l {0}
-        run: conda install -c conda-forge gmt=6.1.1
+      # Install GMT and other required dependencies from conda-forge
+      - name: Install dependencies
+        run: |
+          conda install gmt=6.2.0 \
+                        numpy pandas xarray netCDF4 packaging matplotlib
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: |
+          python setup.py sdist --formats=zip
+          pip install dist/*
 
       # Download remote files
       - name: Download remote data
-        shell: bash -l {0}
         run: |
-          gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g \
-                        @earth_relief_30m_p @earth_relief_30m_g \
-                        @earth_relief_01d_p @earth_relief_01d_g \
-                        @earth_relief_05m_p @earth_relief_05m_g
-          gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc \
-                        @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz \
-                        @usgs_quakes_22.txt
+          python -c "from pygmt.helpers.testing import download_test_data; download_test_data()"
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub

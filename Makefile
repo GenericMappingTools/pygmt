@@ -8,13 +8,14 @@ BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
 BLACKDOC_OPTIONS=--line-length 79
 DOCFORMATTER_FILES=$(PROJECT) setup.py doc/conf.py examples
 DOCFORMATTER_OPTIONS=--recursive --pre-summary-newline --make-summary-multi-line --wrap-summaries 79 --wrap-descriptions 79
-FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py
+FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py examples
 LINT_FILES=$(PROJECT) setup.py doc/conf.py
 
 help:
 	@echo "Commands:"
 	@echo ""
 	@echo "  install   install in editable mode"
+	@echo "  package   build source and wheel distributions"
 	@echo "  test      run the test suite (including doctests) and report coverage"
 	@echo "  format    run black, blackdoc, docformatter and isort to automatically format the code"
 	@echo "  check     run code style and quality checks (black, blackdoc, docformatter, flake8 and isort)"
@@ -26,13 +27,16 @@ help:
 install:
 	pip install --no-deps -e .
 
+package:
+	python setup.py sdist bdist_wheel
+
 test:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	mkdir -p $(TESTDIR)
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
-	cd $(TESTDIR); pytest $(PYTEST_COV_ARGS) $(PROJECT)
+	cd $(TESTDIR); PYGMT_USE_EXTERNAL_DISPLAY="false" pytest $(PYTEST_COV_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
 	rm -r $(TESTDIR)
@@ -57,10 +61,11 @@ clean:
 	find . -name "*.pyc" -exec rm -v {} +
 	find . -name "*~" -exec rm -v {} +
 	find . -type d -name  "__pycache__" -exec rm -rv {} +
-	rm -rvf build dist MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
+	rm -rvf build dist .eggs MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
 	rm -rvf result_images
+	rm -rvf results
 
 distclean: clean
 	rm -rvf *.egg-info

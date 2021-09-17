@@ -1,0 +1,4 @@
+outs:
+- md5: 331f8fcdf2a864fb840ec48b865327bc
+  size: 52216
+  path: test_legend_specfile.png

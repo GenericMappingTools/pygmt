@@ -3,10 +3,10 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
+    deprecate_parameter,
     dummy_context,
     fmt_docstring,
     kwargs_to_strings,
@@ -15,6 +15,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(
     A="annotation",
     B="frame",
@@ -25,12 +26,18 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="skip",
+    U="timestamp",
     V="verbose",
     W="pen",
     X="xshift",
     Y="yshift",
+    b="binary",
     c="panel",
-    i="columns",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    h="header",
+    i="incols",
     l="label",
     p="perspective",
     t="transparency",
@@ -64,14 +71,25 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
     {B}
-    levels : str
-        Contour file or level(s)
+    levels : str or int
+        Specify the contour lines to generate.
+
+        - The filename of a CPT file where the color boundaries will
+          be used as contour levels.
+        - The filename of a 2 (or 3) column file containing the contour
+          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
+          angle (col 3)
+        - A fixed contour interval *cont_int* or a single contour with
+          +\ *cont_int*
     D : str
         Dump contour coordinates.
     E : str
         Network information.
     label_placement : str
-        Placement of labels.
+        [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\ *args*.
+        Control the placement of labels along the quoted lines. It supports
+        five controlling algorithms. See :gmt-docs:`contour.html#g` for
+        details.
     I : bool
         Color the triangles using CPT.
     triangular_mesh_pen : str
@@ -93,17 +111,22 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
+    {U}
     {V}
     {XY}
+    {b}
     {c}
+    {d}
+    {e}
+    {f}
+    {h}
+    {i}
     {p}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provided both x, y, and z.")
+    kind = data_kind(data, x, y, z, required_z=True)
 
     with Session() as lib:
         # Choose how data will be passed in to the module

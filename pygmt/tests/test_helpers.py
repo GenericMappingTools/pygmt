@@ -50,23 +50,6 @@ def test_kwargs_to_strings_fails():
         kwargs_to_strings(bla="blablabla")
 
 
-def test_kwargs_to_strings_no_bools():
-    """
-    Test that not converting bools works.
-    """
-
-    @kwargs_to_strings(convert_bools=False)
-    def my_module(**kwargs):
-        """
-        Function that does nothing.
-        """
-        return kwargs
-
-    # The module should return the exact same arguments it was given
-    args = dict(P=True, A=False, R="1/2/3/4")
-    assert my_module(**args) == args
-
-
 def test_gmttempfile():
     """
     Check that file is really created and deleted.
@@ -110,7 +93,7 @@ def test_gmttempfile_read():
     Make sure GMTTempFile.read() works.
     """
     with GMTTempFile() as tmpfile:
-        with open(tmpfile.name, "w") as ftmp:
+        with open(tmpfile.name, "w", encoding="utf8") as ftmp:
             ftmp.write("in.dat: N = 2\t<1/3>\t<2/4>\n")
         assert tmpfile.read() == "in.dat: N = 2 <1/3> <2/4>\n"
         assert tmpfile.read(keep_tabs=True) == "in.dat: N = 2\t<1/3>\t<2/4>\n"
