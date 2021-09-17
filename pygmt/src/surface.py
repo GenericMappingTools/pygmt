@@ -25,8 +25,15 @@ from pygmt.io import load_dataarray
     G="outgrid",
     V="verbose",
     a="aspatial",
+    b="binary",
+    d="nodata",
+    e="find",
     f="coltypes",
+    h="header",
+    i="incols",
     r="registration",
+    s="skiprows",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence")
 def surface(x=None, y=None, z=None, data=None, **kwargs):
@@ -68,8 +75,15 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     {V}
     {a}
+    {b}
+    {d}
+    {e}
     {f}
+    {h}
+    {i}
     {r}
+    {s}
+    {w}
 
     Returns
     -------
@@ -80,9 +94,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provide z with x and y.")
+    kind = data_kind(data, x, y, z, required_z=True)
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
@@ -93,7 +105,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
             elif kind == "vectors":
                 file_context = lib.virtualfile_from_vectors(x, y, z)
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
+                raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})

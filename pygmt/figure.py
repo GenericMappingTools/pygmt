@@ -73,7 +73,7 @@ class Figure:
     >>> fig = Figure()
     >>> fig.basemap(region="JP", projection="M3i", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
-    >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
+    >>> print(", ".join(f"{i:.2f}" for i in fig.region))
     122.94, 145.82, 20.53, 45.52
     """
 
@@ -103,7 +103,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module("figure", "{} {}".format(self._name, fmt))
+            lib.call_module("figure", f"{self._name} {fmt}")
 
     def _preprocess(self, **kwargs):
         """
@@ -358,9 +358,9 @@ class Figure:
         self._preprocess()
         args = ["-T"]
         if xshift:
-            args.append("-X{}".format(xshift))
+            args.append(f"-X{xshift}")
         if yshift:
-            args.append("-Y{}".format(yshift))
+            args.append(f"-Y{yshift}")
 
         with Session() as lib:
             lib.call_module("plot", " ".join(args))
