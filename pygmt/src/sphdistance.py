@@ -64,7 +64,19 @@ def sphdistance(table, **kwargs):
         where we assign all nodes inside the polygon the z-value of the center 
         node. Optionally, append the resampling interval along Voronoi arcs in 
         spherical degrees.
-
+    unit : str
+        Specify the unit used for distance calculations. Choose among **d**
+        (spherical degree), **e** (m), **f** (feet), **k** (km), **M**
+        (mile), **n** (nautical mile) or **u** survey foot.
+    nodetable : str
+        Read the information pertaining to each Voronoi
+        polygon (the unique node lon, lat and polygon area) from a separate
+        file [Default acquires this information from the ASCII segment
+        headers of the output file]. Required if binary input via `voronoi` 
+        is used.
+    voronoi : str
+        Append the name of a file with pre-calculated Voronoi polygons
+        [Default performs the Voronoi construction on input data].
     Returns
     -------
     ret: xarray.DataArray or None
