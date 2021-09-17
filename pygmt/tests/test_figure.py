@@ -5,11 +5,17 @@ Doesn't include the plotting commands which have their own test files.
 """
 import os
 
+try:
+    import IPython
+except ModuleNotFoundError:
+    IPython = None  # pylint: disable=invalid-name
+
+
 import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -198,6 +204,18 @@ def test_figure_show_invalid_method():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     with pytest.raises(GMTInvalidInput):
         fig.show(method="test")
+
+
+@pytest.mark.skipif(IPython is not None, reason="run without IPython installed")
+def test_figure_show_notebook_error_without_ipython():
+    """
+    Test to check if an error is raised when display method is 'notebook', but
+    IPython is not installed.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 2, 3], frame=True)
+    with pytest.raises(GMTError):
+        fig.show(method="notebook")
 
 
 def test_figure_set_display_invalid():
