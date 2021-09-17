@@ -113,9 +113,7 @@ class Session:
     ...         with GMTTempFile() as fout:
     ...             # Call the grdinfo module with the virtual file as input
     ...             # and the temp file as output.
-    ...             ses.call_module(
-    ...                 "grdinfo", f"{fin} -C ->{fout.name}"
-    ...             )
+    ...             ses.call_module("grdinfo", f"{fin} -C ->{fout.name}")
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
     ...
@@ -1120,9 +1118,7 @@ class Session:
         ...     with ses.virtualfile_from_vectors(x, y, z) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module(
-        ...                 "info", f"{fin} ->{fout.name}"
-        ...             )
+        ...             ses.call_module("info", f"{fin} ->{fout.name}")
         ...             print(fout.read().strip())
         ...
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
@@ -1233,9 +1229,7 @@ class Session:
         ...     with ses.virtualfile_from_matrix(data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
-        ...             ses.call_module(
-        ...                 "info", f"{fin} ->{fout.name}"
-        ...             )
+        ...             ses.call_module("info", f"{fin} ->{fout.name}")
         ...             print(fout.read().strip())
         ...
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>

@@ -366,9 +366,7 @@ def test_virtual_file():
                 with GMTTempFile() as outfile:
                     lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                [f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T]
-            )
+            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
             assert output == expected
 
@@ -488,9 +486,7 @@ def test_virtualfile_from_vectors():
                 with GMTTempFile() as outfile:
                     lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                [f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y, z)]
-            )
+            bounds = "\t".join([f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y, z)])
             expected = f"<vector memory>: N = {size}\t{bounds}\n"
             assert output == expected
 
@@ -549,9 +545,7 @@ def test_virtualfile_from_vectors_transpose():
                 with GMTTempFile() as outfile:
                     lib.call_module("info", f"{vfile} -C ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                [f"{col.min():.0f}\t{col.max():.0f}" for col in data.T]
-            )
+            bounds = "\t".join([f"{col.min():.0f}\t{col.max():.0f}" for col in data.T])
             expected = f"{bounds}\n"
             assert output == expected
 
@@ -581,9 +575,7 @@ def test_virtualfile_from_matrix():
                 with GMTTempFile() as outfile:
                     lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                [f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T]
-            )
+            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
             assert output == expected
 
@@ -604,9 +596,7 @@ def test_virtualfile_from_matrix_slice():
                 with GMTTempFile() as outfile:
                     lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                [f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T]
-            )
+            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
             expected = f"<matrix memory>: N = {rows}\t{bounds}\n"
             assert output == expected
 
@@ -631,10 +621,7 @@ def test_virtualfile_from_vectors_pandas():
                     lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join(
-                [
-                    f"<{i.min():.0f}/{i.max():.0f}>"
-                    for i in (data.x, data.y, data.z)
-                ]
+                [f"<{i.min():.0f}/{i.max():.0f}>" for i in (data.x, data.y, data.z)]
             )
             expected = f"<vector memory>: N = {size}\t{bounds}\n"
             assert output == expected
@@ -653,9 +640,7 @@ def test_virtualfile_from_vectors_arraylike():
             with GMTTempFile() as outfile:
                 lib.call_module("info", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        bounds = "\t".join(
-            [f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)]
-        )
+        bounds = "\t".join([f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)])
         expected = f"<vector memory>: N = {size}\t{bounds}\n"
         assert output == expected
 
