@@ -15,7 +15,7 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None):
+def data_kind(data, x=None, y=None, z=None, required_z=False):
     """
     Check what kind of data is provided to a module.
 
@@ -69,7 +69,9 @@ def data_kind(data, x=None, y=None, z=None):
     if data is not None and (x is not None or y is not None or z is not None):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
-        raise GMTInvalidInput("Must provided both x and y.")
+        raise GMTInvalidInput("Must provide both x and y.")
+    if data is None and required_z and z is None:
+        raise GMTInvalidInput("Must provide x, y, and z.")
 
     if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
@@ -78,6 +80,8 @@ def data_kind(data, x=None, y=None, z=None):
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
+        if required_z and data.shape[1] < 3:
+            raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:
         kind = "vectors"
