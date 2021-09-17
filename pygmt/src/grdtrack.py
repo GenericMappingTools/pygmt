@@ -26,6 +26,7 @@ from pygmt.helpers import (
     T="radius",
     V="verbose",
     Z="z_only",
+    a="aspatial",
     b="binary",
     d="nodata",
     e="find",
@@ -240,6 +241,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {V}
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
+    {a}
     {b}
     {d}
     {e}
