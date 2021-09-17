@@ -16,8 +16,14 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @use_alias(
+    C="single_form",
+    D="duplicate",
+    E="quantity",
     G="outgrid",
     I="spacing",
+    L="unit",
+    N="nodetable",
+    Q="voronoi",
     R="region",
     V="verbose",
 )
@@ -41,6 +47,23 @@ def sphdistance(table, **kwargs):
     {I}
     {R}
     {V}
+    single_form : bool
+        For large data sets you can save some memory (at the expense of more
+        processing) by only storing one form of location coordinates
+        (geographic or Cartesian 3-D vectors) at any given time, translating
+        from one form to the other when necessary [Default keeps both arrays
+        in memory]. Not applicable with `voronoi`.
+    duplicate : bool
+        Used to skip duplicate points since the algorithm cannot handle them.
+        [Default assumes there are no duplicates].
+    quantity : str
+        Specify the quantity that should be assigned to the grid nodes. By
+        default we compute distances to the nearest data point [**d**].
+        Use **n** to assign the ID numbers of the Voronoi polygons that each
+        grid node is inside, or use **z** for a natural nearest-neighbor grid 
+        where we assign all nodes inside the polygon the z-value of the center 
+        node. Optionally, append the resampling interval along Voronoi arcs in 
+        spherical degrees.
 
     Returns
     -------
