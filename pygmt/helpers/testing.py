@@ -113,8 +113,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                     for key in ["actual", "expected", "diff"]:
                         err[key] = os.path.relpath(err[key])
                     raise GMTImageComparisonFailure(
-                        "images not close (RMS %(rms).3f):\n\t%(actual)s\n\t%(expected)s "
-                        % err
+                        "images not close (RMS %(rms).3f):\n\t%(actual)s\n\t%(expected)s ".format(
+                            **err
+                        )
                     )
             finally:
                 del fig_ref

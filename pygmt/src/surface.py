@@ -105,7 +105,7 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
             elif kind == "vectors":
                 file_context = lib.virtualfile_from_vectors(x, y, z)
             else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
+                raise GMTInvalidInput(f"Unrecognized data type: {type(data)}")
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})
