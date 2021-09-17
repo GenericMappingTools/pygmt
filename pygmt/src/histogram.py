@@ -32,6 +32,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     d="nodata",
     e="find",
     h="header",
+    i="incols",
     l="label",
     p="perspective",
     t="transparency",
@@ -128,6 +129,7 @@ def histogram(self, table, **kwargs):
     {d}
     {e}
     {h}
+    {i}
     {l}
     {p}
     {t}
