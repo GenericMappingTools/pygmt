@@ -60,9 +60,9 @@ def sphdistance(table, **kwargs):
         Specify the quantity that should be assigned to the grid nodes. By
         default we compute distances to the nearest data point [**d**].
         Use **n** to assign the ID numbers of the Voronoi polygons that each
-        grid node is inside, or use **z** for a natural nearest-neighbor grid 
-        where we assign all nodes inside the polygon the z-value of the center 
-        node. Optionally, append the resampling interval along Voronoi arcs in 
+        grid node is inside, or use **z** for a natural nearest-neighbor grid
+        where we assign all nodes inside the polygon the z-value of the center
+        node. Optionally, append the resampling interval along Voronoi arcs in
         spherical degrees.
     unit : str
         Specify the unit used for distance calculations. Choose among **d**
@@ -72,7 +72,7 @@ def sphdistance(table, **kwargs):
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate
         file [Default acquires this information from the ASCII segment
-        headers of the output file]. Required if binary input via `voronoi` 
+        headers of the output file]. Required if binary input via `voronoi`
         is used.
     voronoi : str
         Append the name of a file with pre-calculated Voronoi polygons
