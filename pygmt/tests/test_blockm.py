@@ -1,12 +1,12 @@
 """
-Tests for blockmean.
+Tests for blockmean and blockmode.
 """
 import os
 
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt import blockmean
+from pygmt import blockmean, blockmode
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
@@ -96,3 +96,14 @@ def test_blockmean_without_outfile_setting():
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
+
+
+def test_blockmode_input_dataframe(dataframe):
+    """
+    Run blockmode by passing in a pandas.DataFrame as input.
+    """
+    output = blockmode(table=dataframe, spacing="5m", region=[245, 255, 20, 30])
+    assert isinstance(output, pd.DataFrame)
+    assert all(dataframe.columns == output.columns)
+    assert output.shape == (5849, 3)
+    npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
