@@ -162,6 +162,7 @@ def download_test_data():
         # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
         # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
         "@N35E135.earth_relief_03s_g.nc",
+        "@N37W120.earth_relief_03s_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
         # Other cache files
         "@fractures_06.txt",
