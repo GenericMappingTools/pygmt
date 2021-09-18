@@ -11,6 +11,10 @@ select a particular font [Default is FONT_ANNOT_PRIMARY] as well as
 **+j**\ *justify* to change the justification [Default is CM]. Outline
 * and fill color of the text symbols can be customized via the ``pen``
 * and ``color`` parameters, respectively.
+
+For all supported octal codes and fonts see the GMT cookbook
+https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html and
+https://docs.generic-mapping-tools.org/latest/cookbook/postscript-fonts.html
 """
 
 import pygmt
