@@ -13,8 +13,10 @@ def test_pygmtscraper():
     """
     Make sure the scraper finds the figures and removes them from the pool.
     """
-    pytest.importorskip("sphinx_gallery")
-    pytest.importorskip("IPython")
+    pytest.importorskip(
+        "sphinx_gallery", reason="Requires sphinx-gallery to be installed"
+    )
+    pytest.importorskip("IPython", reason="Requires IPython to be installed")
 
     showed = SHOWED_FIGURES.copy()
     for _ in range(len(SHOWED_FIGURES)):
