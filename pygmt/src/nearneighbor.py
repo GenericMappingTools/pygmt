@@ -7,7 +7,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -133,16 +132,11 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provide z with x and y.")
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             # Choose how data will be passed into the module
             table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z
+                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with table_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tmpfile

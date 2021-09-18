@@ -35,7 +35,6 @@ def test_nearneighbor_input_file():
     assert output.gmt.gtype == 0  # Cartesian type
     assert output.shape == (121, 121)
     npt.assert_allclose(output.mean(), -2378.2385)
-    return output
 
 
 def test_nearneighbor_input_numpy_array(ship_data):
@@ -49,7 +48,6 @@ def test_nearneighbor_input_numpy_array(ship_data):
     assert isinstance(output, xr.DataArray)
     assert output.shape == (121, 121)
     npt.assert_allclose(output.mean(), -2378.2385)
-    return output
 
 
 def test_nearneighbor_input_xyz(ship_data):
@@ -67,7 +65,6 @@ def test_nearneighbor_input_xyz(ship_data):
     assert isinstance(output, xr.DataArray)
     assert output.shape == (121, 121)
     npt.assert_allclose(output.mean(), -2378.2385)
-    return output
 
 
 def test_nearneighbor_wrong_kind_of_input(ship_data):
@@ -84,12 +81,11 @@ def test_nearneighbor_wrong_kind_of_input(ship_data):
 
 def test_nearneighbor_with_outgrid_param(ship_data):
     """
-    Run nearneighbor with the -Goutputfile.nc parameter.
+    Run nearneighbor with the 'outgrid' parameter.
     """
-    data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     with GMTTempFile() as tmpfile:
         output = nearneighbor(
-            data=data,
+            data=ship_data,
             spacing="5m",
             region=[245, 255, 20, 30],
             outgrid=tmpfile.name,
@@ -101,4 +97,3 @@ def test_nearneighbor_with_outgrid_param(ship_data):
             assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
             assert grid.shape == (121, 121)
             npt.assert_allclose(grid.mean(), -2378.2385)
-    return output
