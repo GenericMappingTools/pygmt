@@ -67,10 +67,10 @@ def test_figure_repr():
     fig.basemap(region=[0, 1, 2, 3], frame=True)
     # Check that correct PNG 8-byte file header is produced
     # https://en.wikipedia.org/wiki/Portable_Network_Graphics#File_header
-    repr_png = fig._repr_png_()
+    repr_png = fig._repr_png_()  # pylint: disable=protected-access
     assert repr_png.hex().startswith("89504e470d0a1a0a")
     # Check that correct HTML image tags are produced
-    repr_html = fig._repr_html_()
+    repr_html = fig._repr_html_()  # pylint: disable=protected-access
     assert repr_html.startswith('<img src="data:image/png;base64,')
     assert repr_html.endswith('" width="500px">')
 
