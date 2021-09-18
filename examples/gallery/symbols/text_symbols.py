@@ -2,6 +2,14 @@
 Text symbols
 ------------
 The :meth:`pygmt.Figure.plot` method allows to plot text symbols.
+
+A text symbol can be drawn by passing **l**\ *size*\ **+t**\ *string* to
+the ``style`` parameter where *size* defines the size of the text symbol
+(note: the size is only approximate; no individual scaling is done for
+different characters) and *string* can be a letter or a text string
+(less than 256 characters). Optionally, you can append **+f**\ *font* select
+a particular font [Default is FONT_ANNOT_PRIMARY] as well as **+j**\ *justify*
+to change the justification [Default is CM].
 """
 
 import pygmt
