@@ -1,9 +1,9 @@
 """
 Vertical or horizontal bar
 --------------------------
-The :meth:`pygmt.Figure.plot` method can plot vertical (**b**) or 
+The :meth:`pygmt.Figure.plot` method can plot vertical (**b**) or
 horizontal (**B**) bars by passing the corresponding shortcut to
-the ``style`` parameter. 
+the ``style`` parameter.
 """
 
 import pygmt
