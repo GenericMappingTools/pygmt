@@ -3,6 +3,7 @@ Tests for nearneighbor.
 """
 import os
 
+import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
@@ -20,32 +21,18 @@ def fixture_ship_data():
     return load_sample_bathymetry()
 
 
-def test_nearneighbor_input_file():
+@pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
+def test_nearneighbor_input_data(array_func, ship_data):
     """
-    Run nearneighbor by passing in a filename.
+    Run nearneighbor by passing in a numpy.array or xarray.Dataset.
     """
-    output = nearneighbor(
-        data="@tut_ship.xyz",
-        spacing="5m",
-        region=[245, 255, 20, 30],
-        search_radius="10m",
-    )
-    assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == 0  # Gridline registration
-    assert output.gmt.gtype == 0  # Cartesian type
-    assert output.shape == (121, 121)
-    npt.assert_allclose(output.mean(), -2378.2385)
-
-
-def test_nearneighbor_input_numpy_array(ship_data):
-    """
-    Run nearneighbor by passing in a numpy array into data.
-    """
-    data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = array_func(ship_data)
     output = nearneighbor(
         data=data, spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
     )
     assert isinstance(output, xr.DataArray)
+    assert output.gmt.registration == 0  # Gridline registration
+    assert output.gmt.gtype == 1  # Geographic type
     assert output.shape == (121, 121)
     npt.assert_allclose(output.mean(), -2378.2385)
 
