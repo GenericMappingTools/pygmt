@@ -1,12 +1,9 @@
 """
 Utilities for using pygmt with sphinx-gallery.
 """
-try:
-    from sphinx_gallery.scrapers import figure_rst
-except ImportError:
-    figure_rst = None
 
 from pygmt.figure import SHOWED_FIGURES
+from sphinx_gallery.scrapers import figure_rst
 
 
 class PyGMTScraper:  # pylint: disable=too-few-public-methods

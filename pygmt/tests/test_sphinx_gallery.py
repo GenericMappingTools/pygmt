@@ -6,16 +6,12 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-try:
-    import sphinx_gallery
-except ImportError:
-    sphinx_gallery = None
+sphinx_gallery = pytest.importorskip("sphinx_gallery", reason="requires sphinx-gallery")
 
 from pygmt.figure import SHOWED_FIGURES, Figure
 from pygmt.sphinx_gallery import PyGMTScraper
 
 
-@pytest.mark.skipif(sphinx_gallery is None, reason="requires sphinx-gallery")
 def test_pygmtscraper():
     """
     Make sure the scraper finds the figures and removes them from the pool.
