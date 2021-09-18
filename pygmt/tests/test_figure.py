@@ -235,6 +235,15 @@ def test_figure_show_notebook_error_without_ipython():
         fig.show(method="notebook")
 
 
+def test_figure_display_external():
+    """
+    Test to check that a figure can displayed in an external window.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 3, 6, 9], projection="X1c", frame=True)
+    fig.show(method="external")
+
+
 def test_figure_set_display_invalid():
     """
     Test to check if an error is raised when an invalid method is passed to
