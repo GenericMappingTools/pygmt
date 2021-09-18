@@ -151,4 +151,4 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="nearneighbor", args=arg_str)
 
-    return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
