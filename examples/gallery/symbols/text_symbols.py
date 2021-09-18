@@ -14,7 +14,7 @@ and ``color`` parameters, respectively.
 
 For all supported octal codes and fonts see the GMT cookbook
 https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html and
-https://docs.generic-mapping-tools.org/latest/cookbook/postscript-fonts.html
+https://docs.generic-mapping-tools.org/latest/cookbook/postscript-fonts.html.
 """
 
 import pygmt
