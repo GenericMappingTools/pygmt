@@ -90,7 +90,8 @@ def test_mars_shape():
     assert summary.loc["max", "lat"] == 85.887
     assert summary.loc["min", "radius(m)"] == -6930
     assert summary.loc["max", "radius(m)"] == 15001
-    
+
+
 def test_hotspots():
     """
     Check that the @hotspots.txt dataset loads without errors.
@@ -104,4 +105,3 @@ def test_hotspots():
         "place_name",
     ]
     assert isinstance(data, pd.DataFrame)
-
