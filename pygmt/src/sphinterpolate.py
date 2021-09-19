@@ -16,7 +16,7 @@ from pygmt.io import load_dataarray
 @fmt_docstring
 @use_alias(
     G="outgrid",
-    I="increment",
+    I="spacing",
     R="region",
     V="verbose",
 )
@@ -51,6 +51,7 @@ def sphinterpolate(table, **kwargs):
     -------
     ret: xarray.DataArray or None
         Return type depends on whether the ``outgrid`` parameter is set:
+
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
