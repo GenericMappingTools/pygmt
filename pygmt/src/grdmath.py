@@ -17,6 +17,15 @@ from pygmt.io import load_dataarray
 class GrdMathCalc:
     """
     Raster calculator for grids (element by element).
+
+    Examples
+    --------
+    >>> grdcalc = GrdMathCalc()
+
+    >>> # Basic square root operation
+    >>> grid0 = grdcalc.sqrt(
+    ...     ingrid="@earth_relief_01d", outgrid=True, region=[0, 3, 6, 9]
+    ... )
     """
 
     def __init__(self, arg_str=None):
@@ -111,19 +120,23 @@ class GrdMathCalc:
 
     def sqrt(self, ingrid, outgrid=None, **kwargs):
         """
-        sqrt (A). 1 input, 1 output.
+        sqrt (A).
+
+        1 input, 1 output.
         """
         return self.grdmath(operator="SQRT", ingrid=ingrid, outgrid=outgrid, **kwargs)
 
     def std(self, ingrid, outgrid=None, **kwargs):
         """
-        Standard deviation of A. 1 input, 1 output.
+        Standard deviation of A.
+
+        1 input, 1 output.
         """
         return self.grdmath(operator="STD", ingrid=ingrid, outgrid=outgrid, **kwargs)
 
     def multiply(self, ingrid, outgrid=None, **kwargs):
         """
-        A * B. 2 inputs, 1 output
+        A * B. 2 inputs, 1 output.
         """
         return self.grdmath(
             operator="MUL",
