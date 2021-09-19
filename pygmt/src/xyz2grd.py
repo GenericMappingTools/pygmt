@@ -35,6 +35,8 @@ def xyz2grd(table, **kwargs):
 
     Full option list at :gmt-docs:`xyz2grd.html`
 
+    {aliases}
+
     Parameters
     ----------
     table : str or {table-like}
