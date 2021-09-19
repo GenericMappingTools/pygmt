@@ -124,7 +124,7 @@ def load_fractures_compilation():
     data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
     return data[["length", "azimuth"]]
 
-  
+
 def load_hotspots():
     """
     Load a table with the locations, names, and suggested symbol sizes of
@@ -149,7 +149,8 @@ def load_hotspots():
     columns = ["longitude", "latitude", "symbol_size", "place_name"]
     data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
     return data
- 
+
+
 def load_mars_shape():
     """
     Load a table of data for the shape of Mars.
