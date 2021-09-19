@@ -31,8 +31,8 @@ fig.plot(x=1, y=1.5, style="l3.5c+tA", color="dodgerblue3", pen=pen)
 # plot an "asterisk" of size 3.5c, color fill is set to "red3"
 fig.plot(x=2.5, y=1, style="l3.5c+t*", color="red3", pen=pen)
 # plot an uppercase "Z" of size 3.5c and use the "Courier-Bold" font,
-# color fill is set to "seagreen3"
-fig.plot(x=4, y=1.5, style="l3.5c+tZ+fCourier-Bold", color="seagreen3", pen=pen)
+# color fill is set to "seagreen"
+fig.plot(x=4, y=1.5, style="l3.5c+tZ+fCourier-Bold", color="seagreen", pen=pen)
 # plot a lowercase "s" of size 3.5c and use the "Times-Italic" font,
 # color fill is set to "gold"
 fig.plot(x=5.5, y=1.5, style="l3.5c+ts+fTimes-Italic", color="gold", pen=pen)
