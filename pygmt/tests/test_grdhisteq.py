@@ -31,9 +31,10 @@ def test_grdhisteq_outgrid(grid):
 
 def test_grdhisteq_no_outgrid(grid):
     """
-    Test the quadratic and region parameters for grdhisteq with no set outgrid.
+    Test the quadratic and region parameters for grdhisteq with
+    ``outgrid=True``.
     """
-    temp_grid = grdhisteq(grid=grid, quadratic=True, region=[-3, 1, 2, 5])
+    temp_grid = grdhisteq(grid=grid, quadratic=True, region=[-3, 1, 2, 5], outgrid=True)
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 1  # Pixel registration
     expected_grid = xr.DataArray(
