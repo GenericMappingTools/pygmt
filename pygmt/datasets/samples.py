@@ -166,8 +166,7 @@ def load_mars_shape():
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Use ``print(data.describe())`` to see the available
-        columns.
+        The data table with columns "longitude", "latitude", and "radius(m)".
     """
     fname = which("@mars370d.txt", download="c")
     data = pd.read_csv(fname, sep="\t", header=None, names=["lon", "lat", "radius(m)"])
