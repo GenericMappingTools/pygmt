@@ -2,6 +2,7 @@
 grdhisteq - Perform histogram equalization for a grid.
 """
 
+import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -81,12 +82,11 @@ def grdhisteq(grid, **kwargs):
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret: pandas.DataFrame or xarray.DataArray or None
         Return type depends on whether the ``outgrid`` parameter is set:
-
-        - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
-          ``outgrid``)
+        - pandas.DataFrame if ``outgrid`` is None (default)
+        - xarray.DataArray if ``outgrid`` is True
+        - None if ``outgrid`` is a str (grid output is stored in ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
@@ -98,11 +98,9 @@ def grdhisteq(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdhisteq", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
+        try:
+            result = load_dataarray(outgrid) if outgrid == tmpfile.name else None
+        except UnboundLocalError:  # if outgrid unset, return pd.DataFrame
+            result = pd.read_csv(tmpfile.name, sep="\t", header=None)
 
-        return result
+    return result

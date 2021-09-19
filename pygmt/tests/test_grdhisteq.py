@@ -4,6 +4,7 @@ Tests for grdhisteq.
 import os
 
 import pytest
+import xarray as xr
 import xarray.testing as xrt
 from pygmt import grdhisteq
 from pygmt.datasets import load_earth_relief
