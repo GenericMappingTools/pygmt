@@ -5,14 +5,11 @@ import os
 from tempfile import TemporaryDirectory
 
 import pytest
+from pygmt.figure import SHOWED_FIGURES, Figure
 
-sphinx_gallery = pytest.importorskip("sphinx_gallery", reason="requires sphinx-gallery")
-
-# pylint: disable=wrong-import-position
-from pygmt.figure import SHOWED_FIGURES, Figure  # noqa: E402
-from pygmt.sphinx_gallery import PyGMTScraper  # noqa: E402
-
-# pylint: enable=wrong-import-position
+pygmt_sphinx_gallery = pytest.importorskip(
+    "pygmt.sphinx_gallery", reason="requires sphinx-gallery to be installed"
+)
 
 
 def test_pygmtscraper():
@@ -29,7 +26,7 @@ def test_pygmtscraper():
         fig.show()
         assert len(SHOWED_FIGURES) == 1
         assert SHOWED_FIGURES[0] is fig
-        scraper = PyGMTScraper()
+        scraper = pygmt_sphinx_gallery.PyGMTScraper()
         with TemporaryDirectory(dir=os.getcwd()) as tmpdir:
             conf = {"src_dir": "meh"}
             fname = os.path.join(tmpdir, "meh.png")
