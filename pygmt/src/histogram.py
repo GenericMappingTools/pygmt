@@ -38,7 +38,9 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", T="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(
+    R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
+)
 def histogram(self, table, **kwargs):
     r"""
     Plots a histogram, and can read data from a file or
