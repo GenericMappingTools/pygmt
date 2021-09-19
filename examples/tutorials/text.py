@@ -60,8 +60,8 @@ fig.show()
 # Plotting from a text file
 # -------------------------
 #
-# It is also possible to add annotations from a file containing ``x``, ``y``, and
-# ``text`` fields. Here we give a complete example.
+# It is also possible to add annotations from a file containing ``x``, ``y``,
+# and ``text`` fields. Here we give a complete example.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):

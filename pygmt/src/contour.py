@@ -3,7 +3,6 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
@@ -27,11 +26,17 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="skip",
+    U="timestamp",
     V="verbose",
     W="pen",
     X="xshift",
     Y="yshift",
+    b="binary",
     c="panel",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    h="header",
     i="incols",
     l="label",
     p="perspective",
@@ -81,7 +86,10 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     E : str
         Network information.
     label_placement : str
-        Placement of labels.
+        [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\ *args*.
+        Control the placement of labels along the quoted lines. It supports
+        five controlling algorithms. See :gmt-docs:`contour.html#g` for
+        details.
     I : bool
         Color the triangles using CPT.
     triangular_mesh_pen : str
@@ -103,18 +111,22 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
+    {U}
     {V}
     {XY}
+    {b}
     {c}
+    {d}
+    {e}
+    {f}
+    {h}
     {i}
     {p}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provided both x, y, and z.")
+    kind = data_kind(data, x, y, z, required_z=True)
 
     with Session() as lib:
         # Choose how data will be passed in to the module

@@ -3,12 +3,10 @@
 Tests contour.
 """
 import os
-from itertools import product
 
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -28,46 +26,6 @@ def region():
     The data region.
     """
     return [10, 70, -5, 10]
-
-
-def test_contour_fail_no_data(data):
-    """
-    Should raise an exception if no data is given.
-    """
-    # Contour should raise an exception if no or not sufficient data
-    # is given
-    fig = Figure()
-    # Test all combinations where at least one data variable
-    # is not given:
-    for variable in product([None, data[:, 0]], repeat=3):
-        # Filter one valid configuration:
-        if not any(item is None for item in variable):
-            continue
-        with pytest.raises(GMTInvalidInput):
-            fig.contour(
-                x=variable[0],
-                y=variable[1],
-                z=variable[2],
-                region=region,
-                projection="X4i",
-                color="red",
-                frame="afg",
-                pen="",
-            )
-    # Should also fail if given too much data
-    with pytest.raises(GMTInvalidInput):
-        fig.contour(
-            x=data[:, 0],
-            y=data[:, 1],
-            z=data[:, 2],
-            data=data,
-            region=region,
-            projection="X10c",
-            style="c0.2c",
-            color="red",
-            frame="afg",
-            pen=True,
-        )
 
 
 @pytest.mark.mpl_image_compare
