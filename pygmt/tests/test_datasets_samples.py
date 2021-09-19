@@ -84,10 +84,10 @@ def test_mars_shape():
     data = load_mars_shape()
     assert data.shape == (370, 3)
     summary = data.describe()
-    assert summary.loc["min", "lon"] == 0.008
-    assert summary.loc["max", "lon"] == 359.983
-    assert summary.loc["min", "lat"] == -79.715
-    assert summary.loc["max", "lat"] == 85.887
+    assert summary.loc["min", "longitude"] == 0.008
+    assert summary.loc["max", "longitude"] == 359.983
+    assert summary.loc["min", "latitude"] == -79.715
+    assert summary.loc["max", "latitude"] == 85.887
     assert summary.loc["min", "radius(m)"] == -6930
     assert summary.loc["max", "radius(m)"] == 15001
 
