@@ -237,7 +237,7 @@ def test_figure_show_notebook_error_without_ipython():
 
 def test_figure_display_external():
     """
-    Test to check that a figure can displayed in an external window.
+    Test to check that a figure can be displayed in an external window.
     """
     fig = Figure()
     fig.basemap(region=[0, 3, 6, 9], projection="X1c", frame=True)
