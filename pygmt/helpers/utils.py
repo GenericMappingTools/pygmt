@@ -80,7 +80,10 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
-        if required_z and data.shape[1] < 3:
+        if required_z and (
+            getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
+            or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
+        ):
             raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:
