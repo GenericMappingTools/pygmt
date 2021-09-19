@@ -81,7 +81,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     elif outfile is None and output_type == "file":
         raise GMTInvalidInput("Must specify `outfile` for ASCII output.")
 
-    if "o" not in kwargs:  # Only set column names for standard output
+    if "o" not in kwargs:  # Set default column names if not specified
         # Set the default column names for the pandas dataframe header
         dataframe_header = ["x", "y", "z"]
         # Let output pandas column names match input DataArray dimension names
@@ -100,7 +100,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            if "o" not in kwargs.keys():
+            if "o" not in kwargs:
                 result = pd.read_csv(
                     tmpfile.name, sep="\t", names=dataframe_header, comment=">"
                 )
