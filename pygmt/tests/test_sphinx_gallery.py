@@ -8,8 +8,11 @@ import pytest
 
 sphinx_gallery = pytest.importorskip("sphinx_gallery", reason="requires sphinx-gallery")
 
+# pylint: disable=wrong-import-position
 from pygmt.figure import SHOWED_FIGURES, Figure  # noqa: E402
 from pygmt.sphinx_gallery import PyGMTScraper  # noqa: E402
+
+# pylint: enable=wrong-import-position
 
 
 def test_pygmtscraper():
