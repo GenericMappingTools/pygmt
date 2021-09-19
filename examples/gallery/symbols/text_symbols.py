@@ -1,7 +1,9 @@
 r"""
 Text symbols
 ------------
-The :meth:`pygmt.Figure.plot` method allows to plot text symbols.
+The :meth:`pygmt.Figure.plot` method allows to plot text symbols. Text is
+normally placed with the :meth:`pygmt.Figure.text` method but there are times
+we wish to treat a character of even a string as plottable symbol.
 A text symbol can be drawn by passing **l**\ *size*\ **+t**\ *string* to
 the ``style`` parameter where *size* defines the size of the text symbol
 (note: the size is only approximate; no individual scaling is done for
