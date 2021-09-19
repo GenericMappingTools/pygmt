@@ -25,6 +25,14 @@ COMMON_OPTIONS = {
             *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
+    "A": r"""
+        area_thresh : int or float or str
+            *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
+            [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
+            Features with an area smaller than *min_area* in km\ :sup:`2` or of
+            hierarchical level that is lower than *min_level* or higher than
+            *max_level* will not be plotted [Default is 0/0/4 (all
+            features)].""",
     "B": r"""
         frame : bool or str or list
             Set map boundary
@@ -460,7 +468,7 @@ def fmt_docstring(module_func):
         aliases = ["**Aliases:**\n"]
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            aliases.append("- {} = {}".format(arg, alias))
+            aliases.append(f"- {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
     filler_text["table-like"] = " or ".join(
@@ -626,15 +634,12 @@ def kwargs_to_strings(**conversions):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
     ...     print(
-    ...         ", ".join(
-    ...             "'{}': {}".format(k, repr(kwargs[k]))
-    ...             for k in sorted(kwargs)
-    ...         ),
+    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
     ...         end="",
     ...     )
     ...     print("}")
     ...     if args:
-    ...         print("args:", " ".join("{}".format(x) for x in args))
+    ...         print("args:", " ".join(f"{x}" for x in args))
     >>> module(R=[1, 2, 3, 4])
     {'R': '1/2/3/4'}
     >>> # It's already a string, do nothing
@@ -682,7 +687,7 @@ def kwargs_to_strings(**conversions):
     for arg, fmt in conversions.items():
         if fmt not in valid_conversions:
             raise GMTInvalidInput(
-                "Invalid conversion type '{}' for argument '{}'.".format(fmt, arg)
+                f"Invalid conversion type '{fmt}' for argument '{arg}'."
             )
 
     separators = {

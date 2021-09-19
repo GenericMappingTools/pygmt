@@ -38,18 +38,6 @@ def test_psconvert_twice():
     os.remove(fname)
 
 
-def test_psconvert_int_options():
-    """
-    psconvert handles integer options well.
-    """
-    fig = Figure()
-    fig.basemap(R="10/70/-3/8", J="X4i/3i", B="a")
-    prefix = "test_psconvert_int_options"
-    fig.psconvert(F=prefix, E=100, T="g", I=True)
-    assert os.path.exists(prefix + ".png")
-    os.remove(prefix + ".png")
-
-
 def test_psconvert_aliases():
     """
     Use the aliases to make sure they work.

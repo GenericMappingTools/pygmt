@@ -16,9 +16,9 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
-.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/main.svg?style=flat-square
+.. image:: https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx
     :alt: Test coverage status
-    :target: https://codecov.io/gh/GenericMappingTools/pygmt
+    :target: https://app.codecov.io/gh/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt
@@ -154,7 +154,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2021_4978645,
+    @software{pygmt_2021_5162003,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
@@ -167,14 +167,15 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
+                      Magen, Yohai and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = jun,
+      month        = aug,
       year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.4.0},
-      doi          = {10.5281/zenodo.4978645},
-      url          = {https://doi.org/10.5281/zenodo.4978645}
+      version      = {v0.4.1},
+      doi          = {10.5281/zenodo.5162003},
+      url          = {https://doi.org/10.5281/zenodo.5162003}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -227,11 +228,21 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - Numpy
-    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_ (latest release)
+    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/milestone/8>`_ (upcoming release)
+      - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
+      - >=6.2.0
+      - >=3.7
+      - >=1.18
+    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_ (latest release)
+      - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
+      - >=6.2.0
+      - >=3.7
+      - >=1.17
+    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
       - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
       - >=6.2.0
       - >=3.7
-      - >=1.17.0
+      - >=1.17
     * - `v0.3.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1>`_
       - `v0.3.1 Documentation <https://www.pygmt.org/v0.3.1>`_
       - >=6.1.1
@@ -267,6 +278,3 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.0.0
       - 3.6 - 3.8
       -
-
-The unstable development documentation, which reflects the `main branch <https://github.com/GenericMappingTools/pygmt>`_
-on GitHub, can be found at https://www.pygmt.org/dev/.

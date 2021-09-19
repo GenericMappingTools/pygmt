@@ -127,11 +127,9 @@ else:
 release = __version__
 
 # These enable substitutions using |variable| in the rst files
-rst_epilog = """
+rst_epilog = f"""
 .. |year| replace:: {year}
-""".format(
-    year=year
-)
+"""
 
 html_last_updated_fmt = "%b %d, %Y"
 html_title = "PyGMT"

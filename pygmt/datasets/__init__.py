@@ -5,6 +5,7 @@
 from pygmt.datasets.earth_relief import load_earth_relief
 from pygmt.datasets.samples import (
     load_fractures_compilation,
+    load_hotspots,
     load_japan_quakes,
     load_mars_shape,
     load_ocean_ridge_points,

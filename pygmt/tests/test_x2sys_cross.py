@@ -107,7 +107,9 @@ def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
         )
 
         # Add a time row to the x2sys fmtfile
-        with open(file=os.path.join(tmpdir, "xyz.fmt"), mode="a") as fmtfile:
+        with open(
+            file=os.path.join(tmpdir, "xyz.fmt"), mode="a", encoding="utf8"
+        ) as fmtfile:
             fmtfile.write("time\ta\tN\t0\t1\t0\t%g\n")
 
         # Create pandas.DataFrame track tables
@@ -164,7 +166,9 @@ def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
         # Create temporary xyz files
         for i in range(2):
             np.random.seed(seed=i)
-            with open(os.path.join(os.getcwd(), f"track_{i}.xyz"), mode="w") as fname:
+            with open(
+                os.path.join(os.getcwd(), f"track_{i}.xyz"), mode="w", encoding="utf8"
+            ) as fname:
                 np.savetxt(fname=fname, X=np.random.rand(10, 3))
 
         output = x2sys_cross(

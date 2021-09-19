@@ -81,6 +81,7 @@ Operations on tabular data:
 
     blockmean
     blockmedian
+    blockmode
     surface
 
 Operations on grids:
@@ -92,9 +93,13 @@ Operations on grids:
     grdcut
     grdfill
     grdfilter
-    grdlandmask
     grdgradient
+    grdlandmask
+    grdproject
+    grdsample
     grdtrack
+    sphdistance
+    xyz2grd
 
 Crossover analysis with x2sys:
 
@@ -103,6 +108,14 @@ Crossover analysis with x2sys:
 
     x2sys_init
     x2sys_cross
+
+Input/output
+------------
+
+.. autosummary::
+    :toctree: generated
+
+    load_dataarray
 
 GMT Defaults
 ------------
@@ -159,6 +172,7 @@ and store them in the GMT cache folder.
     datasets.load_sample_bathymetry
     datasets.load_usgs_quakes
     datasets.load_fractures_compilation
+    datasets.load_hotspots
 
 .. automodule:: pygmt.exceptions
 

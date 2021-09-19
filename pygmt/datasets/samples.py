@@ -124,7 +124,32 @@ def load_fractures_compilation():
     data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
     return data[["length", "azimuth"]]
 
+  
+def load_hotspots():
+    """
+    Load a table with the locations, names, and suggested symbol sizes of
+    hotspots.
 
+    This is the ``@hotspots.txt`` dataset used in the GMT tutorials, with data
+    from Mueller, Royer, and Lawver, 1993, Geology, vol. 21, pp. 275-278. The
+    main 5 hotspots used by Doubrovine et al. [2012] have symbol sizes twice
+    the size of all other hotspots.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "longitude", "latitude", "symbol_size", and
+        "placename".
+    """
+    fname = which("@hotspots.txt", download="c")
+    columns = ["longitude", "latitude", "symbol_size", "place_name"]
+    data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
+    return data
+ 
 def load_mars_shape():
     """
     Load a table of data for the shape of Mars.
