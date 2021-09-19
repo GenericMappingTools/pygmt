@@ -1376,7 +1376,7 @@ class Session:
             Optional. A list of numpy arrays in addition to x, y and z. All
             of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
-            State whether the 'z' column is required. [Default is False].
+            State whether the 'z' column is required.
 
         Returns
         -------

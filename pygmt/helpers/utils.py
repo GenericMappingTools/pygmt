@@ -41,7 +41,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     z : 1d array or None
         z column as numpy array. To be used optionally when x and y are given.
     required_z : bool
-        State whether the 'z' column is required. [Default is False].
+        State whether the 'z' column is required.
 
     Returns
     -------
