@@ -8,8 +8,8 @@ import pytest
 
 sphinx_gallery = pytest.importorskip("sphinx_gallery", reason="requires sphinx-gallery")
 
-from pygmt.figure import SHOWED_FIGURES, Figure
-from pygmt.sphinx_gallery import PyGMTScraper
+from pygmt.figure import SHOWED_FIGURES, Figure  # noqa: E402
+from pygmt.sphinx_gallery import PyGMTScraper  # noqa: E402
 
 
 def test_pygmtscraper():
