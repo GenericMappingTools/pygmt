@@ -66,21 +66,25 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     """
     if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
+        raise GMTInvalidInput(
+            "Must specify `output_type` either as 'numpy', 'pandas' or 'file'."
+        )
+
     if outfile is not None and output_type != "file":
         msg = (
             f"Changing `output_type` of grd2xyz from '{output_type}' to 'file' "
             "since `outfile` parameter is set. Please use `output_type='file'` "
             "to silence this warning."
         )
-        warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
+        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"
-    elif output_type == "file" and outfile is None:
-        raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
-    if "o" not in kwargs.keys():  # Only set column names for standard output
+    elif outfile is None and output_type == "file":
+        raise GMTInvalidInput("Must specify `outfile` for ASCII output.")
+
+    if "o" not in kwargs:  # Only set column names for standard output
         # Set the default column names for the pandas dataframe header
         dataframe_header = ["x", "y", "z"]
-        # Set the column names to match an input DataArray as the grid
+        # Let output pandas column names match input DataArray dimension names
         if isinstance(grid, xr.DataArray) and output_type == "pandas":
             # Reverse the dims because it is rows, columns ordered.
             dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
