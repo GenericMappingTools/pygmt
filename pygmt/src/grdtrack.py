@@ -40,7 +40,7 @@ from pygmt.helpers import (
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
