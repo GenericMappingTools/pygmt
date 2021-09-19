@@ -73,7 +73,7 @@ def grdhisteq(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    divisions : int or bool
+    divisions : int
         The number of divisions of data range to make [Default is 16].
 
     {R}
