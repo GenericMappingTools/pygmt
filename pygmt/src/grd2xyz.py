@@ -81,13 +81,17 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     elif outfile is None and output_type == "file":
         raise GMTInvalidInput("Must specify `outfile` for ASCII output.")
 
-    if "o" not in kwargs:  # Set default column names if not specified
-        # Set the default column names for the pandas dataframe header
-        dataframe_header = ["x", "y", "z"]
-        # Let output pandas column names match input DataArray dimension names
-        if isinstance(grid, xr.DataArray) and output_type == "pandas":
-            # Reverse the dims because it is rows, columns ordered.
-            dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
+    if "o" in kwargs and output_type == "pandas":
+        raise GMTInvalidInput(
+            "If 'o' is specified, `output_type` must be either as 'numpy' or 'file'."
+        )
+
+    # Set the default column names for the pandas dataframe header
+    dataframe_header = ["x", "y", "z"]
+    # Let output pandas column names match input DataArray dimension names
+    if isinstance(grid, xr.DataArray) and output_type == "pandas":
+        # Reverse the dims because it is rows, columns ordered.
+        dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
@@ -100,12 +104,9 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            if "o" not in kwargs:
-                result = pd.read_csv(
-                    tmpfile.name, sep="\t", names=dataframe_header, comment=">"
-                )
-            else:
-                result = pd.read_csv(tmpfile.name, sep="\t", comment=">")
+            result = pd.read_csv(
+                tmpfile.name, sep="\t", names=dataframe_header, comment=">"
+            )
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 
