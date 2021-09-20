@@ -16,9 +16,9 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
-.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/main.svg?style=flat-square
+.. image:: https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx
     :alt: Test coverage status
-    :target: https://codecov.io/gh/GenericMappingTools/pygmt
+    :target: https://app.codecov.io/gh/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt

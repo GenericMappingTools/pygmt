@@ -2,7 +2,6 @@
 grdsample - Resample a grid onto a new lattice
 """
 
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -11,6 +10,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -59,7 +59,7 @@ def grdsample(grid, **kwargs):
         Translate between grid and pixel registration; if the input is
         grid-registered, the output will be pixel-registered and vice-versa.
     registration : str or bool
-        [**g**\ |\ **p**\ ].
+        [**g**\|\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
     {V}
     {f}
@@ -85,11 +85,4 @@ def grdsample(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdsample", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None

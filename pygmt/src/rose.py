@@ -36,10 +36,15 @@ from pygmt.helpers import (
     X="xshift",
     Y="yshift",
     Z="scale",
+    b="binary",
+    d="nodata",
+    e="find",
+    h="header",
     i="incols",
     c="panel",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def rose(self, length=None, azimuth=None, data=None, **kwargs):
@@ -186,10 +191,15 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     {U}
     {V}
     {XY}
+    {b}
     {c}
+    {d}
+    {e}
+    {h}
     {i}
     {p}
     {t}
+    {w}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

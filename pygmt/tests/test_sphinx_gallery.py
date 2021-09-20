@@ -5,17 +5,13 @@ import os
 from tempfile import TemporaryDirectory
 
 import pytest
-
-try:
-    import sphinx_gallery
-except ImportError:
-    sphinx_gallery = None
-
 from pygmt.figure import SHOWED_FIGURES, Figure
-from pygmt.sphinx_gallery import PyGMTScraper
+
+pygmt_sphinx_gallery = pytest.importorskip(
+    "pygmt.sphinx_gallery", reason="requires sphinx-gallery to be installed"
+)
 
 
-@pytest.mark.skipif(sphinx_gallery is None, reason="requires sphinx-gallery")
 def test_pygmtscraper():
     """
     Make sure the scraper finds the figures and removes them from the pool.
@@ -30,7 +26,7 @@ def test_pygmtscraper():
         fig.show()
         assert len(SHOWED_FIGURES) == 1
         assert SHOWED_FIGURES[0] is fig
-        scraper = PyGMTScraper()
+        scraper = pygmt_sphinx_gallery.PyGMTScraper()
         with TemporaryDirectory(dir=os.getcwd()) as tmpdir:
             conf = {"src_dir": "meh"}
             fname = os.path.join(tmpdir, "meh.png")
