@@ -22,7 +22,7 @@ def fixture_grid():
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def expected_grid():
+def fixture_grid_result():
     """
     Load the expected grdhisteq grid result.
     """
@@ -34,7 +34,7 @@ def expected_grid():
 
 
 @pytest.fixture(scope="module", name="expected_df")
-def expected_df():
+def fixture_df_result():
     """
     Load the expected grdhisteq table result.
     """
