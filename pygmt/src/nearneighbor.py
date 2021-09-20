@@ -3,7 +3,6 @@ nearneighbor - Grid table data using a "Nearest neighbor" algorithm
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
