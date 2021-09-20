@@ -52,7 +52,7 @@ jobs:
             optional-packages: ''
           - python-version: 3.9
             numpy-version: '1.21'
-            optional-packages: 'geopandas'
+            optional-packages: 'geopandas ipython'
     defaults:
       run:
         shell: bash -l {0}
@@ -96,9 +96,8 @@ jobs:
           mamba install gmt=6.2.0 numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
-                        coverage[toml] dvc ipython make \
-                        pytest-cov pytest-mpl pytest>=6.0 \
-                        sphinx-gallery
+                        coverage[toml] dvc make pytest>=6.0 \
+                        pytest-cov pytest-mpl sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
