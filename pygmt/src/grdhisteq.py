@@ -93,21 +93,18 @@ def grdhisteq(grid, **kwargs):
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # Return table data if outgrid is not set
-                    if (
-                        "D" not in kwargs or kwargs["D"] is True
-                    ):  # Return pd.Dataframe if filename not provided
+                # Return table data if outgrid is not set
+                if "G" not in kwargs or kwargs["G"] is None:
+                    # Return pd.Dataframe if filename not provided
+                    if "D" not in kwargs or kwargs["D"] is True:
                         outfile = tmpfile.name
                     else:  # Return set output to file Name
                         outfile = kwargs["D"]
-                    kwargs.update(
-                        {"D": True}
-                    )  # Temporary workaround to GMT bug, see GitHub issue 5785
+                    # Temporary workaround to GMT bug, see GitHub issue 5785
+                    kwargs.update({"D": True})
                     kwargs.update({">": outfile})
                 else:  # NetCDF or xarray.DataArray output if outgrid is set
-                    if (
-                        kwargs["G"] is True
-                    ):  # xarray.DataArray output if outgrid is True
+                    if kwargs["G"] is True:
                         kwargs.update({"G": tmpfile.name})
                     outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
