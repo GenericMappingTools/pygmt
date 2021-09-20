@@ -1,11 +1,8 @@
 """
 Utilities for using pygmt with sphinx-gallery.
 """
-try:
-    from sphinx_gallery.scrapers import figure_rst
-except ImportError:
-    figure_rst = None
 
+import sphinx_gallery.scrapers
 from pygmt.figure import SHOWED_FIGURES
 
 
@@ -32,4 +29,4 @@ class PyGMTScraper:  # pylint: disable=too-few-public-methods
             fig = figures.pop(0)
             fig.savefig(fname, transparent=True, dpi=200)
             image_names.append(fname)
-        return figure_rst(image_names, gallery_conf["src_dir"])
+        return sphinx_gallery.scrapers.figure_rst(image_names, gallery_conf["src_dir"])

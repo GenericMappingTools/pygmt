@@ -419,7 +419,36 @@ def test_virtual_file_bad_direction():
                 print("This should have failed")
 
 
-def test_virtualfile_from_data_required_z_matrix():
+@pytest.mark.parametrize(
+    "array_func,kind",
+    [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
+)
+def test_virtualfile_from_data_required_z_matrix(array_func, kind):
+    """
+    Test that function works when third z column in a matrix is needed and
+    provided.
+    """
+    shape = (5, 3)
+    dataframe = pd.DataFrame(
+        data=np.arange(shape[0] * shape[1]).reshape(shape), columns=["x", "y", "z"]
+    )
+    data = array_func(dataframe)
+    with clib.Session() as lib:
+        with lib.virtualfile_from_data(data=data, required_z=True) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module("info", f"{vfile} ->{outfile.name}")
+                output = outfile.read(keep_tabs=True)
+        bounds = "\t".join(
+            [
+                f"<{i.min():.0f}/{i.max():.0f}>"
+                for i in (dataframe.x, dataframe.y, dataframe.z)
+            ]
+        )
+        expected = f"<{kind} memory>: N = {shape[0]}\t{bounds}\n"
+        assert output == expected
+
+
+def test_virtualfile_from_data_required_z_matrix_missing():
     """
     Test that function fails when third z column in a matrix is needed but not
     provided.

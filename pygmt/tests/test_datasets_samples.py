@@ -6,6 +6,7 @@ from pygmt.datasets import (
     load_fractures_compilation,
     load_hotspots,
     load_japan_quakes,
+    load_mars_shape,
     load_ocean_ridge_points,
     load_sample_bathymetry,
     load_usgs_quakes,
@@ -74,6 +75,21 @@ def test_fractures_compilation():
     assert summary.loc["max", "length"] == 984.652
     assert summary.loc["min", "azimuth"] == 0.0
     assert summary.loc["max", "azimuth"] == 360.0
+
+
+def test_mars_shape():
+    """
+    Check that the @mars370d.txt dataset loads without errors.
+    """
+    data = load_mars_shape()
+    assert data.shape == (370, 3)
+    summary = data.describe()
+    assert summary.loc["min", "longitude"] == 0.008
+    assert summary.loc["max", "longitude"] == 359.983
+    assert summary.loc["min", "latitude"] == -79.715
+    assert summary.loc["max", "latitude"] == 85.887
+    assert summary.loc["min", "radius(m)"] == -6930
+    assert summary.loc["max", "radius(m)"] == 15001
 
 
 def test_hotspots():
