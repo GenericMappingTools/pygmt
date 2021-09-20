@@ -29,7 +29,7 @@ def filter1d(table, output_type="pandas", outfile=None, **kwargs):
     series data. The user specifies which column is the time (i.e., the
     independent variable). The fastest operation
     occurs when the input time series are equally spaced and have no gaps or
-    outliers and the special options are not needed. 
+    outliers and the special options are not needed.
     Read a table and output as a :class:`numpy.ndarray`,
     :class:`pandas.DataFrame`, or ASCII file.
 
@@ -87,9 +87,7 @@ def filter1d(table, output_type="pandas", outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(
-                tmpfile.name, sep="\t", comment=">"
-            )
+            result = pd.read_csv(tmpfile.name, sep="\t", comment=">")
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 
