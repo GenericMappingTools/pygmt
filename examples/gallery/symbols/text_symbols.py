@@ -3,20 +3,20 @@ Text symbols
 ------------
 The :meth:`pygmt.Figure.plot` method allows to plot text symbols. Text is
 normally placed with the :meth:`pygmt.Figure.text` method but there are times
-we wish to treat a character of even a string as plottable symbol.
+we wish to treat a character or even a string as a plottable symbol.
 A text symbol can be drawn by passing **l**\ *size*\ **+t**\ *string* to
 the ``style`` parameter where *size* defines the size of the text symbol
 (note: the size is only approximate; no individual scaling is done for
 different characters) and *string* can be a letter or a text string
 (less than 256 characters). Optionally, you can append **+f**\ *font* to
-select a particular font [Default is FONT_ANNOT_PRIMARY] as well as
+select a particular font [Default is :gmt-term:`FONT_ANNOT_PRIMARY`] as well as
 **+j**\ *justify* to change the justification [Default is CM]. Outline
 and fill color of the text symbols can be customized via the ``pen``
 and ``color`` parameters, respectively.
 
 For all supported octal codes and fonts see the GMT cookbook
-https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html and
-https://docs.generic-mapping-tools.org/latest/cookbook/postscript-fonts.html.
+:gmt-docs:`cookbook/octal-codes.html` and
+:gmt-docs:`cookbook/postscript-fonts.html`.
 """
 
 import pygmt
