@@ -89,6 +89,7 @@ Operations on grids:
 .. autosummary::
     :toctree: generated
 
+    GrdMathCalc
     grdclip
     grdcut
     grdfill
