@@ -24,7 +24,6 @@ from pygmt.io import load_dataarray
     N="gaussian",
     Q="quadratic",
     V="verbose",
-    h="header",
 )
 @kwargs_to_strings(R="sequence")
 def grdhisteq(grid, **kwargs):
@@ -73,7 +72,6 @@ def grdhisteq(grid, **kwargs):
 
     {R}
     {V}
-    {h}
 
     Returns
     -------
