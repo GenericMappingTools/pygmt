@@ -87,6 +87,7 @@ def test_grd2xyz_outfile_incorrect_output_type(grid):
             assert result is None  # return value is None
             assert os.path.exists(path=tmpfile.name)  # check that outfile exists
 
+
 def test_grd2xyz_pandas_output_wiht_o(grid):
     """
     Test that grd2xyz fails when 'o' is set and output_type is set to 'pandas'.
