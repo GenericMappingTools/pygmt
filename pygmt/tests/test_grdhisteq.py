@@ -91,7 +91,7 @@ def test_grdhisteq_no_outgrid(grid, expected_df):
     """
     Test the quadratic and region parameters for grdhisteq with no ``outgrid``.
     """
-    temp_df = grdhisteq(grid=grid, quadratic=True, region=[-3, 1, 2, 5])
+    temp_df = grdhisteq(grid=grid, quadratic=True, region=[-3, 1, 2, 5], outfile=True)
     assert isinstance(temp_df, pd.DataFrame)
     pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
 
@@ -110,9 +110,11 @@ def test_grdhisteq_outfile(grid, expected_df):
         pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
 
 
-def test_grdhisteq_outfile_outgrid(grid):
+def test_grdhisteq_invalid_output(grid):
     """
-    Test that an error is raised when ``outgrid`` and ``outfile`` are provided.
+    Test that an error is raised without proper output arguments.
     """
     with pytest.raises(GMTInvalidInput):
         grdhisteq(grid=grid, outfile=True, outgrid=True)
+    with pytest.raises(GMTInvalidInput):
+        grdhisteq(grid=grid)

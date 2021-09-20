@@ -7,6 +7,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
+    args_in_kwargs,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
@@ -53,6 +54,8 @@ def grdhisteq(grid, **kwargs):
     ``grid``, but the values are changed to reflect their place in the
     cumulative distribution.
 
+    Must provide ``outfile`` or ``outgrid``.
+
     Full option list at :gmt-docs:`grdhisteq.html`
 
     {aliases}
@@ -64,7 +67,7 @@ def grdhisteq(grid, **kwargs):
     outgrid : str or bool or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    outfile : str or None
+    outfile : str or bool or None
         The name of the output ASCII file to store the results of the
         histogram equalization in. Not allowed if ``outgrid`` is used.
     divisions : int
@@ -78,7 +81,7 @@ def grdhisteq(grid, **kwargs):
     ret: pandas.DataFrame or xarray.DataArray or None
         Return type depends on whether the ``outgrid`` parameter is set:
 
-        - pandas.DataFrame if ``outgrid`` and ``outfile`` are None (default)
+        - pandas.DataFrame if ``outfile`` is True
         - xarray.DataArray if ``outgrid`` is True
         - None if ``outgrid`` is a str (grid output is stored in ``outgrid``)
         - None if ``outfile`` is a str (file output is stored in ``outfile``)
@@ -89,6 +92,8 @@ def grdhisteq(grid, **kwargs):
     """
     if "D" in kwargs and "G" in kwargs:
         raise GMTInvalidInput("Cannot use both ``outfile`` and ``outgrid``.")
+    if not args_in_kwargs(["D", "G"], kwargs):
+        raise GMTInvalidInput("Must set ``outgrid`` or ``outfile``.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
