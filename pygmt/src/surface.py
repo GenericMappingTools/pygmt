@@ -3,11 +3,9 @@ surface - Grids table data using adjustable tension continuous curvature
 splines.
 """
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
