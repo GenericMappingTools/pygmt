@@ -808,16 +808,17 @@ def test_dataarray_to_matrix_dims_fails():
         dataarray_to_matrix(grid)
 
 
-def test_dataarray_to_matrix_inc_fails():
+def test_dataarray_to_matrix_irregular_inc_warning():
     """
-    Check that it fails for variable increments.
+    Check that it warns for variable increments.
     """
     data = np.ones((4, 5), dtype="float64")
     x = np.linspace(0, 1, 5)
     y = np.logspace(2, 3, 4)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.warns(expected_warning=RuntimeWarning) as record:
         dataarray_to_matrix(grid)
+        assert len(record) == 1
 
 
 def test_dataarray_to_matrix_zero_inc_fails():
