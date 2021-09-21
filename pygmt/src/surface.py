@@ -58,14 +58,14 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
     ----------
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
+    data : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
 
     {I}
 
-    region : str or list
-        *xmin/xmax/ymin/ymax*\[**+r**][**+u**\ *unit*].
-        Specify the region of interest.
+    {R}
 
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
