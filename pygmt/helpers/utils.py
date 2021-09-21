@@ -39,8 +39,9 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None
-        z column as numpy array. To be used optionally when x and y
-        are given.
+        z column as numpy array. To be used optionally when x and y are given.
+    required_z : bool
+        State whether the 'z' column is required.
 
     Returns
     -------
@@ -80,7 +81,10 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
-        if required_z and data.shape[1] < 3:
+        if required_z and (
+            getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
+            or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
+        ):
             raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:

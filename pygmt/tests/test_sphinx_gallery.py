@@ -8,15 +8,15 @@ import pytest
 from pygmt.figure import SHOWED_FIGURES, Figure
 
 pygmt_sphinx_gallery = pytest.importorskip(
-    "pygmt.sphinx_gallery", reason="requires sphinx-gallery to be installed"
+    "pygmt.sphinx_gallery", reason="Requires sphinx-gallery to be installed"
 )
+pytest.importorskip("IPython", reason="Requires IPython to be installed")
 
 
 def test_pygmtscraper():
     """
     Make sure the scraper finds the figures and removes them from the pool.
     """
-
     showed = SHOWED_FIGURES.copy()
     for _ in range(len(SHOWED_FIGURES)):
         SHOWED_FIGURES.pop()
