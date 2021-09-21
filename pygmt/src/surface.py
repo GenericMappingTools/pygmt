@@ -9,7 +9,6 @@ from pygmt.helpers import (
     build_arg_string,
     data_kind,
     deprecate_parameter,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -92,8 +91,6 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    kind = data_kind(data, x, y, z, required_z=True)
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             # Choose how data will be passed into the module
