@@ -26,11 +26,13 @@ from pkg_resources import get_distribution
 from pygmt import datasets
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
+from pygmt.io import load_dataarray
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
     blockmean,
     blockmedian,
+    blockmode,
     config,
     grd2cpt,
     grd2xyz,
@@ -41,13 +43,17 @@ from pygmt.src import (
     grdgradient,
     grdinfo,
     grdlandmask,
+    grdproject,
+    grdsample,
     grdtrack,
     info,
     makecpt,
+    sphdistance,
     surface,
     which,
     x2sys_cross,
     x2sys_init,
+    xyz2grd,
 )
 
 # Get semantic version through setuptools-scm
@@ -72,7 +78,7 @@ def print_clib_info():
     lines = ["GMT library information:"]
     with Session() as ses:
         for key in sorted(ses.info):
-            lines.append("  {}: {}".format(key, ses.info[key]))
+            lines.append(f"  {key}: {ses.info[key]}")
     print("\n".join(lines))
 
 
@@ -207,7 +213,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     if verbose:
         args.append("-vv")
     if coverage:
-        args.append("--cov={}".format(package))
+        args.append(f"--cov={package}")
         args.append("--cov-report=term-missing")
     if doctest:
         args.append("--doctest-modules")
