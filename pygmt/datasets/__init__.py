@@ -3,7 +3,6 @@
 # Load sample data included with GMT (downloaded from the GMT cache server).
 
 from pygmt.datasets.earth_relief import load_earth_relief
-from pygmt.datasets.seafloor_crust_age import load_seafloor_crust_age
 from pygmt.datasets.samples import (
     load_fractures_compilation,
     load_hotspots,
@@ -12,3 +11,4 @@ from pygmt.datasets.samples import (
     load_sample_bathymetry,
     load_usgs_quakes,
 )
+from pygmt.datasets.seafloor_crust_age import load_seafloor_crust_age
