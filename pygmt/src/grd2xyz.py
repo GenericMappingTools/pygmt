@@ -63,8 +63,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         - None if ``outfile`` is set (output will be stored in file set by
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
-          not set (depends on ``output_type`` [Default is
-          :class:`pandas.DataFrame`])
+          not set (depends on ``output_type``)
 
     """
     if output_type not in ["numpy", "pandas", "file"]:
