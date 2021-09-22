@@ -78,8 +78,8 @@ def test_grd2xyz_no_outfile(grid):
 
 def test_grd2xyz_outfile_incorrect_output_type(grid):
     """
-    Test that grd2xyz raises a warning when an outfile name is set but the
-    output_type is not set to file is set with no outfile.
+    Test that grd2xyz raises a warning when an outfile filename is set but the
+    output_type is not set to 'file'.
     """
     with pytest.warns(RuntimeWarning):
         with GMTTempFile(suffix=".xyz") as tmpfile:
