@@ -20,8 +20,9 @@ from pygmt.helpers import (
 @use_alias(
     R="region",
     V="verbose",
+    o="outcols",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", o="sequence_comma")
 def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     r"""
     Convert grid to data table.
@@ -48,10 +49,11 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     outfile : str
         The file name for the output ASCII file.
     {R}
-        Adding `region` will select a subsection of the grid. If this
+        Adding ``region`` will select a subsection of the grid. If this
         subsection exceeds the boundaries of the grid, only the common region
         will be output.
     {V}
+    {o}
 
     Returns
     -------
@@ -67,7 +69,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
-            "Must specify `output_type` either as 'numpy', 'pandas' or 'file'."
+            "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
         )
 
     if outfile is not None and output_type != "file":
@@ -83,7 +85,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     if "o" in kwargs and output_type == "pandas":
         raise GMTInvalidInput(
-            "If 'o' is specified, `output_type` must be either as 'numpy' or 'file'."
+            "If 'outcols' is specified, `output_type` must be either 'numpy'"
+            "or 'file'."
         )
 
     # Set the default column names for the pandas dataframe header
