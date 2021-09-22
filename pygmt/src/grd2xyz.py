@@ -74,18 +74,18 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     if outfile is not None and output_type != "file":
         msg = (
-            f"Changing `output_type` of grd2xyz from '{output_type}' to 'file' "
-            "since `outfile` parameter is set. Please use `output_type='file'` "
+            f"Changing 'output_type' of grd2xyz from '{output_type}' to 'file' "
+            "since 'outfile' parameter is set. Please use output_type='file' "
             "to silence this warning."
         )
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"
     elif outfile is None and output_type == "file":
-        raise GMTInvalidInput("Must specify `outfile` for ASCII output.")
+        raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
 
     if "o" in kwargs and output_type == "pandas":
         raise GMTInvalidInput(
-            "If 'outcols' is specified, `output_type` must be either 'numpy'"
+            "If 'outcols' is specified, 'output_type' must be either 'numpy'"
             "or 'file'."
         )
 
