@@ -165,6 +165,7 @@ def download_test_data():
         # Earth seafloor age grids
         "@earth_age_01d_g",
         "@earth_age_30m_g",
+        "S90W180.earth_age_05m_g.nc" # Specific grid for 05m test
         # Other cache files
         "@fractures_06.txt",
         "@hotspots.txt",
