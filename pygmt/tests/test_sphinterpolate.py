@@ -14,7 +14,7 @@ def test_sphinterpolate_outgrid():
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = sphinterpolate(
-            table="@mars370d.txt", outgrid=tmpfile.name, spacing=1, region="g"
+            data="@mars370d.txt", outgrid=tmpfile.name, spacing=1, region="g"
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
@@ -24,7 +24,7 @@ def test_sphinterpolate_no_outgrid():
     """
     Test sphinterpolate with no set outgrid.
     """
-    temp_grid = sphinterpolate(table="@mars370d.txt", spacing=1, region="g")
+    temp_grid = sphinterpolate(data="@mars370d.txt", spacing=1, region="g")
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 0  # Gridline registration

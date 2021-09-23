@@ -21,7 +21,7 @@ from pygmt.io import load_dataarray
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphinterpolate(table, **kwargs):
+def sphinterpolate(data, **kwargs):
     r"""
     Create spherical grid files in tension of data.
 
@@ -36,7 +36,7 @@ def sphinterpolate(table, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -58,13 +58,12 @@ def sphinterpolate(table, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
+            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
-                arg_str = build_arg_string(kwargs)
-                arg_str = " ".join([infile, arg_str])
+                arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("sphinterpolate", arg_str)
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
