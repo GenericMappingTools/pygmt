@@ -18,8 +18,11 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
+    C="cstyle",
     R="region",
     V="verbose",
+    W="weight",
+    Z="binary",
     o="outcols",
 )
 @kwargs_to_strings(R="sequence", o="sequence_comma")
@@ -48,6 +51,13 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
+    cstyle : str
+        [**f**\|\ **i**].
+        Replace the x- and y-coordinates on output with the corresponding
+        column and row numbers. These start at 0 (C-style counting); append
+        **f** to start at 1 (Fortran-style counting). Alternatively, append
+        **i** to write just the two columns *index* and *z*, where *index*
+        is the 1-D indexing that GMT uses when referring to grid nodes.
     {R}
         Adding ``region`` will select a subsection of the grid. If this
         subsection exceeds the boundaries of the grid, only the common region
