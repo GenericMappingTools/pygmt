@@ -2,13 +2,17 @@
 Tests for filter1d.
 """
 
+import os
+
 import pandas as pd
 import pytest
 from pygmt import filter1d
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 from pygmt.src import which
 
 
-@pytest.fixture(scope="module", name="table")
+@pytest.fixture(scope="module", name="data")
 def fixture_table():
     """
     Load the grid data from the sample earth_relief file.
@@ -19,10 +23,41 @@ def fixture_table():
     )
     return data
 
-def test_filter1d_no_outfile(table):
+
+def test_filter1d_no_outfile(data):
     """
     Test the azimuth and direction parameters for grdgradient with no set
     outgrid.
     """
-    result = filter1d(table=table, filter="g5")
+    result = filter1d(data=data, filter="g5")
     assert result.shape == (670, 2)
+
+
+def test_filter1d_invalid_format(data):
+    """
+    Test that filter1d fails with an incorrect format for output_type.
+    """
+    with pytest.raises(GMTInvalidInput):
+        filter1d(data=data, filter="g5", output_type="a")
+
+
+def test_filter1d_no_filter(data):
+    """
+    Test that filter1d fails with an argument is missing for filter.
+    """
+    with pytest.raises(GMTInvalidInput):
+        filter1d(data=data)
+
+
+def test_filter1d_outfile_incorrect_output_type(data):
+    """
+    Test that filter1d raises a warning when an outfile filename is set but the
+    output_type is not set to 'file'.
+    """
+    with pytest.warns(RuntimeWarning):
+        with GMTTempFile(suffix=".txt") as tmpfile:
+            result = filter1d(
+                data=data, filter="g5", outfile=tmpfile.name, output_type="numpy"
+            )
+            assert result is None  # return value is None
+            assert os.path.exists(path=tmpfile.name)  # check that outfile exists
