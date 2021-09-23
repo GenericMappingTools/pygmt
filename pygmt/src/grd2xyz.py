@@ -107,12 +107,12 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         Default format is scanline orientation of ASCII numbers: **TLa**.
     replace : str
         **i**\|\ **o**\ *nodata*.
-        For input only, use **i**\ *nodata* to examine all input columns. 
-        If any item equals *nodata*, the value is interpreted as a 
+        For input only, use **i**\ *nodata* to examine all input columns.
+        If any item equals *nodata*, the value is interpreted as a
         missing data item and is substituted with the value NaN.
 
-        For output only, use **o**\ *nodata* to examine all output columns. 
-        If any item equals NaN, the NaN value is substituted with the 
+        For output only, use **o**\ *nodata* to examine all output columns.
+        If any item equals NaN, the NaN value is substituted with the
         chosen missing data value *nodata*.
 
 
