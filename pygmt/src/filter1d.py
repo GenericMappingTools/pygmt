@@ -61,6 +61,8 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
           :class:`pandas.DataFrame`])
 
     """
+    if "F" not in kwargs:
+        raise GMTInvalidInput("""Pass a required argument to 'filter'.""")
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
             """Must specify format as either numpy, pandas, or file."""
