@@ -4,6 +4,7 @@ Tests for filter1d.
 
 import os
 
+import numpy as np
 import pandas as pd
 import pytest
 from pygmt import filter1d
@@ -31,6 +32,18 @@ def test_filter1d_no_outfile(data):
     """
     result = filter1d(data=data, filter="g5")
     assert result.shape == (670, 2)
+
+
+def test_filter1d_file_output(data):
+    """
+    Test that filter1d returns a file output when it is specified.
+    """
+    with GMTTempFile(suffix=".txt") as tmpfile:
+        result = filter1d(
+            data=data, filter="g5", outfile=tmpfile.name, output_type="file"
+        )
+        assert result is None  # return value is None
+        assert os.path.exists(path=tmpfile.name)  # check that outfile exists
 
 
 def test_filter1d_invalid_format(data):
@@ -61,3 +74,15 @@ def test_filter1d_outfile_incorrect_output_type(data):
             )
             assert result is None  # return value is None
             assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+
+
+def test_filter1d_format(data):
+    """
+    Test that correct formats are returned.
+    """
+    time_series_default = filter1d(data=data, filter="g5")
+    assert isinstance(time_series_default, pd.DataFrame)
+    time_series_array = filter1d(data=data, filter="g5", output_type="numpy")
+    assert isinstance(time_series_array, np.ndarray)
+    time_series_df = filter1d(data=data, filter="g5", output_type="pandas")
+    assert isinstance(time_series_df, pd.DataFrame)
