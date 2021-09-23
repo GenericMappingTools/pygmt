@@ -26,12 +26,21 @@ from pygmt.helpers import (
     T="radius",
     V="verbose",
     Z="z_only",
+    a="aspatial",
+    b="binary",
+    d="nodata",
+    e="find",
     f="coltypes",
+    g="gap",
+    h="header",
     i="incols",
     j="distcalc",
     n="interpolation",
+    o="outcols",
+    s="skiprows",
+    w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma")
+@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
 def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
@@ -232,10 +241,19 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {V}
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
+    {a}
+    {b}
+    {d}
+    {e}
     {f}
+    {g}
+    {h}
     {i}
     {j}
     {n}
+    {o}
+    {s}
+    {w}
 
     Returns
     -------

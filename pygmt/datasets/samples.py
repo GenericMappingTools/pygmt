@@ -149,3 +149,28 @@ def load_hotspots():
     columns = ["longitude", "latitude", "symbol_size", "place_name"]
     data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
     return data
+
+
+def load_mars_shape():
+    """
+    Load a table of data for the shape of Mars.
+
+    This is the ``@mars370d.txt`` dataset used in GMT examples, with data and
+    information from Smith, D. E., and M. T. Zuber (1996), The shape of Mars
+    and the topographic signature of the hemispheric dichotomy. Data columns
+    are "longitude," "latitude", and "radius (meters)."
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "longitude", "latitude", and "radius(m)".
+    """
+    fname = which("@mars370d.txt", download="c")
+    data = pd.read_csv(
+        fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
+    )
+    return data

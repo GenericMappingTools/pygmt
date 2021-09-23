@@ -39,7 +39,6 @@ from pygmt.helpers import (
     b="binary",
     d="nodata",
     e="find",
-    g="gap",
     h="header",
     i="incols",
     c="panel",
@@ -196,7 +195,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     {c}
     {d}
     {e}
-    {g}
     {h}
     {i}
     {p}
