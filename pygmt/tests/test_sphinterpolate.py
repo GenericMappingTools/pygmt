@@ -4,27 +4,35 @@ Tests for sphinterpolate.
 import os
 
 import numpy.testing as npt
+import pytest
 from pygmt import sphinterpolate
+from pygmt.datasets import load_mars_shape
 from pygmt.helpers import GMTTempFile
 
 
-def test_sphinterpolate_outgrid():
+@pytest.fixture(scope="module", name="mars")
+def fixture_mars_shape():
+    """
+    Load the data from the sample bathymetry dataset.
+    """
+    return load_mars_shape()
+
+
+def test_sphinterpolate_outgrid(mars):
     """
     Test sphinterpolate with a set outgrid.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = sphinterpolate(
-            data="@mars370d.txt", outgrid=tmpfile.name, spacing=1, region="g"
-        )
+        result = sphinterpolate(data=mars, outgrid=tmpfile.name, spacing=1, region="g")
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
 
 
-def test_sphinterpolate_no_outgrid():
+def test_sphinterpolate_no_outgrid(mars):
     """
     Test sphinterpolate with no set outgrid.
     """
-    temp_grid = sphinterpolate(data="@mars370d.txt", spacing=1, region="g")
+    temp_grid = sphinterpolate(data=mars, spacing=1, region="g")
     assert temp_grid.dims == ("lat", "lon")
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 0  # Gridline registration
