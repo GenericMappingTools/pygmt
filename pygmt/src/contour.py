@@ -3,12 +3,9 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    data_kind,
     deprecate_parameter,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -61,8 +58,10 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     ----------
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
+    data : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}
     {J}
     {R}
     annotation : str or int
@@ -127,19 +126,11 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provided both x, y, and z.")
-
     with Session() as lib:
-        # Choose how data will be passed in to the module
-        if kind == "file":
-            file_context = dummy_context(data)
-        elif kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(data)
-        elif kind == "vectors":
-            file_context = lib.virtualfile_from_vectors(x, y, z)
-
+        # Choose how data will be passed into the module
+        file_context = lib.virtualfile_from_data(
+            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+        )
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
             lib.call_module("contour", arg_str)

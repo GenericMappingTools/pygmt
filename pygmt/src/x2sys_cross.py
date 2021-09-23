@@ -202,7 +202,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                 # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
                 lastline = (
                     Path(os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag")
-                    .read_text()
+                    .read_text(encoding="utf8")
                     .strip()
                     .split("\n")[-1]
                 )  # e.g. "-Dxyz -Etsv -I1/1"
