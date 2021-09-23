@@ -2,7 +2,6 @@
 sphinterpolate - Spherical gridding in tension of data on a sphere
 """
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
