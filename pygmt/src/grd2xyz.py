@@ -62,6 +62,17 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         Adding ``region`` will select a subsection of the grid. If this
         subsection exceeds the boundaries of the grid, only the common region
         will be output.
+    weight : str
+        [**a**\ [**+u**\ *unit*]\|\ *weight*].
+        Write out *x,y,z,w*\ , where *w* is the supplied *weight* (or 1 if not
+        supplied) [Default writes *x,y,z* only].  Choose **a** to compute
+        weights equal to the area each node represents.  For Cartesian grids
+        this is simply the product of the *x* and *y* increments (except for
+        gridline-registered grids at all sides [half] and corners [quarter]).
+        For geographic grids we default to a length unit of **k**. Change
+        this by appending **+u**\ *unit*. For such grids, the area
+        varies with latitude and also sees special cases for
+        gridline-registered layouts at sides, corners, and poles.
     {V}
     {o}
 
