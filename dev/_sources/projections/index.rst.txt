@@ -395,27 +395,6 @@ Cylindric Projections
 
 .. only:: html
 
- .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_2_thumb.png
-     :alt: Oblique Mercator
-
-     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /projections/cyl/cyl_oblique_mercator_2
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
-
-.. only:: html
-
  .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_1_thumb.png
      :alt: Oblique Mercator
 
@@ -451,6 +430,27 @@ Cylindric Projections
    :hidden:
 
    /projections/cyl/cyl_oblique_mercator_3
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_2_thumb.png
+     :alt: Oblique Mercator
+
+     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_oblique_mercator_2
 
 .. raw:: html
 
@@ -655,7 +655,7 @@ Miscellaneous Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel a projection that was to strike a compromise be...">
+    <div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel made a projection that was to strike a compromi...">
 
 .. only:: html
 

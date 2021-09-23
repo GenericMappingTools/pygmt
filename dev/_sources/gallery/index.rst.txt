@@ -187,6 +187,27 @@ Lines and vectors
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Roads">
+
+.. only:: html
+
+ .. figure:: /gallery/lines/images/thumb/sphx_glr_roads_thumb.png
+     :alt: Roads
+
+     :ref:`sphx_glr_gallery_lines_roads.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/lines/roads
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Many modules in PyGMT allow plotting vectors with individual heads and tails. For this purpose,...">
 
 .. only:: html
@@ -406,6 +427,27 @@ Symbols and markers
    :hidden:
 
    /gallery/symbols/scatter
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="For all supported octal codes and fonts see the GMT cookbook cookbook/octal-codes.html and cook...">
+
+.. only:: html
+
+ .. figure:: /gallery/symbols/images/thumb/sphx_glr_text_symbols_thumb.png
+     :alt: Text symbols
+
+     :ref:`sphx_glr_gallery_symbols_text_symbols.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/symbols/text_symbols
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
@@ -418,6 +460,27 @@ Images, contours, and fields
 ----------------------------
 
 
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance">
+
+.. only:: html
+
+ .. figure:: /gallery/images/images/thumb/sphx_glr_grdgradient_thumb.png
+     :alt: Calculating grid gradient and radiance
+
+     :ref:`sphx_glr_gallery_images_grdgradient.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/images/grdgradient
 
 .. raw:: html
 
@@ -460,6 +523,27 @@ Images, contours, and fields
    :hidden:
 
    /gallery/images/contours
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid">
+
+.. only:: html
+
+ .. figure:: /gallery/images/images/thumb/sphx_glr_grdlandmask_thumb.png
+     :alt: Create 'wet-dry' mask grid
+
+     :ref:`sphx_glr_gallery_images_grdlandmask.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/images/grdlandmask
 
 .. raw:: html
 

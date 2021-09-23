@@ -21,16 +21,16 @@
 Making your first figure
 ========================
 
-Welcome to PyGMT! Here we'll cover some of basic concepts, like creating simple figures
-and naming conventions.
+Welcome to PyGMT! Here we'll cover some of basic concepts, like creating simple
+figures and naming conventions.
 
 .. GENERATED FROM PYTHON SOURCE LINES 10-15
 
 Loading the library
 -------------------
 
-All modules and figure generation is accessible from the :mod:`pygmt` top level
-package:
+All modules and figure generation is accessible from the :mod:`pygmt` top
+level package:
 
 .. GENERATED FROM PYTHON SOURCE LINES 15-18
 
@@ -68,15 +68,16 @@ Start a new figure by creating an instance of this class:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-33
+.. GENERATED FROM PYTHON SOURCE LINES 28-34
 
 Add elements to the figure using its methods. For example, let's use
-:meth:`pygmt.Figure.basemap` to start the creation of a map. We'll use the ``region`` parameter
-to provide the longitude and latitude bounds, the ``projection`` parameter to set
-the projection to Mercator (**M**) and the map width to 15 cm, and the ``frame``
-parameter to generate a frame with automatic tick and annotation spacings.
+:meth:`pygmt.Figure.basemap` to start the creation of a map. We'll use the
+``region`` parameter to provide the longitude and latitude bounds, the
+``projection`` parameter to set the projection to Mercator (**M**) and the
+map width to 15 cm, and the ``frame`` parameter to generate a frame with
+automatic tick and annotation spacings.
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-36
+.. GENERATED FROM PYTHON SOURCE LINES 34-37
 
 .. code-block:: default
 
@@ -90,12 +91,12 @@ parameter to generate a frame with automatic tick and annotation spacings.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-39
+.. GENERATED FROM PYTHON SOURCE LINES 38-40
 
-Now we can add coastlines using :meth:`pygmt.Figure.coast` to this map using the
-default resolution, line width, and color:
+Now we can add coastlines using :meth:`pygmt.Figure.coast` to this map using
+the default resolution, line width, and color:
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-42
+.. GENERATED FROM PYTHON SOURCE LINES 40-43
 
 .. code-block:: default
 
@@ -109,11 +110,11 @@ default resolution, line width, and color:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-44
+.. GENERATED FROM PYTHON SOURCE LINES 44-45
 
 To see the figure, call :meth:`pygmt.Figure.show`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-47
+.. GENERATED FROM PYTHON SOURCE LINES 45-48
 
 .. code-block:: default
 
@@ -139,12 +140,12 @@ To see the figure, call :meth:`pygmt.Figure.show`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-50
+.. GENERATED FROM PYTHON SOURCE LINES 49-51
 
-You can also set the map region, projection, and frame type directly in other methods
-without calling :meth:`gmt.Figure.basemap`:
+You can also set the map region, projection, and frame type directly in other
+methods without calling :meth:`gmt.Figure.basemap`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-55
+.. GENERATED FROM PYTHON SOURCE LINES 51-56
 
 .. code-block:: default
 
@@ -172,13 +173,13 @@ without calling :meth:`gmt.Figure.basemap`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-95
+.. GENERATED FROM PYTHON SOURCE LINES 57-99
 
 Saving figures
 --------------
 
-Use the method :meth:`pygmt.Figure.savefig` to save your figure to a file. The figure
-format is inferred from the extension.
+Use the method :meth:`pygmt.Figure.savefig` to save your figure to a file.
+The figure format is inferred from the extension.
 
 .. code:: python
 
@@ -192,32 +193,35 @@ command-line GMT. Many of these changes reflect the new GMT modern execution
 mode that is part of GMT 6.
 
 1. As a general rule, the ``ps`` prefix has been removed from all ``ps*``
-   modules (PyGMT methods). For example, the name of the GMT 5 module ``pscoast``
-   is ``coast`` in GMT 6 and PyGMT. The exceptions are:  ``psxy`` which is now
-   ``plot``, ``psxyz`` which is now ``plot3d``, and ``psscale`` which is now
-   ``colorbar``.
+   modules (PyGMT methods). For example, the name of the GMT 5 module
+   ``pscoast`` is ``coast`` in GMT 6 and PyGMT. The exceptions are: ``psxy``
+   which is now ``plot``, ``psxyz`` which is now ``plot3d``, and ``psscale``
+   which is now ``colorbar``.
 
 2. More details can be found in the :gmt-docs:`GMT cookbook introduction to
    modern mode </cookbook/introduction.html#modern-and-classic-mode>`.
 
 A few are PyGMT exclusive (like the ``savefig`` method).
 
-1. The PyGMT parameters (called options or arguments in GMT) don't use the GMT
-   1-letter syntax (**R**, **J**, **B**, etc). We use longer
-   aliases for these parameters and have some Python exclusive names. The mapping
-   between the GMT parameters and their PyGMT aliases should be straightforward.
+1. The PyGMT parameters (called options or arguments in GMT) don't use the
+   GMT 1-letter syntax (**R**, **J**, **B**, etc). We use longer aliases for
+   these parameters and have some Python exclusive names. The mapping between
+   the GMT parameters and their PyGMT aliases should be straightforward.
    For some modules, these aliases are still being developed.
-2. Parameters like ``region`` can take :class:`lists <list>` as well as strings like ``1/2/3/4``.
-3. If a GMT option has no arguments (like ``-B`` instead of ``-Baf``), use a ``True``
-   in Python. An empty string would also be acceptable. For repeated parameters, such
-   as ``-B+Loleron -Bxaf -By+lm``, provide a :class:`list`: ``frame=["+Loleron", "xaf", "y+lm"]``.
-4. There is no output redirecting to a PostScript file. The figure is generated in the
-   background and will only be shown or saved when you ask for it.
+2. Parameters like ``region`` can take :class:`lists <list>` as well as
+   strings like ``1/2/3/4``.
+3. If a GMT option has no arguments (like ``-B`` instead of ``-Baf``), use a
+   ``True`` in Python. An empty string would also be acceptable. For repeated
+   parameters, such as ``-B+Loleron -Bxaf -By+lm``, provide a
+   :class:`list`: ``frame=["+Loleron", "xaf", "y+lm"]``.
+4. There is no output redirecting to a PostScript file. The figure is
+   generated in the background and will only be shown or saved when you ask
+   for it.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.095 seconds)
+   **Total running time of the script:** ( 0 minutes  2.638 seconds)
 
 
 .. _sphx_glr_download_tutorials_first_figure.py:

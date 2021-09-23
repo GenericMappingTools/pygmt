@@ -22,15 +22,16 @@ Cylindrical equidistant
 =======================
 
 This simple cylindrical projection is really a linear scaling of longitudes and
-latitudes. The most common form is the Plate Carrée projection, where the scaling of
-longitudes and latitudes is the same. All meridians and parallels are straight lines.
+latitudes. The most common form is the Plate Carrée projection, where the
+scaling of longitudes and latitudes is the same. All meridians and parallels
+are straight lines.
 
 **q**\ *scale* or **Q**\ *width*
 
-The projection is set with **q** or **Q**, and the figure size is set
-with *scale* or *width*.
+The projection is set with **q** or **Q**, and the figure size is set with
+*scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-26
+.. GENERATED FROM PYTHON SOURCE LINES 15-27
 
 
 
@@ -72,7 +73,7 @@ with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.932 seconds)
+   **Total running time of the script:** ( 0 minutes  1.180 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_equidistant.py:

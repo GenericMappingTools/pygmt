@@ -21,9 +21,9 @@
 Setting the region
 ==================
 
-Many of the plotting functions take the ``region`` parameter, which sets
-the area that will be shown in the figure. This tutorial covers the different types of
-inputs that it can accept.
+Many of the plotting functions take the ``region`` parameter, which sets the
+area that will be shown in the figure. This tutorial covers the different types
+of inputs that it can accept.
 
 .. GENERATED FROM PYTHON SOURCE LINES 9-12
 
@@ -134,19 +134,20 @@ The coordinates can be passed to ``region`` as a list, in the form of
 
 .. GENERATED FROM PYTHON SOURCE LINES 57-61
 
-Instead of passing axes minima and maxima, the coordinates can be passed for the
-bottom-left and top-right corners. The string format takes the coordinates for the
-bottom-left and top-right coordinates. To specify corner coordinates, append **+r**
-at the end of the ``region`` string.
+Instead of passing axes minima and maxima, the coordinates can be passed for
+the bottom-left and top-right corners. The string format takes the
+coordinates for the bottom-left and top-right coordinates. To specify corner
+coordinates, append **+r** at the end of the ``region`` string.
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-76
+.. GENERATED FROM PYTHON SOURCE LINES 62-77
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Set the bottom-left corner as 10E, 35N and the top-right corner as 20E, 45N
+        # Set the bottom-left corner as 10E, 35N and the top-right corner as
+        # 20E, 45N
         region="10/35/20/45+r",
         projection="M12c",
         land="lightgray",
@@ -176,18 +177,19 @@ at the end of the ``region`` string.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-85
+.. GENERATED FROM PYTHON SOURCE LINES 78-87
 
 Global regions
 --------------
 
-In addition to passing coordinates, the argument **d** can be passed to set the
-region to the entire globe. The range is 180W to 180E (-180, 180) and 90S to
-90N (-90 to 90). With no parameters set for the projection, the figure defaults to be
-centered at the mid-point of both x- and y-axes. Using **d**\ , the figure is
-centered at (0, 0), or the intersection of the equator and prime meridian.
+In addition to passing coordinates, the argument **d** can be passed to set
+the region to the entire globe. The range is 180W to 180E (-180, 180) and 90S
+to 90N (-90 to 90). With no parameters set for the projection, the figure
+defaults to be centered at the mid-point of both x- and y-axes. Using
+**d**\ , the figure is centered at (0, 0), or the intersection of the equator
+and prime meridian.
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-98
+.. GENERATED FROM PYTHON SOURCE LINES 87-100
 
 .. code-block:: default
 
@@ -223,14 +225,14 @@ centered at (0, 0), or the intersection of the equator and prime meridian.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-103
+.. GENERATED FROM PYTHON SOURCE LINES 101-105
 
-The argument **g** can be passed, which encompasses the entire globe. The range is
-0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters set for the
-projection, the figure is centered at (180, 0), or the intersection of the equator and
-International Date Line.
+The argument **g** can be passed, which encompasses the entire globe. The
+range is 0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters
+set for the projection, the figure is centered at (180, 0), or the
+intersection of the equator and International Date Line.
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-117
+.. GENERATED FROM PYTHON SOURCE LINES 106-119
 
 .. code-block:: default
 
@@ -266,16 +268,16 @@ International Date Line.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-124
+.. GENERATED FROM PYTHON SOURCE LINES 120-126
 
 ISO code
 --------
 
-The ``region`` can be set to include a specific area specified by the two-character
-ISO 3166-1 alpha-2 convention
+The ``region`` can be set to include a specific area specified by the
+two-character ISO 3166-1 alpha-2 convention
 (for further information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-138
+.. GENERATED FROM PYTHON SOURCE LINES 126-140
 
 .. code-block:: default
 
@@ -312,21 +314,23 @@ ISO 3166-1 alpha-2 convention
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-143
+.. GENERATED FROM PYTHON SOURCE LINES 141-146
 
-The area encompassed by the ISO code can be expanded by appending **+r**\ *increment*
-to the ISO code. The *increment* unit is in degrees, and if only one value is added it
-expands the range of the region in all directions. Using **+r** expands the
-final region boundaries to be multiples of *increment* .
+The area encompassed by the ISO code can be expanded by appending
+**+r**\ *increment* to the ISO code. The *increment* unit is in degrees, and
+if only one value is added it expands the range of the region in all
+directions. Using **+r** expands the final region boundaries to be multiples
+of *increment* .
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-158
+.. GENERATED FROM PYTHON SOURCE LINES 147-162
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Expand the region boundaries to be multiples of 3 degrees in all directions
+        # Expand the region boundaries to be multiples of 3 degrees in all
+        # directions
         region="JP+r3",
         projection="M12c",
         land="lightgray",
@@ -356,12 +360,13 @@ final region boundaries to be multiples of *increment* .
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-161
+.. GENERATED FROM PYTHON SOURCE LINES 163-166
 
-Instead of expanding the range of the plot uniformly in all directions, two values
-can be passed to expand differently on each axis. The format is *xinc*/*yinc*.
+Instead of expanding the range of the plot uniformly in all directions, two
+values can be passed to expand differently on each axis. The format is
+*xinc*/*yinc*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-177
+.. GENERATED FROM PYTHON SOURCE LINES 167-182
 
 .. code-block:: default
 
@@ -399,22 +404,22 @@ can be passed to expand differently on each axis. The format is *xinc*/*yinc*.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-182
+.. GENERATED FROM PYTHON SOURCE LINES 183-187
 
-Instead of expanding the range of the plot uniformly in all directions, four values
-can be passed to expand differently in each direction.
+Instead of expanding the range of the plot uniformly in all directions, four
+values can be passed to expand differently in each direction.
 The format is *winc*/*einc*/*sinc*/*ninc*, which expands on the west,
 east, south, and north axes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 183-198
+.. GENERATED FROM PYTHON SOURCE LINES 188-203
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Expand the region boundaries to be multiples of 3 degrees to the west,
-        # 5 degrees to the east, 7 degrees to the south, and 9 degrees to the north.
+        # Expand the region boundaries to be multiples of 3 degrees to the west, 5
+        # degrees to the east, 7 degrees to the south, and 9 degrees to the north.
         region="JP+r3/5/7/9",
         projection="M12c",
         land="lightgray",
@@ -444,12 +449,12 @@ east, south, and north axes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 199-201
+.. GENERATED FROM PYTHON SOURCE LINES 204-206
 
-The ``region`` increment can be appended with **+R**, which adds the increment
-without rounding.
+The ``region`` increment can be appended with **+R**, which adds the
+increment without rounding.
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-217
+.. GENERATED FROM PYTHON SOURCE LINES 207-222
 
 .. code-block:: default
 
@@ -487,20 +492,22 @@ without rounding.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 218-221
+.. GENERATED FROM PYTHON SOURCE LINES 223-227
 
-The ``region`` increment can be appended with **+e**, which is like **+r** and
-expands the final region boundaries to be multiples of *increment*. However,
-it ensures that the bounding box extends by at least 0.25 times the increment.
+The ``region`` increment can be appended with **+e**, which is like **+r**
+and expands the final region boundaries to be multiples of *increment*.
+However, it ensures that the bounding box extends by at least 0.25 times the
+increment.
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-235
+.. GENERATED FROM PYTHON SOURCE LINES 228-242
 
 .. code-block:: default
 
 
     fig = pygmt.Figure()
     fig.coast(
-        # Expand the region boundaries to be multiples of 3 degrees in all directions
+        # Expand the region boundaries to be multiples of 3 degrees in all
+        # directions
         region="JP+e3",
         projection="M12c",
         land="lightgray",
@@ -532,7 +539,7 @@ it ensures that the bounding box extends by at least 0.25 times the increment.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  13.475 seconds)
+   **Total running time of the script:** ( 0 minutes  17.184 seconds)
 
 
 .. _sphx_glr_download_tutorials_regions.py:

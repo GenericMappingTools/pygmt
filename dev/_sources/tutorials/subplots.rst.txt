@@ -32,8 +32,8 @@ There are two main ways to create subplots in GMT:
 - Use :meth:`pygmt.Figure.subplot` to define the layout of the subplots.
 
 The first method is easier to use and should handle simple cases involving a
-couple of subplots. For more advanced subplot layouts, however, we recommend the
-use of :meth:`pygmt.Figure.subplot` which offers finer grained control, and
+couple of subplots. For more advanced subplot layouts, however, we recommend
+the use of :meth:`pygmt.Figure.subplot` which offers finer grained control, and
 this is what the tutorial below will cover.
 
 .. GENERATED FROM PYTHON SOURCE LINES 20-23
@@ -89,9 +89,9 @@ individual subplot. For example:
 
 will define our figure to have a 2 row and 3 column grid layout.
 ``figsize=("15c", "6c")`` defines the overall size of the figure to be 15 cm
-wide by 6 cm high. Using ``frame="lrtb"`` allows us to customize the map frame
-for all subplots instead of setting them individually. The figure layout will
-look like the following:
+wide by 6 cm high. Using ``frame="lrtb"`` allows us to customize the map
+frame for all subplots instead of setting them individually. The figure
+layout will look like the following:
 
 .. GENERATED FROM PYTHON SOURCE LINES 51-64
 
@@ -131,11 +131,11 @@ look like the following:
 
 .. GENERATED FROM PYTHON SOURCE LINES 65-71
 
-The :meth:`pygmt.Figure.set_panel` function activates a specified subplot, and
-all subsequent plotting functions will take place in that subplot panel. This
-is similar to matplotlib's ``plt.sca`` method. In order to specify a subplot,
-you will need to provide the identifier for that subplot via the ``panel``
-parameter. Pass in either the *index* number, or a tuple/list like
+The :meth:`pygmt.Figure.set_panel` function activates a specified subplot,
+and all subsequent plotting functions will take place in that subplot panel.
+This is similar to matplotlib's ``plt.sca`` method. In order to specify a
+subplot, you will need to provide the identifier for that subplot via the
+``panel`` parameter. Pass in either the *index* number, or a tuple/list like
 (*row*, *col*) to ``panel``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 73-78
@@ -391,7 +391,7 @@ adding a more descriptive subtitle to individual subplots.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.462 seconds)
+   **Total running time of the script:** ( 0 minutes  8.451 seconds)
 
 
 .. _sphx_glr_download_tutorials_subplots.py:

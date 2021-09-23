@@ -82,8 +82,8 @@ For more advanced *pen* attributes, see the GMT cookbook
         "1p,lightblue,-.",  # dash-dotted line
         "2p,blue,..-",  # dot-dot-dashed line
         "2p,tomato,--.",  # dash-dash-dotted line
-        # A pattern of 4-point-long line segments and 2-point-long gaps between segments,
-        # with pattern offset by 2 points from the origin
+        # A pattern of 4-point-long line segments and 2-point-long gaps between
+        # segments, with pattern offset by 2 points from the origin
         "2p,tomato,4_2:2p",
     ]:
         y -= 1  # Move the current line down
@@ -103,7 +103,7 @@ For more advanced *pen* attributes, see the GMT cookbook
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.091 seconds)
+   **Total running time of the script:** ( 0 minutes  3.844 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_linestyles.py:

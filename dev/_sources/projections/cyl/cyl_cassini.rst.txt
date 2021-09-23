@@ -21,21 +21,22 @@
 Cassini Cylindrical
 ============================
 
-This cylindrical projection was developed in 1745 by César-François Cassini de Thury
-for the survey of France. It is occasionally called Cassini-Soldner since the latter
-provided the more accurate mathematical analysis that led to the development of the
-ellipsoidal formulae. The projection is neither conformal nor equal-area, and behaves
-as a compromise between the two end-members. The distortion is zero along the central
-meridian. It is best suited for mapping regions of north-south extent. The central
-meridian, each meridian 90° away, and equator are straight lines; all other meridians
-and parallels are complex curves.
+This cylindrical projection was developed in 1745 by César-François Cassini de
+Thury for the survey of France. It is occasionally called Cassini-Soldner since
+the latter provided the more accurate mathematical analysis that led to the
+development of the ellipsoidal formulae. The projection is neither conformal
+nor equal-area, and behaves as a compromise between the two end-members. The
+distortion is zero along the central meridian. It is best suited for mapping
+regions of north-south extent. The central meridian, each meridian 90° away,
+and equator are straight lines; all other meridians and parallels are complex
+curves.
 
 **c**\ *lon0/lat0*\ */scale* or **C**\ *lon0/lat0*\ */width*
 
-The projection is set with **c** or **C**. The projection center is set by *lon0/lat0*,
-and the figure size is set with *scale* or *width*.
+The projection is set with **c** or **C**. The projection center is set by
+*lon0/lat0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-25
+.. GENERATED FROM PYTHON SOURCE LINES 20-26
 
 
 
@@ -71,7 +72,7 @@ and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.220 seconds)
+   **Total running time of the script:** ( 0 minutes  1.575 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_cassini.py:

@@ -108,19 +108,21 @@ of 0.3 centimeters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-67
+.. GENERATED FROM PYTHON SOURCE LINES 58-69
 
-In addition to specifying the date, ``datetime`` supports
-the exact time at which the data points were recorded. Using :meth:`datetime.datetime`
-the ``region`` parameter as well as data points can be created
-with both date and time information.
+In addition to specifying the date, ``datetime`` supports the exact time at
+which the data points were recorded. Using :meth:`datetime.datetime` the
+``region`` parameter as well as data points can be created with both date and
+time information.
 
 Some notable differences to the previous example include
 
-- Modifying ``frame`` to only include West (left) and South (bottom) borders, and removing grid lines
-- Using circles to plot data points defined through ``c`` in ``style`` parameter
+- Modifying ``frame`` to only include West (left) and South (bottom) borders,
+  and removing grid lines
+- Using circles to plot data points defined through ``c`` in ``style``
+  parameter
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-94
+.. GENERATED FROM PYTHON SOURCE LINES 69-96
 
 .. code-block:: default
 
@@ -170,24 +172,24 @@ Some notable differences to the previous example include
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-109
+.. GENERATED FROM PYTHON SOURCE LINES 97-111
 
 Using ISO Format
 ----------------
 
-In addition to Python's ``datetime`` library, PyGMT also supports passing times
-in ISO format. Basic ISO strings are formatted as ``YYYY-MM-DD``
-with each ``-`` delineated section marking the four digit year value, two digit
+In addition to Python's ``datetime`` library, PyGMT also supports passing
+times in ISO format. Basic ISO strings are formatted as ``YYYY-MM-DD`` with
+each ``-`` delineated section marking the four digit year value, two digit
 month value, and two digit day value respectively.
 
 When including time of day into ISO strings, the ``T`` character is used, as
 can be seen in the following example. This character is immediately followed
-by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section marking
-the two digit hour value, two digit minute value, and two digit second value
-respectively. The figure in the following example is plotted over a horizontal
-range of one year from 1/1/2016 to 1/1/2017.
+by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section
+marking the two digit hour value, two digit minute value, and two digit
+second value respectively. The figure in the following example is plotted
+over a horizontal range of one year from 1/1/2016 to 1/1/2017.
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-125
+.. GENERATED FROM PYTHON SOURCE LINES 111-127
 
 .. code-block:: default
 
@@ -226,17 +228,17 @@ range of one year from 1/1/2016 to 1/1/2017.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 126-133
+.. GENERATED FROM PYTHON SOURCE LINES 128-135
 
 Mixing and matching Python ``datetime`` and ISO dates
 -----------------------------------------------------
 
-The following example provides context on how both ``datetime`` and ISO
-date data can be plotted using PyGMT. This can be helpful when dates and times
-are coming from different sources, meaning conversions do not need to take place
+The following example provides context on how both ``datetime`` and ISO date
+data can be plotted using PyGMT. This can be helpful when dates and times are
+coming from different sources, meaning conversions do not need to take place
 between ISO and datetime in order to create valid plots.
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-149
+.. GENERATED FROM PYTHON SOURCE LINES 135-151
 
 .. code-block:: default
 
@@ -275,7 +277,7 @@ between ISO and datetime in order to create valid plots.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-161
+.. GENERATED FROM PYTHON SOURCE LINES 152-164
 
 Using :meth:`pandas.date_range`
 -------------------------------
@@ -283,13 +285,14 @@ Using :meth:`pandas.date_range`
 In the following example, :func:`pandas.date_range` produces a list of
 :class:`pandas.DatetimeIndex` objects, which gets is used to pass date
 data to the PyGMT figure.
-Specifically ``x`` contains 7 different :class:`pandas.DatetimeIndex` objects, with the
-number being manipulated by the ``periods`` parameter. Each period begins at the start
-of a business quarter as denoted by BQS when passed to the ``periods`` parameter. The initial
-date is the first argument that is passed to :func:`pandas.date_range` and it marks the first
-data point in the list ``x`` that will be plotted.
+Specifically ``x`` contains 7 different :class:`pandas.DatetimeIndex`
+objects, with the number being manipulated by the ``periods`` parameter. Each
+period begins at the start of a business quarter as denoted by BQS when
+passed to the ``periods`` parameter. The initial date is the first argument
+that is passed to :func:`pandas.date_range` and it marks the first data point
+in the list ``x`` that will be plotted.
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-178
+.. GENERATED FROM PYTHON SOURCE LINES 164-181
 
 .. code-block:: default
 
@@ -329,19 +332,20 @@ data point in the list ``x`` that will be plotted.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-188
+.. GENERATED FROM PYTHON SOURCE LINES 182-192
 
 Using :class:`xarray.DataArray`
 -------------------------------
 
-In this example, instead of using a :func:`pandas.date_range`, ``x`` is initialized
-as a list of :class:`xarray.DataArray` objects. This object provides a wrapper around
-regular PyData formats. It also allows the data to have labeled dimensions
-while supporting operations that use various pieces of metadata.The following
-code uses :func:`pandas.date_range` object to fill the DataArray with data,
-but this is not essential for the creation of a valid DataArray.
+In this example, instead of using a :func:`pandas.date_range`, ``x`` is
+initialized as a list of :class:`xarray.DataArray` objects. This object
+provides a wrapper around regular PyData formats. It also allows the data to
+have labeled dimensions while supporting operations that use various pieces
+of metadata.The following code uses :func:`pandas.date_range` object to fill
+the DataArray with data, but this is not essential for the creation of a
+valid DataArray.
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-205
+.. GENERATED FROM PYTHON SOURCE LINES 192-209
 
 .. code-block:: default
 
@@ -381,16 +385,17 @@ but this is not essential for the creation of a valid DataArray.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 206-212
+.. GENERATED FROM PYTHON SOURCE LINES 210-217
 
 Using :class:`numpy.datetime64`
 -------------------------------
-In this example, instead of using a :func:`pd.date_range`, ``x`` is initialized
-as an ``np.array`` object. Similar to :class:`xarray.DataArray` this wraps the
-dataset before passing it as a parameter. However, ``np.array`` objects use less
-memory and allow developers to specify datatypes.
+In this example, instead of using a :func:`pd.date_range`, ``x`` is
+initialized as an ``np.array`` object. Similar to :class:`xarray.DataArray`
+this wraps the dataset before passing it as a parameter. However,
+``np.array`` objects use less memory and allow developers to specify
+datatypes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-229
+.. GENERATED FROM PYTHON SOURCE LINES 217-234
 
 .. code-block:: default
 
@@ -430,7 +435,7 @@ memory and allow developers to specify datatypes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 230-240
+.. GENERATED FROM PYTHON SOURCE LINES 235-245
 
 Generating an automatic region
 ------------------------------
@@ -443,7 +448,7 @@ that could be passed as region. Additionally, the ``spacing`` argument
 can be passed to increase the range past the maximum and minimum
 data points.
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-271
+.. GENERATED FROM PYTHON SOURCE LINES 245-276
 
 .. code-block:: default
 
@@ -497,7 +502,7 @@ data points.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 272-296
+.. GENERATED FROM PYTHON SOURCE LINES 277-301
 
 Setting Primary and Secondary Time Axes
 ---------------------------------------
@@ -524,7 +529,7 @@ name instead of its number. More information about configuring
 date formats can be found on the
 :gmt-term:`official GMT documentation page <FORMAT_DATE_MAP>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 296-315
+.. GENERATED FROM PYTHON SOURCE LINES 301-320
 
 .. code-block:: default
 
@@ -566,7 +571,7 @@ date formats can be found on the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 316-332
+.. GENERATED FROM PYTHON SOURCE LINES 321-337
 
 The same concept shown above can be applied to smaller
 as well as larger intervals. In this example,
@@ -585,7 +590,7 @@ instead of a 24-hour system. More information about configuring
 time formats can be found on the
 :gmt-term:`official GMT documentation page <FORMAT_CLOCK_MAP>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 332-355
+.. GENERATED FROM PYTHON SOURCE LINES 337-360
 
 .. code-block:: default
 
@@ -634,7 +639,7 @@ time formats can be found on the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.336 seconds)
+   **Total running time of the script:** ( 0 minutes  10.370 seconds)
 
 
 .. _sphx_glr_download_tutorials_date_time_charts.py:

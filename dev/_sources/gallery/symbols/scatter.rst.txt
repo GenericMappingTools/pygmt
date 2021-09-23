@@ -21,8 +21,8 @@
 Scatter plots with a legend
 ---------------------------
 
-To create a scatter plot with a legend one may use a loop and create one scatter
-plot per item to appear in the legend and set the label accordingly.
+To create a scatter plot with a legend one may use a loop and create one
+scatter plot per item to appear in the legend and set the label accordingly.
 
 Modified from the matplotlib example:
 https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html
@@ -88,7 +88,7 @@ https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.600 seconds)
+   **Total running time of the script:** ( 0 minutes  2.006 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_scatter.py:

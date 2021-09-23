@@ -86,9 +86,9 @@ equidistant cylindrical projection and with no frame.
 Contour line settings
 ---------------------
 
-Use the ``annotation`` and ``interval`` arguments to adjust contour line intervals.
-In the example below, there are contour intervals every 250 meters and
-annotated contour lines every 1,000 meters.
+Use the ``annotation`` and ``interval`` arguments to adjust contour line
+intervals. In the example below, there are contour intervals every 250 meters
+and annotated contour lines every 1,000 meters.
 
 .. GENERATED FROM PYTHON SOURCE LINES 37-46
 
@@ -127,9 +127,9 @@ annotated contour lines every 1,000 meters.
 Contour limits
 --------------
 
-The ``limit`` argument sets the minimum and maximum values for the contour lines.
-The argument takes the low and high values,
-and is either a list (as below) or a string ``limit="-4000/-2000"``.
+The ``limit`` argument sets the minimum and maximum values for the contour
+lines. The argument takes the low and high values, and is either a list (as
+below) or a string ``limit="-4000/-2000"``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 53-63
 
@@ -207,18 +207,19 @@ including setting the projection and frame.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-90
+.. GENERATED FROM PYTHON SOURCE LINES 82-91
 
 Adding a colormap
 -----------------
 
 The :meth:`pygmt.Figure.grdimage` method can be used to add a
 colormap to the contour map. It must be called prior to
-:meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the final map.
-If the ``projection`` argument is specified in the :meth:`pygmt.Figure.grdimage`
-method, it does not need to be repeated in the :meth:`pygmt.Figure.grdcontour` method.
+:meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the
+final map. If the ``projection`` argument is specified in the
+:meth:`pygmt.Figure.grdimage` method, it does not need to be repeated in the
+:meth:`pygmt.Figure.grdcontour` method.
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-105
+.. GENERATED FROM PYTHON SOURCE LINES 91-106
 
 .. code-block:: default
 
@@ -259,7 +260,7 @@ method, it does not need to be repeated in the :meth:`pygmt.Figure.grdcontour` m
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.020 seconds)
+   **Total running time of the script:** ( 0 minutes  7.640 seconds)
 
 
 .. _sphx_glr_download_tutorials_contour_map.py:

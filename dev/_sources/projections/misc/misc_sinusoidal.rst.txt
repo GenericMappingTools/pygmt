@@ -21,18 +21,19 @@
 Sinusoidal
 ==========
 
-The sinusoidal projection is one of the oldest known projections, is equal-area, and
-has been used since the mid-16th century. It has also been called the
-"Equal-area Mercator" projection. The central meridian is a straight line; all other
-meridians are sinusoidal curves. Parallels are all equally spaced straight lines, with
-scale being true along all parallels (and central meridian).
+The sinusoidal projection is one of the oldest known projections, is
+equal-area, and has been used since the mid-16th century. It has also been
+called the "Equal-area Mercator" projection. The central meridian is a straight
+line; all other meridians are sinusoidal curves. Parallels are all equally
+spaced straight lines, with scale being true along all parallels (and central
+meridian).
 
 **i**\ [*lon0/*]\ *scale* or **I**\ [*lon0/*]\ *width*
 
 The projection is set with **i** or **I**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-22
+.. GENERATED FROM PYTHON SOURCE LINES 17-23
 
 
 
@@ -68,7 +69,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.924 seconds)
+   **Total running time of the script:** ( 0 minutes  1.135 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_sinusoidal.py:

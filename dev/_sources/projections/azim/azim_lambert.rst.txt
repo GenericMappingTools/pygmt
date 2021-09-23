@@ -21,19 +21,20 @@
 Lambert Azimuthal Equal Area
 ============================
 
-This projection was developed by Johann Heinrich Lambert in 1772 and is typically used
-for mapping large regions like continents and hemispheres. It is an azimuthal,
-equal-area projection, but is not perspective. Distortion is zero at the center of the
-projection, and increases radially away from this point.
+This projection was developed by Johann Heinrich Lambert in 1772 and is
+typically used for mapping large regions like continents and hemispheres. It is
+an azimuthal, equal-area projection, but is not perspective. Distortion is zero
+at the center of the projection, and increases radially away from this point.
 
 **a**\ *lon0/lat0*\ [*/horizon*\ ]\ */scale*
 or **A**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*
 
-**a** or **A** specifies the projection type, and *lon0/lat0* specifies the projection
-center, *horizon* specifies the maximum distance from projection center (in degrees,
-<= 180, default 90), and *scale* or *width* sets the size of the figure.
+**a** or **A** specifies the projection type, and *lon0/lat0* specifies the
+projection center, *horizon* specifies the maximum distance from projection
+center (in degrees, <= 180, default 90), and *scale* or *width* sets the size
+of the figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-22
+.. GENERATED FROM PYTHON SOURCE LINES 18-23
 
 
 
@@ -68,7 +69,7 @@ center, *horizon* specifies the maximum distance from projection center (in degr
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.947 seconds)
+   **Total running time of the script:** ( 0 minutes  1.198 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_lambert.py:

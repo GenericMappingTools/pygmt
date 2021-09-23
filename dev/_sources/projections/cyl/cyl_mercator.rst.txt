@@ -21,14 +21,15 @@
 Mercator
 ========
 
-The Mercator projection takes its name from the Flemish cartographer Gheert Cremer,
-better known as Gerardus Mercator, who presented it in 1569. The projection is a
-cylindrical and conformal, with no distortion along the equator. A major navigational
-feature of the projection is that a line of constant azimuth is straight. Such a line
-is called a rhumb line or loxodrome. Thus, to sail from one point to another one only
-had to connect the points with a straight line, determine the azimuth of the line, and
-keep this constant course for the entire voyage. The Mercator projection has been used
-extensively for world maps in which the distortion towards the polar regions grows
+The Mercator projection takes its name from the Flemish cartographer Gheert
+Cremer, better known as Gerardus Mercator, who presented it in 1569. The
+projection is a cylindrical and conformal, with no distortion along the
+equator. A major navigational feature of the projection is that a line of
+constant azimuth is straight. Such a line is called a rhumb line or loxodrome.
+Thus, to sail from one point to another one only had to connect the points with
+a straight line, determine the azimuth of the line, and keep this constant
+course for the entire voyage. The Mercator projection has been used extensively
+for world maps in which the distortion towards the polar regions grows
 rather large.
 
 **m**\ [*lon0[/lat0]*]\ */scale* or **M**\ [*lon0*][*/lat0*]\ */width*
@@ -37,7 +38,7 @@ The projection is set with **m** or **M**. The central meridian is set with the
 optional *lon0* and the standard parallel is set with the optional *lat0*.
 The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-26
+.. GENERATED FROM PYTHON SOURCE LINES 22-27
 
 
 
@@ -72,7 +73,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.954 seconds)
+   **Total running time of the script:** ( 0 minutes  1.201 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_mercator.py:

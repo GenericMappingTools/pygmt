@@ -20,12 +20,13 @@
 
 Multiple colormaps
 ------------------
-This gallery example shows how to create multiple colormaps for different subplots. To
-better understand how GMT modern mode maintains several levels of colormaps,
-please refer to :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`
-for details.
+This gallery example shows how to create multiple colormaps for different
+subplots. To better understand how GMT modern mode maintains several levels of
+colormaps, please refer to
+:gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels` for
+details.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-44
+.. GENERATED FROM PYTHON SOURCE LINES 10-45
 
 
 
@@ -93,7 +94,7 @@ for details.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.238 seconds)
+   **Total running time of the script:** ( 0 minutes  2.824 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_colorbars_multiple.py:

@@ -21,11 +21,11 @@
 Plotting data points
 --------------------
 
-GMT shines when it comes to plotting data on a map. We can use some sample data that is
-packaged with GMT to try this out. PyGMT provides access to these datasets through the
-:mod:`pygmt.datasets` package. If you don't have the data files already, they are
-automatically downloaded and saved to a cache directory the first time you use them
-(usually ``~/.gmt/cache``).
+GMT shines when it comes to plotting data on a map. We can use some sample data
+that is packaged with GMT to try this out. PyGMT provides access to these
+datasets through the :mod:`pygmt.datasets` package. If you don't have the data
+files already, they are automatically downloaded and saved to a cache directory
+the first time you use them (usually ``~/.gmt/cache``).
 
 .. GENERATED FROM PYTHON SOURCE LINES 11-14
 
@@ -43,9 +43,9 @@ automatically downloaded and saved to a cache directory the first time you use t
 
 .. GENERATED FROM PYTHON SOURCE LINES 16-19
 
-For example, let's load the sample dataset of tsunami generating earthquakes around
-Japan (:func:`pygmt.datasets.load_japan_quakes`). The data is loaded as a
-:class:`pandas.DataFrame`.
+For example, let's load the sample dataset of tsunami generating earthquakes
+around Japan (:func:`pygmt.datasets.load_japan_quakes`). The data is loaded
+as a :class:`pandas.DataFrame`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 19-34
 
@@ -87,11 +87,12 @@ Japan (:func:`pygmt.datasets.load_japan_quakes`). The data is loaded as a
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-36
+.. GENERATED FROM PYTHON SOURCE LINES 35-37
 
-We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the earthquake epicenters.
+We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the
+earthquake epicenters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-43
+.. GENERATED FROM PYTHON SOURCE LINES 37-44
 
 .. code-block:: default
 
@@ -121,16 +122,18 @@ We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the earthquake
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-50
+.. GENERATED FROM PYTHON SOURCE LINES 45-53
 
-We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The ``pen``
-parameter controls the outline of the symbols and the ``color`` parameter controls the fill.
+We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The
+``pen`` parameter controls the outline of the symbols and the ``color``
+parameter controls the fill.
 
-We can map the size of the circles to the earthquake magnitude by passing an array to
-the ``size`` parameter. Because the magnitude is on a logarithmic scale, it helps to
-show the differences by scaling the values using a power law.
+We can map the size of the circles to the earthquake magnitude by passing an
+array to the ``size`` parameter. Because the magnitude is on a logarithmic
+scale, it helps to show the differences by scaling the values using a power
+law.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-64
+.. GENERATED FROM PYTHON SOURCE LINES 53-67
 
 .. code-block:: default
 
@@ -167,22 +170,22 @@ show the differences by scaling the values using a power law.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-77
+.. GENERATED FROM PYTHON SOURCE LINES 68-80
 
-Notice that we didn't include the size in the ``style`` parameter this time, just the
-symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this case, the size
-will be interpreted as being in centimeters.
+Notice that we didn't include the size in the ``style`` parameter this time,
+just the symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this
+case, the size will be interpreted as being in centimeters.
 
-We can also map the colors of the markers to the depths by passing an array to the
-``color`` parameter and providing a colormap name (``cmap``). We can even use the new
-matplotlib colormap "viridis". Here, we first create a continuous colormap
-ranging from the minimum depth to the maximum depth of the earthquakes
-using :func:`pygmt.makecpt`, then set ``cmap=True`` in :func:`pygmt.Figure.plot`
-to use the colormap. At the end of the plot, we also plot a colorbar showing
-the colormap used in the plot.
+We can also map the colors of the markers to the depths by passing an array
+to the ``color`` parameter and providing a colormap name (``cmap``). We can
+even use the new matplotlib colormap "viridis". Here, we first create a
+continuous colormap ranging from the minimum depth to the maximum depth of
+the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
+:func:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
+also plot a colorbar showing the colormap used in the plot.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-93
+.. GENERATED FROM PYTHON SOURCE LINES 80-96
 
 .. code-block:: default
 
@@ -224,7 +227,7 @@ the colormap used in the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.344 seconds)
+   **Total running time of the script:** ( 0 minutes  5.446 seconds)
 
 
 .. _sphx_glr_download_tutorials_plot.py:

@@ -48,7 +48,7 @@ the vector type, here ``v``, see also
 :doc:`Vector types documentation </gallery/lines/vector_styles>`)
 by passing the corresponding shortcuts to the ``style`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-83
+.. GENERATED FROM PYTHON SOURCE LINES 33-85
 
 
 
@@ -90,11 +90,13 @@ by passing the corresponding shortcuts to the ``style`` parameter.
     for vecstyle in [
         # vector without head and tail (line)
         "v0c",
-        # plain open arrow at beginning and end, angle of the vector head apex is set to 50
+        # plain open arrow at beginning and end, angle of the vector head apex is
+        # set to 50
         "v0.6c+bA+eA+a50",
         # plain open tail at beginning and end
         "v0.4c+bI+eI",
-        # terminal line at beginning and end, angle of vector head apex is set to 80
+        # terminal line at beginning and end, angle of vector head apex is set
+        # to 80
         "v0.3c+bt+et+a80",
         # arrow head at end
         "v0.6c+e",
@@ -128,7 +130,7 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.980 seconds)
+   **Total running time of the script:** ( 0 minutes  5.248 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_vector_heads_tails.py:

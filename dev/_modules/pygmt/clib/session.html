@@ -1,57 +1,33 @@
 
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
     
         <title>pygmt.clib.session &mdash; PyGMT</title>
     
 
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
-
-  
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
-  
-
-  
-  
-
-  
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <!-- Google Analytics tracking code -->
@@ -74,15 +50,11 @@
 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
     <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
 
     
@@ -104,17 +76,8 @@
 </div>
 
 
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
-            
-            
-              
-            
-            
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
@@ -156,8 +119,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
 </ul>
 
-            
-          
 
     
         <p class="caption">
@@ -177,69 +138,33 @@
     
 
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">PyGMT</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+<div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
           <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-        
       <li>pygmt.clib.session</li>
-    
-    
     <li class="source-link">
         
     </li>
 
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for pygmt.clib.session</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Defines the Session class to create and destroy a GMT API session and provides</span>
@@ -356,9 +281,7 @@
 <span class="sd">    ...         with GMTTempFile() as fout:</span>
 <span class="sd">    ...             # Call the grdinfo module with the virtual file as input</span>
 <span class="sd">    ...             # and the temp file as output.</span>
-<span class="sd">    ...             ses.call_module(</span>
-<span class="sd">    ...                 &quot;grdinfo&quot;, &quot;{} -C -&gt;{}&quot;.format(fin, fout.name)</span>
-<span class="sd">    ...             )</span>
+<span class="sd">    ...             ses.call_module(&quot;grdinfo&quot;, f&quot;{fin} -C -&gt;{fout.name}&quot;)</span>
 <span class="sd">    ...             # Read the contents of the temp file before it&#39;s deleted.</span>
 <span class="sd">    ...             print(fout.read().strip())</span>
 <span class="sd">    ...</span>
@@ -432,9 +355,8 @@
         <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required_version</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
             <span class="k">raise</span> <span class="n">GMTVersionError</span><span class="p">(</span>
-                <span class="s2">&quot;Using an incompatible GMT version </span><span class="si">{}</span><span class="s2">. Must be equal or newer than </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_version</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Using an incompatible GMT version </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Must be equal or newer than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">required_version</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -609,7 +531,7 @@
 
         <span class="k">if</span> <span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span>
-                <span class="s2">&quot;Failed to create a GMT API session:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Failed to create a GMT API session:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span> <span class="o">=</span> <span class="n">session</span></div>
@@ -655,7 +577,7 @@
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_destroy_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span>
-                <span class="s2">&quot;Failed to destroy GMT API session:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Failed to destroy GMT API session:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -705,9 +627,7 @@
 
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span>
-                <span class="s2">&quot;Error getting default value for &#39;</span><span class="si">{}</span><span class="s2">&#39; (error code </span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">name</span><span class="p">,</span> <span class="n">status</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Error getting default value for &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (error code </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">).&quot;</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></div>
@@ -746,9 +666,7 @@
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span>
-                <span class="s2">&quot;Module &#39;</span><span class="si">{}</span><span class="s2">&#39; failed with status code </span><span class="si">{}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">module</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Module &#39;</span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">&#39; failed with status code </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Session.create_data"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data">[docs]</a>    <span class="k">def</span> <span class="nf">create_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -893,20 +811,16 @@
         <span class="n">nmodifiers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">nmodifiers</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="s2">&quot;Only one modifier is allowed in constants, </span><span class="si">{}</span><span class="s2"> given: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">nmodifiers</span><span class="p">,</span> <span class="n">constant</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Only one modifier is allowed in constants, </span><span class="si">{</span><span class="n">nmodifiers</span><span class="si">}</span><span class="s2"> given: &#39;</span><span class="si">{</span><span class="n">constant</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">nmodifiers</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">valid_modifiers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                 <span class="s2">&quot;Constant modifiers not allowed since valid values were not &quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;given: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">constant</span><span class="p">)</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;given: &#39;</span><span class="si">{</span><span class="n">constant</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="s2">&quot;Invalid constant argument &#39;</span><span class="si">{}</span><span class="s2">&#39;. Must be one of </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid constant argument &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;. Must be one of </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">nmodifiers</span> <span class="o">&gt;</span> <span class="mi">0</span>
@@ -914,9 +828,7 @@
             <span class="ow">and</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_modifiers</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="s2">&quot;Invalid constant modifier &#39;</span><span class="si">{}</span><span class="s2">&#39;. Must be one of </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">valid_modifiers</span><span class="p">)</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid constant modifier &#39;</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;. Must be one of </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">valid_modifiers</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
         <span class="n">integer_value</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">part</span><span class="p">]</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">integer_value</span>
@@ -1148,7 +1060,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">gmt_type</span><span class="p">,</span> <span class="n">pad</span><span class="p">,</span> <span class="n">matrix_pointer</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to put matrix of type </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span></div>
+            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to put matrix of type </span><span class="si">{</span><span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Session.write_data"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data">[docs]</a>    <span class="k">def</span> <span class="nf">write_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">wesn</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1217,7 +1129,7 @@
             <span class="n">data</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to write dataset to &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="p">))</span></div>
+            <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to write dataset to &#39;</span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Session.open_virtual_file"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.open_virtual_file.html#pygmt.clib.Session.open_virtual_file">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">open_virtual_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
@@ -1279,7 +1191,7 @@
 <span class="sd">        ...     with lib.open_virtual_file(*vfargs) as vfile:</span>
 <span class="sd">        ...         # Send the output to a temp file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as ofile:</span>
-<span class="sd">        ...             args = &quot;{} -&gt;{}&quot;.format(vfile, ofile.name)</span>
+<span class="sd">        ...             args = f&quot;{vfile} -&gt;{ofile.name}&quot;</span>
 <span class="sd">        ...             lib.call_module(&quot;info&quot;, args)</span>
 <span class="sd">        ...             print(ofile.read().strip())</span>
 <span class="sd">        ...</span>
@@ -1326,7 +1238,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">status</span> <span class="o">=</span> <span class="n">c_close_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">vfname</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
             <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="s2">&quot;Failed to close virtual file &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vfname</span><span class="p">))</span></div>
+                <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to close virtual file &#39;</span><span class="si">{</span><span class="n">vfname</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Session.virtualfile_from_vectors"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">virtualfile_from_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">vectors</span><span class="p">):</span>
@@ -1374,9 +1286,7 @@
 <span class="sd">        ...     with ses.virtualfile_from_vectors(x, y, z) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             ses.call_module(</span>
-<span class="sd">        ...                 &quot;info&quot;, &quot;{} -&gt;{}&quot;.format(fin, fout.name)</span>
-<span class="sd">        ...             )</span>
+<span class="sd">        ...             ses.call_module(&quot;info&quot;, f&quot;{fin} -&gt;{fout.name}&quot;)</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        ...</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;1/3&gt; &lt;4/6&gt; &lt;7/9&gt;</span>
@@ -1487,9 +1397,7 @@
 <span class="sd">        ...     with ses.virtualfile_from_matrix(data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             ses.call_module(</span>
-<span class="sd">        ...                 &quot;info&quot;, &quot;{} -&gt;{}&quot;.format(fin, fout.name)</span>
-<span class="sd">        ...             )</span>
+<span class="sd">        ...             ses.call_module(&quot;info&quot;, f&quot;{fin} -&gt;{fout.name}&quot;)</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        ...</span>
 <span class="sd">        &lt;matrix memory&gt;: N = 4 &lt;0/9&gt; &lt;1/10&gt; &lt;2/11&gt;</span>
@@ -1570,7 +1478,7 @@
 <span class="sd">        ...     with ses.virtualfile_from_grid(data) as fin:</span>
 <span class="sd">        ...         # Send the output to a file so that we can read it</span>
 <span class="sd">        ...         with GMTTempFile() as fout:</span>
-<span class="sd">        ...             args = &quot;{} -L0 -Cn -&gt;{}&quot;.format(fin, fout.name)</span>
+<span class="sd">        ...             args = f&quot;{fin} -L0 -Cn -&gt;{fout.name}&quot;</span>
 <span class="sd">        ...             ses.call_module(&quot;grdinfo&quot;, args)</span>
 <span class="sd">        ...             print(fout.read().strip())</span>
 <span class="sd">        ...</span>
@@ -1605,7 +1513,14 @@
 
 <div class="viewcode-block" id="Session.virtualfile_from_data"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.virtualfile_from_data.html#pygmt.clib.Session.virtualfile_from_data">[docs]</a>    <span class="nd">@fmt_docstring</span>
     <span class="k">def</span> <span class="nf">virtualfile_from_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">check_kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_arrays</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">check_kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_arrays</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store any data inside a virtual file.</span>
@@ -1619,14 +1534,17 @@
 <span class="sd">        check_kind : str</span>
 <span class="sd">            Used to validate the type of data that can be passed in. Choose</span>
 <span class="sd">            from &#39;raster&#39;, &#39;vector&#39; or None. Default is None (no validation).</span>
-<span class="sd">        data : str or xarray.DataArray or {table-like} or None</span>
-<span class="sd">            Any raster or vector data format. This could be a file name, a</span>
-<span class="sd">            raster grid, a vector matrix/arrays, or other supported data input.</span>
+<span class="sd">        data : str or pathlib.Path or xarray.DataArray or {table-like} or None</span>
+<span class="sd">            Any raster or vector data format. This could be a file name or</span>
+<span class="sd">            path, a raster grid, a vector matrix/arrays, or other supported</span>
+<span class="sd">            data input.</span>
 <span class="sd">        x/y/z : 1d arrays or None</span>
 <span class="sd">            x, y and z columns as numpy arrays.</span>
 <span class="sd">        extra_arrays : list of 1d arrays</span>
 <span class="sd">            Optional. A list of numpy arrays in addition to x, y and z. All</span>
 <span class="sd">            of these arrays must be of the same size as the x/y/z arrays.</span>
+<span class="sd">        required_z : bool</span>
+<span class="sd">            State whether the &#39;z&#39; column is required.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1657,7 +1575,7 @@
 <span class="sd">        ...</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;7/9&gt; &lt;4/6&gt; &lt;1/3&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="n">required_z</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;raster&quot;</span> <span class="ow">and</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type for grid: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1682,8 +1600,11 @@
         <span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
 
         <span class="c1"># Ensure the data is an iterable (Python list or tuple)</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">):</span>
             <span class="n">_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,)</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="c1"># Useful to handle `pathlib.Path` and string file path alike</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">),)</span>
         <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
             <span class="n">_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span>
             <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1740,7 +1661,7 @@
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
 <span class="sd">        ...     wesn = lib.extract_region()</span>
 <span class="sd">        ...</span>
-<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([&quot;{:.2f}&quot;.format(x) for x in wesn]))</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in wesn]))</span>
 <span class="sd">        0.00, 10.00, -20.00, -10.00</span>
 
 <span class="sd">        Using ISO country codes for the regions (for example ``&#39;US.HI&#39;`` for</span>
@@ -1753,7 +1674,7 @@
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
 <span class="sd">        ...     wesn = lib.extract_region()</span>
 <span class="sd">        ...</span>
-<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([&quot;{:.2f}&quot;.format(x) for x in wesn]))</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in wesn]))</span>
 <span class="sd">        -164.71, -154.81, 18.91, 23.58</span>
 
 <span class="sd">        The country codes can have an extra argument that rounds the region a</span>
@@ -1767,7 +1688,7 @@
 <span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
 <span class="sd">        ...     wesn = lib.extract_region()</span>
 <span class="sd">        ...</span>
-<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([&quot;{:.2f}&quot;.format(x) for x in wesn]))</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in wesn]))</span>
 <span class="sd">        -165.00, -150.00, 15.00, 25.00</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c_extract_region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
@@ -1788,7 +1709,6 @@
 </pre></div>
 
            </div>
-           
           </div>
           
 <footer>
@@ -1796,18 +1716,14 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">
-        
-        Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/31980e8">31980e8</a></code>.
+    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
       </span>
-      <span class="lastupdated">
-        Last updated on Aug 07, 2021.
-      </span>
-
-    </p>
+      <span class="lastupdated">Last updated on Sep 23, 2021.
+      </span></p>
   </div>
+
+  
 <p>
 Built with <a href="http://sphinx-doc.org/">Sphinx</a>
 using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
@@ -1824,22 +1740,13 @@ software usage.
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

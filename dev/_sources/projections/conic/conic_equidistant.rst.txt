@@ -21,17 +21,17 @@
 Equidistant conic
 =================
 
-The equidistant conic projection was described by the Greek philosopher Claudius
-Ptolemy about A.D. 150. It is neither conformal or equal-area, but serves as a
-compromise between them. The scale is true along all meridians and the
-standard parallels.
+The equidistant conic projection was described by the Greek philosopher
+Claudius Ptolemy about A.D. 150. It is neither conformal or equal-area, but
+serves as a compromise between them. The scale is true along all meridians and
+the standard parallels.
 
 **d**\ *lon0/lat0*\ /\ *lat1/lat2*\ */scale*
 or **D**\ *lon0/lat0*\ /\ *lat1/lat2*\ */width*
 
-The projection is set with **d** or **D**. The projection center is set by *lon0/lat0*
-and two standard parallels for the map are set with *lat1/lat2*. The figure size is set
-with *scale* or *width*.
+The projection is set with **d** or **D**. The projection center is set by
+*lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
+The figure size is set with *scale* or *width*.
 
 .. GENERATED FROM PYTHON SOURCE LINES 17-29
 
@@ -75,7 +75,7 @@ with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.888 seconds)
+   **Total running time of the script:** ( 0 minutes  1.121 seconds)
 
 
 .. _sphx_glr_download_projections_conic_conic_equidistant.py:
