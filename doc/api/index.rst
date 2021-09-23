@@ -82,6 +82,7 @@ Operations on tabular data:
     blockmean
     blockmedian
     blockmode
+    nearneighbor
     surface
 
 Operations on grids:

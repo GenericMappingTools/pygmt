@@ -48,6 +48,7 @@ from pygmt.src import (
     grdtrack,
     info,
     makecpt,
+    nearneighbor,
     sphdistance,
     surface,
     which,
