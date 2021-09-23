@@ -37,7 +37,7 @@ def test_info_deprecate_tabel_to_data():
     warning.
     """
     with pytest.warns(expected_warning=FutureWarning) as record:
-        output = info(table=POINTS_DATA)
+        output = info(table=POINTS_DATA)  # pylint: disable=no-value-for-parameter
         expected_output = (
             f"{POINTS_DATA}: N = 20 "
             "<11.5309/61.7074> "
