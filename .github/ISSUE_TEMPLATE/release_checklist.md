@@ -16,6 +16,7 @@ assignees: ''
 - [ ] Wrap Y ()
 
 **Before release**:
+- [ ] Remove deprecations and related tests that should be removed in this version
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
