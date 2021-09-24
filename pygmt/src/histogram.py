@@ -2,10 +2,17 @@
 Histogram - Create a histogram
 """
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
+@deprecate_parameter("table", "data", "v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="horizontal",
     B="frame",
@@ -41,7 +48,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(
     R="sequence", T="sequence", c="sequence_comma", i="sequence_comma", p="sequence"
 )
-def histogram(self, table, **kwargs):
+def histogram(self, data, **kwargs):
     r"""
     Plots a histogram, and can read data from a file or
     list, array, or dataframe.
@@ -51,8 +58,8 @@ def histogram(self, table, **kwargs):
     {aliases}
 
     Parameters
-    ----------
-    table : str or list or {table-like}
+    ---------
+    data : str or list or {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
     {J}
@@ -139,7 +146,7 @@ def histogram(self, table, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
+        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:
             arg_str = " ".join([infile, build_arg_string(kwargs)])
             lib.call_module("histogram", arg_str)
