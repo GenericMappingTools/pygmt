@@ -31,7 +31,7 @@ def test_info():
     assert output == expected_output
 
 
-def test_info_deprecate_tabel_to_data():
+def test_info_deprecate_table_to_data():
     """
     Make sure that the old parameter "table" is supported and it reports a
     warning.
