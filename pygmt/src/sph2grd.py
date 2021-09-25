@@ -15,7 +15,7 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     G="outgrid",
-    I="increment",
+    I="spacing",
     R="region",
     V="verbose",
 )
@@ -28,11 +28,13 @@ def sph2grd(table, **kwargs):
     C[L,M], S[L,M] and evaluates the spherical harmonic model on the
     specified grid.
 
+    Full option list at :gmt-docs:`sph2grd.html`
+
     {aliases}
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -47,13 +49,14 @@ def sph2grd(table, **kwargs):
     -------
     ret: xarray.DataArray or None
         Return type depends on whether the ``outgrid`` parameter is set:
+
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
+            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
