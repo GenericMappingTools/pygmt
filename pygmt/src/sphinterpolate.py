@@ -31,6 +31,8 @@ def sphinterpolate(data, **kwargs):
     versus global gradient estimation or optimize the tension selection to
     satisfy one of four criteria.
 
+    Full option list at :gmt-docs:`sphinterpolate.html`
+
     {aliases}
 
     Parameters
