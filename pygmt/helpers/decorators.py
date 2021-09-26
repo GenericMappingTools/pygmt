@@ -817,6 +817,8 @@ def check_data_input_order(deprecate_version, remove_version):
     """
     Decorator to raise a FutureWarning if the order of data input parameters
     changes and positional arguments are passed.
+    
+    The decorator is temporary and should be removed in v0.7.0.
 
     Parameters
     ----------
@@ -855,7 +857,7 @@ def check_data_input_order(deprecate_version, remove_version):
             New module instance that raises a warning if positional arguments
             are passed.
             """
-            if len(args) != 0:  # positional arguments are used
+            if len(args) > 0:  # positional arguments are used
                 msg = (
                     "The function parameters has been re-ordered as 'data, x, y, [z]' "
                     f"since {deprecate_version} but you're passing positional arguments. "
