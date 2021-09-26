@@ -26,10 +26,9 @@ def sphinterpolate(data, **kwargs):
 
     Reads one or more ASCII [or binary] files (or standard input) containing
     *lon, lat, z* and performs a Delaunay triangulation to set up a spherical
-    interpolation in tension. The final grid is saved to the specified file.
-    Several options may be used to affect the outcome, such as choosing local
-    versus global gradient estimation or optimize the tension selection to
-    satisfy one of four criteria.
+    interpolation in tension. Several options may be used to affect the outcome, 
+    such as choosing local versus global gradient estimation or optimize the 
+    tension selection to satisfy one of four criteria.
 
     Full option list at :gmt-docs:`sphinterpolate.html`
 
