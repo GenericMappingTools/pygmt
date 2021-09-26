@@ -53,7 +53,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
+def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -81,14 +81,14 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
 
     Parameters
     ----------
-    x/y : float or 1d arrays
-        The x and y coordinates, or arrays of x and y coordinates of the
-        data points
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, color, and
         size, respectively.
+    x/y : float or 1d arrays
+        The x and y coordinates, or arrays of x and y coordinates of the
+        data points
     size : 1d array
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
