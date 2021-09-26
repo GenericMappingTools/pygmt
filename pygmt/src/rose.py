@@ -47,7 +47,7 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def rose(self, length=None, azimuth=None, data=None, **kwargs):
+def rose(self, data=None, length=None, azimuth=None, **kwargs):
     """
     Plot windrose diagrams or polar histograms.
 
@@ -67,10 +67,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     Parameters
     ----------
-    length/azimuth : float or 1d arrays
-        Length and azimuth values, or arrays of length and azimuth
-        values
-
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -78,6 +74,10 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         respectively. If a file with only azimuths is given, use ``columns`` to
         indicate the single column with azimuths; then all lengths are set to
         unity (see ``scale = 'u'`` to set actual lengths to unity as well).
+
+    length/azimuth : float or 1d arrays
+        Length and azimuth values, or arrays of length and azimuth
+        values
 
     orientation : bool
         Specifies that the input data are orientation data (i.e., have a
