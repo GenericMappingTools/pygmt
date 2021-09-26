@@ -14,7 +14,7 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @use_alias(
-    A="duplicate",
+    A="multiple_nodes",
     G="outgrid",
     I="spacing",
     R="region",
@@ -45,7 +45,7 @@ def xyz2grd(table, **kwargs):
     outgrid : str or None
         Optional. The name of the output netCDF file with extension .nc to
         store the grid in.
-    duplicate : str
+    multiple_nodes : str
         [**d**\|\ **f**\|\ **l**\|\ **m**\|\ **n**\|\
         **r**\|\ **S**\|\ **s**\|\ **u**\|\ **z**]
         By default we will calculate mean values if multiple entries fall on
