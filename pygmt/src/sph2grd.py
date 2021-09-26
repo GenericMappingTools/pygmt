@@ -10,6 +10,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -20,7 +21,7 @@ from pygmt.helpers import (
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sph2grd(table, **kwargs):
+def sph2grd(data, **kwargs):
     r"""
     Create spherical grid files in tension of data.
 
