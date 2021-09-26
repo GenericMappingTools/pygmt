@@ -28,7 +28,7 @@ def xyz2grd(table, **kwargs):
     r"""
     Create a grid file from table data.
 
-    xyz2grd reads one or more z or xyz tables and creates a binary grid file.
+    Reads one or more tables with *x, y, z* columns and creates a binary grid file.
     xyz2grd will report if some of the nodes are not filled in with data. Such
     unconstrained nodes are set to a value specified by the user [Default is
     NaN]. Nodes with more than one value will be set to the mean value.
