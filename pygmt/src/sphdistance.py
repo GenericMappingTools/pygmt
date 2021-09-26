@@ -22,7 +22,7 @@ from pygmt.io import load_dataarray
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphdistance(x=None, y=None, z=None, data=None, **kwargs):
+def sphdistance(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Create Voroni polygons from lat/lon coordinates.
 
@@ -35,12 +35,12 @@ def sphdistance(x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
-    x/y/z : 1d arrays
-        Arrays of x and y coordinates and values z of the data points.
     data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
+    x/y/z : 1d arrays
+        Arrays of x and y coordinates and values z of the data points.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
@@ -62,7 +62,7 @@ def sphdistance(x=None, y=None, z=None, data=None, **kwargs):
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z
+                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
