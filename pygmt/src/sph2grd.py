@@ -66,4 +66,4 @@ def sph2grd(data, **kwargs):
                 arg_str = " ".join([infile, arg_str])
                 lib.call_module("sph2grd", arg_str)
 
-    return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
