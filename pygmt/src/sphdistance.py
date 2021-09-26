@@ -22,7 +22,7 @@ from pygmt.io import load_dataarray
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphdistance(data=None, x=None, y=None, z=None, **kwargs):
+def sphdistance(data=None, x=None, y=None, **kwargs):
     r"""
     Create Voroni polygons from lat/lon coordinates.
 
@@ -36,7 +36,7 @@ def sphdistance(data=None, x=None, y=None, z=None, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        Pass in (x, y) or (longitude, latitude) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
     x/y/z : 1d arrays
@@ -62,7 +62,7 @@ def sphdistance(data=None, x=None, y=None, z=None, **kwargs):
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, x=x, y=y
             )
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
