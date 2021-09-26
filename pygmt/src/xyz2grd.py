@@ -15,7 +15,6 @@ from pygmt.io import load_dataarray
 @fmt_docstring
 @use_alias(
     A="duplicate",
-    D="dname",
     G="outgrid",
     I="spacing",
     R="region",
@@ -61,23 +60,6 @@ def xyz2grd(table, **kwargs):
         assigned to each node (this only requires two input columns *x* and
         *y* as *z* is not consulted). Append **z** to sum multiple values that
         belong to the same node.
-    dname : str
-        [**+x**\ *xname*][**+y**\ *yname*][**+z**\ *zname*][**+d**\ *vname*]
-        [**+s**\ *scale*][**+o**\ *offset*][**+n**\ *invalid*][**+t**\ *title*]
-        [**+r**\ *remark*][**+v**\ *varname*].
-        Give one or more combinations for values *xname*, *yname*, *zname*
-        (3rd dimension in cube), and *dname* (data value name) and give the
-        names of those variables and in square bracket their units,
-        e.g., "distance [km]"), *scale* (to multiply data values after
-        read [normally 1]), *offset* (to add to data after scaling
-        [normally 0]), *invalid* (a value to represent missing data [NaN]),
-        *title* (anything you like), and *remark* (anything you like). Items
-        not listed will remain untouched. Give a blank name to completely reset
-        a particular string. Use quotes to group texts with more than one word.
-        If any of your text contains plus symbols you need to escape them
-        (place a backslash before each plus-sign) so they are not confused with
-        the option modifiers.  Alternatively, you can place the entire
-        double-quoted string inside single quotes.
     {I}
     {R}
     {V}
