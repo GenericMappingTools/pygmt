@@ -18,8 +18,13 @@ from pygmt.io import load_dataarray
     I="spacing",
     R="region",
     V="verbose",
+    b="binary",
+    h="header",
+    i="incols",
+    r="registration",
+    x="cores",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def sph2grd(data, **kwargs):
     r"""
     Create spherical grid files in tension of data.
@@ -44,6 +49,11 @@ def sph2grd(data, **kwargs):
     {I}
     {R}
     {V}
+    {b}
+    {h}
+    {i}
+    {r}
+    {x}
 
     Returns
     -------
