@@ -34,6 +34,7 @@ from pygmt.helpers import (
     Y="yshift",
     c="panel",
     f="coltypes",
+    n="interpolation",
     p="perspective",
     t="transparency",
 )
@@ -116,6 +117,7 @@ def grdview(self, grid, **kwargs):
     {XY}
     {c}
     {f}
+    {n}
     {p}
     {t}
     """

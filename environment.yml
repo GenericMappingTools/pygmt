@@ -6,7 +6,7 @@ dependencies:
     # Required dependencies
     - pip
     - gmt=6.2.0
-    - numpy>=1.17
+    - numpy>=1.18
     - pandas
     - xarray
     - netCDF4
@@ -16,10 +16,9 @@ dependencies:
     # Development dependencies
     - black
     - blackdoc
-    - codecov
     - coverage[toml]
     - docformatter
-    - dvc
+    - dvc=2.3.0
     - flake8
     - ipython
     - isort>=5
