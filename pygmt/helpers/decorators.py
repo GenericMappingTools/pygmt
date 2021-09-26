@@ -817,7 +817,7 @@ def check_data_input_order(deprecate_version, remove_version):
     """
     Decorator to raise a FutureWarning if the order of data input parameters
     changes and positional arguments are passed.
-    
+
     The decorator is temporary and should be removed in v0.7.0.
 
     Parameters
