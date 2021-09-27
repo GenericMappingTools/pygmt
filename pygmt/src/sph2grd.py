@@ -40,7 +40,7 @@ def sph2grd(data, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        Pass in data with L, M, C[L,M], S[L,M] values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
     outgrid : str or None
