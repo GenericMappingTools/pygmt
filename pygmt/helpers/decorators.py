@@ -11,6 +11,7 @@ import warnings
 from inspect import Parameter, signature
 
 import numpy as np
+import pygmt
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
@@ -857,7 +858,14 @@ def check_data_input_order(deprecate_version, remove_version):
             New module instance that raises a warning if positional arguments
             are passed.
             """
-            if len(args) > 0:  # positional arguments are used
+            # plotting function always has the "self" parameter
+            if len(args) > 1 and isinstance(args[0], pygmt.Figure):
+                plotting_func = 1
+            else:
+                plotting_func = 0
+
+            if len(args) > 1 + plotting_func:
+                # more than one positional arguments are used
                 msg = (
                     "The function parameters has been re-ordered as 'data, x, y, [z]' "
                     f"since {deprecate_version} but you're passing positional arguments. "
