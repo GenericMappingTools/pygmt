@@ -165,6 +165,7 @@ def download_test_data():
         "@N37W120.earth_relief_03s_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
         # Other cache files
+        "@EGM96_to_36.txt",
         "@fractures_06.txt",
         "@hotspots.txt",
         "@ridge.txt",
