@@ -5,6 +5,7 @@ rose - Plot windrose diagrams or polar histograms.
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
+    check_data_input_order,
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
@@ -14,6 +15,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="sector",
     B="frame",
