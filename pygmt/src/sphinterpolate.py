@@ -24,11 +24,11 @@ def sphinterpolate(data, **kwargs):
     r"""
     Create spherical grid files in tension of data.
 
-    Reads one or more ASCII [or binary] files (or standard input) containing
-    *lon, lat, z* and performs a Delaunay triangulation to set up a spherical
-    interpolation in tension. Several options may be used to affect the outcome, 
-    such as choosing local versus global gradient estimation or optimize the 
-    tension selection to satisfy one of four criteria.
+    Reads a table containing *lon, lat, z* columns and performs a Delaunay
+    triangulation to set up a spherical interpolation in tension. Several
+    options may be used to affect the outcome, such as choosing local versus
+    global gradient estimation or optimize the tension selection to satisfy one
+    of four criteria.
 
     Full option list at :gmt-docs:`sphinterpolate.html`
 
