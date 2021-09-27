@@ -23,7 +23,7 @@ def test_select_input_dataframe(dataframe):
     """
     Run select by passing in a pandas.DataFrame as input.
     """
-    output = select(table=dataframe, region=[250, 251, 26, 27])
+    output = select(data=dataframe, region=[250, 251, 26, 27])
     assert isinstance(output, pd.DataFrame)
     assert all(dataframe.columns == output.columns)
     assert output.shape == (65, 3)
@@ -37,8 +37,8 @@ def test_select_input_table_matrix(dataframe):
 
     Also testing the reverse (I) alias.
     """
-    table = dataframe.values
-    output = select(table=table, region=[245.5, 254.5, 20.5, 29.5], reverse="r")
+    data = dataframe.values
+    output = select(data=data, region=[245.5, 254.5, 20.5, 29.5], reverse="r")
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (9177, 3)
     npt.assert_allclose(output.median(), [247.235, 20.48624, -3241.0])
@@ -52,7 +52,7 @@ def test_select_input_filename():
     """
     with GMTTempFile() as tmpfile:
         output = select(
-            table="@tut_ship.xyz",
+            data="@tut_ship.xyz",
             region=[250, 251, 26, 27],
             z_subregion=["-/-630", "-120/0+a"],
             outfile=tmpfile.name,

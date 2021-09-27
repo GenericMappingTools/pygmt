@@ -33,12 +33,12 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence")
-def select(table=None, outfile=None, **kwargs):
+def select(data=None, outfile=None, **kwargs):
     r"""
     Select data table subsets based on multiple spatial criteria.
 
     This is a filter that reads (x, y) or (longitude, latitude) positions from
-    the first 2 columns of *table* and uses a combination of 1-7 criteria to
+    the first 2 columns of *data* and uses a combination of 1-7 criteria to
     pass or reject the records. Records can be selected based on whether or not
     they are:
 
@@ -59,7 +59,7 @@ def select(table=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
     outfile : str
@@ -126,7 +126,7 @@ def select(table=None, outfile=None, **kwargs):
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
             # Choose how data will be passed into the module
-            table_context = lib.virtualfile_from_data(check_kind="vector", data=table)
+            table_context = lib.virtualfile_from_data(check_kind="vector", data=data)
             with table_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
@@ -136,7 +136,7 @@ def select(table=None, outfile=None, **kwargs):
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
             try:
-                column_names = table.columns.to_list()
+                column_names = data.columns.to_list()
                 result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
             except AttributeError:  # 'str' object has no attribute 'columns'
                 result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
