@@ -5,6 +5,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
+    check_data_input_order,
     data_kind,
     deprecate_parameter,
     fmt_docstring,
@@ -18,6 +19,7 @@ from pygmt.src.which import which
 @fmt_docstring
 @deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="straight_line",
     B="frame",
