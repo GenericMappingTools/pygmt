@@ -83,6 +83,7 @@ Operations on tabular data:
     blockmedian
     blockmode
     nearneighbor
+    sph2grd
     sphdistance
     surface
 

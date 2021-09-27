@@ -49,6 +49,7 @@ from pygmt.src import (
     info,
     makecpt,
     nearneighbor,
+    sph2grd,
     sphdistance,
     surface,
     which,
