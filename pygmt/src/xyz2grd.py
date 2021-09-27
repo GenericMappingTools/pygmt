@@ -20,7 +20,7 @@ from pygmt.io import load_dataarray
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def xyz2grd(table, **kwargs):
+def xyz2grd(data, **kwargs):
     """
     Create a grid file from table data.
 
@@ -33,7 +33,7 @@ def xyz2grd(table, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 1D/2D
         {table-classes}.
 
@@ -55,7 +55,7 @@ def xyz2grd(table, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
+            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
