@@ -85,6 +85,7 @@ Operations on tabular data:
     nearneighbor
     sph2grd
     sphdistance
+    sphinterpolate
     surface
 
 Operations on grids:
