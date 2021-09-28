@@ -31,13 +31,12 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     Cartesian three-vectors on the unit sphere. Then two locations are
     found: the mean of the input positions, and the pole to the great circle
     which best fits the input positions. The user may choose one or both of
-    two possible solutions to this problem. The first is called **-L1** and
-    the second is called **-L2**. When the data are closely grouped along a
-    great circle both solutions are similar. If the data have large
+    two possible solutions to this problem. When the data are closely grouped 
+    along a great circle both solutions are similar. If the data have large
     dispersion, the pole to the great circle will be less well determined
     than the mean. Compare both solutions as a qualitative check.
 
-    The **-L1** solution is so called because it approximates the
+    Setting `normalize` to **1** approximates the
     minimization of the sum of absolute values of cosines of angular
     distances. This solution finds the mean position as the Fisher average
     of the data, and the pole position as the Fisher average of the
@@ -45,7 +44,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     gives weight to points in proportion to their distance from the mean,
     analogous to the "leverage" of distant points in linear regression in the plane.
 
-    The **-L2** solution is so called because it approximates the
+    Setting `normalize` to **2** approximates the
     minimization of the sum of squares of cosines of angular distances. It
     creates a 3 by 3 matrix of sums of squares of components of the data
     vectors. The eigenvectors of this matrix give the mean and pole

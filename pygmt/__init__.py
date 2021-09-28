@@ -34,6 +34,7 @@ from pygmt.src import (
     blockmedian,
     blockmode,
     config,
+    fitcircle,
     grd2cpt,
     grd2xyz,
     grdclip,
