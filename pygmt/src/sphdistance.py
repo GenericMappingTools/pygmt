@@ -26,10 +26,10 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     r"""
     Create Voroni polygons from lat/lon coordinates.
 
-    Reads one or more ASCII [or binary] files (or standard
-    input) containing lon, lat and performs the construction of Voronoi
-    polygons. These polygons are then processed to calculate the nearest
-    distance to each node of the lattice and written to the specified grid.
+    Reads a table containing *lon, lat* columns and performs
+    the construction of Voronoi polygons. These polygons are
+    then processed to calculate the nearest distance to each
+    node of the lattice and written to the specified grid.
 
     Full option list at :gmt-docs:`sphdistance.html
 
