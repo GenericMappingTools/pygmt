@@ -24,7 +24,7 @@ from pygmt.io import load_dataarray
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(data=None, x=None, y=None, **kwargs):
     r"""
-    Create Voroni polygons from lat/lon coordinates.
+    Create Voronoi polygons from lat/lon coordinates.
 
     Reads a table containing *lon, lat* columns and performs
     the construction of Voronoi polygons. These polygons are
