@@ -83,6 +83,8 @@ Operations on tabular data:
     blockmedian
     blockmode
     nearneighbor
+    sph2grd
+    sphinterpolate
     surface
 
 Operations on grids:
