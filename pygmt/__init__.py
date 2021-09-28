@@ -51,6 +51,7 @@ from pygmt.src import (
     nearneighbor,
     sph2grd,
     sphdistance,
+    sphinterpolate,
     surface,
     which,
     x2sys_cross,
