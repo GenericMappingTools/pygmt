@@ -31,7 +31,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     Cartesian three-vectors on the unit sphere. Then two locations are
     found: the mean of the input positions, and the pole to the great circle
     which best fits the input positions. The user may choose one or both of
-    two possible solutions to this problem. When the data are closely grouped 
+    two possible solutions to this problem. When the data are closely grouped
     along a great circle both solutions are similar. If the data have large
     dispersion, the pole to the great circle will be less well determined
     than the mean. Compare both solutions as a qualitative check.
@@ -81,6 +81,20 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
           :class:`pandas.DataFrame`])
 
     """
+    if output_type not in ["numpy", "pandas", "file"]:
+        raise GMTInvalidInput(
+            """Must specify format as either numpy, pandas, or file."""
+        )
+    if outfile is not None and output_type != "file":
+        msg = (
+            f"Changing `output_type` of fitcirle from '{output_type}' to 'file' "
+            "since `outfile` parameter is set. Please use `output_type='file'` "
+            "to silence this warning."
+        )
+        warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
+        output_type = "file"
+    elif output_type == "file" and outfile is None:
+        raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
     with GMTTempFile() as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
@@ -92,7 +106,12 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(tmpfile.name, sep="\t", comment=">")
+            result = pd.read_csv(
+                tmpfile.name,
+                sep="\t",
+                names=["longitutde", "latitude", "method"],
+                comment=">",
+            )
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 
