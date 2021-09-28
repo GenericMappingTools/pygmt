@@ -14,10 +14,16 @@ from pygmt.src import which
 
 
 @pytest.fixture(scope="module", name="data")
-def fixture_table():
+def fixture_data():
     """
     Load the sample data from the sat_03 remote file.
     """
     fname = which("@sat_03.txt", download="c")
-    data = pd.read_csv(fname, header=None, skiprows=1, sep="\t",)
+    data = pd.read_csv(
+        fname,
+        header=None,
+        skiprows=1,
+        sep="\t",
+        names=["longitutde", "latitude", "z"],
+    )
     return data
