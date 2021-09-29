@@ -27,8 +27,7 @@ def fixture_table():
 
 def test_filter1d_no_outfile(data):
     """
-    Test the azimuth and direction parameters for grdgradient with no set
-    outgrid.
+    Test filter1d with no set outgrid.
     """
     result = filter1d(data=data, filter="g5")
     assert result.shape == (670, 2)
