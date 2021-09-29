@@ -57,3 +57,53 @@ def test_fitcircle_file_output(data):
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+
+def test_fitcircle_invalid_format(data):
+    """
+    Test that fitcircle fails with an incorrect format for output_type.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fitcircle(data=data, normalize=True, output_type="a")
+
+
+def test_fitcircle_no_normalize(data):
+    """
+    Test that fitcircle fails with an argument is missing for normalize.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fitcircle(data=data)
+
+
+def test_fitcircle_no_outfile_specified(data):
+    """
+    Test that fitcircle fails when outpput_type is set to 'file' but 
+    no output file name is specified.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fitcircle(data=data, normalize=True, output_type="file")
+
+
+def test_filter1d_outfile_incorrect_output_type(data):
+    """
+    Test that filter1d raises a warning when an outfile filename is set but the
+    output_type is not set to 'file'.
+    """
+    with pytest.warns(RuntimeWarning):
+        with GMTTempFile(suffix=".txt") as tmpfile:
+            result = fitcircle(
+                data=data, normalize=True, outfile=tmpfile.name, output_type="numpy"
+            )
+            assert result is None  # return value is None
+            assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+
+
+def test_fitcircle_format(data):
+    """
+    Test that correct formats are returned.
+    """
+    circle_default = fitcircle(data=data, normalize=True)
+    assert isinstance(circle_default, pd.DataFrame)
+    circle_default = fitcircle(data=data, normalize=True, output_type="numpy")
+    assert isinstance(circle_default, np.ndarray)
+    circle_default = fitcircle(data=data, normalize=True, output_type="pandas")
+    assert isinstance(circle_default, pd.DataFrame)
