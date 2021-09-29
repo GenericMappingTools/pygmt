@@ -42,7 +42,8 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     of the data, and the pole position as the Fisher average of the
     cross-products between the mean and the data. Averaging cross-products
     gives weight to points in proportion to their distance from the mean,
-    analogous to the "leverage" of distant points in linear regression in the plane.
+    analogous to the "leverage" of distant points in linear regression in
+    the plane.
 
     Setting `normalize` to **2** approximates the
     minimization of the sum of squares of cosines of angular distances. It
@@ -51,7 +52,8 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     locations. This method may be more subject to roundoff errors when there
     are thousands of data. The pole is given by the eigenvector
     corresponding to the smallest eigenvalue; it is the least-well
-    represented factor in the data and is not easily estimated by either method.
+    represented factor in the data and is not easily estimated by either
+    method.
 
     Full option list at :gmt-docs:`fitcircle.html`
 
