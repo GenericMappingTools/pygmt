@@ -27,3 +27,23 @@ def fixture_data():
         names=["longitutde", "latitude", "z"],
     )
     return data
+
+
+def test_fitcircle_no_outfile(data):
+    """
+    Test fitcircle with no set outfile.
+    """
+    result = fitcircle(data=data, normalize=True)
+    assert result.shape == (7, 3)
+
+
+def test_fitcircle_file_output(data):
+    """
+    Test that fitcircle returns a file output when it is specified.
+    """
+    with GMTTempFile(suffix=".txt") as tmpfile:
+        result = fitcircle(
+            data=data, normalize=True, outfile=tmpfile.name, output_type="file"
+        )
+        assert result is None  # return value is None
+        assert os.path.exists(path=tmpfile.name)  # check that outfile exists
