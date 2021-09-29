@@ -83,6 +83,8 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
           :class:`pandas.DataFrame`])
 
     """
+    if "L" not in kwargs:
+        raise GMTInvalidInput("""Pass a required argument to 'normalize'.""")
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
             """Must specify format as either numpy, pandas, or file."""
