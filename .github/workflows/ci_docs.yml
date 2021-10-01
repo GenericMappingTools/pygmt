@@ -102,6 +102,9 @@ jobs:
           python setup.py sdist --formats=zip
           pip install dist/*
 
+      - name: Run the grdgradient example
+        run: python examples/gallery/images/grdgradient.py
+
       # Build the documentation
       - name: Build the documentation
         run: make -C doc clean all
