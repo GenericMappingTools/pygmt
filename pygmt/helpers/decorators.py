@@ -11,7 +11,6 @@ import warnings
 from inspect import Parameter, signature
 
 import numpy as np
-import pygmt
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
@@ -858,8 +857,9 @@ def check_data_input_order(deprecate_version, remove_version):
             New module instance that raises a warning if positional arguments
             are passed.
             """
-            # plotting function always has the "self" parameter
-            if len(args) > 1 and isinstance(args[0], pygmt.Figure):
+            # Plotting functions always have a "self" parameter
+            # which is a pygmt.Figure instance that has a "savefig" method
+            if len(args) > 1 and hasattr(args[0], "savefig"):
                 plotting_func = 1
             else:
                 plotting_func = 0
