@@ -12,6 +12,7 @@ direction and altitude.
 
 import pygmt
 
+pygmt.config(GMT_VERBOSE="d")
 # Define region of interest around Yosemite valley
 region = [-119.825, -119.4, 37.6, 37.825]
 
