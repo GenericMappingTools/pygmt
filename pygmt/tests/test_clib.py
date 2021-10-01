@@ -27,9 +27,6 @@ from pygmt.helpers import GMTTempFile
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
-
 
 @pytest.fixture(scope="module")
 def data():

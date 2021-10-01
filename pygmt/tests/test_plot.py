@@ -9,12 +9,16 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module")
@@ -299,6 +303,10 @@ def test_plot_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.2.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/5799.",
+)
 def test_plot_matrix(data):
     """
     Plot the data passing in a matrix and specifying columns.
@@ -311,7 +319,7 @@ def test_plot_matrix(data):
         style="cc",
         color="#aaaaaa",
         frame="a",
-        incols="0,1,2+s0.005",
+        incols="0,1,2+s0.5",
     )
     return fig
 
