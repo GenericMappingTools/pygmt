@@ -82,6 +82,10 @@ Operations on tabular data:
     blockmean
     blockmedian
     blockmode
+    nearneighbor
+    sph2grd
+    sphdistance
+    sphinterpolate
     surface
 
 Operations on grids:
@@ -89,6 +93,7 @@ Operations on grids:
 .. autosummary::
     :toctree: generated
 
+    grd2xyz
     grdclip
     grdcut
     grdfill
@@ -99,7 +104,6 @@ Operations on grids:
     grdproject
     grdsample
     grdtrack
-    sphdistance
     xyz2grd
 
 Crossover analysis with x2sys:
