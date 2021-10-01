@@ -100,6 +100,8 @@ Operations on grids:
     grdfilter
     grdgradient
     grdhisteq
+    grdhisteq.equalize_grid
+    grdhisteq.compute_bins
     grdlandmask
     grdproject
     grdsample

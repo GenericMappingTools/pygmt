@@ -9,7 +9,6 @@ import pytest
 import xarray as xr
 from pygmt import grdhisteq, load_dataarray
 from pygmt.datasets import load_earth_relief
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -67,7 +66,7 @@ def test_grdhisteq_outgrid_file(grid, expected_grid):
     Test the gaussian parameter of grdhisteq with a set outgrid.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdhisteq(
+        result = grdhisteq.equalize_grid(
             grid=grid, quadratic=True, region=[-3, 1, 2, 5], outgrid=tmpfile.name
         )
         assert result is None  # return value is None
@@ -81,7 +80,9 @@ def test_grdhisteq_outgrid(grid, expected_grid):
     Test the quadratic and region parameters for grdhisteq with
     ``outgrid=True``.
     """
-    temp_grid = grdhisteq(grid=grid, quadratic=True, region=[-3, 1, 2, 5], outgrid=True)
+    temp_grid = grdhisteq.equalize_grid(
+        grid=grid, quadratic=True, region=[-3, 1, 2, 5], outgrid=True
+    )
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 1  # Pixel registration
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
@@ -91,7 +92,9 @@ def test_grdhisteq_no_outgrid(grid, expected_df):
     """
     Test the quadratic and region parameters for grdhisteq with no ``outgrid``.
     """
-    temp_df = grdhisteq(grid=grid, quadratic=True, region=[-3, 1, 2, 5], outfile=True)
+    temp_df = grdhisteq.compute_bins(
+        grid=grid, quadratic=True, region=[-3, 1, 2, 5], outfile=True
+    )
     assert isinstance(temp_df, pd.DataFrame)
     pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
 
@@ -101,20 +104,10 @@ def test_grdhisteq_outfile(grid, expected_df):
     Test the quadratic and region parameters for grdhisteq with no ``outgrid``.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
-        result = grdhisteq(
+        result = grdhisteq.compute_bins(
             grid=grid, quadratic=True, region=[-3, 1, 2, 5], outfile=tmpfile.name
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)
         temp_df = pd.read_csv(tmpfile.name, sep="\t", header=None)
         pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
-
-
-def test_grdhisteq_invalid_output(grid):
-    """
-    Test that an error is raised without proper output arguments.
-    """
-    with pytest.raises(GMTInvalidInput):
-        grdhisteq(grid=grid, outfile=True, outgrid=True)
-    with pytest.raises(GMTInvalidInput):
-        grdhisteq(grid=grid)
