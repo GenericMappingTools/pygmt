@@ -97,10 +97,12 @@ def dataarray_to_matrix(grid):
         coord_incs = coord[1:] - coord[0:-1]
         coord_inc = coord_incs[0]
         if not np.allclose(coord_incs, coord_inc):
+            # calculate the increment if irregular spacing is found
+            coord_inc = (coord[-1] - coord[0]) / (coord.size - 1)
             msg = (
                 f"Grid may have irregular spacing in the '{dim}' dimension, "
-                "but GMT only supports regular spacing. "
-                f"Regular spacing of {coord_inc} is assumed in the '{dim}' dimension."
+                "but GMT only supports regular spacing. Calculated regular spacing "
+                f"{coord_inc} is assumed in the '{dim}' dimension."
             )
             warnings.warn(msg, category=RuntimeWarning)
         if coord_inc == 0:
