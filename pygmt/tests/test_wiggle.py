@@ -50,9 +50,9 @@ def test_wiggle_deprecate_columns_to_incols():
     fig = Figure()
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.wiggle(
+            data,
             region=[-4, 4, -1, 1],
             projection="X8c",
-            data=data,
             columns=[1, 0, 2],
             scale="0.5c",
             color=["red+p", "gray+n"],

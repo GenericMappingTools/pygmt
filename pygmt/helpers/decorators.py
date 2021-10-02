@@ -857,7 +857,15 @@ def check_data_input_order(deprecate_version, remove_version):
             New module instance that raises a warning if positional arguments
             are passed.
             """
-            if len(args) > 0:  # positional arguments are used
+            # Plotting functions always have a "self" parameter
+            # which is a pygmt.Figure instance that has a "savefig" method
+            if len(args) > 1 and hasattr(args[0], "savefig"):
+                plotting_func = 1
+            else:
+                plotting_func = 0
+
+            if len(args) > 1 + plotting_func:
+                # more than one positional arguments are used
                 msg = (
                     "The function parameters has been re-ordered as 'data, x, y, [z]' "
                     f"since {deprecate_version} but you're passing positional arguments. "
