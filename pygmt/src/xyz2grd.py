@@ -20,7 +20,7 @@ from pygmt.io import load_dataarray
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def xyz2grd(data, **kwargs):
+def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     """
     Create a grid file from table data.
 
@@ -34,9 +34,10 @@ def xyz2grd(data, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 1D/2D
-        {table-classes}.
-
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D {table-classes}.
+    x/y/z : 1d arrays
+        The arrays of x and y coordinates and z data points.
     outgrid : str or None
         Optional. The name of the output netCDF file with extension .nc to
         store the grid in.
@@ -51,11 +52,13 @@ def xyz2grd(data, **kwargs):
 
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
-          ``outgrid``)```
+          ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
+            file_context = lib.virtualfile_from_data(
+                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            )
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
