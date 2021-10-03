@@ -40,6 +40,7 @@ from pygmt.src.select import select
 from pygmt.src.solar import solar
 from pygmt.src.sph2grd import sph2grd
 from pygmt.src.sphdistance import sphdistance
+from pygmt.src.sphinterpolate import sphinterpolate
 from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
 from pygmt.src.text import text_ as text  # "text" is an argument within "text_"

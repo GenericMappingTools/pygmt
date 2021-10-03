@@ -85,6 +85,8 @@ Operations on tabular data:
     nearneighbor
     select
     sph2grd
+    sphdistance
+    sphinterpolate
     surface
 
 Operations on grids:
@@ -102,7 +104,6 @@ Operations on grids:
     grdproject
     grdsample
     grdtrack
-    sphdistance
     xyz2grd
 
 Crossover analysis with x2sys:

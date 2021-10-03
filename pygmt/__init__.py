@@ -52,6 +52,7 @@ from pygmt.src import (
     select,
     sph2grd,
     sphdistance,
+    sphinterpolate,
     surface,
     which,
     x2sys_cross,
