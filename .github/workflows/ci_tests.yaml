@@ -97,7 +97,7 @@ jobs:
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
                         coverage[toml] dvc=2.3.0 make pytest>=6.0 \
-                        pytest-cov pytest-mpl sphinx-gallery
+                        pytest-cov pytest-mpl sphinx-gallery tomli
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
