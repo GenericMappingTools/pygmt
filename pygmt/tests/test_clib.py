@@ -807,7 +807,8 @@ def test_dataarray_to_matrix_dims_fails():
 
 def test_dataarray_to_matrix_irregular_inc_warning():
     """
-    Check that it warns for variable increments.
+    Check that it warns for variable increments, see also
+    https://github.com/GenericMappingTools/pygmt/issues/1468.
     """
     data = np.ones((4, 5), dtype="float64")
     x = np.linspace(0, 1, 5)
