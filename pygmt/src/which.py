@@ -15,7 +15,7 @@ from pygmt.helpers import (
 @use_alias(G="download", V="verbose")
 @kwargs_to_strings(fname="sequence_space")
 def which(fname, **kwargs):
-    """
+    r"""
     Find the full path to specified files.
 
     Reports the full paths to the files given through *fname*. We look for
@@ -37,10 +37,16 @@ def which(fname, **kwargs):
     fname : str or list
         One or more file names of any data type (grids, tables, etc.).
     download : bool or str
-        If the file is downloadable and not found, we will try to download the
-        it. Use True or 'l' (default) to download to the current directory. Use
-        'c' to place in the user cache directory or 'u' user data directory
-        instead.
+        [**a**\|\ **c**\|\ **l**\|\ **u**].
+        If the fname argument is a downloadable file (either a complete URL, an
+        @file for downloading from the GMT data server, or @earth_relief_xxy)
+        we will try to download the file if it is not found in your local data
+        or cache dirs. By default [``download=True`` or ``download="l"``] we
+        download to the current directory. Use **a** to place files in the
+        appropriate folder under the user directory (this is where GMT normally
+        places downloaded files), **c** to place it in the user cache
+        directory, or **u** for the user data directory instead (i.e., ignoring
+        any subdirectory structure).
     {V}
 
     Returns
