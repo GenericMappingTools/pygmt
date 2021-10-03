@@ -76,7 +76,7 @@ def select(data=None, outfile=None, **kwargs):
         - **l** select records NOT within the specified distance of any line.
         - **r** select records NOT inside the specified rectangular region.
         - **s** select records NOT considered inside as specified by **-N**
-          (and **-A**, **-D**).
+          (and **area_thresh**, **-D**).
         - **z** select records NOT within the range specified by
           **z_subregion**.
     {J}
