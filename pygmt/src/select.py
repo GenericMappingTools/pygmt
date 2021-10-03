@@ -32,7 +32,7 @@ from pygmt.helpers import (
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
 def select(data=None, outfile=None, **kwargs):
     r"""
     Select data table subsets based on multiple spatial criteria.
