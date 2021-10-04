@@ -87,6 +87,7 @@ Operations on tabular data:
     sphdistance
     sphinterpolate
     surface
+    xyz2grd
 
 Operations on grids:
 
@@ -103,7 +104,6 @@ Operations on grids:
     grdproject
     grdsample
     grdtrack
-    xyz2grd
 
 Crossover analysis with x2sys:
 
