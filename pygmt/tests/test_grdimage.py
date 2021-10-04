@@ -159,7 +159,7 @@ def test_grdimage_over_dateline(xrgrid):
     fig = Figure()
     assert xrgrid.gmt.registration == 0  # gridline registration
     xrgrid.gmt.gtype = 1  # geographic coordinate system
-    fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c", V="i")
+    fig.grdimage(grid=xrgrid, region="g", projection="A0/0/1c", verbose="i")
     return fig
 
 
