@@ -61,7 +61,7 @@ def fixture_df_result():
     ).astype({0: np.float64, 1: np.float64, 2: np.int64})
 
 
-def test_grdhisteq_outgrid_file(grid, expected_grid):
+def test_equalize_grid_file_output(grid, expected_grid):
     """
     Test the gaussian parameter of grdhisteq with a set outgrid.
     """
@@ -75,7 +75,7 @@ def test_grdhisteq_outgrid_file(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdhisteq_outgrid(grid, expected_grid):
+def test_equalize_grid_xarray_output(grid, expected_grid):
     """
     Test the quadratic and region parameters for grdhisteq with
     ``outgrid=True``.
@@ -88,24 +88,30 @@ def test_grdhisteq_outgrid(grid, expected_grid):
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdhisteq_no_outgrid(grid, expected_df):
+def test_compute_bins_pandas_output(grid, expected_df):
     """
-    Test the quadratic and region parameters for grdhisteq with no ``outgrid``.
+    Test the quadratic and region parameters for grdhisteq with
+    ``output_type``="pandas".
     """
     temp_df = grdhisteq.compute_bins(
-        grid=grid, quadratic=True, region=[-3, 1, 2, 5], outfile=True
+        grid=grid, quadratic=True, region=[-3, 1, 2, 5], output_type="pandas"
     )
     assert isinstance(temp_df, pd.DataFrame)
     pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
 
 
-def test_grdhisteq_outfile(grid, expected_df):
+def test_compute_bins_file_output(grid, expected_df):
     """
-    Test the quadratic and region parameters for grdhisteq with no ``outgrid``.
+    Test the quadratic and region parameters for grdhisteq with
+    ``output_type``="file".
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
         result = grdhisteq.compute_bins(
-            grid=grid, quadratic=True, region=[-3, 1, 2, 5], outfile=tmpfile.name
+            grid=grid,
+            quadratic=True,
+            region=[-3, 1, 2, 5],
+            output_type="file",
+            outfile=tmpfile.name,
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)

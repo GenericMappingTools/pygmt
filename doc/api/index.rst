@@ -99,9 +99,8 @@ Operations on grids:
     grdfill
     grdfilter
     grdgradient
-    grdhisteq
-    grdhisteq.equalize_grid
     grdhisteq.compute_bins
+    grdhisteq.equalize_grid
     grdlandmask
     grdproject
     grdsample

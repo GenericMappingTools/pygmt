@@ -17,7 +17,6 @@ from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfill import grdfill
 from pygmt.src.grdfilter import grdfilter
 from pygmt.src.grdgradient import grdgradient
-from pygmt.src.grdhisteq import grdhisteq
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdlandmask import grdlandmask
