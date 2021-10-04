@@ -319,7 +319,7 @@ def test_plot3d_matrix(data, region):
     """
     fig = Figure()
     fig.plot3d(
-        data=data,
+        data,
         zscale=5,
         perspective=[225, 30],
         region=region,
@@ -343,7 +343,7 @@ def test_plot3d_matrix_color(data, region):
     """
     fig = Figure()
     fig.plot3d(
-        data=data,
+        data,
         zscale=5,
         perspective=[225, 30],
         region=region,
@@ -464,7 +464,7 @@ def test_plot3d_deprecate_columns_to_incols(data, region):
     fig = Figure()
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.plot3d(
-            data=data,
+            data,
             zscale=5,
             perspective=[225, 30],
             region=region,
