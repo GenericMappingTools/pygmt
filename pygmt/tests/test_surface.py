@@ -114,12 +114,13 @@ def test_surface_short_aliases(ship_data):
     outgrid.
     """
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
-    try:
-        output = surface(data=data, I="5m", R=[245, 255, 20, 30], G=TEMP_GRID)
-        assert output is None  # check that output is None since outgrid is set
-        assert os.path.exists(path=TEMP_GRID)  # check that outgrid exists at path
-        with xr.open_dataarray(TEMP_GRID) as grid:
-            assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
-    finally:
-        os.remove(path=TEMP_GRID)
-    return output
+    with pytest.warns(expected_warning=SyntaxWarning) as record:
+        try:
+            output = surface(data=data, I="5m", R=[245, 255, 20, 30], G=TEMP_GRID)
+            assert output is None  # check that output is None since outgrid is set
+            assert os.path.exists(path=TEMP_GRID)  # check that outgrid exists at path
+            with xr.open_dataarray(TEMP_GRID) as grid:
+                assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
+        finally:
+            os.remove(path=TEMP_GRID)
+        assert len(record) == 3
