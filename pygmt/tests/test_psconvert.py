@@ -36,16 +36,3 @@ def test_psconvert_twice():
     fname = prefix + ".png"
     assert os.path.exists(fname)
     os.remove(fname)
-
-
-def test_psconvert_aliases():
-    """
-    Use the aliases to make sure they work.
-    """
-    fig = Figure()
-    fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame="a")
-    prefix = "test_psconvert_aliases"
-    fig.psconvert(prefix=prefix, fmt="g", crop=True, dpi=100)
-    fname = prefix + ".png"
-    assert os.path.exists(fname)
-    os.remove(fname)
