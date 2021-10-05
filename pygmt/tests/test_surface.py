@@ -3,74 +3,89 @@ Tests for surface.
 """
 import os
 
+import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import surface, which
-from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 
 
-@pytest.fixture(scope="module", name="ship_data")
-def fixture_ship_data():
+@pytest.fixture(scope="module", name="fname")
+def fixture_fname():
     """
-    Load the data from the sample bathymetry dataset.
+    Load the sample data remote file path.
     """
-    return load_sample_bathymetry()
+    return which("@Table_5_11.txt", download="c")
 
 
-def test_surface_input_file():
+@pytest.fixture(scope="module", name="data")
+def fixture_data(fname):
+    """
+    Load Table 5.11 in Davis: Statistics and Data Analysis in Geology, J.
+    Wiley
+    """
+    return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
+
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
+    """
+    Define the data region.
+    """
+    return [0,  6.5, -0.2, 6.5]
+
+
+def test_surface_input_file(fname, region):
     """
     Run surface by passing in a filename.
     """
-    fname = which("@tut_ship.xyz", download="c")
-    output = surface(data=fname, spacing="5m", region=[245, 255, 20, 30])
+    output = surface(data=fname, spacing="0.2", region=region)
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
     assert output.gmt.gtype == 0  # Cartesian type
 
 
-def test_surface_input_data_array(ship_data):
+def test_surface_input_data_array(data, region):
     """
     Run surface by passing in a numpy array into data.
     """
-    data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
-    output = surface(data=data, spacing="5m", region=[245, 255, 20, 30])
+    data = data.values  # convert pandas.DataFrame to numpy.ndarray
+    output = surface(data=data, spacing="0.2", region=region)
     assert isinstance(output, xr.DataArray)
 
 
-def test_surface_input_xyz(ship_data):
+def test_surface_input_xyz(data, region):
     """
     Run surface by passing in x, y, z numpy.ndarrays individually.
     """
     output = surface(
-        x=ship_data.longitude,
-        y=ship_data.latitude,
-        z=ship_data.bathymetry,
-        spacing="5m",
-        region=[245, 255, 20, 30],
+        x=data.x,
+        y=data.y,
+        z=data.z,
+        spacing="0.2",
+        region=region,
     )
     assert isinstance(output, xr.DataArray)
 
 
-def test_surface_wrong_kind_of_input(ship_data):
+def test_surface_wrong_kind_of_input(data, region):
     """
     Run surface using grid input that is not file/matrix/vectors.
     """
-    data = ship_data.bathymetry.to_xarray()  # convert pandas.Series to xarray.DataArray
+    data = data.z.to_xarray()  # convert pandas.Series to xarray.DataArray
     assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
-        surface(data=data, spacing="5m", region=[245, 255, 20, 30])
+        surface(data=data, spacing="0.2", region=region)
 
 
-def test_surface_with_outgrid_param(ship_data):
+def test_surface_with_outgrid_param(data, region):
     """
     Run surface with the -Goutputfile.nc parameter.
     """
-    data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = data.values  # convert pandas.DataFrame to numpy.ndarray
     with GMTTempFile(suffix=".nc") as tmpfile:
         output = surface(
-            data=data, spacing="5m", region=[245, 255, 20, 30], outgrid=tmpfile.name
+            data=data, spacing="0.2", region=region, outgrid=tmpfile.name
         )
         assert output is None  # check that output is None since outgrid is set
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists at path
@@ -78,16 +93,16 @@ def test_surface_with_outgrid_param(ship_data):
             assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
 
 
-def test_surface_deprecate_outfile_to_outgrid(ship_data):
+def test_surface_deprecate_outfile_to_outgrid(data, region):
     """
     Make sure that the old parameter "outfile" is supported and it reports a
     warning.
     """
     with pytest.warns(expected_warning=FutureWarning) as record:
-        data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
+        data = data.values  # convert pandas.DataFrame to numpy.ndarray
         with GMTTempFile(suffix=".nc") as tmpfile:
             output = surface(
-                data=data, spacing="5m", region=[245, 255, 20, 30], outfile=tmpfile.name
+                data=data, spacing="0.2", region=region, outfile=tmpfile.name
             )
             assert output is None  # check that output is None since outfile is set
             assert os.path.exists(path=tmpfile.name)  # check that file exists at path
@@ -97,15 +112,15 @@ def test_surface_deprecate_outfile_to_outgrid(ship_data):
         assert len(record) == 1  # check that only one warning was raised
 
 
-def test_surface_short_aliases(ship_data):
+def test_surface_short_aliases(data, region):
     """
     Run surface using short aliases -I for spacing, -R for region, -G for
     outgrid.
     """
-    data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = data.values  # convert pandas.DataFrame to numpy.ndarray
     with pytest.warns(expected_warning=SyntaxWarning) as record:
         with GMTTempFile(suffix=".nc") as tmpfile:
-            output = surface(data=data, I="5m", R=[245, 255, 20, 30], G=tmpfile.name)
+            output = surface(data=data, I="0.2", R=region, G=tmpfile.name)
             assert output is None  # check that output is None since outgrid is set
             assert os.path.exists(
                 path=tmpfile.name
