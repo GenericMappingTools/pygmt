@@ -28,7 +28,6 @@ def test_surface_input_file():
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
     assert output.gmt.gtype == 0  # Cartesian type
-    return output
 
 
 def test_surface_input_data_array(ship_data):
@@ -38,7 +37,6 @@ def test_surface_input_data_array(ship_data):
     data = ship_data.values  # convert pandas.DataFrame to numpy.ndarray
     output = surface(data=data, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)
-    return output
 
 
 def test_surface_input_xyz(ship_data):
@@ -53,7 +51,6 @@ def test_surface_input_xyz(ship_data):
         region=[245, 255, 20, 30],
     )
     assert isinstance(output, xr.DataArray)
-    return output
 
 
 def test_surface_wrong_kind_of_input(ship_data):
