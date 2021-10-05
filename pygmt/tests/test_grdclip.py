@@ -3,7 +3,6 @@ Tests for grdclip.
 """
 import os
 
-import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt import grdclip, load_dataarray
