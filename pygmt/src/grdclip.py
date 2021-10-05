@@ -2,7 +2,6 @@
 grdclip - Change the range and extremes of grid values.
 """
 
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -11,6 +10,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -68,6 +68,15 @@ def grdclip(grid, **kwargs):
         Set all data[i] == *old* to *new*. This is mostly useful when
         your data are known to be integer values.
     {V}
+
+    Returns
+    -------
+    ret: xarray.DataArray or None
+        Return type depends on whether the ``outgrid`` parameter is set:
+
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
+        - None if ``outgrid`` is set (grid output will be stored in file set by
+          ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
@@ -79,11 +88,4 @@ def grdclip(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdclip", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None

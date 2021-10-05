@@ -7,6 +7,7 @@ import string
 
 from matplotlib.testing.compare import compare_images
 from pygmt.exceptions import GMTImageComparisonFailure
+from pygmt.src import which
 
 
 def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_images"):
@@ -112,8 +113,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                     for key in ["actual", "expected", "diff"]:
                         err[key] = os.path.relpath(err[key])
                     raise GMTImageComparisonFailure(
-                        "images not close (RMS %(rms).3f):\n\t%(actual)s\n\t%(expected)s "
-                        % err
+                        f"images not close (RMS {err['rms']:.3f}):\n"
+                        f"\t{err['actual']}\n"
+                        f"\t{err['expected']}"
                     )
             finally:
                 del fig_ref
@@ -139,3 +141,42 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
         return wrapper
 
     return decorator
+
+
+def download_test_data():
+    """
+    Convenience function to download remote data files used in PyGMT tests and
+    docs.
+    """
+    # List of datasets to download
+    datasets = [
+        # Earth relief grids
+        "@earth_relief_01d_p",
+        "@earth_relief_01d_g",
+        "@earth_relief_30m_p",
+        "@earth_relief_30m_g",
+        "@earth_relief_10m_p",
+        "@earth_relief_05m_p",
+        "@earth_relief_05m_g",
+        # List of tiles of 03s srtm data.
+        # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
+        # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
+        "@N30W120.earth_relief_15s_p.nc",
+        "@N35E135.earth_relief_03s_g.nc",
+        "@N37W120.earth_relief_03s_g.nc",
+        "@N00W090.earth_relief_03m_p.nc",
+        # Other cache files
+        "@EGM96_to_36.txt",
+        "@fractures_06.txt",
+        "@hotspots.txt",
+        "@ridge.txt",
+        "@mars370d.txt",
+        "@srtm_tiles.nc",  # needed for 03s and 01s relief data
+        "@Table_5_11.txt",
+        "@test.dat.nc",
+        "@tut_bathy.nc",
+        "@tut_quakes.ngdc",
+        "@tut_ship.xyz",
+        "@usgs_quakes_22.txt",
+    ]
+    which(fname=datasets, download="a")

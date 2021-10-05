@@ -2,8 +2,8 @@
 grdfill - Fill blank areas from a grid.
 """
 
-import xarray as xr
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -11,6 +11,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -18,6 +19,7 @@ from pygmt.helpers import (
     A="mode",
     G="outgrid",
     R="region",
+    V="verbose",
 )
 @kwargs_to_strings(R="sequence")
 def grdfill(grid, **kwargs):
@@ -45,8 +47,12 @@ def grdfill(grid, **kwargs):
         constant fill and append the constant value, **n** for nearest
         neighbor (and optionally append a search radius in
         pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,
-        where (*X,Y*) are the node dimensions of the grid]).
+        where (*X,Y*) are the node dimensions of the grid]), or
+        **s** for bicubic spline (optionally append a *tension*
+        parameter [Default is no tension]).
+
     {R}
+    {V}
 
     Returns
     -------
@@ -57,6 +63,8 @@ def grdfill(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
+    if "A" not in kwargs.keys() and "L" not in kwargs.keys():
+        raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
@@ -67,11 +75,4 @@ def grdfill(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdfill", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None

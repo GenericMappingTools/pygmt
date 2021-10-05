@@ -3,10 +3,19 @@ rose - Plot windrose diagrams or polar histograms.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    check_data_input_order,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -29,13 +38,18 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     X="xshift",
     Y="yshift",
     Z="scale",
-    i="columns",
+    b="binary",
+    d="nodata",
+    e="find",
+    h="header",
+    i="incols",
     c="panel",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def rose(self, length=None, azimuth=None, data=None, **kwargs):
+def rose(self, data=None, length=None, azimuth=None, **kwargs):
     """
     Plot windrose diagrams or polar histograms.
 
@@ -55,10 +69,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     Parameters
     ----------
-    length/azimuth : float or 1d arrays
-        Length and azimuth values, or arrays of length and azimuth
-        values
-
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -66,6 +76,10 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         respectively. If a file with only azimuths is given, use ``columns`` to
         indicate the single column with azimuths; then all lengths are set to
         unity (see ``scale = 'u'`` to set actual lengths to unity as well).
+
+    length/azimuth : float or 1d arrays
+        Length and azimuth values, or arrays of length and azimuth
+        values
 
     orientation : bool
         Specifies that the input data are orientation data (i.e., have a
@@ -107,12 +121,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
          convert your data from m to km. To exclude the radii from
          consideration, set them all to unity with ``scale = 'u'``
          [Default is no scaling].
-
-    columns : str or 1d array
-         Select input columns and transformations. E.g. choose
-         ``columns = [1, 0]`` or ``columns = '1,0'`` if the length values
-         are stored in the second column and the direction (azimuth)
-         values in the first one. Note: zero-based indexing is used.
 
     color : str
          Selects shade, color or pattern for filling the sectors [Default
@@ -185,9 +193,15 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     {U}
     {V}
     {XY}
+    {b}
     {c}
+    {d}
+    {e}
+    {h}
+    {i}
     {p}
     {t}
+    {w}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

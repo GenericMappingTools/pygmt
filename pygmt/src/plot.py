@@ -5,6 +5,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
+    check_data_input_order,
     data_kind,
     deprecate_parameter,
     fmt_docstring,
@@ -12,9 +13,13 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src.which import which
 
 
 @fmt_docstring
+@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -36,16 +41,21 @@ from pygmt.helpers import (
     Y="yshift",
     Z="zvalue",
     a="aspatial",
-    i="columns",
-    l="label",
+    b="binary",
     c="panel",
+    d="nodata",
+    e="find",
     f="coltypes",
+    g="gap",
+    h="header",
+    i="incols",
+    l="label",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-@deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
-def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
+def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -73,14 +83,14 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
 
     Parameters
     ----------
-    x/y : float or 1d arrays
-        The x and y coordinates, or arrays of x and y coordinates of the
-        data points
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
-        Use parameter ``columns`` to choose which columns are x, y, color, and
+        Use parameter ``incols`` to choose which columns are x, y, color, and
         size, respectively.
+    x/y : float or 1d arrays
+        The x and y coordinates, or arrays of x and y coordinates of the
+        data points
     size : 1d array
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
@@ -190,22 +200,22 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
     {a}
+    {b}
     {c}
+    {d}
+    {e}
     {f}
-    columns : str or 1d array
-        Choose which columns are x, y, color, and size, respectively if
-        input is provided via *data*. E.g. ``columns = [0, 1]`` or
-        ``columns = '0,1'`` if the *x* values are stored in the first
-        column and *y* values in the second one. Note: zero-based
-        indexing is used.
-    label : str
-        Add a legend entry for the symbol or line being plotted.
-
+    {g}
+    {h}
+    {i}
+    {l}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
         for symbols, but this option is only valid if using x/y.
+    {w}
     """
+    # pylint: disable=too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     kind = data_kind(data, x, y)
@@ -213,6 +223,24 @@ def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     extra_arrays = []
     if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
+    elif (
+        "S" not in kwargs
+        and kind == "geojson"
+        and data.geom_type.isin(["Point", "MultiPoint"]).all()
+    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
+        kwargs["S"] = "s0.2c"
+    elif (
+        "S" not in kwargs and kind == "file"
+    ):  # checking that the data is a file path to set default style
+        try:
+            with open(which(data), mode="r", encoding="utf8") as file:
+                line = file.readline()
+            if (
+                "@GMULTIPOINT" in line or "@GPOINT" in line
+            ):  # if the file is gmt style and geometry is set to Point
+                kwargs["S"] = "s0.2c"
+        except FileNotFoundError:
+            pass
     if "G" in kwargs and not isinstance(kwargs["G"], str):
         if kind != "vectors":
             raise GMTInvalidInput(

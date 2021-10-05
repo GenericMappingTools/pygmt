@@ -8,10 +8,6 @@ from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 
 
-@pytest.mark.xfail(
-    reason="Flaky test only passes with pytest on single module"
-    "See https://github.com/GenericMappingTools/pygmt/issues/1242"
-)
 @pytest.mark.mpl_image_compare
 def test_solar_terminators():
     """
@@ -43,10 +39,6 @@ def test_solar_terminators():
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Flaky test only passes with pytest on single module"
-    "See https://github.com/GenericMappingTools/pygmt/issues/1242"
-)
 @pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
 @pytest.mark.parametrize(
     "terminator_datetime",

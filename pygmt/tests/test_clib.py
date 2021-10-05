@@ -1,9 +1,11 @@
 # pylint: disable=protected-access
+# pylint: disable=redefined-outer-name
 """
 Test the wrappers for the C API.
 """
 import os
 from contextlib import contextmanager
+from itertools import product
 
 import numpy as np
 import numpy.testing as npt
@@ -23,9 +25,15 @@ from pygmt.exceptions import (
 from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
+
+@pytest.fixture(scope="module")
+def data():
+    """
+    Load the point data from the test file.
+    """
+    return np.loadtxt(POINTS_DATA)
 
 
 @contextmanager
@@ -142,7 +150,7 @@ def test_call_module():
     out_fname = "test_call_module.txt"
     with clib.Session() as lib:
         with GMTTempFile() as out_fname:
-            lib.call_module("info", "{} -C ->{}".format(data_fname, out_fname.name))
+            lib.call_module("info", f"{data_fname} -C ->{out_fname.name}")
             assert os.path.exists(out_fname.name)
             output = out_fname.read().strip()
             assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
@@ -353,12 +361,10 @@ def test_virtual_file():
             vfargs = (family, geometry, "GMT_IN", dataset)
             with lib.open_virtual_file(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
+                    lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                ["<{:.0f}/{:.0f}>".format(col.min(), col.max()) for col in data.T]
-            )
-            expected = "<matrix memory>: N = {}\t{}\n".format(shape[0], bounds)
+            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
+            expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
             assert output == expected
 
 
@@ -410,6 +416,87 @@ def test_virtual_file_bad_direction():
                 print("This should have failed")
 
 
+@pytest.mark.parametrize(
+    "array_func,kind",
+    [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
+)
+def test_virtualfile_from_data_required_z_matrix(array_func, kind):
+    """
+    Test that function works when third z column in a matrix is needed and
+    provided.
+    """
+    shape = (5, 3)
+    dataframe = pd.DataFrame(
+        data=np.arange(shape[0] * shape[1]).reshape(shape), columns=["x", "y", "z"]
+    )
+    data = array_func(dataframe)
+    with clib.Session() as lib:
+        with lib.virtualfile_from_data(data=data, required_z=True) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module("info", f"{vfile} ->{outfile.name}")
+                output = outfile.read(keep_tabs=True)
+        bounds = "\t".join(
+            [
+                f"<{i.min():.0f}/{i.max():.0f}>"
+                for i in (dataframe.x, dataframe.y, dataframe.z)
+            ]
+        )
+        expected = f"<{kind} memory>: N = {shape[0]}\t{bounds}\n"
+        assert output == expected
+
+
+def test_virtualfile_from_data_required_z_matrix_missing():
+    """
+    Test that function fails when third z column in a matrix is needed but not
+    provided.
+    """
+    data = np.ones((5, 2))
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):
+            with lib.virtualfile_from_data(data=data, required_z=True):
+                pass
+
+
+def test_virtualfile_from_data_fail_non_valid_data(data):
+    """
+    Should raise an exception if too few or too much data is given.
+    """
+    # Test all combinations where at least one data variable
+    # is not given in the x, y case:
+    for variable in product([None, data[:, 0]], repeat=2):
+        # Filter one valid configuration:
+        if not any(item is None for item in variable):
+            continue
+        with clib.Session() as lib:
+            with pytest.raises(GMTInvalidInput):
+                lib.virtualfile_from_data(
+                    x=variable[0],
+                    y=variable[1],
+                )
+
+    # Test all combinations where at least one data variable
+    # is not given in the x, y, z case:
+    for variable in product([None, data[:, 0]], repeat=3):
+        # Filter one valid configuration:
+        if not any(item is None for item in variable):
+            continue
+        with clib.Session() as lib:
+            with pytest.raises(GMTInvalidInput):
+                lib.virtualfile_from_data(
+                    x=variable[0], y=variable[1], z=variable[2], required_z=True
+                )
+
+    # Should also fail if given too much data
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):
+            lib.virtualfile_from_data(
+                x=data[:, 0],
+                y=data[:, 1],
+                z=data[:, 2],
+                data=data,
+            )
+
+
 def test_virtualfile_from_vectors():
     """
     Test the automation for transforming vectors to virtual file dataset.
@@ -423,12 +510,10 @@ def test_virtualfile_from_vectors():
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(x, y, z) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
+                    lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                ["<{:.0f}/{:.0f}>".format(i.min(), i.max()) for i in (x, y, z)]
-            )
-            expected = "<vector memory>: N = {}\t{}\n".format(size, bounds)
+            bounds = "\t".join([f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y, z)])
+            expected = f"<vector memory>: N = {size}\t{bounds}\n"
             assert output == expected
 
 
@@ -484,12 +569,10 @@ def test_virtualfile_from_vectors_transpose():
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(*data.T) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", "{} -C ->{}".format(vfile, outfile.name))
+                    lib.call_module("info", f"{vfile} -C ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                ["{:.0f}\t{:.0f}".format(col.min(), col.max()) for col in data.T]
-            )
-            expected = "{}\n".format(bounds)
+            bounds = "\t".join([f"{col.min():.0f}\t{col.max():.0f}" for col in data.T])
+            expected = f"{bounds}\n"
             assert output == expected
 
 
@@ -516,12 +599,10 @@ def test_virtualfile_from_matrix():
         with clib.Session() as lib:
             with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
+                    lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                ["<{:.0f}/{:.0f}>".format(col.min(), col.max()) for col in data.T]
-            )
-            expected = "<matrix memory>: N = {}\t{}\n".format(shape[0], bounds)
+            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
+            expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
             assert output == expected
 
 
@@ -539,12 +620,10 @@ def test_virtualfile_from_matrix_slice():
         with clib.Session() as lib:
             with lib.virtualfile_from_matrix(data) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
+                    lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                ["<{:.0f}/{:.0f}>".format(col.min(), col.max()) for col in data.T]
-            )
-            expected = "<matrix memory>: N = {}\t{}\n".format(rows, bounds)
+            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
+            expected = f"<matrix memory>: N = {rows}\t{bounds}\n"
             assert output == expected
 
 
@@ -565,15 +644,12 @@ def test_virtualfile_from_vectors_pandas():
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
                 with GMTTempFile() as outfile:
-                    lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
+                    lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
             bounds = "\t".join(
-                [
-                    "<{:.0f}/{:.0f}>".format(i.min(), i.max())
-                    for i in (data.x, data.y, data.z)
-                ]
+                [f"<{i.min():.0f}/{i.max():.0f}>" for i in (data.x, data.y, data.z)]
             )
-            expected = "<vector memory>: N = {}\t{}\n".format(size, bounds)
+            expected = f"<vector memory>: N = {size}\t{bounds}\n"
             assert output == expected
 
 
@@ -588,12 +664,10 @@ def test_virtualfile_from_vectors_arraylike():
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, z) as vfile:
             with GMTTempFile() as outfile:
-                lib.call_module("info", "{} ->{}".format(vfile, outfile.name))
+                lib.call_module("info", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        bounds = "\t".join(
-            ["<{:.0f}/{:.0f}>".format(min(i), max(i)) for i in (x, y, z)]
-        )
-        expected = "<vector memory>: N = {}\t{}\n".format(size, bounds)
+        bounds = "\t".join([f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)])
+        expected = f"<vector memory>: N = {size}\t{bounds}\n"
         assert output == expected
 
 
@@ -623,14 +697,14 @@ def test_extract_region_two_figures():
     # Activate the first figure and extract the region from it
     # Use in a different session to avoid any memory problems.
     with clib.Session() as lib:
-        lib.call_module("figure", "{} -".format(fig1._name))
+        lib.call_module("figure", f"{fig1._name} -")
     with clib.Session() as lib:
         wesn1 = lib.extract_region()
         npt.assert_allclose(wesn1, region1)
 
     # Now try it with the second one
     with clib.Session() as lib:
-        lib.call_module("figure", "{} -".format(fig2._name))
+        lib.call_module("figure", f"{fig2._name} -")
     with clib.Session() as lib:
         wesn2 = lib.extract_region()
         npt.assert_allclose(wesn2, np.array([-165.0, -150.0, 15.0, 25.0]))
@@ -731,13 +805,33 @@ def test_dataarray_to_matrix_dims_fails():
         dataarray_to_matrix(grid)
 
 
-def test_dataarray_to_matrix_inc_fails():
+def test_dataarray_to_matrix_irregular_inc_warning():
     """
-    Check that it fails for variable increments.
+    Check that it warns for variable increments, see also
+    https://github.com/GenericMappingTools/pygmt/issues/1468.
     """
     data = np.ones((4, 5), dtype="float64")
     x = np.linspace(0, 1, 5)
     y = np.logspace(2, 3, 4)
+    grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
+    with pytest.warns(expected_warning=RuntimeWarning) as record:
+        dataarray_to_matrix(grid)
+        assert len(record) == 1
+
+
+def test_dataarray_to_matrix_zero_inc_fails():
+    """
+    Check that dataarray_to_matrix fails for zero increments grid.
+    """
+    data = np.ones((5, 5), dtype="float32")
+    x = np.linspace(0, 1, 5)
+    y = np.zeros_like(x)
+    grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
+    with pytest.raises(GMTInvalidInput):
+        dataarray_to_matrix(grid)
+
+    y = np.linspace(0, 1, 5)
+    x = np.zeros_like(x)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
     with pytest.raises(GMTInvalidInput):
         dataarray_to_matrix(grid)
@@ -750,7 +844,7 @@ def test_get_default():
     with clib.Session() as lib:
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
-        assert Version(lib.get_default("API_VERSION")) >= Version("6.1.1")
+        assert Version(lib.get_default("API_VERSION")) >= Version("6.2.0")
 
 
 def test_get_default_fails():
@@ -784,8 +878,8 @@ def test_info_dict():
     with mock(ses, "GMT_Get_Default", mock_func=mock_defaults):
         # Check for an empty dictionary
         assert ses.info
-        for key in ses.info:
-            assert ses.info[key] == "bla"
+        for value in ses.info.values():
+            assert value == "bla"
     ses.destroy()
 
 

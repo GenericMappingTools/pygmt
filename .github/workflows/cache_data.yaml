@@ -17,34 +17,42 @@ jobs:
         shell: bash -l {0}
 
     steps:
-      # Setup Miniconda
-      - name: Setup Miniconda
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          # fecth all history so that setuptools-scm works
+          fetch-depth: 0
+
+      # Install Mambaforge with conda-forge dependencies
+      - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          channels: conda-forge
-          miniconda-version: "latest"
+          channels: conda-forge,nodefaults
+          channel-priority: strict
+          miniforge-version: latest
+          miniforge-variant: Mambaforge
+          mamba-version: "*"
+          use-mamba: true
 
-      # Install GMT
-      - name: Install GMT
-        run: conda install -c conda-forge/label/dev gmt=6.2.0rc2
+      # Install GMT and other required dependencies from conda-forge
+      - name: Install dependencies
+        run: |
+          mamba install gmt=6.2.0 \
+                        numpy pandas xarray netCDF4 packaging matplotlib
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: |
+          python setup.py sdist --formats=zip
+          pip install dist/*
 
       # Download remote files
       - name: Download remote data
         run: |
-          gmt which -Ga @earth_relief_10m_p @earth_relief_10m_g \
-                        @earth_relief_30m_p @earth_relief_30m_g \
-                        @earth_relief_01d_p @earth_relief_01d_g \
-                        @earth_relief_05m_p @earth_relief_05m_g
-          # Download one tile of the 03s srtm data.
-          # @N35E135.earth_relief_03s_g.nc is for internal use only.
-          # The naming scheme may change.
-          # DO NOT USE IT IN SCRIPTS.
-          gmt which -Ga @N35E135.earth_relief_03s_g.nc
-          # @srtm_tiles.nc is needed for 03s and 01s relief data
-          gmt which -Ga @srtm_tiles.nc
-          gmt which -Ga @ridge.txt @Table_5_11.txt @test.dat.nc \
-                        @tut_bathy.nc @tut_quakes.ngdc @tut_ship.xyz \
-                        @usgs_quakes_22.txt @fractures_06.txt
+          python -c "from pygmt.helpers.testing import download_test_data; download_test_data()"
+        env:
+          GMT_DATA_SERVER: https://oceania.generic-mapping-tools.org/
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub

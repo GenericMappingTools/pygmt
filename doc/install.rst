@@ -62,7 +62,7 @@ Which GMT?
 PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the
 latest released version that can be found at
 the `GMT official site <https://www.generic-mapping-tools.org>`__.
-We need the latest GMT (>=6.1.1) since there are many changes being made to GMT
+We need the latest GMT (>=6.2.0) since there are many changes being made to GMT
 itself in response to the development of PyGMT, mainly the new
 `modern execution mode <https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode>`__.
 
@@ -80,7 +80,7 @@ Dependencies
 
 PyGMT requires the following libraries to be installed:
 
-* `numpy <https://numpy.org>`__ (>= 1.17)
+* `numpy <https://numpy.org>`__ (>= 1.18)
 * `pandas <https://pandas.pydata.org>`__
 * `xarray <https://xarray.pydata.org>`__
 * `netCDF4 <https://unidata.github.io/netcdf4-python>`__

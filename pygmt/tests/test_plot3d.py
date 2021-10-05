@@ -2,11 +2,13 @@
 Tests plot3d.
 """
 import os
+import sys
 
 import numpy as np
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -64,48 +66,6 @@ def test_plot3d_red_circles_zsize(data, region):
         frame=["afg", "zafg"],
     )
     return fig
-
-
-def test_plot3d_fail_no_data(data, region):
-    """
-    Plot should raise an exception if no data is given.
-    """
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            region=region, projection="X10c", style="c0.2c", color="red", frame="afg"
-        )
-    with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            x=data[:, 0],
-            region=region,
-            projection="X10c",
-            style="c0.2c",
-            color="red",
-            frame="afg",
-        )
-    with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            y=data[:, 0],
-            region=region,
-            projection="X10c",
-            style="c0.2c",
-            color="red",
-            frame="afg",
-        )
-    # Should also fail if given too much data
-    with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            x=data[:, 0],
-            y=data[:, 1],
-            z=data[:, 2],
-            data=data,
-            region=region,
-            projection="X10c",
-            style="c0.2c",
-            color="red",
-            frame="afg",
-        )
 
 
 def test_plot3d_fail_1d_array_with_data(data, region):
@@ -355,11 +315,11 @@ def test_plot3d_sizes_colors_transparencies():
 @pytest.mark.mpl_image_compare
 def test_plot3d_matrix(data, region):
     """
-    Plot the data passing in a matrix and specifying columns.
+    Plot the data passing in a matrix and specifying incols.
     """
     fig = Figure()
     fig.plot3d(
-        data=data,
+        data,
         zscale=5,
         perspective=[225, 30],
         region=region,
@@ -367,11 +327,15 @@ def test_plot3d_matrix(data, region):
         style="c1c",
         color="#aaaaaa",
         frame=["a", "za"],
-        columns="0,1,2",
+        incols="0,1,2",
     )
     return fig
 
 
+@pytest.mark.xfail(
+    condition=sys.platform == "win32",
+    reason="Wrong plot generated on Windows due to incorrect -i parameter parsing",
+)
 @pytest.mark.mpl_image_compare
 def test_plot3d_matrix_color(data, region):
     """
@@ -379,14 +343,14 @@ def test_plot3d_matrix_color(data, region):
     """
     fig = Figure()
     fig.plot3d(
-        data=data,
+        data,
         zscale=5,
         perspective=[225, 30],
         region=region,
         projection="X10c",
         style="c0.5c",
         cmap="rainbow",
-        columns=[0, 1, 2, 2],
+        incols=[0, 1, 2, 2],
         frame=["a", "za"],
     )
     return fig
@@ -407,7 +371,7 @@ def test_plot3d_from_file(region):
         style="d1c",
         color="yellow",
         frame=["af", "zaf"],
-        columns=[0, 1, 2],
+        incols=[0, 1, 2],
     )
     return fig
 
@@ -487,3 +451,82 @@ def test_plot3d_deprecate_sizes_to_size(data, region):
         )
         assert len(record) == 1  # check that only one warning was raised
     return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
+def test_plot3d_deprecate_columns_to_incols(data, region):
+    """
+    Make sure that the old parameter "columns" is supported and it reports an
+    warning.
+
+    Modified from the test_plot3d_matrix() test.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        fig.plot3d(
+            data,
+            zscale=5,
+            perspective=[225, 30],
+            region=region,
+            projection="M20c",
+            style="c1c",
+            color="#aaaaaa",
+            frame=["a", "za"],
+            columns="0,1,2",
+        )
+        assert len(record) == 1  # check that only one warning was raised
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot3d_ogrgmt_file_multipoint_default_style():
+    """
+    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes
+    and not as line (default GMT style).
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        gmt_file = """# @VGMT1.0 @GMULTIPOINT
+# @R1/1.5/1/1.5
+# FEATURE_DATA
+>
+1 1 2
+1.5 1.5 1"""
+        with open(tmpfile.name, "w", encoding="utf8") as file:
+            file.write(gmt_file)
+        fig = Figure()
+        fig.plot3d(
+            data=tmpfile.name,
+            perspective=[315, 25],
+            region=[0, 2, 0, 2, 0, 2],
+            projection="X2c",
+            frame=["WsNeZ1", "xag", "yag", "zag"],
+            zscale=1.5,
+        )
+        return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot3d_ogrgmt_file_multipoint_non_default_style():
+    """
+    Make sure that non-default style can be set for plotting OGR/GMT file.
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        gmt_file = """# @VGMT1.0 @GMULTIPOINT
+# @R1/1.5/1/1.5
+# FEATURE_DATA
+>
+1 1 2
+1.5 1.5 1"""
+        with open(tmpfile.name, "w", encoding="utf8") as file:
+            file.write(gmt_file)
+        fig = Figure()
+        fig.plot3d(
+            data=tmpfile.name,
+            perspective=[315, 25],
+            region=[0, 2, 0, 2, 0, 2],
+            projection="X2c",
+            frame=["WsNeZ1", "xag", "yag", "zag"],
+            zscale=1.5,
+            style="c0.2c",
+        )
+        return fig
