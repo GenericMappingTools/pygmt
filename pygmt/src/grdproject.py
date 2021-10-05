@@ -64,50 +64,25 @@ def grdproject(grid, **kwargs):
     {J}
     {R}
     center : str or list
-        [*dx/dy*]
+        [*dx/dy*].
         Let projected coordinates be relative to projection center [Default
         is relative to lower left corner]. Optionally, add offsets in the
         projected units to be added (or subtracted when `inverse` is set) to
         (from) the projected coordinates, such as false eastings and
         northings for particular projection zones [0/0].
-    spacing : str
-        *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]]
-        Set the grid spacing for the new grid. [Default is the same number of
-        output nodes as there are input nodes]. Optionally append a suffix
-        modifier.
-        **Geographical (degrees) coordinates**: Append
-        **m** to indicate arc minutes or **s** to indicate arc seconds. If one
-        of the units **e**, **f**, **k**, **M**, **n** or **u** is appended
-        instead, the increment is assumed to be given in meter, foot, km, Mile,
-        nautical mile or US survey foot, respectively, and will be converted to
-        the equivalent degrees longitude at the middle latitude of the region.
-        If *y_inc* is given but set to 0 it will be reset equal to *x_inc*;
-        otherwise it will be converted to degrees latitude.
-        **All coordinates**: If **+e** is appended
-        then the corresponding max *x* (*east*) or *y* (*north*) may be 
-        slightly adjusted to fit exactly the given increment [by default the 
-        increment may be adjusted slightly to fit the given domain]. Finally, 
-        instead of giving an increment you may specify the *number of nodes* 
-        desired by appending **+n** to the supplied integer argument; the 
-        increment is then
-        recalculated from the number of nodes and the domain.
-        **Note**: If `region` is used then the grid spacing (and registration)
-        have already been initialized; use `spacing` and `registration` to
-        override the values.
+    {I}
     dpi : int
         Set the resolution for the new grid in dots per inch.
     scaling : str
         [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\
         **k**\|\ **M**\|\ **n**\|\ **u**].
-        Force 1:1 scaling, i.e., output or output data are in
-        actual projected meters [**e**]. To specify other units, append
-        **f** (foot), **k** (km), **M** (statute mile), **n** (nautical
-        mile), **u** (US survey foot), **i** (inch), **c** (cm), or **p**
-        (point).
+        Force 1:1 scaling, i.e., output or output data are in actual projected
+        meters [**e**]. To specify other units, append **f** (foot),
+        **k** (km), **M** (statute mile), **n** (nautical mile), **u**
+        (US survey foot), **i** (inch), **c** (cm), or **p** (point).
     unit : str
-            Append **c**, **i**, or **p** to indicate that cm, inch, or point
-            should be the projected measure unit. Cannot be used with 
-            `scaling`.
+        Append **c**, **i**, or **p** to indicate that cm, inch, or point
+        should be the projected measure unit. Cannot be used with `scaling`.
     {V}
     {n}
     {r}
