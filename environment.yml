@@ -16,7 +16,6 @@ dependencies:
     # Development dependencies
     - black
     - blackdoc
-    - coverage[toml]
     - docformatter
     - dvc
     - flake8
