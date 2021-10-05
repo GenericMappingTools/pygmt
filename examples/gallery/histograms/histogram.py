@@ -20,7 +20,7 @@ data = mean + stddev * np.random.randn(521)
 fig = pygmt.Figure()
 
 fig.histogram(
-    table=data,
+    data=data,
     # define the frame, add title and set background color to
     # lightgray, add annotations for x and y axis
     frame=['WSne+t"Histogram"+glightgray', 'x+l"Elevation (m)"', 'y+l"Counts"'],

@@ -87,6 +87,11 @@ There are 11 configuration files located in `.github/workflows`:
      Python/NumPy versions
    - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
 
+   This workflow is also responsible for uploading test coverage reports stored
+   in `.coverage.xml` to https://app.codecov.io/gh/GenericMappingTools/pygmt
+   via the [Codecov GitHub Action](https://github.com/codecov/codecov-action).
+   More codecov related configurations are stored in `.github/codecov.yml`.
+
 3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
    This is run on every commit to the *main* and Pull Request branches.
