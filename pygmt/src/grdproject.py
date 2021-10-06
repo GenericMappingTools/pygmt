@@ -64,10 +64,10 @@ def grdproject(grid, **kwargs):
     {J}
     {R}
     center : str or list
-        [*dx/dy*].
+        [*dx*, *dy*].
         Let projected coordinates be relative to projection center [Default
         is relative to lower left corner]. Optionally, add offsets in the
-        projected units to be added (or subtracted when `inverse` is set) to
+        projected units to be added (or subtracted when ``inverse`` is set) to
         (from) the projected coordinates, such as false eastings and
         northings for particular projection zones [0/0].
     {I}
@@ -82,7 +82,7 @@ def grdproject(grid, **kwargs):
         (US survey foot), **i** (inch), **c** (cm), or **p** (point).
     unit : str
         Append **c**, **i**, or **p** to indicate that cm, inch, or point
-        should be the projected measure unit. Cannot be used with `scaling`.
+        should be the projected measure unit. Cannot be used with ``scaling``.
     {V}
     {n}
     {r}
