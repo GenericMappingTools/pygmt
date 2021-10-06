@@ -53,18 +53,6 @@ def test_seafloor_crust_age_01d_with_region():
     npt.assert_allclose(data.max(), 125.1189)
 
 
-def test_seafloor_crust_age_30m():
-    """
-    Test properties of the seafloor crust age 30m data.
-    """
-    data = load_seafloor_crust_age(resolution="30m", registration="gridline")
-    assert data.shape == (361, 721)
-    npt.assert_allclose(data.lat, np.arange(-90, 90.5, 0.5))
-    npt.assert_allclose(data.lon, np.arange(-180, 180.5, 0.5))
-    npt.assert_allclose(data.min(), 0.079903, rtol=1e-5)
-    npt.assert_allclose(data.max(), 338.68396, rtol=1e-5)
-
-
 def test_seafloor_crust_age_05m_with_region():
     """
     Test loading a subregion of high-resolution seafloor crust age.
