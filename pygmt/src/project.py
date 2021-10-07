@@ -18,6 +18,7 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     A="azimuth",
+    C="center",
     E="endpoint",
     F="flags",
     G="generate",
@@ -31,8 +32,8 @@ from pygmt.helpers import (
     Z="ellipse",
     f="coltypes",
 )
-@kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence")
-def project(points, center, outfile=None, **kwargs):
+@kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence", C="sequence")
+def project(points=None, outfile=None, **kwargs):
     r"""
     Project data onto lines or great circles, or generate tracks.
 
@@ -213,9 +214,13 @@ def project(points, center, outfile=None, **kwargs):
         - None if ``outfile`` is set (track output will be stored in file set
           by ``outfile``)
     """
-    # center ("C") is a required positional argument, so it cannot be
-    # processed by decorator `@kwargs_to_strings`
-    kwargs["C"] = "/".join(f"{item}" for item in center)
+
+    if "C" not in kwargs:
+        raise GMTInvalidInput("Center must be specified.")
+    if "G" not in kwargs and points is None:
+        raise GMTInvalidInput(
+            "Points must be specified if the generate parameter is not used"
+        )
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         if outfile is None:  # Output to tmpfile if outfile is not set
