@@ -7,8 +7,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -33,7 +31,7 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence", C="sequence")
-def project(points=None, outfile=None, **kwargs):
+def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Project data onto lines or great circles, or generate tracks.
 
@@ -46,8 +44,8 @@ def project(points=None, outfile=None, **kwargs):
 
     Alternatively, :doc:`pygmt.project` may be used to generate
     :math:`(r, s, p)` triples at equal increments along a profile using the
-    ``generate`` parameter. In this case, the value of ``points`` is ignored
-    (you can use, e.g., ``points=None``).
+    ``generate`` parameter. In this case, the value of ``data`` is ignored
+    (you can use, e.g., ``data=None``).
 
     Projections are defined in any (but only) one of three ways:
 
@@ -74,8 +72,8 @@ def project(points=None, outfile=None, **kwargs):
 
     Data can be selectively windowed by using the ``length`` and ``width``
     options. If ``width`` is used, the projection width is set to use only
-    points with :math:`w_{{min}} < q < w_{{max}}`. If ``length`` is set, then
-    the length is set to use only those points with
+    data with :math:`w_{{min}} < q < w_{{max}}`. If ``length`` is set, then
+    the length is set to use only those data with
     :math:`l_{{min}} < p < l_{{max}}`. If the ``endpoint`` option
     has been used to define the projection, then ``length="w"`` may be used to
     window the length of the projection to exactly the span from O to B.
@@ -102,10 +100,10 @@ def project(points=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    points : pandas.DataFrame or str
-        Either a table with :math:`(x, y)` or (lon, lat) values in the first
-        two columns, or a filename (e.g. csv, txt format). More columns may be
-        present.
+    data : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
 
     center : str or list
         *cx*/*cy*.
@@ -123,7 +121,7 @@ def project(points=None, outfile=None, **kwargs):
 
     flags : str
         Specify your desired output using any combination of **xyzpqrs**, in
-        any order [Default is **xyzpqrs**]. Do not space between the letters.
+        any order [Default is **xypqrsz**]. Do not space between the letters.
         Use lower case. The output will be columns of values corresponding to
         your ``flags``. The **z** flag is special and refers to all numerical
         columns beyond the leading **x** and **y** in your input record. The
@@ -134,9 +132,9 @@ def project(points=None, outfile=None, **kwargs):
 
     generate : str
         *dist* [/*colat*][**+c**\|\ **h**].
-        Generate mode. No input is read and the value of ``points`` is ignored
-        (you can use, e.g., ``points=None``). Create :math:`(r, s, p)` output
-        points every *dist* units of :math:`p`. See `maptypeunits` option.
+        Generate mode. No input is read and the value of ``data`` is ignored
+        (you can use, e.g., ``data=None``). Create :math:`(r, s, p)` output
+        data every *dist* units of :math:`p`. See `maptypeunits` option.
         Alternatively, append */colat* for a small circle instead [Default is a
         colatitude of 90, i.e., a great circle]. If setting a pole with
         ``rotationpole`` and you want the small circle to go through *cx*/*cy*,
@@ -149,7 +147,7 @@ def project(points=None, outfile=None, **kwargs):
 
     length : str or list
         [**w**\|\ *l_min*/*l_max*].
-        Length controls. Project only those points whose *p* coordinate is
+        Length controls. Project only those data whose *p* coordinate is
         within :math:`l_{{min}} < p < l_{{max}}`. If ``endpoint`` has been set,
         then you may alternatively use **w** to stay within the distance from
         ``center`` to ``endpoint``.
@@ -177,7 +175,7 @@ def project(points=None, outfile=None, **kwargs):
 
     width : str or list
         *w_min*/*w_max*
-        Width controls. Project only those points whose :math:`q` coordinate is
+        Width controls. Project only those data whose :math:`q` coordinate is
         within :math:`w_{{min}} < q < w_{{max}}`.
 
     ellipse : str
@@ -189,7 +187,7 @@ def project(points=None, outfile=None, **kwargs):
         degrees. Append **+e** to adjust the increment set via ``generate`` so
         that the the ellipse has equal distance increments [Default uses the
         given increment and closes the ellipse].  Instead, append **+n** to set
-        a specific number of unique equidistant points via ``generate``. For
+        a specific number of unique equidistant data via ``generate``. For
         degenerate ellipses you can just supply a single *diameter* instead.  A
         geographic diameter may be specified in any desired unit other than km
         by appending the unit (e.g., 3d for degrees) [Default is km]; if so we
@@ -199,8 +197,7 @@ def project(points=None, outfile=None, **kwargs):
         *azimuth*.
 
     outfile : str
-        Required if ``points`` is a file. The file name for the output ASCII
-        file.
+        The file name for the output ASCII file.
 
     {f}
 
@@ -211,15 +208,23 @@ def project(points=None, outfile=None, **kwargs):
 
         - :class:`pandas.DataFrame` table with (x, y, ..., newcolname) if
           ``outfile`` is not set
-        - None if ``outfile`` is set (track output will be stored in file set
+        - None if ``outfile`` is set (output will be stored in file set
           by ``outfile``)
     """
 
     if "C" not in kwargs:
-        raise GMTInvalidInput("Center must be specified.")
-    if "G" not in kwargs and points is None:
+        raise GMTInvalidInput("The `center` parameter must be specified.")
+    if "G" not in kwargs and data is None:
         raise GMTInvalidInput(
-            "Points must be specified if the generate parameter is not used"
+            """
+            The `data` parameter must be specified unless `generate` is used.
+            """
+        )
+    if "G" in kwargs and "F" in kwargs:
+        raise GMTInvalidInput(
+            """
+            The `flags` parameter is not allowed with `generate`.
+            """
         )
 
     with GMTTempFile(suffix=".csv") as tmpfile:
@@ -227,50 +232,27 @@ def project(points=None, outfile=None, **kwargs):
             outfile = tmpfile.name
         with Session() as lib:
             if "G" not in kwargs:
-                # Store the pandas.DataFrame points table in virtualfile
-                if data_kind(points) == "matrix":
-                    table_context = lib.virtualfile_from_matrix(points.values)
-                elif data_kind(points) == "file":
-                    if outfile is None:
-                        raise GMTInvalidInput("Please pass in a str to 'outfile'")
-                    table_context = dummy_context(points)
-                else:
-                    raise GMTInvalidInput(f"Unrecognized data type {type(points)}")
+                # Choose how data will be passed into the module
+                table_context = lib.virtualfile_from_data(
+                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
+                )
 
-                # Run project on the temporary (csv) points table
-                with table_context as csvfile:
+                # Run project on the temporary (csv) data table
+                with table_context as infile:
                     arg_str = " ".join(
-                        [csvfile, build_arg_string(kwargs), "->" + outfile]
+                        [infile, build_arg_string(kwargs), "->" + outfile]
                     )
-                    lib.call_module(module="project", args=arg_str)
             else:
                 arg_str = " ".join([build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module="project", args=arg_str)
+            lib.call_module(module="project", args=arg_str)
 
         # if user did not set outfile, return pd.DataFrame
         if outfile == tmpfile.name:
             if "G" in kwargs:
                 column_names = list("rsp")
+                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
             else:
-                # Set output column names according to the "F" flag or use
-                # default value
-                if "F" in kwargs:
-                    column_names = list(kwargs["F"])
-                else:
-                    column_names = list("xyzpqrs")
-                # Find the indexes of "x", "y" and "z" column and
-                # replace with input column names
-                i_x = column_names.index("x")
-                i_y = column_names.index("y")
-                i_z = column_names.index("z")
-                input_column_names = points.columns.to_list()
-                column_names[i_x] = input_column_names[0]
-                column_names[i_y] = input_column_names[1]
-                # "z" can be actually more than one column
-                column_names.pop(i_z)
-                for col in reversed(input_column_names[2:]):
-                    column_names.insert(i_z, col)
-            result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
+                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
         # return None if outfile set, output in outfile
         elif outfile != tmpfile.name:
             result = None
