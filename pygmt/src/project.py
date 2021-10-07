@@ -142,9 +142,9 @@ def project(points, center, outfile=None, **kwargs):
         append **+c** to compute the required colatitude. Use ``center`` and
         ``endpoint`` to generate a circle that goes through the center and end
         point. Note, in this case the center and end point cannot be farther
-        apart than :math:`2|\mbox{{colat}}|`. Finally, if you append **+h** then
-        we will report the position of the pole as part of the segment header
-        [Default is no header].
+        apart than :math:`2|\mbox{{colat}}|`. Finally, if you append **+h**
+        then we will report the position of the pole as part of the segment
+        header [Default is no header].
 
     length : str or list
         [**w**\|\ *l_min*/*l_max*].
