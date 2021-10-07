@@ -25,7 +25,7 @@ def test_project_generate():
     """
     Run project by passing in a pandas.DataFrame as input.
     """
-    output = project(center=[0, -1], endpoint=[0, 1], flatearth=True, generate=0.5)
+    output = project(center=[0, -1], endpoint=[0, 1], flat_earth=True, generate=0.5)
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5, 3)
     npt.assert_allclose(output.iloc[1], [3.061617e-17, -0.5, 0.5])
@@ -35,7 +35,7 @@ def test_project_input_dataframe(dataframe):
     """
     Run project by passing in a pandas.DataFrame as input.
     """
-    output = project(data=dataframe, center=[0, -1], azimuth=45, flatearth=True)
+    output = project(data=dataframe, center=[0, -1], azimuth=45, flat_earth=True)
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (1, 6)
     npt.assert_allclose(
@@ -51,7 +51,7 @@ def test_project_input_matrix(array_func, dataframe):
     Run project by passing in a matrix as input.
     """
     table = array_func(dataframe)
-    output = project(data=table, center=[0, -1], azimuth=45, flatearth=True)
+    output = project(data=table, center=[0, -1], azimuth=45, flat_earth=True)
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (1, 6)
     npt.assert_allclose(
@@ -70,7 +70,7 @@ def test_project_output_filename(dataframe):
             data=dataframe,
             center=[0, -1],
             azimuth=45,
-            flatearth=True,
+            flat_earth=True,
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set
@@ -89,4 +89,4 @@ def test_project_no_data():
     Run project without providing `data` or `generate`.
     """
     with pytest.raises(GMTInvalidInput):
-        project(center=[0, -1], azimuth=45, flatearth=True)
+        project(center=[0, -1], azimuth=45, flat_earth=True)
