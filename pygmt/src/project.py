@@ -22,7 +22,7 @@ from pygmt.helpers import (
     G="generate",
     L="length",
     N="flatearth",
-    Q="maptypeunits",
+    Q="unit",
     S="sort",
     T="rotationpole",
     V="verbose",
@@ -134,7 +134,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         *dist* [/*colat*][**+c**\|\ **h**].
         Generate mode. No input is read and the value of ``data`` is ignored
         (you can use, e.g., ``data=None``). Create :math:`(r, s, p)` output
-        data every *dist* units of :math:`p`. See `maptypeunits` option.
+        data every *dist* units of :math:`p`. See `unit` option.
         Alternatively, append */colat* for a small circle instead [Default is a
         colatitude of 90, i.e., a great circle]. If setting a pole with
         ``rotationpole`` and you want the small circle to go through *cx*/*cy*,
@@ -156,7 +156,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         If `True`, Make a Cartesian coordinate transformation in the plane.
         [Default uses spherical trigonometry.]
 
-    maptypeunits : bool
+    unit : bool
         If `True`, project assumes :math:`x, y, r, s` are in degrees while
         :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, {{w_max}}` are in
         km. If not set (or ``False``), then all these are assumed to be in the
