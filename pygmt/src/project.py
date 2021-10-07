@@ -48,12 +48,9 @@ def project(points, center, outfile=None, **kwargs):
 
     Projections are defined in any (but only) one of three ways:
 
-    (Definition 1) By a ``center`` and an ``azimuth`` in degrees
-    clockwise from North.
-
-    (Definition 2) By a ``center`` and ``endpoint`` of the projection path.
-
-    (Definition 3) By a ``center`` and a ``rotationpole`` position.
+    1. By a ``center`` and an ``azimuth`` in degrees clockwise from North.
+    2. By a ``center`` and ``endpoint`` of the projection path.
+    3. By a ``center`` and a ``rotationpole`` position.
 
     To spherically project data along a great circle path, an oblique
     coordinate system is created which has its equator along that path, and the
@@ -141,7 +138,7 @@ def project(points, center, outfile=None, **kwargs):
         append **+c** to compute the required colatitude. Use ``center`` and
         ``endpoint`` to generate a circle that goes through the center and end
         point. Note, in this case the center and end point cannot be farther
-        apart than 2*| *colat* |. Finally, if you append **+h** then we will
+        apart than 2*abs(*colat*). Finally, if you append **+h** then we will
         report the position of the pole as part of the segment header [no
         header].
 
@@ -190,7 +187,7 @@ def project(points, center, outfile=None, **kwargs):
         degenerate ellipses you can just supply a single *diameter* instead.  A
         geographic diameter may be specified in any desired unit other than km
         [Default] by appending the unit (e.g., 3d for degrees); if so we assume
-        the increment is also given in the same unit (see `Units`_).  **Note**:
+        the increment is also given in the same unit.  **Note**:
         For the Cartesian ellipse (which requires ``flatearth``), we expect
         *direction* counter-clockwise from the horizontal instead of an
         *azimuth*.
