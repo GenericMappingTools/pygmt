@@ -21,7 +21,7 @@ from pygmt.helpers import (
     F="flags",
     G="generate",
     L="length",
-    N="flatearth",
+    N="flat_earth",
     Q="unit",
     S="sort",
     T="rotationpole",
@@ -79,7 +79,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     window the length of the projection to exactly the span from O to B.
 
     Flat Earth (Cartesian) coordinate transformations can also be made. Set
-    ``flatearth=True`` and remember that azimuth is clockwise from North (the
+    ``flat_earth=True`` and remember that azimuth is clockwise from North (the
     y axis), NOT the usual cartesian theta, which is counterclockwise from the
     x axis. azimuth = 90 - theta.
 
@@ -152,7 +152,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         then you may alternatively use **w** to stay within the distance from
         ``center`` to ``endpoint``.
 
-    flatearth : bool
+    flat_earth : bool
         If `True`, Make a Cartesian coordinate transformation in the plane.
         [Default uses spherical trigonometry.]
 
@@ -182,7 +182,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         *major*/*minor*/*azimuth* [**+e**\|\ **n**].
         Used in conjunction with ``center`` (sets its center) and ``generate``
         (sets the distance increment) to create the coordinates of an ellipse
-        with *major* and *minor* axes given in km (unless ``flatearth`` is
+        with *major* and *minor* axes given in km (unless ``flat_earth`` is
         given for a Cartesian ellipse) and the *azimuth* of the major axis in
         degrees. Append **+e** to adjust the increment set via ``generate`` so
         that the the ellipse has equal distance increments [Default uses the
@@ -192,7 +192,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         geographic diameter may be specified in any desired unit other than km
         by appending the unit (e.g., 3d for degrees) [Default is km]; if so we
         assume the increment is also given in the same unit.  **Note**:
-        For the Cartesian ellipse (which requires ``flatearth``), we expect
+        For the Cartesian ellipse (which requires ``flat_earth``), we expect
         *direction* counter-clockwise from the horizontal instead of an
         *azimuth*.
 
