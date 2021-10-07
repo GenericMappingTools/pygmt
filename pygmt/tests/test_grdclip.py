@@ -21,7 +21,7 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="expected_grid")
 def fixture_grid_result():
     """
-    Load the expected grdhisteq grid result.
+    Load the expected grdclip grid result.
     """
     return xr.DataArray(
         data=[
