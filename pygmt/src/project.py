@@ -24,7 +24,7 @@ from pygmt.helpers import (
     N="flat_earth",
     Q="unit",
     S="sort",
-    T="rotationpole",
+    T="pole",
     V="verbose",
     W="width",
     Z="ellipse",
@@ -51,7 +51,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     1. By a ``center`` and an ``azimuth`` in degrees clockwise from North.
     2. By a ``center`` and ``endpoint`` of the projection path.
-    3. By a ``center`` and a ``rotationpole`` position.
+    3. By a ``center`` and a ``pole`` position.
 
     To spherically project data along a great circle path, an oblique
     coordinate system is created which has its equator along that path, and the
@@ -63,7 +63,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     is to your left. If a Pole has been specified, then the positive
     (:math:`q`) direction is toward the pole.
 
-    To specify an oblique projection, use the ``rotationpole`` option to set
+    To specify an oblique projection, use the ``pole`` option to set
     the pole. Then the equator of the projection is already determined and the
     ``center`` option is used to locate the :math:`p = 0` meridian. The center
     *cx/cy* will be taken as a point through which the :math:`p = 0` meridian
@@ -137,7 +137,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         data every *dist* units of :math:`p`. See `unit` option.
         Alternatively, append */colat* for a small circle instead [Default is a
         colatitude of 90, i.e., a great circle]. If setting a pole with
-        ``rotationpole`` and you want the small circle to go through *cx*/*cy*,
+        ``pole`` and you want the small circle to go through *cx*/*cy*,
         append **+c** to compute the required colatitude. Use ``center`` and
         ``endpoint`` to generate a circle that goes through the center and end
         point. Note, in this case the center and end point cannot be farther
@@ -166,7 +166,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         Sort the output into increasing :math:`p` order. Useful when projecting
         random data into a sequential profile.
 
-    rotationpole : str or list
+    pole : str or list
         *px*/*py*.
         *px/py* sets the position of the rotation pole of the projection.
         (Definition 3).
