@@ -29,6 +29,7 @@ Plotting data and laying out the map:
     Figure.grdcontour
     Figure.grdimage
     Figure.grdview
+    Figure.histogram
     Figure.image
     Figure.inset
     Figure.legend
@@ -36,10 +37,14 @@ Plotting data and laying out the map:
     Figure.meca
     Figure.plot
     Figure.plot3d
+    Figure.rose
     Figure.set_panel
     Figure.shift_origin
+    Figure.solar
     Figure.subplot
     Figure.text
+    Figure.velo
+    Figure.wiggle
 
 Color palette table generation:
 
@@ -58,6 +63,13 @@ Saving and displaying the figure:
     Figure.show
     Figure.psconvert
 
+Configuring the display settings:
+
+.. autosummary::
+    :toctree: generated
+
+    set_display
+
 
 Data Processing
 ---------------
@@ -69,16 +81,29 @@ Operations on tabular data:
 
     blockmean
     blockmedian
+    blockmode
+    nearneighbor
     project
+    sph2grd
+    sphdistance
+    sphinterpolate
     surface
+    xyz2grd
 
 Operations on grids:
 
 .. autosummary::
     :toctree: generated
 
+    grd2xyz
+    grdclip
     grdcut
+    grdfill
     grdfilter
+    grdgradient
+    grdlandmask
+    grdproject
+    grdsample
     grdtrack
 
 Crossover analysis with x2sys:
@@ -88,6 +113,14 @@ Crossover analysis with x2sys:
 
     x2sys_init
     x2sys_cross
+
+Input/output
+------------
+
+.. autosummary::
+    :toctree: generated
+
+    load_dataarray
 
 GMT Defaults
 ------------
@@ -139,11 +172,13 @@ and store them in the GMT cache folder.
     :toctree: generated
 
     datasets.load_earth_relief
+    datasets.load_fractures_compilation
+    datasets.load_hotspots
     datasets.load_japan_quakes
+    datasets.load_mars_shape
     datasets.load_ocean_ridge_points
     datasets.load_sample_bathymetry
     datasets.load_usgs_quakes
-    datasets.load_fractures_compilation
 
 .. automodule:: pygmt.exceptions
 
@@ -216,6 +251,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.get_default
     clib.Session.create_data
     clib.Session.put_matrix
+    clib.Session.put_strings
     clib.Session.put_vector
     clib.Session.write_data
     clib.Session.open_virtual_file

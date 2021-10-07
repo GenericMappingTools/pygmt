@@ -9,13 +9,16 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt.helpers.testing import check_figures_equal
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module")
@@ -44,7 +47,7 @@ def test_plot_red_circles(data, region):
         x=data[:, 0],
         y=data[:, 1],
         region=region,
-        projection="X4i",
+        projection="X10c",
         style="c0.2c",
         color="red",
         frame="afg",
@@ -59,13 +62,13 @@ def test_plot_fail_no_data(data):
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot(
-            region=region, projection="X4i", style="c0.2c", color="red", frame="afg"
+            region=region, projection="X10c", style="c0.2c", color="red", frame="afg"
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
             x=data[:, 0],
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -74,7 +77,7 @@ def test_plot_fail_no_data(data):
         fig.plot(
             y=data[:, 0],
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
@@ -86,81 +89,65 @@ def test_plot_fail_no_data(data):
             y=data[:, 1],
             data=data,
             region=region,
-            projection="X4i",
+            projection="X10c",
             style="c0.2c",
             color="red",
             frame="afg",
         )
 
 
-def test_plot_fail_color_size_intensity(data):
+def test_plot_fail_1d_array_with_data(data):
     """
-    Should raise an exception if array color, sizes and intensity are used with
-    matrix.
+    Should raise an exception if array color, size, intensity and transparency
+    are used with matrix.
     """
     fig = Figure()
     kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
     with pytest.raises(GMTInvalidInput):
         fig.plot(style="c0.2c", color=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(style="cc", sizes=data[:, 2], color="red", **kwargs)
+        fig.plot(style="cc", size=data[:, 2], color="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
         fig.plot(style="c0.2c", color="red", intensity=data[:, 2], **kwargs)
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(style="c0.2c", color="red", transparency=data[:, 2] * 100, **kwargs)
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_projection(data):
     """
     Plot the data in green squares with a projection.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    fig_ref.plot(
-        data=POINTS_DATA,
-        R="g",
-        J="R270/4i",
-        S="s0.2c",
-        G="green",
-        B="ag",
-    )
-    fig_test.plot(
+    fig = Figure()
+    fig.plot(
         x=data[:, 0],
         y=data[:, 1],
         region="g",
-        projection="R270/4i",
+        projection="R270/10c",
         style="s0.2c",
         color="green",
         frame="ag",
     )
-    return fig_ref, fig_test
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_colors(data, region):
     """
     Plot the data using z as colors.
     """
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    fig_ref.plot(
-        data=POINTS_DATA,
-        R="/".join(map(str, region)),
-        J="X3i",
-        S="c0.5c",
-        C="cubhelix",
-        B="af",
-    )
-
-    fig_test.plot(
+    fig = Figure()
+    fig.plot(
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
         region=region,
-        projection="X3i",
+        projection="X10c",
         style="c0.5c",
         cmap="cubhelix",
         frame="af",
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @pytest.mark.mpl_image_compare
@@ -172,9 +159,9 @@ def test_plot_sizes(data, region):
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         region=region,
-        projection="X4i",
+        projection="X10c",
         style="cc",
         color="blue",
         frame="af",
@@ -192,9 +179,9 @@ def test_plot_colors_sizes(data, region):
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         region=region,
-        projection="X3i",
+        projection="X10c",
         style="cc",
         cmap="copper",
         frame="af",
@@ -208,12 +195,12 @@ def test_plot_colors_sizes_proj(data, region):
     Plot the data using z as sizes and colors with a projection.
     """
     fig = Figure()
-    fig.coast(region=region, projection="M10i", frame="af", water="skyblue")
+    fig.coast(region=region, projection="M15c", frame="af", water="skyblue")
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
         color=data[:, 2],
-        sizes=0.5 * data[:, 2],
+        size=0.5 * data[:, 2],
         style="cc",
         cmap="copper",
     )
@@ -234,16 +221,16 @@ def test_plot_varying_intensity():
         x=x,
         y=y,
         region=[-1.1, 1.1, -0.5, 0.5],
-        projection="X15c/2c",
+        projection="X10c/2c",
         frame=["S", "xaf+lIntensity"],
-        style="c0.5c",
+        style="c0.25c",
         color="blue",
         intensity=intensity,
     )
     return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_transparency():
     """
     Plot the data with a constant transparency.
@@ -251,28 +238,21 @@ def test_plot_transparency():
     x = np.arange(1, 10)
     y = np.arange(1, 10)
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y], fmt="%d")
-        fig_ref.plot(
-            data=tmpfile.name, S="c0.2c", G="blue", t=80.0, R="0/10/0/10", J="X4i", B=""
-        )
-
-    fig_test.plot(
+    fig = Figure()
+    fig.plot(
         x=x,
         y=y,
         region=[0, 10, 0, 10],
-        projection="X4i",
+        projection="X10c",
         frame=True,
         style="c0.2c",
         color="blue",
         transparency=80.0,
     )
-    return fig_ref, fig_test
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_varying_transparency():
     """
     Plot the data using z as transparency.
@@ -281,34 +261,21 @@ def test_plot_varying_transparency():
     y = np.arange(1, 10)
     z = np.arange(1, 10) * 10
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y, z], fmt="%d")
-        fig_ref.plot(
-            data=tmpfile.name,
-            R="0/10/0/10",
-            J="X4i",
-            B="",
-            S="c0.2c",
-            G="blue",
-            t="",
-        )
-
-    fig_test.plot(
+    fig = Figure()
+    fig.plot(
         x=x,
         y=y,
         region=[0, 10, 0, 10],
-        projection="X4i",
+        projection="X10c",
         frame=True,
         style="c0.2c",
         color="blue",
         transparency=z,
     )
-    return fig_ref, fig_test
+    return fig
 
 
-@check_figures_equal()
+@pytest.mark.mpl_image_compare
 def test_plot_sizes_colors_transparencies():
     """
     Plot the data with varying sizes and colors using z as transparency.
@@ -319,35 +286,27 @@ def test_plot_sizes_colors_transparencies():
     size = np.arange(1, 10) * 0.2
     transparency = np.arange(1, 10) * 10
 
-    fig_ref, fig_test = Figure(), Figure()
-    # Use single-character arguments for the reference image
-    with GMTTempFile() as tmpfile:
-        np.savetxt(tmpfile.name, np.c_[x, y, color, size, transparency])
-        fig_ref.plot(
-            data=tmpfile.name,
-            R="0/10/0/10",
-            J="X4i",
-            B="",
-            S="cc",
-            C="gray",
-            t="",
-        )
-    fig_test.plot(
+    fig = Figure()
+    fig.plot(
         x=x,
         y=y,
         region=[0, 10, 0, 10],
-        projection="X4i",
+        projection="X10c",
         frame=True,
         style="cc",
         color=color,
-        sizes=size,
+        size=size,
         cmap="gray",
         transparency=transparency,
     )
-    return fig_ref, fig_test
+    return fig
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.2.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/5799.",
+)
 def test_plot_matrix(data):
     """
     Plot the data passing in a matrix and specifying columns.
@@ -356,11 +315,11 @@ def test_plot_matrix(data):
     fig.plot(
         data=data,
         region=[10, 70, -5, 10],
-        projection="M10i",
+        projection="M15c",
         style="cc",
         color="#aaaaaa",
-        B="a",
-        columns="0,1,2+s0.005",
+        frame="a",
+        incols="0,1,2+s0.5",
     )
     return fig
 
@@ -374,10 +333,10 @@ def test_plot_matrix_color(data):
     fig.plot(
         data=data,
         region=[10, 70, -5, 10],
-        projection="X5i",
+        projection="X10c",
         style="c0.5c",
         cmap="rainbow",
-        B="a",
+        frame="a",
     )
     return fig
 
@@ -391,11 +350,11 @@ def test_plot_from_file(region):
     fig.plot(
         data=POINTS_DATA,
         region=region,
-        projection="X10i",
+        projection="X10c",
         style="d1c",
         color="yellow",
         frame=True,
-        columns=[0, 1],
+        incols=[0, 1],
     )
     return fig
 
@@ -415,7 +374,7 @@ def test_plot_vectors():
         y=lat,
         direction=(azimuth, lengths),
         region="-2/2/-2/2",
-        projection="X4i",
+        projection="X10c",
         style="V0.2c+e",
         color="black",
         frame="af",
@@ -431,7 +390,7 @@ def test_plot_lines_with_arrows():
     The test is slightly different from test_plot_vectors().
     Here the vectors are plotted as lines, with arrows at the end.
 
-    The test also check if the API crashes.
+    The test also checks if the API crashes.
     See https://github.com/GenericMappingTools/pygmt/issues/406.
     """
     fig = Figure()
@@ -476,25 +435,115 @@ def test_plot_datetime():
         ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64"
     )
     y = [1.0, 2.0, 3.0]
-    fig.plot(x, y, style="c0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="c0.2c", pen="1p")
 
     # pandas.DatetimeIndex
     x = pd.date_range("2013", freq="YS", periods=3)
     y = [4, 5, 6]
-    fig.plot(x, y, style="t0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="t0.2c", pen="1p")
 
     # xarray.DataArray
     x = xr.DataArray(data=pd.date_range(start="2015-03", freq="QS", periods=3))
     y = [7.5, 6, 4.5]
-    fig.plot(x, y, style="s0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="s0.2c", pen="1p")
 
     # raw datetime strings
     x = ["2016-02-01", "2017-03-04T00:00"]
     y = [7, 8]
-    fig.plot(x, y, style="a0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="a0.2c", pen="1p")
 
     # the Python built-in datetime and date
     x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
     y = [8.5, 9.5]
-    fig.plot(x, y, style="i0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="i0.2c", pen="1p")
     return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_plot_sizes.png")
+def test_plot_deprecate_sizes_to_size(data, region):
+    """
+    Make sure that the old parameter "sizes" is supported and it reports a
+    warning.
+
+    Modified from the test_plot_sizes() test.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        fig.plot(
+            x=data[:, 0],
+            y=data[:, 1],
+            sizes=0.5 * data[:, 2],
+            region=region,
+            projection="X10c",
+            style="cc",
+            color="blue",
+            frame="af",
+        )
+        assert len(record) == 1  # check that only one warning was raised
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_plot_from_file.png")
+def test_plot_deprecate_columns_to_incols(region):
+    """
+    Make sure that the old parameter "columns" is supported and it reports a
+    warning.
+
+    Modified from the test_plot_from_file() test.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        fig.plot(
+            data=POINTS_DATA,
+            region=region,
+            projection="X10c",
+            style="d1c",
+            color="yellow",
+            frame=True,
+            columns=[0, 1],
+        )
+        assert len(record) == 1  # check that only one warning was raised
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_ogrgmt_file_multipoint_default_style():
+    """
+    Make sure that OGR/GMT files with MultiPoint geometry are plotted as
+    squares and not as line (default GMT style).
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        gmt_file = """# @VGMT1.0 @GMULTIPOINT
+# @R1/1/1/1UB
+# FEATURE_DATA
+1 2
+        """
+        with open(tmpfile.name, "w", encoding="utf8") as file:
+            file.write(gmt_file)
+        fig = Figure()
+        fig.plot(data=tmpfile.name, region=[0, 2, 1, 3], projection="X2c", frame=True)
+        return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_ogrgmt_file_multipoint_non_default_style():
+    """
+    Make sure that non-default style can be set for plotting OGR/GMT file.
+    """
+    with GMTTempFile(suffix=".gmt") as tmpfile:
+        gmt_file = """# @VGMT1.0 @GPOINT
+# @R1/1/1/1UB
+# FEATURE_DATA
+1 2
+        """
+        with open(tmpfile.name, "w", encoding="utf8") as file:
+            file.write(gmt_file)
+        fig = Figure()
+        fig.plot(
+            data=tmpfile.name,
+            region=[0, 2, 1, 3],
+            projection="X2c",
+            frame=True,
+            style="c0.2c",
+        )
+        return fig

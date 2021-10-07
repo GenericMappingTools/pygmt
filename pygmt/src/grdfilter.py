@@ -2,7 +2,6 @@
 grdfilter - Filter a grid in the space (or time) domain.
 """
 
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -11,6 +10,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.io import load_dataarray
 
 
 @fmt_docstring
@@ -97,10 +97,7 @@ def grdfilter(grid, **kwargs):
         5: grid (x,y) in Mercator ``projection='m1'`` img units, *width* in km,
         Spherical distance calculation.
 
-    spacing : str
-        *xinc*\[\ *unit*\][**+e**\|\ **n**]
-        [/*yinc*\ [*unit*][**+e**\|\ **n**]].
-        *xinc* [and optionally *yinc*] is the grid spacing.
+    {I}
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.
@@ -154,11 +151,4 @@ def grdfilter(grid, **kwargs):
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module("grdfilter", arg_str)
 
-        if outgrid == tmpfile.name:  # if user did not set outgrid, return DataArray
-            with xr.open_dataarray(outgrid) as dataarray:
-                result = dataarray.load()
-                _ = result.gmt  # load GMTDataArray accessor information
-        else:
-            result = None  # if user sets an outgrid, return None
-
-        return result
+        return load_dataarray(outgrid) if outgrid == tmpfile.name else None

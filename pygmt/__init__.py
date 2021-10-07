@@ -25,30 +25,44 @@ from pkg_resources import get_distribution
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
 from pygmt.accessors import GMTDataArrayAccessor
-from pygmt.figure import Figure
+from pygmt.figure import Figure, set_display
+from pygmt.io import load_dataarray
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
     blockmean,
     blockmedian,
+    blockmode,
     config,
     grd2cpt,
+    grd2xyz,
+    grdclip,
     grdcut,
+    grdfill,
     grdfilter,
+    grdgradient,
     grdinfo,
+    grdlandmask,
+    grdproject,
+    grdsample,
     grdtrack,
     info,
     makecpt,
+    nearneighbor,
     project,
+    sph2grd,
+    sphdistance,
+    sphinterpolate,
     surface,
     which,
     x2sys_cross,
     x2sys_init,
+    xyz2grd,
 )
 
 # Get semantic version through setuptools-scm
 __version__ = f'v{get_distribution("pygmt").version}'  # e.g. v0.1.2.dev3+g0ab3cd78
-__commit__ = __version__.split("+g")[-1]  # 0ab3cd78
+__commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 # Start our global modern mode session
 _begin()
@@ -68,7 +82,7 @@ def print_clib_info():
     lines = ["GMT library information:"]
     with Session() as ses:
         for key in sorted(ses.info):
-            lines.append("  {}: {}".format(key, ses.info[key]))
+            lines.append(f"  {key}: {ses.info[key]}")
     print("\n".join(lines))
 
 
@@ -203,7 +217,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     if verbose:
         args.append("-vv")
     if coverage:
-        args.append("--cov={}".format(package))
+        args.append(f"--cov={package}")
         args.append("--cov-report=term-missing")
     if doctest:
         args.append("--doctest-modules")

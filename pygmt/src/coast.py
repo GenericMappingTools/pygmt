@@ -65,12 +65,7 @@ def coast(self, **kwargs):
     ----------
     {J}
     {R}
-    area_thresh : int, float, or str
-        *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
-        [**s**\|\ **S**][**+l**\|\ **r**][**+p**\ *percent*].
-        Features with an area smaller than *min_area* in km\ :sup:`2` or of
-        hierarchical level that is lower than *min_level* or higher than
-        *max_level* will not be plotted.
+    {A}
     {B}
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
@@ -85,7 +80,7 @@ def coast(self, **kwargs):
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
-        Select filling or clipping of “dry” areas.
+        Select filling or clipping of "dry" areas.
     rivers : int or str or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
@@ -151,7 +146,7 @@ def coast(self, **kwargs):
 
         a = All boundaries (1-3)
     water : str
-        Select filling or clipping of “wet” areas.
+        Select filling or clipping of "wet" areas.
     {U}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.

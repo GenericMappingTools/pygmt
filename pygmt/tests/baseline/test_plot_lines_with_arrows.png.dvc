@@ -1,0 +1,4 @@
+outs:
+- md5: df86e4f70b5641624d16358dba6617c3
+  size: 22050
+  path: test_plot_lines_with_arrows.png

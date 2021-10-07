@@ -1,0 +1,4 @@
+outs:
+- md5: 6c106e25a9e273e39498748e03ca85cd
+  size: 6267
+  path: test_text_position.png

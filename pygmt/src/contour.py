@@ -3,11 +3,10 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    data_kind,
-    dummy_context,
+    check_data_input_order,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -15,6 +14,8 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="annotation",
     B="frame",
@@ -25,18 +26,24 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="skip",
+    U="timestamp",
     V="verbose",
     W="pen",
     X="xshift",
     Y="yshift",
+    b="binary",
     c="panel",
-    i="columns",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    h="header",
+    i="incols",
     l="label",
     p="perspective",
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(self, x=None, y=None, z=None, data=None, **kwargs):
+def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Contour table data by direct triangulation.
 
@@ -51,10 +58,12 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
+    data : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
     {J}
     {R}
     annotation : str or int
@@ -79,7 +88,10 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
     E : str
         Network information.
     label_placement : str
-        Placement of labels.
+        [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\ *args*.
+        Control the placement of labels along the quoted lines. It supports
+        five controlling algorithms. See :gmt-docs:`contour.html#g` for
+        details.
     I : bool
         Color the triangles using CPT.
     triangular_mesh_pen : str
@@ -101,27 +113,26 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
+    {U}
     {V}
     {XY}
+    {b}
     {c}
+    {d}
+    {e}
+    {f}
+    {h}
+    {i}
     {p}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provided both x, y, and z.")
-
     with Session() as lib:
-        # Choose how data will be passed in to the module
-        if kind == "file":
-            file_context = dummy_context(data)
-        elif kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(data)
-        elif kind == "vectors":
-            file_context = lib.virtualfile_from_vectors(x, y, z)
-
+        # Choose how data will be passed into the module
+        file_context = lib.virtualfile_from_data(
+            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+        )
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
             lib.call_module("contour", arg_str)

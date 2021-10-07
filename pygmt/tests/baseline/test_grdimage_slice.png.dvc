@@ -1,0 +1,4 @@
+outs:
+- md5: ea59acb8c1de63d6caba7df897c8f3ba
+  size: 67726
+  path: test_grdimage_slice.png

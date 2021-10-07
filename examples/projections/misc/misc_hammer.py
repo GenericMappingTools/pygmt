@@ -1,11 +1,12 @@
-"""
+r"""
 Hammer
 ======
 
 The equal-area Hammer projection, first presented by the German mathematician
-Ernst von Hammer in 1892, is also known as Hammer-Aitoff (the Aitoff projection looks
-similar, but is not equal-area). The border is an ellipse, equator and central
-meridian are straight lines, while other parallels and meridians are complex curves.
+Ernst von Hammer in 1892, is also known as Hammer-Aitoff (the Aitoff projection
+looks similar, but is not equal-area). The border is an ellipse, equator and
+central meridian are straight lines, while other parallels and meridians are
+complex curves.
 
 **h**\ [*lon0/*]\ *scale* or **H**\ [*lon0/*]\ *width*
 

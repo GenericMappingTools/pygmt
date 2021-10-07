@@ -4,15 +4,6 @@ Plotting text
 
 It is often useful to add annotations to a map plot. This is handled by
 :meth:`pygmt.Figure.text`.
-
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
 """
 # sphinx_gallery_thumbnail_number = 3
 
@@ -69,8 +60,8 @@ fig.show()
 # Plotting from a text file
 # -------------------------
 #
-# It is also possible to add annotations from a file containing ``x``, ``y``, and
-# ``text`` fields. Here we give a complete example.
+# It is also possible to add annotations from a file containing ``x``, ``y``,
+# and ``text`` fields. Here we give a complete example.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):

@@ -98,8 +98,8 @@ def data_format_code(convention, component="full"):
 @use_alias(
     R="region",
     J="projection",
+    A="offset",
     B="frame",
-    C="offset",
     N="no_clip",
     V="verbose",
     X="xshift",
@@ -294,16 +294,14 @@ def meca(
                 spec_conv = spec
 
         # set convention and focal parameters based on spec convention
-        convention_assigned = False
-        for conv in param_conventions:
+        for conv in list(param_conventions):
             if set(spec_conv.keys()) == set(param_conventions[conv]):
                 convention = conv.lower()
                 foc_params = param_conventions[conv]
-                convention_assigned = True
                 break
-        if not convention_assigned:
+        else:  # if there is no convention assigned
             raise GMTError(
-                "Parameters in spec dictionary do not match known " "conventions."
+                "Parameters in spec dictionary do not match known conventions."
             )
 
         # create a dict type pointer for easier to read code
@@ -334,8 +332,8 @@ def meca(
                 if arg is None:
                     spec.append(0)
                 else:
-                    if "C" not in kwargs:
-                        kwargs["C"] = True
+                    if "A" not in kwargs:
+                        kwargs["A"] = True
                     spec.append(arg)
 
         # or assemble the 2D array for the case of lists as values
@@ -389,8 +387,8 @@ def meca(
                     if arg is None:
                         row.append(0)
                     else:
-                        if "C" not in kwargs:
-                            kwargs["C"] = True
+                        if "A" not in kwargs:
+                            kwargs["A"] = True
                         row.append(arg[index])
                 spec_array.append(row)
             spec = spec_array
@@ -435,8 +433,8 @@ def meca(
                     if arg is None:
                         row.append(0)
                     else:
-                        if "C" not in kwargs:
-                            kwargs["C"] = True
+                        if "A" not in kwargs:
+                            kwargs["A"] = True
                         row.append(arg[index])
                 spec_array.append(row)
             spec = spec_array
@@ -457,7 +455,7 @@ def meca(
         elif kind == "file":
             file_context = dummy_context(spec)
         else:
-            raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
+            raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
             lib.call_module("meca", arg_str)

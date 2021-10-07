@@ -8,7 +8,7 @@ BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
 BLACKDOC_OPTIONS=--line-length 79
 DOCFORMATTER_FILES=$(PROJECT) setup.py doc/conf.py examples
 DOCFORMATTER_OPTIONS=--recursive --pre-summary-newline --make-summary-multi-line --wrap-summaries 79 --wrap-descriptions 79
-FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py
+FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py examples
 LINT_FILES=$(PROJECT) setup.py doc/conf.py
 
 help:
@@ -36,7 +36,7 @@ test:
 	@echo ""
 	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
 	@echo ""
-	cd $(TESTDIR); pytest $(PYTEST_COV_ARGS) $(PROJECT)
+	cd $(TESTDIR); PYGMT_USE_EXTERNAL_DISPLAY="false" pytest $(PYTEST_COV_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
 	rm -r $(TESTDIR)

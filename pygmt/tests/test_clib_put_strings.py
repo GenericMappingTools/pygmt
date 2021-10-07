@@ -4,13 +4,9 @@ Test the functions that put string data into GMT.
 import numpy as np
 import numpy.testing as npt
 import pytest
-from packaging.version import Version
 from pygmt import clib
 from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 def test_put_strings():

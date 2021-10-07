@@ -6,25 +6,16 @@ To plot an inset figure inside another larger figure, we can use the
 :meth:`pygmt.Figure.inset` method. After a large figure has been created,
 call ``inset`` using a ``with`` statement, and new plot elements will be
 added to the inset figure instead of the larger figure.
-
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
 """
 # sphinx_gallery_thumbnail_number = 4
 
 import pygmt
 
-########################################################################################
+###############################################################################
 #
-# Prior to creating an inset figure, a larger figure must first be plotted. In the
-# example below, :meth:`pygmt.Figure.coast` is used to create a map of the US state of
-# Massachusetts.
+# Prior to creating an inset figure, a larger figure must first be plotted. In
+# the example below, :meth:`pygmt.Figure.coast` is used to create a map of the
+# US state of Massachusetts.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -38,15 +29,16 @@ fig.coast(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 #
-# The :meth:`pygmt.Figure.inset` method uses a context manager, and is called using a
-# ``with`` statement. The ``position`` parameter, including the inset width, is
-# required to plot the inset. Using the **j** argument, the location of the inset is
-# set to one of the 9 anchors (bottom-middle-top and left-center-right). In the
-# example below, ``BL`` sets the inset to the bottom left. The ``box`` parameter can
-# set the fill and border of the inset. In the example below, ``+pblack`` sets the
-# border color to black and ``+gred`` sets the fill to red.
+# The :meth:`pygmt.Figure.inset` method uses a context manager, and is called
+# using a ``with`` statement. The ``position`` parameter, including the inset
+# width, is required to plot the inset. Using the **j** argument, the location
+# of the inset is set to one of the 9 anchors (bottom-middle-top and
+# left-center-right). In the example below, ``BL`` sets the inset to the bottom
+# left. The ``box`` parameter can set the fill and border of the inset. In the
+# example below, ``+pblack`` sets the border color to black and ``+gred`` sets
+# the fill to red.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -59,16 +51,17 @@ fig.coast(
     frame="a",
 )
 with fig.inset(position="jBL+w3c", box="+pblack+glightred"):
-    # pass is used to exit the with statement as no plotting functions are called
+    # pass is used to exit the with statement as no plotting functions are
+    # called
     pass
 fig.show()
 
-########################################################################################
+###############################################################################
 #
 # When using **j** to set the anchor of the inset, the default location is in
-# contact with the nearby axis or axes. The offset of the inset can be set with **+o**,
-# followed by the offsets along the x- and y-axis. If only one offset is
-# passed, it is applied to both axes. Each offset can have its own unit. In
+# contact with the nearby axis or axes. The offset of the inset can be set with
+# **+o**, followed by the offsets along the x- and y-axis. If only one offset
+# is passed, it is applied to both axes. Each offset can have its own unit. In
 # the example below, the inset is shifted 0.5 centimeters on the x-axis and
 # 0.2 centimeters on the y-axis.
 
@@ -86,12 +79,12 @@ with fig.inset(position="jBL+w3c+o0.5c/0.2c", box="+pblack+glightred"):
     pass
 fig.show()
 
-########################################################################################
+###############################################################################
 #
-# Standard plotting functions can be called from within the ``inset`` context manager.
-# The example below uses :meth:`pygmt.Figure.coast` to plot a zoomed out map that
-# selectively paints the state of Massachusetts to shows its location relative to
-# other states.
+# Standard plotting functions can be called from within the ``inset`` context
+# manager. The example below uses :meth:`pygmt.Figure.coast` to plot a zoomed
+# out map that selectively paints the state of Massachusetts to shows its
+# location relative to other states.
 
 fig = pygmt.Figure()
 fig.coast(

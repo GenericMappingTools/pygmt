@@ -24,14 +24,20 @@ from pygmt.helpers import (
     D="offset",
     G="fill",
     N="no_clip",
+    U="timestamp",
     V="verbose",
     W="pen",
     X="xshift",
     Y="yshift",
+    a="aspatial",
     c="panel",
+    e="find",
     f="coltypes",
+    h="header",
+    i="incols",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(
     R="sequence",
@@ -40,6 +46,7 @@ from pygmt.helpers import (
     font="sequence_comma",
     justify="sequence_comma",
     c="sequence_comma",
+    i="sequence_comma",
     p="sequence",
 )
 def text_(
@@ -141,12 +148,20 @@ def text_(
         style = solid].
     no_clip : bool
         Do NOT clip text at map boundaries [Default is will clip].
+    {U}
     {V}
     {XY}
+    {a}
     {c}
+    {e}
     {f}
+    {h}
+    {i}
     {p}
     {t}
+        *transparency* can also be a 1d array to set varying transparency
+        for texts, but this option is only valid if using x/y/text.
+    {w}
     """
 
     # pylint: disable=too-many-locals
@@ -177,13 +192,23 @@ def text_(
         )
     ):
         kwargs.update({"F": ""})
-    if angle is not None and isinstance(angle, (int, float, str)):
+
+    if angle is True:
+        kwargs["F"] += "+a"
+    elif isinstance(angle, (int, float, str)):
         kwargs["F"] += f"+a{str(angle)}"
-    if font is not None and isinstance(font, str):
+
+    if font is True:
+        kwargs["F"] += "+f"
+    elif isinstance(font, str):
         kwargs["F"] += f"+f{font}"
-    if justify is not None and isinstance(justify, str):
+
+    if justify is True:
+        kwargs["F"] += "+j"
+    elif isinstance(justify, str):
         kwargs["F"] += f"+j{justify}"
-    if position is not None and isinstance(position, str):
+
+    if isinstance(position, str):
         kwargs["F"] += f'+c{position}+t"{text}"'
 
     extra_arrays = []

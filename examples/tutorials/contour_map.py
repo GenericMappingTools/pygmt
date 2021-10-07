@@ -3,15 +3,6 @@ Creating a map with contour lines
 =================================
 
 Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
-
-.. note::
-
-    This tutorial assumes the use of a Python notebook, such as IPython or Jupyter Notebook.
-    To see the figures while using a Python script instead, use
-    ``fig.show(method="external")`` to display the figure in the default PDF viewer.
-
-    To save the figure, use ``fig.savefig("figname.pdf")`` where ``"figname.pdf"``
-    is the desired name and file extension for the saved figure.
 """
 # sphinx_gallery_thumbnail_number = 5
 
@@ -20,7 +11,7 @@ import pygmt
 # Load sample earth relief data
 grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-92.5, -82.5, -3, 7])
 
-########################################################################################
+###############################################################################
 # Create contour plot
 # -------------------
 #
@@ -36,13 +27,13 @@ fig = pygmt.Figure()
 fig.grdcontour(grid=grid)
 fig.show()
 
-########################################################################################
+###############################################################################
 # Contour line settings
 # ---------------------
 #
-# Use the ``annotation`` and ``interval`` arguments to adjust contour line intervals.
-# In the example below, there are contour intervals every 250 meters and
-# annotated contour lines every 1,000 meters.
+# Use the ``annotation`` and ``interval`` arguments to adjust contour line
+# intervals. In the example below, there are contour intervals every 250 meters
+# and annotated contour lines every 1,000 meters.
 
 fig = pygmt.Figure()
 fig.grdcontour(
@@ -52,13 +43,13 @@ fig.grdcontour(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # Contour limits
 # --------------
 #
-# The ``limit`` argument sets the minimum and maximum values for the contour lines.
-# The argument takes the low and high values,
-# and is either a list (as below) or a string ``limit="-4000/-2000"``.
+# The ``limit`` argument sets the minimum and maximum values for the contour
+# lines. The argument takes the low and high values, and is either a list (as
+# below) or a string ``limit="-4000/-2000"``.
 
 fig = pygmt.Figure()
 fig.grdcontour(
@@ -69,7 +60,7 @@ fig.grdcontour(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # Map settings
 # ------------
 #
@@ -87,15 +78,16 @@ fig.grdcontour(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # Adding a colormap
 # -----------------
 #
 # The :meth:`pygmt.Figure.grdimage` method can be used to add a
 # colormap to the contour map. It must be called prior to
-# :meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the final map.
-# If the ``projection`` argument is specified in the :meth:`pygmt.Figure.grdimage`
-# method, it does not need to be repeated in the :meth:`pygmt.Figure.grdcontour` method.
+# :meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the
+# final map. If the ``projection`` argument is specified in the
+# :meth:`pygmt.Figure.grdimage` method, it does not need to be repeated in the
+# :meth:`pygmt.Figure.grdcontour` method.
 
 fig = pygmt.Figure()
 fig.grdimage(

@@ -5,11 +5,18 @@ Doesn't include the plotting commands which have their own test files.
 """
 import os
 
+try:
+    import IPython
+except ModuleNotFoundError:
+    IPython = None  # pylint: disable=invalid-name
+
+
 import numpy as np
 import numpy.testing as npt
 import pytest
-from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt import Figure, set_display
+from pygmt.exceptions import GMTError, GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 
 def test_figure_region():
@@ -51,6 +58,23 @@ def test_figure_region_country_codes():
     npt.assert_allclose(fig.region, np.array([0.0, 360.0, -90.0, 90.0]))
 
 
+def test_figure_repr():
+    """
+    Make sure that figure output's PNG and HTML printable representations look
+    ok.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 2, 3], frame=True)
+    # Check that correct PNG 8-byte file header is produced
+    # https://en.wikipedia.org/wiki/Portable_Network_Graphics#File_header
+    repr_png = fig._repr_png_()  # pylint: disable=protected-access
+    assert repr_png.hex().startswith("89504e470d0a1a0a")
+    # Check that correct HTML image tags are produced
+    repr_html = fig._repr_html_()  # pylint: disable=protected-access
+    assert repr_html.startswith('<img src="data:image/png;base64,')
+    assert repr_html.endswith('" width="500px">')
+
+
 def test_figure_savefig_exists():
     """
     Make sure the saved figure has the right name.
@@ -74,7 +98,18 @@ def test_figure_savefig_unknown_extension():
     prefix = "test_figure_savefig_unknown_extension"
     fmt = "test"
     fname = ".".join([prefix, fmt])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTInvalidInput, match="Unknown extension '.test'."):
+        fig.savefig(fname)
+
+
+def test_figure_savefig_ps_extension():
+    """
+    Check that an error is raised when .ps extension is specified.
+    """
+    fig = Figure()
+    fig.basemap(region="10/70/-300/800", projection="X3c/5c", frame="af")
+    fname = "test_figure_savefig_ps_extension.ps"
+    with pytest.raises(GMTInvalidInput, match="Extension '.ps' is not supported."):
         fig.savefig(fname)
 
 
@@ -94,6 +129,17 @@ def test_figure_savefig_transparent():
     fig.savefig(fname, transparent=True)
     assert os.path.exists(fname)
     os.remove(fname)
+
+
+def test_figure_savefig_filename_with_spaces():
+    """
+    Check if savefig (or psconvert) supports filenames with spaces.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
+    with GMTTempFile(prefix="pygmt-filename with spaces", suffix=".png") as imgfile:
+        fig.savefig(imgfile.name)
+        assert os.path.exists(imgfile.name)
 
 
 def test_figure_savefig():
@@ -136,32 +182,33 @@ def test_figure_savefig():
     )
 
 
+@pytest.mark.skipif(IPython is None, reason="run when IPython is installed")
 def test_figure_show():
     """
     Test that show creates the correct file name and deletes the temp dir.
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    img = fig.show(width=800)
-    assert img.width == 800
+    fig.show()
 
 
 @pytest.mark.mpl_image_compare
-def test_shift_origin():
+def test_figure_shift_origin():
     """
     Test if fig.shift_origin works.
     """
+    kwargs = dict(region=[0, 3, 0, 5], projection="X3c/5c", frame=0)
     fig = Figure()
     # First call shift_origin without projection and region.
-    # Test the issue https://github.com/GenericMappingTools/pygmt/issues/514
-    fig.shift_origin(xshift="2i", yshift="3i")
-    fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
-    fig.shift_origin(xshift="4i")
-    fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
-    fig.shift_origin(yshift="6i")
-    fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
-    fig.shift_origin(xshift="-4i", yshift="6i")
-    fig.basemap(region="10/70/-300/300", projection="X3i/5i", frame="af")
+    # Test issue https://github.com/GenericMappingTools/pygmt/issues/514
+    fig.shift_origin(xshift="2c", yshift="3c")
+    fig.basemap(**kwargs)
+    fig.shift_origin(xshift="4c")
+    fig.basemap(**kwargs)
+    fig.shift_origin(yshift="6c")
+    fig.basemap(**kwargs)
+    fig.shift_origin(xshift="-4c", yshift="6c")
+    fig.basemap(**kwargs)
     return fig
 
 
@@ -174,3 +221,33 @@ def test_figure_show_invalid_method():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     with pytest.raises(GMTInvalidInput):
         fig.show(method="test")
+
+
+@pytest.mark.skipif(IPython is not None, reason="run without IPython installed")
+def test_figure_show_notebook_error_without_ipython():
+    """
+    Test to check if an error is raised when display method is 'notebook', but
+    IPython is not installed.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 2, 3], frame=True)
+    with pytest.raises(GMTError):
+        fig.show(method="notebook")
+
+
+def test_figure_display_external():
+    """
+    Test to check that a figure can be displayed in an external window.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 3, 6, 9], projection="X1c", frame=True)
+    fig.show(method="external")
+
+
+def test_figure_set_display_invalid():
+    """
+    Test to check if an error is raised when an invalid method is passed to
+    set_display.
+    """
+    with pytest.raises(GMTInvalidInput):
+        set_display(method="invalid")

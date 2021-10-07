@@ -5,19 +5,19 @@ channels:
 dependencies:
     # Required dependencies
     - pip
-    - gmt=6.1.1
-    - numpy>=1.17
+    - gmt=6.2.0
+    - numpy>=1.18
     - pandas
     - xarray
     - netCDF4
     - packaging
+    # Optional dependencies
+    - geopandas
     # Development dependencies
     - black
     - blackdoc
-    - codecov
-    - coverage[toml]
     - docformatter
-    - dvc
+    - dvc=2.3.0
     - flake8
     - ipython
     - isort>=5
@@ -32,4 +32,4 @@ dependencies:
     - sphinx
     - sphinx-copybutton
     - sphinx-gallery
-    - sphinx_rtd_theme=0.4.3
+    - sphinx_rtd_theme

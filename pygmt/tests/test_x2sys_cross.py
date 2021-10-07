@@ -75,7 +75,7 @@ def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
 
 def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
     """
-    Run x2sys_cross by passing in one dataframe, and output external crossovers
+    Run x2sys_cross by passing in one dataframe, and output internal crossovers
     to a pandas.DataFrame.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
@@ -107,7 +107,9 @@ def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
         )
 
         # Add a time row to the x2sys fmtfile
-        with open(file=os.path.join(tmpdir, "xyz.fmt"), mode="a") as fmtfile:
+        with open(
+            file=os.path.join(tmpdir, "xyz.fmt"), mode="a", encoding="utf8"
+        ) as fmtfile:
             fmtfile.write("time\ta\tN\t0\t1\t0\t%g\n")
 
         # Create pandas.DataFrame track tables
@@ -129,6 +131,29 @@ def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
         assert output.dtypes["t_2"].type == np.datetime64
 
 
+def test_x2sys_cross_input_dataframe_with_nan(mock_x2sys_home, tracks):
+    """
+    Run x2sys_cross by passing in one dataframe with NaN values, and output
+    internal crossovers to a pandas.DataFrame.
+    """
+    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
+        tag = os.path.basename(tmpdir)
+        x2sys_init(
+            tag=tag, fmtfile="xyz", suffix="xyzt", units=["de", "se"], force=True
+        )
+
+        tracks[0].loc[tracks[0]["z"] < -15, "z"] = np.nan  # set some values to NaN
+        output = x2sys_cross(tracks=tracks, tag=tag, coe="i")
+
+        assert isinstance(output, pd.DataFrame)
+        assert output.shape == (3, 12)
+        columns = list(output.columns)
+        assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
+        assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
+        assert output.dtypes["i_1"].type == np.object_
+        assert output.dtypes["i_2"].type == np.object_
+
+
 def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
     """
     Run x2sys_cross by passing in two filenames, and output external crossovers
@@ -141,7 +166,9 @@ def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
         # Create temporary xyz files
         for i in range(2):
             np.random.seed(seed=i)
-            with open(os.path.join(os.getcwd(), f"track_{i}.xyz"), mode="w") as fname:
+            with open(
+                os.path.join(os.getcwd(), f"track_{i}.xyz"), mode="w", encoding="utf8"
+            ) as fname:
                 np.savetxt(fname=fname, X=np.random.rand(10, 3))
 
         output = x2sys_cross(

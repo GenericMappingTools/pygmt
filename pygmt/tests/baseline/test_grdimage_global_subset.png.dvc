@@ -1,0 +1,4 @@
+outs:
+- md5: 8f38333a67076f0125cb2d1828aa244e
+  size: 39288
+  path: test_grdimage_global_subset.png
