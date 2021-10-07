@@ -30,6 +30,7 @@ def test_project_generate():
     assert output.shape == (5, 3)
     npt.assert_allclose(output.iloc[1], [3.061617e-17, -0.5, 0.5])
 
+
 def test_project_input_dataframe(dataframe):
     """
     Run project by passing in a pandas.DataFrame as input.
