@@ -109,7 +109,7 @@ Now we can create a new conda environment with Python and all our dependencies
 installed (we'll call it ``pygmt`` but feel free to change it to whatever you
 want)::
 
-    conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+    conda create --name pygmt python=3.10 numpy pandas xarray netcdf4 packaging gmt
 
 Activate the environment by running the following (**do not forget this step!**)::
 
