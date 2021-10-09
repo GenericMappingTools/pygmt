@@ -41,7 +41,7 @@ def test_grdcut_file_in_file_out(expected_grid):
     grdcut an input grid file, and output to a grid file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdcut("@earth_relief_01d", outgrid=tmpfile.name, region="-3/1/2/5")
+        result = grdcut("@earth_relief_01d", outgrid=tmpfile.name, region=[-3, 1, 2, 5])
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
@@ -52,7 +52,7 @@ def test_grdcut_file_in_dataarray_out(expected_grid):
     """
     grdcut an input grid file, and output as DataArray.
     """
-    outgrid = grdcut("@earth_relief_01d", region="-3/1/2/5")
+    outgrid = grdcut("@earth_relief_01d", region=[-3, 1, 2, 5])
     assert isinstance(outgrid, xr.DataArray)
     assert outgrid.gmt.registration == 1  # Pixel registration
     assert outgrid.gmt.gtype == 1  # Geographic type
@@ -65,7 +65,7 @@ def test_grdcut_dataarray_in_file_out(grid, expected_grid):
     grdcut an input DataArray, and output to a grid file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdcut(grid, outgrid=tmpfile.name, region="-3/1/2/5")
+        result = grdcut(grid, outgrid=tmpfile.name, region=[-3, 1, 2, 5])
         assert result is None  # grdcut returns None if output to a file
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
@@ -75,7 +75,7 @@ def test_grdcut_dataarray_in_dataarray_out(grid, expected_grid):
     """
     grdcut an input DataArray, and output as DataArray.
     """
-    outgrid = grdcut(grid, region="-3/1/2/5")
+    outgrid = grdcut(grid, region=[-3, 1, 2, 5])
     assert isinstance(outgrid, xr.DataArray)
     xr.testing.assert_allclose(a=outgrid, b=expected_grid)
 
