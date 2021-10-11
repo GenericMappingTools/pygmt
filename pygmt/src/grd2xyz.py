@@ -23,6 +23,7 @@ from pygmt.helpers import (
     V="verbose",
     W="weight",
     Z="z_convention",
+    b="binary",
     d="nodata",
     o="outcols",
 )
@@ -105,6 +106,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         * **d** 8-byte floating point double precision
 
         Default format is scanline orientation of ASCII numbers: **TLa**.
+    {b}
     {d}
     {o}
 
