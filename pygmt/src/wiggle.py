@@ -4,6 +4,7 @@ wiggle - Plot z=f(x,y) anomalies along tracks.
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
+    check_data_input_order,
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
@@ -13,6 +14,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.5.0", remove_version="v0.7.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     B="frame",
     D="position",
@@ -39,7 +41,7 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
+def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Plot z=f(x,y) anomalies along tracks.
 
@@ -107,7 +109,7 @@ def wiggle(self, x=None, y=None, z=None, data=None, **kwargs):
     with Session() as lib:
         # Choose how data will be passed in to the module
         file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=data, x=x, y=y, z=z
+            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
         )
 
         with file_context as fname:

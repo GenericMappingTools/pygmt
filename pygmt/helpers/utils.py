@@ -15,7 +15,7 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None):
+def data_kind(data, x=None, y=None, z=None, required_z=False):
     """
     Check what kind of data is provided to a module.
 
@@ -39,8 +39,9 @@ def data_kind(data, x=None, y=None, z=None):
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None
-        z column as numpy array. To be used optionally when x and y
-        are given.
+        z column as numpy array. To be used optionally when x and y are given.
+    required_z : bool
+        State whether the 'z' column is required.
 
     Returns
     -------
@@ -69,7 +70,9 @@ def data_kind(data, x=None, y=None, z=None):
     if data is not None and (x is not None or y is not None or z is not None):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
-        raise GMTInvalidInput("Must provided both x and y.")
+        raise GMTInvalidInput("Must provide both x and y.")
+    if data is None and required_z and z is None:
+        raise GMTInvalidInput("Must provide x, y, and z.")
 
     if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
@@ -78,6 +81,11 @@ def data_kind(data, x=None, y=None, z=None):
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
+        if required_z and (
+            getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
+            or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
+        ):
+            raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:
         kind = "vectors"

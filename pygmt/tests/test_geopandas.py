@@ -44,7 +44,7 @@ def test_geopandas_info_geodataframe(gdf):
     Check that info can return the bounding box region from a
     geopandas.GeoDataFrame.
     """
-    output = info(table=gdf, per_column=True)
+    output = info(data=gdf, per_column=True)
     npt.assert_allclose(actual=output, desired=[0.0, 35.0, 0.0, 20.0])
 
 
@@ -62,7 +62,7 @@ def test_geopandas_info_shapely(gdf, geomtype, desired):
     object that has a __geo_interface__ property.
     """
     geom = gdf.loc[geomtype].geometry
-    output = info(table=geom, per_column=True)
+    output = info(data=geom, per_column=True)
     npt.assert_allclose(actual=output, desired=desired)
 
 
