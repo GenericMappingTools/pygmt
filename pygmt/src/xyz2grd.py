@@ -19,7 +19,7 @@ from pygmt.io import load_dataarray
     I="spacing",
     R="region",
     V="verbose",
-    Z="flags",
+    Z="z_convention",
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
@@ -63,7 +63,7 @@ def xyz2grd(data, **kwargs):
     {I}
     {R}
     {V}
-    flags : str
+    z_convention : str
         [*flags*]
         Read a 1-column ASCII [or binary] table. This assumes that all the
         nodes are present and sorted according to specified ordering
