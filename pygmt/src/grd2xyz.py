@@ -22,7 +22,7 @@ from pygmt.helpers import (
     R="region",
     V="verbose",
     W="weight",
-    Z="binary",
+    Z="z_convention",
     d="nodata",
     o="outcols",
 )
@@ -75,7 +75,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         varies with latitude and also sees special cases for
         gridline-registered layouts at sides, corners, and poles.
     {V}
-    binary : str
+    z_convention : str
         [*flags*].
         Write a 1-column ASCII [or binary] table. Output will be organized
         according to the specified ordering convention contained in *flags*.
