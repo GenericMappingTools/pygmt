@@ -52,7 +52,7 @@ jobs:
             optional-packages: ''
           - python-version: 3.9
             numpy-version: '1.21'
-            optional-packages: 'geopandas'
+            optional-packages: 'geopandas ipython'
     defaults:
       run:
         shell: bash -l {0}
@@ -77,28 +77,31 @@ jobs:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Setup Miniconda
-      - name: Setup Miniconda
+      # Install Mambaforge with conda-forge dependencies
+      - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
-          channels: conda-forge
-          miniconda-version: "latest"
+          channels: conda-forge,nodefaults
+          channel-priority: strict
+          miniforge-version: latest
+          miniforge-variant: Mambaforge
+          mamba-version: "*"
+          use-mamba: true
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install gmt=6.2.0 numpy=${{ matrix.numpy-version }} \
+          mamba install gmt=6.2.0 numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
-                        codecov coverage[toml] dvc ipython make \
-                        pytest-cov pytest-mpl pytest>=6.0 \
-                        sphinx-gallery
+                        dvc=2.3.0 make pytest>=6.0 \
+                        pytest-cov pytest-mpl sphinx-gallery tomli
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
-        run: conda list
+        run: mamba list
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -144,7 +147,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2.0.3
+        uses: codecov/codecov-action@v2.1.0
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY

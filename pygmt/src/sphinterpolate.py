@@ -1,5 +1,5 @@
 """
-xyz2grd - Convert data table to a grid.
+sphinterpolate - Spherical gridding in tension of data on a sphere
 """
 from pygmt.clib import Session
 from pygmt.helpers import (
@@ -19,28 +19,30 @@ from pygmt.io import load_dataarray
     R="region",
     V="verbose",
 )
-@kwargs_to_strings(R="sequence")
-def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
-    """
-    Create a grid file from table data.
+@kwargs_to_strings(I="sequence", R="sequence")
+def sphinterpolate(data, **kwargs):
+    r"""
+    Create spherical grid files in tension of data.
 
-    xyz2grd reads one or more z or xyz tables and creates a binary grid file.
-    xyz2grd will report if some of the nodes are not filled in with data. Such
-    unconstrained nodes are set to a value specified by the user [Default is
-    NaN]. Nodes with more than one value will be set to the mean value.
+    Reads a table containing *lon, lat, z* columns and performs a Delaunay
+    triangulation to set up a spherical interpolation in tension. Several
+    options may be used to affect the outcome, such as choosing local versus
+    global gradient estimation or optimize the tension selection to satisfy one
+    of four criteria.
 
-    Full option list at :gmt-docs:`xyz2grd.html`
+    Full option list at :gmt-docs:`sphinterpolate.html`
+
+    {aliases}
 
     Parameters
     ----------
     data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D {table-classes}.
-    x/y/z : 1d arrays
-        The arrays of x and y coordinates and z data points.
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
     outgrid : str or None
-        Optional. The name of the output netCDF file with extension .nc to
-        store the grid in.
+        The name of the output netCDF file with extension .nc to store the grid
+        in.
     {I}
     {R}
     {V}
@@ -50,20 +52,18 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     ret: xarray.DataArray or None
         Return type depends on whether the ``outgrid`` parameter is set:
 
-        - :class:`xarray.DataArray`: if ``outgrid`` is not set
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-            )
+            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("xyz2grd", arg_str)
+                lib.call_module("sphinterpolate", arg_str)
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

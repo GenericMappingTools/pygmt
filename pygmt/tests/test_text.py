@@ -276,7 +276,7 @@ def test_text_justify_parsed_from_textfile():
         projection="H90/9i",
         justify=True,
         textfiles=CITIES_DATA,
-        D="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
+        offset="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
     )
     return fig
 
