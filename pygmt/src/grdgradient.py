@@ -140,6 +140,10 @@ def grdgradient(grid, **kwargs):
           ``outgrid``)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
+        if "Q" in kwargs and "N" not in kwargs:
+            raise GMTInvalidInput(
+                """Must specify normalize if norm_control is specified."""
+            )
         if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
             raise GMTInvalidInput(
                 """At least one of the following parameters must be specified:
