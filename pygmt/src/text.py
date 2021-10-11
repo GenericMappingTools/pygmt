@@ -116,7 +116,6 @@ def text_(
         left. If no justification is explicitly given (i.e. ``justify=True``),
         then the input to ``textfiles`` must have this as a column.
     {J}
-        *Required if this is the first plot command.*
     {R}
         *Required if this is the first plot command.*
     clearance : str
