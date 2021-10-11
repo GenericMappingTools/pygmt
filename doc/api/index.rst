@@ -155,11 +155,11 @@ and store them in the GMT cache folder.
 .. autosummary::
     :toctree: generated
 
+    datasets.load_earth_age
     datasets.load_earth_relief
     datasets.load_japan_quakes
     datasets.load_ocean_ridge_points
     datasets.load_sample_bathymetry
-    datasets.load_seafloor_crust_age
     datasets.load_usgs_quakes
     datasets.load_fractures_compilation
     datasets.load_hotspots

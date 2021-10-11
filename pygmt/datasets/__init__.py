@@ -11,4 +11,4 @@ from pygmt.datasets.samples import (
     load_sample_bathymetry,
     load_usgs_quakes,
 )
-from pygmt.datasets.seafloor_crust_age import load_seafloor_crust_age
+from pygmt.datasets.earth_age import load_earth_age
