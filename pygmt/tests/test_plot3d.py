@@ -313,7 +313,9 @@ def test_plot3d_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare
-def test_plot3d_matrix(data, region):
+@pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
+@pytest.mark.parametrize("color", ["#aaaaaa", 170])
+def test_plot3d_matrix(data, region, color):
     """
     Plot the data passing in a matrix and specifying incols.
     """
@@ -325,7 +327,7 @@ def test_plot3d_matrix(data, region):
         region=region,
         projection="M20c",
         style="c1c",
-        color="#aaaaaa",
+        color=color,
         frame=["a", "za"],
         incols="0,1,2",
     )
