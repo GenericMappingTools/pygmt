@@ -1,6 +1,8 @@
 """
 Test the behaviour of the GMTDataArrayAccessor class.
 """
+import os
+
 import pytest
 import xarray as xr
 from pygmt import which
@@ -66,3 +68,25 @@ def test_accessor_set_non_boolean():
 
     with pytest.raises(GMTInvalidInput):
         grid.gmt.gtype = 2
+
+
+def test_accessor_sliced_datacube():
+    """
+    Check that a 2D grid which is sliced from an n-dimensional datacube works
+    with accessor methods.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1578.
+    """
+    try:
+        fname = which(
+            "https://github.com/pydata/xarray-data/raw/master/eraint_uvz.nc",
+            download="u",
+        )
+        dataset = xr.open_dataset(fname)
+        grid = dataset.sel(level=500, month=1, drop=True).z
+
+        assert grid.gmt.registration == 0  # gridline registration
+        assert grid.gmt.gtype == 0  # cartesian coordinate type
+    finally:
+        os.remove(fname)
