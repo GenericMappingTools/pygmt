@@ -96,7 +96,7 @@ jobs:
           mamba install gmt=6.2.0 numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
-                        dvc=2.3.0 make pytest>=6.0 \
+                        dvc make pytest>=6.0 \
                         pytest-cov pytest-mpl sphinx-gallery tomli
 
       # Show installed pkg information for postmortem diagnostic
