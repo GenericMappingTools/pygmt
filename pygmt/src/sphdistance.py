@@ -22,7 +22,7 @@ from pygmt.io import load_dataarray
     G="outgrid",
     I="spacing",
     L="unit",
-    N="nodetable",
+    N="node_table",
     Q="voronoi",
     R="region",
     V="verbose",
@@ -52,23 +52,28 @@ def sphdistance(table, **kwargs):
         processing) by only storing one form of location coordinates
         (geographic or Cartesian 3-D vectors) at any given time, translating
         from one form to the other when necessary [Default keeps both arrays
-        in memory]. Not applicable with `voronoi`.
+        in memory]. Not applicable with ``voronoi``.
     duplicate : bool
         Used to skip duplicate points since the algorithm cannot handle them.
         [Default assumes there are no duplicates].
     quantity : str
-        Specify the quantity that should be assigned to the grid nodes. By
-        default we compute distances to the nearest data point [**d**].
-        Use **n** to assign the ID numbers of the Voronoi polygons that each
-        grid node is inside, or use **z** for a natural nearest-neighbor grid
-        where we assign all nodes inside the polygon the z-value of the center
-        node. Optionally, append the resampling interval along Voronoi arcs in
+        **d**\|\ **n**\|\ **z**\ [*dist*]
+        Specify the quantity that should be assigned to the grid nodes [Default
+        is **d**]:
+
+        - **d** - compute distances to the nearest data point
+        - **n** - assign the ID numbers of the Voronoi polygons that each
+          grid node is inside
+        - **z** - assign all nodes inside the polygon the z-value of the center
+          node fot a natural nearest-neighbor grid.
+
+        Optionally, append the resampling interval along Voronoi arcs in
         spherical degrees.
     unit : str
         Specify the unit used for distance calculations. Choose among **d**
         (spherical degree), **e** (m), **f** (feet), **k** (km), **M**
         (mile), **n** (nautical mile) or **u** survey foot.
-    nodetable : str
+    node_table : str
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate
         file [Default acquires this information from the ASCII segment
