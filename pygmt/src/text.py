@@ -117,6 +117,7 @@ def text_(
         then the input to ``textfiles`` must have this as a column.
     {J}
     {R}
+        *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box

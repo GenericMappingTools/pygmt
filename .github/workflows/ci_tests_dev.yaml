@@ -88,7 +88,7 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install ninja cmake libblas libcblas liblapack fftw gdal geopandas \
-                        ghostscript libnetcdf hdf5 zlib curl pcre make dvc=2.3.0
+                        ghostscript libnetcdf hdf5 zlib curl pcre make dvc
           pip install --pre numpy pandas xarray netCDF4 packaging \
                             ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery \
                             tomli
@@ -107,7 +107,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.14.1
+        uses: dawidd6/action-download-artifact@v2.15.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
