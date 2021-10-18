@@ -27,9 +27,6 @@ from pygmt.helpers import GMTTempFile
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
-
 
 @pytest.fixture(scope="module")
 def data():
@@ -419,7 +416,36 @@ def test_virtual_file_bad_direction():
                 print("This should have failed")
 
 
-def test_virtualfile_from_data_required_z_matrix():
+@pytest.mark.parametrize(
+    "array_func,kind",
+    [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
+)
+def test_virtualfile_from_data_required_z_matrix(array_func, kind):
+    """
+    Test that function works when third z column in a matrix is needed and
+    provided.
+    """
+    shape = (5, 3)
+    dataframe = pd.DataFrame(
+        data=np.arange(shape[0] * shape[1]).reshape(shape), columns=["x", "y", "z"]
+    )
+    data = array_func(dataframe)
+    with clib.Session() as lib:
+        with lib.virtualfile_from_data(data=data, required_z=True) as vfile:
+            with GMTTempFile() as outfile:
+                lib.call_module("info", f"{vfile} ->{outfile.name}")
+                output = outfile.read(keep_tabs=True)
+        bounds = "\t".join(
+            [
+                f"<{i.min():.0f}/{i.max():.0f}>"
+                for i in (dataframe.x, dataframe.y, dataframe.z)
+            ]
+        )
+        expected = f"<{kind} memory>: N = {shape[0]}\t{bounds}\n"
+        assert output == expected
+
+
+def test_virtualfile_from_data_required_z_matrix_missing():
     """
     Test that function fails when third z column in a matrix is needed but not
     provided.
@@ -779,16 +805,18 @@ def test_dataarray_to_matrix_dims_fails():
         dataarray_to_matrix(grid)
 
 
-def test_dataarray_to_matrix_inc_fails():
+def test_dataarray_to_matrix_irregular_inc_warning():
     """
-    Check that it fails for variable increments.
+    Check that it warns for variable increments, see also
+    https://github.com/GenericMappingTools/pygmt/issues/1468.
     """
     data = np.ones((4, 5), dtype="float64")
     x = np.linspace(0, 1, 5)
     y = np.logspace(2, 3, 4)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.warns(expected_warning=RuntimeWarning) as record:
         dataarray_to_matrix(grid)
+        assert len(record) == 1
 
 
 def test_dataarray_to_matrix_zero_inc_fails():

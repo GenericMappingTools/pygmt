@@ -24,7 +24,7 @@ df.species = df.species.astype(dtype="category")
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax, zmin, zmax)
 # The below example will return a numpy array [0.0, 3.0, 4.0, 8.0, 1.0, 7.0]
 region = pygmt.info(
-    table=df[["petal_width", "sepal_length", "petal_length"]],  # x, y, z columns
+    data=df[["petal_width", "sepal_length", "petal_length"]],  # x, y, z columns
     per_column=True,  # report the min/max values per column as a numpy array
     # round the min/max values of the first three columns to the nearest
     # multiple of 1, 2 and 0.5, respectively
