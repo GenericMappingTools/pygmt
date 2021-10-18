@@ -174,7 +174,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     {V}
 
     width : str or list
-        *w_min*/*w_max*
+        *w_min*/*w_max*.
         Width controls. Project only those data whose :math:`q` coordinate is
         within :math:`w_{{min}} < q < w_{{max}}`.
 
