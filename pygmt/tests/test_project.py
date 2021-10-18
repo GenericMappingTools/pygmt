@@ -29,6 +29,9 @@ def test_project_generate():
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5, 3)
     npt.assert_allclose(output.iloc[1], [3.061617e-17, -0.5, 0.5])
+    pd.testing.assert_index_equal(
+        left=output.columns, right=pd.Index(data=["r", "s", "p"])
+    )
 
 
 @pytest.mark.parametrize("array_func", [np.array, pd.DataFrame, xr.Dataset])
