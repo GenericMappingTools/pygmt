@@ -73,8 +73,8 @@ def test_project_output_filename(dataframe):
 
 def test_project_incorrect_parameters():
     """
-    Run project by providing incorrect parameters such as 1) no `center`; 2)
-    no `data` or `generate`; and 3) `generate` with `flags`.
+    Run project by providing incorrect parameters such as 1) no `center`; 2) no
+    `data` or `generate`; and 3) `generate` with `flags`.
     """
     with pytest.raises(GMTInvalidInput):
         # No `center`
