@@ -216,16 +216,10 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         raise GMTInvalidInput("The `center` parameter must be specified.")
     if "G" not in kwargs and data is None:
         raise GMTInvalidInput(
-            """
-            The `data` parameter must be specified unless `generate` is used.
-            """
+            "The `data` parameter must be specified unless `generate` is used."
         )
     if "G" in kwargs and "F" in kwargs:
-        raise GMTInvalidInput(
-            """
-            The `flags` parameter is not allowed with `generate`.
-            """
-        )
+        raise GMTInvalidInput("The `flags` parameter is not allowed with `generate`.")
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         if outfile is None:  # Output to tmpfile if outfile is not set

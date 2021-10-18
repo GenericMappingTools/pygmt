@@ -23,7 +23,7 @@ def fixture_dataframe():
 
 def test_project_generate():
     """
-    Run project by passing in a pandas.DataFrame as input.
+    Run project by passing in center and endpoint as input.
     """
     output = project(center=[0, -1], endpoint=[0, 1], flat_earth=True, generate=0.5)
     assert isinstance(output, pd.DataFrame)
@@ -31,21 +31,7 @@ def test_project_generate():
     npt.assert_allclose(output.iloc[1], [3.061617e-17, -0.5, 0.5])
 
 
-def test_project_input_dataframe(dataframe):
-    """
-    Run project by passing in a pandas.DataFrame as input.
-    """
-    output = project(data=dataframe, center=[0, -1], azimuth=45, flat_earth=True)
-    assert isinstance(output, pd.DataFrame)
-    assert output.shape == (1, 6)
-    npt.assert_allclose(
-        output.iloc[0],
-        [0.000000, 0.000000, 0.707107, 0.707107, 0.500000, -0.500000],
-        rtol=1e-5,
-    )
-
-
-@pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
+@pytest.mark.parametrize("array_func", [np.array, pd.DataFrame, xr.Dataset])
 def test_project_input_matrix(array_func, dataframe):
     """
     Run project by passing in a matrix as input.
@@ -63,7 +49,8 @@ def test_project_input_matrix(array_func, dataframe):
 
 def test_project_output_filename(dataframe):
     """
-    Run project by passing in an ASCII text file as input.
+    Run project by passing in a pandas.DataFrame, and output to an ASCII txt
+    file.
     """
     with GMTTempFile() as tmpfile:
         output = project(
@@ -84,9 +71,17 @@ def test_project_output_filename(dataframe):
         )
 
 
-def test_project_no_data():
+def test_project_incorrect_parameters():
     """
-    Run project without providing `data` or `generate`.
+    Run project by providing incorrect parameters such as 1) no `center`; 2)
+    no `data` or `generate`; and 3) `generate` with `flags`.
     """
     with pytest.raises(GMTInvalidInput):
+        # No `center`
+        project(azimuth=45)
+    with pytest.raises(GMTInvalidInput):
+        # No `data` or `generate`
         project(center=[0, -1], azimuth=45, flat_earth=True)
+    with pytest.raises(GMTInvalidInput):
+        # Using `generate` with `flags`
+        project(center=[0, -1], generate=0.5, flags="xypqrsz")
