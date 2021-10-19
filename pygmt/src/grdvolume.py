@@ -15,9 +15,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    C="plane",
-    Cr="outside_volume",
-    D="slice",
+    C="contour"
     R="region",
     S="unit",
     V="verbose",
@@ -32,8 +30,6 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
      and return the contour, area, volume, and maximum mean height
      (volume/area). Alternatively, a range of contours can be specified to
      return the volume and area inside the contour for all contour values.
-     Using **-T**, the contour that produced the maximum mean height
-     (or maximum curvature of heights vs contour value) is returned as well.
 
      {aliases}
 
