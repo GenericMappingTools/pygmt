@@ -15,7 +15,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    C="contour"
+    C="contour",
     R="region",
     S="unit",
     V="verbose",
