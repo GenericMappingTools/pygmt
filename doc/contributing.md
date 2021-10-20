@@ -197,7 +197,8 @@ copy the commands you want to run.
 To install the current source code into your testing environment, run:
 
 ```bash
-make install
+make install  # on Linux/macOS
+pip install --no-deps -e .  # on Windows
 ```
 
 This installs your project in *editable* mode, meaning that changes made to the source
