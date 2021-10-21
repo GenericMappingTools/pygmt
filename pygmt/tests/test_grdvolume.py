@@ -1,13 +1,16 @@
 """
 Tests for grdvolume.
 """
+import os
+
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt import grdvolume, load_dataarray
+from pygmt import grdvolume
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -86,3 +89,15 @@ def test_grdvolume_no_outgrid(grid, data):
     """
     test_output = grdvolume(grid=grid, contour=[200, 400, 50], output_type="numpy")
     npt.assert_allclose(test_output, data)
+
+
+def test_grdvolume_outgrid(grid):
+    """
+    Test the expected output of grdvolume with an output file set.
+    """
+    with GMTTempFile(suffix=".csv") as tmpfile:
+        result = grdvolume(
+            grid=grid, contour=[200, 400, 50], output_type="file", outfile=tmpfile.name
+        )
+        assert result is None  # return value is None
+        assert os.path.exists(path=tmpfile.name)  # check that outfile exists
