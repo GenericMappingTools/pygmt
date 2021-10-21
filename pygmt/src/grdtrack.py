@@ -53,11 +53,11 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     (``crossprofile``), the input is considered to be line-segments and we
     create orthogonal cross-profiles at each data point or with an equidistant
     separation and sample the grid(s) along these profiles. A bicubic
-    [Default], bilinear, B-spline or nearest-neighbor interpolation is used,
-    requiring boundary conditions at the limits of the region (see
-    ``interpolation``; Default uses "natural" conditions (second partial
-    derivative normal to edge is zero) unless the grid is automatically
-    recognized as periodic.)
+    [Default for file input], bilinear [Default for :class:`xarray.DataArray`
+    input], B-spline or nearest-neighbor interpolation is used, requiring
+    boundary conditions at the limits of the region (see ``interpolation``;
+    Default uses "natural" conditions (second partial derivative normal to edge
+    is zero) unless the grid is automatically recognized as periodic.)
 
     Full option list at :gmt-docs:`grdtrack.html`
 
@@ -251,6 +251,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {i}
     {j}
     {n}
+        
         Note: Only bilinear interpolation is currently available when ``grid``
         is an :class:`xarray.DataArray`.
     {o}
