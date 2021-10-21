@@ -23,13 +23,15 @@ from pygmt.helpers import (
 @kwargs_to_strings(C="sequence", R="sequence")
 def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     r"""
-     Determine the volume between the surface of a grid and a plane.
+    Determine the volume between the surface of a grid and a plane.
 
      Read a 2-D grid file and calculate the volume contained below the surface
      and above the plane specified by the given contour (or zero if not given)
      and return the contour, area, volume, and maximum mean height
      (volume/area). Alternatively, a range of contours can be specified to
      return the volume and area inside the contour for all contour values.
+
+    Full option list at :gmt-docs:`grdvolume.html`
 
      {aliases}
 
