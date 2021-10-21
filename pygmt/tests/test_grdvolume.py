@@ -83,6 +83,15 @@ def test_grdvolume_invalid_format(grid):
         grdvolume(grid=grid, output_type=1)
 
 
+def test_grdvolume_no_outfile(grid):
+    """
+    Test that grdvolume fails when output_type set to 'file' but no outfile is
+    specified.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdvolume(grid=grid, output_type="file")
+
+
 def test_grdvolume_no_outgrid(grid, data):
     """
     Test the expected output of grdvolume with no output file set.
