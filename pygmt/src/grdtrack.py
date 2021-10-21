@@ -251,7 +251,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {i}
     {j}
     {n}
-        
+
         Note: Only bilinear or nearest-neighbor interpolation are currently
         available when ``grid`` is an :class:`xarray.DataArray`.
     {o}
