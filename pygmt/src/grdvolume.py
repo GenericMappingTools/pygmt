@@ -37,17 +37,17 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
 
      Parameters
      ----------
-     grid : str or xarray.DataArray
-         The file name of the input grid or the grid loaded as a DataArray.
-         This is the only required parameter.
-     output_type : str
-         Determine the format the xyz data will be returned in [Default is
-         ``pandas``]:
-             - ``numpy`` - :class:`numpy.ndarray`
-             - ``pandas``-  :class:`pandas.DataFrame`
-             - ``file`` - ASCII file (requires ``outfile``)
-     outfile : str
-         The file name for the output ASCII file.
+    grid : str or xarray.DataArray
+        The file name of the input grid or the grid loaded as a DataArray.
+        This is the only required parameter.
+    output_type : str
+        Determine the format the xyz data will be returned in [Default is
+        ``pandas``]:
+            - ``numpy`` - :class:`numpy.ndarray`
+            - ``pandas``-  :class:`pandas.DataFrame`
+            - ``file`` - ASCII file (requires ``outfile``)
+    outfile : str
+        The file name for the output ASCII file.
     contour : str or int or float or list
         *cval*\ |*low/high/delta*\ |**r**\ *low/high*\ |**r**\ *cval*.
         Find area, volume and mean height (volume/area) inside and above the
@@ -68,12 +68,12 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
      Returns
      -------
     ret : pandas.DataFrame or numpy.ndarray or None
-         Return type depends on ``outfile`` and ``output_type``:
-         - None if ``outfile`` is set (output will be stored in file set by
-           ``outfile``)
-         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile``
-            is not set (depends on ``output_type`` [Default is
-           :class:`pandas.DataFrame`])
+        Return type depends on ``outfile`` and ``output_type``:
+        - None if ``outfile`` is set (output will be stored in file set by
+        ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile``
+        is not set (depends on ``output_type`` [Default is
+        class:`pandas.DataFrame`])
 
     """
     if output_type not in ["numpy", "pandas", "file"]:
