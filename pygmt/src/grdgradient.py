@@ -89,7 +89,7 @@ def grdgradient(grid, **kwargs):
         simpler Lambertian algorithm. Note that with this form you only have
         to provide azimuth and elevation. Alternatively, use **p** for
         the Peucker piecewise linear approximation (simpler but faster
-        algorithm; in this case the *azim* and *elev* are hardwired to 315
+        algorithm; in this case *azim* and *elev* are hardwired to 315
         and 45 degrees. This means that even if you provide other values
         they will be ignored.)
     normalize : str or bool
