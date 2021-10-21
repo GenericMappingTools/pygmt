@@ -14,7 +14,7 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(resolution="01d", region=[-5, 5, -5, 5])
+    return load_earth_relief(resolution="01d", region=[-100, -95, 34, 39])
 
 
 def test_grdvolume_format(grid):
