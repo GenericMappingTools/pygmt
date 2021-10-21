@@ -18,7 +18,7 @@ from pygmt.helpers import (
     A="azimuth",
     C="center",
     E="endpoint",
-    F="flags",
+    F="convention",
     G="generate",
     L="length",
     N="flat_earth",
@@ -94,7 +94,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     project is strictly spherical.
 
     :doc:`pygmt.project` is case sensitive: use lower case for the
-    **xyzpqrs** letters in ``flags``.
+    **xyzpqrs** letters in ``convention``.
 
     {aliases}
 
@@ -119,16 +119,16 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         *bx*/*by*.
         *bx/by* defines the end point of the projection path (Definition 2).
 
-    flags : str
+    convention : str
         Specify your desired output using any combination of **xyzpqrs**, in
         any order [Default is **xypqrsz**]. Do not space between the letters.
         Use lower case. The output will be columns of values corresponding to
-        your ``flags``. The **z** flag is special and refers to all numerical
-        columns beyond the leading **x** and **y** in your input record. The
-        **z** flag also includes any trailing text (which is placed at the end
-        of the record regardless of the order of **z** in ``flags``). **Note**:
-        If ``generate`` is True, then the output order is hardwired to be
-        **rsp** and ``flags`` is not allowed.
+        your ``convention``. The **z** flag is special and refers to all
+        numerical columns beyond the leading **x** and **y** in your input
+        record. The **z** flag also includes any trailing text (which is
+        placed at the end of the record regardless of the order of **z** in
+        ``convention``). **Note**: If ``generate`` is True, then the output
+        order is hardwired to be **rsp** and ``convention`` is not allowed.
 
     generate : str
         *dist* [/*colat*][**+c**\|\ **h**].
@@ -219,7 +219,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             "The `data` parameter must be specified unless `generate` is used."
         )
     if "G" in kwargs and "F" in kwargs:
-        raise GMTInvalidInput("The `flags` parameter is not allowed with `generate`.")
+        raise GMTInvalidInput("The `convention` parameter is not allowed with `generate`.")
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         if outfile is None:  # Output to tmpfile if outfile is not set
