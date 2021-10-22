@@ -12,19 +12,12 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 
 
-@pytest.fixture(scope="module", name="fname")
-def fixture_fname():
-    """
-    Load the sample data remote file path.
-    """
-    return which("@Table_5_11.txt", download="c")
-
-
 @pytest.fixture(scope="module", name="data")
-def fixture_data(fname):
+def fixture_data():
     """
     Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.
     """
+    fname = which("@Table_5_11.txt", download="c")
     return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
 
 
@@ -52,11 +45,11 @@ def check_values(grid):
     assert grid.sizes["x"] == 35
 
 
-def test_surface_input_file(fname, region):
+def test_surface_input_file(region):
     """
     Run surface by passing in a filename.
     """
-    output = surface(data=fname, spacing="0.2", region=region)
+    output = surface(data="@Table_5_11.txt", spacing="0.2", region=region)
     check_values(output)
 
 
