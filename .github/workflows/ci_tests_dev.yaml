@@ -45,7 +45,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         if: github.event_name != 'repository_dispatch'
         with:
           # fecth all history so that setuptools-scm works
@@ -62,12 +62,12 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.5
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
@@ -88,7 +88,7 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install ninja cmake libblas libcblas liblapack fftw gdal geopandas \
-                        ghostscript libnetcdf hdf5 zlib curl pcre make dvc=2.3.0
+                        ghostscript libnetcdf hdf5 zlib curl pcre make dvc
           pip install --pre numpy pandas xarray netCDF4 packaging \
                             ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery \
                             tomli
