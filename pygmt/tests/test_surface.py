@@ -122,19 +122,3 @@ def test_surface_deprecate_outfile_to_outgrid(data, region):
             with xr.open_dataarray(tmpfile.name) as grid:
                 check_values(grid)
         assert len(record) == 1  # check that only one warning was raised
-
-
-def test_surface_short_aliases(data, region):
-    """
-    Run surface using short aliases -I for spacing, -R for region, -G for
-    outgrid.
-    """
-    data = data.values  # convert pandas.DataFrame to numpy.ndarray
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
-        with GMTTempFile(suffix=".nc") as tmpfile:
-            output = surface(data=data, I="0.2", R=region, G=tmpfile.name)
-            assert output is None  # check that output is None since outgrid is set
-            assert os.path.exists(path=tmpfile.name)  # check that file exists at path
-            with xr.open_dataarray(tmpfile.name) as grid:
-                check_values(grid)
-        assert len(record) == 3
