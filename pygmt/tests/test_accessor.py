@@ -83,8 +83,8 @@ def test_accessor_sliced_datacube():
             "https://github.com/pydata/xarray-data/raw/master/eraint_uvz.nc",
             download="u",
         )
-        dataset = xr.open_dataset(fname)
-        grid = dataset.sel(level=500, month=1, drop=True).z
+        with xr.open_dataset(fname) as dataset:
+            grid = dataset.sel(level=500, month=1, drop=True).z
 
         assert grid.gmt.registration == 0  # gridline registration
         assert grid.gmt.gtype == 0  # cartesian coordinate type
