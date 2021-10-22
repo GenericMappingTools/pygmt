@@ -219,7 +219,9 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             "The `data` parameter must be specified unless `generate` is used."
         )
     if "G" in kwargs and "F" in kwargs:
-        raise GMTInvalidInput("The `convention` parameter is not allowed with `generate`.")
+        raise GMTInvalidInput(
+            "The `convention` parameter is not allowed with `generate`."
+        )
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         if outfile is None:  # Output to tmpfile if outfile is not set
