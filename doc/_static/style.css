@@ -210,9 +210,13 @@ a.copybtn {
 }
 
 .sphx-glr-thumbcontainer {
-    min-height: 260px !important;
+    min-height: 240px!important;
+    min-width: 180px!important;
 }
 
+.sphx-glr-thumbcontainer img {
+    max-width:95%!important;
+}
 
 .sphx-glr-single-img {
     max-width: 80%!important;
