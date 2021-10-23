@@ -18,7 +18,7 @@ COMMON_OPTIONS = {
     "R": r"""
         region : str or list
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the :doc:`region </tutorials/regions>` of interest.""",
+            Specify the :doc:`region </tutorials/beginner/regions>` of interest.""",
     "J": r"""
         projection : str
             *projcode*\[*projparams*/]\ *width*.
@@ -34,7 +34,7 @@ COMMON_OPTIONS = {
     "B": r"""
         frame : bool or str or list
             Set map boundary
-            :doc:`frame and axes attributes </tutorials/frames>`. """,
+            :doc:`frame and axes attributes </tutorials/beginner/frames>`. """,
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
