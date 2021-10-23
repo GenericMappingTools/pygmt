@@ -25,31 +25,32 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     r"""
     Determine the volume between the surface of a grid and a plane.
 
-     Read a 2-D grid file and calculate the volume contained below the surface
-     and above the plane specified by the given contour (or zero if not given)
-     and return the contour, area, volume, and maximum mean height
-     (volume/area). Alternatively, a range of contours can be specified to
-     return the volume and area inside the contour for all contour values.
+    Read a 2-D grid file and calculate the volume contained below the surface
+    and above the plane specified by the given contour (or zero if not given)
+    and return the contour, area, volume, and maximum mean height
+    (volume/area). Alternatively, a range of contours can be specified to
+    return the volume and area inside the contour for all contour values.
 
     Full option list at :gmt-docs:`grdvolume.html`
 
-     {aliases}
+    {aliases}
 
-     Parameters
-     ----------
+    Parameters
+    ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
         This is the only required parameter.
     output_type : str
         Determine the format the xyz data will be returned in [Default is
         ``pandas``]:
+
             - ``numpy`` - :class:`numpy.ndarray`
             - ``pandas``-  :class:`pandas.DataFrame`
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
     contour : str or int or float or list
-        *cval*\ |*low/high/delta*\ |**r**\ *low/high*\ |**r**\ *cval*.
+        *cval*\|\ *low/high/delta*\|\ **r**\ *low/high*\|\ **r**\ *cval*.
         Find area, volume and mean height (volume/area) inside and above the
         *cval* contour. Alternatively, search using all contours from *low* to
         *high* in steps of *delta*. [Default returns area, volume and mean
@@ -62,19 +63,20 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
         between two contours. If no *contour* is given then there is no contour
         and the entire grid area, volume and the mean height is returned and
         *cval* will be reported as 0.
-     {R}
-     {V}
+    {R}
+    {V}
 
-     Returns
-     -------
+    Returns
+    -------
+    ret : pandas.DataFrame or numpy.ndarray or None
     ret : pandas.DataFrame or numpy.ndarray or None
         Return type depends on ``outfile`` and ``output_type``:
-        - None if ``outfile`` is set (output will be stored in file set by
-        ``outfile``)
-        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile``
-        is not set (depends on ``output_type`` [Default is
-        class:`pandas.DataFrame`])
 
+        - None if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile``
+          is not set (depends on ``output_type`` [Default is
+          class:`pandas.DataFrame`])
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
