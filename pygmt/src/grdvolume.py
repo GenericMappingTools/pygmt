@@ -69,7 +69,6 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     Returns
     -------
     ret : pandas.DataFrame or numpy.ndarray or None
-    ret : pandas.DataFrame or numpy.ndarray or None
         Return type depends on ``outfile`` and ``output_type``:
 
         - None if ``outfile`` is set (output will be stored in file set by
