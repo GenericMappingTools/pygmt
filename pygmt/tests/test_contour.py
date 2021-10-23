@@ -5,7 +5,9 @@ Tests contour.
 import os
 
 import numpy as np
+import pandas as pd
 import pytest
+import xarray as xr
 from pygmt import Figure
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -17,7 +19,7 @@ def data():
     """
     Load the point data from the test file.
     """
-    return np.loadtxt(POINTS_DATA)
+    return pd.read_table(POINTS_DATA, header=None, sep=r"\s+")
 
 
 @pytest.fixture(scope="module")
@@ -45,13 +47,19 @@ def test_contour_vec(region):
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_contour_matrix(data, region):
+@pytest.mark.mpl_image_compare(filename="test_contour_matrix.png")
+@pytest.mark.parametrize(
+    "array_func",
+    [np.array, pd.DataFrame, xr.Dataset],
+)
+def test_contour_matrix(array_func, data, region):
     """
     Plot data.
     """
     fig = Figure()
-    fig.contour(data=data, projection="X10c", region=region, frame="ag", pen=True)
+    fig.contour(
+        data=array_func(data), projection="X10c", region=region, frame="ag", pen=True
+    )
     return fig
 
 
@@ -90,7 +98,7 @@ def test_contour_deprecate_columns_to_incols(region):
 
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.contour(
-            data=data,
+            data,
             projection="X10c",
             region=region,
             frame="a",

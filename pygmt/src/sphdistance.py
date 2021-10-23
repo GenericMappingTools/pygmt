@@ -28,19 +28,28 @@ from pygmt.io import load_dataarray
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphdistance(table, **kwargs):
+def sphdistance(data=None, x=None, y=None, **kwargs):
     r"""
-    Create Voroni polygons from lat/lon coordinates.
+    Create Voronoi distance, node, or natural nearest-neighbor grid on a
+    sphere.
 
-    Reads one or more ASCII [or binary] files (or standard
-    input) containing lon, lat and performs the construction of Voronoi
-    polygons. These polygons are then processed to calculate the nearest
-    distance to each node of the lattice and written to the specified grid.
+    Reads a table containing *lon, lat* columns and performs
+    the construction of Voronoi polygons. These polygons are
+    then processed to calculate the nearest distance to each
+    node of the lattice and written to the specified grid.
+
+    Full option list at :gmt-docs:`sphdistance.html
 
     {aliases}
 
     Parameters
     ----------
+    data : str or {table-like}
+        Pass in (x, y) or (longitude, latitude) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
+    x/y : 1d arrays
+        Arrays of x and y coordinates.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
@@ -86,6 +95,7 @@ def sphdistance(table, **kwargs):
     -------
     ret: xarray.DataArray or None
         Return type depends on whether the ``outgrid`` parameter is set:
+
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
@@ -94,7 +104,9 @@ def sphdistance(table, **kwargs):
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
+            file_context = lib.virtualfile_from_data(
+                check_kind="vector", data=data, x=x, y=y
+            )
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
