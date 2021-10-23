@@ -50,22 +50,6 @@ or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
     :align: center
     :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
 
-
-Disclaimer
-----------
-
-🚨 **This package is still undergoing rapid development.** 🚨
-
-All of the API (functions/classes/interfaces) is subject to change until we reach v1.0.0
-as per the `semantic versioning specification <https://semver.org/spec/v2.0.0.html>`__.
-There may be non-backward compatible changes as we experiment with new design ideas and
-implement new features. **This is not a finished product, use with caution.**
-
-We welcome any feedback and ideas!
-Let us know by submitting
-`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
-or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
-
 About
 -----
 
@@ -78,6 +62,10 @@ We rely heavily on new features that have been implemented in GMT 6.0. In partic
 a new *modern execution mode* that greatly simplifies figure creation. **These features
 are not available in the 5.4 version of GMT**.
 
+We welcome any feedback and ideas!
+Let us know by submitting
+`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
+or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
 
 Project goals
 -------------
