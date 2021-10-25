@@ -66,7 +66,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         Used to skip duplicate points since the algorithm cannot handle them.
         [Default assumes there are no duplicates].
     quantity : str
-        **d**\|\ **n**\|\ **z**\ [*dist*]
+        **d**\|\ **n**\|\ **z**\ [*dist*].
         Specify the quantity that should be assigned to the grid nodes [Default
         is **d**]:
 
