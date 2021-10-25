@@ -46,6 +46,7 @@ from pygmt.src import (
     grdproject,
     grdsample,
     grdtrack,
+    grdvolume,
     info,
     makecpt,
     nearneighbor,

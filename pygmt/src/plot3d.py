@@ -211,7 +211,7 @@ def plot3d(
                 kwargs["S"] = "u0.2c"
         except FileNotFoundError:
             pass
-    if "G" in kwargs and not isinstance(kwargs["G"], str):
+    if "G" in kwargs and is_nonstr_iter(kwargs["G"]):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for color if data is matrix or file."
