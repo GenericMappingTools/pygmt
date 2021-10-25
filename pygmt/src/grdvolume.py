@@ -39,9 +39,8 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
-        This is the only required parameter.
     output_type : str
-        Determine the format the xyz data will be returned in [Default is
+        Determine the format the output data will be returned in [Default is
         ``pandas``]:
 
             - ``numpy`` - :class:`numpy.ndarray`
