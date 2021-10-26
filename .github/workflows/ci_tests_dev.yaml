@@ -78,7 +78,7 @@ jobs:
           activate-environment: pygmt
           # python-version: ${{ matrix.python-version }}
           channels: conda-forge,nodefaults
-          channel-priority: flexible
+          channel-priority: strict
           miniforge-version: latest
           miniforge-variant: Mambaforge
           mamba-version: "*"
