@@ -75,6 +75,7 @@ jobs:
       - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2.1.1
         with:
+          auto-update-conda: true
           activate-environment: pygmt
           # python-version: ${{ matrix.python-version }}
           channels: conda-forge,nodefaults
