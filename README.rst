@@ -62,11 +62,6 @@ We rely heavily on new features that have been implemented in GMT 6.0. In partic
 a new *modern execution mode* that greatly simplifies figure creation. **These features
 are not available in the 5.4 version of GMT**.
 
-We welcome any feedback and ideas!
-Let us know by submitting
-`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
-or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
-
 Project goals
 -------------
 
