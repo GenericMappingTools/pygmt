@@ -114,7 +114,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     endpoint : str or list
         *bx*/*by*.
-        *bx/by* defines the end point of the projection path (Definition 2).
+        Define the end point of the projection path (Definition 2).
 
     convention : str
         Specify your desired output using any combination of **xyzpqrs**, in
@@ -144,20 +144,19 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     length : str or list
         [**w**\|\ *l_min*/*l_max*].
-        Length controls. Project only those data whose *p* coordinate is
+        Project only those data whose *p* coordinate is
         within :math:`l_{{min}} < p < l_{{max}}`. If ``endpoint`` has been set,
         then you may alternatively use **w** to stay within the distance from
         ``center`` to ``endpoint``.
 
     flat_earth : bool
-        If `True`, Make a Cartesian coordinate transformation in the plane.
-        [Default uses spherical trigonometry.]
+        Make a Cartesian coordinate transformation in the plane.
+        [Default is ``False``; plane created with spherical trigonometry.]
 
     unit : bool
-        If `True`, project assumes :math:`x, y, r, s` are in degrees while
-        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, {{w_max}}` are in
-        km. If not set (or ``False``), then all these are assumed to be in the
-        same units.
+        Set units for :math:`x, y, r, s`  degrees and
+        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, {{w_max}}` to km.
+        [Default is ``False``; all arguments use the same units]
 
     sort : bool
         Sort the output into increasing :math:`p` order. Useful when projecting
@@ -165,14 +164,14 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     pole : str or list
         *px*/*py*.
-        *px/py* sets the position of the rotation pole of the projection.
+        Set the position of the rotation pole of the projection.
         (Definition 3).
 
     {V}
 
     width : str or list
         *w_min*/*w_max*.
-        Width controls. Project only those data whose :math:`q` coordinate is
+        Project only those data whose :math:`q` coordinate is
         within :math:`w_{{min}} < q < w_{{max}}`.
 
     ellipse : str
@@ -187,10 +186,10 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         a specific number of unique equidistant data via ``generate``. For
         degenerate ellipses you can just supply a single *diameter* instead.  A
         geographic diameter may be specified in any desired unit other than km
-        by appending the unit (e.g., 3d for degrees) [Default is km]; if so we
-        assume the increment is also given in the same unit.  **Note**:
-        For the Cartesian ellipse (which requires ``flat_earth``), we expect
-        *direction* counter-clockwise from the horizontal instead of an
+        by appending the unit (e.g., 3d for degrees) [Default is km]; 
+        the increment is assumed to be in the same unit.  **Note**:
+        For the Cartesian ellipse (which requires ``flat_earth``), the
+        *direction* is counter-clockwise from the horizontal instead of an
         *azimuth*.
 
     outfile : str
