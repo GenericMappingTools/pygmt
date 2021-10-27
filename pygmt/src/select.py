@@ -15,8 +15,11 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     A="area_thresh",
+    # D="resolution",
+    # G="gridmask",
     I="reverse",
     J="projection",
+    # N="mask",
     R="region",
     V="verbose",
     Z="z_subregion",
@@ -72,11 +75,11 @@ def select(data=None, outfile=None, **kwargs):
         - **c** select records NOT inside any point's circle of influence.
         - **f** select records NOT inside any of the polygons.
         - **g** will pass records inside the cells with z equal zero of the
-          grid mask in **-G**.
+          grid mask in **gridmask**.
         - **l** select records NOT within the specified distance of any line.
         - **r** select records NOT inside the specified rectangular region.
-        - **s** select records NOT considered inside as specified by **-N**
-          (and **area_thresh**, **-D**).
+        - **s** select records NOT considered inside as specified by **mask**
+          (and **area_thresh**, **resolution**).
         - **z** select records NOT within the range specified by
           **z_subregion**.
     {J}
