@@ -129,18 +129,18 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     generate : str
         *dist* [/*colat*][**+c**\|\ **h**].
-        Generate mode. No input is read and the value of ``data`` is ignored
-        (you can use, e.g., ``data=None``). Create :math:`(r, s, p)` output
-        data every *dist* units of :math:`p`. See `unit` option.
-        Alternatively, append */colat* for a small circle instead [Default is a
-        colatitude of 90, i.e., a great circle]. If setting a pole with
-        ``pole`` and you want the small circle to go through *cx*/*cy*,
-        append **+c** to compute the required colatitude. Use ``center`` and
-        ``endpoint`` to generate a circle that goes through the center and end
-        point. Note, in this case the center and end point cannot be farther
-        apart than :math:`2|\mbox{{colat}}|`. Finally, if you append **+h**
-        then we will report the position of the pole as part of the segment
-        header [Default is no header].
+        Create :math:`(r, s, p)` output data every *dist* units of :math:`p`
+        (See `unit` option). Alternatively, append */colat* for a small
+        circle instead [Default is a colatitude of 90, i.e., a great circle].
+        If setting a pole with ``pole`` and you want the small circle to go
+        through *cx*/*cy*, append **+c** to compute the required colatitude.
+        Use ``center`` and ``endpoint`` to generate a circle that goes
+        through the center and end point. Note, in this case the center and
+        end point cannot be farther apart than :math:`2|\mbox{{colat}}|`.
+        Finally, if you append **+h** then we will report the position of
+        the pole as part of the segment header [Default is no header].
+        Note: No input is read and the value of ``data``, ``x``, ``y``,
+        and ``z`` is ignored if ``generate`` is used.
 
     length : str or list
         [**w**\|\ *l_min*/*l_max*].
