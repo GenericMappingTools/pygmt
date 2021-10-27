@@ -104,20 +104,20 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     center : str or list
         *cx*/*cy*.
-        *cx/cy* sets the origin of the projection, in Definition 1 or 2. If
+        Set the origin of the projection, in Definition 1 or 2. If
         Definition 3 is used, then *cx/cy* are the coordinates of a
         point through which the oblique zero meridian (:math:`p = 0`) should
         pass. The *cx/cy* is not required to be 90 degrees from the pole.
 
     azimuth : float or str
-        defines the azimuth of the projection (Definition 1).
+        Define the azimuth of the projection (Definition 1).
 
     endpoint : str or list
         *bx*/*by*.
         Define the end point of the projection path (Definition 2).
 
     convention : str
-        Specify your desired output using any combination of **xyzpqrs**, in
+        Specify the desired output using any combination of **xyzpqrs**, in
         any order [Default is **xypqrsz**]. Do not space between the letters.
         Use lower case. The output will be columns of values corresponding to
         your ``convention``. The **z** flag is special and refers to all
