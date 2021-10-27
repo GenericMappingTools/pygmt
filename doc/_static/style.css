@@ -209,6 +209,15 @@ a.copybtn {
     text-align: center!important;
 }
 
+.sphx-glr-thumbcontainer {
+    min-height: 240px!important;
+    min-width: 180px!important;
+}
+
+.sphx-glr-thumbcontainer img {
+    max-width:95%!important;
+}
+
 .sphx-glr-single-img {
     max-width: 80%!important;
 }
@@ -230,13 +239,13 @@ a.copybtn {
 .team-img {
     border-radius: 0.5rem;
     width: 100%;
-    height: 15vh!important;
+    height: 20vh!important;
     object-fit: cover;
 }
 
 .team-card-body {
     padding: 1.25rem;
-    height: 100px;
+    height: 135px;
 }
 
 .team-card-text {

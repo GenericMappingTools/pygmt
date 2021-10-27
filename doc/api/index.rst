@@ -105,6 +105,7 @@ Operations on grids:
     grdproject
     grdsample
     grdtrack
+    grdvolume
 
 Crossover analysis with x2sys:
 
