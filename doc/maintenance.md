@@ -177,10 +177,8 @@ adjusted upward on every major and minor release, but never on a patch release.
 ## Backwards compatibility and deprecation policy
 
 PyGMT is still undergoing rapid development. All of the API is subject to change
-until the v1.0.0 release.
-
-PyGMT versioning is done using semantic versioning (e.g. vMAJOR.MINOR.PATCH).
-
+until the v1.0.0 release. Versioning in PyGMT is based on the
+[semantic versioning specification](https://semver.org/spec/v2.0.0.html) (e.g. vMAJOR.MINOR.PATCH).
 Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
