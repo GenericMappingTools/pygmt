@@ -93,9 +93,6 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     back-azimuths or azimuths are better done using :gmt-docs:`mapproject` as
     project is strictly spherical.
 
-    :doc:`pygmt.project` is case sensitive: use lower case for the
-    **xyzpqrs** letters in ``convention``.
-
     {aliases}
 
     Parameters
