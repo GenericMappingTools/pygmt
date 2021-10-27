@@ -22,7 +22,7 @@ from pygmt.io import load_dataarray
     E="radiance",
     G="outgrid",
     N="normalize",
-    Q="norm_control",
+    Q="tiles",
     R="region",
     S="slope_file",
     V="verbose",
@@ -109,10 +109,10 @@ def grdgradient(grid, **kwargs):
         *sigma*) where *sigma* is estimated using the L2 norm of (*g* -
         *offset*) if it is not given. To use *offset* and/or *sigma* from a
         previous calculation, leave out the argument to the modifier(s) and
-        see `norm_control` for usage.  As a final option, you may add
+        see `tiles` for usage.  As a final option, you may add
         **+a**\ *ambient* to add *ambient* to all nodes after gradient
         calculations are completed.
-    norm_control : str
+    tiles : str
         **c**\|\ **r**\|\ **R**
         Controls how normalization via `normalize` is carried out.  When
         multiple  grids should be normalized the same way (i.e., with the same
@@ -142,7 +142,7 @@ def grdgradient(grid, **kwargs):
     with GMTTempFile(suffix=".nc") as tmpfile:
         if "Q" in kwargs and "N" not in kwargs:
             raise GMTInvalidInput(
-                """Must specify normalize if norm_control is specified."""
+                """Must specify normalize if tiles is specified."""
             )
         if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
             raise GMTInvalidInput(
