@@ -24,6 +24,7 @@ from pygmt.src.grdproject import grdproject
 from pygmt.src.grdsample import grdsample
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
+from pygmt.src.grdvolume import grdvolume
 from pygmt.src.histogram import histogram
 from pygmt.src.image import image
 from pygmt.src.info import info
@@ -35,6 +36,7 @@ from pygmt.src.meca import meca
 from pygmt.src.nearneighbor import nearneighbor
 from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
+from pygmt.src.project import project
 from pygmt.src.rose import rose
 from pygmt.src.solar import solar
 from pygmt.src.sph2grd import sph2grd

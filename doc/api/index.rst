@@ -83,6 +83,7 @@ Operations on tabular data:
     blockmedian
     blockmode
     nearneighbor
+    project
     sph2grd
     sphdistance
     sphinterpolate
@@ -104,6 +105,7 @@ Operations on grids:
     grdproject
     grdsample
     grdtrack
+    grdvolume
 
 Crossover analysis with x2sys:
 
@@ -170,6 +172,7 @@ and store them in the GMT cache folder.
 .. autosummary::
     :toctree: generated
 
+    datasets.load_earth_age
     datasets.load_earth_relief
     datasets.load_fractures_compilation
     datasets.load_hotspots
