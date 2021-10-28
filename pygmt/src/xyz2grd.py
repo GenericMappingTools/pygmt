@@ -17,6 +17,7 @@ from pygmt.io import load_dataarray
     A="duplicate",
     G="outgrid",
     I="spacing",
+    J="projection",
     R="region",
     V="verbose",
     Z="convention",
@@ -56,7 +57,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         store the grid in.
     duplicate : str
         [**d**\|\ **f**\|\ **l**\|\ **m**\|\ **n**\|\
-        **r**\|\ **S**\|\ **s**\|\ **u**\|\ **z**]
+        **r**\|\ **S**\|\ **s**\|\ **u**\|\ **z**].
         By default we will calculate mean values if multiple entries fall on
         the same node. Use **-A** to change this behavior, except it is
         ignored if **-Z** is given. Append **f** or **s** to simply keep the
@@ -70,10 +71,11 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         *y* as *z* is not consulted). Append **z** to sum multiple values that
         belong to the same node.
     {I}
+    {J}
     {R}
     {V}
     convention : str
-        [*flags*]
+        [*flags*].
         Read a 1-column ASCII [or binary] table. This assumes that all the
         nodes are present and sorted according to specified ordering
         convention contained in *flags*. If incoming data represents rows,
