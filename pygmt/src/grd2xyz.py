@@ -25,7 +25,10 @@ from pygmt.helpers import (
     Z="convention",
     b="binary",
     d="nodata",
+    f="coltypes",
+    h="header",
     o="outcols",
+    s="skiprows",
 )
 @kwargs_to_strings(R="sequence", o="sequence_comma")
 def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
@@ -108,7 +111,10 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         Default format is scanline orientation of ASCII numbers: **TLa**.
     {b}
     {d}
+    {f}
+    {h}
     {o}
+    {s}
 
     Returns
     -------
