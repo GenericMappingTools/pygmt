@@ -24,6 +24,7 @@ from pygmt.src.grdproject import grdproject
 from pygmt.src.grdsample import grdsample
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
+from pygmt.src.grdvolume import grdvolume
 from pygmt.src.histogram import histogram
 from pygmt.src.image import image
 from pygmt.src.info import info
