@@ -107,7 +107,7 @@ def grdgradient(grid, **kwargs):
 
         - **True** - Normalize using :math:`g_n = \mbox{{amp}}\
           (\frac{{g - \mbox{{offset}}}}{{max(|g - \mbox{{offset}}|)}})`
-        - **-Ne** - Normalize using a cumulative Laplace distribution yielding:
+        - **e** - Normalize using a cumulative Laplace distribution yielding:
           :math:`g_n = \mbox{{amp}}(1 - \
           \exp{{(\sqrt{{2}}\frac{{g - \mbox{{offset}}}}{{\sigma}}))}}`, where
           :math:`\sigma` is estimated using the L1 norm of
