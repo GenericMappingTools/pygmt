@@ -105,14 +105,14 @@ def grdgradient(grid, **kwargs):
         given, it is set to the average of :math:`g`. The following forms are
         supported:
 
-        - **-N** - Normalize using :math:`g_n = \mbox{{amp}}\
+        - **True** - Normalize using :math:`g_n = \mbox{{amp}}\
           (\frac{{g - \mbox{{offset}}}}{{max(|g - \mbox{{offset}}|)}})`
         - **-Ne** - Normalize using a cumulative Laplace distribution yielding:
           :math:`g_n = \mbox{{amp}}(1 - \
           \exp{{(\sqrt{{2}}\frac{{g - \mbox{{offset}}}}{{\sigma}}))}}`, where
           :math:`\sigma` is estimated using the L1 norm of
           :math:`(g - \mbox{{offset}})` if it is not given.
-        - **-Nt** - Normalize using a cumulative Cauchy distribution yielding:
+        - **t** - Normalize using a cumulative Cauchy distribution yielding:
           :math:`g_n = \
           \frac{{2(\mbox{{amp}})}}{{\pi}}(\tan^{{-1}}(\frac{{g - \
           \mbox{{offset}}}}{{\sigma}}))` where :math:`\sigma` is estimated
@@ -132,10 +132,10 @@ def grdgradient(grid, **kwargs):
         grid output is not  needed for this run then do not specify
         ``outgrid``. For  subsequent runs,  just use **r** to read these
         values.  Using **R**  will read then delete the statistics file.
+    {R}
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.
         Requires ``direction`` but makes ``outgrid`` optional.
-    {R}
     {V}
     {f}
     {n}
