@@ -26,6 +26,7 @@ from pygmt.io import load_dataarray
     R="region",
     S="slope_file",
     V="verbose",
+    f="coltypes",
     n="interpolation",
 )
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
@@ -113,7 +114,7 @@ def grdgradient(grid, **kwargs):
         **+a**\ *ambient* to add *ambient* to all nodes after gradient
         calculations are completed.
     tiles : str
-        **c**\|\ **r**\|\ **R**
+        **c**\|\ **r**\|\ **R**.
         Controls how normalization via `normalize` is carried out.  When
         multiple  grids should be normalized the same way (i.e., with the same
         *offset*  and/or *sigma*),
@@ -128,6 +129,7 @@ def grdgradient(grid, **kwargs):
         Requires `direction` but makes `outgrid` optional.
     {R}
     {V}
+    {f}
     {n}
 
     Returns
