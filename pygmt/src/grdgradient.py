@@ -53,15 +53,16 @@ def grdgradient(grid, **kwargs):
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
         north (the +y direction) toward east (the +x direction). The
-        negative of the directional derivative, -[dz/dx\*sin(*azim*) +
-        dz/dy\*cos(\ *azim*)], is found; negation yields positive values
-        when the slope of z(x,y) is downhill in the *azim* direction, the
-        correct sense for shading the illumination of an image by a light
-        source above the x,y plane shining from the *azim* direction.
-        Optionally, supply two azimuths, *azim*/*azim2*, in which case the
-        gradients in each of these directions are calculated and the one
-        larger in magnitude is retained; this is useful for illuminating data
-        with two directions of lineated structures, e.g., *0*/*270*
+        negative of the directional derivative,
+        :math:`-(\frac{{dz}}{{dx}}\sin(\mbox{{azim}}) + \
+        \frac{{dz}}{{dy}}\cos(\mbox{{azim}}))`, is found; negation yields
+        positive values when the slope of :math:`z(x,y)` is downhill in the
+        *azim* direction, the correct sense for shading the illumination of an
+        image by a light source above the x,y plane shining from the *azim*
+        direction. Optionally, supply two azimuths, *azim*/*azim2*, in which
+        case the gradients in each of these directions are calculated and the
+        one larger in magnitude is retained; this is useful for illuminating
+        data with two directions of lineated structures, e.g., *0*/*270*
         illuminates from the north (top) and west (left).  Finally, if *azim*
         is a file it must be a grid of the same domain, spacing and
         registration as *grid* that will update the azimuth at each output
@@ -69,19 +70,21 @@ def grdgradient(grid, **kwargs):
     direction : str
         [**a**][**c**][**o**][**n**].
         Find the direction of the positive (up-slope) gradient of the data.
-        To instead find the aspect (the down-slope direction), use **a**.
-        By default, directions are measured clockwise from north, as *azim*
-        in ``azimuth``. Append **c** to use conventional Cartesian angles
-        measured counterclockwise from the positive x (east) direction.
-        Append **o** to report orientations (0-180) rather than
-        directions (0-360). Append **n** to add 90 degrees to all angles
-        (e.g., to give local strikes of the surface).
+        The following options are supported:
+
+        - **a** - Find the aspect (i.e., the down-slope direction)
+        - **c** - Use the conventional Cartesian angles measured
+          counterclockwise from the positive x (east) direction.
+        - **o** - Report orientations (0-180) rather than directions (0-360).
+        - **n** - Add 90 degrees to all angles (e.g., to give local strikes of
+          the surface).
     radiance : str or list
         [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
         *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
-        Compute Lambertian radiance appropriate to use with ``grdimage``
-        and ``grdview``. The Lambertian Reflection assumes an ideal surface
-        that reflects all the light that strikes it and the surface appears
+        Compute Lambertian radiance appropriate to use with
+        :doc:`pygmt.Figure.grdimage` and :doc:`pygmt.Figure.grdview`. The
+        Lambertian Reflection assumes an ideal surface that reflects all the
+        light that strikes it and the surface appears
         equally bright from all viewing directions. Here, *azim* and *elev* are
         the azimuth and elevation of the light vector. Optionally, supply
         *ambient* [0.55], *diffuse* [0.6], *specular* [0.4], or *shine* [10],
@@ -94,25 +97,30 @@ def grdgradient(grid, **kwargs):
         and 45 degrees. This means that even if you provide other values
         they will be ignored.)
     normalize : str or bool
-        [**e**\|\ **t**][*amp*][**+a**\ *ambient*][**+s**\ *sigma*]
+        [**e**\|\ **t**][*amp*][**+a**\ *ambient*][**+s**\ *sigma*]\
         [**+o**\ *offset*].
-        The actual gradients *g* are offset and scaled to produce normalized
-        gradients *gn* with a
-        maximum output magnitude of *amp*. If *amp* is not given, default
-        *amp* = 1. If *offset* is not given, it is set to the average of
-        *g*. **True** yields *gn* = *amp* \* (*g* - *offset*)/max(abs(\ *g* -
-        *offset*)). **e** normalizes using a cumulative Laplace
-        distribution yielding *gn* = *amp* \* (1.0 -
-        exp(sqrt(2) \* (*g* - *offset*)/ *sigma*)), where
-        *sigma* is estimated using the L1 norm of (*g* - *offset*) if it is
-        not given. **t** normalizes using a cumulative Cauchy distribution
-        yielding *gn* = (2 \* *amp* / PI) \* atan( (*g* - *offset*)/
-        *sigma*) where *sigma* is estimated using the L2 norm of (*g* -
-        *offset*) if it is not given. To use *offset* and/or *sigma* from a
-        previous calculation, leave out the argument to the modifier(s) and
-        see `tiles` for usage.  As a final option, you may add
-        **+a**\ *ambient* to add *ambient* to all nodes after gradient
-        calculations are completed.
+        The actual gradients :math:`g` are offset and scaled to produce
+        normalized gradients math:`g_n` with a maximum output magnitude of
+        *amp*. If *amp* is not given, default *amp* = 1. If *offset* is not
+        given, it is set to the average of :math:`g`. The following forms are
+        supported:
+
+        - **-N** - Normalize using :math:`g_n = \mbox{{amp}}\
+          (\frac{{g - \mbox{{offset}}}}{{max(|g - \mbox{{offset}}|)}})`
+        - **-Ne** - Normalize using a cumulative Laplace distribution yielding:
+          :math:`g_n = \mbox{{amp}}(1 - \
+          \exp{{(\sqrt{{2}}\frac{{g - \mbox{{offset}}}}{{\sigma}}))}}`, where
+          :math:`\sigma` is estimated using the L1 norm of
+          :math:`(g - \mbox{{offset}})` if it is not given.
+        - **-Nt** - Normalize using a cumulative Cauchy distribution yielding:
+          :math:`g_n = \
+          \frac{{2(\mbox{{amp}})}}{{\pi}}(\tan^{{-1}}(\frac{{g - \
+          \mbox{{offset}}}}{{\sigma}}))` where :math:`\sigma` is estimated
+          using the L2 norm of :math:`(g - \mbox{{offset}})` if it is not
+          given.
+
+        As a final option, you may add **+a**\ *ambient* to add *ambient* to
+        all nodes after gradient calculations are completed.
     tiles : str
         **c**\|\ **r**\|\ **R**.
         Controls how normalization via `normalize` is carried out.  When
