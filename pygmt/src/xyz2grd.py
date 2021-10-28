@@ -31,7 +31,7 @@ from pygmt.io import load_dataarray
 )
 @kwargs_to_strings(R="sequence")
 def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
-    """
+    r"""
     Create a grid file from table data.
 
     Reads one or more tables with *x, y, z* columns and creates a binary grid 
