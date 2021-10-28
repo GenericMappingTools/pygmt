@@ -42,7 +42,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     path) closest to :math:`(x, y)`, and :math:`z` is all remaining columns in
     the input (beyond the required :math:`x` and :math:`y` columns).
 
-    Alternatively, :doc:`pygmt.project` may be used to generate
+    Alternatively, ``project`` may be used to generate
     :math:`(r, s, p)` triples at equal increments along a profile using the
     ``generate`` parameter. In this case, the value of ``data`` is ignored
     (you can use, e.g., ``data=None``).
