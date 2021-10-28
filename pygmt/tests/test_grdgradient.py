@@ -55,8 +55,13 @@ def test_grdgradient_no_outgrid(grid):
 
 def test_grdgradient_fails(grid):
     """
-    Check that grdgradient fails correctly when neither of azimuth, direction
-    or radiance is given.
+    Check that grdgradient fails correctly
+
+    Check that grdgradient fails correctly when `tiles` is specified but
+    normalize is not.
     """
     with pytest.raises(GMTInvalidInput):
-        grdgradient(grid=grid)
+        grdgradient(grid=grid) # fails without required arguments
+    with pytest.raises(GMTInvalidInput):
+        # failes when tiles is specified but not normalize
+        grdgradient(grid=grid, azimuth=10, direction="c", tiles="c")
