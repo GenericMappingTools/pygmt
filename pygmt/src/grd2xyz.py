@@ -18,9 +18,17 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
+    C="cstyle",
     R="region",
     V="verbose",
+    W="weight",
+    Z="convention",
+    b="binary",
+    d="nodata",
+    f="coltypes",
+    h="header",
     o="outcols",
+    s="skiprows",
 )
 @kwargs_to_strings(R="sequence", o="sequence_comma")
 def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
@@ -48,12 +56,65 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
+    cstyle : str
+        [**f**\|\ **i**].
+        Replace the x- and y-coordinates on output with the corresponding
+        column and row numbers. These start at 0 (C-style counting); append
+        **f** to start at 1 (Fortran-style counting). Alternatively, append
+        **i** to write just the two columns *index* and *z*, where *index*
+        is the 1-D indexing that GMT uses when referring to grid nodes.
     {R}
         Adding ``region`` will select a subsection of the grid. If this
         subsection exceeds the boundaries of the grid, only the common region
         will be output.
+    weight : str
+        [**a**\ [**+u**\ *unit*]\|\ *weight*].
+        Write out *x,y,z,w*\ , where *w* is the supplied *weight* (or 1 if not
+        supplied) [Default writes *x,y,z* only].  Choose **a** to compute
+        weights equal to the area each node represents.  For Cartesian grids
+        this is simply the product of the *x* and *y* increments (except for
+        gridline-registered grids at all sides [half] and corners [quarter]).
+        For geographic grids we default to a length unit of **k**. Change
+        this by appending **+u**\ *unit*. For such grids, the area
+        varies with latitude and also sees special cases for
+        gridline-registered layouts at sides, corners, and poles.
     {V}
+    convention : str
+        [*flags*].
+        Write a 1-column ASCII [or binary] table. Output will be organized
+        according to the specified ordering convention contained in *flags*.
+        If data should be written by rows, make *flags* start with
+        **T** (op) if first row is y = ymax or
+        **B** (ottom) if first row is y = ymin. Then,
+        append **L** or **R** to indicate that first element should start at
+        left or right end of row. Likewise for column formats: start with
+        **L** or **R** to position first column, and then append **T** or
+        **B** to position first element in a row. For gridline registered
+        grids: If grid is periodic in x but the written data should not
+        contain the (redundant) column at x = xmax, append **x**. For grid
+        periodic in y, skip writing the redundant row at y = ymax by
+        appending **y**. If the byte-order needs to be swapped, append
+        **w**. Select one of several data types (all binary except **a**):
+
+        * **a** ASCII representation of a single item per record
+        * **c** int8_t, signed 1-byte character
+        * **u** uint8_t, unsigned 1-byte character
+        * **h** int16_t, short 2-byte integer
+        * **H** uint16_t, unsigned short 2-byte integer
+        * **i** int32_t, 4-byte integer
+        * **I** uint32_t, unsigned 4-byte integer
+        * **l** int64_t, long (8-byte) integer
+        * **L** uint64_t, unsigned long (8-byte) integer
+        * **f** 4-byte floating point single precision
+        * **d** 8-byte floating point double precision
+
+        Default format is scanline orientation of ASCII numbers: **TLa**.
+    {b}
+    {d}
+    {f}
+    {h}
     {o}
+    {s}
 
     Returns
     -------
