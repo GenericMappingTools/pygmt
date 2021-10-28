@@ -176,6 +176,7 @@ def download_test_data():
         "@mars370d.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
         "@Table_5_11.txt",
+        "Table_5_11_mean.xyz",
         "@test.dat.nc",
         "@tut_bathy.nc",
         "@tut_quakes.ngdc",
