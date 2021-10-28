@@ -85,7 +85,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         binary except **a**):
 
         - **A** ASCII representation of one or more floating point values per
-           record
+          record
         - **a** ASCII representation of a single item per record
         - **c** int8_t, signed 1-byte character
         - **u** uint8_t, unsigned 1-byte character
