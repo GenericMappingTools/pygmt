@@ -100,7 +100,7 @@ def grdgradient(grid, **kwargs):
         [**e**\|\ **t**][*amp*][**+a**\ *ambient*][**+s**\ *sigma*]\
         [**+o**\ *offset*].
         The actual gradients :math:`g` are offset and scaled to produce
-        normalized gradients math:`g_n` with a maximum output magnitude of
+        normalized gradients :math:`g_n` with a maximum output magnitude of
         *amp*. If *amp* is not given, default *amp* = 1. If *offset* is not
         given, it is set to the average of :math:`g`. The following forms are
         supported:
