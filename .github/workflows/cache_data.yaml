@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
@@ -51,6 +51,8 @@ jobs:
       - name: Download remote data
         run: |
           python -c "from pygmt.helpers.testing import download_test_data; download_test_data()"
+        env:
+          GMT_DATA_SERVER: https://oceania.generic-mapping-tools.org/
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub

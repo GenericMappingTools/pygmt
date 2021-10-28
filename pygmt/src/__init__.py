@@ -24,6 +24,7 @@ from pygmt.src.grdproject import grdproject
 from pygmt.src.grdsample import grdsample
 from pygmt.src.grdtrack import grdtrack
 from pygmt.src.grdview import grdview
+from pygmt.src.grdvolume import grdvolume
 from pygmt.src.histogram import histogram
 from pygmt.src.image import image
 from pygmt.src.info import info
@@ -37,7 +38,9 @@ from pygmt.src.plot import plot
 from pygmt.src.plot3d import plot3d
 from pygmt.src.rose import rose
 from pygmt.src.solar import solar
+from pygmt.src.sph2grd import sph2grd
 from pygmt.src.sphdistance import sphdistance
+from pygmt.src.sphinterpolate import sphinterpolate
 from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
 from pygmt.src.text import text_ as text  # "text" is an argument within "text_"

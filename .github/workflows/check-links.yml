@@ -15,18 +15,18 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v2.3.5
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v2.3.5
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
-      uses: lycheeverse/lychee-action@v1.0.8
+      uses: lycheeverse/lychee-action@v1.0.9
       with:
         # 429: Too many requests
         args: >

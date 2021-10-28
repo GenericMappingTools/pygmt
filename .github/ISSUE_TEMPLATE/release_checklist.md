@@ -16,6 +16,7 @@ assignees: ''
 - [ ] Wrap Y ()
 
 **Before release**:
+- [ ] Run `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository to check if any deprecations and related tests should be removed in this version
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
