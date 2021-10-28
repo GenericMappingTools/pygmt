@@ -20,8 +20,14 @@ from pygmt.io import load_dataarray
     R="region",
     V="verbose",
     Z="convention",
+    b="binary",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    h="header",
     i="incols",
     r="registration",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence")
 def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
@@ -104,10 +110,15 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         both *date*\ **T**\ *clock* and *ddd:mm:ss[.xx]* formats but expects
         each input record to have a single value, while the former can handle
         multiple values per record but can only parse regular floating point
-        values. Translate incoming *z*-values via the **-i**\ 0 option and
-        needed modifiers.
+        values. Translate incoming *z*-values via the ``incols`` parameter.
+    {b}
+    {d}
+    {e}
+    {f}
+    {h}
     {i}
     {r}
+    {w}
 
     Returns
     -------
