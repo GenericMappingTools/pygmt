@@ -151,7 +151,7 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
-                      Quinn, Jamie aand
+                      Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
       month        = oct,
