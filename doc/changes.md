@@ -9,23 +9,24 @@
 * 🎉 **Fifth minor release of PyGMT** 🎉
 * Wrapped 12 GMT modules
 * Standardized and reorder table inputs to be 'data, x, y, z' across functions ([#1479](https://github.com/GenericMappingTools/pygmt/pull/1479))
+* Added a gallery example showing usage of line objects from a geopandas.GeoDataFrame (#1474)
 
 ### New Features
 
-* Wrap gmtselect ([#1429](https://github.com/GenericMappingTools/pygmt/pull/1429))
-* Wrap project ([#1122](https://github.com/GenericMappingTools/pygmt/pull/1122))
-* Wrap grdvolume ([#1299](https://github.com/GenericMappingTools/pygmt/pull/1299))
-* Add function to import seafloor crustal age dataset ([#1471](https://github.com/GenericMappingTools/pygmt/pull/1471))
-* Wrap sphinterpolate ([#1418](https://github.com/GenericMappingTools/pygmt/pull/1418))
-* Wrap sph2grd ([#1434](https://github.com/GenericMappingTools/pygmt/pull/1434))
-* Wrap nearneighbor ([#1379](https://github.com/GenericMappingTools/pygmt/pull/1379))
-* Wrap grd2xyz ([#1284](https://github.com/GenericMappingTools/pygmt/pull/1284))
 * Wrap blockmode ([#1456](https://github.com/GenericMappingTools/pygmt/pull/1456))
-* Wrap sphdistance ([#1383](https://github.com/GenericMappingTools/pygmt/pull/1383))
-* Add pygmt.load_dataarray function ([#1439](https://github.com/GenericMappingTools/pygmt/pull/1439))
+* Wrap gmtselect ([#1429](https://github.com/GenericMappingTools/pygmt/pull/1429))
+* Wrap grd2xyz ([#1284](https://github.com/GenericMappingTools/pygmt/pull/1284))
 * Wrap grdproject ([#1377](https://github.com/GenericMappingTools/pygmt/pull/1377))
 * Wrap grdsample ([#1380](https://github.com/GenericMappingTools/pygmt/pull/1380))
+* Wrap grdvolume ([#1299](https://github.com/GenericMappingTools/pygmt/pull/1299))
+* Wrap nearneighbor ([#1379](https://github.com/GenericMappingTools/pygmt/pull/1379))
+* Wrap project ([#1122](https://github.com/GenericMappingTools/pygmt/pull/1122))
+* Wrap sph2grd ([#1434](https://github.com/GenericMappingTools/pygmt/pull/1434))
+* Wrap sphdistance ([#1383](https://github.com/GenericMappingTools/pygmt/pull/1383))
+* Wrap sphinterpolate ([#1418](https://github.com/GenericMappingTools/pygmt/pull/1418))
 * Wrap xyz2grd ([#636](https://github.com/GenericMappingTools/pygmt/pull/636))
+* Add function to import seafloor crustal age dataset ([#1471](https://github.com/GenericMappingTools/pygmt/pull/1471))
+* Add pygmt.load_dataarray function ([#1439](https://github.com/GenericMappingTools/pygmt/pull/1439))
 
 ### Enhancements
 
@@ -40,7 +41,6 @@
 * Add area_thresh to COMMON_OPTIONS ([#1426](https://github.com/GenericMappingTools/pygmt/pull/1426))
 * Add function to import Mars dataset ([#1420](https://github.com/GenericMappingTools/pygmt/pull/1420))
 * Add function to import hotspot dataset ([#1386](https://github.com/GenericMappingTools/pygmt/pull/1386))
-
 
 ### Deprecations
 
@@ -71,7 +71,6 @@
 * Document gmtwhich -Ga option to download to appropriate cache folder ([#1554](https://github.com/GenericMappingTools/pygmt/pull/1554))
 * Add a gallery example showing the usage of text symbols ([#1522](https://github.com/GenericMappingTools/pygmt/pull/1522))
 * Add gallery example for grdgradient ([#1428](https://github.com/GenericMappingTools/pygmt/pull/1428))
-* Add gallery example showing usage of line objects from a geopandas.GeoDataFrame ([#1474](https://github.com/GenericMappingTools/pygmt/pull/1474))
 * Add missing aliases to pygmt.grdgradient ([#1515](https://github.com/GenericMappingTools/pygmt/pull/1515))
 * Add missing aliases to pygmt.sphdistance ([#1516](https://github.com/GenericMappingTools/pygmt/pull/1516))
 * Add missing aliases to pygmt.blockmean and pygmt.blockmedian ([#1500](https://github.com/GenericMappingTools/pygmt/pull/1500))
@@ -102,8 +101,8 @@
 ### Contributors
 
 * [Dongdong Tian](https://github.com/seisman)
-* [Will Schlitzer](https://github.com/willschlitzer)
 * [Michael Grund](https://github.com/michaelgrund)
+* [Will Schlitzer](https://github.com/willschlitzer)
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Meghan Jones](https://github.com/meghanrjones)
 * [Yohai Magen](https://github.com/yohaimagen)
