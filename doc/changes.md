@@ -92,7 +92,7 @@
 
 ### Maintenance
 
-* Add support Python 3.10 ([#1591](https://github.com/GenericMappingTools/pygmt/pull/1591))
+* Add support for Python 3.10 ([#1591](https://github.com/GenericMappingTools/pygmt/pull/1591))
 * Make IPython partially optional on CI to increase test coverage of figure.py ([#1496](https://github.com/GenericMappingTools/pygmt/pull/1496))
 * Use mamba to install Continuous Integration dependencies ([#841](https://github.com/GenericMappingTools/pygmt/pull/841))
 * Remove deprecated codecov dependency from CI ([#1494](https://github.com/GenericMappingTools/pygmt/pull/1494))
