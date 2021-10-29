@@ -6,7 +6,8 @@
 
 ### Highlights
 
-*
+* 🎉 **Fifth minor release of PyGMT** 🎉
+* Add support for Python 3.10 ([#1591](https://github.com/GenericMappingTools/pygmt/pull/1591))
 
 ### New Features
 
@@ -20,7 +21,7 @@
 * Wrap grd2xyz ([#1284](https://github.com/GenericMappingTools/pygmt/pull/1284))
 * Wrap blockmode ([#1456](https://github.com/GenericMappingTools/pygmt/pull/1456))
 * Wrap sphdistance ([#1383](https://github.com/GenericMappingTools/pygmt/pull/1383))
-* Add pygmt.load_dataarray function and refactor modules that return None or xarray.dataarray ([#1439](https://github.com/GenericMappingTools/pygmt/pull/1439))
+* Add pygmt.load_dataarray function ([#1439](https://github.com/GenericMappingTools/pygmt/pull/1439))
 * Wrap grdproject ([#1377](https://github.com/GenericMappingTools/pygmt/pull/1377))
 * Wrap grdsample ([#1380](https://github.com/GenericMappingTools/pygmt/pull/1380))
 * Wrap xyz2grd ([#636](https://github.com/GenericMappingTools/pygmt/pull/636))
