@@ -83,6 +83,8 @@ Operations on tabular data:
     blockmedian
     blockmode
     nearneighbor
+    project
+    select
     sph2grd
     sphdistance
     sphinterpolate
