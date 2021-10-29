@@ -137,28 +137,29 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2021_5162003,
+    @software{pygmt_2021_5607255,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
+                      Jones, Meghan and
                       Schlitzer, William and
                       Toney, Liam and
                       Grund, Michael and
-                      Jones, Meghan and
                       Yao, Jiayuan and
+                      Magen, Yohai and
                       Materna, Kathryn and
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
-                      Magen, Yohai and
+                      Quinn, Jamie aand
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = aug,
+      month        = oct,
       year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.4.1},
-      doi          = {10.5281/zenodo.5162003},
-      url          = {https://doi.org/10.5281/zenodo.5162003}
+      version      = {v0.5.0},
+      doi          = {10.5281/zenodo.5607255},
+      url          = {https://doi.org/10.5281/zenodo.5607255}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -211,12 +212,17 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - Numpy
-    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/milestone/8>`_ (upcoming release)
+    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestone/9>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.2.0
       - >=3.7
       - >=1.18
-    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_ (latest release)
+    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_ (latest release)
+      - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
+      - >=6.2.0
+      - >=3.7
+      - >=1.18
+    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_
       - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
       - >=6.2.0
       - >=3.7
