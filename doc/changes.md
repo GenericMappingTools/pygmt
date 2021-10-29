@@ -9,7 +9,7 @@
 * 🎉 **Fifth minor release of PyGMT** 🎉
 * Wrapped 12 GMT modules
 * Standardized and reorder table inputs to be 'data, x, y, z' across functions ([#1479](https://github.com/GenericMappingTools/pygmt/pull/1479))
-* Added a gallery example showing usage of line objects from a geopandas.GeoDataFrame (#1474)
+* Added a gallery example showing usage of line objects from a geopandas.GeoDataFrame ([#1474](https://github.com/GenericMappingTools/pygmt/pull/1474))
 
 ### New Features
 
