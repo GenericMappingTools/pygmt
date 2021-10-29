@@ -74,7 +74,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         - **n** - assign the ID numbers of the Voronoi polygons that each
           grid node is inside
         - **z** - assign all nodes inside the polygon the z-value of the center
-          node fot a natural nearest-neighbor grid.
+          node for a natural nearest-neighbor grid.
 
         Optionally, append the resampling interval along Voronoi arcs in
         spherical degrees.
