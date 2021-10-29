@@ -7,7 +7,6 @@
 ### Highlights
 
 * 🎉 **Fifth minor release of PyGMT** 🎉
-* Added support for Python 3.10 ([#1591](https://github.com/GenericMappingTools/pygmt/pull/1591))
 * Wrapped 12 GMT modules
 * Standardized and reorder table inputs to be 'data, x, y, z' across functions ([#1479](https://github.com/GenericMappingTools/pygmt/pull/1479))
 
