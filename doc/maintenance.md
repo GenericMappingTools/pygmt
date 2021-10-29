@@ -260,12 +260,16 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 7. Edit the list of people who contributed to the release, linking to their
    GitHub account. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
-8. Update `README.rst` with new information on the new release version, namely
-   the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
-   Python and GMT versions. Follow
+8. Update `README.rst` with new information on the new release version,
+   including a vX.Y.Z documentation link, and compatibility with
+   GMT/Python/NumPy versions. Follow
    [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
-   for compatibility updates. Follow `AUTHORSHIP.md` guidelines for updating
-   the author list in the BibTeX citation.
+   for compatibility updates.
+9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
+   `CITATION.cff` needs to be updated with any metadata changes. Please follow
+   guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
+   More information about the `CITATION.cff` specification can be found at
+   https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
 
 ### Check the README syntax
 
