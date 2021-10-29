@@ -9,6 +9,7 @@
 * 🎉 **Fifth minor release of PyGMT** 🎉
 * Added support for Python 3.10 ([#1591](https://github.com/GenericMappingTools/pygmt/pull/1591))
 * Wrapped 12 GMT modules
+* Standardized and reorder table inputs to be 'data, x, y, z' across functions ([#1479](https://github.com/GenericMappingTools/pygmt/pull/1479))
 
 ### New Features
 
@@ -66,6 +67,7 @@
 
 ### Documentation
 
+* Add CITATION.cff file for PyGMT ([#1592](https://github.com/GenericMappingTools/pygmt/pull/1592))
 * Update region and projection standard docstrings ([#1510](https://github.com/GenericMappingTools/pygmt/pull/1510))
 * Document gmtwhich -Ga option to download to appropriate cache folder ([#1554](https://github.com/GenericMappingTools/pygmt/pull/1554))
 * Add a gallery example showing the usage of text symbols ([#1522](https://github.com/GenericMappingTools/pygmt/pull/1522))
@@ -105,7 +107,7 @@
 * [Michael Grund](https://github.com/michaelgrund)
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Meghan Jones](https://github.com/meghanrjones)
-* [@yohaimagen](https://github.com/yohaimagen)
+* [Yohai Magen](https://github.com/yohaimagen)
 * [Amanda Leaman](https://github.com/arleaman)
 * [@daroari](https://github.com/daroari)
 * [@obaney](https://github.com/obaney)
