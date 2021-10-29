@@ -98,7 +98,21 @@
 
 ### Contributors
 
-@BeckySalvage, @JamieJQuinn, @aitorres, @arleaman, @carocamargo, @claudiodsf, @daroari, @dependabot, @dependabot[bot], @meghanrjones, @michaelgrund, @obaney, @seisman, @srijac, @weiji14, @willschlitzer and @yohaimagen
+* [Dongdong Tian](https://github.com/seisman)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Meghan Jones](https://github.com/meghanrjones)
+* [@yohaimagen](https://github.com/yohaimagen)
+* [Amanda Leaman](https://github.com/arleaman)
+* [@daroari](https://github.com/daroari)
+* [@obaney](https://github.com/obaney)
+* [@srijac](https://github.com/srijac)
+* [Andrés Ignacio Torres](https://github.com/aitorres)
+* [Becky Salvage](https://github.com/BeckySalvage)
+* [Claudio Satriano](https://github.com/claudiodsf)
+* [Jamie J Quinn](https://github.com/JamieJQuinn)
+* [@carocamargo](https://github.com/carocamargo)
 
 ----
 
