@@ -141,10 +141,10 @@ Developers". Feel free to cite our work in your research using the following Bib
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
+                      Jones, Meghan and
                       Schlitzer, William and
                       Toney, Liam and
                       Grund, Michael and
-                      Jones, Meghan and
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
