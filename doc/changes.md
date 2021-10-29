@@ -2,7 +2,7 @@
 
 ## Release v0.5.0 (2021/10/29)
 
-[![Digital Object Identifier for PyGMT v0.5.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+[![Digital Object Identifier for PyGMT v0.5.0](https://zenodo.org/badge/DOI/10.5281/zenodo.5607255.svg)](https://doi.org/10.5281/zenodo.5607255)
 
 ### Highlights
 
@@ -65,7 +65,6 @@
 ### Documentation
 
 * Add missing aliases to pygmt.grdgradient ([#1515](https://github.com/GenericMappingTools/pygmt/pull/1515))
-* Remove disclaimer in README ([#1590](https://github.com/GenericMappingTools/pygmt/pull/1590))
 * Add missing aliases to sphdistance ([#1516](https://github.com/GenericMappingTools/pygmt/pull/1516))
 * Update region and projection standard docstrings ([#1510](https://github.com/GenericMappingTools/pygmt/pull/1510))
 * Document gmtwhich -Ga option to download to appropriate cache folder ([#1554](https://github.com/GenericMappingTools/pygmt/pull/1554))
