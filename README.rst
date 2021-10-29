@@ -146,11 +146,11 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Grund, Michael and
                       Jones, Meghan and
                       Yao, Jiayuan and
+                      Magen, Yohai and
                       Materna, Kathryn and
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
-                      Magen, Yohai and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
       month        = oct,
