@@ -38,9 +38,10 @@ For more advanced *pen* attributes, see the GMT cookbook
 
 
 
-.. image:: /gallery/lines/images/sphx_glr_linestyles_001.png
-    :alt: linestyles
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/lines/images/sphx_glr_linestyles_001.png
+   :alt: linestyles
+   :srcset: /gallery/lines/images/sphx_glr_linestyles_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -103,7 +104,7 @@ For more advanced *pen* attributes, see the GMT cookbook
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.844 seconds)
+   **Total running time of the script:** ( 0 minutes  3.042 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_linestyles.py:

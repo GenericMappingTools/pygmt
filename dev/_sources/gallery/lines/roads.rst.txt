@@ -31,9 +31,10 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 
 
 
-.. image:: /gallery/lines/images/sphx_glr_roads_001.png
-    :alt: roads
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/lines/images/sphx_glr_roads_001.png
+   :alt: roads
+   :srcset: /gallery/lines/images/sphx_glr_roads_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -90,7 +91,7 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.380 seconds)
+   **Total running time of the script:** ( 0 minutes  3.722 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_roads.py:

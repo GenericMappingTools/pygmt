@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -220,7 +220,7 @@ API session and destroy it in the end to clean up memory.</p>
 methods MUST be used with an open session (inside a <code class="docutils literal notranslate"><span class="pre">with</span></code> block). If
 creating GMT data structures to communicate data, put that code inside the
 same <code class="docutils literal notranslate"><span class="pre">with</span></code> block as the API calls that will use the data.</p>
-<p>By default, will let <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> try to find the GMT shared library
+<p>By default, will let <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.10)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> try to find the GMT shared library
 (<code class="docutils literal notranslate"><span class="pre">libgmt</span></code>). If the environment variable <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> is set, will
 look for the shared library in the directory specified by it.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">GMTVersionError</span></code> exception will be raised if the GMT shared library
@@ -333,9 +333,9 @@ open session.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

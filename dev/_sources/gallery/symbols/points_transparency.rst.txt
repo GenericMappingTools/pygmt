@@ -28,9 +28,10 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 
 
 
-.. image:: /gallery/symbols/images/sphx_glr_points_transparency_001.png
-    :alt: points transparency
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/symbols/images/sphx_glr_points_transparency_001.png
+   :alt: points transparency
+   :srcset: /gallery/symbols/images/sphx_glr_points_transparency_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -72,7 +73,7 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.334 seconds)
+   **Total running time of the script:** ( 0 minutes  1.064 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_transparency.py:

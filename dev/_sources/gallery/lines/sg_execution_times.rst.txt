@@ -5,20 +5,20 @@
 
 Computation times
 =================
-**00:24.795** total execution time for **gallery_lines** files:
+**00:19.810** total execution time for **gallery_lines** files:
 
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``) | 00:05.248 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``) | 00:04.150 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)                 | 00:04.931 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)                 | 00:03.832 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_roads.py` (``roads.py``)                           | 00:04.380 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_roads.py` (``roads.py``)                           | 00:03.722 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)                 | 00:03.844 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)                 | 00:03.042 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)       | 00:03.061 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)       | 00:02.443 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)           | 00:02.165 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)           | 00:01.713 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_wiggle.py` (``wiggle.py``)                         | 00:01.166 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_wiggle.py` (``wiggle.py``)                         | 00:00.908 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+

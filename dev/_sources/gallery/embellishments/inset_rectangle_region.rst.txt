@@ -30,9 +30,10 @@ methods called within the ``with`` statement plot into the inset figure.
 
 
 
-.. image:: /gallery/embellishments/images/sphx_glr_inset_rectangle_region_001.png
-    :alt: inset rectangle region
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/embellishments/images/sphx_glr_inset_rectangle_region_001.png
+   :alt: inset rectangle region
+   :srcset: /gallery/embellishments/images/sphx_glr_inset_rectangle_region_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -96,7 +97,7 @@ methods called within the ``with`` statement plot into the inset figure.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.266 seconds)
+   **Total running time of the script:** ( 0 minutes  1.841 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_inset_rectangle_region.py:

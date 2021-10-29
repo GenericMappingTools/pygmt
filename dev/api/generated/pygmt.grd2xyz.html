@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.grdclip" href="pygmt.grdclip.html" />
-    <link rel="prev" title="pygmt.surface" href="pygmt.surface.html" />
+    <link rel="prev" title="pygmt.xyz2grd" href="pygmt.xyz2grd.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -120,7 +120,13 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmode.html">pygmt.blockmode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.nearneighbor.html">pygmt.nearneighbor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.project.html">pygmt.project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.select.html">pygmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sph2grd.html">pygmt.sph2grd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sphinterpolate.html">pygmt.sphinterpolate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.xyz2grd.html">pygmt.xyz2grd</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.grd2xyz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdclip.html">pygmt.grdclip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
@@ -131,8 +137,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdproject.html">pygmt.grdproject</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdsample.html">pygmt.grdsample</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.xyz2grd.html">pygmt.xyz2grd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdvolume.html">pygmt.grdvolume</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_init.html">pygmt.x2sys_init</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
 </ul>
@@ -211,40 +216,63 @@
 <h1>pygmt.grd2xyz<a class="headerlink" href="#pygmt-grd2xyz" title="Permalink to this headline"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.grd2xyz">
-<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grd2xyz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pandas'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grd2xyz.html#grd2xyz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grd2xyz" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grd2xyz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pandas'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cstyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convention</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skiprows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grd2xyz.html#grd2xyz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grd2xyz" title="Permalink to this definition"></a></dt>
 <dd><p>Convert grid to data table.</p>
 <p>Read a grid and output xyz-triplets as a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, or ASCII file.</p>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, or ASCII file.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/grd2xyz.html">https://docs.generic-mapping-tools.org/latest/grd2xyz.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
+<li><p>C = cstyle</p></li>
 <li><p>R = region</p></li>
 <li><p>V = verbose</p></li>
+<li><p>W = weight</p></li>
+<li><p>Z = convention</p></li>
+<li><p>b = binary</p></li>
+<li><p>d = nodata</p></li>
+<li><p>f = coltypes</p></li>
+<li><p>h = header</p></li>
 <li><p>o = outcols</p></li>
+<li><p>s = skiprows</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a
 <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>. This is the only required parameter.</p></li>
-<li><p><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Determine the format the xyz data will be returned in [Default is
+<li><p><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Determine the format the xyz data will be returned in [Default is
 <code class="docutils literal notranslate"><span class="pre">pandas</span></code>]:</p>
 <blockquote>
 <div><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> - <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code>- <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code>- <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">file</span></code> - ASCII file (requires <code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
 </ul>
 </div></blockquote>
 </p></li>
-<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The file name for the output ASCII file.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
-<em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The file name for the output ASCII file.</p></li>
+<li><p><strong>cstyle</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>f</strong>|<strong>i</strong>].
+Replace the x- and y-coordinates on output with the corresponding
+column and row numbers. These start at 0 (C-style counting); append
+<strong>f</strong> to start at 1 (Fortran-style counting). Alternatively, append
+<strong>i</strong> to write just the two columns <em>index</em> and <em>z</em>, where <em>index</em>
+is the 1-D indexing that GMT uses when referring to grid nodes.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/regions.html"><span class="doc">region</span></a> of interest.
 Adding <code class="docutils literal notranslate"><span class="pre">region</span></code> will select a subsection of the grid. If this
 subsection exceeds the boundaries of the grid, only the common region
 will be output.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>a</strong>[<strong>+u</strong><em>unit</em>]|<em>weight</em>].
+Write out <em>x,y,z,w</em>, where <em>w</em> is the supplied <em>weight</em> (or 1 if not
+supplied) [Default writes <em>x,y,z</em> only].  Choose <strong>a</strong> to compute
+weights equal to the area each node represents.  For Cartesian grids
+this is simply the product of the <em>x</em> and <em>y</em> increments (except for
+gridline-registered grids at all sides [half] and corners [quarter]).
+For geographic grids we default to a length unit of <strong>k</strong>. Change
+this by appending <strong>+u</strong><em>unit</em>. For such grids, the area
+varies with latitude and also sees special cases for
+gridline-registered layouts at sides, corners, and poles.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
@@ -256,7 +284,100 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
 </p></li>
-<li><p><strong>outcols</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>1d array</em>) – <p><em>cols</em>[,…][,<strong>t</strong>[<em>word</em>]].
+<li><p><strong>convention</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<em>flags</em>].
+Write a 1-column ASCII [or binary] table. Output will be organized
+according to the specified ordering convention contained in <em>flags</em>.
+If data should be written by rows, make <em>flags</em> start with
+<strong>T</strong> (op) if first row is y = ymax or
+<strong>B</strong> (ottom) if first row is y = ymin. Then,
+append <strong>L</strong> or <strong>R</strong> to indicate that first element should start at
+left or right end of row. Likewise for column formats: start with
+<strong>L</strong> or <strong>R</strong> to position first column, and then append <strong>T</strong> or
+<strong>B</strong> to position first element in a row. For gridline registered
+grids: If grid is periodic in x but the written data should not
+contain the (redundant) column at x = xmax, append <strong>x</strong>. For grid
+periodic in y, skip writing the redundant row at y = ymax by
+appending <strong>y</strong>. If the byte-order needs to be swapped, append
+<strong>w</strong>. Select one of several data types (all binary except <strong>a</strong>):</p>
+<ul>
+<li><p><strong>a</strong> ASCII representation of a single item per record</p></li>
+<li><p><strong>c</strong> int8_t, signed 1-byte character</p></li>
+<li><p><strong>u</strong> uint8_t, unsigned 1-byte character</p></li>
+<li><p><strong>h</strong> int16_t, short 2-byte integer</p></li>
+<li><p><strong>H</strong> uint16_t, unsigned short 2-byte integer</p></li>
+<li><p><strong>i</strong> int32_t, 4-byte integer</p></li>
+<li><p><strong>I</strong> uint32_t, unsigned 4-byte integer</p></li>
+<li><p><strong>l</strong> int64_t, long (8-byte) integer</p></li>
+<li><p><strong>L</strong> uint64_t, unsigned long (8-byte) integer</p></li>
+<li><p><strong>f</strong> 4-byte floating point single precision</p></li>
+<li><p><strong>d</strong> 8-byte floating point double precision</p></li>
+</ul>
+<p>Default format is scanline orientation of ASCII numbers: <strong>TLa</strong>.</p>
+</p></li>
+<li><p><strong>binary</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p><strong>i</strong>|<strong>o</strong>[<em>ncols</em>][<em>type</em>][<strong>w</strong>][<strong>+l</strong>|<strong>b</strong>].
+Select native binary input (using <code class="docutils literal notranslate"><span class="pre">binary=&quot;i&quot;</span></code>) or output
+(using <code class="docutils literal notranslate"><span class="pre">binary=&quot;o&quot;</span></code>), where <em>ncols</em> is the number of data columns
+of <em>type</em>, which must be one of:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>c</strong> - int8_t (1-byte signed char)</p></li>
+<li><p><strong>u</strong> - uint8_t (1-byte unsigned char)</p></li>
+<li><p><strong>h</strong> - int16_t (2-byte signed int)</p></li>
+<li><p><strong>H</strong> - uint16_t (2-byte unsigned int)</p></li>
+<li><p><strong>i</strong> - int32_t (4-byte signed int)</p></li>
+<li><p><strong>I</strong> - uint32_t (4-byte unsigned int)</p></li>
+<li><p><strong>l</strong> - int64_t (8-byte signed int)</p></li>
+<li><p><strong>L</strong> - uint64_t (8-byte unsigned int)</p></li>
+<li><p><strong>f</strong> - 4-byte single-precision float</p></li>
+<li><p><strong>d</strong> - 8-byte double-precision float</p></li>
+<li><p><strong>x</strong> - use to skip <em>ncols</em> anywhere in the record</p></li>
+</ul>
+</div></blockquote>
+<p>For records with mixed types, append additional comma-separated
+combinations of <em>ncols</em> <em>type</em> (no space). The following modifiers
+are supported:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>w</strong> after any item to force byte-swapping.</p></li>
+<li><p><strong>+l</strong>|<strong>b</strong> to indicate that the entire data file should
+be read as little- or big-endian, respectively.</p></li>
+</ul>
+</div></blockquote>
+<p>Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#bi-full">https://docs.generic-mapping-tools.org/latest/gmt.html#bi-full</a>.</p>
+</p></li>
+<li><p><strong>nodata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <strong>i</strong>|<strong>o</strong><em>nodata</em>.
+Substitute specific values with NaN (for tabular data). For
+example, <code class="docutils literal notranslate"><span class="pre">d=&quot;-9999&quot;</span></code> will replace all values equal to -9999 with
+NaN during input and all NaN values with -9999 during output.
+Prepend <strong>i</strong> to the <em>nodata</em> value for input columns only. Prepend
+<strong>o</strong> to the <em>nodata</em> value for output columns only.</p></li>
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+Specify data types of input and/or output columns (time or
+geographical data). Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#f-full">https://docs.generic-mapping-tools.org/latest/gmt.html#f-full</a>.</p></li>
+<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<strong>i</strong>|<strong>o</strong>][<em>n</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+m</strong><em>segheader</em>][<strong>+r</strong><em>remark</em>][<strong>+t</strong><em>title</em>].
+Specify that input and/or output file(s) have <em>n</em> header records
+[Default is 0]. Prepend <strong>i</strong> if only the primary input should have
+header records. Prepend <strong>o</strong> to control the writing of header
+records, with the following modifiers supported:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>+d</strong> to remove existing header records.</p></li>
+<li><p><strong>+c</strong> to add a header comment with column names to the
+output [Default is no column names].</p></li>
+<li><p><strong>+m</strong> to add a segment header <em>segheader</em> to the output
+after the header block [Default is no segment header].</p></li>
+<li><p><strong>+r</strong> to add a <em>remark</em> comment to the output [Default is no
+comment]. The <em>remark</em> string may contain \n to indicate
+line-breaks.</p></li>
+<li><p><strong>+t</strong> to add a <em>title</em> comment to the output [Default is no
+title]. The <em>title</em> string may contain \n to indicate
+line-breaks.</p></li>
+</ul>
+</div></blockquote>
+<p>Blank lines and lines starting with # are always skipped.</p>
+</p></li>
+<li><p><strong>outcols</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>1d array</em>) – <p><em>cols</em>[,…][,<strong>t</strong>[<em>word</em>]].
 Specify data columns for primary output in arbitrary order. Columns
 can be repeated and columns not listed will be skipped [Default
 writes all columns in order, starting with the first (i.e., column
@@ -264,7 +385,7 @@ writes all columns in order, starting with the first (i.e., column
 <ul>
 <li><p>For <em>1d array</em>: specify individual columns in output order (e.g.,
 <code class="docutils literal notranslate"><span class="pre">outcols=[1,0]</span></code> for the 2nd column followed by the 1st column).</p></li>
-<li><p>For <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>: specify individual columns or column
+<li><p>For <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>: specify individual columns or column
 ranges in the format <em>start</em>[:<em>inc</em>]:<em>stop</em>, where <em>inc</em>
 defaults to 1 if not specified, with columns and/or column ranges
 separated by commas (e.g., <code class="docutils literal notranslate"><span class="pre">outcols=&quot;0:2,4&quot;</span></code> to output the
@@ -279,6 +400,24 @@ then the columns given to <code class="docutils literal notranslate"><span class
 after the <code class="docutils literal notranslate"><span class="pre">incols</span></code> selection has taken place.</p></li>
 </ul>
 </p></li>
+<li><p><strong>skiprows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>].
+Suppress output for records whose <em>z</em>-value equals NaN [Default
+outputs all records]. Optionally, supply a comma-separated list of
+all columns or column ranges to consider for this NaN test [Default
+only considers the third data column (i.e., <em>cols = 2</em>)]. Column
+ranges must be given in the format <em>start</em>[:<em>inc</em>]:<em>stop</em>, where
+<em>inc</em> defaults to 1 if not specified. The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>+r</strong> to reverse the suppression, i.e., only output the
+records whose <em>z</em>-value equals NaN.</p></li>
+<li><p><strong>+a</strong> to suppress the output of the record if just one or
+more of the columns equal NaN [Default skips record only
+if values in all specified <em>cols</em> equal NaN].</p></li>
+</ul>
+</div></blockquote>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -286,7 +425,7 @@ after the <code class="docutils literal notranslate"><span class="pre">incols</s
 <ul class="simple">
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is set (output will be stored in file set by
 <code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
-<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is
 not set (depends on <code class="docutils literal notranslate"><span class="pre">output_type</span></code>)</p></li>
 </ul>
 </p>
@@ -301,7 +440,7 @@ not set (depends on <code class="docutils literal notranslate"><span class="pre"
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pygmt.surface.html" class="btn btn-neutral float-left" title="pygmt.surface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.xyz2grd.html" class="btn btn-neutral float-left" title="pygmt.xyz2grd" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="pygmt.grdclip.html" class="btn btn-neutral float-right" title="pygmt.grdclip" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -309,9 +448,9 @@ not set (depends on <code class="docutils literal notranslate"><span class="pre"
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

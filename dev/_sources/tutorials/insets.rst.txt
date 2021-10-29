@@ -66,9 +66,10 @@ US state of Massachusetts.
 
 
 
-.. image:: /tutorials/images/sphx_glr_insets_001.png
-    :alt: insets
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_insets_001.png
+   :alt: insets
+   :srcset: /tutorials/images/sphx_glr_insets_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -117,9 +118,10 @@ the fill to red.
 
 
 
-.. image:: /tutorials/images/sphx_glr_insets_002.png
-    :alt: insets
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_insets_002.png
+   :alt: insets
+   :srcset: /tutorials/images/sphx_glr_insets_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -164,9 +166,10 @@ the example below, the inset is shifted 0.5 centimeters on the x-axis and
 
 
 
-.. image:: /tutorials/images/sphx_glr_insets_003.png
-    :alt: insets
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_insets_003.png
+   :alt: insets
+   :srcset: /tutorials/images/sphx_glr_insets_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -219,9 +222,10 @@ location relative to other states.
 
 
 
-.. image:: /tutorials/images/sphx_glr_insets_004.png
-    :alt: insets
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_insets_004.png
+   :alt: insets
+   :srcset: /tutorials/images/sphx_glr_insets_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -238,7 +242,7 @@ location relative to other states.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.975 seconds)
+   **Total running time of the script:** ( 0 minutes  4.832 seconds)
 
 
 .. _sphx_glr_download_tutorials_insets.py:

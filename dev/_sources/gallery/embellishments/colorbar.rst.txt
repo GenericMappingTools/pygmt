@@ -44,9 +44,10 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
 
 
 
-.. image:: /gallery/embellishments/images/sphx_glr_colorbar_001.png
-    :alt: colorbar
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/embellishments/images/sphx_glr_colorbar_001.png
+   :alt: colorbar
+   :srcset: /gallery/embellishments/images/sphx_glr_colorbar_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -105,7 +106,7 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.561 seconds)
+   **Total running time of the script:** ( 0 minutes  1.243 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_colorbar.py:

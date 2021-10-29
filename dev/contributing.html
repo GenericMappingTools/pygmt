@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -436,7 +436,8 @@ that provides commands for installing, running the tests and coverage analysis,
 running linters, etc. If you don’t want to use <code class="docutils literal notranslate"><span class="pre">make</span></code>, open the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> and
 copy the commands you want to run.</p>
 <p>To install the current source code into your testing environment, run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make install  <span class="c1"># on Linux/macOS</span>
+pip install --no-deps -e .  <span class="c1"># on Windows</span>
 </pre></div>
 </div>
 <p>This installs your project in <em>editable</em> mode, meaning that changes made to the source
@@ -872,9 +873,9 @@ Here’s an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

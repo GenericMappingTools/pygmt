@@ -31,9 +31,10 @@ specified using the ``scale`` parameter.
 
 
 
-.. image:: /gallery/seismology/images/sphx_glr_meca_001.png
-    :alt: meca
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/seismology/images/sphx_glr_meca_001.png
+   :alt: meca
+   :srcset: /gallery/seismology/images/sphx_glr_meca_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -80,7 +81,7 @@ specified using the ``scale`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.122 seconds)
+   **Total running time of the script:** ( 0 minutes  0.955 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_meca.py:

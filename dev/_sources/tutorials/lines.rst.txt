@@ -65,9 +65,10 @@ scales using ``region`` (in this case, each axis is 0-10). Pass a list of
 
 
 
-.. image:: /tutorials/images/sphx_glr_lines_001.png
-    :alt: lines
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_lines_001.png
+   :alt: lines
+   :srcset: /tutorials/images/sphx_glr_lines_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -105,9 +106,10 @@ Additional line segments can be added by including additional values for
 
 
 
-.. image:: /tutorials/images/sphx_glr_lines_002.png
-    :alt: lines
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_lines_002.png
+   :alt: lines
+   :srcset: /tutorials/images/sphx_glr_lines_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -147,9 +149,10 @@ do not need to be repeated in subsequent uses.
 
 
 
-.. image:: /tutorials/images/sphx_glr_lines_003.png
-    :alt: lines
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_lines_003.png
+   :alt: lines
+   :srcset: /tutorials/images/sphx_glr_lines_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -193,9 +196,10 @@ the default color and ``solid`` as the default style.
 
 
 
-.. image:: /tutorials/images/sphx_glr_lines_004.png
-    :alt: lines
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_lines_004.png
+   :alt: lines
+   :srcset: /tutorials/images/sphx_glr_lines_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -233,9 +237,10 @@ parameter. In the example below, the line color is set to ``red``.
 
 
 
-.. image:: /tutorials/images/sphx_glr_lines_005.png
-    :alt: lines
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_lines_005.png
+   :alt: lines
+   :srcset: /tutorials/images/sphx_glr_lines_005.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -274,9 +279,10 @@ The line style can be set and is added after the line width or color to the
 
 
 
-.. image:: /tutorials/images/sphx_glr_lines_006.png
-    :alt: lines
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_lines_006.png
+   :alt: lines
+   :srcset: /tutorials/images/sphx_glr_lines_006.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -317,9 +323,10 @@ For a gallery showing other ``pen`` settings, see
 
 
 
-.. image:: /tutorials/images/sphx_glr_lines_007.png
-    :alt: lines
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_lines_007.png
+   :alt: lines
+   :srcset: /tutorials/images/sphx_glr_lines_007.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -336,7 +343,7 @@ For a gallery showing other ``pen`` settings, see
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.317 seconds)
+   **Total running time of the script:** ( 0 minutes  5.951 seconds)
 
 
 .. _sphx_glr_download_tutorials_lines.py:

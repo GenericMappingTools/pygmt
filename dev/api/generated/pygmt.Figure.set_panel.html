@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -243,7 +243,7 @@ the subplot by using unequal scales].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>row,col</em>|<em>index</em>.
+<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <em>row,col</em>|<em>index</em>.
 Sets the current subplot until further notice. <strong>Note</strong>: First <em>row</em>
 or <em>col</em> is 0, not 1. If not given we go to the next subplot by order
 specified via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>. As an
@@ -253,11 +253,11 @@ plot command you issue in that subplot. GMT maintains information about
 the current figure and subplot. Also, you may give the one-dimensional
 <em>index</em> instead which starts at 0 and follows the row or column order
 set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>.</p></li>
-<li><p><strong>fixedlabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Overrides the automatic labeling with the given string. No modifiers
+<li><p><strong>fixedlabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Overrides the automatic labeling with the given string. No modifiers
 are allowed. Placement, justification, etc. are all inherited from how
 <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> was specified by the initial <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>
 command.</p></li>
-<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – [<em>side</em>]<em>clearance</em>.
+<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – [<em>side</em>]<em>clearance</em>.
 Reserve a space of dimension <em>clearance</em> between the margin and the
 subplot on the specified side, using <em>side</em> values from <strong>w</strong>, <strong>e</strong>,
 <strong>s</strong>, or <strong>n</strong>. The option is repeatable to set aside space on more
@@ -267,7 +267,7 @@ untouched by the main map plotting but can be accessed by modules that
 plot scales, bars, text, etc. This setting overrides the common
 clearances set by <code class="docutils literal notranslate"><span class="pre">clearance</span></code> in the initial
 <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> call.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
@@ -314,9 +314,9 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

@@ -92,9 +92,10 @@ of 0.3 centimeters.
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_001.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_001.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -156,9 +157,10 @@ Some notable differences to the previous example include
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_002.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_002.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -212,9 +214,10 @@ over a horizontal range of one year from 1/1/2016 to 1/1/2017.
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_003.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_003.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -261,9 +264,10 @@ between ISO and datetime in order to create valid plots.
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_004.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_004.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -316,9 +320,10 @@ in the list ``x`` that will be plotted.
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_005.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_005.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_005.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -369,9 +374,10 @@ valid DataArray.
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_006.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_006.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_006.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -419,9 +425,10 @@ datatypes.
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_007.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_007.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_007.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -467,7 +474,7 @@ data points.
 
     fig = pygmt.Figure()
     region = pygmt.info(
-        table=df[["Date", "Score"]], per_column=True, spacing=(700, 700), coltypes="T"
+        data=df[["Date", "Score"]], per_column=True, spacing=(700, 700), coltypes="T"
     )
 
     fig.plot(
@@ -486,9 +493,10 @@ data points.
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_008.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_008.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_008.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -555,9 +563,10 @@ date formats can be found on the
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_009.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_009.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_009.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -620,9 +629,10 @@ time formats can be found on the
 
 
 
-.. image:: /tutorials/images/sphx_glr_date_time_charts_010.png
-    :alt: date time charts
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_date_time_charts_010.png
+   :alt: date time charts
+   :srcset: /tutorials/images/sphx_glr_date_time_charts_010.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -639,7 +649,7 @@ time formats can be found on the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.370 seconds)
+   **Total running time of the script:** ( 0 minutes  8.505 seconds)
 
 
 .. _sphx_glr_download_tutorials_date_time_charts.py:

@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**00:02.158** total execution time for **gallery_histograms** files:
+**00:01.899** total execution time for **gallery_histograms** files:
 
 +--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_histograms_histogram.py` (``histogram.py``) | 00:01.177 | 0.0 MB |
+| :ref:`sphx_glr_gallery_histograms_histogram.py` (``histogram.py``) | 00:01.035 | 0.0 MB |
 +--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_histograms_rose.py` (``rose.py``)           | 00:00.981 | 0.0 MB |
+| :ref:`sphx_glr_gallery_histograms_rose.py` (``rose.py``)           | 00:00.865 | 0.0 MB |
 +--------------------------------------------------------------------+-----------+--------+

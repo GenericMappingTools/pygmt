@@ -33,9 +33,10 @@ method.
 
 
 
-.. image:: /gallery/symbols/images/sphx_glr_points_categorical_001.png
-    :alt: points categorical
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/symbols/images/sphx_glr_points_categorical_001.png
+   :alt: points categorical
+   :srcset: /gallery/symbols/images/sphx_glr_points_categorical_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -66,7 +67,7 @@ method.
     # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
     # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
     region = pygmt.info(
-        table=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
+        data=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
         per_column=True,  # report the min/max values per column as a numpy array
         # round the min/max values of the first two columns to the nearest multiple
         # of 3 and 2, respectively
@@ -122,7 +123,7 @@ method.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.030 seconds)
+   **Total running time of the script:** ( 0 minutes  1.617 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_categorical.py:

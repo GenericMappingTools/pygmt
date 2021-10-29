@@ -80,9 +80,10 @@ equidistant cylindrical projection, and with no frame.
 
 
 
-.. image:: /tutorials/images/sphx_glr_earth_relief_001.png
-    :alt: earth relief
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_earth_relief_001.png
+   :alt: earth relief
+   :srcset: /tutorials/images/sphx_glr_earth_relief_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -115,9 +116,10 @@ projections, see :gmt-docs:`cookbook/map-projections.html`.
 
 
 
-.. image:: /tutorials/images/sphx_glr_earth_relief_002.png
-    :alt: earth relief
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_earth_relief_002.png
+   :alt: earth relief
+   :srcset: /tutorials/images/sphx_glr_earth_relief_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -156,9 +158,10 @@ Using the *geo* CPT:
 
 
 
-.. image:: /tutorials/images/sphx_glr_earth_relief_003.png
-    :alt: earth relief
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_earth_relief_003.png
+   :alt: earth relief
+   :srcset: /tutorials/images/sphx_glr_earth_relief_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -188,9 +191,10 @@ Using the *relief* CPT:
 
 
 
-.. image:: /tutorials/images/sphx_glr_earth_relief_004.png
-    :alt: earth relief
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_earth_relief_004.png
+   :alt: earth relief
+   :srcset: /tutorials/images/sphx_glr_earth_relief_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -230,9 +234,10 @@ sets the x-axis label, and ``y+lm`` sets the y-axis label.
 
 
 
-.. image:: /tutorials/images/sphx_glr_earth_relief_005.png
-    :alt: earth relief
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_earth_relief_005.png
+   :alt: earth relief
+   :srcset: /tutorials/images/sphx_glr_earth_relief_005.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -274,9 +279,10 @@ a 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
 
 
 
-.. image:: /tutorials/images/sphx_glr_earth_relief_006.png
-    :alt: earth relief
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_earth_relief_006.png
+   :alt: earth relief
+   :srcset: /tutorials/images/sphx_glr_earth_relief_006.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -293,7 +299,7 @@ a 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.624 seconds)
+   **Total running time of the script:** ( 0 minutes  6.156 seconds)
 
 
 .. _sphx_glr_download_tutorials_earth_relief.py:

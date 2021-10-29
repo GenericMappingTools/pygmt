@@ -11,10 +11,10 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -183,7 +183,7 @@
 <span class="nd">@use_alias</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">&quot;download&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s2">&quot;sequence_space&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the full path to specified files.</span>
 
 <span class="sd">    Reports the full paths to the files given through *fname*. We look for</span>
@@ -205,10 +205,16 @@
 <span class="sd">    fname : str or list</span>
 <span class="sd">        One or more file names of any data type (grids, tables, etc.).</span>
 <span class="sd">    download : bool or str</span>
-<span class="sd">        If the file is downloadable and not found, we will try to download the</span>
-<span class="sd">        it. Use True or &#39;l&#39; (default) to download to the current directory. Use</span>
-<span class="sd">        &#39;c&#39; to place in the user cache directory or &#39;u&#39; user data directory</span>
-<span class="sd">        instead.</span>
+<span class="sd">        [**a**\|\ **c**\|\ **l**\|\ **u**].</span>
+<span class="sd">        If the fname argument is a downloadable file (either a complete URL, an</span>
+<span class="sd">        @file for downloading from the GMT data server, or @earth_relief_xxy)</span>
+<span class="sd">        we will try to download the file if it is not found in your local data</span>
+<span class="sd">        or cache dirs. By default [``download=True`` or ``download=&quot;l&quot;``] we</span>
+<span class="sd">        download to the current directory. Use **a** to place files in the</span>
+<span class="sd">        appropriate folder under the user directory (this is where GMT normally</span>
+<span class="sd">        places downloaded files), **c** to place it in the user cache</span>
+<span class="sd">        directory, or **u** for the user data directory instead (i.e., ignoring</span>
+<span class="sd">        any subdirectory structure).</span>
 <span class="sd">    {V}</span>
 
 <span class="sd">    Returns</span>
@@ -241,9 +247,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

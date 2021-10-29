@@ -11,10 +11,10 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -189,8 +189,12 @@
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span>
     <span class="n">E</span><span class="o">=</span><span class="s2">&quot;radiance&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outgrid&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;normalize&quot;</span><span class="p">,</span>
+    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;tiles&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+    <span class="n">S</span><span class="o">=</span><span class="s2">&quot;slope_file&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
     <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
@@ -217,15 +221,16 @@
 <span class="sd">        Azimuthal direction for a directional derivative; *azim* is the</span>
 <span class="sd">        angle in the x,y plane measured in degrees positive clockwise from</span>
 <span class="sd">        north (the +y direction) toward east (the +x direction). The</span>
-<span class="sd">        negative of the directional derivative, -[dz/dx\*sin(*azim*) +</span>
-<span class="sd">        dz/dy\*cos(\ *azim*)], is found; negation yields positive values</span>
-<span class="sd">        when the slope of z(x,y) is downhill in the *azim* direction, the</span>
-<span class="sd">        correct sense for shading the illumination of an image by a light</span>
-<span class="sd">        source above the x,y plane shining from the *azim* direction.</span>
-<span class="sd">        Optionally, supply two azimuths, *azim*/*azim2*, in which case the</span>
-<span class="sd">        gradients in each of these directions are calculated and the one</span>
-<span class="sd">        larger in magnitude is retained; this is useful for illuminating data</span>
-<span class="sd">        with two directions of lineated structures, e.g., *0*/*270*</span>
+<span class="sd">        negative of the directional derivative,</span>
+<span class="sd">        :math:`-(\frac{{dz}}{{dx}}\sin(\mbox{{azim}}) + \</span>
+<span class="sd">        \frac{{dz}}{{dy}}\cos(\mbox{{azim}}))`, is found; negation yields</span>
+<span class="sd">        positive values when the slope of :math:`z(x,y)` is downhill in the</span>
+<span class="sd">        *azim* direction, the correct sense for shading the illumination of an</span>
+<span class="sd">        image by a light source above the x,y plane shining from the *azim*</span>
+<span class="sd">        direction. Optionally, supply two azimuths, *azim*/*azim2*, in which</span>
+<span class="sd">        case the gradients in each of these directions are calculated and the</span>
+<span class="sd">        one larger in magnitude is retained; this is useful for illuminating</span>
+<span class="sd">        data with two directions of lineated structures, e.g., *0*/*270*</span>
 <span class="sd">        illuminates from the north (top) and west (left).  Finally, if *azim*</span>
 <span class="sd">        is a file it must be a grid of the same domain, spacing and</span>
 <span class="sd">        registration as *grid* that will update the azimuth at each output</span>
@@ -233,19 +238,21 @@
 <span class="sd">    direction : str</span>
 <span class="sd">        [**a**][**c**][**o**][**n**].</span>
 <span class="sd">        Find the direction of the positive (up-slope) gradient of the data.</span>
-<span class="sd">        To instead find the aspect (the down-slope direction), use **a**.</span>
-<span class="sd">        By default, directions are measured clockwise from north, as *azim*</span>
-<span class="sd">        in ``azimuth``. Append **c** to use conventional Cartesian angles</span>
-<span class="sd">        measured counterclockwise from the positive x (east) direction.</span>
-<span class="sd">        Append **o** to report orientations (0-180) rather than</span>
-<span class="sd">        directions (0-360). Append **n** to add 90 degrees to all angles</span>
-<span class="sd">        (e.g., to give local strikes of the surface).</span>
+<span class="sd">        The following options are supported:</span>
+
+<span class="sd">        - **a** - Find the aspect (i.e., the down-slope direction)</span>
+<span class="sd">        - **c** - Use the conventional Cartesian angles measured</span>
+<span class="sd">          counterclockwise from the positive x (east) direction.</span>
+<span class="sd">        - **o** - Report orientations (0-180) rather than directions (0-360).</span>
+<span class="sd">        - **n** - Add 90 degrees to all angles (e.g., to give local strikes of</span>
+<span class="sd">          the surface).</span>
 <span class="sd">    radiance : str or list</span>
 <span class="sd">        [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\</span>
 <span class="sd">        *diffuse*][**+p**\ *specular*][**+s**\ *shine*].</span>
-<span class="sd">        Compute Lambertian radiance appropriate to use with ``grdimage``</span>
-<span class="sd">        and ``grdview``. The Lambertian Reflection assumes an ideal surface</span>
-<span class="sd">        that reflects all the light that strikes it and the surface appears</span>
+<span class="sd">        Compute Lambertian radiance appropriate to use with</span>
+<span class="sd">        :doc:`pygmt.Figure.grdimage` and :doc:`pygmt.Figure.grdview`. The</span>
+<span class="sd">        Lambertian Reflection assumes an ideal surface that reflects all the</span>
+<span class="sd">        light that strikes it and the surface appears</span>
 <span class="sd">        equally bright from all viewing directions. Here, *azim* and *elev* are</span>
 <span class="sd">        the azimuth and elevation of the light vector. Optionally, supply</span>
 <span class="sd">        *ambient* [0.55], *diffuse* [0.6], *specular* [0.4], or *shine* [10],</span>
@@ -254,11 +261,51 @@
 <span class="sd">        simpler Lambertian algorithm. Note that with this form you only have</span>
 <span class="sd">        to provide azimuth and elevation. Alternatively, use **p** for</span>
 <span class="sd">        the Peucker piecewise linear approximation (simpler but faster</span>
-<span class="sd">        algorithm; in this case the *azim* and *elev* are hardwired to 315</span>
+<span class="sd">        algorithm; in this case *azim* and *elev* are hardwired to 315</span>
 <span class="sd">        and 45 degrees. This means that even if you provide other values</span>
-<span class="sd">        they will be ignored.)</span>
+<span class="sd">        they will be ignored.).</span>
+<span class="sd">    normalize : str or bool</span>
+<span class="sd">        [**e**\|\ **t**][*amp*][**+a**\ *ambient*][**+s**\ *sigma*]\</span>
+<span class="sd">        [**+o**\ *offset*].</span>
+<span class="sd">        The actual gradients :math:`g` are offset and scaled to produce</span>
+<span class="sd">        normalized gradients :math:`g_n` with a maximum output magnitude of</span>
+<span class="sd">        *amp*. If *amp* is not given, default *amp* = 1. If *offset* is not</span>
+<span class="sd">        given, it is set to the average of :math:`g`. The following forms are</span>
+<span class="sd">        supported:</span>
+
+<span class="sd">        - **True** - Normalize using :math:`g_n = \mbox{{amp}}\</span>
+<span class="sd">          (\frac{{g - \mbox{{offset}}}}{{max(|g - \mbox{{offset}}|)}})`</span>
+<span class="sd">        - **e** - Normalize using a cumulative Laplace distribution yielding:</span>
+<span class="sd">          :math:`g_n = \mbox{{amp}}(1 - \</span>
+<span class="sd">          \exp{{(\sqrt{{2}}\frac{{g - \mbox{{offset}}}}{{\sigma}}))}}`, where</span>
+<span class="sd">          :math:`\sigma` is estimated using the L1 norm of</span>
+<span class="sd">          :math:`(g - \mbox{{offset}})` if it is not given.</span>
+<span class="sd">        - **t** - Normalize using a cumulative Cauchy distribution yielding:</span>
+<span class="sd">          :math:`g_n = \</span>
+<span class="sd">          \frac{{2(\mbox{{amp}})}}{{\pi}}(\tan^{{-1}}(\frac{{g - \</span>
+<span class="sd">          \mbox{{offset}}}}{{\sigma}}))` where :math:`\sigma` is estimated</span>
+<span class="sd">          using the L2 norm of :math:`(g - \mbox{{offset}})` if it is not</span>
+<span class="sd">          given.</span>
+
+<span class="sd">        As a final option, you may add **+a**\ *ambient* to add *ambient* to</span>
+<span class="sd">        all nodes after gradient calculations are completed.</span>
+<span class="sd">    tiles : str</span>
+<span class="sd">        **c**\|\ **r**\|\ **R**.</span>
+<span class="sd">        Controls how normalization via ``normalize`` is carried out.  When</span>
+<span class="sd">        multiple  grids should be normalized the same way (i.e., with the same</span>
+<span class="sd">        *offset*  and/or *sigma*),</span>
+<span class="sd">        we must pass these values via ``normalize``.  However, this is</span>
+<span class="sd">        inconvenient if we compute these values from a grid.  Use **c** to</span>
+<span class="sd">        save  the results  of *offset* and *sigma* to a statistics file; if</span>
+<span class="sd">        grid output is not  needed for this run then do not specify</span>
+<span class="sd">        ``outgrid``. For  subsequent runs,  just use **r** to read these</span>
+<span class="sd">        values.  Using **R**  will read then delete the statistics file.</span>
 <span class="sd">    {R}</span>
+<span class="sd">    slope_file : str</span>
+<span class="sd">        Name of output grid file with scalar magnitudes of gradient vectors.</span>
+<span class="sd">        Requires ``direction`` but makes ``outgrid`` optional.</span>
 <span class="sd">    {V}</span>
+<span class="sd">    {f}</span>
 <span class="sd">    {n}</span>
 
 <span class="sd">    Returns</span>
@@ -271,6 +318,8 @@
 <span class="sd">          ``outgrid``)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.nc&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;Q&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="s2">&quot;N&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;Must specify normalize if tiles is specified.&quot;&quot;&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">args_in_kwargs</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                 <span class="sd">&quot;&quot;&quot;At least one of the following parameters must be specified:</span>
@@ -297,9 +346,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

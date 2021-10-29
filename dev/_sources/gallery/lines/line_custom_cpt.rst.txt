@@ -33,9 +33,10 @@ setting the ``pen`` color.
 
 
 
-.. image:: /gallery/lines/images/sphx_glr_line_custom_cpt_001.png
-    :alt: line custom cpt
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/lines/images/sphx_glr_line_custom_cpt_001.png
+   :alt: line custom cpt
+   :srcset: /gallery/lines/images/sphx_glr_line_custom_cpt_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -82,7 +83,7 @@ setting the ``pen`` color.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.061 seconds)
+   **Total running time of the script:** ( 0 minutes  2.443 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_line_custom_cpt.py:

@@ -32,9 +32,10 @@ inside a rectangle of dimension east_sigma by north_sigma.
 
 
 
-.. image:: /gallery/seismology/images/sphx_glr_velo_arrow_ellipse_001.png
-    :alt: velo arrow ellipse
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/seismology/images/sphx_glr_velo_arrow_ellipse_001.png
+   :alt: velo arrow ellipse
+   :srcset: /gallery/seismology/images/sphx_glr_velo_arrow_ellipse_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -88,7 +89,7 @@ inside a rectangle of dimension east_sigma by north_sigma.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.049 seconds)
+   **Total running time of the script:** ( 0 minutes  0.898 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_velo_arrow_ellipse.py:

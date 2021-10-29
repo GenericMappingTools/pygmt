@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.x2sys_init" href="pygmt.x2sys_init.html" />
-    <link rel="prev" title="pygmt.sphdistance" href="pygmt.sphdistance.html" />
+    <link rel="next" title="pygmt.grd2xyz" href="pygmt.grd2xyz.html" />
+    <link rel="prev" title="pygmt.surface" href="pygmt.surface.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -120,7 +120,13 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmode.html">pygmt.blockmode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.nearneighbor.html">pygmt.nearneighbor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.project.html">pygmt.project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.select.html">pygmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sph2grd.html">pygmt.sph2grd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sphinterpolate.html">pygmt.sphinterpolate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.xyz2grd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grd2xyz.html">pygmt.grd2xyz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdclip.html">pygmt.grdclip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
@@ -131,8 +137,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdproject.html">pygmt.grdproject</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdsample.html">pygmt.grdsample</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.xyz2grd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdvolume.html">pygmt.grdvolume</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_init.html">pygmt.x2sys_init</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
 </ul>
@@ -211,24 +216,57 @@
 <h1>pygmt.xyz2grd<a class="headerlink" href="#pygmt-xyz2grd" title="Permalink to this headline"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.xyz2grd">
-<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">xyz2grd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/xyz2grd.html#xyz2grd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.xyz2grd" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">xyz2grd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convention</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">find</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/xyz2grd.html#xyz2grd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.xyz2grd" title="Permalink to this definition"></a></dt>
 <dd><p>Create a grid file from table data.</p>
-<p>xyz2grd reads one or more z or xyz tables and creates a binary grid file.
-xyz2grd will report if some of the nodes are not filled in with data. Such
-unconstrained nodes are set to a value specified by the user [Default is
-NaN]. Nodes with more than one value will be set to the mean value.</p>
+<p>Reads one or more tables with <em>x, y, z</em> columns and creates a binary grid
+file. xyz2grd will report if some of the nodes are not filled in with
+data. Such unconstrained nodes are set to a value specified by the user
+[Default is NaN]. Nodes with more than one value will be set to the mean
+value.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/xyz2grd.html">https://docs.generic-mapping-tools.org/latest/xyz2grd.html</a></p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>A = duplicate</p></li>
+<li><p>G = outgrid</p></li>
+<li><p>I = spacing</p></li>
+<li><p>J = projection</p></li>
+<li><p>R = region</p></li>
+<li><p>V = verbose</p></li>
+<li><p>Z = convention</p></li>
+<li><p>b = binary</p></li>
+<li><p>d = nodata</p></li>
+<li><p>e = find</p></li>
+<li><p>f = coltypes</p></li>
+<li><p>h = header</p></li>
+<li><p>i = incols</p></li>
+<li><p>r = registration</p></li>
+<li><p>w = wrap</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>table</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><em>xarray.Dataset</em></a><em> or </em><a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.9.0)"><em>geopandas.GeoDataFrame</em></a>) – Pass in either a file name to an ASCII data table, a 1D/2D
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><em>xarray.Dataset</em></a><em> or </em><a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.10.0)"><em>geopandas.GeoDataFrame</em></a>) – Pass in (x, y, z) or (longitude, latitude, elevation) values by
+providing a file name to an ASCII data table, a 2D <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
 <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1D <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
-data variables, or a <a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
+data variables, or a <a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.10.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
 tabular data.</p></li>
-<li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – Optional. The name of the output netCDF file with extension .nc to
+<li><p><strong>x/y/z</strong> (<em>1d arrays</em>) – The arrays of x and y coordinates and z data points.</p></li>
+<li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a>) – Optional. The name of the output netCDF file with extension .nc to
 store the grid in.</p></li>
-<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p><em>xinc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>yinc</em>[<strong>+e</strong>|<strong>n</strong>]].
+<li><p><strong>duplicate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>d</strong>|<strong>f</strong>|<strong>l</strong>|<strong>m</strong>|<strong>n</strong>|<strong>r</strong>|<strong>S</strong>|<strong>s</strong>|<strong>u</strong>|<strong>z</strong>].
+By default we will calculate mean values if multiple entries fall on
+the same node. Use <strong>-A</strong> to change this behavior, except it is
+ignored if <strong>-Z</strong> is given. Append <strong>f</strong> or <strong>s</strong> to simply keep the
+first or last data point that was assigned to each node. Append
+<strong>l</strong> or <strong>u</strong> or <strong>d</strong> to find the lowest (minimum) or upper (maximum)
+value or the difference between the maximum and miminum value
+at each node, respectively. Append <strong>m</strong> or <strong>r</strong> or <strong>S</strong> to compute
+mean or RMS value or standard deviation at each node, respectively.
+Append <strong>n</strong> to simply count the number of data points that were
+assigned to each node (this only requires two input columns <em>x</em> and
+<em>y</em> as <em>z</em> is not consulted). Append <strong>z</strong> to sum multiple values that
+belong to the same node.</p></li>
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p><em>xinc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>yinc</em>[<strong>+e</strong>|<strong>n</strong>]].
 <em>x_inc</em> [and optionally <em>y_inc</em>] is the grid spacing.</p>
 <ul>
 <li><p><strong>Geographical (degrees) coordinates</strong>: Optionally, append an
@@ -256,10 +294,11 @@ pixel-registered grid; see <a class="reference external" href="https://docs.gene
 the registration have already been initialized; use <code class="docutils literal notranslate"><span class="pre">spacing</span></code> and
 <code class="docutils literal notranslate"><span class="pre">registration</span></code> to override these values.</p>
 </p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
-<em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>.
+Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
@@ -271,6 +310,170 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
 </p></li>
+<li><p><strong>convention</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<em>flags</em>].
+Read a 1-column ASCII [or binary] table. This assumes that all the
+nodes are present and sorted according to specified ordering
+convention contained in <em>flags</em>. If incoming data represents rows,
+make <em>flags</em> start with <strong>T</strong>(op) if first row is y
+= ymax or <strong>B</strong>(ottom) if first row is y = ymin.
+Then, append <strong>L</strong> or <strong>R</strong> to indicate that first element is at
+left or right end of row. Likewise for column formats: start with
+<strong>L</strong> or <strong>R</strong> to position first column, and then append <strong>T</strong> or
+<strong>B</strong> to position first element in a row. <strong>Note</strong>: These two
+row/column indicators are only required for grids; for other tables
+they do not apply. For gridline registered grids: If data are periodic
+in x but the incoming data do not contain the (redundant) column at
+x = xmax, append <strong>x</strong>. For data periodic in y without redundant row at
+y = ymax, append <strong>y</strong>. Append <strong>s</strong><em>n</em> to skip the first <em>n</em> number
+of bytes (probably a header). If the byte-order or the words needs
+to be swapped, append <strong>w</strong>. Select one of several data types (all
+binary except <strong>a</strong>):</p>
+<ul>
+<li><p><strong>A</strong> ASCII representation of one or more floating point values per
+record</p></li>
+<li><p><strong>a</strong> ASCII representation of a single item per record</p></li>
+<li><p><strong>c</strong> int8_t, signed 1-byte character</p></li>
+<li><p><strong>u</strong> uint8_t, unsigned 1-byte character</p></li>
+<li><p><strong>h</strong> int16_t, signed 2-byte integer</p></li>
+<li><p><strong>H</strong> uint16_t, unsigned 2-byte integer</p></li>
+<li><p><strong>i</strong> int32_t, signed 4-byte integer</p></li>
+<li><p><strong>I</strong> uint32_t, unsigned 4-byte integer</p></li>
+<li><p><strong>l</strong> int64_t, long (8-byte) integer</p></li>
+<li><p><strong>L</strong> uint64_t, unsigned long (8-byte) integer</p></li>
+<li><p><strong>f</strong> 4-byte floating point single precision</p></li>
+<li><p><strong>d</strong> 8-byte floating point double precision</p></li>
+</ul>
+<p>Default format is scanline orientation of ASCII numbers: <strong>-ZTLa</strong>.
+The difference between <strong>A</strong> and <strong>a</strong> is that the latter can decode
+both <em>date</em><strong>T</strong><em>clock</em> and <em>ddd:mm:ss[.xx]</em> formats but expects
+each input record to have a single value, while the former can handle
+multiple values per record but can only parse regular floating point
+values. Translate incoming <em>z</em>-values via the <code class="docutils literal notranslate"><span class="pre">incols</span></code> parameter.</p>
+</p></li>
+<li><p><strong>binary</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p><strong>i</strong>|<strong>o</strong>[<em>ncols</em>][<em>type</em>][<strong>w</strong>][<strong>+l</strong>|<strong>b</strong>].
+Select native binary input (using <code class="docutils literal notranslate"><span class="pre">binary=&quot;i&quot;</span></code>) or output
+(using <code class="docutils literal notranslate"><span class="pre">binary=&quot;o&quot;</span></code>), where <em>ncols</em> is the number of data columns
+of <em>type</em>, which must be one of:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>c</strong> - int8_t (1-byte signed char)</p></li>
+<li><p><strong>u</strong> - uint8_t (1-byte unsigned char)</p></li>
+<li><p><strong>h</strong> - int16_t (2-byte signed int)</p></li>
+<li><p><strong>H</strong> - uint16_t (2-byte unsigned int)</p></li>
+<li><p><strong>i</strong> - int32_t (4-byte signed int)</p></li>
+<li><p><strong>I</strong> - uint32_t (4-byte unsigned int)</p></li>
+<li><p><strong>l</strong> - int64_t (8-byte signed int)</p></li>
+<li><p><strong>L</strong> - uint64_t (8-byte unsigned int)</p></li>
+<li><p><strong>f</strong> - 4-byte single-precision float</p></li>
+<li><p><strong>d</strong> - 8-byte double-precision float</p></li>
+<li><p><strong>x</strong> - use to skip <em>ncols</em> anywhere in the record</p></li>
+</ul>
+</div></blockquote>
+<p>For records with mixed types, append additional comma-separated
+combinations of <em>ncols</em> <em>type</em> (no space). The following modifiers
+are supported:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>w</strong> after any item to force byte-swapping.</p></li>
+<li><p><strong>+l</strong>|<strong>b</strong> to indicate that the entire data file should
+be read as little- or big-endian, respectively.</p></li>
+</ul>
+</div></blockquote>
+<p>Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#bi-full">https://docs.generic-mapping-tools.org/latest/gmt.html#bi-full</a>.</p>
+</p></li>
+<li><p><strong>nodata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <strong>i</strong>|<strong>o</strong><em>nodata</em>.
+Substitute specific values with NaN (for tabular data). For
+example, <code class="docutils literal notranslate"><span class="pre">d=&quot;-9999&quot;</span></code> will replace all values equal to -9999 with
+NaN during input and all NaN values with -9999 during output.
+Prepend <strong>i</strong> to the <em>nodata</em> value for input columns only. Prepend
+<strong>o</strong> to the <em>nodata</em> value for output columns only.</p></li>
+<li><p><strong>find</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>~</strong>]<em>“pattern”</em> | [<strong>~</strong>]/<em>regexp</em>/[<strong>i</strong>].
+Only pass records that match the given <em>pattern</em> or regular
+expressions [Default processes all records]. Prepend <strong>~</strong> to
+the <em>pattern</em> or <em>regexp</em> to instead only pass data expressions
+that do not match the pattern. Append <strong>i</strong> for case insensitive
+matching. This does not apply to headers or segment headers.</p></li>
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+Specify data types of input and/or output columns (time or
+geographical data). Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#f-full">https://docs.generic-mapping-tools.org/latest/gmt.html#f-full</a>.</p></li>
+<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<strong>i</strong>|<strong>o</strong>][<em>n</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+m</strong><em>segheader</em>][<strong>+r</strong><em>remark</em>][<strong>+t</strong><em>title</em>].
+Specify that input and/or output file(s) have <em>n</em> header records
+[Default is 0]. Prepend <strong>i</strong> if only the primary input should have
+header records. Prepend <strong>o</strong> to control the writing of header
+records, with the following modifiers supported:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>+d</strong> to remove existing header records.</p></li>
+<li><p><strong>+c</strong> to add a header comment with column names to the
+output [Default is no column names].</p></li>
+<li><p><strong>+m</strong> to add a segment header <em>segheader</em> to the output
+after the header block [Default is no segment header].</p></li>
+<li><p><strong>+r</strong> to add a <em>remark</em> comment to the output [Default is no
+comment]. The <em>remark</em> string may contain \n to indicate
+line-breaks.</p></li>
+<li><p><strong>+t</strong> to add a <em>title</em> comment to the output [Default is no
+title]. The <em>title</em> string may contain \n to indicate
+line-breaks.</p></li>
+</ul>
+</div></blockquote>
+<p>Blank lines and lines starting with # are always skipped.</p>
+</p></li>
+<li><p><strong>incols</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>1d array</em>) – <p>Specify data columns for primary input in arbitrary order. Columns
+can be repeated and columns not listed will be skipped [Default
+reads all columns in order, starting with the first (i.e., column
+0)].</p>
+<ul>
+<li><p>For <em>1d array</em>: specify individual columns in input order (e.g.,
+<code class="docutils literal notranslate"><span class="pre">incols=[1,0]</span></code> for the 2nd column followed by the 1st column).</p></li>
+<li><p>For <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>: specify individual columns or column
+ranges in the format <em>start</em>[:<em>inc</em>]:<em>stop</em>, where <em>inc</em>
+defaults to 1 if not specified, with columns and/or column ranges
+separated by commas (e.g., <code class="docutils literal notranslate"><span class="pre">incols=&quot;0:2,4+l&quot;</span></code> to input the
+first three columns followed by the log-transformed 5th column).
+To read from a given column until the end of the record, leave
+off <em>stop</em> when specifying the column range. To read trailing
+text, add the column <strong>t</strong>. Append the word number to <strong>t</strong> to
+ingest only a single word from the trailing text. Instead of
+specifying columns, use <code class="docutils literal notranslate"><span class="pre">incols=&quot;n&quot;</span></code> to simply read numerical
+input and skip trailing text. Optionally, append one of the
+following modifiers to any column or column range to transform
+the input columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+l</strong> to take the <em>log10</em> of the input values.</p></li>
+<li><p><strong>+d</strong> to divide the input values by the factor <em>divisor</em>
+[Default is 1].</p></li>
+<li><p><strong>+s</strong> to multiple the input values by the factor <em>scale</em>
+[Default is 1].</p></li>
+<li><p><strong>+o</strong> to add the given <em>offset</em> to the input values [Default
+is 0].</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</p></li>
+<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <strong>g</strong>|<strong>p</strong>.
+Force gridline (<strong>g</strong>) or pixel (<strong>p</strong>) node registration.
+[Default is <strong>g</strong>(ridline)].</p></li>
+<li><p><strong>wrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p><strong>y</strong>|<strong>a</strong>|<strong>w</strong>|<strong>d</strong>|<strong>h</strong>|<strong>m</strong>|<strong>s</strong>|<strong>c</strong><em>period</em>[/<em>phase</em>][<strong>+c</strong><em>col</em>].
+Convert the input <em>x</em>-coordinate to a cyclical coordinate, or a
+different column if selected via <strong>+c</strong><em>col</em>. The following
+cyclical coordinate transformations are supported:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>y</strong> - yearly cycle (normalized)</p></li>
+<li><p><strong>a</strong> - annual cycle (monthly)</p></li>
+<li><p><strong>w</strong> - weekly cycle (day)</p></li>
+<li><p><strong>d</strong> - daily cycle (hour)</p></li>
+<li><p><strong>h</strong> - hourly cycle (minute)</p></li>
+<li><p><strong>m</strong> - minute cycle (second)</p></li>
+<li><p><strong>s</strong> - second cycle (second)</p></li>
+<li><p><strong>c</strong> - custom cycle (normalized)</p></li>
+</ul>
+</div></blockquote>
+<p>Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#w-full">https://docs.generic-mapping-tools.org/latest/gmt.html#w-full</a>.</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -278,7 +481,7 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>: if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is set (grid output will be stored in file set by
-<code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)```</p></li>
+<code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)</p></li>
 </ul>
 </p>
 </dd>
@@ -292,17 +495,17 @@ written to stderr. Choose among 7 levels of verbosity:</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pygmt.sphdistance.html" class="btn btn-neutral float-left" title="pygmt.sphdistance" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.x2sys_init.html" class="btn btn-neutral float-right" title="pygmt.x2sys_init" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.surface.html" class="btn btn-neutral float-left" title="pygmt.surface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.grd2xyz.html" class="btn btn-neutral float-right" title="pygmt.grd2xyz" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

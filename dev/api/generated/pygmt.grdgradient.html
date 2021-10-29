@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -28,6 +28,8 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -120,7 +122,13 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmode.html">pygmt.blockmode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.nearneighbor.html">pygmt.nearneighbor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.project.html">pygmt.project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.select.html">pygmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sph2grd.html">pygmt.sph2grd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sphinterpolate.html">pygmt.sphinterpolate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.xyz2grd.html">pygmt.xyz2grd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grd2xyz.html">pygmt.grd2xyz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdclip.html">pygmt.grdclip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
@@ -134,8 +142,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdproject.html">pygmt.grdproject</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdsample.html">pygmt.grdsample</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.xyz2grd.html">pygmt.xyz2grd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdvolume.html">pygmt.grdvolume</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_init.html">pygmt.x2sys_init</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
 </ul>
@@ -214,7 +221,7 @@
 <h1>pygmt.grdgradient<a class="headerlink" href="#pygmt-grdgradient" title="Permalink to this headline"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.grdgradient">
-<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grdgradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radiance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grdgradient.html#grdgradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdgradient" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grdgradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radiance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slope_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grdgradient.html#grdgradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdgradient" title="Permalink to this definition"></a></dt>
 <dd><p>Compute the directional derivative of the vector gradient of the data.</p>
 <p>Can accept <code class="docutils literal notranslate"><span class="pre">azimuth</span></code>, <code class="docutils literal notranslate"><span class="pre">direction</span></code>, and <code class="docutils literal notranslate"><span class="pre">radiance</span></code> input to create
 the resulting gradient.</p>
@@ -225,46 +232,55 @@ the resulting gradient.</p>
 <li><p>D = direction</p></li>
 <li><p>E = radiance</p></li>
 <li><p>G = outgrid</p></li>
+<li><p>N = normalize</p></li>
+<li><p>Q = tiles</p></li>
 <li><p>R = region</p></li>
+<li><p>S = slope_file</p></li>
 <li><p>V = verbose</p></li>
+<li><p>f = coltypes</p></li>
 <li><p>n = interpolation</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
-<li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – The name of the output netCDF file with extension .nc to store the grid
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
+<li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a>) – The name of the output netCDF file with extension .nc to store the grid
 in.</p></li>
-<li><p><strong>azimuth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>azim</em>[/<em>azim2</em>].
+<li><p><strong>azimuth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <em>azim</em>[/<em>azim2</em>].
 Azimuthal direction for a directional derivative; <em>azim</em> is the
 angle in the x,y plane measured in degrees positive clockwise from
 north (the +y direction) toward east (the +x direction). The
-negative of the directional derivative, -[dz/dx*sin(<em>azim</em>) +
-dz/dy*cos(<em>azim</em>)], is found; negation yields positive values
-when the slope of z(x,y) is downhill in the <em>azim</em> direction, the
-correct sense for shading the illumination of an image by a light
-source above the x,y plane shining from the <em>azim</em> direction.
-Optionally, supply two azimuths, <em>azim</em>/<em>azim2</em>, in which case the
-gradients in each of these directions are calculated and the one
-larger in magnitude is retained; this is useful for illuminating data
-with two directions of lineated structures, e.g., <em>0</em>/<em>270</em>
+negative of the directional derivative,
+<span class="math notranslate nohighlight">\(-(\frac{dz}{dx}\sin(\mbox{azim}) + \
+\frac{dz}{dy}\cos(\mbox{azim}))\)</span>, is found; negation yields
+positive values when the slope of <span class="math notranslate nohighlight">\(z(x,y)\)</span> is downhill in the
+<em>azim</em> direction, the correct sense for shading the illumination of an
+image by a light source above the x,y plane shining from the <em>azim</em>
+direction. Optionally, supply two azimuths, <em>azim</em>/<em>azim2</em>, in which
+case the gradients in each of these directions are calculated and the
+one larger in magnitude is retained; this is useful for illuminating
+data with two directions of lineated structures, e.g., <em>0</em>/<em>270</em>
 illuminates from the north (top) and west (left).  Finally, if <em>azim</em>
 is a file it must be a grid of the same domain, spacing and
 registration as <em>grid</em> that will update the azimuth at each output
 node when computing the directional derivatives.</p></li>
-<li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>a</strong>][<strong>c</strong>][<strong>o</strong>][<strong>n</strong>].
+<li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<strong>a</strong>][<strong>c</strong>][<strong>o</strong>][<strong>n</strong>].
 Find the direction of the positive (up-slope) gradient of the data.
-To instead find the aspect (the down-slope direction), use <strong>a</strong>.
-By default, directions are measured clockwise from north, as <em>azim</em>
-in <code class="docutils literal notranslate"><span class="pre">azimuth</span></code>. Append <strong>c</strong> to use conventional Cartesian angles
-measured counterclockwise from the positive x (east) direction.
-Append <strong>o</strong> to report orientations (0-180) rather than
-directions (0-360). Append <strong>n</strong> to add 90 degrees to all angles
-(e.g., to give local strikes of the surface).</p></li>
-<li><p><strong>radiance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – [<strong>m</strong>|<strong>s</strong>|<strong>p</strong>]<em>azim/elev</em>[<strong>+a</strong><em>ambient</em>][<strong>+d</strong><em>diffuse</em>][<strong>+p</strong><em>specular</em>][<strong>+s</strong><em>shine</em>].
-Compute Lambertian radiance appropriate to use with <code class="docutils literal notranslate"><span class="pre">grdimage</span></code>
-and <code class="docutils literal notranslate"><span class="pre">grdview</span></code>. The Lambertian Reflection assumes an ideal surface
-that reflects all the light that strikes it and the surface appears
+The following options are supported:</p>
+<ul>
+<li><p><strong>a</strong> - Find the aspect (i.e., the down-slope direction)</p></li>
+<li><p><strong>c</strong> - Use the conventional Cartesian angles measured
+counterclockwise from the positive x (east) direction.</p></li>
+<li><p><strong>o</strong> - Report orientations (0-180) rather than directions (0-360).</p></li>
+<li><p><strong>n</strong> - Add 90 degrees to all angles (e.g., to give local strikes of
+the surface).</p></li>
+</ul>
+</p></li>
+<li><p><strong>radiance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – [<strong>m</strong>|<strong>s</strong>|<strong>p</strong>]<em>azim/elev</em>[<strong>+a</strong><em>ambient</em>][<strong>+d</strong><em>diffuse</em>][<strong>+p</strong><em>specular</em>][<strong>+s</strong><em>shine</em>].
+Compute Lambertian radiance appropriate to use with
+<a class="reference internal" href="pygmt.Figure.grdimage.html"><span class="doc">pygmt.Figure.grdimage</span></a> and <a class="reference internal" href="pygmt.Figure.grdview.html"><span class="doc">pygmt.Figure.grdview</span></a>. The
+Lambertian Reflection assumes an ideal surface that reflects all the
+light that strikes it and the surface appears
 equally bright from all viewing directions. Here, <em>azim</em> and <em>elev</em> are
 the azimuth and elevation of the light vector. Optionally, supply
 <em>ambient</em> [0.55], <em>diffuse</em> [0.6], <em>specular</em> [0.4], or <em>shine</em> [10],
@@ -273,13 +289,48 @@ surface. Default values are given in the brackets. Use <strong>s</strong> for a
 simpler Lambertian algorithm. Note that with this form you only have
 to provide azimuth and elevation. Alternatively, use <strong>p</strong> for
 the Peucker piecewise linear approximation (simpler but faster
-algorithm; in this case the <em>azim</em> and <em>elev</em> are hardwired to 315
+algorithm; in this case <em>azim</em> and <em>elev</em> are hardwired to 315
 and 45 degrees. This means that even if you provide other values
-they will be ignored.)</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
-<em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+they will be ignored.).</p></li>
+<li><p><strong>normalize</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – <p>[<strong>e</strong>|<strong>t</strong>][<em>amp</em>][<strong>+a</strong><em>ambient</em>][<strong>+s</strong><em>sigma</em>][<strong>+o</strong><em>offset</em>].
+The actual gradients <span class="math notranslate nohighlight">\(g\)</span> are offset and scaled to produce
+normalized gradients <span class="math notranslate nohighlight">\(g_n\)</span> with a maximum output magnitude of
+<em>amp</em>. If <em>amp</em> is not given, default <em>amp</em> = 1. If <em>offset</em> is not
+given, it is set to the average of <span class="math notranslate nohighlight">\(g\)</span>. The following forms are
+supported:</p>
+<ul>
+<li><p><strong>True</strong> - Normalize using <span class="math notranslate nohighlight">\(g_n = \mbox{amp}\
+(\frac{g - \mbox{offset}}{max(|g - \mbox{offset}|)})\)</span></p></li>
+<li><p><strong>e</strong> - Normalize using a cumulative Laplace distribution yielding:
+<span class="math notranslate nohighlight">\(g_n = \mbox{amp}(1 - \
+\exp{(\sqrt{2}\frac{g - \mbox{offset}}{\sigma}))}\)</span>, where
+<span class="math notranslate nohighlight">\(\sigma\)</span> is estimated using the L1 norm of
+<span class="math notranslate nohighlight">\((g - \mbox{offset})\)</span> if it is not given.</p></li>
+<li><p><strong>t</strong> - Normalize using a cumulative Cauchy distribution yielding:
+<span class="math notranslate nohighlight">\(g_n = \
+\frac{2(\mbox{amp})}{\pi}(\tan^{-1}(\frac{g - \
+\mbox{offset}}{\sigma}))\)</span> where <span class="math notranslate nohighlight">\(\sigma\)</span> is estimated
+using the L2 norm of <span class="math notranslate nohighlight">\((g - \mbox{offset})\)</span> if it is not
+given.</p></li>
+</ul>
+<p>As a final option, you may add <strong>+a</strong><em>ambient</em> to add <em>ambient</em> to
+all nodes after gradient calculations are completed.</p>
+</p></li>
+<li><p><strong>tiles</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <strong>c</strong>|<strong>r</strong>|<strong>R</strong>.
+Controls how normalization via <code class="docutils literal notranslate"><span class="pre">normalize</span></code> is carried out.  When
+multiple  grids should be normalized the same way (i.e., with the same
+<em>offset</em>  and/or <em>sigma</em>),
+we must pass these values via <code class="docutils literal notranslate"><span class="pre">normalize</span></code>.  However, this is
+inconvenient if we compute these values from a grid.  Use <strong>c</strong> to
+save  the results  of <em>offset</em> and <em>sigma</em> to a statistics file; if
+grid output is not  needed for this run then do not specify
+<code class="docutils literal notranslate"><span class="pre">outgrid</span></code>. For  subsequent runs,  just use <strong>r</strong> to read these
+values.  Using <strong>R</strong>  will read then delete the statistics file.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>slope_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of output grid file with scalar magnitudes of gradient vectors.
+Requires <code class="docutils literal notranslate"><span class="pre">direction</span></code> but makes <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> optional.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
@@ -291,7 +342,11 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
 </p></li>
-<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>[<strong>b</strong>|<strong>c</strong>|<strong>l</strong>|<strong>n</strong>][<strong>+a</strong>][<strong>+b</strong><em>BC</em>][<strong>+c</strong>][<strong>+t</strong><em>threshold</em>].
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+Specify data types of input and/or output columns (time or
+geographical data). Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#f-full">https://docs.generic-mapping-tools.org/latest/gmt.html#f-full</a>.</p></li>
+<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<strong>b</strong>|<strong>c</strong>|<strong>l</strong>|<strong>n</strong>][<strong>+a</strong>][<strong>+b</strong><em>BC</em>][<strong>+c</strong>][<strong>+t</strong><em>threshold</em>].
 Select interpolation mode for grids. You can select the type of
 spline used:</p>
 <ul>
@@ -339,9 +394,9 @@ spline used:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

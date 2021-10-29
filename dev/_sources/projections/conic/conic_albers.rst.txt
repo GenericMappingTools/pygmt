@@ -42,9 +42,10 @@ The figure size is set with *scale* or *width*.
 
 
 
-.. image:: /projections/conic/images/sphx_glr_conic_albers_001.png
-    :alt: conic albers
-    :class: sphx-glr-single-img
+.. image-sg:: /projections/conic/images/sphx_glr_conic_albers_001.png
+   :alt: conic albers
+   :srcset: /projections/conic/images/sphx_glr_conic_albers_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -76,7 +77,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.543 seconds)
+   **Total running time of the script:** ( 0 minutes  1.256 seconds)
 
 
 .. _sphx_glr_download_projections_conic_conic_albers.py:

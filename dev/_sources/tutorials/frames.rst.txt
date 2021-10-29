@@ -58,9 +58,10 @@ the coastlines of the world with a Mercator projection:
 
 
 
-.. image:: /tutorials/images/sphx_glr_frames_001.png
-    :alt: frames
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_frames_001.png
+   :alt: frames
+   :srcset: /tutorials/images/sphx_glr_frames_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -92,9 +93,10 @@ To add the default GMT frame to the plot, use ``frame="f"`` in
 
 
 
-.. image:: /tutorials/images/sphx_glr_frames_002.png
-    :alt: frames
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_frames_002.png
+   :alt: frames
+   :srcset: /tutorials/images/sphx_glr_frames_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -129,9 +131,10 @@ style frame and automatically determines tick labels from the plot region.
 
 
 
-.. image:: /tutorials/images/sphx_glr_frames_003.png
-    :alt: frames
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_frames_003.png
+   :alt: frames
+   :srcset: /tutorials/images/sphx_glr_frames_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -162,9 +165,10 @@ Add automatic grid lines to the plot by adding a ``g`` to ``frame``:
 
 
 
-.. image:: /tutorials/images/sphx_glr_frames_004.png
-    :alt: frames
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_frames_004.png
+   :alt: frames
+   :srcset: /tutorials/images/sphx_glr_frames_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -201,9 +205,10 @@ parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
 
 
 
-.. image:: /tutorials/images/sphx_glr_frames_005.png
-    :alt: frames
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_frames_005.png
+   :alt: frames
+   :srcset: /tutorials/images/sphx_glr_frames_005.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -238,9 +243,10 @@ and the title can be passed in double quotation marks.
 
 
 
-.. image:: /tutorials/images/sphx_glr_frames_006.png
-    :alt: frames
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_frames_006.png
+   :alt: frames
+   :srcset: /tutorials/images/sphx_glr_frames_006.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -289,9 +295,10 @@ labels to be set for geographic maps.
 
 
 
-.. image:: /tutorials/images/sphx_glr_frames_007.png
-    :alt: frames
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_frames_007.png
+   :alt: frames
+   :srcset: /tutorials/images/sphx_glr_frames_007.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -308,7 +315,7 @@ labels to be set for geographic maps.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.652 seconds)
+   **Total running time of the script:** ( 0 minutes  9.436 seconds)
 
 
 .. _sphx_glr_download_tutorials_frames.py:

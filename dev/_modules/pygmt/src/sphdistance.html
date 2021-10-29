@@ -11,10 +11,10 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -184,36 +184,86 @@
 
 <div class="viewcode-block" id="sphdistance"><a class="viewcode-back" href="../../../api/generated/pygmt.sphdistance.html#pygmt.sphdistance">[docs]</a><span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;single_form&quot;</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;duplicate&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;quantity&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outgrid&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
+    <span class="n">L</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;node_table&quot;</span><span class="p">,</span>
+    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;voronoi&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">sphdistance</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">sphdistance</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create Voroni polygons from lat/lon coordinates.</span>
+<span class="sd">    Create Voronoi distance, node, or natural nearest-neighbor grid on a</span>
+<span class="sd">    sphere.</span>
 
-<span class="sd">    Reads one or more ASCII [or binary] files (or standard</span>
-<span class="sd">    input) containing lon, lat and performs the construction of Voronoi</span>
-<span class="sd">    polygons. These polygons are then processed to calculate the nearest</span>
-<span class="sd">    distance to each node of the lattice and written to the specified grid.</span>
+<span class="sd">    Reads a table containing *lon, lat* columns and performs</span>
+<span class="sd">    the construction of Voronoi polygons. These polygons are</span>
+<span class="sd">    then processed to calculate the nearest distance to each</span>
+<span class="sd">    node of the lattice and written to the specified grid.</span>
+
+<span class="sd">    Full option list at :gmt-docs:`sphdistance.html</span>
 
 <span class="sd">    {aliases}</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    data : str or {table-like}</span>
+<span class="sd">        Pass in (x, y) or (longitude, latitude) values by</span>
+<span class="sd">        providing a file name to an ASCII data table, a 2D</span>
+<span class="sd">        {table-classes}.</span>
+<span class="sd">    x/y : 1d arrays</span>
+<span class="sd">        Arrays of x and y coordinates.</span>
 <span class="sd">    outgrid : str or None</span>
 <span class="sd">        The name of the output netCDF file with extension .nc to store the grid</span>
 <span class="sd">        in.</span>
 <span class="sd">    {I}</span>
 <span class="sd">    {R}</span>
 <span class="sd">    {V}</span>
+<span class="sd">    single_form : bool</span>
+<span class="sd">        For large data sets you can save some memory (at the expense of more</span>
+<span class="sd">        processing) by only storing one form of location coordinates</span>
+<span class="sd">        (geographic or Cartesian 3-D vectors) at any given time, translating</span>
+<span class="sd">        from one form to the other when necessary [Default keeps both arrays</span>
+<span class="sd">        in memory]. Not applicable with ``voronoi``.</span>
+<span class="sd">    duplicate : bool</span>
+<span class="sd">        Used to skip duplicate points since the algorithm cannot handle them.</span>
+<span class="sd">        [Default assumes there are no duplicates].</span>
+<span class="sd">    quantity : str</span>
+<span class="sd">        **d**\|\ **n**\|\ **z**\ [*dist*].</span>
+<span class="sd">        Specify the quantity that should be assigned to the grid nodes [Default</span>
+<span class="sd">        is **d**]:</span>
 
+<span class="sd">        - **d** - compute distances to the nearest data point</span>
+<span class="sd">        - **n** - assign the ID numbers of the Voronoi polygons that each</span>
+<span class="sd">          grid node is inside</span>
+<span class="sd">        - **z** - assign all nodes inside the polygon the z-value of the center</span>
+<span class="sd">          node for a natural nearest-neighbor grid.</span>
+
+<span class="sd">        Optionally, append the resampling interval along Voronoi arcs in</span>
+<span class="sd">        spherical degrees.</span>
+<span class="sd">    unit : str</span>
+<span class="sd">        Specify the unit used for distance calculations. Choose among **d**</span>
+<span class="sd">        (spherical degree), **e** (m), **f** (feet), **k** (km), **M**</span>
+<span class="sd">        (mile), **n** (nautical mile) or **u** survey foot.</span>
+<span class="sd">    node_table : str</span>
+<span class="sd">        Read the information pertaining to each Voronoi</span>
+<span class="sd">        polygon (the unique node lon, lat and polygon area) from a separate</span>
+<span class="sd">        file [Default acquires this information from the ASCII segment</span>
+<span class="sd">        headers of the output file]. Required if binary input via `voronoi`</span>
+<span class="sd">        is used.</span>
+<span class="sd">    voronoi : str</span>
+<span class="sd">        Append the name of a file with pre-calculated Voronoi polygons</span>
+<span class="sd">        [Default performs the Voronoi construction on input data].</span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    ret: xarray.DataArray or None</span>
 <span class="sd">        Return type depends on whether the ``outgrid`` parameter is set:</span>
+
 <span class="sd">        - :class:`xarray.DataArray` if ``outgrid`` is not set</span>
 <span class="sd">        - None if ``outgrid`` is set (grid output will be stored in file set by</span>
 <span class="sd">          ``outgrid``)</span>
@@ -222,7 +272,9 @@
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Both &#39;region&#39; and &#39;spacing&#39; must be specified.&quot;</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.nc&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">table</span><span class="p">)</span>
+            <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
+                <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span>
+            <span class="p">)</span>
             <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
                 <span class="k">if</span> <span class="s2">&quot;G&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c1"># if outgrid is unset, output to tempfile</span>
                     <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
@@ -243,9 +295,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

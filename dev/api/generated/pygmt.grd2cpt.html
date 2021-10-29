@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -279,14 +279,14 @@ used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
-<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Sets a constant level of transparency (0-100) for all color slices.
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Sets a constant level of transparency (0-100) for all color slices.
 Append <strong>+a</strong> to also affect the fore-, back-, and nan-colors
 [Default is no transparency, i.e., 0 (opaque)].</p></li>
-<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Selects the master color palette table (CPT) to use in the
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Selects the master color palette table (CPT) to use in the
 interpolation. Full list of built-in color palette tables can be found
 at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt</a>.</p></li>
-<li><p><strong>background</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Select the back- and foreground colors to match the colors for lowest
+<li><p><strong>background</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Select the back- and foreground colors to match the colors for lowest
 and highest <em>z</em>-values in the output CPT [Default (<code class="docutils literal notranslate"><span class="pre">background=True</span></code>
 or <code class="docutils literal notranslate"><span class="pre">background='o'</span></code>) uses the colors specified in the master file, or
 those defined by the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
@@ -304,10 +304,10 @@ names (you can skip a category by not giving a name), or give
 <em>start</em>[-], where we automatically build monotonically increasing
 labels from <em>start</em> (a single letter or an integer). Append <code class="docutils literal notranslate"><span class="pre">-</span></code> to
 build ranges <em>start</em>-<em>start+1</em> instead.</p></li>
-<li><p><strong>nlevels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to create a linear color table by using the grid
+<li><p><strong>nlevels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to create a linear color table by using the grid
 z-range as the new limits in the CPT. Alternatively, set <em>nlevels</em>
 to resample the color table into <em>nlevels</em> equidistant slices.</p></li>
-<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<em>min/max/inc</em>[<strong>+b</strong>|<strong>l</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em>].
+<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<em>min/max/inc</em>[<strong>+b</strong>|<strong>l</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em>].
 Defines the range of the new CPT by giving the lowest and highest
 z-value (and optionally an interval). If this is not given, the
 existing range in the master CPT will be used intact. The values
@@ -315,40 +315,40 @@ produced defines the color slice boundaries.  If <strong>+n</strong> is used it
 refers to the number of such boundaries and not the number of slices.
 For details on array creation, see
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array">https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array</a>.</p></li>
-<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>zlo/zhi</em>.
+<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <em>zlo/zhi</em>.
 Truncate the incoming CPT so that the lowest and highest z-levels are
 to <em>zlo</em> and <em>zhi</em>. If one of these equal NaN then we leave that end of
 the CPT alone. The truncation takes place before any resampling. See
 also <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Optional parameter to set the file name with extension .cpt to store
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Optional parameter to set the file name with extension .cpt to store
 the generated CPT file. If not given or False (default), saves the CPT
 as the session current CPT.</p></li>
-<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Set this to True or c [Default] to reverse the sense of color
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Set this to True or c [Default] to reverse the sense of color
 progression in the master CPT. Set this to z to reverse the sign of
 z-values in the color table. Note that this change of z-direction
 happens before <em>truncate</em> and <em>series</em> values are used so the latter
 must be compatible with the changed <em>z</em>-range. See also
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>overrule_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Overrule background, foreground, and NaN colors specified in the master
+<li><p><strong>overrule_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Overrule background, foreground, and NaN colors specified in the master
 CPT with the values of the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> specified in
 the <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a> file or on the command line. When
 combined with <code class="docutils literal notranslate"><span class="pre">background</span></code>, only <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> is considered.</p></li>
-<li><p><strong>no_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Do not write out the background, foreground, and NaN-color fields
+<li><p><strong>no_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Do not write out the background, foreground, and NaN-color fields
 [Default will write them, i.e. <code class="docutils literal notranslate"><span class="pre">no_bg=False</span></code>].</p></li>
-<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – For logarithmic interpolation scheme with input given as logarithms.
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – For logarithmic interpolation scheme with input given as logarithms.
 Expects input z-values provided via <code class="docutils literal notranslate"><span class="pre">series</span></code> to be log10(<em>z</em>),
 assigns colors, and writes out <em>z</em>.</p></li>
-<li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Force a continuous CPT when building from a list of colors and a list
+<li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Force a continuous CPT when building from a list of colors and a list
 of z-values [Default is None, i.e. discrete values].</p></li>
-<li><p><strong>categorical</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Do not interpolate the input color table but pick the output colors
+<li><p><strong>categorical</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Do not interpolate the input color table but pick the output colors
 starting at the beginning of the color table, until colors for all
 intervals are assigned. This is particularly useful in combination with
 a categorical color table, like <code class="docutils literal notranslate"><span class="pre">cmap='categorical'</span></code>.</p></li>
-<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Produce a wrapped (cyclic) color table that endlessly repeats its
+<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Produce a wrapped (cyclic) color table that endlessly repeats its
 range. Note that <code class="docutils literal notranslate"><span class="pre">cyclic=True</span></code> cannot be set together with
 <code class="docutils literal notranslate"><span class="pre">categorical=True</span></code>.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
@@ -380,9 +380,9 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

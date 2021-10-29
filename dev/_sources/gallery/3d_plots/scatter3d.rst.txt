@@ -36,9 +36,10 @@ the vertical exaggeration factor.
 
 
 
-.. image:: /gallery/3d_plots/images/sphx_glr_scatter3d_001.png
-    :alt: scatter3d
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/3d_plots/images/sphx_glr_scatter3d_001.png
+   :alt: scatter3d
+   :srcset: /gallery/3d_plots/images/sphx_glr_scatter3d_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -69,7 +70,7 @@ the vertical exaggeration factor.
     # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax, zmin, zmax)
     # The below example will return a numpy array [0.0, 3.0, 4.0, 8.0, 1.0, 7.0]
     region = pygmt.info(
-        table=df[["petal_width", "sepal_length", "petal_length"]],  # x, y, z columns
+        data=df[["petal_width", "sepal_length", "petal_length"]],  # x, y, z columns
         per_column=True,  # report the min/max values per column as a numpy array
         # round the min/max values of the first three columns to the nearest
         # multiple of 1, 2 and 0.5, respectively
@@ -126,7 +127,7 @@ the vertical exaggeration factor.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.888 seconds)
+   **Total running time of the script:** ( 0 minutes  1.622 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_scatter3d.py:

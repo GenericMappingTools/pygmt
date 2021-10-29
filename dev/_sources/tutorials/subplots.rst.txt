@@ -113,9 +113,10 @@ layout will look like the following:
 
 
 
-.. image:: /tutorials/images/sphx_glr_subplots_001.png
-    :alt: subplots
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_subplots_001.png
+   :alt: subplots
+   :srcset: /tutorials/images/sphx_glr_subplots_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -190,9 +191,10 @@ figure. We'll also pick up on some new parameters to configure our subplot.
 
 
 
-.. image:: /tutorials/images/sphx_glr_subplots_002.png
-    :alt: subplots
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_subplots_002.png
+   :alt: subplots
+   :srcset: /tutorials/images/sphx_glr_subplots_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -287,9 +289,10 @@ common X and/or Y axis between subplots.
 
 
 
-.. image:: /tutorials/images/sphx_glr_subplots_003.png
-    :alt: subplots
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_subplots_003.png
+   :alt: subplots
+   :srcset: /tutorials/images/sphx_glr_subplots_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -353,9 +356,10 @@ the first subplot occupying the first row.
 
 
 
-.. image:: /tutorials/images/sphx_glr_subplots_004.png
-    :alt: subplots
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_subplots_004.png
+   :alt: subplots
+   :srcset: /tutorials/images/sphx_glr_subplots_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -391,7 +395,7 @@ adding a more descriptive subtitle to individual subplots.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.451 seconds)
+   **Total running time of the script:** ( 0 minutes  6.658 seconds)
 
 
 .. _sphx_glr_download_tutorials_subplots.py:

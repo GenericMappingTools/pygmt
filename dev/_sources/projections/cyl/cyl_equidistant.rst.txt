@@ -35,9 +35,10 @@ The projection is set with **q** or **Q**, and the figure size is set with
 
 
 
-.. image:: /projections/cyl/images/sphx_glr_cyl_equidistant_001.png
-    :alt: cyl equidistant
-    :class: sphx-glr-single-img
+.. image-sg:: /projections/cyl/images/sphx_glr_cyl_equidistant_001.png
+   :alt: cyl equidistant
+   :srcset: /projections/cyl/images/sphx_glr_cyl_equidistant_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -73,7 +74,7 @@ The projection is set with **q** or **Q**, and the figure size is set with
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.180 seconds)
+   **Total running time of the script:** ( 0 minutes  0.919 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_equidistant.py:

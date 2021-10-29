@@ -38,9 +38,10 @@ figure size is set with *scale* or *width*.
 
 
 
-.. image:: /projections/cyl/images/sphx_glr_cyl_transverse_mercator_001.png
-    :alt: cyl transverse mercator
-    :class: sphx-glr-single-img
+.. image-sg:: /projections/cyl/images/sphx_glr_cyl_transverse_mercator_001.png
+   :alt: cyl transverse mercator
+   :srcset: /projections/cyl/images/sphx_glr_cyl_transverse_mercator_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -76,7 +77,7 @@ figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.205 seconds)
+   **Total running time of the script:** ( 0 minutes  0.968 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_transverse_mercator.py:

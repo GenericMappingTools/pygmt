@@ -39,9 +39,10 @@ x-axis limits, but different y-axis limits.
 
 
 
-.. image:: /gallery/basemaps/images/sphx_glr_double_y_axes_001.png
-    :alt: double y axes
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/basemaps/images/sphx_glr_double_y_axes_001.png
+   :alt: double y axes
+   :srcset: /gallery/basemaps/images/sphx_glr_double_y_axes_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -115,7 +116,7 @@ x-axis limits, but different y-axis limits.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.586 seconds)
+   **Total running time of the script:** ( 0 minutes  2.225 seconds)
 
 
 .. _sphx_glr_download_gallery_basemaps_double_y_axes.py:

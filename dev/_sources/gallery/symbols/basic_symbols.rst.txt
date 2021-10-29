@@ -33,9 +33,10 @@ the remaining symbols we may define a linewidth as well as a color fill.
 
 
 
-.. image:: /gallery/symbols/images/sphx_glr_basic_symbols_001.png
-    :alt: basic symbols
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/symbols/images/sphx_glr_basic_symbols_001.png
+   :alt: basic symbols
+   :srcset: /gallery/symbols/images/sphx_glr_basic_symbols_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -154,7 +155,7 @@ the remaining symbols we may define a linewidth as well as a color fill.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.517 seconds)
+   **Total running time of the script:** ( 0 minutes  4.357 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_basic_symbols.py:

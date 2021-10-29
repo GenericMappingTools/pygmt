@@ -28,9 +28,10 @@ is set with the ``style`` parameter.
 
 
 
-.. image:: /gallery/symbols/images/sphx_glr_points_001.png
-    :alt: points
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/symbols/images/sphx_glr_points_001.png
+   :alt: points
+   :srcset: /gallery/symbols/images/sphx_glr_points_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -64,13 +65,13 @@ is set with the ``style`` parameter.
     # data region
     fig.basemap(region=region, projection="X15c", frame=True)
     # Plot using inverted triangles (i) of 0.5 cm size
-    fig.plot(x, y, style="i0.5c", color="black")
+    fig.plot(x=x, y=y, style="i0.5c", color="black")
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.246 seconds)
+   **Total running time of the script:** ( 0 minutes  1.014 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points.py:

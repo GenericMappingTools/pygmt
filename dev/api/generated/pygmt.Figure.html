@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -270,7 +270,7 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.colorbar</span></code></a>(*[, region, projection, ...])</p></td>
 <td><p>Plot a gray or color scale-bar on maps.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.contour</span></code></a>([x, y, z, data, annotation, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.contour</span></code></a>([data, x, y, z, annotation, ...])</p></td>
 <td><p>Contour table data by direct triangulation.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour" title="pygmt.Figure.grdcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdcontour</span></code></a>(grid, *[, annotation, ...])</p></td>
@@ -282,7 +282,7 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid, *[, region, ...])</p></td>
 <td><p>Create 3-D perspective image or surface mesh from a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.histogram</span></code></a>(table, *[, horizontal, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.histogram</span></code></a>(data, *[, horizontal, ...])</p></td>
 <td><p>Plots a histogram, and can read data from a file or list, array, or dataframe.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.image</span></code></a>(imagefile, *[, region, ...])</p></td>
@@ -300,16 +300,16 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.meca</span></code></a>(spec, scale[, longitude, ...])</p></td>
 <td><p>Plot focal mechanisms.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot</span></code></a>([x, y, data, size, direction, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot</span></code></a>([data, x, y, size, direction, ...])</p></td>
 <td><p>Plot lines, polygons, and symbols in 2-D.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.plot3d.html#pygmt.Figure.plot3d" title="pygmt.Figure.plot3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot3d</span></code></a>([x, y, z, data, size, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.plot3d.html#pygmt.Figure.plot3d" title="pygmt.Figure.plot3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot3d</span></code></a>([data, x, y, z, size, ...])</p></td>
 <td><p>Plot lines, polygons, and symbols in 3-D.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.psconvert</span></code></a>(*[, crop, gs_option, dpi, ...])</p></td>
 <td><p>Convert [E]PS file(s) to other formats.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.rose.html#pygmt.Figure.rose" title="pygmt.Figure.rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.rose</span></code></a>([length, azimuth, data, sector, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.rose.html#pygmt.Figure.rose" title="pygmt.Figure.rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.rose</span></code></a>([data, length, azimuth, sector, ...])</p></td>
 <td><p>Plot windrose diagrams or polar histograms.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.savefig</span></code></a>(fname[, transparent, crop, ...])</p></td>
@@ -336,7 +336,7 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.velo.html#pygmt.Figure.velo" title="pygmt.Figure.velo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.velo</span></code></a>([data, vector, frame, cmap, ...])</p></td>
 <td><p>Plot velocity vectors, crosses, anisotropy bars, and wedges.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.wiggle.html#pygmt.Figure.wiggle" title="pygmt.Figure.wiggle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.wiggle</span></code></a>([x, y, z, data, frame, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.wiggle.html#pygmt.Figure.wiggle" title="pygmt.Figure.wiggle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.wiggle</span></code></a>([data, x, y, z, frame, ...])</p></td>
 <td><p>Plot z=f(x,y) anomalies along tracks.</p></td>
 </tr>
 </tbody>
@@ -764,9 +764,9 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><figure class="align-default" id="id71">
-<img alt="Oblique Mercator" src="../../_images/sphx_glr_cyl_oblique_mercator_1_thumb.png" />
+<img alt="Oblique Mercator" src="../../_images/sphx_glr_cyl_oblique_mercator_2_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_1.html#sphx-glr-projections-cyl-cyl-oblique-mercator-1-py"><span class="std std-ref">Oblique Mercator</span></a></span><a class="headerlink" href="#id71" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_2.html#sphx-glr-projections-cyl-cyl-oblique-mercator-2-py"><span class="std std-ref">Oblique Mercator</span></a></span><a class="headerlink" href="#id71" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><figure class="align-default" id="id72">
@@ -776,9 +776,9 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><figure class="align-default" id="id73">
-<img alt="Oblique Mercator" src="../../_images/sphx_glr_cyl_oblique_mercator_2_thumb.png" />
+<img alt="Oblique Mercator" src="../../_images/sphx_glr_cyl_oblique_mercator_1_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_2.html#sphx-glr-projections-cyl-cyl-oblique-mercator-2-py"><span class="std std-ref">Oblique Mercator</span></a></span><a class="headerlink" href="#id73" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_1.html#sphx-glr-projections-cyl-cyl-oblique-mercator-1-py"><span class="std std-ref">Oblique Mercator</span></a></span><a class="headerlink" href="#id73" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the..."><figure class="align-default" id="id74">
@@ -881,9 +881,9 @@ to a file using <a class="reference internal" href="pygmt.Figure.savefig.html#py
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

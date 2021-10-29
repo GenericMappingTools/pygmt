@@ -11,10 +11,10 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -184,15 +184,20 @@
 
 <div class="viewcode-block" id="grdproject"><a class="viewcode-back" href="../../../api/generated/pygmt.grdproject.html#pygmt.grdproject">[docs]</a><span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span>
+    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;scaling&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outgrid&quot;</span><span class="p">,</span>
     <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;inverse&quot;</span><span class="p">,</span>
+    <span class="n">M</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
     <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdproject</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Change projection of gridded data between geographical and rectangular.</span>
@@ -226,6 +231,26 @@
 <span class="sd">        geographical [Default is False].</span>
 <span class="sd">    {J}</span>
 <span class="sd">    {R}</span>
+<span class="sd">    center : str or list</span>
+<span class="sd">        [*dx*, *dy*].</span>
+<span class="sd">        Let projected coordinates be relative to projection center [Default</span>
+<span class="sd">        is relative to lower left corner]. Optionally, add offsets in the</span>
+<span class="sd">        projected units to be added (or subtracted when ``inverse`` is set) to</span>
+<span class="sd">        (from) the projected coordinates, such as false eastings and</span>
+<span class="sd">        northings for particular projection zones [0/0].</span>
+<span class="sd">    {I}</span>
+<span class="sd">    dpi : int</span>
+<span class="sd">        Set the resolution for the new grid in dots per inch.</span>
+<span class="sd">    scaling : str</span>
+<span class="sd">        [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\</span>
+<span class="sd">        **k**\|\ **M**\|\ **n**\|\ **u**].</span>
+<span class="sd">        Force 1:1 scaling, i.e., output or output data are in actual projected</span>
+<span class="sd">        meters [**e**]. To specify other units, append **f** (foot),</span>
+<span class="sd">        **k** (km), **M** (statute mile), **n** (nautical mile), **u**</span>
+<span class="sd">        (US survey foot), **i** (inch), **c** (cm), or **p** (point).</span>
+<span class="sd">    unit : str</span>
+<span class="sd">        Append **c**, **i**, or **p** to indicate that cm, inch, or point</span>
+<span class="sd">        should be the projected measure unit. Cannot be used with ``scaling``.</span>
 <span class="sd">    {V}</span>
 <span class="sd">    {n}</span>
 <span class="sd">    {r}</span>
@@ -263,9 +288,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

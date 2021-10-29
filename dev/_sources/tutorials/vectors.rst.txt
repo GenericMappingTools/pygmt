@@ -81,9 +81,10 @@ side of the vector.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_001.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_001.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -132,9 +133,10 @@ styling attributes can be found in
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_002.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_002.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -192,9 +194,10 @@ can be changed to inches in the second plotted vector.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_003.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_003.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -242,9 +245,10 @@ used instead of ``x``, ``y`` and  ``direction``.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_004.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_004.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -293,9 +297,10 @@ array object and passed using ``data`` parameter.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_005.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_005.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_005.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -371,9 +376,10 @@ this example).
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_006.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_006.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_006.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -430,9 +436,10 @@ is used to create 5 vectors with equal stops.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_007.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_007.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_007.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -497,9 +504,10 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_008.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_008.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_008.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -551,9 +559,10 @@ appearance on the projection.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_009.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_009.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_009.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -606,9 +615,10 @@ different measurement unit causes one to be larger than the other.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_010.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_010.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_010.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -667,9 +677,10 @@ to represent the vector instead of input angle and length.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_011.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_011.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_011.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -729,9 +740,10 @@ for each vector.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_012.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_012.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_012.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -781,9 +793,10 @@ locations.
 
 
 
-.. image:: /tutorials/images/sphx_glr_vectors_013.png
-    :alt: vectors
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_vectors_013.png
+   :alt: vectors
+   :srcset: /tutorials/images/sphx_glr_vectors_013.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -800,7 +813,7 @@ locations.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  15.446 seconds)
+   **Total running time of the script:** ( 0 minutes  12.321 seconds)
 
 
 .. _sphx_glr_download_tutorials_vectors.py:

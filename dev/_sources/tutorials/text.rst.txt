@@ -74,9 +74,10 @@ accepts either *int* or *float* numbers, or a list/array of numbers.
 
 
 
-.. image:: /tutorials/images/sphx_glr_text_001.png
-    :alt: text
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_text_001.png
+   :alt: text
+   :srcset: /tutorials/images/sphx_glr_text_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -119,9 +120,10 @@ including details of how to use non-default fonts.
 
 
 
-.. image:: /tutorials/images/sphx_glr_text_002.png
-    :alt: text
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_text_002.png
+   :alt: text
+   :srcset: /tutorials/images/sphx_glr_text_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -177,9 +179,10 @@ and ``text`` fields. Here we give a complete example.
 
 
 
-.. image:: /tutorials/images/sphx_glr_text_003.png
-    :alt: text
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_text_003.png
+   :alt: text
+   :srcset: /tutorials/images/sphx_glr_text_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -227,9 +230,10 @@ from:
 
 
 
-.. image:: /tutorials/images/sphx_glr_text_004.png
-    :alt: text
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_text_004.png
+   :alt: text
+   :srcset: /tutorials/images/sphx_glr_text_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -264,9 +268,10 @@ the text from the horizontal.
 
 
 
-.. image:: /tutorials/images/sphx_glr_text_005.png
-    :alt: text
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_text_005.png
+   :alt: text
+   :srcset: /tutorials/images/sphx_glr_text_005.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -300,9 +305,10 @@ the text from the horizontal.
 
 
 
-.. image:: /tutorials/images/sphx_glr_text_006.png
-    :alt: text
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_text_006.png
+   :alt: text
+   :srcset: /tutorials/images/sphx_glr_text_006.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -328,7 +334,7 @@ at :gmt-docs:`text.html` and also the cookbook at
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  13.251 seconds)
+   **Total running time of the script:** ( 0 minutes  10.665 seconds)
 
 
 .. _sphx_glr_download_tutorials_text.py:

@@ -30,9 +30,10 @@ methods called within the ``with`` statement are applied to the inset figure.
 
 
 
-.. image:: /gallery/embellishments/images/sphx_glr_inset_001.png
-    :alt: inset
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/embellishments/images/sphx_glr_inset_001.png
+   :alt: inset
+   :srcset: /gallery/embellishments/images/sphx_glr_inset_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -78,7 +79,7 @@ methods called within the ``with`` statement are applied to the inset figure.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.456 seconds)
+   **Total running time of the script:** ( 0 minutes  2.050 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_inset.py:

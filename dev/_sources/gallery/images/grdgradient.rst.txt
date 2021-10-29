@@ -32,9 +32,10 @@ direction and altitude.
 
 
 
-.. image:: /gallery/images/images/sphx_glr_grdgradient_001.png
-    :alt: grdgradient
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/images/images/sphx_glr_grdgradient_001.png
+   :alt: grdgradient
+   :srcset: /gallery/images/images/sphx_glr_grdgradient_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -43,9 +44,6 @@ direction and altitude.
 
  .. code-block:: none
 
-    grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
-    grdblend [NOTICE]: Earth Relief at 15x15 arc seconds provided by SRTM15+V2.1 [Tozer et al., 2019].
-    grdblend [NOTICE]:   -> Download 10x10 degree grid tile (earth_relief_15s_p): N30W120
     <IPython.core.display.Image object>
 
 
@@ -104,7 +102,7 @@ direction and altitude.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.892 seconds)
+   **Total running time of the script:** ( 0 minutes  2.276 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdgradient.py:

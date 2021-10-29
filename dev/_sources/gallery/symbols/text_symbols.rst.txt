@@ -41,9 +41,10 @@ For all supported octal codes and fonts see the GMT cookbook
 
 
 
-.. image:: /gallery/symbols/images/sphx_glr_text_symbols_001.png
-    :alt: text symbols
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/symbols/images/sphx_glr_text_symbols_001.png
+   :alt: text symbols
+   :srcset: /gallery/symbols/images/sphx_glr_text_symbols_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -90,7 +91,7 @@ For all supported octal codes and fonts see the GMT cookbook
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.753 seconds)
+   **Total running time of the script:** ( 0 minutes  1.402 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_text_symbols.py:

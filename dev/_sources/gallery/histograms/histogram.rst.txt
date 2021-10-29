@@ -29,9 +29,10 @@ selected via the ``histtype`` parameter.
 
 
 
-.. image:: /gallery/histograms/images/sphx_glr_histogram_001.png
-    :alt: histogram
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/histograms/images/sphx_glr_histogram_001.png
+   :alt: histogram
+   :srcset: /gallery/histograms/images/sphx_glr_histogram_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -65,7 +66,7 @@ selected via the ``histtype`` parameter.
     fig = pygmt.Figure()
 
     fig.histogram(
-        table=data,
+        data=data,
         # define the frame, add title and set background color to
         # lightgray, add annotations for x and y axis
         frame=['WSne+t"Histogram"+glightgray', 'x+l"Elevation (m)"', 'y+l"Counts"'],
@@ -84,7 +85,7 @@ selected via the ``histtype`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.177 seconds)
+   **Total running time of the script:** ( 0 minutes  1.035 seconds)
 
 
 .. _sphx_glr_download_gallery_histograms_histogram.py:

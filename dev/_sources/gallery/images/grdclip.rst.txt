@@ -29,9 +29,10 @@ than 0 m (in general the bathymetric part of the grid) to a common value of
 
 
 
-.. image:: /gallery/images/images/sphx_glr_grdclip_001.png
-    :alt: grdclip
-    :class: sphx-glr-single-img
+.. image-sg:: /gallery/images/images/sphx_glr_grdclip_001.png
+   :alt: grdclip
+   :srcset: /gallery/images/images/sphx_glr_grdclip_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -83,7 +84,7 @@ than 0 m (in general the bathymetric part of the grid) to a common value of
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.495 seconds)
+   **Total running time of the script:** ( 0 minutes  2.023 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdclip.py:

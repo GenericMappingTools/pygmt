@@ -75,9 +75,10 @@ The default grid surface type is *mesh plot*.
 
 
 
-.. image:: /tutorials/images/sphx_glr_3d_perspective_image_001.png
-    :alt: 3d perspective image
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_3d_perspective_image_001.png
+   :alt: 3d perspective image
+   :srcset: /tutorials/images/sphx_glr_3d_perspective_image_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -118,9 +119,10 @@ The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
 
 
-.. image:: /tutorials/images/sphx_glr_3d_perspective_image_002.png
-    :alt: 3d perspective image
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_3d_perspective_image_002.png
+   :alt: 3d perspective image
+   :srcset: /tutorials/images/sphx_glr_3d_perspective_image_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -161,9 +163,10 @@ a fill below the surface relief.
 
 
 
-.. image:: /tutorials/images/sphx_glr_3d_perspective_image_003.png
-    :alt: 3d perspective image
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_3d_perspective_image_003.png
+   :alt: 3d perspective image
+   :srcset: /tutorials/images/sphx_glr_3d_perspective_image_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -210,9 +213,10 @@ as the ``perspective`` parameter.
 
 
 
-.. image:: /tutorials/images/sphx_glr_3d_perspective_image_004.png
-    :alt: 3d perspective image
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_3d_perspective_image_004.png
+   :alt: 3d perspective image
+   :srcset: /tutorials/images/sphx_glr_3d_perspective_image_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -229,7 +233,7 @@ as the ``perspective`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.906 seconds)
+   **Total running time of the script:** ( 0 minutes  4.760 seconds)
 
 
 .. _sphx_glr_download_tutorials_3d_perspective_image.py:

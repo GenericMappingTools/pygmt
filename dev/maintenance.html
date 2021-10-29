@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -358,8 +358,9 @@ adjusted upward on every major and minor release, but never on a patch release.<
 <section id="backwards-compatibility-and-deprecation-policy">
 <h2>Backwards compatibility and deprecation policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Permalink to this headline"></a></h2>
 <p>PyGMT is still undergoing rapid development. All of the API is subject to change
-until the v1.0.0 release.</p>
-<p>Basic policy for backwards compatibility:</p>
+until the v1.0.0 release. Versioning in PyGMT is based on the
+<a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning specification</a> (e.g. vMAJOR.MINOR.PATCH).
+Basic policy for backwards compatibility:</p>
 <ul class="simple">
 <li><p>Any incompatible changes should go through the deprecation process below.</p></li>
 <li><p>Incompatible changes are only allowed in major and minor releases, not in
@@ -435,12 +436,16 @@ are alphabetical.</p></li>
 <li><p>Edit the list of people who contributed to the release, linking to their
 GitHub account. Sort their names by the number of commits made since the
 last release (e.g., use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">HEAD...v0.4.0</span> <span class="pre">-sne</span></code>).</p></li>
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> with new information on the new release version, namely
-the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
-Python and GMT versions. Follow
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> with new information on the new release version,
+including a vX.Y.Z documentation link, and compatibility with
+GMT/Python/NumPy versions. Follow
 <a class="reference external" href="https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description">NEP 29</a>
-for compatibility updates. Follow <code class="docutils literal notranslate"><span class="pre">AUTHORSHIP.md</span></code> guidelines for updating
-the author list in the BibTeX citation.</p></li>
+for compatibility updates.</p></li>
+<li><p>Refresh citation information. Specifically, the BibTeX in <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> and
+<code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> needs to be updated with any metadata changes. Please follow
+guidelines in <code class="docutils literal notranslate"><span class="pre">AUTHORSHIP.md</span></code> for updating the author list in the BibTeX.
+More information about the <code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> specification can be found at
+https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md</p></li>
 </ol>
 </section>
 <section id="check-the-readme-syntax">
@@ -501,9 +506,9 @@ from the PyPI “Download files” section.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

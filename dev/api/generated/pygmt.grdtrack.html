@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -31,7 +31,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.sphdistance" href="pygmt.sphdistance.html" />
+    <link rel="next" title="pygmt.grdvolume" href="pygmt.grdvolume.html" />
     <link rel="prev" title="pygmt.grdsample" href="pygmt.grdsample.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -120,7 +120,13 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.blockmode.html">pygmt.blockmode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.nearneighbor.html">pygmt.nearneighbor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.project.html">pygmt.project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.select.html">pygmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sph2grd.html">pygmt.sph2grd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.sphinterpolate.html">pygmt.sphinterpolate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.xyz2grd.html">pygmt.xyz2grd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grd2xyz.html">pygmt.grd2xyz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdclip.html">pygmt.grdclip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
@@ -134,8 +140,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-grdtrack">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.grdtrack</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.xyz2grd.html">pygmt.xyz2grd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.grdvolume.html">pygmt.grdvolume</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_init.html">pygmt.x2sys_init</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
 </ul>
@@ -260,18 +265,18 @@ recognized as periodic.)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>points</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><em>xarray.Dataset</em></a><em> or </em><a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.9.0)"><em>geopandas.GeoDataFrame</em></a>) – Pass in either a file name to an ASCII data table, a 2D
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
+<li><p><strong>points</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><em>xarray.Dataset</em></a><em> or </em><a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.10.0)"><em>geopandas.GeoDataFrame</em></a>) – Pass in either a file name to an ASCII data table, a 2D
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
 <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1D <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
-data variables, or a <a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
+data variables, or a <a class="reference external" href="https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.10.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
 tabular data.</p></li>
-<li><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Gridded array from which to sample values from, or a filename (netcdf
+<li><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Gridded array from which to sample values from, or a filename (netcdf
 format).</p></li>
-<li><p><strong>newcolname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Required if <code class="docutils literal notranslate"><span class="pre">points</span></code> is a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>. The name for the
-new column in the track <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table where the
+<li><p><strong>newcolname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Required if <code class="docutils literal notranslate"><span class="pre">points</span></code> is a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>. The name for the
+new column in the track <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table where the
 sampled values will be placed.</p></li>
-<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The file name for the output ASCII file.</p></li>
-<li><p><strong>resample</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <strong>f</strong>|<strong>p</strong>|<strong>m</strong>|<strong>r</strong>|<strong>R</strong>[<strong>+l</strong>]
+<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The file name for the output ASCII file.</p></li>
+<li><p><strong>resample</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <strong>f</strong>|<strong>p</strong>|<strong>m</strong>|<strong>r</strong>|<strong>R</strong>[<strong>+l</strong>]
 For track resampling (if <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> or <code class="docutils literal notranslate"><span class="pre">profile</span></code> are set) we
 can select how this is to be performed. Append <strong>f</strong> to keep original
 points, but add intermediate points if needed [Default], <strong>m</strong> as
@@ -283,7 +288,7 @@ given spacing to fit the track length exactly. Finally, append
 <strong>+l</strong> if geographic distances should be measured along rhumb lines
 (loxodromes) instead of great circles. Ignored unless <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code>
 is used.</p></li>
-<li><p><strong>crossprofile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>length</em>/<em>ds</em>[<em>/spacing</em>][<strong>+a</strong>|<strong>+v</strong>][<strong>l</strong>|<strong>r</strong>].
+<li><p><strong>crossprofile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <em>length</em>/<em>ds</em>[<em>/spacing</em>][<strong>+a</strong>|<strong>+v</strong>][<strong>l</strong>|<strong>r</strong>].
 Use input line segments to create an equidistant and (optionally)
 equally-spaced set of crossing profiles along which we sample the
 grid(s) [Default simply samples the grid(s) at the input locations].
@@ -305,11 +310,11 @@ unit for geographic grids is meter while Cartesian grids implies the
 user unit.  The output columns will be <em>lon</em>, <em>lat</em>, <em>dist</em>, <em>azimuth</em>,
 <em>z1</em>, <em>z2</em>, …, <em>zn</em> (The <em>zi</em> are the sampled values for each of the
 <em>n</em> grids).</p></li>
-<li><p><strong>dfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – In concert with <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> we can save the (possibly resampled)
+<li><p><strong>dfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – In concert with <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> we can save the (possibly resampled)
 original lines to <em>dfile</em> [Default only saves the cross-profiles]. The
 columns will be <em>lon</em>, <em>lat</em>, <em>dist</em>, <em>azimuth</em>, <em>z1</em>, <em>z2</em>, …
 (sampled value for each grid).</p></li>
-<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <em>line</em>[,<em>line</em>,…][<strong>+a</strong><em>az</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+g</strong>][<strong>+i</strong><em>inc</em>][<strong>+l</strong><em>length</em>][<strong>+n</strong><em>np</em>][<strong>+o</strong><em>az</em>][<strong>+r</strong><em>radius</em>].
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <em>line</em>[,<em>line</em>,…][<strong>+a</strong><em>az</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+g</strong>][<strong>+i</strong><em>inc</em>][<strong>+l</strong><em>length</em>][<strong>+n</strong><em>np</em>][<strong>+o</strong><em>az</em>][<strong>+r</strong><em>radius</em>].
 Instead of reading input track coordinates, specify profiles via
 coordinates and modifiers. The format of each <em>line</em> is
 <em>start</em>/<em>stop</em>, where <em>start</em> or <em>stop</em> are either <em>lon</em>/<em>lat</em> (<em>x</em>/<em>y</em>
@@ -340,7 +345,7 @@ you can use <code class="docutils literal notranslate"><span class="pre">distcal
 is Great Circle]. <strong>Note</strong>: If <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> is set and <em>spacing</em> is
 given then that sampling scheme overrules any modifier set in
 <code class="docutils literal notranslate"><span class="pre">profile</span></code>.</p></li>
-<li><p><strong>critical</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>+b</strong>][<strong>+n</strong>][<strong>+r</strong>][<strong>+z</strong><em>z0</em>].
+<li><p><strong>critical</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>+b</strong>][<strong>+n</strong>][<strong>+r</strong>][<strong>+z</strong><em>z0</em>].
 Find critical points along each cross-profile as a function of
 along-track distance. Requires <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code> and a single input grid
 (<em>z</em>). We examine each cross-profile generated and report (<em>dist</em>,
@@ -363,12 +368,11 @@ center (<em>distc</em> == 0). <strong>Note</strong>: We round the exact results 
 nearest distance nodes along the cross-profiles. We write 13 output
 columns per track: <em>dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
 distl, lonr, latr, distr, width</em>.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <em>Required if this is the first plot command</em>.
-<em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>no_skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Do <em>not</em> skip points that fall outside the domain of the grid(s)
+<li><p><strong>no_skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Do <em>not</em> skip points that fall outside the domain of the grid(s)
 [Default only output points within grid domain].</p></li>
-<li><p><strong>stack</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <p><em>method</em>/<em>modifiers</em>.
+<li><p><strong>stack</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <p><em>method</em>/<em>modifiers</em>.
 In conjunction with <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code>, compute a single stacked profile
 from all profiles across each segment. Choose how stacking should be
 computed [Default method is <strong>a</strong>]:</p>
@@ -411,7 +415,7 @@ than one grid is sampled this sequence of 1-3 columns is repeated
 for each grid.</p></li>
 </ol>
 </p></li>
-<li><p><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<em>radius</em>][<strong>+e</strong>|<strong>p</strong>].
+<li><p><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<em>radius</em>][<strong>+e</strong>|<strong>p</strong>].
 To be used with normal grid sampling, and limited to a single, non-IMG
 grid. If the nearest node to the input point is NaN, search outwards
 until we find the nearest non-NaN node and report that value instead.
@@ -422,7 +426,7 @@ append <strong>+e</strong>. The default unit for geographic grid distances is
 spherical degrees. Use <em>radius</em> to change the unit and give <em>radius</em> =
 0 if you do not want to limit the radius search. To instead replace the
 input point with the coordinates of the nearest node, append <strong>+p</strong>.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
@@ -434,11 +438,11 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <li><p><strong>d</strong> - Debugging messages</p></li>
 </ul>
 </p></li>
-<li><p><strong>z_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Only write out the sampled z-values [Default writes all columns].</p></li>
-<li><p><strong>aspatial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<em>col</em>=]<em>name</em>[,…].
+<li><p><strong>z_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Only write out the sampled z-values [Default writes all columns].</p></li>
+<li><p><strong>aspatial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<em>col</em>=]<em>name</em>[,…].
 Control how aspatial data are handled during input and output.
 Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#aspatial-full">https://docs.generic-mapping-tools.org/latest/gmt.html#aspatial-full</a>.</p></li>
-<li><p><strong>binary</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p><strong>i</strong>|<strong>o</strong>[<em>ncols</em>][<em>type</em>][<strong>w</strong>][<strong>+l</strong>|<strong>b</strong>].
+<li><p><strong>binary</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p><strong>i</strong>|<strong>o</strong>[<em>ncols</em>][<em>type</em>][<strong>w</strong>][<strong>+l</strong>|<strong>b</strong>].
 Select native binary input (using <code class="docutils literal notranslate"><span class="pre">binary=&quot;i&quot;</span></code>) or output
 (using <code class="docutils literal notranslate"><span class="pre">binary=&quot;o&quot;</span></code>), where <em>ncols</em> is the number of data columns
 of <em>type</em>, which must be one of:</p>
@@ -469,27 +473,27 @@ be read as little- or big-endian, respectively.</p></li>
 </div></blockquote>
 <p>Full documentation is at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#bi-full">https://docs.generic-mapping-tools.org/latest/gmt.html#bi-full</a>.</p>
 </p></li>
-<li><p><strong>nodata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <strong>i</strong>|<strong>o</strong><em>nodata</em>.
+<li><p><strong>nodata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <strong>i</strong>|<strong>o</strong><em>nodata</em>.
 Substitute specific values with NaN (for tabular data). For
 example, <code class="docutils literal notranslate"><span class="pre">d=&quot;-9999&quot;</span></code> will replace all values equal to -9999 with
 NaN during input and all NaN values with -9999 during output.
 Prepend <strong>i</strong> to the <em>nodata</em> value for input columns only. Prepend
 <strong>o</strong> to the <em>nodata</em> value for output columns only.</p></li>
-<li><p><strong>find</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>~</strong>]<em>“pattern”</em> | [<strong>~</strong>]/<em>regexp</em>/[<strong>i</strong>].
+<li><p><strong>find</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>~</strong>]<em>“pattern”</em> | [<strong>~</strong>]/<em>regexp</em>/[<strong>i</strong>].
 Only pass records that match the given <em>pattern</em> or regular
 expressions [Default processes all records]. Prepend <strong>~</strong> to
 the <em>pattern</em> or <em>regexp</em> to instead only pass data expressions
 that do not match the pattern. Append <strong>i</strong> for case insensitive
 matching. This does not apply to headers or segment headers.</p></li>
-<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
 Specify data types of input and/or output columns (time or
 geographical data). Full documentation is at
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#f-full">https://docs.generic-mapping-tools.org/latest/gmt.html#f-full</a>.</p></li>
-<li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – <p>[<strong>a</strong>]<strong>x</strong>|<strong>y</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong>|[<em>col</em>]<strong>z</strong><em>gap</em>[<strong>+n</strong>|<strong>p</strong>].
+<li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <p>[<strong>a</strong>]<strong>x</strong>|<strong>y</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong>|[<em>col</em>]<strong>z</strong><em>gap</em>[<strong>+n</strong>|<strong>p</strong>].
 Examine the spacing between consecutive data points in order to
-impose breaks in the line. To specify multiple critera, provide
+impose breaks in the line. To specify multiple criteria, provide
 a list with each item containing a string describing one set of
-critera. Prepend <strong>a</strong> to specify that all the criteria must be
+criteria. Prepend <strong>a</strong> to specify that all the criteria must be
 met [Default is to impose breaks if any criteria are met]. The
 following modifiers are supported:</p>
 <blockquote>
@@ -532,7 +536,7 @@ value must exceed <em>gap</em> for a break to be imposed.</p></li>
 </ul>
 </div></blockquote>
 </p></li>
-<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>[<strong>i</strong>|<strong>o</strong>][<em>n</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+m</strong><em>segheader</em>][<strong>+r</strong><em>remark</em>][<strong>+t</strong><em>title</em>].
+<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<strong>i</strong>|<strong>o</strong>][<em>n</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+m</strong><em>segheader</em>][<strong>+r</strong><em>remark</em>][<strong>+t</strong><em>title</em>].
 Specify that input and/or output file(s) have <em>n</em> header records
 [Default is 0]. Prepend <strong>i</strong> if only the primary input should have
 header records. Prepend <strong>o</strong> to control the writing of header
@@ -554,14 +558,14 @@ line-breaks.</p></li>
 </div></blockquote>
 <p>Blank lines and lines starting with # are always skipped.</p>
 </p></li>
-<li><p><strong>incols</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>1d array</em>) – <p>Specify data columns for primary input in arbitrary order. Columns
+<li><p><strong>incols</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>1d array</em>) – <p>Specify data columns for primary input in arbitrary order. Columns
 can be repeated and columns not listed will be skipped [Default
 reads all columns in order, starting with the first (i.e., column
 0)].</p>
 <ul>
 <li><p>For <em>1d array</em>: specify individual columns in input order (e.g.,
 <code class="docutils literal notranslate"><span class="pre">incols=[1,0]</span></code> for the 2nd column followed by the 1st column).</p></li>
-<li><p>For <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>: specify individual columns or column
+<li><p>For <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>: specify individual columns or column
 ranges in the format <em>start</em>[:<em>inc</em>]:<em>stop</em>, where <em>inc</em>
 defaults to 1 if not specified, with columns and/or column ranges
 separated by commas (e.g., <code class="docutils literal notranslate"><span class="pre">incols=&quot;0:2,4+l&quot;</span></code> to input the
@@ -588,7 +592,7 @@ is 0].</p></li>
 </li>
 </ul>
 </p></li>
-<li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p><strong>e</strong>|<strong>f</strong>|<strong>g</strong>.
+<li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p><strong>e</strong>|<strong>f</strong>|<strong>g</strong>.
 Determine how spherical distances are calculated.</p>
 <ul>
 <li><p><strong>e</strong> - Ellipsoidal (or geodesic) mode</p></li>
@@ -601,7 +605,7 @@ Determine how spherical distances are calculated.</p>
 (<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-PROJ_AUX_LATITUDE">PROJ_AUX_LATITUDE</a>). Geodesic distance calculations is also
 controlled by method (<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-PROJ_GEODESIC">PROJ_GEODESIC</a>).</p>
 </p></li>
-<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>[<strong>b</strong>|<strong>c</strong>|<strong>l</strong>|<strong>n</strong>][<strong>+a</strong>][<strong>+b</strong><em>BC</em>][<strong>+c</strong>][<strong>+t</strong><em>threshold</em>].
+<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<strong>b</strong>|<strong>c</strong>|<strong>l</strong>|<strong>n</strong>][<strong>+a</strong>][<strong>+b</strong><em>BC</em>][<strong>+c</strong>][<strong>+t</strong><em>threshold</em>].
 Select interpolation mode for grids. You can select the type of
 spline used:</p>
 <ul>
@@ -611,7 +615,7 @@ spline used:</p>
 <li><p><strong>n</strong> for nearest-neighbor</p></li>
 </ul>
 </p></li>
-<li><p><strong>outcols</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><em>1d array</em>) – <p><em>cols</em>[,…][,<strong>t</strong>[<em>word</em>]].
+<li><p><strong>outcols</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>1d array</em>) – <p><em>cols</em>[,…][,<strong>t</strong>[<em>word</em>]].
 Specify data columns for primary output in arbitrary order. Columns
 can be repeated and columns not listed will be skipped [Default
 writes all columns in order, starting with the first (i.e., column
@@ -619,7 +623,7 @@ writes all columns in order, starting with the first (i.e., column
 <ul>
 <li><p>For <em>1d array</em>: specify individual columns in output order (e.g.,
 <code class="docutils literal notranslate"><span class="pre">outcols=[1,0]</span></code> for the 2nd column followed by the 1st column).</p></li>
-<li><p>For <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>: specify individual columns or column
+<li><p>For <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>: specify individual columns or column
 ranges in the format <em>start</em>[:<em>inc</em>]:<em>stop</em>, where <em>inc</em>
 defaults to 1 if not specified, with columns and/or column ranges
 separated by commas (e.g., <code class="docutils literal notranslate"><span class="pre">outcols=&quot;0:2,4&quot;</span></code> to output the
@@ -634,7 +638,7 @@ then the columns given to <code class="docutils literal notranslate"><span class
 after the <code class="docutils literal notranslate"><span class="pre">incols</span></code> selection has taken place.</p></li>
 </ul>
 </p></li>
-<li><p><strong>skiprows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>].
+<li><p><strong>skiprows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>].
 Suppress output for records whose <em>z</em>-value equals NaN [Default
 outputs all records]. Optionally, supply a comma-separated list of
 all columns or column ranges to consider for this NaN test [Default
@@ -652,7 +656,7 @@ if values in all specified <em>cols</em> equal NaN].</p></li>
 </ul>
 </div></blockquote>
 </p></li>
-<li><p><strong>wrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p><strong>y</strong>|<strong>a</strong>|<strong>w</strong>|<strong>d</strong>|<strong>h</strong>|<strong>m</strong>|<strong>s</strong>|<strong>c</strong><em>period</em>[/<em>phase</em>][<strong>+c</strong><em>col</em>].
+<li><p><strong>wrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p><strong>y</strong>|<strong>a</strong>|<strong>w</strong>|<strong>d</strong>|<strong>h</strong>|<strong>m</strong>|<strong>s</strong>|<strong>c</strong><em>period</em>[/<em>phase</em>][<strong>+c</strong><em>col</em>].
 Convert the input <em>x</em>-coordinate to a cyclical coordinate, or a
 different column if selected via <strong>+c</strong><em>col</em>. The following
 cyclical coordinate transformations are supported:</p>
@@ -675,7 +679,7 @@ cyclical coordinate transformations are supported:</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p><strong>track</strong> (<em>pandas.DataFrame or None</em>) – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outfile</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table with (x, y, …, newcolname) if
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table with (x, y, …, newcolname) if
 <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is not set</p></li>
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is set (track output will be stored in file set
 by <code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
@@ -702,16 +706,16 @@ by <code class="docutils literal notranslate"><span class="pre">outfile</span></
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pygmt.grdsample.html" class="btn btn-neutral float-left" title="pygmt.grdsample" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.sphdistance.html" class="btn btn-neutral float-right" title="pygmt.sphdistance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.grdvolume.html" class="btn btn-neutral float-right" title="pygmt.grdvolume" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

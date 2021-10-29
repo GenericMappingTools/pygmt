@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   <!--[if lt IE 9]>
@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Transverse Mercator" href="cyl_transverse_mercator.html" />
-    <link rel="prev" title="Oblique Mercator" href="cyl_oblique_mercator_3.html" />
+    <link rel="next" title="Oblique Mercator" href="cyl_oblique_mercator_3.html" />
+    <link rel="prev" title="Miller cylindrical" href="cyl_miller.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -105,9 +105,9 @@
 <li class="toctree-l3"><a class="reference internal" href="cyl_equidistant.html">Cylindrical equidistant</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cyl_mercator.html">Mercator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cyl_miller.html">Miller cylindrical</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cyl_oblique_mercator_1.html">Oblique Mercator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cyl_oblique_mercator_3.html">Oblique Mercator</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Oblique Mercator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl_oblique_mercator_3.html">Oblique Mercator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl_oblique_mercator_1.html">Oblique Mercator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cyl_transverse_mercator.html">Transverse Mercator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cyl_universal_transverse_mercator.html">Universal Transverse Mercator</a></li>
 </ul>
@@ -216,8 +216,7 @@ northern hemisphere with <strong>b</strong> or the southern hemisphere
 with <strong>B</strong>. The central meridian is set by <em>lon0/lat0</em>. The oblique
 equator is set by <em>lon1/lat1</em>. Align the y-axis
 with the optional <strong>+v</strong>. The figure size is set with <em>scale</em> or <em>width</em>.</p>
-<img alt="cyl oblique mercator 2" class="sphx-glr-single-img" src="../../_images/sphx_glr_cyl_oblique_mercator_2_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_cyl_oblique_mercator_2_001.png" srcset="../../_images/sphx_glr_cyl_oblique_mercator_2_001.png" alt="cyl oblique mercator 2" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
@@ -240,7 +239,7 @@ with the optional <strong>+v</strong>. The figure size is set with <em>scale</em
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.108 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.066 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-cyl-cyl-oblique-mercator-2-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/2abf755a6c54ace853f425f6c1dcdb7d/cyl_oblique_mercator_2.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">cyl_oblique_mercator_2.py</span></code></a></p>
@@ -257,17 +256,17 @@ with the optional <strong>+v</strong>. The figure size is set with <em>scale</em
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="cyl_oblique_mercator_3.html" class="btn btn-neutral float-left" title="Oblique Mercator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="cyl_transverse_mercator.html" class="btn btn-neutral float-right" title="Transverse Mercator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cyl_miller.html" class="btn btn-neutral float-left" title="Miller cylindrical" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cyl_oblique_mercator_3.html" class="btn btn-neutral float-right" title="Oblique Mercator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8eb055d2">8eb055d2</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 23, 2021.
+      <span class="lastupdated">Last updated on Oct 29, 2021.
       </span></p>
   </div>
 

@@ -30,9 +30,10 @@ that axis.
 
 
 
-.. image:: /projections/nongeo/images/sphx_glr_cartesian_power_001.png
-    :alt: cartesian power
-    :class: sphx-glr-single-img
+.. image-sg:: /projections/nongeo/images/sphx_glr_cartesian_power_001.png
+   :alt: cartesian power
+   :srcset: /projections/nongeo/images/sphx_glr_cartesian_power_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -82,7 +83,7 @@ that axis.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.221 seconds)
+   **Total running time of the script:** ( 0 minutes  0.987 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_cartesian_power.py:

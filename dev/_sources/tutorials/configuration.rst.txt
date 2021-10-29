@@ -64,9 +64,10 @@ We demonstrate the usage of :meth:`pygmt.config` by configuring a map plot.
 
 
 
-.. image:: /tutorials/images/sphx_glr_configuration_001.png
-    :alt: configuration
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_configuration_001.png
+   :alt: configuration
+   :srcset: /tutorials/images/sphx_glr_configuration_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -113,9 +114,10 @@ to be a decimal number of degrees.
 
 
 
-.. image:: /tutorials/images/sphx_glr_configuration_002.png
-    :alt: configuration
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_configuration_002.png
+   :alt: configuration
+   :srcset: /tutorials/images/sphx_glr_configuration_002.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -166,9 +168,10 @@ as a context manager is shown below:
 
 
 
-.. image:: /tutorials/images/sphx_glr_configuration_003.png
-    :alt: configuration
-    :class: sphx-glr-single-img
+.. image-sg:: /tutorials/images/sphx_glr_configuration_003.png
+   :alt: configuration
+   :srcset: /tutorials/images/sphx_glr_configuration_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -185,7 +188,7 @@ as a context manager is shown below:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.893 seconds)
+   **Total running time of the script:** ( 0 minutes  3.922 seconds)
 
 
 .. _sphx_glr_download_tutorials_configuration.py:

@@ -395,10 +395,10 @@ Cylindric Projections
 
 .. only:: html
 
- .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_1_thumb.png
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_2_thumb.png
      :alt: Oblique Mercator
 
-     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py`
+     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py`
 
 .. raw:: html
 
@@ -408,7 +408,7 @@ Cylindric Projections
 .. toctree::
    :hidden:
 
-   /projections/cyl/cyl_oblique_mercator_1
+   /projections/cyl/cyl_oblique_mercator_2
 
 .. raw:: html
 
@@ -437,10 +437,10 @@ Cylindric Projections
 
 .. only:: html
 
- .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_2_thumb.png
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_1_thumb.png
      :alt: Oblique Mercator
 
-     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py`
+     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py`
 
 .. raw:: html
 
@@ -450,7 +450,7 @@ Cylindric Projections
 .. toctree::
    :hidden:
 
-   /projections/cyl/cyl_oblique_mercator_2
+   /projections/cyl/cyl_oblique_mercator_1
 
 .. raw:: html
 

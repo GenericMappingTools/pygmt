@@ -40,9 +40,10 @@ The figure size is set with *scale* or *width*.
 
 
 
-.. image:: /projections/conic/images/sphx_glr_conic_lambert_001.png
-    :alt: conic lambert
-    :class: sphx-glr-single-img
+.. image-sg:: /projections/conic/images/sphx_glr_conic_lambert_001.png
+   :alt: conic lambert
+   :srcset: /projections/conic/images/sphx_glr_conic_lambert_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -79,7 +80,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.269 seconds)
+   **Total running time of the script:** ( 0 minutes  1.018 seconds)
 
 
 .. _sphx_glr_download_projections_conic_conic_lambert.py:
