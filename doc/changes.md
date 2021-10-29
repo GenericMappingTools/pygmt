@@ -1,5 +1,107 @@
 # Changelog
 
+## Release v0.5.0 (2021/10/29)
+
+[![Digital Object Identifier for PyGMT v0.5.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+
+### Highlights
+
+*
+
+### New Features
+
+* Wrap gmtselect ([#1429](https://github.com/GenericMappingTools/pygmt/pull/1429))
+* Wrap project ([#1122](https://github.com/GenericMappingTools/pygmt/pull/1122))
+* Wrap grdvolume ([#1299](https://github.com/GenericMappingTools/pygmt/pull/1299))
+* Add function to import seafloor crustal age dataset ([#1471](https://github.com/GenericMappingTools/pygmt/pull/1471))
+* Wrap sphinterpolate ([#1418](https://github.com/GenericMappingTools/pygmt/pull/1418))
+* Wrap sph2grd ([#1434](https://github.com/GenericMappingTools/pygmt/pull/1434))
+* Wrap nearneighbor ([#1379](https://github.com/GenericMappingTools/pygmt/pull/1379))
+* Wrap grd2xyz ([#1284](https://github.com/GenericMappingTools/pygmt/pull/1284))
+* Add Mars dataset ([#1420](https://github.com/GenericMappingTools/pygmt/pull/1420))
+* Wrap blockmode ([#1456](https://github.com/GenericMappingTools/pygmt/pull/1456))
+* Wrap sphdistance ([#1383](https://github.com/GenericMappingTools/pygmt/pull/1383))
+* Add pygmt.load_dataarray function and refactor modules that return None or xarray.dataarray ([#1439](https://github.com/GenericMappingTools/pygmt/pull/1439))
+* Wrap grdproject ([#1377](https://github.com/GenericMappingTools/pygmt/pull/1377))
+* Add function to import hotspot dataset ([#1386](https://github.com/GenericMappingTools/pygmt/pull/1386))
+* Wrap grdsample ([#1380](https://github.com/GenericMappingTools/pygmt/pull/1380))
+* Wrap xyz2grd ([#636](https://github.com/GenericMappingTools/pygmt/pull/636))
+
+### Enhancements
+
+* Expand table-like input options for Figure.contour ([#1531](https://github.com/GenericMappingTools/pygmt/pull/1531))
+* Expand table-like input options for pygmt.surface ([#1455](https://github.com/GenericMappingTools/pygmt/pull/1455))
+* Raise GMTInvalidInput exception when required z is missing ([#1478](https://github.com/GenericMappingTools/pygmt/pull/1478))
+* Add support for passing pathlib.Path objects as filenames ([#1382](https://github.com/GenericMappingTools/pygmt/pull/1382))
+* Allow passing a list to the 'incols' parameter for blockm, grdtrack and text ([#1475](https://github.com/GenericMappingTools/pygmt/pull/1475))
+* Add the 'incols' alias to info ([#1476](https://github.com/GenericMappingTools/pygmt/pull/1476))
+* Plot square or cube by default for OGR/GMT files with Point/MultiPoint types ([#1438](https://github.com/GenericMappingTools/pygmt/pull/1438))
+* Update/add grdlandmask parameters and aliases ([#1423](https://github.com/GenericMappingTools/pygmt/pull/1423))
+* Plot square or cube by default for geopandas Point/MultiPoint types ([#1405](https://github.com/GenericMappingTools/pygmt/pull/1405))
+* Add area_thresh to COMMON_OPTIONS ([#1426](https://github.com/GenericMappingTools/pygmt/pull/1426))
+
+### Deprecations
+
+* pygmt.blockm*: Reorder input parameters to 'data, x, y, z' ([#1565](https://github.com/GenericMappingTools/pygmt/pull/1565))
+* pygmt.surface: Reorder input parameters to 'data, x, y, z' ([#1562](https://github.com/GenericMappingTools/pygmt/pull/1562))
+* Figure.contour: Reorder input parameters to 'data, x, y, z' ([#1561](https://github.com/GenericMappingTools/pygmt/pull/1561))
+* Figure.plot3d: Reorder input parameters to 'data, x, y, z' ([#1560](https://github.com/GenericMappingTools/pygmt/pull/1560))
+* Figure.plot: Reorder input parameters to "data, x, y" ([#1547](https://github.com/GenericMappingTools/pygmt/pull/1547))
+* Figure.rose: Reorder input parameters to 'data, length, azimuth' ([#1546](https://github.com/GenericMappingTools/pygmt/pull/1546))
+* Figure.wiggle: Reorder input parameter to 'data, x, y, z' ([#1548](https://github.com/GenericMappingTools/pygmt/pull/1548))
+* Figure.histogram: Deprecate parameter "table" to "data" (remove in v0.7.0) ([#1540](https://github.com/GenericMappingTools/pygmt/pull/1540))
+* pygmt.info: Deprecate parameter "table" to "data" (remove in v0.7.0) ([#1538](https://github.com/GenericMappingTools/pygmt/pull/1538))
+* Figure.wiggle: Deprecate parameter "columns" to "incols" (remove in v0.7.0) ([#1504](https://github.com/GenericMappingTools/pygmt/pull/1504))
+* pygmt.surface: Deprecate parameter "outfile" to "outgrid" (remove in v0.7.0) ([#1458](https://github.com/GenericMappingTools/pygmt/pull/1458))
+* NEP29: Set minimum required version to NumPy 1.18+ ([#1430](https://github.com/GenericMappingTools/pygmt/pull/1430))
+
+### Bug Fixes
+
+* Allow GMTDataArrayAccessor to work on sliced datacubes ([#1581](https://github.com/GenericMappingTools/pygmt/pull/1581))
+* Allow non-string color when input data is a matrix or a file for plot and plot3d ([#1526](https://github.com/GenericMappingTools/pygmt/pull/1526))
+* Raise RuntimeWarning instead of an exception for irregular grid spacing ([#1530](https://github.com/GenericMappingTools/pygmt/pull/1530))
+* Raise an error for zero increment grid ([#1484](https://github.com/GenericMappingTools/pygmt/pull/1484))
+
+### Documentation
+
+* Add missing aliases to pygmt.grdgradient ([#1515](https://github.com/GenericMappingTools/pygmt/pull/1515))
+* Remove disclaimer in README ([#1590](https://github.com/GenericMappingTools/pygmt/pull/1590))
+* Add missing aliases to sphdistance ([#1516](https://github.com/GenericMappingTools/pygmt/pull/1516))
+* Update region and projection standard docstrings ([#1510](https://github.com/GenericMappingTools/pygmt/pull/1510))
+* Document gmtwhich -Ga option to download to appropriate cache folder ([#1554](https://github.com/GenericMappingTools/pygmt/pull/1554))
+* Add a gallery example showing the usage of text symbols ([#1522](https://github.com/GenericMappingTools/pygmt/pull/1522))
+* Add gallery example for grdgradient ([#1428](https://github.com/GenericMappingTools/pygmt/pull/1428))
+* Add missing aliases to pygmt.blockmean and pygmt.blockmedian ([#1500](https://github.com/GenericMappingTools/pygmt/pull/1500))
+* Add missing aliases to pygmt.Figure.wiggle ([#1498](https://github.com/GenericMappingTools/pygmt/pull/1498))
+* Add missing aliases to pygmt.Figure.velo ([#1497](https://github.com/GenericMappingTools/pygmt/pull/1497))
+* Add missing aliases to pygmt.surface ([#1501](https://github.com/GenericMappingTools/pygmt/pull/1501))
+* Add missing aliases to pygmt.Figure.plot3d ([#1503](https://github.com/GenericMappingTools/pygmt/pull/1503))
+* Add missing aliases to pygmt.grdtrack ([#1499](https://github.com/GenericMappingTools/pygmt/pull/1499))
+* Add missing aliases to pygmt.Figure.plot ([#1502](https://github.com/GenericMappingTools/pygmt/pull/1502))
+* Add gallery example showing usage of line objects from a geopandas.GeoDataFrame ([#1474](https://github.com/GenericMappingTools/pygmt/pull/1474))
+* Add gallery example for grdlandmask ([#1469](https://github.com/GenericMappingTools/pygmt/pull/1469))
+* Add missing aliases to pygmt.Figure.text ([#1448](https://github.com/GenericMappingTools/pygmt/pull/1448))
+* Add missing aliases to pygmt.Figure.histogram ([#1451](https://github.com/GenericMappingTools/pygmt/pull/1451))
+* Add missing alias to pygmt.Figure.legend ([#1453](https://github.com/GenericMappingTools/pygmt/pull/1453))
+* Add missing aliases to pygmt.Figure.rose ([#1452](https://github.com/GenericMappingTools/pygmt/pull/1452))
+* Add missing alias to pygmt.Figure.grdview ([#1450](https://github.com/GenericMappingTools/pygmt/pull/1450))
+* Add missing aliases to pygmt.Figure.image.py ([#1449](https://github.com/GenericMappingTools/pygmt/pull/1449))
+* Add missing common options to contour ([#1446](https://github.com/GenericMappingTools/pygmt/pull/1446))
+
+### Maintenance
+
+* Support Python 3.10 ([#1591](https://github.com/GenericMappingTools/pygmt/pull/1591))
+* Make IPython partially optional on CI to increase test coverage of figure.py ([#1496](https://github.com/GenericMappingTools/pygmt/pull/1496))
+* Use mamba to install Continuous Integration dependencies ([#841](https://github.com/GenericMappingTools/pygmt/pull/841))
+* Remove deprecated codecov dependency from CI ([#1494](https://github.com/GenericMappingTools/pygmt/pull/1494))
+* Let Flake8 check examples and fix warnings ([#1477](https://github.com/GenericMappingTools/pygmt/pull/1477))
+
+### Contributors
+
+@BeckySalvage, @JamieJQuinn, @aitorres, @arleaman, @carocamargo, @claudiodsf, @daroari, @dependabot, @dependabot[bot], @meghanrjones, @michaelgrund, @obaney, @seisman, @srijac, @weiji14, @willschlitzer and @yohaimagen
+
+----
+
 ## Release v0.4.1 (2021/08/07)
 
 [![Digital Object Identifier for PyGMT v0.4.1](https://zenodo.org/badge/DOI/10.5281/zenodo.5162003.svg)](https://doi.org/10.5281/zenodo.5162003)
