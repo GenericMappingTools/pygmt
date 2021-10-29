@@ -211,12 +211,12 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - Numpy
-    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/milestone/8>`_ (upcoming release)
-      - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
+    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_ (latest release)
+      - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
       - >=6.2.0
       - >=3.7
       - >=1.18
-    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_ (latest release)
+    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_
       - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
       - >=6.2.0
       - >=3.7
