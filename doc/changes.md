@@ -18,12 +18,10 @@
 * Wrap sph2grd ([#1434](https://github.com/GenericMappingTools/pygmt/pull/1434))
 * Wrap nearneighbor ([#1379](https://github.com/GenericMappingTools/pygmt/pull/1379))
 * Wrap grd2xyz ([#1284](https://github.com/GenericMappingTools/pygmt/pull/1284))
-* Add Mars dataset ([#1420](https://github.com/GenericMappingTools/pygmt/pull/1420))
 * Wrap blockmode ([#1456](https://github.com/GenericMappingTools/pygmt/pull/1456))
 * Wrap sphdistance ([#1383](https://github.com/GenericMappingTools/pygmt/pull/1383))
 * Add pygmt.load_dataarray function and refactor modules that return None or xarray.dataarray ([#1439](https://github.com/GenericMappingTools/pygmt/pull/1439))
 * Wrap grdproject ([#1377](https://github.com/GenericMappingTools/pygmt/pull/1377))
-* Add function to import hotspot dataset ([#1386](https://github.com/GenericMappingTools/pygmt/pull/1386))
 * Wrap grdsample ([#1380](https://github.com/GenericMappingTools/pygmt/pull/1380))
 * Wrap xyz2grd ([#636](https://github.com/GenericMappingTools/pygmt/pull/636))
 
@@ -36,9 +34,11 @@
 * Allow passing a list to the 'incols' parameter for blockm, grdtrack and text ([#1475](https://github.com/GenericMappingTools/pygmt/pull/1475))
 * Add the 'incols' alias to info ([#1476](https://github.com/GenericMappingTools/pygmt/pull/1476))
 * Plot square or cube by default for OGR/GMT files with Point/MultiPoint types ([#1438](https://github.com/GenericMappingTools/pygmt/pull/1438))
-* Update/add grdlandmask parameters and aliases ([#1423](https://github.com/GenericMappingTools/pygmt/pull/1423))
 * Plot square or cube by default for geopandas Point/MultiPoint types ([#1405](https://github.com/GenericMappingTools/pygmt/pull/1405))
 * Add area_thresh to COMMON_OPTIONS ([#1426](https://github.com/GenericMappingTools/pygmt/pull/1426))
+* Add function to import Mars dataset ([#1420](https://github.com/GenericMappingTools/pygmt/pull/1420))
+* Add function to import hotspot dataset ([#1386](https://github.com/GenericMappingTools/pygmt/pull/1386))
+
 
 ### Deprecations
 
@@ -64,20 +64,21 @@
 
 ### Documentation
 
-* Add missing aliases to pygmt.grdgradient ([#1515](https://github.com/GenericMappingTools/pygmt/pull/1515))
-* Add missing aliases to sphdistance ([#1516](https://github.com/GenericMappingTools/pygmt/pull/1516))
 * Update region and projection standard docstrings ([#1510](https://github.com/GenericMappingTools/pygmt/pull/1510))
 * Document gmtwhich -Ga option to download to appropriate cache folder ([#1554](https://github.com/GenericMappingTools/pygmt/pull/1554))
 * Add a gallery example showing the usage of text symbols ([#1522](https://github.com/GenericMappingTools/pygmt/pull/1522))
 * Add gallery example for grdgradient ([#1428](https://github.com/GenericMappingTools/pygmt/pull/1428))
+* Add gallery example showing usage of line objects from a geopandas.GeoDataFrame ([#1474](https://github.com/GenericMappingTools/pygmt/pull/1474))
+* Add missing aliases to pygmt.grdgradient ([#1515](https://github.com/GenericMappingTools/pygmt/pull/1515))
+* Add missing aliases to pygmt.sphdistance ([#1516](https://github.com/GenericMappingTools/pygmt/pull/1516))
 * Add missing aliases to pygmt.blockmean and pygmt.blockmedian ([#1500](https://github.com/GenericMappingTools/pygmt/pull/1500))
 * Add missing aliases to pygmt.Figure.wiggle ([#1498](https://github.com/GenericMappingTools/pygmt/pull/1498))
 * Add missing aliases to pygmt.Figure.velo ([#1497](https://github.com/GenericMappingTools/pygmt/pull/1497))
 * Add missing aliases to pygmt.surface ([#1501](https://github.com/GenericMappingTools/pygmt/pull/1501))
 * Add missing aliases to pygmt.Figure.plot3d ([#1503](https://github.com/GenericMappingTools/pygmt/pull/1503))
+* Add missing aliases to pygmt.grdlandmask ([#1423](https://github.com/GenericMappingTools/pygmt/pull/1423))
 * Add missing aliases to pygmt.grdtrack ([#1499](https://github.com/GenericMappingTools/pygmt/pull/1499))
 * Add missing aliases to pygmt.Figure.plot ([#1502](https://github.com/GenericMappingTools/pygmt/pull/1502))
-* Add gallery example showing usage of line objects from a geopandas.GeoDataFrame ([#1474](https://github.com/GenericMappingTools/pygmt/pull/1474))
 * Add gallery example for grdlandmask ([#1469](https://github.com/GenericMappingTools/pygmt/pull/1469))
 * Add missing aliases to pygmt.Figure.text ([#1448](https://github.com/GenericMappingTools/pygmt/pull/1448))
 * Add missing aliases to pygmt.Figure.histogram ([#1451](https://github.com/GenericMappingTools/pygmt/pull/1451))
