@@ -38,7 +38,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     then processed to calculate the nearest distance to each
     node of the lattice and written to the specified grid.
 
-    Full option list at :gmt-docs:`sphdistance.html
+    Full option list at :gmt-docs:`sphdistance.html`
 
     {aliases}
 
