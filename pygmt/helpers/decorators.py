@@ -173,9 +173,9 @@ COMMON_OPTIONS = {
             [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
             **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**].
             Examine the spacing between consecutive data points in order to
-            impose breaks in the line. To specify multiple critera, provide
+            impose breaks in the line. To specify multiple criteria, provide
             a list with each item containing a string describing one set of
-            critera. Prepend **a** to specify that all the criteria must be
+            criteria. Prepend **a** to specify that all the criteria must be
             met [Default is to impose breaks if any criteria are met]. The
             following modifiers are supported:
 
