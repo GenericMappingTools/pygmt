@@ -45,7 +45,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.5
+        uses: actions/checkout@v2.4.0
         if: github.event_name != 'repository_dispatch'
         with:
           # fecth all history so that setuptools-scm works
@@ -62,7 +62,7 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v2.3.5
+        uses: actions/checkout@v2.4.0
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
