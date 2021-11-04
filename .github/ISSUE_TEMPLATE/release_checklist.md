@@ -20,7 +20,7 @@ assignees: ''
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
-  - [ ] Update citation information https://github.com/GenericMappingTools/pygmt#citing-pygmt
+  - [ ] Update `CITATION.cff` and BibTeX at https://github.com/GenericMappingTools/pygmt#citing-pygmt
   - [ ] Add the documentation link https://github.com/GenericMappingTools/pygmt#documentation-for-other-versions
   - [ ] Add compatibility information https://github.com/GenericMappingTools/pygmt#compatibility-with-gmt-and-pythonnumpy-versions
   - [ ] Copy draft changelog from Release Drafter and edit it to look nice ([see maintainers guide for details](https://www.pygmt.org/dev/maintenance.html#updating-the-changelog))

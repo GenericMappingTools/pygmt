@@ -51,6 +51,7 @@ from pygmt.src import (
     makecpt,
     nearneighbor,
     project,
+    select,
     sph2grd,
     sphdistance,
     sphinterpolate,
