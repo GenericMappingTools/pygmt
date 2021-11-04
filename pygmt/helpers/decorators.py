@@ -447,7 +447,7 @@ def fmt_docstring(module_func):
         tabular data.
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/regions>` of interest.
+        Specify the :doc:`region </tutorials/beginner/regions>` of interest.
     projection : str
         *projcode*\[*projparams*/]\ *width*.
         Select map :doc:`projection </projections/index>`.
