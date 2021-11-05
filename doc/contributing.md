@@ -50,6 +50,27 @@ top of the GitHub repository and click *New Issue*.
 * After submitting your bug report, try to answer any follow up questions about the bug
   as best as you can.
 
+#### Reporting upstream bugs
+
+If you are aware that a bug is caused by an upstream GMT issue rather than a
+PyGMT-specific issue, you can optionally take the following steps to help resolve
+the problem:
+
+* Add the line `pygmt.config(GMT_VERBOSE='d')` after your import statements, which
+  will report the equivalent GMT commands as one of the debug messages.
+* Either append all messages from running your script to your GitHub issue, or
+  filter the messages to include only the GMT-equivalent commands using a command
+  such as:
+
+      python <test>.py 2>&1 | grep GMT_Call_Command | awk -F': ' '{print "gmt", $3}'
+
+  where `<test>` is the name of your test script.
+* If the bug is produced when passing an in-memory data object (e.g., a
+  pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
+  data to a file (e.g., an ASCII file or NetCDF grid) and passing the data file
+  to the PyGMT function instead. In the GitHub issue, please share the results
+  for both cases along with your code.
+
 ### Submitting a Feature Request
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
