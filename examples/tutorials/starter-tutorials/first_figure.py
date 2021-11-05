@@ -2,8 +2,7 @@
 Making your first figure
 ========================
 
-Welcome to PyGMT! Here we'll cover some of basic concepts, like creating simple
-figures and naming conventions.
+Here is how to plot your first figure.
 """
 
 ###############################################################################
