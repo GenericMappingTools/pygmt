@@ -27,9 +27,9 @@
     :hidden:
     :caption: User Guide
 
+    tutorials/index.rst
     gallery/index.rst
     projections/index.rst
-    tutorials/index.rst
     external_resources.md
 
 .. toctree::
