@@ -14,6 +14,9 @@ from pygmt.helpers import data_kind
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
 
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
+
 
 @pytest.fixture(scope="module", name="dataarray")
 def fixture_dataarray():
@@ -49,6 +52,10 @@ def fixture_ncfile():
     return which("@earth_relief_01d", download="a")
 
 
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.2.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/5893.",
+)
 def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
     """
     Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
@@ -57,11 +64,15 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2790.488422])
+    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2797.394987])
 
     return output
 
 
+@pytest.mark.xfail(
+    condition=gmt_version <= Version("6.2.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/5893.",
+)
 def test_grdtrack_input_csvfile_and_dataarray(dataarray, csvfile):
     """
     Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
@@ -72,7 +83,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, csvfile):
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2790.488422])
+        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2797.394987])
     finally:
         os.remove(path=TEMP_TRACK)
 
