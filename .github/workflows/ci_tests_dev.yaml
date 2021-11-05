@@ -92,7 +92,7 @@ jobs:
                         ghostscript libnetcdf hdf5 zlib curl pcre make
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
-                        dvc geopandas ipython 'pytest>=6.0' pytest-cov \
+                        dvc gdal geopandas ipython 'pytest>=6.0' pytest-cov \
                         pytest-mpl sphinx-gallery tomli
 
       # Build and install latest GMT from GitHub
