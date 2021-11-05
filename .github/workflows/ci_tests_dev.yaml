@@ -90,10 +90,10 @@ jobs:
           mamba install python=${{ matrix.python-version }} \
                         ninja cmake libblas libcblas liblapack fftw libgdal \
                         ghostscript libnetcdf hdf5 zlib curl pcre make
-          pip install --pre numpy
-          pip install --pre pandas xarray netCDF4 packaging \
-                            dvc geopandas ipython 'pytest>=6.0' pytest-cov \
-                            pytest-mpl sphinx-gallery tomli
+          pip install --pre --prefer-binary \
+                        numpy pandas xarray netCDF4 packaging \
+                        dvc geopandas ipython 'pytest>=6.0' pytest-cov \
+                        pytest-mpl sphinx-gallery tomli
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
