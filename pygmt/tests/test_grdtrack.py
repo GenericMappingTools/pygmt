@@ -6,6 +6,7 @@ import os
 import numpy.testing as npt
 import pandas as pd
 import pytest
+from packaging.version import Version
 from pygmt import clib, grdtrack, which
 from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
 from pygmt.exceptions import GMTInvalidInput
