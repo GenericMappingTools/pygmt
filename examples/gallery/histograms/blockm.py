@@ -19,7 +19,6 @@ spacing = "150m"
 
 fig = pygmt.Figure()
 
-# ----------------------------------------------------
 # Calculate mean depth in km from all events within 150x 150
 # bins using blockmean
 df = pygmt.blockmean(data, region=region, spacing=spacing)
