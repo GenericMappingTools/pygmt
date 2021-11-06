@@ -82,6 +82,7 @@ Operations on tabular data:
     blockmean
     blockmedian
     blockmode
+    fitcircle
     nearneighbor
     surface
 
