@@ -5,8 +5,8 @@ Tests for fitcircle.
 import os
 
 import numpy as np
-import pandas as pd
 import numpy.testing as npt
+import pandas as pd
 import pytest
 from pygmt import fitcircle
 from pygmt.exceptions import GMTInvalidInput
@@ -37,15 +37,16 @@ def test_fitcircle_no_outfile(data):
     result = fitcircle(data=data, normalize=True)
     assert result.shape == (7, 3)
     # Test longitude results
-    npt.assert_allclose(result.iloc[:,0].min(), 52.7434273422)
-    npt.assert_allclose(result.iloc[:,0].max(), 330.243649573)
-    npt.assert_allclose(result.iloc[:,0].mean(), 223.078116476)
-    npt.assert_allclose(result.iloc[:,0].median(), 232.7449849)
+    npt.assert_allclose(result.iloc[:, 0].min(), 52.7434273422)
+    npt.assert_allclose(result.iloc[:, 0].max(), 330.243649573)
+    npt.assert_allclose(result.iloc[:, 0].mean(), 223.078116476)
+    npt.assert_allclose(result.iloc[:, 0].median(), 232.7449849)
     # Test latitude results
-    npt.assert_allclose(result.iloc[:,1].min(), -21.2085369093)
-    npt.assert_allclose(result.iloc[:,1].max(), 21.2085369093)
-    npt.assert_allclose(result.iloc[:,1].mean(), -7.8863683297)
-    npt.assert_allclose(result.iloc[:,1].median(), -18.406777)
+    npt.assert_allclose(result.iloc[:, 1].min(), -21.2085369093)
+    npt.assert_allclose(result.iloc[:, 1].max(), 21.2085369093)
+    npt.assert_allclose(result.iloc[:, 1].mean(), -7.8863683297)
+    npt.assert_allclose(result.iloc[:, 1].median(), -18.406777)
+
 
 def test_fitcircle_file_output(data):
     """
@@ -57,6 +58,7 @@ def test_fitcircle_file_output(data):
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+
 
 def test_fitcircle_invalid_format(data):
     """
@@ -76,8 +78,8 @@ def test_fitcircle_no_normalize(data):
 
 def test_fitcircle_no_outfile_specified(data):
     """
-    Test that fitcircle fails when outpput_type is set to 'file' but 
-    no output file name is specified.
+    Test that fitcircle fails when outpput_type is set to 'file' but no output
+    file name is specified.
     """
     with pytest.raises(GMTInvalidInput):
         fitcircle(data=data, normalize=True, output_type="file")
