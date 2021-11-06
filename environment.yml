@@ -16,9 +16,8 @@ dependencies:
     # Development dependencies
     - black
     - blackdoc
-    - coverage[toml]
     - docformatter
-    - dvc=2.3.0
+    - dvc
     - flake8
     - ipython
     - isort>=5

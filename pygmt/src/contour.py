@@ -5,6 +5,7 @@ contour - Plot contour table data.
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
+    check_data_input_order,
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
@@ -14,6 +15,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="annotation",
     B="frame",
@@ -41,7 +43,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def contour(self, x=None, y=None, z=None, data=None, **kwargs):
+def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Contour table data by direct triangulation.
 
@@ -56,12 +58,12 @@ def contour(self, x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
-    x/y/z : 1d arrays
-        Arrays of x and y coordinates and values z of the data points.
     data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}
+    x/y/z : 1d arrays
+        Arrays of x and y coordinates and values z of the data points.
     {J}
     {R}
     annotation : str or int

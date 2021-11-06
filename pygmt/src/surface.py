@@ -6,6 +6,7 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
+    check_data_input_order,
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
@@ -16,6 +17,7 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @deprecate_parameter("outfile", "outgrid", "v0.5.0", remove_version="v0.7.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
@@ -32,7 +34,7 @@ from pygmt.io import load_dataarray
     w="wrap",
 )
 @kwargs_to_strings(R="sequence")
-def surface(x=None, y=None, z=None, data=None, **kwargs):
+def surface(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Grids table data using adjustable tension continuous curvature splines.
 
@@ -54,12 +56,12 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
-    x/y/z : 1d arrays
-        Arrays of x and y coordinates and values z of the data points.
     data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
+    x/y/z : 1d arrays
+        Arrays of x and y coordinates and values z of the data points.
 
     {I}
 

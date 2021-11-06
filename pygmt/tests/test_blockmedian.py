@@ -24,7 +24,7 @@ def test_blockmedian_input_dataframe(dataframe):
     """
     Run blockmedian by passing in a pandas.DataFrame as input.
     """
-    output = blockmedian(table=dataframe, spacing="5m", region=[245, 255, 20, 30])
+    output = blockmedian(data=dataframe, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, pd.DataFrame)
     assert all(dataframe.columns == output.columns)
     assert output.shape == (5849, 3)
@@ -37,7 +37,7 @@ def test_blockmedian_input_table_matrix(dataframe):
     a matrix.
     """
     table = dataframe.values
-    output = blockmedian(table=table, spacing="5m", region=[245, 255, 20, 30])
+    output = blockmedian(data=table, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
@@ -67,7 +67,7 @@ def test_blockmedian_wrong_kind_of_input_table_grid(dataframe):
     invalid_table = dataframe.bathymetry.to_xarray()
     assert data_kind(invalid_table) == "grid"
     with pytest.raises(GMTInvalidInput):
-        blockmedian(table=invalid_table, spacing="5m", region=[245, 255, 20, 30])
+        blockmedian(data=invalid_table, spacing="5m", region=[245, 255, 20, 30])
 
 
 def test_blockmedian_input_filename():
@@ -76,7 +76,7 @@ def test_blockmedian_input_filename():
     """
     with GMTTempFile() as tmpfile:
         output = blockmedian(
-            table="@tut_ship.xyz",
+            data="@tut_ship.xyz",
             spacing="5m",
             region=[245, 255, 20, 30],
             outfile=tmpfile.name,
@@ -92,7 +92,7 @@ def test_blockmedian_without_outfile_setting():
     """
     Run blockmedian by not passing in outfile parameter setting.
     """
-    output = blockmedian(table="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30])
+    output = blockmedian(data="@tut_ship.xyz", spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
