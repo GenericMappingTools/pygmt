@@ -45,7 +45,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.4.0
         if: github.event_name != 'repository_dispatch'
         with:
           # fecth all history so that setuptools-scm works
@@ -62,28 +62,32 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.4.0
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Setup Miniconda
-      - name: Setup Miniconda
+      # Install Mambaforge with conda-forge dependencies
+      - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
-          channels: conda-forge
-          miniconda-version: "latest"
+          channels: conda-forge,nodefaults
+          channel-priority: strict
+          miniforge-version: latest
+          miniforge-variant: Mambaforge
+          mamba-version: "*"
+          use-mamba: true
 
       # Install dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install ninja cmake libblas libcblas liblapack fftw gdal geopandas \
+          mamba install ninja cmake libblas libcblas liblapack fftw gdal geopandas \
                         ghostscript libnetcdf hdf5 zlib curl pcre make dvc
           pip install --pre numpy pandas xarray netCDF4 packaging \
                             ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery \
@@ -98,12 +102,12 @@ jobs:
         if: runner.os != 'Windows'
 
       - name: Install GMT dev version from conda-forge (Windows)
-        run: conda install -c conda-forge/label/dev gmt
+        run: mamba install -c conda-forge/label/dev gmt=6.3
         if: runner.os == 'Windows'
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.14.1
+        uses: dawidd6/action-download-artifact@v2.15.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

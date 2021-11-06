@@ -7,7 +7,7 @@ import pytest
 from pygmt import Figure
 
 
-@pytest.fixture(scope="module", name="table", params=[list, pd.Series])
+@pytest.fixture(scope="module", name="data", params=[list, pd.Series])
 def fixture_table(request):
     """
     Returns a list of integers to be used in the histogram.
@@ -17,13 +17,13 @@ def fixture_table(request):
 
 
 @pytest.mark.mpl_image_compare(filename="test_histogram.png")
-def test_histogram(table):
+def test_histogram(data):
     """
     Tests plotting a histogram using a sequence of integers from a table.
     """
     fig = Figure()
     fig.histogram(
-        table=table,
+        data=data,
         projection="X10c/10c",
         region=[0, 9, 0, 6],
         series=1,

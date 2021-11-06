@@ -3,13 +3,11 @@ surface - Grids table data using adjustable tension continuous curvature
 splines.
 """
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    data_kind,
+    check_data_input_order,
     deprecate_parameter,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -19,17 +17,24 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @deprecate_parameter("outfile", "outgrid", "v0.5.0", remove_version="v0.7.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
     G="outgrid",
     V="verbose",
     a="aspatial",
+    b="binary",
+    d="nodata",
+    e="find",
     f="coltypes",
+    h="header",
+    i="incols",
     r="registration",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence")
-def surface(x=None, y=None, z=None, data=None, **kwargs):
+def surface(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Grids table data using adjustable tension continuous curvature splines.
 
@@ -51,16 +56,16 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     Parameters
     ----------
+    data : str or {table-like}
+        Pass in (x, y, z) or (longitude, latitude, elevation) values by
+        providing a file name to an ASCII data table, a 2D
+        {table-classes}.
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
 
     {I}
 
-    region : str or list
-        *xmin/xmax/ymin/ymax*\[**+r**][**+u**\ *unit*].
-        Specify the region of interest.
+    {R}
 
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
@@ -68,8 +73,14 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
 
     {V}
     {a}
+    {b}
+    {d}
+    {e}
     {f}
+    {h}
+    {i}
     {r}
+    {w}
 
     Returns
     -------
@@ -80,20 +91,12 @@ def surface(x=None, y=None, z=None, data=None, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    kind = data_kind(data, x, y, z)
-    if kind == "vectors" and z is None:
-        raise GMTInvalidInput("Must provide z with x and y.")
-
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if kind == "file":
-                file_context = dummy_context(data)
-            elif kind == "matrix":
-                file_context = lib.virtualfile_from_matrix(data)
-            elif kind == "vectors":
-                file_context = lib.virtualfile_from_vectors(x, y, z)
-            else:
-                raise GMTInvalidInput("Unrecognized data type: {}".format(type(data)))
+            # Choose how data will be passed into the module
+            file_context = lib.virtualfile_from_data(
+                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            )
             with file_context as infile:
                 if "G" not in kwargs.keys():  # if outgrid is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})

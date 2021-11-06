@@ -32,9 +32,11 @@ from pygmt.session_management import end as _end
 from pygmt.src import (
     blockmean,
     blockmedian,
+    blockmode,
     config,
     dimfilter,
     grd2cpt,
+    grd2xyz,
     grdclip,
     grdcut,
     grdfill,
@@ -45,9 +47,15 @@ from pygmt.src import (
     grdproject,
     grdsample,
     grdtrack,
+    grdvolume,
     info,
     makecpt,
+    nearneighbor,
+    project,
+    select,
+    sph2grd,
     sphdistance,
+    sphinterpolate,
     surface,
     which,
     x2sys_cross,
@@ -77,7 +85,7 @@ def print_clib_info():
     lines = ["GMT library information:"]
     with Session() as ses:
         for key in sorted(ses.info):
-            lines.append("  {}: {}".format(key, ses.info[key]))
+            lines.append(f"  {key}: {ses.info[key]}")
     print("\n".join(lines))
 
 
@@ -212,7 +220,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     if verbose:
         args.append("-vv")
     if coverage:
-        args.append("--cov={}".format(package))
+        args.append(f"--cov={package}")
         args.append("--cov-report=term-missing")
     if doctest:
         args.append("--doctest-modules")
