@@ -70,7 +70,7 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
 @use_alias(
     I="spacing",
     R="region",
-    S="summarize",
+    S="summary",
     V="verbose",
     a="aspatial",
     b="binary",
@@ -112,12 +112,14 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     {I}
 
-    summarize: str
+    summary: str
         [**m**\|\ **n**\|\ **s**\|\ **w**].
-        Type of summary values calculated by blockmean. Use **n** to report the
-        number of input points inside each block, **s** to report the sum of
-        all z-values inside a block, **w** to report the sum of weights
-        [Default or **m** reports mean value].
+        Type of summary values calculated by blockmean. 
+        
+        - **n**: report the number of input points inside each block
+        - **s**: report the sum of all z-values inside a block
+        - **w**: report the sum of weights
+        - **m**: report mean value [Default]
 
     {R}
 
