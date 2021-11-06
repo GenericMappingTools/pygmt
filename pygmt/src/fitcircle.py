@@ -1,5 +1,5 @@
 """
-filter1d - Time domain filtering of 1-D data tables
+fitcircle - Fit coordinators to create vectors on a sphere.
 """
 import warnings
 
