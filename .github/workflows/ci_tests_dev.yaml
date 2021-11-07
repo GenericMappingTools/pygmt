@@ -4,7 +4,7 @@ name: GMT Dev Tests
 
 on:
   push:
-    branches: 
+    branches:
       - main
       - gmt-in
   pull_request:
@@ -33,7 +33,7 @@ jobs:
       matrix:
         python-version: [3.9]
         os: [ubuntu-latest, macOS-11.0, windows-latest]
-        gmt_git_ref: [master]
+        gmt_git_ref: [master, table-alloc-mode]
     defaults:
       run:
         shell: bash -l {0}
