@@ -110,7 +110,7 @@ def data_format_code(convention, component="full"):
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def meca(
-    self,  # pylint: disable=unused-argument
+    self,
     spec,
     scale,
     longitude=None,
@@ -284,23 +284,21 @@ def meca(
             "plot_latitude": plot_latitude,
         }
 
-        # make a DataFrame copy to check convention if it contains
-        # other parameters
-        if isinstance(spec, (dict, pd.DataFrame)):
-            # check if a copy is necessary
-            copy = False
-            drop_list = []
-            for pointer in data_pointers:
-                if pointer in spec:
-                    copy = True
-                    drop_list.append(pointer)
-            if copy:
-                spec_conv = spec.copy()
-                # delete optional parameters from copy for convention check
-                for item in drop_list:
-                    del spec_conv[item]
-            else:
-                spec_conv = spec
+        # make a DataFrame copy to check convention if it contains other params
+        # check if a copy is necessary
+        copy = False
+        drop_list = []
+        for pointer in data_pointers:
+            if pointer in spec:
+                copy = True
+                drop_list.append(pointer)
+        if copy:
+            spec_conv = spec.copy()
+            # delete optional parameters from copy for convention check
+            for item in drop_list:
+                del spec_conv[item]
+        else:
+            spec_conv = spec
 
         # set convention and focal parameters based on spec convention
         for conv in list(param_conventions):
