@@ -174,6 +174,7 @@ def download_test_data():
         "@hotspots.txt",
         "@ridge.txt",
         "@mars370d.txt",
+        "@MaunaLoa_CO2.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
         "@Table_5_11.txt",
         "@test.dat.nc",
