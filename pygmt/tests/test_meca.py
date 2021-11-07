@@ -209,7 +209,7 @@ def test_meca_loc_array():
 
 
 @pytest.mark.mpl_image_compare
-def test_meca_spec_gcmt_convention():
+def test_meca_gcmt_convention():
     """
     Test plotting beachballs using the global CMT convention.
     """
