@@ -20,7 +20,7 @@ def fixture_table():
     """
     fname = which("@MaunaLoa_CO2.txt", download="c")
     data = pd.read_csv(
-        fname, header=None, skiprows=1, sep="\s+", names=["date", "co2_ppm"]
+        fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
     )
     return data
 
