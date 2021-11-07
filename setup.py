@@ -21,7 +21,7 @@ SCRIPTS = []
 PACKAGE_DATA = {"pygmt.tests": ["data/*", "baseline/*"]}
 
 CLASSIFIERS = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Developers",
     "Intended Audience :: Education",
@@ -30,6 +30,7 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     f"License :: OSI Approved :: {LICENSE}",
 ]
 PLATFORMS = "Any"

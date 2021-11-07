@@ -17,12 +17,10 @@ from pygmt.helpers.utils import is_nonstr_iter
 COMMON_OPTIONS = {
     "R": r"""
         region : str or list
-            *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/regions>` of interest.""",
     "J": r"""
         projection : str
-            *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
     "A": r"""
@@ -175,9 +173,9 @@ COMMON_OPTIONS = {
             [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
             **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**].
             Examine the spacing between consecutive data points in order to
-            impose breaks in the line. To specify multiple critera, provide
+            impose breaks in the line. To specify multiple criteria, provide
             a list with each item containing a string describing one set of
-            critera. Prepend **a** to specify that all the criteria must be
+            criteria. Prepend **a** to specify that all the criteria must be
             met [Default is to impose breaks if any criteria are met]. The
             following modifiers are supported:
 
@@ -448,11 +446,9 @@ def fmt_docstring(module_func):
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
     region : str or list
-        *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/regions>` of interest.
     projection : str
-        *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
