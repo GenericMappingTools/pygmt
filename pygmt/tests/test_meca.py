@@ -21,7 +21,7 @@ def test_meca_spec_dictionary():
     fig = Figure()
     # Right lateral strike slip focal mechanism
     fig.meca(
-        dict(strike=0, dip=90, rake=0, magnitude=5),
+        spec=dict(strike=0, dip=90, rake=0, magnitude=5),
         longitude=0,
         latitude=5,
         depth=0,
@@ -108,7 +108,7 @@ def test_meca_spec_1d_array():
     ]
     focal_mech_array = np.asarray(focal_mechanism)
     fig.meca(
-        focal_mech_array,
+        spec=focal_mech_array,
         convention="mt",
         component="full",
         region=[-128, -127, 40, 41],

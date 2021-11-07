@@ -6,14 +6,7 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 def data_format_code(convention, component="full"):
@@ -136,7 +129,7 @@ def meca(
 
     Parameters
     ----------
-    spec: dict, 1D array, 2D array, pd.DataFrame, or str
+    spec : str or dict or numpy.ndarray or pandas.DataFrame
         Either a filename containing focal mechanism parameters as columns, a
         1- or 2-D array with the same, or a dictionary. If a filename or array,
         `convention` is required so we know how to interpret the
@@ -442,20 +435,19 @@ def meca(
         else:
             raise GMTError("Parameter 'spec' contains values of an unsupported type.")
 
+    # Ensure non-file types are a 2d array
+    if isinstance(spec, (list, np.ndarray)):
+        spec = np.atleast_2d(spec)
+
     # determine data_foramt from convection and component
     data_format = data_format_code(convention=convention, component=component)
 
     # Assemble -S flag
     kwargs["S"] = data_format + scale
 
-    kind = data_kind(spec)
     with Session() as lib:
-        if kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(np.atleast_2d(spec))
-        elif kind == "file":
-            file_context = dummy_context(spec)
-        else:
-            raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
+        # Choose how data will be passed into the module
+        file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
             lib.call_module("meca", arg_str)
