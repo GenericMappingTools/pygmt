@@ -264,7 +264,7 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method=None):
+    def show(self, dpi=300, width=500, method=None, waiting=0.5):
         """
         Display a preview of the figure.
 
@@ -284,7 +284,12 @@ class Figure:
         This is useful when running unit tests and building the documentation
         in consoles without a Graphical User Interface.
 
-        Note that the external viewer does not block the current process.
+        Note that the external viewer does not block the current process, thus
+        it's necessary to suspend the execution of the current process for a
+        short while after launching the external view, so that the preview
+        image won't be deleted before the external viewer tries to open it. Set
+        the ``waiting`` parameter to a larger number if your computer is old
+        and slow.
 
         Parameters
         ----------
@@ -298,6 +303,10 @@ class Figure:
             - **external**: PDF preview in an external program [default]
             - **notebook**: PNG preview [default in Jupyter notebooks]
             - **none**: Disable image preview
+        waiting : float
+            Suspend the execution of the current process for a given number of
+            seconds after launching an external viewer.
+            Only works if ``method="external"``.
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -329,7 +338,7 @@ class Figure:
 
         if method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
-            launch_external_viewer(pdf)
+            launch_external_viewer(pdf, waiting=waiting)
 
     def shift_origin(self, xshift=None, yshift=None):
         """
