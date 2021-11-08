@@ -14,12 +14,12 @@ data = data[["longitude", "latitude", "depth_km"]]
 
 # Set the region for the plot
 region = [130, 152.5, 32.5, 52.5]
-# Define spacing in x and y direction
+# Define spacing in x and y direction (150 by 150 minute blocks)
 spacing = "150m"
 
 fig = pygmt.Figure()
 
-# Calculate mean depth in km from all events within 150x 150
+# Calculate mean depth in km from all events within 150x150 minute
 # bins using blockmean
 df = pygmt.blockmean(data, region=region, spacing=spacing)
 # convert to grid
@@ -42,8 +42,9 @@ fig.colorbar(frame=["x+lkm"])
 fig.shift_origin(xshift="w+5c")
 
 # ----------------------------------------------------
-# Calculate number of total locations within 150x 150 bins using blockmean
-df = pygmt.blockmean(data, region=region, spacing=spacing, S="n")
+# Calculate number of total locations within 150x150 minute bins via
+# blockmean's summary parameter
+df = pygmt.blockmean(data, region=region, spacing=spacing, summary="n")
 grd = pygmt.xyz2grd(df, region=region, spacing=spacing)
 
 fig.grdimage(
