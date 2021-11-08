@@ -3,4 +3,4 @@
 Tutorials
 =========
 
-These tutorials teach how to complete various tasks using PyGMT.
+These examples teach us how to complete various tasks using PyGMT!
