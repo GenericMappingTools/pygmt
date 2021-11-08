@@ -11,7 +11,7 @@ passed into the ``region`` parameter to create a range of the data on an axis.
 The following examples will demonstrate how to create plots
 using the different datetime objects.
 """
-# sphinx_gallery_thumbnail_number = 0
+# sphinx_gallery_thumbnail_number = 8
 
 import datetime
 
