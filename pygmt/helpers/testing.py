@@ -170,11 +170,11 @@ def download_test_data():
         "S90W180.earth_age_05m_g.nc"  # Specific grid for 05m test
         # Other cache files
         "@EGM96_to_36.txt",
+        "@MaunaLoa_CO2.txt",
         "@fractures_06.txt",
         "@hotspots.txt",
         "@ridge.txt",
         "@mars370d.txt",
-        "@MaunaLoa_CO2.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
         "@Table_5_11.txt",
         "@test.dat.nc",
