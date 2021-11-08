@@ -87,7 +87,7 @@ sphinx_gallery_conf = {
             "../examples/projections/misc",
             "../examples/projections/nongeo",
             "../examples/projections/table",
-            "../examples/tutorials/beginner",
+            "../examples/tutorials/basics",
             "../examples/tutorials/advanced",
         ]
     ),

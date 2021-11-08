@@ -61,7 +61,7 @@ def grdview(self, grid, **kwargs):
         DataArray.
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/beginner/regions>` of interest.
+        Specify the :doc:`region </tutorials/basics/regions>` of interest.
         When used with ``perspective``, optionally append */zmin/zmax* to
         indicate the range to use for the 3-D axes [Default is the region in
         the input grid].

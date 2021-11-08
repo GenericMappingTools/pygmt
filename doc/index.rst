@@ -20,7 +20,7 @@
 
     overview.rst
     install.rst
-    tutorials/beginner/first_figure.rst
+    tutorials/basics/first_figure.rst
 
 .. toctree::
     :maxdepth: 2

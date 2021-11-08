@@ -285,7 +285,7 @@ fig.show()
 # Starting off with ``WS``, adding this string means that only
 # Western/Left (**W**) and Southern/Bottom (**S**) borders of
 # the plot will be shown. For more information on this, please
-# refer to :doc:`frame instructions </tutorials/beginner/frames>`.
+# refer to :doc:`frame instructions </tutorials/basics/frames>`.
 #
 # The other important item in the ``frame`` list is
 # ``"sxa1Of1D"``. This string modifies the secondary
