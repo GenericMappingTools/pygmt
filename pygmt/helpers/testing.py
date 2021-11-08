@@ -171,12 +171,12 @@ def download_test_data():
         # Other cache files
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
+        "@Table_5_11.txt",
         "@fractures_06.txt",
         "@hotspots.txt",
         "@ridge.txt",
         "@mars370d.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
-        "@Table_5_11.txt",
         "@test.dat.nc",
         "@tut_bathy.nc",
         "@tut_quakes.ngdc",
