@@ -112,14 +112,14 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     {I}
 
-    summary: str
+    summary : str
         [**m**\|\ **n**\|\ **s**\|\ **w**].
         Type of summary values calculated by blockmean.
 
-        - **n**: report the number of input points inside each block
-        - **s**: report the sum of all z-values inside a block
-        - **w**: report the sum of weights
-        - **m**: report mean value [Default]
+        - **m** - reports mean value [Default]
+        - **n** - report the number of input points inside each block
+        - **s** - report the sum of all z-values inside a block
+        - **w** - report the sum of weights
 
     {R}
 
