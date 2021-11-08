@@ -46,7 +46,7 @@ def test_meca_spec_dict_list():
         strike=[330, 350], dip=[30, 50], rake=[90, 90], magnitude=[3, 2]
     )
     fig.meca(
-        focal_mechanisms,
+        spec=focal_mechanisms,
         longitude=[-124.3, -124.4],
         latitude=[48.1, 48.2],
         depth=[12.0, 11.0],
@@ -110,7 +110,9 @@ def test_meca_spec_dataframe():
         depth=[12, 11.0],
     )
     spec_dataframe = pd.DataFrame(data=focal_mechanisms)
-    fig.meca(spec_dataframe, region=[-125, -122, 47, 49], scale="2c", projection="M14c")
+    fig.meca(
+        spec=spec_dataframe, region=[-125, -122, 47, 49], scale="2c", projection="M14c"
+    )
     return fig
 
 
@@ -183,7 +185,7 @@ def test_meca_spec_2d_array():
     ]
     focal_mechs_array = np.asarray(focal_mechanisms)
     fig.meca(
-        focal_mechs_array,
+        spec=focal_mechs_array,
         convention="gcmt",
         region=[-128, -127, 40, 41],
         scale="2c",

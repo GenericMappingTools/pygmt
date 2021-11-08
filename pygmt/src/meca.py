@@ -322,13 +322,20 @@ def meca(
 
         # create a dict type pointer for easier to read code
         if isinstance(spec, dict):
-            dict_type_pointer = list(spec.values())[0]
-        elif isinstance(spec, pd.DataFrame):
-            # use df.values as pointer for DataFrame behavior
-            dict_type_pointer = spec.values
+            # Convert single int, float data to List[int, float] data
+            _spec = {
+                "longitude": np.atleast_1d(longitude),
+                "latitude": np.atleast_1d(latitude),
+                "depth": np.atleast_1d(depth),
+            }
+            _spec.update({key: np.atleast_1d(val) for key, val in spec.items()})
+            spec = pd.DataFrame.from_dict(_spec)
 
-        # assemble the 1D array for the case of floats and ints as values
-        if isinstance(dict_type_pointer, (int, float)):
+        assert isinstance(spec, pd.DataFrame)
+        dict_type_pointer = spec.values
+
+        # Assemble the array for the case of pd.DataFrames
+        if isinstance(dict_type_pointer, np.ndarray):
             # update pointers
             set_pointer(data_pointers, spec)
             # look for optional parameters in the right place
@@ -340,101 +347,7 @@ def meca(
                 plot_latitude,
             ) = update_pointers(data_pointers)
 
-            # Construct the array (order matters)
-            spec = [longitude, latitude, depth] + [spec[key] for key in foc_params]
-
-            # Add in plotting options, if given, otherwise add 0s
-            for arg in plot_longitude, plot_latitude:
-                if arg is None:
-                    spec.append(0)
-                else:
-                    if "A" not in kwargs:
-                        kwargs["A"] = True
-                    spec.append(arg)
-
-        # or assemble the 2D array for the case of lists as values
-        elif isinstance(dict_type_pointer, list):
-            # update pointers
-            set_pointer(data_pointers, spec)
-            # look for optional parameters in the right place
-            (
-                longitude,
-                latitude,
-                depth,
-                plot_longitude,
-                plot_latitude,
-            ) = update_pointers(data_pointers)
-
-            # before constructing the 2D array lets check that each key
-            # of the dict has the same quantity of values to avoid bugs
-            list_length = len(list(spec.values())[0])
-            for value in list(spec.values()):
-                if len(value) != list_length:
-                    raise GMTError(
-                        "Unequal number of focal mechanism "
-                        "parameters supplied in 'spec'."
-                    )
-                # lets also check the inputs for longitude, latitude,
-                # and depth if it is a list or array
-                if (
-                    isinstance(longitude, (list, np.ndarray))
-                    or isinstance(latitude, (list, np.ndarray))
-                    or isinstance(depth, (list, np.ndarray))
-                ):
-                    if (len(longitude) != len(latitude)) or (
-                        len(longitude) != len(depth)
-                    ):
-                        raise GMTError(
-                            "Unequal number of focal mechanism " "locations supplied."
-                        )
-
-            # values are ok, so build the 2D array
-            spec_array = []
-            for index in range(list_length):
-                # Construct the array one row at a time (note that order
-                # matters here, hence the list comprehension!)
-                row = [longitude[index], latitude[index], depth[index]] + [
-                    spec[key][index] for key in foc_params
-                ]
-
-                # Add in plotting options, if given, otherwise add 0s as
-                # required by GMT
-                for arg in plot_longitude, plot_latitude:
-                    if arg is None:
-                        row.append(0)
-                    else:
-                        if "A" not in kwargs:
-                            kwargs["A"] = True
-                        row.append(arg[index])
-                spec_array.append(row)
-            spec = spec_array
-
-        # or assemble the array for the case of pd.DataFrames
-        elif isinstance(dict_type_pointer, np.ndarray):
-            # update pointers
-            set_pointer(data_pointers, spec)
-            # look for optional parameters in the right place
-            (
-                longitude,
-                latitude,
-                depth,
-                plot_longitude,
-                plot_latitude,
-            ) = update_pointers(data_pointers)
-
-            # lets also check the inputs for longitude, latitude, and depth
-            # just in case the user entered different length lists
-            if (
-                isinstance(longitude, (list, np.ndarray))
-                or isinstance(latitude, (list, np.ndarray))
-                or isinstance(depth, (list, np.ndarray))
-            ):
-                if (len(longitude) != len(latitude)) or (len(longitude) != len(depth)):
-                    raise GMTError(
-                        "Unequal number of focal mechanism locations supplied."
-                    )
-
-            # values are ok, so build the 2D array in the correct order
+            # build the 2D array in the correct order
             spec_array = []
             for index in range(len(spec)):
                 # Construct the array one row at a time (note that order
@@ -458,8 +371,8 @@ def meca(
         else:
             raise GMTError("Parameter 'spec' contains values of an unsupported type.")
 
-    # Ensure non-file types are a 2d array
-    if isinstance(spec, (list, np.ndarray)):
+    # Convert 1d array types into 2d arrays
+    if isinstance(spec, np.ndarray) and spec.ndim == 1:
         spec = np.atleast_2d(spec)
 
     # determine data_foramt from convection and component
