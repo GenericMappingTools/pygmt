@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTError
 from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -54,6 +55,39 @@ def test_meca_spec_dict_list():
         projection="M14c",
     )
     return fig
+
+
+def test_meca_spec_unequal_sized_lists_fails():
+    """
+    Test that supplying a dictionary containing unequal sized lists of
+    coordinates (longitude/latitude/depth) or focal mechanisms
+    (strike/dip/rake/magnitude) to the spec parameter fails.
+    """
+    fig = Figure()
+
+    # Unequal sized coordinates (longitude/latitude/depth)
+    focal_mechanisms = dict(
+        strike=[330, 350], dip=[30, 50], rake=[90, 90], magnitude=[3, 2]
+    )
+    with pytest.raises(GMTError):
+        fig.meca(
+            spec=focal_mechanisms,
+            longitude=[-124.3],
+            latitude=[48.1, 48.2],
+            depth=[12.0],
+            scale="2c",
+        )
+
+    # Unequal sized focal mechanisms (strike/dip/rake/magnitude)
+    focal_mechanisms = dict(strike=[330], dip=[30, 50], rake=[90], magnitude=[3, 2])
+    with pytest.raises(GMTError):
+        fig.meca(
+            spec=focal_mechanisms,
+            longitude=[-124.3, -124.4],
+            latitude=[48.1, 48.2],
+            depth=[12.0, 11.0],
+            scale="2c",
+        )
 
 
 @pytest.mark.mpl_image_compare

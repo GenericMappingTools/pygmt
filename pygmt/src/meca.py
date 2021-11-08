@@ -240,6 +240,29 @@ def meca(
         ):
             raise GMTError("Location not fully specified.")
 
+        # check the inputs for longitude, latitude, and depth
+        # just in case the user entered different length lists
+        if (
+            isinstance(longitude, (list, np.ndarray))
+            or isinstance(latitude, (list, np.ndarray))
+            or isinstance(depth, (list, np.ndarray))
+        ):
+            if (len(longitude) != len(latitude)) or (len(longitude) != len(depth)):
+                raise GMTError("Unequal number of focal mechanism locations supplied.")
+
+        if isinstance(spec, dict) and any(
+            isinstance(s, (list, np.ndarray)) for s in spec.values()
+        ):
+            # before constructing the 2D array lets check that each key
+            # of the dict has the same quantity of values to avoid bugs
+            list_length = len(list(spec.values())[0])
+            for value in list(spec.values()):
+                if len(value) != list_length:
+                    raise GMTError(
+                        "Unequal number of focal mechanism "
+                        "parameters supplied in 'spec'."
+                    )
+
         param_conventions = {
             "AKI": ["strike", "dip", "rake", "magnitude"],
             "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent"],
