@@ -80,7 +80,12 @@ def test_surface_input_file(region, spacing, expected_grid):
     """
     Run surface by passing in a filename.
     """
-    output = surface(data="@Table_5_11_mean.xyz", spacing=spacing, region=region)
+    output = surface(
+        data="@Table_5_11_mean.xyz",
+        spacing=spacing,
+        region=region,
+        verbose="e",  # Suppress warnings for IEEE 754 rounding
+    )
     check_values(output, expected_grid)
 
 
@@ -89,7 +94,12 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
     Run surface by passing in a numpy array into data.
     """
     data = data.values  # convert pandas.DataFrame to numpy.ndarray
-    output = surface(data=data, spacing=spacing, region=region)
+    output = surface(
+        data=data,
+        spacing=spacing,
+        region=region,
+        verbose="e",  # Suppress warnings for IEEE 754 rounding
+    )
     check_values(output, expected_grid)
 
 
@@ -103,6 +113,7 @@ def test_surface_input_xyz(data, region, spacing, expected_grid):
         z=data.z,
         spacing=spacing,
         region=region,
+        verbose="e",  # Suppress warnings for IEEE 754 rounding
     )
     check_values(output, expected_grid)
 
@@ -124,7 +135,11 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
     data = data.values  # convert pandas.DataFrame to numpy.ndarray
     with GMTTempFile(suffix=".nc") as tmpfile:
         output = surface(
-            data=data, spacing=spacing, region=region, outgrid=tmpfile.name
+            data=data,
+            spacing=spacing,
+            region=region,
+            outgrid=tmpfile.name,
+            verbose="e",  # Suppress warnings for IEEE 754 rounding
         )
         assert output is None  # check that output is None since outgrid is set
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists at path
@@ -145,6 +160,7 @@ def test_surface_deprecate_outfile_to_outgrid(data, region, spacing, expected_gr
                 spacing=spacing,
                 region=region,
                 outfile=tmpfile.name,
+                verbose="e",  # Suppress warnings for IEEE 754 rounding
             )
             assert output is None  # check that output is None since outfile is set
             assert os.path.exists(path=tmpfile.name)  # check that file exists at path
