@@ -4,14 +4,12 @@ filter1d - Time domain filtering of 1-D data tables
 import warnings
 
 import pandas as pd
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
