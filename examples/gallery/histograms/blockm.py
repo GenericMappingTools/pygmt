@@ -1,15 +1,17 @@
 """
 Blockmean
 ---------
-The :meth:`pygmt.blockmean` method allows to calculate block averages and
-to report the number of points inside each block.
+The :meth:`pygmt.blockmean` method allows to calculate different quantities
+inside blocks/bins whose dimensions are defined via the ``spacing`` parameter.
+The following example shows how to calculate averages of given values inside
+each block as well as how to report the number of points inside each bin.
 """
 
 import pygmt
 
-# load sample data
+# Load sample data
 data = pygmt.datasets.load_japan_quakes()
-# select only needed columns
+# Select only needed columns
 data = data[["longitude", "latitude", "depth_km"]]
 
 # Set the region for the plot
@@ -41,7 +43,6 @@ fig.colorbar(frame=["x+lkm"])
 
 fig.shift_origin(xshift="w+5c")
 
-# ----------------------------------------------------
 # Calculate number of total locations within 150x150 minute bins via
 # blockmean's summary parameter
 df = pygmt.blockmean(data, region=region, spacing=spacing, summary="n")
