@@ -6,13 +6,14 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
+    check_data_input_order,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
 
 
-def _blockm(block_method, table, outfile, x, y, z, **kwargs):
+def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     r"""
     Block average (x,y,z) data tables by mean, median, or mode estimation.
 
@@ -38,12 +39,11 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``)
     """
-
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
             # Choose how data will be passed into the module
             table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=table, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             # Run blockm* on data table
             with table_context as infile:
@@ -55,7 +55,7 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
             try:
-                column_names = table.columns.to_list()
+                column_names = data.columns.to_list()
                 result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
             except AttributeError:  # 'str' object has no attribute 'columns'
                 result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
@@ -66,13 +66,15 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
 
 
 @fmt_docstring
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
+    S="summary",
     V="verbose",
     a="aspatial",
     b="binary",
-    d="data",
+    d="nodata",
     e="find",
     f="coltypes",
     h="header",
@@ -82,7 +84,7 @@ def _blockm(block_method, table, outfile, x, y, z, **kwargs):
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
-def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
+def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by mean estimation.
 
@@ -93,7 +95,7 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Takes a matrix, xyz triplets, or a file name as input.
 
-    Must provide either ``table`` or ``x``, ``y``, and ``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`blockmean.html`
 
@@ -101,7 +103,7 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -109,6 +111,15 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
         Arrays of x and y coordinates and values z of the data points.
 
     {I}
+
+    summary : str
+        [**m**\|\ **n**\|\ **s**\|\ **w**].
+        Type of summary values calculated by blockmean.
+
+        - **m** - reports mean value [Default]
+        - **n** - report the number of input points inside each block
+        - **s** - report the sum of all z-values inside a block
+        - **w** - report the sum of weights
 
     {R}
 
@@ -138,11 +149,12 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
           set by ``outfile``).
     """
     return _blockm(
-        block_method="blockmean", table=table, outfile=outfile, x=x, y=y, z=z, **kwargs
+        block_method="blockmean", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
     )
 
 
 @fmt_docstring
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
@@ -159,7 +171,7 @@ def blockmean(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
-def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
+def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by median estimation.
 
@@ -170,7 +182,7 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Takes a matrix, xyz triplets, or a file name as input.
 
-    Must provide either ``table`` or ``x``, ``y``, and ``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`blockmedian.html`
 
@@ -178,7 +190,7 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -215,24 +227,19 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
           set by ``outfile``).
     """
     return _blockm(
-        block_method="blockmedian",
-        table=table,
-        outfile=outfile,
-        x=x,
-        y=y,
-        z=z,
-        **kwargs
+        block_method="blockmedian", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
     )
 
 
 @fmt_docstring
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
     V="verbose",
     a="aspatial",
     b="binary",
-    d="data",
+    d="nodata",
     e="find",
     f="coltypes",
     h="header",
@@ -242,7 +249,7 @@ def blockmedian(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
-def blockmode(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
+def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by mode estimation.
 
@@ -253,7 +260,7 @@ def blockmode(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Takes a matrix, xyz triplets, or a file name as input.
 
-    Must provide either ``table`` or ``x``, ``y``, and ``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`blockmode.html`
 
@@ -261,7 +268,7 @@ def blockmode(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -298,5 +305,5 @@ def blockmode(table=None, outfile=None, *, x=None, y=None, z=None, **kwargs):
           set by ``outfile``).
     """
     return _blockm(
-        block_method="blockmode", table=table, outfile=outfile, x=x, y=y, z=z, **kwargs
+        block_method="blockmode", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
     )

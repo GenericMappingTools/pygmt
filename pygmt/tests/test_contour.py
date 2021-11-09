@@ -98,7 +98,7 @@ def test_contour_deprecate_columns_to_incols(region):
 
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.contour(
-            data=data,
+            data,
             projection="X10c",
             region=region,
             frame="a",
