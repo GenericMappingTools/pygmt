@@ -14,8 +14,3 @@ Notebook.
 This tutorial will progressively cover PyGMT plotting concepts, and later
 examples will use concepts explained in previous examples. It will not
 cover all PyGMT modules.
-
-.. toctree::
-    :maxdepth: 1
-
-    starter-tutorials/first_figure.rst
