@@ -66,10 +66,11 @@ sphinx_gallery_conf = {
     "examples_dirs": [
         "../examples/gallery",
         "../examples/tutorials",
+    "../examples/starter-tutorial",
         "../examples/projections",
     ],
     # path where to save gallery generated examples
-    "gallery_dirs": ["gallery", "tutorials", "projections"],
+    "gallery_dirs": ["gallery", "tutorials", "starter-tutorial", "projections"],
     "subsection_order": ExplicitOrder(
         [
             "../examples/gallery/maps",
