@@ -48,8 +48,8 @@ fig = pygmt.Figure()
 # the ``region`` argument with the minimum and maximum X-values (longitude)
 # and the minimum and maximum Y-values (latitude). For this example, the
 # minimum (bottom left) coordinates are N43.75 W69 and the maximum (top right)
-# coordinates are N44.75 W68. Negative values can be passed for latitudes in the
-# southern hemisphere or longitudes in the western hemisphere.
+# coordinates are N44.75 W68. Negative values can be passed for latitudes in
+# the southern hemisphere or longitudes in the western hemisphere.
 #
 # In addition to the region, a value needs to be passed to ``coast`` to tell
 # it what to plot. In this example, ``coast`` will be told to plot the
