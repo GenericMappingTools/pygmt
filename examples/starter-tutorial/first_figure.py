@@ -37,20 +37,26 @@ import pygmt
 fig = pygmt.Figure()
 
 ###############################################################################
-# Add elements to the figure using its methods. For example, let's use
-# :meth:`pygmt.Figure.basemap` to start the creation of a map. We'll use the
-# ``region`` parameter to provide the longitude and latitude bounds, the
-# ``projection`` parameter to set the projection to Mercator (**M**) and the
-# map width to 15 cm, and the ``frame`` parameter to generate a frame with
-# automatic tick and annotation spacings.
+# To add to a plot object (``fig`` in this example), the PyGMT module is used
+# as a method on the class. This example will use the module ``coast``, which
+# can be used to create a map without any other modules or external data. The
+# ``coast`` module plots the coastlines, borders, and bodies of water using a
+# database that is included in GMT.
+#
+# First, a region for the figure must be selected. This example will plot some
+# of the coast of Maine in the northeastern US. A Python list can be passed to
+# the ``region`` argument with the minimum and maximum X-values (longitude)
+# and the minimum and maximum Y-values (latitude). For this example, the
+# minimum (bottom left) coordinates are N43 W69 and the maximum (top right)
+# coordinates are N44 W68. Negative values can be passed for latitudes in the
+# southern hemisphere or longitudes in the western hemisphere.
+#
+# In addition to the region, a value needs to be passed to ``coast`` to tell
+# it what to plot. In this example, ``coast`` will be told to plot the
+# shorelines by passing the Boolean value ``True`` to the ``shorelines``
+# parameter.
 
-fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
-
-###############################################################################
-# Now we can add coastlines using :meth:`pygmt.Figure.coast` to this map using
-# the default resolution, line width, and color:
-
-fig.coast(shorelines=True)
+fig.coast(region=[-69, -68, 44, 45], shorelines=True)
 
 ###############################################################################
 # To see the figure, call :meth:`pygmt.Figure.show`:
