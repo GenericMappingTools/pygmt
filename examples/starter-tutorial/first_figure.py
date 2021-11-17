@@ -66,6 +66,9 @@ fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 fig.show()
 
 ###############################################################################
+# Color the land and water
+# ------------------------
+#
 # This figure plots all of the coastlines in the given region, but it does not
 # indicate where the land and water are. Color values can be passed to ``land``
 # and ``water`` to set the colors on the figure.
@@ -82,6 +85,29 @@ fig.coast(
     shorelines=True,
     land="lightgreen",
     water="lightblue",
+)
+fig.show()
+
+###############################################################################
+# Set the projection
+# ------------------
+#
+# This figure now has its colors set, but there is not projection or size is
+# not set for the map. Both of these values are set using the ``projection``
+# parameter.
+#
+# The appropriate projection varies for the type of map. The available
+# projections are explained in the "Projections" gallery. For this example,
+# the Mercator projection is set using "M". The width of the figure will be
+# 15 centimeters, as set by "15c"
+
+fig = pygmt.Figure()
+fig.coast(
+    region=[-69, -68, 43.75, 44.75],
+    shorelines=True,
+    land="lightgreen",
+    water="lightblue",
+    projection="M15c",
 )
 fig.show()
 
