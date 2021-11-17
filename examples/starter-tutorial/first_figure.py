@@ -1,22 +1,35 @@
 """
-Making your first figure
-========================
+1. Making your first figure
+===========================
 
-Here is how to plot your first figure.
+This tutorial page covers the basics of creating a figure. It will only use
+the ``coast`` module for plotting. Later examples will address other PyGMT
+modules.
 """
+
+###############################################################################
+# Setting up the development environment
+# --------------------------------------
+#
+# PyGMT can be used in both a Python script and a notebook environment, such
+# as Jupyter. The tutorial's recommended method is to use a notebook, and the
+# code will be for a notebook environment. If you use a Python script instead,
+# there will be a difference in how the figure is shown that is explained in
+# the first example.
+
 
 ###############################################################################
 # Loading the library
 # -------------------
 #
-# All modules and figure generation is accessible from the :mod:`pygmt` top
-# level package:
+# The first step is to import ``pygmt``. All modules and figure generation is
+# accessible from the :mod:`pygmt` top level package.
 
 import pygmt
 
 ###############################################################################
-# Creating figures
-# ----------------
+# Creating a figure
+# -----------------
 #
 # All figure generation in PyGMT is handled by the :class:`pygmt.Figure` class.
 # Start a new figure by creating an instance of this class:
