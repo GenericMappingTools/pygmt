@@ -59,16 +59,30 @@ fig = pygmt.Figure()
 fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
 ###############################################################################
-# To see the figure, call :meth:`pygmt.Figure.show`:
+# To see the figure, call :meth:`pygmt.Figure.show`. If you are using a Python
+# script instead of a notebook, use ``fig.show(method="external)`` to display
+# the figure.
 
 fig.show()
 
 ###############################################################################
-# You can also set the map region, projection, and frame type directly in other
-# methods without calling :meth:`gmt.Figure.basemap`:
+# This figure plots all of the coastlines in the given region, but it does not
+# indicate where the land and water are. Color values can be passed to ``land``
+# and ``water`` to set the colors on the figure.
+
+# When plotting colors in PyGMT, there are multiple
+# :gmt-docs:`color codes <gmtcolors.html>`, that can be used. This includes
+# standard GMT color names (like ``skyblue``), R/G/B levels (like ``0/0/255``),
+# a hex value (like ``#333333``), and a graylevel (like ``50``). For this
+# example, GMT color names are used.
 
 fig = pygmt.Figure()
-fig.coast(shorelines=True, region=[-90, -70, 0, 20], projection="M15c", frame=True)
+fig.coast(
+    region=[-69, -68, 43.75, 44.75],
+    shorelines=True,
+    land="lightgreen",
+    water="lightblue",
+)
 fig.show()
 
 ###############################################################################
