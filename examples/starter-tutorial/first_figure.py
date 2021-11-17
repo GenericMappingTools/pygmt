@@ -69,7 +69,7 @@ fig.show()
 # This figure plots all of the coastlines in the given region, but it does not
 # indicate where the land and water are. Color values can be passed to ``land``
 # and ``water`` to set the colors on the figure.
-
+#
 # When plotting colors in PyGMT, there are multiple
 # :gmt-docs:`color codes <gmtcolors.html>`, that can be used. This includes
 # standard GMT color names (like ``skyblue``), R/G/B levels (like ``0/0/255``),
