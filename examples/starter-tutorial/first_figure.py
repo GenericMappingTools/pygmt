@@ -47,8 +47,8 @@ fig = pygmt.Figure()
 # of the coast of Maine in the northeastern US. A Python list can be passed to
 # the ``region`` argument with the minimum and maximum X-values (longitude)
 # and the minimum and maximum Y-values (latitude). For this example, the
-# minimum (bottom left) coordinates are N43 W69 and the maximum (top right)
-# coordinates are N44 W68. Negative values can be passed for latitudes in the
+# minimum (bottom left) coordinates are N43.75 W69 and the maximum (top right)
+# coordinates are N44.75 W68. Negative values can be passed for latitudes in the
 # southern hemisphere or longitudes in the western hemisphere.
 #
 # In addition to the region, a value needs to be passed to ``coast`` to tell
@@ -56,7 +56,7 @@ fig = pygmt.Figure()
 # shorelines by passing the Boolean value ``True`` to the ``shorelines``
 # parameter.
 
-fig.coast(region=[-69, -68, 44, 45], shorelines=True)
+fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
 ###############################################################################
 # To see the figure, call :meth:`pygmt.Figure.show`:
