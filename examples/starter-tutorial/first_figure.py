@@ -135,3 +135,18 @@ fig.coast(
     frame=True,
 )
 fig.show()
+
+###############################################################################
+# Additional exercises
+# --------------------
+#
+# This is the end of the first tutorial. Here are some additional exercises
+# for the concepts that were discussed:
+# 1. Make a map of the Canary Islands. Use a tool like Google Maps to
+# determine the coordinates for the ``region`` argument.
+# 2. Change the color of the land to "khaki" and the water to "azure".
+# 3. Create a global map. Set the region to "d" to center the map at the Prime
+# Meridian or "g" to center the map at the International Date Line. When the
+# region is set without using a list full of integers or floating numbers,
+# the argument needs to be passed as a Python string. Create a 15 centimeter
+# map using the Mollwide ("W") projection.
