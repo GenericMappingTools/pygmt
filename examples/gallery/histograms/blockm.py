@@ -1,9 +1,9 @@
 """
 Blockmean
 ---------
-The :meth:`pygmt.blockmean` method allows to calculate different quantities
+The :meth:`pygmt.blockmean` method calculates different quantities
 inside blocks/bins whose dimensions are defined via the ``spacing`` parameter.
-The following example shows how to calculate averages of given values inside
+The following examples show how to calculate averages of given values inside
 each block as well as how to report the number of points inside each bin.
 """
 
@@ -23,12 +23,12 @@ fig = pygmt.Figure()
 
 # Calculate mean depth in km from all events within 150x150 minute
 # bins using blockmean
-df = pygmt.blockmean(data, region=region, spacing=spacing)
+df = pygmt.blockmean(data=data, region=region, spacing=spacing)
 # convert to grid
-grd = pygmt.xyz2grd(df, region=region, spacing=spacing)
+grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 
 fig.grdimage(
-    grd,
+    grid=grd,
     region=region,
     frame=["af", '+t"Mean earthquake depth inside each block"'],
     cmap="batlow",
@@ -45,11 +45,11 @@ fig.shift_origin(xshift="w+5c")
 
 # Calculate number of total locations within 150x150 minute bins via
 # blockmean's summary parameter
-df = pygmt.blockmean(data, region=region, spacing=spacing, summary="n")
-grd = pygmt.xyz2grd(df, region=region, spacing=spacing)
+df = pygmt.blockmean(data=data, region=region, spacing=spacing, summary="n")
+grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 
 fig.grdimage(
-    grd,
+    grid=grd,
     region=region,
     frame=["af", '+t"Number of points inside each block"'],
     cmap="batlow",
