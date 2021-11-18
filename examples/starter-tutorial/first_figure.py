@@ -92,14 +92,15 @@ fig.show()
 # Set the projection
 # ------------------
 #
-# This figure now has its colors set, but there is not projection or size is
-# not set for the map. Both of these values are set using the ``projection``
+# This figure now has its colors set, but there is not projection or size
+# set for the map. Both of these values are set using the ``projection``
 # parameter.
 #
 # The appropriate projection varies for the type of map. The available
 # projections are explained in the "Projections" gallery. For this example,
 # the Mercator projection is set using "M". The width of the figure will be
-# 15 centimeters, as set by "15c"
+# 15 centimeters, as set by "15c". The map size can also be set in inches
+# using "i" (e.g. a 5 inch wide Mercator projection would use "M5i").
 
 fig = pygmt.Figure()
 fig.coast(
