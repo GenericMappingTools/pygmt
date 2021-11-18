@@ -172,6 +172,7 @@ def download_test_data():
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
         "@Table_5_11.txt",
+        "@Table_5_11_mean.xyz",
         "@fractures_06.txt",
         "@hotspots.txt",
         "@ridge.txt",

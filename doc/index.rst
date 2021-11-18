@@ -20,36 +20,17 @@
 
     overview.rst
     install.rst
-    tutorials/first_figure.rst
-
-.. toctree::
-    :maxdepth: 2
-    :hidden:
-    :caption: Examples
-
-    gallery/index.rst
-    external_resources.md
+    tutorials/basics/first_figure.rst
 
 .. toctree::
     :maxdepth: 2
     :hidden:
     :caption: User Guide
 
-    tutorials/frames.rst
+    tutorials/index.rst
+    gallery/index.rst
     projections/index.rst
-    tutorials/coastlines.rst
-    tutorials/regions.rst
-    tutorials/plot.rst
-    tutorials/lines.rst
-    tutorials/vectors.rst
-    tutorials/date_time_charts.rst
-    tutorials/text.rst
-    tutorials/contour_map.rst
-    tutorials/earth_relief.rst
-    tutorials/3d_perspective_image.rst
-    tutorials/insets.rst
-    tutorials/subplots.rst
-    tutorials/configuration.rst
+    external_resources.md
 
 .. toctree::
     :maxdepth: 2
