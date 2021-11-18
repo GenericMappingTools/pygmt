@@ -54,7 +54,8 @@ fig = pygmt.Figure()
 # In addition to the region, a value needs to be passed to ``coast`` to tell
 # it what to plot. In this example, ``coast`` will be told to plot the
 # shorelines by passing the Boolean value ``True`` to the ``shorelines``
-# parameter.
+# parameter. The ``shorelines`` parameter has other options for finer control,
+# but setting it to ``True`` uses its default values.
 
 fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
@@ -99,7 +100,7 @@ fig.show()
 # The appropriate projection varies for the type of map. The available
 # projections are explained in the "Projections" gallery. For this example,
 # the Mercator projection is set using "M". The width of the figure will be
-# 15 centimeters, as set by "15c". The map size can also be set in inches
+# 10 centimeters, as set by "10c". The map size can also be set in inches
 # using "i" (e.g. a 5 inch wide Mercator projection would use "M5i").
 
 fig = pygmt.Figure()
@@ -108,6 +109,29 @@ fig.coast(
     shorelines=True,
     land="lightgreen",
     water="lightblue",
-    projection="M15c",
+    projection="M10c",
+)
+fig.show()
+
+###############################################################################
+# Add a frame
+# -----------
+#
+# Now that the map's colors, projection, and size have been set, the region
+# that is being displayed is not apparent. A frame can be added to the
+# latitude and longitude of the region.
+#
+# The ``frame`` parameter is used to add a frame to the figure. For now, it
+# will be set to ``True`` to use default settings, but later tutorials will
+# show how ``frame`` can be used to customize the axes, gridlines, and titles.
+
+fig = pygmt.Figure()
+fig.coast(
+    region=[-69, -68, 43.75, 44.75],
+    shorelines=True,
+    land="lightgreen",
+    water="lightblue",
+    projection="M10c",
+    frame=True,
 )
 fig.show()
