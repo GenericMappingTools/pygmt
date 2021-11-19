@@ -4,7 +4,7 @@ Blockmean
 The :meth:`pygmt.blockmean` method calculates different quantities
 inside blocks/bins whose dimensions are defined via the ``spacing`` parameter.
 The following examples show how to calculate the averages of the given values inside
-each block and how to report the number of points inside each bin.
+each bin and how to report the number of points inside each bin.
 """
 
 import pygmt
