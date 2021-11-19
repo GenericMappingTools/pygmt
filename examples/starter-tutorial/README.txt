@@ -14,7 +14,7 @@ pandas, and xarray, as well as includes the use of Jupyter notebooks.
 
 **About this tutorial**
 
-This tutorial assumes that PyGMT has been successfully installed. A quick
+This tutorial assumes that PyGMT has been successfully [installed](https://www.pygmt.org/latest/install.html). A quick
 way to test this is to type ``import pygmt`` in a Python IDE or Jupyter
 Notebook.
 
