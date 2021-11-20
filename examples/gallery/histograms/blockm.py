@@ -34,7 +34,7 @@ fig.grdimage(
     cmap="batlow",
 )
 # plot slightly transparent landmasses on top
-fig.coast(land="darkgray", transparency="40")
+fig.coast(land="darkgray", transparency=40)
 # plot original data points
 fig.plot(
     x=data.longitude, y=data.latitude, style="c0.3c", color="white", pen="1p,black"
@@ -54,7 +54,7 @@ fig.grdimage(
     frame=["af", '+t"Number of points inside each block"'],
     cmap="batlow",
 )
-fig.coast(land="darkgray", transparency="40")
+fig.coast(land="darkgray", transparency=40)
 fig.plot(
     x=data.longitude, y=data.latitude, style="c0.3c", color="white", pen="1p,black"
 )
