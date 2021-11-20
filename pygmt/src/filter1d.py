@@ -21,7 +21,7 @@ from pygmt.helpers import (
 )
 def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     r"""
-    Time domain filtering of 1-D data tables
+    Time domain filtering of 1-D data tables.
 
     Filter a general time domain for multiple column time
     series data. The user specifies which column is the time (i.e., the
@@ -36,7 +36,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     {aliases}
 
     Parameters
-    ----------.
+    ----------
     output_type : str
         Determine the format the xyz data will be returned in [Default is
         ``pandas``]:
