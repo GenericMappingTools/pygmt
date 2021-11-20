@@ -286,7 +286,7 @@ class Figure:
 
         Note that the external viewer does not block the current process, thus
         it's necessary to suspend the execution of the current process for a
-        short while after launching the external view, so that the preview
+        short while after launching the external viewer, so that the preview
         image won't be deleted before the external viewer tries to open it. Set
         the ``waiting`` parameter to a larger number if your computer is slow.
 
