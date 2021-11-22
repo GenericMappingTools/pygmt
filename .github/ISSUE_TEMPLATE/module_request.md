@@ -7,11 +7,11 @@ assignees: ''
 
 ---
 
-<!-- Please edit the issue title to include the name of the requested module. -->
+<!-- Please replace <module-name> in the issue title and the description with the name of the requested module and add the description of the module. -->
 
 **Description of the desired module**:
 
-Implement [`modulename`](https://docs.generic-mapping-tools.org/6.3/modulename.html) which "<insert description of the GMT module>"
+Implement [`<module-name>`](https://docs.generic-mapping-tools.org/latest/<module-name>.html) which `<insert description of the GMT module>`.
 
 <!-- Please be as detailed as you can in your description. If possible, include an example of how you would like to use this feature (even better if it's a code example). -->
 
