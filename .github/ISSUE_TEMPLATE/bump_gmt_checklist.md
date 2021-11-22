@@ -1,5 +1,5 @@
 ---
-name: Bump GMT version checklist.
+name: Bump GMT version checklist
 about: Checklist for bumping the minimum required GMT version.
 title: Bump to GMT X.Y.Z
 labels: maintenance
