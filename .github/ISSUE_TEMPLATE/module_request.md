@@ -22,7 +22,7 @@ assignees: ''
 
 **Checklist for wrapping GMT Module**
 
-<!-- Please do not edit this section when submitting pull requests. This checklist will help tracking progress on wrapping the module.-->
+<!-- Please do not edit this section when submitting pull requests. This checklist will help track progress on wrapping the module. -->
 
 - [ ] 'Initial feature implementation' PR
 - [ ] 'Add missing aliases to module' documentation PR | 'Support additional functionality in module' PR
