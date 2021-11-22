@@ -11,7 +11,7 @@ assignees: ''
 
 **Description of the desired module**:
 
-
+Implement [`modulename`](https://docs.generic-mapping-tools.org/6.3/modulename.html) which "<insert description of the GMT module>"
 
 <!-- Please be as detailed as you can in your description. If possible, include an example of how you would like to use this feature (even better if it's a code example). -->
 
@@ -24,7 +24,8 @@ assignees: ''
 
 <!-- Please do not edit this section when submitting pull requests. This checklist will help track progress on wrapping the module. -->
 
-- [ ] 'Initial feature implementation' PR
-- [ ] 'Add missing aliases to module' documentation PR | 'Support additional functionality in module' PR
+- [ ] 'Initial feature implementation' Pull Request (PR)
+- [ ] 'Add missing aliases to module' documentation PR
+- [ ] 'Support additional functionality in module' PR (optional)
 - [ ] 'Add gallery example for module' documentation PR
 - [ ] 'Add tutorial for module' documentation PR (optional)
