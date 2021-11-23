@@ -17,7 +17,31 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Plotting data and laying out the map:
+Plotting tabular data:
+
+.. autosummary::
+    :toctree: generated
+
+    Figure.contour
+    Figure.histogram
+    Figure.meca
+    Figure.plot
+    Figure.plot3d
+    Figure.rose
+    Figure.velo
+    Figure.wiggle
+
+Plotting gridded data:
+
+.. autosummary::
+    :toctree: generated
+
+    Figure.grdcontour
+    Figure.grdimage
+    Figure.grdview
+    Figure.image
+
+Plotting map elements:
 
 .. autosummary::
     :toctree: generated
@@ -25,27 +49,21 @@ Plotting data and laying out the map:
     Figure.basemap
     Figure.coast
     Figure.colorbar
-    Figure.contour
-    Figure.grdcontour
-    Figure.grdimage
-    Figure.grdview
-    Figure.histogram
-    Figure.image
     Figure.inset
     Figure.legend
     Figure.logo
-    Figure.meca
-    Figure.plot
-    Figure.plot3d
-    Figure.rose
+    Figure.solar
+    Figure.text
+
+Configuring layout:
+
+.. autosummary::
+    :toctree: generated
+
     Figure.set_panel
     Figure.shift_origin
-    Figure.solar
     Figure.subplot
-    Figure.text
-    Figure.velo
-    Figure.wiggle
-
+    
 Color palette table generation:
 
 .. autosummary::
