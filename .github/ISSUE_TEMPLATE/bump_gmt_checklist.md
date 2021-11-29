@@ -26,4 +26,4 @@ assignees: ''
   - [ ] Update compatibility table in `README.rst`
 - [ ] Fix failing tests (1 or more PRs)
 - [ ] Remove [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
-- [ ] Update deprecated syntax based on the [GMT Changelog](https://docs.generic-mapping-tools.org/latest/changes.html)
+- [ ] Update deprecated syntax in code examples based on the [GMT Changelog](https://docs.generic-mapping-tools.org/latest/changes.html)
