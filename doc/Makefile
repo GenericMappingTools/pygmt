@@ -39,7 +39,7 @@ html: api
 
 html-noplot: api
 	@echo
-	@echo "Building HTML files."
+	@echo "Building HTML files without example plots."
 	@echo
 	# Set PYGMT_USE_EXTERNAL_DISPLAY to "false" to disable external display
 	PYGMT_USE_EXTERNAL_DISPLAY="false" $(SPHINXBUILD) -D plot_gallery=0 -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
