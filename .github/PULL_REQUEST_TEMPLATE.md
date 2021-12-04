@@ -10,12 +10,10 @@ Fixes #
 
 **Reminders**
 
-- [ ] Run `make format` and `make check` to make sure the code follows the style guide.
-- [ ] Add tests for new features or tests that would have caught the bug that you're fixing.
-- [ ] Add new public functions/methods/classes to `doc/api/index.rst`.
-- [ ] Write detailed docstrings for all functions/methods.
-- [ ] If wrapping a new module, open a 'Wrap new GMT module' issue and submit reasonably-sized PRs.
-- [ ] If adding new functionality, add an example to docstrings or tutorials.
+- [ ] Try to get all checks passing, including style checks and test coverage.
+- [ ] Follow the general [pull request guidelines](https://www.pygmt.org/dev/contributing.html#general-guidelines-for-making-a-pull-request-pr).
+- [ ] If contributing documentation, follow the guidelines in [contributing documentation](https://www.pygmt.org/dev/contributing.html#contributing-documentation).
+- [ ] If contributing code, follow the guidelines in [contributing code](https://www.pygmt.org/dev/contributing.html#contributing-code).
 
 **Slash Commands**
 
