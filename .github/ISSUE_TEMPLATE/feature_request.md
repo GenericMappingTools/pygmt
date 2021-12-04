@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Feature request - General feature
 about: Request the addition of a new feature/functionality
 title: ''
 labels: feature request

@@ -184,7 +184,7 @@ def text_(
         raise GMTInvalidInput("Must provide text with x/y pairs or position")
 
     # Build the -F option in gmt text.
-    if "F" not in kwargs.keys() and (
+    if "F" not in kwargs and (
         (
             position is not None
             or angle is not None
