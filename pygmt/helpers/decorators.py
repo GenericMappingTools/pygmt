@@ -506,7 +506,7 @@ def _insert_alias(module_func, default_value=None):
     kwargs_param = wrapped_params.pop(-1)
     # Add new parameters from aliases
     for alias in module_func.aliases.values():
-        if alias not in sig.parameters.keys():
+        if alias not in sig.parameters:
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
