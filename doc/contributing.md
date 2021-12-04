@@ -165,6 +165,8 @@ To increase the chances of getting your pull request accepted quickly, try to:
     [Testing plots](#testing-plots).
   - Include an example of new features in the gallery or tutorials.
     Please refer to [Gallery plots](#gallery-plots) or [Tutorials](#tutorials).
+    If adding a new method/function/class, the gallery example or tutorial can
+    be submitted in a separate pulll request.
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
   - Follow the [PEP8](http://pep8.org) style guide for code and the
@@ -435,7 +437,8 @@ function/class/module.
 ### PyGMT Code Overview
 
 The source code for PyGMT is located in the `pygmt/` directory. When contributing
-code, be sure to follow the general guidelines in the
+code, please open an issue first to discuss the feature and its implementation
+and be sure to follow the general guidelines in the
 [pull request workflow](#pull-request-workflow) section.
 
 ### Code Style
@@ -478,6 +481,49 @@ contains rules for running both checks:
 make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
+
+### Wrapping a new GMT module
+
+Wrapping a new GMT module in PyGMT is usually a big task, which will progress
+quicker and smoother if done in **small, maneable chunks**. This section
+gives an overview of the specific tasks involved in wrapping a new module.
+
+1. Create a 'Wrapper for `<module-name>`' feature request issue. 
+2. Open a 'Wrap `<module-name>`' initial feature implementation PR
+3. Open an 'add missing aliases to `<module-name>` documentation PR
+4. Open a 'support additional functionality in module' PR (optional)
+5. Add 'gallery example for module' documentation PR
+6. Add 'tutorial for module' documentation PR (optional)
+
+These steps will be tracked in the 'Wrapper for `<module-name>`' issue. The
+pull requests can be split amongst multiple contributors and there is no
+obligation for a single contributor to complete all steps. Please comment on the
+initial 'Wrapper for `<module-name>`' if you would like to open a pull request
+for any of these tasks to avoid redundant efforts.
+
+#### Create a feature request issue
+
+* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
+  top of the GitHub repository and click *New Issue*.
+* Click on *Get started* next to *Feature request - Wrap new GMT module*
+* Follow the prompts for filling out the issue template
+
+#### Open an initial feature implementation PR
+
+If not already mentioned, first comment on the 'Wrapper for `<module-name>`'
+issue that you will be working on the initial feature implementation. This
+first pull request should be as minimal as possible - only adding the required
+functionality.
+
+The following steps are common to all initial implementation pull requests that
+wrap a new GMT module (e.g., [initial grdfill implementation](https://github.com/GenericMappingTools/pygmt/pull/1276/files)):
+
+* Create a new module `<module-name>.py` in `pygmt/src`. The module docstring
+  should include the module name and a short description of the functionality
+  (e.g., `grdfill - Fill blank areas from a grid.`).
+* Add a function `<module-name>` to the module. When writing the new function,
+  it is generally easiest to reference other functions that input/output similar
+  object types.
 
 ### Testing your Code
 
