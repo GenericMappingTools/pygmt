@@ -87,6 +87,8 @@ sphinx_gallery_conf = {
             "../examples/projections/misc",
             "../examples/projections/nongeo",
             "../examples/projections/table",
+            "../examples/tutorials/basics",
+            "../examples/tutorials/advanced",
         ]
     ),
     # Patter to search for example files
