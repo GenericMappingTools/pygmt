@@ -60,7 +60,7 @@ def sphinterpolate(data, **kwargs):
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
             with file_context as infile:
-                if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
+                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
