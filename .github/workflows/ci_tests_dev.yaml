@@ -30,7 +30,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.9]
-        os: [ubuntu-latest, macOS-11.0, windows-latest]
+        os: [ubuntu-latest, macOS-11.0, windows-2022]
         gmt_git_ref: [master]
     defaults:
       run:
