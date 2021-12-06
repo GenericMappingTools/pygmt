@@ -1,5 +1,5 @@
-Starter Tutorial
-================
+Intro to PyGMT
+==============
 
 Welcome to PyGMT! This tutorial is designed to teach the basic concepts to
 make a map in PyGMT.
