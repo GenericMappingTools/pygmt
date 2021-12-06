@@ -10,9 +10,9 @@ the ``style`` parameter where *size* defines the size of the text symbol
 different characters) and *string* can be a letter or a text string
 (less than 256 characters). Optionally, you can append **+f**\ *font* to
 select a particular font [Default is :gmt-term:`FONT_ANNOT_PRIMARY`] as well as
-**+j**\ *justify* to change the justification [Default is CM]. Outline color of 
-the text symbols can also be defined via the ``style`` parameter [Default is 
-black] while the fill color and the outline width can be customized via the 
+**+j**\ *justify* to change the justification [Default is CM]. Outline color of
+the text symbols can also be defined via the ``style`` parameter [Default is
+black] while the fill color and the outline width can be customized via the
 ``color`` and ``pen`` parameters, respectively.
 For all supported octal codes and fonts see the GMT cookbook
 :gmt-docs:`cookbook/octal-codes.html` and
