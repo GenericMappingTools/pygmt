@@ -3,7 +3,7 @@ name: Check Links
 
 on:
   # Uncomment the 'pull_request' line below to trigger the workflow in PR
-  pull_request:
+  # pull_request:
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
@@ -54,8 +54,8 @@ jobs:
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
-    #- name: Create Issue From File
-    #  uses: peter-evans/create-issue-from-file@v3
-    #  with:
-    #    title: Link Checker Report on ${{ steps.date.outputs.date }}
-    #    content-filepath: ./lychee/out.md
+    - name: Create Issue From File
+      uses: peter-evans/create-issue-from-file@v3
+      with:
+        title: Link Checker Report on ${{ steps.date.outputs.date }}
+        content-filepath: ./lychee/out.md
