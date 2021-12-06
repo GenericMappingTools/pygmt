@@ -6,7 +6,7 @@ make a map in PyGMT.
 
 **About this tutorial**
 
-This tutorial assumes that PyGMT has been successfully [installed](https://www.pygmt.org/latest/install.html). A quick
+This tutorial assumes that PyGMT has been successfully installed. A quick
 way to test this is to type ``import pygmt`` in a Python IDE or Jupyter
 Notebook.
 
