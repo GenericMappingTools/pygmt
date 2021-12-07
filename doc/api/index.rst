@@ -31,7 +31,7 @@ Plotting tabular data:
     Figure.velo
     Figure.wiggle
 
-Plotting gridded data:
+Plotting raster data:
 
 .. autosummary::
     :toctree: generated
