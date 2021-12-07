@@ -17,6 +17,20 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
+Plotting map elements:
+
+.. autosummary::
+    :toctree: generated
+
+    Figure.basemap
+    Figure.coast
+    Figure.colorbar
+    Figure.inset
+    Figure.legend
+    Figure.logo
+    Figure.solar
+    Figure.text
+
 Plotting tabular data:
 
 .. autosummary::
@@ -40,20 +54,6 @@ Plotting raster data:
     Figure.grdimage
     Figure.grdview
     Figure.image
-
-Plotting map elements:
-
-.. autosummary::
-    :toctree: generated
-
-    Figure.basemap
-    Figure.coast
-    Figure.colorbar
-    Figure.inset
-    Figure.legend
-    Figure.logo
-    Figure.solar
-    Figure.text
 
 Configuring layout:
 
