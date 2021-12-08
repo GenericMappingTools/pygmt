@@ -52,7 +52,7 @@ fig = pygmt.Figure()
 # coordinates are N44.75 W68. Negative values can be passed for latitudes in
 # the southern hemisphere or longitudes in the western hemisphere.
 #
-# In addition to the region, a value needs to be passed to ``coast`` to tell
+# In addition to the region, an argument needs to be passed to ``coast`` to tell
 # it what to plot. In this example, ``coast`` will be told to plot the
 # shorelines by passing the Boolean value ``True`` to the ``shorelines``
 # parameter. The ``shorelines`` parameter has other options for finer control,
@@ -118,9 +118,9 @@ fig.show()
 # Add a frame
 # -----------
 #
-# Now that the map's colors, projection, and size have been set, the region
-# that is being displayed is not apparent. A frame can be added to the
-# latitude and longitude of the region.
+# While that the map's colors, projection, and size have been set, the region
+# that is being displayed is not apparent. A frame can be added to
+# annotate the latitude and longitude of the region.
 #
 # The ``frame`` parameter is used to add a frame to the figure. For now, it
 # will be set to ``True`` to use default settings, but later tutorials will
