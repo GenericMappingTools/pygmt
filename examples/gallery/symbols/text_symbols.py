@@ -8,11 +8,11 @@ A text symbol can be drawn by passing **l**\ *size*\ **+t**\ *string* to
 the ``style`` parameter where *size* defines the size of the text symbol
 (note: the size is only approximate; no individual scaling is done for
 different characters) and *string* can be a letter or a text string
-(less than 256 characters). Optionally, you can append **+f**\ *font* to
-select a particular font [Default is :gmt-term:`FONT_ANNOT_PRIMARY`] as well as
-**+j**\ *justify* to change the justification [Default is CM]. The outline
-color of the text symbols can be defined via the ``style`` parameter [Default
-is black], the fill color can be set with the ``color`` parameter, and the
+(less than 256 characters). Optionally, you can append
+**+f**\ *font*,*outlinecolor* to select a particular font [Default is
+:gmt-term:`FONT_ANNOT_PRIMARY`] and outline color [Default is black] as well
+as **+j**\ *justify* to change the justification [Default is CM]. The fill
+color of the text symbols can be set with the ``color`` parameter, and the
 outline width can be customized with the ``pen`` parameter.
 For all supported octal codes and fonts see the GMT cookbook
 :gmt-docs:`cookbook/octal-codes.html` and
