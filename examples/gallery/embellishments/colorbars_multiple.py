@@ -36,9 +36,7 @@ with fig.subplot(
         pygmt.makecpt(cmap="globe", series=[-6000, 3000])
         # "M?" means Mercator projection with map width also automatically
         # determined from the subplot width.
-        fig.grdimage(
-            grid=grid_subset, projection="M?", region=subset_region, frame="a"
-        )
+        fig.grdimage(grid=grid_subset, projection="M?", region=subset_region, frame="a")
         fig.colorbar(frame=["a2000f1000", "x+lElevation", "y+lm"])
 
 fig.show()
