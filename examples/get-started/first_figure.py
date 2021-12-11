@@ -6,7 +6,6 @@ This tutorial page covers the basics of creating a figure. It will only use
 the ``coast`` module for plotting. Later examples will address other PyGMT
 modules.
 """
-# sphinx_gallery_thumbnail_number = 4
 
 ###############################################################################
 # Setting up the development environment
@@ -26,6 +25,7 @@ modules.
 # The first step is to import ``pygmt``. All modules and figure generation is
 # accessible from the :mod:`pygmt` top level package.
 
+# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
 ###############################################################################
