@@ -52,8 +52,8 @@ fig = pygmt.Figure()
 # coordinates are N44.75 W68. Negative values can be passed for latitudes in
 # the southern hemisphere or longitudes in the western hemisphere.
 #
-# In addition to the region, an argument needs to be passed to ``coast`` to tell
-# it what to plot. In this example, ``coast`` will be told to plot the
+# In addition to the region, an argument needs to be passed to ``coast`` to
+# tell it what to plot. In this example, ``coast`` will be told to plot the
 # shorelines by passing the Boolean value ``True`` to the ``shorelines``
 # parameter. The ``shorelines`` parameter has other options for finer control,
 # but setting it to ``True`` uses its default values.
