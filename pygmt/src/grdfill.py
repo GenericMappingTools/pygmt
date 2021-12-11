@@ -63,13 +63,13 @@ def grdfill(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    if "A" not in kwargs.keys() and "L" not in kwargs.keys():
+    if "A" not in kwargs and "L" not in kwargs:
         raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
+                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])

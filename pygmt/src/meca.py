@@ -219,7 +219,7 @@ def meca(
         Set optional parameter pointers based on DataFrame or dict, if those
         parameters are present in the DataFrame or dict.
         """
-        for param in list(data_pointers.keys()):
+        for param in list(data_pointers):
             if param in spec:
                 # set pointer based on param name
                 data_pointers[param] = spec[param]
@@ -302,7 +302,7 @@ def meca(
 
         # set convention and focal parameters based on spec convention
         for conv in list(param_conventions):
-            if set(spec_conv.keys()) == set(param_conventions[conv]):
+            if set(spec_conv) == set(param_conventions[conv]):
                 convention = conv.lower()
                 foc_params = param_conventions[conv]
                 break

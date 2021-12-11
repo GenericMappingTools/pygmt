@@ -244,7 +244,7 @@ There are four main components to PyGMT's documentation:
 The documentation are written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
 [Sphinx](http://www.sphinx-doc.org/). Please refer to
-[reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/rst-cheatsheet.html)
+[reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/devdocs/rst-cheatsheet.html)
 if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the [pull request workflow](#pull-request-workflow)
 section.
