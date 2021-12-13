@@ -20,7 +20,7 @@ from pygmt.io import load_dataarray
     I="spacing",
     N="normalize",
     R="region",
-    S="spacing",
+    S="search_radius",
     T="tiling",
     V="verbose",
     W="weight",
@@ -57,6 +57,20 @@ def binstats(data, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
+    compute : str
+        **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**
+        \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**
+        \|\ **U**\|\ **z**.
+        Choose the statistic that will be computed per node based on the
+        points that are within *radius* distance of the node.  Select one of
+        **a** for mean (average), **d** for median absolute deviation (MAD),
+        **g** for full (max-min) range, **i** for 25-75% interquartile range,
+        **l** for minimum (low), **L** for minimum of positive values only,
+        **m** for median, **n** the number of values, **o** for LMS scale,
+        **p** for mode (maximum likelihood), **q** for selected quantile
+        (append desired quantile in 0-100% range [50]), **r** for the r.m.s.,
+        **s** for standard deviation, **u** for maximum (upper),
+        **U** for maximum of negative values only, or **z** for the sum.
     {I}
     {R}
     {V}
