@@ -35,11 +35,16 @@ def binstats(data, **kwargs):
     r"""
     Bin spatial data and determine statistics per bin.
 
-    Reads a spherical harmonics coefficient table with records of L, M,
-    C[L,M], S[L,M] and evaluates the spherical harmonic model on the
-    specified grid.
+    Reads arbitrarily located (x,y[,z][,w]) points
+    (2-4 columns) from standard input [or *table*] and for each
+    node in the specified grid layout determines which points are
+    within the given radius.  These point are then used in the
+    calculation of the specified statistic. The results may be
+    presented as is or may be normalized by the circle area to
+    perhaps give density estimates.  Alternatively, select
+    hexagonal tiling instead or a rectangular grid layout.
 
-    Full option list at :gmt-docs:`sph2grd.html`
+    Full option list at :gmt-docs:`gmtbinstats.html`
 
     {aliases}
 
