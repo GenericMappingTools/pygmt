@@ -30,10 +30,6 @@ def fixture_dataframe():
     )
 
 
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.2.0"),
-    reason="Upstream bug fixed by https://github.com/GenericMappingTools/gmt/pull/5360.",
-)
 @pytest.mark.mpl_image_compare
 def test_velo_numpy_array_numeric_only(dataframe):
     """
@@ -58,7 +54,7 @@ def test_velo_numpy_array_text_column(dataframe):
         fig.velo(
             data=dataframe.to_numpy(),
             spec="e0.2/0.39/18",
-            vector="0.3c+p1p+e+gred",
+            vector="0.3c+p1p+e+g1p,red",
         )
 
 
@@ -71,10 +67,6 @@ def test_velo_without_spec(dataframe):
         fig.velo(data=dataframe)
 
 
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.2.0"),
-    reason="Upstream bug fixed by https://github.com/GenericMappingTools/gmt/pull/5360.",
-)
 @pytest.mark.mpl_image_compare
 def test_velo_pandas_dataframe(dataframe):
     """
