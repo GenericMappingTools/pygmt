@@ -117,10 +117,6 @@ def test_grdimage_shading_xarray(grid, shading):
     return fig_ref, fig_test
 
 
-@pytest.mark.xfail(
-    reason="Incorrect scaling of geo CPT on xarray.DataArray grdimage plot."
-    "See https://github.com/GenericMappingTools/gmt/issues/5294",
-)
 @check_figures_equal()
 def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
@@ -206,9 +202,10 @@ def test_grdimage_central_meridians(grid, proj_type, lon0):
 # are still slightly different with an RMS error of 25, see issue at
 # https://github.com/GenericMappingTools/pygmt/issues/390
 # TO-DO remove tol=1.5 and pytest.mark.xfail once bug is solved in upstream GMT
+#       combine with test_grdimage_central_meridians_and_standard_parallels_fix
 @check_figures_equal(tol=1.5)
 @pytest.mark.parametrize("lat0", [0, 30])
-@pytest.mark.parametrize("lon0", [0, 123, 180])
+@pytest.mark.parametrize("lon0", [123, 180])
 @pytest.mark.parametrize("proj_type", [pytest.param("Q", marks=pytest.mark.xfail), "S"])
 def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0, lat0):
     """
@@ -221,4 +218,21 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
         "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo"
     )
     fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo")
+    return fig_ref, fig_test
+
+
+@check_figures_equal(tol=1.5)
+@pytest.mark.parametrize("lat0", [0, 30])
+@pytest.mark.parametrize("proj_type", ["Q", "S"])
+def test_grdimage_central_meridians_and_standard_parallels_fix(grid, proj_type, lat0):
+    """
+    Test that plotting a grid with different central meridians (lon0) and
+    standard_parallels (lat0) using Cylindrical Equidistant (Q) and General
+    Stereographic (S) projection systems work.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.grdimage(
+        "@earth_relief_01d_g", projection=f"{proj_type}0/{lat0}/15c", cmap="geo"
+    )
+    fig_test.grdimage(grid, projection=f"{proj_type}0/{lat0}/15c", cmap="geo")
     return fig_ref, fig_test
