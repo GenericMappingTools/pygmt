@@ -221,7 +221,6 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
     return fig_ref, fig_test
 
 
-@check_figures_equal(tol=1.5)
 @pytest.mark.parametrize("lat0", [0, 30])
 @pytest.mark.parametrize("proj_type", ["Q", "S"])
 def test_grdimage_central_meridians_and_standard_parallels_fix(grid, proj_type, lat0):
