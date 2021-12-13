@@ -54,7 +54,7 @@ def test_velo_numpy_array_text_column(dataframe):
         fig.velo(
             data=dataframe.to_numpy(),
             spec="e0.2/0.39/18",
-            vector="0.3c+p1p+e+g1p,red",
+            vector="0.3c+p1p+e+gred",
         )
 
 
