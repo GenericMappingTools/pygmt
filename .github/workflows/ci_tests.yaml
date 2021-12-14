@@ -53,6 +53,7 @@ jobs:
           - python-version: 3.9
             numpy-version: '1.21'
             optional-packages: 'geopandas ipython'
+    timeout-minutes: 60
     defaults:
       run:
         shell: bash -l {0}
