@@ -123,7 +123,7 @@ fig.show()
 # annotate the latitude and longitude of the region.
 #
 # The ``frame`` parameter is used to add a frame to the figure. For now, it
-# will be set to ``True`` to use default settings, but later tutorials will
+# will be set to ``a`` to use default settings, but later tutorials will
 # show how ``frame`` can be used to customize the axes, gridlines, and titles.
 
 fig = pygmt.Figure()
@@ -133,7 +133,7 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame=True,
+    frame="a",
 )
 fig.show()
 
