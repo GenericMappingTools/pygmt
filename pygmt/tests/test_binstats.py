@@ -14,7 +14,13 @@ def test_binstats_outgrid():
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = binstats(
-            data="@capitals.gmt", outgrid=tmpfile.name, spacing=5, compute="z", search_radius="1000k", colname="2=population", region="g"
+            data="@capitals.gmt",
+            outgrid=tmpfile.name,
+            spacing=5,
+            compute="z",
+            search_radius="1000k",
+            colname="2=population",
+            region="g",
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
@@ -25,8 +31,13 @@ def test_sph2grd_no_outgrid():
     Test binstats with no set outgrid.
     """
     temp_grid = binstats(
-            data="@capitals.gmt", spacing=5, compute="z", search_radius="1000k", colname="2=population", region="g"
-        )
+        data="@capitals.gmt",
+        spacing=5,
+        compute="z",
+        search_radius="1000k",
+        colname="2=population",
+        region="g",
+    )
     assert temp_grid.dims == ("y", "x")
     assert temp_grid.gmt.gtype == 0  # Cartesian grid
     assert temp_grid.gmt.registration == 0  # Gridline registration
