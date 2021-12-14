@@ -153,7 +153,7 @@ fig.show()
 # 3. Change the color of the lakes (using the ``"lakes"`` parameter) to "red."
 #
 # 4. Create a global map. Set the region to "d" to center the map at the Prime
-# Meridian or "g" to center the map at the International Date Line. When the
-# region is set without using a list full of integers or floating numbers,
-# the argument needs to be passed as a Python string. Create a 15 centimeter
-# map using the Mollwide ("W") projection.
+#    Meridian or "g" to center the map at the International Date Line. When the
+#    region is set without using a list full of integers or floating numbers,
+#    the argument needs to be passed as a Python string. Create a 15 centimeter
+#    map using the Mollwide ("W") projection.
