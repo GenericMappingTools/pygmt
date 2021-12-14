@@ -99,10 +99,10 @@ fig.show()
 # parameter.
 #
 # The appropriate projection varies for the type of map. The available
-# projections are explained in the "Projections" gallery. For this example,
-# the Mercator projection is set using "M". The width of the figure will be
-# 10 centimeters, as set by "10c". The map size can also be set in inches
-# using "i" (e.g. a 5 inch wide Mercator projection would use "M5i").
+# projections are explained in the :doc:`projection </projections/index>` gallery. For this example,
+# the Mercator projection is set using ``"M"``. The width of the figure will be
+# 10 centimeters, as set by ``"10c"``. The map size can also be set in inches
+# using "i" (e.g. a 5 inch wide Mercator projection would use ``"M5i"``).
 
 fig = pygmt.Figure()
 fig.coast(
@@ -145,11 +145,11 @@ fig.show()
 # for the concepts that were discussed:
 #
 # 1. Make a map of Germany using its DCW ISO code ("DE"). Pass the ISO code
-# as a Python string to the "region" parameter.
+#    as a Python string to the ``"region"`` parameter.
 #
 # 2. Change the color of the land to "khaki" and the water to "azure".
 #
-# 3. Change the color of the lakes (using the "lakes" parameter) to "red."
+# 3. Change the color of the lakes (using the ``"lakes"`` parameter) to "red."
 #
 # 4. Create a global map. Set the region to "d" to center the map at the Prime
 # Meridian or "g" to center the map at the International Date Line. When the
