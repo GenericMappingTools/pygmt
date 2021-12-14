@@ -99,10 +99,11 @@ fig.show()
 # parameter.
 #
 # The appropriate projection varies for the type of map. The available
-# projections are explained in the :doc:`projection </projections/index>` gallery. For this example,
-# the Mercator projection is set using ``"M"``. The width of the figure will be
-# 10 centimeters, as set by ``"10c"``. The map size can also be set in inches
-# using "i" (e.g. a 5 inch wide Mercator projection would use ``"M5i"``).
+# projections are explained in the :doc:`projection </projections/index>`
+# gallery. For this example, the Mercator projection is set using ``"M"``.
+# The width of the figure will be 10 centimeters, as set by ``"10c"``. The map
+# size can also be set in inches using "i" (e.g. a 5 inch wide Mercator
+# projection would use ``"M5i"``).
 
 fig = pygmt.Figure()
 fig.coast(
