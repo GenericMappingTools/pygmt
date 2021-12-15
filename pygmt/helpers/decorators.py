@@ -32,7 +32,7 @@ COMMON_OPTIONS = {
             *max_level* will not be plotted [Default is 0/0/4 (all
             features)].""",
     "B": r"""
-        frame : bool or str or list
+        frame : str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
     "U": """\
