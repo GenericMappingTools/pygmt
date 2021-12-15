@@ -87,6 +87,8 @@ sphinx_gallery_conf = {
             "../examples/projections/misc",
             "../examples/projections/nongeo",
             "../examples/projections/table",
+            "../examples/tutorials/basics",
+            "../examples/tutorials/advanced",
         ]
     ),
     # Patter to search for example files
@@ -127,11 +129,9 @@ else:
 release = __version__
 
 # These enable substitutions using |variable| in the rst files
-rst_epilog = """
+rst_epilog = f"""
 .. |year| replace:: {year}
-""".format(
-    year=year
-)
+"""
 
 html_last_updated_fmt = "%b %d, %Y"
 html_title = "PyGMT"

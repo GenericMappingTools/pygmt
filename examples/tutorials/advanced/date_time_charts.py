@@ -11,7 +11,7 @@ passed into the ``region`` parameter to create a range of the data on an axis.
 The following examples will demonstrate how to create plots
 using the different datetime objects.
 """
-# sphinx_gallery_thumbnail_number = 0
+# sphinx_gallery_thumbnail_number = 8
 
 import datetime
 
@@ -55,15 +55,17 @@ fig.plot(
 fig.show()
 
 ###############################################################################
-# In addition to specifying the date, ``datetime`` supports
-# the exact time at which the data points were recorded. Using :meth:`datetime.datetime`
-# the ``region`` parameter as well as data points can be created
-# with both date and time information.
+# In addition to specifying the date, ``datetime`` supports the exact time at
+# which the data points were recorded. Using :meth:`datetime.datetime` the
+# ``region`` parameter as well as data points can be created with both date and
+# time information.
 #
 # Some notable differences to the previous example include
 #
-# - Modifying ``frame`` to only include West (left) and South (bottom) borders, and removing grid lines
-# - Using circles to plot data points defined through ``c`` in ``style`` parameter
+# - Modifying ``frame`` to only include West (left) and South (bottom) borders,
+#   and removing grid lines
+# - Using circles to plot data points defined through ``c`` in ``style``
+#   parameter
 
 x = [
     datetime.datetime(2021, 1, 1, 3, 45, 1),
@@ -91,21 +93,21 @@ fig.plot(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # Using ISO Format
 # ----------------
 #
-# In addition to Python's ``datetime`` library, PyGMT also supports passing times
-# in ISO format. Basic ISO strings are formatted as ``YYYY-MM-DD``
-# with each ``-`` delineated section marking the four digit year value, two digit
+# In addition to Python's ``datetime`` library, PyGMT also supports passing
+# times in ISO format. Basic ISO strings are formatted as ``YYYY-MM-DD`` with
+# each ``-`` delineated section marking the four digit year value, two digit
 # month value, and two digit day value respectively.
 #
 # When including time of day into ISO strings, the ``T`` character is used, as
 # can be seen in the following example. This character is immediately followed
-# by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section marking
-# the two digit hour value, two digit minute value, and two digit second value
-# respectively. The figure in the following example is plotted over a horizontal
-# range of one year from 1/1/2016 to 1/1/2017.
+# by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section
+# marking the two digit hour value, two digit minute value, and two digit
+# second value respectively. The figure in the following example is plotted
+# over a horizontal range of one year from 1/1/2016 to 1/1/2017.
 
 x = ["2016-02-01", "2016-06-04T14", "2016-10-04T00:00:15", "2016-12-01T05:00:15"]
 y = [1, 3, 5, 2]
@@ -126,9 +128,9 @@ fig.show()
 # Mixing and matching Python ``datetime`` and ISO dates
 # -----------------------------------------------------
 #
-# The following example provides context on how both ``datetime`` and ISO
-# date data can be plotted using PyGMT. This can be helpful when dates and times
-# are coming from different sources, meaning conversions do not need to take place
+# The following example provides context on how both ``datetime`` and ISO date
+# data can be plotted using PyGMT. This can be helpful when dates and times are
+# coming from different sources, meaning conversions do not need to take place
 # between ISO and datetime in order to create valid plots.
 
 x = ["2020-02-01", "2020-06-04", "2020-10-04", datetime.datetime(2021, 1, 15)]
@@ -146,18 +148,19 @@ fig.plot(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # Using :meth:`pandas.date_range`
 # -------------------------------
 #
 # In the following example, :func:`pandas.date_range` produces a list of
 # :class:`pandas.DatetimeIndex` objects, which gets is used to pass date
 # data to the PyGMT figure.
-# Specifically ``x`` contains 7 different :class:`pandas.DatetimeIndex` objects, with the
-# number being manipulated by the ``periods`` parameter. Each period begins at the start
-# of a business quarter as denoted by BQS when passed to the ``periods`` parameter. The initial
-# date is the first argument that is passed to :func:`pandas.date_range` and it marks the first
-# data point in the list ``x`` that will be plotted.
+# Specifically ``x`` contains 7 different :class:`pandas.DatetimeIndex`
+# objects, with the number being manipulated by the ``periods`` parameter. Each
+# period begins at the start of a business quarter as denoted by BQS when
+# passed to the ``periods`` parameter. The initial date is the first argument
+# that is passed to :func:`pandas.date_range` and it marks the first data point
+# in the list ``x`` that will be plotted.
 
 x = pd.date_range("2018-03-01", periods=7, freq="BQS")
 y = [4, 5, 6, 8, 6, 3, 5]
@@ -175,16 +178,17 @@ fig.plot(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # Using :class:`xarray.DataArray`
 # -------------------------------
 #
-# In this example, instead of using a :func:`pandas.date_range`, ``x`` is initialized
-# as a list of :class:`xarray.DataArray` objects. This object provides a wrapper around
-# regular PyData formats. It also allows the data to have labeled dimensions
-# while supporting operations that use various pieces of metadata.The following
-# code uses :func:`pandas.date_range` object to fill the DataArray with data,
-# but this is not essential for the creation of a valid DataArray.
+# In this example, instead of using a :func:`pandas.date_range`, ``x`` is
+# initialized as a list of :class:`xarray.DataArray` objects. This object
+# provides a wrapper around regular PyData formats. It also allows the data to
+# have labeled dimensions while supporting operations that use various pieces
+# of metadata.The following code uses :func:`pandas.date_range` object to fill
+# the DataArray with data, but this is not essential for the creation of a
+# valid DataArray.
 
 x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
 y = [4, 7, 5, 6]
@@ -205,10 +209,11 @@ fig.show()
 ###############################################################################
 # Using :class:`numpy.datetime64`
 # -------------------------------
-# In this example, instead of using a :func:`pd.date_range`, ``x`` is initialized
-# as an ``np.array`` object. Similar to :class:`xarray.DataArray` this wraps the
-# dataset before passing it as a parameter. However, ``np.array`` objects use less
-# memory and allow developers to specify datatypes.
+# In this example, instead of using a :func:`pd.date_range`, ``x`` is
+# initialized as an ``np.array`` object. Similar to :class:`xarray.DataArray`
+# this wraps the dataset before passing it as a parameter. However,
+# ``np.array`` objects use less memory and allow developers to specify
+# datatypes.
 
 x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
 y = [2, 7, 5]
@@ -226,7 +231,7 @@ fig.plot(
 )
 fig.show()
 
-########################################################################################
+###############################################################################
 # Generating an automatic region
 # ------------------------------
 #
@@ -252,7 +257,7 @@ df.Date = pd.to_datetime(df["Date"], format="%Y%m%d")
 
 fig = pygmt.Figure()
 region = pygmt.info(
-    table=df[["Date", "Score"]], per_column=True, spacing=(700, 700), coltypes="T"
+    data=df[["Date", "Score"]], per_column=True, spacing=(700, 700), coltypes="T"
 )
 
 fig.plot(
@@ -268,7 +273,7 @@ fig.plot(
 
 fig.show()
 
-########################################################################################
+###############################################################################
 # Setting Primary and Secondary Time Axes
 # ---------------------------------------
 #
@@ -280,7 +285,7 @@ fig.show()
 # Starting off with ``WS``, adding this string means that only
 # Western/Left (**W**) and Southern/Bottom (**S**) borders of
 # the plot will be shown. For more information on this, please
-# refer to :doc:`frame instructions </tutorials/frames>`.
+# refer to :doc:`frame instructions </tutorials/basics/frames>`.
 #
 # The other important item in the ``frame`` list is
 # ``"sxa1Of1D"``. This string modifies the secondary
@@ -312,7 +317,7 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
 
 fig.show()
 
-########################################################################################
+###############################################################################
 # The same concept shown above can be applied to smaller
 # as well as larger intervals. In this example,
 # data is plotted for different times throughout two days.

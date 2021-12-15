@@ -73,7 +73,7 @@ class Figure:
     >>> fig = Figure()
     >>> fig.basemap(region="JP", projection="M3i", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
-    >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
+    >>> print(", ".join(f"{i:.2f}" for i in fig.region))
     122.94, 145.82, 20.53, 45.52
     """
 
@@ -103,7 +103,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module("figure", "{} {}".format(self._name, fmt))
+            lib.call_module("figure", f"{self._name} {fmt}")
 
     def _preprocess(self, **kwargs):
         """
@@ -264,7 +264,7 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method=None):
+    def show(self, dpi=300, width=500, method=None, waiting=0.5):
         """
         Display a preview of the figure.
 
@@ -284,7 +284,11 @@ class Figure:
         This is useful when running unit tests and building the documentation
         in consoles without a Graphical User Interface.
 
-        Note that the external viewer does not block the current process.
+        Note that the external viewer does not block the current process, thus
+        it's necessary to suspend the execution of the current process for a
+        short while after launching the external viewer, so that the preview
+        image won't be deleted before the external viewer tries to open it. Set
+        the ``waiting`` parameter to a larger number if your computer is slow.
 
         Parameters
         ----------
@@ -298,6 +302,10 @@ class Figure:
             - **external**: PDF preview in an external program [default]
             - **notebook**: PNG preview [default in Jupyter notebooks]
             - **none**: Disable image preview
+        waiting : float
+            Suspend the execution of the current process for a given number of
+            seconds after launching an external viewer.
+            Only works if ``method="external"``.
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -329,7 +337,7 @@ class Figure:
 
         if method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
-            launch_external_viewer(pdf)
+            launch_external_viewer(pdf, waiting=waiting)
 
     def shift_origin(self, xshift=None, yshift=None):
         """
@@ -358,9 +366,9 @@ class Figure:
         self._preprocess()
         args = ["-T"]
         if xshift:
-            args.append("-X{}".format(xshift))
+            args.append(f"-X{xshift}")
         if yshift:
-            args.append("-Y{}".format(yshift))
+            args.append(f"-Y{yshift}")
 
         with Session() as lib:
             lib.call_module("plot", " ".join(args))

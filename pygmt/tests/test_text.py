@@ -276,7 +276,7 @@ def test_text_justify_parsed_from_textfile():
         projection="H90/9i",
         justify=True,
         textfiles=CITIES_DATA,
-        D="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
+        offset="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
     )
     return fig
 
@@ -289,7 +289,7 @@ def test_text_angle_font_justify_from_textfile():
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
-        with open(tempfile.name, "w") as tmpfile:
+        with open(tempfile.name, "w", encoding="utf8") as tmpfile:
             tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
         fig.text(
             region=[113, 117.5, -0.5, 3],

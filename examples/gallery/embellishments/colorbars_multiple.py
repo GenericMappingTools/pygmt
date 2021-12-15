@@ -1,10 +1,11 @@
 """
 Multiple colormaps
 ------------------
-This gallery example shows how to create multiple colormaps for different subplots. To
-better understand how GMT modern mode maintains several levels of colormaps,
-please refer to :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`
-for details.
+This gallery example shows how to create multiple colormaps for different
+subplots. To better understand how GMT modern mode maintains several levels of
+colormaps, please refer to
+:gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels` for
+details.
 """
 import pygmt
 
@@ -27,7 +28,7 @@ with fig.subplot(
         pygmt.makecpt(cmap="geo", series=[-8000, 8000])
         # "R?" means Winkel Tripel projection with map width automatically
         # determined from the subplot width.
-        fig.grdimage(grid=grid_globe, projection="R?", region="g", frame=True)
+        fig.grdimage(grid=grid_globe, projection="R?", region="g", frame="a")
         fig.colorbar(frame=["a4000f2000", "x+lElevation", "y+lm"])
     # Activate the second panel so that the colormap created by the makecpt
     # method is a panel-level CPT
@@ -35,9 +36,7 @@ with fig.subplot(
         pygmt.makecpt(cmap="globe", series=[-6000, 3000])
         # "M?" means Mercator projection with map width also automatically
         # determined from the subplot width.
-        fig.grdimage(
-            grid=grid_subset, projection="M?", region=subset_region, frame=True
-        )
+        fig.grdimage(grid=grid_subset, projection="M?", region=subset_region, frame="a")
         fig.colorbar(frame=["a2000f1000", "x+lElevation", "y+lm"])
 
 fig.show()

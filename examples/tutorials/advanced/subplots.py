@@ -13,8 +13,8 @@ There are two main ways to create subplots in GMT:
 - Use :meth:`pygmt.Figure.subplot` to define the layout of the subplots.
 
 The first method is easier to use and should handle simple cases involving a
-couple of subplots. For more advanced subplot layouts, however, we recommend the
-use of :meth:`pygmt.Figure.subplot` which offers finer grained control, and
+couple of subplots. For more advanced subplot layouts, however, we recommend
+the use of :meth:`pygmt.Figure.subplot` which offers finer grained control, and
 this is what the tutorial below will cover.
 """
 # sphinx_gallery_thumbnail_number = 3
@@ -45,9 +45,9 @@ fig = pygmt.Figure()
 ###############################################################################
 # will define our figure to have a 2 row and 3 column grid layout.
 # ``figsize=("15c", "6c")`` defines the overall size of the figure to be 15 cm
-# wide by 6 cm high. Using ``frame="lrtb"`` allows us to customize the map frame
-# for all subplots instead of setting them individually. The figure layout will
-# look like the following:
+# wide by 6 cm high. Using ``frame="lrtb"`` allows us to customize the map
+# frame for all subplots instead of setting them individually. The figure
+# layout will look like the following:
 
 with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
     for i in range(2):  # row number starting from 0
@@ -62,11 +62,11 @@ with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
 fig.show()
 
 ###############################################################################
-# The :meth:`pygmt.Figure.set_panel` function activates a specified subplot, and
-# all subsequent plotting functions will take place in that subplot panel. This
-# is similar to matplotlib's ``plt.sca`` method. In order to specify a subplot,
-# you will need to provide the identifier for that subplot via the ``panel``
-# parameter. Pass in either the *index* number, or a tuple/list like
+# The :meth:`pygmt.Figure.set_panel` function activates a specified subplot,
+# and all subsequent plotting functions will take place in that subplot panel.
+# This is similar to matplotlib's ``plt.sca`` method. In order to specify a
+# subplot, you will need to provide the identifier for that subplot via the
+# ``panel`` parameter. Pass in either the *index* number, or a tuple/list like
 # (*row*, *col*) to ``panel``.
 
 ###############################################################################

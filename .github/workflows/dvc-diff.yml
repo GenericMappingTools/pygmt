@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v2.4.0
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
@@ -22,7 +22,7 @@ jobs:
       uses: iterative/setup-dvc@v1.0.3
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v1.0.3
+      uses: iterative/setup-cml@v1.1.0
 
     - name: Pull image data from cloud storage
       run: dvc pull --remote upstream
@@ -95,7 +95,7 @@ jobs:
         echo ::set-output name=report::$report
 
     - name: Find comment with image diff report
-      uses: peter-evans/find-comment@v1.2.0
+      uses: peter-evans/find-comment@v1.3.0
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
