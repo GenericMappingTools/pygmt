@@ -16,7 +16,6 @@ from pygmt.io import load_dataarray
 @fmt_docstring
 @use_alias(
     G="outgrid",
-    J="projection",
     I="spacing",
     R="region",
     T="translate",

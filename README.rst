@@ -10,6 +10,9 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
+.. image:: https://anaconda.org/conda-forge/pygmt/badges/installer/conda.svg
+    :alt: Latest version on conda-forge
+    :target: https://anaconda.org/conda-forge/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml
@@ -214,7 +217,7 @@ Compatibility with GMT/Python/NumPy versions
       - Numpy
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestone/9>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
-      - >=6.2.0
+      - >=6.3.0
       - >=3.7
       - >=1.18
     * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_ (latest release)
