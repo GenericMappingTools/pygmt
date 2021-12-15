@@ -170,8 +170,8 @@ COMMON_OPTIONS = {
             :gmt-docs:`gmt.html#f-full`.""",
     "g": r"""
         gap : str or list
-            [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
-            **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**].
+            **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\ 
+            **D**\ *gap*\ [**u**][**+a**][**+c**\ *col*][**+n**\|\ **p**].
             Examine the spacing between consecutive data points in order to
             impose breaks in the line. To specify multiple criteria, provide
             a list with each item containing a string describing one set of
