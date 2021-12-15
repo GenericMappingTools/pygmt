@@ -10,6 +10,9 @@ API Reference
 Plotting
 --------
 
+Figure class overview
+~~~~~~~~~~~~~~~~~~~~~
+
 All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
 .. autosummary::
@@ -17,7 +20,8 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Plotting map elements:
+Plotting map elements
+~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -31,7 +35,8 @@ Plotting map elements:
     Figure.solar
     Figure.text
 
-Plotting tabular data:
+Plotting tabular data
+~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -45,7 +50,8 @@ Plotting tabular data:
     Figure.velo
     Figure.wiggle
 
-Plotting raster data:
+Plotting raster data
+~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -55,7 +61,8 @@ Plotting raster data:
     Figure.grdview
     Figure.image
 
-Configuring layout:
+Configuring layout
+~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -63,16 +70,9 @@ Configuring layout:
     Figure.set_panel
     Figure.shift_origin
     Figure.subplot
-    
-Color palette table generation:
 
-.. autosummary::
-    :toctree: generated
-
-    grd2cpt
-    makecpt
-
-Saving and displaying the figure:
+Saving and displaying the figure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -81,18 +81,35 @@ Saving and displaying the figure:
     Figure.show
     Figure.psconvert
 
-Configuring the display settings:
+Configuring the display settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following modules are provided directly through the :mod:`pygmt` top level
+package.
 
 .. autosummary::
     :toctree: generated
 
     set_display
 
+Color palette table generation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following modules are provided directly through the :mod:`pygmt` top level
+package.
+
+.. autosummary::
+    :toctree: generated
+
+    grd2cpt
+    makecpt
+
 
 Data Processing
 ---------------
 
-Operations on tabular data:
+Operations on tabular data
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -109,7 +126,8 @@ Operations on tabular data:
     surface
     xyz2grd
 
-Operations on grids:
+Operations on grids
+~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -126,7 +144,8 @@ Operations on grids:
     grdtrack
     grdvolume
 
-Crossover analysis with x2sys:
+Crossover analysis with x2sys
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
