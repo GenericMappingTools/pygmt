@@ -187,8 +187,8 @@ COMMON_OPTIONS = {
                   distance between coordinates (upper case to use projected
                   coordinates).
                 - **z** - define a gap when there is a large enough change in
-                   the z data. Use **+c**\ *col* to change the z data column
-                   [Default *col* is 2 (i.e., 3rd column)].
+                  the z data. Use **+c**\ *col* to change the z data column
+                  [Default *col* is 2 (i.e., 3rd column)].
 
             A unit **u** may be appended to the specified *gap*:
 
