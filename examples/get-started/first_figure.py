@@ -141,8 +141,8 @@ fig.show()
 # This is the end of the first tutorial. Here are some additional exercises
 # for the concepts that were discussed:
 #
-# 1. Make a map of Germany using its DCW ISO code ("DE"). Pass the ISO code
-#    as a Python string to the ``region`` parameter.
+# 1. Make a map of Germany using its ISO country code ("DE"). Pass the ISO
+#    code as a Python string to the ``region`` parameter.
 #
 # 2. Change the color of the land to "khaki" and the water to "azure".
 #
