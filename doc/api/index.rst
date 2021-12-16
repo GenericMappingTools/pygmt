@@ -84,7 +84,7 @@ Saving and displaying the figure
 Configuring the display settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following modules are provided directly through the :mod:`pygmt` top level
+The following module is provided directly through the :mod:`pygmt` top level
 package.
 
 .. autosummary::
