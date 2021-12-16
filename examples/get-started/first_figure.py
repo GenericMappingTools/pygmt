@@ -13,9 +13,7 @@ modules.
 #
 # PyGMT can be used in both a Python script and a notebook environment, such
 # as Jupyter. The tutorial's recommended method is to use a notebook, and the
-# code will be for a notebook environment. If you use a Python script instead,
-# there will be a difference in how the figure is shown that is explained in
-# the first example.
+# code will be for a notebook environment.
 
 
 ###############################################################################
@@ -61,9 +59,7 @@ fig = pygmt.Figure()
 fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
 ###############################################################################
-# To see the figure, call :meth:`pygmt.Figure.show`. If you are using a Python
-# script instead of a notebook, use ``fig.show(method="external)`` to display
-# the figure.
+# To see the figure, call :meth:`pygmt.Figure.show`.
 
 fig.show()
 
