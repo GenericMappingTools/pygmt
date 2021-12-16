@@ -48,8 +48,8 @@ fig = pygmt.Figure()
 # of the coast of Maine in the northeastern US. A Python list can be passed to
 # the ``region`` argument with the minimum and maximum X-values (longitude)
 # and the minimum and maximum Y-values (latitude). For this example, the
-# minimum (bottom left) coordinates are N43.75 W69 and the maximum (top right)
-# coordinates are N44.75 W68. Negative values can be passed for latitudes in
+# minimum (bottom left) coordinates are (N43.75, W69) and the maximum (top right)
+# coordinates are (N44.75, W68). Negative values can be passed for latitudes in
 # the southern hemisphere or longitudes in the western hemisphere.
 #
 # In addition to the region, an argument needs to be passed to ``coast`` to
@@ -94,7 +94,7 @@ fig.show()
 # Set the projection
 # ------------------
 #
-# This figure now has its colors set, but there is not projection or size
+# This figure now has its colors set, but there is no projection or size
 # set for the map. Both of these values are set using the ``projection``
 # parameter.
 #
@@ -146,11 +146,11 @@ fig.show()
 # for the concepts that were discussed:
 #
 # 1. Make a map of Germany using its DCW ISO code ("DE"). Pass the ISO code
-#    as a Python string to the ``"region"`` parameter.
+#    as a Python string to the ``region`` parameter.
 #
 # 2. Change the color of the land to "khaki" and the water to "azure".
 #
-# 3. Change the color of the lakes (using the ``"lakes"`` parameter) to "red."
+# 3. Change the color of the lakes (using the ``lakes`` parameter) to "red".
 #
 # 4. Create a global map. Set the region to "d" to center the map at the Prime
 #    Meridian or "g" to center the map at the International Date Line. When the
