@@ -10,6 +10,9 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
+.. image:: https://anaconda.org/conda-forge/pygmt/badges/installer/conda.svg
+    :alt: Latest version on conda-forge
+    :target: https://anaconda.org/conda-forge/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml
