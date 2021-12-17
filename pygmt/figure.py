@@ -154,8 +154,9 @@ class Figure:
         ----------
         crop : str or bool
             Adjust the BoundingBox and HiResBoundingBox to the minimum required
-            by the image content. Append ``u`` to first remove any GMT-produced
-            time-stamps. Default is True.
+            by the image content. Append **+u** to first remove any GMT-produced time-stamps.
+            Append **+r** to *round* the HighResBoundingBox instead of using the ``ceil`` 
+            function. Default is True. 
         gs_option : str
             Specify a single, custom option that will be passed on to
             GhostScript as is.
