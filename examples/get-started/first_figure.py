@@ -2,7 +2,8 @@
 1. Making your first figure
 ===========================
 
-This tutorial page covers the basics of creating a figure. It will only use
+This tutorial page covers the basics of creating a figure using PyGMT - a
+Python wrapper for the Generic Mapping Tools (GMT). It will only use
 the ``coast`` module for plotting. Later examples will address other PyGMT
 modules.
 """
@@ -54,7 +55,7 @@ fig = pygmt.Figure()
 # tell it what to plot. In this example, ``coast`` will be told to plot the
 # shorelines by passing the Boolean value ``True`` to the ``shorelines``
 # parameter. The ``shorelines`` parameter has other options for finer control,
-# but setting it to ``True`` uses its default values.
+# but setting it to ``True`` uses the default values.
 
 fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
@@ -74,7 +75,7 @@ fig.show()
 # When plotting colors in PyGMT, there are multiple
 # :gmt-docs:`color codes <gmtcolors.html>`, that can be used. This includes
 # standard GMT color names (like ``skyblue``), R/G/B levels (like ``0/0/255``),
-# a hex value (like ``#333333``), and a graylevel (like ``50``). For this
+# a hex value (like ``#333333``), or a graylevel (like ``50``). For this
 # example, GMT color names are used.
 
 fig = pygmt.Figure()
