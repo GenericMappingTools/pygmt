@@ -5,9 +5,9 @@ import pytest
 from pygmt import Figure, makecpt
 
 @pytest.mark.mpl_image_compare
-def test_coast_region():
+def test_ternary():
     """
-    Test plotting a regional map with coastlines.
+    Test plotting a ternary chart.
     """
     fig = Figure()
     makecpt(cmap="turbo", series=[0, 80, 10])
