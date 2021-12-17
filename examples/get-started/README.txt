@@ -6,9 +6,10 @@ make a map in PyGMT.
 
 **About this tutorial**
 
-This tutorial assumes that PyGMT has been successfully installed. A quick
-way to test this is to type ``import pygmt`` in a Python IDE or Jupyter
-Notebook.
+This tutorial assumes that PyGMT has been successfully
+[installed](:doc:`install`).  A quick way to test this is to type
+``import pygmt`` in a Python IDE or
+`Jupyter <https://jupyter.org>`__ Notebook.
 
 This tutorial will progressively cover PyGMT plotting concepts, and later
 examples will use concepts explained in previous examples. It will not
