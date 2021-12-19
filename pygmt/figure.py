@@ -153,14 +153,14 @@ class Figure:
         Parameters
         ----------
         crop : str or bool
-            Adjust the BoundingBox and HiResBoundingBox to the minimum required
-            by the image content. Default is True. Append **+u** to first remove
-            any GMT-produced time-stamps. Append **+r** to *round* the
-            HighResBoundingBox instead of using the ``ceil`` function. This is
-            going against Adobe Law but can be useful when creating very small
-            images where the difference of one pixel might matter. If
-            ``verbose`` is used we also report the dimensions of the final
-            illustration.
+            Adjust the BoundingBox and HiResBoundingBox to the minimum
+            required by the image content. Default is True. Append **+u** to
+            first remove any GMT-produced time-stamps. Append **+r** to
+            *round* the HighResBoundingBox instead of using the ``ceil``
+            function. This is going against Adobe Law but can be useful when
+            creating very small images where the difference of one pixel
+            might matter. If ``verbose`` is used we also report the
+            dimensions of the final illustration.
         gs_option : str
             Specify a single, custom option that will be passed on to
             GhostScript as is.
