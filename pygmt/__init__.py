@@ -19,7 +19,6 @@ Here are just a few of the things that PyGMT does well:
 """
 
 import atexit as _atexit
-
 from importlib.metadata import version
 
 # Import modules to make the high-level GMT Python API
@@ -63,7 +62,7 @@ from pygmt.src import (
 )
 
 # Get semantic version through setuptools-scm
-__version__ = version("pygmt") # e.g. v0.1.2.dev3+g0ab3cd78
+__version__ = version("pygmt")  # e.g. v0.1.2.dev3+g0ab3cd78
 __commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 # Start our global modern mode session
