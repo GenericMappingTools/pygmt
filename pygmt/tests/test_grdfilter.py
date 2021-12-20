@@ -18,7 +18,9 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(registration="pixel", region=[125, 130, -25, -20])
+    return load_earth_relief(
+        resolution="01d", registration="pixel", region=[125, 130, -25, -20]
+    )
 
 
 @pytest.fixture(scope="module", name="expected_grid")
