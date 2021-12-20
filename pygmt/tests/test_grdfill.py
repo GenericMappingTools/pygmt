@@ -4,9 +4,10 @@ Tests for grdfill.
 import os
 
 import numpy as np
+import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import grdfill, grdinfo
+from pygmt import grdfill
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
@@ -36,6 +37,10 @@ def test_grdfill_dataarray_out(grid):
     assert not result.isnull().all()  # check that no NaN values exists
     assert result.gmt.gtype == 1  # Geographic grid
     assert result.gmt.registration == 1  # Pixel registration
+    assert result.dims == ("lat", "lon")
+    npt.assert_allclose(float(result.min()), -5130.5)  # min
+    npt.assert_allclose(float(result.max()), np.inf)  # max
+    npt.assert_allclose(float(result.median()), -4421.5)  # max
 
 
 def test_grdfill_file_out(grid):
@@ -46,8 +51,6 @@ def test_grdfill_file_out(grid):
         result = grdfill(grid=grid, mode="c20", outgrid=tmpfile.name)
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
-        result = grdinfo(tmpfile.name, per_column=True).strip()
-        assert result == "-5 5 -5 5 -5130.5 inf 1 1 10 10 1 1"
 
 
 def test_grdfill_required_args(grid):
