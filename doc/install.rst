@@ -35,7 +35,7 @@ Start by looking at the tutorials on our sidebar, good luck!
 Which Python?
 -------------
 
-PyGMT is tested to run on **Python 3.7 or greater**.
+PyGMT is tested to run on **Python 3.8 or greater**.
 
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
 Python distribution to ensure you have all dependencies installed and the
@@ -69,7 +69,7 @@ Dependencies
 
 PyGMT requires the following libraries to be installed:
 
-* `numpy <https://numpy.org>`__ (>= 1.18)
+* `numpy <https://numpy.org>`__ (>= 1.19)
 * `pandas <https://pandas.pydata.org>`__
 * `xarray <https://xarray.pydata.org>`__
 * `netCDF4 <https://unidata.github.io/netcdf4-python>`__
