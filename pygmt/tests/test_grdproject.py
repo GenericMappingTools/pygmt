@@ -4,11 +4,11 @@ Tests for grdproject.
 import os
 
 import pytest
+import xarray as xr
 from pygmt import grdproject, load_dataarray
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-import xarray as xr
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -16,7 +16,10 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(resolution="01d", registration="pixel", region=[125, 130, -25, -20])
+    return load_earth_relief(
+        resolution="01d", registration="pixel", region=[125, 130, -25, -20]
+    )
+
 
 @pytest.fixture(scope="module", name="expected_grid")
 def fixture_grid_result():
@@ -24,11 +27,13 @@ def fixture_grid_result():
     Load the expected grdproject grid result.
     """
     return xr.DataArray(
-        data=[[442.91666, 439.51202, 462.82422, 504.1126 , 508.01578],
-       [393.78897, 364.91565, 415.91202, 449.7487 , 507.4866 ],
-       [362.80795, 400.7865 , 423.06854, 374.5926 , 403.55084],
-       [322.25696, 378.78528, 362.4327 , 355.9475 , 422.6374 ],
-       [282.81348, 318.37677, 326.95657, 379.11594, 383.81543]],
+        data=[
+            [442.91666, 439.51202, 462.82422, 504.1126, 508.01578],
+            [393.78897, 364.91565, 415.91202, 449.7487, 507.4866],
+            [362.80795, 400.7865, 423.06854, 374.5926, 403.55084],
+            [322.25696, 378.78528, 362.4327, 355.9475, 422.6374],
+            [282.81348, 318.37677, 326.95657, 379.11594, 383.81543],
+        ],
         coords=dict(
             x=[1.0, 3.0, 5.0, 7.0, 9.0],
             y=[1.076665, 3.229995, 5.383325, 7.536655, 9.689984],
