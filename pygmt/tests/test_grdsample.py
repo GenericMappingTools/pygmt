@@ -5,7 +5,7 @@ import os
 
 import pytest
 import xarray as xr
-from pygmt import grdinfo, grdsample, load_dataarray
+from pygmt import grdsample, load_dataarray
 from pygmt.datasets import load_earth_relief
 from pygmt.helpers import GMTTempFile
 
