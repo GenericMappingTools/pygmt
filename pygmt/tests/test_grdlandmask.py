@@ -4,10 +4,11 @@ Tests for grdlandmask.
 import os
 
 import pytest
-from pygmt import grdinfo, grdlandmask, load_dataarray
+import xarray as xr
+from pygmt import grdlandmask, load_dataarray
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-import xarray as xr
+
 
 @pytest.fixture(scope="module", name="expected_grid")
 def fixture_grid_result():
@@ -15,18 +16,21 @@ def fixture_grid_result():
     Load the expected grdlandmask grid result.
     """
     return xr.DataArray(
-        data=[[0., 0., 0., 0., 0., 0.],
-       [0., 0., 0., 0., 0., 0.],
-       [0., 0., 0., 0., 0., 0.],
-       [0., 0., 0., 0., 0., 1.],
-       [0., 0., 0., 0., 0., 0.],
-       [0., 0., 1., 1., 0., 0.]],
+        data=[
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 1.0, 1.0, 0.0, 0.0],
+        ],
         coords=dict(
             lon=[125.0, 126.0, 127.0, 128.0, 129.0, 130.0],
             lat=[30.0, 31.0, 32.0, 33.0, 34.0, 35.0],
         ),
         dims=["lat", "lon"],
     )
+
 
 def test_grdlandmask_outgrid(expected_grid):
     """
@@ -51,6 +55,7 @@ def test_grdlandmask_no_outgrid(expected_grid):
     assert result.gmt.registration == 0  # Gridline registration
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
+
 
 def test_grdlandmask_fails():
     """
