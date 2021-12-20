@@ -3,13 +3,12 @@ Tests for grdgradient.
 """
 import os
 
-import numpy.testing as npt
 import pytest
-from pygmt import grdgradient, grdinfo, load_dataarray
+import xarray as xr
+from pygmt import grdgradient, load_dataarray
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-import xarray as xr
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -98,6 +97,7 @@ def test_grdgradient_no_outgrid(grid, expected_grid):
     assert result.gmt.registration == 1  # Pixel registration
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
+
 
 def test_grdgradient_fails(grid):
     """
