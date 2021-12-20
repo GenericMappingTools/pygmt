@@ -57,4 +57,5 @@ clean:
 	rm -rf api/generated
 	rm -rf gallery
 	rm -rf tutorials
+	rm -rf get-started
 	rm -rf projections
