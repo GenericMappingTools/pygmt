@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.7', '3.9']
+        python-version: [3.7, 3.9]
         os: [ubuntu-latest, macOS-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
@@ -47,10 +47,10 @@ jobs:
         # Pair Python 3.7 with NumPy 1.18 and Python 3.9 with NumPy 1.21
         # Only install optional packages on Python 3.9/NumPy 1.21
         include:
-          - python-version: '3.7'
+          - python-version: 3.7
             numpy-version: '1.18'
             optional-packages: ''
-          - python-version: '3.9'
+          - python-version: 3.9
             numpy-version: '1.21'
             optional-packages: 'geopandas ipython'
     timeout-minutes: 30
