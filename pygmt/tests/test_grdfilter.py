@@ -26,7 +26,7 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="expected_grid")
 def fixture_grid_result():
     """
-    Load the expected grdfill grid result.
+    Load the expected grdfilter grid result.
     """
     return xr.DataArray(
         data=[
@@ -46,7 +46,7 @@ def fixture_grid_result():
 
 def test_grdfilter_dataarray_in_dataarray_out(grid, expected_grid):
     """
-    grdfilter an input DataArray, and output as DataArray.
+    Test grdfilter with an input DataArray, and output as DataArray.
     """
     result = grdfilter(grid=grid, filter="g600", distance="4")
     # check information of the output grid
@@ -59,7 +59,7 @@ def test_grdfilter_dataarray_in_dataarray_out(grid, expected_grid):
 
 def test_grdfilter_dataarray_in_file_out(grid, expected_grid):
     """
-    grdfilter an input DataArray, and output to a grid file.
+    Test grdfilter with an input DataArray, and output to a grid file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdfilter(grid, outgrid=tmpfile.name, filter="g600", distance="4")
