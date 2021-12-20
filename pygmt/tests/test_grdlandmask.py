@@ -4,36 +4,53 @@ Tests for grdlandmask.
 import os
 
 import pytest
-from pygmt import grdinfo, grdlandmask
+from pygmt import grdinfo, grdlandmask, load_dataarray
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+import xarray as xr
 
+@pytest.fixture(scope="module", name="expected_grid")
+def fixture_grid_result():
+    """
+    Load the expected grdlandmask grid result.
+    """
+    return xr.DataArray(
+        data=[[0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 1.],
+       [0., 0., 0., 0., 0., 0.],
+       [0., 0., 1., 1., 0., 0.]],
+        coords=dict(
+            lon=[125.0, 126.0, 127.0, 128.0, 129.0, 130.0],
+            lat=[30.0, 31.0, 32.0, 33.0, 34.0, 35.0],
+        ),
+        dims=["lat", "lon"],
+    )
 
-def test_grdlandmask_outgrid():
+def test_grdlandmask_outgrid(expected_grid):
     """
     Creates a grid land mask with an outgrid argument.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdlandmask(outgrid=tmpfile.name, spacing=1, region=[-5, 5, -5, 5])
+        result = grdlandmask(outgrid=tmpfile.name, spacing=1, region=[125, 130, 30, 35])
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
-        result = (
-            grdinfo(grid=tmpfile.name, force_scan=0, per_column="n").strip().split()
-        )
-    assert result == ["-5", "5", "-5", "5", "0", "1", "1", "1", "11", "11", "0", "1"]
+        temp_grid = load_dataarray(tmpfile.name)
+        xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdlandmask_no_outgrid():
+def test_grdlandmask_no_outgrid(expected_grid):
     """
     Test grdlandmask with no set outgrid.
     """
-    temp_grid = grdlandmask(spacing=1, region=[-5, 5, -5, 5])
-    assert temp_grid.dims == ("lat", "lon")
-    assert temp_grid.gmt.gtype == 1  # Geographic grid
-    assert temp_grid.gmt.registration == 0  # Pixel registration
-    assert temp_grid.min() == 0
-    assert temp_grid.max() == 1
-
+    result = grdlandmask(spacing=1, region=[125, 130, 30, 35])
+    # check information of the output grid
+    assert isinstance(result, xr.DataArray)
+    assert result.gmt.gtype == 1  # Geographic grid
+    assert result.gmt.registration == 0  # Gridline registration
+    # check information of the output grid
+    xr.testing.assert_allclose(a=result, b=expected_grid)
 
 def test_grdlandmask_fails():
     """
