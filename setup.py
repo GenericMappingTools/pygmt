@@ -33,7 +33,7 @@ CLASSIFIERS = [
     f"License :: OSI Approved :: {LICENSE}",
 ]
 PLATFORMS = "Any"
-PYTHON_REQUIRES = ">=3.7"
+PYTHON_REQUIRES = ">=3.8"
 INSTALL_REQUIRES = ["numpy>=1.18", "pandas", "xarray", "netCDF4", "packaging"]
 # Configuration for setuptools-scm
 SETUP_REQUIRES = ["setuptools_scm"]
