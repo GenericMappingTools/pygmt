@@ -27,14 +27,13 @@ CLASSIFIERS = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     f"License :: OSI Approved :: {LICENSE}",
 ]
 PLATFORMS = "Any"
-PYTHON_REQUIRES = ">=3.7"
+PYTHON_REQUIRES = ">=3.8"
 INSTALL_REQUIRES = ["numpy>=1.19", "pandas", "xarray", "netCDF4", "packaging"]
 # Configuration for setuptools-scm
 SETUP_REQUIRES = ["setuptools_scm"]
