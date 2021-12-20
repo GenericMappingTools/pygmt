@@ -62,7 +62,7 @@ from pygmt.src import (
 )
 
 # Get semantic version through setuptools-scm
-__version__ = version("pygmt")  # e.g. v0.1.2.dev3+g0ab3cd78
+__version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
 __commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 # Start our global modern mode session
