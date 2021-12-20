@@ -48,7 +48,7 @@ jobs:
         # Only install optional packages on Python 3.9/NumPy 1.21
         include:
           - python-version: '3.8'
-            numpy-version: '1.18'
+            numpy-version: '1.19'
             optional-packages: ''
           - python-version: '3.9'
             numpy-version: '1.21'
