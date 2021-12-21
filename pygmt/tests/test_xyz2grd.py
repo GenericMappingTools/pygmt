@@ -6,7 +6,7 @@ import os
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import grdinfo, xyz2grd, load_dataarray
+from pygmt import xyz2grd, load_dataarray
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.helpers import GMTTempFile
 
