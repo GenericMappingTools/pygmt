@@ -18,18 +18,6 @@ def fixture_ship_data():
     """
     return load_sample_bathymetry()
 
-
-def test_xyz2grd_input_file():
-    """
-    Run xyz2grd by passing in a filename.
-    """
-    output = xyz2grd(data="@tut_ship.xyz", spacing=5, region=[245, 255, 20, 30])
-    assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == 0  # Gridline registration
-    assert output.gmt.gtype == 0  # Cartesian type
-    return output
-
-
 def test_xyz2grd_input_array(ship_data):
     """
     Run xyz2grd by passing in a numpy array.
