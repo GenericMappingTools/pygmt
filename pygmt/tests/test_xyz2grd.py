@@ -6,7 +6,7 @@ import os
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import xyz2grd, load_dataarray
+from pygmt import load_dataarray, xyz2grd
 from pygmt.datasets import load_sample_bathymetry
 from pygmt.helpers import GMTTempFile
 
@@ -18,18 +18,25 @@ def fixture_ship_data():
     """
     return load_sample_bathymetry()
 
+
 @pytest.fixture(scope="module", name="expected_grid")
 def fixture_grid_result():
     """
     Load the expected xyz2grd grid result.
     """
     return xr.DataArray(
-        data=[[-3651.0608 , -3015.214  , -2320.1033 ],
-       [-2546.2512 , -1977.8754 ,  -963.23303],
-       [ -352.3795 , -1025.4508 ,         np.nan]],
+        data=[
+            [-3651.0608, -3015.214, -2320.1033],
+            [-2546.2512, -1977.8754, -963.23303],
+            [-352.3795, -1025.4508, np.nan],
+        ],
         coords=dict(
             x=[245.0, 250.0, 255.0],
-            y=[20.0, 25.0, 30.,],
+            y=[
+                20.0,
+                25.0,
+                30.0,
+            ],
         ),
         dims=["y", "x"],
     )
