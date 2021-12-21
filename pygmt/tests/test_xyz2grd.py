@@ -18,6 +18,7 @@ def fixture_ship_data():
     """
     return load_sample_bathymetry()
 
+
 def test_xyz2grd_input_array(ship_data):
     """
     Run xyz2grd by passing in a numpy array.
