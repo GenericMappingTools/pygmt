@@ -172,8 +172,24 @@ class Figure:
             using the input names as base, which are appended with an
             appropriate extension. Use this option to provide a different name,
             but without extension. Extension is still determined automatically.
-        icc_gray : bool
-            Enforce gray-shades by using ICC profiles.
+        icc_gray : str
+            [**+m**\ *margins*][**+s**\ [**m**]\ *width*\
+            [/\ *height*]][**+S**\ *scale*] ]
+            Adjust the BoundingBox and HiResBoundingBox by scaling and/or
+            adding margins. Append **+m** to specify extra margins to extend
+            the bounding box. Give either one (uniform), two (x and y) or four
+            (individual sides) margins; append unit [Default is set by
+            :term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
+            output image to exactly *width* units. The default unit is set
+            by :term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
+            impose different width and height (**Note**: This may change the
+            image aspect ratio). What happens here is that Ghostscript will do
+            the re-interpolation work and the final image will retain the DPI
+            resolution set by ``dpi``.  Append **+sm** to set a maximum size
+            and the new *width* is only imposed if the original figure width
+            exceeds it. Append /\ *height* to also impose a maximum height in
+            addition to the width. Alternatively, append **+S**\ *scale* to
+            scale the image by a constant factor.
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
