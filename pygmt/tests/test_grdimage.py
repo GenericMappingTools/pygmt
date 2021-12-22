@@ -203,6 +203,7 @@ def test_grdimage_central_meridians(grid, proj_type, lon0):
 # https://github.com/GenericMappingTools/pygmt/issues/390
 # TO-DO remove pytest.mark.xfail once bug is solved in upstream GMT
 #       combine with test_grdimage_central_meridians_and_standard_parallels_fix
+@check_figures_equal()
 @pytest.mark.parametrize("lat0", [0, 30])
 @pytest.mark.parametrize("lon0", [123, 180])
 @pytest.mark.parametrize("proj_type", [pytest.param("Q", marks=pytest.mark.xfail), "S"])
@@ -220,6 +221,7 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
     return fig_ref, fig_test
 
 
+@check_figures_equal()
 @pytest.mark.parametrize("lat0", [0, 30])
 @pytest.mark.parametrize("proj_type", ["Q", "S"])
 def test_grdimage_central_meridians_and_standard_parallels_fix(grid, proj_type, lat0):
