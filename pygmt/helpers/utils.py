@@ -223,7 +223,7 @@ def is_nonstr_iter(value):
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname):
+def launch_external_viewer(fname, waiting=0):
     """
     Open a file in an external viewer program.
 
@@ -251,9 +251,10 @@ def launch_external_viewer(fname):
         os.startfile(fname)  # pylint: disable=no-member
     else:
         webbrowser.open_new_tab(f"file://{fname}")
-    # suspend the execution for 0.5 s to avoid the images being deleted
-    # when a Python script exits
-    time.sleep(0.5)
+    if waiting > 0:
+        # suspend the execution for a few seconds to avoid the images being
+        # deleted when a Python script exits
+        time.sleep(waiting)
 
 
 def args_in_kwargs(args, kwargs):

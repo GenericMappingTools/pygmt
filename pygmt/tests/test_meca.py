@@ -1,15 +1,11 @@
 """
 Tests for meca.
 """
-import os
-
 import numpy as np
 import pandas as pd
 import pytest
 from pygmt import Figure
 from pygmt.helpers import GMTTempFile
-
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 
 @pytest.mark.mpl_image_compare
@@ -208,5 +204,36 @@ def test_meca_loc_array():
         depth,
         region=[-125, -122, 47, 49],
         projection="M14c",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_gcmt_convention():
+    """
+    Test plotting beachballs using the global CMT convention.
+    """
+    fig = Figure()
+    # specify focal mechanisms
+    focal_mechanisms = dict(
+        strike1=180,
+        dip1=18,
+        rake1=-88,
+        strike2=0,
+        dip2=72,
+        rake2=-90,
+        mantissa=5.5,
+        exponent=0,
+    )
+    fig.meca(
+        spec=focal_mechanisms,
+        scale="1c",
+        longitude=239.384,
+        latitude=34.556,
+        depth=12,
+        convention="gcmt",
+        region=[239, 240, 34, 35.2],
+        projection="m2.5c",
+        frame=True,
     )
     return fig

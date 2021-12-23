@@ -10,6 +10,9 @@ API Reference
 Plotting
 --------
 
+Figure class overview
+~~~~~~~~~~~~~~~~~~~~~
+
 All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
 .. autosummary::
@@ -17,7 +20,8 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Plotting data and laying out the map:
+Plotting map elements
+~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -25,36 +29,50 @@ Plotting data and laying out the map:
     Figure.basemap
     Figure.coast
     Figure.colorbar
-    Figure.contour
-    Figure.grdcontour
-    Figure.grdimage
-    Figure.grdview
-    Figure.histogram
-    Figure.image
     Figure.inset
     Figure.legend
     Figure.logo
-    Figure.meca
-    Figure.plot
-    Figure.plot3d
-    Figure.rose
-    Figure.set_panel
-    Figure.shift_origin
     Figure.solar
-    Figure.subplot
     Figure.text
-    Figure.velo
-    Figure.wiggle
 
-Color palette table generation:
+Plotting tabular data
+~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
 
-    grd2cpt
-    makecpt
+    Figure.contour
+    Figure.histogram
+    Figure.meca
+    Figure.plot
+    Figure.plot3d
+    Figure.rose
+    Figure.velo
+    Figure.wiggle
 
-Saving and displaying the figure:
+Plotting raster data
+~~~~~~~~~~~~~~~~~~~~
+
+.. autosummary::
+    :toctree: generated
+
+    Figure.grdcontour
+    Figure.grdimage
+    Figure.grdview
+    Figure.image
+
+Configuring layout
+~~~~~~~~~~~~~~~~~~
+
+.. autosummary::
+    :toctree: generated
+
+    Figure.set_panel
+    Figure.shift_origin
+    Figure.subplot
+
+Saving and displaying the figure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -63,18 +81,35 @@ Saving and displaying the figure:
     Figure.show
     Figure.psconvert
 
-Configuring the display settings:
+Configuring the display settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following module is provided directly through the :mod:`pygmt` top level
+package.
 
 .. autosummary::
     :toctree: generated
 
     set_display
 
+Color palette table generation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following modules are provided directly through the :mod:`pygmt` top level
+package.
+
+.. autosummary::
+    :toctree: generated
+
+    grd2cpt
+    makecpt
+
 
 Data Processing
 ---------------
 
-Operations on tabular data:
+Operations on tabular data
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -91,7 +126,8 @@ Operations on tabular data:
     surface
     xyz2grd
 
-Operations on grids:
+Operations on grids
+~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -109,7 +145,8 @@ Operations on grids:
     grdtrack
     grdvolume
 
-Crossover analysis with x2sys:
+Crossover analysis with x2sys
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
