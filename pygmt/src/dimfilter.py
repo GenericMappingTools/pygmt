@@ -35,8 +35,8 @@ def dimfilter(grid, **kwargs):
     filters to each sector, and choosing the final outcome according to the
     selected secondary filter. It computes distances using Cartesian or
     Spherical geometries. The output grid can optionally be generated as a
-    subregion of the input and/or with a new **-I**\ ncrement. In this way,
-    one may have "extra space" in the input data so that there will be no edge
+    subregion of the input and/or with a new increment using ``spacing``,
+    which may add an "extra space" in the input data to prevent edge
     effects for the output grid. If the filter is low-pass, then the output
     may be less frequently sampled than the input. **dimfilter** will not
     produce a smooth output as other spatial filters
