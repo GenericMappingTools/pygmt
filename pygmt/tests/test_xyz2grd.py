@@ -42,22 +42,12 @@ def fixture_grid_result():
     )
 
 
-def test_xyz2grd_input_array(ship_data, expected_grid):
+@pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
+def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     """
-    Run xyz2grd by passing in a numpy array.
+    Run xyz2grd by passing in an xarray datset or numpy array.
     """
-    output = xyz2grd(data=np.array(ship_data), spacing=5, region=[245, 255, 20, 30])
-    assert isinstance(output, xr.DataArray)
-    assert output.gmt.registration == 0  # Gridline registration
-    assert output.gmt.gtype == 0  # Cartesian type
-    xr.testing.assert_allclose(a=output, b=expected_grid)
-
-
-def test_xyz2grd_input_df(ship_data, expected_grid):
-    """
-    Run xyz2grd by passing in a data frame.
-    """
-    output = xyz2grd(data=ship_data, spacing=5, region=[245, 255, 20, 30])
+    output = xyz2grd(data=array_func(ship_data), spacing=5, region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
     assert output.gmt.gtype == 0  # Cartesian type
@@ -70,7 +60,7 @@ def test_xyz2grd_input_array_file_out(ship_data, expected_grid):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = xyz2grd(
-            data=np.array(ship_data),
+            data=ship_data,
             spacing=5,
             region=[245, 255, 20, 30],
             outgrid=tmpfile.name,
