@@ -30,22 +30,22 @@ def dimfilter(grid, **kwargs):
     Filter a grid by dividing the filter circle.
 
     Filter a grid in the space (or time) domain by
-    dividing the given filter circle into the given number of sectors, applying one of the
-    selected primary convolution or non-convolution filters to each sector,
-    and choosing the final outcome according to the selected secondary
-    filter. It computes distances using Cartesian or Spherical geometries.
-    The output grid can optionally be generated as a subregion of the
-    input and/or with a new **-I**\ ncrement. In this way, one may have
-    "extra space" in the input data so that there will be no edge effects
-    for the output grid. If the filter is low-pass, then the output may be
-    less frequently sampled than the input. The **-Q** option is for the
-    error analysis mode and expects the input file to contains the filtered
-    depths. Finally, one should know that **dimfilter** will not produce a
-    smooth output as other spatial filters
+    dividing the given filter circle into the given number of sectors,
+    applying one of the selected primary convolution or non-convolution
+    filters to each sector, and choosing the final outcome according to the
+    selected secondary filter. It computes distances using Cartesian or
+    Spherical geometries. The output grid can optionally be generated as a
+    subregion of the input and/or with a new **-I**\ ncrement. In this way,
+    one may have "extra space" in the input data so that there will be no edge
+    effects for the output grid. If the filter is low-pass, then the output
+    may be less frequently sampled than the input. The **-Q** option is for
+    the error analysis mode and expects the input file to contains the
+    filtered depths. Finally, one should know that **dimfilter** will not
+    produce a smooth output as other spatial filters
     do because it returns a minimum median out of *N* medians of *N*
     sectors. The output can be rough unless the input data is noise-free.
-    Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`) of the
-    DiM-filtered data is generally recommended.
+    Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
+    of the DiM-filtered data is generally recommended.
 
     Full option list at :gmt-docs:`dimfilter.html`
 
