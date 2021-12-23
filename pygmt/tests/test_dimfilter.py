@@ -3,7 +3,6 @@ Tests for dimfilter.
 """
 import os
 
-import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt import dimfilter, load_dataarray
