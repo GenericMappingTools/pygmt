@@ -105,7 +105,12 @@ def dimfilter(grid, **kwargs):
           If more than one mode is found we return their average
           value. Append **+l** or **+h** to the sectors if you rather want to
           return the smallest or largest of the modal values.
-    {I}
+    spacing : str
+        *x_inc* [and optionally *y_inc*] is the output Increment. Append
+        **m** to indicate minutes, or **c** to indicate seconds. If the new
+        *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the
+        input data), filtering will be considerably slower. [Default: Same
+        as input.]
     {R}
     {V}
 
