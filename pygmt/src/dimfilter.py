@@ -111,7 +111,9 @@ def dimfilter(grid, **kwargs):
         *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the
         input data), filtering will be considerably slower. [Default: Same
         as input.]
-    {R}
+    region : str or list
+        [*west*, *east*, *south*, *north*].
+        Defines the region of the output points. [Default: Same as input.]
     {V}
 
     Returns
