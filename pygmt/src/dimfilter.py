@@ -1,5 +1,5 @@
 """
-dimfilter - Filter a grid file by dividing the filter circle.
+dimfilter - Directional filtering of grids in the space domain.
 """
 
 from pygmt.clib import Session
