@@ -1,13 +1,79 @@
 """
 Functions to load sample data.
 """
+import warnings
+
 import pandas as pd
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.src import which
+
+
+def list_sample_dataframes():
+    """
+    Report tabular datasets available for tests and documentation examples.
+
+    Returns
+    -------
+    output : dict
+        Names and short descriptions of available sample dataframes.
+    """
+    names = {
+        "tut_quakes.ngdc": "Table of earthquakes around Japan from NOAA NGDC database",
+        "ridge.txt": "Table of ocean ridge points for the entire world",
+    }
+    return names
+
+
+def load_sample_dataframe(name):
+    """
+    Load an example dataset from the GMT server.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Parameters
+    ----------
+    name : str
+        Name of the dataset to load.
+
+    Returns
+    -------
+    output : pandas.DataFrame
+        Tabular dataset.
+    """
+    names = list_sample_dataframes()
+    if name not in names:
+        raise GMTInvalidInput(f"Invalid dataset name '{name}'")
+
+    fname = which("@" + name, download="c")
+
+    if name == "tut_quakes.ngdc":
+        data = pd.read_csv(fname, header=1, sep=r"\s+")
+        data.columns = [
+            "year",
+            "month",
+            "day",
+            "latitude",
+            "longitude",
+            "depth_km",
+            "magnitude",
+        ]
+
+    if name == "ridge.txt":
+        data = pd.read_csv(
+            fname, sep=r"\s+", names=["longitude", "latitude"], skiprows=1, comment=">"
+        )
+    return data
 
 
 def load_japan_quakes():
     """
-    Load a table of earthquakes around Japan as a pandas.DataFrame.
+    Load a table of earthquakes around Japan as a pandas.DataFrame (Deprecated)
+
+    .. warning:: Deprecated since v0.6.0. This function has been replaced with
+       ``load_sample_dataframe(name="tut_quakes.ngdc")`` and will be removed in
+       v0.9.0.
 
     Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
     dataset used in the GMT tutorials.
@@ -15,31 +81,27 @@ def load_japan_quakes():
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
-
-    Returns
-    -------
-    data : pandas.DataFrame
-        The data table. Columns are year, month, day, latitude, longitude,
-        depth (in km), and magnitude of the earthquakes.
     """
-    fname = which("@tut_quakes.ngdc", download="c")
-    data = pd.read_csv(fname, header=1, sep=r"\s+")
-    data.columns = [
-        "year",
-        "month",
-        "day",
-        "latitude",
-        "longitude",
-        "depth_km",
-        "magnitude",
-    ]
-    return data
+
+    warnings.warn(
+        "This function has been deprecated since v0.6.0 and will be removed "
+        "in v0.9.0. Please use load_sample_dataframe(name='tut_quakes.ngdc') "
+        "instead.",
+        category=FutureWarning,
+        stacklevel=2,
+    )
+
+    return load_sample_dataframe("tut_quakes.ngdc")
 
 
 def load_ocean_ridge_points():
     """
     Load a table of ocean ridge points for the entire world as a
-    pandas.DataFrame.
+    pandas.DataFrame (Deprecated).
+
+    .. warning:: Deprecated since v0.6.0. This function has been replaced with
+       ``load_sample_dataframe(name="ridge.txt")`` and will be removed in
+       v0.9.0.
 
     This is the ``@ridge.txt`` dataset used in the GMT tutorials.
 
@@ -52,11 +114,15 @@ def load_ocean_ridge_points():
     data : pandas.DataFrame
         The data table. Columns are longitude and latitude.
     """
-    fname = which("@ridge.txt", download="c")
-    data = pd.read_csv(
-        fname, sep=r"\s+", names=["longitude", "latitude"], skiprows=1, comment=">"
+    warnings.warn(
+        "This function has been deprecated since v0.6.0 and will be removed "
+        "in v0.9.0. Please use load_sample_dataframe(name='ridge.txt') "
+        "instead.",
+        category=FutureWarning,
+        stacklevel=2,
     )
-    return data
+
+    return load_sample_dataframe("ridge.txt")
 
 
 def load_sample_bathymetry():

@@ -2,6 +2,7 @@
 Test basic functionality for loading sample datasets.
 """
 import pandas as pd
+import pytest
 from pygmt.datasets import (
     load_fractures_compilation,
     load_hotspots,
@@ -9,15 +10,42 @@ from pygmt.datasets import (
     load_mars_shape,
     load_ocean_ridge_points,
     load_sample_bathymetry,
+    load_sample_dataframe,
     load_usgs_quakes,
 )
+from pygmt.exceptions import GMTInvalidInput
+
+
+def test_load_sample_invalid():
+    """
+    Check that the function raises error for unsupported filenames.
+    """
+    with pytest.raises(GMTInvalidInput):
+        load_sample_dataframe(name="bad.filename")
 
 
 def test_japan_quakes():
     """
     Check that the dataset loads without errors.
     """
-    data = load_japan_quakes()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        data = load_japan_quakes()
+        assert len(record) == 1
+    assert data.shape == (115, 7)
+    summary = data.describe()
+    assert summary.loc["min", "year"] == 1987
+    assert summary.loc["max", "year"] == 1988
+    assert summary.loc["min", "month"] == 1
+    assert summary.loc["max", "month"] == 12
+    assert summary.loc["min", "day"] == 1
+    assert summary.loc["max", "day"] == 31
+
+
+def test_load_sample_dataframe():
+    """
+    Check that the dataset loads without errors.
+    """
+    data = load_sample_dataframe(name="tut_quakes.ngdc")
     assert data.shape == (115, 7)
     summary = data.describe()
     assert summary.loc["min", "year"] == 1987
@@ -32,7 +60,9 @@ def test_ocean_ridge_points():
     """
     Check that the @ridge.txt dataset loads without errors.
     """
-    data = load_ocean_ridge_points()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        data = load_ocean_ridge_points()
+        assert len(record) == 1
     assert data.shape == (4146, 2)
     summary = data.describe()
     assert summary.loc["min", "longitude"] == -179.9401
