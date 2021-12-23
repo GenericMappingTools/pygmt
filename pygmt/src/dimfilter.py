@@ -27,14 +27,14 @@ from pygmt.io import load_dataarray
 @kwargs_to_strings(R="sequence")
 def dimfilter(grid, **kwargs):
     r"""
-    Filter a grid file by dividing the filter circle.
+    Filter a grid by dividing the filter circle.
 
-    Filter a grid file in the space (or time) domain by
-    dividing the given filter circle into *n\_sectors*, applying one of the
+    Filter a grid in the space (or time) domain by
+    dividing the given filter circle into the given number of sectors, applying one of the
     selected primary convolution or non-convolution filters to each sector,
     and choosing the final outcome according to the selected secondary
     filter. It computes distances using Cartesian or Spherical geometries.
-    The output *.nc* file can optionally be generated as a subregion of the
+    The output grid can optionally be generated as a subregion of the
     input and/or with a new **-I**\ ncrement. In this way, one may have
     "extra space" in the input data so that there will be no edge effects
     for the output grid. If the filter is low-pass, then the output may be
@@ -44,7 +44,7 @@ def dimfilter(grid, **kwargs):
     smooth output as other spatial filters
     do because it returns a minimum median out of *N* medians of *N*
     sectors. The output can be rough unless the input data is noise-free.
-    Thus, an additional filtering (e.g., Gaussian via :doc:`grdfilter`) of the
+    Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`) of the
     DiM-filtered data is generally recommended.
 
     Full option list at :gmt-docs:`dimfilter.html`
@@ -61,43 +61,37 @@ def dimfilter(grid, **kwargs):
     distance : int or str
         Distance flag tells how grid (x,y) relates to filter width, as follows:
 
-        **0**\ : grid (x,y) in same units as *width*, Cartesian distances.
-
-        **1**\ : grid (x,y) in degrees, *width* in kilometers, Cartesian
-        distances.
-
-        **2**\ : grid (x,y) in degrees, *width* in km, dx scaled by
-        cos(middle y), Cartesian distances.
+        - **0**\ : grid (x,y) in same units as *width*, Cartesian distances.
+        - **1**\ : grid (x,y) in degrees, *width* in kilometers, Cartesian
+          distances.
+        - **2**\ : grid (x,y) in degrees, *width* in km, dx scaled by
+          cos(middle y), Cartesian distances.
 
         The above options are fastest because they allow weight matrix to be
         computed only once. The next two options are slower because they
         recompute weights for each latitude.
 
-        **3**\ : grid (x,y) in degrees, *width* in km, dx scaled by
-        cosine(y), Cartesian distance calculation.
-
-        **4**\ : grid (x,y) in degrees, *width* in km, Spherical distance
-        calculation.
+        - **3**\ : grid (x,y) in degrees, *width* in km, dx scaled by
+          cosine(y), Cartesian distance calculation.
+        - **4**\ : grid (x,y) in degrees, *width* in km, Spherical distance
+          calculation.
     filter : str
         **x**\ *width*\ [**+l**\|\ **u**]
         Sets the primary filter type. Choose among convolution and
         non-convolution filters. Append the filter code **x** followed by
         the full diameter *width*. Available convolution filters are:
 
-        (**b**) Boxcar: All weights are equal.
-
-        (**c**) Cosine Arch: Weights follow a cosine arch curve.
-
-        (**g**) Gaussian: Weights are given by the Gaussian function.
+        - (**b**) Boxcar: All weights are equal.
+        - (**c**) Cosine Arch: Weights follow a cosine arch curve.
+        - (**g**) Gaussian: Weights are given by the Gaussian function.
 
         Non-convolution filters are:
 
-        (**m**) Median: Returns median value.
-
-        (**p**) Maximum likelihood probability (a mode estimator): Return
-        modal value. If more than one mode is found we return their average
-        value. Append **+l** or **+h** to the filter width if you want
-        to return the smallest or largest of each sector's modal values.
+        - (**m**) Median: Returns median value.
+        - (**p**) Maximum likelihood probability (a mode estimator): Return
+          modal value. If more than one mode is found we return their average
+          value. Append **+l** or **+h** to the filter width if you want
+          to return the smallest or largest of each sector's modal values.
     sectors : str
         **x**\ *sectors*\ [**+l**\|\ **u**]
         Sets the secondary filter type **x** and the number of bow-tie sectors.
@@ -105,18 +99,14 @@ def dimfilter(grid, **kwargs):
         set to 1, the secondary filter is not effective. Available secondary
         filters **x** are:
 
-        (**l**) Lower: Return the minimum of all filtered values.
-
-        (**u**) Upper: Return the maximum of all filtered values.
-
-        (**a**) Average: Return the mean of all filtered values.
-
-        (**m**) Median: Return the median of all filtered values.
-
-        (**p**) Mode: Return the mode of all filtered values:
-        If more than one mode is found we return their average
-        value. Append **+l** or **+h** to the sectors if you rather want to
-        return the smallest or largest of the modal values.
+        - (**l**) Lower: Return the minimum of all filtered values.
+        - (**u**) Upper: Return the maximum of all filtered values.
+        - (**a**) Average: Return the mean of all filtered values.
+        - (**m**) Median: Return the median of all filtered values.
+        - (**p**) Mode: Return the mode of all filtered values:
+          If more than one mode is found we return their average
+          value. Append **+l** or **+h** to the sectors if you rather want to
+          return the smallest or largest of the modal values.
     {I}
     {R}
     {V}
