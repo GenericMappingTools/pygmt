@@ -1,5 +1,5 @@
 """
-Tests for pygmt.ternary.
+Tests ternary.
 """
 import pytest
 from pygmt import Figure, makecpt

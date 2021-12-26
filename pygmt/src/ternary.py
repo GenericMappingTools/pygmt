@@ -1,5 +1,5 @@
 """
-Histogram - Create a histogram
+ternary - Plot data on ternary diagrams.
 """
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
@@ -11,7 +11,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     C="cmap",
     F="center",
     G="fill",
-    J="projection",
+    JX="projection",
     R="region",
     S="style",
     U="timestamp",
