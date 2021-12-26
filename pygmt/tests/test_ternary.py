@@ -2,7 +2,7 @@
 Tests ternary.
 """
 import pytest
-from pygmt import Figure, makecpt
+from pygmt import Figure
 
 
 @pytest.mark.mpl_image_compare
