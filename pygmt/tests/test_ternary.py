@@ -11,11 +11,10 @@ def test_ternary():
     Test plotting a ternary chart.
     """
     fig = Figure()
-    makecpt(cmap="turbo", series=[0, 80, 10])
     fig.ternary(
         table="@ternary.txt",
         region="0/100/0/100/0/100",
-        cmap=True,
+        cmap="red,orange,yellow,green,blue,violet",
         projection="6i",
         frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
         style="c0.1c",
