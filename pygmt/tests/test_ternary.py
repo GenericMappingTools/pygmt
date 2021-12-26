@@ -16,7 +16,7 @@ def test_ternary():
         table="@ternary.txt",
         region="0/100/0/100/0/100",
         cmap=True,
-        projection="X6i",
+        projection="6i",
         frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
         style="c0.1c",
     )
