@@ -47,6 +47,7 @@ Plotting tabular data
     Figure.plot
     Figure.plot3d
     Figure.rose
+    Figure.ternary
     Figure.velo
     Figure.wiggle
 
