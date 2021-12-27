@@ -488,16 +488,12 @@ Wrapping a new GMT module in PyGMT is usually a big task, which will progress
 quicker and smoother if done in **small, maneable chunks**. This section
 gives an overview of the specific tasks involved in wrapping a new module.
 
-1. Create a 'Wrapper for `<module-name>`' feature request issue. 
-2. Open a 'Wrap `<module-name>`' initial feature implementation PR.
-3. Open an 'add missing aliases to `<module-name>`' documentation PR.
+1. Create a ['Wrapper for `<module-name>`' feature request issue](#request-wrapper-for-gmt-module). 
+2. Open a ['Wrap `<module-name>`' initial feature implementation PR](#initial-feature-implementation).
+3. Open an ['Add missing aliases to `<module-name>`' documentation PR](#add-missing-aliases).
 4. Open a 'support additional functionality in module' PR (optional).
-5. Add 'gallery example for module' documentation PR (see the
-   [contributing gallery plots](#contributing-gallery-plots) section for
-   detailed guidance).
-6. Add 'tutorial for module' documentation PR (optional; see the
-   [contributing tutorials](#contributing-tutorials) section for detailed
-   guidance).
+5. Add ['Gallery example for module' documentation PR](#contributing-gallery-plots).
+6. Add ['Tutorial for module' documentation PR](#contributing-tutorials) (optional).
 
 These steps will be tracked in the 'Wrapper for `<module-name>`' issue and the
 ['wrapping GMT modules'](https://github.com/GenericMappingTools/pygmt/projects/9)
