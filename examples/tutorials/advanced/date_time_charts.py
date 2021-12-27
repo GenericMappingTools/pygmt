@@ -11,7 +11,7 @@ passed into the ``region`` parameter to create a range of the data on an axis.
 The following examples will demonstrate how to create plots
 using the different datetime objects.
 """
-# sphinx_gallery_thumbnail_number = 0
+# sphinx_gallery_thumbnail_number = 8
 
 import datetime
 
@@ -257,7 +257,7 @@ df.Date = pd.to_datetime(df["Date"], format="%Y%m%d")
 
 fig = pygmt.Figure()
 region = pygmt.info(
-    table=df[["Date", "Score"]], per_column=True, spacing=(700, 700), coltypes="T"
+    data=df[["Date", "Score"]], per_column=True, spacing=(700, 700), coltypes="T"
 )
 
 fig.plot(
@@ -285,7 +285,7 @@ fig.show()
 # Starting off with ``WS``, adding this string means that only
 # Western/Left (**W**) and Southern/Bottom (**S**) borders of
 # the plot will be shown. For more information on this, please
-# refer to :doc:`frame instructions </tutorials/frames>`.
+# refer to :doc:`frame instructions </tutorials/basics/frames>`.
 #
 # The other important item in the ``frame`` list is
 # ``"sxa1Of1D"``. This string modifies the secondary

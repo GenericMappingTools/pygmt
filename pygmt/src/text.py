@@ -117,6 +117,7 @@ def text_(
         then the input to ``textfiles`` must have this as a column.
     {J}
     {R}
+        *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
@@ -183,7 +184,7 @@ def text_(
         raise GMTInvalidInput("Must provide text with x/y pairs or position")
 
     # Build the -F option in gmt text.
-    if "F" not in kwargs.keys() and (
+    if "F" not in kwargs and (
         (
             position is not None
             or angle is not None

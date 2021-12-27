@@ -110,7 +110,7 @@ def data_format_code(convention, component="full"):
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def meca(
-    self,  # pylint: disable=unused-argument
+    self,
     spec,
     scale,
     longitude=None,
@@ -219,7 +219,7 @@ def meca(
         Set optional parameter pointers based on DataFrame or dict, if those
         parameters are present in the DataFrame or dict.
         """
-        for param in list(data_pointers.keys()):
+        for param in list(data_pointers):
             if param in spec:
                 # set pointer based on param name
                 data_pointers[param] = spec[param]
@@ -249,7 +249,16 @@ def meca(
 
         param_conventions = {
             "AKI": ["strike", "dip", "rake", "magnitude"],
-            "GCMT": ["strike1", "dip1", "dip2", "rake2", "mantissa", "exponent"],
+            "GCMT": [
+                "strike1",
+                "dip1",
+                "rake1",
+                "strike2",
+                "dip2",
+                "rake2",
+                "mantissa",
+                "exponent",
+            ],
             "MT": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
             "PARTIAL": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
             "PRINCIPAL_AXIS": [
@@ -275,27 +284,25 @@ def meca(
             "plot_latitude": plot_latitude,
         }
 
-        # make a DataFrame copy to check convention if it contains
-        # other parameters
-        if isinstance(spec, (dict, pd.DataFrame)):
-            # check if a copy is necessary
-            copy = False
-            drop_list = []
-            for pointer in data_pointers:
-                if pointer in spec:
-                    copy = True
-                    drop_list.append(pointer)
-            if copy:
-                spec_conv = spec.copy()
-                # delete optional parameters from copy for convention check
-                for item in drop_list:
-                    del spec_conv[item]
-            else:
-                spec_conv = spec
+        # make a DataFrame copy to check convention if it contains other params
+        # check if a copy is necessary
+        copy = False
+        drop_list = []
+        for pointer in data_pointers:
+            if pointer in spec:
+                copy = True
+                drop_list.append(pointer)
+        if copy:
+            spec_conv = spec.copy()
+            # delete optional parameters from copy for convention check
+            for item in drop_list:
+                del spec_conv[item]
+        else:
+            spec_conv = spec
 
         # set convention and focal parameters based on spec convention
         for conv in list(param_conventions):
-            if set(spec_conv.keys()) == set(param_conventions[conv]):
+            if set(spec_conv) == set(param_conventions[conv]):
                 convention = conv.lower()
                 foc_params = param_conventions[conv]
                 break

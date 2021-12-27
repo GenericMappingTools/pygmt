@@ -34,7 +34,8 @@ The below table shows the projection codes for the 31 GMT projections.
      - :doc:`Azimuthal gnomonic </projections/azim/azim_gnomonic>`
    * - **G**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
      - :doc:`Azimuthal orthographic </projections/azim/azim_orthographic>`
-   * - **G**\ |lon0|/|lat0|/\ *alt*/*azim*/*tilt*/*twist*/*W*/*H*/*width*
+   * - **G**\ |lon0|/|lat0|\ */width*\[**+a**\ *azimuth*]\ [**+t**\ *tilt*]\
+       [**+v**\ *vwidth/vheight*]\ [**+w**\ *twist*]\ [**+z**\ *altitude*]
      - :doc:`General perspective </projections/azim/azim_general_perspective>`
    * - **H**\ [|lon0|/]\ *width*
      - :doc:`Hammer equal area </projections/misc/misc_hammer>`

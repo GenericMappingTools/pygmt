@@ -241,7 +241,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
                 kwargs["S"] = "s0.2c"
         except FileNotFoundError:
             pass
-    if "G" in kwargs and not isinstance(kwargs["G"], str):
+    if "G" in kwargs and is_nonstr_iter(kwargs["G"]):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for color if data is matrix or file."

@@ -8,12 +8,12 @@ A text symbol can be drawn by passing **l**\ *size*\ **+t**\ *string* to
 the ``style`` parameter where *size* defines the size of the text symbol
 (note: the size is only approximate; no individual scaling is done for
 different characters) and *string* can be a letter or a text string
-(less than 256 characters). Optionally, you can append **+f**\ *font* to
-select a particular font [Default is :gmt-term:`FONT_ANNOT_PRIMARY`] as well as
-**+j**\ *justify* to change the justification [Default is CM]. Outline
-and fill color of the text symbols can be customized via the ``pen``
-and ``color`` parameters, respectively.
-
+(less than 256 characters). Optionally, you can append
+**+f**\ *font,outlinecolor* to select a particular font [Default is
+:gmt-term:`FONT_ANNOT_PRIMARY`] and outline color [Default is black] as well
+as **+j**\ *justify* to change the justification [Default is CM]. The fill
+color of the text symbols can be set with the ``color`` parameter, and the
+outline width can be customized with the ``pen`` parameter.
 For all supported octal codes and fonts see the GMT cookbook
 :gmt-docs:`cookbook/octal-codes.html` and
 :gmt-docs:`cookbook/postscript-fonts.html`.
@@ -37,7 +37,8 @@ fig.plot(x=4, y=1.5, style="l3.5c+tZ+fCourier-Bold", color="seagreen", pen=pen)
 # color fill is set to "gold"
 fig.plot(x=5.5, y=1.5, style="l3.5c+ts+fTimes-Italic", color="gold", pen=pen)
 # plot the pi symbol (\160 is octal code for pi) of size 3.5c, for this use
-# the "Symbol" font, color fill is set to "magenta4"
-fig.plot(x=7, y=1.5, style="l3.5c+t\160+fSymbol", color="magenta4", pen=pen)
+# the "Symbol" font, the outline color of the symbol is set to
+# "darkorange", the color fill is set to "magenta4"
+fig.plot(x=7, y=1.5, style="l3.5c+t\160+fSymbol,darkorange", color="magenta4", pen=pen)
 
 fig.show()
