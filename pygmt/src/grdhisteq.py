@@ -123,15 +123,11 @@ class grdhisteq:
                 file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
                 with file_context as infile:
                     # Return table data if outgrid is not set
-                    if "G" not in kwargs or kwargs["G"] is None:
+                    if "G" not in kwargs:
                         # Return pd.Dataframe if filename not provided
                         if "D" not in kwargs or kwargs["D"] is True:
-                            outfile = tmpfile.name
-                        else:  # Return set output to file Name
-                            outfile = kwargs["D"]
-                        # Temporary workaround to GMT bug (Issue #5785)
-                        kwargs.update({"D": True})
-                        kwargs.update({">": outfile})
+                            kwargs.update({"D": tmpfile.name})
+                        outfile = kwargs["D"]
                     else:  # NetCDF or xarray.DataArray output if outgrid is set
                         if kwargs["G"] is True:
                             kwargs.update({"G": tmpfile.name})
@@ -201,6 +197,9 @@ class grdhisteq:
         -------
         :meth:`pygmt.grd2cpt`
         """
+        # Return a xarray.DataArray if ``outgrid`` is not set
+        if "G" not in kwargs:
+            kwargs.update({"G": True})
         return grdhisteq._grdhisteq(grid, **kwargs)
 
     @staticmethod
@@ -262,4 +261,7 @@ class grdhisteq:
         -------
         :meth:`pygmt.grd2cpt`
         """
+        # Return a pandas.DataFrame if ``outfile`` is not set
+        if "D" not in kwargs:
+            kwargs.update({"D": True})
         return grdhisteq._grdhisteq(grid, **kwargs)
