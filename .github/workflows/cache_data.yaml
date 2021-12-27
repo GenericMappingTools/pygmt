@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.4.0
         with:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
@@ -38,7 +38,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.2.0 \
+          mamba install gmt=6.3.0 \
                         numpy pandas xarray netCDF4 packaging matplotlib
 
       # Install the package that we want to test
