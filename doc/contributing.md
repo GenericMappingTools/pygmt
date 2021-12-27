@@ -489,31 +489,37 @@ quicker and smoother if done in **small, maneable chunks**. This section
 gives an overview of the specific tasks involved in wrapping a new module.
 
 1. Create a 'Wrapper for `<module-name>`' feature request issue. 
-2. Open a 'Wrap `<module-name>`' initial feature implementation PR
-3. Open an 'add missing aliases to `<module-name>` documentation PR
-4. Open a 'support additional functionality in module' PR (optional)
-5. Add 'gallery example for module' documentation PR
-6. Add 'tutorial for module' documentation PR (optional)
+2. Open a 'Wrap `<module-name>`' initial feature implementation PR.
+3. Open an 'add missing aliases to `<module-name>`' documentation PR.
+4. Open a 'support additional functionality in module' PR (optional).
+5. Add 'gallery example for module' documentation PR (see the
+   [contributing gallery plots](#contributing-gallery-plots) section for
+   detailed guidance).
+6. Add 'tutorial for module' documentation PR (optional; see the
+   [contributing tutorials](#contributing-tutorials) section for detailed
+   guidance).
 
-These steps will be tracked in the 'Wrapper for `<module-name>`' issue. The
-pull requests can be split amongst multiple contributors and there is no
-obligation for a single contributor to complete all steps. Please comment on the
-initial 'Wrapper for `<module-name>`' if you would like to open a pull request
-for any of these tasks to avoid redundant efforts.
+These steps will be tracked in the 'Wrapper for `<module-name>`' issue and the
+['wrapping GMT modules'](https://github.com/GenericMappingTools/pygmt/projects/9)
+project board. The pull requests can be split between multiple contributors and
+there is no obligation for a single contributor to complete all steps. Please
+comment on the initial 'Wrapper for `<module-name>`' if you would like to open
+a pull request for any of these tasks to avoid redundant efforts.
 
 #### Create a feature request issue
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
   top of the GitHub repository and click *New Issue*.
-* Click on *Get started* next to *Feature request - Wrap new GMT module*
-* Follow the prompts for filling out the issue template
+* Click on *Get started* next to *Feature request - Wrap new GMT module*.
+* Follow the prompts for filling out the issue template.
 
 #### Open an initial feature implementation PR
 
-If not already mentioned, first comment on the 'Wrapper for `<module-name>`'
-issue that you will be working on the initial feature implementation. This
-first pull request should be as minimal as possible - only adding the required
-functionality.
+First, comment on the 'Wrapper for `<module-name>`' issue that you will be
+working on the initial feature implementation. This first pull request should
+be as minimal as possible - only adding the required functionality (i.e.,
+wrapping the required GMT arguments and supporting the primary input/output
+types).
 
 The following steps are common to all initial implementation pull requests that
 wrap a new GMT module (e.g., [initial grdfill implementation](https://github.com/GenericMappingTools/pygmt/pull/1276/files)):
@@ -524,6 +530,12 @@ wrap a new GMT module (e.g., [initial grdfill implementation](https://github.com
 * Add a function `<module-name>` to the module. When writing the new function,
   it is generally easiest to reference other functions that input/output similar
   object types.
+* Add a detailed docstring following the [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
+* Add the function to the import statements in `pygmt/src/__init__.py`.
+* Add the function to the import statements in `pygmt/__init__.py`.
+* Add the function to appropriate section of the API documentation in `doc/api/index.rst`.
+* Add a testing module `test_<module-name>.py` in `pygmt/tests`, following
+  the guidelines in the [Testing your code](#testing-your-code) section.
 
 ### Testing your Code
 
