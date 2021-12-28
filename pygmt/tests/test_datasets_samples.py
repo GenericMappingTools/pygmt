@@ -45,7 +45,7 @@ def test_load_sample_dataframe():
     """
     Check that the dataset loads without errors.
     """
-    data = load_sample_dataframe(name="tut_quakes.ngdc")
+    data = load_sample_dataframe(name="japan_quakes")
     assert data.shape == (115, 7)
     summary = data.describe()
     assert summary.loc["min", "year"] == 1987

@@ -18,8 +18,8 @@ def list_sample_dataframes():
         Names and short descriptions of available sample dataframes.
     """
     names = {
-        "tut_quakes.ngdc": "Table of earthquakes around Japan from NOAA NGDC database",
-        "ridge.txt": "Table of ocean ridge points for the entire world",
+        "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
+        "ocean_ridge_points": "Table of ocean ridge points for the entire world",
     }
     return names
 
@@ -46,24 +46,12 @@ def load_sample_dataframe(name):
     if name not in names:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'")
 
-    fname = which("@" + name, download="c")
+    if name == "japan_quakes":
+        data = load_tut_quakes()
 
-    if name == "tut_quakes.ngdc":
-        data = pd.read_csv(fname, header=1, sep=r"\s+")
-        data.columns = [
-            "year",
-            "month",
-            "day",
-            "latitude",
-            "longitude",
-            "depth_km",
-            "magnitude",
-        ]
+    if name == "ocean_ridge_points":
+        data = load_ridge()
 
-    if name == "ridge.txt":
-        data = pd.read_csv(
-            fname, sep=r"\s+", names=["longitude", "latitude"], skiprows=1, comment=">"
-        )
     return data
 
 
@@ -81,6 +69,12 @@ def load_japan_quakes():
     The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
     first time you invoke this function. Afterwards, it will load the data from
     the cache. So you'll need an internet connection the first time around.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table. Columns are year, month, day, latitude, longitude,
+        depth (in km), and magnitude of the earthquakes.
     """
 
     warnings.warn(
@@ -91,7 +85,36 @@ def load_japan_quakes():
         stacklevel=2,
     )
 
-    return load_sample_dataframe("tut_quakes.ngdc")
+    return load_sample_dataframe("japan_quakes")
+
+
+def load_tut_quakes():
+    """
+    Load the remote file @tut_quakes.ngdc as a pandas.DataFrame.
+
+    Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
+    dataset used in the GMT tutorials.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table. Columns are year, month, day, latitude, longitude,
+        depth (in km), and magnitude of the earthquakes.
+    """
+
+    fname = which("@tut_quakes.ngdc", download="c")
+    data = pd.read_csv(fname, header=1, sep=r"\s+")
+    data.columns = [
+        "year",
+        "month",
+        "day",
+        "latitude",
+        "longitude",
+        "depth_km",
+        "magnitude",
+    ]
+
+    return data
 
 
 def load_ocean_ridge_points():
@@ -122,7 +145,24 @@ def load_ocean_ridge_points():
         stacklevel=2,
     )
 
-    return load_sample_dataframe("ridge.txt")
+    return load_sample_dataframe("ocean_ridge_points")
+
+
+def load_ridge():
+    """
+    Load a table of ocean ridge points for the entire world as a
+    pandas.DataFrame.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table. Columns are longitude and latitude.
+    """
+    fname = which("@ridge.txt", download="c")
+    data = pd.read_csv(
+        fname, sep=r"\s+", names=["longitude", "latitude"], skiprows=1, comment=">"
+    )
+    return data
 
 
 def load_sample_bathymetry():
