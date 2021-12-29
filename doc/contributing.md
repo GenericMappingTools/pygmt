@@ -165,8 +165,8 @@ To increase the chances of getting your pull request accepted quickly, try to:
     [Testing plots](#testing-plots).
   - Include an example of new features in the gallery or tutorials.
     Please refer to [Gallery plots](#gallery-plots) or [Tutorials](#tutorials).
-    If adding a new method/function/class, the gallery example or tutorial can
-    be submitted in a separate pulll request.
+    If adding a new method/function/class, the gallery example or tutorial should
+    be submitted in a separate pull request.
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
   - Follow the [PEP8](http://pep8.org) style guide for code and the
