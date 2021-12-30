@@ -146,7 +146,7 @@ fig.show()
 # example below. This format uses ``frame`` to set both the axes gridlines and
 # the figure title.
 #
-# If the figure title has multiple words, the string to set the title needs to
+# If the figure title has any spaces, the string to set the title needs to
 # use single-quotes, with the actual title set in double quotes (e.g. setting
 # the title to "Coastal Maine" would use the syntax ``'+t"Coastal Maine"'``.
 
