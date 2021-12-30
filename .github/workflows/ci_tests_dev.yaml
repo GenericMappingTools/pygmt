@@ -29,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.9]
+        python-version: ['3.10']
         os: [ubuntu-latest, macOS-11.0, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
@@ -77,7 +77,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           activate-environment: pygmt
-          python-version: ${{ matrix.python-version }}
+          # python-version: ${{ matrix.python-version }}
           channels: conda-forge,nodefaults
           channel-priority: strict
           miniforge-version: latest
@@ -88,11 +88,13 @@ jobs:
       # Install dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install ninja cmake libblas libcblas liblapack fftw gdal geopandas \
-                        ghostscript libnetcdf hdf5 zlib curl pcre make dvc
-          pip install --pre numpy pandas xarray netCDF4 packaging \
-                            ipython pytest-cov pytest-mpl pytest>=6.0 sphinx-gallery \
-                            tomli
+          mamba install python=${{ matrix.python-version }} \
+                        ninja cmake libblas libcblas liblapack fftw libgdal \
+                        geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
+          pip install --pre --prefer-binary \
+                        numpy pandas xarray netCDF4 packaging \
+                        dvc ipython 'pytest>=6.0' pytest-cov \
+                        pytest-mpl sphinx-gallery tomli
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
