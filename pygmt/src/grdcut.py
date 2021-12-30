@@ -91,7 +91,6 @@ def grdcut(grid, **kwargs):
     Examples
     --------
     >>> import pygmt
-
     >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
     >>> # and a y-range of 15 to 25
     >>> grid = pygmt.datasets.load_earth_relief(
