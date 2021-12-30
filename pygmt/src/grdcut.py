@@ -87,6 +87,19 @@ def grdcut(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Examples
+    --------
+    >>> import pygmt
+
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )
+    >>> # Create a new grid from an input grid, with an x-range of -3 to 1,
+    >>> # and a y-range of 2 to 5
+    >>> new_grid = pygmt.grdcut(grid=grid, region=[-3, 1, 2, 5])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
