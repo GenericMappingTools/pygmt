@@ -485,7 +485,7 @@ make lint    # Runs pylint, which is a bit slower
 ### Wrapping a new GMT module
 
 Wrapping a new GMT module in PyGMT is usually a big task, which will progress
-quicker and smoother if done in **small, maneable chunks**. This section
+quicker and smoother if done in **small, manageable chunks**. This section
 gives an overview of the specific tasks involved in wrapping a new module.
 
 1. Create a ['Wrapper for `<module-name>`' feature request issue](#request-wrapper-for-gmt-module). 
