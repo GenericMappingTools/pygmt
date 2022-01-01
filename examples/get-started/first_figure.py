@@ -147,8 +147,8 @@ fig.show()
 # the figure title.
 #
 # If the figure title has any spaces, the string to set the title needs to
-# use single-quotes, with the actual title set in double quotes (e.g. setting
-# the title to "Coastal Maine" would use the syntax ``'+t"Coastal Maine"'``.
+# be wrapped in single-quotes, while the actual title is set in double quotes
+# (e.g. setting the title to "A Title" would use the syntax ``'+t"A Title"'``.
 
 fig = pygmt.Figure()
 fig.coast(
