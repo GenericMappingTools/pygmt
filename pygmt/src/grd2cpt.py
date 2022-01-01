@@ -165,7 +165,7 @@ def grd2cpt(grid, **kwargs):
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as infile:
-            if "H" not in kwargs.keys():  # if no output is set
+            if "H" not in kwargs:  # if no output is set
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
             if "H" in kwargs:  # if output is set
                 outfile = kwargs.pop("H")
