@@ -121,7 +121,7 @@ fig.show()
 # annotate the latitude and longitude of the region.
 #
 # The ``frame`` parameter is used to add a frame to the figure. For now, it
-# will be set to ``"a"`` to use automatic annotation settings.
+# will be set to ``"a"`` to **a**nnotate the axes automatically.
 
 fig = pygmt.Figure()
 fig.coast(
