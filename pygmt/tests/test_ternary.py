@@ -18,5 +18,6 @@ def test_ternary():
         projection="6i",
         frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
         style="c0.1c",
+        pen="thinnest",
     )
     return fig

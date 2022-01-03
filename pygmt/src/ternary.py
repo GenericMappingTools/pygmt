@@ -25,10 +25,15 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(R="sequence", T="sequence", c="sequence_comma", p="sequence")
 def ternary(self, table, **kwargs):
     r"""
-    Plots a histogram, and can read data from a file or
-    list, array, or dataframe.
+    Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *table* and plots symbols at
+    those locations on a ternary diagram. If a symbol is selected and no symbol
+    size given, then we will interpret the fourth column of the input data as
+    symbol size. Symbols whose *size* is <= 0 are skipped. If no symbols are
+    specified then the symbol code (see **style** below) must be present as
+    last column in the input.  If **style** is not specified then we instead
+    plot lines or polygons.
 
-    Full option list at :gmt-docs:`histogram.html`
+    Full option list at :gmt-docs:`ternary.html`
 
     {aliases}
 
