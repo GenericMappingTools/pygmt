@@ -11,7 +11,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     C="cmap",
     F="center",
     G="fill",
-    JX="projection",
+    JX="width",
     R="region",
     S="style",
     U="timestamp",
@@ -43,7 +43,9 @@ def ternary(self, table, **kwargs):
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
     {J}
-    {R}
+    width : str
+        *width*. Set the width of the figure by passing a number, followed by
+        a unit (**i** for inches, **c** for centimeters).
     {CPT}
     {G}
     style : str
