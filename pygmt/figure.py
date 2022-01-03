@@ -15,6 +15,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     launch_external_viewer,
@@ -124,12 +125,13 @@ class Figure:
         return wesn
 
     @fmt_docstring
+    @deprecate_parameter("icc_gray", "resize", "v0.6.0", remove_version="v0.8.0")
     @use_alias(
         A="crop",
         C="gs_option",
         E="dpi",
         F="prefix",
-        I="icc_gray",
+        I="resize",
         T="fmt",
         Q="anti_aliasing",
         V="verbose",
