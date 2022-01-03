@@ -57,7 +57,7 @@ def load_sample_dataframe(name):
 
 def load_japan_quakes():
     """
-    Load a table of earthquakes around Japan as a pandas.DataFrame (Deprecated)
+    (Deprecated) Load a table of earthquakes around Japan as a pandas.DataFrame.
 
     .. warning:: Deprecated since v0.6.0. This function has been replaced with
        ``load_sample_dataframe(name="tut_quakes.ngdc")`` and will be removed in
@@ -88,7 +88,7 @@ def load_japan_quakes():
     return load_sample_dataframe("japan_quakes")
 
 
-def load_tut_quakes():
+def _load_tut_quakes():
     """
     Load the remote file @tut_quakes.ngdc as a pandas.DataFrame.
 
