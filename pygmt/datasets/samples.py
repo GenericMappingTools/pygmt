@@ -47,17 +47,18 @@ def load_sample_dataframe(name):
         raise GMTInvalidInput(f"Invalid dataset name '{name}'")
 
     if name == "japan_quakes":
-        data = load_tut_quakes()
+        data = load_japan_quakes(suppress_warning=True)
 
     if name == "ocean_ridge_points":
-        data = load_ridge()
+        data = load_ocean_ridge_points(suppress_warning=True)
 
     return data
 
 
-def load_japan_quakes():
+def load_japan_quakes(**kwargs):
     """
-    (Deprecated) Load a table of earthquakes around Japan as a pandas.DataFrame.
+    (Deprecated) Load a table of earthquakes around Japan as a
+    pandas.DataFrame.
 
     .. warning:: Deprecated since v0.6.0. This function has been replaced with
        ``load_sample_dataframe(name="tut_quakes.ngdc")`` and will be removed in
@@ -77,30 +78,14 @@ def load_japan_quakes():
         depth (in km), and magnitude of the earthquakes.
     """
 
-    warnings.warn(
-        "This function has been deprecated since v0.6.0 and will be removed "
-        "in v0.9.0. Please use load_sample_dataframe(name='tut_quakes.ngdc') "
-        "instead.",
-        category=FutureWarning,
-        stacklevel=2,
-    )
-
-    return load_sample_dataframe("japan_quakes")
-
-
-def _load_tut_quakes():
-    """
-    Load the remote file @tut_quakes.ngdc as a pandas.DataFrame.
-
-    Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
-    dataset used in the GMT tutorials.
-
-    Returns
-    -------
-    data : pandas.DataFrame
-        The data table. Columns are year, month, day, latitude, longitude,
-        depth (in km), and magnitude of the earthquakes.
-    """
+    if "suppress_warning" not in kwargs:
+        warnings.warn(
+            "This function has been deprecated since v0.6.0 and will be "
+            "removed in v0.9.0.. Please use "
+            "load_sample_dataframe(name='tut_quakes.ngdc') instead.",
+            category=FutureWarning,
+            stacklevel=2,
+        )
 
     fname = which("@tut_quakes.ngdc", download="c")
     data = pd.read_csv(fname, header=1, sep=r"\s+")
@@ -117,7 +102,7 @@ def _load_tut_quakes():
     return data
 
 
-def load_ocean_ridge_points():
+def load_ocean_ridge_points(**kwargs):
     """
     Load a table of ocean ridge points for the entire world as a
     pandas.DataFrame (Deprecated).
@@ -137,27 +122,16 @@ def load_ocean_ridge_points():
     data : pandas.DataFrame
         The data table. Columns are longitude and latitude.
     """
-    warnings.warn(
-        "This function has been deprecated since v0.6.0 and will be removed "
-        "in v0.9.0. Please use load_sample_dataframe(name='ridge.txt') "
-        "instead.",
-        category=FutureWarning,
-        stacklevel=2,
-    )
 
-    return load_sample_dataframe("ocean_ridge_points")
+    if "suppress_warning" not in kwargs:
+        warnings.warn(
+            "This function has been deprecated since v0.6.0 and will be removed "
+            "in v0.9.0. Please use load_sample_dataframe(name='ridge.txt') "
+            "instead.",
+            category=FutureWarning,
+            stacklevel=2,
+        )
 
-
-def load_ridge():
-    """
-    Load a table of ocean ridge points for the entire world as a
-    pandas.DataFrame.
-
-    Returns
-    -------
-    data : pandas.DataFrame
-        The data table. Columns are longitude and latitude.
-    """
     fname = which("@ridge.txt", download="c")
     data = pd.read_csv(
         fname, sep=r"\s+", names=["longitude", "latitude"], skiprows=1, comment=">"
