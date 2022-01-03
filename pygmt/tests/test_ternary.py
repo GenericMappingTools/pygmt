@@ -15,7 +15,7 @@ def test_ternary():
         table="@ternary.txt",
         region="0/100/0/100/0/100",
         cmap="red,orange,yellow,green,blue,violet",
-        projection="6i",
+        width="6i",
         frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
         style="c0.1c",
         pen="thinnest",
