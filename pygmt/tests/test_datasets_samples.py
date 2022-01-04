@@ -10,7 +10,7 @@ from pygmt.datasets import (
     load_mars_shape,
     load_ocean_ridge_points,
     load_sample_bathymetry,
-    load_sample_dataframe,
+    load_sample_data,
     load_usgs_quakes,
 )
 from pygmt.exceptions import GMTInvalidInput
@@ -21,7 +21,7 @@ def test_load_sample_invalid():
     Check that the function raises error for unsupported filenames.
     """
     with pytest.raises(GMTInvalidInput):
-        load_sample_dataframe(name="bad.filename")
+        load_sample_data(name="bad.filename")
 
 
 def test_japan_quakes():
@@ -41,11 +41,11 @@ def test_japan_quakes():
     assert summary.loc["max", "day"] == 31
 
 
-def test_load_sample_dataframe():
+def test_load_sample_data():
     """
     Check that the dataset loads without errors.
     """
-    data = load_sample_dataframe(name="japan_quakes")
+    data = load_sample_data(name="japan_quakes")
     assert data.shape == (115, 7)
     summary = data.describe()
     assert summary.loc["min", "year"] == 1987

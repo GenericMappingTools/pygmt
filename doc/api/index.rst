@@ -210,7 +210,7 @@ and store them in the GMT cache folder.
 .. autosummary::
     :toctree: generated
 
-    datasets.list_sample_dataframes
+    datasets.list_sample_data
     datasets.load_earth_age
     datasets.load_earth_relief
     datasets.load_fractures_compilation
@@ -219,7 +219,7 @@ and store them in the GMT cache folder.
     datasets.load_mars_shape
     datasets.load_ocean_ridge_points
     datasets.load_sample_bathymetry
-    datasets.load_sample_dataframe
+    datasets.load_sample_data
     datasets.load_usgs_quakes
 
 .. automodule:: pygmt.exceptions

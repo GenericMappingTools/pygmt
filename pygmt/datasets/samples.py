@@ -8,7 +8,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.src import which
 
 
-def list_sample_dataframes():
+def list_sample_data():
     """
     Report tabular datasets available for tests and documentation examples.
 
@@ -24,7 +24,7 @@ def list_sample_dataframes():
     return names
 
 
-def load_sample_dataframe(name):
+def load_sample_data(name):
     """
     Load an example dataset from the GMT server.
 
@@ -42,7 +42,7 @@ def load_sample_dataframe(name):
     output : pandas.DataFrame
         Tabular dataset.
     """
-    names = list_sample_dataframes()
+    names = list_sample_data()
     if name not in names:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'")
 
@@ -61,7 +61,7 @@ def load_japan_quakes(**kwargs):
     pandas.DataFrame.
 
     .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_dataframe(name="tut_quakes.ngdc")`` and will be removed in
+       ``load_sample_data(name="tut_quakes.ngdc")`` and will be removed in
        v0.9.0.
 
     Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
@@ -82,7 +82,7 @@ def load_japan_quakes(**kwargs):
         warnings.warn(
             "This function has been deprecated since v0.6.0 and will be "
             "removed in v0.9.0.. Please use "
-            "load_sample_dataframe(name='tut_quakes.ngdc') instead.",
+            "load_sample_data(name='tut_quakes.ngdc') instead.",
             category=FutureWarning,
             stacklevel=2,
         )
@@ -108,7 +108,7 @@ def load_ocean_ridge_points(**kwargs):
     pandas.DataFrame (Deprecated).
 
     .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_dataframe(name="ridge.txt")`` and will be removed in
+       ``load_sample_data(name="ridge.txt")`` and will be removed in
        v0.9.0.
 
     This is the ``@ridge.txt`` dataset used in the GMT tutorials.
@@ -126,7 +126,7 @@ def load_ocean_ridge_points(**kwargs):
     if "suppress_warning" not in kwargs:
         warnings.warn(
             "This function has been deprecated since v0.6.0 and will be removed "
-            "in v0.9.0. Please use load_sample_dataframe(name='ridge.txt') "
+            "in v0.9.0. Please use load_sample_data(name='ridge.txt') "
             "instead.",
             category=FutureWarning,
             stacklevel=2,
