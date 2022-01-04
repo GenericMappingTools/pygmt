@@ -254,6 +254,7 @@ def test_info_fails():
 def test_incols_for_vector_input():
     """
     Make sure that incols (-i) works for vector input.
+
     Related to https://github.com/GenericMappingTools/pygmt/issues/1313.
     """
     x = np.arange(0, 10, 1)
