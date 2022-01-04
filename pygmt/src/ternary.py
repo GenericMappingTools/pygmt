@@ -23,7 +23,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", T="sequence", c="sequence_comma", p="sequence")
-def ternary(self, table, **kwargs):
+def ternary(self, data, **kwargs):
     r"""
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *table* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
@@ -39,7 +39,7 @@ def ternary(self, table, **kwargs):
 
     Parameters
     ----------
-    table : str or list or {table-like}
+    data : str or list or {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
     {J}
@@ -60,7 +60,7 @@ def ternary(self, table, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=table)
+        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:
             arg_str = " ".join([infile, build_arg_string(kwargs)])
             lib.call_module("ternary", arg_str)
