@@ -75,7 +75,9 @@ def test_sample_bathymetry():
     """
     Check that the @tut_ship.xyz dataset loads without errors.
     """
-    data = load_sample_bathymetry()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        data = load_sample_bathymetry()
+        assert len(record) == 1
     assert data.shape == (82970, 3)
     summary = data.describe()
     assert summary.loc["min", "longitude"] == 245.0
@@ -90,7 +92,9 @@ def test_usgs_quakes():
     """
     Check that the dataset loads without errors.
     """
-    data = load_usgs_quakes()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        data = load_usgs_quakes()
+        assert len(record) == 1
     assert data.shape == (1197, 22)
 
 
@@ -98,7 +102,9 @@ def test_fractures_compilation():
     """
     Check that the @fractures_06.txt dataset loads without errors.
     """
-    data = load_fractures_compilation()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        data = load_fractures_compilation()
+        assert len(record) == 1
     assert data.shape == (361, 2)
     summary = data.describe()
     assert summary.loc["min", "length"] == 98.6561
@@ -111,7 +117,9 @@ def test_mars_shape():
     """
     Check that the @mars370d.txt dataset loads without errors.
     """
-    data = load_mars_shape()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        data = load_mars_shape()
+        assert len(record) == 1
     assert data.shape == (370, 3)
     summary = data.describe()
     assert summary.loc["min", "longitude"] == 0.008
@@ -126,7 +134,9 @@ def test_hotspots():
     """
     Check that the @hotspots.txt dataset loads without errors.
     """
-    data = load_hotspots()
+    with pytest.warns(expected_warning=FutureWarning) as record:
+        data = load_hotspots()
+        assert len(record) == 1
     assert data.shape == (55, 4)
     assert data.columns.values.tolist() == [
         "longitude",

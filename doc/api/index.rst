@@ -213,13 +213,13 @@ and store them in the GMT cache folder.
     datasets.list_sample_data
     datasets.load_earth_age
     datasets.load_earth_relief
+    datasets.load_sample_data
     datasets.load_fractures_compilation
     datasets.load_hotspots
     datasets.load_japan_quakes
     datasets.load_mars_shape
     datasets.load_ocean_ridge_points
     datasets.load_sample_bathymetry
-    datasets.load_sample_data
     datasets.load_usgs_quakes
 
 .. automodule:: pygmt.exceptions

@@ -10,16 +10,27 @@ from pygmt.src import which
 
 def list_sample_data():
     """
-    Report tabular datasets available for tests and documentation examples.
+    Report datasets available for tests and documentation examples.
 
     Returns
     -------
     output : dict
-        Names and short descriptions of available sample dataframes.
+        Names and short descriptions of available sample datasets.
+
+    See Also
+    --------
+    load_sample_data : Load an example dataset from the GMT server.
     """
     names = {
         "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
+        "bathymetry": "Table of ship bathymetric observations off Baja California",
+        "usgs_quakes": "Table of global earthquakes from the USGS",
+        "fractures": "Table of hypothetical fracture lengths and azimuths",
+        "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
+        " Mueller et al., 1993",
+        "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
+        " Mars from Smith and Zuber (1996)",
     }
     return names
 
@@ -39,8 +50,14 @@ def load_sample_data(name):
 
     Returns
     -------
-    output : pandas.DataFrame
-        Tabular dataset.
+    output : pandas.DataFrame or xarray.DataArray
+        Sample dataset loaded as a pandas.DataFrame for tabular data or
+        xarray.DataArray for raster data
+
+    See Also
+    --------
+    list_sample_data : Report datasets available for tests and documentation
+        examples.
     """
     names = list_sample_data()
     if name not in names:
@@ -51,6 +68,21 @@ def load_sample_data(name):
 
     if name == "ocean_ridge_points":
         data = load_ocean_ridge_points(suppress_warning=True)
+
+    if name == "bathymetry":
+        data = load_sample_bathymetry(suppress_warning=True)
+
+    if name == "usgs_quakes":
+        data = load_usgs_quakes(suppress_warning=True)
+
+    if name == "fractures":
+        data = load_fractures_compilation(suppress_warning=True)
+
+    if name == "hotspots":
+        data = load_hotspots(suppress_warning=True)
+
+    if name == "mars_shape":
+        data = load_mars_shape(suppress_warning=True)
 
     return data
 
@@ -81,7 +113,7 @@ def load_japan_quakes(**kwargs):
     if "suppress_warning" not in kwargs:
         warnings.warn(
             "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0.. Please use "
+            "removed in v0.9.0. Please use "
             "load_sample_data(name='japan_quakes') instead.",
             category=FutureWarning,
             stacklevel=2,
@@ -104,8 +136,8 @@ def load_japan_quakes(**kwargs):
 
 def load_ocean_ridge_points(**kwargs):
     """
-    Load a table of ocean ridge points for the entire world as a
-    pandas.DataFrame (Deprecated).
+    (Deprecated) Load a table of ocean ridge points for the entire world as a
+    pandas.DataFrame.
 
     .. warning:: Deprecated since v0.6.0. This function has been replaced with
        ``load_sample_data(name="ocean_ridge_points")`` and will be removed in
@@ -139,10 +171,14 @@ def load_ocean_ridge_points(**kwargs):
     return data
 
 
-def load_sample_bathymetry():
+def load_sample_bathymetry(**kwargs):
     """
-    Load a table of ship observations of bathymetry off Baja California as a
-    pandas.DataFrame.
+    (Deprecated) Load a table of ship observations of bathymetry off Baja
+    California as a pandas.DataFrame.
+
+    .. warning:: Deprecated since v0.6.0. This function has been replaced with
+       ``load_sample_data(name="bathymetry")`` and will be removed in
+       v0.9.0.
 
     This is the ``@tut_ship.xyz`` dataset used in the GMT tutorials.
 
@@ -155,6 +191,15 @@ def load_sample_bathymetry():
     data : pandas.DataFrame
         The data table. Columns are longitude, latitude, and bathymetry.
     """
+
+    if "suppress_warning" not in kwargs:
+        warnings.warn(
+            "This function has been deprecated since v0.6.0 and will be "
+            "removed in v0.9.0. Please use "
+            "load_sample_data(name='bathymetry') instead.",
+            category=FutureWarning,
+            stacklevel=2,
+        )
     fname = which("@tut_ship.xyz", download="c")
     data = pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
@@ -162,9 +207,14 @@ def load_sample_bathymetry():
     return data
 
 
-def load_usgs_quakes():
+def load_usgs_quakes(**kwargs):
     """
-    Load a table of global earthquakes form the USGS as a pandas.DataFrame.
+    (Deprecated) Load a table of global earthquakes from the USGS as a
+    pandas.DataFrame.
+
+    .. warning:: Deprecated since v0.6.0. This function has been replaced with
+       ``load_sample_data(name="usgs_quakes")`` and will be removed in
+       v0.9.0.
 
     This is the ``@usgs_quakes_22.txt`` dataset used in the GMT tutorials.
 
@@ -178,15 +228,28 @@ def load_usgs_quakes():
         The data table. Use ``print(data.describe())`` to see the available
         columns.
     """
+
+    if "suppress_warning" not in kwargs:
+        warnings.warn(
+            "This function has been deprecated since v0.6.0 and will be "
+            "removed in v0.9.0. Please use "
+            "load_sample_data(name='usgs_quakes') instead.",
+            category=FutureWarning,
+            stacklevel=2,
+        )
     fname = which("@usgs_quakes_22.txt", download="c")
     data = pd.read_csv(fname)
     return data
 
 
-def load_fractures_compilation():
+def load_fractures_compilation(**kwargs):
     """
-    Load a table of fracture lengths and azimuths as hypothetically digitized
-    from geological maps as a pandas.DataFrame.
+    (Deprecated) Load a table of fracture lengths and azimuths as
+    hypothetically digitized from geological maps as a pandas.DataFrame.
+
+    .. warning:: Deprecated since v0.6.0. This function has been replaced with
+       ``load_sample_data(name="fractures")`` and will be removed in
+       v0.9.0.
 
     This is the ``@fractures_06.txt`` dataset used in the GMT tutorials.
 
@@ -200,15 +263,28 @@ def load_fractures_compilation():
         The data table. Use ``print(data.describe())`` to see the available
         columns.
     """
+
+    if "suppress_warning" not in kwargs:
+        warnings.warn(
+            "This function has been deprecated since v0.6.0 and will be "
+            "removed in v0.9.0. Please use "
+            "load_sample_data(name='fractures') instead.",
+            category=FutureWarning,
+            stacklevel=2,
+        )
     fname = which("@fractures_06.txt", download="c")
     data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
     return data[["length", "azimuth"]]
 
 
-def load_hotspots():
+def load_hotspots(**kwargs):
     """
-    Load a table with the locations, names, and suggested symbol sizes of
-    hotspots.
+    (Deprecated) Load a table with the locations, names, and suggested symbol
+    sizes of hotspots.
+
+    .. warning:: Deprecated since v0.6.0. This function has been replaced with
+       ``load_sample_data(name="hotspots")`` and will be removed in
+       v0.9.0.
 
     This is the ``@hotspots.txt`` dataset used in the GMT tutorials, with data
     from Mueller, Royer, and Lawver, 1993, Geology, vol. 21, pp. 275-278. The
@@ -225,15 +301,28 @@ def load_hotspots():
         The data table with columns "longitude", "latitude", "symbol_size", and
         "placename".
     """
+
+    if "suppress_warning" not in kwargs:
+        warnings.warn(
+            "This function has been deprecated since v0.6.0 and will be "
+            "removed in v0.9.0. Please use "
+            "load_sample_data(name='hotspots') instead.",
+            category=FutureWarning,
+            stacklevel=2,
+        )
     fname = which("@hotspots.txt", download="c")
     columns = ["longitude", "latitude", "symbol_size", "place_name"]
     data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
     return data
 
 
-def load_mars_shape():
+def load_mars_shape(**kwargs):
     """
-    Load a table of data for the shape of Mars.
+    (Deprecated) Load a table of data for the shape of Mars.
+
+    .. warning:: Deprecated since v0.6.0. This function has been replaced with
+       ``load_sample_data(name="mars_shape")`` and will be removed in
+       v0.9.0.
 
     This is the ``@mars370d.txt`` dataset used in GMT examples, with data and
     information from Smith, D. E., and M. T. Zuber (1996), The shape of Mars
@@ -249,6 +338,15 @@ def load_mars_shape():
     data : pandas.DataFrame
         The data table with columns "longitude", "latitude", and "radius(m)".
     """
+
+    if "suppress_warning" not in kwargs:
+        warnings.warn(
+            "This function has been deprecated since v0.6.0 and will be "
+            "removed in v0.9.0. Please use "
+            "load_sample_data(name='mars_shape') instead.",
+            category=FutureWarning,
+            stacklevel=2,
+        )
     fname = which("@mars370d.txt", download="c")
     data = pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
