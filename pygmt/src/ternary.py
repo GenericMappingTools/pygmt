@@ -45,7 +45,10 @@ def ternary(self, data, **kwargs):
     {J}
     width : str
         *width*. Set the width of the figure by passing a number, followed by
-        a unit (**i** for inches, **c** for centimeters).
+        a unit (**i** for inches, **c** for centimeters). Use a negative width
+        to indicate that positive axes directions be clock-wise
+        [Default lets the a, b, c axes be positive in a
+        counter-clockwise direction].
     {CPT}
     {G}
     style : str
