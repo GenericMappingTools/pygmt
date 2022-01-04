@@ -61,7 +61,7 @@ def load_japan_quakes(**kwargs):
     pandas.DataFrame.
 
     .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="tut_quakes.ngdc")`` and will be removed in
+       ``load_sample_data(name="japan_quakes")`` and will be removed in
        v0.9.0.
 
     Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
@@ -82,7 +82,7 @@ def load_japan_quakes(**kwargs):
         warnings.warn(
             "This function has been deprecated since v0.6.0 and will be "
             "removed in v0.9.0.. Please use "
-            "load_sample_data(name='tut_quakes.ngdc') instead.",
+            "load_sample_data(name='japan_quakes') instead.",
             category=FutureWarning,
             stacklevel=2,
         )
@@ -108,7 +108,7 @@ def load_ocean_ridge_points(**kwargs):
     pandas.DataFrame (Deprecated).
 
     .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="ridge.txt")`` and will be removed in
+       ``load_sample_data(name="ocean_ridge_points")`` and will be removed in
        v0.9.0.
 
     This is the ``@ridge.txt`` dataset used in the GMT tutorials.
@@ -126,7 +126,7 @@ def load_ocean_ridge_points(**kwargs):
     if "suppress_warning" not in kwargs:
         warnings.warn(
             "This function has been deprecated since v0.6.0 and will be removed "
-            "in v0.9.0. Please use load_sample_data(name='ridge.txt') "
+            "in v0.9.0. Please use load_sample_data(name='ocean_ridge_points') "
             "instead.",
             category=FutureWarning,
             stacklevel=2,
