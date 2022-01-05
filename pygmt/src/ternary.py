@@ -48,6 +48,7 @@ def ternary(self, data, **kwargs):
         to indicate that positive axes directions be clock-wise
         [Default lets the a, b, c axes be positive in a
         counter-clockwise direction].
+    {R}
     {CPT}
     {G}
     style : str
