@@ -14,7 +14,7 @@ def list_sample_data():
 
     Returns
     -------
-    output : dict
+    dict
         Names and short descriptions of available sample datasets.
 
     See Also
@@ -50,7 +50,7 @@ def load_sample_data(name):
 
     Returns
     -------
-    output : pandas.DataFrame or xarray.DataArray
+    :class:`pandas.DataFrame` or :class:`xarray.DataArray`
         Sample dataset loaded as a pandas.DataFrame for tabular data or
         xarray.DataArray for raster data
 
@@ -61,7 +61,7 @@ def load_sample_data(name):
     """
     names = list_sample_data()
     if name not in names:
-        raise GMTInvalidInput(f"Invalid dataset name '{name}'")
+        raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
 
     if name == "japan_quakes":
         data = load_japan_quakes(suppress_warning=True)
