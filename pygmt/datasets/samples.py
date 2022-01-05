@@ -63,26 +63,17 @@ def load_sample_data(name):
     if name not in names:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
 
-    if name == "japan_quakes":
-        data = load_japan_quakes(suppress_warning=True)
+    load_func = {
+        "japan_quakes": load_japan_quakes,
+        "ocean_ridge_points": load_ocean_ridge_points,
+        "bathymetry": load_sample_bathymetry,
+        "usgs_quakes": load_usgs_quakes,
+        "fractures": load_fractures_compilation,
+        "hotspots": load_hotspots,
+        "mars_shape": load_mars_shape,
+    }
 
-    if name == "ocean_ridge_points":
-        data = load_ocean_ridge_points(suppress_warning=True)
-
-    if name == "bathymetry":
-        data = load_sample_bathymetry(suppress_warning=True)
-
-    if name == "usgs_quakes":
-        data = load_usgs_quakes(suppress_warning=True)
-
-    if name == "fractures":
-        data = load_fractures_compilation(suppress_warning=True)
-
-    if name == "hotspots":
-        data = load_hotspots(suppress_warning=True)
-
-    if name == "mars_shape":
-        data = load_mars_shape(suppress_warning=True)
+    data = load_func[name](suppress_warning=True)
 
     return data
 
