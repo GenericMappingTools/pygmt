@@ -13,7 +13,7 @@ def test_ternary():
     fig = Figure()
     fig.ternary(
         data="@ternary.txt",
-        region="0/100/0/100/0/100",
+        region=[0, 100, 0, 100, 0, 100],
         cmap="red,orange,yellow,green,blue,violet",
         width="6i",
         frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],

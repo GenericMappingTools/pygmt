@@ -9,7 +9,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @use_alias(
     B="frame",
     C="cmap",
-    F="center",
     G="fill",
     JX="width",
     R="region",
@@ -19,18 +18,19 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     W="pen",
     X="xshift",
     Y="yshift",
+    c="panel",
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", T="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def ternary(self, data, **kwargs):
     r"""
-    Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *table* and plots symbols at
+    Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
     size given, then we will interpret the fourth column of the input data as
     symbol size. Symbols whose *size* is <= 0 are skipped. If no symbols are
-    specified then the symbol code (see **style** below) must be present as
-    last column in the input.  If **style** is not specified then we instead
+    specified then the symbol code (see ``style`` below) must be present as
+    last column in the input.  If ``style`` is not specified then we instead
     plot lines or polygons.
 
     Full option list at :gmt-docs:`ternary.html`
@@ -42,9 +42,8 @@ def ternary(self, data, **kwargs):
     data : str or list or {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
-    {J}
     width : str
-        *width*. Set the width of the figure by passing a number, followed by
+        Set the width of the figure by passing a number, followed by
         a unit (**i** for inches, **c** for centimeters). Use a negative width
         to indicate that positive axes directions be clock-wise
         [Default lets the a, b, c axes be positive in a
@@ -58,6 +57,7 @@ def ternary(self, data, **kwargs):
     {XY}
     {U}
     {V}
+    {c}
     {p}
     {t}
     """
