@@ -22,15 +22,15 @@ def list_sample_data():
     load_sample_data : Load an example dataset from the GMT server.
     """
     names = {
-        "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
-        "ocean_ridge_points": "Table of ocean ridge points for the entire world",
         "bathymetry": "Table of ship bathymetric observations off Baja California",
-        "usgs_quakes": "Table of global earthquakes from the USGS",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
         " Mueller et al., 1993",
+        "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
+        "ocean_ridge_points": "Table of ocean ridge points for the entire world",
+        "usgs_quakes": "Table of global earthquakes from the USGS",
     }
     return names
 
@@ -64,13 +64,13 @@ def load_sample_data(name):
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
 
     load_func = {
-        "japan_quakes": load_japan_quakes,
-        "ocean_ridge_points": load_ocean_ridge_points,
         "bathymetry": load_sample_bathymetry,
-        "usgs_quakes": load_usgs_quakes,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
+        "japan_quakes": load_japan_quakes,
         "mars_shape": load_mars_shape,
+        "ocean_ridge_points": load_ocean_ridge_points,
+        "usgs_quakes": load_usgs_quakes,
     }
 
     data = load_func[name](suppress_warning=True)
