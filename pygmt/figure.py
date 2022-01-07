@@ -234,8 +234,8 @@ class Figure:
 
         if icc_gray:
             msg = (
-                f"The 'icc_gray' parameter has been deprecated since v0.6.0"
-                f" and will be removed in v0.8.0."
+                "The 'icc_gray' parameter has been deprecated since v0.6.0"
+                " and will be removed in v0.8.0."
             )
             warnings.warn(msg, category=FutureWarning, stacklevel=2)
             if "N" not in kwargs:
