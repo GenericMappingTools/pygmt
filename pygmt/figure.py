@@ -5,6 +5,8 @@ import base64
 import os
 from tempfile import TemporaryDirectory
 
+import warnings
+
 try:
     import IPython
 except ModuleNotFoundError:
@@ -132,12 +134,13 @@ class Figure:
         E="dpi",
         F="prefix",
         I="resize",
+        N="bb_style",
         T="fmt",
         Q="anti_aliasing",
         V="verbose",
     )
     @kwargs_to_strings()
-    def psconvert(self, **kwargs):
+    def psconvert(self, icc_gray=False, **kwargs):
         r"""
         Convert [E]PS file(s) to other formats.
 
@@ -192,6 +195,22 @@ class Figure:
             exceeds it. Append /\ *height* to also impose a maximum height in
             addition to the width. Alternatively, append **+S**\ *scale* to
             scale the image by a constant factor.
+        bb_style : str
+            Set optional BoundingBox fill color, fading, or draw the outline
+            of the BoundingBox. Append **+f**\ *fade* to fade the entire plot
+            towards black (100%) [no fading, 0]. Append **+g** \*paint* to
+            paint the BoundingBox behind the illustration and append **+p**\
+            [*pen*] to draw the BoundingBox outline (append a pen or accept
+            the default pen of 0.25p,black). Note: If both **+g** and **+f**
+            are used then we use paint as the fade color instead of black.
+            Append **+i** to enforce gray-shades by using ICC profiles.
+            Ghostscript versions >= 9.00 change gray-shades by using ICC
+            profiles. Ghostscript 9.05 and above provide the
+            '-dUseFastColor=true' option to prevent that and that is what
+            **psconvert** does by default, unless modifier **+i** is set.
+            Note that for Ghostscript >= 9.00 and < 9.05 the gray-shade
+            shifting is applied to all but PDF format. We have no solution to
+            offer other than suggesting you upgrade Ghostscript.
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
@@ -215,6 +234,13 @@ class Figure:
         # Default cropping the figure to True
         if "A" not in kwargs:
             kwargs["A"] = ""
+
+        if icc_gray:
+            warnings.warn("depreaction warning here TEST TEST", category=FutureWarning, stacklevel=2)
+            if "N" not in kwargs:
+                kwargs["N"] = "+i"
+            else:
+                kwargs["N"] += "+i"
         # allow for spaces in figure name
         kwargs["F"] = f'"{kwargs.get("F")}"' if kwargs.get("F") else None
         with Session() as lib:
