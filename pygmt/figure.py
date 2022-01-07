@@ -3,9 +3,8 @@ Define the Figure class that handles all plotting.
 """
 import base64
 import os
-from tempfile import TemporaryDirectory
-
 import warnings
+from tempfile import TemporaryDirectory
 
 try:
     import IPython
@@ -234,7 +233,11 @@ class Figure:
             kwargs["A"] = ""
 
         if icc_gray:
-            warnings.warn("The 'icc_gray' parameter has been deprecated since v0.6.0 and will be removed in v0.8.0.", category=FutureWarning, stacklevel=2)
+            warnings.warn(
+                "The 'icc_gray' parameter has been deprecated since v0.6.0 and will be removed in v0.8.0.",
+                category=FutureWarning,
+                stacklevel=2,
+            )
             if "N" not in kwargs:
                 kwargs["N"] = "+i"
             else:
