@@ -1,6 +1,6 @@
 """
-Generate points great circles
------------------------------
+Generate points along great circles
+-----------------------------------
 
 The :meth:`pygmt.project` method can generate points along a great circle
 whose center and end points can be defined via the ``center`` and ``endpoint``
