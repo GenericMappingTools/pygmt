@@ -17,7 +17,6 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     launch_external_viewer,
@@ -127,7 +126,6 @@ class Figure:
         return wesn
 
     @fmt_docstring
-    @deprecate_parameter("icc_gray", "resize", "v0.6.0", remove_version="v0.8.0")
     @use_alias(
         A="crop",
         C="gs_option",
@@ -236,7 +234,7 @@ class Figure:
             kwargs["A"] = ""
 
         if icc_gray:
-            warnings.warn("depreaction warning here TEST TEST", category=FutureWarning, stacklevel=2)
+            warnings.warn("The 'icc_gray' parameter has been deprecated since v0.6.0 and will be removed in v0.8.0.", category=FutureWarning, stacklevel=2)
             if "N" not in kwargs:
                 kwargs["N"] = "+i"
             else:
