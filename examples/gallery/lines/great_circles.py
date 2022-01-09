@@ -12,11 +12,11 @@ import pygmt
 fig = pygmt.Figure()
 
 # generate points every 10 degrees along a great circle from 10N,50W to 30N,5W
-points1 = pygmt.project(center="-50/10", endpoint="-5/30", generate=10)
+points1 = pygmt.project(center=[-50, 10], endpoint=[-5, 30], generate=10)
 # generate points every 750 km along a great circle from 10N,50W to 57.5N,90W
-points2 = pygmt.project(center="-50/10", endpoint="-90/57.5", generate=750, unit=True)
+points2 = pygmt.project(center=[-50, 10], endpoint=[-90, 57.5], generate=750, unit=True)
 # generate points every 350 km along a great circle from 10N,50W to 68N,5W
-points3 = pygmt.project(center="-50/10", endpoint="-5/68", generate=350, unit=True)
+points3 = pygmt.project(center=[-50, 10], endpoint=[-5, 68], generate=350, unit=True)
 
 # create a plot with coast and Mercator projection (M)
 fig.basemap(region=[-100, 0, 0, 70], projection="M12c", frame=True)
