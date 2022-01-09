@@ -201,13 +201,6 @@ class Figure:
             the default pen of 0.25p,black). Note: If both **+g** and **+f**
             are used then we use paint as the fade color instead of black.
             Append **+i** to enforce gray-shades by using ICC profiles.
-            Ghostscript versions >= 9.00 change gray-shades by using ICC
-            profiles. Ghostscript 9.05 and above provide the
-            '-dUseFastColor=true' option to prevent that and that is what
-            **psconvert** does by default, unless modifier **+i** is set.
-            Note that for Ghostscript >= 9.00 and < 9.05 the gray-shade
-            shifting is applied to all but PDF format. We have no solution to
-            offer other than suggesting you upgrade Ghostscript.
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
