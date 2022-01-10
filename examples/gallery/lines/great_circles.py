@@ -20,7 +20,7 @@ points3 = pygmt.project(center=[-50, 10], endpoint=[-5, 68], generate=350, unit=
 
 # create a plot with coast and Mercator projection (M)
 fig.basemap(region=[-100, 0, 0, 70], projection="M12c", frame=True)
-fig.coast(shorelines=True)
+fig.coast(shorelines=True, area_thresh=5000)
 
 # plot individual points of first great circle as seagreen line
 fig.plot(x=points1.r, y=points1.s, pen="2p,seagreen")
