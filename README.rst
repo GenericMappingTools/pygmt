@@ -10,15 +10,18 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
+.. image:: https://anaconda.org/conda-forge/pygmt/badges/installer/conda.svg
+    :alt: Latest version on conda-forge
+    :target: https://anaconda.org/conda-forge/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
-.. image:: https://img.shields.io/codecov/c/github/GenericMappingTools/pygmt/main.svg?style=flat-square
+.. image:: https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx
     :alt: Test coverage status
-    :target: https://codecov.io/gh/GenericMappingTools/pygmt
+    :target: https://app.codecov.io/gh/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt
@@ -50,22 +53,6 @@ or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
     :align: center
     :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
 
-
-Disclaimer
-----------
-
-🚨 **This package is still undergoing rapid development.** 🚨
-
-All of the API (functions/classes/interfaces) is subject to change until we reach v1.0.0
-as per the `semantic versioning specification <https://semver.org/spec/v2.0.0.html>`__.
-There may be non-backward compatible changes as we experiment with new design ideas and
-implement new features. **This is not a finished product, use with caution.**
-
-We welcome any feedback and ideas!
-Let us know by submitting
-`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
-or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
-
 About
 -----
 
@@ -77,7 +64,6 @@ command-line program widely used in the Earth Sciences.
 We rely heavily on new features that have been implemented in GMT 6.0. In particular,
 a new *modern execution mode* that greatly simplifies figure creation. **These features
 are not available in the 5.4 version of GMT**.
-
 
 Project goals
 -------------
@@ -154,28 +140,29 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2021_5162003,
+    @software{pygmt_2021_5607255,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
+                      Jones, Meghan and
                       Schlitzer, William and
                       Toney, Liam and
                       Grund, Michael and
-                      Jones, Meghan and
                       Yao, Jiayuan and
+                      Magen, Yohai and
                       Materna, Kathryn and
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
-                      Magen, Yohai and
+                      Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = aug,
+      month        = oct,
       year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.4.1},
-      doi          = {10.5281/zenodo.5162003},
-      url          = {https://doi.org/10.5281/zenodo.5162003}
+      version      = {v0.5.0},
+      doi          = {10.5281/zenodo.5607255},
+      url          = {https://doi.org/10.5281/zenodo.5607255}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -228,12 +215,17 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - Numpy
-    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/milestone/8>`_ (upcoming release)
+    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestone/9>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
+      - >=6.3.0
+      - >=3.8
+      - >=1.19
+    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_ (latest release)
+      - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
       - >=6.2.0
       - >=3.7
       - >=1.18
-    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_ (latest release)
+    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_
       - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
       - >=6.2.0
       - >=3.7

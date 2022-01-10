@@ -6,6 +6,7 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -13,6 +14,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("table", "data", "v0.5.0", remove_version="v0.7.0")
 @use_alias(
     C="per_column",
     I="spacing",
@@ -24,7 +26,7 @@ from pygmt.helpers import (
     r="registration",
 )
 @kwargs_to_strings(I="sequence", i="sequence_comma")
-def info(table, **kwargs):
+def info(data, **kwargs):
     r"""
     Get information about data tables.
 
@@ -47,7 +49,7 @@ def info(table, **kwargs):
 
     Parameters
     ----------
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 1D/2D
         {table-classes}.
     per_column : bool
@@ -80,7 +82,7 @@ def info(table, **kwargs):
         - str if none of the above parameters are used.
     """
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(data=table)
+        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with GMTTempFile() as tmpfile:
             with file_context as fname:
                 arg_str = " ".join(

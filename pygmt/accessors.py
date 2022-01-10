@@ -34,7 +34,7 @@ class GMTDataArrayAccessor:
             self._registration, self._gtype = map(
                 int, grdinfo(self._source, per_column="n", o="10,11").split()
             )
-        except KeyError:
+        except (KeyError, ValueError):
             self._registration = 0  # Default to Gridline registration
             self._gtype = 0  # Default to Cartesian grid type
 

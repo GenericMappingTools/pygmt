@@ -17,12 +17,10 @@ from pygmt.helpers.utils import is_nonstr_iter
 COMMON_OPTIONS = {
     "R": r"""
         region : str or list
-            *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the :doc:`region </tutorials/regions>` of interest.""",
+            Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "J": r"""
         projection : str
-            *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
     "A": r"""
@@ -36,7 +34,7 @@ COMMON_OPTIONS = {
     "B": r"""
         frame : bool or str or list
             Set map boundary
-            :doc:`frame and axes attributes </tutorials/frames>`. """,
+            :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
@@ -172,14 +170,12 @@ COMMON_OPTIONS = {
             :gmt-docs:`gmt.html#f-full`.""",
     "g": r"""
         gap : str or list
-            [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
-            **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**].
+            **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
+            **D**\ *gap*\ [**u**][**+a**][**+c**\ *col*][**+n**\|\ **p**].
             Examine the spacing between consecutive data points in order to
-            impose breaks in the line. To specify multiple critera, provide
+            impose breaks in the line. To specify multiple criteria, provide
             a list with each item containing a string describing one set of
-            critera. Prepend **a** to specify that all the criteria must be
-            met [Default is to impose breaks if any criteria are met]. The
-            following modifiers are supported:
+            criteria.
 
                 - **x**\|\ **X** - define a gap when there is a large enough
                   change in the x coordinates (upper case to use projected
@@ -190,9 +186,9 @@ COMMON_OPTIONS = {
                 - **d**\|\ **D** - define a gap when there is a large enough
                   distance between coordinates (upper case to use projected
                   coordinates).
-                - [*col*]\ **z** - define a gap when there is a large enough
-                  change in the data in column *col* [default *col* is 2 (i.e.,
-                  3rd column)].
+                - **z** - define a gap when there is a large enough change in
+                  the z data. Use **+c**\ *col* to change the z data column
+                  [Default *col* is 2 (i.e., 3rd column)].
 
             A unit **u** may be appended to the specified *gap*:
 
@@ -204,9 +200,10 @@ COMMON_OPTIONS = {
                 - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
                   **i**\ (nch), **c**\ (entimeter), or **p**\ (oint).
 
-            One of the following modifiers can be appended to *gap* [Default
-            imposes breaks based on the absolute value of the difference
-            between the current and previous value]:
+            Append modifier **+a** to specify that *all* the criteria must be
+            met [default imposes breaks if any one criterion is met].
+
+            One of the following modifiers can be appended:
 
                 - **+n** - specify that the previous value minus the current
                   column value must exceed *gap* for a break to be imposed.
@@ -448,11 +445,9 @@ def fmt_docstring(module_func):
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
     region : str or list
-        *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/regions>` of interest.
+        Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection : str
-        *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
@@ -468,7 +463,7 @@ def fmt_docstring(module_func):
         aliases = ["**Aliases:**\n"]
         for arg in sorted(module_func.aliases):
             alias = module_func.aliases[arg]
-            aliases.append("- {} = {}".format(arg, alias))
+            aliases.append(f"- {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
     filler_text["table-like"] = " or ".join(
@@ -510,7 +505,7 @@ def _insert_alias(module_func, default_value=None):
     kwargs_param = wrapped_params.pop(-1)
     # Add new parameters from aliases
     for alias in module_func.aliases.values():
-        if alias not in sig.parameters.keys():
+        if alias not in sig.parameters:
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
@@ -634,15 +629,12 @@ def kwargs_to_strings(**conversions):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
     ...     print(
-    ...         ", ".join(
-    ...             "'{}': {}".format(k, repr(kwargs[k]))
-    ...             for k in sorted(kwargs)
-    ...         ),
+    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
     ...         end="",
     ...     )
     ...     print("}")
     ...     if args:
-    ...         print("args:", " ".join("{}".format(x) for x in args))
+    ...         print("args:", " ".join(f"{x}" for x in args))
     >>> module(R=[1, 2, 3, 4])
     {'R': '1/2/3/4'}
     >>> # It's already a string, do nothing
@@ -690,7 +682,7 @@ def kwargs_to_strings(**conversions):
     for arg, fmt in conversions.items():
         if fmt not in valid_conversions:
             raise GMTInvalidInput(
-                "Invalid conversion type '{}' for argument '{}'.".format(fmt, arg)
+                f"Invalid conversion type '{fmt}' for argument '{arg}'."
             )
 
     separators = {
@@ -814,3 +806,71 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
         return new_module
 
     return deprecator
+
+
+def check_data_input_order(deprecate_version, remove_version):
+    """
+    Decorator to raise a FutureWarning if the order of data input parameters
+    changes and positional arguments are passed.
+
+    The decorator is temporary and should be removed in v0.7.0.
+
+    Parameters
+    ----------
+    deprecate_version : str
+        The PyGMT version when the order of data input parameters is changed.
+    remove_version : str
+        The PyGMT version when the deprecation warning should be removed.
+
+    Examples
+    --------
+    >>> @check_data_input_order("v0.0.0", "v9.9.9")
+    ... def module(data=None, x=None, y=None, z=None, **kwargs):
+    ...     "A module that prints the arguments it received"
+    ...     print(f"data={data}, x={x}, y={y}, z={z}")
+    >>> module(data="table.txt")
+    data=table.txt, x=None, y=None, z=None
+    >>> module(x=0, y=1, z=2)
+    data=None, x=0, y=1, z=2
+    >>> with warnings.catch_warnings(record=True) as w:
+    ...     module(0, 1, 2)
+    ...     assert len(w) == 1
+    ...     assert issubclass(w[0].category, FutureWarning)
+    ...
+    data=0, x=1, y=2, z=None
+    """
+
+    def data_input_order_checker(module_func):
+        """
+        The decorator that creates the new function to check if positional
+        arguments are passed.
+        """
+
+        @functools.wraps(module_func)
+        def new_module(*args, **kwargs):
+            """
+            New module instance that raises a warning if positional arguments
+            are passed.
+            """
+            # Plotting functions always have a "self" parameter
+            # which is a pygmt.Figure instance that has a "savefig" method
+            if len(args) > 1 and hasattr(args[0], "savefig"):
+                plotting_func = 1
+            else:
+                plotting_func = 0
+
+            if len(args) > 1 + plotting_func:
+                # more than one positional arguments are used
+                msg = (
+                    "The function parameters has been re-ordered as 'data, x, y, [z]' "
+                    f"since {deprecate_version} but you're passing positional arguments. "
+                    "You can silence the warning by passing keyword arguments "
+                    "like 'x=x, y=y, z=z'. Otherwise, the warning will be removed "
+                    f"in {remove_version}."
+                )
+                warnings.warn(msg, category=FutureWarning, stacklevel=2)
+            return module_func(*args, **kwargs)
+
+        return new_module
+
+    return data_input_order_checker

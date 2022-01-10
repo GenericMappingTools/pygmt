@@ -16,15 +16,20 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @use_alias(
+    C="center",
+    D="spacing",
+    E="dpi",
+    F="scaling",
     G="outgrid",
     J="projection",
     I="inverse",
+    M="unit",
     R="region",
     V="verbose",
     n="interpolation",
     r="registration",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(C="sequence", R="sequence")
 def grdproject(grid, **kwargs):
     r"""
     Change projection of gridded data between geographical and rectangular.
@@ -58,6 +63,26 @@ def grdproject(grid, **kwargs):
         geographical [Default is False].
     {J}
     {R}
+    center : str or list
+        [*dx*, *dy*].
+        Let projected coordinates be relative to projection center [Default
+        is relative to lower left corner]. Optionally, add offsets in the
+        projected units to be added (or subtracted when ``inverse`` is set) to
+        (from) the projected coordinates, such as false eastings and
+        northings for particular projection zones [0/0].
+    {I}
+    dpi : int
+        Set the resolution for the new grid in dots per inch.
+    scaling : str
+        [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\
+        **k**\|\ **M**\|\ **n**\|\ **u**].
+        Force 1:1 scaling, i.e., output or output data are in actual projected
+        meters [**e**]. To specify other units, append **f** (foot),
+        **k** (km), **M** (statute mile), **n** (nautical mile), **u**
+        (US survey foot), **i** (inch), **c** (cm), or **p** (point).
+    unit : str
+        Append **c**, **i**, or **p** to indicate that cm, inch, or point
+        should be the projected measure unit. Cannot be used with ``scaling``.
     {V}
     {n}
     {r}
@@ -71,13 +96,13 @@ def grdproject(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    if "J" not in kwargs.keys():
+    if "J" not in kwargs:
         raise GMTInvalidInput("The projection must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
+                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])

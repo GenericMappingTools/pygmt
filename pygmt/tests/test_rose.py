@@ -202,7 +202,7 @@ def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
     fig = Figure()
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.rose(
-            data=data,
+            data,
             region=[0, 1, 0, 360],
             sector=10,
             columns=[1, 0],

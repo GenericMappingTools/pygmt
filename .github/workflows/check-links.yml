@@ -15,33 +15,32 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v2.4.0
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v2.4.0
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
-      uses: lycheeverse/lychee-action@v1.0.8
+      uses: lycheeverse/lychee-action@v1.2.0
       with:
         # 429: Too many requests
         args: >
           --accept 429
+          --exclude-mail
           --exclude "^https://doi.org/10.5281/zenodo$"
           --exclude "^https://zenodo.org/badge/DOI/$"
           --exclude "^https://zenodo.org/badge/DOI/10.5281/zenodo$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
-          --exclude "^https://www.generic-mapping-tools.org/_static/gmt-logo.png/$"
-          --exclude "^https://www.generic-mapping-tools.org/_static/gmt-logo.png/n/n$"
-          --exclude "^``@ridge.txt$"
           --exclude "^git"
           --exclude "^file://"
           --exclude "^https://docs.generic-mapping-tools.org/latest/%s$"
+          --exclude "^https://docs.generic-mapping-tools.org/latest/%3Cmodule-name%3E.html$"
           --exclude "https://hackmd.io/@pygmt"
           --verbose
           "repository/**/*.rst"
@@ -51,8 +50,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
     - name: Create Issue From File
       uses: peter-evans/create-issue-from-file@v3
       with:
-        title: Link Checker Report
+        title: Link Checker Report on ${{ steps.date.outputs.date }}
         content-filepath: ./lychee/out.md
