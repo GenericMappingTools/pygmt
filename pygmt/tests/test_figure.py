@@ -251,3 +251,12 @@ def test_figure_set_display_invalid():
     """
     with pytest.raises(GMTInvalidInput):
         set_display(method="invalid")
+
+
+def test_figure_icc_gray():
+    """
+    Check if icc_gray parameter works correctly if used.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
+    fig.psconvert(icc_gray=True, prefix="Test")
