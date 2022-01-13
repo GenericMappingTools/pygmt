@@ -192,8 +192,13 @@ class Figure:
         # Default cropping the figure to True
         if "A" not in kwargs:
             kwargs["A"] = ""
+        # Manually handle prefix -F argument so spaces aren't converted to \040
+        # by build_arg_string function. For more information, see
+        # https://github.com/GenericMappingTools/pygmt/pull/1487
+        prefix = kwargs.pop("F")
+
         with Session() as lib:
-            lib.call_module("psconvert", build_arg_string(kwargs))
+            lib.call_module("psconvert", f'-F"{prefix}" {build_arg_string(kwargs)}')
 
     def savefig(
         self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
