@@ -376,7 +376,7 @@ def test_plot_vectors():
         direction=(azimuth, lengths),
         region="-2/2/-2/2",
         projection="X10c",
-        style="V0.2c+e",
+        style="V0.2c+e+n",
         color="black",
         frame="af",
     )
