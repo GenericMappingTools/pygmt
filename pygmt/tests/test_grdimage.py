@@ -13,6 +13,7 @@ from pygmt.helpers.testing import check_figures_equal
 with clib.Session() as _lib:
     gmt_version = Version(_lib.info["version"])
 
+
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
@@ -78,7 +79,8 @@ def test_grdimage_slice(grid):
 @pytest.mark.mpl_image_compare
 @pytest.mark.xfail(
     condition=gmt_version > Version("6.3.0"),
-    reason="Grid extension bug affects baseline image; fixed in https://github.com/GenericMappingTools/gmt/pull/6175.",
+    reason="Grid extension bug affects baseline image; "
+    "fixed in https://github.com/GenericMappingTools/gmt/pull/6175.",
 )
 def test_grdimage_file():
     """
