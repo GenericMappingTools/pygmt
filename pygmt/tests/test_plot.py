@@ -304,10 +304,6 @@ def test_plot_sizes_colors_transparencies():
 
 @pytest.mark.mpl_image_compare(filename="test_plot_matrix.png")
 @pytest.mark.parametrize("color", ["#aaaaaa", 170])
-@pytest.mark.xfail(
-    condition=gmt_version <= Version("6.2.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/5799.",
-)
 def test_plot_matrix(data, color):
     """
     Plot the data passing in a matrix and specifying columns.
