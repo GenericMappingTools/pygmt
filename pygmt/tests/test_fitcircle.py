@@ -105,7 +105,7 @@ def test_fitcircle_format(data):
     """
     circle_default = fitcircle(data=data, normalize=True)
     assert isinstance(circle_default, pd.DataFrame)
-    circle_default = fitcircle(data=data, normalize=True, output_type="numpy")
-    assert isinstance(circle_default, np.ndarray)
-    circle_default = fitcircle(data=data, normalize=True, output_type="pandas")
-    assert isinstance(circle_default, pd.DataFrame)
+    circle_array = fitcircle(data=data, normalize=True, output_type="numpy")
+    assert isinstance(circle_array, np.ndarray)
+    circle_df = fitcircle(data=data, normalize=True, output_type="pandas")
+    assert isinstance(circle_df, pd.DataFrame)
