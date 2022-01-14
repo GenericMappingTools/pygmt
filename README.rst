@@ -196,7 +196,7 @@ Related projects
 * `gmtmex <https://github.com/GenericMappingTools/gmtmex>`__: A Matlab/Octave wrapper
   for GMT.
 
-Other Python wrappers for GMT:
+Other Python wrappers for GMT (not maintained):
 
 * `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
