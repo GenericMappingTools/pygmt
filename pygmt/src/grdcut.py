@@ -96,9 +96,9 @@ def grdcut(grid, **kwargs):
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
-    >>> # Create a new grid from an input grid, with an x-range of -3 to 1,
-    >>> # and a y-range of 2 to 5
-    >>> new_grid = pygmt.grdcut(grid=grid, region=[-3, 1, 2, 5])
+    >>> # Create a new grid from an input grid, with an x-range of 12 to 15,
+    >>> # and a y-range of 21 to 24
+    >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
