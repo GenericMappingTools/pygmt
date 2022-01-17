@@ -27,6 +27,7 @@ from pygmt.helpers import (
     N="borders",
     W="shorelines",
     G="land",
+    Q="end_path",
     S="water",
     U="timestamp",
     V="verbose",
@@ -145,7 +146,11 @@ def coast(self, **kwargs):
 
         3 = Marine boundaries
 
-        a = All boundaries (1-3)
+        a = All boundaries (1-3) 
+    end_path : bool
+        Mark end of existing clip path. No projection information is needed. 
+        Also supply ``xshift`` and ``yshift`` settings if you have moved 
+        since the clip started. 
     water : str
         Select filling or clipping of "wet" areas.
     {U}
