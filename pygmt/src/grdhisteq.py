@@ -16,7 +16,9 @@ from pygmt.helpers import (
 from pygmt.io import load_dataarray
 
 
-def _grdhisteq(grid, outgrid=None, outfile=None, output_type=None, **kwargs):
+def _grdhisteq(
+    grid, output_type=None, tmpfile=None, **kwargs
+):
     r"""
     Perform histogram equalization for a grid.
 
@@ -76,31 +78,21 @@ def _grdhisteq(grid, outgrid=None, outfile=None, output_type=None, **kwargs):
     :meth:`pygmt.grd2cpt`
     """
 
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if outgrid is None:
-                    if "D" not in kwargs or kwargs["D"] is True:
-                        kwargs.update({"D": tmpfile.name})
-                    outfile = kwargs["D"]
-                else:
-                    if output_type != "file":
-                        kwargs.update({"G": tmpfile.name})
-                    else:
-                        kwargs.update({"G": outgrid})
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdhisteq", arg_str)
+    with Session() as lib:
+        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
+        with file_context as infile:
+            arg_str = " ".join([infile, build_arg_string(kwargs)])
+            lib.call_module("grdhisteq", arg_str)
 
-        if output_type == "file":
-            return None
-        if output_type == "xarray":
-            return load_dataarray(tmpfile.name)
+    if output_type == "file":
+        return None
+    if output_type == "xarray":
+        return load_dataarray(tmpfile.name)
 
-        result = pd.read_csv(outfile, sep="\t", header=None)
-        if output_type == "numpy":
-            result = result.to_numpy()
-        return result
+    result = pd.read_csv(kwargs["D"], sep="\t", header=None)
+    if output_type == "numpy":
+        result = result.to_numpy()
+    return result
 
 
 @fmt_docstring
@@ -113,7 +105,7 @@ def _grdhisteq(grid, outgrid=None, outfile=None, output_type=None, **kwargs):
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def equalize_bins(grid, output_type="pandas", outfile=None, **kwargs):
+def equalize_bins(grid, output_type="pandas", **kwargs):
     r"""
     Find data values which divide a grid into patches of equal area.
 
@@ -123,7 +115,7 @@ def equalize_bins(grid, output_type="pandas", outfile=None, **kwargs):
     shading of this grid (using :meth:`pygmt.Figure.grdimage` or
     :meth:`pygmt.Figure.grdview`) with a linear mapping from topography to
     graytone will result in most of the image being very dark gray, with
-    the mountain being almost white. :meth:`pygmt.grdhisteq.compute_bins`
+    the mountain being almost white. :meth:`pygmt.equalize_bins`
     can provide a list of data values that divide the data range into
     divisions which have an equal area in the image [Default is 16 if
     ``divisions`` is not set]. The :class:`pandas.DataFrame` or ASCII file
@@ -174,7 +166,7 @@ def equalize_bins(grid, output_type="pandas", outfile=None, **kwargs):
             "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
         )
 
-    if outfile is not None and output_type != "file":
+    if "D" in kwargs and output_type != "file":
         msg = (
             f"Changing 'output_type' of grd2xyz from '{output_type}' to 'file' "
             "since 'outfile' parameter is set. Please use output_type='file' "
@@ -182,24 +174,30 @@ def equalize_bins(grid, output_type="pandas", outfile=None, **kwargs):
         )
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"
-    return _grdhisteq(grid, outfile=outfile, output_type=output_type, **kwargs)
+    with GMTTempFile(suffix=".txt") as tmpfile:
+        if output_type != "file":
+            kwargs.update({"D": tmpfile.name})
+        return _grdhisteq(
+            grid, output_type=output_type, tmpfile=tmpfile, **kwargs
+        )
 
 
 @fmt_docstring
 @use_alias(
     C="divisions",
+    G="outgrid",
     R="region",
     N="gaussian",
     Q="quadratic",
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def equalize_grid(grid, outgrid=True, **kwargs):
+def equalize_grid(grid, **kwargs):
     r"""
     Perform histogram equalization for a grid.
 
 
-    :meth:`pygmt.grdhisteq.equalize_grid` provides a way to write a grid
+    :meth:`pygmt.equalize_grid` provides a way to write a grid
     with statistics based on a cumulative distribution function. The
     ``outgrid`` has relative highs and lows in the same (x,y) locations as
     the ``grid``, but the values are changed to reflect their place in the
@@ -234,8 +232,16 @@ def equalize_grid(grid, outgrid=True, **kwargs):
     -------
     :meth:`pygmt.equalize_bins`
     """
-    if isinstance(outgrid, str):
+    if isinstance(kwargs["G"], str):
         output_type = "file"
     else:
         output_type = "xarray"
-    return _grdhisteq(grid=grid, outgrid=outgrid, output_type=output_type, **kwargs)
+    with GMTTempFile(suffix=".nc") as tmpfile:
+        if output_type != "file":
+            kwargs.update({"G": tmpfile.name})
+        return _grdhisteq(
+            grid=grid,
+            output_type=output_type,
+            tmpfile=tmpfile,
+            **kwargs,
+        )
