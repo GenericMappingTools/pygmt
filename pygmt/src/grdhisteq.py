@@ -81,11 +81,9 @@ def _grdhisteq(grid, outgrid=None, outfile=None, output_type=None, **kwargs):
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 if outgrid is None:
-                    if output_type != "file":
-                        outfile = tmpfile.name
-                    # Temporary workaround to GMT bug (Issue #5785)
-                    kwargs.update({"D": True})
-                    kwargs.update({">": outfile})
+                    if "D" not in kwargs or kwargs["D"] is True:
+                        kwargs.update({"D": tmpfile.name})
+                    outfile = kwargs["D"]
                 else:
                     if output_type != "file":
                         kwargs.update({"G": tmpfile.name})
@@ -108,68 +106,16 @@ def _grdhisteq(grid, outgrid=None, outfile=None, output_type=None, **kwargs):
 @fmt_docstring
 @use_alias(
     C="divisions",
+    D="outfile",
     R="region",
     N="gaussian",
     Q="quadratic",
     V="verbose",
 )
 @kwargs_to_strings(R="sequence")
-def equalize_grid(grid, outgrid=True, **kwargs):
+def equalize_bins(grid, output_type="pandas", outfile=None, **kwargs):
     r"""
-    Perform histogram equalization for a grid.
-
-
-    :meth:`pygmt.grdhisteq.equalize_grid` provides a way to write a grid
-    with statistics based on a cumulative distribution function. The
-    ``outgrid`` has relative highs and lows in the same (x,y) locations as
-    the ``grid``, but the values are changed to reflect their place in the
-    cumulative distribution.
-
-    Full option list at :gmt-docs:`grdhisteq.html`
-
-    {aliases}
-
-    Parameters
-    ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or bool or None
-        The name of the output netCDF file with extension .nc to store the
-        grid in.
-    divisions : int
-        Set the number of divisions of the data range.
-
-    {R}
-    {V}
-
-    Returns
-    -------
-    ret: xarray.DataArray or None
-        Return type depends on the ``outgrid`` parameter:
-
-        - xarray.DataArray if ``outgrid`` is True or None
-        - None if ``outgrid`` is a str (grid output is stored in ``outgrid``)
-
-    """
-    if isinstance(outgrid, str):
-        output_type = "file"
-    else:
-        output_type = "xarray"
-    return _grdhisteq(grid=grid, outgrid=outgrid, output_type=output_type, **kwargs)
-
-
-@fmt_docstring
-@use_alias(
-    C="divisions",
-    R="region",
-    N="gaussian",
-    Q="quadratic",
-    V="verbose",
-)
-@kwargs_to_strings(R="sequence")
-def compute_bins(grid, output_type="pandas", outfile=None, **kwargs):
-    r"""
-    Perform histogram equalization for a grid.
+    Find data values which divide a grid into patches of equal area.
 
     Histogram equalization provides a way to highlight data that has most
     values clustered in a small portion of the dynamic range, such as a
@@ -221,6 +167,7 @@ def compute_bins(grid, output_type="pandas", outfile=None, **kwargs):
     See Also
     -------
     :meth:`pygmt.grd2cpt`
+    :meth:`pygmt.equalize_grid`
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
@@ -236,3 +183,59 @@ def compute_bins(grid, output_type="pandas", outfile=None, **kwargs):
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"
     return _grdhisteq(grid, outfile=outfile, output_type=output_type, **kwargs)
+
+
+@fmt_docstring
+@use_alias(
+    C="divisions",
+    R="region",
+    N="gaussian",
+    Q="quadratic",
+    V="verbose",
+)
+@kwargs_to_strings(R="sequence")
+def equalize_grid(grid, outgrid=True, **kwargs):
+    r"""
+    Perform histogram equalization for a grid.
+
+
+    :meth:`pygmt.grdhisteq.equalize_grid` provides a way to write a grid
+    with statistics based on a cumulative distribution function. The
+    ``outgrid`` has relative highs and lows in the same (x,y) locations as
+    the ``grid``, but the values are changed to reflect their place in the
+    cumulative distribution.
+
+    Full option list at :gmt-docs:`grdhisteq.html`
+
+    {aliases}
+
+    Parameters
+    ----------
+    grid : str or xarray.DataArray
+        The file name of the input grid or the grid loaded as a DataArray.
+    outgrid : str or bool or None
+        The name of the output netCDF file with extension .nc to store the
+        grid in.
+    divisions : int
+        Set the number of divisions of the data range.
+
+    {R}
+    {V}
+
+    Returns
+    -------
+    ret: xarray.DataArray or None
+        Return type depends on the ``outgrid`` parameter:
+
+        - xarray.DataArray if ``outgrid`` is True or None
+        - None if ``outgrid`` is a str (grid output is stored in ``outgrid``)
+
+    See Also
+    -------
+    :meth:`pygmt.equalize_bins`
+    """
+    if isinstance(outgrid, str):
+        output_type = "file"
+    else:
+        output_type = "xarray"
+    return _grdhisteq(grid=grid, outgrid=outgrid, output_type=output_type, **kwargs)

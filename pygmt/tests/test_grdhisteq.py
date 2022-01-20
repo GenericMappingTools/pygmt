@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import grdhisteq, load_dataarray
+from pygmt import equalize_bins, equalize_grid, load_dataarray
 from pygmt.datasets import load_earth_relief
 from pygmt.helpers import GMTTempFile
 
@@ -66,7 +66,7 @@ def test_equalize_grid_file_output(grid, expected_grid):
     Test the gaussian parameter of grdhisteq with a set outgrid.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdhisteq.equalize_grid(
+        result = equalize_grid(
             grid=grid, quadratic=True, region=[-3, 1, 2, 5], outgrid=tmpfile.name
         )
         assert result is None  # return value is None
@@ -80,7 +80,7 @@ def test_equalize_grid_xarray_output(grid, expected_grid):
     Test the quadratic and region parameters for grdhisteq with
     ``outgrid=True``.
     """
-    temp_grid = grdhisteq.equalize_grid(
+    temp_grid = equalize_grid(
         grid=grid, quadratic=True, region=[-3, 1, 2, 5], outgrid=True
     )
     assert temp_grid.gmt.gtype == 1  # Geographic grid
@@ -93,7 +93,7 @@ def test_compute_bins_pandas_output(grid, expected_df):
     Test the quadratic and region parameters for grdhisteq with
     ``output_type``="pandas".
     """
-    temp_df = grdhisteq.compute_bins(
+    temp_df = equalize_bins(
         grid=grid, quadratic=True, region=[-3, 1, 2, 5], output_type="pandas"
     )
     assert isinstance(temp_df, pd.DataFrame)
@@ -106,7 +106,7 @@ def test_compute_bins_file_output(grid, expected_df):
     ``output_type``="file".
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
-        result = grdhisteq.compute_bins(
+        result = equalize_bins(
             grid=grid,
             quadratic=True,
             region=[-3, 1, 2, 5],

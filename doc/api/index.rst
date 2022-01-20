@@ -132,14 +132,14 @@ Operations on grids
 .. autosummary::
     :toctree: generated
 
+    equalize_bins
+    equalize_grid
     grd2xyz
     grdclip
     grdcut
     grdfill
     grdfilter
     grdgradient
-    grdhisteq.compute_bins
-    grdhisteq.equalize_grid
     grdlandmask
     grdproject
     grdsample
