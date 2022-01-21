@@ -181,9 +181,9 @@ class Figure:
             adding margins. Append **+m** to specify extra margins to extend
             the bounding box. Give either one (uniform), two (x and y) or four
             (individual sides) margins; append unit [Default is set by
-            :term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
-            output image to exactly *width* units. The default unit is set
-            by :term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
+            :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
+            output image to exactly *width* units. The default unit is set by
+            :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
             impose different width and height (**Note**: This may change the
             image aspect ratio). What happens here is that Ghostscript will do
             the re-interpolation work and the final image will retain the DPI
@@ -195,7 +195,7 @@ class Figure:
         bb_style : str
             Set optional BoundingBox fill color, fading, or draw the outline
             of the BoundingBox. Append **+f**\ *fade* to fade the entire plot
-            towards black (100%) [no fading, 0]. Append **+g** \*paint* to
+            towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
             paint the BoundingBox behind the illustration and append **+p**\
             [*pen*] to draw the BoundingBox outline (append a pen or accept
             the default pen of 0.25p,black). Note: If both **+g** and **+f**
