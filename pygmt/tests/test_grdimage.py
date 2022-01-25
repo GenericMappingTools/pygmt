@@ -4,10 +4,14 @@ Test Figure.grdimage.
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -73,6 +77,11 @@ def test_grdimage_slice(grid):
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=gmt_version > Version("6.3.0"),
+    reason="Grid extension bug affects baseline image; "
+    "fixed in https://github.com/GenericMappingTools/gmt/pull/6175.",
+)
 def test_grdimage_file():
     """
     Plot an image using file input.
@@ -117,10 +126,6 @@ def test_grdimage_shading_xarray(grid, shading):
     return fig_ref, fig_test
 
 
-@pytest.mark.xfail(
-    reason="Incorrect scaling of geo CPT on xarray.DataArray grdimage plot."
-    "See https://github.com/GenericMappingTools/gmt/issues/5294",
-)
 @check_figures_equal()
 def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
@@ -208,8 +213,17 @@ def test_grdimage_central_meridians(grid, proj_type, lon0):
 # TO-DO remove tol=1.5 and pytest.mark.xfail once bug is solved in upstream GMT
 @check_figures_equal(tol=1.5)
 @pytest.mark.parametrize("lat0", [0, 30])
-@pytest.mark.parametrize("lon0", [0, 123, 180])
-@pytest.mark.parametrize("proj_type", [pytest.param("Q", marks=pytest.mark.xfail), "S"])
+@pytest.mark.parametrize(
+    ("proj_type", "lon0"),
+    [
+        ("Q", 0),
+        pytest.param("Q", 123, marks=pytest.mark.xfail),
+        pytest.param("Q", 180, marks=pytest.mark.xfail),
+        ("S", 0),
+        ("S", 123),
+        ("S", 180),
+    ],
+)
 def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0, lat0):
     """
     Test that plotting a grid with different central meridians (lon0) and
