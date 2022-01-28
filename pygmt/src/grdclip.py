@@ -77,6 +77,20 @@ def grdclip(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Examples
+    --------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )  # doctest: +SKIP
+    >>> # Create a new grid from an input grid. Set all values below 1,000 to
+    >>> # 0 and all values above 1,500 to 10,000
+    >>> new_grid = pygmt.grdclip(
+    ...     grid=grid, below=[1000, 0], above=[1500, 10000]
+    ... )  # doctest: +SKIP
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
