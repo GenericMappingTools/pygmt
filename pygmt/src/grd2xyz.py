@@ -126,6 +126,18 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
           not set (depends on ``output_type``)
 
+    Examples
+    --------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )  # doctest: +SKIP
+    >>> # Create a numpy array with the xyz data from an input grid
+    >>> xyz_array = pygmt.grd2xyz(
+    ...     grid=grid, output_type="numpy"
+    ... )  # doctest: +SKIP
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
