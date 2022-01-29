@@ -134,9 +134,9 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )  # doctest: +SKIP
-    >>> # Create a numpy array with the xyz data from an input grid
+    >>> # Create a pandas DataFrame with the xyz data from an input grid
     >>> xyz_array = pygmt.grd2xyz(
-    ...     grid=grid, output_type="numpy"
+    ...     grid=grid, output_type="pandas"
     ... )  # doctest: +SKIP
     """
     if output_type not in ["numpy", "pandas", "file"]:
