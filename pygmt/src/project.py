@@ -93,6 +93,8 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     back-azimuths or azimuths are better done using :gmt-docs:`mapproject` as
     project is strictly spherical.
 
+    Full option list at :gmt-docs:`project.html`
+
     {aliases}
 
     Parameters
