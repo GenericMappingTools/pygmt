@@ -142,9 +142,9 @@ class TestLibgmtBrokenLibs:
         # pylint: disable=protected-access
         lib_fullnames = [self.faked_libgmt1, self.faked_libgmt2]
         msg_regex = (
-            fr"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
-            fr"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
-            fr"Error loading GMT shared library at '{self.faked_libgmt2._name}'.\n"
+            rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
+            rf"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
+            rf"Error loading GMT shared library at '{self.faked_libgmt2._name}'.\n"
             f"Error loading '{self.faked_libgmt2._name}'. Couldn't access.*"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
@@ -162,9 +162,9 @@ class TestLibgmtBrokenLibs:
         # pylint: disable=protected-access
         lib_fullnames = [self.faked_libgmt1, self.invalid_path]
         msg_regex = (
-            fr"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
-            fr"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
-            fr"Error loading GMT shared library at '{self.invalid_path}'.\n"
+            rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
+            rf"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
+            rf"Error loading GMT shared library at '{self.invalid_path}'.\n"
             f"Unable to find '{self.invalid_path}'"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
