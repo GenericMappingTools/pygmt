@@ -77,6 +77,20 @@ Project goals
   ``xarray.DataArray`` for grids.
 
 
+Quickstart
+----------
+
+Installation
+++++++++++++
+
+Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__
+(creates virtual environment and installs `pygmt` and required dependencies)::
+
+    conda create --name pygmt --channel conda-forge pygmt
+
+For other ways to install `pygmt`, see `full installation instructions <https://www.pygmt.org/latest/install.html>`_.
+
+
 Contacting Us
 -------------
 
