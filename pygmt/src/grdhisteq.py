@@ -16,7 +16,7 @@ from pygmt.helpers import (
 from pygmt.io import load_dataarray
 
 
-class grdhisteq:
+class grdhisteq:  # pylint: disable=invalid-name
     r"""
     Perform histogram equalization for a grid.
 

@@ -75,13 +75,14 @@ def test_grdhisteq_outgrid_file(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdhisteq_outgrid(grid, expected_grid):
+@pytest.mark.parametrize("outgrid", [True, None])
+def test_grdhisteq_outgrid(grid, outgrid, expected_grid):
     """
     Test the quadratic and region parameters for grdhisteq with
-    ``outgrid=True``.
+    ``outgrid=True`` and ``outgrid=None``.
     """
     temp_grid = grdhisteq.equalize_grid(
-        grid=grid, quadratic=True, region=[-3, 1, 2, 5], outgrid=True
+        grid=grid, quadratic=True, region=[-3, 1, 2, 5], outgrid=outgrid
     )
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 1  # Pixel registration
