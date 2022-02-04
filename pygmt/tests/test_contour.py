@@ -41,8 +41,8 @@ def test_contour_vec(region):
     )
     x = x.flatten()
     y = y.flatten()
-    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y ** 2
-    z = np.exp(-z / 10 ** 2 * np.log(2))
+    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y**2
+    z = np.exp(-z / 10**2 * np.log(2))
     fig.contour(x=x, y=y, z=z, projection="X10c", region=region, frame="a", pen=True)
     return fig
 
@@ -89,8 +89,8 @@ def test_contour_deprecate_columns_to_incols(region):
     )
     x = x.flatten()
     y = y.flatten()
-    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y ** 2
-    z = np.exp(-z / 10 ** 2 * np.log(2))
+    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y**2
+    z = np.exp(-z / 10**2 * np.log(2))
 
     # generate dataframe
     # switch x and y from here onwards to simulate different column order
