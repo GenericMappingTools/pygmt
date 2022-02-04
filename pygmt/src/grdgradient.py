@@ -160,7 +160,9 @@ def grdgradient(grid, **kwargs):
     ... )  # doctest: +SKIP
     >>> # Create a new grid from an input grid, set the azimuth to 10 degrees,
     >>> # and the direction to "c" for Cartesian coordinates
-    >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10, direction="c")  # doctest: +SKIP
+    >>> new_grid = pygmt.grdgradient(
+    ...     grid=grid, azimuth=10, direction="c"
+    ... )  # doctest: +SKIP
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         if "Q" in kwargs and "N" not in kwargs:
