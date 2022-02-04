@@ -399,7 +399,7 @@ def test_plot3d_vectors():
         direction=(azimuth, lengths),
         region=[-2, 2, -2, 2, -2, 2],
         projection="X10c",
-        style="V1c+e",
+        style="V1c+e+n",
         color="black",
         frame=["af", "zaf"],
     )
