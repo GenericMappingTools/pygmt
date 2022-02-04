@@ -87,7 +87,7 @@ Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest
 
     conda install --channel conda-forge pygmt
 
-For other ways to install `pygmt`, see `full installation instructions <https://www.pygmt.org/latest/install.html>`_.
+For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
 
 
 Contacting Us
