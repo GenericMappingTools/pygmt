@@ -30,6 +30,7 @@ def list_sample_data():
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
+        "static_earth_relief": "Sample grid used for testing",
         "usgs_quakes": "Table of global earthquakes from the USGS",
     }
     return names
@@ -70,6 +71,7 @@ def load_sample_data(name):
         "japan_quakes": load_japan_quakes,
         "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
+        "static_earth_relief": _load_static_earth_relief,
         "usgs_quakes": load_usgs_quakes,
     }
 
@@ -341,5 +343,23 @@ def load_mars_shape(**kwargs):
     fname = which("@mars370d.txt", download="c")
     data = pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
+    )
+    return data
+
+
+def _load_static_earth_relief(**kwargs):
+    """
+    Load the static_earth_relief file for internal testing.
+
+    Parameters
+    ----------
+    kwargs
+
+    Returns
+    -------
+    """
+    fname = which("@static_earth_relief", download="c")
+    data = pd.read_csv(
+        fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
     )
     return data
