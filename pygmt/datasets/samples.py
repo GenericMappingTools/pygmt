@@ -4,6 +4,7 @@ Functions to load sample data.
 import warnings
 
 import pandas as pd
+import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.src import which
 
@@ -351,15 +352,11 @@ def _load_static_earth_relief(**kwargs):
     """
     Load the static_earth_relief file for internal testing.
 
-    Parameters
-    ----------
-    kwargs
-
     Returns
     -------
+    data : xarray.DataArray
+        A grid of Earth relief for internal tests.
     """
-    fname = which("@static_earth_relief", download="c")
-    data = pd.read_csv(
-        fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
-    )
+    fname = which("@static_earth_relief.nc", download="c")
+    data = xr.open_dataarray(fname)
     return data

@@ -1,8 +1,10 @@
 """
 Test basic functionality for loading sample datasets.
 """
+import numpy.testing as npt
 import pandas as pd
 import pytest
+import xarray as xr
 from pygmt.datasets import (
     load_fractures_compilation,
     load_hotspots,
@@ -145,3 +147,17 @@ def test_hotspots():
         "place_name",
     ]
     assert isinstance(data, pd.DataFrame)
+
+
+def test_load_static_earth_relief():
+    """
+    Check that @static_earth_relief.nc loads without errors.
+    """
+    data = load_sample_data("static_earth_relief")
+    assert data.dims == ("lat", "lon")
+    assert data.shape == (14, 8)
+    assert data.min() == 190
+    assert data.max() == 981
+    assert data.median() == 467
+    npt.assert_allclose(data.mean(), 490.87946)
+    assert isinstance(data, xr.DataArray)
