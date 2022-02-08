@@ -138,7 +138,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     >>> xyz_dataframe = pygmt.grd2xyz(
     ...     grid=grid, output_type="pandas"
     ... )  # doctest: +SKIP
-    >>> print(xyz_dataframe.head(n=2))  # doctest: +SKIP
+    >>> xyz_dataframe.head(n=2)  # doctest: +SKIP
          lon    lat  elevation
     0  10.25  24.75      903.5
     1  10.75  24.75      820.0
