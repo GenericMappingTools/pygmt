@@ -128,16 +128,3 @@ def test_args_in_kwargs():
     # Failing list of arguments
     failing_args = ["D", "E", "F"]
     assert not args_in_kwargs(args=failing_args, kwargs=kwargs)
-
-
-def test_load_static_earth_relief():
-    """
-    Check that @static_earth_relief.nc loads without errors.
-    """
-    data = load_static_earth_relief()
-    assert data.dims == ("lat", "lon")
-    assert data.shape == (14, 8)
-    assert data.min() == 190
-    assert data.max() == 981
-    assert data.median() == 467
-    assert isinstance(data, xr.DataArray)
