@@ -77,6 +77,19 @@ Project goals
   ``xarray.DataArray`` for grids.
 
 
+Quickstart
+----------
+
+Installation
+++++++++++++
+
+Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
+
+    conda install --channel conda-forge pygmt
+
+For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
+
+
 Contacting Us
 -------------
 
@@ -214,7 +227,7 @@ Compatibility with GMT/Python/NumPy versions
       - Documentation
       - GMT
       - Python
-      - Numpy
+      - NumPy
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestone/9>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
