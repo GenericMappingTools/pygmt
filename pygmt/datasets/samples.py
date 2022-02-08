@@ -4,7 +4,6 @@ Functions to load sample data.
 import warnings
 
 import pandas as pd
-import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.src import which
 
