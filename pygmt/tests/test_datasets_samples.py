@@ -1,7 +1,6 @@
 """
 Test basic functionality for loading sample datasets.
 """
-import numpy.testing as npt
 import pandas as pd
 import pytest
 import xarray as xr
@@ -159,5 +158,4 @@ def test_load_static_earth_relief():
     assert data.min() == 190
     assert data.max() == 981
     assert data.median() == 467
-    npt.assert_allclose(data.mean(), 490.87946)
     assert isinstance(data, xr.DataArray)

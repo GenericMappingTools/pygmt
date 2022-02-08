@@ -31,7 +31,7 @@ def list_sample_data():
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
-        "static_earth_relief": "Sample grid used for testing",
+        "static_earth_relief": "Sample grid used for testing based on Sandwell et al., 2022",
         "usgs_quakes": "Table of global earthquakes from the USGS",
     }
     return names
@@ -348,7 +348,7 @@ def load_mars_shape(**kwargs):
     return data
 
 
-def _load_static_earth_relief(**kwargs):
+def _load_static_earth_relief(**kwargs):  # pylint: disable=unused-argument
     """
     Load the static_earth_relief file for internal testing.
 
@@ -358,5 +358,4 @@ def _load_static_earth_relief(**kwargs):
         A grid of Earth relief for internal tests.
     """
     fname = which("@static_earth_relief.nc", download="c")
-    data = xr.open_dataarray(fname)
-    return data
+    return xr.open_dataarray(fname)
