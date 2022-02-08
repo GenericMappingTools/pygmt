@@ -126,8 +126,8 @@ Operations on tabular data
     surface
     xyz2grd
 
-Operations on grids
-~~~~~~~~~~~~~~~~~~~
+Operations on raster data
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
