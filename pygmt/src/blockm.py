@@ -303,6 +303,14 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
           is not set.
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``).
+          
+    Examples
+    --------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> data = pygmt.datasets.load_sample_bathymetry()
+    >>> # Calculate block mode values within 5 by 5 minute bins
+    >>> data_bmode = pygmt.blockmode(data = data, region=[245, 255, 20, 30], spacing = "5m")  # doctest: +SKIP            
     """
     return _blockm(
         block_method="blockmode", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
