@@ -71,7 +71,6 @@ def load_sample_data(name):
         "japan_quakes": load_japan_quakes,
         "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
-        "static_earth_relief": _load_static_earth_relief,
         "usgs_quakes": load_usgs_quakes,
     }
 
@@ -345,16 +344,3 @@ def load_mars_shape(**kwargs):
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
     )
     return data
-
-
-def _load_static_earth_relief(**kwargs):  # pylint: disable=unused-argument
-    """
-    Load the static_earth_relief file for internal testing.
-
-    Returns
-    -------
-    data : xarray.DataArray
-        A grid of Earth relief for internal tests.
-    """
-    fname = which("@static_earth_relief.nc", download="c")
-    return xr.open_dataarray(fname)

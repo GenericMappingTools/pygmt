@@ -15,6 +15,7 @@ from pygmt.datasets import (
     load_usgs_quakes,
 )
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 def test_load_sample_invalid():
@@ -152,7 +153,7 @@ def test_load_static_earth_relief():
     """
     Check that @static_earth_relief.nc loads without errors.
     """
-    data = load_sample_data("static_earth_relief")
+    data = load_static_earth_relief()
     assert data.dims == ("lat", "lon")
     assert data.shape == (14, 8)
     assert data.min() == 190
