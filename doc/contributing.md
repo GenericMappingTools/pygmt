@@ -168,7 +168,7 @@ To increase the chances of getting your pull request accepted quickly, try to:
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
   - Follow the [PEP8](http://pep8.org) style guide for code and the
-    [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
+    [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
     for docstrings. Please refer to [Code style](#code-style).
 
 Pull requests will automatically have tests run by GitHub Actions.
@@ -367,7 +367,7 @@ the documentation.
 
 The API documentation is built from the docstrings in the Python `*.py` files under
 the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
-[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
+[NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 

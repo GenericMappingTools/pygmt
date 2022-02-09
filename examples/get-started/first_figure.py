@@ -121,8 +121,7 @@ fig.show()
 # annotate the latitude and longitude of the region.
 #
 # The ``frame`` parameter is used to add a frame to the figure. For now, it
-# will be set to ``True`` to use default settings, but later tutorials will
-# show how ``frame`` can be used to customize the axes, gridlines, and titles.
+# will be set to ``"a"`` to **a**\ nnotate the axes automatically.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -131,7 +130,34 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame=True,
+    frame="a",
+)
+fig.show()
+
+###############################################################################
+# Add a title
+# -----------
+#
+# The ``frame`` parameter can be used to add a title to the figure. The title
+# is set with by passing ``"+t"`` followed by the title (e.g. setting the map
+# title to "Title" would be ``"+tTitle"``).
+#
+# To pass multiple arguments to ``frame``, a list can be used, as shown in the
+# example below. This format uses ``frame`` to set both the axes gridlines and
+# the figure title.
+#
+# If the figure title has any spaces, the string to set the title needs to
+# be wrapped in single-quotes, while the actual title is set in double quotes
+# (e.g. setting the title to "A Title" would use the syntax ``'+t"A Title"'``.
+
+fig = pygmt.Figure()
+fig.coast(
+    region=[-69, -68, 43.75, 44.75],
+    shorelines=True,
+    land="lightgreen",
+    water="lightblue",
+    projection="M10c",
+    frame=["a", "+tMaine"],
 )
 fig.show()
 
