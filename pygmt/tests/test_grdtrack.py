@@ -53,10 +53,6 @@ def fixture_ncfile():
     return which("@earth_relief_01d", download="a")
 
 
-@pytest.mark.xfail(
-    condition=gmt_version <= Version("6.2.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/5893.",
-)
 def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
     """
     Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
@@ -70,10 +66,6 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
     return output
 
 
-@pytest.mark.xfail(
-    condition=gmt_version <= Version("6.2.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/5893.",
-)
 def test_grdtrack_input_csvfile_and_dataarray(dataarray, csvfile):
     """
     Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
