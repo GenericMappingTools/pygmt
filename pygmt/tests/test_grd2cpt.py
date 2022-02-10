@@ -5,9 +5,9 @@ import os
 
 import pytest
 from pygmt import Figure, grd2cpt
-from pygmt.helpers.testing import load_static_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.fixture(scope="module", name="grid")
