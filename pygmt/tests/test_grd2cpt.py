@@ -5,7 +5,7 @@ import os
 
 import pytest
 from pygmt import Figure, grd2cpt
-from pygmt.datasets import load_earth_relief
+from pygmt.helpers.testing import load_static_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -15,7 +15,7 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief()
+    return load_static_earth_relief()
 
 
 @pytest.mark.mpl_image_compare
