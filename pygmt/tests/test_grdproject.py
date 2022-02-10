@@ -6,7 +6,7 @@ import os
 import pytest
 import xarray as xr
 from pygmt import grdproject, load_dataarray
-from pygmt.datasets import load_earth_relief
+from pygmt.helpers.testing import load_static_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -14,11 +14,9 @@ from pygmt.helpers import GMTTempFile
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the grid data from the static_earth_relief file.
     """
-    return load_earth_relief(
-        resolution="01d", registration="pixel", region=[125, 130, -25, -20]
-    )
+    return load_static_earth_relief()
 
 
 @pytest.fixture(scope="module", name="expected_grid")
