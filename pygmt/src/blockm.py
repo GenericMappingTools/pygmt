@@ -226,8 +226,8 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``).
 
-    Examples
-    --------
+    Example
+    -------
     >>> import pygmt  # doctest: +SKIP
     >>> # Load a table of ship observations of bathymetry off Baja California
     >>> data = pygmt.datasets.load_sample_bathymetry()
