@@ -7,6 +7,7 @@ import string
 
 from matplotlib.testing.compare import compare_images
 from pygmt.exceptions import GMTImageComparisonFailure
+from pygmt.io import load_dataarray
 from pygmt.src import which
 
 
@@ -178,6 +179,7 @@ def download_test_data():
         "@ridge.txt",
         "@mars370d.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
+        "@static_earth_relief.nc",
         "@test.dat.nc",
         "@tut_bathy.nc",
         "@tut_quakes.ngdc",
@@ -185,3 +187,16 @@ def download_test_data():
         "@usgs_quakes_22.txt",
     ]
     which(fname=datasets, download="a")
+
+
+def load_static_earth_relief():
+    """
+    Load the static_earth_relief file for internal testing.
+
+    Returns
+    -------
+    data : xarray.DataArray
+        A grid of Earth relief for internal tests.
+    """
+    fname = which("@static_earth_relief.nc", download="c")
+    return load_dataarray(fname)
