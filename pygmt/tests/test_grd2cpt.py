@@ -27,7 +27,7 @@ def test_grd2cpt(grid):
     fig = Figure()
     fig.basemap(frame="a", projection="W0/15c", region="d")
     grd2cpt(grid=grid)
-    fig.colorbar(frame="a2000")
+    fig.colorbar(frame="a")
     return fig
 
 
