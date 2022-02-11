@@ -6,8 +6,8 @@ import os
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import load_static_earth_relief
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEST_CONTOUR_FILE = os.path.join(TEST_DATA_DIR, "contours.txt")
@@ -16,9 +16,9 @@ TEST_CONTOUR_FILE = os.path.join(TEST_DATA_DIR, "contours.txt")
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the grid data from the static_earth_relief file.
     """
-    return load_earth_relief(registration="gridline")
+    return load_static_earth_relief()
 
 
 @pytest.mark.mpl_image_compare
@@ -27,7 +27,9 @@ def test_grdcontour(grid):
     Plot a contour image using an xarray grid with fixed contour interval.
     """
     fig = Figure()
-    fig.grdcontour(grid, interval="1000", projection="W0/15c", frame=True)
+    fig.grdcontour(
+        grid=grid, interval=50, annotation=200, projection="M10c", frame=True
+    )
     return fig
 
 
@@ -39,10 +41,10 @@ def test_grdcontour_labels(grid):
     """
     fig = Figure()
     fig.grdcontour(
-        grid,
-        interval="1000",
-        annotation="5000",
-        projection="W0/15c",
+        grid=grid,
+        interval="10",
+        annotation="50",
+        projection="M10c",
         pen=["a1p,red", "c0.5p,black"],
         label_placement="d6c",
         frame=True,
@@ -55,10 +57,10 @@ def test_grdcontour_slice(grid):
     """
     Plot an contour image using an xarray grid that has been sliced.
     """
-    grid_ = grid.sel(lat=slice(-30, 30))
+    grid_ = grid.sel(lat=slice(-20, -10))
 
     fig = Figure()
-    fig.grdcontour(grid=grid_, interval="1000", projection="M15c", frame=True)
+    fig.grdcontour(grid=grid_, interval="100", projection="M10c", frame=True)
     return fig
 
 
