@@ -90,14 +90,14 @@ def test_grdcontour_interval_file_full_opts(grid):
     fig = Figure()
 
     comargs = {
-        "region": [-161.5, -154, 18.5, 23],
+        "region": [-53, -49, -20, -17],
         "interval": TEST_CONTOUR_FILE,
         "grid": grid,
         "resample": "100",
         "projection": "M10c",
         "cut": 10,
     }
-    fig.grdcontour(**comargs, limit=(-25000, -1), pen=["a1p,blue", "c0.5p,blue"])
+    fig.grdcontour(**comargs, limit=(0, 400), pen=["a1p,blue", "c0.5p,blue"])
     fig.grdcontour(**comargs, limit=0, pen=["a1p,black", "c0.5p,black"], frame=True)
 
     return fig
