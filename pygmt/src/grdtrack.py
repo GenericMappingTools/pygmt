@@ -278,7 +278,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     >>> # Create a pandas dataframe from an input grid and set of points
     >>> # The output dataframe adds a column named "bathymetry"
     >>> output_dataframe = pygmt.grdtrack(
-    ...     points=dataframe, grid=grid, newcolname="bathymetry"
+    ...     points=points, grid=grid, newcolname="bathymetry"
     ... )  # doctest: +SKIP
     """
     if hasattr(points, "columns") and newcolname is None:
