@@ -1,4 +1,4 @@
 outs:
-- md5: 8d4f53f4689eccb722b278302ba9b176
-  size: 9353
+- md5: d655aa78e7942548b3a565c627af8bbb
+  size: 29708
   path: test_grdcontour_interval_file_full_opts.png
