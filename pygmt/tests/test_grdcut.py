@@ -20,6 +20,14 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
+    """
+    Set the data region.
+    """
+    return [-53, -49, -20, -17]
+
+
 @pytest.fixture(scope="module", name="expected_grid")
 def fixture_grid_result():
     """
@@ -36,22 +44,22 @@ def fixture_grid_result():
     )
 
 
-def test_grdcut_dataarray_in_file_out(grid, expected_grid):
+def test_grdcut_dataarray_in_file_out(grid, expected_grid, region):
     """
     grdcut an input DataArray, and output to a grid file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdcut(grid, outgrid=tmpfile.name, region=[-53, -49, -20, -17])
+        result = grdcut(grid, outgrid=tmpfile.name, region=region)
         assert result is None  # grdcut returns None if output to a file
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdcut_dataarray_in_dataarray_out(grid, expected_grid):
+def test_grdcut_dataarray_in_dataarray_out(grid, expected_grid, region):
     """
     grdcut an input DataArray, and output as DataArray.
     """
-    outgrid = grdcut(grid, region=[-53, -49, -20, -17])
+    outgrid = grdcut(grid, region=region)
     assert isinstance(outgrid, xr.DataArray)
     xr.testing.assert_allclose(a=outgrid, b=expected_grid)
 
