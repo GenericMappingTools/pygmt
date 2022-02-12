@@ -23,14 +23,6 @@ def test_grdinfo(grid):
     assert result.strip() == "-55 -47 -24 -10 190 981 1 1 8 14 1 1"
 
 
-def test_grdinfo_file():
-    """
-    Test grdinfo with file input.
-    """
-    result = grdinfo(grid="@static_earth_relief.nc", force_scan=0, per_column="n")
-    assert result.strip() == "-55 -47 -24 -10 190 981 1 1 8 14 1 1"
-
-
 def test_grdinfo_fails():
     """
     Check that grdinfo fails correctly.
