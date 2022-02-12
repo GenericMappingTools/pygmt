@@ -1,4 +1,4 @@
 outs:
-- md5: 690415b96990c3b1d1388bf263e40a0d
-  size: 150867
+- md5: 81755f8581d340f8ee3093b332410f50
+  size: 24381
   path: test_makecpt_plot_grid.png

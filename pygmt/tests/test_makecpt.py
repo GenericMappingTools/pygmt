@@ -6,9 +6,9 @@ import os
 import numpy as np
 import pytest
 from pygmt import Figure, makecpt
-from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -35,7 +35,7 @@ def fixture_grid():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(registration="gridline")
+    return load_static_earth_relief()
 
 
 @pytest.mark.mpl_image_compare
@@ -63,7 +63,7 @@ def test_makecpt_plot_grid(grid):
     """
     fig = Figure()
     makecpt(cmap="relief")
-    fig.grdimage(grid, projection="W0/10c")
+    fig.grdimage(grid=grid, projection="M10C", frame=True)
     return fig
 
 
@@ -74,8 +74,8 @@ def test_makecpt_plot_grid_scaled_with_series(grid):
     of grid.
     """
     fig = Figure()
-    makecpt(cmap="oleron", series=[-4500, 4500])
-    fig.grdimage(grid, projection="W0/10c")
+    makecpt(cmap="oleron", series=[0, 1000])
+    fig.grdimage(grid=grid, projection="M10c", frame=True)
     return fig
 
 
@@ -110,8 +110,8 @@ def test_makecpt_truncated_zlow_zhigh(grid):
     Use static color palette table that is truncated to z-low and z-high.
     """
     fig = Figure()
-    makecpt(cmap="rainbow", truncate=[0.15, 0.85], series=[-4500, 4500])
-    fig.grdimage(grid, projection="W0/10c")
+    makecpt(cmap="rainbow", truncate=[0.15, 0.85], series=[0, 1000])
+    fig.grdimage(grid=grid, projection="M10c", frame=True)
     return fig
 
 
@@ -121,8 +121,8 @@ def test_makecpt_reverse_color_only(grid):
     Use static color palette table with its colors reversed.
     """
     fig = Figure()
-    makecpt(cmap="earth", reverse=True)
-    fig.grdimage(grid, projection="W0/10c")
+    makecpt(cmap="earth", reverse=True, series=[0, 1000])
+    fig.grdimage(grid=grid, projection="M10c", frame=True)
     return fig
 
 
@@ -133,8 +133,8 @@ def test_makecpt_reverse_color_and_zsign(grid):
     reversed.
     """
     fig = Figure()
-    makecpt(cmap="earth", reverse="cz")
-    fig.grdimage(grid, projection="W0/10c")
+    makecpt(cmap="earth", reverse="cz", series=[0, 1000])
+    fig.grdimage(grid=grid, projection="M10c", frame=True)
     return fig
 
 
@@ -145,8 +145,8 @@ def test_makecpt_continuous(grid):
     scaled from -4500 to 4500m.
     """
     fig = Figure()
-    makecpt(cmap="blue,white", continuous=True, series=[-4500, 4500])
-    fig.grdimage(grid, projection="W0/10c")
+    makecpt(cmap="blue,white", continuous=True, series=[0, 1000])
+    fig.grdimage(grid=grid, projection="M10c", frame=True)
     return fig
 
 
