@@ -36,32 +36,6 @@ def fixture_grid_result():
     )
 
 
-def test_grdcut_file_in_file_out(expected_grid):
-    """
-    grdcut an input grid file, and output to a grid file.
-    """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdcut(
-            "@static_earth_relief.nc", outgrid=tmpfile.name, region=[-53, -49, -20, -17]
-        )
-        assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
-        xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
-
-
-def test_grdcut_file_in_dataarray_out(expected_grid):
-    """
-    grdcut an input grid file, and output as DataArray.
-    """
-    outgrid = grdcut("@static_earth_relief.nc", region=[-53, -49, -20, -17])
-    assert isinstance(outgrid, xr.DataArray)
-    assert outgrid.gmt.registration == 1  # Pixel registration
-    assert outgrid.gmt.gtype == 1  # Geographic type
-    # check information of the output grid
-    xr.testing.assert_allclose(a=outgrid, b=expected_grid)
-
-
 def test_grdcut_dataarray_in_file_out(grid, expected_grid):
     """
     grdcut an input DataArray, and output to a grid file.
