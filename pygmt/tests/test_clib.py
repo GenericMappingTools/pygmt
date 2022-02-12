@@ -805,16 +805,18 @@ def test_dataarray_to_matrix_dims_fails():
         dataarray_to_matrix(grid)
 
 
-def test_dataarray_to_matrix_inc_fails():
+def test_dataarray_to_matrix_irregular_inc_warning():
     """
-    Check that it fails for variable increments.
+    Check that it warns for variable increments, see also
+    https://github.com/GenericMappingTools/pygmt/issues/1468.
     """
     data = np.ones((4, 5), dtype="float64")
     x = np.linspace(0, 1, 5)
     y = np.logspace(2, 3, 4)
     grid = xr.DataArray(data, coords=[("y", y), ("x", x)])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.warns(expected_warning=RuntimeWarning) as record:
         dataarray_to_matrix(grid)
+        assert len(record) == 1
 
 
 def test_dataarray_to_matrix_zero_inc_fails():
@@ -842,7 +844,7 @@ def test_get_default():
     with clib.Session() as lib:
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
-        assert Version(lib.get_default("API_VERSION")) >= Version("6.2.0")
+        assert Version(lib.get_default("API_VERSION")) >= Version("6.3.0")
 
 
 def test_get_default_fails():

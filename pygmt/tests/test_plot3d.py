@@ -313,19 +313,21 @@ def test_plot3d_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare
-def test_plot3d_matrix(data, region):
+@pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
+@pytest.mark.parametrize("color", ["#aaaaaa", 170])
+def test_plot3d_matrix(data, region, color):
     """
     Plot the data passing in a matrix and specifying incols.
     """
     fig = Figure()
     fig.plot3d(
-        data=data,
+        data,
         zscale=5,
         perspective=[225, 30],
         region=region,
         projection="M20c",
         style="c1c",
-        color="#aaaaaa",
+        color=color,
         frame=["a", "za"],
         incols="0,1,2",
     )
@@ -343,7 +345,7 @@ def test_plot3d_matrix_color(data, region):
     """
     fig = Figure()
     fig.plot3d(
-        data=data,
+        data,
         zscale=5,
         perspective=[225, 30],
         region=region,
@@ -397,7 +399,7 @@ def test_plot3d_vectors():
         direction=(azimuth, lengths),
         region=[-2, 2, -2, 2, -2, 2],
         projection="X10c",
-        style="V1c+e",
+        style="V1c+e+n",
         color="black",
         frame=["af", "zaf"],
     )
@@ -464,7 +466,7 @@ def test_plot3d_deprecate_columns_to_incols(data, region):
     fig = Figure()
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.plot3d(
-            data=data,
+            data,
             zscale=5,
             perspective=[225, 30],
             region=region,

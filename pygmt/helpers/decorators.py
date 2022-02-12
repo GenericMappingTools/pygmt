@@ -17,12 +17,10 @@ from pygmt.helpers.utils import is_nonstr_iter
 COMMON_OPTIONS = {
     "R": r"""
         region : str or list
-            *Required if this is the first plot command*.
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the :doc:`region </tutorials/regions>` of interest.""",
+            Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "J": r"""
         projection : str
-            *Required if this is the first plot command*.
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
     "A": r"""
@@ -36,7 +34,7 @@ COMMON_OPTIONS = {
     "B": r"""
         frame : bool or str or list
             Set map boundary
-            :doc:`frame and axes attributes </tutorials/frames>`. """,
+            :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
     "U": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
@@ -172,14 +170,12 @@ COMMON_OPTIONS = {
             :gmt-docs:`gmt.html#f-full`.""",
     "g": r"""
         gap : str or list
-            [**a**]\ **x**\|\ **y**\|\ **d**\|\ **X**\|\ **Y**\|\
-            **D**\|[*col*]\ **z**\ *gap*\ [**+n**\|\ **p**].
+            **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
+            **D**\ *gap*\ [**u**][**+a**][**+c**\ *col*][**+n**\|\ **p**].
             Examine the spacing between consecutive data points in order to
-            impose breaks in the line. To specify multiple critera, provide
+            impose breaks in the line. To specify multiple criteria, provide
             a list with each item containing a string describing one set of
-            critera. Prepend **a** to specify that all the criteria must be
-            met [Default is to impose breaks if any criteria are met]. The
-            following modifiers are supported:
+            criteria.
 
                 - **x**\|\ **X** - define a gap when there is a large enough
                   change in the x coordinates (upper case to use projected
@@ -190,9 +186,9 @@ COMMON_OPTIONS = {
                 - **d**\|\ **D** - define a gap when there is a large enough
                   distance between coordinates (upper case to use projected
                   coordinates).
-                - [*col*]\ **z** - define a gap when there is a large enough
-                  change in the data in column *col* [default *col* is 2 (i.e.,
-                  3rd column)].
+                - **z** - define a gap when there is a large enough change in
+                  the z data. Use **+c**\ *col* to change the z data column
+                  [Default *col* is 2 (i.e., 3rd column)].
 
             A unit **u** may be appended to the specified *gap*:
 
@@ -204,9 +200,10 @@ COMMON_OPTIONS = {
                 - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
                   **i**\ (nch), **c**\ (entimeter), or **p**\ (oint).
 
-            One of the following modifiers can be appended to *gap* [Default
-            imposes breaks based on the absolute value of the difference
-            between the current and previous value]:
+            Append modifier **+a** to specify that *all* the criteria must be
+            met [default imposes breaks if any one criterion is met].
+
+            One of the following modifiers can be appended:
 
                 - **+n** - specify that the previous value minus the current
                   column value must exceed *gap* for a break to be imposed.
@@ -448,11 +445,9 @@ def fmt_docstring(module_func):
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
     region : str or list
-        *Required if this is the first plot command*.
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/regions>` of interest.
+        Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection : str
-        *Required if this is the first plot command*.
         *projcode*\[*projparams*/]\ *width*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
@@ -510,7 +505,7 @@ def _insert_alias(module_func, default_value=None):
     kwargs_param = wrapped_params.pop(-1)
     # Add new parameters from aliases
     for alias in module_func.aliases.values():
-        if alias not in sig.parameters.keys():
+        if alias not in sig.parameters:
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
@@ -857,7 +852,15 @@ def check_data_input_order(deprecate_version, remove_version):
             New module instance that raises a warning if positional arguments
             are passed.
             """
-            if len(args) > 0:  # positional arguments are used
+            # Plotting functions always have a "self" parameter
+            # which is a pygmt.Figure instance that has a "savefig" method
+            if len(args) > 1 and hasattr(args[0], "savefig"):
+                plotting_func = 1
+            else:
+                plotting_func = 0
+
+            if len(args) > 1 + plotting_func:
+                # more than one positional arguments are used
                 msg = (
                     "The function parameters has been re-ordered as 'data, x, y, [z]' "
                     f"since {deprecate_version} but you're passing positional arguments. "

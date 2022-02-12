@@ -21,7 +21,7 @@ df.species = df.species.astype(dtype="category")
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
 # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
 region = pygmt.info(
-    table=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
+    data=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
     per_column=True,  # report the min/max values per column as a numpy array
     # round the min/max values of the first two columns to the nearest multiple
     # of 3 and 2, respectively

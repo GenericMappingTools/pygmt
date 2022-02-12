@@ -6,13 +6,17 @@ import os
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt import grdtrack, which
+from packaging.version import Version
+from pygmt import clib, grdtrack, which
 from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="dataarray")
@@ -57,7 +61,7 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
     output = grdtrack(points=dataframe, grid=dataarray, newcolname="bathymetry")
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
-    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2790.488422])
+    npt.assert_allclose(output.iloc[0], [-110.9536, -42.2489, -2797.394987])
 
     return output
 
@@ -72,7 +76,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, csvfile):
         assert os.path.exists(path=TEMP_TRACK)  # check that outfile exists at path
 
         track = pd.read_csv(TEMP_TRACK, sep="\t", header=None, comment=">")
-        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2790.488422])
+        npt.assert_allclose(track.iloc[0], [-110.9536, -42.2489, -2797.394987])
     finally:
         os.remove(path=TEMP_TRACK)
 

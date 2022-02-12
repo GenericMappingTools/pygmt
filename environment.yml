@@ -5,8 +5,8 @@ channels:
 dependencies:
     # Required dependencies
     - pip
-    - gmt=6.2.0
-    - numpy>=1.18
+    - gmt=6.3.0
+    - numpy>=1.19
     - pandas
     - xarray
     - netCDF4
@@ -16,9 +16,8 @@ dependencies:
     # Development dependencies
     - black
     - blackdoc
-    - coverage[toml]
     - docformatter
-    - dvc=2.3.0
+    - dvc
     - flake8
     - ipython
     - isort>=5

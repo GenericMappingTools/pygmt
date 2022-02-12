@@ -57,7 +57,7 @@ fig.coast(land="black", water="skyblue")
 fig.plot(
     x=data.longitude,
     y=data.latitude,
-    size=0.02 * (2 ** data.magnitude),
+    size=0.02 * (2**data.magnitude),
     style="cc",
     color="white",
     pen="black",
@@ -85,7 +85,7 @@ pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
 fig.plot(
     x=data.longitude,
     y=data.latitude,
-    size=0.02 * 2 ** data.magnitude,
+    size=0.02 * 2**data.magnitude,
     color=data.depth_km,
     cmap=True,
     style="cc",
