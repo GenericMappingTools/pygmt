@@ -65,24 +65,6 @@ def test_grdcontour_slice(grid):
 
 
 @pytest.mark.mpl_image_compare
-def test_grdcontour_file():
-    """
-    Plot a contour image using grid file input.
-    """
-    fig = Figure()
-    fig.grdcontour(
-        "@earth_relief_01d_g",
-        interval="1000",
-        limit="0",
-        pen="0.5p,black",
-        region=[-180, 180, -70, 70],
-        projection="M15c",
-        frame=True,
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_grdcontour_interval_file_full_opts(grid):
     """
     Plot based on external contour level file.
