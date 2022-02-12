@@ -98,7 +98,9 @@ def test_grdcontour_interval_file_full_opts(grid):
         "cut": 10,
     }
     # Plot contours below 650 in blue
-    fig.grdcontour(**comargs, limit=(0, 649), pen=["a1p,blue", "c0.5p,blue"], frame=True)
+    fig.grdcontour(
+        **comargs, limit=(0, 649), pen=["a1p,blue", "c0.5p,blue"], frame=True
+    )
     # Plot contours above 650 in black
     fig.grdcontour(**comargs, limit=(650, 1000), pen=["a1p,black", "c0.5p,black"])
 
