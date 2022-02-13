@@ -77,7 +77,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
-        import pytest
+        import pytest  # pylint: disable=import-outside-toplevel
 
         os.makedirs(result_dir, exist_ok=True)
         old_sig = inspect.signature(func)
