@@ -95,7 +95,7 @@ def show_versions():
 
     - PyGMT itself
     - System information (Python version, Operating System)
-    - Core dependency versions (Numpy, Pandas, Xarray, etc)
+    - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
     """
 
