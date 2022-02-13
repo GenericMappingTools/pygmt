@@ -27,7 +27,6 @@ from pygmt.helpers import (
     N="borders",
     W="shorelines",
     G="land",
-    Q="end_path",
     S="water",
     U="timestamp",
     V="verbose",
@@ -82,7 +81,7 @@ def coast(self, **kwargs):
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
-        Select filling or clipping of "dry" areas.
+        Select filling of "dry" areas.
     rivers : int or str or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
@@ -152,7 +151,7 @@ def coast(self, **kwargs):
         Also supply ``xshift`` and ``yshift`` settings if you have moved
         since the clip started.
     water : str
-        Select filling or clipping of "wet" areas.
+        Select filling of "wet" areas.
     {U}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
@@ -164,6 +163,10 @@ def coast(self, **kwargs):
         lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
         strings to ``shorelines`` to set multiple levels. When specific
         level pens are set, those not listed will not be drawn.
+    clip : str
+        To clip land do ``clip=land``, ``clip=water`` clips water. Use
+        ``clip=end`` to mark end of existing clip path. No projection
+        information is needed.
     dcw : str or list
         *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
         [**+p**\ *pen*\ ][**+z**].
@@ -188,10 +191,22 @@ def coast(self, **kwargs):
     {V}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+
+    if "clip" in kwargs and kwargs["clip"][0] in "land":
+        kwargs["G"] = True
+        kwargs.pop("clip")
+    elif "clip" in kwargs and kwargs["clip"][0] in "water":
+        kwargs["S"] = True
+        kwargs.pop("clip")
+    elif "clip" in kwargs and kwargs["clip"][0] in "end":
+        kwargs["Q"] = True
+        kwargs.pop("clip")
+
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
             """At least one of the following parameters must be specified:
-            lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
+            lakes, land, water, rivers, borders, dcw, clip, or shorelines"""
         )
+
     with Session() as lib:
         lib.call_module("coast", build_arg_string(kwargs))
