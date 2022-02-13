@@ -52,18 +52,6 @@ def test_grdview_grid_dataarray(xrgrid):
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_grdview_grid_file_with_region_subset(region):
-    """
-    Run grdview by passing in a grid filename, and cropping it to a region.
-    """
-    gridfile = which("@earth_relief_01d_g", download="a")
-
-    fig = Figure()
-    fig.grdview(grid=gridfile, region=region)
-    return fig
-
-
 def test_grdview_wrong_kind_of_grid(xrgrid):
     """
     Run grdview using grid input that is not an xarray.DataArray or file.
