@@ -5,6 +5,7 @@ import pytest
 from pygmt import Figure, grdcut, which
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.fixture(scope="module", name="region")
@@ -12,25 +13,33 @@ def fixture_region():
     """
     Test region as lonmin, lonmax, latmin, latmax.
     """
-    return (-116, -109, -47, -44)
+    return [-55, -50, -18, -12]
+
+
+@pytest.fixture(scope="module", name="grid")
+def fixture_grid():
+    """
+    Load the grid data from the static_earth_relief file.
+    """
+    return load_static_earth_relief()
 
 
 @pytest.fixture(scope="module", name="gridfile")
-def fixture_gridfile(region):
+def fixture_gridfile(grid, region):
     """
     Load the NetCDF grid file from the sample earth_relief file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        grdcut(grid="@earth_relief_01d_g", region=region, outgrid=tmpfile.name)
+        grdcut(grid=grid, region=region, outgrid=tmpfile.name)
         yield tmpfile.name
 
 
 @pytest.fixture(scope="module", name="xrgrid")
-def fixture_xrgrid(region):
+def fixture_xrgrid(grid, region):
     """
     Load the xarray.DataArray grid from the sample earth_relief file.
     """
-    return grdcut(grid="@earth_relief_01d_g", region=region)
+    return grdcut(grid=grid, region=region)
 
 
 @pytest.mark.mpl_image_compare
@@ -145,7 +154,7 @@ def test_grdview_on_a_plane(xrgrid):
     setting a 3D perspective viewpoint.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, plane=-4000, perspective=[225, 30], zscale=0.005)
+    fig.grdview(grid=xrgrid, plane=100, perspective=[225, 30], zscale=0.005)
     return fig
 
 
@@ -156,7 +165,7 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(xrgrid):
     facade is colored gray, while setting a 3D perspective viewpoint.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, plane="-4000+ggray", perspective=[225, 30], zscale=0.005)
+    fig.grdview(grid=xrgrid, plane="1000+ggray", perspective=[225, 30], zscale=0.005)
     return fig
 
 
@@ -209,7 +218,7 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
     fig = Figure()
     fig.grdview(
         grid=xrgrid,
-        plane=-4000,
+        plane=100,
         perspective=[225, 30],
         zscale=0.005,
         facadepen="0.5p,blue,dash",
