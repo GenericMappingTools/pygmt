@@ -8,7 +8,6 @@ import pytest
 from pygmt import Figure, makecpt
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt.helpers.testing import load_static_earth_relief
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -30,14 +29,6 @@ def fixture_region():
     return [10, 70, -5, 10]
 
 
-@pytest.fixture(scope="module", name="grid")
-def fixture_grid():
-    """
-    Load the grid data from the sample earth_relief file.
-    """
-    return load_static_earth_relief()
-
-
 @pytest.mark.mpl_image_compare
 def test_makecpt_plot_points(points, region):
     """
@@ -57,25 +48,25 @@ def test_makecpt_plot_points(points, region):
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_plot_grid(grid):
+def test_makecpt_plot_grid(region):
     """
     Use static color palette table to change color of grid.
     """
     fig = Figure()
     makecpt(cmap="relief")
-    fig.grdimage(grid=grid, projection="M10C", frame=True)
+    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_plot_grid_scaled_with_series(grid):
+def test_makecpt_plot_grid_scaled_with_series(region):
     """
     Use static color palette table scaled to a min/max series to change color
     of grid.
     """
     fig = Figure()
     makecpt(cmap="oleron", series=[0, 1000])
-    fig.grdimage(grid=grid, projection="M10c", frame=True)
+    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
     return fig
 
 
@@ -105,48 +96,48 @@ def test_makecpt_invalid_output():
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_truncated_zlow_zhigh(grid):
+def test_makecpt_truncated_zlow_zhigh(region):
     """
     Use static color palette table that is truncated to z-low and z-high.
     """
     fig = Figure()
     makecpt(cmap="rainbow", truncate=[0.15, 0.85], series=[0, 1000])
-    fig.grdimage(grid=grid, projection="M10c", frame=True)
+    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_reverse_color_only(grid):
+def test_makecpt_reverse_color_only(region):
     """
     Use static color palette table with its colors reversed.
     """
     fig = Figure()
     makecpt(cmap="earth", reverse=True, series=[0, 1000])
-    fig.grdimage(grid=grid, projection="M10c", frame=True)
+    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_reverse_color_and_zsign(grid):
+def test_makecpt_reverse_color_and_zsign(region):
     """
     Use static color palette table with both its colors and z-value sign
     reversed.
     """
     fig = Figure()
     makecpt(cmap="earth", reverse="cz", series=[0, 1000])
-    fig.grdimage(grid=grid, projection="M10c", frame=True)
+    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_continuous(grid):
+def test_makecpt_continuous(region):
     """
     Use static color palette table that is continuous from blue to white and
     scaled from -4500 to 4500m.
     """
     fig = Figure()
     makecpt(cmap="blue,white", continuous=True, series=[0, 1000])
-    fig.grdimage(grid=grid, projection="M10c", frame=True)
+    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
     return fig
 
 
