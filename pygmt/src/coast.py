@@ -146,10 +146,6 @@ def coast(self, **kwargs):
         3 = Marine boundaries
 
         a = All boundaries (1-3)
-    end_path : bool
-        Mark end of existing clip path. No projection information is needed.
-        Also supply ``xshift`` and ``yshift`` settings if you have moved
-        since the clip started.
     water : str
         Select filling of "wet" areas.
     {U}
@@ -166,7 +162,8 @@ def coast(self, **kwargs):
     clip : str
         To clip land do ``clip=land``, ``clip=water`` clips water. Use
         ``clip=end`` to mark end of existing clip path. No projection
-        information is needed.
+        information is needed. Also supply ``xshift`` and ``yshift`` settings
+        if you have moved since the clip started.
     dcw : str or list
         *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
         [**+p**\ *pen*\ ][**+z**].
