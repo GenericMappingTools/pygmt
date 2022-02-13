@@ -225,6 +225,16 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
           is not set.
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``).
+
+    Example
+    -------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
+    >>> # Calculate block median values within 5 by 5 minute bins
+    >>> data_bmedian = pygmt.blockmedian(
+    ...     data=data, region=[245, 255, 20, 30], spacing="5m"
+    ... )  # doctest: +SKIP
     """
     return _blockm(
         block_method="blockmedian", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
