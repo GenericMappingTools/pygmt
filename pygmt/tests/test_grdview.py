@@ -2,7 +2,7 @@
 Tests grdview.
 """
 import pytest
-from pygmt import Figure, grdcut, which
+from pygmt import Figure, grdcut
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 from pygmt.helpers.testing import load_static_earth_relief
