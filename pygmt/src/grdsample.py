@@ -83,9 +83,9 @@ def grdsample(grid, **kwargs):
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )  # doctest: +SKIP
     >>> # Create a new grid from an input grid, change the registration,
-    >>> # and set the x-spacing to 1 degree and the y-spacing to 0.5 degrees
+    >>> # and set both x- and y-spacing to 0.5 degrees
     >>> new_grid = pygmt.grdsample(
-    ...     grid=grid, translate=True, spacing=[1, 0.5]
+    ...     grid=grid, translate=True, spacing=[0.5, 0.5]
     ... )  # doctest: +SKIP
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
