@@ -68,7 +68,7 @@ def sph2grd(data, **kwargs):
     -------
     >>> import pygmt  # doctest: +SKIP
     >>> # Create a new grid from the remote file "EGM96_to_36.txt",
-    >>> # the grid spacing to 1, and the region to "g"
+    >>> # set the grid spacing to 1, and the region to "g"
     >>> new_grid = pygmt.sph2grd(
     ...     data="@EGM96_to_36.txt", spacing=1, region="g"
     ... )  # doctest: +SKIP
