@@ -136,8 +136,8 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     -------
     >>> import pygmt  # doctest: +SKIP
     >>> # Load a sample bathymetry file
-    >>> sample_bathymetry = (
-    ...     pygmt.datasets.load_sample_data(name="bathymetry")
+    >>> sample_bathymetry = pygmt.datasets.load_sample_data(
+    ...     name="bathymetry"
     ... )  # doctest: +SKIP
     >>> # Create a new grid from the xyz input, set the x-range to 245-255 and
     >>> # the y-range to 20-30, and the spacing to 5 degrees
