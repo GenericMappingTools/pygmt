@@ -71,7 +71,7 @@ def test_grdsample_registration_changes(grid):
     Test grdsample with no set outgrid and applying registration changes.
     """
     assert grid.gmt.registration == 1  # Pixel registration
-    translated_grid = grdsample(grid=grid, translate=True, region=[-53, -47, -20, -15])
+    translated_grid = grdsample(grid=grid, translate=True)
     assert translated_grid.gmt.registration == 0  # Gridline registration
     registration_grid = grdsample(grid=translated_grid, registration="p")
     assert registration_grid.gmt.registration == 1  # Pixel registration
