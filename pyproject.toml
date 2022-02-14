@@ -28,4 +28,4 @@ max-args=10
 max-module-lines=2000
 
 [tool.pylint.'MESSAGE CONTROL']
-disable=["duplicate-code"]
+disable=["duplicate-code", "import-error"]
