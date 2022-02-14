@@ -18,6 +18,22 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
+    """
+    Return the region settings for the grdsample tests.
+    """
+    return [-53, -47, -20, -15]
+
+
+@pytest.fixture(scope="module", name="spacing")
+def fixture_spacing():
+    """
+    Return the spacing settings for the grdsample tests.
+    """
+    return [2, 1]
+
+
 @pytest.fixture(scope="module", name="expected_grid")
 def fixture_grid_result():
     """
@@ -39,13 +55,13 @@ def fixture_grid_result():
     )
 
 
-def test_grdsample_file_out(grid, expected_grid):
+def test_grdsample_file_out(grid, expected_grid, region, spacing):
     """
     Test grdsample with an outgrid set and the spacing is changed.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdsample(
-            grid=grid, outgrid=tmpfile.name, spacing=[2, 1], region=[-53, -47, -20, -15]
+            grid=grid, outgrid=tmpfile.name, spacing=spacing, region=region
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
@@ -53,11 +69,11 @@ def test_grdsample_file_out(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdsample_dataarray_out(grid, expected_grid):
+def test_grdsample_dataarray_out(grid, expected_grid, region, spacing):
     """
     Test grdsample with no outgrid set and the spacing is changed.
     """
-    result = grdsample(grid=grid, spacing=[2, 1], region=[-53, -47, -20, -15])
+    result = grdsample(grid=grid, spacing=spacing, region=region)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid
