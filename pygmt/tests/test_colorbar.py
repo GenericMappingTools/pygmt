@@ -3,6 +3,7 @@ Tests colorbar.
 """
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.mpl_image_compare
@@ -65,3 +66,12 @@ def test_colorbar_shading_list():
     fig.basemap(region=[0, 10, 0, 10], projection="X15c", frame="a")
     fig.colorbar(cmap="geo", shading=[-0.7, 0.2], frame=True)
     return fig
+
+
+def test_colorbar_missing_region():
+    """
+    Test that colorbar fails if region is not set when required.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fig = Figure()
+        fig.colorbar(cmap="rainbow", box="+gorange", position="JBC")

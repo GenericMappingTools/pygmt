@@ -3,6 +3,7 @@ colorbar - Plot a colorbar.
 """
 
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -106,5 +107,11 @@ def colorbar(self, **kwargs):
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    if "D" in kwargs and "R" not in kwargs:
+        if kwargs["D"][0] in ["g", "j", "J", "n"]:
+            raise GMTInvalidInput(
+                "An argument for region is required to plot position with "
+                "'g', 'j', 'J', or 'n'."
+            )
     with Session() as lib:
         lib.call_module("colorbar", build_arg_string(kwargs))
