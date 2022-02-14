@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 import xarray as xr
 from pygmt import load_dataarray, xyz2grd
-from pygmt.datasets import load_sample_bathymetry
+from pygmt.datasets import load_sample_data
 from pygmt.helpers import GMTTempFile
 
 
@@ -16,7 +16,7 @@ def fixture_ship_data():
     """
     Load the data from the sample bathymetry dataset.
     """
-    return load_sample_bathymetry()
+    return load_sample_data(name="bathymetry")
 
 
 @pytest.fixture(scope="module", name="expected_grid")
