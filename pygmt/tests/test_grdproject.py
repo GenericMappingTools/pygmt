@@ -55,7 +55,6 @@ def test_grdproject_file_out(grid, expected_grid):
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
-        print(temp_grid)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
