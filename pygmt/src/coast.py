@@ -189,13 +189,13 @@ def coast(self, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if "clip" in kwargs and kwargs["clip"][0] in "land":
+    if "clip" in kwargs and kwargs["clip"] == "land":
         kwargs["G"] = True
         kwargs.pop("clip")
-    elif "clip" in kwargs and kwargs["clip"][0] in "water":
+    elif "clip" in kwargs and kwargs["clip"] == "water":
         kwargs["S"] = True
         kwargs.pop("clip")
-    elif "clip" in kwargs and kwargs["clip"][0] in "end":
+    elif "clip" in kwargs and kwargs["clip"] == "end":
         kwargs["Q"] = True
         kwargs.pop("clip")
 
