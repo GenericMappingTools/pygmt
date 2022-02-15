@@ -73,8 +73,9 @@ Project goals
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
 * Integration with the `PyData <https://pydata.org/>`__ ecosystem:
-  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables and
-  ``xarray.DataArray`` for grids.
+  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables,
+  ``xarray.DataArray`` for grids and ``geopandas.GeoDataFrame``
+  for geographical data.
 
 
 Quickstart
