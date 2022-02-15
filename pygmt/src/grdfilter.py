@@ -119,8 +119,8 @@ def grdfilter(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Examples
-    --------
+    Example
+    -------
     >>> import os
     >>> import pygmt
 
