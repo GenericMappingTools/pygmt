@@ -4,6 +4,7 @@ Tests for fig.coast.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.datasets import load_earth_relief
 
 
 @pytest.mark.mpl_image_compare
@@ -71,4 +72,37 @@ def test_coast_dcw_list():
         land="brown",
         dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
+    return fig
+
+
+
+@pytest.mark.mpl_image_compare
+def test_coast_clip_land():
+    """
+    Test to clip dry areas
+    """
+    region = [-28, -10, 62, 68]
+    grid = load_earth_relief(resolution="10m", region=region)
+
+    fig = Figure()
+    fig.basemap(region=region, projection="M12c", frame=True)
+    fig.coast(resolution="l", clip = "land")
+    fig.grdimage(grid=grid, shading = True, cmap="batlow")
+    fig.coast(clip="end", frame=True)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_coast_clip_water():
+    """
+    Test to clip wet areas
+    """
+    region = [-28, -10, 62, 68]
+    grid = load_earth_relief(resolution="10m", region=region)
+
+    fig = Figure()
+    fig.basemap(region=region, projection="M12c", frame=True)
+    fig.coast(resolution="l", clip = "water")
+    fig.grdimage(grid=grid, shading = True, cmap="batlow")
+    fig.coast(clip="end", frame=True)
     return fig
