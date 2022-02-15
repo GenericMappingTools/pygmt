@@ -31,7 +31,7 @@ PyGMT
 .. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
     :target: https://doi.org/10.5281/zenodo.3781524
-.. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
+.. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg
     :alt: Contributor Code of Conduct
     :target: CODE_OF_CONDUCT.md
 
@@ -73,8 +73,9 @@ Project goals
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
 * Integration with the `PyData <https://pydata.org/>`__ ecosystem:
-  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables and
-  ``xarray.DataArray`` for grids.
+  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables,
+  ``xarray.DataArray`` for grids and ``geopandas.GeoDataFrame``
+  for geographical data.
 
 
 Quickstart
