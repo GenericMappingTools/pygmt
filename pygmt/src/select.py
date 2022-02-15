@@ -152,7 +152,7 @@ def select(data=None, outfile=None, **kwargs):
     -------
     >>> import pygmt  # doctest: +SKIP
     >>> # Load a table of ship observations of bathymetry off Baja California
-    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")   # doctest: +SKIP
     >>> # Only return the data points that lie within the region between
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> pygmt.select(data=ship_data, region=[246,247,20,21])
