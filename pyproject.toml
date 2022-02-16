@@ -29,3 +29,6 @@ max-module-lines=2000
 
 [tool.pylint.'MESSAGE CONTROL']
 disable=["duplicate-code", "import-error"]
+
+[tool.pylint.TYPECHECK]
+generated-members="pandas.*"
