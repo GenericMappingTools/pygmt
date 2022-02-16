@@ -190,15 +190,18 @@ def coast(self, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     if "clip" in kwargs:
-        if kwargs["clip"] == "land":
-            kwargs["G"] = True
+        if kwargs["clip"] in ["land", "water", "end"]:
+            if kwargs["clip"] == "land":
+                kwargs["G"] = True
+            elif kwargs["clip"] == "water":
+                kwargs["S"] = True
+            elif kwargs["clip"] == "end":
+                kwargs["Q"] = True
             kwargs.pop("clip")
-        elif kwargs["clip"] == "water":
-            kwargs["S"] = True
-            kwargs.pop("clip")
-        elif kwargs["clip"] == "end":
-            kwargs["Q"] = True
-            kwargs.pop("clip")
+        else:
+            raise GMTInvalidInput(
+                "Invalid clip parameter. Must be one of 'land', 'water', and 'end'."
+            )
 
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
