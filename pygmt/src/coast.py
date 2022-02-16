@@ -160,8 +160,8 @@ def coast(self, **kwargs):
         strings to ``shorelines`` to set multiple levels. When specific
         level pens are set, those not listed will not be drawn.
     clip : str
-        To clip land do ``clip=land``, ``clip=water`` clips water. Use
-        ``clip=end`` to mark end of existing clip path. No projection
+        To clip land do ``clip="land"``, ``clip="water"`` clips water. Use
+        ``clip="end"`` to mark end of existing clip path. No projection
         information is needed. Also supply ``xshift`` and ``yshift`` settings
         if you have moved since the clip started.
     dcw : str or list
@@ -189,15 +189,16 @@ def coast(self, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if "clip" in kwargs and kwargs["clip"] == "land":
-        kwargs["G"] = True
-        kwargs.pop("clip")
-    elif "clip" in kwargs and kwargs["clip"] == "water":
-        kwargs["S"] = True
-        kwargs.pop("clip")
-    elif "clip" in kwargs and kwargs["clip"] == "end":
-        kwargs["Q"] = True
-        kwargs.pop("clip")
+    if "clip" in kwargs:
+        if kwargs["clip"] == "land":
+            kwargs["G"] = True
+            kwargs.pop("clip")
+        elif kwargs["clip"] == "water":
+            kwargs["S"] = True
+            kwargs.pop("clip")
+        elif kwargs["clip"] == "end":
+            kwargs["Q"] = True
+            kwargs.pop("clip")
 
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
