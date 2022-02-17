@@ -4,7 +4,7 @@ Tests for fig.coast.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers.testing import load_static_earth_relief
+from pygmt.datasets import load_earth_age
 
 
 @pytest.mark.mpl_image_compare
@@ -81,12 +81,12 @@ def test_coast_clip_land():
     Test to clip dry areas.
     """
     region = [-28, -10, 62, 68]
-    grid = load_earth_relief(resolution="10m", region=region)
+    grid = load_earth_age()
 
     fig = Figure()
     fig.basemap(region=region, projection="M12c", frame=True)
     fig.coast(resolution="l", clip="land")
-    fig.grdimage(grid=grid, cmap="relief")
+    fig.grdimage(grid=grid, cmap="magma")
     fig.coast(clip="end")
     return fig
 
@@ -97,11 +97,11 @@ def test_coast_clip_water():
     Test to clip wet areas.
     """
     region = [-28, -10, 62, 68]
-    grid = load_earth_relief(resolution="10m", region=region)
+    grid = load_earth_age()
 
     fig = Figure()
     fig.basemap(region=region, projection="M12c", frame=True)
     fig.coast(resolution="l", clip="water")
-    fig.grdimage(grid=grid, cmap="relief")
+    fig.grdimage(grid=grid, cmap="magma")
     fig.coast(clip="end")
     return fig
