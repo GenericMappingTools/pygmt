@@ -105,3 +105,16 @@ def test_coast_clip_water():
     fig.grdimage(grid=grid, cmap="magma")
     fig.coast(clip="end")
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_coast_fail_invalid_parameter(data):
+    """
+    Coast should raise an exception if an invalid parameter is given as input.
+    """
+    region = [-28, -10, 62, 68]
+
+    fig = Figure()
+
+    with pytest.raises(GMTInvalidInput):
+        fig.coast(region=region, resolution="l", clip="invalid")
