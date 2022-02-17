@@ -86,7 +86,7 @@ def test_coast_clip_land():
     fig = Figure()
     fig.basemap(region=region, projection="M12c", frame=True)
     fig.coast(resolution="l", clip="land")
-    fig.grdimage(grid=grid, cmap="batlow")
+    fig.grdimage(grid=grid, cmap="relief")
     fig.coast(clip="end")
     return fig
 
@@ -102,6 +102,6 @@ def test_coast_clip_water():
     fig = Figure()
     fig.basemap(region=region, projection="M12c", frame=True)
     fig.coast(resolution="l", clip="water")
-    fig.grdimage(grid=grid, cmap="batlow")
+    fig.grdimage(grid=grid, cmap="relief")
     fig.coast(clip="end")
     return fig
