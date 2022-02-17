@@ -3,8 +3,8 @@ Tests for fig.coast.
 """
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.datasets import load_earth_age
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.mpl_image_compare
