@@ -3,8 +3,8 @@ Tests for fig.coast.
 """
 import pytest
 from pygmt import Figure
-from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.mark.mpl_image_compare
@@ -86,7 +86,7 @@ def test_coast_clip_land():
     fig = Figure()
     fig.basemap(region=region, projection="M12c", frame=True)
     fig.coast(resolution="l", clip="land")
-    fig.grdimage(grid=grid, shading=True, cmap="batlow")
+    fig.grdimage(grid=grid, cmap="batlow")
     fig.coast(clip="end")
     return fig
 
@@ -102,6 +102,6 @@ def test_coast_clip_water():
     fig = Figure()
     fig.basemap(region=region, projection="M12c", frame=True)
     fig.coast(resolution="l", clip="water")
-    fig.grdimage(grid=grid, shading=True, cmap="batlow")
+    fig.grdimage(grid=grid, cmap="batlow")
     fig.coast(clip="end")
     return fig
