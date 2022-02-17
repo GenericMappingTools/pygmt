@@ -107,7 +107,6 @@ def test_coast_clip_water():
     return fig
 
 
-@pytest.mark.mpl_image_compare
 def test_coast_fail_invalid_parameter(data):
     """
     Coast should raise an exception if an invalid parameter is given as input.
