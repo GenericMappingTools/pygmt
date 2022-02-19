@@ -201,7 +201,7 @@ def coast(self, clip=None, **kwargs):
     ... )  # doctest: +SKIP
     >>> # Create an instance of the Figure class
     >>> fig = pygmt.Figure()  # doctest: +SKIP
-    >>> # Initiate clip path for land areas
+    >>> # Initiate clip path for land areas based on low-resolution coastlines
     >>> fig.coast(
     ...     projection="M12c", resolution="l", clip="land", frame=True
     ... )  # doctest: +SKIP
