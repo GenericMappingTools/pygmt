@@ -194,10 +194,10 @@ def coast(self, clip=None, **kwargs):
     >>> # Initiate a clip path for Africa so that the subsequent colorimage of
     >>> # gridded topography is only seen over land
     >>> import pygmt  # doctest: +SKIP
-    >>> # Load a grid of @earth_relief_05m data, with an x-range of -30 to 30,
+    >>> # Load a grid of earth_relief_05m data, with an x-range of -30 to 30,
     >>> # and a y-range of -40 to 40
     >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[-30, 30, -40, 40]
+    ...     resolution="05m", region=[-30, 30, -40, 40]
     ... )  # doctest: +SKIP
     >>> # Create an instance of the Figure class
     >>> fig = pygmt.Figure()  # doctest: +SKIP
@@ -206,7 +206,7 @@ def coast(self, clip=None, **kwargs):
     ...     projection="M12c", resolution="l", clip="land", frame=True
     ... )  # doctest: +SKIP
     >>> # Plot the clipped grid
-    >>> fig.grdimage(grid="@earth_relief_05m", cmap="relief")  # doctest: +SKIP
+    >>> fig.grdimage(grid=grid, cmap="relief")  # doctest: +SKIP
     >>> # End clip path
     >>> fig.coast(clip="end")  # doctest: +SKIP
     """
