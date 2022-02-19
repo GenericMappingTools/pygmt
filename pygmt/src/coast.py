@@ -199,6 +199,8 @@ def coast(self, clip=None, **kwargs):
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[-30, 30, -40, 40]
     ... )  # doctest: +SKIP
+    >>> # Create an instance of the Figure class
+    >>> fig = pygmt.Figure()  # doctest: +SKIP
     >>> # Initiate clip path for land areas
     >>> fig.coast(
     ...     projection="M12c", resolution="l", clip="land", frame=True
