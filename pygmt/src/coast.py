@@ -161,9 +161,11 @@ def coast(self, clip=None, **kwargs):
         level pens are set, those not listed will not be drawn.
     clip : str
         To clip land do ``clip="land"``, ``clip="water"`` clips water. Use
-        ``clip="end"`` to mark end of existing clip path. No projection
-        information is needed. Also supply ``xshift`` and ``yshift`` settings
-        if you have moved since the clip started.
+        ``clip="end"`` to mark end of existing clip path. The clip path applies
+        to all plotting calls between the start of the clip path and the end of
+        the clip path. No projection information is needed. Also supply
+        ``xshift`` and ``yshift`` settings if you have moved since the clip
+        started.
     dcw : str or list
         *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
         [**+p**\ *pen*\ ][**+z**].

@@ -84,7 +84,13 @@ def test_coast_clip_land():
     fig = Figure()
     fig.basemap(region=region, projection="M8c", frame=True)
     fig.coast(resolution="l", clip="land")
-    fig.plot(x = [-22.5, -22.5, -15, -15 ], y = [66, 64, 66, 64], style = "c4c", color = "red", pen="1.5p,black")
+    fig.plot(
+        x=[-22.5, -22.5, -15, -15],
+        y=[66, 64, 66, 64],
+        style="c4c",
+        color="red",
+        pen="1.5p,black",
+    )
     fig.coast(clip="end")
     return fig
 
@@ -99,7 +105,13 @@ def test_coast_clip_water():
     fig = Figure()
     fig.basemap(region=region, projection="M8c", frame=True)
     fig.coast(resolution="l", clip="water")
-    fig.plot(x = [-22.5, -22.5, -15, -15 ], y = [66, 64, 66, 64], style = "c4c", color = "red", pen="1.5p,black")
+    fig.plot(
+        x=[-22.5, -22.5, -15, -15],
+        y=[66, 64, 66, 64],
+        style="c4c",
+        color="red",
+        pen="1.5p,black",
+    )
     fig.coast(clip="end")
     return fig
 
