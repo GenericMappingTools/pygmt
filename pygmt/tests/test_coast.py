@@ -3,7 +3,6 @@ Tests for fig.coast.
 """
 import pytest
 from pygmt import Figure
-from pygmt.datasets import load_earth_age
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -81,12 +80,11 @@ def test_coast_clip_land():
     Test to clip dry areas.
     """
     region = [-28, -10, 62, 68]
-    grid = load_earth_age()
 
     fig = Figure()
-    fig.basemap(region=region, projection="M12c", frame=True)
+    fig.basemap(region=region, projection="M8c", frame=True)
     fig.coast(resolution="l", clip="land")
-    fig.grdimage(grid=grid, cmap="magma")
+    fig.plot(x = [-22.5, -22.5, -15, -15 ], y = [66, 64, 66, 64], style = "c4c", color = "red", pen="1.5p,black")
     fig.coast(clip="end")
     return fig
 
@@ -97,12 +95,11 @@ def test_coast_clip_water():
     Test to clip wet areas.
     """
     region = [-28, -10, 62, 68]
-    grid = load_earth_age()
 
     fig = Figure()
-    fig.basemap(region=region, projection="M12c", frame=True)
+    fig.basemap(region=region, projection="M8c", frame=True)
     fig.coast(resolution="l", clip="water")
-    fig.grdimage(grid=grid, cmap="magma")
+    fig.plot(x = [-22.5, -22.5, -15, -15 ], y = [66, 64, 66, 64], style = "c4c", color = "red", pen="1.5p,black")
     fig.coast(clip="end")
     return fig
 
