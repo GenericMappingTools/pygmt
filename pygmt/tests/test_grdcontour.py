@@ -42,8 +42,8 @@ def test_grdcontour_labels(grid):
     fig = Figure()
     fig.grdcontour(
         grid=grid,
-        interval="10",
-        annotation="50",
+        interval=50,
+        annotation=200,
         projection="M10c",
         pen=["a1p,red", "c0.5p,black"],
         label_placement="d6c",
@@ -75,7 +75,7 @@ def test_grdcontour_interval_file_full_opts(grid):
         "region": [-53, -49, -20, -17],
         "interval": TEST_CONTOUR_FILE,
         "grid": grid,
-        "resample": "100",
+        "resample": 100,
         "projection": "M10c",
         "cut": 10,
     }
