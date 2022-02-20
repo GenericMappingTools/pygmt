@@ -60,7 +60,7 @@ def test_grdcontour_slice(grid):
     grid_ = grid.sel(lat=slice(-20, -10))
 
     fig = Figure()
-    fig.grdcontour(grid=grid_, interval="100", projection="M10c", frame=True)
+    fig.grdcontour(grid=grid_, interval=100, projection="M10c", frame=True)
     return fig
 
 
