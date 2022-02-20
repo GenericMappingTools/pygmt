@@ -29,6 +29,14 @@ def fixture_region():
     return [10, 70, -5, 10]
 
 
+@pytest.fixture(scope="module", name="position")
+def fixture_position():
+    """
+    Return the standard argument for the position argument.
+    """
+    return "x0c/0c+w10c"
+
+
 @pytest.mark.mpl_image_compare
 def test_makecpt_plot_points(points, region):
     """
@@ -48,25 +56,25 @@ def test_makecpt_plot_points(points, region):
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_plot_grid(region):
+def test_makecpt_plot_grid(position):
     """
     Use static color palette table to change color of grid.
     """
     fig = Figure()
     makecpt(cmap="relief")
-    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_plot_grid_scaled_with_series(region):
+def test_makecpt_plot_grid_scaled_with_series(position):
     """
     Use static color palette table scaled to a min/max series to change color
     of grid.
     """
     fig = Figure()
     makecpt(cmap="oleron", series=[0, 1000])
-    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
 
@@ -96,70 +104,70 @@ def test_makecpt_invalid_output():
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_truncated_zlow_zhigh(region):
+def test_makecpt_truncated_zlow_zhigh(position):
     """
     Use static color palette table that is truncated to z-low and z-high.
     """
     fig = Figure()
     makecpt(cmap="rainbow", truncate=[0.15, 0.85], series=[0, 1000])
-    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_reverse_color_only(region):
+def test_makecpt_reverse_color_only(position):
     """
     Use static color palette table with its colors reversed.
     """
     fig = Figure()
     makecpt(cmap="earth", reverse=True, series=[0, 1000])
-    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_reverse_color_and_zsign(region):
+def test_makecpt_reverse_color_and_zsign(position):
     """
     Use static color palette table with both its colors and z-value sign
     reversed.
     """
     fig = Figure()
     makecpt(cmap="earth", reverse="cz", series=[0, 1000])
-    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_continuous(region):
+def test_makecpt_continuous(position):
     """
     Use static color palette table that is continuous from blue to white and
     scaled from -4500 to 4500m.
     """
     fig = Figure()
     makecpt(cmap="blue,white", continuous=True, series=[0, 1000])
-    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_categorical(region):
+def test_makecpt_categorical(position):
     """
     Use static color palette table that is categorical.
     """
     fig = Figure()
     makecpt(cmap="categorical", categorical=True)
-    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_cyclic(region):
+def test_makecpt_cyclic(position):
     """
     Use static color palette table that is cyclic.
     """
     fig = Figure()
     makecpt(cmap="cork", cyclic=True)
-    fig.colorbar(cmap=True, region=region, frame=True, position="JBC")
+    fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
 
