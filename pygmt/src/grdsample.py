@@ -73,6 +73,20 @@ def grdsample(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )  # doctest: +SKIP
+    >>> # Create a new grid from an input grid, change the registration,
+    >>> # and set both x- and y-spacing to 0.5 degrees
+    >>> new_grid = pygmt.grdsample(
+    ...     grid=grid, translate=True, spacing=[0.5, 0.5]
+    ... )  # doctest: +SKIP
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
