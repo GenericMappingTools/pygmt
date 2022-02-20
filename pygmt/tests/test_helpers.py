@@ -5,6 +5,7 @@ import os
 
 import numpy as np
 import pytest
+import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
@@ -13,6 +14,20 @@ from pygmt.helpers import (
     kwargs_to_strings,
     unique_name,
 )
+from pygmt.helpers.testing import load_static_earth_relief
+
+
+def test_load_static_earth_relief():
+    """
+    Check that @static_earth_relief.nc loads without errors.
+    """
+    data = load_static_earth_relief()
+    assert data.dims == ("lat", "lon")
+    assert data.shape == (14, 8)
+    assert data.min() == 190
+    assert data.max() == 981
+    assert data.median() == 467
+    assert isinstance(data, xr.DataArray)
 
 
 @pytest.mark.parametrize(
