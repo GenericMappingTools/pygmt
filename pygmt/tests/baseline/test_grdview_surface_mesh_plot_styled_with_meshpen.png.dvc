@@ -1,4 +1,4 @@
 outs:
-- md5: 9da8c13aa8d2c1b1cb26da04ae477cce
-  size: 45741
+- md5: 83acb7282135b4cc4491c3a5afe4679e
+  size: 43983
   path: test_grdview_surface_mesh_plot_styled_with_meshpen.png
