@@ -151,7 +151,7 @@ class Session:
         Dictionary with the GMT version and default paths and parameters.
         """
         if not hasattr(self, "_info"):
-            self._info = {
+            self._info = {  # pylint: disable=attribute-defined-outside-init
                 "version": self.get_default("API_VERSION"),
                 "padding": self.get_default("API_PAD"),
                 "binary dir": self.get_default("API_BINDIR"),
@@ -278,6 +278,7 @@ class Session:
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
         """
         if not hasattr(self, "_libgmt"):
+            # pylint: disable=attribute-defined-outside-init
             self._libgmt = load_libgmt()
         function = getattr(self._libgmt, name)
         if argtypes is not None:
@@ -334,7 +335,7 @@ class Session:
 
         # Capture the output printed by GMT into this list. Will use it later
         # to generate error messages for the exceptions raised by API calls.
-        self._error_log = []
+        self._error_log = []  # pylint: disable=attribute-defined-outside-init
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # pylint: disable=unused-argument
@@ -354,6 +355,7 @@ class Session:
 
         # Need to store a copy of the function because ctypes doesn't and it
         # will be garbage collected otherwise
+        # pylint: disable=attribute-defined-outside-init
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
