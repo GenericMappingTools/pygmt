@@ -15,7 +15,6 @@ on:
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
-      - '.pylintrc'
   release:
     types:
       - published
