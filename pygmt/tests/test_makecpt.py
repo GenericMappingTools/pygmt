@@ -56,9 +56,9 @@ def test_makecpt_plot_points(points, region):
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_plot_grid(position):
+def test_makecpt_plot_colorbar(position):
     """
-    Use static color palette table to change color of grid.
+    Use static color palette table to plot a colorbar.
     """
     fig = Figure()
     makecpt(cmap="relief")
@@ -67,10 +67,10 @@ def test_makecpt_plot_grid(position):
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_plot_grid_scaled_with_series(position):
+def test_makecpt_plot_colorbar_scaled_with_series(position):
     """
-    Use static color palette table scaled to a min/max series to change color
-    of grid.
+    Use static color palette table scaled to a min/max series and plot it on a
+    colorbar.
     """
     fig = Figure()
     makecpt(cmap="oleron", series=[0, 1000])
