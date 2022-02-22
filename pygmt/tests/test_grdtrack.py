@@ -9,9 +9,9 @@ import pytest
 from packaging.version import Version
 from pygmt import clib, grdtrack, which
 from pygmt.datasets import load_sample_data
-from pygmt.helpers.testing import load_static_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
+from pygmt.helpers.testing import load_static_earth_relief
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
@@ -31,9 +31,26 @@ def fixture_dataarray():
 @pytest.fixture(scope="module", name="dataframe")
 def fixture_dataframe():
     """
-    Load the ocean ridge file.
+    Load a pandas DataFrame with points.
     """
-    return load_sample_data("ocean_ridge_points")
+    points = [
+        [-51.613, -17.93],
+        [-48.917, -22.434],
+        [-50.444, -16.358],
+        [-50.721, -16.628],
+        [-51.394, -12.196],
+        [-50.207, -18.404],
+        [-52.56, -16.977],
+        [-51.866, -19.794],
+        [-48.001, -14.144],
+        [-54.438, -19.193],
+        [-52.315, -17.755],
+        [-49.37, -16.645],
+        [-49.945, -17.345],
+        [-47.583, -13.467],
+        [-53.756, -17.869],
+    ]
+    return pd.DataFrame(data=points, columns=["x", "y"])
 
 
 @pytest.fixture(scope="module", name="csvfile")
