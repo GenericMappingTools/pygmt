@@ -8,7 +8,8 @@ import pandas as pd
 import pytest
 from packaging.version import Version
 from pygmt import clib, grdtrack, which
-from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
+from pygmt.datasets import load_sample_data
+from pygmt.helpers.testing import load_static_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 
@@ -24,9 +25,7 @@ def fixture_dataarray():
     """
     Load the grid data from the sample earth_relief file.
     """
-    return load_earth_relief(registration="gridline").sel(
-        lat=slice(-49, -42), lon=slice(-118, -107)
-    )
+    return load_static_earth_relief()
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -34,7 +33,7 @@ def fixture_dataframe():
     """
     Load the ocean ridge file.
     """
-    return load_ocean_ridge_points()
+    return load_sample_data("ocean_ridge_points")
 
 
 @pytest.fixture(scope="module", name="csvfile")
@@ -50,7 +49,7 @@ def fixture_ncfile():
     """
     Load the ncfile.
     """
-    return which("@earth_relief_01d", download="a")
+    return which("@static_earth_relief", download="a")
 
 
 def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe):
