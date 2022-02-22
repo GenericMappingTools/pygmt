@@ -52,15 +52,6 @@ def fixture_dataframe():
     ]
     return pd.DataFrame(data=points, columns=["x", "y"])
 
-
-@pytest.fixture(scope="module", name="csvfile")
-def fixture_csvfile():
-    """
-    Load the csvfile.
-    """
-    return which("@ridge.txt", download="c")
-
-
 @pytest.fixture(scope="module", name="ncfile")
 def fixture_ncfile():
     """
