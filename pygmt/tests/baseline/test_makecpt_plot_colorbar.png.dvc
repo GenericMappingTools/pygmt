@@ -1,4 +1,4 @@
 outs:
 - md5: 0cb93a6ee8a76e3723236185afaea0cf
   size: 7199
-  path: test_makecpt_plot_grid.png
+  path: test_makecpt_plot_colorbar.png
