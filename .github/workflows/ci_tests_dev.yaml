@@ -15,7 +15,6 @@ on:
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
-      - '.pylintrc'
   repository_dispatch:
     types: [test-gmt-dev-command]
   # Schedule daily tests
