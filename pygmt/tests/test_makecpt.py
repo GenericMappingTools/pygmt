@@ -32,9 +32,9 @@ def fixture_region():
 @pytest.fixture(scope="module", name="position")
 def fixture_position():
     """
-    Return the standard argument for the position argument.
+    Return a standard position argument for the colorbar.
     """
-    return "x0c/0c+w10c"
+    return "x0c/0c+w10c+h"
 
 
 @pytest.mark.mpl_image_compare
