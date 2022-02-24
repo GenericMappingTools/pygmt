@@ -544,3 +544,15 @@ def test_plot_ogrgmt_file_multipoint_non_default_style():
             style="c0.2c",
         )
         return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_shapefile():
+    """
+    Make sure that plot works for shape file.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/1616.
+    """
+    fig = Figure()
+    fig.plot(data=os.path.join(TEST_DATA_DIR, "RidgeTest.shp"), pen="1p")
+    return fig
