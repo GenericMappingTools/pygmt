@@ -4,7 +4,6 @@ prune doc*
 prune examples*
 exclude .dvcignore
 exclude .gitignore
-exclude .pylintrc
 exclude AUTHORSHIP.md
 exclude CONTRIBUTING.md
 exclude Makefile

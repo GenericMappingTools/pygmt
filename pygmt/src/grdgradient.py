@@ -148,6 +148,21 @@ def grdgradient(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+
+    Example
+    -------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )  # doctest: +SKIP
+    >>> # Create a new grid from an input grid, set the azimuth to 10 degrees,
+    >>> # and the direction to "c" for Cartesian coordinates
+    >>> new_grid = pygmt.grdgradient(
+    ...     grid=grid, azimuth=10, direction="c"
+    ... )  # doctest: +SKIP
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         if "Q" in kwargs and "N" not in kwargs:
