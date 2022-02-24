@@ -21,14 +21,6 @@ def fixture_points():
     return np.loadtxt(POINTS_DATA)
 
 
-@pytest.fixture(scope="module", name="region")
-def fixture_region():
-    """
-    The data region.
-    """
-    return [10, 70, -5, 10]
-
-
 @pytest.fixture(scope="module", name="position")
 def fixture_position():
     """
@@ -38,7 +30,7 @@ def fixture_position():
 
 
 @pytest.mark.mpl_image_compare
-def test_makecpt_plot_points(points, region):
+def test_makecpt_plot_points(points):
     """
     Use static color palette table to change color of points.
     """
@@ -48,7 +40,7 @@ def test_makecpt_plot_points(points, region):
         x=points[:, 0],
         y=points[:, 1],
         color=points[:, 2],
-        region=region,
+        region=[10, 70, -5, 10],
         style="c1c",
         cmap=True,
     )
