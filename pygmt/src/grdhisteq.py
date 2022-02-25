@@ -1,13 +1,13 @@
 """
 grdhisteq - Perform histogram equalization for a grid.
 """
+import warnings
 
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
-    args_in_kwargs,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
@@ -48,7 +48,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     """
 
     @staticmethod
-    def _grdhisteq(grid, **kwargs):
+    def _grdhisteq(grid, output_type=None, tmpfile=None, **kwargs):
         r"""
         Perform histogram equalization for a grid.
 
@@ -114,35 +114,21 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         :meth:`pygmt.grd2cpt`
         """
-        if "D" in kwargs and "G" in kwargs:
-            raise GMTInvalidInput("Cannot use both ``outfile`` and ``outgrid``.")
-        if not args_in_kwargs(["D", "G"], kwargs):
-            raise GMTInvalidInput("Must set ``outgrid`` or ``outfile``.")
-        with GMTTempFile(suffix=".nc") as tmpfile:
-            with Session() as lib:
-                file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-                with file_context as infile:
-                    # Return table data if outgrid is not set
-                    if "G" not in kwargs:
-                        # Return pd.Dataframe if filename not provided
-                        if "D" not in kwargs or kwargs["D"] is True:
-                            kwargs.update({"D": tmpfile.name})
-                        outfile = kwargs["D"]
-                    else:  # NetCDF or xarray.DataArray output if outgrid is set
-                        if kwargs["G"] is True:
-                            kwargs.update({"G": tmpfile.name})
-                        outgrid = kwargs["G"]
-                    arg_str = " ".join([infile, build_arg_string(kwargs)])
-                    lib.call_module("grdhisteq", arg_str)
 
-            try:  # Try returning a xr.DataArray
-                result = load_dataarray(outgrid) if outgrid == tmpfile.name else None
-            except UnboundLocalError:  # if outgrid unset, return pd.DataFrame or text file
-                result = (
-                    pd.read_csv(outfile, sep="\t", header=None)
-                    if outfile == tmpfile.name
-                    else None
-                )
+        with Session() as lib:
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
+            with file_context as infile:
+                arg_str = " ".join([infile, build_arg_string(kwargs)])
+                lib.call_module("grdhisteq", arg_str)
+
+        if output_type == "file":
+            return None
+        if output_type == "xarray":
+            return load_dataarray(tmpfile.name)
+
+        result = pd.read_csv(kwargs["D"], sep="\t", header=None)
+        if output_type == "numpy":
+            result = result.to_numpy()
         return result
 
     @staticmethod
@@ -198,9 +184,19 @@ class grdhisteq:  # pylint: disable=invalid-name
         :meth:`pygmt.grd2cpt`
         """
         # Return a xarray.DataArray if ``outgrid`` is not set
-        if "G" not in kwargs:
-            kwargs.update({"G": True})
-        return grdhisteq._grdhisteq(grid, **kwargs)
+        if "G" in kwargs and isinstance(kwargs["G"], str):
+            output_type = "file"
+        else:
+            output_type = "xarray"
+        with GMTTempFile(suffix=".nc") as tmpfile:
+            if output_type != "file":
+                kwargs.update({"G": tmpfile.name})
+            return grdhisteq._grdhisteq(
+                grid=grid,
+                output_type=output_type,
+                tmpfile=tmpfile,
+                **kwargs,
+            )
 
     @staticmethod
     @fmt_docstring
@@ -213,7 +209,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         V="verbose",
     )
     @kwargs_to_strings(R="sequence")
-    def compute_bins(grid, **kwargs):
+    def compute_bins(grid, output_type="pandas", **kwargs):
         r"""
         Perform histogram equalization for a grid.
 
@@ -242,6 +238,13 @@ class grdhisteq:  # pylint: disable=invalid-name
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
+        output_type : str
+            Determine the format the xyz data will be returned in [Default is
+            ``pandas``]:
+
+                - ``numpy`` - :class:`numpy.ndarray`
+                - ``pandas``- :class:`pandas.DataFrame`
+                - ``file`` - ASCII file (requires ``outfile``)
         divisions : int
             Set the number of divisions of the data range.
 
@@ -262,6 +265,22 @@ class grdhisteq:  # pylint: disable=invalid-name
         :meth:`pygmt.grd2cpt`
         """
         # Return a pandas.DataFrame if ``outfile`` is not set
-        if "D" not in kwargs:
-            kwargs.update({"D": True})
-        return grdhisteq._grdhisteq(grid, **kwargs)
+        if output_type not in ["numpy", "pandas", "file"]:
+            raise GMTInvalidInput(
+                "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
+            )
+
+        if "D" in kwargs and output_type != "file":
+            msg = (
+                f"Changing 'output_type' of grd2xyz from '{output_type}' to 'file' "
+                "since 'outfile' parameter is set. Please use output_type='file' "
+                "to silence this warning."
+            )
+            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+            output_type = "file"
+        with GMTTempFile(suffix=".txt") as tmpfile:
+            if output_type != "file":
+                kwargs.update({"D": tmpfile.name})
+            return grdhisteq._grdhisteq(
+                grid, output_type=output_type, tmpfile=tmpfile, **kwargs
+            )
