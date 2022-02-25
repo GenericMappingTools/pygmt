@@ -44,14 +44,16 @@ Why PyGMT?
 A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
 But if you need some convincing first, watch this `1 hour introduction <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ to PyGMT!
+For a quicker introduction, check out our `3 minute overview <https://youtu.be/4iPnITXrxVU>`__!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
 or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
 
-.. image:: https://user-images.githubusercontent.com/23487320/95393255-c0b72e80-0956-11eb-9471-24429461802b.png
-    :alt: Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT
+.. image:: https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png
+    :alt: Quick Introduction to PyGMT YouTube Vdieo
     :align: center
-    :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
+    :target: https://youtu.be/4iPnITXrxVU
+    :width: 80%
 
 About
 -----
