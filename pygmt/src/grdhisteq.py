@@ -21,10 +21,10 @@ class grdhisteq:  # pylint: disable=invalid-name
     Perform histogram equalization for a grid.
 
     Two common use cases of :meth:`pygmt.grdhisteq` are to find data values
-    that divide a grid into patches of equal area using
-    :meth:`pygmt.grdhisteq.equalize_grid` or to write a grid with
+    that divide a grid into patches of equal area
+    (:meth:`pygmt.grdhisteq.compute_bins`) or to write a grid with
     statistics based on some kind of cumulative distribution function using
-    :meth:`pygmt.grdhisteq.compute_bins`.
+    (:meth:`pygmt.grdhisteq.equalize_grid`).
 
     Histogram equalization provides a way to highlight data that has most
     values clustered in a small portion of the dynamic range, such as a
