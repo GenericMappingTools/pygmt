@@ -50,7 +50,7 @@ Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tu
 or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
 
 .. image:: https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png
-    :alt: Quick Introduction to PyGMT YouTube Vdieo
+    :alt: Quick Introduction to PyGMT YouTube Video
     :align: center
     :target: https://youtu.be/4iPnITXrxVU
     :width: 80%
