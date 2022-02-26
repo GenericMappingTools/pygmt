@@ -133,7 +133,7 @@ def test_makecpt_reverse_color_and_zsign(position):
 def test_makecpt_continuous(position):
     """
     Use static color palette table that is continuous from blue to white and
-    scaled from -4500 to 4500m.
+    scaled from 0 to 1000 m.
     """
     fig = Figure()
     makecpt(cmap="blue,white", continuous=True, series=[0, 1000])
