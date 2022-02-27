@@ -88,8 +88,8 @@ def grdcut(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Examples
-    --------
+    Example
+    -------
     >>> import pygmt  # doctest: +SKIP
     >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
     >>> # and a y-range of 15 to 25
