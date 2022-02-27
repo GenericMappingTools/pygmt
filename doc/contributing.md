@@ -245,7 +245,7 @@ There are four main components to PyGMT's documentation:
 The documentation are written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
 [Sphinx](http://www.sphinx-doc.org/). Please refer to
-:gmt-docs:`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
+{gmt-docs}`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
 if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the [pull request workflow](contributing.md#pull-request-workflow)
 section.
@@ -422,11 +422,10 @@ Linking to the GMT documentation and GMT configuration parameters can be done us
 - <code>:gmt-term:\`GMT_PARAMETER\`</code>
 
 An example would be using
-<code>:gmt-docs:\`makecpt.html\`</code> to link to
-[https://docs.generic-mapping-tools.org/latest/makecpt.html](https://docs.generic-mapping-tools.org/latest/makecpt.html).
+<code>:gmt-docs:\`makecpt.html\`</code> to link to {gmt-docs}`makecpt.html`.
 For GMT configuration parameters, an example is
 <code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
-[https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND](https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND).
+{gmt-term}`https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND <COLOR_FOREGROUND>`.
 
 Sphinx will create a link to the automatically generated page for that
 function/class/module.
