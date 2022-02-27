@@ -48,6 +48,17 @@ class grdhisteq:  # pylint: disable=invalid-name
     """
 
     @staticmethod
+    @fmt_docstring
+    @use_alias(
+        C="divisions",
+        D="outfile",
+        G="outgrid",
+        R="region",
+        N="gaussian",
+        Q="quadratic",
+        V="verbose",
+    )
+    @kwargs_to_strings(R="sequence")
     def _grdhisteq(grid, output_type=None, tmpfile=None, **kwargs):
         r"""
         Perform histogram equalization for a grid.
@@ -93,7 +104,7 @@ class grdhisteq:  # pylint: disable=invalid-name
             The name of the output ASCII file to store the results of the
             histogram equalization in. Not allowed if ``outgrid`` is used.
         divisions : int
-            Set the number of divisions of the data range.
+            Set the number of divisions of the data range [Default is 16].
 
         {R}
         {V}
@@ -132,17 +143,16 @@ class grdhisteq:  # pylint: disable=invalid-name
         return result
 
     @staticmethod
-    @fmt_docstring
-    @use_alias(
-        C="divisions",
-        G="outgrid",
-        R="region",
-        N="gaussian",
-        Q="quadratic",
-        V="verbose",
-    )
-    @kwargs_to_strings(R="sequence")
-    def equalize_grid(grid, **kwargs):
+    def equalize_grid(
+        grid,
+        *,
+        outgrid=True,
+        divisions=None,
+        region=None,
+        gaussian=None,
+        quadratic=None,
+        verbose=None,
+    ):
         r"""
         Perform histogram equalization for a grid.
 
@@ -155,8 +165,6 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Full option list at :gmt-docs:`grdhisteq.html`
 
-        {aliases}
-
         Parameters
         ----------
         grid : str or xarray.DataArray
@@ -166,9 +174,28 @@ class grdhisteq:  # pylint: disable=invalid-name
             grid in.
         divisions : int
             Set the number of divisions of the data range.
+        gaussian : bool or int or float
+            *norm*
+            Produce an output grid with standard normal scores using
+            ``gaussian=True`` or force the scores to fall in the ±\ *norm*
+            range.
+        quadratic: bool
+            Perform quadratic equalization [Default is linear].
+        region : str or list
+            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+            Specify the :doc:`region </tutorials/basics/regions>` of interest.
+        verbose : bool or str
+            Select verbosity level [Default is **w**], which modulates the messages
+            written to stderr. Choose among 7 levels of verbosity:
 
-        {R}
-        {V}
+            - **q** - Quiet, not even fatal error messages are produced
+            - **e** - Error messages only
+            - **w** - Warnings [Default]
+            - **t** - Timings (report runtimes for time-intensive algorithms);
+            - **i** - Informational messages (same as ``verbose=True``)
+            - **c** - Compatibility warnings
+            - **d** - Debugging message
+
 
         Returns
         -------
@@ -184,32 +211,36 @@ class grdhisteq:  # pylint: disable=invalid-name
         :meth:`pygmt.grd2cpt`
         """
         # Return a xarray.DataArray if ``outgrid`` is not set
-        if "G" in kwargs and isinstance(kwargs["G"], str):
+        if isinstance(outgrid, str):
             output_type = "file"
         else:
             output_type = "xarray"
         with GMTTempFile(suffix=".nc") as tmpfile:
             if output_type != "file":
-                kwargs.update({"G": tmpfile.name})
+                outgrid = tmpfile.name
             return grdhisteq._grdhisteq(
                 grid=grid,
                 output_type=output_type,
                 tmpfile=tmpfile,
-                **kwargs,
+                outgrid=outgrid,
+                divisions=divisions,
+                region=region,
+                gaussian=gaussian,
+                quadratic=quadratic,
+                verbose=verbose,
             )
 
     @staticmethod
-    @fmt_docstring
-    @use_alias(
-        C="divisions",
-        D="outfile",
-        R="region",
-        N="gaussian",
-        Q="quadratic",
-        V="verbose",
-    )
-    @kwargs_to_strings(R="sequence")
-    def compute_bins(grid, output_type="pandas", **kwargs):
+    def compute_bins(
+        grid,
+        *,
+        output_type="pandas",
+        outfile=None,
+        divisions=None,
+        quadratic=None,
+        verbose=None,
+        region=None,
+    ):
         r"""
         Perform histogram equalization for a grid.
 
@@ -229,7 +260,6 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Full option list at :gmt-docs:`grdhisteq.html`
 
-        {aliases}
 
         Parameters
         ----------
@@ -247,9 +277,23 @@ class grdhisteq:  # pylint: disable=invalid-name
                 - ``file`` - ASCII file (requires ``outfile``)
         divisions : int
             Set the number of divisions of the data range.
+        quadratic: bool
+            Perform quadratic equalization [Default is linear].
+        region : str or list
+            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+            Specify the :doc:`region </tutorials/basics/regions>` of interest.
+        verbose : bool or str
+            Select verbosity level [Default is **w**], which modulates the messages
+            written to stderr. Choose among 7 levels of verbosity:
 
-        {R}
-        {V}
+            - **q** - Quiet, not even fatal error messages are produced
+            - **e** - Error messages only
+            - **w** - Warnings [Default]
+            - **t** - Timings (report runtimes for time-intensive algorithms);
+            - **i** - Informational messages (same as ``verbose=True``)
+            - **c** - Compatibility warnings
+            - **d** - Debugging message
+
 
         Returns
         -------
@@ -270,7 +314,7 @@ class grdhisteq:  # pylint: disable=invalid-name
                 "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
             )
 
-        if "D" in kwargs and output_type != "file":
+        if isinstance(outfile, str) and output_type != "file":
             msg = (
                 f"Changing 'output_type' of grd2xyz from '{output_type}' to 'file' "
                 "since 'outfile' parameter is set. Please use output_type='file' "
@@ -280,7 +324,14 @@ class grdhisteq:  # pylint: disable=invalid-name
             output_type = "file"
         with GMTTempFile(suffix=".txt") as tmpfile:
             if output_type != "file":
-                kwargs.update({"D": tmpfile.name})
+                outfile = tmpfile.name
             return grdhisteq._grdhisteq(
-                grid, output_type=output_type, tmpfile=tmpfile, **kwargs
+                grid,
+                output_type=output_type,
+                tmpfile=tmpfile,
+                outfile=outfile,
+                divisions=divisions,
+                quadratic=quadratic,
+                verbose=verbose,
+                region=region,
             )
