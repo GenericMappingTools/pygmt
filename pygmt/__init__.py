@@ -79,7 +79,7 @@ def print_clib_info():
     Includes the GMT version, default values for parameters, the path to the
     ``libgmt`` shared library, and GMT directories.
     """
-    from pygmt.clib import Session
+    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
 
     lines = ["GMT library information:"]
     with Session() as ses:
@@ -98,7 +98,7 @@ def show_versions():
     - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
     """
-
+    # pylint: disable=import-outside-toplevel
     import importlib
     import platform
     import subprocess
@@ -207,7 +207,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
         If pytest returns a non-zero error code indicating that some tests have
         failed.
     """
-    import pytest
+    import pytest  # pylint: disable=import-outside-toplevel
 
     show_versions()
 
