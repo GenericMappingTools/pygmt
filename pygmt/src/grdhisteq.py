@@ -185,8 +185,8 @@ class grdhisteq:  # pylint: disable=invalid-name
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.
         verbose : bool or str
-            Select verbosity level [Default is **w**], which modulates the messages
-            written to stderr. Choose among 7 levels of verbosity:
+            Select verbosity level [Default is **w**], which modulates the
+            messages written to stderr. Choose among 7 levels of verbosity:
 
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
@@ -283,8 +283,8 @@ class grdhisteq:  # pylint: disable=invalid-name
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.
         verbose : bool or str
-            Select verbosity level [Default is **w**], which modulates the messages
-            written to stderr. Choose among 7 levels of verbosity:
+            Select verbosity level [Default is **w**], which modulates the
+            messages written to stderr. Choose among 7 levels of verbosity:
 
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
