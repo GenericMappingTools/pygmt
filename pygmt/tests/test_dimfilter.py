@@ -6,19 +6,17 @@ import os
 import pytest
 import xarray as xr
 from pygmt import dimfilter, load_dataarray
-from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the grid data from the static_earth_relief file.
     """
-    return load_earth_relief(
-        resolution="01d", registration="pixel", region=[124, 130, -25, -20]
-    )
+    return load_static_earth_relief()
 
 
 @pytest.fixture(scope="module", name="expected_grid")
@@ -28,15 +26,15 @@ def fixture_grid_result():
     """
     return xr.DataArray(
         data=[
-            [397.0, 393.0, 377.5, 382.75, 419.0, 435.5],
-            [361.75, 359.0, 364.5, 415.5, 411.0, 373.5],
-            [321.5, 361.75, 373.5, 379.5, 369.0, 379.5],
-            [292.5, 324.0, 356.0, 361.5, 337.0, 361.5],
-            [306.0, 282.5, 310.25, 324.0, 353.0, 372.5],
+            [346.0, 344.5, 349.0, 349.0],
+            [344.5, 318.5, 344.5, 394.0],
+            [344.5, 356.5, 345.5, 352.5],
+            [367.5, 349.0, 385.5, 349.0],
+            [435.0, 385.5, 413.5, 481.5],
         ],
         coords=dict(
-            lon=[124.5, 125.5, 126.5, 127.5, 128.5, 129.5],
-            lat=[-24.5, -23.5, -22.5, -21.5, -20.5],
+            lon=[-54.5, -53.5, -52.5, -51.5],
+            lat=[-23.5, -22.5, -21.5, -20.5, -19.5],
         ),
         dims=["lat", "lon"],
     )
@@ -48,7 +46,12 @@ def test_dimfilter_outgrid(grid, expected_grid):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = dimfilter(
-            grid=grid, outgrid=tmpfile.name, filter="m600", distance=4, sectors="l6"
+            grid=grid,
+            outgrid=tmpfile.name,
+            filter="m600",
+            distance=4,
+            sectors="l6",
+            region=[-55, -51, -24, -19],
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
@@ -60,7 +63,9 @@ def test_grdgradient_no_outgrid(grid, expected_grid):
     """
     Test the required parameters for dimfilter with no set outgrid.
     """
-    result = dimfilter(grid=grid, filter="m600", distance=4, sectors="l6")
+    result = dimfilter(
+        grid=grid, filter="m600", distance=4, sectors="l6", region=[-55, -51, -24, -19]
+    )
     assert result.dims == ("lat", "lon")
     assert result.gmt.gtype == 1  # Geographic grid
     assert result.gmt.registration == 1  # Pixel registration
