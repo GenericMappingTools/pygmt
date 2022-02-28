@@ -90,7 +90,7 @@ where you can submit general comments and/or questions:
 * For general comments, select *New Topic* from the
   [Lounge Page](https://forum.generic-mapping-tools.org/c/lounge/6).
 * To share your work, select *New Topic* from the
-  [Showcase Page](https://forum.generic-mapping-tools.org/c/Sow-your-nice-example-script/10).
+  [Showcase Page](https://forum.generic-mapping-tools.org/c/Show-your-nice-example-script/10).
 
 ## General Guidelines
 
