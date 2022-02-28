@@ -137,7 +137,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         if output_type == "xarray":
             return load_dataarray(tmpfile.name)
 
-        result = pd.read_csv(kwargs["D"], sep="\t", header=None)
+        result = pd.read_csv(kwargs["D"], sep="\t", header=None, names=["start", "stop", "bin_id"])
         if output_type == "numpy":
             result = result.to_numpy()
         return result
