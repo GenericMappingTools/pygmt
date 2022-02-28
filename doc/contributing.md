@@ -165,6 +165,8 @@ To increase the chances of getting your pull request accepted quickly, try to:
     [Testing plots](#testing-plots).
   - Include an example of new features in the gallery or tutorials.
     Please refer to [Gallery plots](#gallery-plots) or [Tutorials](#tutorials).
+    If adding a new method/function/class, the gallery example or tutorial should
+    be submitted in a separate pull request.
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
   - Follow the [PEP8](http://pep8.org) style guide for code and the
@@ -435,7 +437,8 @@ function/class/module.
 ### PyGMT Code Overview
 
 The source code for PyGMT is located in the `pygmt/` directory. When contributing
-code, be sure to follow the general guidelines in the
+code, please open an issue first to discuss the feature and its implementation
+and be sure to follow the general guidelines in the
 [pull request workflow](#pull-request-workflow) section.
 
 ### Code Style
@@ -478,6 +481,74 @@ contains rules for running both checks:
 make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
+
+### Wrapping a new GMT module
+
+Wrapping a new GMT module in PyGMT is usually a big task, which will progress
+quicker and smoother if done in **small, manageable chunks**. This section
+gives an overview of the specific tasks involved in wrapping a new module.
+
+1. Create a ['Wrapper for `<module-name>`' feature request issue](#request-wrapper-for-gmt-module). 
+2. Open a ['Wrap `<module-name>`' initial feature implementation PR](#initial-feature-implementation).
+3. Open an ['Add missing aliases to `<module-name>`' documentation PR](#add-missing-aliases).
+4. Open a 'support additional functionality in module' PR (optional).
+5. Add ['Gallery example for module' documentation PR](#contributing-gallery-plots).
+6. Add ['Tutorial for module' documentation PR](#contributing-tutorials) (optional).
+
+These steps will be tracked in the 'Wrapper for `<module-name>`' issue and the
+['wrapping GMT modules'](https://github.com/GenericMappingTools/pygmt/projects/9)
+project board. The pull requests can be split between multiple contributors and
+there is no obligation for a single contributor to complete all steps. Please
+comment on the initial 'Wrapper for `<module-name>`' if you would like to open
+a pull request for any of these tasks to avoid redundant efforts.
+
+#### Request wrapper for GMT module
+
+* Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
+  top of the GitHub repository and click *New Issue*.
+* Click on *Get started* next to *Feature request - Wrap new GMT module*.
+* Follow the prompts for filling out the issue template.
+
+#### Initial feature implementation
+
+First, comment on the 'Wrapper for `<module-name>`' issue that you will be
+working on the initial feature implementation. This first pull request should
+be as minimal as possible - only adding the required functionality (i.e.,
+wrapping the required GMT arguments and supporting the primary input/output
+types).
+
+The following steps are common to all initial implementation pull requests that
+wrap a new GMT module (e.g., [initial grdfill implementation](https://github.com/GenericMappingTools/pygmt/pull/1276/files)):
+
+* Create a new module `<module-name>.py` in `pygmt/src`. The module docstring
+  should include the module name and a short description of the functionality
+  (e.g., `grdfill - Fill blank areas from a grid.`).
+* Add a function `<module-name>` to the module. When writing the new function,
+  it is generally easiest to reference the source code for other functions that
+  input/output similar object types.
+* Add a detailed docstring following the [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
+* Add the function to the import statements in `pygmt/src/__init__.py`.
+* Add the function to the import statements in `pygmt/__init__.py`.
+* Add the function to appropriate section of the API documentation in `doc/api/index.rst`.
+* Add a testing module `test_<module-name>.py` in `pygmt/tests`, following
+  the guidelines in the [testing your code](#testing-your-code) section.
+
+#### Add missing aliases
+
+After the initial implementation, the missing aliases can be added in a
+separate PR (e.g., [add missing aliases to grd2xyz](https://github.com/GenericMappingTools/pygmt/pull/1537/files)).
+
+* Select a suitable alias for each GMT option, following the guidelines in the
+  [code style](#code-style) section. Before creating a new alias, check if the
+  parameter is listed in the `COMMON_OPTIONS` dictionary in
+  `pygmt/helpers/decorators.py`, if other wrapped GMT modules have a similar
+  parameter, and if [GMT.jl](https://www.generic-mapping-tools.org/GMT.jl/dev/)
+  has defined an alias.
+* Update the `use_alias` decorator for the `<module-name>` function using the
+  GMT option as the parameter and the alias as the argument.
+* Add the alias and description to the parameters section of the docstring,
+  using the `fmt_docstring` decorator to add descriptions for parameters
+  included in the `COMMON_OPTIONS` dictionary.
 
 ### Testing your Code
 
