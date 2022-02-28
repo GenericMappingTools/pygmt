@@ -327,8 +327,8 @@ class grdhisteq:  # pylint: disable=invalid-name
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
         ... )  # doctest: +SKIP
-        >>> # Find the elevation intervals that divide the grid into 5 divisions
-        >>> # of equal area
+        >>> # Find the elevation intervals that divide the grid into 5
+        >>> # divisions of equal area
         >>> bins = pygmt.grdhisteq.compute_bins(
         ...     grid=grid, divisions=5
         ... )  # doctest: +SKIP
