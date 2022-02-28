@@ -208,6 +208,19 @@ class grdhisteq:  # pylint: disable=invalid-name
             - None if ``outgrid`` is a str (grid output is stored in
               ``outgrid``)
 
+        Example
+        -------
+        >>> import pygmt  # doctest: +SKIP
+        >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+        >>> # and a y-range of 15 to 25
+        >>> grid = pygmt.datasets.load_earth_relief(
+        ...     resolution="30m", region=[10, 30, 15, 25]
+        ... )  # doctest: +SKIP
+        >>> # Create a new grid with a Guassian data distribution
+        >>> grid = pygmt.grdhisteq.equalize_grid(
+        ...     grid=grid, gaussian=True
+        ... )  # doctest: +SKIP
+
         See Also
         -------
         :meth:`pygmt.grd2cpt`
@@ -305,6 +318,20 @@ class grdhisteq:  # pylint: disable=invalid-name
             - pandas.DataFrame if ``outfile`` is True or None
             - None if ``outfile`` is a str (file output is stored in
               ``outfile``)
+
+        Example
+        -------
+        >>> import pygmt  # doctest: +SKIP
+        >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+        >>> # and a y-range of 15 to 25
+        >>> grid = pygmt.datasets.load_earth_relief(
+        ...     resolution="30m", region=[10, 30, 15, 25]
+        ... )  # doctest: +SKIP
+        >>> # Find the elevation intervals that divide the grid into 5 divisions
+        >>> # of equal area
+        >>> bins = pygmt.grdhisteq.compute_bins(
+        ...     grid=grid, divisions=5
+        ... )  # doctest: +SKIP
 
         See Also
         -------
