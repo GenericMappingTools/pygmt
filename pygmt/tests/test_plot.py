@@ -552,3 +552,17 @@ def test_plot_shapefile():
     fig = Figure()
     fig.plot(data="@RidgeTest.shp", pen="1p")
     return fig
+  
+    
+def test_plot_dataframe_incols():
+    """
+    Make sure that the incols parameter works for pandas.DataFrame.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/1440.
+    """
+    data = pd.DataFrame(data={"col1": [-0.5, 0, 0.5], "col2": [-0.75, 0, 0.75]})
+    fig = Figure()
+    fig.plot(
+        data=data, frame=True, region=[-1, 1, -1, 1], projection="X5c", incols=[1, 0]
+    )
+    return fig
