@@ -552,8 +552,8 @@ def test_plot_shapefile():
     fig = Figure()
     fig.plot(data="@RidgeTest.shp", pen="1p")
     return fig
-  
-    
+
+
 def test_plot_dataframe_incols():
     """
     Make sure that the incols parameter works for pandas.DataFrame.
