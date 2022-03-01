@@ -7,7 +7,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import select
-from pygmt.datasets import load_sample_bathymetry
+from pygmt.datasets import load_sample_data
 from pygmt.helpers import GMTTempFile
 
 
@@ -16,7 +16,7 @@ def fixture_dataframe():
     """
     Load the table data from the sample bathymetry dataset.
     """
-    return load_sample_bathymetry()
+    return load_sample_data(name="bathymetry")
 
 
 def test_select_input_dataframe(dataframe):
