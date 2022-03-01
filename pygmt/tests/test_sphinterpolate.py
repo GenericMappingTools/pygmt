@@ -6,16 +6,16 @@ import os
 import numpy.testing as npt
 import pytest
 from pygmt import sphinterpolate
-from pygmt.datasets import load_mars_shape
+from pygmt.datasets import load_sample_data
 from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="mars")
 def fixture_mars_shape():
     """
-    Load the data from the sample bathymetry dataset.
+    Load the table data for the shape of Mars.
     """
-    return load_mars_shape()
+    return load_sample_data(name="mars_shape")
 
 
 def test_sphinterpolate_outgrid(mars):
