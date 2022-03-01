@@ -13,7 +13,6 @@ on:
       - '*.json'
       - 'LICENSE.txt'
       - '.gitignore'
-      - '.pylintrc'
   release:
     types:
       - published

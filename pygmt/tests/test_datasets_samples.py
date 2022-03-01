@@ -138,7 +138,7 @@ def test_hotspots():
         data = load_hotspots()
         assert len(record) == 1
     assert data.shape == (55, 4)
-    assert data.columns.values.tolist() == [
+    assert list(data.columns) == [
         "longitude",
         "latitude",
         "symbol_size",

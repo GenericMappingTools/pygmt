@@ -7,17 +7,13 @@ import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from packaging.version import Version
-from pygmt import clib, grdtrack
+from pygmt import grdtrack
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 from pygmt.helpers.testing import load_static_earth_relief
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="dataarray")
