@@ -467,6 +467,7 @@ class Figure:
 
     from pygmt.src import (  # pylint: disable=import-outside-toplevel
         basemap,
+        clip,
         coast,
         colorbar,
         contour,
