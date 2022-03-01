@@ -10,7 +10,7 @@ inside each bin and how to report the number of points inside each bin.
 import pygmt
 
 # Load sample data
-data = pygmt.datasets.load_japan_quakes()
+data = pygmt.datasets.load_sample_data(name="japan_quakes")
 # Select only needed columns
 data = data[["longitude", "latitude", "depth_km"]]
 

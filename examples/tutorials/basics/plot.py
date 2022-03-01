@@ -14,10 +14,10 @@ import pygmt
 
 ###############################################################################
 # For example, let's load the sample dataset of tsunami generating earthquakes
-# around Japan (:func:`pygmt.datasets.load_japan_quakes`). The data is loaded
-# as a :class:`pandas.DataFrame`.
+# around Japan using :func:`pygmt.datasets.load_sample_data`.
+# The data is loaded as a :class:`pandas.DataFrame`.
 
-data = pygmt.datasets.load_japan_quakes()
+data = pygmt.datasets.load_sample_data(name="japan_quakes")
 
 # Set the region for the plot to be slightly larger than the data bounds.
 region = [
@@ -57,7 +57,7 @@ fig.coast(land="black", water="skyblue")
 fig.plot(
     x=data.longitude,
     y=data.latitude,
-    size=0.02 * (2 ** data.magnitude),
+    size=0.02 * (2**data.magnitude),
     style="cc",
     color="white",
     pen="black",
@@ -85,7 +85,7 @@ pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
 fig.plot(
     x=data.longitude,
     y=data.latitude,
-    size=0.02 * 2 ** data.magnitude,
+    size=0.02 * 2**data.magnitude,
     color=data.depth_km,
     cmap=True,
     style="cc",

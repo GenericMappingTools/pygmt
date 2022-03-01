@@ -99,9 +99,9 @@ class Session:
     Examples
     --------
 
-    >>> from pygmt.datasets import load_earth_relief
+    >>> from pygmt.helpers.testing import load_static_earth_relief
     >>> from pygmt.helpers import GMTTempFile
-    >>> grid = load_earth_relief()
+    >>> grid = load_static_earth_relief()
     >>> type(grid)
     <class 'xarray.core.dataarray.DataArray'>
     >>> # Create a session and destroy it automatically when exiting the "with"
@@ -117,7 +117,7 @@ class Session:
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
     ...
-    -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
+    -55 -47 -24 -10 190 981 1 1 8 14 1 1
     """
 
     # The minimum version of GMT required
@@ -151,7 +151,7 @@ class Session:
         Dictionary with the GMT version and default paths and parameters.
         """
         if not hasattr(self, "_info"):
-            self._info = {
+            self._info = {  # pylint: disable=attribute-defined-outside-init
                 "version": self.get_default("API_VERSION"),
                 "padding": self.get_default("API_PAD"),
                 "binary dir": self.get_default("API_BINDIR"),
@@ -278,6 +278,7 @@ class Session:
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
         """
         if not hasattr(self, "_libgmt"):
+            # pylint: disable=attribute-defined-outside-init
             self._libgmt = load_libgmt()
         function = getattr(self._libgmt, name)
         if argtypes is not None:
@@ -334,7 +335,7 @@ class Session:
 
         # Capture the output printed by GMT into this list. Will use it later
         # to generate error messages for the exceptions raised by API calls.
-        self._error_log = []
+        self._error_log = []  # pylint: disable=attribute-defined-outside-init
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # pylint: disable=unused-argument
@@ -354,6 +355,7 @@ class Session:
 
         # Need to store a copy of the function because ctypes doesn't and it
         # will be garbage collected otherwise
+        # pylint: disable=attribute-defined-outside-init
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
@@ -1295,17 +1297,17 @@ class Session:
         Examples
         --------
 
-        >>> from pygmt.datasets import load_earth_relief
+        >>> from pygmt.helpers.testing import load_static_earth_relief
         >>> from pygmt.helpers import GMTTempFile
-        >>> data = load_earth_relief(resolution="01d")
+        >>> data = load_static_earth_relief()
         >>> print(data.shape)
-        (180, 360)
+        (14, 8)
         >>> print(data.lon.values.min(), data.lon.values.max())
-        -179.5 179.5
+        -54.5 -47.5
         >>> print(data.lat.values.min(), data.lat.values.max())
-        -89.5 89.5
+        -23.5 -10.5
         >>> print(data.values.min(), data.values.max())
-        -8182.0 5651.5
+        190.0 981.0
         >>> with Session() as ses:
         ...     with ses.virtualfile_from_grid(data) as fin:
         ...         # Send the output to a file so that we can read it
@@ -1314,7 +1316,7 @@ class Session:
         ...             ses.call_module("grdinfo", args)
         ...             print(fout.read().strip())
         ...
-        -180 180 -90 90 -8182 5651.5 1 1 360 180 1 1
+        -55 -47 -24 -10 190 981 1 1 8 14 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
         """
         _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[grid.gmt.gtype]

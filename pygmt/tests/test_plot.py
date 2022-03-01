@@ -9,16 +9,12 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from packaging.version import Version
-from pygmt import Figure, clib
+from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module")
@@ -544,3 +540,29 @@ def test_plot_ogrgmt_file_multipoint_non_default_style():
             style="c0.2c",
         )
         return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_shapefile():
+    """
+    Make sure that plot works for shapefile.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/1616.
+    """
+    fig = Figure()
+    fig.plot(data="@RidgeTest.shp", pen="1p")
+    return fig
+
+
+def test_plot_dataframe_incols():
+    """
+    Make sure that the incols parameter works for pandas.DataFrame.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/1440.
+    """
+    data = pd.DataFrame(data={"col1": [-0.5, 0, 0.5], "col2": [-0.75, 0, 0.75]})
+    fig = Figure()
+    fig.plot(
+        data=data, frame=True, region=[-1, 1, -1, 1], projection="X5c", incols=[1, 0]
+    )
+    return fig
