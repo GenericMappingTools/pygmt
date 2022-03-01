@@ -258,7 +258,7 @@ Most calls to the C API happen through the :class:`pygmt.clib.Session` class.
 
     clib.Session
 
-`GMT modules <https://docs.generic-mapping-tools.org/latest/modules.html>`__ are executed through
+:gmt-docs:`GMT modules <modules.html>` are executed through
 the :meth:`~pygmt.clib.Session.call_module` method:
 
 .. autosummary::

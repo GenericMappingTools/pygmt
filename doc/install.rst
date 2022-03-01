@@ -53,7 +53,7 @@ latest released version that can be found at
 the `GMT official site <https://www.generic-mapping-tools.org>`__.
 We need the latest GMT (>=6.3.0) since there are many changes being made to GMT
 itself in response to the development of PyGMT, mainly the new
-`modern execution mode <https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode>`__.
+:gmt-docs:`modern execution mode <cookbook/introduction.html#modern-and-classic-mode>`.
 
 Compiled conda packages of GMT for Linux, macOS and Windows are provided
 through `conda-forge <https://anaconda.org/conda-forge/gmt>`__.
