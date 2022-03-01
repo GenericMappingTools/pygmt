@@ -6,17 +6,13 @@ import os
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from packaging.version import Version
-from pygmt import clib, grdtrack, which
-from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
+from pygmt import grdtrack, which
+from pygmt.datasets import load_earth_relief, load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="dataarray")
@@ -34,7 +30,7 @@ def fixture_dataframe():
     """
     Load the ocean ridge file.
     """
-    return load_ocean_ridge_points()
+    return load_sample_data(name="ocean_ridge_points")
 
 
 @pytest.fixture(scope="module", name="csvfile")

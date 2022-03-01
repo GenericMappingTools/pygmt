@@ -77,7 +77,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
-        import pytest
+        import pytest  # pylint: disable=import-outside-toplevel
 
         os.makedirs(result_dir, exist_ok=True)
         old_sig = inspect.signature(func)
@@ -172,6 +172,10 @@ def download_test_data():
         # Other cache files
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
+        "@RidgeTest.shp",
+        "@RidgeTest.shx",
+        "@RidgeTest.dbf",
+        "@RidgeTest.prj",
         "@Table_5_11.txt",
         "@Table_5_11_mean.xyz",
         "@fractures_06.txt",
