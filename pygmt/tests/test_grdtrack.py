@@ -8,8 +8,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from packaging.version import Version
-from pygmt import clib, grdtrack, which
-from pygmt.datasets import load_sample_data
+from pygmt import clib, grdtrack
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 from pygmt.helpers.testing import load_static_earth_relief
@@ -50,7 +49,7 @@ def fixture_numpy_array():
 
 
 @pytest.fixture(scope="module", name="dataframe")
-def fixture_dataframe(expected_array):
+def fixture_dataframe():
     """
     Load a pandas DataFrame with points.
     """
