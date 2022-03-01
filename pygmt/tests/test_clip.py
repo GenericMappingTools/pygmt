@@ -32,6 +32,7 @@ def fixture_region():
     """
     return [-55, -47, -24, -10]
 
+
 @pytest.fixture(scope="module", name="projection")
 def fixture_projection():
     """
