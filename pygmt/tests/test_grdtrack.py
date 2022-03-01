@@ -1,7 +1,6 @@
 """
 Tests for grdtrack.
 """
-import os
 
 import numpy as np
 import numpy.testing as npt
@@ -11,9 +10,6 @@ from pygmt import grdtrack
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 from pygmt.helpers.testing import load_static_earth_relief
-
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-TEMP_TRACK = os.path.join(TEST_DATA_DIR, "tmp_track.txt")
 
 
 @pytest.fixture(scope="module", name="dataarray")
