@@ -83,6 +83,7 @@ def clip(self, data=None, x=None, y=None, **kwargs):
     ...     # Map elements under the "with" statement are clipped
     ...     fig.grdimage(grid=grid)
     ...
+    >>> fig.show()  # doctest: +SKIP
     <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
