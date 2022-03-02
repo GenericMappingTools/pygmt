@@ -77,6 +77,18 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
         npt.assert_allclose(np.array(output), expected_array)
 
 
+def test_grdtrack_input_dataframe_and_ncfile(dataframe, expected_array):
+    """
+    Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs.
+    """
+    output = grdtrack(
+        points=dataframe, grid="@static_earth_relief.nc", newcolname="bathymetry"
+    )
+    assert isinstance(output, pd.DataFrame)
+    assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
+    npt.assert_allclose(np.array(output), expected_array)
+
+
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     """
     Run grdtrack using points input that is not a pandas.DataFrame (matrix) or
