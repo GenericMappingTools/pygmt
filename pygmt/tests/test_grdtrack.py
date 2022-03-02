@@ -9,7 +9,7 @@ import pandas as pd
 import pytest
 from pygmt import grdtrack
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import data_kind
+from pygmt.helpers import GMTTempFile, data_kind
 from pygmt.helpers.testing import load_static_earth_relief
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -63,6 +63,18 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe, expected_a
     assert isinstance(output, pd.DataFrame)
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
     npt.assert_allclose(np.array(output), expected_array)
+
+
+def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
+    """
+    Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
+    """
+    with GMTTempFile() as tmpfile:
+        output = grdtrack(points=POINTS_DATA, grid=dataarray, outfile=tmpfile.name)
+        assert output is None  # check that output is None since outfile is set
+        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        output = np.loadtxt(tmpfile.name)
+        npt.assert_allclose(np.array(output), expected_array)
 
 
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
