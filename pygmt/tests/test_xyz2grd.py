@@ -14,7 +14,7 @@ from pygmt.helpers import GMTTempFile
 @pytest.fixture(scope="module", name="ship_data")
 def fixture_ship_data():
     """
-    Load the data from the sample bathymetry dataset.
+    Load the table data from the sample bathymetry dataset.
     """
     return load_sample_data(name="bathymetry")
 

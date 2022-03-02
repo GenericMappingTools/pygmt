@@ -7,7 +7,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import grdtrack, which
-from pygmt.datasets import load_earth_relief, load_ocean_ridge_points
+from pygmt.datasets import load_earth_relief, load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 
@@ -30,7 +30,7 @@ def fixture_dataframe():
     """
     Load the ocean ridge file.
     """
-    return load_ocean_ridge_points()
+    return load_sample_data(name="ocean_ridge_points")
 
 
 @pytest.fixture(scope="module", name="csvfile")

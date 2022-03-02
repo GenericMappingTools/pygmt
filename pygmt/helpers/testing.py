@@ -172,6 +172,10 @@ def download_test_data():
         # Other cache files
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
+        "@RidgeTest.shp",
+        "@RidgeTest.shx",
+        "@RidgeTest.dbf",
+        "@RidgeTest.prj",
         "@Table_5_11.txt",
         "@Table_5_11_mean.xyz",
         "@fractures_06.txt",
