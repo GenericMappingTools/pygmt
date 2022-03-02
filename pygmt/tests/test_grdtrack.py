@@ -1,6 +1,7 @@
 """
 Tests for grdtrack.
 """
+import os
 
 import numpy as np
 import numpy.testing as npt
@@ -10,6 +11,9 @@ from pygmt import grdtrack
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 from pygmt.helpers.testing import load_static_earth_relief
+
+TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+POINTS_DATA = os.path.join(TEST_DATA_DIR, "track.txt")
 
 
 @pytest.fixture(scope="module", name="dataarray")
@@ -45,19 +49,9 @@ def fixture_dataframe():
     """
     Load a pandas DataFrame with points.
     """
-    points = [
-        [-51.613, -17.93],
-        [-48.917, -22.434],
-        [-50.444, -16.358],
-        [-50.721, -16.628],
-        [-51.394, -12.196],
-        [-50.207, -18.404],
-        [-52.56, -16.977],
-        [-51.866, -19.794],
-        [-48.001, -14.144],
-        [-54.438, -19.193],
-    ]
-    return pd.DataFrame(data=points, columns=["longitude", "latitude"])
+    return pd.read_csv(
+        POINTS_DATA, sep=r"\s+", header=None, names=["longitude", "latitude"]
+    )
 
 
 def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe, expected_array):
