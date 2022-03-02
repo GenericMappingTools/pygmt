@@ -64,8 +64,6 @@ def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe, expected_a
     assert output.columns.to_list() == ["longitude", "latitude", "bathymetry"]
     npt.assert_allclose(np.array(output), expected_array)
 
-    return output
-
 
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     """
