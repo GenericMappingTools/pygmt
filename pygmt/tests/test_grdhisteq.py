@@ -51,11 +51,12 @@ def fixture_df_result():
                 [345.5, 519.5, 0],
                 [519.5, 726.5, 1],
             ]
-        )
-    ).astype({0: np.float64, 1: np.float64, 2: np.int64})
+        ),
+        columns=["start", "stop", "bin_id"],
+    ).astype({"start": np.float64, "stop": np.float64, "bin_id": np.int64})
 
 
-def test_grdhisteq_outgrid_file(grid, expected_grid, region):
+def test_equalize_grid_outgrid_file(grid, expected_grid, region):
     """
     Test grdhisteq.equalize_grid with a set outgrid.
     """
@@ -70,7 +71,7 @@ def test_grdhisteq_outgrid_file(grid, expected_grid, region):
 
 
 @pytest.mark.parametrize("outgrid", [True, None])
-def test_grdhisteq_outgrid(grid, outgrid, expected_grid, region):
+def test_equalize_grid_outgrid(grid, outgrid, expected_grid, region):
     """
     Test grdhisteq.equalize_grid with ``outgrid=True`` and ``outgrid=None``.
     """
@@ -82,7 +83,7 @@ def test_grdhisteq_outgrid(grid, outgrid, expected_grid, region):
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdhisteq_no_outfile(grid, expected_df, region):
+def test_compute_bins_no_outfile(grid, expected_df, region):
     """
     Test grdhisteq.compute_bins with no ``outfile``.
     """
@@ -91,7 +92,7 @@ def test_grdhisteq_no_outfile(grid, expected_df, region):
     pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
 
 
-def test_grdhisteq_outfile(grid, expected_df, region):
+def test_compute_bins_outfile(grid, expected_df, region):
     """
     Test grdhisteq.compute_bins with ``outfile``.
     """
@@ -101,5 +102,7 @@ def test_grdhisteq_outfile(grid, expected_df, region):
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)
-        temp_df = pd.read_csv(tmpfile.name, sep="\t", header=None)
+        temp_df = pd.read_csv(
+            tmpfile.name, sep="\t", header=None, names=["start", "stop", "bin_id"]
+        )
         pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
