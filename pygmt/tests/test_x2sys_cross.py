@@ -10,7 +10,7 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import x2sys_cross, x2sys_init
-from pygmt.datasets import load_sample_bathymetry
+from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
 
@@ -29,7 +29,7 @@ def fixture_tracks():
     """
     Load track data from the sample bathymetry file.
     """
-    dataframe = load_sample_bathymetry()
+    dataframe = load_sample_data(name="bathymetry")
     dataframe.columns = ["x", "y", "z"]  # longitude, latitude, bathymetry
     return [dataframe.query(expr="z > -20")]  # reduce size of dataset
 

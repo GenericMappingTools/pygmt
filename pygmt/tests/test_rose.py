@@ -4,7 +4,7 @@ Tests for rose.
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.datasets import load_fractures_compilation
+from pygmt.datasets import load_sample_data
 
 
 @pytest.fixture(scope="module", name="data")
@@ -25,7 +25,7 @@ def fixture_data_fractures_compilation():
 
     Lengths are stored in the first column, azimuths in the second.
     """
-    return load_fractures_compilation()
+    return load_sample_data(name="fractures")
 
 
 @pytest.mark.mpl_image_compare
