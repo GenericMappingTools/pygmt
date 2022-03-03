@@ -146,7 +146,7 @@ class grdhisteq:  # pylint: disable=invalid-name
             dtype={
                 "start": np.float32,
                 "stop": np.float32,
-                "bin_id": np.uint8 if kwargs["C"] < 256 else np.uint32,
+                "bin_id": np.uint32,
             },
         )
         if output_type == "numpy":
