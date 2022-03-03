@@ -145,6 +145,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         return result
 
     @staticmethod
+    @fmt_docstring
     def equalize_grid(
         grid,
         *,
@@ -177,27 +178,14 @@ class grdhisteq:  # pylint: disable=invalid-name
         divisions : int
             Set the number of divisions of the data range.
         gaussian : bool or int or float
-            *norm*
+            *norm*.
             Produce an output grid with standard normal scores using
             ``gaussian=True`` or force the scores to fall in the ±\ *norm*
             range.
         quadratic: bool
             Perform quadratic equalization [Default is linear].
-        region : str or list
-            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the :doc:`region </tutorials/basics/regions>` of interest.
-        verbose : bool or str
-            Select verbosity level [Default is **w**], which modulates the
-            messages written to stderr. Choose among 7 levels of verbosity:
-
-            - **q** - Quiet, not even fatal error messages are produced
-            - **e** - Error messages only
-            - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorithms);
-            - **i** - Informational messages (same as ``verbose=True``)
-            - **c** - Compatibility warnings
-            - **d** - Debugging message
-
+        {R}
+        {V}
 
         Returns
         -------
@@ -216,7 +204,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
         ... )  # doctest: +SKIP
-        >>> # Create a new grid with a Guassian data distribution
+        >>> # Create a new grid with a Gaussian data distribution
         >>> grid = pygmt.grdhisteq.equalize_grid(
         ...     grid=grid, gaussian=True
         ... )  # doctest: +SKIP
@@ -225,13 +213,12 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         :meth:`pygmt.grd2cpt`
         """
-        # Return a xarray.DataArray if ``outgrid`` is not set
-        if isinstance(outgrid, str):
-            output_type = "file"
-        else:
-            output_type = "xarray"
+        # Return an xarray.DataArray if ``outgrid`` is not set
         with GMTTempFile(suffix=".nc") as tmpfile:
-            if output_type != "file":
+            if isinstance(outgrid, str):
+                output_type = "file"
+            else:
+                output_type = "xarray"
                 outgrid = tmpfile.name
             return grdhisteq._grdhisteq(
                 grid=grid,
@@ -246,6 +233,7 @@ class grdhisteq:  # pylint: disable=invalid-name
             )
 
     @staticmethod
+    @fmt_docstring
     def compute_bins(
         grid,
         *,
@@ -292,27 +280,14 @@ class grdhisteq:  # pylint: disable=invalid-name
                 - ``file`` - ASCII file (requires ``outfile``)
         divisions : int
             Set the number of divisions of the data range.
-        quadratic: bool
+        quadratic : bool
             Perform quadratic equalization [Default is linear].
-        region : str or list
-            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the :doc:`region </tutorials/basics/regions>` of interest.
-        verbose : bool or str
-            Select verbosity level [Default is **w**], which modulates the
-            messages written to stderr. Choose among 7 levels of verbosity:
-
-            - **q** - Quiet, not even fatal error messages are produced
-            - **e** - Error messages only
-            - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorithms);
-            - **i** - Informational messages (same as ``verbose=True``)
-            - **c** - Compatibility warnings
-            - **d** - Debugging message
-
+        {R}
+        {V}
 
         Returns
         -------
-        ret: pandas.DataFrame None
+        ret: pandas.DataFrame or None
             Return type depends on the ``outfile`` parameter:
 
             - pandas.DataFrame if ``outfile`` is True or None

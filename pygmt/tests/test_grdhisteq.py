@@ -46,12 +46,7 @@ def fixture_df_result():
     Load the expected grdhisteq table result.
     """
     return pd.DataFrame(
-        data=np.array(
-            [
-                [345.5, 519.5, 0],
-                [519.5, 726.5, 1],
-            ]
-        ),
+        data=np.array([[345.5, 519.5, 0], [519.5, 726.5, 1]]),
         columns=["start", "stop", "bin_id"],
     ).astype({"start": np.float64, "stop": np.float64, "bin_id": np.int64})
 
