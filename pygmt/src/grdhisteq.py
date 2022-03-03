@@ -220,6 +220,11 @@ class grdhisteq:  # pylint: disable=invalid-name
         See Also
         -------
         :meth:`pygmt.grd2cpt`
+
+        Notes
+        -----
+        This method does a weighted histogram equalization for geographic
+        grids to account for node area varying with latitude.
         """
         # Return an xarray.DataArray if ``outgrid`` is not set
         with GMTTempFile(suffix=".nc") as tmpfile:
@@ -318,6 +323,11 @@ class grdhisteq:  # pylint: disable=invalid-name
         See Also
         -------
         :meth:`pygmt.grd2cpt`
+
+        Notes
+        -----
+        This method does a weighted histogram equalization for geographic
+        grids to account for node area varying with latitude.
         """
         # Return a pandas.DataFrame if ``outfile`` is not set
         if output_type not in ["numpy", "pandas", "file"]:
