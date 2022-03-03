@@ -8,6 +8,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import grdhisteq, load_dataarray
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -114,3 +115,11 @@ def test_compute_bins_outfile(grid, expected_df, region):
             index_col="bin_id",
         )
         pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
+
+
+def test_compute_bins_invalid_format(grid):
+    """
+    Test that compute_bins fails with incorrect format.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdhisteq.compute_bins(grid=grid, output_type=1)

@@ -346,7 +346,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         if isinstance(outfile, str) and output_type != "file":
             msg = (
-                f"Changing 'output_type' of grd2xyz from '{output_type}' to 'file' "
+                f"Changing 'output_type' from '{output_type}' to 'file' "
                 "since 'outfile' parameter is set. Please use output_type='file' "
                 "to silence this warning."
             )
