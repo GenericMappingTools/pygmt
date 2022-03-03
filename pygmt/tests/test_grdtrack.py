@@ -89,18 +89,14 @@ def test_grdtrack_input_dataframe_and_ncfile(dataframe, expected_array):
     npt.assert_allclose(np.array(output), expected_array)
 
 
-def test_grdtrack_input_csvfile_and_ncfile(expected_array):
+def test_grdtrack_input_csvfile_and_ncfile_to_dataframe(expected_array):
     """
-    Run grdtrack by passing in a csvfile and netcdf file as inputs.
+    Run grdtrack by passing in a csvfile and netcdf file as inputs with a
+    pandas.DataFrame output.
     """
-    with GMTTempFile() as tmpfile:
-        output = grdtrack(
-            points=POINTS_DATA, grid="@static_earth_relief.nc", outfile=tmpfile.name
-        )
-        assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
-        output = np.loadtxt(tmpfile.name)
-        npt.assert_allclose(np.array(output), expected_array)
+    output = grdtrack(points=POINTS_DATA, grid="@static_earth_relief.nc")
+    assert isinstance(output, pd.DataFrame)
+    npt.assert_allclose(np.array(output), expected_array)
 
 
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
