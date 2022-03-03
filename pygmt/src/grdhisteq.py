@@ -321,12 +321,13 @@ class grdhisteq:  # pylint: disable=invalid-name
         ...     grid=grid, divisions=5
         ... )  # doctest: +SKIP
         >>> print(bins)  # doctest: +SKIP
-              start      stop  bin_id
-        0 -3.023719 -0.846985       0
-        1 -0.846985 -0.257874       1
-        2 -0.257874  0.248180       2
-        3  0.248180  0.838059       3
-        4  0.838059  3.023719       4
+                start    stop
+        bin_id
+        0       179.0   397.5
+        1       397.5   475.5
+        2       475.5   573.5
+        3       573.5   710.5
+        4       710.5  2103.0
 
         See Also
         -------
