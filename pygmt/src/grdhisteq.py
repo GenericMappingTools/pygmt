@@ -159,7 +159,6 @@ class grdhisteq:  # pylint: disable=invalid-name
         r"""
         Perform histogram equalization for a grid.
 
-
         :meth:`pygmt.grdhisteq.equalize_grid` provides a way to write a grid
         with statistics based on a cumulative distribution function. The
         ``outgrid`` has relative highs and lows in the same (x,y) locations as
@@ -262,7 +261,6 @@ class grdhisteq:  # pylint: disable=invalid-name
         occuring equally.
 
         Full option list at :gmt-docs:`grdhisteq.html`
-
 
         Parameters
         ----------
