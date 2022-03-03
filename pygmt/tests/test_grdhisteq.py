@@ -45,10 +45,14 @@ def fixture_df_result():
     """
     Load the expected grdhisteq table result.
     """
-    return pd.DataFrame(
-        data=np.array([[345.5, 519.5, 0], [519.5, 726.5, 1]]),
-        columns=["start", "stop", "bin_id"],
-    ).astype({"start": np.float32, "stop": np.float32, "bin_id": np.uint32})
+    return (
+        pd.DataFrame(
+            data=np.array([[345.5, 519.5, 0], [519.5, 726.5, 1]]),
+            columns=["start", "stop", "bin_id"],
+        )
+        .astype({"start": np.float32, "stop": np.float32, "bin_id": np.uint32})
+        .set_index("bin_id")
+    )
 
 
 def test_equalize_grid_outgrid_file(grid, expected_grid, region):
@@ -93,7 +97,11 @@ def test_compute_bins_outfile(grid, expected_df, region):
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
         result = grdhisteq.compute_bins(
-            grid=grid, divisions=2, region=region, outfile=tmpfile.name
+            grid=grid,
+            divisions=2,
+            region=region,
+            outfile=tmpfile.name,
+            output_type="file",
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)
@@ -103,5 +111,6 @@ def test_compute_bins_outfile(grid, expected_df, region):
             header=None,
             names=["start", "stop", "bin_id"],
             dtype={"start": np.float32, "stop": np.float32, "bin_id": np.uint32},
+            index_col="bin_id",
         )
         pd.testing.assert_frame_equal(left=temp_df, right=expected_df)

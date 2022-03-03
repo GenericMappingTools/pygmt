@@ -150,8 +150,9 @@ class grdhisteq:  # pylint: disable=invalid-name
             },
         )
         if output_type == "numpy":
-            result = result.to_numpy()
-        return result
+            return result.to_numpy()
+
+        return result.set_index("bin_id")
 
     @staticmethod
     @fmt_docstring
