@@ -3,6 +3,7 @@ grdhisteq - Perform histogram equalization for a grid.
 """
 import warnings
 
+import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -138,7 +139,15 @@ class grdhisteq:  # pylint: disable=invalid-name
             return load_dataarray(tmpfile.name)
 
         result = pd.read_csv(
-            kwargs["D"], sep="\t", header=None, names=["start", "stop", "bin_id"]
+            filepath_or_buffer=kwargs["D"],
+            sep="\t",
+            header=None,
+            names=["start", "stop", "bin_id"],
+            dtype={
+                "start": np.float32,
+                "stop": np.float32,
+                "bin_id": np.uint8 if kwargs["C"] < 256 else np.uint32,
+            },
         )
         if output_type == "numpy":
             result = result.to_numpy()

@@ -48,7 +48,7 @@ def fixture_df_result():
     return pd.DataFrame(
         data=np.array([[345.5, 519.5, 0], [519.5, 726.5, 1]]),
         columns=["start", "stop", "bin_id"],
-    ).astype({"start": np.float64, "stop": np.float64, "bin_id": np.int64})
+    ).astype({"start": np.float32, "stop": np.float32, "bin_id": np.uint8})
 
 
 def test_equalize_grid_outgrid_file(grid, expected_grid, region):
@@ -98,6 +98,10 @@ def test_compute_bins_outfile(grid, expected_df, region):
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)
         temp_df = pd.read_csv(
-            tmpfile.name, sep="\t", header=None, names=["start", "stop", "bin_id"]
+            filepath_or_buffer=tmpfile.name,
+            sep="\t",
+            header=None,
+            names=["start", "stop", "bin_id"],
+            dtype={"start": np.float32, "stop": np.float32, "bin_id": np.uint8},
         )
         pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
