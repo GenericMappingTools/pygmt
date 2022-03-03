@@ -46,14 +46,10 @@ def fixture_df_result():
     """
     Load the expected grdhisteq table result.
     """
-    return (
-        pd.DataFrame(
-            data=np.array([[345.5, 519.5, 0], [519.5, 726.5, 1]]),
-            columns=["start", "stop", "bin_id"],
-        )
-        .astype({"start": np.float32, "stop": np.float32, "bin_id": np.uint32})
-        .set_index("bin_id")
-    )
+    return pd.DataFrame(
+        data=np.array([[345.5, 519.5, 0], [519.5, 726.5, 1]]),
+        columns=["start", "stop", "bin_id"],
+    ).astype({"start": np.float32, "stop": np.float32, "bin_id": np.uint32})
 
 
 def test_equalize_grid_outgrid_file(grid, expected_grid, region):
@@ -89,7 +85,18 @@ def test_compute_bins_no_outfile(grid, expected_df, region):
     """
     temp_df = grdhisteq.compute_bins(grid=grid, divisions=2, region=region)
     assert isinstance(temp_df, pd.DataFrame)
-    pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
+    pd.testing.assert_frame_equal(left=temp_df, right=expected_df.set_index("bin_id"))
+
+
+def test_compute_bins_ndarray_output(grid, expected_df, region):
+    """
+    Test grdhisteq.compute_bins with "numpy" output type.
+    """
+    temp_array = grdhisteq.compute_bins(
+        grid=grid, divisions=2, region=region, output_type="numpy"
+    )
+    assert isinstance(temp_array, np.ndarray)
+    np.testing.assert_allclose(temp_array, expected_df.to_numpy())
 
 
 def test_compute_bins_outfile(grid, expected_df, region):
@@ -114,7 +121,9 @@ def test_compute_bins_outfile(grid, expected_df, region):
             dtype={"start": np.float32, "stop": np.float32, "bin_id": np.uint32},
             index_col="bin_id",
         )
-        pd.testing.assert_frame_equal(left=temp_df, right=expected_df)
+        pd.testing.assert_frame_equal(
+            left=temp_df, right=expected_df.set_index("bin_id")
+        )
 
 
 def test_compute_bins_invalid_format(grid):
