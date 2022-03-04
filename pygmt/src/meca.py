@@ -6,14 +6,7 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    dummy_context,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 def data_format_code(convention, component="full"):
@@ -160,17 +153,14 @@ def meca(
         proportional to the magnitude. Scale defines the size for magnitude = 5
         (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
     longitude: int, float, list, or 1d numpy array
-        Longitude(s) of event location. Ignored if `spec` is not a dictionary.
-        List must be the length of the number of events. Ignored if `spec` is a
-        DataFrame and contains a 'longitude' column.
+        Longitude(s) of event location. Will override the longitudes in ``spec``
+        if ``spec`` is a dict or DataFrame.
     latitude: int, float, list, or 1d numpy array
-        Latitude(s) of event location. Ignored if `spec` is not a dictionary.
-        List must be the length of the number of events. Ignored if `spec` is a
-        DataFrame and contains a 'latitude' column.
+        Latitude(s) of event location. Will override the latitudes in ``spec``
+        if ``spec`` is a dict or DataFrame.
     depth: int, float, list, or 1d numpy array
-        Depth(s) of event location in kilometers. Ignored if `spec` is not a
-        dictionary. List must be the length of the number of events. Ignored if
-        `spec` is a DataFrame and contains a 'depth' column.
+        Depth(s) of event location in kilometers. Will override the depths in
+        ``spec`` if ``spec`` is a dict or DataFrame.
     convention: str
         ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"`` (seismic
         moment tensor), ``"partial"`` (partial focal mechanism), or
@@ -181,13 +171,13 @@ def meca(
         full seismic moment tensor), ``"dc"`` (the closest double couple with
         zero trace and zero determinant), ``"deviatoric"`` (zero trace)
     plot_longitude: int, float, list, or 1d numpy array
-        Longitude(s) at which to place beachball, only used if `spec` is a
-        dictionary. List must be the length of the number of events. Ignored if
-        `spec` is a DataFrame and contains a 'plot_longitude' column.
+        Longitude(s) at which to place beachball. List must be the length of the
+        number of events. Will override the plot_longitude in ``spec`` if
+        ``spec`` is a dict or DataFrame
     plot_latitude: int, float, list, or 1d numpy array
-        Latitude(s) at which to place beachball, only used if `spec` is a
-        dictionary. List must be the length of the number of events. Ignored if
-        `spec` is a DataFrame and contains a 'plot_latitude' column.
+        Latitude(s) at which to place beachball. List must be the length of the
+        number of events. Will override the plot_latideu in ``spec`` if ``spec``
+        is a dict or DataFrame.
     offset: bool or str
         Offsets beachballs to the longitude, latitude specified in the last two
         columns of the input file or array, or by `plot_longitude` and
@@ -208,48 +198,11 @@ def meca(
     {t}
     """
 
-    # pylint warnings that need to be fixed
-    # pylint: disable=too-many-locals
-    # pylint: disable=too-many-nested-blocks
-    # pylint: disable=too-many-branches
-    # pylint: disable=too-many-statements
-
-    def set_pointer(data_pointers, spec):
-        """
-        Set optional parameter pointers based on DataFrame or dict, if those
-        parameters are present in the DataFrame or dict.
-        """
-        for param in list(data_pointers):
-            if param in spec:
-                # set pointer based on param name
-                data_pointers[param] = spec[param]
-
-    def update_pointers(data_pointers):
-        """
-        Updates variables based on the location of data, as the following data
-        can be passed as parameters or it can be contained in `spec`.
-        """
-        # update all pointers
-        longitude = data_pointers["longitude"]
-        latitude = data_pointers["latitude"]
-        depth = data_pointers["depth"]
-        plot_longitude = data_pointers["plot_longitude"]
-        plot_latitude = data_pointers["plot_latitude"]
-        return (longitude, latitude, depth, plot_longitude, plot_latitude)
-
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    # Check the spec and parse the data according to the specified
-    # convention
     if isinstance(spec, (dict, pd.DataFrame)):
-        # dicts and DataFrames are handed similarly but not identically
-        if (longitude is None or latitude is None or depth is None) and not isinstance(
-            spec, (dict, pd.DataFrame)
-        ):
-            raise GMTError("Location not fully specified.")
-
         param_conventions = {
-            "AKI": ["strike", "dip", "rake", "magnitude"],
-            "GCMT": [
+            "aki": ["strike", "dip", "rake", "magnitude"],
+            "gcmt": [
                 "strike1",
                 "dip1",
                 "rake1",
@@ -259,9 +212,9 @@ def meca(
                 "mantissa",
                 "exponent",
             ],
-            "MT": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
-            "PARTIAL": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-            "PRINCIPAL_AXIS": [
+            "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
+            "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
+            "pricipal_axis": [
                 "t_exponent",
                 "t_azimuth",
                 "t_plunge",
@@ -274,195 +227,58 @@ def meca(
                 "exponent",
             ],
         }
-
-        # to keep track of where optional parameters exist
-        data_pointers = {
-            "longitude": longitude,
-            "latitude": latitude,
-            "depth": depth,
-            "plot_longitude": plot_longitude,
-            "plot_latitude": plot_latitude,
-        }
-
-        # make a DataFrame copy to check convention if it contains other params
-        # check if a copy is necessary
-        copy = False
-        drop_list = []
-        for pointer in data_pointers:
-            if pointer in spec:
-                copy = True
-                drop_list.append(pointer)
-        if copy:
-            spec_conv = spec.copy()
-            # delete optional parameters from copy for convention check
-            for item in drop_list:
-                del spec_conv[item]
-        else:
-            spec_conv = spec
-
-        # set convention and focal parameters based on spec convention
-        for conv in list(param_conventions):
-            if set(spec_conv) == set(param_conventions[conv]):
-                convention = conv.lower()
-                foc_params = param_conventions[conv]
+        # determine the convention based on dict keys
+        for conv, paras in param_conventions.items():
+            if set(paras).issubset(set(spec.keys())):
+                convention = conv
                 break
-        else:  # if there is no convention assigned
+        else:
             raise GMTError(
                 "Parameters in spec dictionary do not match known conventions."
             )
 
-        # create a dict type pointer for easier to read code
-        if isinstance(spec, dict):
-            dict_type_pointer = list(spec.values())[0]
-        elif isinstance(spec, pd.DataFrame):
-            # use df.values as pointer for DataFrame behavior
-            dict_type_pointer = spec.values
+        # prepare for input arrays
+        # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude] [labels]
+        arrays = []
+        # a temporary dict for event locations
+        loc_spec = {
+            "longitude": longitude if longitude is not None else spec["longitude"],
+            "latitude": latitude if latitude is not None else spec["latitude"],
+            "depth": depth if depth is not None else spec["depth"],
+        }
+        # a temporary dict for plotting beachballs
+        plotloc_spec = {
+            "plot_longtiude": plot_longitude if plot_longitude is not None else spec.get("plot_longitude", None),
+            "plot_latitude": plot_latitude if plot_latitude is not None else spec.get("plot_latitude", None),
+        }
+        # reset the plotloc_spec dict to empty if no plotting locations are given
+        if not all(plotloc_spec.values()):
+            plotloc_spec = {}
 
-        # assemble the 1D array for the case of floats and ints as values
-        if isinstance(dict_type_pointer, (int, float)):
-            # update pointers
-            set_pointer(data_pointers, spec)
-            # look for optional parameters in the right place
-            (
-                longitude,
-                latitude,
-                depth,
-                plot_longitude,
-                plot_latitude,
-            ) = update_pointers(data_pointers)
+        # location arrays
+        arrays.extend(np.atleast_1d(value) for param, value in loc_spec.items())
+        # focal parameter arrays
+        arrays.extend(
+            np.atleast_1d(spec[param]) for param in param_conventions[convention]
+        )
+        # plotting location arrays if given
+        arrays.extend(np.atleast_1d(value) for param, value in plotloc_spec.items())
+        # TODO: label arrays
+        # transpose the 2D array
+        spec = np.atleast_2d(arrays).T
 
-            # Construct the array (order matters)
-            spec = [longitude, latitude, depth] + [spec[key] for key in foc_params]
-
-            # Add in plotting options, if given, otherwise add 0s
-            for arg in plot_longitude, plot_latitude:
-                if arg is None:
-                    spec.append(0)
-                else:
-                    if "A" not in kwargs:
-                        kwargs["A"] = True
-                    spec.append(arg)
-
-        # or assemble the 2D array for the case of lists as values
-        elif isinstance(dict_type_pointer, list):
-            # update pointers
-            set_pointer(data_pointers, spec)
-            # look for optional parameters in the right place
-            (
-                longitude,
-                latitude,
-                depth,
-                plot_longitude,
-                plot_latitude,
-            ) = update_pointers(data_pointers)
-
-            # before constructing the 2D array lets check that each key
-            # of the dict has the same quantity of values to avoid bugs
-            list_length = len(list(spec.values())[0])
-            for value in list(spec.values()):
-                if len(value) != list_length:
-                    raise GMTError(
-                        "Unequal number of focal mechanism "
-                        "parameters supplied in 'spec'."
-                    )
-                # lets also check the inputs for longitude, latitude,
-                # and depth if it is a list or array
-                if (
-                    isinstance(longitude, (list, np.ndarray))
-                    or isinstance(latitude, (list, np.ndarray))
-                    or isinstance(depth, (list, np.ndarray))
-                ):
-                    if (len(longitude) != len(latitude)) or (
-                        len(longitude) != len(depth)
-                    ):
-                        raise GMTError(
-                            "Unequal number of focal mechanism " "locations supplied."
-                        )
-
-            # values are ok, so build the 2D array
-            spec_array = []
-            for index in range(list_length):
-                # Construct the array one row at a time (note that order
-                # matters here, hence the list comprehension!)
-                row = [longitude[index], latitude[index], depth[index]] + [
-                    spec[key][index] for key in foc_params
-                ]
-
-                # Add in plotting options, if given, otherwise add 0s as
-                # required by GMT
-                for arg in plot_longitude, plot_latitude:
-                    if arg is None:
-                        row.append(0)
-                    else:
-                        if "A" not in kwargs:
-                            kwargs["A"] = True
-                        row.append(arg[index])
-                spec_array.append(row)
-            spec = spec_array
-
-        # or assemble the array for the case of pd.DataFrames
-        elif isinstance(dict_type_pointer, np.ndarray):
-            # update pointers
-            set_pointer(data_pointers, spec)
-            # look for optional parameters in the right place
-            (
-                longitude,
-                latitude,
-                depth,
-                plot_longitude,
-                plot_latitude,
-            ) = update_pointers(data_pointers)
-
-            # lets also check the inputs for longitude, latitude, and depth
-            # just in case the user entered different length lists
-            if (
-                isinstance(longitude, (list, np.ndarray))
-                or isinstance(latitude, (list, np.ndarray))
-                or isinstance(depth, (list, np.ndarray))
-            ):
-                if (len(longitude) != len(latitude)) or (len(longitude) != len(depth)):
-                    raise GMTError(
-                        "Unequal number of focal mechanism locations supplied."
-                    )
-
-            # values are ok, so build the 2D array in the correct order
-            spec_array = []
-            for index in range(len(spec)):
-                # Construct the array one row at a time (note that order
-                # matters here, hence the list comprehension!)
-                row = [longitude[index], latitude[index], depth[index]] + [
-                    spec[key][index] for key in foc_params
-                ]
-
-                # Add in plotting options, if given, otherwise add 0s as
-                # required by GMT
-                for arg in plot_longitude, plot_latitude:
-                    if arg is None:
-                        row.append(0)
-                    else:
-                        if "A" not in kwargs:
-                            kwargs["A"] = True
-                        row.append(arg[index])
-                spec_array.append(row)
-            spec = spec_array
-
-        else:
-            raise GMTError("Parameter 'spec' contains values of an unsupported type.")
+    # Convert 1d array types into 2d arrays
+    if isinstance(spec, np.ndarray) and spec.ndim == 1:
+        spec = np.atleast_2d(spec)
 
     # determine data_foramt from convection and component
     data_format = data_format_code(convention=convention, component=component)
 
     # Assemble -S flag
     kwargs["S"] = data_format + scale
-
-    kind = data_kind(spec)
     with Session() as lib:
-        if kind == "matrix":
-            file_context = lib.virtualfile_from_matrix(np.atleast_2d(spec))
-        elif kind == "file":
-            file_context = dummy_context(spec)
-        else:
-            raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
+        # Choose how data will be passed into the module
+        file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
             lib.call_module("meca", arg_str)
