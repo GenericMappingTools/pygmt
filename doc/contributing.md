@@ -630,15 +630,15 @@ summarized as follows:
     mv baseline/*.png pygmt/tests/baseline/
 
     # Generate hash for baseline image and stage the *.dvc file in git
-    git rm -r --cached 'pygmt/tests/baseline/test_logo.png'  # only run if migrating existing image from git to dvc
     dvc status  # check which files need to be added to dvc
     dvc add pygmt/tests/baseline/test_logo.png
     git add pygmt/tests/baseline/test_logo.png.dvc
 
     # Commit changes and push to both the git and dvc remotes
     git commit -m "Add test_logo.png into DVC"
+    dvc status --remote upstream  # Report which files will be pushed to the dvc remote
+    dvc push  # Run before git push to enable automated testing with the new images
     git push
-    dvc push
 
 #### Using check_figures_equal
 
