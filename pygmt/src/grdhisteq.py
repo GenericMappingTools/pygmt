@@ -24,7 +24,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     Two common use cases of :meth:`pygmt.grdhisteq` are to find data values
     that divide a grid into patches of equal area
     (:meth:`pygmt.grdhisteq.compute_bins`) or to write a grid with
-    statistics based on some kind of cumulative distribution function using
+    statistics based on some kind of cumulative distribution function
     (:meth:`pygmt.grdhisteq.equalize_grid`).
 
     Histogram equalization provides a way to highlight data that has most
@@ -58,6 +58,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         N="gaussian",
         Q="quadratic",
         V="verbose",
+        h="header",
     )
     @kwargs_to_strings(R="sequence")
     def _grdhisteq(grid, output_type=None, tmpfile=None, **kwargs):
@@ -109,6 +110,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         {R}
         {V}
+        {h}
 
         Returns
         -------
