@@ -104,13 +104,14 @@ def test_compute_bins_outfile(grid, expected_df, region):
     Test grdhisteq.compute_bins with ``outfile``.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
-        result = grdhisteq.compute_bins(
-            grid=grid,
-            divisions=2,
-            region=region,
-            outfile=tmpfile.name,
-            output_type="file",
-        )
+        with pytest.warns(RuntimeWarning) as record:
+            result = grdhisteq.compute_bins(
+                grid=grid,
+                divisions=2,
+                region=region,
+                outfile=tmpfile.name,
+            )
+            assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)
         temp_df = pd.read_csv(
