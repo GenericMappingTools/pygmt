@@ -636,8 +636,8 @@ summarized as follows:
 
     # Commit changes and push to both the git and dvc remotes
     git commit -m "Add test_logo.png into DVC"
-    dvc status --remote upstream # Report which files will be pushed to the dvc remote
-    dvc push # Run before git push to enable automated testing with the new images
+    dvc status --remote upstream  # Report which files will be pushed to the dvc remote
+    dvc push  # Run before git push to enable automated testing with the new images
     git push
 
 #### Using check_figures_equal
