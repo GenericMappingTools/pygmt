@@ -1,4 +1,4 @@
 outs:
-- md5: 48b05c4fcd3b16277ae94a310af2f5ce
-  size: 46070
+- md5: b2db2a4e6d14b53ac960abd87aacb488
+  size: 38017
   path: test_grdview_with_perspective_and_zsize.png

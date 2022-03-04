@@ -92,6 +92,15 @@ def grdlandmask(**kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Create a landmask grid with an x-range of 125 to 130,
+    >>> # and a y-range of 30 to 35
+    >>> landmask = pygmt.grdlandmask(
+    ...     spacing=1, region=[125, 130, 30, 35]
+    ... )  # doctest: +SKIP
     """
     if "I" not in kwargs or "R" not in kwargs:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")

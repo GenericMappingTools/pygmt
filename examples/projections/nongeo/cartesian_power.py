@@ -13,7 +13,7 @@ import pygmt
 # Create a list of y values 0-10
 yvalues = np.arange(0, 11)
 # Create a list of x-values that are the square of the y-values
-xvalues = yvalues ** 2
+xvalues = yvalues**2
 
 fig = pygmt.Figure()
 fig.plot(

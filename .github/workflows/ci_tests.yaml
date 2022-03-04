@@ -15,7 +15,6 @@ on:
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
-      - '.pylintrc'
   release:
     types:
       - published
@@ -44,14 +43,14 @@ jobs:
           # - os: ubuntu-latest
           #   python-version: 3.7
           #   isDraft: true
-        # Pair Python 3.8 with NumPy 1.19 and Python 3.9 with NumPy 1.21
-        # Only install optional packages on Python 3.9/NumPy 1.21
+        # Pair Python 3.8 with NumPy 1.19 and Python 3.9 with NumPy 1.22
+        # Only install optional packages on Python 3.9/NumPy 1.22
         include:
           - python-version: '3.8'
             numpy-version: '1.19'
             optional-packages: ''
           - python-version: '3.9'
-            numpy-version: '1.21'
+            numpy-version: '1.22'
             optional-packages: 'geopandas ipython'
     timeout-minutes: 30
     defaults:
@@ -73,7 +72,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.0
         with:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
@@ -106,7 +105,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.16.0
+        uses: dawidd6/action-download-artifact@v2.17.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -125,7 +124,7 @@ jobs:
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
         run: |
-          dvc pull
+          dvc pull --verbose
           ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test

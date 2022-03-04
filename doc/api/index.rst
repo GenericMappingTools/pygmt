@@ -126,8 +126,8 @@ Operations on tabular data
     surface
     xyz2grd
 
-Operations on grids
-~~~~~~~~~~~~~~~~~~~
+Operations on raster data
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -210,8 +210,10 @@ and store them in the GMT cache folder.
 .. autosummary::
     :toctree: generated
 
+    datasets.list_sample_data
     datasets.load_earth_age
     datasets.load_earth_relief
+    datasets.load_sample_data
     datasets.load_fractures_compilation
     datasets.load_hotspots
     datasets.load_japan_quakes
@@ -256,7 +258,7 @@ Most calls to the C API happen through the :class:`pygmt.clib.Session` class.
 
     clib.Session
 
-`GMT modules <https://docs.generic-mapping-tools.org/latest/modules.html>`__ are executed through
+:gmt-docs:`GMT modules <modules.html>` are executed through
 the :meth:`~pygmt.clib.Session.call_module` method:
 
 .. autosummary::
