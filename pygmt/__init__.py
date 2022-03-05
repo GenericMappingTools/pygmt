@@ -19,8 +19,7 @@ Here are just a few of the things that PyGMT does well:
 """
 
 import atexit as _atexit
-
-from pkg_resources import get_distribution
+from importlib.metadata import version
 
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
@@ -63,7 +62,7 @@ from pygmt.src import (
 )
 
 # Get semantic version through setuptools-scm
-__version__ = f'v{get_distribution("pygmt").version}'  # e.g. v0.1.2.dev3+g0ab3cd78
+__version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
 __commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 # Start our global modern mode session
@@ -79,7 +78,7 @@ def print_clib_info():
     Includes the GMT version, default values for parameters, the path to the
     ``libgmt`` shared library, and GMT directories.
     """
-    from pygmt.clib import Session
+    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
 
     lines = ["GMT library information:"]
     with Session() as ses:
@@ -95,10 +94,10 @@ def show_versions():
 
     - PyGMT itself
     - System information (Python version, Operating System)
-    - Core dependency versions (Numpy, Pandas, Xarray, etc)
+    - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
     """
-
+    # pylint: disable=import-outside-toplevel
     import importlib
     import platform
     import subprocess
@@ -135,10 +134,9 @@ def show_versions():
 
         for gs_cmd in cmds:
             try:
-                version = subprocess.check_output(
+                return subprocess.check_output(
                     [gs_cmd, "--version"], universal_newlines=True
                 ).strip()
-                return version
             except FileNotFoundError:
                 continue
         return None
@@ -148,10 +146,9 @@ def show_versions():
         Get GMT version.
         """
         try:
-            version = subprocess.check_output(
+            return subprocess.check_output(
                 ["gmt", "--version"], universal_newlines=True
             ).strip()
-            return version
         except FileNotFoundError:
             return None
 
@@ -209,7 +206,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
         If pytest returns a non-zero error code indicating that some tests have
         failed.
     """
-    import pytest
+    import pytest  # pylint: disable=import-outside-toplevel
 
     show_versions()
 

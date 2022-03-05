@@ -70,6 +70,7 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
 @use_alias(
     I="spacing",
     R="region",
+    S="summary",
     V="verbose",
     a="aspatial",
     b="binary",
@@ -111,6 +112,15 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     {I}
 
+    summary : str
+        [**m**\|\ **n**\|\ **s**\|\ **w**].
+        Type of summary values calculated by blockmean.
+
+        - **m** - reports mean value [Default]
+        - **n** - report the number of input points inside each block
+        - **s** - report the sum of all z-values inside a block
+        - **w** - report the sum of weights
+
     {R}
 
     outfile : str
@@ -137,6 +147,18 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
           is not set.
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``).
+
+    Example
+    -------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> data = pygmt.datasets.load_sample_data(
+    ...     name="bathymetry"
+    ... )  # doctest: +SKIP
+    >>> # Calculate block mean values within 5 by 5 minute bins
+    >>> data_bmean = pygmt.blockmean(
+    ...     data=data, region=[245, 255, 20, 30], spacing="5m"
+    ... )  # doctest: +SKIP
     """
     return _blockm(
         block_method="blockmean", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
@@ -215,6 +237,18 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
           is not set.
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``).
+
+    Example
+    -------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> data = pygmt.datasets.load_sample_data(
+    ...     name="bathymetry"
+    ... )  # doctest: +SKIP
+    >>> # Calculate block median values within 5 by 5 minute bins
+    >>> data_bmedian = pygmt.blockmedian(
+    ...     data=data, region=[245, 255, 20, 30], spacing="5m"
+    ... )  # doctest: +SKIP
     """
     return _blockm(
         block_method="blockmedian", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
@@ -293,6 +327,18 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
           is not set.
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``).
+
+    Example
+    -------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> data = pygmt.datasets.load_sample_data(
+    ...     name="bathymetry"
+    ... )  # doctest: +SKIP
+    >>> # Calculate block mode values within 5 by 5 minute bins
+    >>> data_bmode = pygmt.blockmode(
+    ...     data=data, region=[245, 255, 20, 30], spacing="5m"
+    ... )  # doctest: +SKIP
     """
     return _blockm(
         block_method="blockmode", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs

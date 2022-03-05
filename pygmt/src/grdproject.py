@@ -95,14 +95,29 @@ def grdproject(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )  # doctest: +SKIP
+    >>> # Create a new grid from the input grid, set the projection to
+    >>> # Mercator, and set inverse to "True" to change from "geographic"
+    >>> # to "rectangular"
+    >>> new_grid = pygmt.grdproject(
+    ...     grid=grid, projection="M10c", inverse=True
+    ... )  # doctest: +SKIP
     """
-    if "J" not in kwargs.keys():
+    if "J" not in kwargs:
         raise GMTInvalidInput("The projection must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
+                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
