@@ -4,10 +4,14 @@ Test Figure.grdimage.
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -73,6 +77,11 @@ def test_grdimage_slice(grid):
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=gmt_version > Version("6.3.0"),
+    reason="Grid extension bug affects baseline image; "
+    "fixed in https://github.com/GenericMappingTools/gmt/pull/6175.",
+)
 def test_grdimage_file():
     """
     Plot an image using file input.
@@ -125,10 +134,10 @@ def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
-        grid="@earth_relief_01d_g", region="GL", cmap="geo", shading=xrgrid, verbose="i"
+        grid="@earth_relief_01d_g", region="GL", cmap="geo", shading=xrgrid
     )
     fig_ref.colorbar()
-    fig_test.grdimage(grid=grid, region="GL", cmap="geo", shading=xrgrid, verbose="i")
+    fig_test.grdimage(grid=grid, region="GL", cmap="geo", shading=xrgrid)
     fig_test.colorbar()
     return fig_ref, fig_test
 

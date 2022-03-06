@@ -2,12 +2,20 @@
 Tests for legend.
 """
 import pytest
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
+
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=gmt_version > Version("6.3.0"),
+    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
+)
 def test_legend_position():
     """
     Test that plots a position with each of the four legend coordinate systems.
@@ -23,6 +31,10 @@ def test_legend_position():
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=gmt_version > Version("6.3.0"),
+    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
+)
 def test_legend_default_position():
     """
     Test using the default legend position.
@@ -39,6 +51,10 @@ def test_legend_default_position():
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=gmt_version > Version("6.3.0"),
+    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
+)
 def test_legend_entries():
     """
     Test different marker types/shapes.
@@ -60,6 +76,10 @@ def test_legend_entries():
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    condition=gmt_version > Version("6.3.0"),
+    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
+)
 def test_legend_specfile():
     """
     Test specfile functionality.
