@@ -55,10 +55,10 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
     """
     if "F" not in kwargs:
-        raise GMTInvalidInput("""Pass a required argument to 'filter'.""")
+        raise GMTInvalidInput("Pass a required argument to 'filter'.")
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
-            """Must specify format as either numpy, pandas, or file."""
+            "Must specify format as either numpy, pandas, or file."
         )
     if outfile is not None and output_type != "file":
         msg = (
@@ -69,7 +69,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
         warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"
     elif output_type == "file" and outfile is None:
-        raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
+        raise GMTInvalidInput("Must specify outfile for ASCII output.")
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
