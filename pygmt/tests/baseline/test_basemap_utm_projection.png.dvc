@@ -1,0 +1,4 @@
+outs:
+- md5: e6984efed2a94673754cc7f1f1d74832
+  size: 9069
+  path: test_basemap_utm_projection.png

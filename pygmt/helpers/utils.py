@@ -131,6 +131,11 @@ def build_arg_string(kwargs):
     same command line argument. For example, the kwargs entry ``'B': ['xa',
     'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
 
+    Note that spaces ` ` in arguments are converted to the equivalent octal
+    code `\040`, except in the case of -J (projection) arguments where PROJ4
+    strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
+    See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
+
     Parameters
     ----------
     kwargs : dict
@@ -151,7 +156,7 @@ def build_arg_string(kwargs):
     ...             A=True,
     ...             B=False,
     ...             E=200,
-    ...             J="X4c",
+    ...             J="+proj=longlat +datum=WGS84",
     ...             P="",
     ...             R="1/2/3/4",
     ...             X=None,
@@ -160,7 +165,7 @@ def build_arg_string(kwargs):
     ...         )
     ...     )
     ... )
-    -A -E200 -JX4c -P -R1/2/3/4 -Z0
+    -A -E200 -J+proj=longlat+datum=WGS84 -P -R1/2/3/4 -Z0
     >>> print(
     ...     build_arg_string(
     ...         dict(
@@ -196,7 +201,12 @@ def build_arg_string(kwargs):
         elif kwargs[key] is True:
             gmt_args.append(f"-{key}")
         else:
-            _value = str(kwargs[key]).replace(" ", r"\040")
+            if key != "J":  # non-projection parameters
+                _value = str(kwargs[key]).replace(" ", r"\040")
+            else:
+                # special handling if key == "J" (projection)
+                # remove any spaces in PROJ4 string
+                _value = str(kwargs[key]).replace(" ", "")
             gmt_args.append(rf"-{key}{_value}")
     return " ".join(sorted(gmt_args))
 
