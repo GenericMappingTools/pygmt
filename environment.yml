@@ -13,22 +13,25 @@ dependencies:
     - packaging
     # Optional dependencies
     - geopandas
-    # Development dependencies
+    # Development dependencies (general)
+    - dvc
+    - ipython
+    - jupyter
+    - make
+    # Dev dependencies (style checks)
     - black
     - blackdoc
     - docformatter
-    - dvc
     - flake8
-    - ipython
     - isort>=5
-    - jupyter
-    - make
-    - matplotlib
-    - myst-parser
     - pylint
+    # Dev dependencies (unit testing)
+    - matplotlib
     - pytest-cov
     - pytest-mpl
     - pytest>=6.0
+    # Dev dependencies (building documentation)
+    - myst-parser
     - sphinx
     - sphinx-copybutton
     - sphinx-gallery
