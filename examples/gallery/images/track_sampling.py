@@ -18,7 +18,7 @@ import pygmt
 
 # Load sample grid and point datasets
 grid = pygmt.datasets.load_earth_relief()
-points = pygmt.datasets.load_ocean_ridge_points()
+points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
 # Sample the bathymetry along the world's ocean ridges at specified track
 # points
 track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")

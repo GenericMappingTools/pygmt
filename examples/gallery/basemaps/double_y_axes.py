@@ -23,7 +23,7 @@ import pygmt
 # Generate two sample Y data from one common X data
 x = np.linspace(1.0, 9.0, num=9)
 y1 = x
-y2 = x ** 2 + 110
+y2 = x**2 + 110
 
 fig = pygmt.Figure()
 
