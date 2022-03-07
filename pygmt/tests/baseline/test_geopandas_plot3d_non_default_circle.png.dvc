@@ -1,4 +1,4 @@
 outs:
-- md5: 54cdcd316554c9db4d71cc2bea2a690a
-  size: 12028
+- md5: 3fd9e478dcd4b632a989c99d308e2b52
+  size: 11989
   path: test_geopandas_plot3d_non_default_circle.png
