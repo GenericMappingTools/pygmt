@@ -27,6 +27,7 @@ dependencies:
     - myst-parser
     - pylint
     - pytest-cov
+    - pytest-doctestplus
     - pytest-mpl
     - pytest>=6.0
     - sphinx
