@@ -77,7 +77,7 @@ def test_basemap_winkel_tripel():
 @pytest.mark.parametrize(
     "projection",
     [
-        "EPSG꞉32723 +width=5",
+        "EPSG_32723 +width=5",
         "+proj=utm +zone=23 +south +datum=WGS84 +units=m +no_defs +width=5",
     ],
 )
@@ -89,7 +89,7 @@ def test_basemap_utm_projection(projection):
     works.
     """
     projection = projection.replace(
-        "EPSG꞉", "EPSG:"  # workaround Windows not allowing colons in filenames
+        "EPSG_", "EPSG:"  # workaround Windows not allowing colons in filenames
     )
     fig = Figure()
     fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")
