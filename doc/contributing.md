@@ -208,7 +208,7 @@ Run the following on the base of the repository to create a new conda
 environment from the `environment.yml` file:
 
 ```bash
-conda env create
+conda env create --file environment.yml
 ```
 
 Before building and testing the project, you have to activate the environment
