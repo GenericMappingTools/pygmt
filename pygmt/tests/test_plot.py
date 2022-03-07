@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import Figure
+from pygmt import Figure, which
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -549,6 +549,8 @@ def test_plot_shapefile():
 
     See https://github.com/GenericMappingTools/pygmt/issues/1616.
     """
+    datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", "prj"]]
+    which(fname=datasets, download="a")
     fig = Figure()
     fig.plot(data="@RidgeTest.shp", pen="1p")
     return fig
