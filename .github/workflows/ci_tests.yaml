@@ -15,7 +15,6 @@ on:
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
-      - '.pylintrc'
   release:
     types:
       - published
@@ -73,7 +72,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.0
         with:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
@@ -106,7 +105,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.16.0
+        uses: dawidd6/action-download-artifact@v2.17.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
