@@ -61,7 +61,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         h="header",
     )
     @kwargs_to_strings(R="sequence")
-    def _grdhisteq(grid, output_type=None, tmpfile=None, **kwargs):
+    def _grdhisteq(grid, output_type=None, **kwargs):
         r"""
         Perform histogram equalization for a grid.
 
@@ -80,7 +80,10 @@ class grdhisteq:  # pylint: disable=invalid-name
             grid in.
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
-            histogram equalization in. Not allowed if ``outgrid`` is used.
+            histogram equalization in.
+        output_type: str
+            Determines the output type. Use "file", "xarray", "pandas", or
+            "numpy".
         divisions : int
             Set the number of divisions of the data range [Default is 16].
 
@@ -93,12 +96,11 @@ class grdhisteq:  # pylint: disable=invalid-name
         ret: pandas.DataFrame or xarray.DataArray or None
             Return type depends on whether the ``outgrid`` parameter is set:
 
-            - pandas.DataFrame if ``outfile`` is True
-            - xarray.DataArray if ``outgrid`` is True
-            - None if ``outgrid`` is a str (grid output is stored in
-              ``outgrid``)
-            - None if ``outfile`` is a str (file output is stored in
-              ``outfile``)
+            - xarray.DataArray if ``output_type`` is "xarray""
+            - numpy.ndarray if ``output_type`` is "numpy"
+            - pandas.DataFrame if ``output_type`` is "pandas"
+            - None if ``output_type`` is "file" (output is stored in
+              ``outgrid`` or ``outfile``)
 
         See Also
         -------
@@ -114,7 +116,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         if output_type == "file":
             return None
         if output_type == "xarray":
-            return load_dataarray(tmpfile.name)
+            return load_dataarray(kwargs["G"])
 
         result = pd.read_csv(
             filepath_or_buffer=kwargs["D"],
@@ -215,7 +217,6 @@ class grdhisteq:  # pylint: disable=invalid-name
             return grdhisteq._grdhisteq(
                 grid=grid,
                 output_type=output_type,
-                tmpfile=tmpfile,
                 outgrid=outgrid,
                 divisions=divisions,
                 region=region,
@@ -336,7 +337,6 @@ class grdhisteq:  # pylint: disable=invalid-name
             return grdhisteq._grdhisteq(
                 grid,
                 output_type=output_type,
-                tmpfile=tmpfile,
                 outfile=outfile,
                 divisions=divisions,
                 quadratic=quadratic,
