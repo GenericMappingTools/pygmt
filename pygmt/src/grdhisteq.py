@@ -16,6 +16,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["grdhisteq.*"]
+
 
 class grdhisteq:  # pylint: disable=invalid-name
     r"""
@@ -187,16 +189,14 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Example
         -------
-        >>> import pygmt  # doctest: +SKIP
+        >>> import pygmt
         >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to
         >>> # 30, and a y-range of 15 to 25
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
-        ... )  # doctest: +SKIP
+        ... )
         >>> # Create a new grid with a Gaussian data distribution
-        >>> grid = pygmt.grdhisteq.equalize_grid(
-        ...     grid=grid, gaussian=True
-        ... )  # doctest: +SKIP
+        >>> grid = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
 
         See Also
         -------
@@ -288,18 +288,16 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Example
         -------
-        >>> import pygmt  # doctest: +SKIP
+        >>> import pygmt
         >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to
         >>> # 30, and a y-range of 15 to 25
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
-        ... )  # doctest: +SKIP
+        ... )
         >>> # Find elevation intervals that splits the data range into 5
         >>> # divisions, each of which have an equal area in the original grid.
-        >>> bins = pygmt.grdhisteq.compute_bins(
-        ...     grid=grid, divisions=5
-        ... )  # doctest: +SKIP
-        >>> print(bins)  # doctest: +SKIP
+        >>> bins = pygmt.grdhisteq.compute_bins(grid=grid, divisions=5)
+        >>> print(bins)
                 start    stop
         bin_id
         0       179.0   397.5
