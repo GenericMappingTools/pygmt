@@ -65,30 +65,6 @@ class grdhisteq:  # pylint: disable=invalid-name
         r"""
         Perform histogram equalization for a grid.
 
-        Two common use cases of :meth:`pygmt.grdhisteq` are to find data values
-        that divide a grid into patches of equal area or to write a grid with
-        statistics based on some kind of cumulative distribution function.
-
-        Histogram equalization provides a way to highlight data that has most
-        values clustered in a small portion of the dynamic range, such as a
-        grid of flat topography with a mountain in the middle. Ordinary gray
-        shading of this grid (using :meth:`pygmt.Figure.grdimage` or
-        :meth:`pygmt.Figure.grdview`) with a linear mapping from topography to
-        graytone will result in most of the image being very dark gray, with
-        the mountain being almost white. :meth:`pygmt.grdhisteq` can provide a
-        list of data values that divide the data range into divisions which
-        have an equal area in the image [Default is 16 if ``divisions`` is not
-        set]. The :class:`pandas.DataFrame` or ASCII file output can be used to
-        make a colormap with :meth:`pygmt.makecpt` and an image with
-        :meth:`pygmt.Figure.grdimage` that has all levels of gray occuring
-        equally.
-
-        :meth:`pygmt.grdhisteq` also provides a way to write a grid with
-        statistics based on a cumulative distribution function. In this
-        application, the ``outgrid`` has relative highs and lows in the same
-        (x,y) locations as the ``grid``, but the values are changed to reflect
-        their place in the cumulative distribution.
-
         Must provide ``outfile`` or ``outgrid``.
 
         Full option list at :gmt-docs:`grdhisteq.html`
