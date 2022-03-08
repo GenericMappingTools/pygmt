@@ -178,18 +178,14 @@ def build_arg_string(kwargs):
     pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
     """
     gmt_args = []
-    # raise an exception for unrecognized options
+
     for key in kwargs:
-        if len(key) > 2:
+        if len(key) > 2:  # raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
-    # Exclude arguments that are None and False
-    filtered_kwargs = {
-        k: v for k, v in kwargs.items() if (v is not None and v is not False)
-    }
-    for key in filtered_kwargs:
-        if is_nonstr_iter(kwargs[key]):
-            for value in kwargs[key]:
-                gmt_args.append(f"-{key}{value}")
+        if kwargs[key] is None or kwargs[key] is False:
+            pass  # Exclude arguments that are None and False
+        elif is_nonstr_iter(kwargs[key]):
+            gmt_args.extend(f"-{key}{value}" for value in kwargs[key])
         elif kwargs[key] is True:
             gmt_args.append(f"-{key}")
         else:
