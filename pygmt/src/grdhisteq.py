@@ -236,6 +236,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         quadratic=None,
         verbose=None,
         region=None,
+        header=None,
     ):
         r"""
         Perform histogram equalization for a grid.
@@ -276,6 +277,7 @@ class grdhisteq:  # pylint: disable=invalid-name
             Perform quadratic equalization [Default is linear].
         {R}
         {V}
+        {h}
 
         Returns
         -------
@@ -340,4 +342,5 @@ class grdhisteq:  # pylint: disable=invalid-name
                 quadratic=quadratic,
                 verbose=verbose,
                 region=region,
+                header=header,
             )
