@@ -172,8 +172,16 @@ def build_arg_string(kwargs):
     ...     )
     ... )
     -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
+    >>> print(build_arg_string(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
     """
     gmt_args = []
+    # raise an exception for unrecognized options
+    for key in kwargs:
+        if len(key) > 2:
+            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
     # Exclude arguments that are None and False
     filtered_kwargs = {
         k: v for k, v in kwargs.items() if (v is not None and v is not False)
