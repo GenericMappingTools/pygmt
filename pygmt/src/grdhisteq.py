@@ -61,7 +61,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         h="header",
     )
     @kwargs_to_strings(R="sequence")
-    def _grdhisteq(grid, output_type=None, **kwargs):
+    def _grdhisteq(grid, output_type, **kwargs):
         r"""
         Perform histogram equalization for a grid.
 
