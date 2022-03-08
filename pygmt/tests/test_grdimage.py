@@ -77,11 +77,6 @@ def test_grdimage_slice(grid):
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Grid extension bug affects baseline image; "
-    "fixed in https://github.com/GenericMappingTools/gmt/pull/6175.",
-)
 def test_grdimage_file():
     """
     Plot an image using file input.
