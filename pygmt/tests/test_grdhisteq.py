@@ -133,3 +133,5 @@ def test_compute_bins_invalid_format(grid):
     """
     with pytest.raises(GMTInvalidInput):
         grdhisteq.compute_bins(grid=grid, output_type=1)
+    with pytest.raises(GMTInvalidInput):
+        grdhisteq.compute_bins(grid=grid, output_type="pandas", header="o+c")

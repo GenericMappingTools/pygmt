@@ -323,6 +323,9 @@ class grdhisteq:  # pylint: disable=invalid-name
                 "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
             )
 
+        if header is not None and output_type != "file":
+            raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
+
         if isinstance(outfile, str) and output_type != "file":
             msg = (
                 f"Changing 'output_type' from '{output_type}' to 'file' "
