@@ -2,7 +2,6 @@
 Tests plot3d.
 """
 import os
-import sys
 
 import numpy as np
 import pytest
@@ -334,10 +333,6 @@ def test_plot3d_matrix(data, region, color):
     return fig
 
 
-@pytest.mark.xfail(
-    condition=sys.platform == "win32",
-    reason="Wrong plot generated on Windows due to incorrect -i parameter parsing",
-)
 @pytest.mark.mpl_image_compare
 def test_plot3d_matrix_color(data, region):
     """
