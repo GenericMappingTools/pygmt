@@ -112,7 +112,7 @@ def dimfilter(grid, **kwargs):
         input data), filtering will be considerably slower. [Default: Same
         as input.]
     region : str or list
-        [*west*, *east*, *south*, *north*].
+        [*xmin*, *xmax*, *ymin*, *ymax*].
         Defines the region of the output points. [Default: Same as input.]
     {V}
 
@@ -127,14 +127,15 @@ def dimfilter(grid, **kwargs):
     """
     if ("D" not in kwargs) or ("F" not in kwargs) or ("N" not in kwargs):
         raise GMTInvalidInput(
-            """The following parameters are required: distance, filters, sectors"""
+            """At least one of the following parameters must be specified:
+            distance, filters, or sectors."""
         )
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs.keys():  # if outgrid is unset, output to tempfile
+                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
