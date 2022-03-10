@@ -189,12 +189,11 @@ def build_arg_string(kwargs):
     -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
     """
     gmt_args = []
-    # Exclude arguments that are None and False
-    filtered_kwargs = {
-        k: v for k, v in kwargs.items() if (v is not None and v is not False)
-    }
-    for key in filtered_kwargs:
-        if is_nonstr_iter(kwargs[key]):
+
+    for key in kwargs:
+        if kwargs[key] is None or kwargs[key] is False:
+            pass  # Exclude arguments that are None and False
+        elif is_nonstr_iter(kwargs[key]):
             for value in kwargs[key]:
                 _value = str(value).replace(" ", r"\040")
                 gmt_args.append(rf"-{key}{_value}")
