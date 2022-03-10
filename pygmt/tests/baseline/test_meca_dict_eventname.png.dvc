@@ -1,0 +1,4 @@
+outs:
+- md5: 81203f9e3a43ec235cf4b5068f928b56
+  size: 10689
+  path: test_meca_dict_eventname.png
