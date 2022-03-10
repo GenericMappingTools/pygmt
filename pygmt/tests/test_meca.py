@@ -241,3 +241,23 @@ def test_meca_gcmt_convention():
         frame=True,
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_dict_offset():
+    """
+    Test offsetting beachballs for a dict input.
+    """
+    fig = Figure()
+    focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+    fig.meca(
+        spec=focal_mechanism,
+        scale="1c",
+        longitude=-124,
+        latitude=48,
+        depth=12.0,
+        plot_longitude=-124.5,
+        plot_latitude=47.5,
+    )
+    return fig
