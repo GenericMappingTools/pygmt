@@ -26,8 +26,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     registration type (**p** for pixel registration or **g** for gridline
     registration).
 
-    Refer to :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`
-    for more details.
+    Refer to :gmt-datasets:`earth-relief.html` for more details.
 
     Parameters
     ----------

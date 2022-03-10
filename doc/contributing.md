@@ -192,15 +192,23 @@ It will make your life a lot easier!
 
 The repository includes a conda environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
+In particular, these are some of the key development dependencies you will need
+to install to build the documentation and run the unit tests locally:
+
+- git (for cloning the repo and tracking changes in code)
+- dvc (for downloading baseline images used in tests)
+- pytest-mpl (for checking that generated plots match the baseline)
+- sphinx-gallery (for building the gallery example page)
+
 See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/main/environment.yml)
-file for the list of dependencies and the environment name (`pygmt`).
+file for the full list of dependencies and the environment name (`pygmt`).
 Once you have forked and cloned the repository to your local machine, you can
 use this file to create an isolated environment on which you can work.
 Run the following on the base of the repository to create a new conda
 environment from the `environment.yml` file:
 
 ```bash
-conda env create
+conda env create --file environment.yml
 ```
 
 Before building and testing the project, you have to activate the environment
@@ -209,7 +217,6 @@ Before building and testing the project, you have to activate the environment
 ```bash
 conda activate pygmt
 ```
-
 
 We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 that provides commands for installing, running the tests and coverage analysis,
