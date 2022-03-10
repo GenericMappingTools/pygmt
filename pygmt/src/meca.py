@@ -112,6 +112,7 @@ def meca(
     component="full",
     plot_longitude=None,
     plot_latitude=None,
+    event_name=None,
     **kwargs,
 ):
     """
@@ -136,8 +137,8 @@ def meca(
         are supported; these determine the convention. Dictionary may contain
         values for a single focal mechanism or lists of values for many focal
         mechanisms. A Pandas DataFrame may optionally contain columns latitude,
-        longitude, depth, plot_longitude, and/or plot_latitude instead of
-        passing them to the meca method.
+        longitude, depth, plot_longitude, plot_latitude, and/or event_name
+        instead of passing them to the meca method.
 
         - ``"aki"`` — *strike, dip, rake, magnitude*
         - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,
@@ -243,21 +244,25 @@ def meca(
             spec["latitude"] = np.atleast_1d(latitude)
         if depth is not None:
             spec["depth"] = np.atleast_1d(depth)
-        if plot_longitude is not None:
+        if plot_longitude is not None:  # must be string type
             spec["plot_longitude"] = np.atleast_1d(plot_longitude).astype(str)
-        if plot_latitude is not None:
+        if plot_latitude is not None:  # must be string type
             spec["plot_latitude"] = np.atleast_1d(plot_latitude).astype(str)
+        if event_name is not None:
+            spec["event_name"] = np.atleast_1d(event_name).astype(str)
 
         # convert dict to DataFrame so columns can be reordered
         if isinstance(spec, dict):
             spec = pd.DataFrame(spec)
 
         # expected columns are:
-        # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude] [labels]
+        # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude] [event_name]
         newcols = ["longitude", "latitude", "depth"] + param_conventions[convention]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
             kwargs["A"] = True
+        if "event_name" in spec.columns:
+            newcols += ["event_name"]
         # reorder columns in DataFrame
         spec = spec.reindex(newcols, axis=1)
     elif isinstance(spec, np.ndarray) and spec.ndim == 1:
