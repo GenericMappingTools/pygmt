@@ -2,6 +2,9 @@
 meca - Plot focal mechanisms.
 """
 
+from contextlib import AbstractAsyncContextManager
+from pickle import NEWOBJ
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
@@ -237,38 +240,32 @@ def meca(
                 "Parameters in spec dictionary do not match known conventions."
             )
 
-        # prepare for input arrays
+        # override the values in dict/DataFrame if parameters are explicity specified
+        if longitude is not None:
+            spec["longitude"] = np.atleast_1d(longitude)
+        if latitude is not None:
+            spec["latitude"] = np.atleast_1d(latitude)
+        if depth is not None:
+            spec["depth"] = np.atleast_1d(depth)
+        if plot_longitude is not None:
+            spec["plot_longitude"] = np.atleast_1d(plot_longitude).astype(str)
+        if plot_latitude is not None:
+            spec["plot_latitude"] = np.atleast_1d(plot_latitude).astype(str)
+
+        # convert dict to DataFrame so columns can be reordered
+        if isinstance(spec, dict):
+            spec = pd.DataFrame(spec)
+
+        # expected columns are:
         # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude] [labels]
-        arrays = []
-        # a temporary dict for event locations
-        loc_spec = {
-            "longitude": longitude if longitude is not None else spec["longitude"],
-            "latitude": latitude if latitude is not None else spec["latitude"],
-            "depth": depth if depth is not None else spec["depth"],
-        }
-        # a temporary dict for plotting beachballs
-        plotloc_spec = {
-            "plot_longtiude": plot_longitude if plot_longitude is not None else spec.get("plot_longitude", None),
-            "plot_latitude": plot_latitude if plot_latitude is not None else spec.get("plot_latitude", None),
-        }
-        # reset the plotloc_spec dict to empty if no plotting locations are given
-        if not all(plotloc_spec.values()):
-            plotloc_spec = {}
-
-        # location arrays
-        arrays.extend(np.atleast_1d(value) for param, value in loc_spec.items())
-        # focal parameter arrays
-        arrays.extend(
-            np.atleast_1d(spec[param]) for param in param_conventions[convention]
-        )
-        # plotting location arrays if given
-        arrays.extend(np.atleast_1d(value) for param, value in plotloc_spec.items())
-        # TODO: label arrays
-        # transpose the 2D array
-        spec = np.atleast_2d(arrays).T
-
-    # Convert 1d array types into 2d arrays
-    if isinstance(spec, np.ndarray) and spec.ndim == 1:
+        newcols = ["longitude", "latitude", "depth"] + param_conventions[convention]
+        if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
+            newcols += ["plot_longitude", "plot_latitude"]
+            kwargs["A"] = True
+        # reorder columns in DataFrame
+        spec = spec.reindex(newcols, axis=1)
+    elif isinstance(spec, np.ndarray) and spec.ndim == 1:
+        # Convert 1d array types into 2d arrays
         spec = np.atleast_2d(spec)
 
     # determine data_foramt from convection and component
@@ -281,4 +278,5 @@ def meca(
         file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
         with file_context as fname:
             arg_str = " ".join([fname, build_arg_string(kwargs)])
+            print(arg_str)
             lib.call_module("meca", arg_str)
