@@ -1,10 +1,6 @@
 """
 meca - Plot focal mechanisms.
 """
-
-from contextlib import AbstractAsyncContextManager
-from pickle import NEWOBJ
-
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
