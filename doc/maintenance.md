@@ -87,6 +87,11 @@ There are 11 configuration files located in `.github/workflows`:
      Python/NumPy versions
    - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
 
+   This workflow is also responsible for uploading test coverage reports stored
+   in `.coverage.xml` to https://app.codecov.io/gh/GenericMappingTools/pygmt
+   via the [Codecov GitHub Action](https://github.com/codecov/codecov-action).
+   More codecov related configurations are stored in `.github/codecov.yml`.
+
 3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
    This is run on every commit to the *main* and Pull Request branches.
@@ -172,8 +177,8 @@ adjusted upward on every major and minor release, but never on a patch release.
 ## Backwards compatibility and deprecation policy
 
 PyGMT is still undergoing rapid development. All of the API is subject to change
-until the v1.0.0 release.
-
+until the v1.0.0 release. Versioning in PyGMT is based on the
+[semantic versioning specification](https://semver.org/spec/v2.0.0.html) (e.g. vMAJOR.MINOR.PATCH).
 Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
@@ -255,12 +260,16 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 7. Edit the list of people who contributed to the release, linking to their
    GitHub account. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
-8. Update `README.rst` with new information on the new release version, namely
-   the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
-   Python and GMT versions. Follow
+8. Update `README.rst` with new information on the new release version,
+   including a vX.Y.Z documentation link, and compatibility with
+   GMT/Python/NumPy versions. Follow
    [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
-   for compatibility updates. Follow `AUTHORSHIP.md` guidelines for updating
-   the author list in the BibTeX citation.
+   for compatibility updates.
+9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
+   `CITATION.cff` needs to be updated with any metadata changes. Please follow
+   guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
+   More information about the `CITATION.cff` specification can be found at
+   https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
 
 ### Check the README syntax
 

@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import Figure
+from pygmt import Figure, which
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -298,8 +298,9 @@ def test_plot_sizes_colors_transparencies():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_plot_matrix(data):
+@pytest.mark.mpl_image_compare(filename="test_plot_matrix.png")
+@pytest.mark.parametrize("color", ["#aaaaaa", 170])
+def test_plot_matrix(data, color):
     """
     Plot the data passing in a matrix and specifying columns.
     """
@@ -309,9 +310,9 @@ def test_plot_matrix(data):
         region=[10, 70, -5, 10],
         projection="M15c",
         style="cc",
-        color="#aaaaaa",
+        color=color,
         frame="a",
-        incols="0,1,2+s0.005",
+        incols="0,1,2+s0.5",
     )
     return fig
 
@@ -367,7 +368,7 @@ def test_plot_vectors():
         direction=(azimuth, lengths),
         region="-2/2/-2/2",
         projection="X10c",
-        style="V0.2c+e",
+        style="V0.2c+e+n",
         color="black",
         frame="af",
     )
@@ -427,27 +428,27 @@ def test_plot_datetime():
         ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64"
     )
     y = [1.0, 2.0, 3.0]
-    fig.plot(x, y, style="c0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="c0.2c", pen="1p")
 
     # pandas.DatetimeIndex
     x = pd.date_range("2013", freq="YS", periods=3)
     y = [4, 5, 6]
-    fig.plot(x, y, style="t0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="t0.2c", pen="1p")
 
     # xarray.DataArray
     x = xr.DataArray(data=pd.date_range(start="2015-03", freq="QS", periods=3))
     y = [7.5, 6, 4.5]
-    fig.plot(x, y, style="s0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="s0.2c", pen="1p")
 
     # raw datetime strings
     x = ["2016-02-01", "2017-03-04T00:00"]
     y = [7, 8]
-    fig.plot(x, y, style="a0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="a0.2c", pen="1p")
 
     # the Python built-in datetime and date
     x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
     y = [8.5, 9.5]
-    fig.plot(x, y, style="i0.2c", pen="1p")
+    fig.plot(x=x, y=y, style="i0.2c", pen="1p")
     return fig
 
 
@@ -539,3 +540,31 @@ def test_plot_ogrgmt_file_multipoint_non_default_style():
             style="c0.2c",
         )
         return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_shapefile():
+    """
+    Make sure that plot works for shapefile.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/1616.
+    """
+    datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", ".prj"]]
+    which(fname=datasets, download="a")
+    fig = Figure()
+    fig.plot(data="@RidgeTest.shp", pen="1p")
+    return fig
+
+
+def test_plot_dataframe_incols():
+    """
+    Make sure that the incols parameter works for pandas.DataFrame.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/1440.
+    """
+    data = pd.DataFrame(data={"col1": [-0.5, 0, 0.5], "col2": [-0.75, 0, 0.75]})
+    fig = Figure()
+    fig.plot(
+        data=data, frame=True, region=[-1, 1, -1, 1], projection="X5c", incols=[1, 0]
+    )
+    return fig

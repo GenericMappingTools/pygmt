@@ -1,6 +1,8 @@
 """
 Functions to convert data types into ctypes friendly formats.
 """
+import warnings
+
 import numpy as np
 import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
@@ -82,7 +84,7 @@ def dataarray_to_matrix(grid):
     """
     if len(grid.dims) != 2:
         raise GMTInvalidInput(
-            "Invalid number of grid dimensions '{}'. Must be 2.".format(len(grid.dims))
+            f"Invalid number of grid dimensions '{len(grid.dims)}'. Must be 2."
         )
     # Extract region and inc from the grid
     region = []
@@ -95,10 +97,17 @@ def dataarray_to_matrix(grid):
         coord_incs = coord[1:] - coord[0:-1]
         coord_inc = coord_incs[0]
         if not np.allclose(coord_incs, coord_inc):
+            # calculate the increment if irregular spacing is found
+            coord_inc = (coord[-1] - coord[0]) / (coord.size - 1)
+            msg = (
+                f"Grid may have irregular spacing in the '{dim}' dimension, "
+                "but GMT only supports regular spacing. Calculated regular spacing "
+                f"{coord_inc} is assumed in the '{dim}' dimension."
+            )
+            warnings.warn(msg, category=RuntimeWarning)
+        if coord_inc == 0:
             raise GMTInvalidInput(
-                "Grid appears to have irregular spacing in the '{}' dimension.".format(
-                    dim
-                )
+                f"Grid has a zero increment in the '{dim}' dimension."
             )
         region.extend(
             [

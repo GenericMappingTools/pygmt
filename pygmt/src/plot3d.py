@@ -5,6 +5,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
+    check_data_input_order,
     data_kind,
     deprecate_parameter,
     fmt_docstring,
@@ -18,6 +19,7 @@ from pygmt.src.which import which
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -39,16 +41,22 @@ from pygmt.src.which import which
     Y="yshift",
     Z="zvalue",
     a="aspatial",
+    b="binary",
+    c="panel",
+    d="nodata",
+    e="find",
+    f="coltypes",
+    g="gap",
+    h="header",
     i="incols",
     l="label",
-    c="panel",
-    f="coltypes",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot3d(
-    self, x=None, y=None, z=None, data=None, size=None, direction=None, **kwargs
+    self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
     Plot lines, polygons, and symbols in 3-D.
@@ -77,13 +85,13 @@ def plot3d(
 
     Parameters
     ----------
-    x/y/z : float or 1d arrays
-        The x, y, and z coordinates, or arrays of x, y and z coordinates of
-        the data points
     data : str or {table-like}
         Either a data file name, a 2d {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, color, and size, respectively.
+    x/y/z : float or 1d arrays
+        The x, y, and z coordinates, or arrays of x, y and z coordinates of
+        the data points
     size : 1d array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
@@ -162,14 +170,20 @@ def plot3d(
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
     {a}
+    {b}
     {c}
+    {d}
+    {e}
     {f}
+    {g}
+    {h}
     {i}
     {l}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
         for symbols, but this option is only valid if using x/y/z.
+    {w}
     """
     # pylint: disable=too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
@@ -185,19 +199,17 @@ def plot3d(
         and data.geom_type.isin(["Point", "MultiPoint"]).all()
     ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
         kwargs["S"] = "u0.2c"
-    elif (
-        "S" not in kwargs and kind == "file"
-    ):  # checking that the data is a file path to set default style
+    elif "S" not in kwargs and kind == "file" and data.endswith(".gmt"):
+        # checking that the data is a file path to set default style
         try:
             with open(which(data), mode="r", encoding="utf8") as file:
                 line = file.readline()
-            if (
-                "@GMULTIPOINT" in line or "@GPOINT" in line
-            ):  # if the file is gmt style and geometry is set to Point
+            if "@GMULTIPOINT" in line or "@GPOINT" in line:
+                # if the file is gmt style and geometry is set to Point
                 kwargs["S"] = "u0.2c"
         except FileNotFoundError:
             pass
-    if "G" in kwargs and not isinstance(kwargs["G"], str):
+    if "G" in kwargs and is_nonstr_iter(kwargs["G"]):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for color if data is matrix or file."
@@ -223,7 +235,13 @@ def plot3d(
     with Session() as lib:
         # Choose how data will be passed in to the module
         file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=data, x=x, y=y, z=z, extra_arrays=extra_arrays
+            check_kind="vector",
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            extra_arrays=extra_arrays,
+            required_z=True,
         )
 
         with file_context as fname:

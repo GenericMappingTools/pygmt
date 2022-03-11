@@ -5,6 +5,7 @@ rose - Plot windrose diagrams or polar histograms.
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
+    check_data_input_order,
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
@@ -14,6 +15,7 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -39,7 +41,6 @@ from pygmt.helpers import (
     b="binary",
     d="nodata",
     e="find",
-    g="gap",
     h="header",
     i="incols",
     c="panel",
@@ -48,7 +49,7 @@ from pygmt.helpers import (
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def rose(self, length=None, azimuth=None, data=None, **kwargs):
+def rose(self, data=None, length=None, azimuth=None, **kwargs):
     """
     Plot windrose diagrams or polar histograms.
 
@@ -68,10 +69,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
 
     Parameters
     ----------
-    length/azimuth : float or 1d arrays
-        Length and azimuth values, or arrays of length and azimuth
-        values
-
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -79,6 +76,10 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
         respectively. If a file with only azimuths is given, use ``columns`` to
         indicate the single column with azimuths; then all lengths are set to
         unity (see ``scale = 'u'`` to set actual lengths to unity as well).
+
+    length/azimuth : float or 1d arrays
+        Length and azimuth values, or arrays of length and azimuth
+        values
 
     orientation : bool
         Specifies that the input data are orientation data (i.e., have a
@@ -196,7 +197,6 @@ def rose(self, length=None, azimuth=None, data=None, **kwargs):
     {c}
     {d}
     {e}
-    {g}
     {h}
     {i}
     {p}

@@ -2,7 +2,6 @@
 Tests plot3d.
 """
 import os
-import sys
 
 import numpy as np
 import pytest
@@ -66,48 +65,6 @@ def test_plot3d_red_circles_zsize(data, region):
         frame=["afg", "zafg"],
     )
     return fig
-
-
-def test_plot3d_fail_no_data(data, region):
-    """
-    Plot should raise an exception if no data is given.
-    """
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            region=region, projection="X10c", style="c0.2c", color="red", frame="afg"
-        )
-    with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            x=data[:, 0],
-            region=region,
-            projection="X10c",
-            style="c0.2c",
-            color="red",
-            frame="afg",
-        )
-    with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            y=data[:, 0],
-            region=region,
-            projection="X10c",
-            style="c0.2c",
-            color="red",
-            frame="afg",
-        )
-    # Should also fail if given too much data
-    with pytest.raises(GMTInvalidInput):
-        fig.plot3d(
-            x=data[:, 0],
-            y=data[:, 1],
-            z=data[:, 2],
-            data=data,
-            region=region,
-            projection="X10c",
-            style="c0.2c",
-            color="red",
-            frame="afg",
-        )
 
 
 def test_plot3d_fail_1d_array_with_data(data, region):
@@ -355,29 +312,27 @@ def test_plot3d_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare
-def test_plot3d_matrix(data, region):
+@pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
+@pytest.mark.parametrize("color", ["#aaaaaa", 170])
+def test_plot3d_matrix(data, region, color):
     """
     Plot the data passing in a matrix and specifying incols.
     """
     fig = Figure()
     fig.plot3d(
-        data=data,
+        data,
         zscale=5,
         perspective=[225, 30],
         region=region,
         projection="M20c",
         style="c1c",
-        color="#aaaaaa",
+        color=color,
         frame=["a", "za"],
         incols="0,1,2",
     )
     return fig
 
 
-@pytest.mark.xfail(
-    condition=sys.platform == "win32",
-    reason="Wrong plot generated on Windows due to incorrect -i parameter parsing",
-)
 @pytest.mark.mpl_image_compare
 def test_plot3d_matrix_color(data, region):
     """
@@ -385,7 +340,7 @@ def test_plot3d_matrix_color(data, region):
     """
     fig = Figure()
     fig.plot3d(
-        data=data,
+        data,
         zscale=5,
         perspective=[225, 30],
         region=region,
@@ -439,7 +394,7 @@ def test_plot3d_vectors():
         direction=(azimuth, lengths),
         region=[-2, 2, -2, 2, -2, 2],
         projection="X10c",
-        style="V1c+e",
+        style="V1c+e+n",
         color="black",
         frame=["af", "zaf"],
     )
@@ -506,7 +461,7 @@ def test_plot3d_deprecate_columns_to_incols(data, region):
     fig = Figure()
     with pytest.warns(expected_warning=FutureWarning) as record:
         fig.plot3d(
-            data=data,
+            data,
             zscale=5,
             perspective=[225, 30],
             region=region,

@@ -65,6 +65,7 @@ def coast(self, **kwargs):
     ----------
     {J}
     {R}
+        *Required if this is the first plot command.*
     {A}
     {B}
     lakes : str or list

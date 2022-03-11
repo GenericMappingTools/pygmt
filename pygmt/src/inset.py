@@ -6,6 +6,8 @@ import contextlib
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["inset"]
+
 
 @fmt_docstring
 @contextlib.contextmanager
@@ -119,7 +121,7 @@ def inset(self, **kwargs):
     ...
     >>> # Map elements outside the "with" block are plotted in the main figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
-    >>> fig.show()
+    >>> fig.show()  # doctest: +SKIP
     <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

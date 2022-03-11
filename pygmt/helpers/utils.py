@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 import os
+import pathlib
 import shutil
 import subprocess
 import sys
@@ -14,13 +15,14 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None):
+def data_kind(data, x=None, y=None, z=None, required_z=False):
     """
     Check what kind of data is provided to a module.
 
     Possible types:
 
     * a file name provided as 'data'
+    * a pathlib.Path provided as 'data'
     * an xarray.DataArray provided as 'data'
     * a matrix provided as 'data'
     * 1D arrays x and y (and z, optionally)
@@ -30,15 +32,16 @@ def data_kind(data, x=None, y=None, z=None):
 
     Parameters
     ----------
-    data : str or xarray.DataArray or {table-like} or None
-        Pass in either a file name to an ASCII data table, an
-        :class:`xarray.DataArray`, a 1D/2D
+    data : str or pathlib.Path or xarray.DataArray or {table-like} or None
+        Pass in either a file name or :class:`pathlib.Path` to an ASCII data
+        table, an :class:`xarray.DataArray`, a 1D/2D
         {table-classes}.
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None
-        z column as numpy array. To be used optionally when x and y
-        are given.
+        z column as numpy array. To be used optionally when x and y are given.
+    required_z : bool
+        State whether the 'z' column is required.
 
     Returns
     -------
@@ -50,11 +53,14 @@ def data_kind(data, x=None, y=None, z=None):
 
     >>> import numpy as np
     >>> import xarray as xr
+    >>> import pathlib
     >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
     'vectors'
     >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
     'matrix'
     >>> data_kind(data="my-data-file.txt", x=None, y=None)
+    'file'
+    >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
     'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
@@ -64,15 +70,22 @@ def data_kind(data, x=None, y=None, z=None):
     if data is not None and (x is not None or y is not None or z is not None):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
-        raise GMTInvalidInput("Must provided both x and y.")
+        raise GMTInvalidInput("Must provide both x and y.")
+    if data is None and required_z and z is None:
+        raise GMTInvalidInput("Must provide x, y, and z.")
 
-    if isinstance(data, str):
+    if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
+        if required_z and (
+            getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
+            or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
+        ):
+            raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:
         kind = "vectors"
@@ -159,16 +172,20 @@ def build_arg_string(kwargs):
     ...     )
     ... )
     -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
+    >>> print(build_arg_string(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
     """
     gmt_args = []
-    # Exclude arguments that are None and False
-    filtered_kwargs = {
-        k: v for k, v in kwargs.items() if (v is not None and v is not False)
-    }
-    for key in filtered_kwargs:
-        if is_nonstr_iter(kwargs[key]):
-            for value in kwargs[key]:
-                gmt_args.append(f"-{key}{value}")
+
+    for key in kwargs:
+        if len(key) > 2:  # raise an exception for unrecognized options
+            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
+        if kwargs[key] is None or kwargs[key] is False:
+            pass  # Exclude arguments that are None and False
+        elif is_nonstr_iter(kwargs[key]):
+            gmt_args.extend(f"-{key}{value}" for value in kwargs[key])
         elif kwargs[key] is True:
             gmt_args.append(f"-{key}")
         else:
@@ -210,7 +227,7 @@ def is_nonstr_iter(value):
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname):
+def launch_external_viewer(fname, waiting=0):
     """
     Open a file in an external viewer program.
 
@@ -238,9 +255,10 @@ def launch_external_viewer(fname):
         os.startfile(fname)  # pylint: disable=no-member
     else:
         webbrowser.open_new_tab(f"file://{fname}")
-    # suspend the execution for 0.5 s to avoid the images being deleted
-    # when a Python script exits
-    time.sleep(0.5)
+    if waiting > 0:
+        # suspend the execution for a few seconds to avoid the images being
+        # deleted when a Python script exits
+        time.sleep(waiting)
 
 
 def args_in_kwargs(args, kwargs):

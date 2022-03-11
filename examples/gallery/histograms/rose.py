@@ -10,7 +10,7 @@ import pygmt
 
 # Load sample compilation of fracture lengths and azimuth as
 # hypothetically digitized from geological maps
-data = pygmt.datasets.load_fractures_compilation()
+data = pygmt.datasets.load_sample_data(name="fractures")
 
 fig = pygmt.Figure()
 
