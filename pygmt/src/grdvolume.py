@@ -12,6 +12,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["grdvolume"]
+
 
 @fmt_docstring
 @use_alias(
@@ -78,18 +80,18 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30 degrees,
     >>> # and a y-range of 15 to 25 degrees
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Create a numpy array for the volume of slices in the grid file; set
     >>> # the minimum z-value to 200, the maximum to 400,
     >>> # and the interval to 10
     >>> output_array = pygmt.grdvolume(
     ...     grid=grid, contour=[200, 400, 50], output_type="numpy"
-    ... )  # doctest: +SKIP
+    ... )
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
