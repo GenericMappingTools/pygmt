@@ -276,7 +276,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     ...     resolution="30m", region=[-118, -107, -49, -42]
     ... )
     >>> # Load a pandas dataframe with ocean ridge points
-    >>> points = pygmt.datasets.load_sample_data(name='ocean_ridge_points')
+    >>> points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
     >>> # Create a pandas dataframe from an input grid and set of points
     >>> # The output dataframe adds a column named "bathymetry"
     >>> output_dataframe = pygmt.grdtrack(
