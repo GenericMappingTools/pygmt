@@ -86,7 +86,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     ... )  # doctest: +SKIP
     >>> # Create a numpy array for the volume of slices in the grid file; set
     >>> # the minimum z-value to 200, the maximum to 400,
-    >>> # and the interval to 10
+    >>> # and the interval to 50
     >>> output_array = pygmt.grdvolume(
     ...     grid=grid, contour=[200, 400, 50], output_type="numpy"
     ... )  # doctest: +SKIP
