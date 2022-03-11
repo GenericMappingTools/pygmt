@@ -13,6 +13,7 @@ from pygmt.io import load_dataarray
 
 __doctest_skip__ = ["xyz2grd"]
 
+
 @fmt_docstring
 @use_alias(
     A="duplicate",
