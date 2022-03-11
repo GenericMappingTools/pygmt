@@ -32,6 +32,62 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
     Parameters
     ----------
+    filter : str
+        **type**\ *width*\ [**+l**\|\ **u**].
+        Sets the filter **type**. Choose among convolution and non-convolution
+        filters. Append the filter code followed by the full filter
+        *width* in same units as time column. By default, this
+        performs a low-pass filtering; append **+h** to select high-pass
+        filtering. Some filters allow for optional arguments and a modifier.
+
+        Available convolution filter types are:
+
+        (**b**) Boxcar: All weights are equal.
+
+        (**c**) Cosine Arch: Weights follow a cosine arch curve.
+
+        (**g**) Gaussian: Weights are given by the Gaussian function.
+
+        (**f**) Custom: Instead of *width* give name of a one-column file
+        with your own weight coefficients.
+
+        Non-convolution filter types are:
+
+        (**m**) Median: Returns median value.
+
+        (**p**) Maximum likelihood probability (a mode estimator): Return
+        modal value. If more than one mode is found we return their average
+        value. Append **+l** or **+u** if you rather want
+        to return the lowermost or uppermost of the modal values.
+
+        (**l**) Lower: Return the minimum of all values.
+
+        (**L**) Lower: Return minimum of all positive values only.
+
+        (**u**) Upper: Return maximum of all values.
+
+        (**U**) Upper: Return maximum of all negative values only.
+
+        Upper case type **B**, **C**, **G**, **M**, **P**, **F** will use
+        robust filter versions: i.e., replace outliers (2.5 L1 scale off
+        median, using 1.4826 \* median absolute deviation [MAD]) with median
+        during filtering.
+
+        In the case of **L**\|\ **U** it is possible that no data passes
+        the initial sign test; in that case the filter will return 0.0.
+        Apart from custom coefficients (**f**), the other filters may accept
+        variable filter widths by passing *width* as a two-column time-series
+        file with filter widths in the second column.  The filter-width file
+        does not need to be co-registered with the data as we obtain the
+        required filter width at each output location via interpolation.  For
+        multi-segment data files the filter file must either have the same
+        number of segments or just a single segment to be used for all data
+        segments.
+
+    end : bool
+        Include Ends of time series in output. The default [False] loses
+        half the filter-width of data at each end.
+
     output_type : str
         Determine the format the xyz data will be returned in [Default is
         ``pandas``]:
@@ -57,9 +113,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     if "F" not in kwargs:
         raise GMTInvalidInput("Pass a required argument to 'filter'.")
     if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            "Must specify format as either numpy, pandas, or file."
-        )
+        raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
     if outfile is not None and output_type != "file":
         msg = (
             f"Changing `output_type` of filter1d from '{output_type}' to 'file' "
