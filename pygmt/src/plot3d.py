@@ -199,15 +199,13 @@ def plot3d(
         and data.geom_type.isin(["Point", "MultiPoint"]).all()
     ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
         kwargs["S"] = "u0.2c"
-    elif (
-        "S" not in kwargs and kind == "file"
-    ):  # checking that the data is a file path to set default style
+    elif "S" not in kwargs and kind == "file" and data.endswith(".gmt"):
+        # checking that the data is a file path to set default style
         try:
             with open(which(data), mode="r", encoding="utf8") as file:
                 line = file.readline()
-            if (
-                "@GMULTIPOINT" in line or "@GPOINT" in line
-            ):  # if the file is gmt style and geometry is set to Point
+            if "@GMULTIPOINT" in line or "@GPOINT" in line:
+                # if the file is gmt style and geometry is set to Point
                 kwargs["S"] = "u0.2c"
         except FileNotFoundError:
             pass

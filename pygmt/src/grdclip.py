@@ -12,6 +12,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["grdclip"]
+
 
 @fmt_docstring
 @use_alias(
@@ -78,24 +80,24 @@ def grdclip(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Examples
-    --------
-    >>> import pygmt  # doctest: +SKIP
+    Example
+    -------
+    >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
     >>> # and a y-range of 15 to 25
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Report the minimum and maximum data values
-    >>> [grid.data.min(), grid.data.max()]  # doctest: +SKIP
+    >>> [grid.data.min(), grid.data.max()]
     [179.0, 2103.0]
     >>> # Create a new grid from an input grid. Set all values below 1,000 to
     >>> # 0 and all values above 1,500 to 10,000
     >>> new_grid = pygmt.grdclip(
     ...     grid=grid, below=[1000, 0], above=[1500, 10000]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Report the minimum and maximum data values
-    >>> [new_grid.data.min(), new_grid.data.max()]  # doctest: +SKIP
+    >>> [new_grid.data.min(), new_grid.data.max()]
     [0.0, 10000.0]
     """
     with GMTTempFile(suffix=".nc") as tmpfile:

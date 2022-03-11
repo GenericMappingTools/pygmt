@@ -1,7 +1,6 @@
 """
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -12,6 +11,8 @@ from pygmt.helpers import (
     use_alias,
 )
 from pygmt.io import load_dataarray
+
+__doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
@@ -92,6 +93,13 @@ def grdlandmask(**kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Create a landmask grid with an x-range of 125 to 130,
+    >>> # and a y-range of 30 to 35
+    >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if "I" not in kwargs or "R" not in kwargs:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
