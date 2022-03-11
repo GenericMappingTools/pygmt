@@ -24,7 +24,7 @@ def test_triangulate_input_file():
     """
     Run triangulate by passing in a filename.
     """
-    output = triangulate(table="@tut_ship.xyz")
+    output = triangulate(data="@tut_ship.xyz")
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (161935, 3)
 
@@ -34,7 +34,7 @@ def test_triangulate_input_data_array(dataframe):
     Run triangulate by passing in a numpy array into data.
     """
     data = dataframe.to_numpy()
-    output = triangulate(table=data)
+    output = triangulate(data=data)
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (161935, 3)
 
@@ -68,7 +68,7 @@ def test_triangulate_wrong_kind_of_input(dataframe):
     data = dataframe.bathymetry.to_xarray()  # convert pandas.Series to xarray.DataArray
     assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
-        triangulate(table=data)
+        triangulate(data=data)
 
 
 def test_triangulate_with_outgrid_true(dataframe):
@@ -77,7 +77,7 @@ def test_triangulate_with_outgrid_true(dataframe):
     """
     data = dataframe.to_numpy()
     output = triangulate(
-        table=data, spacing="5m", region=[245, 255, 20, 30], outgrid=True
+        data=data, spacing="5m", region=[245, 255, 20, 30], outgrid=True
     )
     assert isinstance(output, xr.DataArray)
     assert output.shape == (121, 121)
@@ -90,7 +90,7 @@ def test_triangulate_with_outgrid_param(dataframe):
     data = dataframe.to_numpy()
     with GMTTempFile(suffix=".nc") as tmpfile:
         output = triangulate(
-            table=data, spacing="5m", region=[245, 255, 20, 30], outgrid=tmpfile.name
+            data=data, spacing="5m", region=[245, 255, 20, 30], outgrid=tmpfile.name
         )
         assert output is None  # check that output is None since outgrid is set
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists

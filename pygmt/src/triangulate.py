@@ -30,7 +30,7 @@ from pygmt.io import load_dataarray
     r="registration",
 )
 @kwargs_to_strings(R="sequence")
-def triangulate(table=None, x=None, y=None, z=None, **kwargs):
+def triangulate(data=None, x=None, y=None, z=None, **kwargs):
     """
     Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
     data.
@@ -41,7 +41,7 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
     and *projection*) is chosen then it is applied before the triangulation
     is calculated.
 
-    Must provide either ``table`` or ``x``, ``y``, and ``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`triangulate.html`
 
@@ -51,7 +51,7 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
     ----------
     x/y/z : np.ndarray
         Arrays of x and y coordinates and values z of the data points.
-    table : str or {table-like}
+    data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
         {table-classes}.
@@ -89,7 +89,7 @@ def triangulate(table=None, x=None, y=None, z=None, **kwargs):
         with Session() as lib:
             # Choose how data will be passed into the module
             table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=table, x=x, y=y, z=z
+                check_kind="vector", data=data, x=x, y=y, z=z
             )
             with table_context as infile:
                 if "G" not in kwargs:  # table output if outgrid is unset
