@@ -11,6 +11,7 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["xyz2grd"]
 
 @fmt_docstring
 @use_alias(
@@ -134,16 +135,14 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
-    >>> # Load a sample bathymetry file
-    >>> sample_bathymetry = pygmt.datasets.load_sample_data(
-    ...     name="bathymetry"
-    ... )  # doctest: +SKIP
-    >>> # Create a new grid from the xyz input, set the x-range to 245-255 and
-    >>> # the y-range to 20-30, and the spacing to 5 degrees
-    >>> new_grid = pygmt.xyz2grd(
-    ...     data=sample_bathymetry, spacing=5, region=[245, 255, 20, 30]
-    ... )  # doctest: +SKIP
+    >>> import numpy as np
+    >>> import pygmt
+    >>> # prepare input arrays
+    >>> x, y = np.meshgrid([0, 1, 2, 3], [10.5, 11.0, 11.5, 12.0, 12.5])
+    >>> z = x**2 + y**2
+    >>> xx, yy, zz = x.flatten(), y.flatten(), z.flatten()
+
+    >>> grid = pygmt.xyz2grd(x=xx, y=yy, z=zz, spacing=(1.0, 0.5))
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
