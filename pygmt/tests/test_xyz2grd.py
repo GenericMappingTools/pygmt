@@ -68,13 +68,13 @@ def test_xyz2grd_input_array_file_out(ship_data, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_xyz2grd_missing_region_spacing():
+def test_xyz2grd_missing_region_spacing(ship_data):
     """
     Test xyz2grd raise an exception if region or spacing is missing.
     """
     with pytest.raises(GMTInvalidInput):
-        result = xyz2grd(data=ship_data)
+        xyz2grd(data=ship_data)
     with pytest.raises(GMTInvalidInput):
-        result = xyz2grd(data=ship_data, region=[245, 255, 20, 30])
+        xyz2grd(data=ship_data, region=[245, 255, 20, 30])
     with pytest.raises(GMTInvalidInput):
-        result = xyz2grd(data=ship_data, spacing=5)
+        xyz2grd(data=ship_data, spacing=5)
