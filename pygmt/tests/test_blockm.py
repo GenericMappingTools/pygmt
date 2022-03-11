@@ -9,7 +9,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import blockmean, blockmode
-from pygmt.datasets import load_sample_bathymetry
+from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 
@@ -17,9 +17,9 @@ from pygmt.helpers import GMTTempFile, data_kind
 @pytest.fixture(scope="module", name="dataframe")
 def fixture_dataframe():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the table data from the sample bathymetry dataset.
     """
-    return load_sample_bathymetry()
+    return load_sample_data(name="bathymetry")
 
 
 def test_blockmean_input_dataframe(dataframe):

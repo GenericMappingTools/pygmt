@@ -15,6 +15,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["grd2xyz"]
+
 
 @fmt_docstring
 @use_alias(
@@ -126,6 +128,20 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
           not set (depends on ``output_type``)
 
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )
+    >>> # Create a pandas DataFrame with the xyz data from an input grid
+    >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
+    >>> xyz_dataframe.head(n=2)
+         lon    lat  elevation
+    0  10.25  24.75      903.5
+    1  10.75  24.75      820.0
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
