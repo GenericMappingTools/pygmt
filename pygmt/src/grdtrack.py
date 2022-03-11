@@ -12,6 +12,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["grdtrack"]
+
 
 @fmt_docstring
 @use_alias(
@@ -267,19 +269,19 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with an x-range of -118 to
     >>> # -107, and a y-range of -49 to -42
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[-118, -107, -49, -42]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Load a pandas dataframe with ocean ridge points
     >>> points = pygmt.datasets.load_ocean_ridge_points()  # doctest: +SKIP
     >>> # Create a pandas dataframe from an input grid and set of points
     >>> # The output dataframe adds a column named "bathymetry"
     >>> output_dataframe = pygmt.grdtrack(
     ...     points=points, grid=grid, newcolname="bathymetry"
-    ... )  # doctest: +SKIP
+    ... )
     """
     if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
