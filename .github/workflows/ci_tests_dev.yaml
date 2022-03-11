@@ -93,7 +93,7 @@ jobs:
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
                         dvc ipython 'pytest>=6.0' pytest-cov \
-                        pytest-mpl sphinx-gallery tomli
+                        pytest-doctestplus pytest-mpl sphinx-gallery tomli
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
