@@ -86,9 +86,10 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
-    >>> # Create a numpy array for the volume of slices in the grid file; set
-    >>> # the minimum z-value to 200, the maximum to 400,
-    >>> # and the interval to 50
+    >>> # Create a numpy ndarray that contains the contour, area, volume, and
+    >>> # maximum mean height above the plane specified by the given contour
+    >>> # and below the surface; set the minimum contour z-value to 200, the
+    >>> # maximum to 400, and the interval to 50.
     >>> output_array = pygmt.grdvolume(
     ...     grid=grid, contour=[200, 400, 50], output_type="numpy"
     ... )
