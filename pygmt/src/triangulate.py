@@ -2,6 +2,8 @@
 triangulate - Delaunay triangulation or Voronoi partitioning and gridding of
 Cartesian data.
 """
+import warnings
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -165,7 +167,7 @@ class triangulate:  # pylint: disable=invalid-name
         registration=None,
         skiprows=None,
         wrap=None,
-        **kwargs
+        **kwargs,
     ):
         """
         Delaunay triangle based gridding of Cartesian data.
@@ -257,7 +259,7 @@ class triangulate:  # pylint: disable=invalid-name
                 registration=registration,
                 skiprows=skiprows,
                 wrap=wrap,
-                **kwargs
+                **kwargs,
             )
 
     @staticmethod
@@ -281,7 +283,7 @@ class triangulate:  # pylint: disable=invalid-name
         incols=None,
         skiprows=None,
         wrap=None,
-        **kwargs
+        **kwargs,
     ):
         """
         Delaunay triangle based gridding of Cartesian data.
@@ -344,6 +346,15 @@ class triangulate:  # pylint: disable=invalid-name
                 "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
             )
 
+        if isinstance(outfile, str) and output_type != "file":
+            msg = (
+                f"Changing 'output_type' from '{output_type}' to 'file' "
+                "since 'outfile' parameter is set. Please use output_type='file' "
+                "to silence this warning."
+            )
+            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+            output_type = "file"
+
         # Return a pandas.DataFrame if ``outfile`` is not set
         with GMTTempFile(suffix=".txt") as tmpfile:
             if output_type != "file":
@@ -366,5 +377,5 @@ class triangulate:  # pylint: disable=invalid-name
                 incols=incols,
                 skiprows=skiprows,
                 wrap=wrap,
-                **kwargs
+                **kwargs,
             )
