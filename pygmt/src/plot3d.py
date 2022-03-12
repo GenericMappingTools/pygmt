@@ -17,7 +17,6 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
-@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @deprecate_parameter("sizes", "size", "v0.4.0", remove_version="v0.6.0")
 @check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
