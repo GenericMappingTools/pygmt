@@ -30,7 +30,7 @@ __doctest_skip__ = ["grdproject"]
     n="interpolation",
     r="registration",
 )
-@kwargs_to_strings(C="sequence", R="sequence")
+@kwargs_to_strings(C="sequence", D="sequence", R="sequence")
 def grdproject(grid, **kwargs):
     r"""
     Change projection of gridded data between geographical and rectangular.
