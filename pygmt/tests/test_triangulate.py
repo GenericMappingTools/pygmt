@@ -60,60 +60,75 @@ def fixture_grid_result():
 
 
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
-def test_triangulate_input_table_matrix(array_func, dataframe, expected_dataframe):
+def test_delaunay_triples_input_table_matrix(array_func, dataframe, expected_dataframe):
     """
-    Run triangulate by passing in a numpy array into data.
+    Run triangulate.delaunay_triples by passing in a numpy.array or
+    xarray.Dataset.
     """
     table = array_func(dataframe)
-    output = triangulate(data=table)
+    output = triangulate.delaunay_triples(data=table)
     pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
 
 
-def test_triangulate_input_xyz(dataframe, expected_dataframe):
+def test_delaunay_triples_input_xyz(dataframe, expected_dataframe):
     """
-    Run triangulate by passing in x, y, z numpy.ndarrays individually.
+    Run triangulate.delaunay_triples by passing in x, y, z numpy.ndarrays
+    individually.
     """
-    output = triangulate(x=dataframe.x, y=dataframe.y, z=dataframe.z)
+    output = triangulate.delaunay_triples(x=dataframe.x, y=dataframe.y, z=dataframe.z)
     pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
 
 
-def test_triangulate_input_xy_no_z(dataframe, expected_dataframe):
+def test_delaunay_triples_input_xy_no_z(dataframe, expected_dataframe):
     """
-    Run triangulate by passing in x and y, but no z.
+    Run triangulate.delaunay_triples by passing in x and y, but no z.
     """
-    output = triangulate(x=dataframe.x, y=dataframe.y)
+    output = triangulate.delaunay_triples(x=dataframe.x, y=dataframe.y)
     pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
 
 
-def test_triangulate_wrong_kind_of_input(dataframe):
+def test_delaunay_triples_wrong_kind_of_input(dataframe):
     """
-    Run triangulate using grid input that is not file/matrix/vectors.
+    Run triangulate.delaunay_triples using grid input that is not
+    file/matrix/vectors.
     """
     data = dataframe.z.to_xarray()  # convert pandas.Series to xarray.DataArray
     assert data_kind(data) == "grid"
     with pytest.raises(GMTInvalidInput):
-        triangulate(data=data)
+        triangulate.delaunay_triples(data=data)
 
 
-def test_triangulate_with_outgrid_true(dataframe, expected_grid):
+def test_delaunay_triples_ndarray_output(dataframe, expected_dataframe):
     """
-    Run triangulate with outgrid=True and see it load into an xarray.DataArray.
+    Test triangulate.delaunay_triples with "numpy" output type.
+    """
+    output = triangulate.delaunay_triples(data=dataframe, output_type="numpy")
+    assert isinstance(output, np.ndarray)
+    np.testing.assert_allclose(actual=output, desired=expected_dataframe.to_numpy())
+
+
+def test_regular_grid_with_outgrid_true(dataframe, expected_grid):
+    """
+    Run triangulate.regular_grid with outgrid=True and see it load into an
+    xarray.DataArray.
     """
     data = dataframe.to_numpy()
-    output = triangulate(data=data, spacing=1, region=[2, 4, 5, 6], outgrid=True)
+    output = triangulate.regular_grid(
+        data=data, spacing=1, region=[2, 4, 5, 6], outgrid=True
+    )
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
     assert output.gmt.gtype == 0  # Cartesian type
     xr.testing.assert_allclose(a=output, b=expected_grid)
 
 
-def test_triangulate_with_outgrid_param(dataframe, expected_grid):
+def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
     """
-    Run triangulate with the -Goutputfile.nc parameter.
+    Run triangulate.regular_grid with the -Goutputfile.nc parameter.
     """
     data = dataframe.to_numpy()
     with GMTTempFile(suffix=".nc") as tmpfile:
-        output = triangulate(
+        output = triangulate.regular_grid(
             data=data, spacing=1, region=[2, 4, 5, 6], outgrid=tmpfile.name
         )
         assert output is None  # check that output is None since outgrid is set

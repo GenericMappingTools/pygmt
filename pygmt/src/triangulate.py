@@ -14,98 +14,350 @@ from pygmt.helpers import (
 from pygmt.io import load_dataarray
 
 
-@fmt_docstring
-@use_alias(
-    G="outgrid",
-    I="spacing",
-    J="projection",
-    R="region",
-    V="verbose",
-    b="binary",
-    d="nodata",
-    e="find",
-    f="coltypes",
-    h="header",
-    i="incols",
-    r="registration",
-)
-@kwargs_to_strings(R="sequence")
-def triangulate(data=None, x=None, y=None, z=None, **kwargs):
+class triangulate:  # pylint: disable=invalid-name
     """
     Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
     data.
 
     Triangulate reads in x,y[,z] data and performs Delaunay triangulation,
     i.e., it finds how the points should be connected to give the most
-    equilateral triangulation possible. If a map projection (give *region*
-    and *projection*) is chosen then it is applied before the triangulation
-    is calculated.
-
-    Must provide either ``data`` or ``x``, ``y``, and ``z``.
-
-    Full option list at :gmt-docs:`triangulate.html`
-
-    {aliases}
-
-    Parameters
-    ----------
-    x/y/z : np.ndarray
-        Arrays of x and y coordinates and values z of the data points.
-    data : str or {table-like}
-        Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
-        {table-classes}.
-    {J}
-    {R}
-    {I}
-    outgrid : bool or str
-        Use triangulation to grid the data onto an even grid (specified with
-        ``region`` and ``spacing``). Set to ``True``, or pass in the name of
-        the output grid file. The interpolation is performed in the original
-        coordinates, so if your triangles are close to the poles you are better
-        off projecting all data to a local coordinate system before using
-        *triangulate* (this is true of all gridding routines) or instead
-        select *sphtriangulate*.
-    {V}
-    {b}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {r}
-        Only valid with ``outgrid``.
-
-    Returns
-    -------
-    ret: pandas.DataFrame or xarray.DataArray or None
-        Return type depends on whether the ``outgrid`` parameter is set:
-
-        - pandas.DataFrame if ``outgrid`` is None (default)
-        - xarray.DataArray if ``outgrid`` is True
-        - None if ``outgrid`` is a str (grid output is stored in ``outgrid``)
+    equilateral triangulation possible. If a map projection (give *region* and
+    *projection*) is chosen then it is applied before the triangulation is
+    calculated. By default, the output is triplets of point id numbers that
+    make up each triangle. The id numbers refer to the points position (line
+    number, starting at 0 for the first line) in the input file. If **outgrid**
+    and **spacing** are set a grid will be calculated based on the surface
+    defined by the planar triangles. The actual algorithm used in the
+    triangulations is either that of Watson [1982] [Default] or Shewchuk [1996]
+    (if installed; type **gmt triangulate -** on the command line to see which
+    method is selected). This choice is made during the GMT installation.
+    Furthermore, if the Shewchuk algorithm is installed then you can also
+    perform the calculation of Voronoi polygons and optionally grid your data
+    via the natural nearest neighbor algorithm. **Note**: For geographic data
+    with global or very large extent you should consider
+    :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
+    **triangulate** is a Cartesian or small-geographic area operator and is
+    unaware of periodic or polar boundary conditions.
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
+
+    @staticmethod
+    @fmt_docstring
+    @use_alias(
+        G="outgrid",
+        I="spacing",
+        J="projection",
+        R="region",
+        V="verbose",
+        b="binary",
+        d="nodata",
+        e="find",
+        f="coltypes",
+        h="header",
+        i="incols",
+        r="registration",
+        s="skiprows",
+        w="wrap",
+    )
+    @kwargs_to_strings(R="sequence")
+    def _triangulate(
+        data=None, x=None, y=None, z=None, output_type=None, outfile=None, **kwargs
+    ):
+        """
+        Delaunay triangulation or Voronoi partitioning and gridding of
+        Cartesian data.
+
+        Must provide ``outfile`` or ``outgrid``.
+
+        Full option list at :gmt-docs:`triangulate.html`
+
+        {aliases}
+
+        Parameters
+        ----------
+        x/y/z : np.ndarray
+            Arrays of x and y coordinates and values z of the data points.
+        data : str or {table-like}
+            Pass in (x, y, z) or (longitude, latitude, elevation) values by
+            providing a file name to an ASCII data table, a 2D
+            {table-classes}.
+        {J}
+        {R}
+        {I}
+        outgrid : bool or str
+            The name of the output netCDF file with extension .nc to store the
+            grid in. The interpolation is performed in the original
+            coordinates, so if your triangles are close to the poles you are
+            better off projecting all data to a local coordinate system before
+            using *triangulate* (this is true of all gridding routines) or
+            instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
+        outfile : str or bool or None
+            The name of the output ASCII file to store the results of the
+            histogram equalization in.
+        output_type: str
+            Determines the output type. Use "file", "xarray", "pandas", or
+            "numpy".
+        {V}
+        {b}
+        {d}
+        {e}
+        {f}
+        {h}
+        {i}
+        {r}
+            Only valid with ``outgrid``.
+        {s}
+        {w}
+
+        Returns
+        -------
+        ret: numpy.ndarray or pandas.DataFrame or xarray.DataArray or None
+            Return type depends on the ``output_type`` parameter:
+
+            - numpy.ndarray if ``output_type`` is "numpy"
+            - pandas.DataFrame if ``output_type`` is "pandas"
+            - xarray.DataArray if ``output_type`` is "xarray""
+            - None if ``output_type`` is "file" (output is stored in
+              ``outgrid`` or ``outfile``)
+        """
         with Session() as lib:
             # Choose how data will be passed into the module
             table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z
+                check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
             )
             with table_context as infile:
                 if "G" not in kwargs:  # table output if outgrid is unset
-                    kwargs.update({">": tmpfile.name})
+                    kwargs.update({">": outfile})
                 else:  # NetCDF or xarray.DataArray output if outgrid is set
-                    if (
-                        kwargs["G"] is True
-                    ):  # xarray.DataArray output if outgrid is True
-                        kwargs.update({"G": tmpfile.name})
                     outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="triangulate", args=arg_str)
 
-        try:
-            result = load_dataarray(outgrid) if outgrid == tmpfile.name else None
-        except UnboundLocalError:  # if outgrid unset, return pd.DataFrame
-            result = pd.read_csv(tmpfile.name, sep="\t", header=None)
+        if output_type == "file":
+            return None
+        if output_type == "xarray":
+            return load_dataarray(outgrid)
 
-    return result
+        result = pd.read_csv(outfile, sep="\t", header=None)
+        if output_type == "numpy":
+            return result.to_numpy()
+        return result
+
+    @staticmethod
+    @fmt_docstring
+    @kwargs_to_strings(R="sequence")
+    def regular_grid(  # pylint: disable=too-many-arguments,too-many-locals
+        data=None,
+        x=None,
+        y=None,
+        z=None,
+        outgrid=None,
+        spacing=None,
+        projection=None,
+        region=None,
+        verbose=None,
+        binary=None,
+        nodata=None,
+        find=None,
+        coltypes=None,
+        header=None,
+        incols=None,
+        registration=None,
+        skiprows=None,
+        wrap=None,
+        **kwargs
+    ):
+        """
+        Delaunay triangle based gridding of Cartesian data.
+
+        Reads in x,y[,z] data and performs Delaunay triangulation, i.e., it
+        finds how the points should be connected to give the most equilateral
+        triangulation possible. If a map projection (give *region* and
+        *projection*) is chosen then it is applied before the triangulation is
+        calculated. By setting **outgrid** and **spacing**, a grid will be
+        calculated based on the surface defined by the planar triangles. The
+        actual algorithm used in the triangulations is either that of Watson
+        [1982] [Default] or Shewchuk [1996] (if installed; type
+        **gmt triangulate -** on the command line to see which method is
+        selected). This choice is made during the GMT installation.
+        Furthermore, if the Shewchuk algorithm is installed then you can also
+        perform the calculation of Voronoi polygons and optionally grid your
+        data via the natural nearest neighbor algorithm. **Note**: For
+        geographic data with global or very large extent you should consider
+        :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
+        **triangulate** is a Cartesian or small-geographic area operator and is
+        unaware of periodic or polar boundary conditions.
+
+        Must provide either ``data`` or ``x``, ``y``, and ``z``.
+
+        Full option list at :gmt-docs:`triangulate.html`
+
+        Parameters
+        ----------
+        x/y/z : np.ndarray
+            Arrays of x and y coordinates and values z of the data points.
+        data : str or {table-like}
+            Pass in (x, y, z) or (longitude, latitude, elevation) values by
+            providing a file name to an ASCII data table, a 2D
+            {table-classes}.
+        {J}
+        {R}
+        {I}
+        outgrid : str or bool or None
+            The name of the output netCDF file with extension .nc to store the
+            grid in. The interpolation is performed in the original
+            coordinates, so if your triangles are close to the poles you are
+            better off projecting all data to a local coordinate system before
+            using *triangulate* (this is true of all gridding routines) or
+            instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
+        {V}
+        {b}
+        {d}
+        {e}
+        {f}
+        {h}
+        {i}
+        {r}
+        {s}
+        {w}
+
+        Returns
+        -------
+        ret: xarray.DataArray or None
+            Return type depends on whether the ``outgrid`` parameter is set:
+
+            - xarray.DataArray if ``outgrid`` is True or None (default)
+            - None if ``outgrid`` is a str (grid output is stored in
+              ``outgrid``)
+        """
+        # Return an xarray.DataArray if ``outgrid`` is not set
+        with GMTTempFile(suffix=".nc") as tmpfile:
+            if isinstance(outgrid, str):
+                output_type = "file"
+            else:
+                output_type = "xarray"
+                outgrid = tmpfile.name
+            return triangulate._triangulate(
+                data=data,
+                x=x,
+                y=y,
+                z=z,
+                output_type=output_type,
+                outgrid=outgrid,
+                spacing=spacing,
+                projection=projection,
+                region=region,
+                verbose=verbose,
+                binary=binary,
+                nodata=nodata,
+                find=find,
+                coltypes=coltypes,
+                header=header,
+                incols=incols,
+                registration=registration,
+                skiprows=skiprows,
+                wrap=wrap,
+                **kwargs
+            )
+
+    @staticmethod
+    @fmt_docstring
+    @kwargs_to_strings(R="sequence")
+    def delaunay_triples(  # pylint: disable=too-many-arguments,too-many-locals
+        data=None,
+        x=None,
+        y=None,
+        z=None,
+        output_type="pandas",
+        outfile=None,
+        projection=None,
+        region=None,
+        verbose=None,
+        binary=None,
+        nodata=None,
+        find=None,
+        coltypes=None,
+        header=None,
+        incols=None,
+        skiprows=None,
+        wrap=None,
+        **kwargs
+    ):
+        """
+        Delaunay triangle based gridding of Cartesian data.
+
+        Reads in x,y[,z] data and performs Delaunay triangulation, i.e., it
+        finds how the points should be connected to give the most equilateral
+        triangulation possible. If a map projection (give *region* and
+        *projection*) is chosen then it is applied before the triangulation is
+        calculated. The actual algorithm used in the triangulations is either
+        that of Watson [1982] [Default] or Shewchuk [1996] (if installed; type
+        **gmt triangulate -** on the command line to see which method is
+        selected). This choice is made during the GMT installation.
+        Furthermore, if the Shewchuk algorithm is installed then you can also
+        perform the calculation of Voronoi polygons and optionally grid your
+        data via the natural nearest neighbor algorithm. **Note**: For
+        geographic data with global or very large extent you should consider
+        :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
+        **triangulate** is a Cartesian or small-geographic area operator and is
+        unaware of periodic or polar boundary conditions.
+
+        Must provide either ``data`` or ``x``, ``y``, and ``z``.
+
+        Full option list at :gmt-docs:`triangulate.html`
+
+        Parameters
+        ----------
+        x/y/z : np.ndarray
+            Arrays of x and y coordinates and values z of the data points.
+        data : str or {table-like}
+            Pass in (x, y, z) or (longitude, latitude, elevation) values by
+            providing a file name to an ASCII data table, a 2D
+            {table-classes}.
+        {J}
+        {R}
+        outfile : str or bool or None
+            The name of the output ASCII file to store the results of the
+            histogram equalization in.
+        {V}
+        {b}
+        {d}
+        {e}
+        {f}
+        {h}
+        {i}
+        {s}
+        {w}
+
+        Returns
+        -------
+        ret: pandas.DataFrame or None
+            Return type depends on the ``outfile`` parameter:
+
+            - pandas.DataFrame if ``outfile`` is True or None
+            - None if ``outfile`` is a str (file output is stored in
+              ``outfile``)
+        """
+        # Return a pandas.DataFrame if ``outfile`` is not set
+        with GMTTempFile(suffix=".txt") as tmpfile:
+            if output_type != "file":
+                outfile = tmpfile.name
+            return triangulate._triangulate(
+                data=data,
+                x=x,
+                y=y,
+                z=z,
+                output_type=output_type,
+                outfile=outfile,
+                projection=projection,
+                region=region,
+                verbose=verbose,
+                binary=binary,
+                nodata=nodata,
+                find=find,
+                coltypes=coltypes,
+                header=header,
+                incols=incols,
+                skiprows=skiprows,
+                wrap=wrap,
+                **kwargs
+            )

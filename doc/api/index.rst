@@ -125,6 +125,8 @@ Operations on tabular data
     sphinterpolate
     surface
     triangulate
+    triangulate.regular_grid
+    triangulate.delaunay_triples
     xyz2grd
 
 Operations on raster data
