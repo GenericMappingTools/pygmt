@@ -32,7 +32,7 @@ __doctest_skip__ = ["xyz2grd"]
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence")
 def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Create a grid file from table data.
@@ -143,7 +143,9 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     >>> x, y = np.meshgrid([0, 1, 2, 3], [10.5, 11.0, 11.5, 12.0, 12.5])
     >>> z = x**2 + y**2
     >>> xx, yy, zz = x.flatten(), y.flatten(), z.flatten()
-    >>> grid = pygmt.xyz2grd(x=xx, y=yy, z=zz, spacing=(1.0, 0.5))
+    >>> grid = pygmt.xyz2grd(
+    ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]
+    ... )
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
