@@ -32,8 +32,8 @@ class triangulate:  # pylint: disable=invalid-name
     and **spacing** are set a grid will be calculated based on the surface
     defined by the planar triangles. The actual algorithm used in the
     triangulations is either that of Watson [1982] [Default] or Shewchuk [1996]
-    (if installed; type **gmt triangulate -** on the command line to see which
-    method is selected). This choice is made during the GMT installation.
+    (if installed; type **gmt get GMT_TRIANGULATE** on the command line to see
+    which method is selected). This choice is made during the GMT installation.
     Furthermore, if the Shewchuk algorithm is installed then you can also
     perform the calculation of Voronoi polygons and optionally grid your data
     via the natural nearest neighbor algorithm. **Note**: For geographic data
@@ -180,7 +180,7 @@ class triangulate:  # pylint: disable=invalid-name
         calculated based on the surface defined by the planar triangles. The
         actual algorithm used in the triangulations is either that of Watson
         [1982] [Default] or Shewchuk [1996] (if installed; type
-        **gmt triangulate -** on the command line to see which method is
+        **gmt get GMT_TRIANGULATE** on the command line to see which method is
         selected). This choice is made during the GMT installation.
         Furthermore, if the Shewchuk algorithm is installed then you can also
         perform the calculation of Voronoi polygons and optionally grid your
@@ -298,7 +298,7 @@ class triangulate:  # pylint: disable=invalid-name
         *projection*) is chosen then it is applied before the triangulation is
         calculated. The actual algorithm used in the triangulations is either
         that of Watson [1982] [Default] or Shewchuk [1996] (if installed; type
-        **gmt triangulate -** on the command line to see which method is
+        **gmt get GMT_TRIANGULATE** on the command line to see which method is
         selected). This choice is made during the GMT installation.
         Furthermore, if the Shewchuk algorithm is installed then you can also
         perform the calculation of Voronoi polygons and optionally grid your
