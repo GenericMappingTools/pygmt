@@ -4,6 +4,7 @@ Cartesian data.
 """
 import pandas as pd
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -337,6 +338,12 @@ class triangulate:  # pylint: disable=invalid-name
             - None if ``outfile`` is a str (file output is stored in
               ``outfile``)
         """
+        # Return a pandas.DataFrame if ``outfile`` is not set
+        if output_type not in ["numpy", "pandas", "file"]:
+            raise GMTInvalidInput(
+                "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
+            )
+
         # Return a pandas.DataFrame if ``outfile`` is not set
         with GMTTempFile(suffix=".txt") as tmpfile:
             if output_type != "file":

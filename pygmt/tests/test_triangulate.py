@@ -107,6 +107,14 @@ def test_delaunay_triples_ndarray_output(dataframe, expected_dataframe):
     np.testing.assert_allclose(actual=output, desired=expected_dataframe.to_numpy())
 
 
+def test_delaunay_triples_invalid_format(dataframe):
+    """
+    Test that triangulate.delaunay_triples fails with incorrect format.
+    """
+    with pytest.raises(GMTInvalidInput):
+        triangulate.delaunay_triples(data=dataframe, output_type=1)
+
+
 def test_regular_grid_with_outgrid_true(dataframe, expected_grid):
     """
     Run triangulate.regular_grid with outgrid=True and see it load into an
