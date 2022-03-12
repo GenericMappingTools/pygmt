@@ -6,7 +6,6 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
     check_data_input_order,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
