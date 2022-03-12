@@ -131,15 +131,13 @@ def test_delaunay_triples_invalid_format(dataframe):
         triangulate.delaunay_triples(data=dataframe, output_type="pandas", header="o+c")
 
 
-def test_regular_grid_with_outgrid_true(dataframe, expected_grid):
+def test_regular_grid_no_outgrid(dataframe, expected_grid):
     """
-    Run triangulate.regular_grid with outgrid=True and see it load into an
+    Run triangulate.regular_grid with no set outgrid and see it load into an
     xarray.DataArray.
     """
     data = dataframe.to_numpy()
-    output = triangulate.regular_grid(
-        data=data, spacing=1, region=[2, 4, 5, 6], outgrid=True
-    )
+    output = triangulate.regular_grid(data=data, spacing=1, region=[2, 4, 5, 6])
     assert isinstance(output, xr.DataArray)
     assert output.gmt.registration == 0  # Gridline registration
     assert output.gmt.gtype == 0  # Cartesian type
@@ -162,3 +160,12 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
             assert grid.gmt.registration == 0  # Gridline registration
             assert grid.gmt.gtype == 0  # Cartesian type
             xr.testing.assert_allclose(a=grid, b=expected_grid)
+
+
+def test_regular_grid_invalid_format(dataframe):
+    """
+    Test that triangulate.regular_grid fails with outgrid that is not None or
+    a proper file name.
+    """
+    with pytest.raises(GMTInvalidInput):
+        triangulate.regular_grid(data=dataframe, outgrid=True)

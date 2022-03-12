@@ -205,7 +205,7 @@ class triangulate:  # pylint: disable=invalid-name
         {J}
         {R}
         {I}
-        outgrid : str or bool or None
+        outgrid : str or None
             The name of the output netCDF file with extension .nc to store the
             grid in. The interpolation is performed in the original
             coordinates, so if your triangles are close to the poles you are
@@ -228,7 +228,7 @@ class triangulate:  # pylint: disable=invalid-name
         ret: xarray.DataArray or None
             Return type depends on whether the ``outgrid`` parameter is set:
 
-            - xarray.DataArray if ``outgrid`` is True or None (default)
+            - xarray.DataArray if ``outgrid`` is None (default)
             - None if ``outgrid`` is a str (grid output is stored in
               ``outgrid``)
         """
@@ -236,9 +236,14 @@ class triangulate:  # pylint: disable=invalid-name
         with GMTTempFile(suffix=".nc") as tmpfile:
             if isinstance(outgrid, str):
                 output_type = "file"
-            else:
+            elif outgrid is None:
                 output_type = "xarray"
                 outgrid = tmpfile.name
+            else:
+                raise GMTInvalidInput(
+                    "'outgrid' should be a proper file name or `None`"
+                )
+
             return triangulate._triangulate(
                 data=data,
                 x=x,
