@@ -76,7 +76,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile``
           is not set (depends on ``output_type`` [Default is
-          class:`pandas.DataFrame`])
+          :class:`pandas.DataFrame`])
 
     Example
     -------
