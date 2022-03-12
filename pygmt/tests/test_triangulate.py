@@ -20,6 +20,18 @@ def fixture_dataframe():
     fname = which("@Table_5_11_mean.xyz", download="c")
     return pd.read_csv(
         fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
+    )[:10]
+
+
+@pytest.fixture(scope="module", name="expected_grid")
+def fixture_grid_result():
+    """
+    Load the expected triangulate grid result.
+    """
+    return xr.DataArray(
+        data=[[779.6264, 752.1539, 749.38776], [771.2882, 726.9792, 722.1368]],
+        coords=dict(y=[5, 6], x=[2, 3, 4]),
+        dims=["y", "x"],
     )
 
 
@@ -74,29 +86,31 @@ def test_triangulate_wrong_kind_of_input(dataframe):
         triangulate(data=data)
 
 
-def test_triangulate_with_outgrid_true(dataframe):
+def test_triangulate_with_outgrid_true(dataframe, expected_grid):
     """
     Run triangulate with outgrid=True and see it load into an xarray.DataArray.
     """
     data = dataframe.to_numpy()
-    output = triangulate(
-        data=data, spacing="5m", region=[245, 255, 20, 30], outgrid=True
-    )
+    output = triangulate(data=data, spacing=1, region=[2, 4, 5, 6], outgrid=True)
     assert isinstance(output, xr.DataArray)
-    assert output.shape == (121, 121)
+    assert output.gmt.registration == 0  # Gridline registration
+    assert output.gmt.gtype == 0  # Cartesian type
+    xr.testing.assert_allclose(a=output, b=expected_grid)
 
 
-def test_triangulate_with_outgrid_param(dataframe):
+def test_triangulate_with_outgrid_param(dataframe, expected_grid):
     """
     Run triangulate with the -Goutputfile.nc parameter.
     """
     data = dataframe.to_numpy()
     with GMTTempFile(suffix=".nc") as tmpfile:
         output = triangulate(
-            data=data, spacing="5m", region=[245, 255, 20, 30], outgrid=tmpfile.name
+            data=data, spacing=1, region=[2, 4, 5, 6], outgrid=tmpfile.name
         )
         assert output is None  # check that output is None since outgrid is set
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
         with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
-            assert grid.shape == (121, 121)
+            assert isinstance(grid, xr.DataArray)
+            assert grid.gmt.registration == 0  # Gridline registration
+            assert grid.gmt.gtype == 0  # Cartesian type
+            xr.testing.assert_allclose(a=grid, b=expected_grid)
