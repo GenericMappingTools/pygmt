@@ -110,7 +110,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         - **f** 4-byte floating point single precision
         - **d** 8-byte floating point double precision
 
-        Default format is scanline orientation of ASCII numbers: **-ZTLa**.
+        [Default format is scanline orientation of ASCII numbers: **La**].
         The difference between **A** and **a** is that the latter can decode
         both *date*\ **T**\ *clock* and *ddd:mm:ss[.xx]* formats but expects
         each input record to have a single value, while the former can handle
