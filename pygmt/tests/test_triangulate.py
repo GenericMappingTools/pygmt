@@ -164,8 +164,8 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
 
 def test_regular_grid_invalid_format(dataframe):
     """
-    Test that triangulate.regular_grid fails with outgrid that is not None or
-    a proper file name.
+    Test that triangulate.regular_grid fails with outgrid that is not None or a
+    proper file name.
     """
     with pytest.raises(GMTInvalidInput):
         triangulate.regular_grid(data=dataframe, outgrid=True)
