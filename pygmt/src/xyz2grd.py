@@ -2,6 +2,7 @@
 xyz2grd - Convert data table to a grid.
 """
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -147,6 +148,9 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]
     ... )
     """
+    if "I" not in kwargs or "R" not in kwargs:
+        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(
