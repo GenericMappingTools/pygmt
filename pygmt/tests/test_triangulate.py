@@ -3,6 +3,7 @@ Tests for triangulate.
 """
 import os
 
+import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
@@ -23,6 +24,30 @@ def fixture_dataframe():
     )[:10]
 
 
+@pytest.fixture(scope="module", name="expected_dataframe")
+def fixture_dataframe_result():
+    """
+    Load the expected triangulate dataframe result.
+    """
+    return pd.DataFrame(
+        data=[
+            [7, 8, 2],
+            [8, 7, 9],
+            [7, 1, 0],
+            [1, 7, 2],
+            [1, 2, 4],
+            [8, 3, 2],
+            [9, 5, 3],
+            [5, 9, 6],
+            [5, 4, 3],
+            [4, 5, 6],
+            [4, 6, 1],
+            [3, 4, 2],
+            [9, 3, 8],
+        ]
+    )
+
+
 @pytest.fixture(scope="module", name="expected_grid")
 def fixture_grid_result():
     """
@@ -35,45 +60,30 @@ def fixture_grid_result():
     )
 
 
-def test_triangulate_input_file():
-    """
-    Run triangulate by passing in a filename.
-    """
-    output = triangulate(data="@Table_5_11_mean.xyz")
-    assert isinstance(output, pd.DataFrame)
-    assert output.shape == (67, 3)
-
-
-def test_triangulate_input_data_array(dataframe):
+@pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
+def test_triangulate_input_table_matrix(array_func, dataframe, expected_dataframe):
     """
     Run triangulate by passing in a numpy array into data.
     """
-    data = dataframe.to_numpy()
-    output = triangulate(data=data)
-    assert isinstance(output, pd.DataFrame)
-    assert output.shape == (67, 3)
+    table = array_func(dataframe)
+    output = triangulate(data=table)
+    pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
 
 
-def test_triangulate_input_xyz(dataframe):
+def test_triangulate_input_xyz(dataframe, expected_dataframe):
     """
     Run triangulate by passing in x, y, z numpy.ndarrays individually.
     """
-    output = triangulate(
-        x=dataframe.x,
-        y=dataframe.y,
-        z=dataframe.z,
-    )
-    assert isinstance(output, pd.DataFrame)
-    assert output.shape == (67, 3)
+    output = triangulate(x=dataframe.x, y=dataframe.y, z=dataframe.z)
+    pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
 
 
-def test_triangulate_input_xy_no_z(dataframe):
+def test_triangulate_input_xy_no_z(dataframe, expected_dataframe):
     """
     Run triangulate by passing in x and y, but no z.
     """
     output = triangulate(x=dataframe.x, y=dataframe.y)
-    assert isinstance(output, pd.DataFrame)
-    assert output.shape == (67, 3)
+    pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
 
 
 def test_triangulate_wrong_kind_of_input(dataframe):
