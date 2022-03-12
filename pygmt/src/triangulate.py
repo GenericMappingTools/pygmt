@@ -58,7 +58,7 @@ class triangulate:  # pylint: disable=invalid-name
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(R="sequence")
+    @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
     def _triangulate(
         data=None, x=None, y=None, z=None, output_type=None, outfile=None, **kwargs
     ):
