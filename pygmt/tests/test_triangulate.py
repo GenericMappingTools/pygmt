@@ -8,7 +8,6 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import triangulate, which
-from pygmt.datasets import load_sample_bathymetry
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 
