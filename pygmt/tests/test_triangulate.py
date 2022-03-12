@@ -127,8 +127,6 @@ def test_delaunay_triples_invalid_format(dataframe):
     """
     with pytest.raises(GMTInvalidInput):
         triangulate.delaunay_triples(data=dataframe, output_type=1)
-    with pytest.raises(GMTInvalidInput):
-        triangulate.delaunay_triples(data=dataframe, output_type="pandas", header="o+c")
 
 
 def test_regular_grid_no_outgrid(dataframe, expected_grid):

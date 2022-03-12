@@ -360,9 +360,6 @@ class triangulate:  # pylint: disable=invalid-name
             warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             output_type = "file"
 
-        if header is not None and output_type != "file":
-            raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
-
         # Return a pandas.DataFrame if ``outfile`` is not set
         with GMTTempFile(suffix=".txt") as tmpfile:
             if output_type != "file":
