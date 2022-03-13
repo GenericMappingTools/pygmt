@@ -239,10 +239,13 @@ class Figure:
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
         # https://github.com/GenericMappingTools/pygmt/pull/1487
-        prefix = kwargs.pop("F")
+        try:
+            prefix_arg = f'-F"{kwargs.pop("F")}"'
+        except KeyError as err:
+            raise GMTInvalidInput("The 'prefix' must be specified.") from err
 
         with Session() as lib:
-            lib.call_module("psconvert", f'-F"{prefix}" {build_arg_string(kwargs)}')
+            lib.call_module("psconvert", f"{prefix_arg} {build_arg_string(kwargs)}")
 
     def savefig(
         self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
