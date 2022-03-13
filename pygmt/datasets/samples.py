@@ -20,6 +20,19 @@ def list_sample_data():
     See Also
     --------
     load_sample_data : Load an example dataset from the GMT server.
+
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> pygmt.datasets.list_sample_data()
+    {'bathymetry': 'Table of ship bathymetric observations off Baja California',
+    'fractures': 'Table of hypothetical fracture lengths and azimuths',
+    'hotspots': 'Table of locations, names, and symbol sizes of hotpots from  Mueller et al., 1993',
+    'japan_quakes': 'Table of earthquakes around Japan from NOAA NGDC database',
+    'mars_shape': 'Table of topographic signature of the hemispheric dichotomy of  Mars from Smith and Zuber (1996)',
+    'ocean_ridge_points': 'Table of ocean ridge points for the entire world',
+    'usgs_quakes': 'Table of global earthquakes from the USGS'}
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
