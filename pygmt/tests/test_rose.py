@@ -184,37 +184,3 @@ def test_rose_bools(data_fractures_compilation):
         shift=False,
     )
     return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_rose_bools.png")
-def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
-    """
-    Make sure that the old parameter "columns" is supported and it reports a
-    warning.
-
-    Modified from the test_rose_bools() test.
-    """
-
-    # swap data column order of the sample fractures compilation dataset,
-    # as the use of the 'columns' parameter will reverse this action
-    data = data_fractures_compilation[["azimuth", "length"]]
-
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.rose(
-            data,
-            region=[0, 1, 0, 360],
-            sector=10,
-            columns=[1, 0],
-            diameter="10c",
-            frame=["x0.2g0.2", "y30g30", "+glightgray"],
-            color="red3",
-            pen="1p",
-            orientation=False,
-            norm=True,
-            vectors=True,
-            no_scale=True,
-            shift=False,
-        )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
