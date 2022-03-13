@@ -325,6 +325,13 @@ class triangulate:  # pylint: disable=invalid-name
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
+        output_type : str
+            Determine the format the xyz data will be returned in [Default is
+            ``pandas``]:
+
+                - ``numpy`` - :class:`numpy.ndarray`
+                - ``pandas``- :class:`pandas.DataFrame`
+                - ``file`` - ASCII file (requires ``outfile``)
         {V}
         {b}
         {d}
