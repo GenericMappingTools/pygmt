@@ -26,7 +26,7 @@ from pygmt.io import load_dataarray
     f="coltypes",
     r="registration",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence")
 def grdfilter(grid, **kwargs):
     r"""
     Filter a grid in the space (or time) domain.
