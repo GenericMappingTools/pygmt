@@ -1,6 +1,6 @@
 # Changelog
 
-## Release v0.6.0 (20YY/MM/DD)
+## Release v0.6.0 (2022/03/14)
 
 [![Digital Object Identifier for PyGMT v0.6.0](https://zenodo.org/badge/DOI/10.5281/zenodo.6349217.svg)](https://doi.org/10.5281/zenodo.6349217)
 
@@ -23,12 +23,16 @@
 
 ### Deprecations
 
+* Figure.plot/plot3d: Remove parameter "sizes", use "size" instead ([#1809](https://github.com/GenericMappingTools/pygmt/pull/1809))
+* Figure.contour/plot/plot3d/rose: Remove parameter "columns", use "incols" instead ([#1806](https://github.com/GenericMappingTools/pygmt/pull/1806))
 * Figure.psconvert: Add new aliases and deprecate parameter "icc_gray" (remove in v0.8.0) ([#1673](https://github.com/GenericMappingTools/pygmt/pull/1673))
 * NEP29: Set minimum required version to Python 3.8+ ([#1676](https://github.com/GenericMappingTools/pygmt/pull/1676))
 * NEP29: Set minimum required version to NumPy 1.19+ ([#1675](https://github.com/GenericMappingTools/pygmt/pull/1675))
 
 ### Bug Fixes
 
+* Allow passing arguments containing spaces into pygmt functions ([#1487](https://github.com/GenericMappingTools/pygmt/pull/1487))
+* Fix the spacing parameter processing for many modules ([#1805](https://github.com/GenericMappingTools/pygmt/pull/1805))
 * Fix missing gcmt convention keys in pygmt.meca ([#1611](https://github.com/GenericMappingTools/pygmt/pull/1611))
 * Fix the spacing parameter and check required parameters in xyz2grd ([#1804](https://github.com/GenericMappingTools/pygmt/pull/1804))
 * Fix UnicodeDecodeError with shapefiles for plot and plot3d ([#1695](https://github.com/GenericMappingTools/pygmt/pull/1695))
