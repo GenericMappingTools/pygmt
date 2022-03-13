@@ -162,8 +162,8 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Leong, Wei Ji and
                       Jones, Meghan and
                       Schlitzer, William and
-                      Toney, Liam and
                       Grund, Michael and
+                      Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
