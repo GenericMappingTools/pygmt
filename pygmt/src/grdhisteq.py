@@ -287,6 +287,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         ret : pandas.DataFrame or numpy.ndarray or None
             Return type depends on ``outfile`` and ``output_type``:
+
             - None if ``outfile`` is set (output will be stored in file set by
               ``outfile``)
             - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if
