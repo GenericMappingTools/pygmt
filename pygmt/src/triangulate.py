@@ -127,7 +127,8 @@ class triangulate:  # pylint: disable=invalid-name
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
             )
             with table_context as infile:
-                if (outgrid := kwargs.get("G")) is None:  # table output if outgrid is unset
+                # table output if outgrid is unset, else output to outgrid
+                if (outgrid := kwargs.get("G")) is None:
                     kwargs.update({">": outfile})
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="triangulate", args=arg_str)
