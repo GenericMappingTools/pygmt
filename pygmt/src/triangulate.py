@@ -36,10 +36,14 @@ class triangulate:  # pylint: disable=invalid-name
     line to see which method is selected]. Furthermore, if the Shewchuk
     algorithm is installed then you can also perform the calculation of Voronoi
     polygons and optionally grid your data via the natural nearest neighbor
-    algorithm. **Note**: For geographic data with global or very large extent
-    you should consider :gmt-docs:`sphtriangulate <sphtriangulate.html>`
-    instead since ``triangulate`` is a Cartesian or small-geographic area
-    operator and is unaware of periodic or polar boundary conditions.
+    algorithm.
+
+    Note
+    ----
+    For geographic data with global or very large extent you should consider
+    :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
+    ``triangulate`` is a Cartesian or small-geographic area operator and is
+    unaware of periodic or polar boundary conditions.
     """
 
     @staticmethod
@@ -179,14 +183,10 @@ class triangulate:  # pylint: disable=invalid-name
         actual algorithm used in the triangulations is either that of Watson
         [1982] or Shewchuk [1996] [Default is Shewchuk if installed; type
         ``gmt get GMT_TRIANGULATE`` on the command line to see which method is
-        selected). This choice is made during the GMT installation.
+        selected]. This choice is made during the GMT installation.
         Furthermore, if the Shewchuk algorithm is installed then you can also
         perform the calculation of Voronoi polygons and optionally grid your
-        data via the natural nearest neighbor algorithm. **Note**: For
-        geographic data with global or very large extent you should consider
-        :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
-        ``triangulate`` is a Cartesian or small-geographic area operator and is
-        unaware of periodic or polar boundary conditions.
+        data via the natural nearest neighbor algorithm.
 
         Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -199,7 +199,7 @@ class triangulate:  # pylint: disable=invalid-name
         x/y/z : np.ndarray
             Arrays of x and y coordinates and values z of the data points.
         data : str or {table-like}
-            Pass in (x, y, z) or (longitude, latitude, elevation) values by
+            Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
             providing a file name to an ASCII data table, a 2D
             {table-classes}.
         {J}
@@ -231,6 +231,13 @@ class triangulate:  # pylint: disable=invalid-name
             - xarray.DataArray if ``outgrid`` is None (default)
             - None if ``outgrid`` is a str (grid output is stored in
               ``outgrid``)
+
+        Note
+        ----
+        For geographic data with global or very large extent you should
+        consider :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
+        ``triangulate`` is a Cartesian or small-geographic area operator and is
+        unaware of periodic or polar boundary conditions.
         """
         # Return an xarray.DataArray if ``outgrid`` is not set
         with GMTTempFile(suffix=".nc") as tmpfile:
@@ -299,11 +306,7 @@ class triangulate:  # pylint: disable=invalid-name
         is calculated. The actual algorithm used in the triangulations is
         either that of Watson [1982] or Shewchuk [1996] [Default if installed;
         type ``gmt get GMT_TRIANGULATE`` on the command line to see which
-        method is selected). **Note**: For geographic data with global or very
-        large extent you should consider
-        :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
-        ``triangulate`` is a Cartesian or small-geographic area operator and is
-        unaware of periodic or polar boundary conditions.
+        method is selected).
 
         Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -334,12 +337,20 @@ class triangulate:  # pylint: disable=invalid-name
 
         Returns
         -------
-        ret: pandas.DataFrame or None
-            Return type depends on the ``outfile`` parameter:
+        ret : pandas.DataFrame or numpy.ndarray or None
+            Return type depends on ``outfile`` and ``output_type``:
 
-            - pandas.DataFrame if ``outfile`` is True or None
-            - None if ``outfile`` is a str (file output is stored in
+            - None if ``outfile`` is set (output will be stored in file set by
               ``outfile``)
+            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
+              not set (depends on ``output_type``)
+
+        Note
+        ----
+        For geographic data with global or very large extent you should
+        consider :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
+        ``triangulate`` is a Cartesian or small-geographic area operator and is
+        unaware of periodic or polar boundary conditions.
         """
         # Return a pandas.DataFrame if ``outfile`` is not set
         if output_type not in ["numpy", "pandas", "file"]:
