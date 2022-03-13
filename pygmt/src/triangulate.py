@@ -31,7 +31,7 @@ class triangulate:  # pylint: disable=invalid-name
     number, starting at 0 for the first line) in the input file. If **outgrid**
     and **spacing** are set a grid will be calculated based on the surface
     defined by the planar triangles. The actual algorithm used in the
-    triangulations is either that of Watson [1982] [Default] or Shewchuk [1996]
+    triangulations is either that of Watson [1982] or Shewchuk [1996] [Default]
     (if installed; type **gmt get GMT_TRIANGULATE** on the command line to see
     which method is selected). This choice is made during the GMT installation.
     Furthermore, if the Shewchuk algorithm is installed then you can also
@@ -179,7 +179,7 @@ class triangulate:  # pylint: disable=invalid-name
         calculated. By setting **outgrid** and **spacing**, a grid will be
         calculated based on the surface defined by the planar triangles. The
         actual algorithm used in the triangulations is either that of Watson
-        [1982] [Default] or Shewchuk [1996] (if installed; type
+        [1982] or Shewchuk [1996] [Default] (if installed; type
         **gmt get GMT_TRIANGULATE** on the command line to see which method is
         selected). This choice is made during the GMT installation.
         Furthermore, if the Shewchuk algorithm is installed then you can also
@@ -297,7 +297,7 @@ class triangulate:  # pylint: disable=invalid-name
         triangulation possible. If a map projection (give *region* and
         *projection*) is chosen then it is applied before the triangulation is
         calculated. The actual algorithm used in the triangulations is either
-        that of Watson [1982] [Default] or Shewchuk [1996] (if installed; type
+        that of Watson [1982] or Shewchuk [1996] [Default] (if installed; type
         **gmt get GMT_TRIANGULATE** on the command line to see which method is
         selected). This choice is made during the GMT installation.
         Furthermore, if the Shewchuk algorithm is installed then you can also
