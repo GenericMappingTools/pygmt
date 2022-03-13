@@ -342,8 +342,8 @@ class triangulate:  # pylint: disable=invalid-name
 
             - None if ``outfile`` is set (output will be stored in file set by
               ``outfile``)
-            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
-              not set (depends on ``output_type``)
+            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if
+              ``outfile`` is not set (depends on ``output_type``)
 
         Note
         ----
