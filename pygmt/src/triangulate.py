@@ -24,23 +24,22 @@ class triangulate:  # pylint: disable=invalid-name
 
     Triangulate reads in x,y[,z] data and performs Delaunay triangulation,
     i.e., it finds how the points should be connected to give the most
-    equilateral triangulation possible. If a map projection (give *region* and
-    *projection*) is chosen then it is applied before the triangulation is
-    calculated. By default, the output is triplets of point id numbers that
+    equilateral triangulation possible. If a map projection (give ``region``
+    and ``projection``) is chosen then it is applied before the triangulation
+    is calculated. By default, the output is triplets of point id numbers that
     make up each triangle. The id numbers refer to the points position (line
-    number, starting at 0 for the first line) in the input file. If **outgrid**
-    and **spacing** are set a grid will be calculated based on the surface
+    number, starting at 0 for the first line) in the input file. If ``outgrid``
+    and ``spacing`` are set a grid will be calculated based on the surface
     defined by the planar triangles. The actual algorithm used in the
-    triangulations is either that of Watson [1982] or Shewchuk [1996] [Default]
-    (if installed; type **gmt get GMT_TRIANGULATE** on the command line to see
-    which method is selected). This choice is made during the GMT installation.
-    Furthermore, if the Shewchuk algorithm is installed then you can also
-    perform the calculation of Voronoi polygons and optionally grid your data
-    via the natural nearest neighbor algorithm. **Note**: For geographic data
-    with global or very large extent you should consider
-    :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
-    **triangulate** is a Cartesian or small-geographic area operator and is
-    unaware of periodic or polar boundary conditions.
+    triangulations is either that of Watson [1982] or Shewchuk [1996] [Default
+    is Shewchuk if installed; type ``gmt get GMT_TRIANGULATE`` on the command
+    line to see which method is selected]. Furthermore, if the Shewchuk
+    algorithm is installed then you can also perform the calculation of Voronoi
+    polygons and optionally grid your data via the natural nearest neighbor
+    algorithm. **Note**: For geographic data with global or very large extent
+    you should consider :gmt-docs:`sphtriangulate <sphtriangulate.html>`
+    instead since ``triangulate`` is a Cartesian or small-geographic area
+    operator and is unaware of periodic or polar boundary conditions.
     """
 
     @staticmethod
@@ -91,7 +90,7 @@ class triangulate:  # pylint: disable=invalid-name
             grid in. The interpolation is performed in the original
             coordinates, so if your triangles are close to the poles you are
             better off projecting all data to a local coordinate system before
-            using *triangulate* (this is true of all gridding routines) or
+            using ``triangulate`` (this is true of all gridding routines) or
             instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
@@ -176,21 +175,23 @@ class triangulate:  # pylint: disable=invalid-name
         finds how the points should be connected to give the most equilateral
         triangulation possible. If a map projection (give *region* and
         *projection*) is chosen then it is applied before the triangulation is
-        calculated. By setting **outgrid** and **spacing**, a grid will be
+        calculated. By setting ``outgrid`` and ``spacing``, a grid will be
         calculated based on the surface defined by the planar triangles. The
         actual algorithm used in the triangulations is either that of Watson
-        [1982] or Shewchuk [1996] [Default] (if installed; type
-        **gmt get GMT_TRIANGULATE** on the command line to see which method is
+        [1982] or Shewchuk [1996] [Default is Shewchuk if installed; type
+        ``gmt get GMT_TRIANGULATE`` on the command line to see which method is
         selected). This choice is made during the GMT installation.
         Furthermore, if the Shewchuk algorithm is installed then you can also
         perform the calculation of Voronoi polygons and optionally grid your
         data via the natural nearest neighbor algorithm. **Note**: For
         geographic data with global or very large extent you should consider
         :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
-        **triangulate** is a Cartesian or small-geographic area operator and is
+        ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
 
         Must provide either ``data`` or ``x``, ``y``, and ``z``.
+
+        Must provide ``region`` and ``spacing``.
 
         Full option list at :gmt-docs:`triangulate.html`
 
@@ -210,7 +211,7 @@ class triangulate:  # pylint: disable=invalid-name
             grid in. The interpolation is performed in the original
             coordinates, so if your triangles are close to the poles you are
             better off projecting all data to a local coordinate system before
-            using *triangulate* (this is true of all gridding routines) or
+            using ``triangulate`` (this is true of all gridding routines) or
             instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
         {V}
         {b}
@@ -294,18 +295,15 @@ class triangulate:  # pylint: disable=invalid-name
 
         Reads in x,y[,z] data and performs Delaunay triangulation, i.e., it
         finds how the points should be connected to give the most equilateral
-        triangulation possible. If a map projection (give *region* and
-        *projection*) is chosen then it is applied before the triangulation is
-        calculated. The actual algorithm used in the triangulations is either
-        that of Watson [1982] or Shewchuk [1996] [Default] (if installed; type
-        **gmt get GMT_TRIANGULATE** on the command line to see which method is
-        selected). This choice is made during the GMT installation.
-        Furthermore, if the Shewchuk algorithm is installed then you can also
-        perform the calculation of Voronoi polygons and optionally grid your
-        data via the natural nearest neighbor algorithm. **Note**: For
-        geographic data with global or very large extent you should consider
+        triangulation possible. If a map projection (give ``region`` and
+        ``projection``) is chosen then it is applied before the triangulation
+        is calculated. The actual algorithm used in the triangulations is
+        either that of Watson [1982] or Shewchuk [1996] [Default if installed;
+        type ``gmt get GMT_TRIANGULATE`` on the command line to see which
+        method is selected). **Note**: For geographic data with global or very
+        large extent you should consider
         :gmt-docs:`sphtriangulate <sphtriangulate.html>` instead since
-        **triangulate** is a Cartesian or small-geographic area operator and is
+        ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
 
         Must provide either ``data`` or ``x``, ``y``, and ``z``.
