@@ -131,8 +131,8 @@ def build_arg_string(kwargs):
     same command line argument. For example, the kwargs entry ``'B': ['xa',
     'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
 
-    Note that spaces ` ` in arguments are converted to the equivalent octal
-    code `\040`, except in the case of -J (projection) arguments where PROJ4
+    Note that spaces `` `` in arguments are converted to the equivalent octal
+    code ``\040``, except in the case of -J (projection) arguments where PROJ4
     strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
     See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
 
