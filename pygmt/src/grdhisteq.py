@@ -141,7 +141,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     def equalize_grid(
         grid,
         *,
-        outgrid=True,
+        outgrid=None,
         divisions=None,
         region=None,
         gaussian=None,
