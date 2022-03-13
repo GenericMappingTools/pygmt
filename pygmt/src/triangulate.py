@@ -62,7 +62,7 @@ class triangulate:  # pylint: disable=invalid-name
     )
     @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
     def _triangulate(
-        data=None, x=None, y=None, z=None, output_type=None, outfile=None, **kwargs
+        data=None, x=None, y=None, z=None, *, output_type, outfile=None, **kwargs
     ):
         """
         Delaunay triangulation or Voronoi partitioning and gridding of
@@ -127,10 +127,8 @@ class triangulate:  # pylint: disable=invalid-name
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
             )
             with table_context as infile:
-                if "G" not in kwargs:  # table output if outgrid is unset
+                if (outgrid := kwargs.get("G")) is None:  # table output if outgrid is unset
                     kwargs.update({">": outfile})
-                else:  # NetCDF or xarray.DataArray output if outgrid is set
-                    outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="triangulate", args=arg_str)
 
