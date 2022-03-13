@@ -148,10 +148,6 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     {XY}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    # allow for spaces in string without needing double quotes
-    if isinstance(kwargs.get("A"), str):
-        kwargs["A"] = f'"{kwargs.get("A")}"'
-    kwargs["T"] = f'"{kwargs.get("T")}"' if kwargs.get("T") else None
 
     if nrows < 1 or ncols < 1:
         raise GMTInvalidInput("Please ensure that both 'nrows'>=1 and 'ncols'>=1.")
@@ -222,8 +218,6 @@ def set_panel(self, panel=None, **kwargs):
     {V}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    # allow for spaces in string with needing double quotes
-    kwargs["A"] = f'"{kwargs.get("A")}"' if kwargs.get("A") is not None else None
     # convert tuple or list to comma-separated str
     panel = ",".join(map(str, panel)) if is_nonstr_iter(panel) else panel
 

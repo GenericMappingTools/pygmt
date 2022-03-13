@@ -3,7 +3,9 @@ Tests psconvert.
 """
 import os
 
+import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
 def test_psconvert():
@@ -36,3 +38,12 @@ def test_psconvert_twice():
     fname = prefix + ".png"
     assert os.path.exists(fname)
     os.remove(fname)
+
+
+def test_psconvert_without_prefix():
+    """
+    Call psconvert without the 'prefix' option.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.psconvert(fmt="g")

@@ -58,13 +58,20 @@ def test_grdproject_file_out(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdproject_no_outgrid(grid, expected_grid):
+@pytest.mark.parametrize(
+    "projection",
+    ["M10c", "EPSG:3395 +width=10", "+proj=merc +ellps=WGS84 +units=m +width=10"],
+)
+def test_grdproject_no_outgrid(grid, projection, expected_grid):
     """
     Test grdproject with no set outgrid.
+
+    Also check that providing the projection as an EPSG code or PROJ4 string
+    works.
     """
     assert grid.gmt.gtype == 1  # Geographic grid
     result = grdproject(
-        grid=grid, projection="M10c", spacing=3, region=[-53, -51, -20, -17]
+        grid=grid, projection=projection, spacing=3, region=[-53, -51, -20, -17]
     )
     assert result.gmt.gtype == 0  # Rectangular grid
     assert result.gmt.registration == 1  # Pixel registration
